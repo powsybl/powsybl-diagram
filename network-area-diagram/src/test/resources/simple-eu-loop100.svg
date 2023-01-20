@@ -7,7 +7,7 @@
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
-.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
 .nad-dangling-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; fill: none}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -435,6 +435,9 @@
                 <circle class="nad-vl300to500-line nad-winding" cx="-379.08" cy="-134.16" r="20.00"/>
                 <circle class="nad-vl300to500-line nad-winding" cx="-392.60" cy="-119.43" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.68,0.74,-0.74,-0.68,-343.45,-128.61)" class="nad-pst-arrow"/>
+                <g class="nad-edge-label" transform="translate(-385.84,-126.80)">
+                    <text transform="rotate(-47.44)" x="0.00" style="text-anchor:middle">BBE1AA1  BBE3AA1  2</text>
+                </g>
             </g>
         </g>
         <g id="27">
@@ -895,6 +898,9 @@
                 <circle class="nad-vl300to500-line nad-winding" cx="-29.27" cy="630.71" r="20.00"/>
                 <circle class="nad-vl300to500-line nad-winding" cx="-11.66" cy="621.24" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-61.10,613.77)" class="nad-pst-arrow"/>
+                <g class="nad-edge-label" transform="translate(-20.46,625.98)">
+                    <text transform="rotate(-28.28)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR2AA1  2</text>
+                </g>
             </g>
         </g>
         <g id="37">

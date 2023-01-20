@@ -7,7 +7,7 @@
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
-.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
 .nad-dangling-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; fill: none}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -773,6 +773,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-18.31" cy="-385.35" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-28.38" cy="-368.07" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-23.35,-376.71)">
+                    <text transform="rotate(-59.77)" x="0.00" style="text-anchor:end">T30-17-1</text>
+                </g>
             </g>
         </g>
         <g id="52">
@@ -1053,6 +1056,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="742.71" cy="-307.97" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="760.56" cy="-298.97" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(751.64,-303.47)">
+                    <text transform="rotate(26.77)" x="0.00" style="text-anchor:middle">T38-37-1</text>
+                </g>
             </g>
         </g>
         <g id="73">
@@ -1180,6 +1186,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-512.41" cy="-820.05" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-529.76" cy="-810.11" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-521.09,-815.08)">
+                    <text transform="rotate(-29.81)" x="0.00" style="text-anchor:end">T65-66-1</text>
+                </g>
             </g>
         </g>
     </g>

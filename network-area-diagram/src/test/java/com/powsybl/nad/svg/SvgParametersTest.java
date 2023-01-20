@@ -41,7 +41,7 @@ public class SvgParametersTest {
                 .setLoopEdgesAperture(10.)
                 .setLoopControlDistance(1.)
                 .setEdgeInfoAlongEdge(false)
-                .setLineNameDisplayed(false)
+                .setEdgeNameDisplayed(false)
                 .setInterAnnulusSpace(0.25)
                 .setSvgPrefix("TestPrefix")
                 .setIdDisplayed(true)
@@ -84,7 +84,7 @@ public class SvgParametersTest {
         assertEquals(svgParameters0.getLoopEdgesAperture(), svgParameters1.getLoopEdgesAperture(), 0);
         assertEquals(svgParameters0.getLoopControlDistance(), svgParameters1.getLoopControlDistance(), 0);
         assertEquals(svgParameters0.isEdgeInfoAlongEdge(), svgParameters1.isEdgeInfoAlongEdge());
-        assertEquals(svgParameters0.isLineNameDisplayed(), svgParameters1.isLineNameDisplayed());
+        assertEquals(svgParameters0.isEdgeNameDisplayed(), svgParameters1.isEdgeNameDisplayed());
         assertEquals(svgParameters0.getInterAnnulusSpace(), svgParameters1.getInterAnnulusSpace(), 0);
         assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());

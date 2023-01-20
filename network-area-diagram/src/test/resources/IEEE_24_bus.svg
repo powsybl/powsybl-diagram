@@ -7,7 +7,7 @@
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
-.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
 .nad-dangling-line-edge {fill: var(--nad-vl-color, lighgrey)}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -515,6 +515,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180 nad-winding" cx="-841.37" cy="695.48" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-821.37" cy="695.32" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-831.37,695.40)">
+                    <text transform="rotate(-0.45)" x="0.00" style="text-anchor:middle">T-5-10-1 </text>
+                </g>
             </g>
         </g>
         <g id="54">
@@ -560,6 +563,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="-213.35" cy="672.03" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-233.30" cy="673.50" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-223.32,672.76)">
+                    <text transform="rotate(-4.23)" x="0.00" style="text-anchor:middle">T-11-10-1 </text>
+                </g>
             </g>
         </g>
         <g id="55">
@@ -605,6 +611,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="-320.15" cy="503.08" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-333.65" cy="517.84" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-326.90,510.46)">
+                    <text transform="rotate(-47.55)" x="0.00" style="text-anchor:middle">T-12-10-1 </text>
+                </g>
             </g>
         </g>
         <g id="56">
@@ -742,6 +751,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="-206.44" cy="517.55" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-224.08" cy="508.13" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-215.26,512.84)">
+                    <text transform="rotate(-331.91)" x="0.00" style="text-anchor:middle">T-11-9-1 </text>
+                </g>
             </g>
         </g>
         <g id="59">
@@ -879,6 +891,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180 nad-winding" cx="-328.74" cy="351.93" r="20.00"/>
                 <circle class="nad-vl180to300 nad-winding" cx="-308.94" cy="349.14" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-318.84,350.53)">
+                    <text transform="rotate(-8.02)" x="0.00" style="text-anchor:middle">T-9-12-1 </text>
+                </g>
             </g>
         </g>
         <g id="62">
@@ -1798,6 +1813,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="-68.28" cy="-180.69" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-86.90" cy="-173.39" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-77.59,-177.04)">
+                    <text transform="rotate(-21.41)" x="0.00" style="text-anchor:middle">T-24-3-1 </text>
+                </g>
             </g>
         </g>
         <g id="82">

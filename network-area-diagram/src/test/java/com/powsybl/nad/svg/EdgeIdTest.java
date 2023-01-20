@@ -41,16 +41,16 @@ public class EdgeIdTest extends AbstractTest {
     }
 
     @Test
-    public void testNameOnLineDisplayed() {
+    public void testNameOnEdgeDisplayed() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setLineNameDisplayed(true);
+        getSvgParameters().setEdgeNameDisplayed(true);
         assertEquals(toString("/edge_with_id.svg"), generateSvgString(network, "/edge_with_id.svg"));
     }
 
     @Test
-    public void testNameOnLineNotDisplayed() {
+    public void testNameOnEdgeNotDisplayed() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setLineNameDisplayed(false);
+        getSvgParameters().setEdgeNameDisplayed(false);
         assertEquals(toString("/edge_without_id.svg"), generateSvgString(network, "/edge_without_id.svg"));
     }
 }

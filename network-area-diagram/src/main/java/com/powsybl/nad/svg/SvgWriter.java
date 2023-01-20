@@ -137,7 +137,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawLineLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
 
         String lineLabel = labelProvider.getLabel(edge);
 
@@ -187,13 +187,11 @@ public class SvgWriter {
             case BranchEdge.HVDC_LINE_EDGE:
                 drawConverterStation(writer, edge);
                 break;
-            case BranchEdge.LINE_EDGE:
-                if (svgParameters.isLineNameDisplayed()) {
-                    drawLineLabel(writer, edge);
-                }
-                break;
             default:
-                // Should not happen as dangling lines are discarded beforehand
+                break;
+        }
+        if (svgParameters.isEdgeNameDisplayed()) {
+            drawEdgeLabel(writer, edge);
         }
         writer.writeEndElement();
     }

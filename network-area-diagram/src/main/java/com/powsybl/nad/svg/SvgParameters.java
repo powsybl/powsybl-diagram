@@ -26,7 +26,7 @@ public class SvgParameters {
     private double fixedScale = 0.2;
     private double arrowShift = 30;
     private double arrowLabelShift = 19;
-    private double converterStationWidth = 60;
+    private double converterStationWidth = 70;
     private double voltageLevelCircleRadius = 30;
     private double fictitiousVoltageLevelCircleRadius = 15;
     private double transformerCircleRadius = 20;
@@ -39,7 +39,7 @@ public class SvgParameters {
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
-    private boolean lineNameDisplayed = true;
+    private boolean edgeNameDisplayed = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
@@ -89,7 +89,7 @@ public class SvgParameters {
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
-        this.lineNameDisplayed = other.lineNameDisplayed;
+        this.edgeNameDisplayed = other.edgeNameDisplayed;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
@@ -315,12 +315,12 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isLineNameDisplayed() {
-        return lineNameDisplayed;
+    public boolean isEdgeNameDisplayed() {
+        return edgeNameDisplayed;
     }
 
-    public SvgParameters setLineNameDisplayed(boolean lineNameDisplayed) {
-        this.lineNameDisplayed = lineNameDisplayed;
+    public SvgParameters setEdgeNameDisplayed(boolean edgeNameDisplayed) {
+        this.edgeNameDisplayed = edgeNameDisplayed;
         return this;
     }
 
