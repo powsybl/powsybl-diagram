@@ -256,7 +256,7 @@ public final class NetworkAreaDiagram {
     }
 
     /* ------------------------------------------------------------------------------------------------ */
-    // Network, Writer, LayoutParameters, StyleProvider and different options of filtering
+    // Network, Writer, SvgParameters, LayoutParameters, StyleProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider) {
@@ -277,7 +277,7 @@ public final class NetworkAreaDiagram {
     }
 
     /* --------------------------------------------------------------------------------------------------------------- */
-    // Network, Writer, LayoutParameters, StyleProvider, LabelProvider and different options of filtering
+    // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider and different options of filtering
     /* --------------------------------------------------------------------------------------------------------------- */
 
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
@@ -298,7 +298,7 @@ public final class NetworkAreaDiagram {
     }
 
     /* ------------------------------------------------------------------------------------------------------------------------------ */
-    // Network, Writer, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory and different options of filtering
+    // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
@@ -319,7 +319,7 @@ public final class NetworkAreaDiagram {
     }
 
     /* ------------------------------------------------------------------------------------------------------------------------------ */
-    // Network, Writer, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory, IdProvider and different options of filtering
+    // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory, IdProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
