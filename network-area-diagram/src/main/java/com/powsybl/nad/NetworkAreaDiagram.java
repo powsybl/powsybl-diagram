@@ -104,18 +104,6 @@ public final class NetworkAreaDiagram {
     // Network, Path, SvgParameters, LayoutParameters, StyleProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------ */
 
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, String voltageLevelId, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
-
     public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                             StyleProvider styleProvider, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters), voltageLevelFilter);
@@ -124,18 +112,6 @@ public final class NetworkAreaDiagram {
     /* --------------------------------------------------------------------------------------------------------------- */
     // Network, Path, SvgParameters, LayoutParameters, StyleProvider, LabelProvider and different options of filtering
     /* --------------------------------------------------------------------------------------------------------------- */
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, String voltageLevelId, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
 
     public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                             StyleProvider styleProvider, LabelProvider labelProvider, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -146,18 +122,6 @@ public final class NetworkAreaDiagram {
     // Network, Path, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
 
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, String voltageLevelId, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
-
     public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider(), voltageLevelFilter);
     }
@@ -165,18 +129,6 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------------------------------------ */
     // Network, Path, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory, IdProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, String voltageLevelId, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
 
     public static void draw(Network network, Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
                             StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -259,18 +211,6 @@ public final class NetworkAreaDiagram {
     // Network, Writer, SvgParameters, LayoutParameters, StyleProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------ */
 
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, String voltageLevelId, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
-
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters), voltageLevelFilter);
@@ -280,18 +220,6 @@ public final class NetworkAreaDiagram {
     // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider and different options of filtering
     /* --------------------------------------------------------------------------------------------------------------- */
 
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, String voltageLevelId, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
-
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LabelProvider labelProvider, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory(), voltageLevelFilter);
@@ -300,19 +228,6 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------------------------------------ */
     // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, String voltageLevelId, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, List<String> voltageLevelIds, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
-
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                             StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider(), voltageLevelFilter);
@@ -321,18 +236,6 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------------------------------------ */
     // Network, Writer, SvgParameters, LayoutParameters, StyleProvider, LabelProvider, LayoutFactory, IdProvider and different options of filtering
     /* ------------------------------------------------------------------------------------------------------------------------------ */
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.NO_FILTER);
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, String voltageLevelId, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
-    }
-
-    public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, List<String> voltageLevelIds, int depth) {
-        draw(network, writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
-    }
 
     public static void draw(Network network, Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider, Predicate<VoltageLevel> voltageLevelFilter) {
