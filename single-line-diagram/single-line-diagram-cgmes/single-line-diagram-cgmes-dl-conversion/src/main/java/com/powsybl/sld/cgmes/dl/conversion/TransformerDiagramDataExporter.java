@@ -27,7 +27,7 @@ public class TransformerDiagramDataExporter extends AbstractCouplingDeviceDiagra
         Objects.requireNonNull(transformer);
         CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(transformer.getTerminal1().getVoltageLevel().getTopologyKind());
-        addDiagramData(transformer.getId(), transformer.getName(), transformerDiagramData, diagramObjectStyleId);
+        addDiagramData(transformer.getId(), transformer.getNameOrId(), transformerDiagramData, diagramObjectStyleId);
     }
 
 }

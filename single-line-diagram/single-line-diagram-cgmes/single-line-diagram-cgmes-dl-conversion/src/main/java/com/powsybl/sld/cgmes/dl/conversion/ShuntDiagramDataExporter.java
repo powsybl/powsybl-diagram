@@ -27,7 +27,7 @@ public class ShuntDiagramDataExporter extends AbstractInjectionDiagramDataExport
         Objects.requireNonNull(shunt);
         InjectionDiagramData<ShuntCompensator> generatorDiagramData = shunt.getExtension(InjectionDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(shunt.getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(shunt.getId(), shunt.getName(), generatorDiagramData, diagramObjectStyleId);
+        addDiagramData(shunt.getId(), shunt.getNameOrId(), generatorDiagramData, diagramObjectStyleId);
     }
 
 }

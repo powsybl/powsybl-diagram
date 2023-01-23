@@ -110,7 +110,7 @@ public class CgmesDLExporter {
         modelProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.put(CgmesDLModel.MODEL_SCENARIO_TIME, network.getCaseDate().toString());
         modelProperties.put(CgmesDLModel.MODEL_CREATED, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date()));
-        modelProperties.put(CgmesDLModel.MODEL_DESCRIPTION, network.getName());
+        modelProperties.put(CgmesDLModel.MODEL_DESCRIPTION, network.getNameOrId());
         modelProperties.put(CgmesDLModel.MODEL_VERSION, "1");
         modelProperties.put(CgmesDLModel.MODEL_PROFILE, "http://entsoe.eu/CIM/DiagramLayout/3/1");
         modelProperties.put(CgmesDLModel.MODEL_DEPENDENT_ON, network.getId());

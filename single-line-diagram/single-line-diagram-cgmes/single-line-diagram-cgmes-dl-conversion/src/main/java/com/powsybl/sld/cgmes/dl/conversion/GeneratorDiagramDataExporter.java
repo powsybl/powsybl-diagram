@@ -27,7 +27,7 @@ public class GeneratorDiagramDataExporter extends AbstractInjectionDiagramDataEx
         Objects.requireNonNull(generator);
         InjectionDiagramData<Generator> generatorDiagramData = generator.getExtension(InjectionDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(generator.getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(generator.getId(), generator.getName(), generatorDiagramData, diagramObjectStyleId);
+        addDiagramData(generator.getId(), generator.getNameOrId(), generatorDiagramData, diagramObjectStyleId);
     }
 
 }

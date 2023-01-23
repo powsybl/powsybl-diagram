@@ -40,7 +40,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
 
     private static final String VOLTAGE_LEVEL_LAYOUT = "voltage-level-layout";
     private static final String SUBSTATION_LAYOUT = "substation-layout";
-    private static final String DEFAULT_VOLTAGE_LAYOUT = "auto-without-extensions";
+    private static final String DEFAULT_VOLTAGE_LAYOUT = "AUTO-without-extensions";
     private static final String DEFAULT_SUBSTATION_LAYOUT = "horizontal";
     private static final String DIAGRAM_NAME = "diagram-name";
 
