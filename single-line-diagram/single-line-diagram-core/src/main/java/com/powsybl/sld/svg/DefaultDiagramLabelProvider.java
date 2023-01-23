@@ -75,7 +75,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
         List<FeederInfo> measures = new ArrayList<>();
-        Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
+        Injection<?> injection = (Injection<?>) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
             measures = buildFeederInfos(injection);
         }
@@ -84,7 +84,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     private List<FeederInfo> getBranchFeederInfos(FeederNode node, FeederWithSides feeder) {
         List<FeederInfo> measures = new ArrayList<>();
-        Branch branch = network.getBranch(node.getEquipmentId());
+        Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(branch, side);

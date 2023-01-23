@@ -17,7 +17,7 @@ public abstract class AbstractLayout implements Layout {
         Objects.requireNonNull(layoutParameters);
 
         nodesLayout(graph, layoutParameters);
-        busNodesLayout(graph, layoutParameters);
+        busNodesLayout(graph);
         edgesLayout(graph, layoutParameters);
 
         computeSize(graph);
@@ -51,7 +51,7 @@ public abstract class AbstractLayout implements Layout {
 
     protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
 
-    protected void busNodesLayout(Graph graph, LayoutParameters ignoredLayoutParameters) {
+    protected void busNodesLayout(Graph graph) {
         Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
         graph.getVoltageLevelNodesStream().forEach(n -> {
             n.sortBusNodes(c);

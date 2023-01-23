@@ -23,7 +23,7 @@ public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagr
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractInjectionDiagramDataExporter.class);
 
-    public AbstractInjectionDiagramDataExporter(TripleStore tripleStore, ExportContext context, Map<String, String> terminals) {
+    protected AbstractInjectionDiagramDataExporter(TripleStore tripleStore, ExportContext context, Map<String, String> terminals) {
         super(tripleStore, context);
         super.terminals = Objects.requireNonNull(terminals);
     }
@@ -31,7 +31,7 @@ public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagr
     protected void addDiagramData(String id, String name, InjectionDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                InjectionDiagramData.InjectionDiagramDetails details = diagramData.getData(diagramName);
+                InjectionDiagramData<?>.InjectionDiagramDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());

@@ -29,7 +29,7 @@ public class VoltageLevelDiagramDataTest {
         VoltageLevel vl = network.getVoltageLevels().iterator().next();
         assertFalse(VoltageLevelDiagramData.checkDiagramData(vl));
         assertNull(VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, DIAGRAM_NAME, 1));
-        assertTrue(VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl, DIAGRAM_NAME).length == 0);
+        assertEquals(0, VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl, DIAGRAM_NAME).length);
 
         int[] nodes = {1, 2};
         DiagramPoint point1 = new DiagramPoint(1, 1, 1);
@@ -40,8 +40,8 @@ public class VoltageLevelDiagramDataTest {
         assertEquals(VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, DIAGRAM_NAME, nodes[0]), point1);
         assertEquals(VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, DIAGRAM_NAME, nodes[1]), point2);
 
-        assertTrue(nodes.length == 2);
-        assertTrue(Arrays.equals(nodes, VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl, DIAGRAM_NAME)));
+        assertEquals(2, nodes.length);
+        assertArrayEquals(nodes, VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl, DIAGRAM_NAME));
 
         assertNull(VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, DIAGRAM_NAME2, 1));
     }

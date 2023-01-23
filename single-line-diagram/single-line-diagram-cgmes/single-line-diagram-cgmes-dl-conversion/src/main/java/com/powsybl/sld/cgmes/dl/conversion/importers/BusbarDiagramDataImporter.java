@@ -43,7 +43,7 @@ public class BusbarDiagramDataImporter {
                 busbarIidmDiagramData = new NodeDiagramData<>(busbar);
             }
             String diagramName = busbarDiagramData.get("diagramName");
-            NodeDiagramData.NodeDiagramDataDetails diagramDetails = busbarIidmDiagramData.getData(diagramName);
+            NodeDiagramData<BusbarSection>.NodeDiagramDataDetails diagramDetails = busbarIidmDiagramData.getData(diagramName);
             if (diagramDetails == null) {
                 diagramDetails = busbarIidmDiagramData.new NodeDiagramDataDetails();
             }
