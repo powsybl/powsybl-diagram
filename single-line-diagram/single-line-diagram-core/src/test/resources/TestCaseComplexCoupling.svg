@@ -61,15 +61,6 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-grid" id="GRID_vl">
-            <line x1="40.0" x2="40.0" y1="80.0" y2="243.0"/>
-            <line x1="90.0" x2="90.0" y1="80.0" y2="243.0"/>
-            <line x1="140.0" x2="140.0" y1="80.0" y2="243.0"/>
-            <line x1="190.0" x2="190.0" y1="80.0" y2="243.0"/>
-            <line x1="40.0" x2="190.0" y1="188.0" y2="188.0"/>
-            <line x1="40.0" x2="190.0" y1="178.0" y2="178.0"/>
-            <line x1="40.0" x2="190.0" y1="142.0" y2="142.0"/>
-        </g>
         <g class="sld-busbar-section" id="idbbs1" transform="translate(52.5,218.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
@@ -113,14 +104,14 @@
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_f1" transform="translate(161.0,174.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_f1" transform="translate(161.0,174.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed" id="idbA" transform="translate(130.0,168.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_f2" transform="translate(111.0,134.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_f2" transform="translate(111.0,134.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed" id="idbB" transform="translate(130.0,128.0)">
@@ -135,7 +126,7 @@
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_bD" transform="translate(61.0,134.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_bD" transform="translate(61.0,134.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed" id="idd2" transform="translate(61.0,239.0)">
