@@ -16,9 +16,7 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -210,11 +208,6 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 "line1", 1, ConnectablePosition.Direction.TOP);
     }
 
-    @Override
-    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
-    }
-
     @Test
     public void testHorizontal() {
 
@@ -248,8 +241,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     private void runHorizontalALignmentTest(LayoutParameters.Alignment alignment) {
-        layoutParameters.setAdaptCellHeightToContent(true)
-                .setBusbarsAlignment(alignment);
+        layoutParameters.setBusbarsAlignment(alignment);
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());

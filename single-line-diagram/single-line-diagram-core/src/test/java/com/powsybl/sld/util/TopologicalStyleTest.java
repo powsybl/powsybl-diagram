@@ -14,7 +14,6 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,11 +78,6 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, true, true, 3, 4);
         createSwitch(vl3, "d3WT_3", "d3WT_3", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, false, true, 1, 2);
-    }
-
-    @Override
-    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
     }
 
     @Test

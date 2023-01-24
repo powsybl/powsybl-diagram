@@ -33,8 +33,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setCellWidth(80)
-            .setShowInternalNodes(false);
+        layoutParameters.setCellWidth(80);
 
         network = Network.create("testCase11", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -273,9 +272,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
-        layoutParameters
-            .setAdaptCellHeightToContent(true)
-            .setAddNodesInfos(true);
+        layoutParameters.setAddNodesInfos(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
@@ -296,9 +293,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
-        layoutParameters
-            .setAdaptCellHeightToContent(true)
-            .setAddNodesInfos(true);
+        layoutParameters.setAddNodesInfos(true);
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
 

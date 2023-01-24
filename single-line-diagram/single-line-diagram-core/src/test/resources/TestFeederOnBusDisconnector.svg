@@ -61,13 +61,6 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-grid" id="GRID_vl">
-            <line x1="40.0" x2="40.0" y1="80.0" y2="252.0"/>
-            <line x1="90.0" x2="90.0" y1="80.0" y2="252.0"/>
-            <line x1="40.0" x2="90.0" y1="110.0" y2="110.0"/>
-            <line x1="40.0" x2="90.0" y1="120.0" y2="120.0"/>
-            <line x1="40.0" x2="90.0" y1="190.0" y2="190.0"/>
-        </g>
         <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,80.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
@@ -98,10 +91,10 @@
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,106.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,106.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,186.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,186.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder" id="idline_95_ONE" transform="translate(65.0,252.0)">

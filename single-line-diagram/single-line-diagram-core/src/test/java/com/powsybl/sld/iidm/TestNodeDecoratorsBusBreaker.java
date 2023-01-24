@@ -21,7 +21,6 @@ public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setShowInternalNodes(false);
         network = CreateNetworksUtil.createBusBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
         graphBuilder = new NetworkGraphBuilder(network);
     }
