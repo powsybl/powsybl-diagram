@@ -20,7 +20,7 @@
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-edge-infos, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -206,7 +206,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(934.52,257.19)">
-                    <text transform="rotate(-280.67)" x="0.00" style="text-anchor:middle">L1-2-1</text>
+                    <text transform="rotate(79.33)" x="0.00" style="text-anchor:middle">L1-2-1</text>
                 </g>
             </g>
         </g>
@@ -252,7 +252,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(810.94,331.77)">
-                    <text transform="rotate(-315.81)" x="0.00" style="text-anchor:middle">L1-5-1</text>
+                    <text transform="rotate(44.19)" x="0.00" style="text-anchor:middle">L1-5-1</text>
                 </g>
             </g>
         </g>
@@ -298,7 +298,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-673.91,246.06)">
-                    <text transform="rotate(-327.68)" x="0.00" style="text-anchor:middle">L9-10-1</text>
+                    <text transform="rotate(32.32)" x="0.00" style="text-anchor:middle">L9-10-1</text>
                 </g>
             </g>
         </g>
@@ -390,7 +390,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-539.69,-436.70)">
-                    <text transform="rotate(-352.98)" x="0.00" style="text-anchor:middle">L6-11-1</text>
+                    <text transform="rotate(7.02)" x="0.00" style="text-anchor:middle">L6-11-1</text>
                 </g>
             </g>
         </g>
@@ -620,7 +620,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-510.22,469.07)">
-                    <text transform="rotate(-357.69)" x="0.00" style="text-anchor:middle">L9-14-1</text>
+                    <text transform="rotate(2.31)" x="0.00" style="text-anchor:middle">L9-14-1</text>
                 </g>
             </g>
         </g>
@@ -666,7 +666,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(712.87,-163.04)">
-                    <text transform="rotate(-314.18)" x="0.00" style="text-anchor:middle">L2-3-1</text>
+                    <text transform="rotate(45.82)" x="0.00" style="text-anchor:middle">L2-3-1</text>
                 </g>
             </g>
         </g>
@@ -994,7 +994,7 @@
                 <circle class="nad-vl120to180 nad-winding" cx="229.46" cy="-107.90" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="212.83" cy="-119.00" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(221.14,-113.45)">
-                    <text transform="rotate(-326.26)" x="0.00" style="text-anchor:middle">T5-6-1</text>
+                    <text transform="rotate(33.74)" x="0.00" style="text-anchor:middle">T5-6-1</text>
                 </g>
             </g>
         </g>
@@ -1086,7 +1086,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-75.53,632.98)">
-                    <text transform="rotate(-326.24)" x="0.00" style="text-anchor:middle">L7-9-1</text>
+                    <text transform="rotate(33.76)" x="0.00" style="text-anchor:middle">L7-9-1</text>
                 </g>
             </g>
         </g>

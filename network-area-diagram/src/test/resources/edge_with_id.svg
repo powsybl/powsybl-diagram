@@ -20,7 +20,7 @@
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-edge-infos, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -269,7 +269,7 @@
                 <circle class="nad-vl300to500 nad-winding" cx="-12.65" cy="6.85" r="20.00"/>
                 <circle class="nad-vl180to300 nad-winding" cx="-28.90" cy="-4.81" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-20.77,1.02)">
-                    <text transform="rotate(-324.36)" x="0.00" style="text-anchor:middle">tr2</text>
+                    <text transform="rotate(35.64)" x="0.00" style="text-anchor:middle">tr2</text>
                 </g>
             </g>
         </g>

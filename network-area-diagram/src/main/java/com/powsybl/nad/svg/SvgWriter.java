@@ -139,38 +139,39 @@ public class SvgWriter {
 
     private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
 
-        String lineLabel = labelProvider.getLabel(edge);
+        String edgeLabel = labelProvider.getLabel(edge);
 
-        if (lineLabel != null && !lineLabel.isEmpty()) {
-
-            double edgeAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
-            boolean textFlipped = Math.cos(edgeAngle) < 0;
-            double textAngle = textFlipped ? edgeAngle - Math.PI : edgeAngle;
-
-            List<Point> points1 = edge.getPoints1();
-            List<Point> points2 = edge.getPoints2();
-            Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
-            String style = "text-anchor:middle";
-
-            if (!edge.isVisible(BranchEdge.Side.ONE)) {
-                edgeAngle = edge.getEdgeEndAngle(BranchEdge.Side.TWO);
-                textFlipped = Math.cos(edgeAngle) < 0;
-                style = textFlipped ? "text-anchor:end" : "text-anchor:start";
-            } else if (!edge.isVisible(BranchEdge.Side.TWO)) {
-                style = textFlipped ? "text-anchor:end" : "text-anchor:start";
-            }
-
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
-//            writeStyleClasses(writer, StyleProvider.EDGE_LABEL_CLASS, StyleProvider.GLUED_CENTER_CLASS);
-            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
-
-            drawLabel(writer, lineLabel, 0, style, textAngle, X_ATTRIBUTE);
-
-            writer.writeEndElement();
-        } else {
+        if (edgeLabel == null || edgeLabel.isEmpty()) {
             return;
         }
+
+        List<Point> points1 = edge.getPoints1();
+        List<Point> points2 = edge.getPoints2();
+        Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+
+        double textAngle;
+        if (Math.abs(edge.getEdgeEndAngle(BranchEdge.Side.TWO)) <= Math.abs(edge.getEdgeEndAngle(BranchEdge.Side.ONE))) {
+            textAngle = edge.getEdgeEndAngle(BranchEdge.Side.TWO);
+        } else {
+            textAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+        }
+
+        String style;
+        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
+            style = "text-anchor:middle";
+        } else if (edge.isVisible(BranchEdge.Side.ONE)) {
+            style = Math.cos(edge.getEdgeEndAngle(BranchEdge.Side.ONE)) < 0 ? "text-anchor:end" : "text-anchor:start";
+        } else {
+            style = Math.cos(edge.getEdgeEndAngle(BranchEdge.Side.TWO)) < 0 ? "text-anchor:end" : "text-anchor:start";
+        }
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
+
+        drawLabel(writer, edgeLabel, 0, style, textAngle, X_ATTRIBUTE);
+
+        writer.writeEndElement();
     }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {

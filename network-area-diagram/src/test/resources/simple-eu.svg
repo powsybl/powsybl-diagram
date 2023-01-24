@@ -21,7 +21,7 @@
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
-.nad-edge-infos, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-disconnected {--nad-vl-color: #808080}
@@ -528,7 +528,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(577.89,137.39)">
-                    <text transform="rotate(-313.04)" x="0.00" style="text-anchor:middle">DDE1AA1  DDE2AA1  1</text>
+                    <text transform="rotate(46.96)" x="0.00" style="text-anchor:middle">DDE1AA1  DDE2AA1  1</text>
                 </g>
             </g>
         </g>
@@ -666,7 +666,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(351.07,-220.83)">
-                    <text transform="rotate(-294.10)" x="0.00" style="text-anchor:middle">DDE2AA1  NNL3AA1  1</text>
+                    <text transform="rotate(65.90)" x="0.00" style="text-anchor:middle">DDE2AA1  NNL3AA1  1</text>
                 </g>
             </g>
         </g>
@@ -804,7 +804,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-157.85,640.12)">
-                    <text transform="rotate(-345.51)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR3AA1  1</text>
+                    <text transform="rotate(14.49)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR3AA1  1</text>
                 </g>
             </g>
         </g>
@@ -850,7 +850,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-177.87,717.58)">
-                    <text transform="rotate(-345.51)" x="0.00" style="text-anchor:middle">FFR2AA1  FFR3AA1  1</text>
+                    <text transform="rotate(14.49)" x="0.00" style="text-anchor:middle">FFR2AA1  FFR3AA1  1</text>
                 </g>
             </g>
         </g>
