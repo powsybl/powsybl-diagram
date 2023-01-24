@@ -8,7 +8,7 @@ package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -34,7 +34,7 @@ public abstract class AbstractTestCase {
     private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = false;
+    protected boolean debugSvgFiles = true;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
@@ -64,7 +64,7 @@ public abstract class AbstractTestCase {
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ConvergenceComponentLibrary();
+        return new FlatDesignLibrary();
     }
 
     protected static String normalizeLineSeparator(String str) {

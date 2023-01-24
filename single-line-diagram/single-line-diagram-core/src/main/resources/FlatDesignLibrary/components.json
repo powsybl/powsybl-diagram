@@ -1,0 +1,114 @@
+{
+  "components": [
+    {
+      "type": "BREAKER",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -10.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 10.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 20.0,
+        "height": 20.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "CLOSED",
+          "fileName": "breaker-closed.svg",
+          "styleClass": "sld-sw-closed"
+        },
+        {
+          "name": "OPEN",
+          "fileName": "breaker-open.svg",
+          "styleClass": "sld-sw-open"
+        }
+      ],
+      "styleClass": "sld-breaker"
+    },
+     {
+    "type" : "LOAD",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -8,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 8,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 16.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "LOAD",
+      "fileName" : "load.svg"
+    } ],
+    "styleClass" : "sld-load"
+  },
+    {
+      "type": "BUSBAR_SECTION",
+      "styleClass": "sld-busbar-section"
+    },
+    {
+      "type": "ARROW_ACTIVE",
+      "size": {
+        "width": 10.0,
+        "height": 10.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "UP",
+          "fileName": "arrow-up.svg",
+          "styleClass": "sld-arrow-out"
+        },
+        {
+          "name": "DOWN",
+          "fileName": "arrow-down.svg",
+          "styleClass": "sld-arrow-in"
+        }
+      ],
+      "styleClass": "sld-active-power"
+    },
+    {
+      "type": "ARROW_REACTIVE",
+      "size": {
+        "width": 10.0,
+        "height": 10.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "UP",
+          "fileName": "arrow-up.svg",
+          "styleClass": "sld-arrow-out"
+        },
+        {
+          "name": "DOWN",
+          "fileName": "arrow-down.svg",
+          "styleClass": "sld-arrow-in"
+        }
+      ],
+      "styleClass": "sld-reactive-power"
+    }
+  ]
+}
