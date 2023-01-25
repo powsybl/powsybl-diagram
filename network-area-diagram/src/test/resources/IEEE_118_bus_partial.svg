@@ -340,7 +340,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-388.07,40.20)">
-                    <text transform="rotate(88.84)" x="0.00" style="text-anchor:end">L40-42-1</text>
+                    <text transform="rotate(-271.16)" x="0.00" style="text-anchor:end">L40-42-1</text>
                 </g>
             </g>
         </g>
@@ -367,7 +367,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-644.22,92.70)">
-                    <text transform="rotate(23.41)" x="0.00" style="text-anchor:end">L41-42-1</text>
+                    <text transform="rotate(-336.59)" x="0.00" style="text-anchor:end">L41-42-1</text>
                 </g>
             </g>
         </g>
@@ -586,7 +586,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(158.48,921.45)">
-                    <text transform="rotate(-350.55)" x="0.00" style="text-anchor:start">L46-47-1</text>
+                    <text transform="rotate(9.45)" x="0.00" style="text-anchor:start">L46-47-1</text>
                 </g>
             </g>
         </g>
@@ -2041,7 +2041,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-805.70,-84.84)">
-                    <text transform="rotate(89.20)" x="0.00" style="text-anchor:end">L62-66-1</text>
+                    <text transform="rotate(-270.80)" x="0.00" style="text-anchor:end">L62-66-1</text>
                 </g>
             </g>
         </g>
@@ -2209,7 +2209,7 @@
                 <circle class="nad-vl120to180-line nad-winding" cx="-13.84" cy="1575.97" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-18.13" cy="1556.44" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-15.98,1566.21)">
-                    <text transform="rotate(-282.38)" x="0.00" style="text-anchor:start">T68-69-1</text>
+                    <text transform="rotate(77.62)" x="0.00" style="text-anchor:start">T68-69-1</text>
                 </g>
             </g>
         </g>

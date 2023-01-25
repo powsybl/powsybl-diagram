@@ -149,27 +149,34 @@ public class SvgWriter {
         List<Point> points2 = edge.getPoints2();
         Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
 
-        double edgeAngleSideOne = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
-
-        double textAngle;
-        textAngle = Math.cos(edgeAngleSideOne) < 0 ? edgeAngleSideOne - Math.PI : edgeAngleSideOne;
-
-        String style;
-        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
-            style = "text-anchor:middle";
-        } else if (edge.isVisible(BranchEdge.Side.ONE)) {
-            style = Math.cos(edgeAngleSideOne) < 0 ? "text-anchor:end" : "text-anchor:start";
-        } else {
-            style = Math.cos(edge.getEdgeEndAngle(BranchEdge.Side.TWO)) < 0 ? "text-anchor:end" : "text-anchor:start";
-        }
-
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
 
-        drawLabel(writer, edgeLabel, 0, style, textAngle, X_ATTRIBUTE);
+        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
+            drawEdgeMiddleLabel(edgeLabel, edge, writer);
+        } else if (edge.isVisible(BranchEdge.Side.ONE)) {
+            drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.ONE, writer);
+        } else {
+            drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.TWO, writer);
+        }
 
         writer.writeEndElement();
+    }
+
+    private void drawEdgeMiddleLabel(String edgeLabel, BranchEdge edge, XMLStreamWriter writer) throws XMLStreamException {
+        double edgeEndAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+        drawLabel(writer, edgeLabel, 0, "text-anchor:middle", computeTextAngle(edgeEndAngle), X_ATTRIBUTE);
+    }
+
+    private void drawHalfEdgeLabel(String edgeLabel, BranchEdge edge, BranchEdge.Side side, XMLStreamWriter writer) throws XMLStreamException {
+        double edgeEndAngle = edge.getEdgeEndAngle(side);
+        String style = Math.cos(edgeEndAngle) < 0 ? "text-anchor:end" : "text-anchor:start";
+        drawLabel(writer, edgeLabel, 0, style, computeTextAngle(edgeEndAngle), X_ATTRIBUTE);
+    }
+
+    private double computeTextAngle(double edgeEndAngle) {
+        return Math.cos(edgeEndAngle) < 0 ? edgeEndAngle - Math.PI : edgeEndAngle;
     }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
