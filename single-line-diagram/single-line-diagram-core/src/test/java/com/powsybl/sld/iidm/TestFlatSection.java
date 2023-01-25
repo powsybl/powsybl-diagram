@@ -24,7 +24,6 @@ public class TestFlatSection extends AbstractTestCaseIidm {
     public void setUp() throws IOException {
         network = CreateNetworksUtil.createNetworkWithFlatSections();
         graphBuilder = new NetworkGraphBuilder(network);
-        layoutParameters.setAdaptCellHeightToContent(true);
     }
 
     @Test
