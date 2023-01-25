@@ -528,7 +528,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(577.89,137.39)">
-                    <text transform="rotate(46.96)" x="0.00" style="text-anchor:middle">DDE1AA1  DDE2AA1  1</text>
+                    <text transform="rotate(-313.04)" x="0.00" style="text-anchor:middle">DDE1AA1  DDE2AA1  1</text>
                 </g>
             </g>
         </g>
@@ -666,7 +666,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(351.07,-220.83)">
-                    <text transform="rotate(65.90)" x="0.00" style="text-anchor:middle">DDE2AA1  NNL3AA1  1</text>
+                    <text transform="rotate(-294.10)" x="0.00" style="text-anchor:middle">DDE2AA1  NNL3AA1  1</text>
                 </g>
             </g>
         </g>
@@ -804,7 +804,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-157.85,640.12)">
-                    <text transform="rotate(14.49)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR3AA1  1</text>
+                    <text transform="rotate(-345.51)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR3AA1  1</text>
                 </g>
             </g>
         </g>
@@ -850,7 +850,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-177.87,717.58)">
-                    <text transform="rotate(14.49)" x="0.00" style="text-anchor:middle">FFR2AA1  FFR3AA1  1</text>
+                    <text transform="rotate(-345.51)" x="0.00" style="text-anchor:middle">FFR2AA1  FFR3AA1  1</text>
                 </g>
             </g>
         </g>
@@ -899,7 +899,7 @@
                 <circle class="nad-vl300to500-line nad-winding" cx="-12.73" cy="841.59" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.94,-0.33,0.33,-0.94,15.10,883.13)" class="nad-pst-arrow"/>
                 <g class="nad-edge-label" transform="translate(-3.29,844.90)">
-                    <text transform="rotate(19.31)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR2AA1  2</text>
+                    <text transform="rotate(-340.69)" x="0.00" style="text-anchor:middle">FFR1AA1  FFR2AA1  2</text>
                 </g>
             </g>
         </g>

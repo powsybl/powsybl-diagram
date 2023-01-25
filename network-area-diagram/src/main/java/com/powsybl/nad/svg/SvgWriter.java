@@ -149,18 +149,16 @@ public class SvgWriter {
         List<Point> points2 = edge.getPoints2();
         Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
 
+        double edgeAngleSideOne = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+
         double textAngle;
-        if (Math.abs(edge.getEdgeEndAngle(BranchEdge.Side.TWO)) <= Math.abs(edge.getEdgeEndAngle(BranchEdge.Side.ONE))) {
-            textAngle = edge.getEdgeEndAngle(BranchEdge.Side.TWO);
-        } else {
-            textAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
-        }
+        textAngle = Math.cos(edgeAngleSideOne) < 0 ? edgeAngleSideOne - Math.PI : edgeAngleSideOne;
 
         String style;
         if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
             style = "text-anchor:middle";
         } else if (edge.isVisible(BranchEdge.Side.ONE)) {
-            style = Math.cos(edge.getEdgeEndAngle(BranchEdge.Side.ONE)) < 0 ? "text-anchor:end" : "text-anchor:start";
+            style = Math.cos(edgeAngleSideOne) < 0 ? "text-anchor:end" : "text-anchor:start";
         } else {
             style = Math.cos(edge.getEdgeEndAngle(BranchEdge.Side.TWO)) < 0 ? "text-anchor:end" : "text-anchor:start";
         }

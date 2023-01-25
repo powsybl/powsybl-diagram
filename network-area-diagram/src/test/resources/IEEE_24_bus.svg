@@ -752,7 +752,7 @@
                 <circle class="nad-vl180to300 nad-winding" cx="-206.44" cy="517.55" r="20.00"/>
                 <circle class="nad-vl120to180 nad-winding" cx="-224.08" cy="508.13" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-215.26,512.84)">
-                    <text transform="rotate(28.09)" x="0.00" style="text-anchor:middle">T-11-9-1 </text>
+                    <text transform="rotate(-331.91)" x="0.00" style="text-anchor:middle">T-11-9-1 </text>
                 </g>
             </g>
         </g>
@@ -1260,7 +1260,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(688.76,-393.57)">
-                    <text transform="rotate(55.93)" x="0.00" style="text-anchor:middle">L-16-19-1 </text>
+                    <text transform="rotate(-304.07)" x="0.00" style="text-anchor:middle">L-16-19-1 </text>
                 </g>
             </g>
         </g>
@@ -1398,7 +1398,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(1441.76,-536.30)">
-                    <text transform="rotate(81.39)" x="0.00" style="text-anchor:middle">L-18-21-1 </text>
+                    <text transform="rotate(-278.61)" x="0.00" style="text-anchor:middle">L-18-21-1 </text>
                 </g>
             </g>
         </g>
@@ -1444,7 +1444,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(1362.67,-524.32)">
-                    <text transform="rotate(81.39)" x="0.00" style="text-anchor:middle">L-18-21-2 </text>
+                    <text transform="rotate(-278.61)" x="0.00" style="text-anchor:middle">L-18-21-2 </text>
                 </g>
             </g>
         </g>

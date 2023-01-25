@@ -269,7 +269,7 @@
                 <circle class="nad-vl300to500 nad-winding" cx="-12.65" cy="6.85" r="20.00"/>
                 <circle class="nad-vl180to300 nad-winding" cx="-28.90" cy="-4.81" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-20.77,1.02)">
-                    <text transform="rotate(35.64)" x="0.00" style="text-anchor:middle">tr2</text>
+                    <text transform="rotate(-324.36)" x="0.00" style="text-anchor:middle">tr2</text>
                 </g>
             </g>
         </g>

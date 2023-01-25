@@ -344,7 +344,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-619.73,317.52)">
-                    <text transform="rotate(63.03)" x="0.00" style="text-anchor:middle">L10-11-1</text>
+                    <text transform="rotate(-296.97)" x="0.00" style="text-anchor:middle">L10-11-1</text>
                 </g>
             </g>
         </g>
@@ -436,7 +436,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-491.32,-525.95)">
-                    <text transform="rotate(43.48)" x="0.00" style="text-anchor:middle">L6-12-1</text>
+                    <text transform="rotate(-316.52)" x="0.00" style="text-anchor:middle">L6-12-1</text>
                 </g>
             </g>
         </g>
@@ -620,7 +620,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-171.07,248.81)">
-                    <text transform="rotate(48.74)" x="0.00" style="text-anchor:middle">L9-14-1</text>
+                    <text transform="rotate(-311.26)" x="0.00" style="text-anchor:middle">L9-14-1</text>
                 </g>
             </g>
         </g>
@@ -758,7 +758,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(410.59,-306.66)">
-                    <text transform="rotate(13.15)" x="0.00" style="text-anchor:middle">L2-5-1</text>
+                    <text transform="rotate(-346.85)" x="0.00" style="text-anchor:middle">L2-5-1</text>
                 </g>
             </g>
         </g>
@@ -850,7 +850,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(315.54,-113.30)">
-                    <text transform="rotate(69.09)" x="0.00" style="text-anchor:middle">L4-5-1</text>
+                    <text transform="rotate(-290.91)" x="0.00" style="text-anchor:middle">L4-5-1</text>
                 </g>
             </g>
         </g>
@@ -994,7 +994,7 @@
                 <circle class="nad-vl120to180 nad-winding" cx="-45.49" cy="-363.85" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="-65.47" cy="-364.87" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-55.48,-364.36)">
-                    <text transform="rotate(2.94)" x="0.00" style="text-anchor:middle">T5-6-1</text>
+                    <text transform="rotate(-357.06)" x="0.00" style="text-anchor:middle">T5-6-1</text>
                 </g>
             </g>
         </g>
@@ -1086,7 +1086,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(172.65,508.21)">
-                    <text transform="rotate(24.98)" x="0.00" style="text-anchor:middle">L7-9-1</text>
+                    <text transform="rotate(-335.02)" x="0.00" style="text-anchor:middle">L7-9-1</text>
                 </g>
             </g>
         </g>

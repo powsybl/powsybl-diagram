@@ -331,7 +331,7 @@
                 <circle class="nad-vl50to70 nad-winding" cx="-502.81" cy="570.73" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="-507.79" cy="551.36" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-505.30,561.04)">
-                    <text transform="rotate(75.59)" x="0.00" style="text-anchor:middle">C 66 20</text>
+                    <text transform="rotate(-284.41)" x="0.00" style="text-anchor:middle">C 66 20</text>
                 </g>
             </g>
         </g>
@@ -558,7 +558,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(821.34,157.52)">
-                    <text transform="rotate(7.05)" x="0.00" style="text-anchor:middle">K - D</text>
+                    <text transform="rotate(-352.95)" x="0.00" style="text-anchor:middle">K - D</text>
                 </g>
             </g>
         </g>
@@ -695,7 +695,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(543.88,-873.14)">
-                    <text transform="rotate(3.22)" x="0.00" style="text-anchor:middle">F - G</text>
+                    <text transform="rotate(-356.78)" x="0.00" style="text-anchor:middle">F - G</text>
                 </g>
             </g>
         </g>

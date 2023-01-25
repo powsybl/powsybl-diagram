@@ -468,7 +468,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(391.55,-230.95)">
-                    <text transform="rotate(89.28)" x="0.00" style="text-anchor:middle">D - E</text>
+                    <text transform="rotate(-270.72)" x="0.00" style="text-anchor:middle">D - E</text>
                 </g>
             </g>
         </g>
@@ -558,7 +558,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(462.91,279.75)">
-                    <text transform="rotate(75.36)" x="0.00" style="text-anchor:middle">K - D</text>
+                    <text transform="rotate(-284.64)" x="0.00" style="text-anchor:middle">K - D</text>
                 </g>
             </g>
         </g>
@@ -605,7 +605,7 @@
                 <circle class="nad-vl50to70 nad-winding" cx="651.79" cy="111.03" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="632.97" cy="104.26" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(642.38,107.64)">
-                    <text transform="rotate(19.78)" x="0.00" style="text-anchor:middle">D 66 10</text>
+                    <text transform="rotate(-340.22)" x="0.00" style="text-anchor:middle">D 66 10</text>
                 </g>
             </g>
         </g>
@@ -650,7 +650,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(207.73,-504.02)">
-                    <text transform="rotate(7.43)" x="0.00" style="text-anchor:middle">E - F</text>
+                    <text transform="rotate(-352.57)" x="0.00" style="text-anchor:middle">E - F</text>
                 </g>
             </g>
         </g>
@@ -695,7 +695,7 @@
             </g>
             <g class="nad-glued-center">
                 <g class="nad-edge-label" transform="translate(-163.09,-577.62)">
-                    <text transform="rotate(14.74)" x="0.00" style="text-anchor:middle">F - G</text>
+                    <text transform="rotate(-345.26)" x="0.00" style="text-anchor:middle">F - G</text>
                 </g>
             </g>
         </g>
