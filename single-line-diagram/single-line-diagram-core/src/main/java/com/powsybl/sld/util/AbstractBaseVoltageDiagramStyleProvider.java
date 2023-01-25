@@ -216,12 +216,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(FeederWithSides feederWs, String subComponentName) {
-        if (subComponentName.equals(WINDING1)) {
-            return feederWs.getVoltageLevelInfos();
-        } else if (subComponentName.equals(WINDING2)) {
+        if (subComponentName.equals(WINDING2)) {
             return feederWs.getOtherSideVoltageLevelInfos();
         } else {
-            return null;
+            return feederWs.getVoltageLevelInfos();
         }
     }
 

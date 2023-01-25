@@ -251,7 +251,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-vsc sld-top-feeder" id="idvsc" transform="translate(257.0,76.0)">
-                <text x="-5.3" y="6.6">AC / DC</text>
+                <text class="sld-vl300to500-0" x="-5.3" y="6.6">AC / DC</text>
                 <text class="sld-label" id="vsc_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
         </g>
