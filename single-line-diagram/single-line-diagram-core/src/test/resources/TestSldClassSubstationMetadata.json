@@ -498,32 +498,40 @@
   "lines" : [ ],
   "feederInfos" : [ {
     "id" : "idg_ARROW_ACTIVE",
-    "equipmentId" : "g"
+    "equipmentId" : "g",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf_95_TWO_ARROW_ACTIVE",
     "equipmentId" : "trf",
-    "side" : "TWO"
+    "side" : "TWO",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idl_ARROW_ACTIVE",
-    "equipmentId" : "l"
+    "equipmentId" : "l",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idl_ARROW_REACTIVE",
-    "equipmentId" : "l"
+    "equipmentId" : "l",
+    "measurementType" : "ARROW_REACTIVE"
   }, {
     "id" : "idg_ARROW_REACTIVE",
-    "equipmentId" : "g"
+    "equipmentId" : "g",
+    "measurementType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf",
-    "side" : "ONE"
+    "side" : "ONE",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf",
-    "side" : "ONE"
+    "side" : "ONE",
+    "measurementType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf_95_TWO_ARROW_REACTIVE",
     "equipmentId" : "trf",
-    "side" : "TWO"
+    "side" : "TWO",
+    "measurementType" : "ARROW_REACTIVE"
   } ],
   "electricalNodeInfos" : [ ],
   "busInfos" : [ ],

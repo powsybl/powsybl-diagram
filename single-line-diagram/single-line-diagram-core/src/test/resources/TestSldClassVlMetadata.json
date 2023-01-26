@@ -275,18 +275,22 @@
   "lines" : [ ],
   "feederInfos" : [ {
     "id" : "idl_ARROW_ACTIVE",
-    "equipmentId" : "l"
+    "equipmentId" : "l",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idl_ARROW_REACTIVE",
-    "equipmentId" : "l"
+    "equipmentId" : "l",
+    "measurementType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf",
-    "side" : "ONE"
+    "side" : "ONE",
+    "measurementType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf",
-    "side" : "ONE"
+    "side" : "ONE",
+    "measurementType" : "ARROW_REACTIVE"
   } ],
   "electricalNodeInfos" : [ ],
   "busInfos" : [ ],

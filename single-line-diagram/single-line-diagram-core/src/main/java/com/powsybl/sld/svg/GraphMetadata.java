@@ -234,12 +234,15 @@ public class GraphMetadata {
 
         private final String userDefinedId;
 
+        private final String measurementType;
+
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("userDefinedId") String userDefinedId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("userDefinedId") String userDefinedId, @JsonProperty("measurementType") String measurementType) {
             this.id = Objects.requireNonNull(id);
             this.equipmentId = Objects.requireNonNull(equipmentId);
             this.side = side;
             this.userDefinedId = userDefinedId;
+            this.measurementType = measurementType;
         }
 
         public String getId() {
@@ -256,6 +259,10 @@ public class GraphMetadata {
 
         public String getUserDefinedId() {
             return userDefinedId;
+        }
+
+        public String getMeasurementType() {
+            return measurementType;
         }
     }
 
