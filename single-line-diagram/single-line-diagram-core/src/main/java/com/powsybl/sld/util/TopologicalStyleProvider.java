@@ -10,14 +10,14 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +29,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     private final Map<String, Map<String, String>> vlNodeIdStyleMap = new HashMap<>();
     private final Map<String, Map<String, String>> vlEquipmentIdStyleMap = new HashMap<>();
+    private final Map<String, Integer> stylesIndices = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network);
@@ -74,9 +75,9 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
         Map<String, String> equipmentIdStyleMap = new HashMap<>();
-        AtomicInteger idxStyle = new AtomicInteger(0);
         buses.forEach(b -> {
-            String style = baseVoltageLevelStyle + '-' + idxStyle.getAndIncrement();
+            int newIndex = stylesIndices.compute(baseVoltageLevelStyle, (s, i) -> i == null ? 0 : i + 1);
+            String style = baseVoltageLevelStyle + '-' + newIndex;
             b.visitConnectedEquipments(new TopologyVisitorId(equipmentId -> equipmentIdStyleMap.put(equipmentId, style)));
         });
 

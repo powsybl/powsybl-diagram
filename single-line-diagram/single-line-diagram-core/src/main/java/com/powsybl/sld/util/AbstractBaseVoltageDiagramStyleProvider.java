@@ -60,23 +60,24 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getSvgNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
-        if (graph != null && !isNodeConnectingVoltageLevels(node)) {
-            // Nodes connecting voltage levels might have style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
-            // to display the fact it is the connection of two or more voltage levels: 2WT for instance
-            // Note that nodes outside a voltageLevel graph (graph==null) are nodes connecting voltageLevels
+        if (graph != null && !isNodeConnectingElectricalNodes(node)) {
+            // Nodes connecting electrical nodes might have style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
+            // to display the fact it is the connection of two or more electrical nodes: 2WT for instance
+            // Note that nodes outside a voltageLevel graph (graph==null) are nodes connecting electrical nodes
             getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node).ifPresent(styles::add);
         }
 
         return styles;
     }
 
-    protected boolean isNodeConnectingVoltageLevels(Node node) {
+    protected boolean isNodeConnectingElectricalNodes(Node node) {
         if (node instanceof FeederNode) {
             // filtering out leg nodes as they are nodes with the same voltage level at each side
             Feeder feeder = ((FeederNode) node).getFeeder();
             return feeder instanceof FeederWithSides && !(feeder instanceof FeederTwLeg);
         } else {
-            return node instanceof Middle3WTNode;
+            return node instanceof Middle3WTNode
+                    || ComponentTypeName.PHASE_SHIFT_TRANSFORMER.equals(node.getComponentType());
         }
     }
 
