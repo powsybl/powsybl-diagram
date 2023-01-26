@@ -40,8 +40,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setCellWidth(80)
-            .setShowInternalNodes(false);
+        layoutParameters.setCellWidth(80);
 
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);

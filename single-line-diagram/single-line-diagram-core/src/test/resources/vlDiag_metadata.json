@@ -743,12 +743,6 @@
       "positionName" : "N_LABEL"
     } ]
   }, {
-    "id" : "GRID_vl1",
-    "vid" : "vl1",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "idbload2",
     "vid" : "vl1",
     "componentType" : "BREAKER",
@@ -1431,7 +1425,7 @@
     "externCellHeight" : 250.0,
     "internCellHeight" : 40.0,
     "stackHeight" : 30.0,
-    "showGrid" : true,
+    "showGrid" : false,
     "tooltipEnabled" : false,
     "showInternalNodes" : false,
     "scaleFactor" : 1.0,
@@ -1442,7 +1436,7 @@
     "spaceForFeederInfos" : 50.0,
     "diagramName" : null,
     "avoidSVGComponentsDuplication" : true,
-    "adaptCellHeightToContent" : false,
+    "adaptCellHeightToContent" : true,
     "maxComponentHeight" : 12.0,
     "minSpaceBetweenComponents" : 15.0,
     "minExternCellHeight" : 80.0,

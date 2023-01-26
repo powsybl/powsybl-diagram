@@ -1,24 +1,24 @@
 {
   "components" : [ {
-    "type" : "PACMAN",
+    "type" : "CHEESE",
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -10.0,
+      "y" : -12.0,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 10.0,
+      "y" : 12.0,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
-      "width" : 20.0,
-      "height" : 20.0
+      "width" : 24.0,
+      "height" : 24.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "styleClass" : "sld-pacman",
+    "styleClass" : "sld-cheese",
     "subComponents" : [ {
-      "name" : "PACMAN",
-      "fileName" : "pacman.svg"
+      "name" : "CHEESE",
+      "fileName" : "cheese.svg"
     } ]
   } ]
 }
