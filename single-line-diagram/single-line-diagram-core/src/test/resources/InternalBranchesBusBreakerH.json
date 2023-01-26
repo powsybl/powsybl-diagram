@@ -14,7 +14,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "B11",
       "equipmentId" : "B11",
       "pxWidth" : 575.0,
@@ -32,7 +32,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "B12",
       "equipmentId" : "B12",
       "pxWidth" : 575.0,
@@ -50,7 +50,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 50.0,
-      "y" : 240.0,
+      "y" : 132.0,
       "orientation" : "RIGHT",
       "name" : "BR1",
       "equipmentId" : "BR1",
@@ -62,21 +62,21 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_BR1",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 305.0
+      "y" : 197.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_G",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -84,7 +84,7 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -92,14 +92,14 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 305.0
+      "y" : 197.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_L12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -107,21 +107,21 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T11_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T11_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -129,21 +129,21 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 305.0
+      "y" : 197.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
@@ -151,7 +151,7 @@
       "componentType" : "GENERATOR",
       "fictitious" : false,
       "x" : 375.0,
-      "y" : 585.0,
+      "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "G",
       "equipmentId" : "G",
@@ -164,21 +164,21 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 240.0
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 240.0
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 335.0,
+      "y" : 227.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -186,7 +186,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 523.0,
+      "y" : 307.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -194,7 +194,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 335.0,
+      "y" : 227.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -202,7 +202,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 523.0,
+      "y" : 307.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -210,7 +210,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_TWO",
@@ -224,7 +224,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 335.0,
+      "y" : 227.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -232,7 +232,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 523.0,
+      "y" : 307.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -240,7 +240,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_LD1",
@@ -254,7 +254,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_ONE",
@@ -268,7 +268,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 335.0,
+      "y" : 227.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -276,7 +276,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 523.0,
+      "y" : 307.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -284,7 +284,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T12_ONE",
@@ -298,7 +298,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_ONE",
@@ -312,7 +312,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 335.0,
+      "y" : 227.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -320,7 +320,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 523.0,
+      "y" : 307.0,
       "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
@@ -328,7 +328,7 @@
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 585.0,
+      "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "L11",
       "equipmentId" : "L11",
@@ -365,7 +365,7 @@
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 275.0,
-      "y" : 585.0,
+      "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "L12",
       "equipmentId" : "L12",
@@ -414,7 +414,7 @@
       "componentType" : "PHASE_SHIFT_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 475.0,
-      "y" : 585.0,
+      "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "T11",
       "equipmentId" : "T11",
@@ -469,7 +469,7 @@
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 575.0,
-      "y" : 585.0,
+      "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "T3_12",
       "equipmentId" : "T3_12",
@@ -522,7 +522,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 280.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -543,7 +543,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 240.0,
+            "y" : 132.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
@@ -564,7 +564,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 280.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -592,9 +592,9 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -612,7 +612,7 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -633,9 +633,9 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_LD1", "INTERNAL_VL1_LD1" ]
         }, {
@@ -682,9 +682,9 @@
         },
         "coord" : {
           "x" : 175.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -702,7 +702,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 335.0,
+            "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -723,9 +723,9 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 429.0,
+            "y" : 267.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_L11_ONE", "INTERNAL_VL1_L11_ONE" ]
         }, {
@@ -744,7 +744,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 523.0,
+            "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -772,9 +772,9 @@
         },
         "coord" : {
           "x" : 225.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -792,7 +792,7 @@
           },
           "coord" : {
             "x" : 225.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -813,9 +813,9 @@
           },
           "coord" : {
             "x" : 225.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_T11_ONE", "INTERNAL_VL1_T11_ONE" ]
         }, {
@@ -862,9 +862,9 @@
         },
         "coord" : {
           "x" : 275.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -882,7 +882,7 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 335.0,
+            "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -903,9 +903,9 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 429.0,
+            "y" : 267.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_L12_ONE", "INTERNAL_VL1_L12_ONE" ]
         }, {
@@ -924,7 +924,7 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 523.0,
+            "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -952,9 +952,9 @@
         },
         "coord" : {
           "x" : 325.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -972,7 +972,7 @@
           },
           "coord" : {
             "x" : 325.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -993,9 +993,9 @@
           },
           "coord" : {
             "x" : 325.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_T3_12_ONE", "INTERNAL_VL1_T3_12_ONE" ]
         }, {
@@ -1042,9 +1042,9 @@
         },
         "coord" : {
           "x" : 375.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1062,7 +1062,7 @@
           },
           "coord" : {
             "x" : 375.0,
-            "y" : 335.0,
+            "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1083,9 +1083,9 @@
           },
           "coord" : {
             "x" : 375.0,
-            "y" : 429.0,
+            "y" : 267.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_G", "INTERNAL_VL1_G" ]
         }, {
@@ -1104,7 +1104,7 @@
           },
           "coord" : {
             "x" : 375.0,
-            "y" : 523.0,
+            "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1132,9 +1132,9 @@
         },
         "coord" : {
           "x" : 425.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1152,7 +1152,7 @@
           },
           "coord" : {
             "x" : 425.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1173,9 +1173,9 @@
           },
           "coord" : {
             "x" : 425.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_L11_TWO", "INTERNAL_VL1_L11_TWO" ]
         }, {
@@ -1222,9 +1222,9 @@
         },
         "coord" : {
           "x" : 475.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1242,7 +1242,7 @@
           },
           "coord" : {
             "x" : 475.0,
-            "y" : 335.0,
+            "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1263,9 +1263,9 @@
           },
           "coord" : {
             "x" : 475.0,
-            "y" : 429.0,
+            "y" : 267.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_T11_TWO", "INTERNAL_VL1_T11_TWO" ]
         }, {
@@ -1284,7 +1284,7 @@
           },
           "coord" : {
             "x" : 475.0,
-            "y" : 523.0,
+            "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1312,9 +1312,9 @@
         },
         "coord" : {
           "x" : 525.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1332,7 +1332,7 @@
           },
           "coord" : {
             "x" : 525.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1353,9 +1353,9 @@
           },
           "coord" : {
             "x" : 525.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_T12_ONE", "INTERNAL_VL1_T12_ONE" ]
         }, {
@@ -1402,9 +1402,9 @@
         },
         "coord" : {
           "x" : 575.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1422,7 +1422,7 @@
           },
           "coord" : {
             "x" : 575.0,
-            "y" : 335.0,
+            "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1443,9 +1443,9 @@
           },
           "coord" : {
             "x" : 575.0,
-            "y" : 429.0,
+            "y" : 267.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_T3_12_TWO", "INTERNAL_VL1_T3_12_TWO" ]
         }, {
@@ -1464,7 +1464,7 @@
           },
           "coord" : {
             "x" : 575.0,
-            "y" : 523.0,
+            "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1617,7 +1617,7 @@
       "componentType" : "PHASE_SHIFT_TRANSFORMER",
       "fictitious" : true,
       "x" : 80.0,
-      "y" : 462.5,
+      "y" : 354.5,
       "orientation" : "DOWN",
       "name" : "T11",
       "equipmentId" : "T11",
@@ -1638,14 +1638,14 @@
         "node1" : "T11_ONE",
         "node2" : "T11"
       } ],
-      "snakeLine" : [ 325.0, 170.0, 325.0, 110.0, 80.0, 110.0, 80.0, 462.5 ]
+      "snakeLine" : [ 325.0, 170.0, 325.0, 110.0, 80.0, 110.0, 80.0, 354.5 ]
     }, {
       "id" : "EDGE_T11_TWO",
       "nodes" : [ {
         "node1" : "T11_TWO",
         "node2" : "T11"
       } ],
-      "snakeLine" : [ 575.0, 755.0, 575.0, 815.0, 80.0, 815.0, 80.0, 462.5 ]
+      "snakeLine" : [ 575.0, 539.0, 575.0, 599.0, 80.0, 599.0, 80.0, 354.5 ]
     } ],
     "lineEdges" : [ {
       "id" : "L11",
@@ -1653,7 +1653,7 @@
         "node1" : "L11_ONE",
         "node2" : "L11_TWO"
       } ],
-      "snakeLine" : [ 275.0, 755.0, 275.0, 845.0, 50.0, 845.0, 50.0, 80.0, 525.0, 80.0, 525.0, 170.0 ]
+      "snakeLine" : [ 275.0, 539.0, 275.0, 629.0, 50.0, 629.0, 50.0, 80.0, 525.0, 80.0, 525.0, 170.0 ]
     } ]
   }, {
     "voltageLevelInfos" : {
@@ -1669,7 +1669,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "B21",
       "equipmentId" : "B21",
       "pxWidth" : 175.0,
@@ -1687,7 +1687,7 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -1695,21 +1695,21 @@
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T12_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 280.0
+      "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_THREE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -1717,7 +1717,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 310.0,
+      "y" : 202.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -1725,7 +1725,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 498.0,
+      "y" : 282.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -1733,7 +1733,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_LD2",
@@ -1747,7 +1747,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T12_TWO",
@@ -1761,7 +1761,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 310.0,
+      "y" : 202.0,
       "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
@@ -1769,7 +1769,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 498.0,
+      "y" : 282.0,
       "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
@@ -1777,7 +1777,7 @@
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 75.0,
-      "y" : 560.0,
+      "y" : 344.0,
       "orientation" : "DOWN",
       "name" : "L12",
       "equipmentId" : "L12",
@@ -1826,7 +1826,7 @@
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 560.0,
+      "y" : 344.0,
       "orientation" : "DOWN",
       "name" : "T3_12",
       "equipmentId" : "T3_12",
@@ -1861,9 +1861,9 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1881,7 +1881,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1902,9 +1902,9 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_LD2", "INTERNAL_VL2_LD2" ]
         }, {
@@ -1951,9 +1951,9 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 404.0,
+          "y" : 242.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1971,7 +1971,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 310.0,
+            "y" : 202.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1992,9 +1992,9 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 404.0,
+            "y" : 242.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_L12_TWO", "INTERNAL_VL2_L12_TWO" ]
         }, {
@@ -2013,7 +2013,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 498.0,
+            "y" : 282.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2041,9 +2041,9 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2061,7 +2061,7 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2082,9 +2082,9 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_T12_TWO", "INTERNAL_VL2_T12_TWO" ]
         }, {
@@ -2131,9 +2131,9 @@
         },
         "coord" : {
           "x" : 175.0,
-          "y" : 404.0,
+          "y" : 242.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2151,7 +2151,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 310.0,
+            "y" : 202.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2172,9 +2172,9 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 404.0,
+            "y" : 242.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_T3_12_THREE", "INTERNAL_VL2_T3_12_THREE" ]
         }, {
@@ -2193,7 +2193,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 498.0,
+            "y" : 282.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2280,7 +2280,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 675.0,
-    "y" : 875.0,
+    "y" : 659.0,
     "orientation" : "DOWN",
     "name" : "T3_12",
     "equipmentId" : "T3_12",
@@ -2320,21 +2320,21 @@
       "node1" : "T3_12_ONE",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 425.0, 170.0, 425.0, 20.0, 20.0, 20.0, 20.0, 875.0, 675.0, 875.0 ]
+    "snakeLine" : [ 425.0, 170.0, 425.0, 20.0, 20.0, 20.0, 20.0, 659.0, 675.0, 659.0 ]
   }, {
     "id" : "EDGE_T3_12_TWO",
     "nodes" : [ {
       "node1" : "T3_12_TWO",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 675.0, 755.0, 675.0, 875.0 ]
+    "snakeLine" : [ 675.0, 539.0, 675.0, 659.0 ]
   }, {
     "id" : "EDGE_T3_12_THREE",
     "nodes" : [ {
       "node1" : "T3_12_THREE",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 915.0, 730.0, 915.0, 875.0, 675.0, 875.0 ]
+    "snakeLine" : [ 915.0, 514.0, 915.0, 659.0, 675.0, 659.0 ]
   } ],
   "lineEdges" : [ {
     "id" : "L12",
@@ -2342,6 +2342,6 @@
       "node1" : "L12_ONE",
       "node2" : "L12_TWO"
     } ],
-    "snakeLine" : [ 375.0, 755.0, 375.0, 905.0, 815.0, 905.0, 815.0, 730.0 ]
+    "snakeLine" : [ 375.0, 539.0, 375.0, 689.0, 815.0, 689.0, 815.0, 514.0 ]
   } ]
 }

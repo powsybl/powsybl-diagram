@@ -18,6 +18,8 @@ public interface LabelProvider {
 
     List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge);
 
+    String getLabel(Edge edge);
+
     String getArrowPathDIn();
 
     String getArrowPathDOut();

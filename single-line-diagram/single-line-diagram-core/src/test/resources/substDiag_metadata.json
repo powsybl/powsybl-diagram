@@ -713,22 +713,10 @@
     "vlabel" : true,
     "labels" : [ ]
   }, {
-    "id" : "GRID_vl3",
-    "vid" : "vl3",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "LABEL_VL_vl2",
     "vid" : "vl2",
     "open" : false,
     "vlabel" : true,
-    "labels" : [ ]
-  }, {
-    "id" : "GRID_vl2",
-    "vid" : "vl2",
-    "open" : false,
-    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idbload4",
@@ -737,12 +725,6 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bload4",
-    "labels" : [ ]
-  }, {
-    "id" : "GRID_vl1",
-    "vid" : "vl1",
-    "open" : false,
-    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idbload3",
@@ -2879,9 +2861,9 @@
     "externCellHeight" : 250.0,
     "internCellHeight" : 40.0,
     "stackHeight" : 30.0,
-    "showGrid" : true,
+    "showGrid" : false,
     "tooltipEnabled" : false,
-    "showInternalNodes" : true,
+    "showInternalNodes" : false,
     "scaleFactor" : 1.0,
     "drawStraightWires" : false,
     "horizontalSnakeLinePadding" : 30.0,
@@ -2890,7 +2872,7 @@
     "spaceForFeederInfos" : 50.0,
     "diagramName" : null,
     "avoidSVGComponentsDuplication" : false,
-    "adaptCellHeightToContent" : false,
+    "adaptCellHeightToContent" : true,
     "maxComponentHeight" : 12.0,
     "minSpaceBetweenComponents" : 15.0,
     "minExternCellHeight" : 80.0,

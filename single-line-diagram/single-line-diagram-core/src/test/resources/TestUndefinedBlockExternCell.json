@@ -12,14 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f2",
@@ -47,7 +47,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
     "pxWidth" : 25.0,
@@ -65,7 +65,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 0.0,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "d",
     "equipmentId" : "d",
     "open" : false,
@@ -118,9 +118,9 @@
       },
       "coord" : {
         "x" : 0.0,
-        "y" : 156.0,
+        "y" : 102.0,
         "xSpan" : 0.0,
-        "ySpan" : 188.0
+        "ySpan" : 80.0
       },
       "subBlocks" : [ {
         "type" : "SERIAL",
@@ -138,9 +138,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 0.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -158,7 +158,7 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
@@ -179,9 +179,9 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 203.0,
+            "y" : 122.0,
             "xSpan" : 0.0,
-            "ySpan" : 94.0
+            "ySpan" : 40.0
           },
           "subBlocks" : [ {
             "type" : "BODYPRIMARY",
@@ -199,9 +199,9 @@
             },
             "coord" : {
               "x" : 0.0,
-              "y" : 203.0,
+              "y" : 122.0,
               "xSpan" : 0.0,
-              "ySpan" : 94.0
+              "ySpan" : 40.0
             },
             "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
           }, {
@@ -220,9 +220,9 @@
             },
             "coord" : {
               "x" : 0.0,
-              "y" : 203.0,
+              "y" : 122.0,
               "xSpan" : 0.0,
-              "ySpan" : 94.0
+              "ySpan" : 40.0
             },
             "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
           } ]
@@ -242,9 +242,9 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 109.0,
+            "y" : 82.0,
             "xSpan" : 0.0,
-            "ySpan" : 94.0
+            "ySpan" : 40.0
           },
           "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_f2" ]
         } ]
@@ -264,9 +264,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 0.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "BODYPRIMARY",
@@ -284,9 +284,9 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 0.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_vl_f2", "INTERNAL_vl_l2" ]
         }, {
@@ -327,9 +327,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 0.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "BODYPRIMARY",
@@ -347,9 +347,9 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 0.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_l1" ]
         }, {
@@ -390,9 +390,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 0.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f2" ]
       } ]

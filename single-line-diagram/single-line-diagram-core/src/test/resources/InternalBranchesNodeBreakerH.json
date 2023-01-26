@@ -14,7 +14,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "BBS11",
       "equipmentId" : "BBS11",
       "pxWidth" : 575.0,
@@ -32,7 +32,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "BBS12",
       "equipmentId" : "BBS12",
       "pxWidth" : 575.0,
@@ -50,7 +50,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 50.0,
-      "y" : 240.0,
+      "y" : 132.0,
       "orientation" : "RIGHT",
       "name" : "BR1",
       "equipmentId" : "BR1",
@@ -62,7 +62,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 125.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR12",
       "equipmentId" : "BR12",
       "open" : false,
@@ -73,7 +73,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR14",
       "equipmentId" : "BR14",
       "open" : false,
@@ -84,7 +84,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 225.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR16",
       "equipmentId" : "BR16",
       "open" : false,
@@ -95,7 +95,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 275.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR18",
       "equipmentId" : "BR18",
       "open" : false,
@@ -106,7 +106,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 325.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR20",
       "equipmentId" : "BR20",
       "open" : false,
@@ -117,7 +117,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 375.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR22",
       "equipmentId" : "BR22",
       "open" : false,
@@ -128,7 +128,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 425.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR24",
       "equipmentId" : "BR24",
       "open" : false,
@@ -139,7 +139,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 475.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR26",
       "equipmentId" : "BR26",
       "open" : false,
@@ -150,7 +150,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 525.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR28",
       "equipmentId" : "BR28",
       "open" : false,
@@ -161,7 +161,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 575.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR30",
       "equipmentId" : "BR30",
       "open" : false,
@@ -172,7 +172,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 75.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D10",
       "equipmentId" : "D10",
       "open" : false,
@@ -183,7 +183,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 125.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D11",
       "equipmentId" : "D11",
       "open" : false,
@@ -194,7 +194,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D13",
       "equipmentId" : "D13",
       "open" : false,
@@ -205,7 +205,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 225.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D15",
       "equipmentId" : "D15",
       "open" : false,
@@ -216,7 +216,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 275.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D17",
       "equipmentId" : "D17",
       "open" : false,
@@ -227,7 +227,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 325.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D19",
       "equipmentId" : "D19",
       "open" : false,
@@ -238,7 +238,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 25.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D20",
       "equipmentId" : "D20",
       "open" : false,
@@ -249,7 +249,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 375.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D21",
       "equipmentId" : "D21",
       "open" : false,
@@ -260,7 +260,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 425.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D23",
       "equipmentId" : "D23",
       "open" : false,
@@ -271,7 +271,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 475.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D25",
       "equipmentId" : "D25",
       "open" : false,
@@ -282,7 +282,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 525.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D27",
       "equipmentId" : "D27",
       "open" : false,
@@ -293,7 +293,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 575.0,
-      "y" : 305.0,
+      "y" : 197.0,
       "name" : "D29",
       "equipmentId" : "D29",
       "open" : false,
@@ -316,84 +316,84 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 240.0
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 240.0
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR12",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR14",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR16",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR18",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR20",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR22",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR24",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR26",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR28",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR30",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_G",
@@ -660,7 +660,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 280.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -681,7 +681,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 240.0,
+            "y" : 132.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
@@ -702,7 +702,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 280.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -729,9 +729,9 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -749,7 +749,7 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -770,9 +770,9 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR12", "BR12", "INTERNAL_VL1_L1" ]
         }, {
@@ -818,9 +818,9 @@
         },
         "coord" : {
           "x" : 175.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -838,7 +838,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -859,9 +859,9 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR14", "BR14", "INTERNAL_VL1_L11_ONE" ]
         }, {
@@ -907,9 +907,9 @@
         },
         "coord" : {
           "x" : 225.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -927,7 +927,7 @@
           },
           "coord" : {
             "x" : 225.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -948,9 +948,9 @@
           },
           "coord" : {
             "x" : 225.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR16", "BR16", "INTERNAL_VL1_L12_ONE" ]
         }, {
@@ -996,9 +996,9 @@
         },
         "coord" : {
           "x" : 275.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1016,7 +1016,7 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1037,9 +1037,9 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR18", "BR18", "INTERNAL_VL1_T11_ONE" ]
         }, {
@@ -1085,9 +1085,9 @@
         },
         "coord" : {
           "x" : 325.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1105,7 +1105,7 @@
           },
           "coord" : {
             "x" : 325.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1126,9 +1126,9 @@
           },
           "coord" : {
             "x" : 325.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR20", "BR20", "INTERNAL_VL1_T3_12_ONE" ]
         }, {
@@ -1174,9 +1174,9 @@
         },
         "coord" : {
           "x" : 375.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1194,7 +1194,7 @@
           },
           "coord" : {
             "x" : 375.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1215,9 +1215,9 @@
           },
           "coord" : {
             "x" : 375.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR22", "BR22", "INTERNAL_VL1_G" ]
         }, {
@@ -1263,9 +1263,9 @@
         },
         "coord" : {
           "x" : 425.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1283,7 +1283,7 @@
           },
           "coord" : {
             "x" : 425.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1304,9 +1304,9 @@
           },
           "coord" : {
             "x" : 425.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR24", "BR24", "INTERNAL_VL1_L11_TWO" ]
         }, {
@@ -1352,9 +1352,9 @@
         },
         "coord" : {
           "x" : 475.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1372,7 +1372,7 @@
           },
           "coord" : {
             "x" : 475.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1393,9 +1393,9 @@
           },
           "coord" : {
             "x" : 475.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR26", "BR26", "INTERNAL_VL1_T11_TWO" ]
         }, {
@@ -1441,9 +1441,9 @@
         },
         "coord" : {
           "x" : 525.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1461,7 +1461,7 @@
           },
           "coord" : {
             "x" : 525.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1482,9 +1482,9 @@
           },
           "coord" : {
             "x" : 525.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR28", "BR28", "INTERNAL_VL1_T12_ONE" ]
         }, {
@@ -1530,9 +1530,9 @@
         },
         "coord" : {
           "x" : 575.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1550,7 +1550,7 @@
           },
           "coord" : {
             "x" : 575.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -1571,9 +1571,9 @@
           },
           "coord" : {
             "x" : 575.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL1_BR30", "BR30", "INTERNAL_VL1_T3_12_TWO" ]
         }, {
@@ -1827,7 +1827,7 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "BBS2",
       "equipmentId" : "BBS2",
       "pxWidth" : 175.0,
@@ -1845,7 +1845,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 25.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR32",
       "equipmentId" : "BR32",
       "open" : false,
@@ -1856,7 +1856,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 75.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR34",
       "equipmentId" : "BR34",
       "open" : false,
@@ -1867,7 +1867,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 125.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR36",
       "equipmentId" : "BR36",
       "open" : false,
@@ -1878,7 +1878,7 @@
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 156.0,
+      "y" : 102.0,
       "name" : "BR38",
       "equipmentId" : "BR38",
       "open" : false,
@@ -1889,7 +1889,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 25.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D31",
       "equipmentId" : "D31",
       "open" : false,
@@ -1900,7 +1900,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 75.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D33",
       "equipmentId" : "D33",
       "open" : false,
@@ -1911,7 +1911,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 125.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D35",
       "equipmentId" : "D35",
       "open" : false,
@@ -1922,7 +1922,7 @@
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 175.0,
-      "y" : 280.0,
+      "y" : 172.0,
       "name" : "D37",
       "equipmentId" : "D37",
       "open" : false,
@@ -1933,28 +1933,28 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_BR34",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_BR36",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_BR38",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 250.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_L12_TWO",
@@ -2070,9 +2070,9 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2090,7 +2090,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2111,9 +2111,9 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_BR32", "BR32", "INTERNAL_VL2_L2" ]
         }, {
@@ -2159,9 +2159,9 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2179,7 +2179,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2200,9 +2200,9 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_BR34", "BR34", "INTERNAL_VL2_L12_TWO" ]
         }, {
@@ -2248,9 +2248,9 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2268,7 +2268,7 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2289,9 +2289,9 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_BR36", "BR36", "INTERNAL_VL2_T12_TWO" ]
         }, {
@@ -2337,9 +2337,9 @@
         },
         "coord" : {
           "x" : 175.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2357,7 +2357,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2378,9 +2378,9 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 156.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
-            "ySpan" : 188.0
+            "ySpan" : 80.0
           },
           "nodes" : [ "INTERNAL_VL2_BR38", "BR38", "INTERNAL_VL2_T3_12_THREE" ]
         }, {
