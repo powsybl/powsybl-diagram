@@ -173,6 +173,14 @@ public final class NodeFactory {
         return sn;
     }
 
+    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger) {
+        String component = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
+        EquipmentNode i2wt = NodeFactory.createEquipmentNode(graph, NodeType.INTERNAL, id, nameOrId, id, component, false);
+        graph.addEdge(n1, i2wt);
+        graph.addEdge(n2, i2wt);
+        return i2wt;
+    }
+
     public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
         String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
         Middle2WTNode m2wn = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
@@ -216,5 +224,4 @@ public final class NodeFactory {
         baseGraph.addMultiTermNode(m3wn);
         return m3wn;
     }
-
 }
