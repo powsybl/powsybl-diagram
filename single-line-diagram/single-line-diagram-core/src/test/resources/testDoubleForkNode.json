@@ -12,42 +12,42 @@
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 305.0
+    "y" : 225.0
   }, {
     "type" : "INTERNAL",
     "id" : "BUSCO_bCD2",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 280.0
+    "y" : 200.0
   }, {
     "type" : "INTERNAL",
     "id" : "BUSCO_bCD3",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 280.0
+    "y" : 200.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 250.0
+    "y" : 170.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0
+    "y" : 170.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 250.0
+    "y" : 170.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_loadC",
@@ -61,7 +61,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 156.0
+    "y" : 116.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_loadD",
@@ -75,7 +75,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 203.0,
+    "y" : 143.0,
     "name" : "bCD1",
     "equipmentId" : "bCD1",
     "open" : false,
@@ -86,7 +86,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 203.0,
+    "y" : 143.0,
     "name" : "bCD2",
     "equipmentId" : "bCD2",
     "open" : false,
@@ -97,7 +97,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 203.0,
+    "y" : 143.0,
     "name" : "bCD3",
     "equipmentId" : "bCD3",
     "open" : false,
@@ -108,7 +108,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 37.5,
-    "y" : 109.0,
+    "y" : 89.0,
     "name" : "bD1",
     "equipmentId" : "bD1",
     "open" : false,
@@ -119,7 +119,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 280.0,
+    "y" : 200.0,
     "name" : "bbs13",
     "equipmentId" : "bbs13",
     "pxWidth" : 125.0,
@@ -137,7 +137,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 305.0,
+    "y" : 225.0,
     "name" : "bbs23",
     "equipmentId" : "bbs23",
     "pxWidth" : 125.0,
@@ -194,9 +194,9 @@
       },
       "coord" : {
         "x" : 75.0,
-        "y" : 156.0,
+        "y" : 116.0,
         "xSpan" : 150.0,
-        "ySpan" : 188.0
+        "ySpan" : 108.0
       },
       "subBlocks" : [ {
         "type" : "BODYPARALLEL",
@@ -214,9 +214,9 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 203.0,
+          "y" : 143.0,
           "xSpan" : 150.0,
-          "ySpan" : 94.0
+          "ySpan" : 54.0
         },
         "subBlocks" : [ {
           "type" : "SERIAL",
@@ -234,9 +234,9 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 203.0,
+            "y" : 143.0,
             "xSpan" : 50.0,
-            "ySpan" : 94.0
+            "ySpan" : 54.0
           },
           "subBlocks" : [ {
             "type" : "LEGPRIMARY",
@@ -254,7 +254,7 @@
             },
             "coord" : {
               "x" : 25.0,
-              "y" : 250.0,
+              "y" : 170.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -275,9 +275,9 @@
             },
             "coord" : {
               "x" : 25.0,
-              "y" : 203.0,
+              "y" : 143.0,
               "xSpan" : 50.0,
-              "ySpan" : 94.0
+              "ySpan" : 54.0
             },
             "nodes" : [ "INTERNAL_vl1_bCD2", "bCD2", "INTERNAL_vl1_loadC_fork" ]
           } ]
@@ -297,9 +297,9 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 203.0,
+            "y" : 143.0,
             "xSpan" : 50.0,
-            "ySpan" : 94.0
+            "ySpan" : 54.0
           },
           "subBlocks" : [ {
             "type" : "LEGPRIMARY",
@@ -317,7 +317,7 @@
             },
             "coord" : {
               "x" : 75.0,
-              "y" : 250.0,
+              "y" : 170.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -338,9 +338,9 @@
             },
             "coord" : {
               "x" : 75.0,
-              "y" : 203.0,
+              "y" : 143.0,
               "xSpan" : 50.0,
-              "ySpan" : 94.0
+              "ySpan" : 54.0
             },
             "nodes" : [ "INTERNAL_vl1_bCD3", "bCD3", "INTERNAL_vl1_loadC_fork" ]
           } ]
@@ -360,9 +360,9 @@
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 203.0,
+            "y" : 143.0,
             "xSpan" : 50.0,
-            "ySpan" : 94.0
+            "ySpan" : 54.0
           },
           "subBlocks" : [ {
             "type" : "LEGPRIMARY",
@@ -380,7 +380,7 @@
             },
             "coord" : {
               "x" : 125.0,
-              "y" : 250.0,
+              "y" : 170.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -401,9 +401,9 @@
             },
             "coord" : {
               "x" : 125.0,
-              "y" : 203.0,
+              "y" : 143.0,
               "xSpan" : 50.0,
-              "ySpan" : 94.0
+              "ySpan" : 54.0
             },
             "nodes" : [ "INTERNAL_vl1_bCD1", "bCD1", "INTERNAL_vl1_loadC_fork" ]
           } ]
@@ -424,9 +424,9 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 109.0,
+          "y" : 89.0,
           "xSpan" : 150.0,
-          "ySpan" : 94.0
+          "ySpan" : 54.0
         },
         "subBlocks" : [ {
           "type" : "SERIAL",
@@ -444,9 +444,9 @@
           },
           "coord" : {
             "x" : 37.5,
-            "y" : 109.0,
+            "y" : 89.0,
             "xSpan" : 75.0,
-            "ySpan" : 94.0
+            "ySpan" : 54.0
           },
           "subBlocks" : [ {
             "type" : "BODYPRIMARY",
@@ -464,9 +464,9 @@
             },
             "coord" : {
               "x" : 37.5,
-              "y" : 109.0,
+              "y" : 89.0,
               "xSpan" : 75.0,
-              "ySpan" : 94.0
+              "ySpan" : 54.0
             },
             "nodes" : [ "INTERNAL_vl1_loadC_fork", "bD1", "INTERNAL_vl1_loadD" ]
           }, {
@@ -507,9 +507,9 @@
           },
           "coord" : {
             "x" : 112.5,
-            "y" : 109.0,
+            "y" : 89.0,
             "xSpan" : 75.0,
-            "ySpan" : 94.0
+            "ySpan" : 54.0
           },
           "subBlocks" : [ {
             "type" : "BODYPRIMARY",
@@ -527,9 +527,9 @@
             },
             "coord" : {
               "x" : 112.5,
-              "y" : 109.0,
+              "y" : 89.0,
               "xSpan" : 75.0,
-              "ySpan" : 94.0
+              "ySpan" : 54.0
             },
             "nodes" : [ "INTERNAL_vl1_loadC_fork", "INTERNAL_vl1_loadC" ]
           }, {
