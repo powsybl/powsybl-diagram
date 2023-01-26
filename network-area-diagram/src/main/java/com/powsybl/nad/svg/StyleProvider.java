@@ -27,6 +27,7 @@ public interface StyleProvider {
     String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
+    String EDGE_LABEL_CLASS = CLASSES_PREFIX + "edge-label";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
     String HVDC_CLASS = CLASSES_PREFIX + "hvdc";

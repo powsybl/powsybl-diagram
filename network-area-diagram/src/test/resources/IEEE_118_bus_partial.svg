@@ -7,7 +7,7 @@
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
-.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
 .nad-dangling-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; fill: none}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -21,7 +21,7 @@
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
-.nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-disconnected {--nad-vl-color: #808080}
@@ -338,6 +338,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-388.07,40.20)">
+                    <text transform="rotate(-271.16)" x="0.00" style="text-anchor:end">L40-42-1</text>
+                </g>
+            </g>
         </g>
         <g id="45">
             <desc>L41-42-1</desc>
@@ -358,6 +363,11 @@
                         </g>
                         <text transform="rotate(-336.59)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-644.22,92.70)">
+                    <text transform="rotate(-336.59)" x="0.00" style="text-anchor:end">L41-42-1</text>
                 </g>
             </g>
         </g>
@@ -401,6 +411,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-135.64,340.34)">
+                    <text transform="rotate(20.39)" x="0.00" style="text-anchor:middle">L42-49-1</text>
+                </g>
+            </g>
         </g>
         <g id="47">
             <desc>L42-49-2</desc>
@@ -442,6 +457,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-107.76,265.35)">
+                    <text transform="rotate(20.39)" x="0.00" style="text-anchor:middle">L42-49-2</text>
+                </g>
+            </g>
         </g>
         <g id="50">
             <desc>L44-45-1</desc>
@@ -464,6 +484,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(468.94,399.99)">
+                    <text transform="rotate(-71.79)" x="0.00" style="text-anchor:start">L44-45-1</text>
+                </g>
+            </g>
         </g>
         <g id="53">
             <desc>L45-46-1</desc>
@@ -484,6 +509,11 @@
                         </g>
                         <text transform="rotate(-79.17)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(376.45,760.94)">
+                    <text transform="rotate(-79.17)" x="0.00" style="text-anchor:end">L45-46-1</text>
                 </g>
             </g>
         </g>
@@ -527,6 +557,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(277.13,485.43)">
+                    <text transform="rotate(-328.02)" x="0.00" style="text-anchor:middle">L45-49-1</text>
+                </g>
+            </g>
         </g>
         <g id="55">
             <desc>L46-47-1</desc>
@@ -547,6 +582,11 @@
                         </g>
                         <text transform="rotate(9.45)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(158.48,921.45)">
+                    <text transform="rotate(9.45)" x="0.00" style="text-anchor:start">L46-47-1</text>
                 </g>
             </g>
         </g>
@@ -590,6 +630,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(59.16,645.94)">
+                    <text transform="rotate(-71.48)" x="0.00" style="text-anchor:middle">L47-49-1</text>
+                </g>
+            </g>
         </g>
         <g id="57">
             <desc>L47-69-1</desc>
@@ -631,6 +676,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-47.18,1102.56)">
+                    <text transform="rotate(-83.47)" x="0.00" style="text-anchor:middle">L47-69-1</text>
+                </g>
+            </g>
         </g>
         <g id="58">
             <desc>L46-48-1</desc>
@@ -651,6 +701,11 @@
                         </g>
                         <text transform="rotate(-16.21)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(489.59,908.16)">
+                    <text transform="rotate(-16.21)" x="0.00" style="text-anchor:end">L46-48-1</text>
                 </g>
             </g>
         </g>
@@ -694,6 +749,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(390.27,632.65)">
+                    <text transform="rotate(-317.02)" x="0.00" style="text-anchor:middle">L48-49-1</text>
+                </g>
+            </g>
         </g>
         <g id="60">
             <desc>L49-50-1</desc>
@@ -733,6 +793,11 @@
                         </g>
                         <text transform="rotate(-0.59)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(516.02,396.79)">
+                    <text transform="rotate(-0.59)" x="0.00" style="text-anchor:middle">L49-50-1</text>
                 </g>
             </g>
         </g>
@@ -776,6 +841,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(459.86,101.18)">
+                    <text transform="rotate(-43.23)" x="0.00" style="text-anchor:middle">L49-51-1</text>
+                </g>
+            </g>
         </g>
         <g id="62">
             <desc>L49-54-1</desc>
@@ -815,6 +885,11 @@
                         </g>
                         <text transform="rotate(-80.63)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(254.64,-40.45)">
+                    <text transform="rotate(-80.63)" x="0.00" style="text-anchor:middle">L49-54-1</text>
                 </g>
             </g>
         </g>
@@ -858,6 +933,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(175.70,-53.47)">
+                    <text transform="rotate(-80.63)" x="0.00" style="text-anchor:middle">L49-54-2</text>
+                </g>
+            </g>
         </g>
         <g id="64">
             <desc>L49-66-1</desc>
@@ -897,6 +977,11 @@
                         </g>
                         <text transform="rotate(5.50)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-325.61,315.52)">
+                    <text transform="rotate(-354.50)" x="0.00" style="text-anchor:middle">L49-66-1</text>
                 </g>
             </g>
         </g>
@@ -940,6 +1025,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-333.28,395.15)">
+                    <text transform="rotate(-354.50)" x="0.00" style="text-anchor:middle">L49-66-2</text>
+                </g>
+            </g>
         </g>
         <g id="66">
             <desc>L49-69-1</desc>
@@ -979,6 +1069,11 @@
                         </g>
                         <text transform="rotate(-76.89)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(34.99,857.26)">
+                    <text transform="rotate(-76.89)" x="0.00" style="text-anchor:middle">L49-69-1</text>
                 </g>
             </g>
         </g>
@@ -1022,6 +1117,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(994.73,206.57)">
+                    <text transform="rotate(-60.83)" x="0.00" style="text-anchor:middle">L50-57-1</text>
+                </g>
+            </g>
         </g>
         <g id="68">
             <desc>L51-52-1</desc>
@@ -1061,6 +1161,11 @@
                         </g>
                         <text transform="rotate(-59.70)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(945.28,-483.87)">
+                    <text transform="rotate(-59.70)" x="0.00" style="text-anchor:middle">L51-52-1</text>
                 </g>
             </g>
         </g>
@@ -1104,6 +1209,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(928.58,-303.35)">
+                    <text transform="rotate(-34.97)" x="0.00" style="text-anchor:middle">L51-58-1</text>
+                </g>
+            </g>
         </g>
         <g id="70">
             <desc>L52-53-1</desc>
@@ -1143,6 +1253,11 @@
                         </g>
                         <text transform="rotate(29.34)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(945.06,-863.37)">
+                    <text transform="rotate(-330.66)" x="0.00" style="text-anchor:middle">L52-53-1</text>
                 </g>
             </g>
         </g>
@@ -1186,6 +1301,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(533.48,-725.92)">
+                    <text transform="rotate(-43.42)" x="0.00" style="text-anchor:middle">L53-54-1</text>
+                </g>
+            </g>
         </g>
         <g id="72">
             <desc>L54-55-1</desc>
@@ -1225,6 +1345,11 @@
                         </g>
                         <text transform="rotate(-83.83)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(308.41,-674.00)">
+                    <text transform="rotate(-83.83)" x="0.00" style="text-anchor:middle">L54-55-1</text>
                 </g>
             </g>
         </g>
@@ -1268,6 +1393,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(450.52,-519.37)">
+                    <text transform="rotate(-8.73)" x="0.00" style="text-anchor:middle">L54-56-1</text>
+                </g>
+            </g>
         </g>
         <g id="74">
             <desc>L54-59-1</desc>
@@ -1307,6 +1437,11 @@
                         </g>
                         <text transform="rotate(49.17)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(126.54,-682.60)">
+                    <text transform="rotate(-310.83)" x="0.00" style="text-anchor:middle">L54-59-1</text>
                 </g>
             </g>
         </g>
@@ -1350,6 +1485,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(469.92,-698.81)">
+                    <text transform="rotate(47.42)" x="0.00" style="text-anchor:middle">L55-56-1</text>
+                </g>
+            </g>
         </g>
         <g id="76">
             <desc>L55-59-1</desc>
@@ -1389,6 +1529,11 @@
                         </g>
                         <text transform="rotate(2.71)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(145.94,-862.04)">
+                    <text transform="rotate(-357.29)" x="0.00" style="text-anchor:middle">L55-59-1</text>
                 </g>
             </g>
         </g>
@@ -1432,6 +1577,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(855.38,-261.99)">
+                    <text transform="rotate(49.23)" x="0.00" style="text-anchor:middle">L56-57-1</text>
+                </g>
+            </g>
         </g>
         <g id="78">
             <desc>L56-58-1</desc>
@@ -1471,6 +1621,11 @@
                         </g>
                         <text transform="rotate(-343.78)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(845.40,-476.30)">
+                    <text transform="rotate(16.22)" x="0.00" style="text-anchor:middle">L56-58-1</text>
                 </g>
             </g>
         </g>
@@ -1514,6 +1669,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(306.04,-743.13)">
+                    <text transform="rotate(-333.26)" x="0.00" style="text-anchor:middle">L56-59-1</text>
+                </g>
+            </g>
         </g>
         <g id="80">
             <desc>L56-59-2</desc>
@@ -1553,6 +1713,11 @@
                         </g>
                         <text transform="rotate(26.74)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(270.04,-671.69)">
+                    <text transform="rotate(-333.26)" x="0.00" style="text-anchor:middle">L56-59-2</text>
                 </g>
             </g>
         </g>
@@ -1596,6 +1761,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-257.17,-795.29)">
+                    <text transform="rotate(-18.81)" x="0.00" style="text-anchor:middle">L59-60-1</text>
+                </g>
+            </g>
         </g>
         <g id="82">
             <desc>L59-61-1</desc>
@@ -1635,6 +1805,11 @@
                         </g>
                         <text transform="rotate(11.35)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-322.82,-928.23)">
+                    <text transform="rotate(-348.65)" x="0.00" style="text-anchor:middle">L59-61-1</text>
                 </g>
             </g>
         </g>
@@ -1681,6 +1856,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-127.26" cy="-1129.70" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-120.61" cy="-1110.84" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-123.93,-1120.27)">
+                    <text transform="rotate(70.58)" x="0.00" style="text-anchor:middle">T63-59-1</text>
+                </g>
             </g>
         </g>
         <g id="84">
@@ -1723,6 +1901,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-544.05,-852.88)">
+                    <text transform="rotate(-296.28)" x="0.00" style="text-anchor:middle">L60-61-1</text>
+                </g>
+            </g>
         </g>
         <g id="87">
             <desc>L60-62-1</desc>
@@ -1745,6 +1928,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-644.79,-599.82)">
+                    <text transform="rotate(-35.83)" x="0.00" style="text-anchor:end">L60-62-1</text>
+                </g>
+            </g>
         </g>
         <g id="88">
             <desc>L61-62-1</desc>
@@ -1765,6 +1953,11 @@
                         </g>
                         <text transform="rotate(-68.29)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-710.44,-732.76)">
+                    <text transform="rotate(-68.29)" x="0.00" style="text-anchor:end">L61-62-1</text>
                 </g>
             </g>
         </g>
@@ -1793,6 +1986,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-609.22" cy="-1213.64" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-609.26" cy="-1193.64" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-609.24,-1203.64)">
+                    <text transform="rotate(-89.88)" x="0.00" style="text-anchor:start">T64-61-1</text>
+                </g>
             </g>
         </g>
         <g id="92">
@@ -1814,6 +2010,11 @@
                         </g>
                         <text transform="rotate(-352.60)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-410.36,-1395.68)">
+                    <text transform="rotate(-352.60)" x="0.00" style="text-anchor:end">L63-64-1</text>
                 </g>
             </g>
         </g>
@@ -1838,6 +2039,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-805.70,-84.84)">
+                    <text transform="rotate(-270.80)" x="0.00" style="text-anchor:end">L62-66-1</text>
+                </g>
+            </g>
         </g>
         <g id="96">
             <desc>L66-67-1</desc>
@@ -1858,6 +2064,11 @@
                         </g>
                         <text transform="rotate(-54.68)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-940.23,507.63)">
+                    <text transform="rotate(-54.68)" x="0.00" style="text-anchor:end">L66-67-1</text>
                 </g>
             </g>
         </g>
@@ -1886,6 +2097,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-1079.94" cy="313.75" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-1059.94" cy="313.48" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-1069.94,313.61)">
+                    <text transform="rotate(-0.76)" x="0.00" style="text-anchor:end">T65-66-1</text>
+                </g>
             </g>
         </g>
         <g id="102">
@@ -1907,6 +2121,11 @@
                         </g>
                         <text transform="rotate(29.78)" x="19.00">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(151.41,1441.36)">
+                    <text transform="rotate(29.78)" x="0.00" style="text-anchor:start">L69-70-1</text>
                 </g>
             </g>
         </g>
@@ -1931,6 +2150,11 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-224.71,1526.05)">
+                    <text transform="rotate(-54.14)" x="0.00" style="text-anchor:end">L69-75-1</text>
+                </g>
+            </g>
         </g>
         <g id="108">
             <desc>L69-77-1</desc>
@@ -1951,6 +2175,11 @@
                         </g>
                         <text transform="rotate(-3.73)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-305.44,1329.15)">
+                    <text transform="rotate(-3.73)" x="0.00" style="text-anchor:end">L69-77-1</text>
                 </g>
             </g>
         </g>
@@ -1979,6 +2208,9 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl120to180-line nad-winding" cx="-13.84" cy="1575.97" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-18.13" cy="1556.44" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-15.98,1566.21)">
+                    <text transform="rotate(77.62)" x="0.00" style="text-anchor:start">T68-69-1</text>
+                </g>
             </g>
         </g>
     </g>

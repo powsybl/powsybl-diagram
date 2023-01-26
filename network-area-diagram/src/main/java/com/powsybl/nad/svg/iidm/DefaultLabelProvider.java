@@ -49,6 +49,11 @@ public class DefaultLabelProvider implements LabelProvider {
         return getEdgeInfos(terminal);
     }
 
+    @Override
+    public String getLabel(Edge edge) {
+        return edge.getEquipmentId();
+    }
+
     private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
         if (terminal == null) {
             return Collections.emptyList();
