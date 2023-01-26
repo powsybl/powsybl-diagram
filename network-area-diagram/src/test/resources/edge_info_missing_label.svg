@@ -144,7 +144,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -157,7 +157,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>

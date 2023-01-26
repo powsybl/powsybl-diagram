@@ -55,7 +55,7 @@ public class SvgParameters {
     private double pstArrowHeadSize = 8;
 
     /** em dash unicode for undefined value */
-    private String undefinedValueSymbol = "\u2014";
+    private String undefinedValueSymbol = "";
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
