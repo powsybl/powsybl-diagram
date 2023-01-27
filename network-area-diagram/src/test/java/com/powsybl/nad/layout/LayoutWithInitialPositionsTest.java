@@ -63,6 +63,7 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
     public void testNbVoltageLevels() {
         Network network = LayoutNetworkFactory.createDiamond();
 
+        assertEquals(0, new NetworkAreaDiagram(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "A 400", -1)).getNbVoltageLevels());
         assertEquals(1, new NetworkAreaDiagram(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "A 400", 0)).getNbVoltageLevels());
         assertEquals(4, new NetworkAreaDiagram(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "A 400", 3)).getNbVoltageLevels());
         assertEquals(7, new NetworkAreaDiagram(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "A 400", 5)).getNbVoltageLevels());
