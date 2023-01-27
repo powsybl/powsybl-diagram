@@ -30,7 +30,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     }
 
     public int getNbVoltageLevels() {
-        return voltageLevels != null ? voltageLevels.size() : 0;
+        return voltageLevels.size();
     }
 
     @Override
