@@ -52,7 +52,7 @@ public abstract class AbstractTestCase {
                 .setShowInternalNodes(false)
                 .setScaleFactor(1)
                 .setFeederInfosOuterMargin(20)
-                .setDrawStraightWires(true)
+                .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30)
                 .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)

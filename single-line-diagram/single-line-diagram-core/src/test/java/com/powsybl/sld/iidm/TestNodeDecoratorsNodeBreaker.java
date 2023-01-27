@@ -33,7 +33,6 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setShowInternalNodes(false);
         network = CreateNetworksUtil.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
         graphBuilder = new NetworkGraphBuilder(network);
     }
