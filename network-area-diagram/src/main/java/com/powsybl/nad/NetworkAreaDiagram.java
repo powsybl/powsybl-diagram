@@ -150,4 +150,10 @@ public class NetworkAreaDiagram {
             throw new UncheckedIOException(e);
         }
     }
+
+    public int getNbVoltageLevels() {
+        return voltageLevelFilter instanceof VoltageLevelFilter
+            ? ((VoltageLevelFilter) voltageLevelFilter).getNbVoltageLevels()
+            : network.getVoltageLevelCount();
+    }
 }
