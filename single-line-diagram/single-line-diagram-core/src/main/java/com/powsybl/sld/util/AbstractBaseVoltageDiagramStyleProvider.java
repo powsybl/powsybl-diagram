@@ -47,13 +47,23 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         VoltageLevelInfos vLevelInfos;
-        Node nodeForStyle = edge.getNode1() instanceof MiddleTwtNode ? edge.getNode2() : edge.getNode1();
+        Node nodeForStyle = isMultiTerminalNode(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
         if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
             vLevelInfos = ((FeederTwLeg) ((FeederNode) nodeForStyle).getFeeder()).getVoltageLevelInfos();
         } else {
             vLevelInfos = graph.getVoltageLevelInfos(nodeForStyle);
         }
         return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
+    }
+
+    protected boolean isMultiTerminalNode(Node node) {
+        if (node instanceof EquipmentNode) {
+            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
+            if (identifiable instanceof Connectable<?>) {
+                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -71,14 +81,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     }
 
     protected boolean isNodeConnectingElectricalNodes(Node node) {
-        if (node instanceof FeederNode) {
-            // filtering out leg nodes as they are nodes with the same voltage level at each side
-            Feeder feeder = ((FeederNode) node).getFeeder();
-            return feeder instanceof FeederWithSides && !(feeder instanceof FeederTwLeg);
-        } else {
-            return node instanceof Middle3WTNode
-                    || ComponentTypeName.PHASE_SHIFT_TRANSFORMER.equals(node.getComponentType());
-        }
+        return isMultiTerminalNode(node)
+                // filtering out leg nodes as they are nodes with the same voltage level at each side
+                && (!(node instanceof FeederNode) || !(((FeederNode) node).getFeeder() instanceof FeederTwLeg));
     }
 
     @Override
@@ -162,19 +167,21 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         VoltageLevelGraph g = graph.getVoltageLevelGraph(node);
         if (g != null) {
             // node inside a voltageLevel graph
-            VoltageLevelInfos vlInfo = null;
-            if (node instanceof FeederNode) {
-                Feeder feeder = ((FeederNode) node).getFeeder();
-                if (feeder instanceof FeederWithSides) {
-                    vlInfo = getSubComponentVoltageLevelInfos((FeederWithSides) feeder, subComponentName);
+            if (isNodeConnectingElectricalNodes(node)) {
+                if (node instanceof FeederNode) {
+                    Feeder feeder = ((FeederNode) node).getFeeder();
+                    if (feeder instanceof FeederWithSides) {
+                        VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((FeederWithSides) feeder, subComponentName);
+                        getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                    }
+                } else if (node instanceof Middle3WTNode) {
+                    VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((Middle3WTNode) node, subComponentName);
+                    getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                } else {
+                    VoltageLevelInfos vlInfo = graph.getVoltageLevelInfos(node);
+                    getVoltageLevelNodeStyle(vlInfo, node, getSide(subComponentName)).ifPresent(styles::add);
                 }
-            } else if (node instanceof Middle3WTNode) {
-                vlInfo = getSubComponentVoltageLevelInfos((Middle3WTNode) node, subComponentName);
             }
-            if (vlInfo != null) {
-                getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
-            }
-
         } else {
             // node outside any voltageLevel graph (multi-terminal node)
             Node feederNode = null;
@@ -203,6 +210,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
                 .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
     }
 
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+        return getVoltageLevelNodeStyle(vlInfo, node);
+    }
+
     private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
             case WINDING1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
@@ -222,6 +233,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         } else {
             return feederWs.getVoltageLevelInfos();
         }
+    }
+
+    protected NodeSide getSide(String subComponentName) {
+        return subComponentName.equals(WINDING2) ? NodeSide.TWO : NodeSide.ONE;
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
