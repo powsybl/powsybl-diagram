@@ -14,8 +14,6 @@ import java.util.Locale;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class ValueFormatter {
-    /** em dash unicode for undefined value */
-    public static final String DASH_CHAR = "\u2014";
 
     /** degree sign unicode for degree symbol */
     private static final String DEGREE_CHAR = "\u00b0";
@@ -24,13 +22,15 @@ public class ValueFormatter {
     private final int voltageValuePrecision;
     private final int angleValuePrecision;
     private final DecimalFormat format;
+    private final String undefinedValueSymbol;
 
-    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int angleValuePrecision, Locale locale) {
+    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int angleValuePrecision, Locale locale, String undefinedValueSymbol) {
         this.powerValuePrecision = powerValuePrecision;
         this.voltageValuePrecision = voltageValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
         this.format = new DecimalFormat();
         format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
+        this.undefinedValueSymbol = undefinedValueSymbol;
     }
 
     public String formatVoltage(double voltage) {
@@ -39,7 +39,7 @@ public class ValueFormatter {
 
     public String formatVoltage(double voltage, String unit) {
         setFractionDigits(voltageValuePrecision);
-        String valueFormatted = Double.isNaN(voltage) ? DASH_CHAR : format.format(voltage);
+        String valueFormatted = Double.isNaN(voltage) ? undefinedValueSymbol : format.format(voltage);
         return valueFormatted + " " + unit;
     }
 
@@ -49,13 +49,13 @@ public class ValueFormatter {
 
     public String formatPower(double power, String unit) {
         setFractionDigits(powerValuePrecision);
-        String valueFormatted = Double.isNaN(power) ? DASH_CHAR : format.format(power);
+        String valueFormatted = Double.isNaN(power) ? undefinedValueSymbol : format.format(power);
         return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }
 
     public String formatAngleInDegrees(double angleInDegrees) {
         setFractionDigits(angleValuePrecision);
-        String valueFormatted = Double.isNaN(angleInDegrees) ? DASH_CHAR : format.format(angleInDegrees);
+        String valueFormatted = Double.isNaN(angleInDegrees) ? undefinedValueSymbol : format.format(angleInDegrees);
         return valueFormatted + DEGREE_CHAR;
     }
 

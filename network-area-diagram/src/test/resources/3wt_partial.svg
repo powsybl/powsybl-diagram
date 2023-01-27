@@ -84,14 +84,14 @@
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-15.41)" x="19.00">—</text>
+                    <text transform="rotate(-15.41)" x="19.00"></text>
                 </g>
                 <g class="nad-reactive nad-state-out">
                     <g transform="rotate(74.59)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-15.41)" x="19.00">—</text>
+                    <text transform="rotate(-15.41)" x="19.00"></text>
                 </g>
             </g>
         </g>
