@@ -5,7 +5,7 @@
     "nominalVoltage" : 380.0
   },
   "x" : 40.0,
-  "y" : 80.0,testComplexParallelLegs
+  "y" : 80.0,
   "nodes" : [ {
     "type" : "INTERNAL",
     "id" : "BUSCO_bCD1",
