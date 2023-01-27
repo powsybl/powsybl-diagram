@@ -47,7 +47,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         VoltageLevelInfos vLevelInfos;
-        Node nodeForStyle = isMultiTerminalNode(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
+        Node nodeForStyle = isNodeConnectingElectricalNodes(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
         if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
             vLevelInfos = ((FeederTwLeg) ((FeederNode) nodeForStyle).getFeeder()).getVoltageLevelInfos();
         } else {
@@ -205,14 +205,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
      * @param node   the node on which the style if any is applied to
      * @return the voltage level style if any
      */
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
-                .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
-    }
+    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node);
 
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
-        return getVoltageLevelNodeStyle(vlInfo, node);
-    }
+    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side);
 
     private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
@@ -265,10 +260,4 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         }
         return Collections.emptyList();
     }
-
-    @Override
-    public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css");
-    }
-
 }

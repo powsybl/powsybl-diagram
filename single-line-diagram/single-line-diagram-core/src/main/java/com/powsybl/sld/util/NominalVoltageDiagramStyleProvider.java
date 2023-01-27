@@ -8,6 +8,14 @@ package com.powsybl.sld.util;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.svg.DiagramStyles;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -23,4 +31,19 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
         super(baseVoltagesConfig, network);
     }
 
+    @Override
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
+        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
+                .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
+    }
+
+    @Override
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+        return getVoltageLevelNodeStyle(vlInfo, node);
+    }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css");
+    }
 }
