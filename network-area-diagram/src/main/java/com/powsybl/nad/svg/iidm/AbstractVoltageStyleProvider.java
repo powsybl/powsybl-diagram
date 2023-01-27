@@ -118,7 +118,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
         String branchType = edge.getType();
         if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
-            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getBoundary().getVoltageLevel().getNominalV());
+            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV());
         }
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return getBaseVoltageStyle(terminal);

@@ -216,12 +216,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(FeederWithSides feederWs, String subComponentName) {
-        if (subComponentName.equals(WINDING1)) {
-            return feederWs.getVoltageLevelInfos();
-        } else if (subComponentName.equals(WINDING2)) {
+        if (subComponentName.equals(WINDING2)) {
             return feederWs.getOtherSideVoltageLevelInfos();
         } else {
-            return null;
+            return feederWs.getVoltageLevelInfos();
         }
     }
 
@@ -230,7 +228,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
             case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
             case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
-            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
+            default: return null; // for decorators
         }
     }
 

@@ -13,9 +13,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.LabelPosition;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,10 +30,10 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
+        layoutParameters.setShowInternalNodes(true);
         network = Network.read("consecutive_shunts.xiidm", getClass().getResourceAsStream("/consecutive_shunts.xiidm"));
         vl = network.getVoltageLevel("AU");
         graphBuilder = new NetworkGraphBuilder(network);
-        layoutParameters.setAdaptCellHeightToContent(true);
     }
 
     @Override
@@ -48,11 +46,6 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
                         : Collections.singletonList(new NodeLabel(node.getId(), new LabelPosition("NW", 4, -1, true, 0)));
             }
         };
-    }
-
-    @Override
-    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
     }
 
     @Test
