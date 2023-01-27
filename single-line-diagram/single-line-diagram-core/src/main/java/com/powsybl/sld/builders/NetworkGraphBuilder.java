@@ -104,7 +104,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // Add snake edges in the same voltage level
-        addSnakeEdges(graph, vl);
+        addBranchEdges(graph, vl);
 
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
 
@@ -113,7 +113,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         handleConnectedComponents(graph);
     }
 
-    private void addSnakeEdges(VoltageLevelGraph graph, VoltageLevel vl) {
+    private void addBranchEdges(VoltageLevelGraph graph, VoltageLevel vl) {
         addLineEdges(graph, vl.getConnectableStream(Line.class)
                 .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
                 .collect(Collectors.toList()));
