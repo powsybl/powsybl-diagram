@@ -7,7 +7,7 @@
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
-.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
 .nad-dangling-line-edge {fill: var(--nad-vl-color, lighgrey)}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
@@ -20,7 +20,7 @@
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -160,14 +160,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(15.22)" x="19.00">—</text>
+                        <text transform="rotate(15.22)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(105.22)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(15.22)" x="19.00">—</text>
+                        <text transform="rotate(15.22)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -179,15 +179,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-344.78)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-344.78)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-74.78)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-344.78)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-344.78)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-866.40,391.80)">
+                    <text transform="rotate(15.22)" x="0.00" style="text-anchor:middle">A - B</text>
                 </g>
             </g>
         </g>
@@ -200,14 +205,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(34.88)" x="19.00">—</text>
+                        <text transform="rotate(34.88)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(124.88)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(34.88)" x="19.00">—</text>
+                        <text transform="rotate(34.88)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -219,20 +224,23 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-325.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-325.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-55.12)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-325.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-325.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
             <g class="nad-glued-center">
                 <circle class="nad-vl300to500 nad-winding" cx="-1248.48" cy="216.21" r="20.00"/>
                 <circle class="nad-vl180to300 nad-winding" cx="-1232.08" cy="227.65" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(-1240.28,221.93)">
+                    <text transform="rotate(34.88)" x="0.00" style="text-anchor:middle">A 400 230</text>
+                </g>
             </g>
         </g>
         <g id="32">
@@ -244,14 +252,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-9.61)" x="19.00">—</text>
+                        <text transform="rotate(-9.61)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(80.39)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-9.61)" x="19.00">—</text>
+                        <text transform="rotate(-9.61)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -263,15 +271,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-9.61)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-9.61)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-99.61)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-9.61)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-9.61)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-392.94,405.86)">
+                    <text transform="rotate(-9.61)" x="0.00" style="text-anchor:middle">B - C</text>
                 </g>
             </g>
         </g>
@@ -284,14 +297,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-39.82)" x="19.00">—</text>
+                        <text transform="rotate(-39.82)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(50.18)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-39.82)" x="19.00">—</text>
+                        <text transform="rotate(-39.82)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -303,20 +316,23 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-39.82)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-39.82)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-129.82)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-39.82)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-39.82)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
             <g class="nad-glued-center">
                 <circle class="nad-vl50to70 nad-winding" cx="876.35" cy="-194.88" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="891.71" cy="-207.68" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(884.03,-201.28)">
+                    <text transform="rotate(-39.82)" x="0.00" style="text-anchor:middle">C 66 20</text>
+                </g>
             </g>
         </g>
         <g id="34">
@@ -328,14 +344,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-26.12)" x="19.00">—</text>
+                        <text transform="rotate(-26.12)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(63.88)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-26.12)" x="19.00">—</text>
+                        <text transform="rotate(-26.12)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -347,20 +363,23 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-26.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-26.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-116.12)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-26.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-26.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="272.79" cy="162.82" r="20.00"/>
                 <circle class="nad-vl50to70 nad-winding" cx="290.75" cy="154.02" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(281.77,158.42)">
+                    <text transform="rotate(-26.12)" x="0.00" style="text-anchor:middle">C 230 66</text>
+                </g>
             </g>
         </g>
         <g id="35">
@@ -372,14 +391,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(51.33)" x="19.00">—</text>
+                        <text transform="rotate(51.33)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(141.33)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(51.33)" x="19.00">—</text>
+                        <text transform="rotate(51.33)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -391,15 +410,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-308.67)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-308.67)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-38.67)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-308.67)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-308.67)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(793.31,75.87)">
+                    <text transform="rotate(51.33)" x="0.00" style="text-anchor:middle">C - D</text>
                 </g>
             </g>
         </g>
@@ -412,14 +436,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-270.72)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-270.72)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-0.72)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-270.72)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-270.72)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
@@ -431,15 +455,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(89.28)" x="19.00">—</text>
+                        <text transform="rotate(89.28)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(179.28)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(89.28)" x="19.00">—</text>
+                        <text transform="rotate(89.28)" x="19.00"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(391.55,-230.95)">
+                    <text transform="rotate(-270.72)" x="0.00" style="text-anchor:middle">D - E</text>
                 </g>
             </g>
         </g>
@@ -452,14 +481,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(24.68)" x="19.00">—</text>
+                        <text transform="rotate(24.68)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(114.68)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(24.68)" x="19.00">—</text>
+                        <text transform="rotate(24.68)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -471,15 +500,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-335.32)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-335.32)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-65.32)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-335.32)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-335.32)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(96.36,-118.51)">
+                    <text transform="rotate(24.68)" x="0.00" style="text-anchor:middle">H - D</text>
                 </g>
             </g>
         </g>
@@ -492,14 +526,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-284.64)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-284.64)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-14.64)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-284.64)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-284.64)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
@@ -511,15 +545,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(75.36)" x="19.00">—</text>
+                        <text transform="rotate(75.36)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(165.36)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(75.36)" x="19.00">—</text>
+                        <text transform="rotate(75.36)" x="19.00"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(462.91,279.75)">
+                    <text transform="rotate(-284.64)" x="0.00" style="text-anchor:middle">K - D</text>
                 </g>
             </g>
         </g>
@@ -532,14 +571,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-340.22)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-340.22)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-70.22)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-340.22)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-340.22)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
@@ -551,20 +590,23 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(19.78)" x="19.00">—</text>
+                        <text transform="rotate(19.78)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(109.78)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(19.78)" x="19.00">—</text>
+                        <text transform="rotate(19.78)" x="19.00"></text>
                     </g>
                 </g>
             </g>
             <g class="nad-glued-center">
                 <circle class="nad-vl50to70 nad-winding" cx="651.79" cy="111.03" r="20.00"/>
                 <circle class="nad-vl0to30 nad-winding" cx="632.97" cy="104.26" r="20.00"/>
+                <g class="nad-edge-label" transform="translate(642.38,107.64)">
+                    <text transform="rotate(-340.22)" x="0.00" style="text-anchor:middle">D 66 10</text>
+                </g>
             </g>
         </g>
         <g id="40">
@@ -576,14 +618,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-352.57)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-352.57)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-82.57)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-352.57)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-352.57)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
@@ -595,15 +637,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(7.43)" x="19.00">—</text>
+                        <text transform="rotate(7.43)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(97.43)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(7.43)" x="19.00">—</text>
+                        <text transform="rotate(7.43)" x="19.00"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(207.73,-504.02)">
+                    <text transform="rotate(-352.57)" x="0.00" style="text-anchor:middle">E - F</text>
                 </g>
             </g>
         </g>
@@ -616,14 +663,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-345.26)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-345.26)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-75.26)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-345.26)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-345.26)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
@@ -635,15 +682,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(14.74)" x="19.00">—</text>
+                        <text transform="rotate(14.74)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(104.74)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(14.74)" x="19.00">—</text>
+                        <text transform="rotate(14.74)" x="19.00"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-163.09,-577.62)">
+                    <text transform="rotate(-345.26)" x="0.00" style="text-anchor:middle">F - G</text>
                 </g>
             </g>
         </g>
@@ -656,14 +708,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(89.01)" x="19.00">—</text>
+                        <text transform="rotate(89.01)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(179.01)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(89.01)" x="19.00">—</text>
+                        <text transform="rotate(89.01)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -675,15 +727,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-270.99)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-270.99)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-0.99)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-270.99)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-270.99)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(32.02,-240.72)">
+                    <text transform="rotate(89.01)" x="0.00" style="text-anchor:middle">F - I</text>
                 </g>
             </g>
         </g>
@@ -696,14 +753,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(67.88)" x="19.00">—</text>
+                        <text transform="rotate(67.88)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(157.88)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(67.88)" x="19.00">—</text>
+                        <text transform="rotate(67.88)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -715,15 +772,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-292.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-292.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-22.12)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-292.12)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-292.12)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-277.62,-441.63)">
+                    <text transform="rotate(67.88)" x="0.00" style="text-anchor:middle">G - H</text>
                 </g>
             </g>
         </g>
@@ -736,14 +798,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(73.56)" x="19.00">—</text>
+                        <text transform="rotate(73.56)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(163.56)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(73.56)" x="19.00">—</text>
+                        <text transform="rotate(73.56)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -755,15 +817,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-286.44)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-286.44)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-16.44)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-286.44)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-286.44)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(117.06,317.59)">
+                    <text transform="rotate(73.56)" x="0.00" style="text-anchor:middle">I - J</text>
                 </g>
             </g>
         </g>
@@ -776,14 +843,14 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-8.20)" x="19.00">—</text>
+                        <text transform="rotate(-8.20)" x="19.00"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(81.80)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-8.20)" x="19.00">—</text>
+                        <text transform="rotate(-8.20)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -795,15 +862,20 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-8.20)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-8.20)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                     <g class="nad-reactive nad-state-out">
                         <g transform="rotate(-98.20)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-8.20)" x="-19.00" style="text-anchor:end">—</text>
+                        <text transform="rotate(-8.20)" x="-19.00" style="text-anchor:end"></text>
                     </g>
+                </g>
+            </g>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(364.13,564.99)">
+                    <text transform="rotate(-8.20)" x="0.00" style="text-anchor:middle">J - K</text>
                 </g>
             </g>
         </g>
@@ -834,7 +906,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -847,7 +919,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -860,7 +932,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -873,7 +945,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -886,7 +958,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -899,7 +971,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -912,7 +984,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -925,7 +997,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -938,7 +1010,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -951,7 +1023,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -964,7 +1036,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -977,7 +1049,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -990,7 +1062,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -1003,7 +1075,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>
@@ -1016,7 +1088,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>— kV / —°</td>
+                        <td> kV / °</td>
                     </tr>
                 </table>
             </div>

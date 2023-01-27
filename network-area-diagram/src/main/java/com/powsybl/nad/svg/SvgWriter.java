@@ -129,6 +129,7 @@ public class SvgWriter {
 
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+
             drawEdgeCenter(writer, edge);
 
             writer.writeEndElement();
@@ -136,8 +137,50 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+
+        String edgeLabel = labelProvider.getLabel(edge);
+
+        if (edgeLabel == null || edgeLabel.isEmpty()) {
+            return;
+        }
+
+        List<Point> points1 = edge.getPoints1();
+        List<Point> points2 = edge.getPoints2();
+        Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
+
+        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
+            drawEdgeMiddleLabel(edgeLabel, edge, writer);
+        } else if (edge.isVisible(BranchEdge.Side.ONE)) {
+            drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.ONE, writer);
+        } else {
+            drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.TWO, writer);
+        }
+
+        writer.writeEndElement();
+    }
+
+    private void drawEdgeMiddleLabel(String edgeLabel, BranchEdge edge, XMLStreamWriter writer) throws XMLStreamException {
+        double edgeEndAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+        drawLabel(writer, edgeLabel, 0, "text-anchor:middle", computeTextAngle(edgeEndAngle), X_ATTRIBUTE);
+    }
+
+    private void drawHalfEdgeLabel(String edgeLabel, BranchEdge edge, BranchEdge.Side side, XMLStreamWriter writer) throws XMLStreamException {
+        double edgeEndAngle = edge.getEdgeEndAngle(side);
+        String style = Math.cos(edgeEndAngle) < 0 ? "text-anchor:end" : "text-anchor:start";
+        drawLabel(writer, edgeLabel, 0, style, computeTextAngle(edgeEndAngle), X_ATTRIBUTE);
+    }
+
+    private double computeTextAngle(double edgeEndAngle) {
+        return Math.cos(edgeEndAngle) < 0 ? edgeEndAngle - Math.PI : edgeEndAngle;
+    }
+
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-        if (BranchEdge.LINE_EDGE.equals(edge.getType()) || BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
+        if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -151,7 +194,10 @@ public class SvgWriter {
                 drawConverterStation(writer, edge);
                 break;
             default:
-                // Should not happen as lines are discarded beforehand
+                break;
+        }
+        if (svgParameters.isEdgeNameDisplayed()) {
+            drawEdgeLabel(writer, edge);
         }
         writer.writeEndElement();
     }

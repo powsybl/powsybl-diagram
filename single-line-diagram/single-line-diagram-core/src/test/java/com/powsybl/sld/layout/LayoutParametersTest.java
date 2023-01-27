@@ -61,7 +61,8 @@ public class LayoutParametersTest {
                 .setLanguageTag("fr")
                 .setVoltageValuePrecision(3)
                 .setPowerValuePrecision(2)
-                .setAngleValuePrecision(0);
+                .setAngleValuePrecision(0)
+                .setUndefinedValueSymbol("\u002A");
 
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
@@ -111,5 +112,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getVoltageValuePrecision(), layoutParameters2.getVoltageValuePrecision());
         assertEquals(layoutParameters.getPowerValuePrecision(), layoutParameters2.getPowerValuePrecision());
         assertEquals(layoutParameters.getAngleValuePrecision(), layoutParameters2.getAngleValuePrecision());
+        assertEquals(layoutParameters.getUndefinedValueSymbol(), layoutParameters2.getUndefinedValueSymbol());
     }
 }

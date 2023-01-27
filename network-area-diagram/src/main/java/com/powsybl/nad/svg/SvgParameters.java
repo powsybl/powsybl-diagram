@@ -26,7 +26,7 @@ public class SvgParameters {
     private double fixedScale = 0.2;
     private double arrowShift = 30;
     private double arrowLabelShift = 19;
-    private double converterStationWidth = 60;
+    private double converterStationWidth = 70;
     private double voltageLevelCircleRadius = 30;
     private double fictitiousVoltageLevelCircleRadius = 15;
     private double transformerCircleRadius = 20;
@@ -39,6 +39,7 @@ public class SvgParameters {
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
+    private boolean edgeNameDisplayed = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
@@ -52,6 +53,7 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private double pstArrowHeadSize = 8;
+    private String undefinedValueSymbol = "";
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -88,6 +90,7 @@ public class SvgParameters {
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
+        this.edgeNameDisplayed = other.edgeNameDisplayed;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
@@ -101,6 +104,7 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
+        this.undefinedValueSymbol = other.undefinedValueSymbol;
     }
 
     public Padding getDiagramPadding() {
@@ -313,6 +317,15 @@ public class SvgParameters {
         return this;
     }
 
+    public boolean isEdgeNameDisplayed() {
+        return edgeNameDisplayed;
+    }
+
+    public SvgParameters setEdgeNameDisplayed(boolean edgeNameDisplayed) {
+        this.edgeNameDisplayed = edgeNameDisplayed;
+        return this;
+    }
+
     public double getInterAnnulusSpace() {
         return interAnnulusSpace;
     }
@@ -426,7 +439,7 @@ public class SvgParameters {
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public double getPstArrowHeadSize() {
@@ -435,6 +448,15 @@ public class SvgParameters {
 
     public SvgParameters setPstArrowHeadSize(double pstArrowHeadSize) {
         this.pstArrowHeadSize = pstArrowHeadSize;
+        return this;
+    }
+
+    public String getUndefinedValueSymbol() {
+        return undefinedValueSymbol;
+    }
+
+    public SvgParameters setUndefinedValueSymbol(String undefinedValueSymbol) {
+        this.undefinedValueSymbol = undefinedValueSymbol;
         return this;
     }
 }

@@ -424,7 +424,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
                 feeder.getOrder().ifPresent(node::setOrder);
-                node.setLabel(feeder.getName());
+                feeder.getName().ifPresent(node::setLabel);
                 Direction dir = Direction.valueOf(feeder.getDirection().toString());
                 node.setDirection(dir == UNDEFINED ? TOP : dir);
             }
@@ -440,8 +440,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     firstOtherLegNode.setOrder(order);
                     secondOtherLegNode.setOrder(order + 1);
                 });
-                firstOtherLegNode.setLabel(feeder.getName());
-                secondOtherLegNode.setLabel(feeder.getName());
+                feeder.getName().ifPresent(name -> {
+                    firstOtherLegNode.setLabel(name);
+                    secondOtherLegNode.setLabel(name);
+                });
             }
 
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);

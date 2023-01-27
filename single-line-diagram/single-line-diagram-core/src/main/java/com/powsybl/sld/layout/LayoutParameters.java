@@ -94,6 +94,9 @@ public class LayoutParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
 
+    /** em dash unicode for undefined value */
+    private String undefinedValueSymbol = "\u2014";
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -141,7 +144,8 @@ public class LayoutParameters {
                             @JsonProperty("languageTag") String languageTag,
                             @JsonProperty("voltageValuePrecision") int voltageValuePrecision,
                             @JsonProperty("powerValuePrecision") int powerValuePrecision,
-                            @JsonProperty("angleValuePrecision") int angleValuePrecision) {
+                            @JsonProperty("angleValuePrecision") int angleValuePrecision,
+                            @JsonProperty("undefinedValueSymbol") String undefinedValueSymbol) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -182,6 +186,7 @@ public class LayoutParameters {
         this.voltageValuePrecision = voltageValuePrecision;
         this.powerValuePrecision = powerValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
+        this.undefinedValueSymbol = undefinedValueSymbol;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -227,6 +232,7 @@ public class LayoutParameters {
         voltageValuePrecision = other.voltageValuePrecision;
         powerValuePrecision = other.powerValuePrecision;
         angleValuePrecision = other.angleValuePrecision;
+        undefinedValueSymbol = other.undefinedValueSymbol;
     }
 
     public double getVerticalSpaceBus() {
@@ -607,7 +613,7 @@ public class LayoutParameters {
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public enum Alignment {
@@ -665,5 +671,14 @@ public class LayoutParameters {
         // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
         // + half the height of the feeder component + half the height of that node component
         return getSpaceForFeederInfos() + getMaxComponentHeight();
+    }
+
+    public String getUndefinedValueSymbol() {
+        return undefinedValueSymbol;
+    }
+
+    public LayoutParameters setUndefinedValueSymbol(String undefinedValueSymbol) {
+        this.undefinedValueSymbol = undefinedValueSymbol;
+        return this;
     }
 }

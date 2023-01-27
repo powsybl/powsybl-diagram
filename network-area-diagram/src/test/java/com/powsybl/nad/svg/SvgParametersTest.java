@@ -41,6 +41,7 @@ public class SvgParametersTest {
                 .setLoopEdgesAperture(10.)
                 .setLoopControlDistance(1.)
                 .setEdgeInfoAlongEdge(false)
+                .setEdgeNameDisplayed(false)
                 .setInterAnnulusSpace(0.25)
                 .setSvgPrefix("TestPrefix")
                 .setIdDisplayed(true)
@@ -53,7 +54,8 @@ public class SvgParametersTest {
                 .setVoltageValuePrecision(0)
                 .setAngleValuePrecision(2)
                 .setPowerValuePrecision(3)
-                .setPstArrowHeadSize(20);
+                .setPstArrowHeadSize(20)
+                .setUndefinedValueSymbol("\u002A");
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -83,6 +85,7 @@ public class SvgParametersTest {
         assertEquals(svgParameters0.getLoopEdgesAperture(), svgParameters1.getLoopEdgesAperture(), 0);
         assertEquals(svgParameters0.getLoopControlDistance(), svgParameters1.getLoopControlDistance(), 0);
         assertEquals(svgParameters0.isEdgeInfoAlongEdge(), svgParameters1.isEdgeInfoAlongEdge());
+        assertEquals(svgParameters0.isEdgeNameDisplayed(), svgParameters1.isEdgeNameDisplayed());
         assertEquals(svgParameters0.getInterAnnulusSpace(), svgParameters1.getInterAnnulusSpace(), 0);
         assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());
@@ -96,5 +99,6 @@ public class SvgParametersTest {
         assertEquals(svgParameters0.getAngleValuePrecision(), svgParameters1.getAngleValuePrecision());
         assertEquals(svgParameters0.getPowerValuePrecision(), svgParameters1.getPowerValuePrecision());
         assertEquals(svgParameters0.getPstArrowHeadSize(), svgParameters1.getPstArrowHeadSize(), 0);
+        assertEquals(svgParameters0.getUndefinedValueSymbol(), svgParameters1.getUndefinedValueSymbol());
     }
 }
