@@ -53,8 +53,6 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private double pstArrowHeadSize = 8;
-
-    /** em dash unicode for undefined value */
     private String undefinedValueSymbol = "";
 
     public enum CssLocation {
