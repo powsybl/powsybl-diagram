@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model.graphs;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
@@ -15,11 +16,9 @@ import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
-
 import java.util.Objects;
 
-import com.powsybl.commons.PowsyblException;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -175,7 +174,8 @@ public final class NodeFactory {
 
     public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger) {
         String component = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        EquipmentNode i2wt = NodeFactory.createEquipmentNode(graph, NodeType.INTERNAL, id, nameOrId, id, component, false);
+        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, component);
+        graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
         graph.addEdge(n2, i2wt);
         return i2wt;
