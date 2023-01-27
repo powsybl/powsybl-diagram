@@ -476,6 +476,22 @@ public final class CreateNetworksUtil {
         return network;
     }
 
+    public static Network createNetworkWithFourParallelLegs() {
+        Network network = Network.create("networkWithFourParallelLegs", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 3);
+        createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 3);
+        createSwitch(vl, "d1a", "d1an", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
+        createSwitch(vl, "d2a", "d2an", SwitchKind.DISCONNECTOR, false, false, false, 1, 2);
+        createSwitch(vl, "b1", "b1n", SwitchKind.BREAKER, false, false, false, 2, 3);
+        createSwitch(vl, "d1b", "d1bn", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createSwitch(vl, "d2b", "d2bn", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
+        createSwitch(vl, "bl", "bln", SwitchKind.BREAKER, false, false, false, 3, 4);
+        createLoad(vl, "load", "load", "load displayed name", null, ConnectablePosition.Direction.BOTTOM, 4, 10, 10);
+        return network;
+    }
+
     public static Network createNetworkWithFlatSections() {
         Network network = Network.create("TestSingleLineDiagramClass", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
