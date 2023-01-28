@@ -8,7 +8,6 @@ package com.powsybl.nad;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
@@ -24,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -43,10 +41,10 @@ public abstract class AbstractTest {
     protected abstract LabelProvider getLabelProvider(Network network);
 
     protected String generateSvgString(Network network, String refFilename) {
-        return generateSvgString(network, VoltageLevelFilter.NO_FILTER, refFilename);
+        return generateSvgString(network, (VoltageLevelFilter) VoltageLevelFilter.NO_FILTER, refFilename);
     }
 
-    protected String generateSvgString(Network network, Predicate<VoltageLevel> voltageLevelFilter, String refFilename) {
+    protected String generateSvgString(Network network, VoltageLevelFilter voltageLevelFilter, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();

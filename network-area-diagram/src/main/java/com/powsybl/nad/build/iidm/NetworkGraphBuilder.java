@@ -13,9 +13,7 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -26,31 +24,44 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private final Network network;
     private final IdProvider idProvider;
-    private final Predicate<VoltageLevel> voltageLevelFilter;
+    private final VoltageLevelFilter voltageLevelFilter;
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, IdProvider idProvider) {
+    public NetworkGraphBuilder(Network network, VoltageLevelFilter voltageLevelFilter, IdProvider idProvider) {
         this.network = Objects.requireNonNull(network);
         this.voltageLevelFilter = voltageLevelFilter;
         this.idProvider = Objects.requireNonNull(idProvider);
     }
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
+    public NetworkGraphBuilder(Network network, VoltageLevelFilter voltageLevelFilter) {
         this(network, voltageLevelFilter, new IntIdProvider());
     }
 
     public NetworkGraphBuilder(Network network) {
-        this(network, VoltageLevelFilter.NO_FILTER, new IntIdProvider());
+        this(network, (VoltageLevelFilter) VoltageLevelFilter.NO_FILTER, new IntIdProvider());
     }
 
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
+
+        Map<VoltageLevel, Boolean> voltageLevelsWithVisibilitySorted = new HashMap<>(voltageLevelFilter.getVoltageLevelsWithVisibility());
+
+        voltageLevelsWithVisibilitySorted.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(voltageLevelBooleanEntry -> voltageLevelBooleanEntry.getKey().getId()))
+                .collect(Collectors.toList());
+
+        voltageLevelsWithVisibilitySorted.forEach((vl, visibility) -> addVoltageLevelGraphNode(vl, graph, visibility));
+
+        List<VoltageLevel> voltageLevelsWithVisibilityTrue = new HashMap<>(voltageLevelsWithVisibilitySorted)
+                .entrySet()
+                .stream()
+                .filter(voltageLevelBooleanEntry -> voltageLevelBooleanEntry.getValue())
+                .map(e -> e.getKey())
                 .sorted(Comparator.comparing(VoltageLevel::getId))
                 .collect(Collectors.toList());
-        voltageLevels.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
-        voltageLevels.forEach(vl -> addGraphEdges(vl, graph));
+        voltageLevelsWithVisibilityTrue.forEach(vl -> addGraphEdges(vl, graph));
+
         return graph;
     }
 

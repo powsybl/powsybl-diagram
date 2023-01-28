@@ -102,7 +102,7 @@ public class NetworkAreaDiagram {
         Objects.requireNonNull(layoutFactory);
         Objects.requireNonNull(idProvider);
 
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, (VoltageLevelFilter) voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
     }
@@ -137,7 +137,7 @@ public class NetworkAreaDiagram {
     public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
                      StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
                      IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, (VoltageLevelFilter) voltageLevelFilter, idProvider).buildGraph();
         layoutFactory.create().run(graph, layoutParameters);
         new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, writer);
     }

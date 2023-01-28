@@ -10,10 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -23,75 +20,83 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
-    private final Set<VoltageLevel> voltageLevels;
+    private final Map<VoltageLevel, Boolean> voltageLevelsWithVisibility;
 
-    public VoltageLevelFilter(Set<VoltageLevel> voltageLevels) {
-        this.voltageLevels = voltageLevels;
+    public VoltageLevelFilter(Map<VoltageLevel, Boolean> voltageLevelsWithVisibility) {
+        this.voltageLevelsWithVisibility = voltageLevelsWithVisibility;
     }
 
     @Override
     public boolean test(VoltageLevel voltageLevel) {
-        return voltageLevels.contains(voltageLevel);
+        return voltageLevelsWithVisibility.containsKey(voltageLevel);
+    }
+
+    public Map<VoltageLevel, Boolean> getVoltageLevelsWithVisibility() {
+        return voltageLevelsWithVisibility;
     }
 
     public static VoltageLevelFilter createVoltageLevelDepthFilter(Network network, String voltageLevelId, int depth) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(voltageLevelId);
 
-        Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
         if (vl == null) {
             throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
         }
+        Map<VoltageLevel, Boolean> startingHashMap = new HashMap<>();
+        startingHashMap.put(vl, true);
 
-        Set<VoltageLevel> startingSet = new HashSet<>();
-        startingSet.add(vl);
-        traverseVoltageLevels(startingSet, depth, voltageLevels);
-        return new VoltageLevelFilter(voltageLevels);
+        Map<VoltageLevel, Boolean> voltageLevelsWithVisibility = new HashMap<>();
+
+        traverseVoltageLevels(startingHashMap, depth, voltageLevelsWithVisibility);
+        return new VoltageLevelFilter(voltageLevelsWithVisibility);
     }
 
     public static VoltageLevelFilter createVoltageLevelsDepthFilter(Network network, List<String> voltageLevelIds, int depth) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(voltageLevelIds);
-        Set<VoltageLevel> startingSet = new HashSet<>();
+        Map<VoltageLevel, Boolean> startingHashMap = new HashMap<>();
         for (String voltageLevelId : voltageLevelIds) {
             VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
             if (vl == null) {
                 throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
             }
-            startingSet.add(vl);
+            startingHashMap.put(vl, true);
         }
 
-        Set<VoltageLevel> voltageLevels = new HashSet<>();
-        traverseVoltageLevels(startingSet, depth, voltageLevels);
-        return new VoltageLevelFilter(voltageLevels);
+        Map<VoltageLevel, Boolean> voltageLevelsWithVisibility = new HashMap<>();
+        traverseVoltageLevels(startingHashMap, depth, voltageLevelsWithVisibility);
+        return new VoltageLevelFilter(voltageLevelsWithVisibility);
     }
 
     public static VoltageLevelFilter createVoltageLevelsFilter(Network network, List<String> voltageLevelIds) {
         return createVoltageLevelsDepthFilter(network, voltageLevelIds, 0);
     }
 
-    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
-        if (depth < 0) {
+    private static void traverseVoltageLevels(Map<VoltageLevel, Boolean> voltageLevelsDepth, int depth, Map<VoltageLevel, Boolean> visitedVoltageLevelsWithVisibility) {
+        if (depth < -1) {
             return;
         }
-        Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
-        for (VoltageLevel vl : voltageLevelsDepth) {
-            if (!visitedVoltageLevels.contains(vl)) {
-                visitedVoltageLevels.add(vl);
-                vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
+        Map<VoltageLevel, Boolean> nextDepthVoltageLevelsWithVisibility = new HashMap<>();
+
+        for (Map.Entry voltageLevelWithVisibilityDepth : voltageLevelsDepth.entrySet()) {
+            if (!visitedVoltageLevelsWithVisibility.containsKey(voltageLevelWithVisibilityDepth.getKey())) {
+                visitedVoltageLevelsWithVisibility.put((VoltageLevel) voltageLevelWithVisibilityDepth.getKey(), (Boolean) voltageLevelWithVisibilityDepth.getValue());
+                ((VoltageLevel) voltageLevelWithVisibilityDepth.getKey()).visitEquipments(new VlVisitor(nextDepthVoltageLevelsWithVisibility, visitedVoltageLevelsWithVisibility, depth));
             }
         }
-        traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
+        traverseVoltageLevels(nextDepthVoltageLevelsWithVisibility, depth - 1, visitedVoltageLevelsWithVisibility);
     }
 
     private static class VlVisitor extends DefaultTopologyVisitor {
-        private final Set<VoltageLevel> nextDepthVoltageLevels;
-        private final Set<VoltageLevel> visitedVoltageLevels;
+        private final Map<VoltageLevel, Boolean> nextDepthVoltageLevels;
+        private final Map<VoltageLevel, Boolean> visitedVoltageLevels;
+        private final int depth;
 
-        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels) {
+        public VlVisitor(Map<VoltageLevel, Boolean> nextDepthVoltageLevels, Map<VoltageLevel, Boolean> visitedVoltageLevels, int depth) {
             this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
+            this.depth = depth;
         }
 
         @Override
@@ -129,9 +134,16 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
         private void visitTerminal(Terminal terminal) {
             VoltageLevel voltageLevel = terminal.getVoltageLevel();
-            if (!visitedVoltageLevels.contains(voltageLevel)) {
-                nextDepthVoltageLevels.add(voltageLevel);
+            if (!visitedVoltageLevels.containsKey(voltageLevel)) {
+                nextDepthVoltageLevels.put(voltageLevel, isVisibleVoltageLevel(depth));
             }
+        }
+
+        private Boolean isVisibleVoltageLevel(int depth) {
+            if (depth >= 0) {
+                return true;
+            }
+            return false;
         }
     }
 
