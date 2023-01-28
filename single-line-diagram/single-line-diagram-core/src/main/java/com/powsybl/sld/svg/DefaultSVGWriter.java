@@ -870,10 +870,10 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
-        String measurementType = feederInfo.getComponentType();
+        String componentType = feederInfo.getComponentType();
 
         String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, feederInfo.getUserDefinedId(), measurementType));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;

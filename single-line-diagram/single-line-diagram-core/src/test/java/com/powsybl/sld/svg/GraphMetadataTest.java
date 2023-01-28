@@ -66,7 +66,7 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, false, Direction.UNDEFINED, false, null, labels));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "user_id", "MEASUREMENT_TYPE"));
+        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "COMPONENT_TYPE", "user_id"));
         metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata("id6", "busNodeId1", "user_id"));
 
@@ -106,7 +106,7 @@ public class GraphMetadataTest {
         assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getEquipmentId());
         assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").getSide());
         assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
-        assertEquals("MEASUREMENT_TYPE", metadata2.getFeederInfoMetadata("id1").getMeasurementType());
+        assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").getComponentType());
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
         assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
