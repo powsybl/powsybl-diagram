@@ -160,7 +160,7 @@
                 <polyline points="494.0,432.0,502.5,432.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect11" transform="translate(436.0,428.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrct11" transform="translate(436.0,428.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -173,7 +173,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect12" transform="translate(486.0,428.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
         </g>
         <g class="sld-intern-cell sld-cell-shape-flat" id="idINTERN_32_1">
@@ -190,7 +190,7 @@
                 <polyline points="494.0,457.0,502.5,457.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect21" transform="translate(436.0,453.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrct21" transform="translate(436.0,453.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -203,7 +203,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect22" transform="translate(486.0,453.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_2">
