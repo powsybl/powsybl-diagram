@@ -150,7 +150,8 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         }
-        String style = baseVoltagesConfig.getBaseVoltageName(voltageLevelInfos.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
+        String style = Optional.ofNullable(voltageLevelInfos)
+                .flatMap(vli -> baseVoltagesConfig.getBaseVoltageName(vli.getNominalVoltage(), BASE_VOLTAGE_PROFILE))
                 .flatMap(baseVoltageName -> getNodeTopologicalStyle(DiagramStyles.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
                 .orElse(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         return Optional.of(style);
