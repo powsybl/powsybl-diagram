@@ -8,14 +8,14 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "INTERNAL",
-    "id" : "BUSCO_l1",
+    "id" : "BUSCO_bbs_l1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 50.0,
     "y" : 172.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_l1",
+    "id" : "INTERNAL_vl_BUSCO_bbs_l1-l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -132,7 +132,7 @@
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "BUSCO_l1", "INTERNAL_vl_l1" ]
+        "nodes" : [ "bbs", "BUSCO_bbs_l1", "INTERNAL_vl_BUSCO_bbs_l1-l1" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -193,7 +193,7 @@
               "xSpan" : 50.0,
               "ySpan" : 80.0
             },
-            "nodes" : [ "INTERNAL_vl_l1", "b", "INTERNAL_vl_l2" ]
+            "nodes" : [ "INTERNAL_vl_BUSCO_bbs_l1-l1", "b", "INTERNAL_vl_l2" ]
           }, {
             "type" : "FEEDERPRIMARY",
             "cardinalities" : [ {
@@ -256,7 +256,7 @@
               "xSpan" : 50.0,
               "ySpan" : 80.0
             },
-            "nodes" : [ "INTERNAL_vl_l1", "INTERNAL_vl_l1" ]
+            "nodes" : [ "INTERNAL_vl_BUSCO_bbs_l1-l1", "INTERNAL_vl_l1" ]
           }, {
             "type" : "FEEDERPRIMARY",
             "cardinalities" : [ {
@@ -285,15 +285,15 @@
   } ],
   "edges" : [ {
     "node1" : "bbs",
-    "node2" : "BUSCO_l1"
+    "node2" : "BUSCO_bbs_l1"
   }, {
-    "node1" : "INTERNAL_vl_l1",
+    "node1" : "INTERNAL_vl_BUSCO_bbs_l1-l1",
     "node2" : "b"
   }, {
-    "node1" : "BUSCO_l1",
-    "node2" : "INTERNAL_vl_l1"
+    "node1" : "BUSCO_bbs_l1",
+    "node2" : "INTERNAL_vl_BUSCO_bbs_l1-l1"
   }, {
-    "node1" : "INTERNAL_vl_l1",
+    "node1" : "INTERNAL_vl_BUSCO_bbs_l1-l1",
     "node2" : "INTERNAL_vl_l1"
   }, {
     "node1" : "INTERNAL_vl_l1",

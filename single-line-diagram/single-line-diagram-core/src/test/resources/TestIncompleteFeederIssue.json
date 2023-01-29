@@ -15,7 +15,7 @@
     "y" : 62.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_b",
+    "id" : "INTERNAL_vl_d1-b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -127,7 +127,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "d1", "INTERNAL_vl_b" ]
+        "nodes" : [ "bbs", "d1", "INTERNAL_vl_d1-b" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -148,7 +148,7 @@
           "xSpan" : 50.0,
           "ySpan" : 81.0
         },
-        "nodes" : [ "INTERNAL_vl_b", "b", "d2", "INTERNAL_vl_INTERNAL_vl_fict2" ]
+        "nodes" : [ "INTERNAL_vl_d1-b", "b", "d2", "INTERNAL_vl_INTERNAL_vl_fict2" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -181,9 +181,9 @@
     "node2" : "d2"
   }, {
     "node1" : "d1",
-    "node2" : "INTERNAL_vl_b"
+    "node2" : "INTERNAL_vl_d1-b"
   }, {
-    "node1" : "INTERNAL_vl_b",
+    "node1" : "INTERNAL_vl_d1-b",
     "node2" : "b"
   }, {
     "node1" : "d2",

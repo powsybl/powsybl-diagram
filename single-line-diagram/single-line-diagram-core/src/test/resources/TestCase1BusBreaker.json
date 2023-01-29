@@ -8,32 +8,46 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "INTERNAL",
-    "id" : "BUSCO_l",
+    "id" : "BUSCO_b1_l",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 172.0
   }, {
     "type" : "INTERNAL",
-    "id" : "BUSCO_sw",
+    "id" : "BUSCO_b1_sw",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 172.0
   }, {
     "type" : "INTERNAL",
-    "id" : "BUSCO_sw",
+    "id" : "BUSCO_b2_sw",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 197.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_l",
+    "id" : "INTERNAL_vl_BUSCO_b1_l-l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl_BUSCO_b1_sw-sw",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 75.0,
+    "y" : 132.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl_BUSCO_b2_sw-sw",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 25.0,
+    "y" : 132.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l",
@@ -41,20 +55,6 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 62.0
-  }, {
-    "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_sw",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 75.0,
-    "y" : 132.0
-  }, {
-    "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_sw",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 25.0,
-    "y" : 132.0
   }, {
     "type" : "BUS",
     "id" : "b1",
@@ -159,7 +159,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b2", "BUSCO_sw", "INTERNAL_vl_sw" ]
+        "nodes" : [ "b2", "BUSCO_b2_sw", "INTERNAL_vl_BUSCO_b2_sw-sw" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -180,7 +180,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_sw", "sw", "INTERNAL_vl_sw" ]
+        "nodes" : [ "INTERNAL_vl_BUSCO_b2_sw-sw", "sw", "INTERNAL_vl_BUSCO_b1_sw-sw" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -201,7 +201,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "BUSCO_sw", "INTERNAL_vl_sw" ]
+        "nodes" : [ "b1", "BUSCO_b1_sw", "INTERNAL_vl_BUSCO_b1_sw-sw" ]
       } ]
     }
   }, {
@@ -249,7 +249,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "BUSCO_l", "INTERNAL_vl_l" ]
+        "nodes" : [ "b1", "BUSCO_b1_l", "INTERNAL_vl_BUSCO_b1_l-l" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -270,7 +270,7 @@
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl_l", "INTERNAL_vl_l" ]
+        "nodes" : [ "INTERNAL_vl_BUSCO_b1_l-l", "INTERNAL_vl_l" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -297,30 +297,30 @@
   } ],
   "edges" : [ {
     "node1" : "b1",
-    "node2" : "BUSCO_l"
+    "node2" : "BUSCO_b1_l"
   }, {
     "node1" : "b1",
-    "node2" : "BUSCO_sw"
+    "node2" : "BUSCO_b1_sw"
   }, {
-    "node1" : "BUSCO_sw",
+    "node1" : "BUSCO_b2_sw",
     "node2" : "b2"
   }, {
-    "node1" : "BUSCO_l",
-    "node2" : "INTERNAL_vl_l"
+    "node1" : "BUSCO_b1_l",
+    "node2" : "INTERNAL_vl_BUSCO_b1_l-l"
   }, {
-    "node1" : "BUSCO_sw",
-    "node2" : "INTERNAL_vl_sw"
+    "node1" : "BUSCO_b1_sw",
+    "node2" : "INTERNAL_vl_BUSCO_b1_sw-sw"
   }, {
-    "node1" : "INTERNAL_vl_sw",
+    "node1" : "INTERNAL_vl_BUSCO_b1_sw-sw",
     "node2" : "sw"
   }, {
     "node1" : "sw",
-    "node2" : "INTERNAL_vl_sw"
+    "node2" : "INTERNAL_vl_BUSCO_b2_sw-sw"
   }, {
-    "node1" : "INTERNAL_vl_sw",
-    "node2" : "BUSCO_sw"
+    "node1" : "INTERNAL_vl_BUSCO_b2_sw-sw",
+    "node2" : "BUSCO_b2_sw"
   }, {
-    "node1" : "INTERNAL_vl_l",
+    "node1" : "INTERNAL_vl_BUSCO_b1_l-l",
     "node2" : "INTERNAL_vl_l"
   }, {
     "node1" : "INTERNAL_vl_l",
