@@ -300,7 +300,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void insertBusConnection(BusNode busNode, Node nodeConnectedToBusNode) {
-        Node fNodeToBus = NodeFactory.createBusConnection(this, nodeConnectedToBusNode.getId());
+        Node fNodeToBus = NodeFactory.createBusConnection(this, busNode.getId() + "_" + nodeConnectedToBusNode.getId());
         insertNode(busNode, fNodeToBus, nodeConnectedToBusNode);
     }
 
@@ -329,7 +329,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void insertBusHookNode(Node nodeOnBus, Node node) {
         // Create hook node
-        Node fStackNode = NodeFactory.createConnectivityNode(this, node.getId());
+        Node fStackNode = NodeFactory.createConnectivityNode(this, nodeOnBus.getId() + "-" + node.getId());
 
         // Update edges
         if (node.getType() == NodeType.FEEDER) {
