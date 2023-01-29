@@ -150,10 +150,10 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dsect11">
                 <polyline points="427.5,432.0,436.0,432.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrct11_95_dtrct11">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dsect11_45_dtrct11_95_dtrct11">
                 <polyline points="440.0,432.0,457.0,432.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dtrct11">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dsect12_45_dtrct11">
                 <polyline points="473.0,432.0,490.0,432.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dsect12_95_bbs2">
@@ -162,14 +162,14 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect11" transform="translate(436.0,428.0)">
                 <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrct11" transform="translate(436.0,428.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dsect11_45_dtrct11" transform="translate(436.0,428.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="iddtrct11" transform="translate(457.0,424.0)">
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z" transform="rotate(90.0,8.0,8.0)"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z" transform="rotate(90.0,8.0,8.0)"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrct11" transform="translate(486.0,428.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dsect12_45_dtrct11" transform="translate(486.0,428.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect12" transform="translate(486.0,428.0)">
@@ -180,10 +180,10 @@
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_bbs3_95_dsect21">
                 <polyline points="427.5,457.0,436.0,457.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrct21_95_dtrct21">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dsect21_45_dtrct21_95_dtrct21">
                 <polyline points="440.0,457.0,457.0,457.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dtrct21">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dsect22_45_dtrct21">
                 <polyline points="473.0,457.0,490.0,457.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dsect22_95_bbs4">
@@ -192,14 +192,14 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect21" transform="translate(436.0,453.0)">
                 <rect height="8" rx="2" ry="2" transform="rotate(90.0,4.0,4.0)" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrct21" transform="translate(436.0,453.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dsect21_45_dtrct21" transform="translate(436.0,453.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="iddtrct21" transform="translate(457.0,449.0)">
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z" transform="rotate(90.0,8.0,8.0)"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z" transform="rotate(90.0,8.0,8.0)"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrct21" transform="translate(486.0,453.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dsect22_45_dtrct21" transform="translate(486.0,453.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect22" transform="translate(486.0,453.0)">
@@ -207,10 +207,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_2">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_bload1">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_dload1_45_bload1">
                 <polyline points="65.0,428.0,65.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_bload1_95_bload1">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dload1_45_bload1_95_bload1">
                 <polyline points="65.0,402.0,65.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_load1_95_bload1">
@@ -232,7 +232,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddload1" transform="translate(61.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_bload1" transform="translate(61.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dload1_45_bload1" transform="translate(61.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbload1" transform="translate(57.0,354.0)">
@@ -248,10 +248,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_3">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_btrf11">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_dtrf11_45_btrf11">
                 <polyline points="115.0,428.0,115.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf11_95_btrf11">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf11_45_btrf11_95_btrf11">
                 <polyline points="115.0,402.0,115.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf11_95_INTERNAL_95_vl1_95_trf1_95_ONE">
@@ -273,7 +273,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddtrf11" transform="translate(111.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_btrf11" transform="translate(111.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf11_45_btrf11" transform="translate(111.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbtrf11" transform="translate(107.0,354.0)">
@@ -288,10 +288,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_4">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_btrf15">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_dtrf15_45_btrf15">
                 <polyline points="265.0,428.0,265.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf15_95_btrf15">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf15_45_btrf15_95_btrf15">
                 <polyline points="265.0,402.0,265.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf15_95_INTERNAL_95_vl1_95_trf5_95_ONE">
@@ -313,7 +313,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddtrf15" transform="translate(261.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_btrf15" transform="translate(261.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf15_45_btrf15" transform="translate(261.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbtrf15" transform="translate(257.0,354.0)">
@@ -328,10 +328,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_5">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_btrf16">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_dtrf16_45_btrf16">
                 <polyline points="315.0,428.0,315.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf16_95_btrf16">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf16_45_btrf16_95_btrf16">
                 <polyline points="315.0,402.0,315.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf16_95_INTERNAL_95_vl1_95_trf6_95_ONE">
@@ -353,7 +353,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddtrf16" transform="translate(311.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_btrf16" transform="translate(311.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf16_45_btrf16" transform="translate(311.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbtrf16" transform="translate(307.0,354.0)">
@@ -368,10 +368,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_6">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dline11_95_2_95_INTERNAL_95_vl1_95_bline11_95_2">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dline11_95_2_95_INTERNAL_95_vl1_95_dline11_95_2_45_bline11_95_2">
                 <polyline points="415.0,428.0,415.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_bline11_95_2_95_bline11_95_2">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dline11_95_2_45_bline11_95_2_95_bline11_95_2">
                 <polyline points="415.0,402.0,415.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bline11_95_2_95_INTERNAL_95_vl1_95_line1_95_ONE">
@@ -393,7 +393,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddline11_95_2" transform="translate(411.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_bline11_95_2" transform="translate(411.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dline11_95_2_45_bline11_95_2" transform="translate(411.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbline11_95_2" transform="translate(407.0,354.0)">
@@ -408,10 +408,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_7">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_bload2">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_dload2_45_bload2">
                 <polyline points="515.0,428.0,515.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_bload2_95_bload2">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dload2_45_bload2_95_bload2">
                 <polyline points="515.0,402.0,515.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_load2_95_bload2">
@@ -433,7 +433,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddload2" transform="translate(511.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_bload2" transform="translate(511.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dload2_45_bload2" transform="translate(511.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbload2" transform="translate(507.0,354.0)">
@@ -449,10 +449,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_8">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_btrf12">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_dtrf12_45_btrf12">
                 <polyline points="665.0,428.0,665.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf12_95_btrf12">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf12_45_btrf12_95_btrf12">
                 <polyline points="665.0,402.0,665.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf12_95_INTERNAL_95_vl1_95_trf2_95_ONE">
@@ -474,7 +474,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddtrf12" transform="translate(661.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_btrf12" transform="translate(661.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf12_45_btrf12" transform="translate(661.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbtrf12" transform="translate(657.0,354.0)">
@@ -489,10 +489,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_9">
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_btrf18">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_dtrf18_45_btrf18">
                 <polyline points="565.0,428.0,565.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf18_95_btrf18">
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf18_45_btrf18_95_btrf18">
                 <polyline points="565.0,402.0,565.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf18_95_INTERNAL_95_vl1_95_trf8_95_ONE">
@@ -514,7 +514,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddtrf18" transform="translate(561.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_btrf18" transform="translate(561.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf18_45_btrf18" transform="translate(561.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idbtrf18" transform="translate(557.0,354.0)">
@@ -529,10 +529,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_10">
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_bgen1">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_dgen1_45_bgen1">
                 <polyline points="165.0,461.0,165.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_bgen1_95_bgen1">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dgen1_45_bgen1_95_bgen1">
                 <polyline points="165.0,487.0,165.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_gen1_95_bgen1">
@@ -554,7 +554,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddgen1" transform="translate(161.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_bgen1" transform="translate(161.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dgen1_45_bgen1" transform="translate(161.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="idbgen1" transform="translate(157.0,519.0)">
@@ -570,10 +570,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_11">
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_btrf13">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_dtrf13_45_btrf13">
                 <polyline points="215.0,461.0,215.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf13_95_btrf13">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf13_45_btrf13_95_btrf13">
                 <polyline points="215.0,487.0,215.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_btrf13_95_INTERNAL_95_vl1_95_trf3_95_ONE">
@@ -595,7 +595,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddtrf13" transform="translate(211.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_btrf13" transform="translate(211.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf13_45_btrf13" transform="translate(211.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="idbtrf13" transform="translate(207.0,519.0)">
@@ -610,10 +610,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_12">
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_btrf17">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_dtrf17_45_btrf17">
                 <polyline points="365.0,461.0,365.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf17_95_btrf17">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf17_45_btrf17_95_btrf17">
                 <polyline points="365.0,487.0,365.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_btrf17_95_INTERNAL_95_vl1_95_trf7_95_ONE">
@@ -635,7 +635,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddtrf17" transform="translate(361.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_btrf17" transform="translate(361.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf17_45_btrf17" transform="translate(361.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="idbtrf17" transform="translate(357.0,519.0)">
@@ -650,10 +650,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_13">
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_bgen2">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_dgen2_45_bgen2">
                 <polyline points="715.0,461.0,715.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_bgen2_95_bgen2">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dgen2_45_bgen2_95_bgen2">
                 <polyline points="715.0,487.0,715.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_gen2_95_bgen2">
@@ -675,7 +675,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddgen2" transform="translate(711.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_bgen2" transform="translate(711.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dgen2_45_bgen2" transform="translate(711.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="idbgen2" transform="translate(707.0,519.0)">
@@ -691,10 +691,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_14">
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_btrf14">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_dtrf14_45_btrf14">
                 <polyline points="615.0,461.0,615.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_btrf14_95_btrf14">
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_INTERNAL_95_vl1_95_dtrf14_45_btrf14_95_btrf14">
                 <polyline points="615.0,487.0,615.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_btrf14_95_INTERNAL_95_vl1_95_trf4_95_ONE">
@@ -716,7 +716,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddtrf14" transform="translate(611.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_btrf14" transform="translate(611.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf14_45_btrf14" transform="translate(611.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="idbtrf14" transform="translate(607.0,519.0)">
@@ -742,29 +742,29 @@
             <text class="sld-label" id="bbs6_NW_LABEL" x="-5.0" y="-5.0">bbs6</text>
         </g>
         <g class="sld-intern-cell sld-cell-shape-vertical" id="idINTERN_32_0">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dscpl1_95_INTERNAL_95_vl2_95_ddcpl1">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dscpl1_95_INTERNAL_95_vl2_95_dscpl1_45_ddcpl1">
                 <polyline points="945.0,428.0,945.0,392.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_ddcpl1_95_ddcpl1">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dscpl1_45_ddcpl1_95_ddcpl1">
                 <polyline points="945.0,392.0,928.0,392.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_ddcpl1_95_INTERNAL_95_vl2_95_ddcpl1">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_ddcpl1_95_INTERNAL_95_vl2_95_dscpl2_45_ddcpl1">
                 <polyline points="912.0,392.0,895.0,392.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_ddcpl1_95_dscpl2">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dscpl2_45_ddcpl1_95_dscpl2">
                 <polyline points="895.0,392.0,895.0,453.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddscpl1" transform="translate(941.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_ddcpl1" transform="translate(941.0,388.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dscpl1_45_ddcpl1" transform="translate(941.0,388.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idddcpl1" transform="translate(912.0,384.0)">
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z" transform="rotate(90.0,8.0,8.0)"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z" transform="rotate(90.0,8.0,8.0)"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_ddcpl1" transform="translate(891.0,388.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dscpl2_45_ddcpl1" transform="translate(891.0,388.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddscpl2" transform="translate(891.0,453.0)">
@@ -772,10 +772,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_1">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dload3_95_INTERNAL_95_vl2_95_bload3">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dload3_95_INTERNAL_95_vl2_95_dload3_45_bload3">
                 <polyline points="995.0,428.0,995.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_bload3_95_bload3">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dload3_45_bload3_95_bload3">
                 <polyline points="995.0,402.0,995.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_load3_95_bload3">
@@ -797,7 +797,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddload3" transform="translate(991.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_bload3" transform="translate(991.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dload3_45_bload3" transform="translate(991.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbload3" transform="translate(987.0,354.0)">
@@ -813,10 +813,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_2">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf21_95_INTERNAL_95_vl2_95_btrf21">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf21_95_INTERNAL_95_vl2_95_dtrf21_45_btrf21">
                 <polyline points="1045.0,428.0,1045.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf21_95_btrf21">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf21_45_btrf21_95_btrf21">
                 <polyline points="1045.0,402.0,1045.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf21_95_INTERNAL_95_vl2_95_trf1_95_TWO">
@@ -838,7 +838,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf21" transform="translate(1041.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf21" transform="translate(1041.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf21_45_btrf21" transform="translate(1041.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf21" transform="translate(1037.0,354.0)">
@@ -853,10 +853,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_3">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf24_95_INTERNAL_95_vl2_95_btrf24">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf24_95_INTERNAL_95_vl2_95_dtrf24_45_btrf24">
                 <polyline points="1145.0,428.0,1145.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf24_95_btrf24">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf24_45_btrf24_95_btrf24">
                 <polyline points="1145.0,402.0,1145.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf24_95_INTERNAL_95_vl2_95_trf4_95_TWO">
@@ -878,7 +878,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf24" transform="translate(1141.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf24" transform="translate(1141.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf24_45_btrf24" transform="translate(1141.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf24" transform="translate(1137.0,354.0)">
@@ -893,10 +893,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_4">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf27_95_INTERNAL_95_vl2_95_btrf27">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf27_95_INTERNAL_95_vl2_95_dtrf27_45_btrf27">
                 <polyline points="1195.0,428.0,1195.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf27_95_btrf27">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf27_45_btrf27_95_btrf27">
                 <polyline points="1195.0,402.0,1195.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf27_95_INTERNAL_95_vl2_95_trf7_95_TWO">
@@ -918,7 +918,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf27" transform="translate(1191.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf27" transform="translate(1191.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf27_45_btrf27" transform="translate(1191.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf27" transform="translate(1187.0,354.0)">
@@ -933,10 +933,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_5">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dgen4_95_INTERNAL_95_vl2_95_bgen4">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dgen4_95_INTERNAL_95_vl2_95_dgen4_45_bgen4">
                 <polyline points="1095.0,461.0,1095.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_bgen4_95_bgen4">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dgen4_45_bgen4_95_bgen4">
                 <polyline points="1095.0,487.0,1095.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_gen4_95_bgen4">
@@ -958,7 +958,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddgen4" transform="translate(1091.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_bgen4" transform="translate(1091.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dgen4_45_bgen4" transform="translate(1091.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbgen4" transform="translate(1087.0,519.0)">
@@ -974,10 +974,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_6">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf22_95_INTERNAL_95_vl2_95_btrf22">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf22_95_INTERNAL_95_vl2_95_dtrf22_45_btrf22">
                 <polyline points="1345.0,461.0,1345.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf22_95_btrf22">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf22_45_btrf22_95_btrf22">
                 <polyline points="1345.0,487.0,1345.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf22_95_INTERNAL_95_vl2_95_trf2_95_TWO">
@@ -999,7 +999,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf22" transform="translate(1341.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf22" transform="translate(1341.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf22_45_btrf22" transform="translate(1341.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf22" transform="translate(1337.0,519.0)">
@@ -1014,10 +1014,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_7">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf23_95_INTERNAL_95_vl2_95_btrf23">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf23_95_INTERNAL_95_vl2_95_dtrf23_45_btrf23">
                 <polyline points="1395.0,461.0,1395.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf23_95_btrf23">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf23_45_btrf23_95_btrf23">
                 <polyline points="1395.0,487.0,1395.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf23_95_INTERNAL_95_vl2_95_trf3_95_TWO">
@@ -1039,7 +1039,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf23" transform="translate(1391.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf23" transform="translate(1391.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf23_45_btrf23" transform="translate(1391.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf23" transform="translate(1387.0,519.0)">
@@ -1054,10 +1054,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_8">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf26_95_INTERNAL_95_vl2_95_btrf26">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf26_95_INTERNAL_95_vl2_95_dtrf26_45_btrf26">
                 <polyline points="1245.0,453.0,1245.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf26_95_btrf26">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf26_45_btrf26_95_btrf26">
                 <polyline points="1245.0,402.0,1245.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf26_95_INTERNAL_95_vl2_95_trf6_95_TWO">
@@ -1079,7 +1079,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf26" transform="translate(1241.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf26" transform="translate(1241.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf26_45_btrf26" transform="translate(1241.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf26" transform="translate(1237.0,354.0)">
@@ -1094,10 +1094,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_9">
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf28_95_INTERNAL_95_vl2_95_btrf28">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_dtrf28_95_INTERNAL_95_vl2_95_dtrf28_45_btrf28">
                 <polyline points="1295.0,461.0,1295.0,487.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_btrf28_95_btrf28">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_dtrf28_45_btrf28_95_btrf28">
                 <polyline points="1295.0,487.0,1295.0,519.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_btrf28_95_INTERNAL_95_vl2_95_trf8_95_TWO">
@@ -1119,7 +1119,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300-0" id="iddtrf28" transform="translate(1291.0,453.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_btrf28" transform="translate(1291.0,483.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf28_45_btrf28" transform="translate(1291.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl180to300-0" id="idbtrf28" transform="translate(1287.0,519.0)">
@@ -1141,10 +1141,10 @@
             <text class="sld-label" id="bbs7_NW_LABEL" x="-5.0" y="-5.0">bbs7</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dload4_95_INTERNAL_95_vl3_95_bload4">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dload4_95_INTERNAL_95_vl3_95_dload4_45_bload4">
                 <polyline points="1545.0,428.0,1545.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_bload4_95_bload4">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_dload4_45_bload4_95_bload4">
                 <polyline points="1545.0,402.0,1545.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_bload4_95_INTERNAL_95_vl3_95_load4">
@@ -1166,7 +1166,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="iddload4" transform="translate(1541.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_bload4" transform="translate(1541.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dload4_45_bload4" transform="translate(1541.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idbload4" transform="translate(1537.0,354.0)">
@@ -1182,10 +1182,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_1">
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf25_95_INTERNAL_95_vl3_95_btrf25">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf25_95_INTERNAL_95_vl3_95_dtrf25_45_btrf25">
                 <polyline points="1595.0,436.0,1595.0,462.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_btrf25_95_btrf25">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_dtrf25_45_btrf25_95_btrf25">
                 <polyline points="1595.0,462.0,1595.0,494.0"/>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_btrf25_95_INTERNAL_95_vl3_95_trf5_95_TWO">
@@ -1207,7 +1207,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="iddtrf25" transform="translate(1591.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_btrf25" transform="translate(1591.0,458.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf25_45_btrf25" transform="translate(1591.0,458.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idbtrf25" transform="translate(1587.0,494.0)">
@@ -1222,10 +1222,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_2">
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf36_95_INTERNAL_95_vl3_95_btrf36">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf36_95_INTERNAL_95_vl3_95_dtrf36_45_btrf36">
                 <polyline points="1645.0,428.0,1645.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_btrf36_95_btrf36">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_dtrf36_45_btrf36_95_btrf36">
                 <polyline points="1645.0,402.0,1645.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_btrf36_95_INTERNAL_95_vl3_95_trf6_95_THREE">
@@ -1247,7 +1247,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="iddtrf36" transform="translate(1641.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_btrf36" transform="translate(1641.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf36_45_btrf36" transform="translate(1641.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idbtrf36" transform="translate(1637.0,354.0)">
@@ -1262,10 +1262,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_3">
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf37_95_INTERNAL_95_vl3_95_btrf37">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf37_95_INTERNAL_95_vl3_95_dtrf37_45_btrf37">
                 <polyline points="1695.0,436.0,1695.0,462.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_btrf37_95_btrf37">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_dtrf37_45_btrf37_95_btrf37">
                 <polyline points="1695.0,462.0,1695.0,494.0"/>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_btrf37_95_INTERNAL_95_vl3_95_trf7_95_THREE">
@@ -1287,7 +1287,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="iddtrf37" transform="translate(1691.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_btrf37" transform="translate(1691.0,458.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf37_45_btrf37" transform="translate(1691.0,458.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idbtrf37" transform="translate(1687.0,494.0)">
@@ -1302,10 +1302,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_4">
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf38_95_INTERNAL_95_vl3_95_btrf38">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_dtrf38_95_INTERNAL_95_vl3_95_dtrf38_45_btrf38">
                 <polyline points="1745.0,428.0,1745.0,402.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_btrf38_95_btrf38">
+            <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_INTERNAL_95_vl3_95_dtrf38_45_btrf38_95_btrf38">
                 <polyline points="1745.0,402.0,1745.0,370.0"/>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl3_95_btrf38_95_INTERNAL_95_vl3_95_trf8_95_THREE">
@@ -1327,7 +1327,7 @@
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="iddtrf38" transform="translate(1741.0,428.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_btrf38" transform="translate(1741.0,398.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf38_45_btrf38" transform="translate(1741.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idbtrf38" transform="translate(1737.0,354.0)">

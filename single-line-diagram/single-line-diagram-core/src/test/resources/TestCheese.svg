@@ -70,10 +70,10 @@
             <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
-            <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_b">
+            <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d_45_b">
                 <polyline points="65.0,253.0,65.0,223.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_b_95_b">
+            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_d_45_b_95_b">
                 <polyline points="65.0,223.0,65.0,206.0"/>
             </g>
             <g class="sld-wire" id="_95_vl_95_b_95_cheese">
@@ -101,7 +101,7 @@
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_b" transform="translate(61.0,219.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_d_45_b" transform="translate(61.0,219.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-breaker sld-closed" id="idb" transform="translate(55.0,186.0)">
