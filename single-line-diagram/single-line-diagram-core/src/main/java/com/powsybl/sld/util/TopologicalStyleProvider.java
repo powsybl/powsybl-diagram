@@ -121,7 +121,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
                 .filter(Objects::nonNull)
                 .map(busIdStyleMap::get)
                 .findFirst()
-                .orElse(null);
+                .orElse(DiagramStyles.DISCONNECTED_STYLE_CLASS);
     }
 
     private void findConnectedNodes(Node node, Set<Node> visitedNodes) {
