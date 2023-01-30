@@ -175,21 +175,7 @@
     "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {
-    "id" : "idINTERNAL_95_vl1_95_btrf17",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf16",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf15",
+    "id" : "idINTERNAL_95_vl1_95_dgen2_45_bgen2",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -209,41 +195,6 @@
       "positionName" : "S_LABEL"
     } ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf14",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf13",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_dtrct11",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf12",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf11",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "iddtrct21",
     "vid" : "vl1",
     "componentType" : "BREAKER",
@@ -253,6 +204,13 @@
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_trf1_95_ONE",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf12_45_btrf12",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -344,6 +302,13 @@
     "vlabel" : false,
     "labels" : [ ]
   }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf15_45_btrf15",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
     "id" : "idINTERNAL_95_vl1_95_trf5_95_ONE",
     "vid" : "vl1",
     "componentType" : "NODE",
@@ -365,13 +330,6 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf12",
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_btrf18",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idbbs4",
@@ -401,6 +359,13 @@
     "equipmentId" : "bgen2",
     "labels" : [ ]
   }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf18_45_btrf18",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
     "id" : "idgen1",
     "vid" : "vl1",
     "componentType" : "GENERATOR",
@@ -424,6 +389,13 @@
       "id" : "gen2_S_LABEL",
       "positionName" : "S_LABEL"
     } ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dsect22_45_dtrct21",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
   }, {
     "id" : "idbbs1",
     "vid" : "vl1",
@@ -457,6 +429,20 @@
       "id" : "bbs3_NW_LABEL",
       "positionName" : "NW_LABEL"
     } ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf11_45_btrf11",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf14_45_btrf14",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
   }, {
     "id" : "iddtrf11",
     "vid" : "vl1",
@@ -580,12 +566,33 @@
     "equipmentId" : "dtrf13",
     "labels" : [ ]
   }, {
+    "id" : "idINTERNAL_95_vl1_95_dsect12_45_dtrct11",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
     "id" : "iddtrf12",
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf12",
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dsect21_45_dtrct21",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dtrf17_45_btrf17",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idtrf6",
@@ -628,14 +635,7 @@
     "equipmentId" : "dgen2",
     "labels" : [ ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_bload2",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_bload1",
+    "id" : "idINTERNAL_95_vl1_95_dtrf13_45_btrf13",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -667,6 +667,13 @@
       "id" : "trf7_TWO_S_LABEL",
       "positionName" : "S_LABEL"
     } ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dgen1_45_bgen1",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_gen1",
     "vid" : "vl1",
@@ -711,12 +718,26 @@
     "equipmentId" : "dsect22",
     "labels" : [ ]
   }, {
+    "id" : "idINTERNAL_95_vl1_95_dload2_45_bload2",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
     "id" : "iddtrct11",
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrct11",
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_dsect11_45_dtrct11",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idload1",
@@ -772,21 +793,14 @@
       "positionName" : "N_LABEL"
     } ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_dtrct21",
+    "id" : "idINTERNAL_95_vl1_95_dload1_45_bload1",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
     "vlabel" : false,
     "labels" : [ ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_bgen1",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
-    "id" : "idINTERNAL_95_vl1_95_bgen2",
+    "id" : "idINTERNAL_95_vl1_95_dtrf16_45_btrf16",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -836,9 +850,9 @@
     } ]
   } ],
   "wires" : [ {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf13_95_btrf13",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf13",
-    "nodeId2" : "idbtrf13",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf15_45_btrf15_95_btrf15",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf15_45_btrf15",
+    "nodeId2" : "idbtrf15",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -854,15 +868,21 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_btrf11",
-    "nodeId1" : "iddtrf11",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf11",
+    "id" : "_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_dtrf12_45_btrf12",
+    "nodeId1" : "iddtrf12",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf12_45_btrf12",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_bgen1_95_bgen1",
-    "nodeId1" : "idINTERNAL_95_vl1_95_bgen1",
-    "nodeId2" : "idbgen1",
+    "id" : "_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_dgen1_45_bgen1",
+    "nodeId1" : "iddgen1",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dgen1_45_bgen1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dsect21_95_INTERNAL_95_vl1_95_dsect21_45_dtrct21",
+    "nodeId1" : "iddsect21",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dsect21_45_dtrct21",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -872,9 +892,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dtrct21",
-    "nodeId1" : "iddtrct21",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct21",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dgen2_45_bgen2_95_bgen2",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dgen2_45_bgen2",
+    "nodeId2" : "idbgen2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -890,15 +910,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_btrf12",
-    "nodeId1" : "iddtrf12",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf12",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf16_95_btrf16",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf16",
-    "nodeId2" : "idbtrf16",
+    "id" : "_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dsect22_45_dtrct21",
+    "nodeId1" : "iddtrct21",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dsect22_45_dtrct21",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -920,6 +934,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_dtrf16_45_btrf16",
+    "nodeId1" : "iddtrf16",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf16_45_btrf16",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_btrf17_95_trf7",
     "nodeId1" : "idbtrf17",
     "nodeId2" : "idtrf7",
@@ -932,33 +952,27 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct11_95_dsect12",
-    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct11",
-    "nodeId2" : "iddsect12",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_btrf13",
-    "nodeId1" : "iddtrf13",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf13",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_btrf18",
-    "nodeId1" : "iddtrf18",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf18",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf14_95_btrf14",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf14",
-    "nodeId2" : "idbtrf14",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dgen1_45_bgen1_95_bgen1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dgen1_45_bgen1",
+    "nodeId2" : "idbgen1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_vl1_95_trf8_95_THREE_95_trf8",
     "nodeId1" : "idtrf8_95_THREE",
     "nodeId2" : "idtrf8",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dsect11_95_INTERNAL_95_vl1_95_dsect11_45_dtrct11",
+    "nodeId1" : "iddsect11",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dsect11_45_dtrct11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_dtrf13_45_btrf13",
+    "nodeId1" : "iddtrf13",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf13_45_btrf13",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -974,9 +988,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_bload2",
-    "nodeId1" : "iddload2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_bload2",
+    "id" : "_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_dgen2_45_bgen2",
+    "nodeId1" : "iddgen2",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dgen2_45_bgen2",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_dtrf17_45_btrf17",
+    "nodeId1" : "iddtrf17",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf17_45_btrf17",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -986,9 +1006,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf17_95_btrf17",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf17",
-    "nodeId2" : "idbtrf17",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf12_45_btrf12_95_btrf12",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf12_45_btrf12",
+    "nodeId2" : "idbtrf12",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -998,21 +1018,21 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf18_45_btrf18_95_btrf18",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf18_45_btrf18",
+    "nodeId2" : "idbtrf18",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_dload1_45_bload1",
+    "nodeId1" : "iddload1",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dload1_45_bload1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_bbs3_95_dgen1",
     "nodeId1" : "idbbs3",
     "nodeId2" : "iddgen1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dtrct11",
-    "nodeId1" : "iddtrct11",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct11",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_bload2_95_bload2",
-    "nodeId1" : "idINTERNAL_95_vl1_95_bload2",
-    "nodeId2" : "idbload2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1022,15 +1042,21 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen1_95_bgen1",
-    "nodeId1" : "idINTERNAL_95_vl1_95_gen1",
-    "nodeId2" : "idbgen1",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf14_45_btrf14_95_btrf14",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf14_45_btrf14",
+    "nodeId2" : "idbtrf14",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_btrf15",
-    "nodeId1" : "iddtrf15",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf15",
+    "id" : "_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dsect12_45_dtrct11",
+    "nodeId1" : "iddtrct11",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dsect12_45_dtrct11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen1_95_bgen1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_gen1",
+    "nodeId2" : "idbgen1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1040,9 +1066,21 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf16_45_btrf16_95_btrf16",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf16_45_btrf16",
+    "nodeId2" : "idbtrf16",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_bbs2_95_dload2",
     "nodeId1" : "idbbs2",
     "nodeId2" : "iddload2",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dsect12_45_dtrct11_95_dsect12",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dsect12_45_dtrct11",
+    "nodeId2" : "iddsect12",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1055,24 +1093,6 @@
     "id" : "_95_vl1_95_bbs1_95_dtrf15",
     "nodeId1" : "idbbs1",
     "nodeId2" : "iddtrf15",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_btrf16",
-    "nodeId1" : "iddtrf16",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf16",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_dsect11_95_INTERNAL_95_vl1_95_dtrct11",
-    "nodeId1" : "iddsect11",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct11",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct21_95_dsect22",
-    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct21",
-    "nodeId2" : "iddsect22",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1106,21 +1126,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_btrf17",
-    "nodeId1" : "iddtrf17",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf17",
+    "id" : "_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_dtrf14_45_btrf14",
+    "nodeId1" : "iddtrf14",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf14_45_btrf14",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_bgen2",
-    "nodeId1" : "iddgen2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_bgen2",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct11_95_dtrct11",
-    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct11",
-    "nodeId2" : "iddtrct11",
+    "id" : "_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_dtrf18_45_btrf18",
+    "nodeId1" : "iddtrf18",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf18_45_btrf18",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1130,45 +1144,45 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf11_95_btrf11",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf11",
-    "nodeId2" : "idbtrf11",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_INTERNAL_95_vl1_95_trf3_95_ONE_95_trf3_95_ONE",
     "nodeId1" : "idINTERNAL_95_vl1_95_trf3_95_ONE",
     "nodeId2" : "idtrf3_95_ONE",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_bload1",
-    "nodeId1" : "iddload1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_bload1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_bload1_95_bload1",
-    "nodeId1" : "idINTERNAL_95_vl1_95_bload1",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dload1_45_bload1_95_bload1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dload1_45_bload1",
     "nodeId2" : "idbload1",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf12_95_btrf12",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf12",
-    "nodeId2" : "idbtrf12",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dload2_45_bload2_95_bload2",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dload2_45_bload2",
+    "nodeId2" : "idbload2",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_bgen2_95_bgen2",
-    "nodeId1" : "idINTERNAL_95_vl1_95_bgen2",
-    "nodeId2" : "idbgen2",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dsect21_45_dtrct21_95_dtrct21",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dsect21_45_dtrct21",
+    "nodeId2" : "iddtrct21",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_vl1_95_btrf12_95_INTERNAL_95_vl1_95_trf2_95_ONE",
     "nodeId1" : "idbtrf12",
     "nodeId2" : "idINTERNAL_95_vl1_95_trf2_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dsect11_45_dtrct11_95_dtrct11",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dsect11_45_dtrct11",
+    "nodeId2" : "iddtrct11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_dload2_45_bload2",
+    "nodeId1" : "iddload2",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dload2_45_bload2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1196,21 +1210,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_bgen1",
-    "nodeId1" : "iddgen1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_bgen1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_dsect12_95_bbs2",
     "nodeId1" : "iddsect12",
     "nodeId2" : "idbbs2",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf18_95_btrf18",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf18",
-    "nodeId2" : "idbtrf18",
+    "id" : "_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_dtrf11_45_btrf11",
+    "nodeId1" : "iddtrf11",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf11_45_btrf11",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1232,9 +1240,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_btrf14",
-    "nodeId1" : "iddtrf14",
-    "nodeId2" : "idINTERNAL_95_vl1_95_btrf14",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dsect22_45_dtrct21_95_dsect22",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dsect22_45_dtrct21",
+    "nodeId2" : "iddsect22",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf13_45_btrf13_95_btrf13",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf13_45_btrf13",
+    "nodeId2" : "idbtrf13",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1250,21 +1264,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dsect21_95_INTERNAL_95_vl1_95_dtrct21",
-    "nodeId1" : "iddsect21",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct21",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf17_45_btrf17_95_btrf17",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf17_45_btrf17",
+    "nodeId2" : "idbtrf17",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct21_95_dtrct21",
-    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct21",
-    "nodeId2" : "iddtrct21",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_btrf15_95_btrf15",
-    "nodeId1" : "idINTERNAL_95_vl1_95_btrf15",
-    "nodeId2" : "idbtrf15",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrf11_45_btrf11_95_btrf11",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrf11_45_btrf11",
+    "nodeId2" : "idbtrf11",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1280,6 +1288,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_dtrf15_45_btrf15",
+    "nodeId1" : "iddtrf15",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrf15_45_btrf15",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_gen2_95_INTERNAL_95_vl1_95_gen2",
     "nodeId1" : "idgen2",
     "nodeId2" : "idINTERNAL_95_vl1_95_gen2",
@@ -1289,116 +1303,146 @@
   "lines" : [ ],
   "feederInfos" : [ {
     "id" : "idgen1_ARROW_REACTIVE",
-    "equipmentId" : "gen1"
+    "equipmentId" : "gen1",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idload1_ARROW_ACTIVE",
-    "equipmentId" : "load1"
+    "equipmentId" : "load1",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_ACTIVE",
     "equipmentId" : "trf8",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf4",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf1",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_ACTIVE",
     "equipmentId" : "trf8",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idload2_ARROW_ACTIVE",
-    "equipmentId" : "load2"
+    "equipmentId" : "load2",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf3",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idgen2_ARROW_REACTIVE",
-    "equipmentId" : "gen2"
+    "equipmentId" : "gen2",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf5",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_REACTIVE",
     "equipmentId" : "trf6",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_REACTIVE",
     "equipmentId" : "trf6",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idload1_ARROW_REACTIVE",
-    "equipmentId" : "load1"
+    "equipmentId" : "load1",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf5",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf3",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_ACTIVE",
     "equipmentId" : "trf7",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_REACTIVE",
     "equipmentId" : "trf7",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_ACTIVE",
     "equipmentId" : "trf7",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idload2_ARROW_REACTIVE",
-    "equipmentId" : "load2"
+    "equipmentId" : "load2",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idgen1_ARROW_ACTIVE",
-    "equipmentId" : "gen1"
+    "equipmentId" : "gen1",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_REACTIVE",
     "equipmentId" : "trf7",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_ACTIVE",
     "equipmentId" : "trf6",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_REACTIVE",
     "equipmentId" : "trf8",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf1",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idgen2_ARROW_ACTIVE",
-    "equipmentId" : "gen2"
+    "equipmentId" : "gen2",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf2",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_ACTIVE",
     "equipmentId" : "trf6",
-    "side" : "TWO"
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_REACTIVE",
     "equipmentId" : "trf8",
-    "side" : "THREE"
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_REACTIVE",
     "equipmentId" : "trf2",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_ACTIVE",
     "equipmentId" : "trf4",
-    "side" : "ONE"
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
   } ],
   "electricalNodeInfos" : [ {
     "id" : "NODE_vl1_0"

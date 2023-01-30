@@ -314,84 +314,84 @@
       "direction" : "TOP"
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR1",
+      "id" : "INTERNAL_VL1_D10-BR1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 132.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR1",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 25.0,
-      "y" : 132.0
-    }, {
-      "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR12",
+      "id" : "INTERNAL_VL1_D11-BR12",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR14",
+      "id" : "INTERNAL_VL1_D13-BR14",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR16",
+      "id" : "INTERNAL_VL1_D15-BR16",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR18",
+      "id" : "INTERNAL_VL1_D17-BR18",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 132.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR20",
+      "id" : "INTERNAL_VL1_D19-BR20",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR22",
+      "id" : "INTERNAL_VL1_D20-BR1",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 25.0,
+      "y" : 132.0
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_VL1_D21-BR22",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR24",
+      "id" : "INTERNAL_VL1_D23-BR24",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR26",
+      "id" : "INTERNAL_VL1_D25-BR26",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 132.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR28",
+      "id" : "INTERNAL_VL1_D27-BR28",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 625.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BR30",
+      "id" : "INTERNAL_VL1_D29-BR30",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 675.0,
@@ -626,7 +626,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D20", "INTERNAL_VL1_BR1" ]
+          "nodes" : [ "BBS12", "D20", "INTERNAL_VL1_D20-BR1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -647,7 +647,7 @@
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR1", "BR1", "INTERNAL_VL1_BR1" ]
+          "nodes" : [ "INTERNAL_VL1_D20-BR1", "BR1", "INTERNAL_VL1_D10-BR1" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -668,7 +668,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D10", "INTERNAL_VL1_BR1" ]
+          "nodes" : [ "BBS11", "D10", "INTERNAL_VL1_D10-BR1" ]
         } ]
       }
     }, {
@@ -714,7 +714,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D25", "INTERNAL_VL1_BR26" ]
+          "nodes" : [ "BBS12", "D25", "INTERNAL_VL1_D25-BR26" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -735,7 +735,7 @@
             "xSpan" : 150.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR26", "BR26", "T11", "BR18", "INTERNAL_VL1_BR18" ]
+          "nodes" : [ "INTERNAL_VL1_D25-BR26", "BR26", "T11", "BR18", "INTERNAL_VL1_D17-BR18" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -756,7 +756,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D17", "INTERNAL_VL1_BR18" ]
+          "nodes" : [ "BBS11", "D17", "INTERNAL_VL1_D17-BR18" ]
         } ]
       }
     }, {
@@ -803,7 +803,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D11", "INTERNAL_VL1_BR12" ]
+          "nodes" : [ "BBS11", "D11", "INTERNAL_VL1_D11-BR12" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -824,7 +824,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR12", "BR12", "INTERNAL_VL1_L1" ]
+          "nodes" : [ "INTERNAL_VL1_D11-BR12", "BR12", "INTERNAL_VL1_L1" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -892,7 +892,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D13", "INTERNAL_VL1_BR14" ]
+          "nodes" : [ "BBS11", "D13", "INTERNAL_VL1_D13-BR14" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -913,7 +913,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR14", "BR14", "INTERNAL_VL1_L11_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_D13-BR14", "BR14", "INTERNAL_VL1_L11_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -981,7 +981,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D15", "INTERNAL_VL1_BR16" ]
+          "nodes" : [ "BBS11", "D15", "INTERNAL_VL1_D15-BR16" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1002,7 +1002,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR16", "BR16", "INTERNAL_VL1_L12_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_D15-BR16", "BR16", "INTERNAL_VL1_L12_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1070,7 +1070,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS11", "D19", "INTERNAL_VL1_BR20" ]
+          "nodes" : [ "BBS11", "D19", "INTERNAL_VL1_D19-BR20" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1091,7 +1091,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR20", "BR20", "INTERNAL_VL1_T3_12_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_D19-BR20", "BR20", "INTERNAL_VL1_T3_12_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1159,7 +1159,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D21", "INTERNAL_VL1_BR22" ]
+          "nodes" : [ "BBS12", "D21", "INTERNAL_VL1_D21-BR22" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1180,7 +1180,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR22", "BR22", "INTERNAL_VL1_G" ]
+          "nodes" : [ "INTERNAL_VL1_D21-BR22", "BR22", "INTERNAL_VL1_G" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1248,7 +1248,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D23", "INTERNAL_VL1_BR24" ]
+          "nodes" : [ "BBS12", "D23", "INTERNAL_VL1_D23-BR24" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1269,7 +1269,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR24", "BR24", "INTERNAL_VL1_L11_TWO" ]
+          "nodes" : [ "INTERNAL_VL1_D23-BR24", "BR24", "INTERNAL_VL1_L11_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1337,7 +1337,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D27", "INTERNAL_VL1_BR28" ]
+          "nodes" : [ "BBS12", "D27", "INTERNAL_VL1_D27-BR28" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1358,7 +1358,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR28", "BR28", "INTERNAL_VL1_T12_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_D27-BR28", "BR28", "INTERNAL_VL1_T12_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1426,7 +1426,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS12", "D29", "INTERNAL_VL1_BR30" ]
+          "nodes" : [ "BBS12", "D29", "INTERNAL_VL1_D29-BR30" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1447,7 +1447,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BR30", "BR30", "INTERNAL_VL1_T3_12_TWO" ]
+          "nodes" : [ "INTERNAL_VL1_D29-BR30", "BR30", "INTERNAL_VL1_T3_12_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1516,75 +1516,75 @@
       "node2" : "T11"
     }, {
       "node1" : "D10",
-      "node2" : "INTERNAL_VL1_BR1"
+      "node2" : "INTERNAL_VL1_D10-BR1"
     }, {
-      "node1" : "INTERNAL_VL1_BR1",
+      "node1" : "INTERNAL_VL1_D10-BR1",
       "node2" : "BR1"
     }, {
       "node1" : "D11",
-      "node2" : "INTERNAL_VL1_BR12"
+      "node2" : "INTERNAL_VL1_D11-BR12"
     }, {
-      "node1" : "INTERNAL_VL1_BR12",
+      "node1" : "INTERNAL_VL1_D11-BR12",
       "node2" : "BR12"
     }, {
       "node1" : "D13",
-      "node2" : "INTERNAL_VL1_BR14"
+      "node2" : "INTERNAL_VL1_D13-BR14"
     }, {
-      "node1" : "INTERNAL_VL1_BR14",
+      "node1" : "INTERNAL_VL1_D13-BR14",
       "node2" : "BR14"
     }, {
       "node1" : "D15",
-      "node2" : "INTERNAL_VL1_BR16"
+      "node2" : "INTERNAL_VL1_D15-BR16"
     }, {
-      "node1" : "INTERNAL_VL1_BR16",
+      "node1" : "INTERNAL_VL1_D15-BR16",
       "node2" : "BR16"
     }, {
       "node1" : "D17",
-      "node2" : "INTERNAL_VL1_BR18"
+      "node2" : "INTERNAL_VL1_D17-BR18"
     }, {
-      "node1" : "INTERNAL_VL1_BR18",
+      "node1" : "INTERNAL_VL1_D17-BR18",
       "node2" : "BR18"
     }, {
       "node1" : "D19",
-      "node2" : "INTERNAL_VL1_BR20"
+      "node2" : "INTERNAL_VL1_D19-BR20"
     }, {
-      "node1" : "INTERNAL_VL1_BR20",
+      "node1" : "INTERNAL_VL1_D19-BR20",
       "node2" : "BR20"
     }, {
       "node1" : "BR1",
-      "node2" : "INTERNAL_VL1_BR1"
+      "node2" : "INTERNAL_VL1_D20-BR1"
     }, {
-      "node1" : "INTERNAL_VL1_BR1",
+      "node1" : "INTERNAL_VL1_D20-BR1",
       "node2" : "D20"
     }, {
       "node1" : "D21",
-      "node2" : "INTERNAL_VL1_BR22"
+      "node2" : "INTERNAL_VL1_D21-BR22"
     }, {
-      "node1" : "INTERNAL_VL1_BR22",
+      "node1" : "INTERNAL_VL1_D21-BR22",
       "node2" : "BR22"
     }, {
       "node1" : "D23",
-      "node2" : "INTERNAL_VL1_BR24"
+      "node2" : "INTERNAL_VL1_D23-BR24"
     }, {
-      "node1" : "INTERNAL_VL1_BR24",
+      "node1" : "INTERNAL_VL1_D23-BR24",
       "node2" : "BR24"
     }, {
       "node1" : "D25",
-      "node2" : "INTERNAL_VL1_BR26"
+      "node2" : "INTERNAL_VL1_D25-BR26"
     }, {
-      "node1" : "INTERNAL_VL1_BR26",
+      "node1" : "INTERNAL_VL1_D25-BR26",
       "node2" : "BR26"
     }, {
       "node1" : "D27",
-      "node2" : "INTERNAL_VL1_BR28"
+      "node2" : "INTERNAL_VL1_D27-BR28"
     }, {
-      "node1" : "INTERNAL_VL1_BR28",
+      "node1" : "INTERNAL_VL1_D27-BR28",
       "node2" : "BR28"
     }, {
       "node1" : "D29",
-      "node2" : "INTERNAL_VL1_BR30"
+      "node2" : "INTERNAL_VL1_D29-BR30"
     }, {
-      "node1" : "INTERNAL_VL1_BR30",
+      "node1" : "INTERNAL_VL1_D29-BR30",
       "node2" : "BR30"
     }, {
       "node1" : "BR12",
@@ -1761,28 +1761,28 @@
       "kind" : "DISCONNECTOR"
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL2_BR32",
+      "id" : "INTERNAL_VL2_D31-BR32",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL2_BR34",
+      "id" : "INTERNAL_VL2_D33-BR34",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL2_BR36",
+      "id" : "INTERNAL_VL2_D35-BR36",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL2_BR38",
+      "id" : "INTERNAL_VL2_D37-BR38",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -1926,7 +1926,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS2", "D31", "INTERNAL_VL2_BR32" ]
+          "nodes" : [ "BBS2", "D31", "INTERNAL_VL2_D31-BR32" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1947,7 +1947,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL2_BR32", "BR32", "INTERNAL_VL2_L2" ]
+          "nodes" : [ "INTERNAL_VL2_D31-BR32", "BR32", "INTERNAL_VL2_L2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2015,7 +2015,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS2", "D33", "INTERNAL_VL2_BR34" ]
+          "nodes" : [ "BBS2", "D33", "INTERNAL_VL2_D33-BR34" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2036,7 +2036,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL2_BR34", "BR34", "INTERNAL_VL2_L12_TWO" ]
+          "nodes" : [ "INTERNAL_VL2_D33-BR34", "BR34", "INTERNAL_VL2_L12_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2104,7 +2104,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS2", "D35", "INTERNAL_VL2_BR36" ]
+          "nodes" : [ "BBS2", "D35", "INTERNAL_VL2_D35-BR36" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2125,7 +2125,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL2_BR36", "BR36", "INTERNAL_VL2_T12_TWO" ]
+          "nodes" : [ "INTERNAL_VL2_D35-BR36", "BR36", "INTERNAL_VL2_T12_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2193,7 +2193,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "BBS2", "D37", "INTERNAL_VL2_BR38" ]
+          "nodes" : [ "BBS2", "D37", "INTERNAL_VL2_D37-BR38" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2214,7 +2214,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL2_BR38", "BR38", "INTERNAL_VL2_T3_12_THREE" ]
+          "nodes" : [ "INTERNAL_VL2_D37-BR38", "BR38", "INTERNAL_VL2_T3_12_THREE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2253,27 +2253,27 @@
       "node2" : "D37"
     }, {
       "node1" : "D31",
-      "node2" : "INTERNAL_VL2_BR32"
+      "node2" : "INTERNAL_VL2_D31-BR32"
     }, {
-      "node1" : "INTERNAL_VL2_BR32",
+      "node1" : "INTERNAL_VL2_D31-BR32",
       "node2" : "BR32"
     }, {
       "node1" : "D33",
-      "node2" : "INTERNAL_VL2_BR34"
+      "node2" : "INTERNAL_VL2_D33-BR34"
     }, {
-      "node1" : "INTERNAL_VL2_BR34",
+      "node1" : "INTERNAL_VL2_D33-BR34",
       "node2" : "BR34"
     }, {
       "node1" : "D35",
-      "node2" : "INTERNAL_VL2_BR36"
+      "node2" : "INTERNAL_VL2_D35-BR36"
     }, {
-      "node1" : "INTERNAL_VL2_BR36",
+      "node1" : "INTERNAL_VL2_D35-BR36",
       "node2" : "BR36"
     }, {
       "node1" : "D37",
-      "node2" : "INTERNAL_VL2_BR38"
+      "node2" : "INTERNAL_VL2_D37-BR38"
     }, {
-      "node1" : "INTERNAL_VL2_BR38",
+      "node1" : "INTERNAL_VL2_D37-BR38",
       "node2" : "BR38"
     }, {
       "node1" : "BR32",
