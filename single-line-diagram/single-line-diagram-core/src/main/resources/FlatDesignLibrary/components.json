@@ -53,21 +53,15 @@
           "x": 0.0,
           "y": 0.0,
           "orientation": "NONE"
-        },
-        {
-          "x": -4.0,
-          "y": 0.0,
-          "orientation": "HORIZONTAL"
-        },
-        {
-          "x": 4.0,
-          "y": 0.0,
-          "orientation": "HORIZONTAL"
         }
       ],
       "size": {
         "width": 8.0,
         "height": 8.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
