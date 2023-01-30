@@ -27,7 +27,7 @@ public class LoadDiagramDataExporter extends AbstractInjectionDiagramDataExporte
         Objects.requireNonNull(load);
         InjectionDiagramData<Load> loadDiagramData = load.getExtension(InjectionDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(load.getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(load.getId(), load.getName(), loadDiagramData, diagramObjectStyleId);
+        addDiagramData(load.getId(), load.getNameOrId(), loadDiagramData, diagramObjectStyleId);
     }
 
 }

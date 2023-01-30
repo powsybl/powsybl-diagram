@@ -26,7 +26,7 @@ public class HvdcLineDiagramDataExporter extends AbstractLineDiagramDataExporter
         Objects.requireNonNull(hvdcLine);
         LineDiagramData<HvdcLine> hvdcLineDiagramData = hvdcLine.getExtension(LineDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(hvdcLine.getConverterStation1().getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(hvdcLine.getId(), hvdcLine.getName(), hvdcLineDiagramData, diagramObjectStyleId);
+        addDiagramData(hvdcLine.getId(), hvdcLine.getNameOrId(), hvdcLineDiagramData, diagramObjectStyleId);
     }
 
 }

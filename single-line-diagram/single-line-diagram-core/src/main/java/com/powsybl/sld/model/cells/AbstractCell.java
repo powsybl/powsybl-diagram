@@ -71,6 +71,9 @@ public abstract class AbstractCell implements Cell {
         return number;
     }
 
+    /**
+     * @param includeCoordinates This boolean may be used in overriding classes
+     */
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeNumberField("number", number);

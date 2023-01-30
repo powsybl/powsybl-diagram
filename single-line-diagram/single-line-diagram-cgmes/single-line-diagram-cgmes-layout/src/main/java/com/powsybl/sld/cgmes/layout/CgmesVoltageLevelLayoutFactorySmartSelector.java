@@ -32,7 +32,7 @@ public class CgmesVoltageLevelLayoutFactorySmartSelector implements VoltageLevel
 
     private static boolean hasOneCgmesExtension(VoltageLevel vl) {
         // check for a cgmes extension
-        for (Connectable c : vl.getConnectables()) {
+        for (Connectable<?> c : vl.getConnectables()) {
             if (c.getExtension(InjectionDiagramData.class) != null
                     || c.getExtension(LineDiagramData.class) != null
                     || c.getExtension(NodeDiagramData.class) != null

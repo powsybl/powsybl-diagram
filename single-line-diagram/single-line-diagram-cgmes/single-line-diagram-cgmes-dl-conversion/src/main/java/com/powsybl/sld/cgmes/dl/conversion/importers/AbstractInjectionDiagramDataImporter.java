@@ -28,12 +28,12 @@ public abstract class AbstractInjectionDiagramDataImporter {
     protected Network network;
     protected Map<String, PropertyBags> terminalsDiagramData;
 
-    public AbstractInjectionDiagramDataImporter(Network network, Map<String, PropertyBags> terminalsDiagramData) {
+    protected AbstractInjectionDiagramDataImporter(Network network, Map<String, PropertyBags> terminalsDiagramData) {
         this.network = Objects.requireNonNull(network);
         this.terminalsDiagramData = Objects.requireNonNull(terminalsDiagramData);
     }
 
-    protected void addTerminalPoints(String equipmentId, String equipmentName, String diagram, InjectionDiagramData.InjectionDiagramDetails diagramDetails) {
+    protected void addTerminalPoints(String equipmentId, String equipmentName, String diagram, InjectionDiagramData<?>.InjectionDiagramDetails diagramDetails) {
         String terminalKey = diagram + "_" + equipmentId + "_1";
         if (terminalsDiagramData.containsKey(terminalKey)) {
             PropertyBags equipmentTerminalsDiagramData = terminalsDiagramData.get(terminalKey);

@@ -7,10 +7,7 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.*;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import java.util.*;
@@ -112,6 +109,14 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
             danglingLineData = new LineDiagramData<>(danglingLine);
         }
         return danglingLineData;
+    }
+
+    public static LineDiagramData<VscConverterStation> getOrCreateDiagramData(VscConverterStation vcs) {
+        LineDiagramData<VscConverterStation> vcsLineData = vcs.getExtension(LineDiagramData.class);
+        if (vcsLineData == null) {
+            vcsLineData = new LineDiagramData<>(vcs);
+        }
+        return vcsLineData;
     }
 
 }

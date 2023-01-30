@@ -40,12 +40,12 @@ public class Transformer3WDiagramDataExporter extends AbstractDiagramDataExporte
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(transformer.getId(), transformer.getName(), details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());
-                addTerminalData(transformer.getId(), transformer.getName(), 1, details.getTerminalPoints(DiagramTerminal.TERMINAL1), diagramObjectStyleId, diagramId);
-                addTerminalData(transformer.getId(), transformer.getName(), 2, details.getTerminalPoints(DiagramTerminal.TERMINAL2), diagramObjectStyleId, diagramId);
-                addTerminalData(transformer.getId(), transformer.getName(), 3, details.getTerminalPoints(DiagramTerminal.TERMINAL3), diagramObjectStyleId, diagramId);
+                addTerminalData(transformer.getId(), transformer.getNameOrId(), 1, details.getTerminalPoints(DiagramTerminal.TERMINAL1), diagramObjectStyleId, diagramId);
+                addTerminalData(transformer.getId(), transformer.getNameOrId(), 2, details.getTerminalPoints(DiagramTerminal.TERMINAL2), diagramObjectStyleId, diagramId);
+                addTerminalData(transformer.getId(), transformer.getNameOrId(), 3, details.getTerminalPoints(DiagramTerminal.TERMINAL3), diagramObjectStyleId, diagramId);
             });
         } else {
-            LOG.warn("Transformer {}, name {} has no diagram data, skipping export", transformer.getId(), transformer.getName());
+            LOG.warn("Transformer {}, name {} has no diagram data, skipping export", transformer.getId(), transformer.getNameOrId());
         }
     }
 

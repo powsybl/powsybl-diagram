@@ -42,12 +42,13 @@ public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataIm
             if (generatorIidmDiagramData == null) {
                 generatorIidmDiagramData = new InjectionDiagramData<>(generator);
             }
-            InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(generatorDiagramData.asDouble("x"), generatorDiagramData.asDouble("y"), generatorDiagramData.asInt("seq")),
+            String diagramName = generatorDiagramData.get("diagramName");
+            InjectionDiagramData<Generator>.InjectionDiagramDetails diagramDetails = generatorIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(generatorDiagramData.asDouble("x"), generatorDiagramData.asDouble("y"), generatorDiagramData.asInt("seq")),
                     generatorDiagramData.asDouble("rotation"));
-            addTerminalPoints(generatorId, generator.getName(), generatorDiagramData.get("diagramName"), diagramDetails);
-            generatorIidmDiagramData.addData(generatorDiagramData.get("diagramName"), diagramDetails);
+            addTerminalPoints(generatorId, generator.getNameOrId(), diagramName, diagramDetails);
+            generatorIidmDiagramData.addData(diagramName, diagramDetails);
             generator.addExtension(InjectionDiagramData.class, generatorIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"), generator.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+            NetworkDiagramData.addDiagramName(network, diagramName, generator.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find generator {}, name {} in network {}: skipping generator diagram data", generatorId, generatorDiagramData.get("name"), network.getId());
         }

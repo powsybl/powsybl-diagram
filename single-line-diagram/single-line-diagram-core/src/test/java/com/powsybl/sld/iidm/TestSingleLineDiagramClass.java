@@ -111,8 +111,13 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
 
-        PowsyblException e1 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "d1", new NullWriter(), new NullWriter()));
-        assertEquals("Given id 'd1' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e1.getMessage());
+        try (final Writer writerForSvg = new NullWriter();
+             final Writer metadataWriter = new NullWriter()) {
+            PowsyblException e1 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "d1", writerForSvg, metadataWriter));
+            assertEquals("Given id 'd1' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e1.getMessage());
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        }
 
         Writer writerForSvg = new StringWriter();
         SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter());

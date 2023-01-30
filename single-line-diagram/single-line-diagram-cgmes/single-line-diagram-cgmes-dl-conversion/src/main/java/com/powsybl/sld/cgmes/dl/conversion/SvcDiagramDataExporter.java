@@ -27,7 +27,7 @@ public class SvcDiagramDataExporter extends AbstractInjectionDiagramDataExporter
         Objects.requireNonNull(svc);
         InjectionDiagramData<StaticVarCompensator> generatorDiagramData = svc.getExtension(InjectionDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(svc.getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(svc.getId(), svc.getName(), generatorDiagramData, diagramObjectStyleId);
+        addDiagramData(svc.getId(), svc.getNameOrId(), generatorDiagramData, diagramObjectStyleId);
     }
 
 }

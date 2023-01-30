@@ -23,7 +23,7 @@ public abstract class AbstractCouplingDeviceDiagramDataExporter extends Abstract
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCouplingDeviceDiagramDataExporter.class);
 
-    public AbstractCouplingDeviceDiagramDataExporter(TripleStore tripleStore, ExportContext context, Map<String, String> terminals) {
+    protected AbstractCouplingDeviceDiagramDataExporter(TripleStore tripleStore, ExportContext context, Map<String, String> terminals) {
         super(tripleStore, context);
         super.terminals = Objects.requireNonNull(terminals);
     }
@@ -31,7 +31,7 @@ public abstract class AbstractCouplingDeviceDiagramDataExporter extends Abstract
     protected void addDiagramData(String id, String name, CouplingDeviceDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                CouplingDeviceDiagramData.CouplingDeviceDiagramDetails details = diagramData.getData(diagramName);
+                CouplingDeviceDiagramData<?>.CouplingDeviceDiagramDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());
