@@ -119,27 +119,8 @@ public class PositionFromExtension extends AbstractPositionFinder {
     private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
 
         graph.getBusCellStream().forEach(bc -> {
-            List<Direction> listOfDirectionsInsideCell = bc.getNodes().stream().map(Node::getDirection).distinct().collect(Collectors.toList());
-            int numberOfDirectionsInsideCell = listOfDirectionsInsideCell.size();
-            if (numberOfDirectionsInsideCell == 1) {
-                Direction direction = listOfDirectionsInsideCell.get(0);
-                if (direction != Direction.UNDEFINED) {
-                    bc.setDirection(direction);
-                }
-            } else if (numberOfDirectionsInsideCell > 1) {
-                bc.setDirection(listOfDirectionsInsideCell.get(numberOfDirectionsInsideCell - 1));
-                LOGGER.warn("Directions inside cell are not consistent: {} directions found instead of 1", numberOfDirectionsInsideCell);
-            }
-
-            bc.getNodes().stream().map(Node::getOrder)
-                    .filter(Optional::isPresent)
-                    .mapToInt(Optional::get)
-                    .min()
-                    .ifPresent(bc::setOrder);
-
-            if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == EXTERN) {
-                bc.setDirection(DEFAULTDIRECTION);
-            }
+            setDirection(bc);
+            setOrder(bc);
         });
 
         List<ExternCell> problematicCells = graph.getExternCellStream()
@@ -152,6 +133,33 @@ public class PositionFromExtension extends AbstractPositionFinder {
                             cell.getOrder().orElse(null),
                             cell.getType()));
         }
+    }
+
+    private static void setDirection(BusCell bc) {
+        List<Direction> listOfDirectionsInsideCell = bc.getNodes().stream().map(Node::getDirection)
+                .filter(d -> d != Direction.UNDEFINED).distinct().collect(Collectors.toList());
+        int numberOfDirectionsInsideCell = listOfDirectionsInsideCell.size();
+        if (numberOfDirectionsInsideCell == 0) {
+            if (bc.getType() == EXTERN) {
+                bc.setDirection(DEFAULTDIRECTION);
+            }
+            // The intern cells with undefined direction cannot be forced to a default position, as they are dealt with
+            // later to avoid overlap, see BlockPositionner::manageInternCellOverlaps. This cannot be done now, as the
+            // flat intern cells haven't been yet identified
+        } else {
+            bc.setDirection(listOfDirectionsInsideCell.get(0));
+            if (numberOfDirectionsInsideCell > 1) {
+                LOGGER.warn("Directions inside cell are not consistent: {} directions found instead of 1", numberOfDirectionsInsideCell);
+            }
+        }
+    }
+
+    private static void setOrder(BusCell bc) {
+        bc.getNodes().stream().map(Node::getOrder)
+                .filter(Optional::isPresent)
+                .mapToInt(Optional::get)
+                .min()
+                .ifPresent(bc::setOrder);
     }
 
     private Comparator<LegBusSet> sortLBS = new Comparator<LegBusSet>() {
