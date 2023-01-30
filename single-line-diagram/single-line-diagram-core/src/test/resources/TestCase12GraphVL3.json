@@ -8,14 +8,14 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_bload4",
+    "id" : "INTERNAL_vl3_dload4-bload4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 40.0,
     "y" : 142.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_bself4",
+    "id" : "INTERNAL_vl3_dself4-bself4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 120.0,
@@ -23,7 +23,7 @@
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_bself5",
+    "id" : "INTERNAL_vl3_dself5-bself5",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 760.0,
@@ -31,7 +31,7 @@
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_bself6",
+    "id" : "INTERNAL_vl3_dself6-bself6",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 840.0,
@@ -39,7 +39,7 @@
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_btrf25",
+    "id" : "INTERNAL_vl3_dtrf25-btrf25",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
@@ -47,14 +47,14 @@
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_btrf36",
+    "id" : "INTERNAL_vl3_dtrf36-btrf36",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 320.0,
     "y" : 142.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_btrf37",
+    "id" : "INTERNAL_vl3_dtrf37-btrf37",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 480.0,
@@ -62,7 +62,7 @@
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl3_btrf38",
+    "id" : "INTERNAL_vl3_dtrf38-btrf38",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 640.0,
@@ -638,7 +638,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dload4", "INTERNAL_vl3_bload4" ]
+        "nodes" : [ "bbs7", "dload4", "INTERNAL_vl3_dload4-bload4" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -659,7 +659,7 @@
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_bload4", "bload4", "INTERNAL_vl3_load4" ]
+        "nodes" : [ "INTERNAL_vl3_dload4-bload4", "bload4", "INTERNAL_vl3_load4" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -728,7 +728,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dself4", "INTERNAL_vl3_bself4" ]
+        "nodes" : [ "bbs7", "dself4", "INTERNAL_vl3_dself4-bself4" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -749,7 +749,7 @@
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_bself4", "bself4", "INTERNAL_vl3_self4" ]
+        "nodes" : [ "INTERNAL_vl3_dself4-bself4", "bself4", "INTERNAL_vl3_self4" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -818,7 +818,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dtrf25", "INTERNAL_vl3_btrf25" ]
+        "nodes" : [ "bbs7", "dtrf25", "INTERNAL_vl3_dtrf25-btrf25" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -839,7 +839,7 @@
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_btrf25", "btrf25", "INTERNAL_vl3_trf5_TWO" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf25-btrf25", "btrf25", "INTERNAL_vl3_trf5_TWO" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -908,7 +908,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dtrf36", "INTERNAL_vl3_btrf36" ]
+        "nodes" : [ "bbs7", "dtrf36", "INTERNAL_vl3_dtrf36-btrf36" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -929,7 +929,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_btrf36", "btrf36", "trf6" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf36-btrf36", "btrf36", "trf6" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1040,7 +1040,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dtrf37", "INTERNAL_vl3_btrf37" ]
+        "nodes" : [ "bbs7", "dtrf37", "INTERNAL_vl3_dtrf37-btrf37" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -1061,7 +1061,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_btrf37", "btrf37", "trf7" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf37-btrf37", "btrf37", "trf7" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1172,7 +1172,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dtrf38", "INTERNAL_vl3_btrf38" ]
+        "nodes" : [ "bbs7", "dtrf38", "INTERNAL_vl3_dtrf38-btrf38" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -1193,7 +1193,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_btrf38", "btrf38", "trf8" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf38-btrf38", "btrf38", "trf8" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1304,7 +1304,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs7", "dself5", "INTERNAL_vl3_bself5" ]
+        "nodes" : [ "bbs7", "dself5", "INTERNAL_vl3_dself5-bself5" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -1325,7 +1325,7 @@
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_bself5", "bself5", "INTERNAL_vl3_self5" ]
+        "nodes" : [ "INTERNAL_vl3_dself5-bself5", "bself5", "INTERNAL_vl3_self5" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -1394,7 +1394,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs8", "dself6", "INTERNAL_vl3_bself6" ]
+        "nodes" : [ "bbs8", "dself6", "INTERNAL_vl3_dself6-bself6" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -1415,7 +1415,7 @@
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_bself6", "bself6", "INTERNAL_vl3_self6" ]
+        "nodes" : [ "INTERNAL_vl3_dself6-bself6", "bself6", "INTERNAL_vl3_self6" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -1493,51 +1493,51 @@
     "node2" : "dself6"
   }, {
     "node1" : "dload4",
-    "node2" : "INTERNAL_vl3_bload4"
+    "node2" : "INTERNAL_vl3_dload4-bload4"
   }, {
-    "node1" : "INTERNAL_vl3_bload4",
+    "node1" : "INTERNAL_vl3_dload4-bload4",
     "node2" : "bload4"
   }, {
     "node1" : "dself4",
-    "node2" : "INTERNAL_vl3_bself4"
+    "node2" : "INTERNAL_vl3_dself4-bself4"
   }, {
-    "node1" : "INTERNAL_vl3_bself4",
+    "node1" : "INTERNAL_vl3_dself4-bself4",
     "node2" : "bself4"
   }, {
     "node1" : "dtrf25",
-    "node2" : "INTERNAL_vl3_btrf25"
+    "node2" : "INTERNAL_vl3_dtrf25-btrf25"
   }, {
-    "node1" : "INTERNAL_vl3_btrf25",
+    "node1" : "INTERNAL_vl3_dtrf25-btrf25",
     "node2" : "btrf25"
   }, {
     "node1" : "dtrf36",
-    "node2" : "INTERNAL_vl3_btrf36"
+    "node2" : "INTERNAL_vl3_dtrf36-btrf36"
   }, {
-    "node1" : "INTERNAL_vl3_btrf36",
+    "node1" : "INTERNAL_vl3_dtrf36-btrf36",
     "node2" : "btrf36"
   }, {
     "node1" : "dtrf37",
-    "node2" : "INTERNAL_vl3_btrf37"
+    "node2" : "INTERNAL_vl3_dtrf37-btrf37"
   }, {
-    "node1" : "INTERNAL_vl3_btrf37",
+    "node1" : "INTERNAL_vl3_dtrf37-btrf37",
     "node2" : "btrf37"
   }, {
     "node1" : "dtrf38",
-    "node2" : "INTERNAL_vl3_btrf38"
+    "node2" : "INTERNAL_vl3_dtrf38-btrf38"
   }, {
-    "node1" : "INTERNAL_vl3_btrf38",
+    "node1" : "INTERNAL_vl3_dtrf38-btrf38",
     "node2" : "btrf38"
   }, {
     "node1" : "dself5",
-    "node2" : "INTERNAL_vl3_bself5"
+    "node2" : "INTERNAL_vl3_dself5-bself5"
   }, {
-    "node1" : "INTERNAL_vl3_bself5",
+    "node1" : "INTERNAL_vl3_dself5-bself5",
     "node2" : "bself5"
   }, {
     "node1" : "dself6",
-    "node2" : "INTERNAL_vl3_bself6"
+    "node2" : "INTERNAL_vl3_dself6-bself6"
   }, {
-    "node1" : "INTERNAL_vl3_bself6",
+    "node1" : "INTERNAL_vl3_dself6-bself6",
     "node2" : "bself6"
   }, {
     "node1" : "bload4",
