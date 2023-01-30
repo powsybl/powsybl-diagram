@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BranchStatus;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
-import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
