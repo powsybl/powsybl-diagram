@@ -492,6 +492,27 @@ public final class CreateNetworksUtil {
         return network;
     }
 
+    public static Network createNetworkWithInternalPst() {
+        Network network = Network.create("networkWithInternalPst", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 3);
+        createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 3);
+        createSwitch(vl, "d1a", "d1an", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
+        createSwitch(vl, "d2a", "d2an", SwitchKind.DISCONNECTOR, false, false, false, 1, 2);
+        createSwitch(vl, "bpst", "bpstn", SwitchKind.BREAKER, false, false, false, 2, 3);
+        createPhaseShiftTransformer(substation, "trf3", "trf3", 1.0, 14.745, 0.0, 3.2E-5, 380.0, 380.0,
+                3, 4, vl.getId(), vl.getId(),
+                "pst1a", 1, ConnectablePosition.Direction.BOTTOM,
+                "pst1b", 1, ConnectablePosition.Direction.BOTTOM);
+        createSwitch(vl, "dpst", "dpstn", SwitchKind.BREAKER, false, true, false, 4, 5);
+        createSwitch(vl, "d1b", "d1bn", SwitchKind.DISCONNECTOR, false, true, false, 0, 5);
+        createSwitch(vl, "d2b", "d2bn", SwitchKind.DISCONNECTOR, false, true, false, 1, 5);
+        createSwitch(vl, "bl", "bln", SwitchKind.BREAKER, false, false, false, 5, 6);
+        createLoad(vl, "load", "load", "l", null, ConnectablePosition.Direction.BOTTOM, 6, 10, 10);
+        return network;
+    }
+
     public static Network createNetworkWithFlatSections() {
         Network network = Network.create("TestSingleLineDiagramClass", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
