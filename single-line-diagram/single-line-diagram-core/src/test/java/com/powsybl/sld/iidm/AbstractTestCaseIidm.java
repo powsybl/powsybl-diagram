@@ -145,13 +145,13 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         addFeederPosition(shunt, feederName, feederOrder, direction);
     }
 
-    protected static void createTwoWindingsTransformer(Substation s, String id, String name,
-                                                       double r, double x, double g, double b,
-                                                       double ratedU1, double ratedU2,
-                                                       int node1, int node2,
-                                                       String idVoltageLevel1, String idVoltageLevel2,
-                                                       String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
-                                                       String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
+    protected static TwoWindingsTransformer createTwoWindingsTransformer(Substation s, String id, String name,
+                                                                         double r, double x, double g, double b,
+                                                                         double ratedU1, double ratedU2,
+                                                                         int node1, int node2,
+                                                                         String idVoltageLevel1, String idVoltageLevel2,
+                                                                         String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                                         String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
         TwoWindingsTransformer t = s.newTwoWindingsTransformer()
                 .setId(id)
                 .setName(name)
@@ -167,6 +167,48 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setVoltageLevel2(idVoltageLevel2)
                 .add();
         addTwoFeedersPosition(t, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2);
+        return t;
+    }
+
+    protected static void createPhaseShiftTransformer(Substation s, String id, String name,
+                                                       double r, double x, double g, double b,
+                                                       double ratedU1, double ratedU2,
+                                                       int node1, int node2,
+                                                       String idVoltageLevel1, String idVoltageLevel2,
+                                                       String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                       String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
+        TwoWindingsTransformer twt = createTwoWindingsTransformer(s, id, name, r, x, g, b, ratedU1, ratedU2, node1, node2,
+                idVoltageLevel1, idVoltageLevel2, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2);
+        twt.newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getTerminal2())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
     }
 
     protected static void createThreeWindingsTransformer(Substation s, String id, String name,

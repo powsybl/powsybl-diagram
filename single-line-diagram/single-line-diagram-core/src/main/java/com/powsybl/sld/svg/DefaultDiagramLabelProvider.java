@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BranchStatus;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
-import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -127,27 +125,40 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         Objects.requireNonNull(node);
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
-        if (node.getType() == FEEDER) {
-            FeederNode feederNode = (FeederNode) node;
-            FeederType feederType = feederNode.getFeeder().getFeederType();
-            switch (feederType) {
-                case BRANCH:
-                case TWO_WINDINGS_TRANSFORMER_LEG:
-                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
-                    break;
-                case THREE_WINDINGS_TRANSFORMER_LEG:
-                    if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
-                        addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
-                    }
-                    break;
-                case HVDC:
-                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
-                    break;
-                default:
-                    break;
+
+        // BranchStatus extension is on connectables, so we're looking for them
+        if (node instanceof EquipmentNode && !(node instanceof SwitchNode)) {
+            if (node instanceof FeederNode) {
+                FeederNode feederNode = (FeederNode) node;
+                switch (feederNode.getFeeder().getFeederType()) {
+                    case BRANCH:
+                    case TWO_WINDINGS_TRANSFORMER_LEG:
+                        addBranchStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
+                        break;
+                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                        // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
+                        if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
+                            addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
+                        }
+                        break;
+                    case HVDC:
+                        HvdcLine hvdcLine = network.getHvdcLine(feederNode.getEquipmentId());
+                        Connectable<?> converterStation = ((FeederWithSides) feederNode.getFeeder()).getSide() == NodeSide.ONE ? hvdcLine.getConverterStation1() : hvdcLine.getConverterStation2();
+                        addBranchStatusDecorator(nodeDecorators, node, direction, converterStation);
+                        break;
+                    default:
+                        break;
+                }
+            } else if (node instanceof MiddleTwtNode) {
+                if (node instanceof Middle3WTNode && ((Middle3WTNode) node).isEmbeddedInVlGraph()) {
+                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(((Middle3WTNode) node).getEquipmentId()));
+                }
+            } else {
+                Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
+                if (identifiable instanceof Connectable<?>) {
+                    addBranchStatusDecorator(nodeDecorators, node, direction, (Connectable<?>) identifiable);
+                }
             }
-        } else if (node instanceof Middle3WTNode && ((Middle3WTNode) node).isEmbeddedInVlGraph()) {
-            addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(((Middle3WTNode) node).getEquipmentId()));
         }
 
         return nodeDecorators;
@@ -161,8 +172,8 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
                 .collect(Collectors.toList());
     }
 
-    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Extendable e) {
-        BranchStatus branchStatus = (BranchStatus) e.getExtension(BranchStatus.class);
+    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
+        BranchStatus<?> branchStatus = (BranchStatus<?>) c.getExtension(BranchStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
                 case PLANNED_OUTAGE:
