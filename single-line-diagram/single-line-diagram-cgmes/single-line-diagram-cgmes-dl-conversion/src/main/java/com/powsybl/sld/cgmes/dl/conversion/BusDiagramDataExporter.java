@@ -27,7 +27,7 @@ public class BusDiagramDataExporter extends AbstractNodeDiagramDataExporter {
         Objects.requireNonNull(bus);
         NodeDiagramData<Bus> busDiagramData = bus.getExtension(NodeDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(TopologyKind.BUS_BREAKER);
-        addDiagramData(bus.getId(), bus.getName(), busDiagramData, diagramObjectStyleId);
+        addDiagramData(bus.getId(), bus.getNameOrId(), busDiagramData, diagramObjectStyleId);
     }
 
 }

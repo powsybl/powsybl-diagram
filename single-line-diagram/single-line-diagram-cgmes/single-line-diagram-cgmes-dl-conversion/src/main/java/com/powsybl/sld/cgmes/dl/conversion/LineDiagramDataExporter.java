@@ -26,7 +26,7 @@ public class LineDiagramDataExporter extends AbstractLineDiagramDataExporter {
         Objects.requireNonNull(line);
         LineDiagramData<Line> lineDiagramData = line.getExtension(LineDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(line.getTerminal1().getVoltageLevel().getTopologyKind());
-        addDiagramData(line.getId(), line.getName(), lineDiagramData, diagramObjectStyleId);
+        addDiagramData(line.getId(), line.getNameOrId(), lineDiagramData, diagramObjectStyleId);
     }
 
 }

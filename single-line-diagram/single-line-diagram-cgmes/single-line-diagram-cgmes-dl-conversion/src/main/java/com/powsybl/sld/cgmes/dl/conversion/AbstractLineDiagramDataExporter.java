@@ -20,7 +20,7 @@ public abstract class AbstractLineDiagramDataExporter extends AbstractDiagramDat
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractLineDiagramDataExporter.class);
 
-    public AbstractLineDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
+    protected AbstractLineDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
         super(tripleStore, context);
     }
 

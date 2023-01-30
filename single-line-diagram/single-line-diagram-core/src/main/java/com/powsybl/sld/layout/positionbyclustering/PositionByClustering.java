@@ -138,6 +138,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         }
     }
 
+    @Override
     public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
 
         int cellPos = 0;

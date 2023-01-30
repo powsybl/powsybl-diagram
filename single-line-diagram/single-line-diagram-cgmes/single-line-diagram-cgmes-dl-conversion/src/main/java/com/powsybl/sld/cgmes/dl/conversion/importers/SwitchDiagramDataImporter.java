@@ -42,13 +42,14 @@ public class SwitchDiagramDataImporter extends AbstractCouplingDeviceDiagramData
             if (switchIidmDiagramData == null) {
                 switchIidmDiagramData = new CouplingDeviceDiagramData<>(sw);
             }
-            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = switchIidmDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(switchesDiagramData.asDouble("x"), switchesDiagramData.asDouble("y"), 0),
+            String diagramName = switchesDiagramData.get("diagramName");
+            CouplingDeviceDiagramData<Switch>.CouplingDeviceDiagramDetails diagramDetails = switchIidmDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(switchesDiagramData.asDouble("x"), switchesDiagramData.asDouble("y"), 0),
                     switchesDiagramData.asDouble("rotation"));
-            addTerminalPoints(switchId, sw.getName(), switchesDiagramData.get("diagramName"), DiagramTerminal.TERMINAL1, "1", diagramDetails);
-            addTerminalPoints(switchId, sw.getName(), switchesDiagramData.get("diagramName"), DiagramTerminal.TERMINAL2, "2", diagramDetails);
-            switchIidmDiagramData.addData(switchesDiagramData.get("diagramName"), diagramDetails);
+            addTerminalPoints(switchId, sw.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
+            addTerminalPoints(switchId, sw.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
+            switchIidmDiagramData.addData(diagramName, diagramDetails);
             sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, switchesDiagramData.get("diagramName"), sw.getVoltageLevel().getSubstation().map(Substation::getId).orElse(""));
+            NetworkDiagramData.addDiagramName(network, diagramName, sw.getVoltageLevel().getSubstation().map(Substation::getId).orElse(""));
         } else {
             LOG.warn("Cannot find switch {}, name {} in network {}: skipping switch diagram data", switchId, switchesDiagramData.get("name"), network.getId());
         }

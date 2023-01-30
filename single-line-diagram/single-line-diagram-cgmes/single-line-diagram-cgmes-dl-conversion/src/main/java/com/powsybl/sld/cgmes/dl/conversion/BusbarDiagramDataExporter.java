@@ -38,7 +38,7 @@ public class BusbarDiagramDataExporter extends AbstractNodeDiagramDataExporter {
         NodeDiagramData<BusbarSection> busbarDiagramData = busbar.getExtension(NodeDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(TopologyKind.NODE_BREAKER);
         String busbarNodeId = getBusbarNodeId(busbar.getId());
-        addDiagramData(busbarNodeId, busbar.getName(), busbarDiagramData, diagramObjectStyleId);
+        addDiagramData(busbarNodeId, busbar.getNameOrId(), busbarDiagramData, diagramObjectStyleId);
     }
 
     protected String getBusbarNodeId(String busbarId) {

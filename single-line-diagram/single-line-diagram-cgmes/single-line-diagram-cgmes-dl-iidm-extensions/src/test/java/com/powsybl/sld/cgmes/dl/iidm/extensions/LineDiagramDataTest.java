@@ -34,7 +34,7 @@ public class LineDiagramDataTest extends AbstractLineDiagramDataTest {
         Line line2 = network.getLine("Line");
         LineDiagramData<Line> lineDiagramData2 = line2.getExtension(LineDiagramData.class);
 
-        assertTrue(lineDiagramData2.getDiagramsNames().size() == 1);
+        assertEquals(1, lineDiagramData2.getDiagramsNames().size());
         checkDiagramData(lineDiagramData2, DIAGRAM_NAME);
     }
 

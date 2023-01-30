@@ -14,8 +14,10 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.BaseGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.*;
+import java.util.function.BooleanSupplier;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -92,27 +94,34 @@ public abstract class AbstractLayout implements Layout {
         if (leg1.getY() == leg3.getY()) {
             // General case
             node.setOrientation(leg2.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
-            if (leg1.getX() < leg3.getX()) {
-                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
-            } else {
-                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT);
-            }
+            setWindingOrder(node,
+                () -> leg1.getX() < leg3.getX(),
+                Arrays.asList(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT,
+                Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT));
         } else if (leg2.getX() == leg1.getX()) {
             // Specific case of leg1 and leg2 facing feeder nodes with same abscissa
             node.setOrientation(leg3.getX() > leg1.getX() ? Orientation.LEFT : Orientation.RIGHT);
-            if (leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY()) {
-                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN);
-            } else {
-                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN);
-            }
+            setWindingOrder(node,
+                () -> leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY(),
+                Arrays.asList(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN,
+                Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN));
         } else if (leg2.getX() == leg3.getX()) {
             // Specific case of leg2 and leg3 facing feeder nodes with same abscissa
             node.setOrientation(leg1.getX() > leg3.getX() ? Orientation.LEFT : Orientation.RIGHT);
-            if (leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY()) {
-                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT);
-            } else {
-                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT);
-            }
+            setWindingOrder(node,
+                () -> leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY(),
+                Arrays.asList(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT,
+                Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT));
+        }
+    }
+
+    private void setWindingOrder(Middle3WTNode node,
+                                 BooleanSupplier cond,
+                                 List<Middle3WTNode.Winding> windings) {
+        if (cond.getAsBoolean()) {
+            node.setWindingOrder(windings.get(0), windings.get(1), windings.get(2));
+        } else {
+            node.setWindingOrder(windings.get(3), windings.get(4), windings.get(5));
         }
     }
 
@@ -139,14 +148,21 @@ public abstract class AbstractLayout implements Layout {
                                                                         double yMin, double yMax) {
         List<Point> pol = new ArrayList<>();
         pol.add(getGraph().getShiftedPoint(node1));
-        addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol, yMin, yMax);
+        addMiddlePoints(layoutParam, new Pair<>(node1, node2), infosNbSnakeLines, increment, pol, new Pair<>(yMin, yMax));
         pol.add(getGraph().getShiftedPoint(node2));
         return pol;
     }
 
-    private void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
-                                        InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
-                                        List<Point> pol, double yMin, double yMax) {
+    private void addMiddlePoints(LayoutParameters layoutParam,
+                                 Pair<Node, Node> nodes,
+                                 InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
+                                 List<Point> pol,
+                                 Pair<Double, Double> yMinMax) {
+        Node node1 = nodes.getFirst();
+        Node node2 = nodes.getSecond();
+        double yMin = yMinMax.getFirst();
+        double yMax = yMinMax.getSecond();
+
         Direction dNode1 = getNodeDirection(node1, 1);
         Direction dNode2 = getNodeDirection(node2, 2);
 
@@ -182,12 +198,12 @@ public abstract class AbstractLayout implements Layout {
             double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
             double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLinesTopBottom);
             double xBetweenGraph = xMaxGraph - vlPadding.getLeft()
-                - (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) - 1) * layoutParam.getHorizontalSnakeLinePadding();
+                    - (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) - 1) * layoutParam.getHorizontalSnakeLinePadding();
 
             pol.addAll(Point.createPointsList(x1, y1 + decal1V,
-                xBetweenGraph, y1 + decal1V,
-                xBetweenGraph, y2 + decal2V,
-                x2, y2 + decal2V));
+                    xBetweenGraph, y1 + decal1V,
+                    xBetweenGraph, y2 + decal2V,
+                    x2, y2 + decal2V));
         }
     }
 

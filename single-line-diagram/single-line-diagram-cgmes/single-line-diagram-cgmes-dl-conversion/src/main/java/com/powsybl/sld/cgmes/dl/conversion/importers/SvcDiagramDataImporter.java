@@ -42,12 +42,13 @@ public class SvcDiagramDataImporter extends AbstractInjectionDiagramDataImporter
             if (svcIidmDiagramData == null) {
                 svcIidmDiagramData = new InjectionDiagramData<>(svc);
             }
-            InjectionDiagramData.InjectionDiagramDetails diagramDetails = svcIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
+            String diagramName = svcDiagramData.get("diagramName");
+            InjectionDiagramData<StaticVarCompensator>.InjectionDiagramDetails diagramDetails = svcIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
                     svcDiagramData.asDouble("rotation"));
-            addTerminalPoints(svcId, svc.getName(), svcDiagramData.get("diagramName"), diagramDetails);
-            svcIidmDiagramData.addData(svcDiagramData.get("diagramName"), diagramDetails);
+            addTerminalPoints(svcId, svc.getNameOrId(), diagramName, diagramDetails);
+            svcIidmDiagramData.addData(diagramName, diagramDetails);
             svc.addExtension(InjectionDiagramData.class, svcIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, svcDiagramData.get("diagramName"), svc.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+            NetworkDiagramData.addDiagramName(network, diagramName, svc.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find svc {}, name {} in network {}: skipping svc diagram data", svcId, svcDiagramData.get("name"), network.getId());
         }

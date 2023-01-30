@@ -95,46 +95,62 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
         if (n1 instanceof FeederNode || n2 instanceof FeederNode) {
             n = (FeederNode) (n1 instanceof FeederNode ? n1 : n2);
+            if (n.getFeeder() instanceof FeederWithSides) {
+                return getHighlightFeederStateStyle(graph, n);
+            }
         } else {
             return Optional.empty();
         }
+        return Optional.empty();
+    }
 
-        if (n.getFeeder() instanceof FeederWithSides) {
-            FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
-            Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
-            NodeSide side = null;
-            NodeSide otherSide = null;
+    private Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
+        FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
+        Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
+        NodeSide side = null;
+        NodeSide otherSide = null;
 
-            if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-                side = feederWs.getSide();
-                otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
-                if (ComponentTypeName.LINE.equals(n.getComponentType())) {
-                    side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
-                    otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
-                }
-            } else if (feederWs.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
-                String idVl = graph.getVoltageLevelInfos(n).getId();
-                ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
-                if (transformer != null) {
-                    if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
-                        side = NodeSide.ONE;
-                    } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
-                        side = NodeSide.TWO;
-                    } else {
-                        side = NodeSide.THREE;
-                    }
-                }
-                otherSide = feederWs.getSide();
+        if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+            side = feederWs.getSide();
+            otherSide = getOtherSide(side);
+            if (ComponentTypeName.LINE.equals(n.getComponentType())) {
+                side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
+                otherSide = getOtherSide(side);
             }
+        } else if (feederWs.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+            String idVl = graph.getVoltageLevelInfos(n).getId();
+            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
+            if (transformer != null) {
+                side = getTransformerSide(idVl, transformer);
+            }
+            otherSide = feederWs.getSide();
+        }
 
-            if (side != null && otherSide != null) {
-                if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                    return Optional.of(DiagramStyles.FEEDER_DISCONNECTED);
-                } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                    return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
-                } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
-                }
+        return getFeederStateStyle(side, otherSide, connectionStatus);
+    }
+
+    private static NodeSide getOtherSide(NodeSide side) {
+        return side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
+    }
+
+    private static NodeSide getTransformerSide(String idVl, ThreeWindingsTransformer transformer) {
+        if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
+            return NodeSide.ONE;
+        } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
+            return NodeSide.TWO;
+        } else {
+            return NodeSide.THREE;
+        }
+    }
+
+    private static Optional<String> getFeederStateStyle(NodeSide side, NodeSide otherSide, Map<NodeSide, Boolean> connectionStatus) {
+        if (side != null && otherSide != null) {
+            if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
+                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED);
+            } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
+                return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
+            } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
+                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
             }
         }
         return Optional.empty();
@@ -143,7 +159,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
         Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
         if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-            Branch branch = network.getBranch(node.getEquipmentId());
+            Branch<?> branch = network.getBranch(node.getEquipmentId());
             if (branch != null) {
                 res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
                 res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());

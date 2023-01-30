@@ -7,7 +7,6 @@
 package com.powsybl.sld.cgmes.layout;
 
 import com.google.auto.service.AutoService;
-import com.google.common.collect.ImmutableMap;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.datasource.FileDataSource;
 import com.powsybl.iidm.network.Network;
@@ -46,12 +45,12 @@ public class LayoutToCgmesDlExporterTool implements Tool {
     private static final String DIAGRAM_NAME = "diagram-name";
 
     private final Map<String, VoltageLevelLayoutFactory> voltageLevelsLayouts
-            = ImmutableMap.of("auto-extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()),
-            DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
+            = Map.ofEntries(Map.entry("auto-extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension())),
+            Map.entry(DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionByClustering())));
 
     private final Map<String, SubstationLayoutFactory> substationsLayouts
-            = ImmutableMap.of(DEFAULT_SUBSTATION_LAYOUT, new HorizontalSubstationLayoutFactory(),
-            "vertical", new VerticalSubstationLayoutFactory());
+            = Map.ofEntries(Map.entry(DEFAULT_SUBSTATION_LAYOUT, new HorizontalSubstationLayoutFactory()),
+            Map.entry("vertical", new VerticalSubstationLayoutFactory()));
 
     @Override
     public Command getCommand() {
@@ -130,6 +129,6 @@ public class LayoutToCgmesDlExporterTool implements Tool {
             tStore = TripleStoreFactory.create();
         }
         CgmesDLExporter dlExporter = new CgmesDLExporter(network, tStore);
-        dlExporter.exportDLData(new FileDataSource(outputDir, network.getName()));
+        dlExporter.exportDLData(new FileDataSource(outputDir, network.getNameOrId()));
     }
 }

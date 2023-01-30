@@ -29,12 +29,12 @@ public abstract class AbstractCouplingDeviceDiagramDataImporter {
     protected Network network;
     protected Map<String, PropertyBags> terminalsDiagramData;
 
-    public AbstractCouplingDeviceDiagramDataImporter(Network network, Map<String, PropertyBags> terminalsDiagramData) {
+    protected AbstractCouplingDeviceDiagramDataImporter(Network network, Map<String, PropertyBags> terminalsDiagramData) {
         this.network = Objects.requireNonNull(network);
         this.terminalsDiagramData = Objects.requireNonNull(terminalsDiagramData);
     }
 
-    protected void addTerminalPoints(String equipmentId, String equipmentName, String diagram, DiagramTerminal terminal, String terminalSide, CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails) {
+    protected void addTerminalPoints(String equipmentId, String equipmentName, String diagram, DiagramTerminal terminal, String terminalSide, CouplingDeviceDiagramData<?>.CouplingDeviceDiagramDetails diagramDetails) {
         String terminalKey = diagram + "_" + equipmentId + "_" + terminalSide;
         if (terminalsDiagramData.containsKey(terminalKey)) {
             PropertyBags equipmentTerminalsDiagramData = terminalsDiagramData.get(terminalKey);

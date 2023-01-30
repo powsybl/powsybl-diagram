@@ -24,8 +24,6 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -43,24 +41,24 @@ public abstract class AbstractTestCase {
 
     private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
-            .setAdaptCellHeightToContent(true)
-            .setVerticalSpaceBus(25)
-            .setHorizontalBusPadding(20)
-            .setCellWidth(50)
-            .setExternCellHeight(250)
-            .setInternCellHeight(40)
-            .setStackHeight(30)
-            .setShowGrid(false)
-            .setShowInternalNodes(false)
-            .setScaleFactor(1)
-            .setFeederInfosOuterMargin(20)
-            .setDrawStraightWires(false)
-            .setHorizontalSnakeLinePadding(30)
-            .setVerticalSnakeLinePadding(30)
-            .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
-            .setSvgWidthAndHeightAdded(true)
-            .setUseName(true)
-            .setFeederInfosIntraMargin(10);
+                .setAdaptCellHeightToContent(true)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(50)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(false)
+                .setShowInternalNodes(false)
+                .setScaleFactor(1)
+                .setFeederInfosOuterMargin(20)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30)
+                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
+                .setSvgWidthAndHeightAdded(true)
+                .setUseName(true)
+                .setFeederInfosIntraMargin(10);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
@@ -145,9 +143,9 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareMetadata(VoltageLevelGraph graph, String refMetadataName,
-                                VoltageLevelLayoutFactory voltageLevelLayoutFactory,
-                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName,
+                                   VoltageLevelLayoutFactory voltageLevelLayoutFactory,
+                                   DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
@@ -170,15 +168,15 @@ public abstract class AbstractTestCase {
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
-            assertEquals(refMetadata, metadata);
+            return refMetadata.compareTo(metadata) == 0;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
-    public void compareMetadata(SubstationGraph graph, String refMetdataName,
-                                SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
-                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName,
+                                   SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
+                                   DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
@@ -201,7 +199,7 @@ public abstract class AbstractTestCase {
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
-            assertEquals(refMetadata, metadata);
+            return refMetadata.compareTo(metadata) == 0;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

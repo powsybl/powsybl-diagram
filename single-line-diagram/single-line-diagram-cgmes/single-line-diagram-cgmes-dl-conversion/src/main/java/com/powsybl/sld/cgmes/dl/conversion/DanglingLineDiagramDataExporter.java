@@ -26,7 +26,7 @@ public class DanglingLineDiagramDataExporter extends AbstractLineDiagramDataExpo
         Objects.requireNonNull(danglingLine);
         LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine.getExtension(LineDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(danglingLine.getTerminal().getVoltageLevel().getTopologyKind());
-        addDiagramData(danglingLine.getId(), danglingLine.getName(), danglingLineDiagramData, diagramObjectStyleId);
+        addDiagramData(danglingLine.getId(), danglingLine.getNameOrId(), danglingLineDiagramData, diagramObjectStyleId);
     }
 
 }

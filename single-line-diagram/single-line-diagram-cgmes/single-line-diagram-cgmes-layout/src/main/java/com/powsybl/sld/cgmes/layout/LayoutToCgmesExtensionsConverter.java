@@ -50,10 +50,6 @@ public class LayoutToCgmesExtensionsConverter {
         this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters().setUseName(true));
     }
 
-    private boolean isLineNode(Node node) {
-        return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
-    }
-
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
         Objects.requireNonNull(diagramPoints);
         return diagramPoints.stream().max(Comparator.naturalOrder()).map(DiagramPoint::getSeq).orElse(0);
@@ -150,57 +146,30 @@ public class LayoutToCgmesExtensionsConverter {
                 staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
             });
 
-            vlGraph.getNodes().stream().filter(this::isLineNode).forEach(node -> {
-                switch (node.getComponentType()) {
-                    case LINE:
-                        FeederNode lineNode = (FeederNode) node;
-                        Line line = voltageLevel.getConnectable(lineNode.getEquipmentId(), Line.class);
-                        if (line != null) {
-                            LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
-                            int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;
-                            DiagramPoint linePoint = offsetPoint.newDiagramPoint(lineNode.getX(), lineNode.getY(), lineSeq);
-                            lineDiagramData.addPoint(diagramName, linePoint);
+            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LINE)).forEach(node -> applyLayoutOnLines(node, voltageLevel, diagramName, offsetPoint));
 
-                            LOG.debug("setting CGMES DL IIDM extensions for Line {} ({}), new point {}", line.getId(), line.getNameOrId(), linePoint);
-                            line.addExtension(LineDiagramData.class, lineDiagramData);
-                        }
-                        break;
-                    case DANGLING_LINE:
-                        FeederNode danglingLineNode = (FeederNode) node;
-                        DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
-                        if (danglingLine != null) {
-                            LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
-                            int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
-                            DiagramPoint danglingLinePoint = offsetPoint.newDiagramPoint(danglingLineNode.getX(), danglingLineNode.getY(), danglingLineSeq);
-                            danglingLineDiagramData.addPoint(diagramName, danglingLinePoint);
+            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), DANGLING_LINE)).forEach(node -> applyLayoutOnDanglingLines(node, voltageLevel, diagramName, offsetPoint));
 
-                            LOG.debug("setting CGMES DL IIDM extensions for Dangling line {} ({}),  point {}", danglingLine.getId(), danglingLine.getNameOrId(), danglingLinePoint);
-                            danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            });
+            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), VSC_CONVERTER_STATION)).forEach(node -> applyLayoutOnVscConverterStation(node, voltageLevel, diagramName, offsetPoint));
 
             if (TopologyKind.BUS_BREAKER.equals(voltageLevel.getTopologyKind())) {
                 voltageLevel.getBusBreakerView().getBusStream().forEach(bus ->
-                    vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(bus.getId())).findFirst().ifPresent(busNode -> {
-                        NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
-                        setNodeDiagramPoints(busDiagramData, busNode, offsetPoint, diagramName);
-                        LOG.debug("setting CGMES DL IIDM extensions for Bus {}, {} - {}", bus.getId(), busDiagramData.getData(diagramName).getPoint1(), busDiagramData.getData(diagramName).getPoint2());
-                        bus.addExtension(NodeDiagramData.class, busDiagramData);
-                    })
+                        vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(bus.getId())).findFirst().ifPresent(busNode -> {
+                            NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
+                            setNodeDiagramPoints(busDiagramData, busNode, offsetPoint, diagramName);
+                            LOG.debug("setting CGMES DL IIDM extensions for Bus {}, {} - {}", bus.getId(), busDiagramData.getData(diagramName).getPoint1(), busDiagramData.getData(diagramName).getPoint2());
+                            bus.addExtension(NodeDiagramData.class, busDiagramData);
+                        })
                 );
 
             } else {
                 voltageLevel.getNodeBreakerView().getBusbarSectionStream().forEach(busbarSection ->
-                    vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(busbarSection.getId())).findFirst().ifPresent(busNode -> {
-                        NodeDiagramData<BusbarSection> busbarSectionDiagramData = NodeDiagramData.getOrCreateDiagramData(busbarSection);
-                        setNodeDiagramPoints(busbarSectionDiagramData, busNode, offsetPoint, diagramName);
-                        LOG.debug("setting CGMES DL IIDM extensions for BusbarSection {}, {} - {}", busbarSection.getId(), busbarSectionDiagramData.getData(diagramName).getPoint1(), busbarSectionDiagramData.getData(diagramName).getPoint2());
-                        busbarSection.addExtension(NodeDiagramData.class, busbarSectionDiagramData);
-                    })
+                        vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(busbarSection.getId())).findFirst().ifPresent(busNode -> {
+                            NodeDiagramData<BusbarSection> busbarSectionDiagramData = NodeDiagramData.getOrCreateDiagramData(busbarSection);
+                            setNodeDiagramPoints(busbarSectionDiagramData, busNode, offsetPoint, diagramName);
+                            LOG.debug("setting CGMES DL IIDM extensions for BusbarSection {}, {} - {}", busbarSection.getId(), busbarSectionDiagramData.getData(diagramName).getPoint1(), busbarSectionDiagramData.getData(diagramName).getPoint2());
+                            busbarSection.addExtension(NodeDiagramData.class, busbarSectionDiagramData);
+                        })
                 );
 
                 voltageLevel.getNodeBreakerView().getSwitchStream().filter(Objects::nonNull).forEach(sw -> {
@@ -239,6 +208,48 @@ public class LayoutToCgmesExtensionsConverter {
         );
 
         return subsBoundary;
+    }
+
+    private void applyLayoutOnLines(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        FeederNode lineNode = (FeederNode) node;
+        Line line = voltageLevel.getConnectable(lineNode.getEquipmentId(), Line.class);
+        if (line != null) {
+            LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
+            int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint linePoint = offsetPoint.newDiagramPoint(lineNode.getX(), lineNode.getY(), lineSeq);
+            lineDiagramData.addPoint(diagramName, linePoint);
+
+            LOG.debug("setting CGMES DL IIDM extensions for Line {} ({}), new point {}", line.getId(), line.getNameOrId(), linePoint);
+            line.addExtension(LineDiagramData.class, lineDiagramData);
+        }
+    }
+
+    private void applyLayoutOnDanglingLines(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        FeederNode danglingLineNode = (FeederNode) node;
+        DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
+        if (danglingLine != null) {
+            LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
+            int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint danglingLinePoint = offsetPoint.newDiagramPoint(danglingLineNode.getX(), danglingLineNode.getY(), danglingLineSeq);
+            danglingLineDiagramData.addPoint(diagramName, danglingLinePoint);
+
+            LOG.debug("setting CGMES DL IIDM extensions for Dangling line {} ({}),  point {}", danglingLine.getId(), danglingLine.getNameOrId(), danglingLinePoint);
+            danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+        }
+    }
+
+    private void applyLayoutOnVscConverterStation(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        FeederNode vcsNode = (FeederNode) node;
+        VscConverterStation vscConverterStation = voltageLevel.getConnectable(vcsNode.getId(), VscConverterStation.class);
+        if (vscConverterStation != null) {
+            LineDiagramData<VscConverterStation> vcsDiagramData = LineDiagramData.getOrCreateDiagramData(vscConverterStation);
+            int danglingLineSeq = getMaxSeq(vcsDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint vcsPoint = offsetPoint.newDiagramPoint(vcsNode.getX(), vcsNode.getY(), danglingLineSeq);
+            vcsDiagramData.addPoint(diagramName, vcsPoint);
+
+            LOG.debug("setting CGMES DL IIDM extensions for Vsc Converter Station {} ({}),  point {}", vscConverterStation.getId(), vscConverterStation.getNameOrId(), vcsPoint);
+            vscConverterStation.addExtension(LineDiagramData.class, vcsDiagramData);
+        }
     }
 
     private boolean checkSwitchNode(Node swNode) {

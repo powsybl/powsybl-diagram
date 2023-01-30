@@ -291,14 +291,7 @@ public class Subsection {
                     Node shNode = sc.getSideShuntNode(side);
                     Set<Node> outsideNodes = new HashSet<>();
                     outsideNodes.add(shNode);
-                    List<FeederNode> shuntSideFeederNodes = shNode.getAdjacentNodes().stream().flatMap(node -> {
-                        Set<Node> gtResult = new LinkedHashSet<>();
-                        if (GraphTraversal.run(node, node1 -> node1.getType() == Node.NodeType.FEEDER, node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
-                            return gtResult.stream().filter(n -> n.getType() == Node.NodeType.FEEDER).map(FeederNode.class::cast);
-                        } else {
-                            return Stream.empty();
-                        }
-                    }).collect(Collectors.toList());
+                    List<FeederNode> shuntSideFeederNodes = buildShuntSideFeederNodes(shNode, outsideNodes);
                     feeders.removeAll(shuntSideFeederNodes);
                     List<FeederNode> newlyOrderdFeeders;
                     if (side == RIGHT) {
@@ -314,6 +307,18 @@ public class Subsection {
                 }
             }
         });
+    }
+
+    private static List<FeederNode> buildShuntSideFeederNodes(Node shNode, Set<Node> outsideNodes) {
+        Objects.requireNonNull(shNode);
+        return shNode.getAdjacentNodes().stream().flatMap(node -> {
+            Set<Node> gtResult = new LinkedHashSet<>();
+            if (GraphTraversal.run(node, node1 -> node1.getType() == Node.NodeType.FEEDER, node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
+                return gtResult.stream().filter(n -> n.getType() == Node.NodeType.FEEDER).map(FeederNode.class::cast);
+            } else {
+                return Stream.empty();
+            }
+        }).collect(Collectors.toList());
     }
 
     private static void arrangeExternCellsOrders(List<Subsection> subsections) {

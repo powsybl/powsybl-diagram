@@ -22,10 +22,10 @@ import java.util.Objects;
  */
 public class Components {
 
-    private final List<Component> components = new ArrayList<>();
+    private final List<Component> loadedComponents = new ArrayList<>();
 
     public List<Component> getComponents() {
-        return components;
+        return loadedComponents;
     }
 
     public static Components load(String directory) {

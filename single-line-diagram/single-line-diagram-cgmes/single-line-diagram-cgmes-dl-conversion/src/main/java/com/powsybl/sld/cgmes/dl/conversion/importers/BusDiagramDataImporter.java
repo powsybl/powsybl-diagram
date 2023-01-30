@@ -47,7 +47,7 @@ public class BusDiagramDataImporter {
                     busIidmDiagramData = new NodeDiagramData<>(bus);
                 }
                 String diagramName = busDiagramData.get("diagramName");
-                NodeDiagramData.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
+                NodeDiagramData<Bus>.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
                 if (diagramDetails == null) {
                     diagramDetails = busIidmDiagramData.new NodeDiagramDataDetails();
                 }

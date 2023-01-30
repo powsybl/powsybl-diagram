@@ -27,7 +27,7 @@ public class SwitchDiagramDataExporter extends AbstractCouplingDeviceDiagramData
         Objects.requireNonNull(sw);
         CouplingDeviceDiagramData<Switch> switchDiagramData = sw.getExtension(CouplingDeviceDiagramData.class);
         String diagramObjectStyleId = addDiagramObjectStyle(sw.getVoltageLevel().getTopologyKind());
-        addDiagramData(sw.getId(), sw.getName(), switchDiagramData, diagramObjectStyleId);
+        addDiagramData(sw.getId(), sw.getNameOrId(), switchDiagramData, diagramObjectStyleId);
     }
 
 }
