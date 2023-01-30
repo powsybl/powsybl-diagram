@@ -188,7 +188,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private VoltageLevelNode getVoltageLevelNode(Graph graph, Terminal terminal) {
-        VoltageLevel vl = terminal.getVoltageLevel();
         return graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
                 .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminal.getVoltageLevel().getId() + "'"));
     }
