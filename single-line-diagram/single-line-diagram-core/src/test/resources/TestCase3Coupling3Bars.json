@@ -15,7 +15,7 @@
     "y" : 44.0
   }, {
     "type" : "INTERNAL",
-    "id" : "INTERNAL_vl_b",
+    "id" : "INTERNAL_vl_d1-b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -226,7 +226,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_2", "b", "INTERNAL_vl_b" ]
+        "nodes" : [ "INTERNAL_vl_2", "b", "INTERNAL_vl_d1-b" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -247,7 +247,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1", "d1", "INTERNAL_vl_b" ]
+        "nodes" : [ "bbs1", "d1", "INTERNAL_vl_d1-b" ]
       } ]
     }
   } ],
@@ -271,9 +271,9 @@
     "node2" : "bbs3"
   }, {
     "node1" : "d1",
-    "node2" : "INTERNAL_vl_b"
+    "node2" : "INTERNAL_vl_d1-b"
   }, {
-    "node1" : "INTERNAL_vl_b",
+    "node1" : "INTERNAL_vl_d1-b",
     "node2" : "b"
   } ],
   "multitermNodes" : [ ],
