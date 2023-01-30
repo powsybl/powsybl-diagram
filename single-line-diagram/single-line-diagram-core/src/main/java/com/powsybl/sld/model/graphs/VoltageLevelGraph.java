@@ -323,7 +323,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         busNode.getAdjacentNodes()
                 .forEach(nodeOnBus -> nodeOnBus.getAdjacentNodes().stream()
                         .filter(n -> n.getType() != NodeType.BUS)
-                        .filter(n -> n.getType() == NodeType.FEEDER || n.getType() == NodeType.SWITCH || n instanceof Middle3WTNode)
+                        .filter(n -> !(n.getType() == NodeType.INTERNAL && !(n instanceof EquipmentNode)))
                         .forEach(n -> insertBusHookNode(nodeOnBus, n)));
     }
 
