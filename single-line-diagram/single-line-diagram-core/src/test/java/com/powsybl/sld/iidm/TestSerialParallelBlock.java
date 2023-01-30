@@ -136,8 +136,8 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
         sb.reverseBlock();
 
-        assertEquals("INTERNAL_vl_ba", sb.getEndingNode().getId());
-        assertEquals("INTERNAL_vl_ba", subSB.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_da-ba", sb.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_da-ba", subSB.getEndingNode().getId());
         assertEquals("INTERNAL_vl_2", subPB.getSubBlocks().get(1).getEndingNode().getId());
     }
 }
