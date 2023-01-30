@@ -69,6 +69,8 @@ public interface Node {
 
     void setOrientation(Orientation orientation);
 
+    void setOrientationFromBlock(Orientation blockOrientation, List<Node> blockNodes);
+
     boolean checkNodeSimilarity(Node n);
 
     boolean similarToAFeederNode(Node n);

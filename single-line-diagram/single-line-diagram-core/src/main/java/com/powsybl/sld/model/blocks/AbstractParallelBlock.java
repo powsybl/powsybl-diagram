@@ -24,24 +24,24 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock {
     AbstractParallelBlock(Type type, List<Block> subBlocks, boolean allowMerge) {
         super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
-        subBlocks.forEach(child -> {
+        for (Block child : subBlocks) {
             if (child.getType().isParallel() && allowMerge) {
                 this.subBlocks.addAll(((ComposedBlock) child).getSubBlocks());
             } else {
                 this.subBlocks.add(child);
             }
-        });
+        }
 
         Node node0s = subBlocks.get(0).getExtremityNode(START);
         Node node0e = subBlocks.get(0).getExtremityNode(END);
-        subBlocks.forEach(b -> {
+        for (Block b : this.subBlocks) {
             b.setParentBlock(this);
             if (b.getExtremityNode(START) != node0s && b.getExtremityNode(END) != node0e) {
                 b.reverseBlock();
             }
-        });
+        }
 
-        setCardinality(START, this.subBlocks.size());
-        setCardinality(END, this.subBlocks.size());
+        setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(START) : 1).sum());
+        setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(END) : 1).sum());
     }
 }

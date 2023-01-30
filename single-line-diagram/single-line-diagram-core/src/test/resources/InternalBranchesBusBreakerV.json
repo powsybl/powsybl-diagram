@@ -6,8 +6,8 @@
       "name" : "VL1",
       "nominalVoltage" : 400.0
     },
-    "x" : 160.0,
-    "y" : 170.0,
+    "x" : 130.0,
+    "y" : 140.0,
     "nodes" : [ {
       "type" : "BUS",
       "id" : "B11",
@@ -68,7 +68,7 @@
       "id" : "BUSCO_B11_L11_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 175.0,
+      "x" : 275.0,
       "y" : 172.0,
       "orientation" : "DOWN"
     }, {
@@ -76,7 +76,7 @@
       "id" : "BUSCO_B11_L12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 275.0,
+      "x" : 325.0,
       "y" : 172.0,
       "orientation" : "DOWN"
     }, {
@@ -84,21 +84,21 @@
       "id" : "BUSCO_B11_LD1",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 125.0,
+      "x" : 225.0,
       "y" : 172.0
     }, {
       "type" : "INTERNAL",
-      "id" : "BUSCO_B11_T11_ONE",
+      "id" : "BUSCO_B11_T11",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 225.0,
+      "x" : 175.0,
       "y" : 172.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_B11_T3_12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 325.0,
+      "x" : 375.0,
       "y" : 172.0
     }, {
       "type" : "INTERNAL",
@@ -112,7 +112,7 @@
       "id" : "BUSCO_B12_G",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 375.0,
+      "x" : 425.0,
       "y" : 197.0,
       "orientation" : "DOWN"
     }, {
@@ -120,16 +120,15 @@
       "id" : "BUSCO_B12_L11_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 425.0,
+      "x" : 475.0,
       "y" : 197.0
     }, {
       "type" : "INTERNAL",
-      "id" : "BUSCO_B12_T11_TWO",
+      "id" : "BUSCO_B12_T11",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
-      "x" : 475.0,
-      "y" : 197.0,
-      "orientation" : "DOWN"
+      "x" : 125.0,
+      "y" : 197.0
     }, {
       "type" : "INTERNAL",
       "id" : "BUSCO_B12_T12_ONE",
@@ -150,7 +149,7 @@
       "id" : "G",
       "componentType" : "GENERATOR",
       "fictitious" : false,
-      "x" : 375.0,
+      "x" : 425.0,
       "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "G",
@@ -170,7 +169,7 @@
       "id" : "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 175.0,
+      "x" : 275.0,
       "y" : 227.0,
       "orientation" : "DOWN"
     }, {
@@ -178,7 +177,7 @@
       "id" : "INTERNAL_VL1_BUSCO_B11_L12_ONE-L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 275.0,
+      "x" : 325.0,
       "y" : 227.0,
       "orientation" : "DOWN"
     }, {
@@ -186,21 +185,21 @@
       "id" : "INTERNAL_VL1_BUSCO_B11_LD1-LD1",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 125.0,
+      "x" : 225.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BUSCO_B11_T11_ONE-T11_ONE",
+      "id" : "INTERNAL_VL1_BUSCO_B11_T11-T11",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 225.0,
-      "y" : 142.0
+      "x" : 175.0,
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BUSCO_B11_T3_12_ONE-T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 325.0,
+      "x" : 375.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
@@ -214,7 +213,7 @@
       "id" : "INTERNAL_VL1_BUSCO_B12_G-G",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 375.0,
+      "x" : 425.0,
       "y" : 227.0,
       "orientation" : "DOWN"
     }, {
@@ -222,16 +221,15 @@
       "id" : "INTERNAL_VL1_BUSCO_B12_L11_TWO-L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 425.0,
+      "x" : 475.0,
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_BUSCO_B12_T11_TWO-T11_TWO",
+      "id" : "INTERNAL_VL1_BUSCO_B12_T11-T11",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 475.0,
-      "y" : 227.0,
-      "orientation" : "DOWN"
+      "x" : 125.0,
+      "y" : 132.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BUSCO_B12_T12_ONE-T12_ONE",
@@ -252,7 +250,7 @@
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 375.0,
+      "x" : 425.0,
       "y" : 307.0,
       "orientation" : "DOWN"
     }, {
@@ -260,7 +258,7 @@
       "id" : "INTERNAL_VL1_L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 175.0,
+      "x" : 275.0,
       "y" : 307.0,
       "orientation" : "DOWN"
     }, {
@@ -268,14 +266,14 @@
       "id" : "INTERNAL_VL1_L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 425.0,
+      "x" : 475.0,
       "y" : 62.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 275.0,
+      "x" : 325.0,
       "y" : 307.0,
       "orientation" : "DOWN"
     }, {
@@ -283,23 +281,8 @@
       "id" : "INTERNAL_VL1_LD1",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 125.0,
-      "y" : 62.0
-    }, {
-      "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_T11_ONE",
-      "componentType" : "NODE",
-      "fictitious" : true,
       "x" : 225.0,
       "y" : 62.0
-    }, {
-      "type" : "INTERNAL",
-      "id" : "INTERNAL_VL1_T11_TWO",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 475.0,
-      "y" : 307.0,
-      "orientation" : "DOWN"
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T12_ONE",
@@ -312,7 +295,7 @@
       "id" : "INTERNAL_VL1_T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 325.0,
+      "x" : 375.0,
       "y" : 62.0
     }, {
       "type" : "INTERNAL",
@@ -327,7 +310,7 @@
       "id" : "L11_ONE",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 175.0,
+      "x" : 275.0,
       "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "L11",
@@ -346,7 +329,7 @@
       "id" : "L11_TWO",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 425.0,
+      "x" : 475.0,
       "y" : 0.0,
       "name" : "L11",
       "equipmentId" : "L11",
@@ -364,7 +347,7 @@
       "id" : "L12_ONE",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 275.0,
+      "x" : 325.0,
       "y" : 369.0,
       "orientation" : "DOWN",
       "name" : "L12",
@@ -383,7 +366,7 @@
       "id" : "LD1",
       "componentType" : "LOAD",
       "fictitious" : false,
-      "x" : 125.0,
+      "x" : 225.0,
       "y" : 0.0,
       "name" : "LD1",
       "equipmentId" : "LD1",
@@ -391,42 +374,15 @@
       "order" : 1,
       "direction" : "TOP"
     }, {
-      "type" : "FEEDER",
-      "id" : "T11_ONE",
-      "componentType" : "PHASE_SHIFT_TRANSFORMER_LEG",
+      "type" : "INTERNAL",
+      "id" : "T11",
+      "componentType" : "PHASE_SHIFT_TRANSFORMER",
       "fictitious" : false,
-      "x" : 225.0,
-      "y" : 0.0,
+      "x" : 150.0,
+      "y" : 132.0,
+      "orientation" : "LEFT",
       "name" : "T11",
-      "equipmentId" : "T11",
-      "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : 3,
-      "direction" : "TOP",
-      "side" : "ONE",
-      "otherSideVoltageLevelInfos" : {
-        "id" : "VL1",
-        "name" : "VL1",
-        "nominalVoltage" : 400.0
-      }
-    }, {
-      "type" : "FEEDER",
-      "id" : "T11_TWO",
-      "componentType" : "PHASE_SHIFT_TRANSFORMER_LEG",
-      "fictitious" : false,
-      "x" : 475.0,
-      "y" : 369.0,
-      "orientation" : "DOWN",
-      "name" : "T11",
-      "equipmentId" : "T11",
-      "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : 8,
-      "direction" : "BOTTOM",
-      "side" : "TWO",
-      "otherSideVoltageLevelInfos" : {
-        "id" : "VL1",
-        "name" : "VL1",
-        "nominalVoltage" : 400.0
-      }
+      "equipmentId" : "T11"
     }, {
       "type" : "FEEDER",
       "id" : "T12_ONE",
@@ -450,7 +406,7 @@
       "id" : "T3_12_ONE",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
-      "x" : 325.0,
+      "x" : 375.0,
       "y" : 0.0,
       "name" : "T3_12",
       "equipmentId" : "T3_12",
@@ -572,10 +528,9 @@
         } ]
       }
     }, {
-      "type" : "EXTERN",
+      "type" : "INTERN",
       "number" : 1,
       "direction" : "TOP",
-      "order" : 1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -584,17 +539,16 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 4,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "UP"
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 0,
+          "vSpan" : 0
         },
         "coord" : {
-          "x" : 125.0,
-          "y" : 102.0,
-          "xSpan" : 50.0,
-          "ySpan" : 80.0
+          "x" : -1.0,
+          "y" : -1.0,
+          "xSpan" : 0.0,
+          "ySpan" : 0.0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -604,19 +558,19 @@
             "END" : 1
           } ],
           "position" : {
-            "h" : 0,
-            "v" : 0,
+            "h" : 4,
+            "v" : -1,
             "hSpan" : 2,
             "vSpan" : 0,
             "orientation" : "UP"
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 142.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "BUSCO_B11_LD1", "INTERNAL_VL1_BUSCO_B11_LD1-LD1" ]
+          "nodes" : [ "B12", "BUSCO_B12_T11", "INTERNAL_VL1_BUSCO_B12_T11-T11" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -625,137 +579,47 @@
             "END" : 1
           } ],
           "position" : {
-            "h" : 0,
+            "h" : 4,
             "v" : 0,
             "hSpan" : 2,
             "vSpan" : 2,
-            "orientation" : "UP"
+            "orientation" : "RIGHT"
           },
           "coord" : {
             "x" : 125.0,
-            "y" : 102.0,
+            "y" : 132.0,
             "xSpan" : 50.0,
-            "ySpan" : 80.0
+            "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_VL1_BUSCO_B11_LD1-LD1", "INTERNAL_VL1_LD1" ]
+          "nodes" : [ "INTERNAL_VL1_BUSCO_B12_T11-T11", "T11", "INTERNAL_VL1_BUSCO_B11_T11-T11" ]
         }, {
-          "type" : "FEEDERPRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
             "END" : 1
           } ],
           "position" : {
-            "h" : 0,
-            "v" : 2,
+            "h" : 6,
+            "v" : -1,
             "hSpan" : 2,
             "vSpan" : 0,
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 125.0,
-            "y" : 62.0,
+            "x" : 175.0,
+            "y" : 172.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "INTERNAL_VL1_LD1", "LD1" ]
+          "nodes" : [ "B11", "BUSCO_B11_T11", "INTERNAL_VL1_BUSCO_B11_T11-T11" ]
         } ]
       }
     }, {
       "type" : "EXTERN",
       "number" : 2,
-      "direction" : "BOTTOM",
-      "order" : 2,
-      "rootBlock" : {
-        "type" : "SERIAL",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 6,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "DOWN"
-        },
-        "coord" : {
-          "x" : 175.0,
-          "y" : 267.0,
-          "xSpan" : 50.0,
-          "ySpan" : 80.0
-        },
-        "subBlocks" : [ {
-          "type" : "LEGPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 175.0,
-            "y" : 227.0,
-            "xSpan" : 50.0,
-            "ySpan" : 0.0
-          },
-          "nodes" : [ "B11", "BUSCO_B11_L11_ONE", "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE" ]
-        }, {
-          "type" : "BODYPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 2,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 175.0,
-            "y" : 267.0,
-            "xSpan" : 50.0,
-            "ySpan" : 80.0
-          },
-          "nodes" : [ "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE", "INTERNAL_VL1_L11_ONE" ]
-        }, {
-          "type" : "FEEDERPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 175.0,
-            "y" : 307.0,
-            "xSpan" : 50.0,
-            "ySpan" : 0.0
-          },
-          "nodes" : [ "INTERNAL_VL1_L11_ONE", "L11_ONE" ]
-        } ]
-      }
-    }, {
-      "type" : "EXTERN",
-      "number" : 3,
       "direction" : "TOP",
-      "order" : 3,
+      "order" : 1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -796,7 +660,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "BUSCO_B11_T11_ONE", "INTERNAL_VL1_BUSCO_B11_T11_ONE-T11_ONE" ]
+          "nodes" : [ "B11", "BUSCO_B11_LD1", "INTERNAL_VL1_BUSCO_B11_LD1-LD1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -817,7 +681,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_VL1_BUSCO_B11_T11_ONE-T11_ONE", "INTERNAL_VL1_T11_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_BUSCO_B11_LD1-LD1", "INTERNAL_VL1_LD1" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -838,14 +702,14 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "INTERNAL_VL1_T11_ONE", "T11_ONE" ]
+          "nodes" : [ "INTERNAL_VL1_LD1", "LD1" ]
         } ]
       }
     }, {
       "type" : "EXTERN",
-      "number" : 4,
+      "number" : 3,
       "direction" : "BOTTOM",
-      "order" : 4,
+      "order" : 2,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -886,7 +750,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "BUSCO_B11_L12_ONE", "INTERNAL_VL1_BUSCO_B11_L12_ONE-L12_ONE" ]
+          "nodes" : [ "B11", "BUSCO_B11_L11_ONE", "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -903,6 +767,96 @@
           },
           "coord" : {
             "x" : 275.0,
+            "y" : 267.0,
+            "xSpan" : 50.0,
+            "ySpan" : 80.0
+          },
+          "nodes" : [ "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE", "INTERNAL_VL1_L11_ONE" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 275.0,
+            "y" : 307.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "INTERNAL_VL1_L11_ONE", "L11_ONE" ]
+        } ]
+      }
+    }, {
+      "type" : "EXTERN",
+      "number" : 4,
+      "direction" : "BOTTOM",
+      "order" : 4,
+      "rootBlock" : {
+        "type" : "SERIAL",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 12,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 325.0,
+          "y" : 267.0,
+          "xSpan" : 50.0,
+          "ySpan" : 80.0
+        },
+        "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 325.0,
+            "y" : 227.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "B11", "BUSCO_B11_L12_ONE", "INTERNAL_VL1_BUSCO_B11_L12_ONE-L12_ONE" ]
+        }, {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 325.0,
             "y" : 267.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
@@ -923,7 +877,7 @@
             "orientation" : "DOWN"
           },
           "coord" : {
-            "x" : 275.0,
+            "x" : 325.0,
             "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -944,14 +898,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 12,
+          "h" : 14,
           "v" : 0,
           "hSpan" : 2,
           "vSpan" : 2,
           "orientation" : "UP"
         },
         "coord" : {
-          "x" : 325.0,
+          "x" : 375.0,
           "y" : 102.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
@@ -971,7 +925,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 325.0,
+            "x" : 375.0,
             "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -992,7 +946,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 325.0,
+            "x" : 375.0,
             "y" : 102.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
@@ -1013,7 +967,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 325.0,
+            "x" : 375.0,
             "y" : 62.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -1034,14 +988,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 14,
+          "h" : 16,
           "v" : 0,
           "hSpan" : 2,
           "vSpan" : 2,
           "orientation" : "DOWN"
         },
         "coord" : {
-          "x" : 375.0,
+          "x" : 425.0,
           "y" : 267.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
@@ -1061,7 +1015,7 @@
             "orientation" : "DOWN"
           },
           "coord" : {
-            "x" : 375.0,
+            "x" : 425.0,
             "y" : 227.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -1082,7 +1036,7 @@
             "orientation" : "DOWN"
           },
           "coord" : {
-            "x" : 375.0,
+            "x" : 425.0,
             "y" : 267.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
@@ -1103,7 +1057,7 @@
             "orientation" : "DOWN"
           },
           "coord" : {
-            "x" : 375.0,
+            "x" : 425.0,
             "y" : 307.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -1124,14 +1078,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 16,
+          "h" : 18,
           "v" : 0,
           "hSpan" : 2,
           "vSpan" : 2,
           "orientation" : "UP"
         },
         "coord" : {
-          "x" : 425.0,
+          "x" : 475.0,
           "y" : 102.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
@@ -1151,7 +1105,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 425.0,
+            "x" : 475.0,
             "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -1172,7 +1126,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 425.0,
+            "x" : 475.0,
             "y" : 102.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
@@ -1193,7 +1147,7 @@
             "orientation" : "UP"
           },
           "coord" : {
-            "x" : 425.0,
+            "x" : 475.0,
             "y" : 62.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
@@ -1204,96 +1158,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 8,
-      "direction" : "BOTTOM",
-      "order" : 8,
-      "rootBlock" : {
-        "type" : "SERIAL",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 18,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "DOWN"
-        },
-        "coord" : {
-          "x" : 475.0,
-          "y" : 267.0,
-          "xSpan" : 50.0,
-          "ySpan" : 80.0
-        },
-        "subBlocks" : [ {
-          "type" : "LEGPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 475.0,
-            "y" : 227.0,
-            "xSpan" : 50.0,
-            "ySpan" : 0.0
-          },
-          "nodes" : [ "B12", "BUSCO_B12_T11_TWO", "INTERNAL_VL1_BUSCO_B12_T11_TWO-T11_TWO" ]
-        }, {
-          "type" : "BODYPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 2,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 475.0,
-            "y" : 267.0,
-            "xSpan" : 50.0,
-            "ySpan" : 80.0
-          },
-          "nodes" : [ "INTERNAL_VL1_BUSCO_B12_T11_TWO-T11_TWO", "INTERNAL_VL1_T11_TWO" ]
-        }, {
-          "type" : "FEEDERPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
-          },
-          "coord" : {
-            "x" : 475.0,
-            "y" : 307.0,
-            "xSpan" : 50.0,
-            "ySpan" : 0.0
-          },
-          "nodes" : [ "INTERNAL_VL1_T11_TWO", "T11_TWO" ]
-        } ]
-      }
-    }, {
-      "type" : "EXTERN",
-      "number" : 9,
       "direction" : "TOP",
       "order" : 9,
       "rootBlock" : {
@@ -1383,7 +1247,7 @@
       }
     }, {
       "type" : "EXTERN",
-      "number" : 10,
+      "number" : 9,
       "direction" : "BOTTOM",
       "order" : 10,
       "rootBlock" : {
@@ -1480,9 +1344,6 @@
       "node2" : "BUSCO_B11_L11_ONE"
     }, {
       "node1" : "B11",
-      "node2" : "BUSCO_B11_T11_ONE"
-    }, {
-      "node1" : "B11",
       "node2" : "BUSCO_B11_L12_ONE"
     }, {
       "node1" : "B11",
@@ -1491,14 +1352,14 @@
       "node1" : "BUSCO_B11_BR1",
       "node2" : "B11"
     }, {
+      "node1" : "B11",
+      "node2" : "BUSCO_B11_T11"
+    }, {
       "node1" : "B12",
       "node2" : "BUSCO_B12_G"
     }, {
       "node1" : "B12",
       "node2" : "BUSCO_B12_L11_TWO"
-    }, {
-      "node1" : "B12",
-      "node2" : "BUSCO_B12_T11_TWO"
     }, {
       "node1" : "B12",
       "node2" : "BUSCO_B12_T12_ONE"
@@ -1509,14 +1370,14 @@
       "node1" : "B12",
       "node2" : "BUSCO_B12_BR1"
     }, {
+      "node1" : "B12",
+      "node2" : "BUSCO_B12_T11"
+    }, {
       "node1" : "BUSCO_B11_LD1",
       "node2" : "INTERNAL_VL1_BUSCO_B11_LD1-LD1"
     }, {
       "node1" : "BUSCO_B11_L11_ONE",
       "node2" : "INTERNAL_VL1_BUSCO_B11_L11_ONE-L11_ONE"
-    }, {
-      "node1" : "BUSCO_B11_T11_ONE",
-      "node2" : "INTERNAL_VL1_BUSCO_B11_T11_ONE-T11_ONE"
     }, {
       "node1" : "BUSCO_B11_L12_ONE",
       "node2" : "INTERNAL_VL1_BUSCO_B11_L12_ONE-L12_ONE"
@@ -1530,14 +1391,17 @@
       "node1" : "INTERNAL_VL1_BUSCO_B11_BR1-BR1",
       "node2" : "BUSCO_B11_BR1"
     }, {
+      "node1" : "BUSCO_B11_T11",
+      "node2" : "INTERNAL_VL1_BUSCO_B11_T11-T11"
+    }, {
+      "node1" : "INTERNAL_VL1_BUSCO_B11_T11-T11",
+      "node2" : "T11"
+    }, {
       "node1" : "BUSCO_B12_G",
       "node2" : "INTERNAL_VL1_BUSCO_B12_G-G"
     }, {
       "node1" : "BUSCO_B12_L11_TWO",
       "node2" : "INTERNAL_VL1_BUSCO_B12_L11_TWO-L11_TWO"
-    }, {
-      "node1" : "BUSCO_B12_T11_TWO",
-      "node2" : "INTERNAL_VL1_BUSCO_B12_T11_TWO-T11_TWO"
     }, {
       "node1" : "BUSCO_B12_T12_ONE",
       "node2" : "INTERNAL_VL1_BUSCO_B12_T12_ONE-T12_ONE"
@@ -1551,6 +1415,12 @@
       "node1" : "INTERNAL_VL1_BUSCO_B12_BR1-BR1",
       "node2" : "BR1"
     }, {
+      "node1" : "BUSCO_B12_T11",
+      "node2" : "INTERNAL_VL1_BUSCO_B12_T11-T11"
+    }, {
+      "node1" : "INTERNAL_VL1_BUSCO_B12_T11-T11",
+      "node2" : "T11"
+    }, {
       "node1" : "INTERNAL_VL1_BUSCO_B11_LD1-LD1",
       "node2" : "INTERNAL_VL1_LD1"
     }, {
@@ -1562,12 +1432,6 @@
     }, {
       "node1" : "INTERNAL_VL1_L11_ONE",
       "node2" : "L11_ONE"
-    }, {
-      "node1" : "INTERNAL_VL1_BUSCO_B11_T11_ONE-T11_ONE",
-      "node2" : "INTERNAL_VL1_T11_ONE"
-    }, {
-      "node1" : "INTERNAL_VL1_T11_ONE",
-      "node2" : "T11_ONE"
     }, {
       "node1" : "INTERNAL_VL1_BUSCO_B11_L12_ONE-L12_ONE",
       "node2" : "INTERNAL_VL1_L12_ONE"
@@ -1593,12 +1457,6 @@
       "node1" : "INTERNAL_VL1_L11_TWO",
       "node2" : "L11_TWO"
     }, {
-      "node1" : "INTERNAL_VL1_BUSCO_B12_T11_TWO-T11_TWO",
-      "node2" : "INTERNAL_VL1_T11_TWO"
-    }, {
-      "node1" : "INTERNAL_VL1_T11_TWO",
-      "node2" : "T11_TWO"
-    }, {
       "node1" : "INTERNAL_VL1_BUSCO_B12_T12_ONE-T12_ONE",
       "node2" : "INTERNAL_VL1_T12_ONE"
     }, {
@@ -1611,49 +1469,15 @@
       "node1" : "INTERNAL_VL1_T3_12_TWO",
       "node2" : "T3_12_TWO"
     } ],
-    "multitermNodes" : [ {
-      "type" : "INTERNAL",
-      "id" : "T11",
-      "componentType" : "PHASE_SHIFT_TRANSFORMER",
-      "fictitious" : true,
-      "x" : 140.0,
-      "y" : 354.5,
-      "orientation" : "DOWN",
-      "name" : "T11",
-      "equipmentId" : "T11",
-      "voltageLevelInfosLeg1" : {
-        "id" : "VL1",
-        "name" : "VL1",
-        "nominalVoltage" : 400.0
-      },
-      "voltageLevelInfosLeg2" : {
-        "id" : "VL1",
-        "name" : "VL1",
-        "nominalVoltage" : 400.0
-      }
-    } ],
-    "twtEdges" : [ {
-      "id" : "EDGE_T11_ONE",
-      "nodes" : [ {
-        "node1" : "T11_ONE",
-        "node2" : "T11"
-      } ],
-      "snakeLine" : [ 385.0, 170.0, 385.0, 110.0, 140.0, 110.0, 140.0, 354.5 ]
-    }, {
-      "id" : "EDGE_T11_TWO",
-      "nodes" : [ {
-        "node1" : "T11_TWO",
-        "node2" : "T11"
-      } ],
-      "snakeLine" : [ 635.0, 539.0, 635.0, 599.0, 140.0, 599.0, 140.0, 354.5 ]
-    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
     "lineEdges" : [ {
       "id" : "L11",
       "nodes" : [ {
         "node1" : "L11_ONE",
         "node2" : "L11_TWO"
       } ],
-      "snakeLine" : [ 335.0, 539.0, 335.0, 629.0, 110.0, 629.0, 110.0, 80.0, 585.0, 80.0, 585.0, 170.0 ]
+      "snakeLine" : [ 405.0, 509.0, 405.0, 569.0, 110.0, 569.0, 110.0, 80.0, 605.0, 80.0, 605.0, 140.0 ]
     } ]
   }, {
     "voltageLevelInfos" : {
@@ -1661,8 +1485,8 @@
       "name" : "VL2",
       "nominalVoltage" : 400.0
     },
-    "x" : 160.0,
-    "y" : 779.0,
+    "x" : 130.0,
+    "y" : 719.0,
     "nodes" : [ {
       "type" : "BUS",
       "id" : "B21",
@@ -2260,7 +2084,7 @@
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 80.0,
-    "y" : 354.5,
+    "y" : 324.5,
     "orientation" : "DOWN",
     "name" : "T12",
     "equipmentId" : "T12",
@@ -2279,8 +2103,8 @@
     "id" : "T3_12",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
-    "x" : 735.0,
-    "y" : 689.0,
+    "x" : 705.0,
+    "y" : 629.0,
     "orientation" : "DOWN",
     "name" : "T3_12",
     "equipmentId" : "T3_12",
@@ -2306,35 +2130,35 @@
       "node1" : "T12_ONE",
       "node2" : "T12"
     } ],
-    "snakeLine" : [ 685.0, 170.0, 685.0, 50.0, 80.0, 50.0, 80.0, 354.5 ]
+    "snakeLine" : [ 655.0, 140.0, 655.0, 50.0, 80.0, 50.0, 80.0, 324.5 ]
   }, {
     "id" : "EDGE_T12_TWO",
     "nodes" : [ {
       "node1" : "T12_TWO",
       "node2" : "T12"
     } ],
-    "snakeLine" : [ 285.0, 779.0, 285.0, 659.0, 80.0, 659.0, 80.0, 354.5 ]
+    "snakeLine" : [ 255.0, 719.0, 255.0, 599.0, 80.0, 599.0, 80.0, 324.5 ]
   }, {
     "id" : "EDGE_T3_12_ONE",
     "nodes" : [ {
       "node1" : "T3_12_ONE",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 485.0, 170.0, 485.0, 20.0, 50.0, 20.0, 50.0, 689.0, 735.0, 689.0 ]
+    "snakeLine" : [ 505.0, 140.0, 505.0, 20.0, 50.0, 20.0, 50.0, 629.0, 705.0, 629.0 ]
   }, {
     "id" : "EDGE_T3_12_TWO",
     "nodes" : [ {
       "node1" : "T3_12_TWO",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 735.0, 539.0, 735.0, 689.0 ]
+    "snakeLine" : [ 705.0, 509.0, 705.0, 629.0 ]
   }, {
     "id" : "EDGE_T3_12_THREE",
     "nodes" : [ {
       "node1" : "T3_12_THREE",
       "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 335.0, 1123.0, 335.0, 1183.0, 780.0, 1183.0, 780.0, 689.0, 735.0, 689.0 ]
+    "snakeLine" : [ 305.0, 1063.0, 305.0, 1123.0, 750.0, 1123.0, 750.0, 629.0, 705.0, 629.0 ]
   } ],
   "lineEdges" : [ {
     "id" : "L12",
@@ -2342,6 +2166,6 @@
       "node1" : "L12_ONE",
       "node2" : "L12_TWO"
     } ],
-    "snakeLine" : [ 435.0, 539.0, 435.0, 719.0, 20.0, 719.0, 20.0, 1213.0, 235.0, 1213.0, 235.0, 1123.0 ]
+    "snakeLine" : [ 455.0, 509.0, 455.0, 659.0, 20.0, 659.0, 20.0, 1153.0, 205.0, 1153.0, 205.0, 1063.0 ]
   } ]
 }

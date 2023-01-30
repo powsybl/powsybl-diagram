@@ -104,7 +104,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // Add snake edges in the same voltage level
-        addSnakeEdges(graph, vl);
+        addBranchEdges(graph, vl);
 
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
 
@@ -113,7 +113,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         handleConnectedComponents(graph);
     }
 
-    private void addSnakeEdges(VoltageLevelGraph graph, VoltageLevel vl) {
+    private void addBranchEdges(VoltageLevelGraph graph, VoltageLevel vl) {
         addLineEdges(graph, vl.getConnectableStream(Line.class)
                 .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
                 .collect(Collectors.toList()));
@@ -203,7 +203,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.graph = graph;
         }
 
-        protected abstract void addFeeder(FeederNode node, Terminal terminal);
+        protected abstract void addTerminalNode(Node node, Terminal terminal);
 
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, FeederNode firstOtherLegNode,
                                              FeederNode secondOtherLegNode, Terminal terminal);
@@ -229,12 +229,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseGet(() -> NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
-        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph,
-                                               TwoWindingsTransformer branch,
-                                               Branch.Side side) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(branch);
+        private Node createInternal2wtSideNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, Branch.Side side) {
+            return NodeFactory.createConnectivityNode(graph, branch.getId() + "_" + side.name(), NODE);
+        }
 
+        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, Branch.Side side) {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getNameOrId();
             String equipmentId = branch.getId();
@@ -318,18 +317,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         NodeSide.valueOf(side.name()));
 
-                addFeeder(legNode, transformer.getTerminal(side));
+                addTerminalNode(legNode, transformer.getTerminal(side));
             }
         }
 
         @Override
         public void visitLoad(Load load) {
-            addFeeder(NodeFactory.createLoad(graph, load.getId(), load.getNameOrId()), load.getTerminal());
+            addTerminalNode(NodeFactory.createLoad(graph, load.getId(), load.getNameOrId()), load.getTerminal());
         }
 
         @Override
         public void visitGenerator(Generator generator) {
-            addFeeder(NodeFactory.createGenerator(graph, generator.getId(), generator.getNameOrId()), generator.getTerminal());
+            addTerminalNode(NodeFactory.createGenerator(graph, generator.getId(), generator.getNameOrId()), generator.getTerminal());
         }
 
         @Override
@@ -337,33 +336,35 @@ public class NetworkGraphBuilder implements GraphBuilder {
             FeederNode feederNode = isCapacitor(sc)
                     ? NodeFactory.createCapacitor(graph, sc.getId(), sc.getNameOrId())
                     : NodeFactory.createInductor(graph, sc.getId(), sc.getNameOrId());
-            addFeeder(feederNode, sc.getTerminal());
+            addTerminalNode(feederNode, sc.getTerminal());
         }
 
         @Override
         public void visitDanglingLine(DanglingLine dl) {
-            addFeeder(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
+            addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
         }
 
         @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            addFeeder(createFeederVscNode(graph, converterStation), converterStation.getTerminal());
+            addTerminalNode(createFeederVscNode(graph, converterStation), converterStation.getTerminal());
         }
 
         @Override
         public void visitStaticVarCompensator(StaticVarCompensator svc) {
-            addFeeder(NodeFactory.createStaticVarCompensator(graph, svc.getId(), svc.getNameOrId()), svc.getTerminal());
+            addTerminalNode(NodeFactory.createStaticVarCompensator(graph, svc.getId(), svc.getNameOrId()), svc.getTerminal());
         }
 
         @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
-                                                Branch.Side side) {
-            addFeeder(createFeeder2wtNode(graph, transformer, side), transformer.getTerminal(side));
+        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, Branch.Side side) {
+            Node transformerNode = isInternalToVoltageLevel(transformer)
+                    ? createInternal2wtSideNode(graph, transformer, side)
+                    : createFeeder2wtNode(graph, transformer, side);
+            addTerminalNode(transformerNode, transformer.getTerminal(side));
         }
 
         @Override
         public void visitLine(Line line, Branch.Side side) {
-            addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
@@ -420,7 +421,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        protected void addFeeder(FeederNode node, Terminal terminal) {
+        protected void addTerminalNode(Node node, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
                 feeder.getOrder().ifPresent(node::setOrder);
@@ -476,7 +477,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addEdge(nodesByBusId.get(busId), node);
         }
 
-        protected void addFeeder(FeederNode node, Terminal terminal) {
+        protected void addTerminalNode(Node node, Terminal terminal) {
             node.setOrder(order++);
             node.setDirection(order % 2 == 0 ? Direction.TOP : Direction.BOTTOM);
             connectToBus(node, terminal);
@@ -626,8 +627,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
-        twoWindingsTransformers.forEach(transfo -> {
+    private void add2wtEdges(VoltageLevelGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
+        for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
+            Node n1 = graph.getNode(transfo.getId() + "_" + Branch.Side.ONE);
+            Node n2 = graph.getNode(transfo.getId() + "_" + Branch.Side.TWO);
+            NodeFactory.createInternal2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
+                    n1, n2, transfo.hasPhaseTapChanger());
+        }
+    }
+
+    private void add2wtEdges(SubstationGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
+        for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
 
@@ -650,7 +660,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             NodeFactory.createMiddle2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
                     (FeederNode) n1, (FeederNode) n2, voltageLevelInfos1, voltageLevelInfos2,
                     transfo.hasPhaseTapChanger());
-        });
+        }
     }
 
     private void add3wtEdges(BaseGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
