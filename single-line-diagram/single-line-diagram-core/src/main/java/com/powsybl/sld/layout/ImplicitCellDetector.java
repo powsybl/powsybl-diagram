@@ -102,9 +102,9 @@ public class ImplicitCellDetector implements CellDetector {
      * @return the list of nodes for each detected cell
      */
     private List<Set<Node>> detectCell(VoltageLevelGraph graph,
-            List<Node.NodeType> typeStops,
-            List<Node.NodeType> exclusionTypes,
-            List<Node> allocatedNodes) {
+                                       List<Node.NodeType> typeStops,
+                                       List<Node.NodeType> exclusionTypes,
+                                       List<Node> allocatedNodes) {
         List<Set<Node>> cellsNodes = new ArrayList<>();
         graph.getNodeBuses().forEach(bus -> bus.getAdjacentNodes().forEach(adj -> {
             Set<Node> cellNodes = new LinkedHashSet<>();
@@ -312,30 +312,33 @@ public class ImplicitCellDetector implements CellDetector {
         List<Node> adjList = new ArrayList<>(candidateShuntNode.getAdjacentNodes());
         adjList.removeAll(visitedNodes);
         for (Node adj : adjList) {
-            if (!visitedNodes.contains(adj)) {
-                Set<Node> resultNodes = GraphTraversal.run(adj, filter, visitedNodes);
+            Set<Node> resultNodes = GraphTraversal.run(adj, filter, visitedNodes);
 
-                boolean hasShunt = resultNodes.stream().anyMatch(ImplicitCellDetector::isShunt);
-                boolean hasBus = resultNodes.stream().anyMatch(node -> node.getType() == BUS);
-                boolean hasFeeder = resultNodes.stream().anyMatch(node -> node.getType() == FEEDER);
-                int nbTypes = (hasShunt ? 1 : 0) + (hasBus ? 1 : 0) + (hasFeeder ? 1 : 0);
+            boolean hasShunt = resultNodes.stream().anyMatch(ImplicitCellDetector::isShunt);
+            boolean hasBus = resultNodes.stream().anyMatch(node -> node.getType() == BUS);
+            boolean hasFeeder = resultNodes.stream().anyMatch(node -> node.getType() == FEEDER);
+            int nbTypes = (hasShunt ? 1 : 0) + (hasBus ? 1 : 0) + (hasFeeder ? 1 : 0);
 
-                if (nbTypes > 1) {
-                    hasMixBranch = true;
-                } else if (nbTypes == 1) {
-                    hasBusBranch |= hasBus;
-                    hasFeederBranch |= hasFeeder;
+            if (nbTypes > 1) {
+                hasMixBranch = true;
+            } else if (nbTypes == 1) {
+                hasBusBranch |= hasBus;
+                hasFeederBranch |= hasFeeder;
 
-                    if (hasBus || hasFeeder) {
-                        cellNodesExtern.addAll(resultNodes);
-                    }
+                if (hasBus || hasFeeder) {
+                    cellNodesExtern.addAll(resultNodes);
                 }
-                resultNodes.stream()
-                        .filter(m -> m.getType() != BUS)
-                        .forEach(visitedNodes::add);
             }
+            resultNodes.stream()
+                    .filter(m -> m.getType() != BUS)
+                    .forEach(visitedNodes::add);
         }
-        if (hasBusBranch && hasFeederBranch && hasMixBranch) {
+        return selectShuntNode(candidateShuntNode, cellNodesExtern, hasBusBranch, hasFeederBranch, hasMixBranch);
+    }
+
+    private static List<Node> selectShuntNode(ConnectivityNode candidateShuntNode, List<Node> cellNodesExtern,
+                                              boolean hasBusBranch, boolean hasFeederBranch, boolean hasMixBranc) {
+        if (hasBusBranch && hasFeederBranch && hasMixBranc) {
             candidateShuntNode.setShunt(true);
             return cellNodesExtern;  // reminder : the first node of cellNodesExtern is the candidateShuntNode
         } else {

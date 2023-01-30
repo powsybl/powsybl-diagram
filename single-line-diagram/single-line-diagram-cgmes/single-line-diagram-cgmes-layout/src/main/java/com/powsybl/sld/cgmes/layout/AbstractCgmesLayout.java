@@ -158,7 +158,7 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setBusNodeCoordinates(BusNode node, NodeDiagramData<?> diagramData, String diagramName) {
         if (diagramData != null) {
-            NodeDiagramData.NodeDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
+            NodeDiagramData<?>.NodeDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint1().getX());
                 node.setY(diagramDetails.getPoint1().getY());
@@ -176,7 +176,7 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
-            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
+            CouplingDeviceDiagramData<?>.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
@@ -191,7 +191,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected double computeBusWidth(NodeDiagramData.NodeDiagramDataDetails diagramData) {
+    protected double computeBusWidth(NodeDiagramData<?>.NodeDiagramDataDetails diagramData) {
         if (diagramData.getPoint1().getX() == diagramData.getPoint2().getX()) {
             return Math.abs(diagramData.getPoint1().getY() - diagramData.getPoint2().getY());
         } else {
@@ -264,7 +264,7 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setInjectionNodeCoordinates(FeederNode node, InjectionDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
-            InjectionDiagramData.InjectionDiagramDetails diagramDetails = diagramData.getData(diagramName);
+            InjectionDiagramData<?>.InjectionDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());

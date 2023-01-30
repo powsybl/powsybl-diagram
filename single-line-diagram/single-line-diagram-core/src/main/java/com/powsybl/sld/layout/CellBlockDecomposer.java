@@ -146,7 +146,7 @@ final class CellBlockDecomposer {
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
             Block parallelBlock;
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                parallelBlock = new BodyParallelBlock(blocksBundle, true);
+                parallelBlock = new BodyParallelBlock(blocksBundle, false);
             } else {
                 parallelBlock = new LegParallelBlock(blocksBundle, true);
             }

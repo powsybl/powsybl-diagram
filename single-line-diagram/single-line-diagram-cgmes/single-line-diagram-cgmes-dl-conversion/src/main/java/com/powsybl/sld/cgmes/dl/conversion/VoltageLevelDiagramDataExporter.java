@@ -51,7 +51,7 @@ public class VoltageLevelDiagramDataExporter extends AbstractDiagramDataExporter
                 });
             });
         } else {
-            LOG.warn("VoltageLevel {}, name {} has no diagram data, skipping export", voltageLevel.getId(), voltageLevel.getName());
+            LOG.warn("VoltageLevel {}, name {} has no diagram data, skipping export", voltageLevel.getId(), voltageLevel.getNameOrId());
         }
     }
 }

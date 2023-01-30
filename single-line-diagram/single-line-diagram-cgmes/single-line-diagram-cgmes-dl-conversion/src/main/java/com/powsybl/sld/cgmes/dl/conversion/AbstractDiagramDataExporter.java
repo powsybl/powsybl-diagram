@@ -33,7 +33,7 @@ public abstract class AbstractDiagramDataExporter {
     protected ExportContext context;
     protected Map<String, String> terminals;
 
-    public AbstractDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
+    protected AbstractDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
         this.tripleStore = Objects.requireNonNull(tripleStore);
         this.context = Objects.requireNonNull(context);
     }

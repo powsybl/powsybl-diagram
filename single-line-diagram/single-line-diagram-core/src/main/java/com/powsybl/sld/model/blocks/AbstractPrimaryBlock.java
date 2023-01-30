@@ -93,7 +93,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         super.setOrientation(orientation);
         if (recursively) {
             nodes.stream().filter(n -> !(n instanceof BusNode))
-                    .forEach(n -> n.setOrientation(orientation));
+                    .forEach(n -> n.setOrientationFromBlock(orientation, nodes));
         }
     }
 

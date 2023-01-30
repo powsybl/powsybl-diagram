@@ -42,6 +42,7 @@ public class LayoutToCgmesExtensionsTest {
         networks.add(Networks.createNetworkWithThreeWindingsTransformer());
         networks.add(Networks.createNetworkWithBusbarAndSwitch());
         networks.add(Networks.createNetworkWithPhaseShiftTransformer());
+        networks.add(Networks.createNetworkWithHvdcLine());
     }
 
     private void checkExtensionsSet(Network network) {

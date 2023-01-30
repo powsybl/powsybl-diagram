@@ -20,14 +20,14 @@ public abstract class AbstractNodeDiagramDataExporter extends AbstractDiagramDat
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractNodeDiagramDataExporter.class);
 
-    public AbstractNodeDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
+    protected AbstractNodeDiagramDataExporter(TripleStore tripleStore, ExportContext context) {
         super(tripleStore, context);
     }
 
     protected void addDiagramData(String id, String name, NodeDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                NodeDiagramData.NodeDiagramDataDetails details = diagramData.getData(diagramName);
+                NodeDiagramData<?>.NodeDiagramDataDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, 0, diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint1());

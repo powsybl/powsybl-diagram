@@ -42,12 +42,13 @@ public class LoadDiagramDataImporter extends AbstractInjectionDiagramDataImporte
             if (loadIidmDiagramData == null) {
                 loadIidmDiagramData = new InjectionDiagramData<>(load);
             }
-            InjectionDiagramData.InjectionDiagramDetails diagramDetails = loadIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(loadDiagramData.asDouble("x"), loadDiagramData.asDouble("y"), loadDiagramData.asInt("seq")),
+            String diagramName = loadDiagramData.get("diagramName");
+            InjectionDiagramData<Load>.InjectionDiagramDetails diagramDetails = loadIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(loadDiagramData.asDouble("x"), loadDiagramData.asDouble("y"), loadDiagramData.asInt("seq")),
                     loadDiagramData.asDouble("rotation"));
-            addTerminalPoints(loadId, load.getName(), loadDiagramData.get("diagramName"), diagramDetails);
-            loadIidmDiagramData.addData(loadDiagramData.get("diagramName"), diagramDetails);
+            addTerminalPoints(loadId, load.getNameOrId(), diagramName, diagramDetails);
+            loadIidmDiagramData.addData(diagramName, diagramDetails);
             load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"), load.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+            NetworkDiagramData.addDiagramName(network, diagramName, load.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find load {}, name {} in network {}: skipping load diagram data", loadId, loadDiagramData.get("name"), network.getId());
         }

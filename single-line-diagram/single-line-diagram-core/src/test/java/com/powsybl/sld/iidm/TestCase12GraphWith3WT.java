@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -262,10 +263,10 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        compareMetadata(graph, "/vlDiag_metadata.json",
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json",
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network));
+                new NominalVoltageDiagramStyleProvider(network)));
     }
 
     @Test

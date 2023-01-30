@@ -10,11 +10,9 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -31,6 +29,10 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
     public int getNbVoltageLevels() {
         return voltageLevels.size();
+    }
+
+    private Set<VoltageLevel> getVoltageLevels() {
+        return voltageLevels;
     }
 
     @Override
@@ -73,6 +75,14 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
     public static VoltageLevelFilter createVoltageLevelsFilter(Network network, List<String> voltageLevelIds) {
         return createVoltageLevelsDepthFilter(network, voltageLevelIds, 0);
+    }
+
+    public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
+        List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
+        VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
+        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
+        voltageLevels.forEach(voltageLevelSet::remove);
+        return voltageLevelSet;
     }
 
     private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {

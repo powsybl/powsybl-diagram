@@ -193,6 +193,11 @@ public abstract class AbstractNode implements Node {
         this.orientation = Objects.requireNonNullElse(orientation, defaultOrientation());
     }
 
+    @Override
+    public void setOrientationFromBlock(Orientation blockOrientation, List<Node> blockNodes) {
+        setOrientation(blockOrientation);
+    }
+
     protected Orientation defaultOrientation() {
         return Orientation.UP;
     }
