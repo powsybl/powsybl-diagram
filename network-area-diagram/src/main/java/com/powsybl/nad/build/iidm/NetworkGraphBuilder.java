@@ -45,12 +45,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        List<VoltageLevel> voltageLevels = network.getVoltageLevelStream()
+        List<VoltageLevel> voltageLevelsVisible = network.getVoltageLevelStream()
                 .filter(voltageLevelFilter)
                 .sorted(Comparator.comparing(VoltageLevel::getId))
                 .collect(Collectors.toList());
-        voltageLevels.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
-        voltageLevels.forEach(vl -> addGraphEdges(vl, graph));
+        List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
+                .stream()
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .collect(Collectors.toList());
+        voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
+        voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false));
+        voltageLevelsVisible.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
     }
 
@@ -143,9 +148,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addEdge(Graph graph, Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
-        VoltageLevelNode vlNodeA = graph.getVoltageLevelNode(terminalA.getVoltageLevel().getId())
-                .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminalA.getVoltageLevel().getId() + "'"));
-        VoltageLevelNode vlNodeB = getOrCreateInvisibleVoltageLevelNode(graph, terminalB);
+        VoltageLevelNode vlNodeA = getVoltageLevelNode(graph, terminalA);
+        VoltageLevelNode vlNodeB = getVoltageLevelNode(graph, terminalB);
 
         BusNode busNodeA = getBusNode(graph, terminalA);
         BusNode busNodeB = getBusNode(graph, terminalB);
@@ -160,7 +164,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addThreeWtEdge(Graph graph, ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeWindingsTransformer.Side side) {
         Terminal terminal = twt.getTerminal(side);
-        VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(graph, terminal);
+        VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
                 twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
@@ -168,8 +172,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addEdge(Graph graph, DanglingLine dl, BoundaryNode boundaryVlNode, BusNode boundaryBusNode) {
         Terminal terminal = dl.getTerminal();
-        VoltageLevelNode vlNode = graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
-                .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminal.getVoltageLevel().getId() + "'"));
+        VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         BranchEdge edge = new BranchEdge(idProvider.createId(dl),
                 dl.getId(), dl.getNameOrId(), BranchEdge.DANGLING_LINE_EDGE);
         graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
@@ -184,9 +187,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return graph.getBusNode(connectableBusA.getId());
     }
 
-    private VoltageLevelNode getOrCreateInvisibleVoltageLevelNode(Graph graph, Terminal terminal) {
-        VoltageLevel vl = terminal.getVoltageLevel();
-        return graph.getVoltageLevelNode(vl.getId()).orElseGet(() -> addVoltageLevelGraphNode(vl, graph, false));
+    private VoltageLevelNode getVoltageLevelNode(Graph graph, Terminal terminal) {
+        return graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
+                .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminal.getVoltageLevel().getId() + "'"));
     }
 
     private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
