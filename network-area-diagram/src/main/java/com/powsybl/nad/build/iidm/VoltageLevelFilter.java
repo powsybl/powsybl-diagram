@@ -73,12 +73,12 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return createVoltageLevelsDepthFilter(network, voltageLevelIds, 0);
     }
 
-    public static List<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
+    public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
         List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
         VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
         Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
-        voltageLevelSet.removeAll(voltageLevels.stream().collect(Collectors.toSet()));
-        return new ArrayList<>(voltageLevelSet.stream().collect(Collectors.toList()));
+        voltageLevels.forEach(voltageLevelSet::remove);
+        return voltageLevelSet;
     }
 
     private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
