@@ -27,6 +27,10 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         this.voltageLevels = voltageLevels;
     }
 
+    public int getNbVoltageLevels() {
+        return voltageLevels.size();
+    }
+
     private Set<VoltageLevel> getVoltageLevels() {
         return voltageLevels;
     }
