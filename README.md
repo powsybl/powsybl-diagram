@@ -35,6 +35,13 @@ PowSyBl Network Area Diagram is a component built on top of the `Network` model 
 A network area diagram emphasizes the electrical structure of the network, and may differ substantially from the network physical geography.
 It displays a graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels.
 
+The main features are:
+- [SVG](https://en.wikipedia.org/wiki/SVG) diagram to be used in various front-end technologies.
+- Highly customizable rendering using CSS and configurable labels.
+- Built-in force-layout to place the voltage level nodes.
+- Displaying electrical nodes within a voltage level as concentric rings, and voltage / angle values for each electrical node is displayed by default.
+- Displaying lines, two- and three-winding transformers, converter stations and dangling lines with separate designs.
+- Displaying active (visible by default) or reactive (hidden by default) powers on each edge.
 
 ## PowSyBl Single Line Diagram
 
@@ -43,7 +50,7 @@ for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_di
 
 The main features are:
  - Node/Breaker and Bus/Breaker topology.
- - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
+ - [SVG](https://en.wikipedia.org/wiki/SVG) diagram to be used in various front-end technologies.
  - Voltage level, substation and zone diagrams.
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
