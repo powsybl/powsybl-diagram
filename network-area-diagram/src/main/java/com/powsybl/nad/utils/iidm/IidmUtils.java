@@ -14,7 +14,7 @@ public final class IidmUtils {
 
     public static boolean isDisconnected(Network network, BranchEdge edge, BranchEdge.Side side) {
         if (edge.getType().equals(BranchEdge.DANGLING_LINE_EDGE) && side.equals(BranchEdge.Side.TWO)) {
-            return false;
+            return isDisconnected(network, edge, BranchEdge.Side.ONE);
         }
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return terminal == null || !terminal.isConnected();
