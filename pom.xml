@@ -196,6 +196,12 @@
                 <version>${powsybl-olf.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-tools-test</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
