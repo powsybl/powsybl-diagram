@@ -316,6 +316,7 @@ public class SvgWriter {
         for (ThreeWtNode threeWtNode : threeWtNodes) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, threeWtNode);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(threeWtNode.getPosition()));
             writeStyleClasses(writer, styleProvider.getNodeStyleClasses(threeWtNode));
             List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
             for (ThreeWtEdge edge : edges) {
@@ -331,8 +332,8 @@ public class SvgWriter {
         Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide()), StyleProvider.WINDING_CLASS);
-        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
-        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX() - threeWtNode.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY() - threeWtNode.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
     }
 
