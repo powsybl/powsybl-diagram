@@ -85,11 +85,11 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return voltageLevelSet;
     }
 
-    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
-        if (depth < 0) {
-            return;
-        }
+    private Set<VoltageLevel> traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
         Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
+        if (depth < 0) {
+            return nextDepthVoltageLevels;
+        }
         for (VoltageLevel vl : voltageLevelsDepth) {
             if (!visitedVoltageLevels.contains(vl)) {
                 visitedVoltageLevels.add(vl);
@@ -97,6 +97,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
             }
         }
         traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
+        return;
     }
 
     private static class VlVisitor extends DefaultTopologyVisitor {
