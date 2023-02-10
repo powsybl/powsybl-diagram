@@ -1,0 +1,24 @@
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* feeder infos animation */
+.sld-arrow-in {
+  offset-rotate: 0deg;
+  offset-path: var(--sld-arrow-in-offset-path, path(''));
+  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+}
+.sld-arrow-out {
+  offset-rotate: 0deg;
+  offset-path: var(--sld-arrow-out-offset-path, path(''));
+  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+}
+@keyframes move {
+  to {
+    offset-distance: 100%;
+  }
+}
+/* Enable arrows animation */
+.sld-arrow-animation { --sld-arrow-in-offset-path: path('M 0,-10 0,10'); --sld-arrow-out-offset-path: path('M 0,10 0,-10') }
+/* Set arrows animation speed (1: the slowest -> 3: the fastest) */
+.sld-arrow-animation-speed-1 { --sld-arrow-animation-duration: 3s }
+.sld-arrow-animation-speed-2 { --sld-arrow-animation-duration: 2s }
+.sld-arrow-animation-speed-3 { --sld-arrow-animation-duration: 1s }

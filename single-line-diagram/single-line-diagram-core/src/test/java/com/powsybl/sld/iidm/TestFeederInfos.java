@@ -6,27 +6,24 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -43,6 +40,11 @@ import static org.junit.Assert.assertEquals;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class TestFeederInfos extends AbstractTestCaseIidm {
+
+    @Override
+    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new ResourcesComponentLibrary("animated", "/ConvergenceLibrary", "/AnimatedLibrary");
+    }
 
     @Before
     public void setUp() {
@@ -111,5 +113,53 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
+    }
+
+    @Test
+    public void testAnimation() {
+        // Add power values to the load
+        network.getLoad("l").getTerminal().setP(1200.29);
+        network.getLoad("l").getTerminal().setQ(-1);
+
+        // Enable animation
+        layoutParameters.setEnableFeederInfosAnimation(true);
+
+        DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+            @Override
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                Load l = network.getLoad("l");
+                return Arrays.asList(
+                        new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, l.getNameOrId()),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, l.getNameOrId()));
+            }
+        };
+
+        DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(network) {
+            @Override
+            public List<String> getFeederInfoStyles(FeederInfo info, boolean animated) {
+                List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info, animated));
+                if (animated && info instanceof DirectionalFeederInfo) {
+                    DirectionalFeederInfo feederInfo = (DirectionalFeederInfo) info;
+                    styles.add(ARROW_ANIMATION);
+                    Load equipment = this.network.getLoad(feederInfo.getUserDefinedId());
+                    double power = Math.abs(feederInfo.getDirection() == DiagramLabelProvider.LabelDirection.OUT ? equipment.getTerminal().getP() : equipment.getTerminal().getQ());
+                    if (Math.abs(power) > 1000) {
+                        styles.add(ARROW_ANIMATION_SPEED_3);
+                    } else {
+                        styles.add(ARROW_ANIMATION_SPEED_1);
+                    }
+                }
+                return styles;
+            }
+        };
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", labelProvider, styleProvider));
     }
 }

@@ -150,7 +150,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getFeederInfoStyles(FeederInfo info) {
+    public List<String> getFeederInfoStyles(FeederInfo info, boolean animated) {
         List<String> styles = new ArrayList<>();
         styles.add(FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {

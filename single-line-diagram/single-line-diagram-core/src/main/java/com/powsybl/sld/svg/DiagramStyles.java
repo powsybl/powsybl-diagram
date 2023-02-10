@@ -46,6 +46,14 @@ public final class DiagramStyles {
     public static final String ANGLE = STYLE_PREFIX + "angle";
     public static final String FEEDER_INFO = STYLE_PREFIX + "feeder-info";
 
+    public static final String ARROW_ANIMATION = STYLE_PREFIX + "arrow-animation";
+
+    public static final String ARROW_ANIMATION_SPEED_1 = STYLE_PREFIX + "arrow-animation-speed-1";
+
+    public static final String ARROW_ANIMATION_SPEED_2 = STYLE_PREFIX + "arrow-animation-speed-2";
+
+    public static final String ARROW_ANIMATION_SPEED_3 = STYLE_PREFIX + "arrow-animation-speed-3";
+
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

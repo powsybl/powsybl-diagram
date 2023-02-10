@@ -878,7 +878,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
         insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
-        styles.addAll(styleProvider.getFeederInfoStyles(feederInfo));
+        styles.addAll(styleProvider.getFeederInfoStyles(feederInfo, layoutParameters.isEnableFeederInfosAnimation()));
 
         // we draw the right label only if present
         feederInfo.getRightLabel().ifPresent(s -> {
