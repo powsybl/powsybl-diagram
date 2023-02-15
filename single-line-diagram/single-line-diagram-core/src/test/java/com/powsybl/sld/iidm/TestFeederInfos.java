@@ -41,6 +41,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestFeederInfos extends AbstractTestCaseIidm {
 
+    public static final String ARROW_IN_ANIMATION = STYLE_PREFIX + "arrow-in-animation";
+
+    public static final String ARROW_OUT_ANIMATION = STYLE_PREFIX + "arrow-out-animation";
+
+    public static final String ARROW_ANIMATION_SPEED_1 = STYLE_PREFIX + "arrow-animation-speed-1";
+
+    public static final String ARROW_ANIMATION_SPEED_2 = STYLE_PREFIX + "arrow-animation-speed-2";
+
+    public static final String ARROW_ANIMATION_SPEED_3 = STYLE_PREFIX + "arrow-animation-speed-3";
+
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("animated", "/ConvergenceLibrary", "/AnimatedLibrary");
@@ -117,36 +127,61 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
     @Test
     public void testAnimation() {
+        // Add load at bottom
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createLoad(vl, "l2", "l2", "l2", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
+
         // Add power values to the load
         network.getLoad("l").getTerminal().setP(1200.29);
-        network.getLoad("l").getTerminal().setQ(-1);
+        network.getLoad("l").getTerminal().setQ(-1.0);
+
+        network.getLoad("l2").getTerminal().setP(501.0);
+        network.getLoad("l2").getTerminal().setQ(0.0);
 
         // Enable animation
-        layoutParameters.setEnableFeederInfosAnimation(true);
+        layoutParameters.setFeederInfosIntraMargin(20)
+                        .setEnableFeederInfosAnimation(true);
 
         DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 Load l = network.getLoad("l");
-                return Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, l.getNameOrId()),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, l.getNameOrId()));
+                Load l2 = network.getLoad("l2");
+
+                if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, node.getEquipmentId()),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, node.getEquipmentId()));
+                } else {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, node.getEquipmentId()),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, node.getEquipmentId()));
+                }
             }
         };
 
         DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(network) {
             @Override
-            public List<String> getFeederInfoStyles(FeederInfo info, boolean animated) {
-                List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info, animated));
+            public List<String> getFeederInfoStyles(FeederInfo info, boolean rotated, boolean animated) {
+                List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info, rotated, animated));
                 if (animated && info instanceof DirectionalFeederInfo) {
                     DirectionalFeederInfo feederInfo = (DirectionalFeederInfo) info;
-                    styles.add(ARROW_ANIMATION);
+                    if (feederInfo.getDirection() == DiagramLabelProvider.LabelDirection.IN) {
+                        styles.add(rotated ? ARROW_OUT_ANIMATION : ARROW_IN_ANIMATION);
+                    } else {
+                        styles.add(rotated ? ARROW_IN_ANIMATION : ARROW_OUT_ANIMATION);
+                    }
+
                     Load equipment = this.network.getLoad(feederInfo.getUserDefinedId());
                     double power = Math.abs(feederInfo.getDirection() == DiagramLabelProvider.LabelDirection.OUT ? equipment.getTerminal().getP() : equipment.getTerminal().getQ());
-                    if (Math.abs(power) > 1000) {
-                        styles.add(ARROW_ANIMATION_SPEED_3);
-                    } else {
-                        styles.add(ARROW_ANIMATION_SPEED_1);
+                    if (Math.abs(power) > 0) {
+                        if (Math.abs(power) > 1000) {
+                            styles.add(ARROW_ANIMATION_SPEED_3);
+                        } else if (Math.abs(power) > 500.0) {
+                            styles.add(ARROW_ANIMATION_SPEED_2);
+                        } else {
+                            styles.add(ARROW_ANIMATION_SPEED_1);
+                        }
                     }
                 }
                 return styles;
