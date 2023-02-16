@@ -27,9 +27,14 @@ public class CanvasTest {
         points.add(new Point(1.0, 2.0));
         BoundingBox bbox = BoundingBox.computeBoundingBox(points);
 
-        assertEquals(4.0, bbox.getWidth(), 0.0);
-        assertEquals(4.0, bbox.getHeight(), 0.0);
-        assertEquals(1.0, bbox.getLeft(), 0.0);
-        assertEquals(2.0, bbox.getTop(), 0.0);
+        Canvas canvas = new Canvas(bbox, 16.0, 64.0);
+
+        assertEquals(16.0, canvas.getWidth(), 0.0);
+        assertEquals(16.0, canvas.getHeight(), 0.0);
+
+        Vector vector = new Vector(1.0, 2.0);
+        vector = canvas.toScreen(vector);
+        assertEquals(64.0, vector.getX(), 0.0);
+        assertEquals(64.0, vector.getY(), 0.0);
     }
 }
