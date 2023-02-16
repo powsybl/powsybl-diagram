@@ -144,7 +144,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_2">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B11_95_LD1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1">
                 <polyline points="265.0,252.0,265.0,222.0"/>
             </g>
@@ -180,7 +180,7 @@
                 <text class="sld-label" id="LD1_N_LABEL" x="-5.0" y="-5.0">LD1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_3">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B11_95_L11_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_L11_95_ONE_45_L11_95_ONE">
                 <polyline points="315.0,252.0,315.0,307.0"/>
             </g>
@@ -213,7 +213,7 @@
                 <text class="sld-label" id="L11_ONE_S_LABEL" x="-5.0" y="5.0">L11</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_4">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_4">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE">
                 <polyline points="365.0,252.0,365.0,307.0"/>
             </g>
@@ -246,7 +246,7 @@
                 <text class="sld-label" id="L12_ONE_S_LABEL" x="-5.0" y="5.0">L12</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_5">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B11_95_T3_95_12_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12">
                 <polyline points="440.0,252.0,440.0,307.0"/>
             </g>
@@ -297,7 +297,7 @@
                 <text class="sld-label" id="T3_12_THREE_S_LABEL" x="-5.0" y="5.0">T3_12</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_6">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_6">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B12_95_G_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G">
                 <polyline points="515.0,277.0,515.0,222.0"/>
             </g>
@@ -333,7 +333,7 @@
                 <text class="sld-label" id="G_N_LABEL" x="-5.0" y="-5.0">G</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_7">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B12_95_L11_95_TWO_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_L11_95_TWO_45_L11_95_TWO">
                 <polyline points="565.0,277.0,565.0,307.0"/>
             </g>
@@ -366,7 +366,7 @@
                 <text class="sld-label" id="L11_TWO_S_LABEL" x="-5.0" y="5.0">L11</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_8">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_8">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE">
                 <polyline points="615.0,277.0,615.0,307.0"/>
             </g>
@@ -401,7 +401,7 @@
                 <text class="sld-label" id="T12_ONE_S_LABEL" x="-5.0" y="20.0">T12</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_9">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_9">
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_BUSCO_95_B12_95_T3_95_12_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12">
                 <polyline points="690.0,277.0,690.0,307.0"/>
             </g>

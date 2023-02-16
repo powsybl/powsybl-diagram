@@ -79,7 +79,7 @@
             <line x1="0" x2="120.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_0">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl50to70" id="_95_vl3_95_d3WT_95_3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3">
                 <polyline points="120.0,252.0,120.0,222.0"/>
             </g>

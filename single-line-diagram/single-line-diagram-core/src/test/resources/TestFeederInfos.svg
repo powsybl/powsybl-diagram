@@ -57,31 +57,6 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
-/* ----------------------------------------------------------------------- */
-/* File : components.css ------------------------------------------------- */
-/* feeder infos animation */
-.sld-arrow-in {
-  offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path(''));
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
-}
-.sld-arrow-out {
-  offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path(''));
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
-}
-@keyframes move {
-  to {
-    offset-distance: 100%;
-  }
-}
-/* Enable arrows animation */
-.sld-arrow-in-animation  { --sld-arrow-offset-path: path('M 0,-10 0,10') }
-.sld-arrow-out-animation { --sld-arrow-offset-path: path('M 0,10 0,-10') }
-/* Set arrows animation speed (1: the slowest -> 3: the fastest) */
-.sld-arrow-animation-speed-1 { --sld-arrow-animation-duration: 3s }
-.sld-arrow-animation-speed-2 { --sld-arrow-animation-duration: 2s }
-.sld-arrow-animation-speed-3 { --sld-arrow-animation-duration: 1s }
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -90,7 +65,7 @@
             <line x1="0" x2="25.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_0">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d_45_b">
                 <polyline points="65.0,302.0,65.0,272.0"/>
             </g>
