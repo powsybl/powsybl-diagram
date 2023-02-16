@@ -143,7 +143,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
             }
         };
 
-        DiagramStyleProvider styleProvider = new AnimatedFeederInfoStyleProvider(network);
+        DiagramStyleProvider styleProvider = new AnimatedFeederInfoStyleProvider(network, 500, 1000);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());

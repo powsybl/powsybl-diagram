@@ -29,8 +29,14 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
 
     private static final String ARROW_ANIMATION_HIGH_SPEED = ARROW_ANIMATION + "-high-" + ARROW_SPEED;
 
-    public AnimatedFeederInfoStyleProvider(Network network) {
+    private final double threshold1;
+
+    private final double threshold2;
+
+    public AnimatedFeederInfoStyleProvider(Network network, double threshold1, double threshold2) {
         super(network);
+        this.threshold1 = threshold1;
+        this.threshold2 = threshold2;
     }
 
     @Override
@@ -41,9 +47,9 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
             feederInfo.getRightLabel().ifPresent(label -> {
                 double power = feederInfo.getValue();
                 if (!Double.isNaN(power) && Math.abs(power) > 0) {
-                    if (Math.abs(power) > 1000) {
+                    if (Math.abs(power) > threshold2) {
                         styles.add(ARROW_ANIMATION_HIGH_SPEED);
-                    } else if (Math.abs(power) > 500.0) {
+                    } else if (Math.abs(power) > threshold1) {
                         styles.add(ARROW_ANIMATION_NOMINAL_SPEED);
                     } else {
                         styles.add(ARROW_ANIMATION_LOW_SPEED);
