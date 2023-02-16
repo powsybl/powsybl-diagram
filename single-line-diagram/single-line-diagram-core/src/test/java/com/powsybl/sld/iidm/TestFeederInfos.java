@@ -9,13 +9,12 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.util.AnimatedFeederInfoStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +22,6 @@ import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-import static com.powsybl.sld.svg.DiagramStyles.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -40,21 +38,6 @@ import static org.junit.Assert.assertEquals;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class TestFeederInfos extends AbstractTestCaseIidm {
-
-    public static final String ARROW_IN_ANIMATION = STYLE_PREFIX + "arrow-in-animation";
-
-    public static final String ARROW_OUT_ANIMATION = STYLE_PREFIX + "arrow-out-animation";
-
-    public static final String ARROW_ANIMATION_SPEED_1 = STYLE_PREFIX + "arrow-animation-speed-1";
-
-    public static final String ARROW_ANIMATION_SPEED_2 = STYLE_PREFIX + "arrow-animation-speed-2";
-
-    public static final String ARROW_ANIMATION_SPEED_3 = STYLE_PREFIX + "arrow-animation-speed-3";
-
-    @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("animated", "/ConvergenceLibrary", "/AnimatedLibrary");
-    }
 
     @Before
     public void setUp() {
@@ -150,43 +133,17 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
                 if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
                     return Arrays.asList(
-                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, node.getEquipmentId()),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, node.getEquipmentId()));
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
                 } else {
                     return Arrays.asList(
-                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, node.getEquipmentId()),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, node.getEquipmentId()));
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null));
                 }
             }
         };
 
-        DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(network) {
-            @Override
-            public List<String> getFeederInfoStyles(FeederInfo info, boolean rotated, boolean animated) {
-                List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info, rotated, animated));
-                if (animated && info instanceof DirectionalFeederInfo) {
-                    DirectionalFeederInfo feederInfo = (DirectionalFeederInfo) info;
-                    if (feederInfo.getDirection() == DiagramLabelProvider.LabelDirection.IN) {
-                        styles.add(rotated ? ARROW_OUT_ANIMATION : ARROW_IN_ANIMATION);
-                    } else {
-                        styles.add(rotated ? ARROW_IN_ANIMATION : ARROW_OUT_ANIMATION);
-                    }
-
-                    Load equipment = this.network.getLoad(feederInfo.getUserDefinedId());
-                    double power = Math.abs(feederInfo.getDirection() == DiagramLabelProvider.LabelDirection.OUT ? equipment.getTerminal().getP() : equipment.getTerminal().getQ());
-                    if (Math.abs(power) > 0) {
-                        if (Math.abs(power) > 1000) {
-                            styles.add(ARROW_ANIMATION_SPEED_3);
-                        } else if (Math.abs(power) > 500.0) {
-                            styles.add(ARROW_ANIMATION_SPEED_2);
-                        } else {
-                            styles.add(ARROW_ANIMATION_SPEED_1);
-                        }
-                    }
-                }
-                return styles;
-            }
-        };
+        DiagramStyleProvider styleProvider = new AnimatedFeederInfoStyleProvider(network);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());

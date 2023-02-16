@@ -128,10 +128,10 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getCellStyles(Cell cell) {
         if (cell instanceof ExternCell) {
-            return Collections.singletonList(EXTERN_CELL);
+            return List.of(EXTERN_CELL, buildStyle(cell.getDirection()));
         }
         if (cell instanceof InternCell) {
-            return List.of(INTERN_CELL, CELL_SHAPE_PREFIX + ((InternCell) cell).getShape().name().toLowerCase());
+            return List.of(INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
         }
         if (cell instanceof ShuntCell) {
             return Collections.singletonList(SHUNT_CELL);
@@ -150,7 +150,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getFeederInfoStyles(FeederInfo info, boolean rotated, boolean animated) {
+    public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>();
         styles.add(FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {

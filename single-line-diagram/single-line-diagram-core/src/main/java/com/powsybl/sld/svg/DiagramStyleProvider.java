@@ -44,7 +44,7 @@ public interface DiagramStyleProvider {
 
     Optional<String> getBusInfoStyle(BusInfo info);
 
-    List<String> getFeederInfoStyles(FeederInfo info, boolean rotated, boolean animated);
+    List<String> getFeederInfoStyles(FeederInfo info);
 
     List<String> getCellStyles(Cell cell);
 }
