@@ -64,6 +64,8 @@ public class LayoutParametersTest {
                 .setAngleValuePrecision(0)
                 .setUndefinedValueSymbol("\u002A");
 
+        layoutParameters.setComponentsSize(null);
+
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
@@ -113,5 +115,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getPowerValuePrecision(), layoutParameters2.getPowerValuePrecision());
         assertEquals(layoutParameters.getAngleValuePrecision(), layoutParameters2.getAngleValuePrecision());
         assertEquals(layoutParameters.getUndefinedValueSymbol(), layoutParameters2.getUndefinedValueSymbol());
+        assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
     }
 }
