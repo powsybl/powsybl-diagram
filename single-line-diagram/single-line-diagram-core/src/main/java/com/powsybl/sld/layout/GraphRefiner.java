@@ -23,10 +23,12 @@ import java.util.stream.Collectors;
 public class GraphRefiner {
     private final boolean removeUnnecessaryFictitiousNodes;
     private final boolean substituteSingularFictitiousByFeederNode;
+    private final boolean removeFictitiousSwitchNode;
 
-    public GraphRefiner(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
+    public GraphRefiner(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode, boolean removeFictitiousSwitchNodes) {
         this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
         this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
+        this.removeFictitiousSwitchNode = removeFictitiousSwitchNodes;
     }
 
     void run(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
@@ -36,6 +38,9 @@ public class GraphRefiner {
         }
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
+        }
+        if (removeFictitiousSwitchNode) {
+            graph.removeFictitiousSwitchNode();
         }
 
         graph.extendBusesConnectedToBuses();
