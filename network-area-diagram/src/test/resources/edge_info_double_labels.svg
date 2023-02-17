@@ -121,10 +121,10 @@
         </g>
     </g>
     <g class="nad-3wt-nodes">
-        <g id="6">
-            <circle class="nad-vl0to30 nad-winding" cx="63.86" cy="44.93" r="20.00"/>
-            <circle class="nad-vl120to180 nad-winding" cx="70.02" cy="64.79" r="20.00"/>
-            <circle class="nad-vl30to50 nad-winding" cx="84.13" cy="49.53" r="20.00"/>
+        <g id="6" transform="translate(72.67,53.08)">
+            <circle class="nad-vl0to30 nad-winding" cx="-8.81" cy="-8.15" r="20.00"/>
+            <circle class="nad-vl120to180 nad-winding" cx="-2.65" cy="11.70" r="20.00"/>
+            <circle class="nad-vl30to50 nad-winding" cx="11.46" cy="-3.55" r="20.00"/>
         </g>
     </g>
     <g class="nad-text-edges">
