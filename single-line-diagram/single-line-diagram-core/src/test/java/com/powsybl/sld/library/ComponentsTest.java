@@ -9,11 +9,14 @@ package com.powsybl.sld.library;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -23,34 +26,35 @@ import static org.junit.Assert.assertEquals;
  */
 public class ComponentsTest {
 
+    private static final CharSequence[] CHAR_SEQUENCES = {"{",
+        "\"components\" : [ {",
+        "\"type\" : \"BREAKER\",",
+        "\"anchorPoints\" : [ {",
+        "\"x\" : 9.0,",
+        "\"y\" : 0.0,",
+        "\"orientation\" : \"VERTICAL\"",
+        "}, {",
+        "\"x\" : 9.0,",
+        "\"y\" : 18.0,",
+        "\"orientation\" : \"HORIZONTAL\"",
+        "} ],",
+        "\"size\" : {",
+        "\"width\" : 18.0,",
+        "\"height\" : 19.0",
+        "},",
+        "\"transformations\" : {},",
+        "\"subComponents\" : [ {",
+        "\"name\" : \"BREAKER\",",
+        "\"fileName\" : \"breaker.svg\",",
+        "\"styleClass\" : null",
+        "} ],",
+        "\"styleClass\" : \"sld-breaker\"",
+        "} ]",
+        "}"};
+
     @Test
     public void test() {
-        String componentJSon = String.join(System.lineSeparator(),
-                "{",
-                "\"components\" : [ {",
-                    "\"type\" : \"BREAKER\",",
-                    "\"anchorPoints\" : [ {",
-                        "\"x\" : 9.0,",
-                        "\"y\" : 0.0,",
-                        "\"orientation\" : \"VERTICAL\"",
-                    "}, {",
-                        "\"x\" : 9.0,",
-                        "\"y\" : 18.0,",
-                        "\"orientation\" : \"HORIZONTAL\"",
-                    "} ],",
-                    "\"size\" : {",
-                        "\"width\" : 18.0,",
-                        "\"height\" : 19.0",
-                "},",
-                "\"transformations\" : {},",
-                "\"subComponents\" : [ {",
-                    "\"name\" : \"BREAKER\",",
-                    "\"fileName\" : \"breaker.svg\",",
-                    "\"styleClass\" : null",
-                "} ],",
-                "\"styleClass\" : \"sld-breaker\"",
-                "} ]",
-                "}");
+        String componentJSon = String.join(System.lineSeparator(), CHAR_SEQUENCES);
 
         ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
         Components components = Components.load(is);
@@ -61,6 +65,7 @@ public class ComponentsTest {
         assertEquals(BREAKER, components.getComponents().get(0).getSubComponents().get(0).getName());
         assertEquals(18, components.getComponents().get(0).getSize().getWidth(), 0);
         assertEquals(19, components.getComponents().get(0).getSize().getHeight(), 0);
+        assertEquals("ComponentSize(width=18.0, height=19.0)", components.getComponents().get(0).getSize().toString());
         assertEquals(2, components.getComponents().get(0).getAnchorPoints().size());
         assertEquals(9, components.getComponents().get(0).getAnchorPoints().get(0).getX(), 0);
         assertEquals(0, components.getComponents().get(0).getAnchorPoints().get(0).getY(), 0);
@@ -69,5 +74,14 @@ public class ComponentsTest {
         assertEquals(18, components.getComponents().get(0).getAnchorPoints().get(1).getY(), 0);
         assertEquals(AnchorOrientation.HORIZONTAL, components.getComponents().get(0).getAnchorPoints().get(1).getOrientation());
         assertTrue(components.getComponents().get(0).getTransformations().isEmpty());
+    }
+
+    @Test
+    public void testBadLoading() {
+        // Remove last character in order to raise UncheckedIOException
+        String componentJSon = String.join(System.lineSeparator(), Arrays.toString(CHAR_SEQUENCES).substring(0, CHAR_SEQUENCES.length - 1));
+
+        ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
+        assertThrows(UncheckedIOException.class, () -> Components.load(is));
     }
 }

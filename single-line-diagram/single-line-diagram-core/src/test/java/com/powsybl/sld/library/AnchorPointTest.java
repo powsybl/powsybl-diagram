@@ -44,5 +44,7 @@ public class AnchorPointTest {
         assertEquals(AnchorOrientation.VERTICAL, flipAnchorPoint.getOrientation());
         assertEquals(0, flipAnchorPoint.getX(), 0);
         assertEquals(10, flipAnchorPoint.getY(), 0);
+        assertEquals("AnchorPoint(x=0.0, y=10.0, orientation=VERTICAL)", flipAnchorPoint.toString());
+
     }
 }
