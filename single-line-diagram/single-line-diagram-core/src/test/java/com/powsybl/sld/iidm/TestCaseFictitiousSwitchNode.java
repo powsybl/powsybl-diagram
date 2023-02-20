@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
 
     private PositionVoltageLevelLayoutFactory factory;
@@ -64,8 +63,5 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         // write svg and compare to reference
         assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"), toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg"));
     }
-
-
-
 
 }
