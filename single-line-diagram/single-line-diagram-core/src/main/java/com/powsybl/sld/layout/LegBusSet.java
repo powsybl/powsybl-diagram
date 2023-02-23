@@ -32,34 +32,32 @@ public final class LegBusSet {
     private static final Logger LOGGER = LoggerFactory.getLogger(LegBusSet.class);
 
     private final Set<BusNode> busNodeSet;
-    private final Set<BusNode> extendedNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
 
     private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
-    private LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
-        busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
-        extendedNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
+    private LegBusSet(Map<BusNode, Integer> busToNb, List<BusNode> busNodes) {
+        busNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
         busNodeSet.addAll(busNodes);
     }
 
-    private LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
-        this(nodeToNb, cell.getBusNodes());
+    private LegBusSet(Map<BusNode, Integer> busToNb, ExternCell cell) {
+        this(busToNb, cell.getBusNodes());
         externCells.add(cell);
     }
 
-    private LegBusSet(Map<BusNode, Integer> nodeToNb, ShuntCell cell) {
-        this(nodeToNb, cell.getParentBusNodes());
+    private LegBusSet(Map<BusNode, Integer> busToNb, ShuntCell cell) {
+        this(busToNb, cell.getParentBusNodes());
         externCells.addAll(cell.getSideCells());
     }
 
-    private LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
-        this(nodeToNb, internCell.getSideBusNodes(side));
+    private LegBusSet(Map<BusNode, Integer> busToNb, InternCell internCell, Side side) {
+        this(busToNb, internCell.getSideBusNodes(side));
         addInternCell(internCell, side);
     }
 
-    private LegBusSet(Map<BusNode, Integer> nodeToNb, BusNode busNode) {
-        this(nodeToNb, Collections.singletonList(busNode));
+    private LegBusSet(Map<BusNode, Integer> busToNb, BusNode busNode) {
+        this(busToNb, Collections.singletonList(busNode));
     }
 
     void addInternCell(InternCell internCell, Side side) {
@@ -99,19 +97,7 @@ public final class LegBusSet {
         return internCellSides;
     }
 
-    void setExtendedNodeSet(Collection<BusNode> busNodes) {
-        if (busNodes.containsAll(busNodeSet)) {
-            extendedNodeSet.addAll(busNodes.stream().filter(Objects::nonNull).collect(Collectors.toList()));
-        } else {
-            LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
-        }
-    }
-
-    Set<BusNode> getExtendedNodeSet() {
-        return extendedNodeSet;
-    }
-
-    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
+    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> busToNb, boolean handleShunts) {
         List<LegBusSet> legBusSets = new ArrayList<>();
 
         List<ExternCell> externCells = graph.getExternCellStream()
@@ -119,21 +105,21 @@ public final class LegBusSet {
                 .collect(Collectors.toList());
 
         if (handleShunts) {
-            manageShunts(graph, externCells, legBusSets, nodeToNb);
+            manageShunts(graph, externCells, legBusSets, busToNb);
         }
 
-        externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
+        externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(busToNb, cell)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell, Side.UNDEFINED)));
+                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(busToNb, cell, Side.UNDEFINED)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, busToNb, cell));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
@@ -141,11 +127,11 @@ public final class LegBusSet {
                 flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
         allBusNodes.stream()
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
-                .forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
+                .forEach(busNode -> legBusSets.add(new LegBusSet(busToNb, busNode)));
         return legBusSets;
     }
 
-    private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
+    private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> busToNb) {
         List<List<ShuntCell>> sameBusNodesShuntCells = graph.getShuntCellStream()
                 .map(sc -> new ArrayList<>(Collections.singletonList(sc)))
                 .collect(Collectors.toList());
@@ -166,7 +152,7 @@ public final class LegBusSet {
 
         sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
                 .forEach(sc -> {
-                    pushLBS(legBusSets, new LegBusSet(nodeToNb, sc));
+                    pushLBS(legBusSets, new LegBusSet(busToNb, sc));
                     externCells.removeAll(sc.getSideCells());
                 });
     }
@@ -193,7 +179,7 @@ public final class LegBusSet {
         legBusSets.add(legBusSet);
     }
 
-    private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+    private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> busToNb, InternCell internCell) {
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(internCell.getBusNodes())) {
                 lbs.addInternCell(internCell, Side.UNDEFINED);
@@ -201,7 +187,7 @@ public final class LegBusSet {
                 return;
             }
         }
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
+        pushLBS(legBusSets, new LegBusSet(busToNb, internCell, Side.LEFT));
+        pushLBS(legBusSets, new LegBusSet(busToNb, internCell, Side.RIGHT));
     }
 }
