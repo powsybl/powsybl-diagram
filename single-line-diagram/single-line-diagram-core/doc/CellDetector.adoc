@@ -121,8 +121,3 @@ Last, the second `ExternCell` cell is build with the second `SHUNT` node and the
 
 .Descrimination of a `SHUNT` cell
 image::images/rawGraphExternShunt.svg[align="center"]
-
-'''
-==== The `PatternCellDetector` class
-
-This detector is based on pattern matching algorithm. The patterns are described in `/resources/pattern.xml`.

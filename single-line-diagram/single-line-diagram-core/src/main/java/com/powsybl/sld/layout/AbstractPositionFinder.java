@@ -28,7 +28,7 @@ public abstract class AbstractPositionFinder implements PositionFinder {
         List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
         LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
         graph.setMaxBusPosition();
-        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, handleShunt);
+        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, busToNb, handleShunt);
         organizeDirections(graph, subsections);
         return subsections;
     }
