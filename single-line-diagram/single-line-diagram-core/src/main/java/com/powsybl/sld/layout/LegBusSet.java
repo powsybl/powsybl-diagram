@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
 
 /**
  * A LegBusSet contains the set of BusNodes that shall be vertically presented, and the cells that have a pattern of
- * connection included in the busNodeSet. It is embedded into a LBSCluster. It contains links to all the other
- * LegBusSet of the Graph.
+ * connection included in the busNodeSet. It is embedded into a LBSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -97,16 +96,12 @@ public final class LegBusSet {
         return internCellSides;
     }
 
-    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> busToNb, boolean handleShunts) {
+    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> busToNb) {
         List<LegBusSet> legBusSets = new ArrayList<>();
 
         List<ExternCell> externCells = graph.getExternCellStream()
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .collect(Collectors.toList());
-
-        if (handleShunts) {
-            manageShunts(graph, externCells, legBusSets, busToNb);
-        }
 
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(busToNb, cell)));
 
@@ -129,36 +124,6 @@ public final class LegBusSet {
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
                 .forEach(busNode -> legBusSets.add(new LegBusSet(busToNb, busNode)));
         return legBusSets;
-    }
-
-    private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> busToNb) {
-        List<List<ShuntCell>> sameBusNodesShuntCells = graph.getShuntCellStream()
-                .map(sc -> new ArrayList<>(Collections.singletonList(sc)))
-                .collect(Collectors.toList());
-        int i = 0;
-        while (i < sameBusNodesShuntCells.size()) {
-            int j = i + 1;
-            while (j < sameBusNodesShuntCells.size()) {
-                if (crossContains(sameBusNodesShuntCells.get(i).get(0).getParentBusNodes(),
-                        sameBusNodesShuntCells.get(j).get(0).getParentBusNodes())) {
-                    sameBusNodesShuntCells.get(i).addAll(sameBusNodesShuntCells.get(j));
-                    sameBusNodesShuntCells.remove(j);
-                } else {
-                    j++;
-                }
-            }
-            i++;
-        }
-
-        sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
-                .forEach(sc -> {
-                    pushLBS(legBusSets, new LegBusSet(busToNb, sc));
-                    externCells.removeAll(sc.getSideCells());
-                });
-    }
-
-    private static boolean crossContains(List<BusNode> busNodes1, List<BusNode> busNodes2) {
-        return busNodes1.containsAll(busNodes2) && busNodes2.containsAll(busNodes1);
     }
 
     public static void pushLBS(List<LegBusSet> legBusSets, LegBusSet legBusSet) {
