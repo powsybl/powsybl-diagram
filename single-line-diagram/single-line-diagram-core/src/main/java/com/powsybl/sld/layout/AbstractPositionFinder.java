@@ -25,10 +25,10 @@ public abstract class AbstractPositionFinder implements PositionFinder {
             return new ArrayList<>();
         }
         Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses(), graph.getBusCells());
-        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
+        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb);
         LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
         graph.setMaxBusPosition();
-        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, handleShunt);
+        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, busToNb, handleShunt);
         organizeDirections(graph, subsections);
         return subsections;
     }
