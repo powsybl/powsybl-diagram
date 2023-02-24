@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
  */
 public final class LegBusSet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LegBusSet.class);
-
     private final Set<BusNode> busNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
 
@@ -43,11 +41,6 @@ public final class LegBusSet {
     private LegBusSet(Map<BusNode, Integer> busToNb, ExternCell cell) {
         this(busToNb, cell.getBusNodes());
         externCells.add(cell);
-    }
-
-    private LegBusSet(Map<BusNode, Integer> busToNb, ShuntCell cell) {
-        this(busToNb, cell.getParentBusNodes());
-        externCells.addAll(cell.getSideCells());
     }
 
     private LegBusSet(Map<BusNode, Integer> busToNb, InternCell internCell, Side side) {
