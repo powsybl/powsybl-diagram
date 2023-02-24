@@ -31,7 +31,7 @@ public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
                     .findFirst();
             if (rightHBL.isPresent()) {
                 BusNode leftNodeOfRightHbl = rightHBL.get().getSideNode(Side.LEFT);
-                if(leftNodeOfRightHbl == rightNodeOfLeftHbl
+                if (leftNodeOfRightHbl == rightNodeOfLeftHbl
                         || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
                     hbl.merge(rightHBL.get());
                     rightCluster.removeHorizontalBusLane(rightHBL.get());
