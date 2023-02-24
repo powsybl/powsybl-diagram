@@ -42,7 +42,7 @@ public class Subsection {
         busNodes = new BusNode[size];
     }
 
-    private boolean checkAbsorbability(LegBusSet lbs, Set<BusNode> extendedNodeSet) {
+    private boolean checkAbsorbability(Set<BusNode> extendedNodeSet) {
         return extendedNodeSet.stream().noneMatch(busNode -> {
             int vIndex = busNode.getBusbarIndex() - 1;
             return busNodes[vIndex] != null && busNodes[vIndex] != busNode;
@@ -104,7 +104,7 @@ public class Subsection {
             } else {
                 LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
             }
-            if (!currentSubsection.checkAbsorbability(lbs, extendedNodeSet)) {
+            if (!currentSubsection.checkAbsorbability(extendedNodeSet)) {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
@@ -120,10 +120,6 @@ public class Subsection {
         }
 
         return subsections;
-    }
-
-    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, Map<BusNode, Integer> busToNb) {
-        return createSubsections(graph, lbsCluster, busToNb, false);
     }
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
