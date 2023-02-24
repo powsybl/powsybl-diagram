@@ -12,9 +12,6 @@ import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Optional;
 
 /**
@@ -22,7 +19,6 @@ import java.util.Optional;
  */
 
 public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HBLaneManagerByExtension.class);
 
     public void mergeHorizontalBusLanes(LBSCluster leftCluster, LBSCluster rightCluster) {
         //for this implementation, the busBar structuralPosition are already defined,
@@ -33,14 +29,13 @@ public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
             Optional<HorizontalBusLane> rightHBL = rightCluster.getHorizontalBusLanes().stream()
                     .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
                     .findFirst();
-            if (rightHBL.isPresent()
-                    && (rightHBL.get().getSideNode(Side.LEFT) == rightNodeOfLeftHbl
-                    || rightNodeOfLeftHbl.getSectionIndex() < rightHBL.get().getSideNode(Side.LEFT).getSectionIndex())) {
-                hbl.merge(rightHBL.get());
-                rightCluster.removeHorizontalBusLane(rightHBL.get());
-            } else {
-                // TODO : not true !!!
-                LOGGER.warn("incoherent structural horizontal positions in mergeHorizontalBusLanes");
+            if (rightHBL.isPresent()) {
+                BusNode leftNodeOfRightHbl = rightHBL.get().getSideNode(Side.LEFT);
+                if(leftNodeOfRightHbl == rightNodeOfLeftHbl
+                        || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
+                    hbl.merge(rightHBL.get());
+                    rightCluster.removeHorizontalBusLane(rightHBL.get());
+                }
             }
         });
         mergeLanesWithNoLink(leftCluster, rightCluster);

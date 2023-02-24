@@ -24,21 +24,17 @@ public class LBSCluster {
 
     private final List<LegBusSet> lbsList = new ArrayList<>();
     private final List<HorizontalBusLane> horizontalBusLanes = new ArrayList<>();
-    private final int nb;
 
-    public LBSCluster(LegBusSet lbs, int nb) {
+    public LBSCluster(LegBusSet lbs) {
         Objects.requireNonNull(lbs);
         lbsList.add(lbs);
         lbs.getBusNodeSet().forEach(nodeBus -> horizontalBusLanes.add(new HorizontalBusLane(nodeBus, this)));
-
-        this.nb = nb;
     }
 
     public static List<LBSCluster> createLBSClusters(List<LegBusSet> legBusSets) {
         List<LBSCluster> lbsClusters = new ArrayList<>();
-        int nb = 0;
         for (LegBusSet lbs : legBusSets) {
-            lbsClusters.add(new LBSCluster(lbs, nb++));
+            lbsClusters.add(new LBSCluster(lbs));
         }
         return lbsClusters;
     }
@@ -75,12 +71,11 @@ public class LBSCluster {
         }
     }
 
-    public HorizontalBusLane getHorizontalLaneFromSideBus(BusNode busNode, Side side) {
+    public Optional<HorizontalBusLane> getHorizontalLaneFromSideBus(BusNode busNode, Side side) {
         return horizontalBusLanes
                 .stream()
                 .filter(horizontalBusLane -> horizontalBusLane.getSideNode(side) == busNode)
-                .findAny()
-                .orElse(null);
+                .findAny();
     }
 
     List<BusNode> getVerticalBuseNodes(int i) {
@@ -140,7 +135,4 @@ public class LBSCluster {
         return lbsList.toString() + "\n" + horizontalBusLanes.toString();
     }
 
-    int getNb() {
-        return nb;
-    }
 }

@@ -57,29 +57,29 @@ public class HBLaneManagerByClustering implements HorizontalBusLaneManager {
                                 new LBSClusterSide(rightCluster, Side.LEFT)))
                         .thenComparing(InternCell::getFullId))
                 .forEachOrdered(internCell -> {
-                    BusNode myNode = internCellNodeInLaneSide(leftCluster, Side.RIGHT, internCell);
-                    BusNode otherNode = internCellNodeInLaneSide(rightCluster, Side.LEFT, internCell);
-                    if (myNode != null && otherNode != null) {
+                    Optional<BusNode> myNode = internCellNodeInLaneSide(leftCluster, Side.RIGHT, internCell);
+                    Optional<BusNode> otherNode = internCellNodeInLaneSide(rightCluster, Side.LEFT, internCell);
+                    if (myNode.isPresent() && otherNode.isPresent()) {
                         internCell.setFlat();
-                        finalizeLaneBuilding(leftCluster, rightCluster, myNode, otherNode, availableLanesToMerge);
+                        finalizeLaneBuilding(leftCluster, rightCluster, myNode.get(), otherNode.get(), availableLanesToMerge);
                     }
                 });
     }
 
-    private BusNode internCellNodeInLaneSide(LBSCluster lbsCluster, Side side, InternCell cell) {
+    private Optional<BusNode> internCellNodeInLaneSide(LBSCluster lbsCluster, Side side, InternCell cell) {
         List<BusNode> laneBuses = lbsCluster.laneSideBuses(side);
         laneBuses.retainAll(cell.getBusNodes());
-        return laneBuses.isEmpty() ? null : laneBuses.get(0);
+        return laneBuses.isEmpty() ? Optional.empty() : Optional.of(laneBuses.get(0));
     }
 
     private void finalizeLaneBuilding(LBSCluster leftCluster, LBSCluster rightCluster,
                                       BusNode myNode, BusNode otherBus, List<HorizontalBusLane> availableLanesToMerge) {
-        HorizontalBusLane myLane = leftCluster.getHorizontalLaneFromSideBus(myNode, Side.RIGHT);
-        HorizontalBusLane otherLane = rightCluster.getHorizontalLaneFromSideBus(otherBus, Side.LEFT);
-        if (otherLane != null && myLane != null) {
-            myLane.merge(otherLane);
-            rightCluster.removeHorizontalBusLane(otherLane);
-            availableLanesToMerge.remove(myLane);
+        Optional<HorizontalBusLane> myLane = leftCluster.getHorizontalLaneFromSideBus(myNode, Side.RIGHT);
+        Optional<HorizontalBusLane> otherLane = rightCluster.getHorizontalLaneFromSideBus(otherBus, Side.LEFT);
+        if (otherLane.isPresent() && myLane.isPresent()) {
+            myLane.get().merge(otherLane.get());
+            rightCluster.removeHorizontalBusLane(otherLane.get());
+            availableLanesToMerge.remove(myLane.get());
         }
     }
 }
