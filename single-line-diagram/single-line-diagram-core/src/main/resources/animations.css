@@ -28,5 +28,5 @@
 }
 /* Set arrows animation speed (1: the slowest -> 3: the fastest) */
 .sld-arrow-animation-low-speed { --sld-arrow-animation-duration: 3s }
-.sld-arrow-animation-nominal-speed { --sld-arrow-animation-duration: 2s }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-duration: 2s }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-duration: 1s }

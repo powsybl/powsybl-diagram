@@ -25,7 +25,7 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
 
     private static final String ARROW_ANIMATION_LOW_SPEED = ARROW_ANIMATION + "-low-" + ARROW_SPEED;
 
-    private static final String ARROW_ANIMATION_NOMINAL_SPEED = ARROW_ANIMATION + "-nominal-" + ARROW_SPEED;
+    private static final String ARROW_ANIMATION_AVERAGE_SPEED = ARROW_ANIMATION + "-average-" + ARROW_SPEED;
 
     private static final String ARROW_ANIMATION_HIGH_SPEED = ARROW_ANIMATION + "-high-" + ARROW_SPEED;
 
@@ -50,7 +50,7 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
                     if (Math.abs(power) > threshold2) {
                         styles.add(ARROW_ANIMATION_HIGH_SPEED);
                     } else if (Math.abs(power) > threshold1) {
-                        styles.add(ARROW_ANIMATION_NOMINAL_SPEED);
+                        styles.add(ARROW_ANIMATION_AVERAGE_SPEED);
                     } else {
                         styles.add(ARROW_ANIMATION_LOW_SPEED);
                     }

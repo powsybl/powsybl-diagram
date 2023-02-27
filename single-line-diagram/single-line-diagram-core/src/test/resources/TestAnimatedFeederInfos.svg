@@ -120,7 +120,7 @@
 }
 /* Set arrows animation speed (1: the slowest -> 3: the fastest) */
 .sld-arrow-animation-low-speed { --sld-arrow-animation-duration: 3s }
-.sld-arrow-animation-nominal-speed { --sld-arrow-animation-duration: 2s }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-duration: 2s }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-duration: 1s }
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
@@ -229,7 +229,7 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_INTERNAL_95_vl_95_l2_95_l2">
                 <polyline points="115.0,362.0,115.0,419.5"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out sld-arrow-animation-nominal-speed" id="idl2_ARROW_ACTIVE" transform="translate(110.0,394.5)">
+            <g class="sld-active-power sld-feeder-info sld-out sld-arrow-animation-average-speed" id="idl2_ARROW_ACTIVE" transform="translate(110.0,394.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">501</text>
