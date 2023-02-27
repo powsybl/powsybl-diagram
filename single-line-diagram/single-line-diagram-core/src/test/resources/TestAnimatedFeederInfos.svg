@@ -95,33 +95,35 @@
 /* feeder info  */
 .sld-cell-direction-top .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: path('M 0,-10 0,10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-top .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: path('M 0,10 0,-10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-bottom .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: path('M 0,10 0,-10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-bottom .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: path('M 0,-10 0,10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 @keyframes move {
   to {
     offset-distance: 100%;
   }
 }
-/* Set arrows animation speed (1: the slowest -> 3: the fastest) */
-.sld-arrow-animation-low-speed { --sld-arrow-animation-duration: 3s }
-.sld-arrow-animation-average-speed { --sld-arrow-animation-duration: 2s }
-.sld-arrow-animation-high-speed { --sld-arrow-animation-duration: 1s }
+
+/* Set arrows animation speeds */
+.sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
+.sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+.sld-arrow-animation-no-speed { --sld-arrow-offset-path: path('') }
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
@@ -234,10 +236,21 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">501</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idl2_ARROW_REACTIVE" transform="translate(110.0,364.5)">
+            <g class="sld-reactive-power sld-feeder-info sld-in sld-arrow-animation-no-speed" id="idl2_ARROW_REACTIVE" transform="translate(110.0,364.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
+            </g>
+            <g class="sld-reactive-power sld-feeder-info sld-in sld-arrow-animation-no-speed" id="idl2_ARROW_REACTIVE" transform="translate(110.0,334.5)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-active-power sld-feeder-info sld-arrow-animation-no-speed" id="idl2_ARROW_ACTIVE" transform="translate(110.0,304.5)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" x="15.0" y="5.0">Right</text>
+                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
             </g>
             <g class="sld-disconnector sld-closed sld-vl300to500-0" id="idd2" transform="translate(111.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

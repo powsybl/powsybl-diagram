@@ -138,7 +138,29 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
                 } else {
                     return Arrays.asList(
                             new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null));
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                            new FeederInfo() {
+                                @Override
+                                public String getUserDefinedId() {
+                                    return null;
+                                }
+
+                                @Override
+                                public String getComponentType() {
+                                    return ARROW_ACTIVE;
+                                }
+
+                                @Override
+                                public Optional<String> getLeftLabel() {
+                                    return Optional.of("Left");
+                                }
+
+                                @Override
+                                public Optional<String> getRightLabel() {
+                                    return Optional.of("Right");
+                                }
+                            });
                 }
             }
         };

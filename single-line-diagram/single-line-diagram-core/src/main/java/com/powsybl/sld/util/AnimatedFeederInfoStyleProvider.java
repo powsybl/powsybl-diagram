@@ -23,6 +23,8 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
 
     private static final String ARROW_SPEED = "speed";
 
+    private static final String ARROW_ANIMATION_NO_SPEED = ARROW_ANIMATION + "-no-" + ARROW_SPEED;
+
     private static final String ARROW_ANIMATION_LOW_SPEED = ARROW_ANIMATION + "-low-" + ARROW_SPEED;
 
     private static final String ARROW_ANIMATION_AVERAGE_SPEED = ARROW_ANIMATION + "-average-" + ARROW_SPEED;
@@ -45,17 +47,21 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
         if (info instanceof DirectionalFeederInfo) {
             DirectionalFeederInfo feederInfo = (DirectionalFeederInfo) info;
             feederInfo.getRightLabel().ifPresent(label -> {
-                double power = feederInfo.getValue();
-                if (!Double.isNaN(power) && Math.abs(power) > 0) {
-                    if (Math.abs(power) > threshold2) {
+                double value = Math.abs(feederInfo.getValue());
+                if (!Double.isNaN(value) && value > 0) {
+                    if (value > threshold2) {
                         styles.add(ARROW_ANIMATION_HIGH_SPEED);
-                    } else if (Math.abs(power) > threshold1) {
+                    } else if (value > threshold1) {
                         styles.add(ARROW_ANIMATION_AVERAGE_SPEED);
                     } else {
                         styles.add(ARROW_ANIMATION_LOW_SPEED);
                     }
+                } else {
+                    styles.add(ARROW_ANIMATION_NO_SPEED);
                 }
             });
+        } else {
+            styles.add(ARROW_ANIMATION_NO_SPEED);
         }
         return styles;
     }

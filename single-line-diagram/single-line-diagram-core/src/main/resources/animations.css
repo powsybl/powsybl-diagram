@@ -3,30 +3,32 @@
 /* feeder info  */
 .sld-cell-direction-top .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: path('M 0,-10 0,10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-top .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: path('M 0,10 0,-10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-bottom .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: path('M 0,10 0,-10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 .sld-cell-direction-bottom .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: path('M 0,-10 0,10');
-  animation: move var(--sld-arrow-animation-duration, 0s) linear infinite;
+  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 @keyframes move {
   to {
     offset-distance: 100%;
   }
 }
-/* Set arrows animation speed (1: the slowest -> 3: the fastest) */
-.sld-arrow-animation-low-speed { --sld-arrow-animation-duration: 3s }
-.sld-arrow-animation-average-speed { --sld-arrow-animation-duration: 2s }
-.sld-arrow-animation-high-speed { --sld-arrow-animation-duration: 1s }
+
+/* Set arrows animation speeds */
+.sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
+.sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+.sld-arrow-animation-no-speed { --sld-arrow-offset-path: path('') }
