@@ -52,7 +52,7 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
     @Test
     public void removeFictitiousSwitchNodesTest() {
 
-        factory.setRemoveFictitiousSwitchNodes(true);
+        layoutParameters.setRemoveFictitiousSwitchNodes(true);
 
         // build graph
         VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph("vl");

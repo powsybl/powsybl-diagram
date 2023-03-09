@@ -62,7 +62,8 @@ public class LayoutParametersTest {
                 .setVoltageValuePrecision(3)
                 .setPowerValuePrecision(2)
                 .setAngleValuePrecision(0)
-                .setUndefinedValueSymbol("\u002A");
+                .setUndefinedValueSymbol("\u002A")
+                .setRemoveFictitiousSwitchNodes(true);
 
         layoutParameters.setComponentsSize(null);
 
@@ -116,5 +117,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getAngleValuePrecision(), layoutParameters2.getAngleValuePrecision());
         assertEquals(layoutParameters.getUndefinedValueSymbol(), layoutParameters2.getUndefinedValueSymbol());
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
+        assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
     }
 }

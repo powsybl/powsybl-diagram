@@ -31,10 +31,6 @@ public class PositionVoltageLevelLayoutFactoryTest {
         factory.setRemoveUnnecessaryFictitiousNodes(false);
         assertFalse(factory.isRemoveUnnecessaryFictitiousNodes());
 
-        assertFalse(factory.isRemoveFictitiousSwitchNodes());
-        factory.setRemoveFictitiousSwitchNodes(true);
-        assertTrue(factory.isRemoveFictitiousSwitchNodes());
-
         assertFalse(factory.isExceptionIfPatternNotHandled());
         factory.setExceptionIfPatternNotHandled(true);
         assertTrue(factory.isExceptionIfPatternNotHandled());

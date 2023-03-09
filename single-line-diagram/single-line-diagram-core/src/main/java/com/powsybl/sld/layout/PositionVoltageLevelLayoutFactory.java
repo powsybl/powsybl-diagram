@@ -27,8 +27,6 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private boolean removeUnnecessaryFictitiousNodes = true;
 
-    private boolean removeFictitiousSwitchNodes = false;
-
     private boolean substituteSingularFictitiousByFeederNode = true;
 
     private boolean exceptionIfPatternNotHandled = false;
@@ -72,15 +70,6 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         return this;
     }
 
-    public boolean isRemoveFictitiousSwitchNodes() {
-        return removeFictitiousSwitchNodes;
-    }
-
-    public PositionVoltageLevelLayoutFactory setRemoveFictitiousSwitchNodes(boolean removeFictitiousSwitchNodes) {
-        this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
-        return this;
-    }
-
     public boolean isSubstituteSingularFictitiousByFeederNode() {
         return substituteSingularFictitiousByFeederNode;
     }
@@ -111,7 +100,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     @Override
     public Layout create(VoltageLevelGraph graph) {
         // For adapting the graph to the diagram layout
-        GraphRefiner graphRefiner = new GraphRefiner(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode, removeFictitiousSwitchNodes);
+        GraphRefiner graphRefiner = new GraphRefiner(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
 
         // For cell detection
         ImplicitCellDetector cellDetector = new ImplicitCellDetector(exceptionIfPatternNotHandled);
