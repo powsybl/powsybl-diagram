@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NetworkAreaDiagram;
+import com.powsybl.nad.NetworkAreaDiagramConfigurationAdder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
@@ -151,11 +152,13 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
         NetworkAreaDiagram.draw(network, writer,
-                getSvgParameters(),
-                getLayoutParameters(),
-                getStyleProvider(network),
-                getLabelProvider(network),
-                positionsLayoutFactory,
+                new NetworkAreaDiagramConfigurationAdder(network)
+                        .setSvgParameters(getSvgParameters())
+                        .setLayoutParameters(getLayoutParameters())
+                        .setStyleProvider(getStyleProvider(network))
+                        .setLabelProvider(getLabelProvider(network))
+                        .setLayoutFactory(positionsLayoutFactory)
+                        .add(),
                 voltageLevelFilter);
         return positionsLayoutFactory.getLayoutResult().positions;
     }
