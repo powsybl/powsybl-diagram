@@ -54,6 +54,7 @@ public class SvgParameters {
     private int angleValuePrecision = 1;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
+    private int currentValuePrecision = 0;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -105,6 +106,7 @@ public class SvgParameters {
         this.angleValuePrecision = other.angleValuePrecision;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.currentValuePrecision = other.currentValuePrecision;
     }
 
     public Padding getDiagramPadding() {
@@ -429,6 +431,15 @@ public class SvgParameters {
         return this;
     }
 
+    public int getCurrentValuePrecision() {
+        return currentValuePrecision;
+    }
+
+    public SvgParameters setCurrentValuePrecision(int currentValuePrecision) {
+        this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
     public int getAngleValuePrecision() {
         return angleValuePrecision;
     }
@@ -439,7 +450,7 @@ public class SvgParameters {
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public double getPstArrowHeadSize() {

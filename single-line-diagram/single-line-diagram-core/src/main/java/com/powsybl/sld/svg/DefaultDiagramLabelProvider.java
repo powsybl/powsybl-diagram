@@ -20,6 +20,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_CURRENT;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
@@ -195,28 +196,35 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
-        return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP(), valueFormatter::formatPower),
-                new DirectionalFeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ(), valueFormatter::formatPower));
+        return this.buildFeederInfos(transformer.getTerminal(side));
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
-        return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, injection.getTerminal().getP(), valueFormatter::formatPower),
-                new DirectionalFeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ(), valueFormatter::formatPower));
+        return this.buildFeederInfos(injection.getTerminal());
     }
 
     private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
-        return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), valueFormatter::formatPower),
-                new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), valueFormatter::formatPower));
+        return this.buildFeederInfos(branch.getTerminal(side));
     }
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
         HvdcConverterStation<?> hvdcConverterStation = side == NodeSide.ONE ? hvdcLine.getConverterStation1()
                                                                                         : hvdcLine.getConverterStation2();
+        return this.buildFeederInfos(hvdcConverterStation.getTerminal());
+    }
+
+    private List<FeederInfo> buildFeederInfos(Terminal terminal){
+        if(this.layoutParameters.isDisplayCurrentFeederInfo()){
+            return Arrays.asList(
+                    new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower),
+                    new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower),
+                    new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent)
+            );
+        }
+
         return Arrays.asList(
-            new DirectionalFeederInfo(ARROW_ACTIVE, hvdcConverterStation.getTerminal().getP(), valueFormatter::formatPower),
-            new DirectionalFeederInfo(ARROW_REACTIVE, hvdcConverterStation.getTerminal().getQ(), valueFormatter::formatPower));
+                new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower),
+                new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower)
+        );
     }
 }

@@ -37,6 +37,7 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-feeder-info.sld-active-power {fill:black}
 .sld-feeder-info.sld-reactive-power {fill:blue}
+.sld-feeder-info.sld-current {fill:purple}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
 .sld-breaker.sld-fictitious {stroke: maroon}

@@ -393,5 +393,28 @@
       "styleClass" : "sld-arrow-in"
     } ],
     "styleClass" : "sld-reactive-power"
-  } ]
+  }, {
+    "type": "ARROW_CURRENT",
+    "size": {
+      "width": 10.0,
+      "height": 10.0
+    },
+    "transformations": {
+      "LEFT": "ROTATION",
+      "RIGHT": "ROTATION"
+    },
+    "subComponents": [
+      {
+        "name": "UP",
+        "fileName": "arrow-up.svg",
+        "styleClass": "sld-arrow-out"
+      },
+      {
+        "name": "DOWN",
+        "fileName": "arrow-down.svg",
+        "styleClass": "sld-arrow-in"
+      }
+    ],
+    "styleClass": "sld-current"
+  }]
 }

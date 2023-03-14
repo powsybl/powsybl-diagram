@@ -94,11 +94,14 @@ public class LayoutParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
 
+    private int currentValuePrecision = 0;
+
     /** em dash unicode for undefined value */
     private String undefinedValueSymbol = "\u2014";
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
+    private boolean displayCurrentFeederInfo;
 
     @JsonCreator
     public LayoutParameters() {
@@ -612,8 +615,26 @@ public class LayoutParameters {
         return this;
     }
 
+    public int getCurrentValuePrecision() {
+        return currentValuePrecision;
+    }
+
+    public LayoutParameters setCurrentValuePrecision(int currentValuePrecision) {
+        this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision,currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+    }
+
+    public boolean isDisplayCurrentFeederInfo() {
+        return this.displayCurrentFeederInfo;
+    }
+
+    public LayoutParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
+        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+        return this;
     }
 
     public enum Alignment {
