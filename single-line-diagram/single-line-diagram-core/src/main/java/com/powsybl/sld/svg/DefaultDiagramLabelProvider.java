@@ -213,8 +213,8 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         return this.buildFeederInfos(hvdcConverterStation.getTerminal());
     }
 
-    private List<FeederInfo> buildFeederInfos(Terminal terminal){
-        if(this.layoutParameters.isDisplayCurrentFeederInfo()){
+    private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
             return Arrays.asList(
                     new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower),
                     new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower),

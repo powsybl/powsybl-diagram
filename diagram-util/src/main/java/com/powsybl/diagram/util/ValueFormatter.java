@@ -73,6 +73,6 @@ public class ValueFormatter {
     }
 
     public String formatCurrent(double current) {
-        return formatCurrent(current,"");
+        return formatCurrent(current, "");
     }
 }
