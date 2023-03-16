@@ -8,10 +8,7 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -573,6 +570,8 @@ public class DefaultSVGWriter implements SVGWriter {
         transformComponent(node, shift, g);
         if (componentLibrary.getSvgElements(componentType) != null) {
             insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, labelProvider, styleProvider);
+        } else if (!(componentType.equals(PHASE_SHIFT_TRANSFORMER_LEG) || componentType.equals(TWO_WINDINGS_TRANSFORMER_LEG) || componentType.equals(THREE_WINDINGS_TRANSFORMER_LEG) || componentType.equals(DANGLING_LINE) || componentType.equals(BUSBAR_SECTION))) {
+            insertComponentSVGIntoDocumentSVG(prefixId, UNKNOWN_COMPONENT, g, graph, node, labelProvider, styleProvider);
         }
     }
 
