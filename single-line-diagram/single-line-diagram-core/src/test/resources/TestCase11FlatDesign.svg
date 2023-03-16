@@ -117,6 +117,7 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-feeder-info.sld-active-power {fill: #37474f}
 .sld-feeder-info.sld-reactive-power {fill: #0277bd}
+.sld-feeder-info.sld-current {fill:#800080}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* fictitious switches and busbar */
 .sld-breaker.sld-fictitious {stroke: maroon; stroke-width: 1.5}
