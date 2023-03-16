@@ -12,6 +12,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.SingleLineDiagram;
+import com.powsybl.sld.SingleLineDiagramConfigurationAdder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import org.apache.commons.io.output.NullWriter;
 import org.junit.After;
@@ -79,7 +80,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg", "/TestSldClassVlMetadata.json"));
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter());
+        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter(), new SingleLineDiagramConfigurationAdder(network).add());
         assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
 
         Path svgPath = tmpDir.resolve("result.svg");
@@ -120,7 +121,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         }
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter());
+        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter(), new SingleLineDiagramConfigurationAdder(network).add());
         assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
 
         Path svgPath = tmpDir.resolve("result.svg");
