@@ -93,7 +93,6 @@ public class LayoutParameters {
     private int voltageValuePrecision = 1;
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
-
     private int currentValuePrecision = 0;
 
     /** em dash unicode for undefined value */
@@ -148,6 +147,8 @@ public class LayoutParameters {
                             @JsonProperty("voltageValuePrecision") int voltageValuePrecision,
                             @JsonProperty("powerValuePrecision") int powerValuePrecision,
                             @JsonProperty("angleValuePrecision") int angleValuePrecision,
+                            @JsonProperty("currentValuePrecision") int currentValuePrecision,
+                            @JsonProperty("displayCurrentFeederInfo") boolean displayCurrentFeederInfo,
                             @JsonProperty("undefinedValueSymbol") String undefinedValueSymbol) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
@@ -189,6 +190,8 @@ public class LayoutParameters {
         this.voltageValuePrecision = voltageValuePrecision;
         this.powerValuePrecision = powerValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
+        this.currentValuePrecision = currentValuePrecision;
+        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
         this.undefinedValueSymbol = undefinedValueSymbol;
     }
 
@@ -235,6 +238,8 @@ public class LayoutParameters {
         voltageValuePrecision = other.voltageValuePrecision;
         powerValuePrecision = other.powerValuePrecision;
         angleValuePrecision = other.angleValuePrecision;
+        currentValuePrecision = other.currentValuePrecision;
+        displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         undefinedValueSymbol = other.undefinedValueSymbol;
     }
 
