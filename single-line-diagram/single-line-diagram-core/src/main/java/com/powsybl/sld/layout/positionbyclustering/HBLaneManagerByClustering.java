@@ -69,7 +69,7 @@ public class HBLaneManagerByClustering implements HorizontalBusLaneManager {
     private Optional<BusNode> internCellNodeInLaneSide(LBSCluster lbsCluster, Side side, InternCell cell) {
         List<BusNode> laneBuses = lbsCluster.laneSideBuses(side);
         laneBuses.retainAll(cell.getBusNodes());
-        return laneBuses.stream()..findFirst();
+        return laneBuses.stream().findFirst();
     }
 
     private void finalizeLaneBuilding(LBSCluster leftCluster, LBSCluster rightCluster,
