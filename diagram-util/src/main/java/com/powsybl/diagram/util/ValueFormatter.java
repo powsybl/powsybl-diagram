@@ -67,7 +67,7 @@ public class ValueFormatter {
     }
 
     public String formatCurrent(double current, String unit) {
-        setFractionDigits(powerValuePrecision);
+        setFractionDigits(currentValuePrecision);
         String valueFormatted = Double.isNaN(current) ? undefinedValueSymbol : format.format(current);
         return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }

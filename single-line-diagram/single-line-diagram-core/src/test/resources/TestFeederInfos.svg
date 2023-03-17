@@ -104,6 +104,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">50</text>
             </g>
+            <g class="sld-current sld-feeder-info sld-out" id="idl_ARROW_CURRENT" transform="translate(60.0,174.5)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <text class="sld-label" x="15.0" y="5.0">100</text>
+            </g>
             <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,298.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>

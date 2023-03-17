@@ -25,8 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -78,7 +77,8 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
                         new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
+                        new DirectionalFeederInfo(ARROW_CURRENT, 100, valueFormatter::formatCurrent, null));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
