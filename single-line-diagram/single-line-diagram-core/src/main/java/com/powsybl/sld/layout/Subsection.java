@@ -98,7 +98,7 @@ public class Subsection {
         int i = 0;
         for (LegBusSet lbs : lbsCluster.getLbsList()) {
             Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
-            List<BusNode> vbn = lbsCluster.getVerticalBuseNodes(i);
+            List<BusNode> vbn = lbsCluster.getVerticalBusNodes(i);
             if (lbs.getBusNodeSet().containsAll(vbn)) {
                 extendedNodeSet.addAll(vbn);
             } else {
