@@ -78,7 +78,7 @@ public class LBSCluster {
                 .findAny();
     }
 
-    List<BusNode> getVerticalBuseNodes(int i) {
+    List<BusNode> getVerticalBusNodes(int i) {
         return horizontalBusLanes.stream().map(hbl -> hbl.getBusNode(i)).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
