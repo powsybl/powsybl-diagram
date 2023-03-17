@@ -14,9 +14,9 @@ import java.util.List;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface LabelProvider {
-    List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side);
+    EdgeInfo getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side);
 
-    List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge);
+    EdgeInfo getEdgeInfo(Graph graph, ThreeWtEdge edge);
 
     String getLabel(Edge edge);
 

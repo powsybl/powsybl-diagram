@@ -34,19 +34,19 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+    public EdgeInfo getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
-    public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
+    public EdgeInfo getEdgeInfo(Graph graph, ThreeWtEdge edge) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(edge.getEquipmentId());
         if (transformer == null) {
             throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
         }
         Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
@@ -54,13 +54,20 @@ public class DefaultLabelProvider implements LabelProvider {
         return edge.getEquipmentId();
     }
 
-    private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
+    private EdgeInfo getEdgeInfo(Terminal terminal) {
         if (terminal == null) {
-            return Collections.emptyList();
+            return null;
         }
-        return List.of(
-                new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower),
-                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
+        switch (svgParameters.getEdgeInfoDisplayed()) {
+            case ACTIVE_POWER:
+                return new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower);
+            case REACTIVE_POWER:
+                return new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower);
+            case CURRENT:
+                return new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent);
+            default:
+                return null;
+        }
     }
 
     @Override

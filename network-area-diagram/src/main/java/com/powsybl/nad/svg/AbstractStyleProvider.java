@@ -91,6 +91,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
             styles.add(CLASSES_PREFIX + "active");
         } else if (info.getInfoType().equals(EdgeInfo.REACTIVE_POWER)) {
             styles.add(CLASSES_PREFIX + "reactive");
+        } else if (info.getInfoType().equals(EdgeInfo.CURRENT)) {
+            styles.add(CLASSES_PREFIX + "current");
         }
         info.getDirection().ifPresent(direction -> styles.add(
                 CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));

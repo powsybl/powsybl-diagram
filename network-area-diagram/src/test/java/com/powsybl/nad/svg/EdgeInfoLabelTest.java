@@ -18,9 +18,6 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -48,13 +45,13 @@ public class EdgeInfoLabelTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
+            public EdgeInfo getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+                return new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel);
             }
 
             @Override
-            public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
+            public EdgeInfo getEdgeInfo(Graph graph, ThreeWtEdge edge) {
+                return new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel);
             }
 
             @Override
