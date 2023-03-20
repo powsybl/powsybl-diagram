@@ -37,6 +37,9 @@ public class GraphRefiner {
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
         }
+        if (layoutParameters.isRemoveFictitiousSwitchNodes()) {
+            graph.removeFictitiousSwitchNode();
+        }
 
         graph.extendBusesConnectedToBuses();
 

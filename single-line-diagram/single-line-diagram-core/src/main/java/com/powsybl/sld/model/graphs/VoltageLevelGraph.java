@@ -120,6 +120,22 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
     }
 
+    public void removeFictitiousSwitchNode() {
+        List<SwitchNode> fictitiousSwitchNodesToRemove = this.getNodes().stream()
+                .filter(SwitchNode.class::isInstance)
+                .map(SwitchNode.class::cast)
+                .filter(SwitchNode::isFictitious)
+                .filter(node -> node.getAdjacentNodes().size() == 2)
+                .collect(Collectors.toList());
+        for (SwitchNode n : fictitiousSwitchNodesToRemove) {
+            Node node1 = n.getAdjacentNodes().get(0);
+            Node node2 = n.getAdjacentNodes().get(1);
+            LOGGER.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());
+            this.removeNode(n);
+            this.addEdge(node1, node2);
+        }
+    }
+
     public void logCellDetectionStatus() {
         Set<Cell> cellsLog = new HashSet<>();
         Map<Cell.CellType, Integer> cellCountByType = new EnumMap<>(Cell.CellType.class);

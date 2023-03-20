@@ -345,6 +345,7 @@
     "voltageValuePrecision" : 1,
     "powerValuePrecision" : 0,
     "angleValuePrecision" : 1,
-    "undefinedValueSymbol" : "—"
+    "undefinedValueSymbol" : "—",
+    "removeFictitiousSwitchNodes" : false
   }
 }
