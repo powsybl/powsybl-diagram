@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
-import com.powsybl.sld.layout.HorizontalBusLane;
-import com.powsybl.sld.layout.LBSCluster;
-import com.powsybl.sld.layout.LegBusSet;
+import com.powsybl.sld.layout.HorizontalBusSet;
+import com.powsybl.sld.layout.BSCluster;
+import com.powsybl.sld.layout.VerticalBusSet;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
@@ -18,51 +18,51 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
+ * VBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a VBSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide {
+class VBSClusterSide {
 
-    private final LBSCluster lbsCluster;
+    private final BSCluster bsCluster;
     private final Side side;
     private final List<Link> myLinks = new ArrayList<>();
-    private LBSClusterSide otherSameRoot;
+    private VBSClusterSide otherSameRoot;
 
-    LBSClusterSide(LBSCluster lbsCluster, Side side) {
-        this.lbsCluster = Objects.requireNonNull(lbsCluster);
+    VBSClusterSide(BSCluster bsCluster, Side side) {
+        this.bsCluster = Objects.requireNonNull(bsCluster);
         this.side = Objects.requireNonNull(side);
     }
 
-    void setOtherSameRoot(LBSClusterSide otherSameRoot) {
+    void setOtherSameRoot(VBSClusterSide otherSameRoot) {
         this.otherSameRoot = otherSameRoot;
     }
 
     Set<BusNode> getBusNodeSet() {
-        return new LinkedHashSet<>(lbsCluster.laneSideBuses(side));
+        return new LinkedHashSet<>(bsCluster.HbsSideBuses(side));
     }
 
     List<InternCell> getCandidateFlatCellList() {
-        return lbsCluster.getSideCandidateFlatCell(side);
+        return bsCluster.getSideCandidateFlatCell(side);
     }
 
     List<ExternCell> getExternCells() {
-        return lbsCluster.getLbsList().stream().flatMap(lbs -> lbs.getExternCells().stream()).collect(Collectors.toList());
+        return bsCluster.getVerticalBusSetList().stream().flatMap(vbs -> vbs.getExternCells().stream()).collect(Collectors.toList());
     }
 
     int getExternCellAttractionToEdge(ExternCell cell) {
-        List<LegBusSet> lbsList = lbsCluster.getLbsList();
-        return lbsList.stream().filter(lbs -> lbs.getExternCells().contains(cell)).findFirst()
-                .map(lbs -> side == Side.LEFT ? (lbsList.size() - lbsList.indexOf(lbs))
-                        : (lbsList.indexOf(lbs) + 1)).orElse(0);
+        List<VerticalBusSet> vbsList = bsCluster.getVerticalBusSetList();
+        return vbsList.stream().filter(vbs -> vbs.getExternCells().contains(cell)).findFirst()
+                .map(vbs -> side == Side.LEFT ? (vbsList.size() - vbsList.indexOf(vbs))
+                        : (vbsList.indexOf(vbs) + 1)).orElse(0);
     }
 
     List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return lbsCluster.getInternCellsFromShape(shape);
+        return bsCluster.getInternCellsFromShape(shape);
     }
 
-    LBSCluster getCluster() {
-        return lbsCluster;
+    BSCluster getCluster() {
+        return bsCluster;
     }
 
     Side getMySideInCluster() {
@@ -70,13 +70,13 @@ class LBSClusterSide {
     }
 
     boolean hasSameRoot(Object other) {
-        if (other.getClass() != LBSClusterSide.class) {
+        if (other.getClass() != VBSClusterSide.class) {
             return false;
         }
-        return this.lbsCluster == ((LBSClusterSide) other).getCluster();
+        return this.bsCluster == ((VBSClusterSide) other).getCluster();
     }
 
-    LBSClusterSide getOtherSameRoot() {
+    VBSClusterSide getOtherSameRoot() {
         return otherSameRoot;
     }
 
@@ -87,18 +87,18 @@ class LBSClusterSide {
             return 100;
         }
         BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
-        Optional<HorizontalBusLane> horizontalBusLane = lbsCluster.getHorizontalBusLanes()
+        Optional<HorizontalBusSet> horizontalBusSet = bsCluster.getHorizontalBusSets()
                 .stream()
-                .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
-                        || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
+                .filter(hbs -> side == Side.LEFT && hbs.getBusNodes().get(0) == busNode
+                        || side == Side.RIGHT && hbs.getBusNodes().get(hbs.getBusNodes().size() - 1) == busNode)
                 .findFirst();
-        if (!horizontalBusLane.isPresent()) {
+        if (!horizontalBusSet.isPresent()) {
             return 100;
         } else {
             if (side == Side.LEFT) {
-                return horizontalBusLane.get().getStartingIndex();
+                return horizontalBusSet.get().getStartingIndex();
             } else {
-                return lbsCluster.getLbsList().size() - horizontalBusLane.get().getEndingIndex();
+                return bsCluster.getVerticalBusSetList().size() - horizontalBusSet.get().getEndingIndex();
             }
         }
     }
@@ -117,6 +117,6 @@ class LBSClusterSide {
 
     @Override
     public String toString() {
-        return side.toString() + " " + lbsCluster.laneSideBuses(side).toString();
+        return side.toString() + " " + bsCluster.HbsSideBuses(side).toString();
     }
 }

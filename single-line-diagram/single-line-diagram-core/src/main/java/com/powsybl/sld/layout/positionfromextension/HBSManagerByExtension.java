@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout.positionfromextension;
 
-import com.powsybl.sld.layout.HorizontalBusLane;
-import com.powsybl.sld.layout.HorizontalBusLaneManager;
-import com.powsybl.sld.layout.LBSCluster;
+import com.powsybl.sld.layout.HorizontalBusSet;
+import com.powsybl.sld.layout.HorizontalBusSetManager;
+import com.powsybl.sld.layout.BSCluster;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
@@ -18,26 +18,26 @@ import java.util.Optional;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
+public class HBSManagerByExtension implements HorizontalBusSetManager {
 
-    public void mergeHorizontalBusLanes(LBSCluster leftCluster, LBSCluster rightCluster) {
+    public void mergeHbs(BSCluster leftCluster, BSCluster rightCluster) {
         //for this implementation, the busBar structuralPosition are already defined,
         // we must ensure that structuralPosition vPos when merging left and right HorizontalPosition,
         // and structuralPosition hPos are ordered
-        leftCluster.getHorizontalBusLanes().forEach(hbl -> {
+        leftCluster.getHorizontalBusSets().forEach(hbl -> {
             BusNode rightNodeOfLeftHbl = hbl.getSideNode(Side.RIGHT);
-            Optional<HorizontalBusLane> rightHBL = rightCluster.getHorizontalBusLanes().stream()
+            Optional<HorizontalBusSet> rightHBS = rightCluster.getHorizontalBusSets().stream()
                     .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
                     .findFirst();
-            if (rightHBL.isPresent()) {
-                BusNode leftNodeOfRightHbl = rightHBL.get().getSideNode(Side.LEFT);
+            if (rightHBS.isPresent()) {
+                BusNode leftNodeOfRightHbl = rightHBS.get().getSideNode(Side.LEFT);
                 if (leftNodeOfRightHbl == rightNodeOfLeftHbl
                         || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
-                    hbl.merge(rightHBL.get());
-                    rightCluster.removeHorizontalBusLane(rightHBL.get());
+                    hbl.merge(rightHBS.get());
+                    rightCluster.removeHbs(rightHBS.get());
                 }
             }
         });
-        mergeLanesWithNoLink(leftCluster, rightCluster);
+        mergeHbsWithNoLink(leftCluster, rightCluster);
     }
 }

@@ -34,21 +34,21 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
  * (and in many case having the same horizontal structuralPosition).
  * The first step consists in building LegBusSets that contains busBars that shall be vertically aligned (considering
  * they have legs of cell that impose it).
- * Then LBSClusters are initiated by building one LBSCluster per LegBusSet.
- * The LBSClusters are then merged 2 by 2 starting by LBSclusters that have the strongest Link.
+ * Then VBSClusters are initiated by building one VBSCluster per LegBusSet.
+ * The VBSClusters are then merged 2 by 2 starting by VBSclusters that have the strongest Link.
  * Two strategies of strength assessment of the links between clusters are implemented:
  * <ul>
  * <li>
- * if useLBSLinkOnly is true: the strength between LegBusSets is considered: this means that the strength of
+ * if useVbsLinkOnly is true: the strength between LegBusSets is considered: this means that the strength of
  * the link between two clusters is the one of the strongest link between two LegBusSets (one per cluster). This
  * is a simple implementation that is limited as it it does not consider the difference between the side of a
  * cluster: if two clusters A and B are to be merged, the result can either be A-B or B-A.
  * </li>
  * <li>
- * if useLBSLinkOnly is false: the strength between LBSClusterSide is considered. This is similar
+ * if useVbsLinkOnly is false: the strength between VbsClusterSide is considered. This is similar
  * to what si done with LegBusSet but the assessment of the strength of the link considers both sides of the
  * cluster.
- * Therefore, with cluster A and B, there are 4 LBSClusterSide A-Right A-Left B-Right and B-Left. The links that
+ * Therefore, with cluster A and B, there are 4 VbsClusterSide A-Right A-Left B-Right and B-Left. The links that
  * are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
  * alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
  * 2 clusters are respected : 1st cluster-Right is merged with 2nd cluster-left).
@@ -63,7 +63,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
-    private static final HBLaneManagerByClustering HBLMANAGER = new HBLaneManagerByClustering();
+    private static final HBSManagerByClustering HBSMANAGER = new HBSManagerByClustering();
 
     @Override
     public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells) {
@@ -78,47 +78,47 @@ public class PositionByClustering extends AbstractPositionFinder {
         return busToNb;
     }
 
-    public LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets) {
-        List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(legBusSets);
-        Links links = Links.create(lbsClusters, HBLMANAGER);
+    public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
+        List<BSCluster> bsClusters = BSCluster.createBSClusters(verticalBusSets);
+        Links links = Links.create(bsClusters, HBSMANAGER);
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }
-        LBSCluster lbsCluster = links.getFinalLBSCluster();
+        BSCluster bsCluster = links.getFinalBsCluster();
 
-        tetrisHorizontalLanes(lbsCluster);
-        lbsCluster.getHorizontalBusLanes().forEach(hl -> LOGGER.info(hl.toString()));
-        lbsCluster.establishBusNodePosition();
-        establishFeederPositions(lbsCluster);
+        tetrisHorizontalBusSets(bsCluster);
+        bsCluster.getHorizontalBusSets().forEach(hl -> LOGGER.info(hl.toString()));
+        bsCluster.establishBusNodePosition();
+        establishFeederPositions(bsCluster);
 
-        return lbsCluster;
+        return bsCluster;
     }
 
-    private void tetrisHorizontalLanes(LBSCluster lbsCluster) {
-        List<HorizontalBusLane> horizontalBusLanes = lbsCluster.getHorizontalBusLanes();
+    private void tetrisHorizontalBusSets(BSCluster bsCluster) {
+        List<HorizontalBusSet> horizontalBusSets = bsCluster.getHorizontalBusSets();
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("{}", horizontalBusLanes);
+            LOGGER.info("{}", horizontalBusSets);
         }
-        List<HorizontalBusLane> sortedLanes = horizontalBusLanes.stream()
-                .sorted(Comparator.comparingInt(HorizontalBusLane::getStartingIndex)
+        List<HorizontalBusSet> sortedHbs = horizontalBusSets.stream()
+                .sorted(Comparator.comparingInt(HorizontalBusSet::getStartingIndex)
                         .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness
                 .collect(Collectors.toList());
-        int clusterLength = sortedLanes.stream()
-                .mapToInt(HorizontalBusLane::getEndingIndex)
+        int clusterLength = sortedHbs.stream()
+                .mapToInt(HorizontalBusSet::getEndingIndex)
                 .max().orElse(0);
         int i = 0;
-        while (i < sortedLanes.size()) {
-            HorizontalBusLane lane = sortedLanes.get(i);
+        while (i < sortedHbs.size()) {
+            HorizontalBusSet lane = sortedHbs.get(i);
             int actualMaxIndex = lane.getEndingIndex();
             while (actualMaxIndex < clusterLength) {
                 int finalActualMax = actualMaxIndex;
-                HorizontalBusLane laneToAdd = sortedLanes.stream()
+                HorizontalBusSet HbsToAdd = sortedHbs.stream()
                         .filter(l -> l.getStartingIndex() >= finalActualMax)
                         .findFirst().orElse(null);
-                if (laneToAdd != null) {
-                    lane.merge(laneToAdd);
-                    sortedLanes.remove(laneToAdd);
-                    horizontalBusLanes.remove(laneToAdd);
+                if (HbsToAdd != null) {
+                    lane.merge(HbsToAdd);
+                    sortedHbs.remove(HbsToAdd);
+                    horizontalBusSets.remove(HbsToAdd);
                     actualMaxIndex = lane.getEndingIndex();
                 } else {
                     i++;
@@ -129,10 +129,10 @@ public class PositionByClustering extends AbstractPositionFinder {
         }
     }
 
-    private void establishFeederPositions(LBSCluster lbsCluster) {
+    private void establishFeederPositions(BSCluster bsCluster) {
         int cellOrder = 0;
-        for (LegBusSet lbs : lbsCluster.getLbsList()) {
-            for (ExternCell cell : lbs.getExternCells()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
+            for (ExternCell cell : vbs.getExternCells()) {
                 cell.setOrder(cellOrder++);
             }
         }
