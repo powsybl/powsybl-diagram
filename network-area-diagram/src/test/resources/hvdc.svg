@@ -139,9 +139,6 @@
                 <circle class="nad-vl180to300 nad-winding" cx="-380.65" cy="53.86" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-360.67" cy="53.11" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(1.00,-0.04,0.04,1.00,-401.77,24.64)" class="nad-pst-arrow"/>
-                <g class="nad-edge-label" transform="translate(-370.66,53.48)">
-                    <text transform="rotate(-2.17)" x="0.00" style="text-anchor:middle">TWT</text>
-                </g>
             </g>
         </g>
         <g id="11" class="nad-hvdc-edge">
@@ -186,9 +183,6 @@
             </g>
             <g class="nad-glued-center">
                 <polyline points="-71.32,-61.09 -24.16,-112.82" class="nad-hvdc"/>
-                <g class="nad-edge-label" transform="translate(-47.74,-86.96)">
-                    <text transform="rotate(-47.64)" x="0.00" style="text-anchor:middle">HVDC1</text>
-                </g>
             </g>
         </g>
         <g id="12" class="nad-hvdc-edge">
@@ -233,9 +227,6 @@
             </g>
             <g class="nad-glued-center">
                 <polyline points="6.07,65.84 75.62,73.80" class="nad-hvdc"/>
-                <g class="nad-edge-label" transform="translate(40.85,69.82)">
-                    <text transform="rotate(6.53)" x="0.00" style="text-anchor:middle">HVDC2</text>
-                </g>
             </g>
         </g>
         <g id="13">
@@ -278,11 +269,6 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(161.91,-62.96)">
-                    <text transform="rotate(60.53)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
-                </g>
-            </g>
         </g>
         <g id="14">
             <desc>LINE_S3S4</desc>
@@ -322,11 +308,6 @@
                         </g>
                         <text transform="rotate(-341.59)" x="-19.00" style="text-anchor:end">3</text>
                     </g>
-                </g>
-            </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(442.12,157.61)">
-                    <text transform="rotate(18.41)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
                 </g>
             </g>
         </g>
