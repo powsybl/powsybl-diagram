@@ -18,34 +18,34 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A LegBusSet contains the set of BusNodes that shall be vertically presented, and the cells that have a pattern of
+ * A VerticalBusSet contains the set of BusNodes that shall be vertically presented, and the cells that have a pattern of
  * connection included in the busNodeSet. It is embedded into a LBSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public final class LegBusSet {
+public final class VerticalBusSet {
 
     private final Set<BusNode> busNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
 
     private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
-    private LegBusSet(Map<BusNode, Integer> busToNb, List<BusNode> busNodes) {
+    private VerticalBusSet(Map<BusNode, Integer> busToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
         busNodeSet.addAll(busNodes);
     }
 
-    private LegBusSet(Map<BusNode, Integer> busToNb, ExternCell cell) {
+    private VerticalBusSet(Map<BusNode, Integer> busToNb, ExternCell cell) {
         this(busToNb, cell.getBusNodes());
         externCells.add(cell);
     }
 
-    private LegBusSet(Map<BusNode, Integer> busToNb, InternCell internCell, Side side) {
+    private VerticalBusSet(Map<BusNode, Integer> busToNb, InternCell internCell, Side side) {
         this(busToNb, internCell.getSideBusNodes(side));
         addInternCell(internCell, side);
     }
 
-    private LegBusSet(Map<BusNode, Integer> busToNb, BusNode busNode) {
+    private VerticalBusSet(Map<BusNode, Integer> busToNb, BusNode busNode) {
         this(busToNb, Collections.singletonList(busNode));
     }
 
@@ -57,14 +57,14 @@ public final class LegBusSet {
         return busNodeSet.containsAll(busNodeCollection);
     }
 
-    private boolean contains(LegBusSet lbs) {
-        return contains(lbs.getBusNodeSet());
+    private boolean contains(VerticalBusSet vbs) {
+        return contains(vbs.getBusNodeSet());
     }
 
-    private void absorbs(LegBusSet lbsToAbsorb) {
-        busNodeSet.addAll(lbsToAbsorb.busNodeSet);
-        externCells.addAll(lbsToAbsorb.externCells);
-        internCellSides.addAll(lbsToAbsorb.internCellSides);
+    private void absorbs(VerticalBusSet vbsToAbsorb) {
+        busNodeSet.addAll(vbsToAbsorb.busNodeSet);
+        externCells.addAll(vbsToAbsorb.externCells);
+        internCellSides.addAll(vbsToAbsorb.internCellSides);
     }
 
     List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
@@ -86,63 +86,63 @@ public final class LegBusSet {
         return internCellSides;
     }
 
-    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> busToNb) {
-        List<LegBusSet> legBusSets = new ArrayList<>();
+    static List<VerticalBusSet> createVerticalBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> busToNb) {
+        List<VerticalBusSet> verticalBusSets = new ArrayList<>();
 
         List<ExternCell> externCells = graph.getExternCellStream()
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .collect(Collectors.toList());
 
-        externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(busToNb, cell)));
+        externCells.forEach(cell -> pushLbs(verticalBusSets, new VerticalBusSet(busToNb, cell)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(busToNb, cell, Side.UNDEFINED)));
+                .forEachOrdered(cell -> pushLbs(verticalBusSets, new VerticalBusSet(busToNb, cell, Side.UNDEFINED)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, busToNb, cell));
+                .forEachOrdered(cell -> pushNonUnilegInternCell(verticalBusSets, busToNb, cell));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
-        allBusNodes.removeAll(legBusSets.stream().
+        allBusNodes.removeAll(verticalBusSets.stream().
                 flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
         allBusNodes.stream()
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
-                .forEach(busNode -> legBusSets.add(new LegBusSet(busToNb, busNode)));
-        return legBusSets;
+                .forEach(busNode -> verticalBusSets.add(new VerticalBusSet(busToNb, busNode)));
+        return verticalBusSets;
     }
 
-    public static void pushLBS(List<LegBusSet> legBusSets, LegBusSet legBusSet) {
-        for (LegBusSet lbs : legBusSets) {
-            if (lbs.contains(legBusSet)) {
-                lbs.absorbs(legBusSet);
+    public static void pushLbs(List<VerticalBusSet> verticalBusSets, VerticalBusSet verticalBusSet) {
+        for (VerticalBusSet vbs : verticalBusSets) {
+            if (vbs.contains(verticalBusSet)) {
+                vbs.absorbs(verticalBusSet);
                 return;
             }
         }
-        List<LegBusSet> absorbedLBS = new ArrayList<>();
-        for (LegBusSet lbs : legBusSets) {
-            if (legBusSet.contains(lbs)) {
-                absorbedLBS.add(lbs);
-                legBusSet.absorbs(lbs);
+        List<VerticalBusSet> absorbedVbs = new ArrayList<>();
+        for (VerticalBusSet vbs : verticalBusSets) {
+            if (verticalBusSet.contains(vbs)) {
+                absorbedVbs.add(vbs);
+                verticalBusSet.absorbs(vbs);
             }
         }
-        legBusSets.removeAll(absorbedLBS);
-        legBusSets.add(legBusSet);
+        verticalBusSets.removeAll(absorbedVbs);
+        verticalBusSets.add(verticalBusSet);
     }
 
-    private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> busToNb, InternCell internCell) {
-        for (LegBusSet lbs : legBusSets) {
-            if (lbs.contains(internCell.getBusNodes())) {
-                lbs.addInternCell(internCell, Side.UNDEFINED);
+    private static void pushNonUnilegInternCell(List<VerticalBusSet> verticalBusSets, Map<BusNode, Integer> busToNb, InternCell internCell) {
+        for (VerticalBusSet vbs : verticalBusSets) {
+            if (vbs.contains(internCell.getBusNodes())) {
+                vbs.addInternCell(internCell, Side.UNDEFINED);
                 internCell.setShape(InternCell.Shape.VERTICAL);
                 return;
             }
         }
-        pushLBS(legBusSets, new LegBusSet(busToNb, internCell, Side.LEFT));
-        pushLBS(legBusSets, new LegBusSet(busToNb, internCell, Side.RIGHT));
+        pushLbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.LEFT));
+        pushLbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.RIGHT));
     }
 }

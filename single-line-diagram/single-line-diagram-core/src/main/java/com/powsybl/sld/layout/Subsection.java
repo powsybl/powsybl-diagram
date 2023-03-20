@@ -49,11 +49,11 @@ public class Subsection {
         });
     }
 
-    private void addLegBusSet(LegBusSet lbs, Set<BusNode> extendedNodeSet) {
+    private void addLegBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
         extendedNodeSet.forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
-        externCells.addAll(lbs.getExternCells());
+        externCells.addAll(vbs.getExternCells());
         externCells.sort(compareOrder);
-        internCellSides.addAll(lbs.getInternCellSides());
+        internCellSides.addAll(vbs.getInternCellSides());
     }
 
     public int getSize() {
@@ -89,17 +89,17 @@ public class Subsection {
         return Arrays.asList(busNodes).containsAll(nodes);
     }
 
-    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, Map<BusNode, Integer> busToNb, boolean handleShunts) {
+    static List<Subsection> createSubsections(VoltageLevelGraph graph, BSCluster bsCluster, Map<BusNode, Integer> busToNb, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
 
         int vSize = graph.getMaxVerticalBusPosition();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
-        for (LegBusSet lbs : lbsCluster.getLbsList()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
             Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
-            List<BusNode> vbn = lbsCluster.getVerticalBusNodes(i);
-            if (lbs.getBusNodeSet().containsAll(vbn)) {
+            List<BusNode> vbn = bsCluster.getVerticalBusNodes(i);
+            if (vbs.getBusNodeSet().containsAll(vbn)) {
                 extendedNodeSet.addAll(vbn);
             } else {
                 LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
@@ -108,11 +108,11 @@ public class Subsection {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
-            currentSubsection.addLegBusSet(lbs, extendedNodeSet);
+            currentSubsection.addLegBusSet(vbs, extendedNodeSet);
             i++;
         }
 
-        internCellCoherence(graph, lbsCluster.getLbsList(), subsections);
+        internCellCoherence(graph, bsCluster.getVerticalBusSetList(), subsections);
 
         graph.getShuntCellStream().forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
@@ -122,9 +122,9 @@ public class Subsection {
         return subsections;
     }
 
-    private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+    private static void internCellCoherence(VoltageLevelGraph vlGraph, List<VerticalBusSet> vbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
-        identifyFlatInternCells(lbsList);
+        identifyFlatInternCells(vbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
     }
@@ -147,9 +147,9 @@ public class Subsection {
 
     }
 
-    private static void identifyFlatInternCells(List<LegBusSet> lbsList) {
-        lbsList.stream()
-                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
+    private static void identifyFlatInternCells(List<VerticalBusSet> vbsList) {
+        vbsList.stream()
+                .flatMap(vbs -> vbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
                 .distinct()
                 .forEach(internCell -> {
                     List<BusNode> buses = internCell.getBusNodes();

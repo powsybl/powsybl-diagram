@@ -13,26 +13,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * An horizontalBusLane contains a list of BusNodes that have to be displayed horizontally at the same height (same vPos).
- * The startingIndex of the HorizontalBusLane is its horizontal position in the LBSCluster it belongs to.
+ * An horizontalBusSet contains a list of BusNodes that have to be displayed horizontally at the same height (same vPos).
+ * The startingIndex of the HorizontalBusSet is its horizontal position in the LBSCluster it belongs to.
  * The horizontal position is the startingIndex in the cluster of the first LegBusSet that contains the first BusNode
- * of the HorizontalBusLane.
- * The length is the spanning of the HorizontalBusLane in the LBSCluster (note that a busNode can span over many
- * LegBusSet in the cluster). Therefore startingIndex + length - 1 = the last position occupied by the HorizontalBusLane in
+ * of the HorizontalBusSet.
+ * The length is the spanning of the HorizontalBusSet in the LBSCluster (note that a busNode can span over many
+ * LegBusSet in the cluster). Therefore startingIndex + length - 1 = the last position occupied by the HorizontalBusSet in
  * the LBSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class HorizontalBusLane {
+public class HorizontalBusSet {
 
     private final List<BusNode> busNodes = new ArrayList<>();
     private int startingIndex;
 
-    private LBSCluster lbsCluster;
+    private BSCluster bsCluster;
 
-    HorizontalBusLane(BusNode busNode, LBSCluster lbsCluster) {
+    HorizontalBusSet(BusNode busNode, BSCluster bsCluster) {
         busNodes.add(busNode);
-        this.lbsCluster = lbsCluster;
+        this.bsCluster = bsCluster;
         startingIndex = 0;
     }
 
@@ -45,13 +45,13 @@ public class HorizontalBusLane {
         startingIndex += i;
     }
 
-    public void merge(HorizontalBusLane otherLane) {
+    public void merge(HorizontalBusSet otherHbs) {
         BusNode myRightBus = getSideNode(Side.RIGHT);
-        for (int i = getEndingIndex(); i < otherLane.getStartingIndex()
-                + (lbsCluster == otherLane.lbsCluster ? 0 : lbsCluster.getLength()); i++) {
-            busNodes.add(myRightBus == otherLane.getSideNode(Side.LEFT) ? myRightBus : null);
+        for (int i = getEndingIndex(); i < otherHbs.getStartingIndex()
+                + (bsCluster == otherHbs.bsCluster ? 0 : bsCluster.getLength()); i++) {
+            busNodes.add(myRightBus == otherHbs.getSideNode(Side.LEFT) ? myRightBus : null);
         }
-        busNodes.addAll(otherLane.getBusNodes());
+        busNodes.addAll(otherHbs.getBusNodes());
     }
 
     void establishBusPosition(int v) {
@@ -94,8 +94,8 @@ public class HorizontalBusLane {
         return busNodes.get(index - startingIndex);
     }
 
-    public void setLbsCluster(LBSCluster lbsCluster) {
-        this.lbsCluster = lbsCluster;
+    public void setBsCluster(BSCluster bsCluster) {
+        this.bsCluster = bsCluster;
     }
 
     @Override
