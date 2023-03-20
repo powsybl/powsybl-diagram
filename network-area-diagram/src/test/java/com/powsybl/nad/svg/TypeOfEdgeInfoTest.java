@@ -7,12 +7,7 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
-import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -64,6 +59,5 @@ public class TypeOfEdgeInfoTest extends AbstractTest {
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
         assertEquals(toString("/edge_info_current.svg"), generateSvgString(network, "/edge_info_current.svg"));
     }
-
 
 }
