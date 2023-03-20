@@ -27,7 +27,7 @@ public interface PositionFinder {
 
     Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
 
-    LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets);
+    BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
 
     List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt);
 
