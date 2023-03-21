@@ -128,12 +128,12 @@ public abstract class AbstractTestCase {
 
     public String toSVG(Graph graph, String filename, DiagramLabelProvider diagramLabelProvider, DiagramStyleProvider diagramStyleProvider) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationAdder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .setLayoutParameters(layoutParameters)
-                    .setComponentLibrary(componentLibrary)
-                    .setDiagramLabelProvider(diagramLabelProvider)
-                    .setDiagramStyleProvider(diagramStyleProvider)
-                    .add();
+            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
+                    .withLayoutParameters(layoutParameters)
+                    .withComponentLibrary(componentLibrary)
+                    .withDiagramLabelProvider(diagramLabelProvider)
+                    .withDiagramStyleProvider(diagramStyleProvider)
+                    .build();
             SingleLineDiagram.draw(graph, writer, new NullWriter(), singleLineDiagramConfiguration);
 
             if (debugSvgFiles) {
@@ -159,12 +159,12 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             voltageLevelLayoutFactory.create(graph).run(layoutParameters);
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationAdder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .setLayoutParameters(layoutParameters)
-                    .setComponentLibrary(componentLibrary)
-                    .setDiagramLabelProvider(diagramLabelProvider)
-                    .setDiagramStyleProvider(diagramStyleProvider)
-                    .add();
+            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
+                    .withLayoutParameters(layoutParameters)
+                    .withComponentLibrary(componentLibrary)
+                    .withDiagramLabelProvider(diagramLabelProvider)
+                    .withDiagramStyleProvider(diagramStyleProvider)
+                    .build();
             SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
 
             if (debugJsonFiles) {
@@ -195,13 +195,13 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationAdder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .setLayoutParameters(layoutParameters)
-                    .setComponentLibrary(componentLibrary)
-                    .setDiagramLabelProvider(diagramLabelProvider)
-                    .setDiagramStyleProvider(diagramStyleProvider)
-                    .setVoltageLevelLayoutFactory(vlLayoutFactory)
-                    .add();
+            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
+                    .withLayoutParameters(layoutParameters)
+                    .withComponentLibrary(componentLibrary)
+                    .withDiagramLabelProvider(diagramLabelProvider)
+                    .withDiagramStyleProvider(diagramStyleProvider)
+                    .withVoltageLevelLayoutFactory(vlLayoutFactory)
+                    .build();
             SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
 
             if (debugJsonFiles) {

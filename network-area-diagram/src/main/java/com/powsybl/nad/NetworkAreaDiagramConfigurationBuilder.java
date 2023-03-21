@@ -12,7 +12,7 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 
-public class NetworkAreaDiagramConfigurationAdder {
+public class NetworkAreaDiagramConfigurationBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
     StyleProvider styleProvider;
@@ -22,14 +22,14 @@ public class NetworkAreaDiagramConfigurationAdder {
     Network network;
     boolean defaultLabelProvider;
 
-    public NetworkAreaDiagramConfigurationAdder(Network network) {
+    public NetworkAreaDiagramConfigurationBuilder(Network network) {
         this.network = network;
         this.styleProvider = new TopologicalStyleProvider(network);
         this.labelProvider = new DefaultLabelProvider(network, svgParameters);
         defaultLabelProvider = true;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setSvgParameters(SvgParameters svgParameters) {
+    public NetworkAreaDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
         if (defaultLabelProvider) {
             this.labelProvider = new DefaultLabelProvider(network, svgParameters);
@@ -37,33 +37,33 @@ public class NetworkAreaDiagramConfigurationAdder {
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setLayoutParameters(LayoutParameters layoutParameters) {
+    public NetworkAreaDiagramConfigurationBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setStyleProvider(StyleProvider styleProvider) {
+    public NetworkAreaDiagramConfigurationBuilder withStyleProvider(StyleProvider styleProvider) {
         this.styleProvider = styleProvider;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setLabelProvider(LabelProvider labelProvider) {
+    public NetworkAreaDiagramConfigurationBuilder withLabelProvider(LabelProvider labelProvider) {
         this.labelProvider = labelProvider;
         defaultLabelProvider = false;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setLayoutFactory(LayoutFactory layoutFactory) {
+    public NetworkAreaDiagramConfigurationBuilder withLayoutFactory(LayoutFactory layoutFactory) {
         this.layoutFactory = layoutFactory;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationAdder setIdProvider(IdProvider idProvider) {
+    public NetworkAreaDiagramConfigurationBuilder withIdProvider(IdProvider idProvider) {
         this.idProvider = idProvider;
         return this;
     }
 
-    public NetworkAreaDiagramConfiguration add() {
+    public NetworkAreaDiagramConfiguration build() {
         return new NetworkAreaDiagramConfiguration(svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider);
     }
 

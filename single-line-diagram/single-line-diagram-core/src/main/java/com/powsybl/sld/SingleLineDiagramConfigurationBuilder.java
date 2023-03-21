@@ -10,7 +10,7 @@ import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 
-public class SingleLineDiagramConfigurationAdder {
+public class SingleLineDiagramConfigurationBuilder {
 
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
@@ -22,7 +22,7 @@ public class SingleLineDiagramConfigurationAdder {
     Network network;
     boolean defaultLabelProvider;
 
-    public SingleLineDiagramConfigurationAdder(Network network) {
+    public SingleLineDiagramConfigurationBuilder(Network network) {
         this.network = network;
         voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network);
         diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
@@ -30,12 +30,12 @@ public class SingleLineDiagramConfigurationAdder {
         defaultLabelProvider = true;
     }
 
-    public SingleLineDiagramConfigurationAdder setSvgParameters(SvgParameters svgParameters) {
+    public SingleLineDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setLayoutParameters(LayoutParameters layoutParameters) {
+    public SingleLineDiagramConfigurationBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
         if (defaultLabelProvider) {
             diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
@@ -43,7 +43,7 @@ public class SingleLineDiagramConfigurationAdder {
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setComponentLibrary(ComponentLibrary componentLibrary) {
+    public SingleLineDiagramConfigurationBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
         this.componentLibrary = componentLibrary;
         if (defaultLabelProvider) {
             diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
@@ -51,28 +51,28 @@ public class SingleLineDiagramConfigurationAdder {
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setDiagramLabelProvider(DiagramLabelProvider diagramLabelProvider) {
+    public SingleLineDiagramConfigurationBuilder withDiagramLabelProvider(DiagramLabelProvider diagramLabelProvider) {
         this.diagramLabelProvider = diagramLabelProvider;
         defaultLabelProvider = false;
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setDiagramStyleProvider(DiagramStyleProvider diagramStyleProvider) {
+    public SingleLineDiagramConfigurationBuilder withDiagramStyleProvider(DiagramStyleProvider diagramStyleProvider) {
         this.diagramStyleProvider = diagramStyleProvider;
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setVoltageLevelLayoutFactory(VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public SingleLineDiagramConfigurationBuilder withVoltageLevelLayoutFactory(VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.voltageLevelLayoutFactory = voltageLevelLayoutFactory;
         return this;
     }
 
-    public SingleLineDiagramConfigurationAdder setSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
+    public SingleLineDiagramConfigurationBuilder withSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
         this.substationLayoutFactory = substationLayoutFactory;
         return this;
     }
 
-    public SingleLineDiagramConfiguration add() {
+    public SingleLineDiagramConfiguration build() {
         return new SingleLineDiagramConfiguration(svgParameters, layoutParameters, componentLibrary, diagramLabelProvider, diagramStyleProvider, substationLayoutFactory, voltageLevelLayoutFactory);
     }
 }

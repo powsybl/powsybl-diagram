@@ -52,7 +52,7 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Network network, String id, Path svgFile) {
-        draw(network, id, svgFile, new SingleLineDiagramConfigurationAdder(network).add());
+        draw(network, id, svgFile, new SingleLineDiagramConfigurationBuilder(network).build());
     }
 
     public static void draw(Network network, String id, Path svgFile, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
@@ -75,7 +75,7 @@ public final class SingleLineDiagram {
     }
 
     public static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile) {
-        drawVoltageLevel(network, voltageLevelId, svgFile, new SingleLineDiagramConfigurationAdder(network).add());
+        drawVoltageLevel(network, voltageLevelId, svgFile, new SingleLineDiagramConfigurationBuilder(network).build());
     }
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
@@ -94,7 +94,7 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new SingleLineDiagramConfigurationAdder(network).add());
+        drawSubstation(network, id, svgFile, new SingleLineDiagramConfigurationBuilder(network).build());
     }
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
@@ -130,7 +130,7 @@ public final class SingleLineDiagram {
     /* draw functions with writer */
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter) {
-        draw(network, id, writerForSvg, metadataWriter, new SingleLineDiagramConfigurationAdder(network).add());
+        draw(network, id, writerForSvg, metadataWriter, new SingleLineDiagramConfigurationBuilder(network).build());
     }
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
