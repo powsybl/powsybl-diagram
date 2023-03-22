@@ -31,15 +31,15 @@ public class HBSManagerByClustering implements HorizontalBusSetManager {
     }
 
     private void mergeHbsWithCommonBusNode(BSCluster leftCluster, BSCluster rightCluster, List<HorizontalBusSet> availableHbsToMerge) {
-        List<BusNode> commonNodes = new ArrayList<>(leftCluster.HbsSideBuses(Side.RIGHT));
-        commonNodes.retainAll(rightCluster.HbsSideBuses(Side.LEFT));
+        List<BusNode> commonNodes = new ArrayList<>(leftCluster.hbsSideBuses(Side.RIGHT));
+        commonNodes.retainAll(rightCluster.hbsSideBuses(Side.LEFT));
         commonNodes.forEach(busNode ->
                 finalizeHbsBuilding(leftCluster, rightCluster, busNode, busNode, availableHbsToMerge));
     }
 
     private void mergeHbsWithFlatCell(BSCluster leftCluster, BSCluster rightCluster,
                                         List<HorizontalBusSet> availableHbsToMerge) {
-        List<BusNode> myAvailableRightBuses = BSCluster.HbsSideBuses(Side.RIGHT, availableHbsToMerge);
+        List<BusNode> myAvailableRightBuses = BSCluster.hbsSideBuses(Side.RIGHT, availableHbsToMerge);
         List<InternCell> myConcernedFlatCells = leftCluster.getSideCandidateFlatCell(Side.RIGHT)
                 .stream().filter(internCell -> {
                     List<BusNode> nodes = internCell.getBusNodes();
@@ -67,7 +67,7 @@ public class HBSManagerByClustering implements HorizontalBusSetManager {
     }
 
     private Optional<BusNode> internCellNodeInHbsSide(BSCluster bsCluster, Side side, InternCell cell) {
-        List<BusNode> hbsBuses = bsCluster.HbsSideBuses(side);
+        List<BusNode> hbsBuses = bsCluster.hbsSideBuses(side);
         hbsBuses.retainAll(cell.getBusNodes());
         return hbsBuses.stream().findFirst();
     }

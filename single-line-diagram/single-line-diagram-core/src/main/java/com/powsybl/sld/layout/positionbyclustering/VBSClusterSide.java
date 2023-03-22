@@ -39,7 +39,7 @@ class VBSClusterSide {
     }
 
     Set<BusNode> getBusNodeSet() {
-        return new LinkedHashSet<>(bsCluster.HbsSideBuses(side));
+        return new LinkedHashSet<>(bsCluster.hbsSideBuses(side));
     }
 
     List<InternCell> getCandidateFlatCellList() {
@@ -117,6 +117,6 @@ class VBSClusterSide {
 
     @Override
     public String toString() {
-        return side.toString() + " " + bsCluster.HbsSideBuses(side).toString();
+        return side.toString() + " " + bsCluster.hbsSideBuses(side).toString();
     }
 }

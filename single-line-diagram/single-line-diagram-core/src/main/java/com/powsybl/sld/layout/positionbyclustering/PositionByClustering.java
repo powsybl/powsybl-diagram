@@ -112,13 +112,13 @@ public class PositionByClustering extends AbstractPositionFinder {
             int actualMaxIndex = lane.getEndingIndex();
             while (actualMaxIndex < clusterLength) {
                 int finalActualMax = actualMaxIndex;
-                HorizontalBusSet HbsToAdd = sortedHbs.stream()
+                HorizontalBusSet hbsToAdd = sortedHbs.stream()
                         .filter(l -> l.getStartingIndex() >= finalActualMax)
                         .findFirst().orElse(null);
-                if (HbsToAdd != null) {
-                    lane.merge(HbsToAdd);
-                    sortedHbs.remove(HbsToAdd);
-                    horizontalBusSets.remove(HbsToAdd);
+                if (hbsToAdd != null) {
+                    lane.merge(hbsToAdd);
+                    sortedHbs.remove(hbsToAdd);
+                    horizontalBusSets.remove(hbsToAdd);
                     actualMaxIndex = lane.getEndingIndex();
                 } else {
                     i++;
