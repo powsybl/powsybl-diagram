@@ -25,7 +25,6 @@ import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * <PRE>
@@ -119,9 +118,9 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(3, feederInfoList.size());
-        assertTrue(feederInfoList.get(0).getComponentType().equals(ARROW_ACTIVE));
-        assertTrue(feederInfoList.get(1).getComponentType().equals(ARROW_REACTIVE));
-        assertTrue(feederInfoList.get(2).getComponentType().equals(ARROW_CURRENT));
+        assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
+        assertEquals(ARROW_CURRENT, feederInfoList.get(2).getComponentType());
     }
 
     @Test
@@ -131,7 +130,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(2, feederInfoList.size());
-        assertTrue(feederInfoList.get(0).getComponentType().equals(ARROW_ACTIVE));
-        assertTrue(feederInfoList.get(1).getComponentType().equals(ARROW_REACTIVE));
+        assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
     }
 }
