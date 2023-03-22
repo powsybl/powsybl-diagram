@@ -6,10 +6,8 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -27,6 +25,7 @@ import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <PRE>
@@ -111,5 +110,28 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
+    }
+
+    @Test
+    public void testBuildFeederInfosWithCurrent() {
+        Network network = IeeeCdfNetworkFactory.create9();
+        layoutParameters.setDisplayCurrentFeederInfo(true);
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
+        List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
+        assertEquals(3, feederInfoList.size());
+        assertTrue(feederInfoList.get(0).getComponentType().equals(ARROW_ACTIVE));
+        assertTrue(feederInfoList.get(1).getComponentType().equals(ARROW_REACTIVE));
+        assertTrue(feederInfoList.get(2).getComponentType().equals(ARROW_CURRENT));
+    }
+
+    @Test
+    public void testBuildFeederInfosWithoutCurrent() {
+        Network network = IeeeCdfNetworkFactory.create9();
+        layoutParameters.setDisplayCurrentFeederInfo(false);
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
+        List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
+        assertEquals(2, feederInfoList.size());
+        assertTrue(feederInfoList.get(0).getComponentType().equals(ARROW_ACTIVE));
+        assertTrue(feederInfoList.get(1).getComponentType().equals(ARROW_REACTIVE));
     }
 }

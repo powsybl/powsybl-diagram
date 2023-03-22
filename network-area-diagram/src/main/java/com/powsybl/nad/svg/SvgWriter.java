@@ -253,17 +253,21 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
         writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
+            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
                 writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-                EdgeInfo edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
-                drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo);
+                if (edgeInfo.isPresent()) {
+                    drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
+                }
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
-                drawLoopEdgeInfo(writer, edge, side, labelProvider.getEdgeInfo(graph, edge, side));
+                if (edgeInfo.isPresent()) {
+                    drawLoopEdgeInfo(writer, edge, side, edgeInfo.get());
+                }
             }
         }
         writer.writeEndElement();
@@ -301,7 +305,10 @@ public class SvgWriter {
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
 
-        drawThreeWtEdgeInfo(graph, writer, edge, labelProvider.getEdgeInfo(graph, edge));
+        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
+        if (edgeInfo.isPresent()) {
+            drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo.get());
+        }
 
         writer.writeEndElement();
     }
@@ -361,26 +368,25 @@ public class SvgWriter {
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
-        if (edgeInfo != null) {
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writeStyleClasses(writer, additionalStyles, StyleProvider.EDGE_INFOS_CLASS);
-            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
 
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getEdgeInfoStyles(edgeInfo));
-            drawInAndOutArrows(writer, edgeAngle);
-            Optional<String> externalLabel = edgeInfo.getExternalLabel();
-            if (externalLabel.isPresent()) {
-                drawLabel(writer, externalLabel.get(), edgeAngle, true);
-            }
-            Optional<String> internalLabel = edgeInfo.getInternalLabel();
-            if (internalLabel.isPresent()) {
-                drawLabel(writer, internalLabel.get(), edgeAngle, false);
-            }
-            writer.writeEndElement();
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writeStyleClasses(writer, additionalStyles, StyleProvider.EDGE_INFOS_CLASS);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
 
-            writer.writeEndElement();
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writeStyleClasses(writer, styleProvider.getEdgeInfoStyles(edgeInfo));
+        drawInAndOutArrows(writer, edgeAngle);
+        Optional<String> externalLabel = edgeInfo.getExternalLabel();
+        if (externalLabel.isPresent()) {
+            drawLabel(writer, externalLabel.get(), edgeAngle, true);
         }
+        Optional<String> internalLabel = edgeInfo.getInternalLabel();
+        if (internalLabel.isPresent()) {
+            drawLabel(writer, internalLabel.get(), edgeAngle, false);
+        }
+        writer.writeEndElement();
+
+        writer.writeEndElement();
     }
 
     private void drawInAndOutArrows(XMLStreamWriter writer, double edgeAngle) throws XMLStreamException {

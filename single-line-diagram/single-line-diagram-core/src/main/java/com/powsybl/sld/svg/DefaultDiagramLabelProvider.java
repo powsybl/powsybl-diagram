@@ -214,17 +214,12 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        List<FeederInfo> feederInfoList = new ArrayList<>();
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
         if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
-            return Arrays.asList(
-                    new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower),
-                    new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower),
-                    new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent)
-            );
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
         }
-
-        return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower),
-                new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower)
-        );
+        return feederInfoList;
     }
 }

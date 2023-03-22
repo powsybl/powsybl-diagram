@@ -18,6 +18,7 @@ import com.powsybl.nad.utils.iidm.IidmUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -34,13 +35,13 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public EdgeInfo getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return getEdgeInfo(terminal);
     }
 
     @Override
-    public EdgeInfo getEdgeInfo(Graph graph, ThreeWtEdge edge) {
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(edge.getEquipmentId());
         if (transformer == null) {
             throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
@@ -54,19 +55,19 @@ public class DefaultLabelProvider implements LabelProvider {
         return edge.getEquipmentId();
     }
 
-    private EdgeInfo getEdgeInfo(Terminal terminal) {
+    private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
         if (terminal == null) {
-            return null;
+            return Optional.empty();
         }
         switch (svgParameters.getEdgeInfoDisplayed()) {
             case ACTIVE_POWER:
-                return new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower);
+                return Optional.of(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower));
             case REACTIVE_POWER:
-                return new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower);
+                return Optional.of(new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
             case CURRENT:
-                return new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent);
+                return Optional.of(new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent));
             default:
-                return null;
+                return Optional.empty();
         }
     }
 
