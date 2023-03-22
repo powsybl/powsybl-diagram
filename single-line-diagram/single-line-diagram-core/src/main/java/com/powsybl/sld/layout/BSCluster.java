@@ -50,12 +50,12 @@ public class BSCluster {
         verticalBusSetList.addAll(otherBsCluster.verticalBusSetList);
     }
 
-    public List<BusNode> HbsSideBuses(Side side) {
-        return HbsSideBuses(side, horizontalBusSets);
+    public List<BusNode> hbsSideBuses(Side side) {
+        return hbsSideBuses(side, horizontalBusSets);
     }
 
-    public static List<BusNode> HbsSideBuses(Side side, List<HorizontalBusSet> HbsList) {
-        return HbsList.stream()
+    public static List<BusNode> hbsSideBuses(Side side, List<HorizontalBusSet> hbsList) {
+        return hbsList.stream()
                 .map(hl -> hl.getSideNode(side)).collect(Collectors.toList());
     }
 
@@ -101,7 +101,7 @@ public class BSCluster {
     }
 
     public List<InternCell> getSideCandidateFlatCell(Side side) {
-        return HbsSideBuses(side).stream()
+        return hbsSideBuses(side).stream()
                 .map(busNode -> getVbsSideFromBusNode(busNode, side))
                 .distinct().filter(Objects::nonNull)
                 .flatMap(vbs -> vbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
