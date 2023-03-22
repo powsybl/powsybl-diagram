@@ -136,11 +136,6 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(87.67,-301.57)">
-                    <text transform="rotate(5.87)" x="0.00" style="text-anchor:middle">L5-4-0</text>
-                </g>
-            </g>
         </g>
         <g id="16">
             <desc>L6-4-0</desc>
@@ -166,11 +161,6 @@
                         </g>
                         <text transform="rotate(67.77)" x="19.00">1</text>
                     </g>
-                </g>
-            </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(392.21,-75.98)">
-                    <text transform="rotate(-292.23)" x="0.00" style="text-anchor:middle">L6-4-0</text>
                 </g>
             </g>
         </g>
@@ -203,9 +193,6 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl70to120 nad-winding" cx="373.23" cy="-380.85" r="20.00"/>
                 <circle class="nad-vl70to120 nad-winding" cx="389.24" cy="-368.87" r="20.00"/>
-                <g class="nad-edge-label" transform="translate(381.23,-374.86)">
-                    <text transform="rotate(36.82)" x="0.00" style="text-anchor:middle">T4-1-0</text>
-                </g>
             </g>
         </g>
         <g id="18">
@@ -234,11 +221,6 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(-299.66,207.94)">
-                    <text transform="rotate(70.88)" x="0.00" style="text-anchor:middle">L7-8-0</text>
-                </g>
-            </g>
         </g>
         <g id="19">
             <desc>L7-5-0</desc>
@@ -264,11 +246,6 @@
                         </g>
                         <text transform="rotate(-50.25)" x="-19.00" style="text-anchor:end">-11</text>
                     </g>
-                </g>
-            </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(-228.29,-172.00)">
-                    <text transform="rotate(-50.25)" x="0.00" style="text-anchor:middle">L7-5-0</text>
                 </g>
             </g>
         </g>
@@ -301,9 +278,6 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl70to120 nad-winding" cx="-491.48" cy="-11.31" r="20.00"/>
                 <circle class="nad-vl70to120 nad-winding" cx="-487.90" cy="-30.99" r="20.00"/>
-                <g class="nad-edge-label" transform="translate(-489.69,-21.15)">
-                    <text transform="rotate(-79.68)" x="0.00" style="text-anchor:middle">T7-2-0</text>
-                </g>
             </g>
         </g>
         <g id="21">
@@ -332,11 +306,6 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(-45.54,392.87)">
-                    <text transform="rotate(-358.31)" x="0.00" style="text-anchor:middle">L9-8-0</text>
-                </g>
-            </g>
         </g>
         <g id="22">
             <desc>L9-6-0</desc>
@@ -362,11 +331,6 @@
                         </g>
                         <text transform="rotate(-46.27)" x="-19.00" style="text-anchor:end">-13</text>
                     </g>
-                </g>
-            </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(330.45,238.41)">
-                    <text transform="rotate(-46.27)" x="0.00" style="text-anchor:middle">L9-6-0</text>
                 </g>
             </g>
         </g>
@@ -399,9 +363,6 @@
             <g class="nad-glued-center">
                 <circle class="nad-vl70to120 nad-winding" cx="231.19" cy="506.66" r="20.00"/>
                 <circle class="nad-vl70to120 nad-winding" cx="212.69" cy="514.25" r="20.00"/>
-                <g class="nad-edge-label" transform="translate(221.94,510.46)">
-                    <text transform="rotate(-22.29)" x="0.00" style="text-anchor:middle">T9-3-0</text>
-                </g>
             </g>
         </g>
     </g>
