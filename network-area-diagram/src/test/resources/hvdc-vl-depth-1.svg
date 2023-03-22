@@ -100,9 +100,6 @@
             </g>
             <g class="nad-glued-center">
                 <polyline points="61.56,14.00 13.29,64.69" class="nad-hvdc"/>
-                <g class="nad-edge-label" transform="translate(37.43,39.35)">
-                    <text transform="rotate(-46.40)" x="0.00" style="text-anchor:middle">L</text>
-                </g>
             </g>
         </g>
     </g>

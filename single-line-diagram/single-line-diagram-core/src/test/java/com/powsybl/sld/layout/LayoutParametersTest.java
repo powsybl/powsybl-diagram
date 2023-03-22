@@ -64,7 +64,8 @@ public class LayoutParametersTest {
                 .setAngleValuePrecision(0)
                 .setUndefinedValueSymbol("\u002A")
                 .setDisplayCurrentFeederInfo(true)
-                .setCurrentValuePrecision(1);
+                .setCurrentValuePrecision(1)
+                .setRemoveFictitiousSwitchNodes(true);
 
         layoutParameters.setComponentsSize(null);
 
@@ -120,6 +121,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isDisplayCurrentFeederInfo(), layoutParameters2.isDisplayCurrentFeederInfo());
         assertEquals(layoutParameters.getUndefinedValueSymbol(), layoutParameters2.getUndefinedValueSymbol());
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
-
+        assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
     }
 }

@@ -1503,6 +1503,7 @@
     "angleValuePrecision" : 1,
     "currentValuePrecision" : 0,
     "displayCurrentFeederInfo" : false,
-    "undefinedValueSymbol" : "—"
+    "undefinedValueSymbol" : "—",
+    "removeFictitiousSwitchNodes" : false
   }
 }

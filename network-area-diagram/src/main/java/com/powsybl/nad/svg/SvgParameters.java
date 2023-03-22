@@ -39,7 +39,7 @@ public class SvgParameters {
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
-    private boolean edgeNameDisplayed = true;
+    private boolean edgeNameDisplayed = false;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;

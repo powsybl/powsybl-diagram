@@ -81,6 +81,8 @@ public class LayoutParameters {
 
     private Alignment busbarsAlignment = Alignment.FIRST;
 
+    private boolean removeFictitiousSwitchNodes = false;
+
     /**
      * Can be used as horizontal shifting value for busInfo indicator.
      * Could be negative value.
@@ -149,7 +151,9 @@ public class LayoutParameters {
                             @JsonProperty("angleValuePrecision") int angleValuePrecision,
                             @JsonProperty("currentValuePrecision") int currentValuePrecision,
                             @JsonProperty("displayCurrentFeederInfo") boolean displayCurrentFeederInfo,
-                            @JsonProperty("undefinedValueSymbol") String undefinedValueSymbol) {
+                            @JsonProperty("undefinedValueSymbol") String undefinedValueSymbol,
+                            @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes) {
+
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -193,6 +197,7 @@ public class LayoutParameters {
         this.currentValuePrecision = currentValuePrecision;
         this.displayCurrentFeederInfo = displayCurrentFeederInfo;
         this.undefinedValueSymbol = undefinedValueSymbol;
+        this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -241,6 +246,7 @@ public class LayoutParameters {
         currentValuePrecision = other.currentValuePrecision;
         displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         undefinedValueSymbol = other.undefinedValueSymbol;
+        removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
     }
 
     public double getVerticalSpaceBus() {
@@ -707,4 +713,14 @@ public class LayoutParameters {
         this.undefinedValueSymbol = undefinedValueSymbol;
         return this;
     }
+
+    public boolean isRemoveFictitiousSwitchNodes() {
+        return removeFictitiousSwitchNodes;
+    }
+
+    public LayoutParameters setRemoveFictitiousSwitchNodes(boolean removeFictitiousSwitchNodes) {
+        this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
+        return this;
+    }
+
 }

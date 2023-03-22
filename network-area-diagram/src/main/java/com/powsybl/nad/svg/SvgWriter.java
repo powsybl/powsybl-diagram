@@ -183,23 +183,25 @@ public class SvgWriter {
         if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.GLUED_CENTER_CLASS);
-        switch (edge.getType()) {
-            case BranchEdge.PST_EDGE:
-            case BranchEdge.TWO_WT_EDGE:
-                draw2Wt(writer, edge);
-                break;
-            case BranchEdge.HVDC_LINE_EDGE:
-                drawConverterStation(writer, edge);
-                break;
-            default:
-                break;
+        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || svgParameters.isEdgeNameDisplayed()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.GLUED_CENTER_CLASS);
+            switch (edge.getType()) {
+                case BranchEdge.PST_EDGE:
+                case BranchEdge.TWO_WT_EDGE:
+                    draw2Wt(writer, edge);
+                    break;
+                case BranchEdge.HVDC_LINE_EDGE:
+                    drawConverterStation(writer, edge);
+                    break;
+                default:
+                    break;
+            }
+            if (svgParameters.isEdgeNameDisplayed()) {
+                drawEdgeLabel(writer, edge);
+            }
+            writer.writeEndElement();
         }
-        if (svgParameters.isEdgeNameDisplayed()) {
-            drawEdgeLabel(writer, edge);
-        }
-        writer.writeEndElement();
     }
 
     private void draw2Wt(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {

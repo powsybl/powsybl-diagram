@@ -104,11 +104,6 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(-154.84,-3.96)">
-                    <text transform="rotate(65.27)" x="0.00" style="text-anchor:middle">l1</text>
-                </g>
-            </g>
         </g>
         <g id="6">
             <g id="6.1" class="nad-vl300to500">
@@ -133,11 +128,6 @@
                         </g>
                         <text transform="rotate(-294.73)" x="-19.00" style="text-anchor:end"></text>
                     </g>
-                </g>
-            </g>
-            <g class="nad-glued-center">
-                <g class="nad-edge-label" transform="translate(-82.18,-37.43)">
-                    <text transform="rotate(65.27)" x="0.00" style="text-anchor:middle">l2</text>
                 </g>
             </g>
         </g>
