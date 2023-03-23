@@ -6,12 +6,9 @@
  */
 package com.powsybl.sld.layout.positionprocessor;
 
-import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * a PositionFinder determines:
@@ -25,13 +22,5 @@ import java.util.Map;
  */
 public interface PositionFinder {
 
-    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
-
-    BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
-
     List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt);
-
-    void forceSameOrientationForShuntedCell(VoltageLevelGraph graph);
-
-    void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections);
 }

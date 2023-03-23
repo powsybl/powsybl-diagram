@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout.positionprocessor.positionbyclustering;
 
-import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
 import com.powsybl.sld.layout.positionprocessor.HorizontalBusSet;
@@ -136,7 +135,7 @@ public class PositionByClustering extends AbstractPositionFinder {
 
     private void establishFeederPositions(BSCluster bsCluster) {
         int cellOrder = 0;
-        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSets()) {
             for (ExternCell cell : vbs.getExternCells()) {
                 cell.setOrder(cellOrder++);
             }

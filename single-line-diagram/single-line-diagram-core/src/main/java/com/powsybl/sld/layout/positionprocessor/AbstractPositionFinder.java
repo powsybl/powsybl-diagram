@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout.positionprocessor;
 
+import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -19,6 +20,10 @@ import java.util.Map;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public abstract class AbstractPositionFinder implements PositionFinder {
+
+    public abstract Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
+
+    public abstract BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
 
     public List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {

@@ -50,7 +50,7 @@ public class Subsection {
         });
     }
 
-    private void addLegBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
+    private void addVerticalBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
         extendedNodeSet.forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
         externCells.addAll(vbs.getExternCells());
         externCells.sort(compareOrder);
@@ -97,7 +97,7 @@ public class Subsection {
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
-        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSets()) {
             Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
             List<BusNode> vbn = bsCluster.getVerticalBusNodes(i);
             if (vbs.getBusNodeSet().containsAll(vbn)) {
@@ -109,11 +109,11 @@ public class Subsection {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
-            currentSubsection.addLegBusSet(vbs, extendedNodeSet);
+            currentSubsection.addVerticalBusSet(vbs, extendedNodeSet);
             i++;
         }
 
-        internCellCoherence(graph, bsCluster.getVerticalBusSetList(), subsections);
+        internCellCoherence(graph, bsCluster.getVerticalBusSets(), subsections);
 
         graph.getShuntCellStream().forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
