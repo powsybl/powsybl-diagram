@@ -10,11 +10,7 @@ package com.powsybl.nad;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.build.iidm.IdProvider;
-import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.NetworkTestFactory;
@@ -60,14 +56,6 @@ public class NetworkAreaDiagramTest extends AbstractTest {
         };
     }
 
-    private LayoutFactory getLayoutFactory() {
-        return new BasicForceLayoutFactory();
-    }
-
-    private IdProvider getIdProvider() {
-        return new IntIdProvider();
-    }
-
     private String getContentFile(Path svgFile) {
         try (Stream<String> lines = Files.lines(svgFile)) {
             return lines.collect(Collectors.joining("\n")) + "\n";
@@ -79,14 +67,12 @@ public class NetworkAreaDiagramTest extends AbstractTest {
     @Test
     public void testDrawSvg() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
-        NetworkAreaDiagram nad = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-
         Path svgFile = fileSystem.getPath("nad-test.svg");
-        nad.draw(svgFile,
-                getSvgParameters(),
-                getLayoutParameters(),
-                getStyleProvider(network));
-
+        NetworkAreaDiagramConfiguration networkAreaDiagramConfiguration = new NetworkAreaDiagramConfigurationBuilder(network)
+                .withSvgParameters(getSvgParameters())
+                        .withStyleProvider(getStyleProvider(network))
+                                .build();
+        NetworkAreaDiagram.draw(network, svgFile, networkAreaDiagramConfiguration, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 }
