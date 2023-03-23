@@ -4,11 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout.positionfromextension;
+package com.powsybl.sld.layout.positionprocessor.positionfromextension;
 
-import com.powsybl.sld.layout.HorizontalBusSet;
-import com.powsybl.sld.layout.HorizontalBusSetManager;
-import com.powsybl.sld.layout.BSCluster;
+import com.powsybl.sld.layout.positionprocessor.BSCluster;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusSet;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusSetManager;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
