@@ -47,11 +47,11 @@ class VBSClusterSide {
     }
 
     List<ExternCell> getExternCells() {
-        return bsCluster.getVerticalBusSetList().stream().flatMap(vbs -> vbs.getExternCells().stream()).collect(Collectors.toList());
+        return bsCluster.getVerticalBusSets().stream().flatMap(vbs -> vbs.getExternCells().stream()).collect(Collectors.toList());
     }
 
     int getExternCellAttractionToEdge(ExternCell cell) {
-        List<VerticalBusSet> vbsList = bsCluster.getVerticalBusSetList();
+        List<VerticalBusSet> vbsList = bsCluster.getVerticalBusSets();
         return vbsList.stream().filter(vbs -> vbs.getExternCells().contains(cell)).findFirst()
                 .map(vbs -> side == Side.LEFT ? (vbsList.size() - vbsList.indexOf(vbs))
                         : (vbsList.indexOf(vbs) + 1)).orElse(0);
@@ -98,7 +98,7 @@ class VBSClusterSide {
             if (side == Side.LEFT) {
                 return horizontalBusSet.get().getStartingIndex();
             } else {
-                return bsCluster.getVerticalBusSetList().size() - horizontalBusSet.get().getEndingIndex();
+                return bsCluster.getVerticalBusSets().size() - horizontalBusSet.get().getEndingIndex();
             }
         }
     }

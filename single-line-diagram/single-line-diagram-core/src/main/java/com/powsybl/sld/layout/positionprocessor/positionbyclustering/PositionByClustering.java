@@ -136,7 +136,7 @@ public class PositionByClustering extends AbstractPositionFinder {
 
     private void establishFeederPositions(BSCluster bsCluster) {
         int cellOrder = 0;
-        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSets()) {
             for (ExternCell cell : vbs.getExternCells()) {
                 cell.setOrder(cellOrder++);
             }
