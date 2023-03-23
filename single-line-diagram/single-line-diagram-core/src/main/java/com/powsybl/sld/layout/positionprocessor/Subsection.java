@@ -50,7 +50,7 @@ public class Subsection {
         });
     }
 
-    private void addLegBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
+    private void addVerticalBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
         extendedNodeSet.forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
         externCells.addAll(vbs.getExternCells());
         externCells.sort(compareOrder);
@@ -109,7 +109,7 @@ public class Subsection {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
-            currentSubsection.addLegBusSet(vbs, extendedNodeSet);
+            currentSubsection.addVerticalBusSet(vbs, extendedNodeSet);
             i++;
         }
 
