@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
  */
 public class BSCluster {
 
-    private final List<VerticalBusSet> verticalBusSetList = new ArrayList<>();
+    private final List<VerticalBusSet> verticalBusSets = new ArrayList<>();
     private final List<HorizontalBusSet> horizontalBusSets = new ArrayList<>();
 
     public BSCluster(VerticalBusSet vbs) {
         Objects.requireNonNull(vbs);
-        verticalBusSetList.add(vbs);
+        verticalBusSets.add(vbs);
         vbs.getBusNodeSet().forEach(nodeBus -> horizontalBusSets.add(new HorizontalBusSet(nodeBus, this)));
     }
 
@@ -47,7 +47,7 @@ public class BSCluster {
             otherBsCluster.reverse();
         }
         hbsManager.mergeHbs(this, otherBsCluster);
-        verticalBusSetList.addAll(otherBsCluster.verticalBusSetList);
+        verticalBusSets.addAll(otherBsCluster.verticalBusSets);
     }
 
     public List<BusNode> hbsSideBuses(Side side) {
@@ -83,18 +83,18 @@ public class BSCluster {
     }
 
     private void reverse() {
-        Collections.reverse(verticalBusSetList);
-        horizontalBusSets.forEach(hbs -> hbs.reverse(verticalBusSetList.size()));
+        Collections.reverse(verticalBusSets);
+        horizontalBusSets.forEach(hbs -> hbs.reverse(verticalBusSets.size()));
     }
 
     private VerticalBusSet getVbsSideFromBusNode(BusNode busNode, Side side) {
         if (side != Side.RIGHT && side != Side.LEFT) {
             return null;
         }
-        for (int i = 0; i < verticalBusSetList.size(); i++) {
-            int j = side == Side.LEFT ? i : verticalBusSetList.size() - i - 1;
-            if (verticalBusSetList.get(j).getBusNodeSet().contains(busNode)) {
-                return verticalBusSetList.get(j);
+        for (int i = 0; i < verticalBusSets.size(); i++) {
+            int j = side == Side.LEFT ? i : verticalBusSets.size() - i - 1;
+            if (verticalBusSets.get(j).getBusNodeSet().contains(busNode)) {
+                return verticalBusSets.get(j);
             }
         }
         return null;
@@ -109,7 +109,7 @@ public class BSCluster {
     }
 
     public List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return verticalBusSetList.stream()
+        return verticalBusSets.stream()
                 .flatMap(verticalBusSet -> verticalBusSet.getInternCellsFromShape(shape).stream())
                 .collect(Collectors.toList());
     }
@@ -119,20 +119,20 @@ public class BSCluster {
     }
 
     public int getLength() {
-        return verticalBusSetList.size();
+        return verticalBusSets.size();
     }
 
     public List<HorizontalBusSet> getHorizontalBusSets() {
         return horizontalBusSets;
     }
 
-    public List<VerticalBusSet> getVerticalBusSetList() {
-        return verticalBusSetList;
+    public List<VerticalBusSet> getVerticalBusSets() {
+        return verticalBusSets;
     }
 
     @Override
     public String toString() {
-        return verticalBusSetList.toString() + "\n" + horizontalBusSets.toString();
+        return verticalBusSets.toString() + "\n" + horizontalBusSets.toString();
     }
 
 }
