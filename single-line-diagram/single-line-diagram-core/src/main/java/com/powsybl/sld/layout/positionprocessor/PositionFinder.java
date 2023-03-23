@@ -25,13 +25,5 @@ import java.util.Map;
  */
 public interface PositionFinder {
 
-    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
-
-    BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
-
     List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt);
-
-    void forceSameOrientationForShuntedCell(VoltageLevelGraph graph);
-
-    void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections);
 }
