@@ -22,6 +22,7 @@ import java.util.Map;
 public abstract class AbstractPositionFinder implements PositionFinder {
 
     public abstract Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
+    
     public abstract BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
 
     public List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
