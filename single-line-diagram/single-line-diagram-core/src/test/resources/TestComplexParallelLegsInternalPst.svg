@@ -110,6 +110,7 @@
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
+.sld-unknown {stroke: none; fill: black}
 /* Fonts */
 .sld-label {stroke: none; fill: black; font: 8px serif}
 .sld-angle, .sld-voltage {font: 10px serif}
