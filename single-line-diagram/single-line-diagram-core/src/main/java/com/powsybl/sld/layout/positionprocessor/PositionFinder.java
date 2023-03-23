@@ -6,12 +6,9 @@
  */
 package com.powsybl.sld.layout.positionprocessor;
 
-import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * a PositionFinder determines:
