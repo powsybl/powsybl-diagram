@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.positionprocessor;
 
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.InternCell;
@@ -22,9 +22,9 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class BlockPositionner {
+public class BlockPositionner {
 
-    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, Map<String, Side> busInfoMap) {
+    public void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, Map<String, Side> busInfoMap) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;

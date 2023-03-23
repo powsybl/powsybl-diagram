@@ -4,13 +4,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.positionprocessor;
 
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.util.GraphTraversal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
