@@ -97,7 +97,7 @@ public class Subsection {
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
-        for (VerticalBusSet vbs : bsCluster.getVerticalBusSetList()) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSets()) {
             Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
             List<BusNode> vbn = bsCluster.getVerticalBusNodes(i);
             if (vbs.getBusNodeSet().containsAll(vbn)) {
@@ -113,7 +113,7 @@ public class Subsection {
             i++;
         }
 
-        internCellCoherence(graph, bsCluster.getVerticalBusSetList(), subsections);
+        internCellCoherence(graph, bsCluster.getVerticalBusSets(), subsections);
 
         graph.getShuntCellStream().forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
