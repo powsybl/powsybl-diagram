@@ -93,24 +93,24 @@
 /* ----------------------------------------------------------------------- */
 /* File : animations.css ------------------------------------------------- */
 /* feeder info  */
-.sld-cell-direction-top .sld-arrow-in {
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  offset-path: path('M 0,-10 0,10');
   animation: move var(--sld-arrow-animation-parameters, 0s);
 }
-.sld-cell-direction-top .sld-arrow-out {
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  offset-path: path('M 0,10 0,-10');
   animation: move var(--sld-arrow-animation-parameters, 0s);
 }
-.sld-cell-direction-bottom .sld-arrow-in {
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
   offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path('M 0,10 0,-10'));
+  offset-path: path('M 0,10 0,-10');
   animation: move var(--sld-arrow-animation-parameters, 0s);
 }
-.sld-cell-direction-bottom .sld-arrow-out {
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
   offset-rotate: 0deg;
-  offset-path: var(--sld-arrow-offset-path, path('M 0,-10 0,10'));
+  offset-path: path('M 0,-10 0,10');
   animation: move var(--sld-arrow-animation-parameters, 0s);
 }
 @keyframes move {
@@ -123,7 +123,6 @@
 .sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
-.sld-arrow-animation-no-speed { --sld-arrow-offset-path: path('') }
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
