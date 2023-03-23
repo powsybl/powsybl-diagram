@@ -4,9 +4,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout.positionfromextension;
+package com.powsybl.sld.layout.positionprocessor.positionfromextension;
 
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
+import com.powsybl.sld.layout.positionprocessor.BSCluster;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusSetManager;
+import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;

@@ -12,11 +12,12 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.TopologicallyConnectedNodesSet;
-import com.powsybl.sld.layout.TopologyCalculation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.util.TopologicallyConnectedNodesSet;
+import com.powsybl.sld.util.TopologyCalculation;
+
 import org.junit.Before;
 import org.junit.Test;
 
