@@ -9,12 +9,8 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
@@ -31,8 +27,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestUnknownComponent extends AbstractTestCaseIidm {
-
+public class TestUnknownFlatComponentLibrary extends AbstractTestCaseIidm {
     private VoltageLevel vl1;
 
     @Before
@@ -49,7 +44,7 @@ public class TestUnknownComponent extends AbstractTestCaseIidm {
 
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return Mockito.spy(new ConvergenceComponentLibrary());
+        return Mockito.spy(new FlatDesignLibrary());
     }
 
     @Test
@@ -79,7 +74,7 @@ public class TestUnknownComponent extends AbstractTestCaseIidm {
         Mockito.when(componentLibrary.getSubComponentStyleClass(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, "WINDING3")).thenReturn(unknownSubComponentStyleClass);
 
         // write SVGs and compare to reference
-        assertEquals(toString("/TestUnknownConvergence.svg"), toSVG(g1, "/TestUnknownConvergence.svg"));
+        assertEquals(toString("/TestUnknownFlat.svg"), toSVG(g1, "/TestUnknownFlat.svg"));
     }
 
     private void buildNetwork() {
