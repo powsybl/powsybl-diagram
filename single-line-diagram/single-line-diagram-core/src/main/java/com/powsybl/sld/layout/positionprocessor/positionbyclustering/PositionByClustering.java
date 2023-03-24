@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout.positionprocessor.positionbyclustering;
 
-import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
 import com.powsybl.sld.layout.positionprocessor.HorizontalBusSet;
