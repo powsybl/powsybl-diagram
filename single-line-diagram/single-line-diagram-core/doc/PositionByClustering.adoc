@@ -1,0 +1,5 @@
+= `PositionByClustering`: Finding positions driven by similarities
+
+The goal of the algorithm is to find an organization of the `VoltageLevel` with no other information than the graph itself. The positionning is based on sequential agregation of `BSCluster` based on their similarities.
+
+The key criteria that is followed to find a suitable organisation is the fact that each external cells, and any "leg" of an `InternCell` could be *stacked* - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. (This criteria applies only when the structure of the cell allows it - which may not not the case)
