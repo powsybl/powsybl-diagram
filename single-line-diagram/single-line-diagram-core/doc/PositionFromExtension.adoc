@@ -1,0 +1,7 @@
+= `PositionFromExtension`: Position from an explicit configuration
+
+The `PositionFromExtension` takes the information from the `iidm` extension.
+It is gathered:
+
+* in `NetworkGraphBuilder.visitBusbarSection()` when building the graph for the `BusNode` positions
+* and completed in `PositionFromExtension.gatherLayoutExtensionInformation()` for the feeders' order, in which the `BusCell.getOrder()` is called to determine the order of the cell.
