@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * A VerticalBusSet contains the set of BusNodes that shall be vertically presented, and the cells that have a pattern of
- * connection included in the busNodeSet. It is embedded into a LBSCluster.
+ * connection included in the busNodeSet. It is embedded into a BSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -93,12 +93,12 @@ public final class VerticalBusSet {
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .collect(Collectors.toList());
 
-        externCells.forEach(cell -> pushLbs(verticalBusSets, new VerticalBusSet(busToNb, cell)));
+        externCells.forEach(cell -> pushVbs(verticalBusSets, new VerticalBusSet(busToNb, cell)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushLbs(verticalBusSets, new VerticalBusSet(busToNb, cell, Side.UNDEFINED)));
+                .forEachOrdered(cell -> pushVbs(verticalBusSets, new VerticalBusSet(busToNb, cell, Side.UNDEFINED)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
@@ -106,7 +106,7 @@ public final class VerticalBusSet {
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEachOrdered(cell -> pushNonUnilegInternCell(verticalBusSets, busToNb, cell));
 
-        // find orphan busNodes and build their LBS
+        // find orphan busNodes and build their VBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
         allBusNodes.removeAll(verticalBusSets.stream().
                 flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
@@ -116,7 +116,7 @@ public final class VerticalBusSet {
         return verticalBusSets;
     }
 
-    public static void pushLbs(List<VerticalBusSet> verticalBusSets, VerticalBusSet verticalBusSet) {
+    public static void pushVbs(List<VerticalBusSet> verticalBusSets, VerticalBusSet verticalBusSet) {
         for (VerticalBusSet vbs : verticalBusSets) {
             if (vbs.contains(verticalBusSet)) {
                 vbs.absorbs(verticalBusSet);
@@ -142,7 +142,7 @@ public final class VerticalBusSet {
                 return;
             }
         }
-        pushLbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.LEFT));
-        pushLbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.RIGHT));
+        pushVbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.LEFT));
+        pushVbs(verticalBusSets, new VerticalBusSet(busToNb, internCell, Side.RIGHT));
     }
 }
