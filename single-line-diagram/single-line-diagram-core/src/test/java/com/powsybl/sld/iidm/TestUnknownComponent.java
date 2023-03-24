@@ -12,6 +12,10 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.Component;
+import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +24,7 @@ import org.w3c.dom.Element;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -57,8 +62,21 @@ public class TestUnknownComponent extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // Make all 3wt unknown SVG component
-        Map<String, List<Element>> unknownElements = componentLibrary.getSvgElements(ComponentTypeName.UNKNOWN_COMPONENT);
-        Mockito.when(componentLibrary.getSvgElements(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownElements);
+        Map<String, List<Element>> unknownSvgElements = componentLibrary.getSvgElements(ComponentTypeName.UNKNOWN_COMPONENT);
+        Optional<String> unknownComponentStyleClass = componentLibrary.getComponentStyleClass(ComponentTypeName.UNKNOWN_COMPONENT);
+        ComponentSize unknownSize = componentLibrary.getSize(ComponentTypeName.UNKNOWN_COMPONENT);
+        Map<Orientation, Component.Transformation> unknownTransformations = componentLibrary.getTransformations(ComponentTypeName.UNKNOWN_COMPONENT);
+        List<AnchorPoint> unknownAnchorPoints = componentLibrary.getAnchorPoints(ComponentTypeName.UNKNOWN_COMPONENT);
+        Optional<String> unknownSubComponentStyleClass = Optional.empty();
+
+        Mockito.when(componentLibrary.getSvgElements(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownSvgElements);
+        Mockito.when(componentLibrary.getComponentStyleClass(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownComponentStyleClass);
+        Mockito.when(componentLibrary.getSize(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownSize);
+        Mockito.when(componentLibrary.getTransformations(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownTransformations);
+        Mockito.when(componentLibrary.getAnchorPoints(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)).thenReturn(unknownAnchorPoints);
+        Mockito.when(componentLibrary.getSubComponentStyleClass(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, "WINDING1")).thenReturn(unknownSubComponentStyleClass);
+        Mockito.when(componentLibrary.getSubComponentStyleClass(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, "WINDING2")).thenReturn(unknownSubComponentStyleClass);
+        Mockito.when(componentLibrary.getSubComponentStyleClass(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, "WINDING3")).thenReturn(unknownSubComponentStyleClass);
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestUnknown.svg"), toSVG(g1, "/TestUnknown.svg"));
