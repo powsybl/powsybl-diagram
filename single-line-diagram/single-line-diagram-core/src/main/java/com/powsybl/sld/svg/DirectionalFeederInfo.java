@@ -13,6 +13,8 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
 
     private final DiagramLabelProvider.LabelDirection arrowDirection;
 
+    private final double value;
+
     public DirectionalFeederInfo(String componentType, DiagramLabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel) {
         this(componentType, arrowDirection, leftLabel, rightLabel, null);
     }
@@ -20,6 +22,7 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     public DirectionalFeederInfo(String componentType, DiagramLabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
         super(componentType, leftLabel, rightLabel, userDefinedId);
         this.arrowDirection = Objects.requireNonNull(arrowDirection);
+        this.value = Double.NaN;
     }
 
     public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter) {
@@ -27,7 +30,9 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter, String userDefinedId) {
-        this(componentType, getArrowDirection(value), null, formatter.apply(value), userDefinedId);
+        super(componentType, null, formatter.apply(value), userDefinedId);
+        this.arrowDirection = Objects.requireNonNull(getArrowDirection(value));
+        this.value = value;
     }
 
     private static DiagramLabelProvider.LabelDirection getArrowDirection(double value) {
@@ -36,5 +41,9 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
 
     public DiagramLabelProvider.LabelDirection getDirection() {
         return arrowDirection;
+    }
+
+    public double getValue() {
+        return value;
     }
 }

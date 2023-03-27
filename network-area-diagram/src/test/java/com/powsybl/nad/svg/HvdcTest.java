@@ -45,7 +45,6 @@ public class HvdcTest extends AbstractTest {
     @Test
     public void testHvdcVL1Depth1() {
         Network network = HvdcTestNetwork.createVsc();
-        debugSvg = true;
         assertEquals(
                 toString("/hvdc-vl-depth-1.svg"),
                 generateSvgString(network,

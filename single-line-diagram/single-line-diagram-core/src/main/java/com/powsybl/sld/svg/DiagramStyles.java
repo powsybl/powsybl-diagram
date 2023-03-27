@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.coordinate.Direction;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -41,6 +43,7 @@ public final class DiagramStyles {
     public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
     public static final String SHUNT_CELL = STYLE_PREFIX + "shunt-cell";
     public static final String CELL_SHAPE_PREFIX = STYLE_PREFIX + "cell-shape-";
+    public static final String CELL_DIRECTION_PREFIX = STYLE_PREFIX + "cell-direction-";
     public static final String LEGEND = STYLE_PREFIX + "legend";
     public static final String VOLTAGE = STYLE_PREFIX + "voltage";
     public static final String ANGLE = STYLE_PREFIX + "angle";
@@ -115,5 +118,13 @@ public final class DiagramStyles {
             throw new UncheckedIOException(e);
         }
         return out.toString();
+    }
+
+    public static String buildStyle(Direction direction) {
+        return CELL_DIRECTION_PREFIX + direction.name().toLowerCase();
+    }
+
+    public static String buildStyle(InternCell.Shape shape) {
+        return CELL_SHAPE_PREFIX + shape.name().toLowerCase();
     }
 }
