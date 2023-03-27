@@ -121,7 +121,6 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLoad("l2").getTerminal().setP(501.0);
         network.getLoad("l2").getTerminal().setQ(0.0);
 
-        // Enable animation
         layoutParameters.setFeederInfosIntraMargin(20);
 
         DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
