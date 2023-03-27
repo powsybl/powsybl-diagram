@@ -80,6 +80,10 @@ public class BlockOrganizer {
         graph.getCellStream().forEach(Cell::blockSizing);
 
         new BlockPositionner().determineBlockPositions(graph, subsections, busInfoMap);
+
+        graph.getInternCellStream()
+                .filter(internCell -> internCell.getShape() == InternCell.Shape.CROSSOVER)
+                .forEach(InternCell::crossOverBlockSizing);
     }
 
     private void checkBlocks(BusCell cell, LayoutParameters layoutParameters) {

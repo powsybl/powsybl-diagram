@@ -235,6 +235,12 @@ public class InternCell extends AbstractBusCell {
         }
     }
 
+    public void crossOverBlockSizing() {
+        int hLeft = legs.get(Side.LEFT).getPosition().get(H);
+        int hRight = legs.get(Side.RIGHT).getPosition().get(H);
+        body.getPosition().setSpan(H, hRight - hLeft);
+    }
+
     @Override
     public int newHPosition(int hPosition) {
         int h = hPosition;
