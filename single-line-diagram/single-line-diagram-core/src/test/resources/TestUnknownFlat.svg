@@ -337,10 +337,10 @@
                 <polyline points="520.0,222.0,520.0,190.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf16_95_trf6">
-                <polyline points="520.0,174.0,520.0,147.0"/>
+                <polyline points="520.0,174.0,520.0,147.5"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl1_95_trf6_95_TWO_95_trf6">
-                <polyline points="480.0,80.0,480.0,142.0,512.5,142.0"/>
+                <polyline points="480.0,80.0,480.0,142.0,510.5,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idtrf6_95_TWO_ARROW_ACTIVE" transform="translate(475.0,95.0)">
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
@@ -353,7 +353,7 @@
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl1_95_trf6_95_THREE_95_trf6">
-                <polyline points="560.0,80.0,560.0,142.0,527.5,142.0"/>
+                <polyline points="560.0,80.0,560.0,142.0,529.5,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idtrf6_95_THREE_ARROW_ACTIVE" transform="translate(555.0,95.0)">
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
@@ -375,8 +375,8 @@
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
-            <g class="sld-unknown sld-fictitious" id="idtrf6" transform="translate(512.0,134.0)">
-                <path class="sld-disconnected" d="M 7.99,0 0,7.99 8.02,16 16,8.02 Z m 1.0830769,8.7884615 v 1.4500005 h -2.22 V 8.0784615 c 3.9700001,-0.88 2.63,-5.02 -1.24,-2.56 h -0.26 v -1.99 c 5.8700001,-2.31 8.8700001,2.91 3.72,5.26 z M 6.6823077,11.2 h 2.53 V 13 h -2.53 z"/>
+            <g class="sld-unknown sld-fictitious" id="idtrf6" transform="translate(510.0,132.0)">
+                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="idtrf6_95_TWO" transform="translate(480.0,80.0)">
                 <text class="sld-label" id="trf6_TWO_N_LABEL" x="-5.0" y="-5.0">trf61</text>
@@ -434,10 +434,10 @@
                 <polyline points="1000.0,222.0,1000.0,190.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_btrf18_95_trf8">
-                <polyline points="1000.0,174.0,1000.0,147.0"/>
+                <polyline points="1000.0,174.0,1000.0,147.5"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl1_95_trf8_95_TWO_95_trf8">
-                <polyline points="960.0,80.0,960.0,142.0,992.5,142.0"/>
+                <polyline points="960.0,80.0,960.0,142.0,990.5,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idtrf8_95_TWO_ARROW_ACTIVE" transform="translate(955.0,95.0)">
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
@@ -450,7 +450,7 @@
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl1_95_trf8_95_THREE_95_trf8">
-                <polyline points="1040.0,80.0,1040.0,142.0,1007.5,142.0"/>
+                <polyline points="1040.0,80.0,1040.0,142.0,1009.5,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idtrf8_95_THREE_ARROW_ACTIVE" transform="translate(1035.0,95.0)">
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
@@ -472,8 +472,8 @@
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
-            <g class="sld-unknown sld-fictitious" id="idtrf8" transform="translate(992.0,134.0)">
-                <path class="sld-disconnected" d="M 7.99,0 0,7.99 8.02,16 16,8.02 Z m 1.0830769,8.7884615 v 1.4500005 h -2.22 V 8.0784615 c 3.9700001,-0.88 2.63,-5.02 -1.24,-2.56 h -0.26 v -1.99 c 5.8700001,-2.31 8.8700001,2.91 3.72,5.26 z M 6.6823077,11.2 h 2.53 V 13 h -2.53 z"/>
+            <g class="sld-unknown sld-fictitious" id="idtrf8" transform="translate(990.0,132.0)">
+                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="idtrf8_95_TWO" transform="translate(960.0,80.0)">
                 <text class="sld-label" id="trf8_TWO_N_LABEL" x="-5.0" y="-5.0">trf81</text>
@@ -573,32 +573,32 @@
                 <polyline points="680.0,307.0,680.0,339.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_btrf17_95_trf7">
-                <polyline points="680.0,355.0,680.0,382.5"/>
+                <polyline points="680.0,355.0,680.0,381.5"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl1_95_trf7_95_TWO_95_trf7">
-                <polyline points="640.0,449.0,680.0,449.0,680.0,392.0"/>
+                <polyline points="640.0,449.0,640.0,387.0,670.5,387.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idtrf7_95_TWO_ARROW_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,655.0,454.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idtrf7_95_TWO_ARROW_REACTIVE" transform="translate(635.0,424.0)">
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idtrf7_95_TWO_ARROW_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,675.0,454.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+            <g class="sld-active-power sld-feeder-info sld-in" id="idtrf7_95_TWO_ARROW_ACTIVE" transform="translate(635.0,404.0)">
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-wire sld-vl50to70-0" id="_95_vl1_95_trf7_95_THREE_95_trf7">
-                <polyline points="720.0,449.0,680.0,449.0,680.0,392.0"/>
+                <polyline points="720.0,449.0,720.0,387.0,689.5,387.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idtrf7_95_THREE_ARROW_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,695.0,454.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idtrf7_95_THREE_ARROW_REACTIVE" transform="translate(715.0,424.0)">
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idtrf7_95_THREE_ARROW_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,675.0,454.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+            <g class="sld-active-power sld-feeder-info sld-in" id="idtrf7_95_THREE_ARROW_ACTIVE" transform="translate(715.0,404.0)">
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddtrf17" transform="translate(676.0,273.0)">
@@ -611,8 +611,8 @@
                 <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
-            <g class="sld-unknown sld-fictitious" id="idtrf7" transform="translate(672.0,379.0)">
-                <path class="sld-disconnected" d="M 7.99,0 0,7.99 8.02,16 16,8.02 Z m 1.0830769,8.7884615 v 1.4500005 h -2.22 V 8.0784615 c 3.9700001,-0.88 2.63,-5.02 -1.24,-2.56 h -0.26 v -1.99 c 5.8700001,-2.31 8.8700001,2.91 3.72,5.26 z M 6.6823077,11.2 h 2.53 V 13 h -2.53 z"/>
+            <g class="sld-unknown sld-fictitious" id="idtrf7" transform="translate(670.0,377.0)">
+                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
             </g>
             <g class="sld-bottom-feeder sld-vl300to500-1" id="idtrf7_95_TWO" transform="translate(640.0,449.0)">
                 <text class="sld-label" id="trf7_TWO_S_LABEL" x="-5.0" y="5.0">trf71</text>
