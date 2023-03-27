@@ -120,21 +120,17 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
-        graph.getBusCellStream().forEach(cell -> cell.accept(new CalculateCoordCellVisitor(layoutParam, createLayoutContext(graph, cell, layoutParam))));
-        graph.getShuntCellStream().forEach(cell -> cell.accept(new CalculateCoordCellVisitor(layoutParam, null)));
+        CellVisitor cellVisitor = new CalculateCoordCellVisitor(layoutParam, createLayoutContext(graph, layoutParam));
+        graph.getBusCellStream().forEach(cell -> cell.accept(cellVisitor));
+        graph.getShuntCellStream().forEach(cell -> cell.accept(cellVisitor));
     }
 
-    private LayoutContext createLayoutContext(VoltageLevelGraph graph, BusCell cell, LayoutParameters layoutParam) {
+    private LayoutContext createLayoutContext(VoltageLevelGraph graph, LayoutParameters layoutParam) {
         double firstBusY = graph.getFirstBusY();
         double lastBusY = graph.getLastBusY(layoutParam.getVerticalSpaceBus());
-        Double externCellHeight = graph.getExternCellHeight(cell.getDirection());
-        if (cell.getType() != Cell.CellType.INTERN) {
-            return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
-        } else {
-            boolean isFlat = ((InternCell) cell).getShape() == Shape.FLAT;
-            boolean isUnileg = ((InternCell) cell).getShape() == Shape.ONE_LEG;
-            return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection(), true, isFlat, isUnileg);
-        }
+        Double externCellHeightTop = graph.getExternCellHeight(Direction.TOP);
+        Double externCellHeightBottom = graph.getExternCellHeight(Direction.BOTTOM);
+        return new LayoutContext(firstBusY, lastBusY, externCellHeightTop, externCellHeightBottom);
     }
 
     /**
