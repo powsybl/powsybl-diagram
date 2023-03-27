@@ -8,7 +8,10 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -56,8 +59,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g2;
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
-    private DiagramLabelProvider labelProvider;
-    private DiagramLabelProvider noFeederInfoProvider;
+    private DiagramLabelProviderFactory diagramLabelProviderFactory;
+    private DiagramLabelProviderFactory diagramLabelNoFeederInfoProviderFactory;
+    private DiagramLabelProviderFactory diagramLabelMultiLineTooltipProviderFactory;
+    private DiagramLabelProviderFactory diagramLabelSameNodeProviderFactory;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -590,193 +595,316 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         layoutParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
 
         // initValueProvider example for the test :
-        //
-        labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
-
+        diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
-                boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
-                if (!feederArrowSymmetry) {
-                    Collections.reverse(feederInfos);
-                }
-                return feederInfos;
-            }
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
 
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
+                    @Override
+                    public List<FeederInfo> getFeederInfos(FeederNode node) {
+                        List<FeederInfo> feederInfos = Arrays.asList(
+                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
+                                new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
+                        boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
+                        if (!feederArrowSymmetry) {
+                            Collections.reverse(feederInfos);
+                        }
+                        return feederInfos;
+                    }
+
+                    @Override
+                    public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return new ArrayList<>();
+                    }
+                };
             }
         };
 
         // no feeder value provider example for the test :
-        //
-        noFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        diagramLabelNoFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                return Collections.emptyList();
-            }
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
 
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
+                    @Override
+                    public List<FeederInfo> getFeederInfos(FeederNode node) {
+                        return Collections.emptyList();
+                    }
+
+                    @Override
+                    public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return new ArrayList<>();
+                    }
+                };
             }
         };
+
+        diagramLabelMultiLineTooltipProviderFactory = new DefaultDiagramLabelProviderFactory() {
+            @Override
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+
+                    @Override
+                    public String getTooltip(Node node) {
+                        String tooltip = node.getId();
+                        if (node.getType() == Node.NodeType.FEEDER) {
+                            tooltip += "\n" + node.getComponentType();
+                        }
+                        return tooltip;
+                    }
+
+                    @Override
+                    public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return Collections.emptyList();
+                    }
+                };
+            }
+        };
+
+        diagramLabelSameNodeProviderFactory = new DefaultDiagramLabelProviderFactory() {
+            @Override
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+
+                    @Override
+                    public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
+                        LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
+                        return Collections.singletonList(new DiagramLabelProvider.NodeLabel("Tests", labelPosition, null));
+                    }
+
+                    @Override
+                    public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return new ArrayList<>();
+                    }
+                };
+            }
+        };
+
     }
 
     @Test
     public void testVl1() {
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1.svg"),
-            toSVG(g1, "/vl1.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g1, "/vl1.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl1CssExternalImported() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_IMPORTED);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl1CssExternalNoImport() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_external_css_no_import.svg"),
-            toSVG(g1, "/vl1_external_css_no_import.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g1, "/vl1_external_css_no_import.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl2() {
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl2.svg"),
-            toSVG(g2, "/vl2.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g2, "/vl2.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl3() {
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl3.svg"),
-            toSVG(g3, "/vl3.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g3, "/vl3.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testSubstation() {
         // SVG file generation for substation and comparison to reference
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(Network.create("empty", "")))
+                .build();
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
+            toSVG(substG, "/substation.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         layoutParameters.setFeederInfoSymmetry(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-            toSVG(substG, "/substation_feeder_arrow_symmetry.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(substG, "/substation_feeder_arrow_symmetry.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_no_feeder_values.svg"),
-            toSVG(substG, "/substation_no_feeder_values.svg", noFeederInfoProvider, new BasicStyleProvider()));
+            toSVG(substG, "/substation_no_feeder_values.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl1Optimized() {
-        // Same tests than before, with optimized svg
+        // Same tests as before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_optimized.svg"),
-            toSVG(g1, "/vl1_optimized.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g1, "/vl1_optimized.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl2Optimized() {
-        // Same tests than before, with optimized svg
+        // Same tests as before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl2_optimized.svg"),
-            toSVG(g2, "/vl2_optimized.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g2, "/vl2_optimized.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl3Optimized() {
-        // Same tests than before, with optimized svg
+        // Same tests as before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl3_optimized.svg"),
-            toSVG(g3, "/vl3_optimized.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g3, "/vl3_optimized.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testSubstationOptimized() {
-        // Same tests than before, with optimized svg
+        // Same tests as before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_optimized.svg"),
-            toSVG(substG, "/substation_optimized.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(substG, "/substation_optimized.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testWriteZone() {
         layoutParameters.setShowGrid(false);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/zone.svg"),
-            toSVG(zGraph, "/zone.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(zGraph, "/zone.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testStraightWires() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
         layoutParameters.setDrawStraightWires(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_straightWires.svg"),
-            toSVG(g1, "/vl1_straightWires.svg", labelProvider, styleProvider));
+            toSVG(g1, "/vl1_straightWires.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testTooltip() {
         layoutParameters.setTooltipEnabled(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_tooltip.svg"),
-            toSVG(g1, "/vl1_tooltip.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g1, "/vl1_tooltip.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testMultiLineTooltip() {
-        DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
-            @Override
-            public String getTooltip(Node node) {
-                String tooltip = node.getId();
-                if (node.getType() == Node.NodeType.FEEDER) {
-                    tooltip += "\n" + node.getComponentType();
-                }
-                return tooltip;
-            }
-
-            @Override
-            public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return Collections.emptyList();
-            }
-        };
         layoutParameters.setAvoidSVGComponentsDuplication(true);
         layoutParameters.setTooltipEnabled(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelMultiLineTooltipProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-            toSVG(g1, "/vl1_multiline_tooltip.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(g1, "/vl1_multiline_tooltip.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testLabelOnAllNodes() {
-        // same node label provider example for the test :
-        //
-        DiagramLabelProvider sameNodeLabelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
-            @Override
-            public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
-                LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
-                return Collections.singletonList(new DiagramLabelProvider.NodeLabel("Tests", labelPosition, null));
-            }
+        // same node label provider example for the test:
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelSameNodeProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
 
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
-            }
-        };
-
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", sameNodeLabelProvider, styleProvider));
+                toSVG(g1, "/label_on_all_nodes.svg", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -787,7 +915,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");
             }
         };
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramStyleProvider(styleProvider)
+                .build();
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", labelProvider, styleProvider));
+                toSVG(g1, "/with_frame_background.svg", singleLineDiagramConfiguration));
     }
 }

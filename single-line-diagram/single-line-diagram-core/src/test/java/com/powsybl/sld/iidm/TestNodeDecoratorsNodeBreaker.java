@@ -7,15 +7,18 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.LabelPosition;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +33,33 @@ import static org.junit.Assert.assertEquals;
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
 public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
+
+    DiagramLabelProviderFactory diagramLabelTestProviderFactory = new DefaultDiagramLabelProviderFactory() {
+
+        private static final double SWITCH_DECORATOR_OFFSET = 1d;
+
+        @Override
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+
+                @Override
+                public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                    Objects.requireNonNull(node);
+                    if (node instanceof SwitchNode) {
+                        return Collections.singletonList(new NodeDecorator("LOCK", getSwitchDecoratorPosition((SwitchNode) node)));
+                    }
+                    return Collections.emptyList();
+                }
+
+                private LabelPosition getSwitchDecoratorPosition(SwitchNode node) {
+                    ComponentSize size = componentLibrary.getSize(node.getComponentType());
+                    double yShift = -size.getHeight() / 2;
+                    double xShift = size.getWidth() / 2 + SWITCH_DECORATOR_OFFSET;
+                    return new LabelPosition("DECORATOR", xShift, yShift, false, 0);
+                }
+            };
+        }
+    };
 
     @Before
     public void setUp() {
@@ -46,8 +76,13 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // Run horizontal substation layout
         substationGraphLayout(g);
 
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .build();
+
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -59,32 +94,12 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelTestProviderFactory)
+                .build();
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-            toSVG(g, "/NodeDecoratorsSwitches.svg", new TestDiagramLabelProvider(network), getDefaultDiagramStyleProvider()));
-    }
-
-    private class TestDiagramLabelProvider extends DefaultDiagramLabelProvider {
-
-        private static final double SWITCH_DECORATOR_OFFSET = 1d;
-
-        public TestDiagramLabelProvider(Network network) {
-            super(network, TestNodeDecoratorsNodeBreaker.this.componentLibrary, TestNodeDecoratorsNodeBreaker.this.layoutParameters);
-        }
-
-        @Override
-        public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-            Objects.requireNonNull(node);
-            if (node instanceof SwitchNode) {
-                return Collections.singletonList(new NodeDecorator("LOCK", getSwitchDecoratorPosition((SwitchNode) node)));
-            }
-            return Collections.emptyList();
-        }
-
-        private LabelPosition getSwitchDecoratorPosition(SwitchNode node) {
-            ComponentSize size = componentLibrary.getSize(node.getComponentType());
-            double yShift = -size.getHeight() / 2;
-            double xShift = size.getWidth() / 2 + SWITCH_DECORATOR_OFFSET;
-            return new LabelPosition("DECORATOR", xShift, yShift, false, 0);
-        }
+            toSVG(g, "/NodeDecoratorsSwitches.svg", singleLineDiagramConfiguration));
     }
 }

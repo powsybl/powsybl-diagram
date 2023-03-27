@@ -8,7 +8,11 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -63,31 +67,43 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // many feeder values provider example for the test :
-        DiagramLabelProvider manyFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
-
+        // many feeder values provider example for the test:
+        DiagramLabelProviderFactory diagramLabelManyFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
-                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
-                if (!feederArrowSymmetry) {
-                    Collections.reverse(feederInfos);
-                }
-                return feederInfos;
-            }
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
 
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
+                    @Override
+                    public List<FeederInfo> getFeederInfos(FeederNode node) {
+                        List<FeederInfo> feederInfos = Arrays.asList(
+                                new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
+                                new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                                new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
+                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
+                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                        boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
+                        if (!feederArrowSymmetry) {
+                            Collections.reverse(feederInfos);
+                        }
+                        return feederInfos;
+                    }
+
+                    @Override
+                    public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return new ArrayList<>();
+                    }
+                };
             }
         };
+
         // write SVG and compare to reference
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", manyFeederInfoProvider, new BasicStyleProvider()));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelManyFeederInfoProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -105,7 +121,10 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .build();
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", singleLineDiagramConfiguration));
     }
 
     @Test

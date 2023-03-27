@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
@@ -36,7 +38,11 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(Collections.emptyList());
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg"));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .withLayoutParameters(layoutParameters)
+                .build();
+        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -44,6 +50,10 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(List.of(ComponentTypeName.BREAKER, ComponentTypeName.DISCONNECTOR));
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg"));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .withLayoutParameters(layoutParameters)
+                .build();
+        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", singleLineDiagramConfiguration));
     }
 }

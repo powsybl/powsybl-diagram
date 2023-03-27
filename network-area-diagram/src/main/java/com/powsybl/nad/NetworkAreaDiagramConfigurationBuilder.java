@@ -12,28 +12,31 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 
+import java.util.function.BiFunction;
+
 public class NetworkAreaDiagramConfigurationBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
     StyleProvider styleProvider;
     LabelProvider labelProvider;
+    BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator = DefaultLabelProvider::new;
     LayoutFactory layoutFactory = new BasicForceLayoutFactory();
     IdProvider idProvider = new IntIdProvider();
     Network network;
-    boolean defaultLabelProvider;
+
+    private static <R extends LabelProvider> R factory(Network network, SvgParameters svgParameters, BiFunction<Network, SvgParameters, R> function) {
+        return function.apply(network, svgParameters);
+    }
 
     public NetworkAreaDiagramConfigurationBuilder(Network network) {
         this.network = network;
         this.styleProvider = new TopologicalStyleProvider(network);
-        this.labelProvider = new DefaultLabelProvider(network, svgParameters);
-        defaultLabelProvider = true;
+        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
     }
 
     public NetworkAreaDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
-        if (defaultLabelProvider) {
-            this.labelProvider = new DefaultLabelProvider(network, svgParameters);
-        }
+        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
         return this;
     }
 
@@ -47,9 +50,9 @@ public class NetworkAreaDiagramConfigurationBuilder {
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withLabelProvider(LabelProvider labelProvider) {
-        this.labelProvider = labelProvider;
-        defaultLabelProvider = false;
+    public NetworkAreaDiagramConfigurationBuilder withLabelProviderCreator(BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator) {
+        this.labelProviderCreator = labelProviderCreator;
+        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
         return this;
     }
 

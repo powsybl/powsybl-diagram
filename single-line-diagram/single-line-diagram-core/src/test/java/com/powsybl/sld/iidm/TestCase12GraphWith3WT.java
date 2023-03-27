@@ -8,13 +8,13 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramLabelProviderFactory;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
@@ -261,52 +261,58 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         layoutParameters.setAvoidSVGComponentsDuplication(true)
                 .setAddNodesInfos(true);
 
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
+                .withComponentLibrary(componentLibrary)
+                .withLayoutParameters(layoutParameters)
+                .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
+                .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
+                .build();
+
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json",
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network)));
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
+        // configure diagram
         layoutParameters.setAddNodesInfos(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
+                .withComponentLibrary(new ConvergenceComponentLibrary())
+                .build();
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-
         voltageLevelGraphLayout(g1);
-
-        DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
-
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", initProvider, vNomStyleProvider));
+            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
+        // configure diagram
         layoutParameters.setAddNodesInfos(true);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withDiagramStyleProvider(new TopologicalStyleProvider(network))
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
+                .build();
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-
         voltageLevelGraphLayout(g1);
 
-        DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
-
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", initProvider, topoStyleProvider));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", singleLineDiagramConfiguration));
     }
 
 }

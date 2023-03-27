@@ -156,7 +156,6 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
                         .withSvgParameters(getSvgParameters())
                         .withLayoutParameters(getLayoutParameters())
                         .withStyleProvider(getStyleProvider(network))
-                        .withLabelProvider(getLabelProvider(network))
                         .withLayoutFactory(positionsLayoutFactory)
                         .build(),
                 voltageLevelFilter);

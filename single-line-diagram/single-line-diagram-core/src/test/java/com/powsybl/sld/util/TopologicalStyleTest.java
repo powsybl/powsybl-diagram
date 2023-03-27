@@ -8,6 +8,8 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -138,6 +140,10 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     public void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .build();
+        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", singleLineDiagramConfiguration));
     }
 }

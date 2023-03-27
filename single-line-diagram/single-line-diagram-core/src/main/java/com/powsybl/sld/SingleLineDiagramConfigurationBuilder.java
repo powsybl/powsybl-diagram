@@ -4,10 +4,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.svg.SvgParameters;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 
 public class SingleLineDiagramConfigurationBuilder {
@@ -16,18 +13,18 @@ public class SingleLineDiagramConfigurationBuilder {
     LayoutParameters layoutParameters = new LayoutParameters();
     ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     DiagramLabelProvider diagramLabelProvider;
+    DiagramLabelProviderFactory diagramLabelProviderFactory;
     DiagramStyleProvider diagramStyleProvider;
     VoltageLevelLayoutFactory voltageLevelLayoutFactory;
     SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
     Network network;
-    boolean defaultLabelProvider;
 
     public SingleLineDiagramConfigurationBuilder(Network network) {
         this.network = network;
-        voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network);
-        diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        voltageLevelLayoutFactory = network != null ? new SmartVoltageLevelLayoutFactory(network) : new PositionVoltageLevelLayoutFactory();
+        diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory();
+        diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
         diagramStyleProvider = new TopologicalStyleProvider(network);
-        defaultLabelProvider = true;
     }
 
     public SingleLineDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
@@ -37,23 +34,18 @@ public class SingleLineDiagramConfigurationBuilder {
 
     public SingleLineDiagramConfigurationBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
-        if (defaultLabelProvider) {
-            diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        }
+        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
         return this;
     }
 
     public SingleLineDiagramConfigurationBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
         this.componentLibrary = componentLibrary;
-        if (defaultLabelProvider) {
-            diagramLabelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        }
+        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
         return this;
     }
 
-    public SingleLineDiagramConfigurationBuilder withDiagramLabelProvider(DiagramLabelProvider diagramLabelProvider) {
-        this.diagramLabelProvider = diagramLabelProvider;
-        defaultLabelProvider = false;
+    public SingleLineDiagramConfigurationBuilder withDiagramLabelProviderFactory(DiagramLabelProviderFactory diagramLabelProviderFactory) {
+        this.diagramLabelProvider = diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters);
         return this;
     }
 

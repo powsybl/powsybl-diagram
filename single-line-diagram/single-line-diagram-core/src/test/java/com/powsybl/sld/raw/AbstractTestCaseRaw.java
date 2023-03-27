@@ -6,7 +6,10 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractTestCase;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -27,30 +30,38 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
 
-    protected RawDiagramLabelProvider getRawLabelProvider() {
-        return new RawDiagramLabelProvider(componentLibrary, layoutParameters);
-    }
-
     @Override
     public String toSVG(Graph graph, String filename) {
-        return toSVG(graph, filename, getRawLabelProvider(), new BasicStyleProvider());
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(Network.create("empty", ""))
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelRawProviderFactory)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
+        return toSVG(graph, filename, singleLineDiagramConfiguration);
     }
 
-    private static class RawDiagramLabelProvider extends AbstractDiagramLabelProvider {
-        public RawDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-            super(componentLibrary, layoutParameters);
-        }
-
+    private final DiagramLabelProviderFactory diagramLabelRawProviderFactory = new DefaultDiagramLabelProviderFactory() {
         @Override
-        public List<FeederInfo> getFeederInfos(FeederNode node) {
-            return Arrays.asList(
-                    new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
-                    new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
-        }
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+            return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
 
-        @Override
-        public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-            return new ArrayList<>();
+                @Override
+                public List<FeederInfo> getFeederInfos(FeederNode node) {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
+                }
+
+                @Override
+                public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                    return new ArrayList<>();
+                }
+            };
         }
+    };
+
+    public DiagramLabelProviderFactory getDiagramLabelRawProviderFactory() {
+        return diagramLabelRawProviderFactory;
     }
 }

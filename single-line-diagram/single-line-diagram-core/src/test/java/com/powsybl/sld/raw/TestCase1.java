@@ -11,7 +11,6 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,6 +49,6 @@ public class TestCase1 extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getRawLabelProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCase1.svg"));
     }
 }

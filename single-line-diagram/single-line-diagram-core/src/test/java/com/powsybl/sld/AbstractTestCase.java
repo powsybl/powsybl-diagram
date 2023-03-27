@@ -7,15 +7,12 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.iidm.network.impl.NetworkFactoryImpl;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
@@ -126,14 +123,9 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph, String filename, DiagramLabelProvider diagramLabelProvider, DiagramStyleProvider diagramStyleProvider) {
+    public String toSVG(Graph graph, String filename, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .withLayoutParameters(layoutParameters)
-                    .withComponentLibrary(componentLibrary)
-                    .withDiagramLabelProvider(diagramLabelProvider)
-                    .withDiagramStyleProvider(diagramStyleProvider)
-                    .build();
+
             SingleLineDiagram.draw(graph, writer, new NullWriter(), singleLineDiagramConfiguration);
 
             if (debugSvgFiles) {
@@ -149,22 +141,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName,
-                                VoltageLevelLayoutFactory voltageLevelLayoutFactory,
-                                DiagramLabelProvider diagramLabelProvider, DiagramStyleProvider diagramStyleProvider) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(layoutParameters);
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .withLayoutParameters(layoutParameters)
-                    .withComponentLibrary(componentLibrary)
-                    .withDiagramLabelProvider(diagramLabelProvider)
-                    .withDiagramStyleProvider(diagramStyleProvider)
-                    .build();
+            singleLineDiagramConfiguration.getVoltageLevelLayoutFactory().create(graph).run(layoutParameters);
+
             SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
 
             if (debugJsonFiles) {
@@ -185,23 +170,14 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName,
-                                SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
-                                DiagramLabelProvider diagramLabelProvider, DiagramStyleProvider diagramStyleProvider) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
-            SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(new NetworkFactoryImpl().createNetwork("test", "XIIDM"))
-                    .withLayoutParameters(layoutParameters)
-                    .withComponentLibrary(componentLibrary)
-                    .withDiagramLabelProvider(diagramLabelProvider)
-                    .withDiagramStyleProvider(diagramStyleProvider)
-                    .withVoltageLevelLayoutFactory(vlLayoutFactory)
-                    .build();
+            singleLineDiagramConfiguration.getSubstationLayoutFactory().create(graph, singleLineDiagramConfiguration.getVoltageLevelLayoutFactory()).run(layoutParameters);
             SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
 
             if (debugJsonFiles) {

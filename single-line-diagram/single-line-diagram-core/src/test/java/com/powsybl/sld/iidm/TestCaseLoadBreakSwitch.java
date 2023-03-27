@@ -11,9 +11,10 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,8 @@ import static org.junit.Assert.assertEquals;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
+
+    SingleLineDiagramConfiguration singleLineDiagramConfiguration;
 
     @Before
     public void setUp() {
@@ -46,6 +49,11 @@ public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         createSwitch(vl, "b3", "b3", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 5);
         createSwitch(vl, "b4", "b4", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 6);
         createSwitch(vl, "b5", "b5", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 3);
+
+        singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .build();
     }
 
     @Test
@@ -57,6 +65,6 @@ public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", singleLineDiagramConfiguration));
     }
 }

@@ -8,6 +8,8 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
@@ -48,7 +50,11 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg"));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withComponentLibrary(componentLibrary)
+                .withLayoutParameters(layoutParameters)
+                .build();
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", singleLineDiagramConfiguration));
 
         Network network2 = Network.create("testCase2", "test2");
         DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);

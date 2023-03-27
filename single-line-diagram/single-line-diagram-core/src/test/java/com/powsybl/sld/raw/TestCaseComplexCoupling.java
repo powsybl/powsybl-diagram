@@ -11,7 +11,6 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,6 +54,6 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg"));
     }
 }

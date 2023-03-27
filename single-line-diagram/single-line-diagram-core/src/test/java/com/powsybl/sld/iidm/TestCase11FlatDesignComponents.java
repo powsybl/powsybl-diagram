@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -49,6 +51,10 @@ public class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         String filename = "/TestCase11FlatDesign.svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .build();
+        assertEquals(toString(filename), toSVG(g, filename, singleLineDiagramConfiguration));
     }
 }

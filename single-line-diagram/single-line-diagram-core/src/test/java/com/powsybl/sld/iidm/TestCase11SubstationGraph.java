@@ -7,14 +7,14 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.BasicStyleProvider;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -76,8 +76,12 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // Run horizontal substation layout
         substationGraphLayout(g);
 
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .build();
+
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+        assertEquals(toString(filename), toSVG(g, filename, singleLineDiagramConfiguration));
     }
 
     @Test
@@ -137,11 +141,14 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json",
-                new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new BasicStyleProvider()));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
+                .build();
+
+        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -150,10 +157,13 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json",
-                new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network)));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
+                .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
+                .build();
+
+        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", singleLineDiagramConfiguration));
     }
 }

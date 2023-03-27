@@ -10,9 +10,10 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,6 +40,8 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     private VoltageLevel vl1;
     private VoltageLevel vl2;
     private VoltageLevel vl3;
+
+    SingleLineDiagramConfiguration singleLineDiagramConfiguration;
 
     @Before
     public void setUp() {
@@ -88,6 +91,11 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
                 "L3", 2, ConnectablePosition.Direction.TOP,
                 "L3", 0, ConnectablePosition.Direction.TOP);
 
+        singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .build();
+
     }
 
     @Test
@@ -100,7 +108,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/TestCaseFictitiousBus.svg", singleLineDiagramConfiguration));
     }
 
     @Test
@@ -113,6 +121,6 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", singleLineDiagramConfiguration));
     }
 }

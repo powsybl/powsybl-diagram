@@ -8,16 +8,18 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,16 +90,18 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
-        public NoFeederInfoProvider() {
-            super(NominalVoltageStyleTest.this.network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters);
-        }
-
+    private final DiagramLabelProviderFactory diagramLabelNoFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
         @Override
-        public List<FeederInfo> getFeederInfos(FeederNode node) {
-            return Collections.emptyList();
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+
+                @Override
+                public List<FeederInfo> getFeederInfos(FeederNode node) {
+                    return Collections.emptyList();
+                }
+            };
         }
-    }
+    };
 
     @Test
     public void testAttributes() {
@@ -147,21 +151,39 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     public void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", new NoFeederInfoProvider(), styleProvider));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
+                .withDiagramStyleProvider(styleProvider)
+                .build();
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl2() {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", new NoFeederInfoProvider(), styleProvider));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
+                .withDiagramStyleProvider(styleProvider)
+                .build();
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", singleLineDiagramConfiguration));
     }
 
     @Test
     public void testVl3() {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", new NoFeederInfoProvider(), styleProvider));
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
+                .withDiagramStyleProvider(styleProvider)
+                .build();
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", singleLineDiagramConfiguration));
     }
 
 }

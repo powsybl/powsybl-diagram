@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.extensions.BusbarSectionPositionAdder;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.iidm.network.extensions.ConnectablePositionAdder;
 import com.powsybl.sld.AbstractTestCase;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
@@ -38,7 +39,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph g, String filename) {
-        return toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        return toSVG(g, filename, new SingleLineDiagramConfigurationBuilder(network).build());
     }
 
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
