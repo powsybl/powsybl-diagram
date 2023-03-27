@@ -458,24 +458,24 @@
       "type" : "UNKNOWN_COMPONENT",
       "anchorPoints" : [ {
         "x" : 0.0,
-        "y" : -4.5,
+        "y" : -5.5,
         "orientation" : "VERTICAL"
       }, {
         "x" : 0.0,
-        "y" : 5.0,
+        "y" : 5.5,
         "orientation" : "VERTICAL"
       }, {
-        "x" : -7.5,
+        "x" : -9.5,
         "y" : 0.0,
         "orientation" : "HORIZONTAL"
       }, {
-        "x" : 7.5,
+        "x" : 9.5,
         "y" : 0.0,
         "orientation" : "HORIZONTAL"
       } ],
       "size" : {
-        "width" : 16.0,
-        "height" : 16.0
+        "width" : 20.0,
+        "height" : 20.0
       },
       "transformations" : {},
       "subComponents" : [ {
