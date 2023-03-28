@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
@@ -28,7 +28,7 @@ public class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataEx
     private BusbarSection busbar;
     private final String busbarNodeId = "busbarNodeId";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 
@@ -42,7 +42,7 @@ public class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataEx
         busbar.addExtension(NodeDiagramData.class, busbarDiagramData);
         NetworkDiagramData.addDiagramName(network, basename, "Substation");
 
-        PropertyBag busbarNode = new PropertyBag(Arrays.asList("busbarSection", "busbarNode"));
+        PropertyBag busbarNode = new PropertyBag(Arrays.asList("busbarSection", "busbarNode"), true);
         busbarNode.put("busbarSection", dataNs + busbar.getId());
         busbarNode.put("busbarNode", dataNs + busbarNodeId);
         PropertyBags busbarNodes = new PropertyBags(Collections.singleton(busbarNode));

@@ -6,10 +6,9 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import org.junit.Test;
-
 import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.Network;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -18,7 +17,7 @@ import com.powsybl.iidm.network.Network;
 public class LoadDiagramDataTest extends AbstractInjectionDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithLoad();
         Load load = network.getLoad("Load");
 

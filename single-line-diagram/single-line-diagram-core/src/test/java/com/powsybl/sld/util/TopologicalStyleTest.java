@@ -15,14 +15,14 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DiagramStyles;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -34,7 +34,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl2;
     VoltageLevel vl3;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -81,7 +81,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         // building graphs
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
@@ -135,7 +135,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstation() {
+    void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
         assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));

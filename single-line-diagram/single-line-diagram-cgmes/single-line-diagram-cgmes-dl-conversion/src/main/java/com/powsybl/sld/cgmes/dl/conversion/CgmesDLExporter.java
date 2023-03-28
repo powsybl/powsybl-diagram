@@ -105,7 +105,7 @@ public class CgmesDLExporter {
 
     private void addModel(ExportContext context) {
         PropertyBag modelProperties = new PropertyBag(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, "" +
-                CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON));
+                CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON), true);
         modelProperties.setResourceNames(Arrays.asList(CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.put(CgmesDLModel.MODEL_SCENARIO_TIME, network.getCaseDate().toString());
@@ -119,7 +119,7 @@ public class CgmesDLExporter {
 
     private void addDiagrams(ExportContext context) {
         NetworkDiagramData.getDiagramsNames(network).forEach(diagramName -> {
-            PropertyBag diagramObjectProperties = new PropertyBag(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME, CgmesDLModel.ORIENTATION));
+            PropertyBag diagramObjectProperties = new PropertyBag(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME, CgmesDLModel.ORIENTATION), true);
             diagramObjectProperties.setResourceNames(Arrays.asList(CgmesDLModel.ORIENTATION));
             diagramObjectProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME));
             diagramObjectProperties.put(CgmesDLModel.IDENTIFIED_OBJECT_NAME, diagramName);

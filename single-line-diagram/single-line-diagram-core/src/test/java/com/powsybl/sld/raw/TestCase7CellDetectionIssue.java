@@ -11,12 +11,11 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <PRE>
@@ -29,7 +28,7 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
  */
 public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
@@ -38,7 +37,7 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test() {
+    void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         new ImplicitCellDetector(false).detectCells(g);
         assertEquals(1, g.getCellStream().count());

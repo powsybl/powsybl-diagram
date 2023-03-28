@@ -9,10 +9,9 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Before;
-
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -41,7 +40,7 @@ public abstract class AbstractCgmesDLTest {
     protected PropertyBags busbarNodes;
     protected PropertyBags voltageLevels;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         terminalsPropertyBags = new PropertyBags(Arrays.asList(createTerminalPropertyBag(NAMESPACE + "Generator", "1", 2, 10, 1),
                                                                createTerminalPropertyBag(NAMESPACE + "Generator", "1", 6, 10, 2),
@@ -104,7 +103,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createPropertyBag(String identifiedObject, String name, double x, double y, int seq, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq"), true);
         propertyBag.put("identifiedObject", identifiedObject);
         propertyBag.put("name", name);
         propertyBag.put("x", Double.toString(x));
@@ -119,7 +118,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createPropertyBag(String identifiedObject, String name, double x, double y, int seq, int rotation, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq", "rotation"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq", "rotation"), true);
         propertyBag.put("identifiedObject", identifiedObject);
         propertyBag.put("name", name);
         propertyBag.put("x", Double.toString(x));
@@ -135,7 +134,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createTerminalPropertyBag(String terminalEquipment, String terminalSide, double x, double y, int seq, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("terminalEquipment", "terminalSide", "x", "y", "seq"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("terminalEquipment", "terminalSide", "x", "y", "seq"), true);
         propertyBag.put("terminalEquipment", terminalEquipment);
         propertyBag.put("terminalSide", terminalSide);
         propertyBag.put("x", Double.toString(x));
@@ -150,7 +149,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createBusPropertyBag(String identifiedObject, String name, String voltageLevel, String vlName, double x, double y, int seq, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "voltageLevel", "vlname", "x", "y", "seq"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "voltageLevel", "vlname", "x", "y", "seq"), true);
         propertyBag.put("identifiedObject", identifiedObject);
         propertyBag.put("name", name);
         propertyBag.put("voltageLevel", voltageLevel);
@@ -167,7 +166,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createBusbarPropertyBag(String identifiedObject, String name, double x, double y, int seq, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "seq"), true);
         propertyBag.put("busbarSection", identifiedObject);
         propertyBag.put("name", name);
         propertyBag.put("x", Double.toString(x));
@@ -182,7 +181,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createSwitchPropertyBag(String identifiedObject, String name, double x, double y, int rotation, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "rotation"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("identifiedObject", "name", "x", "y", "rotation"), true);
         propertyBag.put("identifiedObject", identifiedObject);
         propertyBag.put("name", name);
         propertyBag.put("x", Double.toString(x));
@@ -197,7 +196,7 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createTerminal(String terminal, int terminalSide, String equipment) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("terminal", "terminalSide", "equipment"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("terminal", "terminalSide", "equipment"), true);
         propertyBag.put("terminal", terminal);
         propertyBag.put("terminalSide", Integer.toString(terminalSide));
         propertyBag.put("equipment", equipment);
@@ -205,14 +204,14 @@ public abstract class AbstractCgmesDLTest {
     }
 
     protected PropertyBag createBusbarNode(String busbar, String busbarNode) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("busbarNode", "busbarSection"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("busbarNode", "busbarSection"), true);
         propertyBag.put("busbarNode", busbarNode);
         propertyBag.put("busbarSection", busbar);
         return propertyBag;
     }
 
     protected PropertyBag createVoltageLevelPropertyBag(String connectivityNode, String name, String aSwitch, double x, double y, int seq, String diagramName) {
-        PropertyBag propertyBag = new PropertyBag(Arrays.asList("connectivityNode", "switch", "name", "type", "x", "y", "seq"));
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("connectivityNode", "switch", "name", "type", "x", "y", "seq"), true);
         propertyBag.put("connectivityNode", connectivityNode);
         propertyBag.put("switch", aSwitch);
         propertyBag.put("name", name);

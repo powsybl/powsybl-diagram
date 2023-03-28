@@ -7,9 +7,9 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -23,7 +23,7 @@ public class NetworkDiagramDataTest {
     protected static String DIAGRAM_NAME2 = "diagram2";
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithGenerator();
         assertFalse(NetworkDiagramData.checkNetworkDiagramData(network));
         assertEquals(0, NetworkDiagramData.getDiagramsNames(network).size());

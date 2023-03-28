@@ -8,9 +8,9 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Switch;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class SwitchDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithSwitch();
         Switch sw = network.getSwitch("Switch");
 

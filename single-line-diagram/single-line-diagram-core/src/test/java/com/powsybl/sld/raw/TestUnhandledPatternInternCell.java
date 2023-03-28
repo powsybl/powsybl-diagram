@@ -13,20 +13,20 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
@@ -51,7 +51,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test() {
+    void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         Optional<Cell> firstCell = g.getCellStream().findFirst();

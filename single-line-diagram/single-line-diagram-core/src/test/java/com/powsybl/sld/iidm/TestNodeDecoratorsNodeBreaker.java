@@ -16,14 +16,14 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.LabelPosition;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -31,14 +31,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = CreateNetworksUtil.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
         graphBuilder = new NetworkGraphBuilder(network);
     }
 
     @Test
-    public void testBranchStatusDecorators() {
+    void testBranchStatusDecorators() {
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph("S1");
@@ -51,7 +51,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSwitchDecorators() {
+    void testSwitchDecorators() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 

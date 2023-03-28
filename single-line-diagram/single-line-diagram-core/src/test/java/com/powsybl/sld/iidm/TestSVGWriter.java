@@ -18,8 +18,8 @@ import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ import java.util.List;
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 import static com.powsybl.sld.model.nodes.NodeSide.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -580,7 +580,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         zGraph.setSize(240, 1300);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         createVoltageLevelGraphs();
         createSubstationGraph();
@@ -627,27 +627,27 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl1() {
+    void testVl1() {
         assertEquals(toString("/vl1.svg"),
             toSVG(g1, "/vl1.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testVl1CssExternalImported() {
+    void testVl1CssExternalImported() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_IMPORTED);
         assertEquals(toString("/vl1_external_css.svg"),
                 toSVG(g1, "/vl1_external_css.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testVl1CssExternalNoImport() {
+    void testVl1CssExternalNoImport() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
         assertEquals(toString("/vl1_external_css_no_import.svg"),
             toSVG(g1, "/vl1_external_css_no_import.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testVl2() {
+    void testVl2() {
         assertEquals(toString("/vl2.svg"),
             toSVG(g2, "/vl2.svg", labelProvider, new BasicStyleProvider()));
     }
@@ -659,14 +659,14 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstation() {
+    void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
             toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
     }
 
     @Test
-    public void testSubstationArrowSymmetry() {
+    void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         layoutParameters.setFeederInfoSymmetry(true);
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
@@ -674,14 +674,14 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationNoFeederInfos() {
+    void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
             toSVG(substG, "/substation_no_feeder_values.svg", noFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testVl1Optimized() {
+    void testVl1Optimized() {
         // Same tests than before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/vl1_optimized.svg"),
@@ -689,7 +689,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl2Optimized() {
+    void testVl2Optimized() {
         // Same tests than before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/vl2_optimized.svg"),
@@ -697,7 +697,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl3Optimized() {
+    void testVl3Optimized() {
         // Same tests than before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/vl3_optimized.svg"),
@@ -705,7 +705,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationOptimized() {
+    void testSubstationOptimized() {
         // Same tests than before, with optimized svg
         layoutParameters.setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/substation_optimized.svg"),
@@ -713,14 +713,14 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testWriteZone() {
+    void testWriteZone() {
         layoutParameters.setShowGrid(false);
         assertEquals(toString("/zone.svg"),
             toSVG(zGraph, "/zone.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testStraightWires() {
+    void testStraightWires() {
         DiagramStyleProvider styleProvider = new BasicStyleProvider();
         layoutParameters.setDrawStraightWires(true);
         assertEquals(toString("/vl1_straightWires.svg"),
@@ -728,14 +728,14 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testTooltip() {
+    void testTooltip() {
         layoutParameters.setTooltipEnabled(true);
         assertEquals(toString("/vl1_tooltip.svg"),
             toSVG(g1, "/vl1_tooltip.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void testMultiLineTooltip() {
+    void testMultiLineTooltip() {
         DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public String getTooltip(Node node) {
@@ -758,7 +758,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testLabelOnAllNodes() {
+    void testLabelOnAllNodes() {
         // same node label provider example for the test :
         //
         DiagramLabelProvider sameNodeLabelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
@@ -780,7 +780,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testWithGreyFrameBackground() {
+    void testWithGreyFrameBackground() {
         DiagramStyleProvider styleProvider = new BasicStyleProvider() {
             @Override
             public List<String> getCssFilenames() {

@@ -12,10 +12,11 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <pre>
@@ -32,7 +33,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase3TripleCoupling extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCase2", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -57,7 +58,7 @@ public class TestCase3TripleCoupling extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
@@ -69,7 +70,7 @@ public class TestCase3TripleCoupling extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testDisconnectorOpen() {
+    void testDisconnectorOpen() {
         // the displayed result should remain the same in terms of intern cells order after opening a switch
         network.getSwitch("d3").setOpen(true);
 

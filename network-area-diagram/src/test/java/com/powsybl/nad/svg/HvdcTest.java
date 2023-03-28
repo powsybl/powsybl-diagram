@@ -13,18 +13,17 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public class HvdcTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
@@ -43,7 +42,7 @@ public class HvdcTest extends AbstractTest {
     }
 
     @Test
-    public void testHvdcVL1Depth1() {
+    void testHvdcVL1Depth1() {
         Network network = HvdcTestNetwork.createVsc();
         assertEquals(
                 toString("/hvdc-vl-depth-1.svg"),

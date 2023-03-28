@@ -11,7 +11,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
 import com.powsybl.triplestore.api.PropertyBags;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class VoltageLevelDiagramDataExporterTest extends AbstractVoltageLevelDia
     private final String voltageLevelId = "VoltageLevel1";
     private final String nId = "2";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

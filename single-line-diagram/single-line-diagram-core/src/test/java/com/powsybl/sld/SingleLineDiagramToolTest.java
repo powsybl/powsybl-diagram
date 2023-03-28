@@ -14,10 +14,8 @@ import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolRunningContext;
 import com.powsybl.tools.test.AbstractToolTest;
 import org.apache.commons.cli.CommandLine;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -27,7 +25,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,9 +36,6 @@ public class SingleLineDiagramToolTest extends AbstractToolTest {
 
     private SingleLineDiagramTool tool;
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private ToolRunningContext runningContext;
 
     private CommandLine commandLine;
@@ -48,7 +43,7 @@ public class SingleLineDiagramToolTest extends AbstractToolTest {
     private static final String COMMAND_NAME = "generate-substation-diagram";
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
         tool = new SingleLineDiagramTool();
@@ -94,25 +89,23 @@ public class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    public void missingInputFileOptions() {
+    void missingInputFileOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(false);
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("input-file option is missing");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("input-file option is missing"));
     }
 
     @Test
-    public void missingOutputDirOptions() {
+    void missingOutputDirOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(false);
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("output-dir option is missing");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("output-dir option is missing"));
     }
 
     @Test
-    public void generateSome() throws IOException {
+    void generateSome() throws IOException {
         String ids = "VLGEN";
 
         when(commandLine.hasOption("input-file")).thenReturn(true);
@@ -134,7 +127,7 @@ public class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    public void generateWithAllVoltageLevels() throws IOException {
+    void generateWithAllVoltageLevels() throws IOException {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(true);
@@ -157,7 +150,7 @@ public class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    public void generateWithAllSubstations() throws IOException {
+    void generateWithAllSubstations() throws IOException {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(true);

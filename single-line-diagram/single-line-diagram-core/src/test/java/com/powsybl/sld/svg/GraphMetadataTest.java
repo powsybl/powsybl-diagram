@@ -17,11 +17,10 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.nio.file.FileSystem;
@@ -31,7 +30,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static org.junit.Assert.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -44,19 +42,19 @@ public class GraphMetadataTest {
     private FileSystem fileSystem;
     private Path tmpDir;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         fileSystem.close();
     }
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
@@ -77,18 +75,18 @@ public class GraphMetadataTest {
         GraphMetadata metadata2 = objectMapper.readValue(json, GraphMetadata.class);
         assertEquals(1, metadata2.getComponentMetadata().size());
         assertNotNull(metadata2.getComponentMetadata(BREAKER));
-        Assert.assertEquals(1, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().size());
-        Assert.assertEquals(5, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
-        Assert.assertEquals(4, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
-        Assert.assertEquals(AnchorOrientation.NONE, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        Assert.assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        Assert.assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(1, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().size());
+        assertEquals(5, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
+        assertEquals(4, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
+        assertEquals(AnchorOrientation.NONE, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
+        assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
+        assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
         assertEquals(2, metadata2.getNodeMetadata().size());
         assertNotNull(metadata2.getNodeMetadata("id1"));
         assertEquals("id1", metadata2.getNodeMetadata("id1").getId());
         assertEquals("vid1", metadata2.getNodeMetadata("id1").getVId());
-        Assert.assertEquals(BREAKER, metadata2.getNodeMetadata("id1").getComponentType());
-        Assert.assertEquals(BUSBAR_SECTION, metadata2.getNodeMetadata("id2").getComponentType());
+        assertEquals(BREAKER, metadata2.getNodeMetadata("id1").getComponentType());
+        assertEquals(BUSBAR_SECTION, metadata2.getNodeMetadata("id2").getComponentType());
         assertEquals("id2", metadata2.getNodeMetadata("id2").getId());
         assertEquals("vid2", metadata2.getNodeMetadata("id2").getVId());
         assertNotNull(metadata2.getNodeMetadata("id1").getLabels());
@@ -124,18 +122,18 @@ public class GraphMetadataTest {
         GraphMetadata metadata3 = GraphMetadata.parseJson(meta);
         assertEquals(1, metadata3.getComponentMetadata().size());
         assertNotNull(metadata3.getComponentMetadata(BREAKER));
-        Assert.assertEquals(1, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().size());
-        Assert.assertEquals(5, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
-        Assert.assertEquals(4, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
-        Assert.assertEquals(AnchorOrientation.NONE, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        Assert.assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        Assert.assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(1, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().size());
+        assertEquals(5, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
+        assertEquals(4, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
+        assertEquals(AnchorOrientation.NONE, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
+        assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
+        assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
         assertEquals(2, metadata3.getNodeMetadata().size());
         assertNotNull(metadata3.getNodeMetadata("id1"));
         assertEquals("id1", metadata3.getNodeMetadata("id1").getId());
         assertEquals("vid1", metadata3.getNodeMetadata("id1").getVId());
-        Assert.assertEquals(BREAKER, metadata3.getNodeMetadata("id1").getComponentType());
-        Assert.assertEquals(BUSBAR_SECTION, metadata3.getNodeMetadata("id2").getComponentType());
+        assertEquals(BREAKER, metadata3.getNodeMetadata("id1").getComponentType());
+        assertEquals(BUSBAR_SECTION, metadata3.getNodeMetadata("id2").getComponentType());
         assertEquals("id2", metadata3.getNodeMetadata("id2").getId());
         assertEquals("vid2", metadata3.getNodeMetadata("id2").getVId());
         assertNotNull(metadata3.getNodeMetadata("id2"));
@@ -149,7 +147,7 @@ public class GraphMetadataTest {
     }
 
     @Test
-    public void testGraphMetadataWithLine() throws IOException {
+    void testGraphMetadataWithLine() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));

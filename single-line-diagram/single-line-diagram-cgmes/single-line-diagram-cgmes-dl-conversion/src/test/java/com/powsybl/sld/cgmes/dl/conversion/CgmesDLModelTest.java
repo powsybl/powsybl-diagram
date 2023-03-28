@@ -6,10 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.powsybl.triplestore.api.PropertyBags;
@@ -18,6 +16,8 @@ import com.powsybl.triplestore.api.TripleStore;
 
 import java.util.Arrays;
 import java.util.HashSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -29,7 +29,7 @@ public class CgmesDLModelTest extends AbstractCgmesDLTest {
     protected QueryCatalog queryCatalog;
     protected CgmesDLModel cgmesDLModel;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
         tripleStore = Mockito.mock(TripleStore.class);
@@ -61,91 +61,91 @@ public class CgmesDLModelTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void getTerminalsDiagramData() {
+    void getTerminalsDiagramData() {
         assertEquals(terminalsPropertyBags, cgmesDLModel.getTerminalsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.TERMINAL_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getTerminalsDiagramData());
     }
 
     @Test
-    public void getBusesDiagramData() {
+    void getBusesDiagramData() {
         assertEquals(busesPropertyBags, cgmesDLModel.getBusesDiagramData());
         removeQueryCatalogKey(CgmesDLModel.BUS_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getBusesDiagramData());
     }
 
     @Test
-    public void getBusbarsDiagramData() {
+    void getBusbarsDiagramData() {
         assertEquals(busbarsPropertyBags, cgmesDLModel.getBusbarsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.BUSBAR_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getBusbarsDiagramData());
     }
 
     @Test
-    public void getLinesDiagramData() {
+    void getLinesDiagramData() {
         assertEquals(busbarsPropertyBags, cgmesDLModel.getLinesDiagramData());
         removeQueryCatalogKey(CgmesDLModel.LINE_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getLinesDiagramData());
     }
 
     @Test
-    public void getGeneratorsDiagramData() {
+    void getGeneratorsDiagramData() {
         assertEquals(generatorsPropertyBags, cgmesDLModel.getGeneratorsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.GENERATOR_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getGeneratorsDiagramData());
     }
 
     @Test
-    public void getLoadsDiagramData() {
+    void getLoadsDiagramData() {
         assertEquals(loadsPropertyBags, cgmesDLModel.getLoadsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.LOAD_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getLoadsDiagramData());
     }
 
     @Test
-    public void getShuntsDiagramData() {
+    void getShuntsDiagramData() {
         assertEquals(shuntsPropertyBags, cgmesDLModel.getShuntsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.SHUNT_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getShuntsDiagramData());
     }
 
     @Test
-    public void getSwitchesDiagramData() {
+    void getSwitchesDiagramData() {
         assertEquals(switchesPropertyBags, cgmesDLModel.getSwitchesDiagramData());
         removeQueryCatalogKey(CgmesDLModel.SWITCH_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getSwitchesDiagramData());
     }
 
     @Test
-    public void getTransformersDiagramData() {
+    void getTransformersDiagramData() {
         assertEquals(tranformersPropertyBags, cgmesDLModel.getTransformersDiagramData());
         removeQueryCatalogKey(CgmesDLModel.TRANSFORMER_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getTransformersDiagramData());
     }
 
     @Test
-    public void getHvdcLineDiagramData() {
+    void getHvdcLineDiagramData() {
         assertEquals(hvdcLinesPropertyBags, cgmesDLModel.getHvdcLinesDiagramData());
         removeQueryCatalogKey(CgmesDLModel.HVDC_LINE_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getHvdcLinesDiagramData());
     }
 
     @Test
-    public void getSvcsDiagramData() {
+    void getSvcsDiagramData() {
         assertEquals(svcsPropertyBags, cgmesDLModel.getSvcsDiagramData());
         removeQueryCatalogKey(CgmesDLModel.SVC_DIAGRAM_DATA_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getSvcsDiagramData());
     }
 
     @Test
-    public void getTerminals() {
+    void getTerminals() {
         assertEquals(terminals, cgmesDLModel.getTerminals());
         removeQueryCatalogKey(CgmesDLModel.TERMINALS_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getTerminals());
     }
 
     @Test
-    public void getBusbarNodes() {
+    void getBusbarNodes() {
         assertEquals(busbarNodes, cgmesDLModel.getBusbarNodes());
         removeQueryCatalogKey(CgmesDLModel.BUSBAR_NODES_QUERY_KEY);
         assertEquals(new PropertyBags(), cgmesDLModel.getBusbarNodes());

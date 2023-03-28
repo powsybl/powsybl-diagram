@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.library;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.UncheckedIOException;
@@ -14,9 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -53,7 +51,7 @@ public class ComponentsTest {
         "}"};
 
     @Test
-    public void test() {
+    void test() {
         String componentJSon = String.join(System.lineSeparator(), CHAR_SEQUENCES);
 
         ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
@@ -77,7 +75,7 @@ public class ComponentsTest {
     }
 
     @Test
-    public void testBadLoading() {
+    void testBadLoading() {
         // Remove last character in order to raise UncheckedIOException
         String componentJSon = String.join(System.lineSeparator(), Arrays.toString(CHAR_SEQUENCES).substring(0, CHAR_SEQUENCES.length - 1));
 

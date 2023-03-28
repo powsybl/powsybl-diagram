@@ -17,12 +17,12 @@ import com.powsybl.sld.layout.TopologyCalculation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <PRE>
@@ -43,7 +43,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestTopologyCalculation extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -87,7 +87,7 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         TopologyCalculation topologyCalculation = new TopologyCalculation();

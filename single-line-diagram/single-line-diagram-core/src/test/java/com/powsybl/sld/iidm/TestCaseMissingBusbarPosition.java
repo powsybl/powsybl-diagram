@@ -10,10 +10,11 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <PRE>
@@ -33,7 +34,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCaseMissingBusbarPosition extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -52,7 +53,7 @@ public class TestCaseMissingBusbarPosition extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void busApartTest() {
+    void busApartTest() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
@@ -64,7 +65,7 @@ public class TestCaseMissingBusbarPosition extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void busParallelTest() {
+    void busParallelTest() {
         createSwitch(vl, "d2l", "d2l", SwitchKind.DISCONNECTOR, false, false, false, 3, 1);
 
         // build graph

@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import java.util.Collections;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
@@ -26,7 +26,7 @@ public abstract class AbstractInjectionDiagramDataExporterTest extends AbstractC
     protected final DiagramPoint terminalPoint2 = new DiagramPoint(15, 10, 2);
     protected final String terminalId = "terminalId";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

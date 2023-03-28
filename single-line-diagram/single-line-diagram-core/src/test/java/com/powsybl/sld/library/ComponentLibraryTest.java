@@ -6,11 +6,12 @@
  */
 package com.powsybl.sld.library;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -18,7 +19,7 @@ import static org.junit.Assert.*;
 public class ComponentLibraryTest {
 
     @Test
-    public void test() {
+    void test() {
         List<ComponentLibrary> libraries = ComponentLibrary.findAll();
         assertEquals(2, libraries.size());
         ComponentLibrary cvg = ComponentLibrary.find("Convergence").orElse(null);

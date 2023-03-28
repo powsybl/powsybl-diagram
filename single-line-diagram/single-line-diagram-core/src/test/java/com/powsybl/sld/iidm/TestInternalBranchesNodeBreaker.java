@@ -11,17 +11,17 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
 public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = CreateNetworksUtil.createNodeBreakerNetworkWithInternalBranches("TestInternalBranchesNodeBreaker", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -29,7 +29,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVLGraph() {
+    void testVLGraph() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
@@ -43,7 +43,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationGraphH() {
+    void testSubstationGraphH() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
@@ -54,7 +54,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationGraphV() {
+    void testSubstationGraphV() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 

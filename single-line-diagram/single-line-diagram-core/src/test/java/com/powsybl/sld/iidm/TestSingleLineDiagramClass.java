@@ -14,9 +14,9 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import org.apache.commons.io.output.NullWriter;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,8 +26,8 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -37,12 +37,12 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     private FileSystem fileSystem;
     private Path tmpDir;
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         fileSystem.close();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
@@ -73,7 +73,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSvgVl1() throws IOException {
+    void testSvgVl1() throws IOException {
         String expected = toString("/TestSldClassVl.svg");
         String expectedMetadata = toString("/TestSldClassVlMetadata.json");
         assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg", "/TestSldClassVlMetadata.json"));
@@ -94,7 +94,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testMetadataSubs() {
+    void testMetadataSubs() {
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         try (Writer writer = new NullWriter();
              StringWriter metadataWriter = new StringWriter()) {
@@ -106,7 +106,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSvgSubs() throws IOException {
+    void testSvgSubs() throws IOException {
         String expected = fixSvg(toString("/TestSldClassSubstation.svg"));
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
@@ -138,7 +138,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testIdNotFound() {
+    void testIdNotFound() {
         Path svgPath = tmpDir.resolve("result.svg");
         PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
         assertEquals("Network element 'foo' not found", exception.getMessage());

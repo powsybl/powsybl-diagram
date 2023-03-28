@@ -11,18 +11,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class LimitsTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -40,7 +39,7 @@ public class LimitsTest extends AbstractTest {
     }
 
     @Test
-    public void testVoltageLimits() {
+    void testVoltageLimits() {
         Network network = NetworkTestFactory.createTwoVoltageLevelsThreeBuses();
         network.getVoltageLevel("vl1")
                 .setHighVoltageLimit(385)
@@ -52,7 +51,7 @@ public class LimitsTest extends AbstractTest {
     }
 
     @Test
-    public void testCurrentLimits() {
+    void testCurrentLimits() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         network.getLine("l1").newCurrentLimits1().setPermanentLimit(250).add();
         network.getLine("l1").getTerminal1().setP(101).setQ(150).getBusView().getBus().setV(390);

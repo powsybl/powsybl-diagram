@@ -12,18 +12,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public class DanglingLineTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -42,13 +41,13 @@ public class DanglingLineTest extends AbstractTest {
     }
 
     @Test
-    public void testConnected() {
+    void testConnected() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         assertEquals(toString("/dangling_line_connected.svg"), generateSvgString(network, "/dangling_line_connected.svg"));
     }
 
     @Test
-    public void testDisconnected() {
+    void testDisconnected() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         network.getDanglingLines().iterator().next().getTerminal().disconnect();
         assertEquals(toString("/dangling_line_disconnected.svg"), generateSvgString(network, "/dangling_line_disconnected.svg"));

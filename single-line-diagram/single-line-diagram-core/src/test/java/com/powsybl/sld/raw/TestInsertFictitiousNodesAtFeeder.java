@@ -13,11 +13,11 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BasicStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * testFeederOnBus
@@ -40,12 +40,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
     }
 
     @Test
-    public void testFeederOnBus() {
+    void testFeederOnBus() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", NodeSide.ONE, 0, null);
@@ -56,7 +56,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void testFeederOnBusDisconnector() {
+    void testFeederOnBusDisconnector() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode busDisconnector = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "busDisconnector", false, false);

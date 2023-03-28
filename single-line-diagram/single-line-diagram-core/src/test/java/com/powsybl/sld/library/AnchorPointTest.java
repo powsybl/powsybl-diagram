@@ -7,9 +7,9 @@
 package com.powsybl.sld.library;
 
 import com.powsybl.sld.model.coordinate.Orientation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class AnchorPointTest {
 
     @Test
-    public void rotationTest() {
+    void rotationTest() {
         AnchorPoint anchorPoint1 = new AnchorPoint(0, -10, AnchorOrientation.VERTICAL);
         AnchorPoint anchorPoint2 = new AnchorPoint(0, 10, AnchorOrientation.VERTICAL);
         AnchorPoint rotatedAnchorPoint1 = anchorPoint1.transformAnchorPoint(Orientation.LEFT, Component.Transformation.ROTATION);

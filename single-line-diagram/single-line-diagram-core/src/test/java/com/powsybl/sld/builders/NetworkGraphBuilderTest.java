@@ -8,10 +8,10 @@ package com.powsybl.sld.builders;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class NetworkGraphBuilderTest {
 
     @Test
-    public void isCapacitorTest() {
+    void isCapacitorTest() {
         Network network = EurostagTutorialExample1Factory.create();
         VoltageLevel vlload = network.getVoltageLevel("VLLOAD");
         ShuntCompensator sc = vlload.newShuntCompensator()

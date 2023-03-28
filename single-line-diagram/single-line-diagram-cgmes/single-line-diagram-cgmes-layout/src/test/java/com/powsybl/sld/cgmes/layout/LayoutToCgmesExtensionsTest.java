@@ -8,13 +8,14 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -23,7 +24,7 @@ public class LayoutToCgmesExtensionsTest {
 
     private List<Network> networks = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         createNetworks();
     }
@@ -158,12 +159,12 @@ public class LayoutToCgmesExtensionsTest {
     }
 
     @Test
-    public void testCgmesDlExtensionsEmpty() {
+    void testCgmesDlExtensionsEmpty() {
         networks.stream().forEach(this::checkExtensionsUnset);
     }
 
     @Test
-    public void testCgmesDlExtensionsSet() {
+    void testCgmesDlExtensionsSet() {
         networks.stream().forEach(network -> {
             LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
             lconv.convertLayout(network, "new-diagram");
@@ -172,7 +173,7 @@ public class LayoutToCgmesExtensionsTest {
     }
 
     @Test
-    public void testCgmesDlExtensionsSetNoname() {
+    void testCgmesDlExtensionsSetNoname() {
         networks.stream().forEach(network -> {
             LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
             lconv.convertLayout(network);
@@ -181,7 +182,7 @@ public class LayoutToCgmesExtensionsTest {
     }
 
     @Test
-    public void testCgmesDlExtensionsEmptyNetwork() {
+    void testCgmesDlExtensionsEmptyNetwork() {
         Network network = NetworkFactory.findDefault().createNetwork("testEmpty", "testEmpty");
         LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
         lconv.convertLayout(network, null);
@@ -190,7 +191,7 @@ public class LayoutToCgmesExtensionsTest {
     }
 
     @Test
-    public void testCgmesDlExtensionsBridgePatternNetwork() {
+    void testCgmesDlExtensionsBridgePatternNetwork() {
         Network network = Networks.createNetworkWithBridge();
 
         LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();

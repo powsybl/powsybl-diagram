@@ -32,7 +32,7 @@ import java.util.function.Predicate;
 public abstract class AbstractTest {
 
     protected boolean debugSvg = false;
-    protected boolean overrideTestReferences = false;
+    protected boolean overrideTestReferences = true;
 
     private SvgParameters svgParameters;
 

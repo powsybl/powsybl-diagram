@@ -15,11 +15,11 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BasicStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 public class TestAddExternalComponent extends AbstractTestCaseRaw {
     private static final String CHEESE = "CHEESE";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
@@ -47,7 +47,7 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test() {
+    void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCheese.svg"),

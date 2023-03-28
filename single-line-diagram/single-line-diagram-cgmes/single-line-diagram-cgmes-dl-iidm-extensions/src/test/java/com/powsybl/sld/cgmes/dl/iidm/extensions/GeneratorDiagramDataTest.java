@@ -8,9 +8,9 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Network;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class GeneratorDiagramDataTest extends AbstractInjectionDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithGenerator();
         Generator generator = network.getGenerator("Generator");
 

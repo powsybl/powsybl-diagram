@@ -17,18 +17,18 @@ import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = NetworkFactory.createTestCase11Network();
         substation = network.getSubstation("subst");
@@ -36,7 +36,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontal() {
+    void testHorizontal() {
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
@@ -48,22 +48,22 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontalFirstAlignment() {
+    void testHorizontalFirstAlignment() {
         runHorizontalALignmentTest(LayoutParameters.Alignment.FIRST);
     }
 
     @Test
-    public void testHorizontalLastAlignment() {
+    void testHorizontalLastAlignment() {
         runHorizontalALignmentTest(LayoutParameters.Alignment.LAST);
     }
 
     @Test
-    public void testHorizontalMiddleAlignment() {
+    void testHorizontalMiddleAlignment() {
         runHorizontalALignmentTest(LayoutParameters.Alignment.MIDDLE);
     }
 
     @Test
-    public void testHorizontalNoneAlignment() {
+    void testHorizontalNoneAlignment() {
         runHorizontalALignmentTest(LayoutParameters.Alignment.NONE);
     }
 
@@ -81,7 +81,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVertical() {
+    void testVertical() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
@@ -92,7 +92,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testRight3wtOrientation() {
+    void testRight3wtOrientation() {
         // build substation graph
         network.getThreeWindingsTransformer("trf7").remove();
         createThreeWindingsTransformer(substation, "trf7", "trf7", "vl3", "vl2", "vl1",
@@ -112,7 +112,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testLeft3wtOrientation() {
+    void testLeft3wtOrientation() {
         // build substation graph
         network.getThreeWindingsTransformer("trf7").remove();
         createThreeWindingsTransformer(substation, "trf7", "trf7", "vl2", "vl1", "vl3",
@@ -132,7 +132,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontalDefaultStyle() {
+    void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
@@ -145,7 +145,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontalNominalStyle() {
+    void testHorizontalNominalStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());

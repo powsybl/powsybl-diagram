@@ -16,9 +16,10 @@ import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -28,8 +29,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -44,8 +43,8 @@ public class DiagramMetadataTest extends AbstractTest {
     private FileSystem fileSystem;
     private Path tmpDir;
 
-    @Before
-    public void setup() throws IOException {
+    @BeforeEach
+    void setup() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("tmp"));
         setLayoutParameters(new LayoutParameters());
@@ -55,8 +54,8 @@ public class DiagramMetadataTest extends AbstractTest {
                 .setFixedWidth(800));
     }
 
-    @After
-    public void tearDown() throws IOException {
+    @AfterEach
+    void tearDown() throws IOException {
         fileSystem.close();
     }
 
@@ -71,7 +70,7 @@ public class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
-    public void test() throws XMLStreamException {
+    void test() throws XMLStreamException {
         // Referenced svg file
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
@@ -92,7 +91,7 @@ public class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
-    public void testInvalid() throws XMLStreamException {
+    void testInvalid() throws XMLStreamException {
         // Referenced svg file
         String reference = "<metadata>\n" +
                 "        <nad:nad xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +

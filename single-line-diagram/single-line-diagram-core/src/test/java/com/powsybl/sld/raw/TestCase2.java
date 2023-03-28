@@ -13,11 +13,11 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <pre>
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase2 extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         buildVl("vl");
         buildVl("vlUnstack");
@@ -59,14 +59,14 @@ public class TestCase2 extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void testStacked() {
+    void testStacked() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase2Stacked.json"), toJson(g, "/TestCase2Stacked.json"));
     }
 
     @Test
-    public void testUnstacked() {
+    void testUnstacked() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack");
         new PositionVoltageLevelLayoutFactory()
                 .setFeederStacked(false)

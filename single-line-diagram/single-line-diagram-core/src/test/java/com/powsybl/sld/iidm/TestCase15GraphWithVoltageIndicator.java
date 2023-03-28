@@ -14,14 +14,14 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -51,7 +51,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     private DiagramLabelProvider withIncompleteBusInfoProvider;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         network = CreateNetworksUtil.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
@@ -105,12 +105,12 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testWithoutBusInfo() {
+    void testWithoutBusInfo() {
         runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters));
     }
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         DiagramStyleProvider styleProvider = new BasicStyleProvider() {
             @Override
             public Optional<String> getBusInfoStyle(BusInfo info) {
@@ -121,7 +121,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testTopological() {
+    void testTopological() {
         DiagramStyleProvider styleProvider = new TopologicalStyleProvider(network) {
             @Override
             public Optional<String> getBusInfoStyle(BusInfo info) {

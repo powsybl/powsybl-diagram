@@ -8,10 +8,10 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.iidm.network.Network;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 public class DanglingLineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithDanglingLine();
         DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
 
@@ -39,7 +39,7 @@ public class DanglingLineDiagramDataTest extends AbstractLineDiagramDataTest {
     }
 
     @Test
-    public void testMultipleDiagrams() {
+    void testMultipleDiagrams() {
         Network network = Networks.createNetworkWithDanglingLine();
         DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
 

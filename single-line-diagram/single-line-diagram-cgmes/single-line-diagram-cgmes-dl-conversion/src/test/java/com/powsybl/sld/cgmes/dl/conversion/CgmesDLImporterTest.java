@@ -9,14 +9,15 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.triplestore.api.PropertyBags;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -28,7 +29,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
 
     private CgmesDLModel cgmesDLModel;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
         addOtherDiagram();
@@ -101,7 +102,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testBuses() {
+    void testBuses() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithBus(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -113,7 +114,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testBusbars() {
+    void testBusbars() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithBusbar(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -141,7 +142,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testLines() {
+    void testLines() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -153,7 +154,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testDanglingLines() {
+    void testDanglingLines() {
         Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(danglingLinesPropertyBags);
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithDanglingLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
@@ -166,7 +167,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testHvdcLines() {
+    void testHvdcLines() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithHvdcLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -195,7 +196,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testGenerators() {
+    void testGenerators() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithGenerator(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -207,7 +208,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testLoads() {
+    void testLoads() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithLoad(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -219,7 +220,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testShunts() {
+    void testShunts() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithShuntCompensator(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -231,7 +232,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testSvcs() {
+    void testSvcs() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithStaticVarCompensator(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -267,7 +268,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testSwitches() {
+    void testSwitches() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithSwitch(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -279,7 +280,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testTransformers() {
+    void testTransformers() {
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithTwoWindingsTransformer(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
@@ -319,7 +320,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testTransformers3w() {
+    void testTransformers3w() {
         Mockito.when(cgmesDLModel.getTransformersDiagramData()).thenReturn(tranformers3wPropertyBags);
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithThreeWindingsTransformer(), cgmesDLModel);
         cgmesDLImporter.importDLData();
@@ -332,7 +333,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testRemoveExtensions() {
+    void testRemoveExtensions() {
         Mockito.when(cgmesDLModel.getTransformersDiagramData()).thenReturn(tranformers3wPropertyBags);
         CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithLoad(), cgmesDLModel);
         cgmesDLImporter.importDLData();
@@ -346,7 +347,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    public void testVoltageLevels() {
+    void testVoltageLevels() {
         voltageLevels = new PropertyBags(Arrays.asList(createVoltageLevelPropertyBag(NAMESPACE + "2", "2", "Breaker1", 0, 0, 0)));
         Mockito.when(cgmesDLModel.getVoltageLevelDiagramData()).thenReturn(voltageLevels);
         Network network = Networks.createNetworkWithDoubleBusbarSections();

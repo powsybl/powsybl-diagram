@@ -15,14 +15,14 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.AnimatedFeederInfoStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <PRE>
@@ -39,7 +39,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestFeederInfos extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCase14", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -52,7 +52,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testManyFeederInfos() {
+    void testManyFeederInfos() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
@@ -91,7 +91,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testFrenchFormatting() {
+    void testFrenchFormatting() {
         // Add power values to the load
         network.getLoad("l").getTerminal().setP(1200.29);
         network.getLoad("l").getTerminal().setQ(-1);
@@ -109,7 +109,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testAnimation() {
+    void testAnimation() {
         // Add load at bottom
         createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
         createLoad(vl, "l2", "l2", "l2", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);

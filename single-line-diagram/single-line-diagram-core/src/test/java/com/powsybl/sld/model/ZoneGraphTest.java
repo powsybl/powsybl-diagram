@@ -14,13 +14,13 @@ import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
 import org.joda.time.DateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
@@ -82,7 +82,7 @@ public class ZoneGraphTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         List<String> zone = Arrays.asList(SUBSTATION_ID_1, SUBSTATION_ID_2);
         ZoneGraph graph = new NetworkGraphBuilder(createNetwork()).buildZoneGraph(zone);
         assertEquals(2, graph.getSubstations().size());

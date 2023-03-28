@@ -7,7 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
@@ -23,7 +23,7 @@ public class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagram
 
     private Switch sw;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

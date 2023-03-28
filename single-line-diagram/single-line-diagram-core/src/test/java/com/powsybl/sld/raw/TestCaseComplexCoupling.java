@@ -12,10 +12,10 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BasicStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
@@ -50,7 +50,7 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test() {
+    void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
 
         voltageLevelGraphLayout(g);

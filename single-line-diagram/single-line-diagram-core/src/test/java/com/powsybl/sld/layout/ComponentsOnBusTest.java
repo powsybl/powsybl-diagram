@@ -11,20 +11,20 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class ComponentsOnBusTest extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = CreateNetworksUtil.createNetworkWithSvcVscScDl();
         graphBuilder = new NetworkGraphBuilder(network);
@@ -32,7 +32,7 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testNoComponentsOnBuses() {
+    void testNoComponentsOnBuses() {
         layoutParameters.setComponentsOnBusbars(Collections.emptyList());
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
@@ -40,7 +40,7 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSwitchesOnBuses() {
+    void testSwitchesOnBuses() {
         layoutParameters.setComponentsOnBusbars(List.of(ComponentTypeName.BREAKER, ComponentTypeName.DISCONNECTOR));
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
