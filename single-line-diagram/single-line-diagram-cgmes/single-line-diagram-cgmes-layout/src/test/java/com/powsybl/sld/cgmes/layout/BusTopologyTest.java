@@ -312,8 +312,8 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     public void testSubstationLayout() {
         SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph(substation.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, network).run(layoutParameters);
         checkGraph(graph.getVoltageLevel(voltageLevel.getId()));
         checkCoordinates(graph.getVoltageLevel(voltageLevel.getId()));
@@ -466,8 +466,8 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     public void testSubstationLayout3WT() {
         SubstationGraph graph = new NetworkGraphBuilder(networkWith3WT).buildSubstationGraph(substation2.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, networkWith3WT).run(layoutParameters);
         checkGraph(graph.getVoltageLevel(voltageLevel21.getId()));
         checkCoordinates(graph.getVoltageLevel(voltageLevel21.getId()));

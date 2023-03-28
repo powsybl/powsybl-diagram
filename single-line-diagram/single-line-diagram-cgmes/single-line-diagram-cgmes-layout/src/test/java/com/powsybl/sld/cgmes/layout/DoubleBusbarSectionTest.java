@@ -132,8 +132,8 @@ public class DoubleBusbarSectionTest {
         NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(voltageLevel.getNetwork());
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(voltageLevel.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(1);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(1);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesVoltageLevelLayout(graph, voltageLevel.getNetwork()).run(layoutParameters);
         return graph;
     }

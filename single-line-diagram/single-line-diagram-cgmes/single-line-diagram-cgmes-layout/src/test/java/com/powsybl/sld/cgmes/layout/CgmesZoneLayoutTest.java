@@ -204,8 +204,8 @@ public class CgmesZoneLayoutTest {
         List<String> zone = Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID);
         ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_ID);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_ID);
         new CgmesZoneLayout(graph, network).run(layoutParameters);
 
         assertEquals(2, graph.getSubstations().size());
