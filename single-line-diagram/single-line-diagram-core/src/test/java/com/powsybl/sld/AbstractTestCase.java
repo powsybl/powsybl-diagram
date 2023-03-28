@@ -13,6 +13,7 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.SvgParameters;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
@@ -37,6 +38,16 @@ public abstract class AbstractTestCase {
 
     protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
+    protected final SvgParameters svgParameters = new SvgParameters()
+            .setFeederInfosIntraMargin(10)
+            .setUseName(true)
+            .setSvgWidthAndHeightAdded(true)
+            .setCssLocation(SvgParameters.CssLocation.INSERTED_IN_SVG)
+            .setFeederInfosOuterMargin(20)
+            .setDrawStraightWires(false)
+            .setShowGrid(false)
+            .setShowInternalNodes(false);
+
     private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
                 .setAdaptCellHeightToContent(true)
@@ -46,17 +57,9 @@ public abstract class AbstractTestCase {
                 .setExternCellHeight(250)
                 .setInternCellHeight(40)
                 .setStackHeight(30)
-                .setShowGrid(false)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setFeederInfosOuterMargin(20)
-                .setDrawStraightWires(false)
+                .setCgmesScaleFactor(1)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
-                .setSvgWidthAndHeightAdded(true)
-                .setUseName(true)
-                .setFeederInfosIntraMargin(10);
+                .setVerticalSnakeLinePadding(30);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {

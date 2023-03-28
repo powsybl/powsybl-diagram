@@ -39,8 +39,8 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
@@ -79,6 +79,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
@@ -97,6 +98,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelTestProviderFactory)
                 .build();
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),

@@ -56,6 +56,7 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(Network.create("empty", ""))
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(getResourcesComponentLibrary())
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(getDiagramLabelRawProviderFactory())
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();

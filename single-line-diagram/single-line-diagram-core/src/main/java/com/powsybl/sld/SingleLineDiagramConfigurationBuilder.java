@@ -23,29 +23,30 @@ public class SingleLineDiagramConfigurationBuilder {
         this.network = network;
         voltageLevelLayoutFactory = network != null ? new SmartVoltageLevelLayoutFactory(network) : new PositionVoltageLevelLayoutFactory();
         diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory();
-        diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
+        diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         diagramStyleProvider = new TopologicalStyleProvider(network);
     }
 
     public SingleLineDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
+        diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public SingleLineDiagramConfigurationBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
-        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
+        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public SingleLineDiagramConfigurationBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
         this.componentLibrary = componentLibrary;
-        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters) : null;
+        this.diagramLabelProvider = network != null ? diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public SingleLineDiagramConfigurationBuilder withDiagramLabelProviderFactory(DiagramLabelProviderFactory diagramLabelProviderFactory) {
-        this.diagramLabelProvider = diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters);
+        this.diagramLabelProvider = diagramLabelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
         return this;
     }
 

@@ -5,5 +5,5 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 
 public interface DiagramLabelProviderFactory {
-    DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters);
+    DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
 }

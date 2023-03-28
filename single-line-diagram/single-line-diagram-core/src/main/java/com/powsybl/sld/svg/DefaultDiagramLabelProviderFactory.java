@@ -7,7 +7,7 @@ import com.powsybl.sld.library.ComponentLibrary;
 public class DefaultDiagramLabelProviderFactory implements DiagramLabelProviderFactory {
 
     @Override
-    public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+    public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 }

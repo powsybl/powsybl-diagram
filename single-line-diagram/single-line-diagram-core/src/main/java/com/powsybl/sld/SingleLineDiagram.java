@@ -185,7 +185,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(diagramStyleProvider);
         Objects.requireNonNull(svgParameters);
 
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(singleLineDiagramConfiguration.getComponentLibrary(), singleLineDiagramConfiguration.getLayoutParameters());
+        DefaultSVGWriter svgWriter = new DefaultSVGWriter(singleLineDiagramConfiguration.getComponentLibrary(), singleLineDiagramConfiguration.getLayoutParameters(), singleLineDiagramConfiguration.getSvgParameters());
 
         LOGGER.info("Writing SVG and JSON metadata files...");
 

@@ -143,6 +143,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", singleLineDiagramConfiguration));
     }

@@ -45,7 +45,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     @Test
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        layoutParameters.setFeederInfoSymmetry(true);
+        svgParameters.setFeederInfoSymmetry(true);
 
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -53,15 +53,16 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withComponentLibrary(componentLibrary)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", singleLineDiagramConfiguration));
 
         Network network2 = Network.create("testCase2", "test2");
-        DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
+        DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos = wrongLabelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertTrue(feederInfos.isEmpty());
 
-        DefaultDiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        DefaultDiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos1 = labelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertEquals(2, feederInfos1.size());
         assertEquals(ARROW_ACTIVE, feederInfos1.get(0).getComponentType());
@@ -112,7 +113,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos4.get(1).getLeftLabel().isPresent());
 
         // Reverse order
-        layoutParameters.setFeederInfoSymmetry(false);
+        svgParameters.setFeederInfoSymmetry(false);
         List<FeederInfo> feederInfos5 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(ARROW_REACTIVE, feederInfos5.get(0).getComponentType());
         assertEquals(ARROW_ACTIVE, feederInfos5.get(1).getComponentType());

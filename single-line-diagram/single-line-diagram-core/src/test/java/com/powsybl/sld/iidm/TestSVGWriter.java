@@ -592,20 +592,20 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         createZoneGraph();
 
         // Layout parameters :
-        layoutParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
+        svgParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
 
         // initValueProvider example for the test :
         diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<FeederInfo> getFeederInfos(FeederNode node) {
                         List<FeederInfo> feederInfos = Arrays.asList(
                                 new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
                                 new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
-                        boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
+                        boolean feederArrowSymmetry = node.getDirection() == TOP || svgParameters.isFeederInfoSymmetry();
                         if (!feederArrowSymmetry) {
                             Collections.reverse(feederInfos);
                         }
@@ -623,8 +623,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // no feeder value provider example for the test :
         diagramLabelNoFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -641,8 +641,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         diagramLabelMultiLineTooltipProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public String getTooltip(Node node) {
@@ -663,8 +663,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         diagramLabelSameNodeProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
@@ -687,6 +687,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -696,10 +697,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testVl1CssExternalImported() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_IMPORTED);
+        svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -709,10 +711,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testVl1CssExternalNoImport() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
+        svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -725,6 +728,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -737,6 +741,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -750,6 +755,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(Network.create("empty", "")))
                 .build();
@@ -760,10 +766,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
-        layoutParameters.setFeederInfoSymmetry(true);
+        svgParameters.setFeederInfoSymmetry(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -777,6 +784,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -787,10 +795,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testVl1Optimized() {
         // Same tests as before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setAvoidSVGComponentsDuplication(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -801,10 +810,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testVl2Optimized() {
         // Same tests as before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setAvoidSVGComponentsDuplication(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -815,10 +825,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testVl3Optimized() {
         // Same tests as before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setAvoidSVGComponentsDuplication(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -829,10 +840,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testSubstationOptimized() {
         // Same tests as before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setAvoidSVGComponentsDuplication(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -842,10 +854,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testWriteZone() {
-        layoutParameters.setShowGrid(false);
+        svgParameters.setShowGrid(false);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -855,10 +868,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testStraightWires() {
-        layoutParameters.setDrawStraightWires(true);
+        svgParameters.setDrawStraightWires(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -868,10 +882,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testTooltip() {
-        layoutParameters.setTooltipEnabled(true);
+        svgParameters.setTooltipEnabled(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -881,11 +896,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testMultiLineTooltip() {
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        layoutParameters.setTooltipEnabled(true);
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setTooltipEnabled(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelMultiLineTooltipProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -899,6 +915,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelSameNodeProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -918,6 +935,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();

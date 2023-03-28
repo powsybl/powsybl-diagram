@@ -34,8 +34,8 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     protected final Network network;
 
-    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        super(componentLibrary, layoutParameters);
+    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        super(componentLibrary, layoutParameters, svgParameters);
         this.network = Objects.requireNonNull(net);
     }
 
@@ -65,7 +65,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
             default:
                 break;
         }
-        if (node.getDirection() == BOTTOM && !layoutParameters.isFeederInfoSymmetry()) {
+        if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
         return feederInfos;

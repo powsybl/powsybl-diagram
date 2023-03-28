@@ -7,9 +7,9 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;
+import com.powsybl.sld.svg.SvgParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        svgParameters.setCssLocation(SvgParameters.CssLocation.INSERTED_IN_SVG);
         network = ZoneGraphTest.createNetwork();
     }
 

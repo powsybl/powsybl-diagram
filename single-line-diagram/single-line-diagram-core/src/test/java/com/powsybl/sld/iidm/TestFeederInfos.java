@@ -60,9 +60,10 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
-        layoutParameters.setSpaceForFeederInfos(100)
-                .setFeederInfosIntraMargin(5)
-                .setPowerValuePrecision(3);
+        layoutParameters.setSpaceForFeederInfos(100);
+
+        svgParameters.setPowerValuePrecision(3)
+                     .setFeederInfosIntraMargin(5);
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -70,8 +71,8 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         // many feeder values provider example for the test:
         DiagramLabelProviderFactory diagramLabelManyFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -81,7 +82,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
                                 new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
                                 new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
                                 new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
-                        boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
+                        boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
                         if (!feederArrowSymmetry) {
                             Collections.reverse(feederInfos);
                         }
@@ -100,6 +101,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelManyFeederInfoProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
@@ -112,7 +114,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLoad("l").getTerminal().setP(1200.29);
         network.getLoad("l").getTerminal().setQ(-1);
 
-        layoutParameters.setLanguageTag("fr").setPowerValuePrecision(1);
+        svgParameters.setLanguageTag("fr").setPowerValuePrecision(1);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -122,7 +124,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
-                .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", singleLineDiagramConfiguration));
     }

@@ -50,6 +50,7 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         // write svg and compare to reference
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/TestCaseKeepFictitiousSwitchNode.svg"), toSVG(g1, "/TestCaseKeepFictitiousSwitchNode.svg", singleLineDiagramConfiguration));
     }
@@ -68,6 +69,7 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         // write svg and compare to reference
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"), toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg", singleLineDiagramConfiguration));
     }

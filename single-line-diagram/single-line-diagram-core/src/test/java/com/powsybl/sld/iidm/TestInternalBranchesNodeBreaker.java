@@ -42,6 +42,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
                 toSVG(g, "/InternalBranchesNodeBreaker.svg", singleLineDiagramConfiguration));

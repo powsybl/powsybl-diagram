@@ -63,8 +63,8 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         withFullBusInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public Optional<BusInfo> getBusInfo(BusNode node) {
@@ -91,8 +91,8 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         withIncompleteBusInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public Optional<BusInfo> getBusInfo(BusNode node) {
@@ -149,13 +149,13 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProviderFactory labelProviderFactory) {
-        layoutParameters.setBusInfoMargin(5);
+        svgParameters.setBusInfoMargin(5);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 
         // Run layout
-        DiagramLabelProvider diagramLabelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters);
+        DiagramLabelProvider diagramLabelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
 
         new PositionVoltageLevelLayoutFactory()
                 .setBusInfoMap(diagramLabelProvider.getBusInfoSides(g))
@@ -166,6 +166,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .withDiagramLabelProviderFactory(labelProviderFactory)
                 .withDiagramStyleProvider(styleProvider)

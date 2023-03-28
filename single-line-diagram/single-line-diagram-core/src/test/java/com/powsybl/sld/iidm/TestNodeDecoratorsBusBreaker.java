@@ -39,6 +39,7 @@ public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
             toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", singleLineDiagramConfiguration));

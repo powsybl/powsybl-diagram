@@ -56,6 +56,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramStyleProvider(getDefaultDiagramStyleProvider())
                 .build();
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),

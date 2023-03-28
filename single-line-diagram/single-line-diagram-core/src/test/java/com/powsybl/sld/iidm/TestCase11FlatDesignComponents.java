@@ -53,6 +53,7 @@ public class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
         String filename = "/TestCase11FlatDesign.svg";
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .build();
         assertEquals(toString(filename), toSVG(g, filename, singleLineDiagramConfiguration));

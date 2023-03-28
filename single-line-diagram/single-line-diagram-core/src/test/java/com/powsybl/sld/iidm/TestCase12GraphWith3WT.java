@@ -258,13 +258,14 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testMetadata() {
 
         // Optimize SVG by avoiding duplication
-        layoutParameters.setAvoidSVGComponentsDuplication(true)
-                .setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true)
+                .setAvoidSVGComponentsDuplication(true);
 
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
                 .withComponentLibrary(componentLibrary)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
                 .build();
@@ -279,9 +280,10 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         separateBusVoltages();
 
         // configure diagram
-        layoutParameters.setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
                 .withComponentLibrary(new ConvergenceComponentLibrary())
                 .build();
@@ -300,11 +302,12 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         separateBusVoltages();
 
         // configure diagram
-        layoutParameters.setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true);
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withDiagramStyleProvider(new TopologicalStyleProvider(network))
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
                 .build();
 

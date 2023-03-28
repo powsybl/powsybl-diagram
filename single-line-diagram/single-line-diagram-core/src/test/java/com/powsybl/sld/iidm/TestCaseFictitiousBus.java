@@ -94,6 +94,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
 
     }

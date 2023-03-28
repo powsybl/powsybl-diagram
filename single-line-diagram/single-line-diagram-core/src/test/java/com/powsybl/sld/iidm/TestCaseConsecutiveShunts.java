@@ -32,7 +32,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setShowInternalNodes(true);
+        svgParameters.setShowInternalNodes(true);
         network = Network.read("consecutive_shunts.xiidm", getClass().getResourceAsStream("/consecutive_shunts.xiidm"));
         vl = network.getVoltageLevel("AU");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -40,8 +40,8 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     DiagramLabelProviderFactory diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
@@ -65,6 +65,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
                 .build();
         assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", singleLineDiagramConfiguration));

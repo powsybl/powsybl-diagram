@@ -41,6 +41,7 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", singleLineDiagramConfiguration));
     }
@@ -53,6 +54,7 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", singleLineDiagramConfiguration));
     }

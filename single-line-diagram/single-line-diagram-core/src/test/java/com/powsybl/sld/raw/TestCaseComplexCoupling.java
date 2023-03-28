@@ -6,11 +6,14 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.SingleLineDiagramConfiguration;
+import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,7 +56,12 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
 
         voltageLevelGraphLayout(g);
+        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withDiagramLabelProviderFactory(getDiagramLabelRawProviderFactory())
+                .withDiagramStyleProvider(new BasicStyleProvider())
+                .build();
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg"));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", singleLineDiagramConfiguration));
     }
 }

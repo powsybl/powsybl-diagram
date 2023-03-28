@@ -92,8 +92,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     private final DiagramLabelProviderFactory diagramLabelNoFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -154,6 +154,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
@@ -167,6 +168,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
@@ -180,6 +182,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();

@@ -48,6 +48,7 @@ public class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(getResourcesComponentLibrary())
+                .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString(filename), toSVG(g, filename, singleLineDiagramConfiguration));
     }

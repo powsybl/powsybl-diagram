@@ -43,7 +43,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     }
 
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {

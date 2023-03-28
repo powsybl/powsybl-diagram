@@ -53,6 +53,7 @@ public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .build();
     }
 

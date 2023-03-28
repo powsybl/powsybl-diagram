@@ -78,6 +78,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
                 .build();
 
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
@@ -144,6 +145,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
                 .build();
@@ -160,6 +162,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
                 .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
                 .build();

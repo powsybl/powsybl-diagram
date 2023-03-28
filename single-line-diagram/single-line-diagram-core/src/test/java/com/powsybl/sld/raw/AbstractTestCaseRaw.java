@@ -43,8 +43,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     private final DiagramLabelProviderFactory diagramLabelRawProviderFactory = new DefaultDiagramLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-            return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<FeederInfo> getFeederInfos(FeederNode node) {
