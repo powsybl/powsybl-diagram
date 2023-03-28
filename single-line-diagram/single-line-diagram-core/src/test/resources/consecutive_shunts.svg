@@ -164,7 +164,7 @@
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="BF_NW" text-anchor="middle" x="4.0" y="-1.0">BF</text>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_0">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
                 <polyline points="915.0,375.85714285714283,915.0,423.71428571428567,940.0,423.71428571428567"/>
             </g>
@@ -353,7 +353,7 @@
                 <text class="sld-label" id="INTERNAL_AU_19_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_3">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CT_95_INTERNAL_95_AU_95_5">
                 <polyline points="690.0,419.25,690.0,443.0"/>
             </g>
@@ -518,7 +518,7 @@
                 <text class="sld-label" id="INTERNAL_AU_5_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_5">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DP_95_INTERNAL_95_AU_95_43">
                 <polyline points="115.0,433.0,115.0,398.0,140.0,398.0"/>
             </g>
@@ -678,7 +678,7 @@
                 <text class="sld-label" id="INTERNAL_AU_45_NW" text-anchor="middle" x="4.0" y="-1.0">45</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_7">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BZ_95_INTERNAL_95_AU_95_50">
                 <polyline points="377.5,345.0,377.5,362.0"/>
             </g>
@@ -882,7 +882,7 @@
                 <text class="sld-label" id="INTERNAL_AU_29_NW" text-anchor="middle" x="4.0" y="-1.0">29</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_8">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_8">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT_95_BUSCO_95_AV_95_DT">
                 <polyline points="1015.0,308.0,1015.0,253.0"/>
             </g>
@@ -922,7 +922,7 @@
                 <text class="sld-label" id="INTERNAL_AU_2_NW" text-anchor="middle" x="4.0" y="-1.0">2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_9">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_9">
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ_95_BUSCO_95_AX_95_CJ">
                 <polyline points="515.0,223.0,515.0,253.0"/>
             </g>
@@ -966,7 +966,7 @@
                 <text class="sld-label" id="FP_NW" text-anchor="middle" x="4.0" y="-1.0">FP</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_10">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE">
                 <polyline points="565.0,278.0,565.0,308.0"/>
             </g>
@@ -1001,7 +1001,7 @@
                 <text class="sld-label" id="FX_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FX_ONE</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_11">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_11">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF_95_BUSCO_95_BB_95_EF">
                 <polyline points="1065.0,223.0,1065.0,278.0"/>
             </g>
@@ -1044,7 +1044,7 @@
                 <text class="sld-label" id="FV_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FV_ONE</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_12">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_12">
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP_95_BUSCO_95_BD_95_EP">
                 <polyline points="65.0,223.0,65.0,253.0"/>
             </g>
@@ -1084,7 +1084,7 @@
                 <text class="sld-label" id="INTERNAL_AU_37_NW" text-anchor="middle" x="4.0" y="-1.0">37</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_13">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_13">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE">
                 <polyline points="765.0,253.0,765.0,223.0"/>
             </g>

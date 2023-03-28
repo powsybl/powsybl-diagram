@@ -143,7 +143,7 @@
         <g class="sld-busbar-section sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl_95_0FictitiousBus" transform="translate(65.0,252.0)">
             <line x1="0" x2="100.0" y1="0" y2="0"/>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_0">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl50to70-0" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L1_95_ONE_45_L1_95_ONE_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L1_95_ONE">
                 <polyline points="65.0,222.0,65.0,252.0"/>
             </g>
@@ -176,7 +176,7 @@
                 <text class="sld-label" id="L1_ONE_N_LABEL" x="-5.0" y="-5.0">L1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_1">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
             <g class="sld-wire sld-vl50to70-0" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L2_95_ONE_45_L2_95_ONE_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L2_95_ONE">
                 <polyline points="115.0,282.0,115.0,252.0"/>
             </g>
@@ -209,7 +209,7 @@
                 <text class="sld-label" id="L2_ONE_S_LABEL" x="-5.0" y="5.0">L2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_2">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
             <g class="sld-wire sld-vl50to70-0" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L3_95_ONE_45_L3_95_ONE_95_BUSCO_95_INTERNAL_95_vl_95_0FictitiousBus_95_L3_95_ONE">
                 <polyline points="165.0,222.0,165.0,252.0"/>
             </g>

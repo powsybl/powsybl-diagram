@@ -7,6 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
@@ -15,13 +16,11 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.AnimatedFeederInfoStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.assertEquals;
@@ -132,5 +131,71 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         assertEquals(2, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
+
+    public void testAnimation() {
+        // Add load at bottom
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createLoad(vl, "l2", "l2", "l2", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
+
+        // Add power values to the load
+        network.getLoad("l").getTerminal().setP(1200.29);
+        network.getLoad("l").getTerminal().setQ(-1.0);
+
+        network.getLoad("l2").getTerminal().setP(501.0);
+        network.getLoad("l2").getTerminal().setQ(0.0);
+
+        layoutParameters.setFeederInfosIntraMargin(20);
+
+        DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+            @Override
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                Load l = network.getLoad("l");
+                Load l2 = network.getLoad("l2");
+
+                if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
+                } else {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                            new FeederInfo() {
+                                @Override
+                                public String getUserDefinedId() {
+                                    return null;
+                                }
+
+                                @Override
+                                public String getComponentType() {
+                                    return ARROW_ACTIVE;
+                                }
+
+                                @Override
+                                public Optional<String> getLeftLabel() {
+                                    return Optional.of("Left");
+                                }
+
+                                @Override
+                                public Optional<String> getRightLabel() {
+                                    return Optional.of("Right");
+                                }
+                            });
+                }
+            }
+        };
+
+        DiagramStyleProvider styleProvider = new AnimatedFeederInfoStyleProvider(network, 500, 1000);
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", labelProvider, styleProvider));
+
     }
 }

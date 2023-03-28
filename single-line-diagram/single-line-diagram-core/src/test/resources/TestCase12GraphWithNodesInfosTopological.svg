@@ -220,7 +220,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_2">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_dload1_45_bload1">
                 <polyline points="80.0,252.0,80.0,222.0"/>
             </g>
@@ -264,7 +264,7 @@
                 <text class="sld-label" id="load1_N_LABEL" x="-5.0" y="-5.0">load1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_3">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_dtrf11_45_btrf11">
                 <polyline points="160.0,252.0,160.0,222.0"/>
             </g>
@@ -307,7 +307,7 @@
                 <text class="sld-label" id="trf1_ONE_N_LABEL" x="-5.0" y="-5.0">trf1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_4">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_4">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_dtrf15_45_btrf15">
                 <polyline points="400.0,252.0,400.0,222.0"/>
             </g>
@@ -350,7 +350,7 @@
                 <text class="sld-label" id="trf5_ONE_N_LABEL" x="-5.0" y="-5.0">trf5</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_5">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_5">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_dtrf16_45_btrf16">
                 <polyline points="520.0,252.0,520.0,222.0"/>
             </g>
@@ -409,7 +409,7 @@
                 <text class="sld-label" id="trf6_THREE_N_LABEL" x="-5.0" y="-5.0">trf61</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_6">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_6">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_dload2_45_bload2">
                 <polyline points="880.0,252.0,880.0,222.0"/>
             </g>
@@ -453,7 +453,7 @@
                 <text class="sld-label" id="load2_N_LABEL" x="-5.0" y="-5.0">load2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_7">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_7">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_dtrf12_45_btrf12">
                 <polyline points="1200.0,252.0,1200.0,222.0"/>
             </g>
@@ -496,7 +496,7 @@
                 <text class="sld-label" id="trf2_ONE_N_LABEL" x="-5.0" y="-5.0">trf2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_8">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_8">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_dtrf18_45_btrf18">
                 <polyline points="1000.0,252.0,1000.0,222.0"/>
             </g>
@@ -555,7 +555,7 @@
                 <text class="sld-label" id="trf8_THREE_N_LABEL" x="-5.0" y="-5.0">trf81</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_9">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_9">
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_dgen1_45_bgen1">
                 <polyline points="240.0,277.0,240.0,307.0"/>
             </g>
@@ -599,7 +599,7 @@
                 <text class="sld-label" id="gen1_S_LABEL" x="-5.0" y="17.0">gen1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_10">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_dtrf13_45_btrf13">
                 <polyline points="320.0,277.0,320.0,307.0"/>
             </g>
@@ -642,7 +642,7 @@
                 <text class="sld-label" id="trf3_ONE_S_LABEL" x="-5.0" y="20.0">trf3</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_11">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_11">
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_dtrf17_45_btrf17">
                 <polyline points="680.0,277.0,680.0,307.0"/>
             </g>
@@ -701,7 +701,7 @@
                 <text class="sld-label" id="trf7_THREE_S_LABEL" x="-5.0" y="5.0">trf71</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_12">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_12">
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_dgen2_45_bgen2">
                 <polyline points="1280.0,277.0,1280.0,307.0"/>
             </g>
@@ -745,7 +745,7 @@
                 <text class="sld-label" id="gen2_S_LABEL" x="-5.0" y="17.0">gen2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_13">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_13">
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_dtrf14_45_btrf14">
                 <polyline points="1120.0,277.0,1120.0,307.0"/>
             </g>

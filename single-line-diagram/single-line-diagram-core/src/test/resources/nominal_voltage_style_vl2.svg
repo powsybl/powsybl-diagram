@@ -80,7 +80,7 @@
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_0">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_d2WT_95_2_95_INTERNAL_95_vl2_95_d2WT_95_2_45_b2WT_95_2">
                 <polyline points="80.0,252.0,80.0,222.0"/>
             </g>
@@ -113,7 +113,7 @@
                 <text class="sld-label" id="2WT_TWO_N_LABEL" x="-5.0" y="-5.0">2WT_2</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_1">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_d3WT_95_2_95_INTERNAL_95_vl2_95_d3WT_95_2_45_b3WT_95_2">
                 <polyline points="200.0,252.0,200.0,222.0"/>
             </g>

@@ -178,7 +178,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_1">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d_45_vsc">
                 <polyline points="240.0,252.0,240.0,222.0"/>
             </g>
@@ -244,7 +244,7 @@
                 <text class="sld-label" id="vsc_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_2">
+        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_bbs2_95_b2">
                 <polyline points="65.0,252.0,65.0,242.0"/>
             </g>
@@ -285,7 +285,7 @@
                 <text class="sld-label" id="C1_N_LABEL" x="-5.0" y="-5.0">Filter 1</text>
             </g>
         </g>
-        <g class="sld-extern-cell" id="idEXTERN_32_3">
+        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_bbs2_95_b3">
                 <polyline points="115.0,252.0,115.0,242.0"/>
             </g>
