@@ -131,7 +131,9 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         assertEquals(2, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
+    }
 
+    @Test
     public void testAnimation() {
         // Add load at bottom
         createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
