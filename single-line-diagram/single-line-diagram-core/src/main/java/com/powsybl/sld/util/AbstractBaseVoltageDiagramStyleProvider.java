@@ -36,12 +36,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     private static final String WINDING2 = "WINDING2";
     private static final String WINDING3 = "WINDING3";
 
-    protected final Network network;
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
         this.baseVoltagesConfig = Objects.requireNonNull(baseVoltagesConfig);
-        this.network = network;
     }
 
     @Override
@@ -56,15 +54,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
     }
 
-    protected boolean isMultiTerminalNode(Node node) {
-        if (node instanceof EquipmentNode) {
-            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
-            if (identifiable instanceof Connectable<?>) {
-                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
-            }
-        }
-        return false;
-    }
+    protected abstract boolean isMultiTerminalNode(Node node);
 
     @Override
     public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
@@ -104,76 +94,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return Optional.empty();
     }
 
-    private Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
-        FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
-        Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
-        NodeSide side = null;
-        NodeSide otherSide = null;
+    protected abstract Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n);
 
-        if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-            side = feederWs.getSide();
-            otherSide = getOtherSide(side);
-            if (ComponentTypeName.LINE.equals(n.getComponentType())) {
-                side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
-                otherSide = getOtherSide(side);
-            }
-        } else if (feederWs.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
-            String idVl = graph.getVoltageLevelInfos(n).getId();
-            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
-            if (transformer != null) {
-                side = getTransformerSide(idVl, transformer);
-            }
-            otherSide = feederWs.getSide();
-        }
-
-        return getFeederStateStyle(side, otherSide, connectionStatus);
-    }
-
-    private static NodeSide getOtherSide(NodeSide side) {
-        return side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
-    }
-
-    private static NodeSide getTransformerSide(String idVl, ThreeWindingsTransformer transformer) {
-        if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
-            return NodeSide.ONE;
-        } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
-            return NodeSide.TWO;
-        } else {
-            return NodeSide.THREE;
-        }
-    }
-
-    private static Optional<String> getFeederStateStyle(NodeSide side, NodeSide otherSide, Map<NodeSide, Boolean> connectionStatus) {
-        if (side != null && otherSide != null) {
-            if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED);
-            } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
-            } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
-            }
-        }
-        return Optional.empty();
-    }
-
-    protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
-        Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
-        if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-            Branch<?> branch = network.getBranch(node.getEquipmentId());
-            if (branch != null) {
-                res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
-            }
-        } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
-            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
-            if (transformer != null) {
-                res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
-                res.put(NodeSide.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
-            }
-        }
-        return res;
-    }
+    protected abstract Map<NodeSide, Boolean> connectionStatus(FeederNode node);
 
     @Override
     public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
@@ -257,23 +180,5 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
             default: return null; // for decorators
         }
-    }
-
-    @Override
-    public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        Bus bus = network.getVoltageLevel(graph.getVoltageLevelInfos().getId()).getBusView().getBus(busId);
-        if (bus != null) {
-            for (Terminal t : bus.getConnectedTerminals()) {
-                for (FeederNode feederNode : graph.getFeederNodes()) {
-                    if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
-                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
-                        if (voltageLevelStyle.isPresent()) {
-                            return Arrays.asList(voltageLevelStyle.get(), NODE_INFOS);
-                        }
-                    }
-                }
-            }
-        }
-        return Collections.emptyList();
     }
 }

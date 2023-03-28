@@ -7,7 +7,10 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.Connectable;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Terminal;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
@@ -23,7 +26,7 @@ import java.util.stream.Collectors;
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+public class TopologicalStyleProvider extends AbstractIidmBaseVoltageDiagramStyleProvider {
 
     private final Map<String, Map<String, String>> vlNodeIdStyleMap = new HashMap<>();
     private final Map<String, Map<String, String>> vlBusIdStyleMap = new HashMap<>();

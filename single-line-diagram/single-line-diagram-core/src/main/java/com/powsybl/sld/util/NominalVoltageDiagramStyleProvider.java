@@ -21,7 +21,7 @@ import java.util.Optional;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+public class NominalVoltageDiagramStyleProvider extends AbstractIidmBaseVoltageDiagramStyleProvider {
 
     public NominalVoltageDiagramStyleProvider(Network network) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network);
