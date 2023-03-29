@@ -7,6 +7,7 @@
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-load {fill: var(--sld-vl-color, blue)}
+.sld-battery {fill: var(--sld-vl-color, blue)}
 .sld-generator {fill: var(--sld-vl-color, blue)}
 .sld-winding {fill: var(--sld-vl-color, blue)}
 .sld-capacitor {fill: var(--sld-vl-color, blue)}
