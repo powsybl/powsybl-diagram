@@ -52,7 +52,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     }
 
     /**
-     * Return the highlight style if any to apply to given edge (if {@link LayoutParameters#isHighlightLineState()})
+     * Return the highlight style if any to apply to given edge (if {@link SvgParameters#isHighlightLineState()})
      * @param graph the graph may be used in overriding classes
      * @param edge the edge on which the style if any is applied to
      * @return the highlight style if any
