@@ -376,7 +376,7 @@
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
             <g class="sld-unknown sld-fictitious" id="idtrf6" transform="translate(510.0,132.0)">
-                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
+                <path class="sld-disconnected" d="M 10,0 0,10 10,20 20,10 Z m 1.2,11 v 1.5 H 8.89 V 10.3 C 12.9,9.44 11.5,5.3 7.65,7.76 H 7.39 V 5.77 C 13.3,3.46 16.3,8.68 11.1,11 Z m -2.38,2.4 h 2.58 v 1.8 H 8.72 Z"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="idtrf6_95_TWO" transform="translate(480.0,80.0)">
                 <text class="sld-label" id="trf6_TWO_N_LABEL" x="-5.0" y="-5.0">trf61</text>
@@ -473,7 +473,7 @@
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
             <g class="sld-unknown sld-fictitious" id="idtrf8" transform="translate(990.0,132.0)">
-                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
+                <path class="sld-disconnected" d="M 10,0 0,10 10,20 20,10 Z m 1.2,11 v 1.5 H 8.89 V 10.3 C 12.9,9.44 11.5,5.3 7.65,7.76 H 7.39 V 5.77 C 13.3,3.46 16.3,8.68 11.1,11 Z m -2.38,2.4 h 2.58 v 1.8 H 8.72 Z"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="idtrf8_95_TWO" transform="translate(960.0,80.0)">
                 <text class="sld-label" id="trf8_TWO_N_LABEL" x="-5.0" y="-5.0">trf81</text>
@@ -612,7 +612,7 @@
                 <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
             </g>
             <g class="sld-unknown sld-fictitious" id="idtrf7" transform="translate(670.0,377.0)">
-                <path class="sld-disconnected" d="M 9.8976923,0 0.06153846,9.99 9.9584615,20 20,10.02 Z m 1.2061537,11.034615 v 1.450001 H 8.8838461 v -2.160001 c 3.9699999,-0.8799997 2.6299999,-5.0199997 -1.24,-2.5599997 h -0.26 v -1.99 c 5.8699999,-2.31 8.8699999,2.91 3.7199999,5.2599997 z m -2.3907691,2.411539 h 2.5300001 v 1.8 H 8.7130769 Z"/>
+                <path class="sld-disconnected" d="M 10,0 0,10 10,20 20,10 Z m 1.2,11 v 1.5 H 8.89 V 10.3 C 12.9,9.44 11.5,5.3 7.65,7.76 H 7.39 V 5.77 C 13.3,3.46 16.3,8.68 11.1,11 Z m -2.38,2.4 h 2.58 v 1.8 H 8.72 Z"/>
             </g>
             <g class="sld-bottom-feeder sld-vl300to500-1" id="idtrf7_95_TWO" transform="translate(640.0,449.0)">
                 <text class="sld-label" id="trf7_TWO_S_LABEL" x="-5.0" y="5.0">trf71</text>
