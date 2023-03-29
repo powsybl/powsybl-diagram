@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
-public class DiagramStylesTest {
+class DiagramStylesTest {
 
     @Test
     void test() {

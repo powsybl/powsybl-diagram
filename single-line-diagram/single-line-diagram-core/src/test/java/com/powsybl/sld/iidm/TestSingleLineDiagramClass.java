@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
+class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
     private FileSystem fileSystem;
     private Path tmpDir;

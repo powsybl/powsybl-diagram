@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestSVGWriter extends AbstractTestCaseIidm {
+class TestSVGWriter extends AbstractTestCaseIidm {
 
     private static final String SUBSTATION_1_ID = "Substation1";
     private static final String SUBSTATION_2_ID = "Substation2";

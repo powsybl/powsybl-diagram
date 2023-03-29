@@ -19,7 +19,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractInjectionDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractInjectionDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
     protected final DiagramPoint point = new DiagramPoint(20, 10, 0);
     protected final double rotation = 90;
     protected final DiagramPoint terminalPoint1 = new DiagramPoint(5, 10, 1);

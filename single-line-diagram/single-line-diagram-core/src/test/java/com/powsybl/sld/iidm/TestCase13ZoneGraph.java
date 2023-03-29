@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
+class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

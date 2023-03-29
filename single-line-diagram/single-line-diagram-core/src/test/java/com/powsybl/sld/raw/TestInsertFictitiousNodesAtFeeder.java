@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
+class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

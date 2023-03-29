@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestSerialBlock extends AbstractTestCaseIidm {
+class TestSerialBlock extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

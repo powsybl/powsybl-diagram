@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
+class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

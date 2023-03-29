@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ThreeWindingsTransformerDiagramDataTest {
+class ThreeWindingsTransformerDiagramDataTest {
 
     public static String DIAGRAM_NAME = "default";
 

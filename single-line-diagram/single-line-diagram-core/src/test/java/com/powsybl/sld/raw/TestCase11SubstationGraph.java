@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /*
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
+class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

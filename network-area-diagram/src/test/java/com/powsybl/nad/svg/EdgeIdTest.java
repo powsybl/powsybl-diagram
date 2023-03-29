@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class EdgeIdTest extends AbstractTest {
+class EdgeIdTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

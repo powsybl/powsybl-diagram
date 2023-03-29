@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
+class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
     private VoltageLevel vl1;
     private VoltageLevel vl2;

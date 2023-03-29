@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
-public class LayoutParametersTest {
+class LayoutParametersTest {
 
     @Test
     void test() {

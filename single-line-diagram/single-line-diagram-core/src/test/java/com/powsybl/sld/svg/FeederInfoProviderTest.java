@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederInfoProviderTest extends AbstractTestCaseIidm {
+class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     private VoltageLevel vl2;
 

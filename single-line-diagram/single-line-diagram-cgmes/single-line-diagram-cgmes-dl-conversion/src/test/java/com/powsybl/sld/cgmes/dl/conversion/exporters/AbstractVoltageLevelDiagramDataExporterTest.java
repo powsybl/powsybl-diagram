@@ -16,7 +16,7 @@ import org.mockito.Mockito;
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public abstract class AbstractVoltageLevelDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractVoltageLevelDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 
     protected final DiagramPoint point1 = new DiagramPoint(0, 0, 1);
 

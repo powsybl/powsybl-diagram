@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-public class LayoutWithInitialPositionsTest extends AbstractTest {
+class LayoutWithInitialPositionsTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

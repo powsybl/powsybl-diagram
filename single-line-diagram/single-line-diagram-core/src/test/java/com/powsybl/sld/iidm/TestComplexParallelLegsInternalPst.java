@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
+class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {

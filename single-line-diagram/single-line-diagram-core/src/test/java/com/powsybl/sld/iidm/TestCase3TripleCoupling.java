@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCase3TripleCoupling extends AbstractTestCaseIidm {
+class TestCase3TripleCoupling extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

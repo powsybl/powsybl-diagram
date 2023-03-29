@@ -19,7 +19,7 @@ import com.powsybl.iidm.network.TwoWindingsTransformer;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class TransformerDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {
+class TransformerDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {
     private TwoWindingsTransformer twt;
 
     @BeforeEach

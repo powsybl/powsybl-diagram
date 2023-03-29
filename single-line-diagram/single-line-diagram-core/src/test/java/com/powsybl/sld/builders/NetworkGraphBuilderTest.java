@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class NetworkGraphBuilderTest {
+class NetworkGraphBuilderTest {
 
     @Test
     void isCapacitorTest() {

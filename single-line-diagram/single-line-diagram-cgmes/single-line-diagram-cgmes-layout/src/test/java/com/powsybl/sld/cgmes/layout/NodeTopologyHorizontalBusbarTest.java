@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class NodeTopologyHorizontalBusbarTest extends AbstractNodeTopologyTest {
+class NodeTopologyHorizontalBusbarTest extends AbstractNodeTopologyTest {
 
     @Override
     protected void addDiagramData(Network network) {

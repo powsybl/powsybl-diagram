@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
+class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

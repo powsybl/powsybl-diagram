@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesZoneLayoutTest {
+class CgmesZoneLayoutTest {
 
     private static final String SUBSTATION_1_ID = "Substation1";
     private static final String SUBSTATION_2_ID = "Substation2";

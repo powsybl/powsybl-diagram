@@ -18,7 +18,7 @@ import com.powsybl.iidm.network.StaticVarCompensator;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
+class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
 
     private StaticVarCompensator svc;
 

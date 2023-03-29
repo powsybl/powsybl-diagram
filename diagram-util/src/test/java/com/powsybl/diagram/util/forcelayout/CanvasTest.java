@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class CanvasTest {
+class CanvasTest {
 
     @Test
     void test() {

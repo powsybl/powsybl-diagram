@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class LayoutToCgmesExtensionsTest {
+class LayoutToCgmesExtensionsTest {
 
     private List<Network> networks = new ArrayList<>();
 

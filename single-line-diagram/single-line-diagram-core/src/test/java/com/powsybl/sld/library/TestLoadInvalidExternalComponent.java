@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestLoadInvalidExternalComponent {
+class TestLoadInvalidExternalComponent {
 
     @Test
     void test() {

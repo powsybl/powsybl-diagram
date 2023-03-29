@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestAddExternalComponent extends AbstractTestCaseRaw {
+class TestAddExternalComponent extends AbstractTestCaseRaw {
     private static final String CHEESE = "CHEESE";
 
     @BeforeEach

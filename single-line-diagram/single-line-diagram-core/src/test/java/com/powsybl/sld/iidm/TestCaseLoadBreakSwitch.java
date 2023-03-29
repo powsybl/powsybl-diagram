@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
+class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

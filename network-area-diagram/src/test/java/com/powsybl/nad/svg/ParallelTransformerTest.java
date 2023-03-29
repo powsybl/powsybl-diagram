@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class ParallelTransformerTest extends AbstractTest {
+class ParallelTransformerTest extends AbstractTest {
 
     @BeforeEach
     public void setup() {

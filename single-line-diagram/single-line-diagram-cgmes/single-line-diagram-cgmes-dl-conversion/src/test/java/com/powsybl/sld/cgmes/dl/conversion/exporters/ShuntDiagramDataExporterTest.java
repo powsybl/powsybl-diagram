@@ -18,7 +18,7 @@ import com.powsybl.iidm.network.ShuntCompensator;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
+class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
 
     private ShuntCompensator shunt;
 

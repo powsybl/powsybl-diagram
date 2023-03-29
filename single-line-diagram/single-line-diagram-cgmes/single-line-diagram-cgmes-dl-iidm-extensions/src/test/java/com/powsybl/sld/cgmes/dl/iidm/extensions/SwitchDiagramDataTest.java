@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class SwitchDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
+class SwitchDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
 
     @Test
     void test() {

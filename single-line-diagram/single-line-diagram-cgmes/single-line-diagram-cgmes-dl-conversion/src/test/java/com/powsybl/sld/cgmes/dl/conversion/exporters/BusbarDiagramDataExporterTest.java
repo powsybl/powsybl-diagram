@@ -23,7 +23,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
+class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
 
     private BusbarSection busbar;
     private final String busbarNodeId = "busbarNodeId";

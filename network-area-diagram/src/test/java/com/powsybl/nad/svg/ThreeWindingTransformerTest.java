@@ -24,7 +24,7 @@ import java.util.Collections;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class ThreeWindingTransformerTest extends AbstractTest {
+class ThreeWindingTransformerTest extends AbstractTest {
 
     private StyleProvider styleProvider;
 

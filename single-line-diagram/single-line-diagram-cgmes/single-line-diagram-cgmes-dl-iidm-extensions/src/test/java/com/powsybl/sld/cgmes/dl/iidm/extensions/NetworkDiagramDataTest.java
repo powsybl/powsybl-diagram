@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class NetworkDiagramDataTest {
+class NetworkDiagramDataTest {
 
     protected static String DIAGRAM_NAME = "diagram";
     protected static String SUBSTATION1_NAME = "substation1";

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class TestCase1BusBreaker extends AbstractTestCaseIidm {
+class TestCase1BusBreaker extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

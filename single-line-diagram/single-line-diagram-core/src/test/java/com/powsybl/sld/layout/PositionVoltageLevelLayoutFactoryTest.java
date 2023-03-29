@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class PositionVoltageLevelLayoutFactoryTest {
+class PositionVoltageLevelLayoutFactoryTest {
 
     @Test
     void test() {

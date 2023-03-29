@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractCgmesDLTest {
+abstract class AbstractCgmesDLTest {
 
     protected static String NAMESPACE = "http://network#";
 

@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
+class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     private static class BusVoltageInfo extends BusInfo {
 

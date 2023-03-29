@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestSerialParallelBlock extends AbstractTestCaseIidm {
+class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

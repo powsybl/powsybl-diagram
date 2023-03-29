@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class NominalVoltageStyleTest extends AbstractTest {
+class NominalVoltageStyleTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

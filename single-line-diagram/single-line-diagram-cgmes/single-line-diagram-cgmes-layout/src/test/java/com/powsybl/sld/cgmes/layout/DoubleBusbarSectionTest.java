@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class DoubleBusbarSectionTest {
+class DoubleBusbarSectionTest {
 
     private static final String DIAGRAM_NAME = "default";
 

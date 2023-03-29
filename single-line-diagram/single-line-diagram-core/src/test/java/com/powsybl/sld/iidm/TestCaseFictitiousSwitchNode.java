@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
+class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
 
     private PositionVoltageLevelLayoutFactory factory;
     VoltageLevel vl;

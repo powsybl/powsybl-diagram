@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class AddNodeGraphTest extends AbstractTestCaseIidm {
+class AddNodeGraphTest extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TextNodeTest extends AbstractTest {
+class TextNodeTest extends AbstractTest {
 
     private LabelProvider labelProvider;
 

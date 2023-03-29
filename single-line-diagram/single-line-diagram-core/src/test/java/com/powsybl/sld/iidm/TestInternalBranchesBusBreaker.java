@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
+class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Override
     public DiagramStyleProvider getDefaultDiagramStyleProvider() {

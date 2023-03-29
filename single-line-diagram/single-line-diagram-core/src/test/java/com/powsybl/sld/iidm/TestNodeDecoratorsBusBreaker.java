@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
+class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
+class TestCaseShuntArrangement extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {
@@ -177,7 +177,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test2() {
+    void test2() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         new PositionVoltageLevelLayoutFactory()
                 .setExceptionIfPatternNotHandled(true)

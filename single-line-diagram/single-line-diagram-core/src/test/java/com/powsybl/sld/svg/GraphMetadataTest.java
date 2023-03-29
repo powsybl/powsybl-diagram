@@ -37,7 +37,7 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class GraphMetadataTest {
+class GraphMetadataTest {
 
     private FileSystem fileSystem;
     private Path tmpDir;

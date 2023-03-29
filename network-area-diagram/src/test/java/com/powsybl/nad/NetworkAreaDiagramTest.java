@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class NetworkAreaDiagramTest extends AbstractTest {
+class NetworkAreaDiagramTest extends AbstractTest {
 
     protected java.nio.file.FileSystem fileSystem;
 

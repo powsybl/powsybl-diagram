@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BusDiagramDataTest extends AbstractNodeDiagramDataTest {
+class BusDiagramDataTest extends AbstractNodeDiagramDataTest {
 
     @Test
     void test() {

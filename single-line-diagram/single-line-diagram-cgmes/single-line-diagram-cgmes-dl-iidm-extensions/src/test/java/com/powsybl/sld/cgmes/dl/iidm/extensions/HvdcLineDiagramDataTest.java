@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {
+class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     @Test
     void test() {

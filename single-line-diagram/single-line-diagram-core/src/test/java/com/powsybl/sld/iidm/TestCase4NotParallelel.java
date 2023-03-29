@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase4NotParallelel extends AbstractTestCaseIidm {
+class TestCase4NotParallelel extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

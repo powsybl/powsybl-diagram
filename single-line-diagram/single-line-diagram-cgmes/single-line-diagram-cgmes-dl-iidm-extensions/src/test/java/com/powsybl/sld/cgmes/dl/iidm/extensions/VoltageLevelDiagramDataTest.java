@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class VoltageLevelDiagramDataTest {
+class VoltageLevelDiagramDataTest {
 
     protected static String DIAGRAM_NAME = "diagram";
     protected static String DIAGRAM_NAME2 = "diagram2";

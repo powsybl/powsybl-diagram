@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
+class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
 
     @Test
     void test() {

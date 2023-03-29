@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class VoltageLevelDiagramDataExporterTest extends AbstractVoltageLevelDiagramDataExporterTest {
+class VoltageLevelDiagramDataExporterTest extends AbstractVoltageLevelDiagramDataExporterTest {
 
     private VoltageLevel voltageLevel;
     private final String voltageLevelId = "VoltageLevel1";

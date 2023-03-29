@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestFlatSection extends AbstractTestCaseIidm {
+class TestFlatSection extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {

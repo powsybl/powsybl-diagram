@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class SmartVoltageLevelLayoutFactoryTest {
+class SmartVoltageLevelLayoutFactoryTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Network.create("test", "code");
         Substation s = network.newSubstation()
                 .setId("S")

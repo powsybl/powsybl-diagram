@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
+class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
 
     private VoltageLevel vl;
 

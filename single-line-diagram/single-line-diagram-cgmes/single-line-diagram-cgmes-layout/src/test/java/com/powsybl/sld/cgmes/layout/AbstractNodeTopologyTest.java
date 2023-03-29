@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
+abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
 
     protected VoltageLevel voltageLevel;
     protected VoltageLevel voltageLevelWithInternalConnections;

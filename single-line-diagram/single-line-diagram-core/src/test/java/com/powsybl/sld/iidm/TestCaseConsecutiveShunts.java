@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
+class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

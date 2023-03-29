@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class GeneratorDiagramDataTest extends AbstractInjectionDiagramDataTest {
+class GeneratorDiagramDataTest extends AbstractInjectionDiagramDataTest {
 
     @Test
     void test() {

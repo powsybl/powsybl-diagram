@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
-public class DanglingLineTest extends AbstractTest {
+class DanglingLineTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

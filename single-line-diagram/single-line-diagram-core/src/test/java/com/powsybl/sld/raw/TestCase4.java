@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class TestCase4 extends AbstractTestCaseRaw {
+class TestCase4 extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

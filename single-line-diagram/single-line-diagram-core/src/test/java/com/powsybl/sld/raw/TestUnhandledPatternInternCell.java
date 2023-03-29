@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
+class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

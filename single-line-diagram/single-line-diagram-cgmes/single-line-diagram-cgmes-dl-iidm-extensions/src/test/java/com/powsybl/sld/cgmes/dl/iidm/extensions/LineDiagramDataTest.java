@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class LineDiagramDataTest extends AbstractLineDiagramDataTest {
+class LineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     protected static final String DIAGRAM2_NAME = "diagram2";
 

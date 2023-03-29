@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
+class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

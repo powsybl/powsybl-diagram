@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
+class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class TestLanesWithUnileg extends AbstractTestCaseRaw {
+class TestLanesWithUnileg extends AbstractTestCaseRaw {
     @BeforeEach
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);

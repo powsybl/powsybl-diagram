@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class VectorTest {
+class VectorTest {
 
     @Test
     void test() {

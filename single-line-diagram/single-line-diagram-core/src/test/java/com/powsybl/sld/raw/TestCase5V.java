@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase5V extends AbstractTestCaseRaw {
+class TestCase5V extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

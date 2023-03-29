@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-public class FixedLayoutTest {
+class FixedLayoutTest {
 
     @Test
     void testCurrentLimits() {

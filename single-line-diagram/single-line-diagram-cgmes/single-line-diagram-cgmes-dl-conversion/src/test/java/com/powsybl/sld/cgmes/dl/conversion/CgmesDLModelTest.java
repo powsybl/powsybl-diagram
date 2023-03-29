@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesDLModelTest extends AbstractCgmesDLTest {
+class CgmesDLModelTest extends AbstractCgmesDLTest {
 
     protected TripleStore tripleStore;
     protected QueryCatalog queryCatalog;

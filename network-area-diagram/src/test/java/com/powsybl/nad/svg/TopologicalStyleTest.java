@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TopologicalStyleTest extends AbstractTest {
+class TopologicalStyleTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

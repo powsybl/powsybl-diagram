@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BusbarDiagramDataTest extends AbstractNodeDiagramDataTest {
+class BusbarDiagramDataTest extends AbstractNodeDiagramDataTest {
 
     @Test
     void test() {

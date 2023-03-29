@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
+class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     @Test
     void process() throws Exception {

@@ -18,7 +18,7 @@ import com.powsybl.iidm.network.Generator;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
+class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
 
     private Generator generator;
 

@@ -24,7 +24,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 
     private final DiagramPoint point = new DiagramPoint(20, 13, 0);
     private final double rotation = 90;

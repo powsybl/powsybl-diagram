@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase5H extends AbstractTestCaseRaw {
+class TestCase5H extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {
@@ -60,7 +60,7 @@ public class TestCase5H extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void test() {
+    void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase5H.json"), toJson(g, "/TestCase5H.json"));

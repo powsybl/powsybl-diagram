@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
+class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
     private LayoutToCgmesDlExporterTool tool;
 

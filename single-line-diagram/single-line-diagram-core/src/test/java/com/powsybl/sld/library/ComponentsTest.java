@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class ComponentsTest {
+class ComponentsTest {
 
     private static final CharSequence[] CHAR_SEQUENCES = {"{",
         "\"components\" : [ {",

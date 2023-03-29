@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCase6InternalConnection extends AbstractTestCaseIidm {
+class TestCase6InternalConnection extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

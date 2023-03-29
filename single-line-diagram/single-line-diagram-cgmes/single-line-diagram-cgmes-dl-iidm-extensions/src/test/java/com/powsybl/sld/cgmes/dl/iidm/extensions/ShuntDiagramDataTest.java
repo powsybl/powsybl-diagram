@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
+class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
 
     @Test
     void test() {

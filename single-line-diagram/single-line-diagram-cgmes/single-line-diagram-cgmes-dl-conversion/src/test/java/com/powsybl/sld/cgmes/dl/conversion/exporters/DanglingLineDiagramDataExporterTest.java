@@ -19,7 +19,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
+class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
 
     private DanglingLine danglingLine;
 

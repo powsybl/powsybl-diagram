@@ -19,7 +19,7 @@ import com.powsybl.iidm.network.Switch;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {
+class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {
 
     private Switch sw;
 

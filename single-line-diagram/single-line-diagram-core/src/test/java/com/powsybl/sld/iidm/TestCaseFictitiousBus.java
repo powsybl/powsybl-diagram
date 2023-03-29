@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
+class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
     private VoltageLevel vl1;
     private VoltageLevel vl2;

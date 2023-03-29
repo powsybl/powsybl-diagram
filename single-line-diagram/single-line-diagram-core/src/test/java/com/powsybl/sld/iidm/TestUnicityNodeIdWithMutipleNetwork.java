@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
+class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     private Network network2;
     private GraphBuilder graphBuilder2;

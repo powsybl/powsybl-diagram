@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesDLImporterTest extends AbstractCgmesDLTest {
+class CgmesDLImporterTest extends AbstractCgmesDLTest {
 
     protected static String OTHER_DIAGRAM_NAME = "diagram-1";
 

@@ -19,7 +19,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
+class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
 
     private Bus bus;
 

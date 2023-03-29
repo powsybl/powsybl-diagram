@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class SingleLineDiagramToolTest extends AbstractToolTest {
+class SingleLineDiagramToolTest extends AbstractToolTest {
 
     private SingleLineDiagramTool tool;
 

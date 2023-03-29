@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
+class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     VoltageLevel vl1;
     VoltageLevel vl2;

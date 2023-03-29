@@ -33,7 +33,7 @@ import java.util.Objects;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class DiagramMetadataTest extends AbstractTest {
+class DiagramMetadataTest extends AbstractTest {
 
     private static final String INDENT = "    ";
     private static final String METADATA = "metadata";

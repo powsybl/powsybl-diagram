@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class BoundingBoxTest {
+class BoundingBoxTest {
 
     @Test
     void test() {

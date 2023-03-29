@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
+class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class DanglingLineDiagramDataTest extends AbstractLineDiagramDataTest {
+class DanglingLineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     @Test
     void test() {

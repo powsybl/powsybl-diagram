@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
+class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

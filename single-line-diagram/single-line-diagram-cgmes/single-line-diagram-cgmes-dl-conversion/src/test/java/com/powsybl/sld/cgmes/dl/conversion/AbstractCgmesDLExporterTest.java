@@ -30,7 +30,7 @@ import com.powsybl.triplestore.api.TripleStore;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractCgmesDLExporterTest {
+abstract class AbstractCgmesDLExporterTest {
 
     protected final String basename = "network";
     protected final String dataNs = "http://" + basename + "/#";
