@@ -28,7 +28,7 @@ public interface DiagramStyleProvider {
 
     List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
-    List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
+    List<String> getSvgNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
 
     List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary);
 

@@ -7,8 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
@@ -52,19 +52,19 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private DiagramLabelProviderFactory withFullBusInfoProviderFactory;
+    private LabelProviderFactory withFullBusInfoProviderFactory;
 
-    private DiagramLabelProviderFactory withIncompleteBusInfoProviderFactory;
+    private LabelProviderFactory withIncompleteBusInfoProviderFactory;
 
     @Before
     public void setUp() throws IOException {
         network = CreateNetworksUtil.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
 
-        withFullBusInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
+        withFullBusInfoProviderFactory = new DefaultLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public Optional<BusInfo> getBusInfo(BusNode node) {
@@ -89,10 +89,10 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
             }
         };
 
-        withIncompleteBusInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
+        withIncompleteBusInfoProviderFactory = new DefaultLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public Optional<BusInfo> getBusInfo(BusNode node) {
@@ -123,7 +123,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     public void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProviderFactory());
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProviderFactory());
     }
 
     @Test
@@ -148,23 +148,23 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProviderFactory);
     }
 
-    private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProviderFactory labelProviderFactory) {
+    private void runTest(DiagramStyleProvider styleProvider, String filename, LabelProviderFactory labelProviderFactory) {
         svgParameters.setBusInfoMargin(5);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 
         // Run layout
-        DiagramLabelProvider diagramLabelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
 
         new PositionVoltageLevelLayoutFactory()
-                .setBusInfoMap(diagramLabelProvider.getBusInfoSides(g))
+                .setBusInfoMap(labelProvider.getBusInfoSides(g))
                 .setExceptionIfPatternNotHandled(true)
                 .setHandleShunts(true)
                 .create(g)
                 .run(layoutParameters);
 
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
                 .withComponentLibrary(getResourcesComponentLibrary())
@@ -173,6 +173,6 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 .build();
 
         // write SVG and compare to reference
-        assertEquals(toString(filename), toSVG(g, filename, singleLineDiagramConfiguration));
+        assertEquals(toString(filename), toSVG(g, filename, config));
     }
 }

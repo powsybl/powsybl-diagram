@@ -19,7 +19,7 @@ import java.util.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public interface DiagramLabelProvider {
+public interface LabelProvider {
 
     class NodeLabel {
         private final String label;

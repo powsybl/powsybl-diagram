@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
@@ -36,12 +36,12 @@ public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .build();
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
-            toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", singleLineDiagramConfiguration));
+            toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", config));
     }
 }

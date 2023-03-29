@@ -24,7 +24,7 @@ import java.util.function.BiFunction;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class NetworkAreaDiagramConfigurationBuilder {
+public class ConfigBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
     StyleProvider styleProvider;
@@ -38,46 +38,46 @@ public class NetworkAreaDiagramConfigurationBuilder {
         return function.apply(network, svgParameters);
     }
 
-    public NetworkAreaDiagramConfigurationBuilder(Network network) {
+    public ConfigBuilder(Network network) {
         this.network = network;
         this.styleProvider = new TopologicalStyleProvider(network);
         this.labelProvider = factory(network, svgParameters, labelProviderCreator);
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withSvgParameters(SvgParameters svgParameters) {
+    public ConfigBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
         this.labelProvider = factory(network, svgParameters, labelProviderCreator);
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withLayoutParameters(LayoutParameters layoutParameters) {
+    public ConfigBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withStyleProvider(StyleProvider styleProvider) {
+    public ConfigBuilder withStyleProvider(StyleProvider styleProvider) {
         this.styleProvider = styleProvider;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withLabelProviderCreator(BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator) {
+    public ConfigBuilder withLabelProviderCreator(BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator) {
         this.labelProviderCreator = labelProviderCreator;
         this.labelProvider = factory(network, svgParameters, labelProviderCreator);
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withLayoutFactory(LayoutFactory layoutFactory) {
+    public ConfigBuilder withLayoutFactory(LayoutFactory layoutFactory) {
         this.layoutFactory = layoutFactory;
         return this;
     }
 
-    public NetworkAreaDiagramConfigurationBuilder withIdProvider(IdProvider idProvider) {
+    public ConfigBuilder withIdProvider(IdProvider idProvider) {
         this.idProvider = idProvider;
         return this;
     }
 
-    public NetworkAreaDiagramConfiguration build() {
-        return new NetworkAreaDiagramConfiguration(svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider);
+    public Config build() {
+        return new Config(svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider);
     }
 
 }

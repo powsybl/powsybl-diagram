@@ -22,7 +22,7 @@ import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvider {
+public abstract class AbstractLabelProvider implements LabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
@@ -32,7 +32,7 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     protected final ValueFormatter valueFormatter;
     protected final SvgParameters svgParameters;
 
-    protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    protected AbstractLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;

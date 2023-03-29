@@ -14,6 +14,6 @@ import com.powsybl.sld.library.ComponentLibrary;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public interface DiagramLabelProviderFactory {
-    DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
+public interface LabelProviderFactory {
+    LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
 }

@@ -8,8 +8,8 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -90,10 +90,10 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private final DiagramLabelProviderFactory diagramLabelNoFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
+    private final LabelProviderFactory diagramLabelNoFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -151,42 +151,42 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     public void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", config));
     }
 
     @Test
     public void testVl2() {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", config));
     }
 
     @Test
     public void testVl3() {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelNoFeederInfoProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", config));
     }
 
 }

@@ -27,14 +27,14 @@ import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
  */
-public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
+public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
     protected final Network network;
 
-    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    public DefaultLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         super(componentLibrary, layoutParameters, svgParameters);
         this.network = Objects.requireNonNull(net);
     }

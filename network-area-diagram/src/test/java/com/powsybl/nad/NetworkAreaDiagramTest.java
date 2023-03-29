@@ -68,11 +68,11 @@ public class NetworkAreaDiagramTest extends AbstractTest {
     public void testDrawSvg() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         Path svgFile = fileSystem.getPath("nad-test.svg");
-        NetworkAreaDiagramConfiguration networkAreaDiagramConfiguration = new NetworkAreaDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withSvgParameters(getSvgParameters())
-                        .withStyleProvider(getStyleProvider(network))
-                                .build();
-        NetworkAreaDiagram.draw(network, svgFile, networkAreaDiagramConfiguration, VoltageLevelFilter.NO_FILTER);
+                .withStyleProvider(getStyleProvider(network))
+                .build();
+        NetworkAreaDiagram.draw(network, svgFile, config, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 }

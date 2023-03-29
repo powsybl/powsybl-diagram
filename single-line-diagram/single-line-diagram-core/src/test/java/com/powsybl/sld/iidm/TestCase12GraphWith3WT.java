@@ -8,13 +8,13 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProviderFactory;
+import com.powsybl.sld.svg.DefaultLabelProviderFactory;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
@@ -261,18 +261,18 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         svgParameters.setAddNodesInfos(true)
                 .setAvoidSVGComponentsDuplication(true);
 
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactory())
                 .withComponentLibrary(componentLibrary)
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
-                .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
+                .withDiagramLabelProviderFactory(new DefaultLabelProviderFactory())
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
                 .build();
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", singleLineDiagramConfiguration));
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", config));
     }
 
     @Test
@@ -281,7 +281,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // configure diagram
         svgParameters.setAddNodesInfos(true);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
                 .withDiagramStyleProvider(new NominalVoltageDiagramStyleProvider(network))
@@ -294,7 +294,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", singleLineDiagramConfiguration));
+            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", config));
     }
 
     @Test
@@ -303,19 +303,19 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // configure diagram
         svgParameters.setAddNodesInfos(true);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withDiagramStyleProvider(new TopologicalStyleProvider(network))
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
-                .withDiagramLabelProviderFactory(new DefaultDiagramLabelProviderFactory())
+                .withDiagramLabelProviderFactory(new DefaultLabelProviderFactory())
                 .build();
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         voltageLevelGraphLayout(g1);
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", singleLineDiagramConfiguration));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", config));
     }
 
 }

@@ -7,8 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -34,13 +34,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    DiagramLabelProviderFactory diagramLabelTestProviderFactory = new DefaultDiagramLabelProviderFactory() {
+    LabelProviderFactory diagramLabelTestProviderFactory = new DefaultLabelProviderFactory() {
 
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
@@ -76,14 +76,14 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // Run horizontal substation layout
         substationGraphLayout(g);
 
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .build();
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", singleLineDiagramConfiguration));
+            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", config));
     }
 
     @Test
@@ -95,13 +95,13 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelTestProviderFactory)
                 .build();
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-            toSVG(g, "/NodeDecoratorsSwitches.svg", singleLineDiagramConfiguration));
+            toSVG(g, "/NodeDecoratorsSwitches.svg", config));
     }
 }

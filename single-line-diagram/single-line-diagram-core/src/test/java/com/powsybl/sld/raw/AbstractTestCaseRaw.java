@@ -8,8 +8,8 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -32,19 +32,19 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph graph, String filename) {
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(Network.create("empty", ""))
+        Config config = new ConfigBuilder(Network.create("empty", ""))
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withDiagramLabelProviderFactory(diagramLabelRawProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
-        return toSVG(graph, filename, singleLineDiagramConfiguration);
+        return toSVG(graph, filename, config);
     }
 
-    private final DiagramLabelProviderFactory diagramLabelRawProviderFactory = new DefaultDiagramLabelProviderFactory() {
+    private final LabelProviderFactory diagramLabelRawProviderFactory = new DefaultLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -61,7 +61,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
     };
 
-    public DiagramLabelProviderFactory getDiagramLabelRawProviderFactory() {
+    public LabelProviderFactory getDiagramLabelRawProviderFactory() {
         return diagramLabelRawProviderFactory;
     }
 }

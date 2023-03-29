@@ -10,8 +10,8 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     private VoltageLevel vl2;
     private VoltageLevel vl3;
 
-    SingleLineDiagramConfiguration singleLineDiagramConfiguration;
+    Config config;
 
     @Before
     public void setUp() {
@@ -91,7 +91,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
                 "L3", 2, ConnectablePosition.Direction.TOP,
                 "L3", 0, ConnectablePosition.Direction.TOP);
 
-        singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
@@ -109,7 +109,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", singleLineDiagramConfiguration));
+                toSVG(g, "/TestCaseFictitiousBus.svg", config));
     }
 
     @Test
@@ -122,6 +122,6 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", singleLineDiagramConfiguration));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", config));
     }
 }

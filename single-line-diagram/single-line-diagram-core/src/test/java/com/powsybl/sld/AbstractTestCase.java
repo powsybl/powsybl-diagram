@@ -126,10 +126,10 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph, String filename, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
+    public String toSVG(Graph graph, String filename, Config config) {
         try (StringWriter writer = new StringWriter()) {
 
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), singleLineDiagramConfiguration);
+            SingleLineDiagram.draw(graph, writer, new NullWriter(), config);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -144,16 +144,16 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, Config config) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            singleLineDiagramConfiguration.getVoltageLevelLayoutFactory().create(graph).run(layoutParameters);
+            config.getVoltageLevelLayoutFactory().create(graph).run(layoutParameters);
 
-            SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, config);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -173,15 +173,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SingleLineDiagramConfiguration singleLineDiagramConfiguration) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, Config config) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            singleLineDiagramConfiguration.getSubstationLayoutFactory().create(graph, singleLineDiagramConfiguration.getVoltageLevelLayoutFactory()).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, singleLineDiagramConfiguration);
+            config.getSubstationLayoutFactory().create(graph, config.getVoltageLevelLayoutFactory()).run(layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, config);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);

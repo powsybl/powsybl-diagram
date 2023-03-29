@@ -7,8 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -38,10 +38,10 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
     }
 
-    DiagramLabelProviderFactory diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory() {
+    LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
         @Override
-        public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+            return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                 @Override
                 public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
@@ -62,13 +62,13 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
-                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramLabelProviderFactory(labelProviderFactory)
                 .build();
-        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", config));
     }
 
 }

@@ -91,7 +91,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getSvgNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(nodeDecorator.getType()).ifPresent(styles::add);
         return styles;
@@ -154,7 +154,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
         List<String> styles = new ArrayList<>();
         styles.add(FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
+            styles.add(((DirectionalFeederInfo) info).getDirection() == LabelProvider.LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
         }
         return styles;
     }

@@ -14,10 +14,10 @@ import com.powsybl.sld.library.ComponentLibrary;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class DefaultDiagramLabelProviderFactory implements DiagramLabelProviderFactory {
+public class DefaultLabelProviderFactory implements LabelProviderFactory {
 
     @Override
-    public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
+    public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 }

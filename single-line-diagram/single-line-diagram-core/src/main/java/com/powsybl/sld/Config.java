@@ -10,7 +10,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.SvgParameters;
 
@@ -18,21 +18,21 @@ import com.powsybl.sld.svg.SvgParameters;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class SingleLineDiagramConfiguration {
+public class Config {
 
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
     ComponentLibrary componentLibrary;
-    DiagramLabelProvider diagramLabelProvider;
+    LabelProvider labelProvider;
     DiagramStyleProvider diagramStyleProvider;
     SubstationLayoutFactory substationLayoutFactory;
     VoltageLevelLayoutFactory voltageLevelLayoutFactory;
 
-    public SingleLineDiagramConfiguration(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, DiagramLabelProvider diagramLabelProvider, DiagramStyleProvider diagramStyleProvider, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, LabelProvider labelProvider, DiagramStyleProvider diagramStyleProvider, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.componentLibrary = componentLibrary;
-        this.diagramLabelProvider = diagramLabelProvider;
+        this.labelProvider = labelProvider;
         this.diagramStyleProvider = diagramStyleProvider;
         this.substationLayoutFactory = substationLayoutFactory;
         this.voltageLevelLayoutFactory = voltageLevelLayoutFactory;
@@ -50,8 +50,8 @@ public class SingleLineDiagramConfiguration {
         return componentLibrary;
     }
 
-    public DiagramLabelProvider getDiagramLabelProvider() {
-        return diagramLabelProvider;
+    public LabelProvider getDiagramLabelProvider() {
+        return labelProvider;
     }
 
     public DiagramStyleProvider getDiagramStyleProvider() {

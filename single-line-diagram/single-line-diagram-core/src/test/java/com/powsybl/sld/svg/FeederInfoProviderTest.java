@@ -8,8 +8,8 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
@@ -50,19 +50,19 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withComponentLibrary(componentLibrary)
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
                 .build();
-        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", config));
 
         Network network2 = Network.create("testCase2", "test2");
-        DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);
+        DefaultLabelProvider wrongLabelProvider = new DefaultLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos = wrongLabelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertTrue(feederInfos.isEmpty());
 
-        DefaultDiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
+        DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos1 = labelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertEquals(2, feederInfos1.size());
         assertEquals(ARROW_ACTIVE, feederInfos1.get(0).getComponentType());

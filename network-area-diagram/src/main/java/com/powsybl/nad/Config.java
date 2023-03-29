@@ -17,7 +17,7 @@ import com.powsybl.nad.svg.SvgParameters;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class NetworkAreaDiagramConfiguration {
+public class Config {
 
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
@@ -26,7 +26,7 @@ public class NetworkAreaDiagramConfiguration {
     LayoutFactory layoutFactory;
     IdProvider idProvider;
 
-    public NetworkAreaDiagramConfiguration(SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.styleProvider = styleProvider;

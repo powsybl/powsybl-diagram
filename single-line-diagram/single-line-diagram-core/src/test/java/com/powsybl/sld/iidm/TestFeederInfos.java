@@ -8,8 +8,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -69,10 +69,10 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // many feeder values provider example for the test:
-        DiagramLabelProviderFactory diagramLabelManyFeederInfoProviderFactory = new DefaultDiagramLabelProviderFactory() {
+        LabelProviderFactory diagramLabelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -90,7 +90,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
                     }
 
                     @Override
-                    public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                    public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                         return new ArrayList<>();
                     }
                 };
@@ -98,14 +98,14 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         };
 
         // write SVG and compare to reference
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
                 .withDiagramLabelProviderFactory(diagramLabelManyFeederInfoProviderFactory)
                 .withDiagramStyleProvider(new BasicStyleProvider())
                 .build();
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", config));
     }
 
     @Test
@@ -123,10 +123,10 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withSvgParameters(svgParameters)
                 .build();
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", config));
     }
 
     @Test
@@ -144,10 +144,10 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
 
         svgParameters.setFeederInfosIntraMargin(20);
 
-        DiagramLabelProviderFactory diagramLabelProviderFactory = new DefaultDiagramLabelProviderFactory() {
+        LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
             @Override
-            public DiagramLabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
                     @Override
                     public List<FeederInfo> getFeederInfos(FeederNode node) {
@@ -198,14 +198,14 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withLayoutParameters(layoutParameters)
                 .withComponentLibrary(componentLibrary)
                 .withSvgParameters(svgParameters)
-                .withDiagramLabelProviderFactory(diagramLabelProviderFactory)
+                .withDiagramLabelProviderFactory(labelProviderFactory)
                 .withDiagramStyleProvider(styleProvider)
                 .build();
         // write SVG and compare to reference
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", config));
     }
 }

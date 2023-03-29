@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.SingleLineDiagramConfiguration;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
@@ -38,12 +38,12 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(Collections.emptyList());
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
                 .build();
-        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", config));
     }
 
     @Test
@@ -51,11 +51,11 @@ public class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(List.of(ComponentTypeName.BREAKER, ComponentTypeName.DISCONNECTOR));
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        SingleLineDiagramConfiguration singleLineDiagramConfiguration = new SingleLineDiagramConfigurationBuilder(network)
+        Config config = new ConfigBuilder(network)
                 .withComponentLibrary(getResourcesComponentLibrary())
                 .withLayoutParameters(layoutParameters)
                 .withSvgParameters(svgParameters)
                 .build();
-        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", singleLineDiagramConfiguration));
+        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", config));
     }
 }

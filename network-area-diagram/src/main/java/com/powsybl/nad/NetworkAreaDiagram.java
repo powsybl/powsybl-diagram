@@ -41,35 +41,35 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Path svgFile) {
-        draw(network, svgFile, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.NO_FILTER);
+        draw(network, svgFile, new ConfigBuilder(network).build(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Path svgFile, String voltageLevelId, int depth) {
-        draw(network, svgFile, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, svgFile, new ConfigBuilder(network).build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds) {
-        draw(network, svgFile, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, svgFile, new ConfigBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+        draw(network, svgFile, new ConfigBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
     /* ---------------------------------------------------------------- */
     // Network, Path, Configuration, Predicate
     /* ---------------------------------------------------------------- */
 
-    public static void draw(Network network, Path svgFile, NetworkAreaDiagramConfiguration networkAreaDiagramConfiguration, Predicate<VoltageLevel> voltageLevelFilter) {
+    public static void draw(Network network, Path svgFile, Config config, Predicate<VoltageLevel> voltageLevelFilter) {
 
         Objects.requireNonNull(network);
         Objects.requireNonNull(svgFile);
-        LayoutParameters layoutParameters = networkAreaDiagramConfiguration.getLayoutParameters();
-        SvgParameters svgParameters = networkAreaDiagramConfiguration.getSvgParameters();
-        StyleProvider styleProvider = networkAreaDiagramConfiguration.getStyleProvider();
-        LayoutFactory layoutFactory = networkAreaDiagramConfiguration.getLayoutFactory();
-        IdProvider idProvider = networkAreaDiagramConfiguration.getIdProvider();
-        LabelProvider labelProvider = networkAreaDiagramConfiguration.getLabelProvider();
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        SvgParameters svgParameters = config.getSvgParameters();
+        StyleProvider styleProvider = config.getStyleProvider();
+        LayoutFactory layoutFactory = config.getLayoutFactory();
+        IdProvider idProvider = config.getIdProvider();
+        LabelProvider labelProvider = config.getLabelProvider();
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);
         Objects.requireNonNull(styleProvider);
@@ -87,35 +87,35 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Writer writer) {
-        draw(network, writer, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.NO_FILTER);
+        draw(network, writer, new ConfigBuilder(network).build(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Writer writer, String voltageLevelId, int depth) {
-        draw(network, writer, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, writer, new ConfigBuilder(network).build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Writer writer, List<String> voltageLevelIds) {
-        draw(network, writer, new NetworkAreaDiagramConfigurationBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, writer, new ConfigBuilder(network).build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public void draw(Network network, Writer writer, Predicate<VoltageLevel> voltageLevelFilter) {
-        draw(network, writer, new NetworkAreaDiagramConfigurationBuilder(network).build(), voltageLevelFilter);
+        draw(network, writer, new ConfigBuilder(network).build(), voltageLevelFilter);
     }
 
     /* ----------------------------------------------------------------------------------------------- */
     // Network, Writer, Configuration, Predicate
     /* ----------------------------------------------------------------------------------------------- */
 
-    public static void draw(Network network, Writer writer, NetworkAreaDiagramConfiguration networkAreaDiagramConfiguration, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, networkAreaDiagramConfiguration.getIdProvider()).buildGraph();
-        networkAreaDiagramConfiguration.getLayoutFactory().create().run(graph, networkAreaDiagramConfiguration.getLayoutParameters());
-        new SvgWriter(networkAreaDiagramConfiguration.getSvgParameters(), networkAreaDiagramConfiguration.getStyleProvider(), networkAreaDiagramConfiguration.getLabelProvider()).writeSvg(graph, writer);
+    public static void draw(Network network, Writer writer, Config config, Predicate<VoltageLevel> voltageLevelFilter) {
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, config.getIdProvider()).buildGraph();
+        config.getLayoutFactory().create().run(graph, config.getLayoutParameters());
+        new SvgWriter(config.getSvgParameters(), config.getStyleProvider(), config.getLabelProvider()).writeSvg(graph, writer);
     }
 
     public String drawToString(Network network, SvgParameters svgParameters) {
         try (StringWriter writer = new StringWriter()) {
-            NetworkAreaDiagramConfiguration networkAreaDiagramConfiguration = new NetworkAreaDiagramConfigurationBuilder(network).withSvgParameters(svgParameters).build();
-            draw(network, writer, networkAreaDiagramConfiguration, VoltageLevelFilter.NO_FILTER);
+            Config config = new ConfigBuilder(network).withSvgParameters(svgParameters).build();
+            draw(network, writer, config, VoltageLevelFilter.NO_FILTER);
             return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);

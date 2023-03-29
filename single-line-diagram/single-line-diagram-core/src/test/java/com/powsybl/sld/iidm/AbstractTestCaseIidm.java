@@ -12,15 +12,15 @@ import com.powsybl.iidm.network.extensions.BusbarSectionPositionAdder;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.iidm.network.extensions.ConnectablePositionAdder;
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.SingleLineDiagramConfigurationBuilder;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 
@@ -39,11 +39,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph g, String filename) {
-        return toSVG(g, filename, new SingleLineDiagramConfigurationBuilder(network).build());
+        return toSVG(g, filename, new ConfigBuilder(network).build());
     }
 
-    protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
+    protected LabelProvider getDefaultDiagramLabelProvider() {
+        return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
