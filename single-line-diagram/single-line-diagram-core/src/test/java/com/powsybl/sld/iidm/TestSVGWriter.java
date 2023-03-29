@@ -653,7 +653,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl3() {
+    void testVl3() {
         assertEquals(toString("/vl3.svg"),
             toSVG(g3, "/vl3.svg", labelProvider, new BasicStyleProvider()));
     }

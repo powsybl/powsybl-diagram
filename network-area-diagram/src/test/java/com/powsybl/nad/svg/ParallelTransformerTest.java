@@ -39,7 +39,7 @@ class ParallelTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         Network network = NetworkTestFactory.createTwoVoltageLevelsTwoTransformers();
         assertEquals(toString("/parallel_transformers.svg"), generateSvgString(network, "/parallel_transformers.svg"));
     }
