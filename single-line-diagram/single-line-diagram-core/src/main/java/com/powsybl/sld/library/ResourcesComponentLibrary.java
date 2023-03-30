@@ -115,7 +115,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public Map<String, List<Element>> getSvgElements(String type) {
         Objects.requireNonNull(type);
         Map<String, List<Element>> result = svgDocuments.get(type);
-        if (result == null && (!isOutsideVlComponent(type))) {
+        if (result == null && isInsideVlComponent(type)) {
             result = svgDocuments.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return result;
@@ -181,18 +181,18 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     protected Component getComponent(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        if (component == null && (!isOutsideVlComponent(type))) {
+        if (component == null && isInsideVlComponent(type)) {
             component = components.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return component;
     }
 
-    protected boolean isOutsideVlComponent(String componentType) {
-        return componentType.equals(ComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG) ||
-                componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
-                componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
-                componentType.equals(ComponentTypeName.LINE) ||
-                componentType.equals(ComponentTypeName.DANGLING_LINE) ||
-                componentType.equals(ComponentTypeName.BUSBAR_SECTION);
+    protected boolean isInsideVlComponent(String componentType) {
+        return !(componentType.equals(ComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG) ||
+                 componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
+                 componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
+                 componentType.equals(ComponentTypeName.LINE) ||
+                 componentType.equals(ComponentTypeName.DANGLING_LINE) ||
+                 componentType.equals(ComponentTypeName.BUSBAR_SECTION));
     }
 }
