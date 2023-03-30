@@ -75,6 +75,27 @@
     } ],
     "styleClass" : "sld-load"
   }, {
+    "type" : "BATTERY",
+    "anchorPoints" : [ {
+      "x" : 0,
+      "y" : -4,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0,
+      "y" : 5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 10.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "BATTERY",
+      "fileName" : "battery.svg"
+    } ],
+    "styleClass" : "sld-battery"
+  }, {
     "type" : "GENERATOR",
     "anchorPoints" : [ {
       "x" : 0.0,
