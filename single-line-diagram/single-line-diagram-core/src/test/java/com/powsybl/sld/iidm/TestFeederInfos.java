@@ -74,8 +74,7 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
                         new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
-                        new DirectionalFeederInfo(ARROW_CURRENT, 100, valueFormatter::formatCurrent, null));
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -90,6 +89,43 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         };
         // write SVG and compare to reference
         assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", manyFeederInfoProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    public void testAllPossibleInfoItems() {
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        layoutParameters.setSpaceForFeederInfos(100)
+                .setFeederInfosIntraMargin(5)
+                .setPowerValuePrecision(0);
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // many feeder values provider example for the test :
+        DiagramLabelProvider allFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+
+            @Override
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                List<FeederInfo> feederInfos = Arrays.asList(
+                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000, valueFormatter::formatPower, null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, 70, valueFormatter::formatPower, null),
+                        new DirectionalFeederInfo(ARROW_CURRENT, 100, valueFormatter::formatCurrent, null));
+                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
+                if (!feederArrowSymmetry) {
+                    Collections.reverse(feederInfos);
+                }
+                return feederInfos;
+            }
+
+            @Override
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                return new ArrayList<>();
+            }
+        };
+        // write SVG and compare to reference
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", allFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
