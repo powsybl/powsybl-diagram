@@ -332,6 +332,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
+        public void visitBattery(Battery battery) {
+            addTerminalNode(NodeFactory.createBattery(graph, battery.getId(), battery.getNameOrId()), battery.getTerminal());
+        }
+
+        @Override
         public void visitShuntCompensator(ShuntCompensator sc) {
             FeederNode feederNode = isCapacitor(sc)
                     ? NodeFactory.createCapacitor(graph, sc.getId(), sc.getNameOrId())

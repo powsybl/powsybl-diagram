@@ -129,6 +129,22 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         addFeederPosition(gen, feederName, feederOrder, direction);
     }
 
+    protected static void createBattery(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
+                                          ConnectablePosition.Direction direction, int node,
+                                          double minP, double maxP,
+                                          double targetP, double targetQ) {
+        Battery battery = vl.newBattery()
+                .setId(id)
+                .setName(name)
+                .setNode(node)
+                .setMinP(minP)
+                .setMaxP(maxP)
+                .setTargetP(targetP)
+                .setTargetQ(targetQ)
+                .add();
+        addFeederPosition(battery, feederName, feederOrder, direction);
+    }
+
     protected static void createShunt(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                       ConnectablePosition.Direction direction, int node,
                                       double bPerSection, int maximumSectionCount, int currentSectionCount) {
