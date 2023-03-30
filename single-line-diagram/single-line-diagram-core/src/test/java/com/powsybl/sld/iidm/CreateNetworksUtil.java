@@ -533,4 +533,19 @@ public final class CreateNetworksUtil {
         createSwitch(vl, "d223b", "d223b", SwitchKind.DISCONNECTOR, false, false, false, 9, 5);
         return network;
     }
+
+    public static Network createNetworkWithBatteries() {
+        Network network = Network.create("TestBatteries", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
+        createSwitch(vl, "d1b", "d1b", SwitchKind.DISCONNECTOR, true, false, false, 1, 2);
+        createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, true, false, false, 0, 1);
+        createBattery(vl, "batt1", "batt1", "batt1", null, ConnectablePosition.Direction.TOP, 2, 1, 10, 5, 5);
+        createSwitch(vl, "d2b", "d2b", SwitchKind.DISCONNECTOR, true, true, false, 3, 4);
+        createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, true, true, false, 0, 3);
+        createBattery(vl, "batt2", "batt2", "batt2", null, ConnectablePosition.Direction.BOTTOM, 4, 3, 10, 6, 6);
+        return network;
+    }
+
 }

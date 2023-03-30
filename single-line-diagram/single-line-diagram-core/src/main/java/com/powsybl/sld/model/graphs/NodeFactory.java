@@ -85,6 +85,10 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.GENERATOR);
     }
 
+    public static FeederNode createBattery(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.BATTERY);
+    }
+
     public static FeederNode createLoad(VoltageLevelGraph graph, String id, String name) {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.LOAD);
     }

@@ -98,6 +98,16 @@ public class VoltageLevelRawBuilder {
         return fn;
     }
 
+    public FeederNode createBattery(String id) {
+        return createBattery(id, 0, null);
+    }
+
+    public FeederNode createBattery(String id, int order, Direction direction) {
+        FeederNode fn = NodeFactory.createBattery(voltageLevelGraph, id, id);
+        commonFeederSetting(fn, id, order, direction);
+        return fn;
+    }
+
     public FeederNode createFeederLineNode(String id, String otherVlId, NodeSide side, int order, Direction direction) {
         FeederNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
         commonFeederSetting(fln, id, order, direction);
