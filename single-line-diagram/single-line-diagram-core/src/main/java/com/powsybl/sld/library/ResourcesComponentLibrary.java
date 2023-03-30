@@ -114,13 +114,17 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     @Override
     public Map<String, List<Element>> getSvgElements(String type) {
         Objects.requireNonNull(type);
-        return svgDocuments.get(type);
+        Map<String, List<Element>> result = svgDocuments.get(type);
+        if (result == null && (!isOutsideVlComponent(type))) {
+            result = svgDocuments.get(ComponentTypeName.UNKNOWN_COMPONENT);
+        }
+        return result;
     }
 
     @Override
     public List<AnchorPoint> getAnchorPoints(String type) {
         Objects.requireNonNull(type);
-        Component component = components.get(type);
+        Component component = getComponent(type);
         return component != null ? component.getAnchorPoints()
                                  : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }
@@ -128,7 +132,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     @Override
     public ComponentSize getSize(String type) {
         Objects.requireNonNull(type);
-        Component component = components.get(type);
+        Component component = getComponent(type);
         return component != null ? component.getSize() : new ComponentSize(0, 0);
     }
 
@@ -152,7 +156,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     @Override
     public Optional<String> getComponentStyleClass(String type) {
         Objects.requireNonNull(type);
-        Component component = components.get(type);
+        Component component = getComponent(type);
         return component != null ? Optional.ofNullable(component.getStyleClass()) : Optional.empty();
     }
 
@@ -160,7 +164,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public Optional<String> getSubComponentStyleClass(String type, String subComponent) {
         Objects.requireNonNull(type);
         Objects.requireNonNull(subComponent);
-        Component component = components.get(type);
+        Component component = getComponent(type);
         if (component != null) {
             return component.getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
         }
@@ -170,8 +174,25 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     @Override
     public Map<Orientation, Component.Transformation> getTransformations(String type) {
         Objects.requireNonNull(type);
-        Component component = components.get(type);
+        Component component = getComponent(type);
         return component != null ? component.getTransformations() : Collections.emptyMap();
     }
 
+    protected Component getComponent(String type) {
+        Objects.requireNonNull(type);
+        Component component = components.get(type);
+        if (component == null && (!isOutsideVlComponent(type))) {
+            component = components.get(ComponentTypeName.UNKNOWN_COMPONENT);
+        }
+        return component;
+    }
+
+    protected boolean isOutsideVlComponent(String componentType) {
+        return componentType.equals(ComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG) ||
+                componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
+                componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
+                componentType.equals(ComponentTypeName.LINE) ||
+                componentType.equals(ComponentTypeName.DANGLING_LINE) ||
+                componentType.equals(ComponentTypeName.BUSBAR_SECTION);
+    }
 }

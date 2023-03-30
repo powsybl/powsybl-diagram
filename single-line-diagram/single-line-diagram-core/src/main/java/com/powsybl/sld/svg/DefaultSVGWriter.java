@@ -8,7 +8,10 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.Component;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -568,27 +571,9 @@ public class DefaultSVGWriter implements SVGWriter {
                                          DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, shift, g);
-        if (isComponentSVG(componentType)) {
-            insertComponentSVGIntoDocumentSVG(prefixId, getComponentSVGType(componentType), g, graph, node, labelProvider, styleProvider);
+        if (componentLibrary.getSvgElements(componentType) != null) {
+            insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, labelProvider, styleProvider);
         }
-    }
-
-    protected boolean isComponentSVG(String componentType) {
-        boolean isSvgComponent = componentLibrary.getSvgElements(componentType) != null;
-        // Check if Unknown component need to be used
-        isSvgComponent |= !(componentType.equals(PHASE_SHIFT_TRANSFORMER_LEG) ||
-            componentType.equals(TWO_WINDINGS_TRANSFORMER_LEG) ||
-            componentType.equals(THREE_WINDINGS_TRANSFORMER_LEG) ||
-            componentType.equals(LINE) ||
-            componentType.equals(DANGLING_LINE) ||
-            componentType.equals(BUSBAR_SECTION));
-
-        return isSvgComponent;
-    }
-
-    protected String getComponentSVGType(String componentType) {
-        // Return Unknown component if not found
-        return componentLibrary.getSvgElements(componentType) != null ? componentType : UNKNOWN_COMPONENT;
     }
 
     protected void insertComponentSVGIntoDocumentSVG(String prefixId, String componentType, Element g, Graph graph, Node node,
@@ -633,7 +618,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertSVGIntoDocumentSVG(String componentType, Element g, String tooltip,
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(g, tooltip);
-        Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(getComponentSVGType(componentType));
+        Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
         subComponents.forEach(layoutParameters.isAvoidSVGComponentsDuplication() ?
             (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
             (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" height="12" width="12">
+  <path d="M 6,0 V 4.5 M 0,4.5 H 12 M 0,7.5 H 12 M 6,7.5 V 12"/>
+  <path d="M 0.2556,10.611 11.671,1.448 M 9.329,2.045 11.671,1.448 10.581,3.6046" style="fill:none;stroke:#0000ff;stroke-width:0.5;stroke-linejoin:miter"/>
+</svg>

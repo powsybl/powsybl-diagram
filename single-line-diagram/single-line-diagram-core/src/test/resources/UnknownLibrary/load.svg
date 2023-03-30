@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="16" height="9">
+    <rect width="16" height="9"/>
+    <line x1="0" y1="0" x2="16" y2="9"/>
+    <line x1="16" y1="0" x2="0" y2="9"/>
+</svg>
