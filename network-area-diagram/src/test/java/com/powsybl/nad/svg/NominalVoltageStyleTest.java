@@ -12,7 +12,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.iidm.xml.NetworkXml;
-import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
@@ -55,8 +54,7 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Test
     void testIEEE14() {
-        Network network = IeeeCdfNetworkFactory.create14();
-        LoadFlow.run(network);
+        Network network = IeeeCdfNetworkFactory.create14Solved();
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
     }
 
@@ -76,11 +74,10 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Test
     void testDisconnection() {
-        Network network = IeeeCdfNetworkFactory.create14();
+        Network network = IeeeCdfNetworkFactory.create14Solved();
         network.getLine("L3-4-1").getTerminal1().disconnect();
         network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
         network.getVoltageLevel("VL14").getConnectableStream().map(connectable -> (Connectable<?>) connectable).forEach(connectable -> connectable.getTerminals().forEach(Terminal::disconnect));
-        LoadFlow.run(network);
         assertEquals(toString("/IEEE_14_bus_disconnection.svg"), generateSvgString(network, "/IEEE_14_bus_disconnection.svg"));
     }
 

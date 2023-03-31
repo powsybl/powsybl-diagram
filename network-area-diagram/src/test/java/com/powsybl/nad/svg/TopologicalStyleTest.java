@@ -8,7 +8,6 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -73,7 +72,6 @@ class TopologicalStyleTest extends AbstractTest {
     @Test
     void testEurope() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        LoadFlow.run(network);
         assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
     }
 
