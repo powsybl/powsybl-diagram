@@ -14,12 +14,4 @@ public interface HorizontalBusListManager {
 
     void mergeHbl(BSCluster leftCluster, BSCluster rightCluster);
 
-    default void mergeHblWithNoLink(BSCluster leftCluster, BSCluster rightCluster) {
-        rightCluster.getHorizontalBusLists().forEach(hbl -> {
-            hbl.shift(leftCluster.getLength());
-            hbl.setBsCluster(leftCluster);
-        });
-        leftCluster.getHorizontalBusLists().addAll(rightCluster.getHorizontalBusLists());
-        rightCluster.getHorizontalBusLists().removeAll(rightCluster.getHorizontalBusLists());
-    }
 }
