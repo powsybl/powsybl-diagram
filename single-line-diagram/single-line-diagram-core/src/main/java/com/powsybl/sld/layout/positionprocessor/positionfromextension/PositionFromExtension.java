@@ -33,7 +33,7 @@ public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
 
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
-    
+
     private static final HorizontalBusListManager HBLMANAGER = new HBLManagerByExtension();
 
     private static final Comparator<VerticalBusSet> VBSCOMPARATOR = new Comparator<VerticalBusSet>() {
@@ -210,4 +210,4 @@ public class PositionFromExtension extends AbstractPositionFinder {
                 .ifPresent(bc::setOrder);
     }
 
-    }
+}
