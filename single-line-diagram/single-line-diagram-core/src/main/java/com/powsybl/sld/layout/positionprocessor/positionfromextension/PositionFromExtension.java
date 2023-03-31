@@ -31,8 +31,53 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
  */
 public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
+
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
+    
     private static final HorizontalBusListManager HBLMANAGER = new HBLManagerByExtension();
+
+    private static final Comparator<VerticalBusSet> VBSCOMPARATOR = new Comparator<VerticalBusSet>() {
+        @Override
+        public int compare(VerticalBusSet vbs1, VerticalBusSet vbs2) {
+            for (BusNode busNode : vbs1.getBusNodeSet()) {
+                Optional<Integer> optionalSectionIndex2 = vbs2.getBusNodeSet().stream()
+                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
+                        .findFirst().map(BusNode::getSectionIndex);
+                if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
+                    return busNode.getSectionIndex() - optionalSectionIndex2.get();
+                }
+            }
+
+            Optional<Integer> order1 = externCellOrderNb(vbs1);
+            Optional<Integer> order2 = externCellOrderNb(vbs2);
+            if (order1.isPresent() && order2.isPresent()) {
+                return order1.get() - order2.get();
+            }
+
+            int h1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getSectionIndex);
+            int h2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getSectionIndex);
+            if (h1max != h2max) {
+                return h1max - h2max;
+            }
+
+            int v1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getBusbarIndex);
+            int v2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getBusbarIndex);
+            if (v1max != v2max) {
+                return v1max - v2max;
+            }
+            return vbs1.getBusNodeSet().size() - vbs2.getBusNodeSet().size();
+        }
+
+        private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
+            return busNodes.stream()
+                    .map(fun).max(Integer::compareTo).orElse(0);
+        }
+
+        private Optional<Integer> externCellOrderNb(VerticalBusSet vbs) {
+            return vbs.getExternCells().stream().findAny().map(exCell -> exCell.getOrder().orElse(-1));
+        }
+
+    };
 
     /**
      * Builds the layout of the bus nodes, and organises cells (order and directions)
@@ -107,7 +152,7 @@ public class PositionFromExtension extends AbstractPositionFinder {
         gatherLayoutExtensionInformation(graph);
 
         List<BSCluster> bsClusters = BSCluster.createBSClusters(
-                verticalBusSets.stream().sorted(sortVbs).collect(Collectors.toList()));
+                verticalBusSets.stream().sorted(VBSCOMPARATOR).collect(Collectors.toList()));
 
         BSCluster bsCluster = bsClusters.get(0);
 
@@ -119,7 +164,7 @@ public class PositionFromExtension extends AbstractPositionFinder {
         return bsCluster;
     }
 
-    private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
+    private static void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
 
         graph.getBusCellStream().forEach(bc -> {
             setDirection(bc);
@@ -165,46 +210,4 @@ public class PositionFromExtension extends AbstractPositionFinder {
                 .ifPresent(bc::setOrder);
     }
 
-    private Comparator<VerticalBusSet> sortVbs = new Comparator<VerticalBusSet>() {
-        @Override
-        public int compare(VerticalBusSet vbs1, VerticalBusSet vbs2) {
-            for (BusNode busNode : vbs1.getBusNodeSet()) {
-                Optional<Integer> optionalSectionIndex2 = vbs2.getBusNodeSet().stream()
-                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
-                        .findFirst().map(BusNode::getSectionIndex);
-                if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
-                    return busNode.getSectionIndex() - optionalSectionIndex2.get();
-                }
-            }
-
-            Optional<Integer> order1 = externCellOrderNb(vbs1);
-            Optional<Integer> order2 = externCellOrderNb(vbs2);
-            if (order1.isPresent() && order2.isPresent()) {
-                return order1.get() - order2.get();
-            }
-
-            int h1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getSectionIndex);
-            int h2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getSectionIndex);
-            if (h1max != h2max) {
-                return h1max - h2max;
-            }
-
-            int v1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getBusbarIndex);
-            int v2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getBusbarIndex);
-            if (v1max != v2max) {
-                return v1max - v2max;
-            }
-            return vbs1.getBusNodeSet().size() - vbs2.getBusNodeSet().size();
-        }
-
-        private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
-            return busNodes.stream()
-                    .map(fun).max(Integer::compareTo).orElse(0);
-        }
-
-        private Optional<Integer> externCellOrderNb(VerticalBusSet vbs) {
-            return vbs.getExternCells().stream().findAny().map(exCell -> exCell.getOrder().orElse(-1));
-        }
-
-    };
-}
+    }
