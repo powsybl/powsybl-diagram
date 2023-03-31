@@ -13,24 +13,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * An horizontalBusSet contains a list of BusNodes that have to be displayed horizontally at the same height (same vPos).
- * The startingIndex of the HorizontalBusSet is its horizontal position in the LBSCluster it belongs to.
+ * An HorizontalBusList contains a list of BusNodes that have to be displayed horizontally at the same height (same vPos).
+ * The startingIndex of the HorizontalBusList is its horizontal position in the LBSCluster it belongs to.
  * The horizontal position is the startingIndex in the cluster of the first LegBusSet that contains the first BusNode
- * of the HorizontalBusSet.
- * The length is the spanning of the HorizontalBusSet in the LBSCluster (note that a busNode can span over many
- * LegBusSet in the cluster). Therefore startingIndex + length - 1 = the last position occupied by the HorizontalBusSet in
+ * of the HorizontalBusList.
+ * The length is the spanning of the HorizontalBusList in the LBSCluster (note that a busNode can span over many
+ * LegBusSet in the cluster). Therefore startingIndex + length - 1 = the last position occupied by the HorizontalBusList in
  * the LBSCluster.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class HorizontalBusSet {
+public class HorizontalBusList {
 
     private final List<BusNode> busNodes = new ArrayList<>();
     private int startingIndex;
 
     private BSCluster bsCluster;
 
-    HorizontalBusSet(BusNode busNode, BSCluster bsCluster) {
+    HorizontalBusList(BusNode busNode, BSCluster bsCluster) {
         busNodes.add(busNode);
         this.bsCluster = bsCluster;
         startingIndex = 0;
@@ -45,13 +45,13 @@ public class HorizontalBusSet {
         startingIndex += i;
     }
 
-    public void merge(HorizontalBusSet otherHbs) {
+    public void merge(HorizontalBusList otherHbl) {
         BusNode myRightBus = getSideNode(Side.RIGHT);
-        for (int i = getEndingIndex(); i < otherHbs.getStartingIndex()
-                + (bsCluster == otherHbs.bsCluster ? 0 : bsCluster.getLength()); i++) {
-            busNodes.add(myRightBus == otherHbs.getSideNode(Side.LEFT) ? myRightBus : null);
+        for (int i = getEndingIndex(); i < otherHbl.getStartingIndex()
+                + (bsCluster == otherHbl.bsCluster ? 0 : bsCluster.getLength()); i++) {
+            busNodes.add(myRightBus == otherHbl.getSideNode(Side.LEFT) ? myRightBus : null);
         }
-        busNodes.addAll(otherHbs.getBusNodes());
+        busNodes.addAll(otherHbl.getBusNodes());
     }
 
     void establishBusPosition(int v) {

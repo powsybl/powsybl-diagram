@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout.positionprocessor.positionbyclustering;
 
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusSet;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusList;
 import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
@@ -39,7 +39,7 @@ class VBSClusterSide {
     }
 
     Set<BusNode> getBusNodeSet() {
-        return new LinkedHashSet<>(bsCluster.hbsSideBuses(side));
+        return new LinkedHashSet<>(bsCluster.hblSideBuses(side));
     }
 
     List<InternCell> getCandidateFlatCellList() {
@@ -87,18 +87,18 @@ class VBSClusterSide {
             return 100;
         }
         BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
-        Optional<HorizontalBusSet> horizontalBusSet = bsCluster.getHorizontalBusSets()
+        Optional<HorizontalBusList> horizontalBusList = bsCluster.getHorizontalBusLists()
                 .stream()
-                .filter(hbs -> side == Side.LEFT && hbs.getBusNodes().get(0) == busNode
-                        || side == Side.RIGHT && hbs.getBusNodes().get(hbs.getBusNodes().size() - 1) == busNode)
+                .filter(hbl -> side == Side.LEFT && hbl.getBusNodes().get(0) == busNode
+                        || side == Side.RIGHT && hbl.getBusNodes().get(hbl.getBusNodes().size() - 1) == busNode)
                 .findFirst();
-        if (!horizontalBusSet.isPresent()) {
+        if (!horizontalBusList.isPresent()) {
             return 100;
         } else {
             if (side == Side.LEFT) {
-                return horizontalBusSet.get().getStartingIndex();
+                return horizontalBusList.get().getStartingIndex();
             } else {
-                return bsCluster.getVerticalBusSets().size() - horizontalBusSet.get().getEndingIndex();
+                return bsCluster.getVerticalBusSets().size() - horizontalBusList.get().getEndingIndex();
             }
         }
     }
@@ -117,6 +117,6 @@ class VBSClusterSide {
 
     @Override
     public String toString() {
-        return side.toString() + " " + bsCluster.hbsSideBuses(side).toString();
+        return side.toString() + " " + bsCluster.hblSideBuses(side).toString();
     }
 }
