@@ -8,7 +8,7 @@ package com.powsybl.sld.layout.positionprocessor.positionfromextension;
 
 import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusSetManager;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusListManager;
 import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -32,7 +32,7 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
-    private static final HorizontalBusSetManager HBSMANAGER = new HBSManagerByExtension();
+    private static final HorizontalBusListManager HBLMANAGER = new HBLManagerByExtension();
 
     /**
      * Builds the layout of the bus nodes, and organises cells (order and directions)
@@ -112,10 +112,10 @@ public class PositionFromExtension extends AbstractPositionFinder {
         BSCluster bsCluster = bsClusters.get(0);
 
         while (bsClusters.size() != 1) {
-            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, HBSMANAGER);
+            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, HBLMANAGER);
             bsClusters.remove(1);
         }
-        bsCluster.sortHbsByVPos();
+        bsCluster.sortHblByVPos();
         return bsCluster;
     }
 

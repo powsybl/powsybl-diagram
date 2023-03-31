@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout.positionprocessor.positionbyclustering;
 
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusSetManager;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusListManager;
 import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
@@ -21,15 +21,15 @@ final class Links {
 
     private final List<VBSClusterSide> bsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
-    private HorizontalBusSetManager hbsManager;
+    private final HorizontalBusListManager hblManager;
     private int linkCounter = 0;
 
-    private Links(HorizontalBusSetManager hbsManager) {
-        this.hbsManager = hbsManager;
+    private Links(HorizontalBusListManager hblManager) {
+        this.hblManager = hblManager;
     }
 
-    public static Links create(List<BSCluster> bsClusters, HorizontalBusSetManager hbsManager) {
-        Links links = new Links(hbsManager);
+    public static Links create(List<BSCluster> bsClusters, HorizontalBusListManager hblManager) {
+        Links links = new Links(hblManager);
         bsClusters.forEach(vbsCluster -> addClusterSidesTwins(links, vbsCluster));
         return links;
     }
@@ -60,7 +60,7 @@ final class Links {
     }
 
     void mergeLink(Link link) {
-        link.mergeClusters(hbsManager);
+        link.mergeClusters(hblManager);
         BSCluster mergedCluster = link.getBsClusterSide(0).getCluster();
         removeVbsClusterSide(link.getBsClusterSide(0));
         removeVbsClusterSide(link.getBsClusterSide(1));
