@@ -27,6 +27,7 @@
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
 /* Stroke --sld-vl-color with fallback blue */
 .sld-load {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-generator {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-two-wt {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-three-wt {stroke: var(--sld-vl-color, blue); fill: none}
