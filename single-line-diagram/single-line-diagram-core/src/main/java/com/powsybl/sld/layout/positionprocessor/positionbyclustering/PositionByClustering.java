@@ -90,7 +90,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         }
         BSCluster bsCluster = links.getFinalBsCluster();
 
-        tetrisHorizontalBusSets(bsCluster);
+        tetrisHorizontalBusLists(bsCluster);
         bsCluster.getHorizontalBusLists().forEach(hl -> LOGGER.info(hl.toString()));
         bsCluster.establishBusNodePosition();
         establishFeederPositions(bsCluster);
@@ -98,7 +98,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         return bsCluster;
     }
 
-    private void tetrisHorizontalBusSets(BSCluster bsCluster) {
+    private void tetrisHorizontalBusLists(BSCluster bsCluster) {
         List<HorizontalBusList> horizontalBusLists = bsCluster.getHorizontalBusLists();
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("{}", horizontalBusLists);

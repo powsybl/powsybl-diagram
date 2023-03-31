@@ -6,12 +6,12 @@
 It is composed of 2 kinds of sets of `BusNode` Sets that present an horizontal and a vertical view of the structure of a `VoltageLevel`:
 
 - `List<VerticalBusSet> verticalBusSets` see link:VerticalBusSet.adoc[VerticalBusSet]
-- `List<HorizontalBusSet> horizontalBusSets` see link:HorizontalBusSet.adoc[HorizontalBusSet]
+- `List<HorizontalBusList> horizontalBusLists` see link:HorizontalBusList.adoc[HorizontalBusList]
 ****
 
 A `BSCluster` is initiated with one `VerticalBusSet` that:
 
 - is put as is as first element `verticalBusSets`. Important reminder: a `VerticalBusSet` design is driven by legs of `BusCells`.
-- inititiate one `HorizontalBusSet` for each of its `BusNode`
+- inititiate one `HorizontalBusList` for each of its `BusNode`
 
 Each `PositionFinder` using `BSCluster` implementation provides a strategy to merge them together in order to get a single `BSCluster`.
