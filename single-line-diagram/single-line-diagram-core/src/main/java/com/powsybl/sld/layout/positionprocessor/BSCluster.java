@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * BSCluster contains a list of VerticalBusSets (VBS) that is orderly build by successively merging BSCluster initially
  * containing a single VBS.
- * BSCluster handles the building of the horizontalBusSets that are an horizontal strings of busNodes.
+ * BSCluster handles the building of the horizontalBusLists that are an horizontal strings of busNodes.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */

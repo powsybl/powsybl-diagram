@@ -63,7 +63,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 [cols=".^1, .^2, 1"]
 |===
-|BSCluster | VerticalBusSets | HorizontalBusSets
+|BSCluster | VerticalBusSets | HorizontalBusLists
 
 |bsc-1
 |[vbs-3: [B3, B1], [EC1], [IC2.R, IC3.L]]
@@ -95,7 +95,7 @@ That's where the magic happens. This is where the implementations mainly differ.
 The principle of the merging of a `BSCluster` are:
 
 - simply concat the `VerticalBusSet` List
-- merge the `HorizontalBusSet`
+- merge the `HorizontalBusList`
  
 This should result in 
 
