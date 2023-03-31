@@ -8,7 +8,7 @@ The goal is to set:
 * the horizontal and vertical *structural _(h,v)_* `Position` of the bus nodes: `NodeBus.structuralPosition`
 * the horizontal *order* of the cells: `Cell.order`
 
-The figure hereafter shows the information that are to be established. But actually, the outcome of `PositionFinder` is delivered another way, throug a coherent `List<Subsection>`. See link:Subsection.adoc[Subsection]
+The picture hereafter shows the information that are to be established. But actually, the outcome of `PositionFinder` is delivered another way, throug a coherent `List<Subsection>`. See link:Subsection.adoc[Subsection]
 
 .(h,v) positions of `BusNodes` and `ExternCell` cells order
 image::images/busbars.svg[align="center"]
@@ -56,7 +56,7 @@ The result of `VerticalBusSet.createVerticalBusSets` is
 |===
 
 [NOTE]
-At that stage, the LEFT and RIGHT side of an IntenCell is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
+At that stage, the `LEFT` and `RIGHT` side of an `IntenCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
 ==== step 2: Build unitary `BSClusters`
 This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
