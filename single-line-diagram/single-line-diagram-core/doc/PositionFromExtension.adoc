@@ -5,3 +5,20 @@ It is gathered:
 
 * in `NetworkGraphBuilder.visitBusbarSection()` when building the graph for the `BusNode` positions
 * and completed in `PositionFromExtension.gatherLayoutExtensionInformation()` for the feeders' order, in which the `BusCell.getOrder()` is called to determine the order of the cell.
+
+== Algorithm
+
+When `organizeBusSets` is called. It:
+
+- gathers the positional information from the `iidm` extension
+- builds the `List<BSCluster>bsClusters` by providing the list of initial `VerticalBusSet` sorted by the comparator `VBSCOMPARATOR`
+- merges the `BSCluster` from `bsClusters` sequentially from one to the next relying on the order they were build according to.
+
+=== `VBSCOMPARATOR`
+It is designed to sort the given `List<VerticalBusSet>verticalBusSet` to be sorted by the positions given by the extension, first by the `NodeBus`, second by the `Feeder` order.
+
+=== Merging
+To merge `BSClusers` the `HBLManagerByExtension` is used. It merges by simply concatening `horizontalBusList` for which the `BusBarIndex` of the `busNode` are the same.
+
+Then there is a call to the method `mergeHblWithNoLink` which ensures every `horizontalBusList` finds a place in the merged `BSCluster`. This call should be useless if the positions given by the extension are consistent.
+
