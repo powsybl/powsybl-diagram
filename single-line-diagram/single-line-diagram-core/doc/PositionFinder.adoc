@@ -66,24 +66,20 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 |BSCluster | VerticalBusSets | HorizontalBusLists
 
 |bsc-1
-|[vbs-3: [B3, B1], [EC1], [IC2.R, IC3.L]]
-|[hbl-3: [B3],
-
-hbl-4: [B1]]
+|[ ( [B3, B1] , [EC1] , [IC2.R, IC3.L] ) ]
+|[ [B3] , [B1] ]
 
 |bsc-2
-|[vbs-1: [B2], , [IC1.L]]
-|[hbl-1: [B2]]
+|[ ( [B2] , , [IC1.L] ) ]
+|[ [B2] ]
 
 |bsc-3
-|[vbs-4: [B1, B4], [EC2, EC3, EC4] , [IC3.R]]
-|[hbl-5: [B1],
-
-hbl-6: [B4]]
+|[ ( [B1, B4] , [EC2, EC3, EC4] , [IC3.R] ) ]
+|[ [B1], [B4] ]
 
 |bsc-4
-|[vbs-2: [B5], , [IC1.L, IC2.L]]
-|[hbl-2: [B5]]
+|[ ( [B5] , , [IC1.L , IC2.L] ) ]
+|[ [B5] ]
 
 |===
 
@@ -97,9 +93,33 @@ The principle of the merging of a `BSCluster` are:
 - simply concat the `VerticalBusSet` List
 - merge the `HorizontalBusList`
  
-This should result in 
+This expected result should be similar to the following `BSCluster`:
 
 image::images/BSClusterFinal.svg[align="center"]
+
+[cols="1, 1"]
+|===
+|VerticalBusSets | HorizontalBusLists
+
+| [
+
+( [B2, B5] , , [IC1.L, IC1.R, IC2.L] ) ,
+
+( [B4, B1] ,  [EC2, EC3, EC4] , [IC3.R] ) ,
+
+( [B3, B1] , [EC1] , [IC2.R, IC3.L] )
+
+]
+
+|  [
+
+    [B2, B4, B3] ,
+
+    [B5, B1, B1]
+    
+]
+
+|===
 
 
 ==== step 4: Build the `List<Subsection>`

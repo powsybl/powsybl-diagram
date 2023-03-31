@@ -1,5 +1,6 @@
 = `BSCluster`
 
+== Definition
 `BSCluster` (`BusNode` Sets Cluster) are used by implementations of `PositionFinder`.
 
 ****
@@ -9,9 +10,34 @@ It is composed of 2 kinds of sets of `BusNode` Sets that present an horizontal a
 - `List<HorizontalBusList> horizontalBusLists` see link:HorizontalBusList.adoc[HorizontalBusList]
 ****
 
+
+[IMPORTANT]
+====
+`VerticalBusSet` is a `Set` as it is important to have no duplicate `BusNodes` whereas, it is possible to have duplicate `BusNodes` in the `HorizontalBusList`.
+
+The rules are as follow: 
+
+- for `VerticalBusSet`, a `BusNode` may appear:
+* in multiple `VerticalBusSets`,
+* but only once in a `VerticalBusSet`;
+- for `HorizontalBusList`, a `BusNode` may appear:
+* multiple times in a `HorizontalBusList`, in that case the occurences shall have contiguous indexes,
+* shall appear only in one single `HorizontalBusList`.
+====
+
+The goal is at the end to be able to merge the `VoltageLevel` into a single `BSCluster` having to this kind of pattern:
+
+image::images/BSClusterFinal.svg[align="center"]
+
+== Key methods
+
+=== Build
 A `BSCluster` is initiated with one `VerticalBusSet` that:
 
-- is put as is as first element `verticalBusSets`. Important reminder: a `VerticalBusSet` design is driven by legs of `BusCells`.
-- inititiate one `HorizontalBusList` for each of its `BusNode`
+- is put as is as first element `verticalBusSets`,
+- inititiates one `HorizontalBusList` for each of its `BusNode`
 
 Each `PositionFinder` using `BSCluster` implementation provides a strategy to merge them together in order to get a single `BSCluster`.
+
+=== Merge
+The merge of 2 `BSClusters` is done by calling the `merge` method giving it a `HorizontalBusListManager`. Indeed if the merging of the `verticalBusSets` is just a concatenation, the merging of the `horizontalBusLists` differs from one `PositionFinder` to another.
