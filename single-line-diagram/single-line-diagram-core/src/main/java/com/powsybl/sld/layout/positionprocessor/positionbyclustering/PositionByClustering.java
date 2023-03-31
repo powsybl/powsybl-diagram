@@ -8,7 +8,7 @@ package com.powsybl.sld.layout.positionprocessor.positionbyclustering;
 
 import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusSet;
+import com.powsybl.sld.layout.positionprocessor.HorizontalBusList;
 import com.powsybl.sld.layout.positionprocessor.Subsection;
 import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.BusCell;
@@ -67,7 +67,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
-    private static final HBSManagerByClustering HBSMANAGER = new HBSManagerByClustering();
+    private static final HBLManagerByClustering HBLMANAGER = new HBLManagerByClustering();
 
     @Override
     public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells) {
@@ -84,14 +84,14 @@ public class PositionByClustering extends AbstractPositionFinder {
 
     public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
         List<BSCluster> bsClusters = BSCluster.createBSClusters(verticalBusSets);
-        Links links = Links.create(bsClusters, HBSMANAGER);
+        Links links = Links.create(bsClusters, HBLMANAGER);
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }
         BSCluster bsCluster = links.getFinalBsCluster();
 
         tetrisHorizontalBusSets(bsCluster);
-        bsCluster.getHorizontalBusSets().forEach(hl -> LOGGER.info(hl.toString()));
+        bsCluster.getHorizontalBusLists().forEach(hl -> LOGGER.info(hl.toString()));
         bsCluster.establishBusNodePosition();
         establishFeederPositions(bsCluster);
 
@@ -99,30 +99,30 @@ public class PositionByClustering extends AbstractPositionFinder {
     }
 
     private void tetrisHorizontalBusSets(BSCluster bsCluster) {
-        List<HorizontalBusSet> horizontalBusSets = bsCluster.getHorizontalBusSets();
+        List<HorizontalBusList> horizontalBusLists = bsCluster.getHorizontalBusLists();
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("{}", horizontalBusSets);
+            LOGGER.info("{}", horizontalBusLists);
         }
-        List<HorizontalBusSet> sortedHbs = horizontalBusSets.stream()
-                .sorted(Comparator.comparingInt(HorizontalBusSet::getStartingIndex)
+        List<HorizontalBusList> sortedHbl = horizontalBusLists.stream()
+                .sorted(Comparator.comparingInt(HorizontalBusList::getStartingIndex)
                         .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness
                 .collect(Collectors.toList());
-        int clusterLength = sortedHbs.stream()
-                .mapToInt(HorizontalBusSet::getEndingIndex)
+        int clusterLength = sortedHbl.stream()
+                .mapToInt(HorizontalBusList::getEndingIndex)
                 .max().orElse(0);
         int i = 0;
-        while (i < sortedHbs.size()) {
-            HorizontalBusSet lane = sortedHbs.get(i);
+        while (i < sortedHbl.size()) {
+            HorizontalBusList lane = sortedHbl.get(i);
             int actualMaxIndex = lane.getEndingIndex();
             while (actualMaxIndex < clusterLength) {
                 int finalActualMax = actualMaxIndex;
-                HorizontalBusSet hbsToAdd = sortedHbs.stream()
+                HorizontalBusList hblToAdd = sortedHbl.stream()
                         .filter(l -> l.getStartingIndex() >= finalActualMax)
                         .findFirst().orElse(null);
-                if (hbsToAdd != null) {
-                    lane.merge(hbsToAdd);
-                    sortedHbs.remove(hbsToAdd);
-                    horizontalBusSets.remove(hbsToAdd);
+                if (hblToAdd != null) {
+                    lane.merge(hblToAdd);
+                    sortedHbl.remove(hblToAdd);
+                    horizontalBusLists.remove(hblToAdd);
                     actualMaxIndex = lane.getEndingIndex();
                 } else {
                     i++;

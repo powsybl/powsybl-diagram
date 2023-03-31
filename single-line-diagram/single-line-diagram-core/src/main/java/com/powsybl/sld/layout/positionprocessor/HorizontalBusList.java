@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class HorizontalBusSet {
+public class HorizontalBusList {
 
     private final List<BusNode> busNodes = new ArrayList<>();
     private int startingIndex;
 
     private BSCluster bsCluster;
 
-    HorizontalBusSet(BusNode busNode, BSCluster bsCluster) {
+    HorizontalBusList(BusNode busNode, BSCluster bsCluster) {
         busNodes.add(busNode);
         this.bsCluster = bsCluster;
         startingIndex = 0;
@@ -45,13 +45,13 @@ public class HorizontalBusSet {
         startingIndex += i;
     }
 
-    public void merge(HorizontalBusSet otherHbs) {
+    public void merge(HorizontalBusList otherHbl) {
         BusNode myRightBus = getSideNode(Side.RIGHT);
-        for (int i = getEndingIndex(); i < otherHbs.getStartingIndex()
-                + (bsCluster == otherHbs.bsCluster ? 0 : bsCluster.getLength()); i++) {
-            busNodes.add(myRightBus == otherHbs.getSideNode(Side.LEFT) ? myRightBus : null);
+        for (int i = getEndingIndex(); i < otherHbl.getStartingIndex()
+                + (bsCluster == otherHbl.bsCluster ? 0 : bsCluster.getLength()); i++) {
+            busNodes.add(myRightBus == otherHbl.getSideNode(Side.LEFT) ? myRightBus : null);
         }
-        busNodes.addAll(otherHbs.getBusNodes());
+        busNodes.addAll(otherHbl.getBusNodes());
     }
 
     void establishBusPosition(int v) {
