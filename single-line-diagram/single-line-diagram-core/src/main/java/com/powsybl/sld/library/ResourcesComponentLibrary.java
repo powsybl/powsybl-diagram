@@ -115,7 +115,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public Map<String, List<Element>> getSvgElements(String type) {
         Objects.requireNonNull(type);
         Map<String, List<Element>> result = svgDocuments.get(type);
-        if (result == null && isInsideVlComponent(type)) {
+        if (result == null && isDisplayed(type)) {
             result = svgDocuments.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return result;
@@ -181,13 +181,13 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     protected Component getComponent(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        if (component == null && isInsideVlComponent(type)) {
+        if (component == null && isDisplayed(type)) {
             component = components.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return component;
     }
 
-    protected boolean isInsideVlComponent(String componentType) {
+    protected boolean isDisplayed(String componentType) {
         return !(componentType.equals(ComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG) ||
                  componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
                  componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
