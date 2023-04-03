@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class TestAddBatteries extends AbstractTestCaseRaw {
+class TestAddBatteries extends AbstractTestCaseRaw {
 
     @BeforeEach
     public void setUp() {
