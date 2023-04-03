@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class TestBattery extends AbstractTestCaseIidm {
+class TestBattery extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
