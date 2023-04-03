@@ -7,12 +7,9 @@
 package com.powsybl.sld.layout.positionprocessor.positionfromextension;
 
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusList;
 import com.powsybl.sld.layout.positionprocessor.HorizontalBusListManager;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
-
-import java.util.Optional;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -26,17 +23,17 @@ public class HBLManagerByExtension implements HorizontalBusListManager {
         // and structuralPosition hPos are ordered
         leftCluster.getHorizontalBusLists().forEach(hbl -> {
             BusNode rightNodeOfLeftHbl = hbl.getSideNode(Side.RIGHT);
-            Optional<HorizontalBusList> rightHbl = rightCluster.getHorizontalBusLists().stream()
+            rightCluster.getHorizontalBusLists().stream()
                     .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
-                    .findFirst();
-            if (rightHbl.isPresent()) {
-                BusNode leftNodeOfRightHbl = rightHbl.get().getSideNode(Side.LEFT);
-                if (leftNodeOfRightHbl == rightNodeOfLeftHbl
-                        || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
-                    hbl.merge(rightHbl.get());
-                    rightCluster.removeHbl(rightHbl.get());
-                }
-            }
+                    .findFirst()
+                    .ifPresent(rightHbl -> {
+                        BusNode leftNodeOfRightHbl = rightHbl.getSideNode(Side.LEFT);
+                        if (leftNodeOfRightHbl == rightNodeOfLeftHbl
+                                || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
+                            hbl.merge(rightHbl);
+                            rightCluster.removeHbl(rightHbl);
+                        }
+                    });
         });
         mergeHblWithNoLink(leftCluster, rightCluster);
     }
