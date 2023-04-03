@@ -1,8 +1,0 @@
-<?xml version="1.0" standalone="no"?>
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-    <line x1="6" y1="0" x2="6" y2="4.5"/>
-    <line x1="0" y1="4.5" x2="12" y2="4.5"/>
-    <line x1="0" y1="7.5" x2="12" y2="7.5"/>
-    <line x1="6" y1="7.5" x2="6" y2="12"/>
-</svg>
-

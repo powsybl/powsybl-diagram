@@ -13,19 +13,10 @@
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
 /* Stroke --sld-vl-color with fallback blue */
 .sld-load {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-pst-arrow {stroke: black; fill: none}
-.sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
 .sld-node {stroke: none; fill: black}
-.sld-flash {stroke: none; fill: black}
-.sld-lock {stroke: none; fill: black}
 .sld-unknown {stroke: none; fill: black}
 /* Fonts */
 .sld-label {stroke: none; fill: black; font: 8px serif}
