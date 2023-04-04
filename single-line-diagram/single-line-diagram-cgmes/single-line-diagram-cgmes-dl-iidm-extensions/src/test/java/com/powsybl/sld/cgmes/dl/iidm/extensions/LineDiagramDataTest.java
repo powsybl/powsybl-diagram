@@ -8,20 +8,21 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class LineDiagramDataTest extends AbstractLineDiagramDataTest {
+class LineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     protected static final String DIAGRAM2_NAME = "diagram2";
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithLine();
         Line line = network.getLine("Line");
 
@@ -39,7 +40,7 @@ public class LineDiagramDataTest extends AbstractLineDiagramDataTest {
     }
 
     @Test
-    public void testMultipleDiagrams() {
+    void testMultipleDiagrams() {
         Network network = Networks.createNetworkWithLine();
         Line line = network.getLine("Line");
 

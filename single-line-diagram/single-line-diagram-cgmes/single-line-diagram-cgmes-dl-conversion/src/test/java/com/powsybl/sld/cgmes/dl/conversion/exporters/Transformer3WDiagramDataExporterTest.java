@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 import java.util.Arrays;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
@@ -24,7 +24,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 
     private final DiagramPoint point = new DiagramPoint(20, 13, 0);
     private final double rotation = 90;
@@ -39,7 +39,7 @@ public class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporte
     private final String terminal3Id = "terminal3Id";
     private ThreeWindingsTransformer twt;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

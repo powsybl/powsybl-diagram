@@ -6,21 +6,21 @@
  */
 package com.powsybl.sld.layout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
-public class LayoutParametersTest {
+class LayoutParametersTest {
 
     @Test
-    public void test() {
+    void test() {
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setVoltageLevelPadding(15, 35, 25, 45)
                 .setDiagrammPadding(20, 40, 30, 50)

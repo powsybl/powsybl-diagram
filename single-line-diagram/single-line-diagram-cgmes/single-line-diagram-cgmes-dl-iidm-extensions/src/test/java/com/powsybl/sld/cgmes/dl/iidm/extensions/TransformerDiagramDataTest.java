@@ -6,19 +6,18 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import org.junit.Test;
-
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
+class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithTwoWindingsTransformer();
         TwoWindingsTransformer twt = network.getTwoWindingsTransformer("Transformer");
 

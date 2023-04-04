@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
@@ -17,12 +17,12 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractNodeLineDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractNodeLineDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 
     protected final DiagramPoint point1 = new DiagramPoint(0, 0, 1);
     protected final DiagramPoint point2 = new DiagramPoint(10, 0, 2);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

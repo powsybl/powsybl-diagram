@@ -6,24 +6,23 @@
  */
 package com.powsybl.sld.svg;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
-public class DiagramStylesTest {
+class DiagramStylesTest {
 
     @Test
-    public void test() {
+    void test() {
         String input = "ab_cd.ef gh";
         String escaped = DiagramStyles.escapeId(input);
         assertEquals(input, DiagramStyles.unescapeId(escaped));
     }
 
     @Test
-    public void test2() {
+    void test2() {
         String input = "_c";
         String escaped = DiagramStyles.escapeClassName(input);
         assertEquals("_95_c", escaped);

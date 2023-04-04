@@ -10,17 +10,17 @@ package com.powsybl.sld.iidm;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class TestUnknownComponent extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         layoutParameters.setCellWidth(80);
 

@@ -19,20 +19,20 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 import org.joda.time.DateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesZoneLayoutTest {
+class CgmesZoneLayoutTest {
 
     private static final String SUBSTATION_1_ID = "Substation1";
     private static final String SUBSTATION_2_ID = "Substation2";
@@ -198,7 +198,7 @@ public class CgmesZoneLayoutTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         Network network = createNetwork();
         addDiagramData(network);
         List<String> zone = Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID);

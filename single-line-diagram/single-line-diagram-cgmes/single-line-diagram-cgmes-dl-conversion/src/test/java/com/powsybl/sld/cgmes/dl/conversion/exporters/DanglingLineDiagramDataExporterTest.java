@@ -7,7 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
@@ -19,11 +19,11 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
+class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
 
     private DanglingLine danglingLine;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

@@ -7,17 +7,17 @@
 package com.powsybl.sld.library;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestLoadInvalidExternalComponent {
+class TestLoadInvalidExternalComponent {
 
     @Test
-    public void test() {
+    void test() {
         assertThrows(UncheckedSaxException.class, () -> new ResourcesComponentLibrary("invalid", "/ConvergenceLibrary", "/InvalidLibrary"));
     }
 }

@@ -8,14 +8,14 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractInjectionDiagramDataTest {
+abstract class AbstractInjectionDiagramDataTest {
     protected static String DIAGRAM_NAME = "default";
 
     protected <T> void checkDiagramData(InjectionDiagramData<?> diagramData, String diagramName) {

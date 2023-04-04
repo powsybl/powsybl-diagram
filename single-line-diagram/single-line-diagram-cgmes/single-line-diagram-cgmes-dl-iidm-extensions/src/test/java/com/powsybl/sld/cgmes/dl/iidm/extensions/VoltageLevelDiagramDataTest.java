@@ -8,21 +8,21 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class VoltageLevelDiagramDataTest {
+class VoltageLevelDiagramDataTest {
 
     protected static String DIAGRAM_NAME = "diagram";
     protected static String DIAGRAM_NAME2 = "diagram2";
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithGenerator();
         VoltageLevel vl = network.getVoltageLevels().iterator().next();
         assertFalse(VoltageLevelDiagramData.checkDiagramData(vl));

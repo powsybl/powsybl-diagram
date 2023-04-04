@@ -6,14 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractLineDiagramDataTest {
+abstract class AbstractLineDiagramDataTest {
     protected static final String DIAGRAM_NAME = "default";
     protected static final String DIAGRAM2_NAME = "diagram2";
 

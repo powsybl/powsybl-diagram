@@ -15,22 +15,21 @@ import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class ThreeWindingTransformerTest extends AbstractTest {
+class ThreeWindingTransformerTest extends AbstractTest {
 
     private StyleProvider styleProvider;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
@@ -49,13 +48,13 @@ public class ThreeWindingTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void test3wt() {
+    void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
     }
 
     @Test
-    public void testDisconnected3wt() {
+    void testDisconnected3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
@@ -63,7 +62,7 @@ public class ThreeWindingTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void testDisconnected3wtTopologicalStyle() {
+    void testDisconnected3wtTopologicalStyle() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
@@ -72,7 +71,7 @@ public class ThreeWindingTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void testPartial3wt() {
+    void testPartial3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
         assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));

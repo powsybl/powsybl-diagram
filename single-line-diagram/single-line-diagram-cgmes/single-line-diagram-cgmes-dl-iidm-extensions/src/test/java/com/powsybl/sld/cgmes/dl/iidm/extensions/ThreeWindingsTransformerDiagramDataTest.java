@@ -8,20 +8,20 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ThreeWindingsTransformerDiagramDataTest {
+class ThreeWindingsTransformerDiagramDataTest {
 
     public static String DIAGRAM_NAME = "default";
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithThreeWindingsTransformer();
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer3w");
 

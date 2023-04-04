@@ -7,20 +7,21 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.coordinate.Side;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class PositionVoltageLevelLayoutFactoryTest {
+class PositionVoltageLevelLayoutFactoryTest {
 
     @Test
-    public void test() {
+    void test() {
         PositionVoltageLevelLayoutFactory factory = new PositionVoltageLevelLayoutFactory();
 
         assertTrue(factory.isFeederStacked());

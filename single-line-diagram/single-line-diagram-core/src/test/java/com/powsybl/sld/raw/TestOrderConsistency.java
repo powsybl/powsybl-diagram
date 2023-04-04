@@ -14,19 +14,19 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class TestOrderConsistency extends AbstractTestCaseRaw {
+class TestOrderConsistency extends AbstractTestCaseRaw {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         createCommons("vl1", true);
         createCommons("vl2", false);
@@ -88,28 +88,28 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
     }
 
     @Test
-    public void testClustMiddleLeft() {
+    void testClustMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1");
         new PositionVoltageLevelLayoutFactory(new PositionByClustering()).create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyClust1.json"), toJson(g, "/orderConsistencyClust1.json"));
     }
 
     @Test
-    public void testClustNoMiddleLeft() {
+    void testClustNoMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2");
         new PositionVoltageLevelLayoutFactory(new PositionByClustering()).create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyClust2.json"), toJson(g, "/orderConsistencyClust2.json"));
     }
 
     @Test
-    public void testExtMiddleLeft() {
+    void testExtMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1");
         new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyExt1.json"), toJson(g, "/orderConsistencyExt1.json"));
     }
 
     @Test
-    public void testExtNoMiddleLeft() {
+    void testExtNoMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2");
         new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyExt2.json"), toJson(g, "/orderConsistencyExt2.json"));
