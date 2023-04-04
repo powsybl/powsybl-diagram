@@ -105,7 +105,6 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-
         // write SVG and compare to reference
         assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", new DefaultDiagramLabelProvider(network, getResourcesComponentLibrary(), layoutParameters), new BasicStyleProvider()));
     }
