@@ -1,0 +1,34 @@
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke black */
+.sld-disconnector {stroke-width: 3; stroke: black; fill: none}
+/* Stroke blue */
+.sld-breaker {stroke-width: 2; stroke: blue; fill:white}
+.sld-load-break-switch {stroke: blue; fill: white}
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load {stroke: var(--sld-vl-color, blue); fill: none}
+/* Stroke none & fill: --sld-vl-color */
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+/* Stroke none & fill: black */
+.sld-node {stroke: none; fill: black}
+.sld-unknown {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px serif}
+.sld-angle, .sld-voltage {font: 10px serif}
+.sld-graph-label {font: 12px serif}
+/* Specific */
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-feeder-info.sld-active-power {fill:black}
+.sld-feeder-info.sld-reactive-power {fill:blue}
+.sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
+.sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}

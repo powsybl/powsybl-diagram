@@ -25,6 +25,6 @@ class ComponentLibraryTest {
         ComponentLibrary cvg = ComponentLibrary.find("Convergence").orElse(null);
         assertNotNull(cvg);
         assertEquals("Convergence", cvg.getName());
-        assertEquals(20, cvg.getComponentsSize().size());
+        assertEquals(21, cvg.getComponentsSize().size());
     }
 }

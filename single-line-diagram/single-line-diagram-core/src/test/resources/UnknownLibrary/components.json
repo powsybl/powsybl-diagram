@@ -1,0 +1,199 @@
+{
+  "components" : [ {
+    "type" : "BREAKER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "breaker-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    },
+    {
+      "name" : "OPEN",
+      "fileName" : "breaker-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-breaker"
+  }, {
+    "type" : "LOAD_BREAK_SWITCH",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "load-break-switch-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    },
+      {
+        "name" : "OPEN",
+        "fileName" : "load-break-switch-open.svg",
+        "styleClass" : "sld-sw-open"
+      } ],
+    "styleClass" : "sld-load-break-switch"
+  }, {
+    "type" : "LOAD",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -4.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 4.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 9.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "LOAD",
+      "fileName" : "load.svg"
+    } ],
+    "styleClass" : "sld-load"
+  }, {
+    "type" : "DISCONNECTOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "disconnector-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    }, {
+      "name" : "OPEN",
+      "fileName" : "disconnector-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-disconnector"
+  }, {
+    "type" : "BUS_CONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "BUS_CONNECTION",
+      "fileName" : "bus_connection.svg"
+    } ],
+    "styleClass" : "sld-bus-connection"
+  }, {
+    "type" : "NODE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "NODE",
+      "fileName" : "node.svg"
+    } ],
+    "styleClass" : "sld-node"
+  }, {
+    "type" : "BUSBAR_SECTION",
+    "styleClass" : "sld-busbar-section"
+  }, {
+    "type" : "UNKNOWN_COMPONENT",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -5.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 5.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : -9.5,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 9.5,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "UNKNOWN_COMPONENT",
+      "fileName" : "unknown-component.svg"
+    } ],
+    "styleClass" : "sld-unknown"
+  },{
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-out"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-in"
+    } ],
+    "styleClass" : "sld-active-power"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-out"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-in"
+    } ],
+    "styleClass" : "sld-reactive-power"
+  } ]
+}

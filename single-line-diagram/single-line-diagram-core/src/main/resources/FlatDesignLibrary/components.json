@@ -455,6 +455,36 @@
       "styleClass": "sld-node"
     },
     {
+      "type" : "UNKNOWN_COMPONENT",
+      "anchorPoints" : [ {
+        "x" : 0.0,
+        "y" : -5.5,
+        "orientation" : "VERTICAL"
+      }, {
+        "x" : 0.0,
+        "y" : 5.5,
+        "orientation" : "VERTICAL"
+      }, {
+        "x" : -9.5,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+      }, {
+        "x" : 9.5,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+      } ],
+      "size" : {
+        "width" : 20.0,
+        "height" : 20.0
+      },
+      "transformations" : {},
+      "subComponents" : [ {
+        "name" : "UNKNOWN_COMPONENT",
+        "fileName" : "unknown-component.svg"
+      } ],
+      "styleClass" : "sld-unknown"
+    },
+    {
       "type": "ARROW_ACTIVE",
       "size": {
         "width": 10.0,
