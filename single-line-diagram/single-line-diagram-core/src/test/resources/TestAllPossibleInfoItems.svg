@@ -84,17 +84,17 @@
             <g class="sld-active-power sld-feeder-info sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">1,000</text>
+                <text class="sld-label" x="15.0" y="5.0">100</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-out" id="idl_ARROW_REACTIVE" transform="translate(60.0,114.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">70</text>
+                <text class="sld-label" x="15.0" y="5.0">10</text>
             </g>
             <g class="sld-current sld-feeder-info sld-out" id="idl_ARROW_CURRENT" transform="translate(60.0,129.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">100</text>
+                <text class="sld-label" x="15.0" y="5.0">153</text>
             </g>
             <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,298.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

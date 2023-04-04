@@ -218,7 +218,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
         feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
         if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), terminal.getQ(), valueFormatter::formatCurrent));
         }
         return feederInfoList;
     }

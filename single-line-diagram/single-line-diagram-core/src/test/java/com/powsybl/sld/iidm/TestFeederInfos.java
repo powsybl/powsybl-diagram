@@ -94,38 +94,20 @@ public class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     public void testAllPossibleInfoItems() {
         // build graph
+        network.getLoad("l").getTerminal().setP(100).setQ(10).getBusView().getBus().setV(vl.getNominalV());
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         layoutParameters.setSpaceForFeederInfos(100)
                 .setFeederInfosIntraMargin(5)
-                .setPowerValuePrecision(0);
+                .setPowerValuePrecision(0)
+                .setDisplayCurrentFeederInfo(true);
 
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // many feeder values provider example for the test :
-        DiagramLabelProvider allFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
 
-            @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, 70, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_CURRENT, 100, valueFormatter::formatCurrent, null));
-                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
-                if (!feederArrowSymmetry) {
-                    Collections.reverse(feederInfos);
-                }
-                return feederInfos;
-            }
-
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
-            }
-        };
         // write SVG and compare to reference
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", allFeederInfoProvider, new BasicStyleProvider()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", new DefaultDiagramLabelProvider(network, getResourcesComponentLibrary(), layoutParameters), new BasicStyleProvider()));
     }
 
     @Test

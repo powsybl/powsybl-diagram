@@ -102,7 +102,7 @@ public class LayoutParameters {
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
-    private boolean displayCurrentFeederInfo;
+    private boolean displayCurrentFeederInfo = false;
 
     @JsonCreator
     public LayoutParameters() {
