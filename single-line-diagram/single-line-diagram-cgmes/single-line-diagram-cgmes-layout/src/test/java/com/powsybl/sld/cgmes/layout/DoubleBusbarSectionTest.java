@@ -14,15 +14,15 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class DoubleBusbarSectionTest {
+class DoubleBusbarSectionTest {
 
     private static final String DIAGRAM_NAME = "default";
 
@@ -30,7 +30,7 @@ public class DoubleBusbarSectionTest {
 
     private int iNode = 2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         Network network = Networks.createNetworkWithDoubleBusbarSections();
         voltageLevel = network.getVoltageLevel("VoltageLevel1");
@@ -139,7 +139,7 @@ public class DoubleBusbarSectionTest {
     }
 
     @Test
-    public void testVoltageLevelData() {
+    void testVoltageLevelData() {
         addDiagramData(true);
         VoltageLevelGraph graph = processCgmesLayout();
         checkGraph(graph);
@@ -147,7 +147,7 @@ public class DoubleBusbarSectionTest {
     }
 
     @Test
-    public void testNoVoltageLevelData() {
+    void testNoVoltageLevelData() {
         addDiagramData(false);
         VoltageLevelGraph graph = processCgmesLayout();
         checkGraph(graph);

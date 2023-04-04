@@ -6,15 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
@@ -50,7 +50,7 @@ public abstract class AbstractCgmesDLExporterTest {
     protected ArgumentCaptor<String> typeCaptor;
     protected ArgumentCaptor<PropertyBag> propertiesCaptor;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tripleStore = Mockito.mock(TripleStore.class);
         Mockito.when(tripleStore.add(Mockito.any(String.class), Mockito.eq(CgmesNamespace.CIM_16_NAMESPACE),
@@ -77,7 +77,7 @@ public abstract class AbstractCgmesDLExporterTest {
     }
 
     protected PropertyBag getTerminal(String equipmentId, String terminalId, int side) {
-        PropertyBag terminal = new PropertyBag(Arrays.asList("equipment", "terminalSide", "terminal"));
+        PropertyBag terminal = new PropertyBag(Arrays.asList("equipment", "terminalSide", "terminal"), true);
         terminal.put("equipment", dataNs + equipmentId);
         terminal.put("terminal", dataNs + terminalId);
         terminal.put("terminalSide", Integer.toString(side));
@@ -85,7 +85,7 @@ public abstract class AbstractCgmesDLExporterTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         new CgmesDLExporter(network, tripleStore, cgmesDLModel).exportDLData(dataSource);
         checkNamespaces();
         checkStatements();

@@ -13,10 +13,10 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <pre>
@@ -34,13 +34,13 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
+class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
     private VoltageLevel vl1;
     private VoltageLevel vl2;
     private VoltageLevel vl3;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -91,7 +91,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testBasic() {
+    void testBasic() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
@@ -104,7 +104,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testTopological() {
+    void testTopological() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 

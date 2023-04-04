@@ -13,17 +13,17 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
+class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = NetworkFactory.createTestCase11Network();
         substation = network.getSubstation("subst");
@@ -41,7 +41,7 @@ public class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 

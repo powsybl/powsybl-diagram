@@ -11,18 +11,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class EdgeIdTest extends AbstractTest {
+class EdgeIdTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -41,14 +40,14 @@ public class EdgeIdTest extends AbstractTest {
     }
 
     @Test
-    public void testNameOnEdgeDisplayed() {
+    void testNameOnEdgeDisplayed() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(true);
         assertEquals(toString("/edge_with_id.svg"), generateSvgString(network, "/edge_with_id.svg"));
     }
 
     @Test
-    public void testNameOnEdgeNotDisplayed() {
+    void testNameOnEdgeNotDisplayed() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(false);
         assertEquals(toString("/edge_without_id.svg"), generateSvgString(network, "/edge_without_id.svg"));

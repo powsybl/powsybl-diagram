@@ -17,19 +17,19 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class AddNodeGraphTest extends AbstractTestCaseIidm {
+class AddNodeGraphTest extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = FourSubstationsNodeBreakerFactory.create();
         graphBuilder = new NetworkGraphBuilder(network);
@@ -37,7 +37,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testNewNode() {
+    void testNewNode() {
 
         // graph construction
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -66,7 +66,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testExistingNode() {
+    void testExistingNode() {
         // graph construction
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
         int originNbNodes = graph.getNodes().size();
@@ -85,7 +85,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstitute() {
+    void testSubstitute() {
 
         // Creates new node non-connected to any equipments (connected to fictitious nodes)
         String replacingNodeId = "s1vl2_replacingBreaker";

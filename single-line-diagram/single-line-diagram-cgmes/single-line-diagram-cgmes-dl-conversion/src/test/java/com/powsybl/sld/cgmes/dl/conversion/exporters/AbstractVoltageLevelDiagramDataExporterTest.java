@@ -9,18 +9,18 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.triplestore.api.PropertyBags;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 /**
  *
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public abstract class AbstractVoltageLevelDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractVoltageLevelDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 
     protected final DiagramPoint point1 = new DiagramPoint(0, 0, 1);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

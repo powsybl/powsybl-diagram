@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import java.util.Arrays;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
@@ -19,7 +19,7 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractCouplingDeviceDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractCouplingDeviceDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
     protected final DiagramPoint point = new DiagramPoint(20, 10, 0);
     protected final double rotation = 90;
     protected final DiagramPoint terminal1Point1 = new DiagramPoint(5, 10, 1);
@@ -29,7 +29,7 @@ public abstract class AbstractCouplingDeviceDiagramDataExporterTest extends Abst
     protected final DiagramPoint terminal2Point2 = new DiagramPoint(35, 10, 2);
     protected final String terminal2Id = "terminal2Id";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

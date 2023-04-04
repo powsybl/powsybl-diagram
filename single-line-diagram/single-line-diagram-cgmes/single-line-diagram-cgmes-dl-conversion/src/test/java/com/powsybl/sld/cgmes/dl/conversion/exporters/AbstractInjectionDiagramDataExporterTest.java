@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import java.util.Collections;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
@@ -19,14 +19,14 @@ import com.powsybl.triplestore.api.PropertyBags;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractInjectionDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
+abstract class AbstractInjectionDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
     protected final DiagramPoint point = new DiagramPoint(20, 10, 0);
     protected final double rotation = 90;
     protected final DiagramPoint terminalPoint1 = new DiagramPoint(5, 10, 1);
     protected final DiagramPoint terminalPoint2 = new DiagramPoint(15, 10, 2);
     protected final String terminalId = "terminalId";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

@@ -6,20 +6,19 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class BoundingBoxTest {
+class BoundingBoxTest {
 
     @Test
-    public void test() {
+    void test() {
         List<Point> points = new ArrayList<>();
         points.add(new Point(1.0, 2.0));
         points.add(new Point(3.0, 4.0));

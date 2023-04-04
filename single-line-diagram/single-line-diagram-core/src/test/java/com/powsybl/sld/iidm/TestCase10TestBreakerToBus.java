@@ -28,7 +28,7 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase10TestBreakerToBus extends AbstractTestCaseIidm {
+class TestCase10TestBreakerToBus extends AbstractTestCaseIidm {
 
     @Override
     public void setUp() {

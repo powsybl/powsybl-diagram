@@ -22,8 +22,10 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,17 +33,15 @@ import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class NetworkAreaDiagramTest extends AbstractTest {
+class NetworkAreaDiagramTest extends AbstractTest {
 
     protected java.nio.file.FileSystem fileSystem;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -77,7 +77,7 @@ public class NetworkAreaDiagramTest extends AbstractTest {
     }
 
     @Test
-    public void testDrawSvg() {
+    void testDrawSvg() {
         Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
         NetworkAreaDiagram nad = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
 

@@ -14,10 +14,8 @@ import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolRunningContext;
 import com.powsybl.tools.test.AbstractToolTest;
 import org.apache.commons.cli.CommandLine;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -27,19 +25,16 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
+class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
     private LayoutToCgmesDlExporterTool tool;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private ToolRunningContext runningContext;
 
@@ -48,7 +43,7 @@ public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
     private static final String COMMAND_NAME = "generate-cgmes-dl";
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
         tool = new LayoutToCgmesDlExporterTool();
@@ -94,25 +89,23 @@ public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
     }
 
     @Test
-    public void missingInputFileOptions() {
+    void missingInputFileOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(false);
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("input-file parameter is missing");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("input-file parameter is missing"));
     }
 
     @Test
-    public void missingOutputDirOptions() {
+    void missingOutputDirOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(false);
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("output-dir parameter is missing");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("output-dir parameter is missing"));
     }
 
     @Test
-    public void invalidVoltageLevelLayoutOptions() {
+    void invalidVoltageLevelLayoutOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(true);
@@ -120,13 +113,12 @@ public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
         when(commandLine.hasOption("voltage-level-layout")).thenReturn(true);
         when(commandLine.getOptionValue("voltage-level-layout")).thenReturn("InvalidLayoutLevel");
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("invalid voltage-level-layout: InvalidLayoutLevel");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("invalid voltage-level-layout: InvalidLayoutLevel"));
     }
 
     @Test
-    public void invalidSubstationLayoutOptions() {
+    void invalidSubstationLayoutOptions() {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(true);
@@ -134,13 +126,12 @@ public class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
         when(commandLine.hasOption("substation-layout")).thenReturn(true);
         when(commandLine.getOptionValue("substation-layout")).thenReturn("InvalidSubstationLayout");
-        thrown.expect(PowsyblException.class);
-        thrown.expectMessage("invalid substation-layout: InvalidSubstationLayout");
-        tool.run(commandLine, runningContext);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
+        assertTrue(e.getMessage().contains("invalid substation-layout: InvalidSubstationLayout"));
     }
 
     @Test
-    public void runTest() throws IOException {
+    void runTest() throws IOException {
         when(commandLine.hasOption("input-file")).thenReturn(true);
         when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
         when(commandLine.hasOption("output-dir")).thenReturn(true);

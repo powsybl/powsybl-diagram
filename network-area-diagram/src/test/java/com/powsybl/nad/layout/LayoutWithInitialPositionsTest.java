@@ -19,8 +19,12 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.StringWriter;
 import java.util.Collections;
@@ -28,15 +32,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.*;
-
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-public class LayoutWithInitialPositionsTest extends AbstractTest {
+class LayoutWithInitialPositionsTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
@@ -55,12 +57,12 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
     }
 
     @Test
-    public void testDiamond() {
+    void testDiamond() {
         checkLayoutWithInitialPositions(LayoutNetworkFactory.createDiamond());
     }
 
     @Test
-    public void testNbVoltageLevels() {
+    void testNbVoltageLevels() {
         Network network = LayoutNetworkFactory.createDiamond();
 
         assertEquals(1, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "A 400", 0).getNbVoltageLevels());

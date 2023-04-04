@@ -20,7 +20,7 @@ import com.powsybl.iidm.network.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase7DoubleDJ extends AbstractTestCaseIidm {
+class TestCase7DoubleDJ extends AbstractTestCaseIidm {
 
     @Override
     public void setUp() {
