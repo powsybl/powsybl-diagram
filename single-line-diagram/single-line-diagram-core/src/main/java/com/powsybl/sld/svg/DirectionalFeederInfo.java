@@ -29,12 +29,6 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
         this(componentType, value, formatter, null);
     }
 
-    public DirectionalFeederInfo(String componentType, double value, double valueForDirection, DoubleFunction<String> formatter) {
-        super(componentType, null, formatter.apply(value), null);
-        this.arrowDirection = Objects.requireNonNull(getArrowDirection(valueForDirection));
-        this.value = value;
-    }
-
     public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter, String userDefinedId) {
         super(componentType, null, formatter.apply(value), userDefinedId);
         this.arrowDirection = Objects.requireNonNull(getArrowDirection(value));
