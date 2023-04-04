@@ -6,9 +6,8 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
@@ -23,6 +22,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class TypeOfEdgeInfoTest extends AbstractTest {
 
+    Network network;
+
     @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
@@ -32,6 +33,12 @@ public class TypeOfEdgeInfoTest extends AbstractTest {
                 .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
+        network = NetworkTestFactory.createTwoVoltageLevels();
+        Line l1 = network.getLine("l1");
+        l1.getTerminal1().setP(100).setQ(10);
+        l1.getTerminal2().setP(99).setQ(11);
+        l1.getTerminal1().getBusView().getBus().setV(380);
+        l1.getTerminal2().getBusView().getBus().setV(379);
     }
 
     @Override
@@ -46,16 +53,12 @@ public class TypeOfEdgeInfoTest extends AbstractTest {
 
     @Test
     public void testReactivePowerInfoLabel() {
-        Network network = IeeeCdfNetworkFactory.create9();
-        LoadFlow.run(network);
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER);
         assertEquals(toString("/edge_info_reactive_power.svg"), generateSvgString(network, "/edge_info_reactive_power.svg"));
     }
 
     @Test
     public void testCurrentInfoLabel() {
-        Network network = IeeeCdfNetworkFactory.create9();
-        LoadFlow.run(network);
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
         assertEquals(toString("/edge_info_current.svg"), generateSvgString(network, "/edge_info_current.svg"));
     }
