@@ -17,22 +17,22 @@ import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
+class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
     private VoltageLevel vl1;
     private VoltageLevel vl2;
     private VoltageLevel vl3;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         layoutParameters.setCellWidth(80);
 
@@ -222,7 +222,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl1() {
+    void testVl1() {
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
 
@@ -233,7 +233,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl2() {
+    void testVl2() {
         // build voltage level 2 graph
         VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
 
@@ -244,7 +244,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVl3() {
+    void testVl3() {
         // build voltage level 3 graph
         VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
 
@@ -255,7 +255,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testMetadata() {
+    void testMetadata() {
 
         // Optimize SVG by avoiding duplication
         layoutParameters.setAvoidSVGComponentsDuplication(true)
@@ -270,7 +270,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testNodesInfosNominalVoltageStyle() {
+    void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
         layoutParameters.setAddNodesInfos(true);
@@ -291,7 +291,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testNodesInfosTopologicalStyle() {
+    void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
         layoutParameters.setAddNodesInfos(true);

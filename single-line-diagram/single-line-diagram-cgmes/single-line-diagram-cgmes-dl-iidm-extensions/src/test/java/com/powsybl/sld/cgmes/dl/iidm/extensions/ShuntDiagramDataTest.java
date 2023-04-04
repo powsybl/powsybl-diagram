@@ -6,19 +6,18 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import org.junit.Test;
-
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ShuntCompensator;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
+class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithShuntCompensator();
         ShuntCompensator shunt = network.getShuntCompensator("Shunt");
 

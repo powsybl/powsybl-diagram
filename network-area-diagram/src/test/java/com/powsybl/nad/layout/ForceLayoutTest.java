@@ -13,18 +13,18 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-public class ForceLayoutTest extends AbstractTest {
+class ForceLayoutTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters().setTextNodesForceLayout(false));
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(false)
@@ -42,14 +42,14 @@ public class ForceLayoutTest extends AbstractTest {
     }
 
     @Test
-    public void testDiamondNoSpringRepulsionFactor() {
+    void testDiamondNoSpringRepulsionFactor() {
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.0.svg"),
                 generateSvgString(LayoutNetworkFactory.createDiamond(), "/diamond-spring-repulsion-factor-0.0.svg"));
     }
 
     @Test
-    public void testDiamondSmallSpringRepulsionFactor() {
+    void testDiamondSmallSpringRepulsionFactor() {
         getLayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.2.svg"),

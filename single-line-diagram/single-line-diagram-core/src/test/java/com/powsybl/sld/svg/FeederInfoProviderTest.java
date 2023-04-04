@@ -15,24 +15,24 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederInfoProviderTest extends AbstractTestCaseIidm {
+class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     private VoltageLevel vl2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = CreateNetworksUtil.createNetworkWithSvcVscScDl();
         graphBuilder = new NetworkGraphBuilder(network);
@@ -41,7 +41,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         layoutParameters.setFeederInfoSymmetry(true);
 

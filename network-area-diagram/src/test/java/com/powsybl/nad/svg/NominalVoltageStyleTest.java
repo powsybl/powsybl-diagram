@@ -16,18 +16,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class NominalVoltageStyleTest extends AbstractTest {
+class NominalVoltageStyleTest extends AbstractTest {
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
@@ -48,33 +47,34 @@ public class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    public void testIEEE30() {
+    void testIEEE30() {
         Network network = IeeeCdfNetworkFactory.create30();
         assertEquals(toString("/IEEE_30_bus.svg"), generateSvgString(network, "/IEEE_30_bus.svg"));
     }
 
     @Test
-    public void testIEEE14() {
+
+    void testIEEE14() {
         Network network = IeeeCdfNetworkFactory.create14Solved();
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
     }
 
     @Test
-    public void testIEEE14ForceLayoutWithTextNodes() {
+    void testIEEE14ForceLayoutWithTextNodes() {
         Network network = IeeeCdfNetworkFactory.create14();
         getLayoutParameters().setTextNodesForceLayout(true);
         assertEquals(toString("/IEEE_14_bus_text_nodes.svg"), generateSvgString(network, "/IEEE_14_bus_text_nodes.svg"));
     }
 
     @Test
-    public void testIEEE14FWithSvgPrefix() {
+    void testIEEE14FWithSvgPrefix() {
         Network network = IeeeCdfNetworkFactory.create14();
         getSvgParameters().setSvgPrefix("test_");
         assertEquals(toString("/IEEE_14_id_prefixed.svg"), generateSvgString(network, "/IEEE_14_id_prefixed.svg"));
     }
 
     @Test
-    public void testDisconnection() {
+    void testDisconnection() {
         Network network = IeeeCdfNetworkFactory.create14Solved();
         network.getLine("L3-4-1").getTerminal1().disconnect();
         network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
@@ -83,7 +83,7 @@ public class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    public void testFictitiousVoltageLevel() {
+    void testFictitiousVoltageLevel() {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getVoltageLevel("VL12").setFictitious(true);
         network.getVoltageLevel("VL14").setFictitious(true);
@@ -91,13 +91,13 @@ public class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    public void testIEEE24() {
+    void testIEEE24() {
         Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
     }
 
     @Test
-    public void testHvdc() {
+    void testHvdc() {
         Network network = FourSubstationsNodeBreakerFactory.create();
         assertEquals(toString("/hvdc.svg"), generateSvgString(network, "/hvdc.svg"));
     }

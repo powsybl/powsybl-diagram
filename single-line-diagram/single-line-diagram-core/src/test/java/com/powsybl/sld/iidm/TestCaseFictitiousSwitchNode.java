@@ -11,17 +11,17 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
+class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
 
     private PositionVoltageLevelLayoutFactory factory;
     VoltageLevel vl;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         network = Network.create("testFictitiousSwitchNode", "test");
@@ -37,7 +37,7 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void keepFictitiousSwitchNodesTest() {
+    void keepFictitiousSwitchNodesTest() {
 
         // build graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph("vl");
@@ -50,7 +50,7 @@ public class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void removeFictitiousSwitchNodesTest() {
+    void removeFictitiousSwitchNodesTest() {
 
         layoutParameters.setRemoveFictitiousSwitchNodes(true);
 

@@ -10,8 +10,8 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
@@ -20,18 +20,18 @@ import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
 import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
 import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
+abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
 
     protected VoltageLevel voltageLevel;
     protected VoltageLevel voltageLevelWithInternalConnections;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         createNetwork();
         createNetworkWithInternalConnections();
@@ -248,12 +248,12 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
     }
 
     @Test
-    public void test() {
+    void test() {
         test(voltageLevel);
     }
 
     @Test
-    public void testWithInternalConnections() {
+    void testWithInternalConnections() {
         test(voltageLevelWithInternalConnections);
     }
 

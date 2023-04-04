@@ -10,27 +10,27 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
+class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
         network = ZoneGraphTest.createNetwork();
     }
 
     @Test
-    public void test() {
+    void test() {
         List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         // write Json and compare to reference
@@ -38,7 +38,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test2() {
+    void test2() {
         List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         // write Json and compare to reference

@@ -20,8 +20,8 @@ import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
@@ -31,16 +31,16 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestSerialBlock extends AbstractTestCaseIidm {
+class TestSerialBlock extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         Network network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -53,7 +53,7 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 

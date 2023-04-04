@@ -14,17 +14,17 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
+class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         layoutParameters.setExternCellHeight(200);
 
@@ -81,7 +81,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
     }
 
     @Test
-    public void testHeightFixed() {
+    void testHeightFixed() {
         // layout parameters with extern cell height fixed
         layoutParameters.setAdaptCellHeightToContent(false);
 
@@ -97,7 +97,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
     }
 
     @Test
-    public void testAdaptHeight() {
+    void testAdaptHeight() {
         // layout parameters with adapt cell height to content
         layoutParameters.setAdaptCellHeightToContent(true);
 

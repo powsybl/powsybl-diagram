@@ -6,21 +6,20 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import org.junit.Test;
-
 import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.Network;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {
+class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {
 
     @Test
-    public void test() {
+    void test() {
         Network network = Networks.createNetworkWithHvdcLine();
         HvdcLine hvdcLine = network.getHvdcLine("HvdcLine");
 
@@ -37,7 +36,7 @@ public class HvdcLineDiagramDataTest extends AbstractLineDiagramDataTest {
     }
 
     @Test
-    public void testMultipleDiagrams() {
+    void testMultipleDiagrams() {
         Network network = Networks.createNetworkWithHvdcLine();
         HvdcLine hvdcLine = network.getHvdcLine("HvdcLine");
 

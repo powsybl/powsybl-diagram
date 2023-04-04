@@ -15,20 +15,21 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
+class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
 
     private VoltageLevel voltageLevel;
     private Substation substation;
@@ -40,7 +41,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     private Substation substation2;
     Network networkWith3WT;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         createNetwork();
         createNetworkWith3WT();
@@ -304,12 +305,12 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     @Test
-    public void testVoltageLevelLayout() {
+    void testVoltageLevelLayout() {
         test(voltageLevel);
     }
 
     @Test
-    public void testSubstationLayout() {
+    void testSubstationLayout() {
         SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph(substation.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
@@ -463,7 +464,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     @Test
-    public void testSubstationLayout3WT() {
+    void testSubstationLayout3WT() {
         SubstationGraph graph = new NetworkGraphBuilder(networkWith3WT).buildSubstationGraph(substation2.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);

@@ -10,22 +10,23 @@ import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
+class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     @Test
-    public void process() throws Exception {
+    void process() throws Exception {
         Network network = Networks.createNetworkWithBusbar();
         new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
 
@@ -43,7 +44,7 @@ public class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
     }
 
     @Test
-    public void processNoDlContext() {
+    void processNoDlContext() {
         Network network = Networks.createNetworkWithBusbar();
         Mockito.when(tripleStore.contextNames()).thenReturn(new HashSet<>(Arrays.asList("Network_EQ.xml", "Network_SV.xml", "Network_TP.xml")));
         new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);

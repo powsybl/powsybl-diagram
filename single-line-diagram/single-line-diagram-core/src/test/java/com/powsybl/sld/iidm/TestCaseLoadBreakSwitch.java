@@ -14,17 +14,17 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
+class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = Network.create("testCaseLoadBreakSwitch", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -49,7 +49,7 @@ public class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 

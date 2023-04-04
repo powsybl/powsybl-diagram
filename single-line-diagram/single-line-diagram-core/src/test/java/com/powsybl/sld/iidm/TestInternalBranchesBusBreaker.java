@@ -16,17 +16,17 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
+class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Override
     public DiagramStyleProvider getDefaultDiagramStyleProvider() {
@@ -35,7 +35,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         return new NominalVoltageDiagramStyleProvider(baseVoltagesConfig, network);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         network = CreateNetworksUtil.createBusBreakerNetworkWithInternalBranches("TestInternalBranchesBusBreaker", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -43,7 +43,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testVLGraph() {
+    void testVLGraph() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
@@ -56,7 +56,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationGraphH() {
+    void testSubstationGraphH() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
@@ -67,7 +67,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationGraphV() {
+    void testSubstationGraphV() {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 

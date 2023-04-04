@@ -6,17 +6,16 @@
  */
 package com.powsybl.nad.layout;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class LayoutParametersTest {
+class LayoutParametersTest {
 
     @Test
-    public void test() {
+    void test() {
         LayoutParameters layoutParameters0 = new LayoutParameters()
                 .setTextNodesForceLayout(true)
                 .setSpringRepulsionFactorForceLayout(1.0)

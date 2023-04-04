@@ -7,7 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
@@ -18,11 +18,11 @@ import com.powsybl.iidm.network.Generator;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
+class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
 
     private Generator generator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
 

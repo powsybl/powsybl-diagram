@@ -6,17 +6,16 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class VectorTest {
+class VectorTest {
 
     @Test
-    public void test() {
+    void test() {
         Vector vector = new Vector(1.0, 2.0);
         assertEquals(2.24, vector.magnitude(), 0.01);
         assertEquals(5.0, vector.magnitudeSquare(), 0.0);

@@ -11,7 +11,7 @@ import com.powsybl.iidm.network.*;
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-public final class LayoutNetworkFactory {
+final class LayoutNetworkFactory {
 
     private LayoutNetworkFactory() {
         // Empty

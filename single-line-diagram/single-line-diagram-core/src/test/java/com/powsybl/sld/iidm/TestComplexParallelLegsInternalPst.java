@@ -10,19 +10,19 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
+class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         network = CreateNetworksUtil.createNetworkWithInternalPst();
         graphBuilder = new NetworkGraphBuilder(network);
@@ -34,7 +34,7 @@ public class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 

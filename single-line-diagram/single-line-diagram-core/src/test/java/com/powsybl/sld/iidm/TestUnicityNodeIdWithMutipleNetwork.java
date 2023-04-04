@@ -12,22 +12,22 @@ import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
+class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     private Network network2;
     private GraphBuilder graphBuilder2;
     private Substation substation2;
     private VoltageLevel vl2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         layoutParameters
                 .setAdaptCellHeightToContent(false)
@@ -56,7 +56,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         // Generating json for voltage level in first network
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId());
 

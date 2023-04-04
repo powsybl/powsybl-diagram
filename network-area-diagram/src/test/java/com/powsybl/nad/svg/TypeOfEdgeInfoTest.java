@@ -12,19 +12,19 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class TypeOfEdgeInfoTest extends AbstractTest {
+class TypeOfEdgeInfoTest extends AbstractTest {
 
     Network network;
 
-    @Before
+    @BeforeEach
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -52,13 +52,13 @@ public class TypeOfEdgeInfoTest extends AbstractTest {
     }
 
     @Test
-    public void testReactivePowerInfoLabel() {
+    void testReactivePowerInfoLabel() {
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER);
         assertEquals(toString("/edge_info_reactive_power.svg"), generateSvgString(network, "/edge_info_reactive_power.svg"));
     }
 
     @Test
-    public void testCurrentInfoLabel() {
+    void testCurrentInfoLabel() {
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
         assertEquals(toString("/edge_info_current.svg"), generateSvgString(network, "/edge_info_current.svg"));
     }
