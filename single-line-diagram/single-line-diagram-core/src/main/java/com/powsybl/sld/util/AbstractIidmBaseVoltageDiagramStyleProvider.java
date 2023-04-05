@@ -75,6 +75,25 @@ public abstract class AbstractIidmBaseVoltageDiagramStyleProvider extends Abstra
         return getFeederStateStyle(side, otherSide, connectionStatus);
     }
 
+    protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
+        Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
+        if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+            Branch<?> branch = network.getBranch(node.getEquipmentId());
+            if (branch != null) {
+                res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
+                res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
+            }
+        } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
+            if (transformer != null) {
+                res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
+                res.put(NodeSide.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
+                res.put(NodeSide.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
+            }
+        }
+        return res;
+    }
+
     private static NodeSide getOtherSide(NodeSide side) {
         return side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
     }
@@ -100,26 +119,6 @@ public abstract class AbstractIidmBaseVoltageDiagramStyleProvider extends Abstra
             }
         }
         return Optional.empty();
-    }
-
-    @Override
-    protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
-        Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
-        if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-            Branch<?> branch = network.getBranch(node.getEquipmentId());
-            if (branch != null) {
-                res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
-            }
-        } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
-            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
-            if (transformer != null) {
-                res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
-                res.put(NodeSide.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
-            }
-        }
-        return res;
     }
 
     @Override

@@ -96,8 +96,6 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     protected abstract Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n);
 
-    protected abstract Map<NodeSide, Boolean> connectionStatus(FeederNode node);
-
     @Override
     public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
 
