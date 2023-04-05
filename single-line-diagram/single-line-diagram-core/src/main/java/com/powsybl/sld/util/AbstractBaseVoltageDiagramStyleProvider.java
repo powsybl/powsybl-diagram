@@ -7,9 +7,7 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
@@ -17,11 +15,8 @@ import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BasicStyleProvider;
-import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
-
-import static com.powsybl.sld.svg.DiagramStyles.NODE_INFOS;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -45,7 +40,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         VoltageLevelInfos vLevelInfos;
-        Node nodeForStyle = isNodeConnectingElectricalNodes(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
+        Node nodeForStyle = isNodeSeparatingStyles(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
         if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
             vLevelInfos = ((FeederTwLeg) ((FeederNode) nodeForStyle).getFeeder()).getVoltageLevelInfos();
         } else {
@@ -54,27 +49,21 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
     }
 
-    protected abstract boolean isMultiTerminalNode(Node node);
-
     @Override
     public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getSvgNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
-        if (graph != null && !isNodeConnectingElectricalNodes(node)) {
-            // Nodes connecting electrical nodes might have style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
-            // to display the fact it is the connection of two or more electrical nodes: 2WT for instance
-            // Note that nodes outside a voltageLevel graph (graph==null) are nodes connecting electrical nodes
+        if (graph != null && !isNodeSeparatingStyles(node)) {
+            // Some nodes have two styles as they separate voltage levels for instance
+            // Then they  have a style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
+            // Note that nodes outside a voltageLevel graph (graph==null) are nodes with two styles
             getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node).ifPresent(styles::add);
         }
 
         return styles;
     }
 
-    protected boolean isNodeConnectingElectricalNodes(Node node) {
-        return isMultiTerminalNode(node)
-                // filtering out leg nodes as they are nodes with the same voltage level at each side
-                && (!(node instanceof FeederNode) || !(((FeederNode) node).getFeeder() instanceof FeederTwLeg));
-    }
+    protected abstract boolean isNodeSeparatingStyles(Node node);
 
     @Override
     protected Optional<String> getHighlightLineStateStyle(Graph graph, Edge edge) {
@@ -104,7 +93,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         VoltageLevelGraph g = graph.getVoltageLevelGraph(node);
         if (g != null) {
             // node inside a voltageLevel graph
-            if (isNodeConnectingElectricalNodes(node)) {
+            if (isNodeSeparatingStyles(node)) {
                 if (node instanceof FeederNode) {
                     Feeder feeder = ((FeederNode) node).getFeeder();
                     if (feeder instanceof FeederWithSides) {

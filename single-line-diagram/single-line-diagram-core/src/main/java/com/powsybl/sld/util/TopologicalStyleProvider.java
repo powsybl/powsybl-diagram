@@ -7,15 +7,13 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Connectable;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
@@ -67,6 +65,23 @@ public class TopologicalStyleProvider extends AbstractIidmBaseVoltageDiagramStyl
             edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode2()), edge.getNode2());
         }
         return edgeStyle;
+    }
+
+    @Override
+    protected boolean isNodeSeparatingStyles(Node node) {
+        return isMultiTerminalNode(node)
+                // filtering out leg nodes as they are nodes with the same voltage level at each side
+                && !((node instanceof FeederNode) && (((FeederNode) node).getFeeder() instanceof FeederTwLeg));
+    }
+
+    private boolean isMultiTerminalNode(Node node) {
+        if (node instanceof EquipmentNode) {
+            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
+            if (identifiable instanceof Connectable<?>) {
+                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
+            }
+        }
+        return false;
     }
 
     @Override

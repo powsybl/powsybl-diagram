@@ -9,8 +9,9 @@ package com.powsybl.sld.util;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.Arrays;
@@ -29,6 +30,17 @@ public class NominalVoltageDiagramStyleProvider extends AbstractIidmBaseVoltageD
 
     public NominalVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
         super(baseVoltagesConfig, network);
+    }
+
+    @Override
+    protected boolean isNodeSeparatingStyles(Node node) {
+        if (node instanceof FeederNode) {
+            // filtering out leg nodes as they are nodes with the same voltage level at each side
+            Feeder feeder = ((FeederNode) node).getFeeder();
+            return feeder instanceof FeederWithSides && !(feeder instanceof FeederTwLeg);
+        } else {
+            return node instanceof Middle3WTNode;
+        }
     }
 
     @Override

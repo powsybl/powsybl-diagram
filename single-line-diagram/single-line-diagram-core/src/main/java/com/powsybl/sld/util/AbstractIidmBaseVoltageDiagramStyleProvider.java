@@ -39,17 +39,6 @@ public abstract class AbstractIidmBaseVoltageDiagramStyleProvider extends Abstra
     }
 
     @Override
-    protected boolean isMultiTerminalNode(Node node) {
-        if (node instanceof EquipmentNode) {
-            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
-            if (identifiable instanceof Connectable<?>) {
-                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
-            }
-        }
-        return false;
-    }
-
-    @Override
     protected Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
         FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
         Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
