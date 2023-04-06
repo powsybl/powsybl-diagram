@@ -47,29 +47,17 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if (edge instanceof BranchEdge && (ComponentTypeName.LINE.equals(node1.getComponentType()) || ComponentTypeName.LINE.equals(node2.getComponentType()))) {
-            return getLineEdgeStyle(graph, (BranchEdge) edge);
-        } else {
-            if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
-                return getSwitchEdgeStyle(graph, node2);
-            }
-            if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
-                return getSwitchEdgeStyle(graph, node1);
-            }
-            return super.getVoltageLevelEdgeStyle(graph, edge);
+        if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
+            return getSwitchEdgeStyle(graph, node2);
         }
+        if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
+            return getSwitchEdgeStyle(graph, node1);
+        }
+        return super.getVoltageLevelEdgeStyle(graph, edge);
     }
 
     private Optional<String> getSwitchEdgeStyle(Graph graph, Node node) {
         return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : Optional.empty();
-    }
-
-    private Optional<String> getLineEdgeStyle(Graph graph, BranchEdge edge) {
-        Optional<String> edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode1()), edge.getNode1());
-        if (edgeStyle.isPresent() && edgeStyle.get().equals(StyleClassConstants.DISCONNECTED_STYLE_CLASS)) {
-            edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode2()), edge.getNode2());
-        }
-        return edgeStyle;
     }
 
     @Override

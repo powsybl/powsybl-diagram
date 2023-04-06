@@ -541,7 +541,7 @@
                 <text class="sld-label" id="T3_12_THREE_S_LABEL" x="-5.0" y="5.0">T3_12</text>
             </g>
         </g>
-        <g class="sld-wire sld-vl300to500-0" id="idL11">
+        <g class="sld-wire sld-vl300to500-1" id="idL11">
             <polyline points="315.0,449.0,315.0,509.0,565.0,509.0,565.0,449.0"/>
         </g>
     </g>
