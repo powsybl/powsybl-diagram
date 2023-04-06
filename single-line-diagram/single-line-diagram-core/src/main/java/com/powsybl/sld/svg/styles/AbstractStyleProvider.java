@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.util.IdUtil.*;
-
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -80,10 +78,10 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getCellStyles(Cell cell) {
         if (cell instanceof ExternCell) {
-            return List.of(StyleClassConstants.EXTERN_CELL, buildStyle(cell.getDirection()));
+            return List.of(StyleClassConstants.EXTERN_CELL, StyleClassConstants.buildStyle(cell.getDirection()));
         }
         if (cell instanceof InternCell) {
-            return List.of(StyleClassConstants.INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
+            return List.of(StyleClassConstants.INTERN_CELL, StyleClassConstants.buildStyle(((InternCell) cell).getShape()));
         }
         if (cell instanceof ShuntCell) {
             return List.of(StyleClassConstants.SHUNT_CELL);

@@ -7,6 +7,9 @@
  */
 package com.powsybl.sld.svg.styles;
 
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.coordinate.Direction;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
@@ -41,5 +44,13 @@ public final class StyleClassConstants {
     public static final String WIRE_STYLE_CLASS = STYLE_PREFIX + "wire";
 
     private StyleClassConstants() {
+    }
+
+    public static String buildStyle(Direction direction) {
+        return StyleClassConstants.CELL_DIRECTION_PREFIX + direction.name().toLowerCase();
+    }
+
+    public static String buildStyle(InternCell.Shape shape) {
+        return StyleClassConstants.CELL_SHAPE_PREFIX + shape.name().toLowerCase();
     }
 }

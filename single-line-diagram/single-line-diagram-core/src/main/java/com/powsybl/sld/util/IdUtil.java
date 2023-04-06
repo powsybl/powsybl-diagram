@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.svg.styles.StyleClassConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -90,13 +87,5 @@ public final class IdUtil {
             throw new UncheckedIOException(e);
         }
         return out.toString();
-    }
-
-    public static String buildStyle(Direction direction) {
-        return StyleClassConstants.CELL_DIRECTION_PREFIX + direction.name().toLowerCase();
-    }
-
-    public static String buildStyle(InternCell.Shape shape) {
-        return StyleClassConstants.CELL_SHAPE_PREFIX + shape.name().toLowerCase();
     }
 }
