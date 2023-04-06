@@ -46,7 +46,6 @@ class LayoutParametersTest {
                 .setAngleLabelShift(42)
                 .setLabelCentered(true)
                 .setLabelDiagonal(true)
-                .setHighlightLineState(false)
                 .setTooltipEnabled(true)
                 .setAddNodesInfos(true)
                 .setSpaceForFeederInfos(70)
@@ -101,7 +100,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getAngleLabelShift(), layoutParameters2.getAngleLabelShift(), 0);
         assertEquals(layoutParameters.isLabelCentered(), layoutParameters2.isLabelCentered());
         assertEquals(layoutParameters.isLabelDiagonal(), layoutParameters2.isLabelDiagonal());
-        assertEquals(layoutParameters.isHighlightLineState(), layoutParameters2.isHighlightLineState());
         assertEquals(layoutParameters.isTooltipEnabled(), layoutParameters2.isTooltipEnabled());
         assertEquals(layoutParameters.isAddNodesInfos(), layoutParameters2.isAddNodesInfos());
         assertEquals(layoutParameters.getSpaceForFeederInfos(), layoutParameters2.getSpaceForFeederInfos(), 0);

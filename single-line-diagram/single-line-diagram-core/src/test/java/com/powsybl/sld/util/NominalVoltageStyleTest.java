@@ -16,8 +16,12 @@ import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +40,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
-    private NominalVoltageDiagramStyleProvider styleProvider;
+    private StyleProvider styleProvider;
 
     @BeforeEach
     public void setUp() {
@@ -46,7 +50,9 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        styleProvider = new NominalVoltageDiagramStyleProvider(network);
+        styleProvider = new StyleProvidersList(
+                new NominalVoltageStyleProvider(),
+                new HighlightLineStateStyleProvider(network));
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
@@ -107,37 +113,37 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
 
         Node node1 = graph1.getNode("bbs1");
-        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(graph1, node1, componentLibrary, false);
+        List<String> nodeStyle1 = styleProvider.getNodeStyles(graph1, node1, componentLibrary, false);
         assertEquals(2, nodeStyle1.size());
         assertTrue(nodeStyle1.contains("sld-busbar-section"));
         assertTrue(nodeStyle1.contains("sld-vl300to500"));
 
         Node node2 = graph2.getNode("bbs2");
-        List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(graph2, node2, componentLibrary, false);
+        List<String> nodeStyle2 = styleProvider.getNodeStyles(graph2, node2, componentLibrary, false);
         assertEquals(2, nodeStyle2.size());
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
         assertTrue(nodeStyle2.contains("sld-vl180to300"));
 
         Node node3 = graph3.getNode("bbs3");
-        List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, false);
+        List<String> nodeStyle3 = styleProvider.getNodeStyles(graph3, node3, componentLibrary, false);
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-vl50to70"));
 
         Edge edge = graph1.getEdges().get(12);
-        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge, false);
+        List<String> wireStyles = styleProvider.getEdgeStyles(graph1, edge);
         assertEquals(2, wireStyles.size());
-        assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
+        assertTrue(wireStyles.contains(StyleClassConstants.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500"));
 
         Node fict3WTNode = graph1.getNode("3WT");
-        List<String> node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, false);
+        List<String> node3WTStyle = styleProvider.getNodeStyles(graph1, fict3WTNode, componentLibrary, false);
         assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
         assertTrue(node3WTStyle.contains("sld-fictitious"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        List<String> node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, false);
+        List<String> node2WTStyle = styleProvider.getNodeStyles(graph1, f2WTNode, componentLibrary, false);
         assertEquals(1, node2WTStyle.size());
         assertTrue(node2WTStyle.contains("sld-two-wt"));
 

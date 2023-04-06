@@ -17,7 +17,9 @@ import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +29,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.nodes.NodeSide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -662,7 +665,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
+            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -721,7 +724,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     void testStraightWires() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
+        StyleProvider styleProvider = new BasicStyleProvider();
         layoutParameters.setDrawStraightWires(true);
         assertEquals(toString("/vl1_straightWires.svg"),
             toSVG(g1, "/vl1_straightWires.svg", labelProvider, styleProvider));
@@ -774,14 +777,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
             }
         };
 
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
+        StyleProvider styleProvider = new BasicStyleProvider();
         assertEquals(toString("/label_on_all_nodes.svg"),
                 toSVG(g1, "/label_on_all_nodes.svg", sameNodeLabelProvider, styleProvider));
     }
 
     @Test
     void testWithGreyFrameBackground() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider() {
+        StyleProvider styleProvider = new BasicStyleProvider() {
             @Override
             public List<String> getCssFilenames() {
                 return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");

@@ -4,66 +4,77 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.util;
+package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.svg.DiagramStyles;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.svg.styles.AbstractVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     private final Map<String, Map<String, String>> vlNodeIdStyleMap = new HashMap<>();
     private final Map<String, Map<String, String>> vlBusIdStyleMap = new HashMap<>();
     private final Map<String, Integer> stylesIndices = new HashMap<>();
+    private final Network network;
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network);
     }
 
     public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
-        super(baseVoltagesConfig, network);
+        super(baseVoltagesConfig);
+        this.network = network;
     }
 
     @Override
-    protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
+    protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if (edge instanceof BranchEdge && (ComponentTypeName.LINE.equals(node1.getComponentType()) || ComponentTypeName.LINE.equals(node2.getComponentType()))) {
-            return getLineEdgeStyle(graph, (BranchEdge) edge);
-        } else {
-            if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
-                return getSwitchEdgeStyle(graph, node2);
-            }
-            if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
-                return getSwitchEdgeStyle(graph, node1);
-            }
-            return super.getEdgeStyle(graph, edge);
+        if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
+            return getSwitchEdgeStyle(graph, node2);
         }
+        if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
+            return getSwitchEdgeStyle(graph, node1);
+        }
+        return super.getVoltageLevelEdgeStyle(graph, edge);
     }
 
     private Optional<String> getSwitchEdgeStyle(Graph graph, Node node) {
         return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : Optional.empty();
     }
 
-    private Optional<String> getLineEdgeStyle(Graph graph, BranchEdge edge) {
-        Optional<String> edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode1()), edge.getNode1());
-        if (edgeStyle.isPresent() && edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS)) {
-            edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode2()), edge.getNode2());
+    @Override
+    protected boolean isNodeSeparatingStyles(Node node) {
+        return isMultiTerminalNode(node)
+                // filtering out leg nodes as they are nodes with the same voltage level at each side
+                && !((node instanceof FeederNode) && (((FeederNode) node).getFeeder() instanceof FeederTwLeg));
+    }
+
+    private boolean isMultiTerminalNode(Node node) {
+        if (node instanceof EquipmentNode) {
+            Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
+            if (identifiable instanceof Connectable<?>) {
+                return ((Connectable<?>) identifiable).getTerminals().size() > 1;
+            }
         }
-        return edgeStyle;
+        return false;
     }
 
     @Override
@@ -125,7 +136,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
                 .filter(Objects::nonNull)
                 .map(busIdStyleMap::get)
                 .findFirst()
-                .orElse(DiagramStyles.DISCONNECTED_STYLE_CLASS);
+                .orElse(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
     }
 
     private void findConnectedNodes(Node node, Set<Node> visitedNodes) {
@@ -152,12 +163,12 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     @Override
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
         if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
-            return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
+            return Optional.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
         }
         String style = Optional.ofNullable(voltageLevelInfos)
                 .flatMap(vli -> baseVoltagesConfig.getBaseVoltageName(vli.getNominalVoltage(), BASE_VOLTAGE_PROFILE))
-                .flatMap(baseVoltageName -> getNodeTopologicalStyle(DiagramStyles.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
-                .orElse(DiagramStyles.DISCONNECTED_STYLE_CLASS);
+                .flatMap(baseVoltageName -> getNodeTopologicalStyle(StyleClassConstants.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
+                .orElse(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
         return Optional.of(style);
     }
 
@@ -167,8 +178,15 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
+    public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
+        String busStyle = vlBusIdStyleMap.getOrDefault(graph.getVoltageLevelInfos().getId(), Collections.emptyMap())
+                .getOrDefault(busId, null);
+        return busStyle != null ? List.of(busStyle, NODE_INFOS) : List.of(NODE_INFOS);
+    }
+
+    @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css");
+        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css");
     }
 
 }

@@ -20,8 +20,10 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -45,8 +47,8 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
     }
 
-    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
+    protected StyleProvider getDefaultDiagramStyleProvider() {
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
     }
 
     protected static Substation createSubstation(Network n, String id, String name, Country country) {

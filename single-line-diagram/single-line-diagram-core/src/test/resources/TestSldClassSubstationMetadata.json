@@ -572,7 +572,6 @@
     "labelCentered" : false,
     "labelDiagonal" : false,
     "angleLabelShift" : 15.0,
-    "highlightLineState" : true,
     "addNodesInfos" : false,
     "feederInfoSymmetry" : false,
     "cssLocation" : "INSERTED_IN_SVG",

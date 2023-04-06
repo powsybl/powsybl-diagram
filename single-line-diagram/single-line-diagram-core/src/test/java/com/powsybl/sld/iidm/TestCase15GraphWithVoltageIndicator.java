@@ -12,12 +12,17 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -111,10 +116,10 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testBasic() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider() {
+        StyleProvider styleProvider = new BasicStyleProvider() {
             @Override
-            public Optional<String> getBusInfoStyle(BusInfo info) {
-                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            public List<String> getBusInfoStyle(BusInfo info) {
+                return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
@@ -122,16 +127,16 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testTopological() {
-        DiagramStyleProvider styleProvider = new TopologicalStyleProvider(network) {
+        StyleProvider styleProvider = new TopologicalStyleProvider(network) {
             @Override
-            public Optional<String> getBusInfoStyle(BusInfo info) {
-                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            public List<String> getBusInfoStyle(BusInfo info) {
+                return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);
     }
 
-    private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
+    private void runTest(StyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
         layoutParameters.setBusInfoMargin(5);
 
         // build graph
