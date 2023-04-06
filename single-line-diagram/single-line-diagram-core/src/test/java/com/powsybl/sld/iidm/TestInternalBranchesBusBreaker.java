@@ -14,8 +14,8 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
-import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Override
-    public DiagramStyleProvider getDefaultDiagramStyleProvider() {
+    public StyleProvider getDefaultDiagramStyleProvider() {
         // bypassing the config-test platform config to test the embedded base-voltages.yml file
         BaseVoltagesConfig baseVoltagesConfig = BaseVoltagesConfig.fromPlatformConfig(new PlatformConfig((ModuleConfigRepository) null, Path.of("./")));
-        return new NominalVoltageDiagramStyleProvider(baseVoltagesConfig);
+        return new NominalVoltageStyleProvider(baseVoltagesConfig);
     }
 
     @BeforeEach

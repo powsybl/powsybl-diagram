@@ -18,8 +18,8 @@ import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
-import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -665,7 +665,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider()));
+            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -724,7 +724,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     void testStraightWires() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
+        StyleProvider styleProvider = new BasicStyleProvider();
         layoutParameters.setDrawStraightWires(true);
         assertEquals(toString("/vl1_straightWires.svg"),
             toSVG(g1, "/vl1_straightWires.svg", labelProvider, styleProvider));
@@ -777,14 +777,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
             }
         };
 
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
+        StyleProvider styleProvider = new BasicStyleProvider();
         assertEquals(toString("/label_on_all_nodes.svg"),
                 toSVG(g1, "/label_on_all_nodes.svg", sameNodeLabelProvider, styleProvider));
     }
 
     @Test
     void testWithGreyFrameBackground() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider() {
+        StyleProvider styleProvider = new BasicStyleProvider() {
             @Override
             public List<String> getCssFilenames() {
                 return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");

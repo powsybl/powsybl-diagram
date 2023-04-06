@@ -16,8 +16,8 @@ import com.powsybl.sld.svg.BusInfo;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
-import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -116,7 +116,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testBasic() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider() {
+        StyleProvider styleProvider = new BasicStyleProvider() {
             @Override
             public List<String> getBusInfoStyle(BusInfo info) {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
@@ -127,7 +127,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testTopological() {
-        DiagramStyleProvider styleProvider = new TopologicalStyleProvider(network) {
+        StyleProvider styleProvider = new TopologicalStyleProvider(network) {
             @Override
             public List<String> getBusInfoStyle(BusInfo info) {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
@@ -136,7 +136,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);
     }
 
-    private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
+    private void runTest(StyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
         layoutParameters.setBusInfoMargin(5);
 
         // build graph

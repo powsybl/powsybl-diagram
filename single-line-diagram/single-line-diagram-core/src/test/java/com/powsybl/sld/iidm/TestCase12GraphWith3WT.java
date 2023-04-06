@@ -14,9 +14,9 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
-import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -266,7 +266,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         assertTrue(compareMetadata(graph, "/vlDiag_metadata.json",
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider()));
+                new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -280,7 +280,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         voltageLevelGraphLayout(g1);
 
-        DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider();
+        StyleProvider vNomStyleProvider = new NominalVoltageStyleProvider();
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
@@ -300,7 +300,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         voltageLevelGraphLayout(g1);
 
-        DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
+        StyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);

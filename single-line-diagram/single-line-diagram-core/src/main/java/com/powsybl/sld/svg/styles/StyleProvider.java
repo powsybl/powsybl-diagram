@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public interface DiagramStyleProvider {
+public interface StyleProvider {
 
     List<String> getSvgWireStyles(Graph graph, Edge edge);
 

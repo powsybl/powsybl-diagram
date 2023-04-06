@@ -18,19 +18,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.styles.DiagramStyles.NODE_INFOS;
+import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
 
-    public NominalVoltageDiagramStyleProvider() {
+    public NominalVoltageStyleProvider() {
         this(BaseVoltagesConfig.fromPlatformConfig());
     }
 
-    public NominalVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
+    public NominalVoltageStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
         super(baseVoltagesConfig);
     }
 
@@ -48,7 +48,7 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     @Override
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
         return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
-                .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
+                .map(bvName -> StyleClassConstants.STYLE_PREFIX + bvName);
     }
 
     @Override

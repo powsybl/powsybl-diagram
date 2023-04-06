@@ -26,15 +26,15 @@ import java.util.stream.Collectors;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class StyleProvidersList implements DiagramStyleProvider {
+public class StyleProvidersList implements StyleProvider {
 
-    private final List<DiagramStyleProvider> styleProviders;
+    private final List<StyleProvider> styleProviders;
 
-    public StyleProvidersList(DiagramStyleProvider... styleProviders) {
+    public StyleProvidersList(StyleProvider... styleProviders) {
         this(List.of(styleProviders));
     }
 
-    public <E> StyleProvidersList(List<DiagramStyleProvider> styleProviders) {
+    public <E> StyleProvidersList(List<StyleProvider> styleProviders) {
         this.styleProviders = styleProviders;
     }
 
@@ -65,17 +65,17 @@ public class StyleProvidersList implements DiagramStyleProvider {
 
     @Override
     public void reset() {
-        styleProviders.forEach(DiagramStyleProvider::reset);
+        styleProviders.forEach(StyleProvider::reset);
     }
 
     @Override
     public List<String> getCssFilenames() {
-        return concatenateLists(DiagramStyleProvider::getCssFilenames);
+        return concatenateLists(StyleProvider::getCssFilenames);
     }
 
     @Override
     public List<URL> getCssUrls() {
-        return concatenateLists(DiagramStyleProvider::getCssUrls);
+        return concatenateLists(StyleProvider::getCssUrls);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class StyleProvidersList implements DiagramStyleProvider {
         return concatenateLists(sp -> sp.getFeederInfoStyles(info));
     }
 
-    private <T> List<T> concatenateLists(Function<DiagramStyleProvider, List<T>> stylesGetter) {
+    private <T> List<T> concatenateLists(Function<StyleProvider, List<T>> stylesGetter) {
         return styleProviders.stream()
                 .map(stylesGetter)
                 .flatMap(List::stream)

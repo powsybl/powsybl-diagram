@@ -18,14 +18,14 @@ import com.powsybl.sld.svg.BusInfo;
 
 import java.util.*;
 
-import static com.powsybl.sld.svg.styles.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractBaseVoltageDiagramStyleProvider extends AbstractStyleProvider {
+public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider {
 
     protected static final String BASE_VOLTAGE_PROFILE = "Default";
 
@@ -35,7 +35,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends AbstractSt
 
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
+    protected AbstractVoltageStyleProvider(BaseVoltagesConfig baseVoltagesConfig) {
         this.baseVoltagesConfig = Objects.requireNonNull(baseVoltagesConfig);
     }
 

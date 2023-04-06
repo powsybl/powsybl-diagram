@@ -14,7 +14,7 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
@@ -125,7 +125,7 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(graph, writer, new NullWriter(), layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
@@ -145,7 +145,7 @@ public abstract class AbstractTestCase {
 
     public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName,
                                    VoltageLevelLayoutFactory voltageLevelLayoutFactory,
-                                   DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+                                   DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
@@ -176,7 +176,7 @@ public abstract class AbstractTestCase {
 
     public boolean compareMetadata(SubstationGraph graph, String refMetdataName,
                                    SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
-                                   DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+                                   DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 

@@ -23,8 +23,8 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
-import com.powsybl.sld.svg.styles.DiagramStyles;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
 import org.apache.commons.io.IOUtils;
@@ -94,7 +94,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * @param writer writer for the SVG content
      */
     @Override
-    public GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider, Writer writer) {
+    public GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider labelProvider, StyleProvider styleProvider, Writer writer) {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
@@ -136,7 +136,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return height;
     }
 
-    protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
+    protected void addStyle(Document document, StyleProvider styleProvider, DiagramLabelProvider labelProvider,
                             Graph graph, Set<String> listUsedComponentSVG) {
 
         graph.getAllNodesStream().forEach(n -> {
@@ -194,7 +194,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element rect = document.createElement("rect");
         rect.setAttribute(WIDTH, "100%");
         rect.setAttribute(HEIGHT, "100%");
-        rect.setAttribute(CLASS, DiagramStyles.FRAME_CLASS);
+        rect.setAttribute(CLASS, StyleClassConstants.FRAME_CLASS);
         document.adoptNode(rect);
         document.getDocumentElement().appendChild(rect);
     }
@@ -202,7 +202,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the graph
      */
-    protected GraphMetadata writeGraph(String prefixId, Graph graph, Document document, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected GraphMetadata writeGraph(String prefixId, Graph graph, Document document, DiagramLabelProvider initProvider, StyleProvider styleProvider) {
         GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
@@ -238,7 +238,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     Element root,
                                     GraphMetadata metadata,
                                     DiagramLabelProvider initProvider,
-                                    DiagramStyleProvider styleProvider) {
+                                    StyleProvider styleProvider) {
 
         if (!graph.isForVoltageLevelDiagram()) {
             drawGraphLabel(prefixId, root, graph, metadata);
@@ -268,7 +268,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
-                          GraphMetadata metadata, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider,
+                          GraphMetadata metadata, DiagramLabelProvider initProvider, StyleProvider styleProvider,
                           Set<Edge> remainingEdgesToDraw, Set<Node> remainingNodesToDraw) {
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
@@ -299,7 +299,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   Element root,
                                   GraphMetadata metadata,
                                   DiagramLabelProvider initProvider,
-                                  DiagramStyleProvider styleProvider) {
+                                  StyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
@@ -323,7 +323,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String gridId = prefixId + "GRID_" + graph.getVoltageLevelInfos().getId();
         gridRoot.setAttribute("id", gridId);
-        gridRoot.setAttribute(CLASS, DiagramStyles.GRID_STYLE_CLASS);
+        gridRoot.setAttribute(CLASS, StyleClassConstants.GRID_STYLE_CLASS);
 
         // vertical lines
         for (int iCell = 0; iCell < maxH / 2 + 1; iCell++) {
@@ -391,7 +391,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              VoltageLevelGraph graph,
                              GraphMetadata metadata,
                              DiagramLabelProvider initProvider,
-                             DiagramStyleProvider styleProvider,
+                             StyleProvider styleProvider,
                              Set<Node> remainingNodesToDraw) {
 
         for (BusNode busNode : graph.getNodeBuses()) {
@@ -444,7 +444,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              Point shift,
                              GraphMetadata metadata,
                              DiagramLabelProvider labelProvider,
-                             DiagramStyleProvider styleProvider,
+                             StyleProvider styleProvider,
                              Collection<? extends Node> nodes) {
 
         for (Node node : nodes) {
@@ -499,7 +499,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void drawNodeDecorators(String prefixId, Element root, Graph graph, Node node, DiagramLabelProvider labelProvider,
-                                      DiagramStyleProvider styleProvider) {
+                                      StyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
@@ -521,7 +521,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String graphName = layoutParameters.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
         Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
-        label.setAttribute(CLASS, DiagramStyles.GRAPH_LABEL_STYLE_CLASS);
+        label.setAttribute(CLASS, StyleClassConstants.GRAPH_LABEL_STYLE_CLASS);
         gLabel.appendChild(label);
         root.appendChild(gLabel);
 
@@ -564,14 +564,14 @@ public class DefaultSVGWriter implements SVGWriter {
         if (shiftAngle != 0) {
             label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         }
-        label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
+        label.setAttribute(CLASS, StyleClassConstants.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
     }
 
     protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g,
-                                         DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+                                         DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, shift, g);
         if (componentLibrary.getSvgElements(componentType) != null) {
@@ -580,7 +580,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertComponentSVGIntoDocumentSVG(String prefixId, String componentType, Element g, Graph graph, Node node,
-                                                     DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+                                                     DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, graph, node, styleProvider, elt, componentType, subComponent);
         String tooltipContent = layoutParameters.isTooltipEnabled() ? labelProvider.getTooltip(node) : null;
@@ -611,7 +611,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertDecoratorSVGIntoDocumentSVG(String prefixId, DiagramLabelProvider.NodeDecorator nodeDecorator,
-                                                     Element g, Graph graph, Node node, DiagramStyleProvider styleProvider) {
+                                                     Element g, Graph graph, Node node, StyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, graph, node, nodeDecorator, styleProvider, elt, subComponent);
         String nodeDecoratorType = nodeDecorator.getType();
@@ -661,7 +661,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void setComponentAttributes(String prefixId, Element g, Graph graph, Node node, DiagramStyleProvider styleProvider,
+    private void setComponentAttributes(String prefixId, Element g, Graph graph, Node node, StyleProvider styleProvider,
                                         Element elt, String componentType, String subComponent) {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(componentType);
@@ -699,7 +699,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void setDecoratorAttributes(String prefixId, Element g, Graph graph, Node node, DiagramLabelProvider.NodeDecorator nodeDecorator,
-                                        DiagramStyleProvider styleProvider, Element elt, String subComponentName) {
+                                        StyleProvider styleProvider, Element elt, String subComponentName) {
         replaceId(g, elt, prefixId);
         ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
@@ -830,7 +830,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                       FeederNode feederNode,
                                       GraphMetadata metadata,
                                       DiagramLabelProvider labelProvider,
-                                      DiagramStyleProvider styleProvider) {
+                                      StyleProvider styleProvider) {
         if (points.isEmpty()) {
             points.add(graph.getShiftedPoint(feederNode));
             points.add(graph.getShiftedPoint(feederNode));
@@ -858,7 +858,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void drawFeederInfo(String prefixId, FeederNode feederNode, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
-                                DiagramStyleProvider styleProvider) {
+                                StyleProvider styleProvider) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
@@ -901,7 +901,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertBusInfo(String prefixId, Element root, BusNode busNode,
-                                 GraphMetadata metadata, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+                                 GraphMetadata metadata, DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
         Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
             drawBusInfo(prefixId, busNode, root, info, styleProvider, metadata);
@@ -910,7 +910,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawBusInfo(String prefixId, BusNode busNode, Element root, BusInfo busInfo,
-                             DiagramStyleProvider styleProvider, GraphMetadata metadata) {
+                             StyleProvider styleProvider, GraphMetadata metadata) {
         Element g = root.getOwnerDocument().createElement(GROUP);
 
         // Position
@@ -968,7 +968,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel graph edges
      */
     protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, GraphMetadata metadata,
-                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Collection<Edge> edges) {
+                             DiagramLabelProvider initProvider, StyleProvider styleProvider, Collection<Edge> edges) {
         String voltageLevelId = graph.getVoltageLevelInfos().getId();
 
         for (Edge edge : edges) {
@@ -1017,7 +1017,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the zone graph edges (snakelines between station diagram)
      */
     protected void drawSnakeLines(String prefixId, Element root, ZoneGraph graph,
-                                  GraphMetadata metadata, DiagramStyleProvider styleProvider) {
+                                  GraphMetadata metadata, StyleProvider styleProvider) {
         for (BranchEdge edge : graph.getLineEdges()) {
             drawSnakeLines(graph, edge, prefixId, root, metadata, styleProvider);
         }
@@ -1027,7 +1027,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the substation graph edges (snakelines between voltageLevel diagram)
      */
     protected void drawSnakeLines(String prefixId, Element root, BaseGraph graph,
-                                  GraphMetadata metadata, DiagramStyleProvider styleProvider) {
+                                  GraphMetadata metadata, StyleProvider styleProvider) {
         for (BranchEdge edge : graph.getLineEdges()) {
             drawSnakeLines(graph, edge, prefixId, root, metadata, styleProvider);
         }
@@ -1037,7 +1037,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawSnakeLines(Graph graph, BranchEdge edge, String prefixId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider) {
+    private void drawSnakeLines(Graph graph, BranchEdge edge, String prefixId, Element root, GraphMetadata metadata, StyleProvider styleProvider) {
         Element g = root.getOwnerDocument().createElement(GROUP);
         String snakeLineId = escapeId(prefixId + edge.getId());
         g.setAttribute("id", snakeLineId);
@@ -1146,7 +1146,7 @@ public class DefaultSVGWriter implements SVGWriter {
                           Element root,
                           GraphMetadata metadata,
                           DiagramLabelProvider initProvider,
-                          DiagramStyleProvider styleProvider) {
+                          StyleProvider styleProvider) {
         for (SubstationGraph sGraph : graph.getSubstations()) {
             drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider);
         }
@@ -1176,7 +1176,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelV.setAttribute(CLASS, DiagramStyles.VOLTAGE);
+        labelV.setAttribute(CLASS, StyleClassConstants.VOLTAGE);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
         g.appendChild(labelV);
@@ -1188,18 +1188,18 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelAngle.setAttribute(CLASS, DiagramStyles.ANGLE);
+        labelAngle.setAttribute(CLASS, StyleClassConstants.ANGLE);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
         g.appendChild(labelAngle);
     }
 
     private void drawNodesInfos(String prefixId, Element root, VoltageLevelGraph graph,
-                                GraphMetadata metadata, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
+                                GraphMetadata metadata, DiagramLabelProvider initProvider, StyleProvider styleProvider) {
 
         Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
         root.appendChild(nodesInfosNode);
-        nodesInfosNode.setAttribute(CLASS, DiagramStyles.LEGEND);
+        nodesInfosNode.setAttribute(CLASS, StyleClassConstants.LEGEND);
 
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;

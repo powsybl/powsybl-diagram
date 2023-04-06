@@ -14,8 +14,8 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.styles.DiagramStyles;
-import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +100,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(graph2, node2, componentLibrary, true);
         assertEquals(2, nodeStyle2.size());
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
-        assertTrue(nodeStyle2.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
+        assertTrue(nodeStyle2.contains(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
 
         Node node3 = graph3.getNode("bbs3");
         List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, true);
@@ -112,7 +112,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge);
         assertEquals(2, wireStyles.size());
-        assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
+        assertTrue(wireStyles.contains(StyleClassConstants.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500-0"));
 
         Node fict3WTNode = graph1.getNode("3WT");
@@ -132,7 +132,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, true);
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
-        assertTrue(nodeStyle3.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
+        assertTrue(nodeStyle3.contains(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
     }
 
     @Test

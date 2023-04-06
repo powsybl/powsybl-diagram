@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.svg.styles;
+package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
@@ -17,7 +17,11 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.StyleProvider;
 
 import java.util.*;
 
@@ -25,7 +29,7 @@ import java.util.*;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class HighlightLineStateStyleProvider implements DiagramStyleProvider {
+public class HighlightLineStateStyleProvider implements StyleProvider {
 
     private final Network network;
 
@@ -118,11 +122,11 @@ public class HighlightLineStateStyleProvider implements DiagramStyleProvider {
     private static Optional<String> getFeederStateStyle(NodeSide side, NodeSide otherSide, Map<NodeSide, Boolean> connectionStatus) {
         if (side != null && otherSide != null) {
             if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED);
+                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED);
             } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
+                return Optional.of(StyleClassConstants.FEEDER_CONNECTED_DISCONNECTED);
             } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
+                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
             }
         }
         return Optional.empty();

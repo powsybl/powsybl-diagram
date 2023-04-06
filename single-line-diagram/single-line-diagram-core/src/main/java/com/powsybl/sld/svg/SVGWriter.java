@@ -7,7 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.graphs.Graph;
-import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
 
 import java.io.Writer;
 
@@ -16,5 +16,5 @@ import java.io.Writer;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface SVGWriter {
-    GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Writer writer);
+    GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider initProvider, StyleProvider styleProvider, Writer writer);
 }

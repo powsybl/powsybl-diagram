@@ -15,7 +15,7 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -154,6 +154,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider()));
+                new NominalVoltageStyleProvider()));
     }
 }

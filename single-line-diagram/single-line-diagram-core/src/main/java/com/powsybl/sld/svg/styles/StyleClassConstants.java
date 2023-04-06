@@ -10,7 +10,7 @@ package com.powsybl.sld.svg.styles;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public final class DiagramStyles {
+public final class StyleClassConstants {
     public static final String STYLE_PREFIX = "sld-";
     public static final String FEEDER_INFO = STYLE_PREFIX + "feeder-info";
     public static final String ANGLE = STYLE_PREFIX + "angle";
@@ -40,6 +40,6 @@ public final class DiagramStyles {
     public static final String GRID_STYLE_CLASS = STYLE_PREFIX + "grid";
     public static final String WIRE_STYLE_CLASS = STYLE_PREFIX + "wire";
 
-    private DiagramStyles() {
+    private StyleClassConstants() {
     }
 }

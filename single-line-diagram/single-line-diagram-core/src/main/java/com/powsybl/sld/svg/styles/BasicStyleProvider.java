@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.svg.styles.DiagramStyles.NODE_INFOS;
-import static com.powsybl.sld.svg.styles.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
+import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>

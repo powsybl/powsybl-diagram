@@ -32,7 +32,7 @@ import static com.powsybl.sld.util.IdUtil.*;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractStyleProvider implements DiagramStyleProvider {
+public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
@@ -43,17 +43,17 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
         if (graph != null) {
             Direction direction = graph.getDirection(node);
             if (node instanceof FeederNode && direction != Direction.UNDEFINED) {
-                styles.add(direction == Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+                styles.add(direction == Direction.BOTTOM ? StyleClassConstants.BOTTOM_FEEDER : StyleClassConstants.TOP_FEEDER);
             }
         }
         if (!showInternalNodes && isEquivalentToInternalNode(node)) {
-            styles.add(DiagramStyles.HIDDEN_NODE_CLASS);
+            styles.add(StyleClassConstants.HIDDEN_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
-            styles.add(((SwitchNode) node).isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
+            styles.add(((SwitchNode) node).isOpen() ? StyleClassConstants.OPEN_SWITCH_STYLE_CLASS : StyleClassConstants.CLOSED_SWITCH_STYLE_CLASS);
         }
         if (node.isFictitious()) {
-            styles.add(DiagramStyles.FICTITIOUS_NODE_STYLE_CLASS);
+            styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);
         }
 
         return styles;
@@ -73,20 +73,20 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
-        styles.add(DiagramStyles.WIRE_STYLE_CLASS);
+        styles.add(StyleClassConstants.WIRE_STYLE_CLASS);
         return styles;
     }
 
     @Override
     public List<String> getCellStyles(Cell cell) {
         if (cell instanceof ExternCell) {
-            return List.of(DiagramStyles.EXTERN_CELL, buildStyle(cell.getDirection()));
+            return List.of(StyleClassConstants.EXTERN_CELL, buildStyle(cell.getDirection()));
         }
         if (cell instanceof InternCell) {
-            return List.of(DiagramStyles.INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
+            return List.of(StyleClassConstants.INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
         }
         if (cell instanceof ShuntCell) {
-            return List.of(DiagramStyles.SHUNT_CELL);
+            return List.of(StyleClassConstants.SHUNT_CELL);
         }
         return Collections.emptyList();
     }
@@ -94,9 +94,9 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>();
-        styles.add(DiagramStyles.FEEDER_INFO);
+        styles.add(StyleClassConstants.FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? DiagramStyles.OUT_CLASS : DiagramStyles.IN_CLASS);
+            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
         }
         return styles;
     }

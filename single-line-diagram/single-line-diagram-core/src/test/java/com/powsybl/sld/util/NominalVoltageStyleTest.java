@@ -17,8 +17,8 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.styles.DiagramStyles;
-import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +37,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
-    private NominalVoltageDiagramStyleProvider styleProvider;
+    private NominalVoltageStyleProvider styleProvider;
 
     @BeforeEach
     public void setUp() {
@@ -47,7 +47,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        styleProvider = new NominalVoltageDiagramStyleProvider();
+        styleProvider = new NominalVoltageStyleProvider();
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
@@ -128,7 +128,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Edge edge = graph1.getEdges().get(12);
         List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge);
         assertEquals(2, wireStyles.size());
-        assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
+        assertTrue(wireStyles.contains(StyleClassConstants.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500"));
 
         Node fict3WTNode = graph1.getNode("3WT");

@@ -15,7 +15,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolOptions;
