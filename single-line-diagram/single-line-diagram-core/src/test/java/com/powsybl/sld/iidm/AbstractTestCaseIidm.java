@@ -21,6 +21,8 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.svg.StyleProvidersList;
+import com.powsybl.sld.util.HighlightLineStateStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 
 /**
@@ -46,7 +48,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
     }
 
     protected static Substation createSubstation(Network n, String id, String name, Country country) {

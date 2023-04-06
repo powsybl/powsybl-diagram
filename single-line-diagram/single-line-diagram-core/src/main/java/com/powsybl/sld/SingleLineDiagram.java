@@ -15,10 +15,12 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.HighlightLineStateStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.text.Style;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
@@ -55,7 +57,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         draw(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                 "");
     }
 
@@ -105,7 +107,7 @@ public final class SingleLineDiagram {
     public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                 "");
     }
 
@@ -138,7 +140,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
                         new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                        new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                         "");
     }
 
@@ -188,7 +190,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         draw(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                 "");
     }
 
@@ -226,7 +228,7 @@ public final class SingleLineDiagram {
     public static void drawVoltageLevel(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawVoltageLevel(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                 "");
     }
 
@@ -255,7 +257,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawSubstation(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new TopologicalStyleProvider(network),
+                createDefaultStyleProvider(network),
                 "");
     }
 
@@ -300,5 +302,9 @@ public final class SingleLineDiagram {
 
         // write metadata JSON file
         metadata.writeJson(metadataWriter);
+    }
+
+    private static DiagramStyleProvider createDefaultStyleProvider(Network network) {
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
     }
 }

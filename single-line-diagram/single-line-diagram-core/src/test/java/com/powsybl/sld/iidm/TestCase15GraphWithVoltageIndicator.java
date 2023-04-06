@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -113,8 +114,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     void testBasic() {
         DiagramStyleProvider styleProvider = new BasicStyleProvider() {
             @Override
-            public Optional<String> getBusInfoStyle(BusInfo info) {
-                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            public List<String> getBusInfoStyle(BusInfo info) {
+                return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
@@ -124,8 +125,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     void testTopological() {
         DiagramStyleProvider styleProvider = new TopologicalStyleProvider(network) {
             @Override
-            public Optional<String> getBusInfoStyle(BusInfo info) {
-                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            public List<String> getBusInfoStyle(BusInfo info) {
+                return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);

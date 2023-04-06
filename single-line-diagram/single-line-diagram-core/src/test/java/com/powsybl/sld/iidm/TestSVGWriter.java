@@ -662,7 +662,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
+            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider()));
     }
 
     @Test

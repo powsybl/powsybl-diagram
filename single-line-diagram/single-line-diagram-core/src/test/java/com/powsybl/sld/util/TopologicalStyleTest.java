@@ -109,7 +109,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Edge edge = graph1.getEdges().get(12);
 
-        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge, false);
+        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge);
         assertEquals(2, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500-0"));

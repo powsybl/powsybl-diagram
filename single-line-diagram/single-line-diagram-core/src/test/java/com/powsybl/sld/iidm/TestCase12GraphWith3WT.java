@@ -266,7 +266,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         assertTrue(compareMetadata(graph, "/vlDiag_metadata.json",
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network)));
+                new NominalVoltageDiagramStyleProvider()));
     }
 
     @Test
@@ -280,7 +280,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         voltageLevelGraphLayout(g1);
 
-        DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
+        DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider();
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);

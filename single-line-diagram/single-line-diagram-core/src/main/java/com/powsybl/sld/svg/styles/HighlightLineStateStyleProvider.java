@@ -1,44 +1,62 @@
 /**
- * Copyright (c) 2020, RTE (http://www.rte-france.com)
+ * Copyright (c) 2023, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.util;
+package com.powsybl.sld.svg.styles;
 
-import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
-import com.powsybl.sld.svg.BasicStyleProvider;
-import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.util.AbstractBaseVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.*;
 
 import java.util.*;
 
-import static com.powsybl.sld.svg.DiagramStyles.NODE_INFOS;
-
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractIidmBaseVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+public class HighlightLineStateStyleProvider implements DiagramStyleProvider {
 
-    protected final Network network;
+    private final Network network;
 
-    protected AbstractIidmBaseVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
-        super(baseVoltagesConfig);
+    public HighlightLineStateStyleProvider(Network network) {
         this.network = network;
     }
 
     @Override
+    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
+        return getHighlightLineStateStyle(graph, edge)
+                .map(List::of)
+                .orElse(Collections.emptyList());
+    }
+
+    private Optional<String> getHighlightLineStateStyle(Graph graph, Edge edge) {
+        Node n1 = edge.getNode1();
+        Node n2 = edge.getNode2();
+
+        FeederNode n;
+
+        if (n1 instanceof FeederNode || n2 instanceof FeederNode) {
+            n = (FeederNode) (n1 instanceof FeederNode ? n1 : n2);
+            if (n.getFeeder() instanceof FeederWithSides) {
+                return getHighlightFeederStateStyle(graph, n);
+            }
+        } else {
+            return Optional.empty();
+        }
+        return Optional.empty();
+    }
+
     protected Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
         FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
         Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
@@ -111,20 +129,52 @@ public abstract class AbstractIidmBaseVoltageDiagramStyleProvider extends Abstra
     }
 
     @Override
+    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public void reset() {
+        // Nothing to do
+    }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return List.of("highlightLineStates.css");
+    }
+
+    @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        Bus bus = network.getVoltageLevel(graph.getVoltageLevelInfos().getId()).getBusView().getBus(busId);
-        if (bus != null) {
-            for (Terminal t : bus.getConnectedTerminals()) {
-                for (FeederNode feederNode : graph.getFeederNodes()) {
-                    if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
-                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
-                        if (voltageLevelStyle.isPresent()) {
-                            return Arrays.asList(voltageLevelStyle.get(), NODE_INFOS);
-                        }
-                    }
-                }
-            }
-        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getBusInfoStyle(BusInfo info) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getFeederInfoStyles(FeederInfo info) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getCellStyles(Cell cell) {
         return Collections.emptyList();
     }
 }

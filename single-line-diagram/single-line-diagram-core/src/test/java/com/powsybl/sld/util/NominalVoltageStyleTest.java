@@ -46,7 +46,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        styleProvider = new NominalVoltageDiagramStyleProvider(network);
+        styleProvider = new NominalVoltageDiagramStyleProvider();
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
@@ -125,7 +125,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(nodeStyle3.contains("sld-vl50to70"));
 
         Edge edge = graph1.getEdges().get(12);
-        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge, false);
+        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge);
         assertEquals(2, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500"));

@@ -920,7 +920,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Styles
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
-        styleProvider.getBusInfoStyle(busInfo).ifPresent(styles::add);
+        styles.addAll(styleProvider.getBusInfoStyle(busInfo));
         g.setAttribute(CLASS, String.join(" ", styles));
 
         // Identity
@@ -982,7 +982,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element g = root.getOwnerDocument().createElement(GROUP);
 
                     g.setAttribute("id", wireId);
-                    List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge, layoutParameters.isHighlightLineState());
+                    List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge);
                     g.setAttribute(CLASS, String.join(" ", wireStyles));
 
                     Element polyline = root.getOwnerDocument().createElement(POLYLINE);
@@ -1038,7 +1038,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         String snakeLineId = escapeId(prefixId + edge.getId());
         g.setAttribute("id", snakeLineId);
-        List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge, layoutParameters.isHighlightLineState());
+        List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge);
         g.setAttribute(CLASS, String.join(" ", wireStyles));
         root.appendChild(g);
 

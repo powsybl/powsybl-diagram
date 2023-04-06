@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.util;
+package com.powsybl.sld.svg.styles;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
@@ -15,12 +15,11 @@ import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
-import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.svg.DiagramStyles.NODE_INFOS;
+import static com.powsybl.sld.svg.styles.DiagramStyles.NODE_INFOS;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>

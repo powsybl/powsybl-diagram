@@ -154,6 +154,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network)));
+                new NominalVoltageDiagramStyleProvider()));
     }
 }
