@@ -5,9 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.svg.styles.iidm;
+package com.powsybl.sld.svg.styles;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -19,26 +18,19 @@ import static com.powsybl.sld.svg.styles.StyleClassConstants.STYLE_PREFIX;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
+public class AnimatedFeederInfoStyleProvider extends EmptyStyleProvider {
 
     private static final String ARROW_ANIMATION = STYLE_PREFIX + "arrow-animation";
-
     private static final String ARROW_SPEED = "speed";
-
     private static final String ARROW_ANIMATION_NO_SPEED = ARROW_ANIMATION + "-no-" + ARROW_SPEED;
-
     private static final String ARROW_ANIMATION_LOW_SPEED = ARROW_ANIMATION + "-low-" + ARROW_SPEED;
-
     private static final String ARROW_ANIMATION_AVERAGE_SPEED = ARROW_ANIMATION + "-average-" + ARROW_SPEED;
-
     private static final String ARROW_ANIMATION_HIGH_SPEED = ARROW_ANIMATION + "-high-" + ARROW_SPEED;
 
     private final double threshold1;
-
     private final double threshold2;
 
-    public AnimatedFeederInfoStyleProvider(Network network, double threshold1, double threshold2) {
-        super(network);
+    public AnimatedFeederInfoStyleProvider(double threshold1, double threshold2) {
         this.threshold1 = threshold1;
         this.threshold2 = threshold2;
     }
@@ -70,8 +62,6 @@ public class AnimatedFeederInfoStyleProvider extends TopologicalStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        List<String> styles = new ArrayList<>(super.getCssFilenames());
-        styles.add("animations.css");
-        return styles;
+        return List.of("animations.css");
     }
 }

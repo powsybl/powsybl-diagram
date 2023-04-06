@@ -19,9 +19,11 @@ import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.svg.styles.iidm.AnimatedFeederInfoStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -215,7 +217,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
             }
         };
 
-        StyleProvider styleProvider = new AnimatedFeederInfoStyleProvider(network, 500, 1000);
+        StyleProvider styleProvider = new StyleProvidersList(
+                new TopologicalStyleProvider(network),
+                new AnimatedFeederInfoStyleProvider(500, 1000));
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
