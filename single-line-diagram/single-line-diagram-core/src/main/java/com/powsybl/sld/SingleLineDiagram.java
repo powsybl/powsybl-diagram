@@ -140,9 +140,9 @@ public final class SingleLineDiagram {
 
     public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
-                        new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 createDefaultStyleProvider(network),
-                        "");
+                "");
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
