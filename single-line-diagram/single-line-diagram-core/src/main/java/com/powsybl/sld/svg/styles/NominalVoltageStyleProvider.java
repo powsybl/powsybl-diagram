@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +66,7 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
 
     @Override
     public List<String> getBusInfoStyle(BusInfo info) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

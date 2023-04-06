@@ -43,6 +43,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         this.network = network;
     }
 
+    @Override
     protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
