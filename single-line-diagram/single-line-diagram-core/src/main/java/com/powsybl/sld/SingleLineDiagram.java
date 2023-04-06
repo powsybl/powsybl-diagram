@@ -15,12 +15,13 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.HighlightLineStateStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.text.Style;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;

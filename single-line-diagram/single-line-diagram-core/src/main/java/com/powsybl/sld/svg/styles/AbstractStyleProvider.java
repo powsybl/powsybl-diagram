@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.svg;
+package com.powsybl.sld.svg.styles;
 
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
@@ -19,12 +19,15 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DirectionalFeederInfo;
+import com.powsybl.sld.svg.FeederInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.util.IdUtil.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -44,13 +47,13 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
             }
         }
         if (!showInternalNodes && isEquivalentToInternalNode(node)) {
-            styles.add(HIDDEN_NODE_CLASS);
+            styles.add(DiagramStyles.HIDDEN_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(((SwitchNode) node).isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
         }
         if (node.isFictitious()) {
-            styles.add(FICTITIOUS_NODE_STYLE_CLASS);
+            styles.add(DiagramStyles.FICTITIOUS_NODE_STYLE_CLASS);
         }
 
         return styles;
@@ -70,20 +73,20 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
-        styles.add(WIRE_STYLE_CLASS);
+        styles.add(DiagramStyles.WIRE_STYLE_CLASS);
         return styles;
     }
 
     @Override
     public List<String> getCellStyles(Cell cell) {
         if (cell instanceof ExternCell) {
-            return List.of(EXTERN_CELL, buildStyle(cell.getDirection()));
+            return List.of(DiagramStyles.EXTERN_CELL, buildStyle(cell.getDirection()));
         }
         if (cell instanceof InternCell) {
-            return List.of(INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
+            return List.of(DiagramStyles.INTERN_CELL, buildStyle(((InternCell) cell).getShape()));
         }
         if (cell instanceof ShuntCell) {
-            return List.of(SHUNT_CELL);
+            return List.of(DiagramStyles.SHUNT_CELL);
         }
         return Collections.emptyList();
     }
@@ -91,9 +94,9 @@ public abstract class AbstractStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>();
-        styles.add(FEEDER_INFO);
+        styles.add(DiagramStyles.FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
+            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? DiagramStyles.OUT_CLASS : DiagramStyles.IN_CLASS);
         }
         return styles;
     }

@@ -14,9 +14,9 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

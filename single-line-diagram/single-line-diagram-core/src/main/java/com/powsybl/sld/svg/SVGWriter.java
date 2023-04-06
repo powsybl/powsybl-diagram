@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
 
 import java.io.Writer;
 

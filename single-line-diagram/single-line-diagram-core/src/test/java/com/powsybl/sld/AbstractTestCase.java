@@ -14,7 +14,7 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;

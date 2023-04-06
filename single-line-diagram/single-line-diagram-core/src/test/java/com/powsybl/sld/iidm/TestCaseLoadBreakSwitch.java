@@ -13,7 +13,7 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

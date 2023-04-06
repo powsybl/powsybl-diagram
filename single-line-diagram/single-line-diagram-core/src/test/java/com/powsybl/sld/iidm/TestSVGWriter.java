@@ -17,7 +17,9 @@ import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +29,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.nodes.NodeSide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

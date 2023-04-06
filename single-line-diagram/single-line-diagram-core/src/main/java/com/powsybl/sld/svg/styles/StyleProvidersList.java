@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.svg;
+package com.powsybl.sld.svg.styles;
 
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.cells.Cell;
@@ -14,6 +14,9 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.FeederInfo;
 
 import java.net.URL;
 import java.util.List;

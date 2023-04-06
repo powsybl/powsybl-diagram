@@ -23,7 +23,10 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyles;
 import com.powsybl.sld.util.DomUtil;
+import com.powsybl.sld.util.IdUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
@@ -42,7 +45,7 @@ import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.util.IdUtil.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -191,7 +194,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element rect = document.createElement("rect");
         rect.setAttribute(WIDTH, "100%");
         rect.setAttribute(HEIGHT, "100%");
-        rect.setAttribute(CLASS, FRAME_CLASS);
+        rect.setAttribute(CLASS, DiagramStyles.FRAME_CLASS);
         document.adoptNode(rect);
         document.getDocumentElement().appendChild(rect);
     }
@@ -271,7 +274,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
         // then we draw all the edges, and finally we draw the switch nodes and bus connections
 
-        String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
+        String cellId = IdUtil.escapeId(prefixId + cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
@@ -393,7 +396,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (BusNode busNode : graph.getNodeBuses()) {
 
-            String nodeId = DiagramStyles.escapeId(prefixId + busNode.getId());
+            String nodeId = IdUtil.escapeId(prefixId + busNode.getId());
 
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
@@ -445,7 +448,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              Collection<? extends Node> nodes) {
 
         for (Node node : nodes) {
-            String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
+            String nodeId = IdUtil.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
@@ -561,7 +564,7 @@ public class DefaultSVGWriter implements SVGWriter {
         if (shiftAngle != 0) {
             label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         }
-        label.setAttribute(CLASS, LABEL_STYLE_CLASS);
+        label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
@@ -1173,7 +1176,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelV.setAttribute(CLASS, VOLTAGE);
+        labelV.setAttribute(CLASS, DiagramStyles.VOLTAGE);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
         g.appendChild(labelV);
@@ -1185,7 +1188,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelAngle.setAttribute(CLASS, ANGLE);
+        labelAngle.setAttribute(CLASS, DiagramStyles.ANGLE);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
         g.appendChild(labelAngle);
@@ -1196,7 +1199,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
         root.appendChild(nodesInfosNode);
-        nodesInfosNode.setAttribute(CLASS, LEGEND);
+        nodesInfosNode.setAttribute(CLASS, DiagramStyles.LEGEND);
 
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;

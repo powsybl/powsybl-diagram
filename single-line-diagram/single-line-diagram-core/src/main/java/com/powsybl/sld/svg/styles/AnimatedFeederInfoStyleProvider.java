@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.util;
+package com.powsybl.sld.svg.styles;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
@@ -13,7 +13,7 @@ import com.powsybl.sld.svg.FeederInfo;
 
 import java.util.*;
 
-import static com.powsybl.sld.svg.DiagramStyles.STYLE_PREFIX;
+import static com.powsybl.sld.svg.styles.DiagramStyles.STYLE_PREFIX;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>

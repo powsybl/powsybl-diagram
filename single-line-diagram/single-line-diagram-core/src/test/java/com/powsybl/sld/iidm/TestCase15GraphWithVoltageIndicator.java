@@ -12,8 +12,12 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

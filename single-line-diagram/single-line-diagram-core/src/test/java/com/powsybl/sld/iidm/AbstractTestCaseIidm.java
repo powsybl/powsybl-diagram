@@ -20,10 +20,10 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.svg.StyleProvidersList;
-import com.powsybl.sld.util.HighlightLineStateStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

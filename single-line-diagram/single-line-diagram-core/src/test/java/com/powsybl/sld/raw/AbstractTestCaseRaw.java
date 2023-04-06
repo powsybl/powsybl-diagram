@@ -15,6 +15,7 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
 
 import java.util.*;
 

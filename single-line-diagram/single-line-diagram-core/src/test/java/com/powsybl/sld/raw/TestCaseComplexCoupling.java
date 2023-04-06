@@ -11,7 +11,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.BasicStyleProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

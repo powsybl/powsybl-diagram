@@ -11,8 +11,8 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
+import com.powsybl.sld.svg.styles.DiagramStyleProvider;
+import com.powsybl.sld.svg.styles.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

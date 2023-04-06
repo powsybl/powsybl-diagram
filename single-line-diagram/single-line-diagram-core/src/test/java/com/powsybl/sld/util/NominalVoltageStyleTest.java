@@ -16,8 +16,9 @@ import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.styles.DiagramStyles;
+import com.powsybl.sld.svg.styles.NominalVoltageDiagramStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

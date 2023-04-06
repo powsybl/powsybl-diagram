@@ -6,25 +6,27 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.util.IdUtil;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
-class DiagramStylesTest {
+class IdUtilTest {
 
     @Test
     void test() {
         String input = "ab_cd.ef gh";
-        String escaped = DiagramStyles.escapeId(input);
-        assertEquals(input, DiagramStyles.unescapeId(escaped));
+        String escaped = IdUtil.escapeId(input);
+        assertEquals(input, IdUtil.unescapeId(escaped));
     }
 
     @Test
     void test2() {
         String input = "_c";
-        String escaped = DiagramStyles.escapeClassName(input);
+        String escaped = IdUtil.escapeClassName(input);
         assertEquals("_95_c", escaped);
     }
 }
