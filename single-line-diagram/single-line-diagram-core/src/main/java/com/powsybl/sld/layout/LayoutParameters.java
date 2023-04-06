@@ -60,7 +60,6 @@ public class LayoutParameters {
     private boolean labelCentered = false;
     private boolean labelDiagonal = false;
 
-    private boolean highlightLineState = true;
     private boolean tooltipEnabled = false;
 
     private boolean addNodesInfos = false;
@@ -135,7 +134,6 @@ public class LayoutParameters {
                             @JsonProperty("labelCentered") boolean labelCentered,
                             @JsonProperty("labelDiagonal") boolean labelDiagonal,
                             @JsonProperty("angleLabelShift") double angleLabelShift,
-                            @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederInfoSymmetry") boolean feederInfoSymmetry,
                             @JsonProperty("cssLocation") CssLocation cssLocation,
@@ -180,7 +178,6 @@ public class LayoutParameters {
         this.labelCentered = labelCentered;
         this.labelDiagonal = labelDiagonal;
         this.angleLabelShift = angleLabelShift;
-        this.highlightLineState = highlightLineState;
         this.addNodesInfos = addNodesInfos;
         this.feederInfoSymmetry = feederInfoSymmetry;
         this.cssLocation = cssLocation;
@@ -229,7 +226,6 @@ public class LayoutParameters {
         angleLabelShift = other.angleLabelShift;
         labelDiagonal = other.labelDiagonal;
         labelCentered = other.labelCentered;
-        highlightLineState = other.highlightLineState;
         addNodesInfos = other.addNodesInfos;
         feederInfoSymmetry = other.feederInfoSymmetry;
         cssLocation = other.cssLocation;
@@ -452,15 +448,6 @@ public class LayoutParameters {
 
     public LayoutParameters setLabelDiagonal(boolean labelDiagonal) {
         this.labelDiagonal = labelDiagonal;
-        return this;
-    }
-
-    public boolean isHighlightLineState() {
-        return highlightLineState;
-    }
-
-    public LayoutParameters setHighlightLineState(boolean highlightLineState) {
-        this.highlightLineState = highlightLineState;
         return this;
     }
 
