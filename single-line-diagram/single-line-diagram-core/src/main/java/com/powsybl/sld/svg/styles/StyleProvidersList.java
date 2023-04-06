@@ -39,28 +39,28 @@ public class StyleProvidersList implements StyleProvider {
     }
 
     @Override
-    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
-        return concatenateLists(sp -> sp.getSvgWireStyles(graph, edge));
+    public List<String> getEdgeStyles(Graph graph, Edge edge) {
+        return concatenateLists(sp -> sp.getEdgeStyles(graph, edge));
     }
 
     @Override
-    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
-        return concatenateLists(sp -> sp.getSvgNodeStyles(graph, node, componentLibrary, showInternalNodes));
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+        return concatenateLists(sp -> sp.getNodeStyles(graph, node, componentLibrary, showInternalNodes));
     }
 
     @Override
-    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
-        return concatenateLists(sp -> sp.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary));
+    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+        return concatenateLists(sp -> sp.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary));
     }
 
     @Override
-    public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
-        return concatenateLists(sp -> sp.getZoneLineStyles(edge, componentLibrary));
+    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+        return concatenateLists(sp -> sp.getBranchEdgeStyles(edge, componentLibrary));
     }
 
     @Override
-    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
-        return concatenateLists(sp -> sp.getSvgNodeSubcomponentStyles(graph, node, subComponentName));
+    public List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
+        return concatenateLists(sp -> sp.getNodeSubcomponentStyles(graph, node, subComponentName));
     }
 
     @Override

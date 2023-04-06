@@ -27,27 +27,27 @@ import java.util.List;
 public class EmptyStyleProvider implements StyleProvider {
 
     @Override
-    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
+    public List<String> getEdgeStyles(Graph graph, Edge edge) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
+    public List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
         return Collections.emptyList();
     }
 

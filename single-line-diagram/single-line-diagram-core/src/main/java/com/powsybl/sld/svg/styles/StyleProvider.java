@@ -27,15 +27,15 @@ import java.util.stream.Collectors;
  */
 public interface StyleProvider {
 
-    List<String> getSvgWireStyles(Graph graph, Edge edge);
+    List<String> getEdgeStyles(Graph graph, Edge edge);
 
-    List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
+    List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
-    List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
+    List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
 
-    List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary);
+    List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary);
 
-    List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName);
+    List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName);
 
     void reset();
 

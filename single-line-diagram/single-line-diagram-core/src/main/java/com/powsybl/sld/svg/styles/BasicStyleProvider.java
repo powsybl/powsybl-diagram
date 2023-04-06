@@ -26,12 +26,12 @@ import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 public class BasicStyleProvider extends AbstractStyleProvider {
 
     @Override
-    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
+    public List<String> getEdgeStyles(Graph graph, Edge edge) {
         return List.of(WIRE_STYLE_CLASS);
     }
 
     @Override
-    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
+    public List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
         return new ArrayList<>();
     }
 

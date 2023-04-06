@@ -32,7 +32,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     }
 
     @Override
-    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
+    public List<String> getEdgeStyles(Graph graph, Edge edge) {
         return getHighlightLineStateStyle(graph, edge)
                 .map(List::of)
                 .orElse(Collections.emptyList());

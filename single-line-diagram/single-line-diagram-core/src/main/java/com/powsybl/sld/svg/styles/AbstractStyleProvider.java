@@ -35,7 +35,7 @@ import static com.powsybl.sld.util.IdUtil.*;
 public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
-    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
 
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
@@ -64,14 +64,14 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
                 .map(List::of)
                 .orElse(Collections.emptyList());
     }
 
     @Override
-    public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.WIRE_STYLE_CLASS);
         return styles;

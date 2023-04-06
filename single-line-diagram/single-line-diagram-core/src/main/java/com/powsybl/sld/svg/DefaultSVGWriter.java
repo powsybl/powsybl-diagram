@@ -400,7 +400,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph, busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeStyles(graph, busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             drawBus(graph, busNode, g);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
@@ -451,7 +451,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String nodeId = IdUtil.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = labelProvider.getNodeLabels(node, graph.getDirection(node));
@@ -502,7 +502,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                       StyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, graph, node, styleProvider);
             root.appendChild(g);
         }
@@ -691,7 +691,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(graph, node, subComponent);
+        List<String> subComponentStyles = styleProvider.getNodeSubcomponentStyles(graph, node, subComponent);
         componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
         if (!subComponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", subComponentStyles));
@@ -704,7 +704,7 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
-        List<String> svgNodeSubcomponentStyles = styleProvider.getSvgNodeSubcomponentStyles(graph, node, subComponentName);
+        List<String> svgNodeSubcomponentStyles = styleProvider.getNodeSubcomponentStyles(graph, node, subComponentName);
         componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
         if (!svgNodeSubcomponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));
@@ -985,7 +985,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element g = root.getOwnerDocument().createElement(GROUP);
 
                     g.setAttribute("id", wireId);
-                    List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge);
+                    List<String> wireStyles = styleProvider.getEdgeStyles(graph, edge);
                     g.setAttribute(CLASS, String.join(" ", wireStyles));
 
                     Element polyline = root.getOwnerDocument().createElement(POLYLINE);
@@ -1041,7 +1041,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         String snakeLineId = escapeId(prefixId + edge.getId());
         g.setAttribute("id", snakeLineId);
-        List<String> wireStyles = styleProvider.getSvgWireStyles(graph, edge);
+        List<String> wireStyles = styleProvider.getEdgeStyles(graph, edge);
         g.setAttribute(CLASS, String.join(" ", wireStyles));
         root.appendChild(g);
 

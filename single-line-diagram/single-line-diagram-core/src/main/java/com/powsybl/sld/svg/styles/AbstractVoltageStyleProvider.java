@@ -40,7 +40,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getSvgWireStyles(Graph graph, Edge edge) {
+    public List<String> getEdgeStyles(Graph graph, Edge edge) {
         return getVoltageLevelEdgeStyle(graph, edge)
                 .map(vlStyle -> List.of(WIRE_STYLE_CLASS, vlStyle))
                 .orElse(List.of(WIRE_STYLE_CLASS));
@@ -58,8 +58,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
-        List<String> styles = super.getSvgNodeStyles(graph, node, componentLibrary, showInternalNodes);
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+        List<String> styles = super.getNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
         if (graph != null && !isNodeSeparatingStyles(node)) {
             // Some nodes have two styles as they separate voltage levels for instance
@@ -74,7 +74,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     protected abstract boolean isNodeSeparatingStyles(Node node);
 
     @Override
-    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
+    public List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
 
         List<String> styles = new ArrayList<>();
 
