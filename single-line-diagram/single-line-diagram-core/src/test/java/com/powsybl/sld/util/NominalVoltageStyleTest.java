@@ -19,6 +19,9 @@ import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +40,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
-    private NominalVoltageStyleProvider styleProvider;
+    private StyleProvider styleProvider;
 
     @BeforeEach
     public void setUp() {
@@ -47,7 +50,9 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        styleProvider = new NominalVoltageStyleProvider();
+        styleProvider = new StyleProvidersList(
+                new NominalVoltageStyleProvider(),
+                new HighlightLineStateStyleProvider(network));
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);

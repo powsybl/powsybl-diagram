@@ -23,6 +23,11 @@
 .sld-vl30to50 {--sld-vl-color: #ff8290}
 .sld-vl0to30 {--sld-vl-color: #abae28}
 /* ----------------------------------------------------------------------- */
+/* File : highlightLineStates.css ---------------------------------------- */
+.sld-feeder-disconnected {stroke: black}
+.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
+.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -88,7 +93,7 @@
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_INTERNAL_95_vl2_95_2WT_95_TWO_95_b2WT_95_2">
                 <polyline points="80.0,142.0,80.0,172.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300" id="_95_vl2_95_2WT_95_TWO_95_INTERNAL_95_vl2_95_2WT_95_TWO">
+            <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl2_95_2WT_95_TWO_95_INTERNAL_95_vl2_95_2WT_95_TWO">
                 <polyline points="80.0,88.0,80.0,142.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300" id="idd2WT_95_2" transform="translate(76.0,248.0)">
@@ -121,10 +126,10 @@
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_3WT_95_b3WT_95_2">
                 <polyline points="200.0,154.0,200.0,172.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl2_95_3WT_95_ONE_95_3WT">
+            <g class="sld-wire sld-vl300to500 sld-feeder-connected-disconnected" id="_95_vl2_95_3WT_95_ONE_95_3WT">
                 <polyline points="160.0,80.0,160.0,142.0,193.0,142.0"/>
             </g>
-            <g class="sld-wire sld-vl50to70" id="_95_vl2_95_3WT_95_THREE_95_3WT">
+            <g class="sld-wire sld-vl50to70 sld-feeder-connected-disconnected" id="_95_vl2_95_3WT_95_THREE_95_3WT">
                 <polyline points="240.0,80.0,240.0,142.0,207.0,142.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300" id="idd3WT_95_2" transform="translate(196.0,248.0)">
