@@ -23,11 +23,6 @@
 .sld-vl30to50 {--sld-vl-color: #ff8290}
 .sld-vl0to30 {--sld-vl-color: #abae28}
 /* ----------------------------------------------------------------------- */
-/* File : highlightLineStates.css ---------------------------------------- */
-.sld-feeder-disconnected {stroke: black}
-.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
-.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -136,10 +131,10 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500" id="idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11" transform="translate(211.0,208.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-pst" id="idT11" transform="translate(183.0,204.5)">
-                <path class="sld-vl300to500 sld-pst-arrow" d="M14,0 0,14 M11,0 14,0 14,3" transform="rotate(270.0,7.0,7.5)"/>
-                <circle class="sld-vl300to500 sld-winding" cx="7" cy="10" r="5" transform="rotate(270.0,7.0,7.5)"/>
-                <circle class="sld-vl300to500 sld-winding" cx="7" cy="5" r="5" transform="rotate(270.0,7.0,7.5)"/>
+            <g class="sld-pst sld-vl300to500" id="idT11" transform="translate(183.0,204.5)">
+                <path class="sld-pst-arrow" d="M14,0 0,14 M11,0 14,0 14,3" transform="rotate(270.0,7.0,7.5)"/>
+                <circle class="sld-winding" cx="7" cy="10" r="5" transform="rotate(270.0,7.0,7.5)"/>
+                <circle class="sld-winding" cx="7" cy="5" r="5" transform="rotate(270.0,7.0,7.5)"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500" id="idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11" transform="translate(161.0,208.0)">
                 <circle cx="4" cy="4" r="4"/>

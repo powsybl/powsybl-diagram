@@ -87,11 +87,6 @@
 .sld-vl0to30-8 {--sld-vl-color: #BEA04A}
 .sld-vl0to30-9 {--sld-vl-color: #869D22}
 /* ----------------------------------------------------------------------- */
-/* File : highlightLineStates.css ---------------------------------------- */
-.sld-feeder-disconnected {stroke: black}
-.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
-.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
