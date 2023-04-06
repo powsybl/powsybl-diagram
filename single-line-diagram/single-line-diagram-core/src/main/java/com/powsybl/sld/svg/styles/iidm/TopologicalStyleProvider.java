@@ -191,20 +191,9 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        Bus bus = network.getVoltageLevel(graph.getVoltageLevelInfos().getId()).getBusView().getBus(busId);
-        if (bus != null) {
-            for (Terminal t : bus.getConnectedTerminals()) {
-                for (FeederNode feederNode : graph.getFeederNodes()) {
-                    if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
-                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
-                        if (voltageLevelStyle.isPresent()) {
-                            return Arrays.asList(voltageLevelStyle.get(), NODE_INFOS);
-                        }
-                    }
-                }
-            }
-        }
-        return Collections.emptyList();
+        String busStyle = vlBusIdStyleMap.getOrDefault(graph.getVoltageLevelInfos().getId(), Collections.emptyMap())
+                .getOrDefault(busId, null);
+        return busStyle != null ? List.of(busStyle, NODE_INFOS) : List.of(NODE_INFOS);
     }
 
     @Override
