@@ -91,5 +91,10 @@
             <artifactId>powsybl-tools-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-ieee-cdf-converter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

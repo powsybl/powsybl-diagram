@@ -15,6 +15,7 @@ import java.util.function.DoubleFunction;
 public class EdgeInfo {
     public static final String ACTIVE_POWER = "ActivePower";
     public static final String REACTIVE_POWER = "ReactivePower";
+    public static final String CURRENT = "Current";
 
     private final String infoType;
     private final Direction arrowDirection;

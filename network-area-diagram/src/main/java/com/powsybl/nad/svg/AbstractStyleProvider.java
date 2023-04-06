@@ -9,6 +9,8 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public abstract class AbstractStyleProvider implements StyleProvider {
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractStyleProvider.class);
 
     private final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -87,11 +91,22 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getEdgeInfoStyles(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
-        if (info.getInfoType().equals(EdgeInfo.ACTIVE_POWER)) {
-            styles.add(CLASSES_PREFIX + "active");
-        } else if (info.getInfoType().equals(EdgeInfo.REACTIVE_POWER)) {
-            styles.add(CLASSES_PREFIX + "reactive");
+        String infoType = info.getInfoType();
+        switch (infoType) {
+            case EdgeInfo.ACTIVE_POWER:
+                styles.add(CLASSES_PREFIX + "active");
+                break;
+            case EdgeInfo.REACTIVE_POWER:
+                styles.add(CLASSES_PREFIX + "reactive");
+                break;
+            case EdgeInfo.CURRENT:
+                styles.add(CLASSES_PREFIX + "current");
+                break;
+            default:
+                LOGGER.warn("The \"{}\" type of information is not handled", infoType);
+                break;
         }
+
         info.getDirection().ifPresent(direction -> styles.add(
                 CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
         return styles;

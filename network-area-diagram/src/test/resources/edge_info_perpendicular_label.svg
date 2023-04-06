@@ -13,9 +13,8 @@
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
-.nad-active {visibility: visible}
-.nad-reactive {visibility: hidden}
 .nad-reactive path {stroke: none; fill: #0277bd}
+.nad-current path {stroke: none; fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}

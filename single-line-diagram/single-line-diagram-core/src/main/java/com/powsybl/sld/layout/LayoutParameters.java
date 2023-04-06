@@ -95,12 +95,14 @@ public class LayoutParameters {
     private int voltageValuePrecision = 1;
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
+    private int currentValuePrecision = 0;
 
     /** em dash unicode for undefined value */
     private String undefinedValueSymbol = "\u2014";
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
+    private boolean displayCurrentFeederInfo = false;
 
     @JsonCreator
     public LayoutParameters() {
@@ -147,8 +149,11 @@ public class LayoutParameters {
                             @JsonProperty("voltageValuePrecision") int voltageValuePrecision,
                             @JsonProperty("powerValuePrecision") int powerValuePrecision,
                             @JsonProperty("angleValuePrecision") int angleValuePrecision,
+                            @JsonProperty("currentValuePrecision") int currentValuePrecision,
+                            @JsonProperty("displayCurrentFeederInfo") boolean displayCurrentFeederInfo,
                             @JsonProperty("undefinedValueSymbol") String undefinedValueSymbol,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes) {
+
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -189,6 +194,8 @@ public class LayoutParameters {
         this.voltageValuePrecision = voltageValuePrecision;
         this.powerValuePrecision = powerValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
+        this.currentValuePrecision = currentValuePrecision;
+        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
         this.undefinedValueSymbol = undefinedValueSymbol;
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
     }
@@ -236,6 +243,8 @@ public class LayoutParameters {
         voltageValuePrecision = other.voltageValuePrecision;
         powerValuePrecision = other.powerValuePrecision;
         angleValuePrecision = other.angleValuePrecision;
+        currentValuePrecision = other.currentValuePrecision;
+        displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         undefinedValueSymbol = other.undefinedValueSymbol;
         removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
     }
@@ -617,8 +626,26 @@ public class LayoutParameters {
         return this;
     }
 
+    public int getCurrentValuePrecision() {
+        return currentValuePrecision;
+    }
+
+    public LayoutParameters setCurrentValuePrecision(int currentValuePrecision) {
+        this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+    }
+
+    public boolean isDisplayCurrentFeederInfo() {
+        return this.displayCurrentFeederInfo;
+    }
+
+    public LayoutParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
+        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+        return this;
     }
 
     public enum Alignment {

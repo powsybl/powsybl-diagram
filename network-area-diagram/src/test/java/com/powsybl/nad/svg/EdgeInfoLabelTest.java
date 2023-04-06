@@ -19,8 +19,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -47,13 +46,13 @@ class EdgeInfoLabelTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
+            public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+                return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
             }
 
             @Override
-            public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
-                return Collections.singletonList(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
+            public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
+                return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
 
             @Override

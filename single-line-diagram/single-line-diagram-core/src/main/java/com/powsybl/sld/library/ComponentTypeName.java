@@ -12,6 +12,7 @@ package com.powsybl.sld.library;
 public final class ComponentTypeName {
     public static final String ARROW_ACTIVE = "ARROW_ACTIVE";
     public static final String ARROW_REACTIVE = "ARROW_REACTIVE";
+    public static final String ARROW_CURRENT = "ARROW_CURRENT";
     public static final String BUSBAR_SECTION = "BUSBAR_SECTION";
     public static final String BREAKER = "BREAKER";
     public static final String DISCONNECTOR = "DISCONNECTOR";

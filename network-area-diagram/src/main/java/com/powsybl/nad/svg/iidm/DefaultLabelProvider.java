@@ -18,6 +18,7 @@ import com.powsybl.nad.utils.iidm.IidmUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -34,19 +35,19 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
-    public List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge) {
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(edge.getEquipmentId());
         if (transformer == null) {
             throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
         }
         Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
@@ -54,13 +55,20 @@ public class DefaultLabelProvider implements LabelProvider {
         return edge.getEquipmentId();
     }
 
-    private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
+    private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
         if (terminal == null) {
-            return Collections.emptyList();
+            return Optional.empty();
         }
-        return List.of(
-                new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower),
-                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
+        switch (svgParameters.getEdgeInfoDisplayed()) {
+            case ACTIVE_POWER:
+                return Optional.of(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower));
+            case REACTIVE_POWER:
+                return Optional.of(new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
+            case CURRENT:
+                return Optional.of(new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+            default:
+                return Optional.empty();
+        }
     }
 
     @Override

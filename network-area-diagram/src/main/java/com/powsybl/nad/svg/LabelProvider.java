@@ -9,14 +9,15 @@ package com.powsybl.nad.svg;
 import com.powsybl.nad.model.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface LabelProvider {
-    List<EdgeInfo> getEdgeInfos(Graph graph, BranchEdge edge, BranchEdge.Side side);
+    Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side);
 
-    List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge);
+    Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge);
 
     String getLabel(Edge edge);
 

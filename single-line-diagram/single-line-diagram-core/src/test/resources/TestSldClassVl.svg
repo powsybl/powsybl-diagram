@@ -10,8 +10,9 @@
 .sld-hidden-node {visibility: hidden}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
-.sld-active-power .sld-label {dominant-baseline: middle}
-.sld-reactive-power .sld-label {dominant-baseline: middle}
+.sld-active-power .sld-label {dominant-baseline: mathematical}
+.sld-reactive-power .sld-label {dominant-baseline: mathematical}
+.sld-current .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -131,6 +132,7 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-feeder-info.sld-active-power {fill:black}
 .sld-feeder-info.sld-reactive-power {fill:blue}
+.sld-feeder-info.sld-current {fill:purple}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
 .sld-breaker.sld-fictitious {stroke: maroon}

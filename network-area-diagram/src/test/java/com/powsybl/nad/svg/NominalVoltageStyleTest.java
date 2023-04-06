@@ -53,6 +53,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
+
     void testIEEE14() {
         Network network = IeeeCdfNetworkFactory.create14Solved();
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));

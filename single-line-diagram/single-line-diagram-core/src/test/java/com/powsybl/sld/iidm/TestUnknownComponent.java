@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestUnknownComponent extends AbstractTestCaseIidm {
+class TestUnknownComponent extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
@@ -35,7 +35,7 @@ public class TestUnknownComponent extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    void test() {
         layoutParameters.setAddNodesInfos(true);
 
         // build voltage level 1 graph

@@ -20,13 +20,15 @@ public class ValueFormatter {
 
     private final int powerValuePrecision;
     private final int voltageValuePrecision;
+    private final int currentValuePrecision;
     private final int angleValuePrecision;
     private final DecimalFormat format;
     private final String undefinedValueSymbol;
 
-    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int angleValuePrecision, Locale locale, String undefinedValueSymbol) {
+    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int currentValuePrecision, int angleValuePrecision, Locale locale, String undefinedValueSymbol) {
         this.powerValuePrecision = powerValuePrecision;
         this.voltageValuePrecision = voltageValuePrecision;
+        this.currentValuePrecision = currentValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
         this.format = new DecimalFormat();
         format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
@@ -62,5 +64,15 @@ public class ValueFormatter {
     private void setFractionDigits(int precision) {
         format.setMaximumFractionDigits(precision);
         format.setMinimumFractionDigits(precision);
+    }
+
+    public String formatCurrent(double current, String unit) {
+        setFractionDigits(currentValuePrecision);
+        String valueFormatted = Double.isNaN(current) ? undefinedValueSymbol : format.format(current);
+        return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
+    }
+
+    public String formatCurrent(double current) {
+        return formatCurrent(current, "");
     }
 }
