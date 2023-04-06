@@ -8,7 +8,6 @@ package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
