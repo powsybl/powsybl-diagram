@@ -7,9 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.positionprocessor.BlockPositionner;
-import com.powsybl.sld.layout.positionprocessor.PositionFinder;
-import com.powsybl.sld.layout.positionprocessor.Subsection;
+import com.powsybl.sld.layout.position.BlockPositionner;
+import com.powsybl.sld.layout.position.PositionFinder;
+import com.powsybl.sld.layout.position.Subsection;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.cells.BusCell;
