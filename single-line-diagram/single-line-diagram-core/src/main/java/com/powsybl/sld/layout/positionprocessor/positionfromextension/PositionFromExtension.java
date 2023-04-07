@@ -8,7 +8,6 @@ package com.powsybl.sld.layout.positionprocessor.positionfromextension;
 
 import com.powsybl.sld.layout.positionprocessor.AbstractPositionFinder;
 import com.powsybl.sld.layout.positionprocessor.BSCluster;
-import com.powsybl.sld.layout.positionprocessor.HorizontalBusListManager;
 import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -33,8 +32,6 @@ public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
 
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
-
-    private static final HorizontalBusListManager HBLMANAGER = new HBLManagerByExtension();
 
     private static final Comparator<VerticalBusSet> VBSCOMPARATOR = new Comparator<VerticalBusSet>() {
         @Override
@@ -157,7 +154,7 @@ public class PositionFromExtension extends AbstractPositionFinder {
         BSCluster bsCluster = bsClusters.get(0);
 
         while (bsClusters.size() != 1) {
-            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, HBLMANAGER);
+            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, this);
             bsClusters.remove(1);
         }
         bsCluster.sortHblByVPos();
@@ -208,6 +205,28 @@ public class PositionFromExtension extends AbstractPositionFinder {
                 .mapToInt(Optional::get)
                 .min()
                 .ifPresent(bc::setOrder);
+    }
+
+    @Override
+    public void mergeHbl(BSCluster leftCluster, BSCluster rightCluster) {
+        //for this implementation, the busBar structuralPosition are already defined,
+        // we must ensure that structuralPosition vPos when merging left and right HorizontalPosition,
+        // and structuralPosition hPos are ordered
+        leftCluster.getHorizontalBusLists().forEach(hbl -> {
+            BusNode rightNodeOfLeftHbl = hbl.getSideNode(Side.RIGHT);
+            rightCluster.getHorizontalBusLists().stream()
+                    .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
+                    .findFirst()
+                    .ifPresent(rightHbl -> {
+                        BusNode leftNodeOfRightHbl = rightHbl.getSideNode(Side.LEFT);
+                        if (leftNodeOfRightHbl == rightNodeOfLeftHbl
+                                || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
+                            hbl.merge(rightHbl);
+                            rightCluster.removeHbl(rightHbl);
+                        }
+                    });
+        });
+        mergeHblWithNoLink(leftCluster, rightCluster);
     }
 
 }

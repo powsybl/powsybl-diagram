@@ -14,8 +14,10 @@ import com.powsybl.sld.layout.positionprocessor.VerticalBusSet;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import org.slf4j.Logger;
@@ -67,7 +69,6 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
-    private static final HBLManagerByClustering HBLMANAGER = new HBLManagerByClustering();
 
     @Override
     public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells) {
@@ -84,7 +85,7 @@ public class PositionByClustering extends AbstractPositionFinder {
 
     public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
         List<BSCluster> bsClusters = BSCluster.createBSClusters(verticalBusSets);
-        Links links = Links.create(bsClusters, HBLMANAGER);
+        Links links = Links.create(bsClusters, this);
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }
@@ -189,4 +190,64 @@ public class PositionByClustering extends AbstractPositionFinder {
                 .forEach(sc -> shuntTraversal(sc, visitedShuntCells, externCells));
     }
 
+    @Override
+    public void mergeHbl(BSCluster leftCluster, BSCluster rightCluster) {
+        List<HorizontalBusList> availableHblToMerge = new ArrayList<>(leftCluster.getHorizontalBusLists());
+        mergeHblWithCommonBusNode(leftCluster, rightCluster, availableHblToMerge);
+        mergeHblWithFlatCell(leftCluster, rightCluster, availableHblToMerge);
+        mergeHblWithNoLink(leftCluster, rightCluster);
+    }
+
+    private void mergeHblWithCommonBusNode(BSCluster leftCluster, BSCluster rightCluster, List<HorizontalBusList> availableHblToMerge) {
+        List<BusNode> commonNodes = new ArrayList<>(leftCluster.hblSideBuses(Side.RIGHT));
+        commonNodes.retainAll(rightCluster.hblSideBuses(Side.LEFT));
+        commonNodes.forEach(busNode ->
+                finalizeHblBuilding(leftCluster, rightCluster, busNode, busNode, availableHblToMerge));
+    }
+
+    private void mergeHblWithFlatCell(BSCluster leftCluster, BSCluster rightCluster,
+                                        List<HorizontalBusList> availableHblToMerge) {
+        List<BusNode> myAvailableRightBuses = BSCluster.hblSideBuses(Side.RIGHT, availableHblToMerge);
+        List<InternCell> myConcernedFlatCells = leftCluster.getSideCandidateFlatCell(Side.RIGHT)
+                .stream().filter(internCell -> {
+                    List<BusNode> nodes = internCell.getBusNodes();
+                    nodes.retainAll(myAvailableRightBuses);
+                    return !myAvailableRightBuses.isEmpty();
+                }).sorted(Comparator.comparing(InternCell::getFullId)) //avoid randomness
+                .collect(Collectors.toList());
+        List<InternCell> otherConcernedFlatCells = rightCluster.getSideCandidateFlatCell(Side.LEFT);
+        myConcernedFlatCells.retainAll(otherConcernedFlatCells);
+
+        myConcernedFlatCells.stream()
+                .sorted(Comparator
+                        .<InternCell>comparingInt(cell -> Link.flatCellDistanceToEdges(cell,
+                                new VBSClusterSide(leftCluster, Side.RIGHT),
+                                new VBSClusterSide(rightCluster, Side.LEFT)))
+                        .thenComparing(InternCell::getFullId))
+                .forEachOrdered(internCell -> {
+                    Optional<BusNode> myNode = internCellNodeInHblSide(leftCluster, Side.RIGHT, internCell);
+                    Optional<BusNode> otherNode = internCellNodeInHblSide(rightCluster, Side.LEFT, internCell);
+                    if (myNode.isPresent() && otherNode.isPresent()) {
+                        internCell.setFlat();
+                        finalizeHblBuilding(leftCluster, rightCluster, myNode.get(), otherNode.get(), availableHblToMerge);
+                    }
+                });
+    }
+
+    private Optional<BusNode> internCellNodeInHblSide(BSCluster bsCluster, Side side, InternCell cell) {
+        List<BusNode> hblBuses = bsCluster.hblSideBuses(side);
+        hblBuses.retainAll(cell.getBusNodes());
+        return hblBuses.stream().findFirst();
+    }
+
+    private void finalizeHblBuilding(BSCluster leftCluster, BSCluster rightCluster,
+                                      BusNode myNode, BusNode otherBus, List<HorizontalBusList> availableHblToMerge) {
+        Optional<HorizontalBusList> myHbl = leftCluster.getHblFromSideBus(myNode, Side.RIGHT);
+        Optional<HorizontalBusList> otherHbl = rightCluster.getHblFromSideBus(otherBus, Side.LEFT);
+        if (otherHbl.isPresent() && myHbl.isPresent()) {
+            myHbl.get().merge(otherHbl.get());
+            rightCluster.removeHbl(otherHbl.get());
+            availableHblToMerge.remove(myHbl.get());
+        }
+    }
 }
