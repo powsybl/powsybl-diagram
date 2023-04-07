@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionprocessor.PositionFinder;
-import com.powsybl.sld.layout.positionprocessor.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.position.PositionFinder;
+import com.powsybl.sld.layout.position.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
