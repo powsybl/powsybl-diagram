@@ -9,6 +9,8 @@ package com.powsybl.diagram.test;
 import com.powsybl.iidm.network.*;
 import org.joda.time.DateTime;
 
+import java.util.Optional;
+
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
@@ -516,10 +518,10 @@ public final class Networks {
 
     public static Network createNetworkWithPhaseShiftTransformer() {
         Network network = Networks.createNetworkWithTwoWindingsTransformer();
-        TwoWindingsTransformer twt = network.getTwoWindingsTransformerStream().findFirst().get();
-        twt.newPhaseTapChanger()
+        Optional<TwoWindingsTransformer> twt = network.getTwoWindingsTransformerStream().findFirst();
+        twt.ifPresent(twoWindingsTransformer -> twoWindingsTransformer.newPhaseTapChanger()
                 .setTapPosition(1)
-                .setRegulationTerminal(twt.getTerminal2())
+                .setRegulationTerminal(twoWindingsTransformer.getTerminal2())
                 .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
                 .setRegulationValue(200)
                 .beginStep()
@@ -546,7 +548,7 @@ public final class Networks {
                 .setG(0.0)
                 .setB(0.0)
                 .endStep()
-                .add();
+                .add());
         return network;
     }
 
