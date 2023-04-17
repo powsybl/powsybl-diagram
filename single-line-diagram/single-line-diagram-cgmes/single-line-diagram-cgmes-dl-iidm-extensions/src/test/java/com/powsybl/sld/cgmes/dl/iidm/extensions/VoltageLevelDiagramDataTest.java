@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.test.Networks;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
