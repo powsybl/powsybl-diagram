@@ -29,6 +29,7 @@
     </build>
 
     <dependencies>
+        <!-- compilation dependencies -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-api</artifactId>
@@ -38,6 +39,11 @@
             <artifactId>powsybl-commons</artifactId>
         </dependency>
         <!-- Test dependencies -->
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-config-test</artifactId>
