@@ -46,7 +46,7 @@
         <!-- Test dependencies -->
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions-test</artifactId>
+            <artifactId>powsybl-diagram-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

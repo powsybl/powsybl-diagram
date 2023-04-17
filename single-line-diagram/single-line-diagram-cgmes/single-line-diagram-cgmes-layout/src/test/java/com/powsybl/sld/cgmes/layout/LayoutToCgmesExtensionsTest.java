@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.test.Networks;
+import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

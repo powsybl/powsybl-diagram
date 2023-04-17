@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.test.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.iidm.network.Switch;
