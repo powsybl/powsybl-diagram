@@ -45,5 +45,11 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-extensions</artifactId>
+            <version>5.2.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

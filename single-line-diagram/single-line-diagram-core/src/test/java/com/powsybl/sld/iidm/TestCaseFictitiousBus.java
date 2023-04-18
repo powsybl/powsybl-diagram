@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -69,21 +70,21 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
 
-        createInternalConnection(vl, 1, 0);
-        createInternalConnection(vl, 2, 0);
-        createInternalConnection(vl, 3, 0);
+        Networks.createInternalConnection(vl, 1, 0);
+        Networks.createInternalConnection(vl, 2, 0);
+        Networks.createInternalConnection(vl, 3, 0);
 
-        createLine(network, "L1", "L1", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+        Networks.createLine(network, "L1", "L1", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
                 1, 10, vl.getId(), vl1.getId(),
                 "L1", 0, ConnectablePosition.Direction.TOP,
                 "L1", 1, ConnectablePosition.Direction.TOP);
 
-        createLine(network, "L2", "L2", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+        Networks.createLine(network, "L2", "L2", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
                 2, 20, vl.getId(), vl2.getId(),
                 "L2", 1, ConnectablePosition.Direction.BOTTOM,
                 "L2", 0, ConnectablePosition.Direction.TOP);
 
-        createLine(network, "L3", "L3", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+        Networks.createLine(network, "L3", "L3", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
                 3, 30, vl.getId(), vl3.getId(),
                 "L3", 2, ConnectablePosition.Direction.TOP,
                 "L3", 0, ConnectablePosition.Direction.TOP);

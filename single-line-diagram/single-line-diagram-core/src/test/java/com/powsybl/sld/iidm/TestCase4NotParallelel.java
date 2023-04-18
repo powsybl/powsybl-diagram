@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -49,23 +50,23 @@ class TestCase4NotParallelel extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1.1", "bbs1.1", 0, 1, 1);
-        createBusBarSection(vl, "bbs1.2", "bbs1.2", 1, 1, 2);
-        createBusBarSection(vl, "bbs2.1", "bbs2.1", 2, 2, 1);
-        createLoad(vl, "la", "la", "la", 10, ConnectablePosition.Direction.TOP, 3, 10, 10);
-        createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 3, 4);
-        createSwitch(vl, "da1", "da1", SwitchKind.DISCONNECTOR, false, false, false, 4, 0);
-        createSwitch(vl, "da2", "da2", SwitchKind.DISCONNECTOR, false, false, false, 4, 2);
-        createLoad(vl, "lb", "lb", "lb", 20, ConnectablePosition.Direction.BOTTOM, 5, 10, 10);
-        createSwitch(vl, "bb", "bb", SwitchKind.BREAKER, false, false, false, 5, 6);
-        createSwitch(vl, "db1", "db1", SwitchKind.DISCONNECTOR, false, false, false, 6, 1);
-        createSwitch(vl, "db2", "db2", SwitchKind.DISCONNECTOR, false, false, false, 6, 2);
-        createSwitch(vl, "ss1", "ss1", SwitchKind.DISCONNECTOR, false, false, false, 1, 0);
-        createGenerator(vl, "gc", "gc", "gc", 30, ConnectablePosition.Direction.TOP, 7, 0, 20, false, 10, 10);
-        createSwitch(vl, "bc", "bc", SwitchKind.BREAKER, false, false, false, 7, 8);
-        createSwitch(vl, "dc1", "dc1", SwitchKind.DISCONNECTOR, false, false, false, 8, 1);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        Networks.createBusBarSection(vl, "bbs1.1", "bbs1.1", 0, 1, 1);
+        Networks.createBusBarSection(vl, "bbs1.2", "bbs1.2", 1, 1, 2);
+        Networks.createBusBarSection(vl, "bbs2.1", "bbs2.1", 2, 2, 1);
+        Networks.createLoad(vl, "la", "la", "la", 10, ConnectablePosition.Direction.TOP, 3, 10, 10);
+        Networks.createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 3, 4);
+        Networks.createSwitch(vl, "da1", "da1", SwitchKind.DISCONNECTOR, false, false, false, 4, 0);
+        Networks.createSwitch(vl, "da2", "da2", SwitchKind.DISCONNECTOR, false, false, false, 4, 2);
+        Networks.createLoad(vl, "lb", "lb", "lb", 20, ConnectablePosition.Direction.BOTTOM, 5, 10, 10);
+        Networks.createSwitch(vl, "bb", "bb", SwitchKind.BREAKER, false, false, false, 5, 6);
+        Networks.createSwitch(vl, "db1", "db1", SwitchKind.DISCONNECTOR, false, false, false, 6, 1);
+        Networks.createSwitch(vl, "db2", "db2", SwitchKind.DISCONNECTOR, false, false, false, 6, 2);
+        Networks.createSwitch(vl, "ss1", "ss1", SwitchKind.DISCONNECTOR, false, false, false, 1, 0);
+        Networks.createGenerator(vl, "gc", "gc", "gc", 30, ConnectablePosition.Direction.TOP, 7, 0, 20, false, 10, 10);
+        Networks.createSwitch(vl, "bc", "bc", SwitchKind.BREAKER, false, false, false, 7, 8);
+        Networks.createSwitch(vl, "dc1", "dc1", SwitchKind.DISCONNECTOR, false, false, false, 8, 1);
     }
 
     @Test

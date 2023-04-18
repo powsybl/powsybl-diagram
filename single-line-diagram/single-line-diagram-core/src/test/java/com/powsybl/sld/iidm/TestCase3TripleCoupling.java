@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -37,24 +38,24 @@ class TestCase3TripleCoupling extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase2", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
-        createBusBarSection(vl, "bbs2", "bbs2", 3, 2, 1);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 3, 2, 1);
 
         // second coupling
-        createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 4);
-        createSwitch(vl, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 3, 4);
-        createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 4, 5);
-        createSwitch(vl, "d5", "d5", SwitchKind.DISCONNECTOR, false, false, false, 5, 3);
+        Networks.createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 4);
+        Networks.createSwitch(vl, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 3, 4);
+        Networks.createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 4, 5);
+        Networks.createSwitch(vl, "d5", "d5", SwitchKind.DISCONNECTOR, false, false, false, 5, 3);
 
         // third coupling
-        createSwitch(vl, "d6", "d6", SwitchKind.DISCONNECTOR, false, false, false, 0, 6);
-        createSwitch(vl, "b3", "b3", SwitchKind.BREAKER, false, false, false, 6, 7);
-        createSwitch(vl, "d7", "d7", SwitchKind.DISCONNECTOR, false, false, false, 7, 3);
+        Networks.createSwitch(vl, "d6", "d6", SwitchKind.DISCONNECTOR, false, false, false, 0, 6);
+        Networks.createSwitch(vl, "b3", "b3", SwitchKind.BREAKER, false, false, false, 6, 7);
+        Networks.createSwitch(vl, "d7", "d7", SwitchKind.DISCONNECTOR, false, false, false, 7, 3);
     }
 
     @Test

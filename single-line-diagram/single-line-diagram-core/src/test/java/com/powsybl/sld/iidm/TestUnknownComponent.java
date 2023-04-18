@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -24,7 +25,7 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
     public void setUp() {
         layoutParameters.setCellWidth(80);
 
-        network = NetworkFactory.createTestCase11Network();
+        network = Networks.createTestCase11Network();
         substation = network.getSubstation("subst");
         graphBuilder = new NetworkGraphBuilder(network);
     }

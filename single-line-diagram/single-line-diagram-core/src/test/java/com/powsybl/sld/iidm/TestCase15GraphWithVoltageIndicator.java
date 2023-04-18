@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -58,7 +59,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
-        network = CreateNetworksUtil.createNetworkWithFiveBusesFourLoads();
+        network = Networks.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
 
         withFullBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {

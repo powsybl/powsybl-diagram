@@ -9,6 +9,7 @@ package com.powsybl.sld.iidm;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.SingleLineDiagram;
@@ -49,24 +50,24 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         network = Network.create("TestSingleLineDiagramClass", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 3, 4);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        Networks.createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 3, 4);
 
-        VoltageLevel vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 10);
-        createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
-        createGenerator(vl2, "g", "g", "g", -1, ConnectablePosition.Direction.BOTTOM, 2, 0, 20, false, 10, 10);
-        createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl2, "b3", "b3", SwitchKind.BREAKER, false, false, false, 1, 2);
-        createSwitch(vl2, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        createSwitch(vl2, "b4", "b4", SwitchKind.BREAKER, false, false, false, 3, 4);
+        VoltageLevel vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 10);
+        Networks.createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
+        Networks.createGenerator(vl2, "g", "g", "g", -1, ConnectablePosition.Direction.BOTTOM, 2, 0, 20, false, 10, 10);
+        Networks.createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl2, "b3", "b3", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createSwitch(vl2, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        Networks.createSwitch(vl2, "b4", "b4", SwitchKind.BREAKER, false, false, false, 3, 4);
 
-        createTwoWindingsTransformer(substation, "trf", "trf", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
+        Networks.createTwoWindingsTransformer(substation, "trf", "trf", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
                 4, 4, vl.getId(), vl2.getId(),
                 "trf", -1, ConnectablePosition.Direction.BOTTOM,
                 "trf", -1, ConnectablePosition.Direction.TOP);

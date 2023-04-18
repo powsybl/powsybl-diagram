@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
@@ -89,7 +90,7 @@ class AddNodeGraphTest extends AbstractTestCaseIidm {
 
         // Creates new node non-connected to any equipments (connected to fictitious nodes)
         String replacingNodeId = "s1vl2_replacingBreaker";
-        createSwitch(vl, replacingNodeId, "replacingNode", SwitchKind.BREAKER, false, false, false, 100, 101);
+        Networks.createSwitch(vl, replacingNodeId, "replacingNode", SwitchKind.BREAKER, false, false, false, 100, 101);
 
         // graph construction
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
