@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.ZoneGraph;
@@ -26,7 +27,9 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     @BeforeEach
     public void setUp() {
         layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
-        network = ZoneGraphTest.createNetwork();
+        network = Networks.createNetworkWithLine();
+        // In order to keep same results -> can be removed later
+        network.getVoltageLevelStream().forEach(vl -> vl.setNominalV(380));
     }
 
     @Test
