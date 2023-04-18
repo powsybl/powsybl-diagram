@@ -17,18 +17,32 @@ import java.util.Optional;
  */
 public final class Networks {
 
+    private static final String NETWORK_ID = "Network";
+
+    private static final String CASE_DATE = "2018-01-01T00:30:00.000+01:00";
+
+    private static final String SUBSTATION_ID = "Substation";
+
+    private static final String SUBSTATION_1_ID = "Substation1";
+
+    private static final String VOLTAGELEVEL_ID = "VoltageLevel";
+
+    private static final String VOLTAGELEVEL_1_ID = "VoltageLevel1";
+
+    private static final String VOLTAGELEVEL_2_ID = "VoltageLevel2";
+
     private Networks() {
     }
 
     public static Network createNetworkWithBusbar() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
@@ -40,14 +54,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithBus() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -58,14 +72,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithGenerator() {
-        Network network = NetworkFactory.create("test", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create("test", "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -86,14 +100,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithLine() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation1 = network.newSubstation()
-                .setId("Substation1")
+                .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
-                .setId("VoltageLevel1")
+                .setId(VOLTAGELEVEL_1_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -105,7 +119,7 @@ public final class Networks {
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
-                .setId("VoltageLevel2")
+                .setId(VOLTAGELEVEL_2_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -131,14 +145,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithLoad() {
-        Network network = NetworkFactory.create("test", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create("test", "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -156,14 +170,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithShuntCompensator() {
-        Network network = NetworkFactory.create("test", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create("test", "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -184,14 +198,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithStaticVarCompensator() {
-        Network network = NetworkFactory.create("test", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create("test", "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -205,21 +219,21 @@ public final class Networks {
                 .setBmin(0.0002)
                 .setBmax(0.0008)
                 .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setVoltageSetPoint(390.0)
-                .setReactivePowerSetPoint(1.0)
+                .setVoltageSetpoint(390.0)
+                .setReactivePowerSetpoint(1.0)
                 .add();
         return network;
     }
 
     public static Network createNetworkWithSwitch() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -239,14 +253,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithThreeWindingsTransformer() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel1 = substation.newVoltageLevel()
-                .setId("VoltageLevel1")
+                .setId(VOLTAGELEVEL_1_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -254,7 +268,7 @@ public final class Networks {
                 .setId("Bus1")
                 .add();
         VoltageLevel voltageLevel2 = substation.newVoltageLevel()
-                .setId("VoltageLevel2")
+                .setId(VOLTAGELEVEL_2_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -299,14 +313,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithTwoWindingsTransformer() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel1 = substation.newVoltageLevel()
-                .setId("VoltageLevel1")
+                .setId(VOLTAGELEVEL_1_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -314,7 +328,7 @@ public final class Networks {
                 .setId("Bus1")
                 .add();
         VoltageLevel voltageLevel2 = substation.newVoltageLevel()
-                .setId("VoltageLevel2")
+                .setId(VOLTAGELEVEL_2_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -341,14 +355,14 @@ public final class Networks {
     }
 
     public static Network createNetworkWithDanglingLine() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
-                .setId("Substation")
+                .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel = substation.newVoltageLevel()
-                .setId("VoltageLevel")
+                .setId(VOLTAGELEVEL_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
@@ -369,21 +383,21 @@ public final class Networks {
     }
 
     public static Network createNetworkWithHvdcLine() {
-        Network network = NetworkFactory.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation1 = network.newSubstation()
-                .setId("Substation1")
+                .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
-                .setId("VoltageLevel1")
+                .setId(VOLTAGELEVEL_1_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel1.getBusBreakerView().newBus()
                 .setId("Bus1")
                 .add();
-        VscConverterStation cs1 = voltageLevel1.newVscConverterStation()
+        voltageLevel1.newVscConverterStation()
                 .setId("Converter1")
                 .setConnectableBus("Bus1")
                 .setBus("Bus1")
@@ -396,14 +410,14 @@ public final class Networks {
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
-                .setId("VoltageLevel2")
+                .setId(VOLTAGELEVEL_2_ID)
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel2.getBusBreakerView().newBus()
                 .setId("Bus2")
                 .add();
-        VscConverterStation cs2 = voltageLevel2.newVscConverterStation()
+        voltageLevel2.newVscConverterStation()
                 .setId("Converter2")
                 .setConnectableBus("Bus2")
                 .setBus("Bus2")
@@ -425,8 +439,8 @@ public final class Networks {
     }
 
     public static Network createNetworkWithBusbarAndSwitch() {
-        Network network = Network.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        Network network = Network.create(NETWORK_ID, "test");
+        network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation s = network.newSubstation()
                 .setId("S")
                 .setCountry(Country.FR)
@@ -460,17 +474,17 @@ public final class Networks {
         int bbN1 = countNodes++;
         int bbN2 = countNodes++;
         int iN1 = countNodes++;
-        int gN1 = countNodes++;
+        int gN1 = countNodes;
 
         Network network = Network.create("network1", "test");
 
         Substation substation1 = network.newSubstation()
-                .setId("Substation1")
+                .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
                 .add();
 
         VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
-                .setId("VoltageLevel1")
+                .setId(VOLTAGELEVEL_1_ID)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .setNominalV(400)
                 .add();
@@ -553,7 +567,7 @@ public final class Networks {
     }
 
     public static Network createNetworkWithBridge() {
-        Network network = NetworkFactory.findDefault().createNetwork("Network", "test");
+        Network network = NetworkFactory.findDefault().createNetwork(NETWORK_ID, "test");
         network.setCaseDate(DateTime.parse("2020-01-01T00:30:00.000+01:00"));
 
         Substation substation = network.newSubstation()
