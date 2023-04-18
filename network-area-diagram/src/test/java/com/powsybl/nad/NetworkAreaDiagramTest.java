@@ -17,7 +17,7 @@ import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.NetworkTestFactory;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
@@ -78,7 +78,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
     @Test
     void testDrawSvg() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         NetworkAreaDiagram nad = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
 
         Path svgFile = fileSystem.getPath("nad-test.svg");
