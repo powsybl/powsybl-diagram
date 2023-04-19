@@ -32,6 +32,25 @@ public final class Networks {
     private static final String VOLTAGELEVEL_1_ID = "VoltageLevel1";
 
     private static final String VOLTAGELEVEL_2_ID = "VoltageLevel2";
+    private static final String CONVERTER_1_ID = "Converter1";
+
+    private static final String CONVERTER_2_ID = "Converter2";
+    private static final String LOAD_3_ID = "load3";
+    private static final String LOAD_1_ID = "load1";
+    private static final String LOAD_2_ID = "load2";
+    private static final String LOAD_4_ID = "load4";
+    private static final String LINE_1_ID = "line1";
+    private static final String BBS_21_ID = "bbs21";
+    private static final String BBS_22_ID = "bbs22";
+    private static final String LOAD_A_ID = "loadA";
+    private static final String LOAD_B_ID = "loadB";
+    private static final String BATT_2_ID = "batt2";
+    private static final String BATT_1_ID = "batt1";
+    private static final String BBS_11_ID = "bbs11";
+    private static final String BBS_13_ID = "bbs13";
+    private static final String BBS_23_ID = "bbs23";
+    private static final String LOAD_C_ID = "loadC";
+    private static final String LOAD_D_ID = "loadD";
 
     private Networks() {
     }
@@ -400,7 +419,7 @@ public final class Networks {
                 .setId("Bus1")
                 .add();
         voltageLevel1.newVscConverterStation()
-                .setId("Converter1")
+                .setId(CONVERTER_1_ID)
                 .setConnectableBus("Bus1")
                 .setBus("Bus1")
                 .setLossFactor(0.011f)
@@ -420,7 +439,7 @@ public final class Networks {
                 .setId("Bus2")
                 .add();
         voltageLevel2.newVscConverterStation()
-                .setId("Converter2")
+                .setId(CONVERTER_2_ID)
                 .setConnectableBus("Bus2")
                 .setBus("Bus2")
                 .setLossFactor(0.011f)
@@ -429,8 +448,8 @@ public final class Networks {
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine")
-                .setConverterStationId1("Converter1")
-                .setConverterStationId2("Converter2")
+                .setConverterStationId1(CONVERTER_1_ID)
+                .setConverterStationId2(CONVERTER_2_ID)
                 .setR(1)
                 .setNominalV(400)
                 .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
@@ -799,7 +818,7 @@ public final class Networks {
                 .setId("b4")
                 .add();
         vl3.newLoad()
-                .setId("load3")
+                .setId(LOAD_3_ID)
                 .setBus("b3")
                 .setP0(10.0)
                 .setQ0(5.0)
@@ -930,7 +949,7 @@ public final class Networks {
 
         // first voltage level
         //
-        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 50);
+        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
 
         createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         createBusBarSection(vl1, "bbs2", "bbs2", 1, 1, 2);
@@ -945,7 +964,7 @@ public final class Networks {
         createSwitch(vl1, "dtrct21", "dtrct21", SwitchKind.BREAKER, true, false, true, 16, 17);
         createSwitch(vl1, "dsect22", "dsect22", SwitchKind.DISCONNECTOR, false, false, true, 17, 3);
 
-        createLoad(vl1, "load1", "load1", "load1", 0, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createLoad(vl1, LOAD_1_ID, LOAD_1_ID, LOAD_1_ID, 0, ConnectablePosition.Direction.TOP, 4, 10, 10);
         createSwitch(vl1, "dload1", "dload1", SwitchKind.DISCONNECTOR, false, false, true, 0, 5);
         createSwitch(vl1, "bload1", "bload1", SwitchKind.BREAKER, true, false, true, 4, 5);
 
@@ -953,7 +972,7 @@ public final class Networks {
         createSwitch(vl1, "dgen1", "dgen1", SwitchKind.DISCONNECTOR, false, false, true, 2, 7);
         createSwitch(vl1, "bgen1", "bgen1", SwitchKind.BREAKER, true, false, true, 6, 7);
 
-        createLoad(vl1, "load2", "load2", "load2", 8, ConnectablePosition.Direction.TOP, 8, 10, 10);
+        createLoad(vl1, LOAD_2_ID, LOAD_2_ID, LOAD_2_ID, 8, ConnectablePosition.Direction.TOP, 8, 10, 10);
         createSwitch(vl1, "dload2", "dload2", SwitchKind.DISCONNECTOR, false, false, true, 1, 9);
         createSwitch(vl1, "bload2", "bload2", SwitchKind.BREAKER, true, false, true, 8, 9);
 
@@ -963,7 +982,7 @@ public final class Networks {
 
         // second voltage level
         //
-        VoltageLevel vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 30);
+        VoltageLevel vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
 
         createBusBarSection(vl2, "bbs5", "bbs5", 0, 1, 1);
         createBusBarSection(vl2, "bbs6", "bbs6", 1, 2, 1);
@@ -972,7 +991,7 @@ public final class Networks {
         createSwitch(vl2, "ddcpl1", "ddcpl1", SwitchKind.BREAKER, true, false, true, 6, 7);
         createSwitch(vl2, "dscpl2", "dscpl2", SwitchKind.DISCONNECTOR, false, false, true, 7, 1);
 
-        createLoad(vl2, "load3", "load3", "load3", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createLoad(vl2, LOAD_3_ID, LOAD_3_ID, LOAD_3_ID, 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl2, "dload3", "dload3", SwitchKind.DISCONNECTOR, false, false, true, 0, 3);
         createSwitch(vl2, "bload3", "bload3", SwitchKind.BREAKER, true, false, true, 2, 3);
 
@@ -982,11 +1001,11 @@ public final class Networks {
 
         // third voltage level
         //
-        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 50, 20);
+        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 50);
 
         createBusBarSection(vl3, "bbs7", "bbs7", 0, 1, 1);
 
-        createLoad(vl3, "load4", "load4", "load4", 0, ConnectablePosition.Direction.TOP, 1, 10, 10);
+        createLoad(vl3, LOAD_4_ID, LOAD_4_ID, LOAD_4_ID, 0, ConnectablePosition.Direction.TOP, 1, 10, 10);
         createSwitch(vl3, "dload4", "dload4", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
         createSwitch(vl3, "bload4", "bload4", SwitchKind.BREAKER, true, false, true, 2, 1);
 
@@ -1087,7 +1106,7 @@ public final class Networks {
         // Creation of another substation, another voltageLevel and a line between the two substations
         //
         Substation substation2 = createSubstation(network, "subst2", "subst2", Country.FR);
-        VoltageLevel vlSubst2 = createVoltageLevel(substation2, "vlSubst2", "vlSubst2", TopologyKind.NODE_BREAKER, 380, 50);
+        VoltageLevel vlSubst2 = createVoltageLevel(substation2, "vlSubst2", "vlSubst2", TopologyKind.NODE_BREAKER, 380);
 
         createBusBarSection(vlSubst2, "bbs1_2", "bbs1_2", 0, 1, 1);
 
@@ -1095,10 +1114,10 @@ public final class Networks {
         createSwitch(vl1, "bline11_2", "bline11_2", SwitchKind.BREAKER, true, false, true, 34, 35);
         createSwitch(vlSubst2, "dline21_2", "dline21_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 1);
         createSwitch(vlSubst2, "bline21_2", "bline21_2", SwitchKind.BREAKER, true, false, true, 1, 2);
-        createLine(network, "line1", "line1", 2.0, 14.745, 1.0, 1.0, 1.0, 1.0,
+        createLine(network, LINE_1_ID, LINE_1_ID, 2.0, 14.745, 1.0, 1.0, 1.0, 1.0,
                 35, 2, vl1.getId(), vlSubst2.getId(),
-                "line1", 7, ConnectablePosition.Direction.TOP,
-                "line1", 1, ConnectablePosition.Direction.TOP);
+                LINE_1_ID, 7, ConnectablePosition.Direction.TOP,
+                LINE_1_ID, 1, ConnectablePosition.Direction.TOP);
 
         return network;
     }
@@ -1133,7 +1152,7 @@ public final class Networks {
         Network network = Network.create(id, sourceFormat);
         Substation substation = createSubstation(network, "S1", "S1", Country.FR);
 
-        VoltageLevel vl1 = createVoltageLevel(substation, "VL1", "VL1", TopologyKind.NODE_BREAKER, 400, 24);
+        VoltageLevel vl1 = createVoltageLevel(substation, "VL1", "VL1", TopologyKind.NODE_BREAKER, 400);
 
         createBusBarSection(vl1, "BBS11", "BBS11", 10, 1, 1);
         createBusBarSection(vl1, "BBS12", "BBS12", 20, 2, 1);
@@ -1163,7 +1182,7 @@ public final class Networks {
                 "L11", null, ConnectablePosition.Direction.TOP,
                 "L11", null, ConnectablePosition.Direction.TOP);
 
-        VoltageLevel vl2 = createVoltageLevel(substation, "VL2", "VL2", TopologyKind.NODE_BREAKER, 400, 9);
+        VoltageLevel vl2 = createVoltageLevel(substation, "VL2", "VL2", TopologyKind.NODE_BREAKER, 400);
 
         createBusBarSection(vl2, "BBS2", "BBS2", 30, 1, 1);
 
@@ -1195,10 +1214,10 @@ public final class Networks {
                 "T11", null, ConnectablePosition.Direction.TOP);
 
         TwoWindingsTransformer twoWindingsTransformer = network.getTwoWindingsTransformer("T11");
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setP(375);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.TWO).setP(375);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setQ(48);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.TWO).setQ(48);
+        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setP(375);
+        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setP(375);
+        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setQ(48);
+        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setQ(48);
 
         createSwitch(vl1, "D27", "D27", SwitchKind.DISCONNECTOR, false, false, false, 20, 27);
         createSwitch(vl1, "BR28", "BR28", SwitchKind.BREAKER, false, false, false, 27, 28);
@@ -1212,10 +1231,10 @@ public final class Networks {
                 "T12", null, ConnectablePosition.Direction.TOP);
 
         twoWindingsTransformer = network.getTwoWindingsTransformer("T12");
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setP(375);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.TWO).setP(375);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setQ(48);
-        twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.TWO).setQ(48);
+        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setP(375);
+        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setP(375);
+        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setQ(48);
+        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setQ(48);
 
         createSwitch(vl1, "D19", "D19", SwitchKind.DISCONNECTOR, false, false, false, 10, 19);
         createSwitch(vl1, "BR20", "BR20", SwitchKind.BREAKER, false, false, false, 19, 190);
@@ -1241,7 +1260,7 @@ public final class Networks {
         Network network = Network.create(id, sourceFormat);
         Substation substation = createSubstation(network, "S1", "S1", Country.FR);
 
-        VoltageLevel vl1 = createVoltageLevel(substation, "VL1", "VL1", TopologyKind.BUS_BREAKER, 400, -1);
+        VoltageLevel vl1 = createVoltageLevel(substation, "VL1", "VL1", TopologyKind.BUS_BREAKER, 400);
 
         vl1.getBusBreakerView().newBus()
                 .setId("B11")
@@ -1385,7 +1404,7 @@ public final class Networks {
                 .setRatedU2(90)
                 .add();
 
-        ThreeWindingsTransformer threeWindingsTransformer = substation.newThreeWindingsTransformer()
+        substation.newThreeWindingsTransformer()
                 .setId("T3_12")
                 .setRatedU0(234)
                 .newLeg1()
@@ -1439,14 +1458,14 @@ public final class Networks {
                 .setBmin(0.0002)
                 .setBmax(0.0008)
                 .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setVoltageSetPoint(390)
+                .setVoltageSetpoint(390)
                 .add();
         svc.getTerminal()
                 .setP(100.0)
                 .setQ(50.0);
         VscConverterStation vsc = vl.newVscConverterStation()
                 .setId("vsc")
-                .setName("Converter1")
+                .setName(CONVERTER_1_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
                 .setVoltageSetpoint(405.0)
@@ -1455,7 +1474,7 @@ public final class Networks {
         vsc.getTerminal()
                 .setP(100.0)
                 .setQ(50.0);
-        ShuntCompensator c1 = vl.newShuntCompensator()
+        vl.newShuntCompensator()
                 .setId("C1")
                 .setName("Filter 1")
                 .setNode(4)
@@ -1494,7 +1513,7 @@ public final class Networks {
 
         VscConverterStation vsc2 = vl2.newVscConverterStation()
                 .setId("vsc2")
-                .setName("Converter2")
+                .setName(CONVERTER_2_ID)
                 .setNode(1)
                 .setLossFactor(0.011f)
                 .setVoltageSetpoint(405.0)
@@ -1525,15 +1544,15 @@ public final class Networks {
         VoltageLevel vl = network.getVoltageLevel("vl1");
 
         createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
-        createBusBarSection(vl, "bbs22", "bbs22", 2, 2, 2);
+        createBusBarSection(vl, BBS_21_ID, BBS_21_ID, 1, 2, 1);
+        createBusBarSection(vl, BBS_22_ID, BBS_22_ID, 2, 2, 2);
         createSwitch(vl, "bA", "bA", SwitchKind.BREAKER, false, false, false, 3, 4);
-        createLoad(vl, "loadA", "loadA", "loadA", null, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createLoad(vl, LOAD_A_ID, LOAD_A_ID, LOAD_A_ID, null, ConnectablePosition.Direction.TOP, 4, 10, 10);
         createSwitch(vl, "dA1", "dA1", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
         createSwitch(vl, "dA2", "dA2", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
 
         createSwitch(vl, "bB", "bB", SwitchKind.BREAKER, false, false, false, 5, 6);
-        createLoad(vl, "loadB", "loadB", "loadB", null, ConnectablePosition.Direction.TOP, 6, 10, 10);
+        createLoad(vl, LOAD_B_ID, LOAD_B_ID, LOAD_B_ID, null, ConnectablePosition.Direction.TOP, 6, 10, 10);
         createSwitch(vl, "dB1", "dB1", SwitchKind.DISCONNECTOR, false, false, false, 2, 5);
         createSwitch(vl, "dB2", "dB2", SwitchKind.DISCONNECTOR, false, false, false, 0, 5);
 
@@ -1545,22 +1564,22 @@ public final class Networks {
     public static Network createNetworkWithTwoParallelLoads() {
         Network network = Network.create("TestSingleLineDiagramClass", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
-        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs13", "bbs13", 7, 1, 3);
-        createBusBarSection(vl, "bbs23", "bbs23", 8, 2, 3);
-        createLoad(vl, "loadC", "loadC", "loadC", null, ConnectablePosition.Direction.TOP, 9, 10, 10);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
+        createBusBarSection(vl, BBS_13_ID, BBS_13_ID, 7, 1, 3);
+        createBusBarSection(vl, BBS_23_ID, BBS_23_ID, 8, 2, 3);
+        createLoad(vl, LOAD_C_ID, LOAD_C_ID, LOAD_C_ID, null, ConnectablePosition.Direction.TOP, 9, 10, 10);
         createSwitch(vl, "bCD1", "bCD1", SwitchKind.BREAKER, false, false, false, 8, 9);
         createSwitch(vl, "bCD2", "bCD2", SwitchKind.BREAKER, false, false, false, 7, 9);
         createSwitch(vl, "bCD3", "bCD3", SwitchKind.BREAKER, false, false, false, 7, 9);
         createSwitch(vl, "bD1", "bD1", SwitchKind.BREAKER, false, false, false, 20, 9);
-        createLoad(vl, "loadD", "loadD", "loadD", null, ConnectablePosition.Direction.TOP, 20, 10, 10);
+        createLoad(vl, LOAD_D_ID, LOAD_D_ID, LOAD_D_ID, null, ConnectablePosition.Direction.TOP, 20, 10, 10);
         return network;
     }
 
     public static Network createNetworkWithFourParallelLegs() {
         Network network = Network.create("networkWithFourParallelLegs", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
-        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 3);
         createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 3);
         createSwitch(vl, "d1a", "d1an", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
@@ -1576,7 +1595,7 @@ public final class Networks {
     public static Network createNetworkWithInternalPst() {
         Network network = Network.create("networkWithInternalPst", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
-        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 3);
         createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 3);
         createSwitch(vl, "d1a", "d1an", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
@@ -1597,13 +1616,13 @@ public final class Networks {
     public static Network createNetworkWithFlatSections() {
         Network network = Network.create("TestSingleLineDiagramClass", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
-        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
-        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
+        createBusBarSection(vl, BBS_11_ID, BBS_11_ID, 0, 1, 1);
+        createBusBarSection(vl, BBS_21_ID, BBS_21_ID, 1, 2, 1);
         createBusBarSection(vl, "bbs12", "bbs12", 2, 1, 2);
-        createBusBarSection(vl, "bbs22", "bbs22", 3, 2, 2);
-        createBusBarSection(vl, "bbs13", "bbs13", 4, 1, 3);
-        createBusBarSection(vl, "bbs23", "bbs23", 5, 2, 3);
+        createBusBarSection(vl, BBS_22_ID, BBS_22_ID, 3, 2, 2);
+        createBusBarSection(vl, BBS_13_ID, BBS_13_ID, 4, 1, 3);
+        createBusBarSection(vl, BBS_23_ID, BBS_23_ID, 5, 2, 3);
         createSwitch(vl, "d112", "d112", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
         createSwitch(vl, "d212", "d212", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
         createSwitch(vl, "d123a", "d123a", SwitchKind.DISCONNECTOR, false, false, false, 2, 6);
@@ -1618,14 +1637,14 @@ public final class Networks {
     public static Network createNetworkWithBatteries() {
         Network network = Network.create("TestBatteries", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);
-        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
+        createBusBarSection(vl, BBS_11_ID, BBS_11_ID, 0, 1, 1);
         createSwitch(vl, "d1b", "d1b", SwitchKind.DISCONNECTOR, true, false, false, 1, 2);
         createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, true, false, false, 0, 1);
-        createBattery(vl, "batt1", "batt1", "batt1", null, ConnectablePosition.Direction.TOP, 2, 1, 10, 5, 5);
+        createBattery(vl, BATT_1_ID, BATT_1_ID, BATT_1_ID, null, ConnectablePosition.Direction.TOP, 2, 1, 10, 5, 5);
         createSwitch(vl, "d2b", "d2b", SwitchKind.DISCONNECTOR, true, true, false, 3, 4);
         createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, true, true, false, 0, 3);
-        createBattery(vl, "batt2", "batt2", "batt2", null, ConnectablePosition.Direction.BOTTOM, 4, 3, 10, 6, 6);
+        createBattery(vl, BATT_2_ID, BATT_2_ID, BATT_2_ID, null, ConnectablePosition.Direction.BOTTOM, 4, 3, 10, 6, 6);
         return network;
     }
 
@@ -1638,14 +1657,13 @@ public final class Networks {
     }
 
     public static VoltageLevel createVoltageLevel(Substation s, String id, String name,
-                                                  TopologyKind topology, double vNom, int nodeCount) {
-        VoltageLevel vl = s.newVoltageLevel()
+                                                  TopologyKind topology, double vNom) {
+        return s.newVoltageLevel()
                 .setId(id)
                 .setName(name)
                 .setTopologyKind(topology)
                 .setNominalV(vNom)
                 .add();
-        return vl;
     }
 
     public static void createSwitch(VoltageLevel vl, String id, String name, SwitchKind kind, boolean retained, boolean open, boolean fictitious, int node1, int node2) {
@@ -1709,10 +1727,10 @@ public final class Networks {
         addFeederPosition(gen, feederName, feederOrder, direction);
     }
 
-    protected static void createBattery(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
-                                        ConnectablePosition.Direction direction, int node,
-                                        double minP, double maxP,
-                                        double targetP, double targetQ) {
+    private static void createBattery(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
+                                      ConnectablePosition.Direction direction, int node,
+                                      double minP, double maxP,
+                                      double targetP, double targetQ) {
         Battery battery = vl.newBattery()
                 .setId(id)
                 .setName(name)
@@ -1766,13 +1784,13 @@ public final class Networks {
         return t;
     }
 
-    protected static void createPhaseShiftTransformer(Substation s, String id, String name,
-                                                      double r, double x, double g, double b,
-                                                      double ratedU1, double ratedU2,
-                                                      int node1, int node2,
-                                                      String idVoltageLevel1, String idVoltageLevel2,
-                                                      String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
-                                                      String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
+    private static void createPhaseShiftTransformer(Substation s, String id, String name,
+                                                    double r, double x, double g, double b,
+                                                    double ratedU1, double ratedU2,
+                                                    int node1, int node2,
+                                                    String idVoltageLevel1, String idVoltageLevel2,
+                                                    String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                    String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
         TwoWindingsTransformer twt = createTwoWindingsTransformer(s, id, name, r, x, g, b, ratedU1, ratedU2, node1, node2,
                 idVoltageLevel1, idVoltageLevel2, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2);
         twt.newPhaseTapChanger()

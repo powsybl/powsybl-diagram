@@ -41,7 +41,7 @@ class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 0, 10, 10);
 
         vl.getNodeBreakerView().newInternalConnection()

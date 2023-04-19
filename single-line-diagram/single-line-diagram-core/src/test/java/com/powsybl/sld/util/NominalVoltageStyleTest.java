@@ -56,18 +56,18 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
                 new HighlightLineStateStyleProvider(network));
 
         // first voltage level
-        vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         Networks.createLoad(vl1, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         Networks.createSwitch(vl1, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl1, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
 
         // second voltage level
-        vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 10);
+        vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
         Networks.createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
 
         // third voltage level
-        vl3 = Networks.createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63, 10);
+        vl3 = Networks.createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63);
         Networks.createBusBarSection(vl3, "bbs3", "bbs3", 0, 1, 1);
 
         // 2WT between first and second voltage level

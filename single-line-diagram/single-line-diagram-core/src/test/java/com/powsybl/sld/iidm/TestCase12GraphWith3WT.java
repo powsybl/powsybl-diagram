@@ -44,7 +44,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // first voltage level
         //
-        vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 50);
+        vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
 
         Networks.createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         Networks.createBusBarSection(vl1, "bbs2", "bbs2", 1, 1, 2);
@@ -77,7 +77,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // second voltage level
         //
-        vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 50);
+        vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
 
         Networks.createBusBarSection(vl2, "bbs5", "bbs5", 0, 1, 1);
         Networks.createBusBarSection(vl2, "bbs6", "bbs6", 1, 2, 1);
@@ -96,7 +96,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // third voltage level
         //
-        vl3 = Networks.createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63, 50);
+        vl3 = Networks.createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63);
 
         Networks.createBusBarSection(vl3, "bbs7", "bbs7", 0, 1, 1);
 

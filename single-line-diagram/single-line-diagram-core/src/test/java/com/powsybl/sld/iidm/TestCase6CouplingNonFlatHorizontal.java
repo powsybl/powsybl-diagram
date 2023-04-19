@@ -40,7 +40,7 @@ class TestCase6CouplingNonFlatHorizontal extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs1.1", "bbs1.1", 0, 1, 1);
         Networks.createBusBarSection(vl, "bbs1.2", "bbs1.2", 1, 1, 2);
         Networks.createBusBarSection(vl, "bbs2.1", "bbs2.1", 2, 2, 1);

@@ -27,7 +27,7 @@ class TestCase7DoubleDJ extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase", "test");
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
         Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);

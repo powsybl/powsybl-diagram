@@ -43,7 +43,7 @@ class TestCase1inverted extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 0, 10, 10);
         Networks.createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 2, 1);
         Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 0);

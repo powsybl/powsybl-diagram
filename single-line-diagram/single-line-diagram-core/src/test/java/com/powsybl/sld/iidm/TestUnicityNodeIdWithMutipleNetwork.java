@@ -39,7 +39,7 @@ class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
 
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         Networks.createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
@@ -49,7 +49,7 @@ class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
         network2 = Network.create("n2", "test");
         graphBuilder2 = new NetworkGraphBuilder(network2);
         substation2 = Networks.createSubstation(network2, "s", "s", Country.FR);
-        vl2 = Networks.createVoltageLevel(substation2, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        vl2 = Networks.createVoltageLevel(substation2, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl2, "bbs", "bbs", 0, 1, 1);
         Networks.createLoad(vl2, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         Networks.createSwitch(vl2, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);

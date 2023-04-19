@@ -34,7 +34,7 @@ class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
         substation = Networks.createSubstation(network, "subst", "subst", Country.FR);
 
-        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 50);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
 
         Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
         Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 1);

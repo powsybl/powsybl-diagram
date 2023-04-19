@@ -51,7 +51,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         network = Network.create("TestSingleLineDiagramClass", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
-        vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
@@ -59,7 +59,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
         Networks.createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 3, 4);
 
-        VoltageLevel vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 10);
+        VoltageLevel vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
         Networks.createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
         Networks.createGenerator(vl2, "g", "g", "g", -1, ConnectablePosition.Direction.BOTTOM, 2, 0, 20, false, 10, 10);
         Networks.createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
