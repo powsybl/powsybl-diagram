@@ -13,7 +13,7 @@ import com.powsybl.sld.model.coordinate.Side;
 import java.util.*;
 
 /**
- * Manages the links between a list of VbsClusterSides.
+ * Manages the links between a list of BSClusterSides.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -30,7 +30,7 @@ final class Links {
 
     public static Links create(List<BSCluster> bsClusters, HorizontalBusListManager hblManager) {
         Links links = new Links(hblManager);
-        bsClusters.forEach(vbsCluster -> addClusterSidesTwins(links, vbsCluster));
+        bsClusters.forEach(bsCluster -> addClusterSidesTwins(links, bsCluster));
         return links;
     }
 
@@ -39,11 +39,11 @@ final class Links {
         BSClusterSide bsSRight = new BSClusterSide(bsCluster, Side.RIGHT);
         bsSLeft.setOtherSameRoot(bsSRight);
         bsSRight.setOtherSameRoot(bsSLeft);
-        links.addVbsClusterSide(bsSLeft);
-        links.addVbsClusterSide(bsSRight);
+        links.addBsClusterSide(bsSLeft);
+        links.addBsClusterSide(bsSRight);
     }
 
-    private void addVbsClusterSide(BSClusterSide bsClusterSide) {
+    private void addBsClusterSide(BSClusterSide bsClusterSide) {
         bsClusterSides.forEach(cc -> buildNewLink(cc, bsClusterSide));
         bsClusterSides.add(bsClusterSide);
     }
@@ -62,14 +62,14 @@ final class Links {
     void mergeLink(Link link) {
         link.mergeClusters(hblManager);
         BSCluster mergedCluster = link.getBsClusterSide(0).getCluster();
-        removeVbsClusterSide(link.getBsClusterSide(0));
-        removeVbsClusterSide(link.getBsClusterSide(1));
-        removeVbsClusterSide(link.getBsClusterSide(0).getOtherSameRoot());
-        removeVbsClusterSide(link.getBsClusterSide(1).getOtherSameRoot());
+        removeBsClusterSide(link.getBsClusterSide(0));
+        removeBsClusterSide(link.getBsClusterSide(1));
+        removeBsClusterSide(link.getBsClusterSide(0).getOtherSameRoot());
+        removeBsClusterSide(link.getBsClusterSide(1).getOtherSameRoot());
         addClusterSidesTwins(this, mergedCluster);
     }
 
-    private void removeVbsClusterSide(BSClusterSide bsClusterSide) {
+    private void removeBsClusterSide(BSClusterSide bsClusterSide) {
         bsClusterSides.remove(bsClusterSide);
         List<Link> linksCopy = new ArrayList<>(bsClusterSide.getLinks());
         linksCopy.forEach(link -> {
