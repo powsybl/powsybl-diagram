@@ -49,7 +49,7 @@ final class Links {
     }
 
     private void buildNewLink(BSClusterSide bsClusterSide1, BSClusterSide bsClusterSide2) {
-        if (!bsClusterSide1.hasSameRoot(bsClusterSide2)) {
+        if (bsClusterSide1.getCluster() != bsClusterSide2.getCluster()) {
             Link linkToAdd = new Link(bsClusterSide1, bsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
         }

@@ -69,13 +69,6 @@ class BSClusterSide {
         return side;
     }
 
-    boolean hasSameRoot(Object other) {
-        if (other.getClass() != BSClusterSide.class) {
-            return false;
-        }
-        return this.bsCluster == ((BSClusterSide) other).getCluster();
-    }
-
     BSClusterSide getOtherSameRoot() {
         return otherSameRoot;
     }
