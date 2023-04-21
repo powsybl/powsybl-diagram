@@ -77,15 +77,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return createVoltageLevelsDepthFilter(network, voltageLevelIds, 0);
     }
 
-    public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
-        List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
-        VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
-        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
-        voltageLevels.forEach(voltageLevelSet::remove);
-        return voltageLevelSet;
-    }
-
-    private Set<VoltageLevel> traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
+    public static Set<VoltageLevel> traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
         Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
         if (depth < 0) {
             return nextDepthVoltageLevels;
@@ -96,8 +88,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
                 vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
             }
         }
-        traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
-        return;
+        return traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
     }
 
     private static class VlVisitor extends DefaultTopologyVisitor {

@@ -13,9 +13,7 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -49,10 +47,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .filter(voltageLevelFilter)
                 .sorted(Comparator.comparing(VoltageLevel::getId))
                 .collect(Collectors.toList());
-        List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
+        Set<VoltageLevel> voltageLevelsVisibleSet = new HashSet<>(voltageLevelsVisible);
+        List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter
+                .traverseVoltageLevels(voltageLevelsVisibleSet,0,voltageLevelsVisibleSet)
                 .stream()
                 .sorted(Comparator.comparing(VoltageLevel::getId))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());;
         voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
         voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false));
         voltageLevelsVisible.forEach(vl -> addGraphEdges(vl, graph));
