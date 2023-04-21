@@ -51,16 +51,16 @@ class Link implements Comparable<Link> {
         COMMONBUSES, FLATCELLS, CROSSOVER, SHUNT
     }
 
-    private final VBSClusterSide vbsClusterSide1;
-    private final VBSClusterSide vbsClusterSide2;
+    private final BSClusterSide bsClusterSide1;
+    private final BSClusterSide bsClusterSide2;
     private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
     private int nb;
 
-    Link(VBSClusterSide vbsClusterSide1, VBSClusterSide vbsClusterSide2, int nb) {
-        this.vbsClusterSide1 = vbsClusterSide1;
-        this.vbsClusterSide2 = vbsClusterSide2;
-        vbsClusterSide1.addLink(this);
-        vbsClusterSide2.addLink(this);
+    Link(BSClusterSide bsClusterSide1, BSClusterSide bsClusterSide2, int nb) {
+        this.bsClusterSide1 = bsClusterSide1;
+        this.bsClusterSide2 = bsClusterSide2;
+        bsClusterSide1.addLink(this);
+        bsClusterSide2.addLink(this);
         this.nb = nb;
         assessLink();
     }
@@ -73,93 +73,93 @@ class Link implements Comparable<Link> {
     }
 
     private int assessCommonBusNodes() {
-        Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(vbsClusterSide1.getBusNodeSet());
-        nodeBusesIntersect.retainAll(vbsClusterSide2.getBusNodeSet());
+        Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(bsClusterSide1.getBusNodeSet());
+        nodeBusesIntersect.retainAll(bsClusterSide2.getBusNodeSet());
         return nodeBusesIntersect.size();
     }
 
     private int assessFlatCell() {
-        Set<InternCell> flatCellIntersect = new LinkedHashSet<>(vbsClusterSide1.getCandidateFlatCellList());
-        flatCellIntersect.retainAll(vbsClusterSide2.getCandidateFlatCellList());
+        Set<InternCell> flatCellIntersect = new LinkedHashSet<>(bsClusterSide1.getCandidateFlatCellList());
+        flatCellIntersect.retainAll(bsClusterSide2.getCandidateFlatCellList());
         return flatCellIntersect.size() * 100
                 - flatCellIntersect.stream()
-                .mapToInt(internCell -> flatCellDistanceToEdges(internCell, vbsClusterSide1, vbsClusterSide2)).sum();
+                .mapToInt(internCell -> flatCellDistanceToEdges(internCell, bsClusterSide1, bsClusterSide2)).sum();
     }
 
-    static int flatCellDistanceToEdges(InternCell cell, VBSClusterSide vbsCS1, VBSClusterSide vbsCS2) {
-        return vbsCS1.getCandidateFlatCellDistanceToEdge(cell) + vbsCS2.getCandidateFlatCellDistanceToEdge(cell);
+    static int flatCellDistanceToEdges(InternCell cell, BSClusterSide bsCS1, BSClusterSide bsCS2) {
+        return bsCS1.getCandidateFlatCellDistanceToEdge(cell) + bsCS2.getCandidateFlatCellDistanceToEdge(cell);
     }
 
     private int assessCrossOver() {
-        Set<InternCell> commonInternCells = new LinkedHashSet<>(vbsClusterSide1.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
-        commonInternCells.retainAll(vbsClusterSide2.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
+        Set<InternCell> commonInternCells = new LinkedHashSet<>(bsClusterSide1.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
+        commonInternCells.retainAll(bsClusterSide2.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
         return (int) (commonInternCells.stream()
                 .flatMap(internCell -> internCell.getBusNodes().stream()).distinct()
                 .count());
     }
 
     private int assessShunt() {
-        List<ExternCell> externCells1 = extractExternShuntedCells(vbsClusterSide1);
-        List<ExternCell> externCells2 = extractExternShuntedCells(vbsClusterSide2);
+        List<ExternCell> externCells1 = extractExternShuntedCells(bsClusterSide1);
+        List<ExternCell> externCells2 = extractExternShuntedCells(bsClusterSide2);
         List<ShuntCell> shuntCells = extractShuntCells(externCells1);
         shuntCells.retainAll(extractShuntCells(externCells2));
         List<ExternCell> myShuntedExternCells = shuntCells.stream()
                 .flatMap(sc -> sc.getSideCells().stream()).collect(Collectors.toList());
         externCells1.retainAll(myShuntedExternCells);
         externCells2.retainAll(myShuntedExternCells);
-        return shuntAttractivity(externCells1, vbsClusterSide1) + shuntAttractivity(externCells2, vbsClusterSide2);
+        return shuntAttractivity(externCells1, bsClusterSide1) + shuntAttractivity(externCells2, bsClusterSide2);
     }
 
-    private List<ExternCell> extractExternShuntedCells(VBSClusterSide vbsClusterSide) {
-        return vbsClusterSide.getExternCells().stream().filter(ExternCell::isShunted).collect(Collectors.toList());
+    private List<ExternCell> extractExternShuntedCells(BSClusterSide bsClusterSide) {
+        return bsClusterSide.getExternCells().stream().filter(ExternCell::isShunted).collect(Collectors.toList());
     }
 
     private List<ShuntCell> extractShuntCells(List<ExternCell> externCells) {
         return externCells.stream().map(ExternCell::getShuntCells).flatMap(List::stream).collect(Collectors.toList());
     }
 
-    private int shuntAttractivity(List<ExternCell> cells, VBSClusterSide vbsClusterSide) {
-        return cells.stream().mapToInt(vbsClusterSide::getExternCellAttractionToEdge).sum();
+    private int shuntAttractivity(List<ExternCell> cells, BSClusterSide bsClusterSide) {
+        return cells.stream().mapToInt(bsClusterSide::getExternCellAttractionToEdge).sum();
     }
 
     private int getLinkCategoryWeight(LinkCategory cat) {
         return categoryToWeight.get(cat);
     }
 
-    VBSClusterSide getOtherVbsClusterSide(VBSClusterSide vbsClusterSide) {
-        if (vbsClusterSide == vbsClusterSide1) {
-            return vbsClusterSide2;
+    BSClusterSide getOtherBsClusterSide(BSClusterSide bsClusterSide) {
+        if (bsClusterSide == bsClusterSide1) {
+            return bsClusterSide2;
         }
-        if (vbsClusterSide == vbsClusterSide2) {
-            return vbsClusterSide1;
+        if (bsClusterSide == bsClusterSide2) {
+            return bsClusterSide1;
         }
         return null;
     }
 
-    VBSClusterSide getBsClusterSide(int i) {
+    BSClusterSide getBsClusterSide(int i) {
         if (i == 0) {
-            return vbsClusterSide1;
+            return bsClusterSide1;
         } else if (i == 1) {
-            return vbsClusterSide2;
+            return bsClusterSide2;
         }
         return null;
     }
 
     void mergeClusters(HorizontalBusListManager hblManager) {
-        if (vbsClusterSide1.getCluster() == vbsClusterSide2.getCluster()
-                || vbsClusterSide1.getMySideInCluster() == Side.UNDEFINED
-                || vbsClusterSide2.getMySideInCluster() == Side.UNDEFINED) {
+        if (bsClusterSide1.getCluster() == bsClusterSide2.getCluster()
+                || bsClusterSide1.getMySideInCluster() == Side.UNDEFINED
+                || bsClusterSide2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
-        vbsClusterSide1.getCluster().merge(
-                vbsClusterSide1.getMySideInCluster(),
-                vbsClusterSide2.getCluster(),
-                vbsClusterSide2.getMySideInCluster(), hblManager);
+        bsClusterSide1.getCluster().merge(
+                bsClusterSide1.getMySideInCluster(),
+                bsClusterSide2.getCluster(),
+                bsClusterSide2.getMySideInCluster(), hblManager);
     }
 
     void removeMe() {
-        vbsClusterSide1.removeLink(this);
-        vbsClusterSide2.removeLink(this);
+        bsClusterSide1.removeLink(this);
+        bsClusterSide2.removeLink(this);
     }
 
     @Override
@@ -167,8 +167,8 @@ class Link implements Comparable<Link> {
         if (!(obj instanceof Link)) {
             return false;
         }
-        return vbsClusterSide1.equals(((Link) obj).vbsClusterSide1)
-                && vbsClusterSide2.equals(((Link) obj).vbsClusterSide2);
+        return bsClusterSide1.equals(((Link) obj).bsClusterSide1)
+                && bsClusterSide2.equals(((Link) obj).bsClusterSide2);
     }
 
     @Override
@@ -195,7 +195,7 @@ class Link implements Comparable<Link> {
                 + " FlatCell: " + categoryToWeight.get(LinkCategory.FLATCELLS)
                 + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER)
                 + " Shunt: " + categoryToWeight.get(LinkCategory.SHUNT)
-                + "\n\tvbsClusterSide1: " + vbsClusterSide1.toString()
-                + "\n\tvbsClusterSide2: " + vbsClusterSide2.toString();
+                + "\n\tvbsClusterSide1: " + bsClusterSide1.toString()
+                + "\n\tvbsClusterSide2: " + bsClusterSide2.toString();
     }
 }

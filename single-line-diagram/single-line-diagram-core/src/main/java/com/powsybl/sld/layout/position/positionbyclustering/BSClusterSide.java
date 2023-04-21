@@ -18,23 +18,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * VBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a VBSCluster.
+ * BSClusterSide is the composition of a BSCluster and a Side (LEFT/RIGHT).
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class VBSClusterSide {
+class BSClusterSide {
 
     private final BSCluster bsCluster;
     private final Side side;
     private final List<Link> myLinks = new ArrayList<>();
-    private VBSClusterSide otherSameRoot;
+    private BSClusterSide otherSameRoot;
 
-    VBSClusterSide(BSCluster bsCluster, Side side) {
+    BSClusterSide(BSCluster bsCluster, Side side) {
         this.bsCluster = Objects.requireNonNull(bsCluster);
         this.side = Objects.requireNonNull(side);
     }
 
-    void setOtherSameRoot(VBSClusterSide otherSameRoot) {
+    void setOtherSameRoot(BSClusterSide otherSameRoot) {
         this.otherSameRoot = otherSameRoot;
     }
 
@@ -70,13 +70,13 @@ class VBSClusterSide {
     }
 
     boolean hasSameRoot(Object other) {
-        if (other.getClass() != VBSClusterSide.class) {
+        if (other.getClass() != BSClusterSide.class) {
             return false;
         }
-        return this.bsCluster == ((VBSClusterSide) other).getCluster();
+        return this.bsCluster == ((BSClusterSide) other).getCluster();
     }
 
-    VBSClusterSide getOtherSameRoot() {
+    BSClusterSide getOtherSameRoot() {
         return otherSameRoot;
     }
 
