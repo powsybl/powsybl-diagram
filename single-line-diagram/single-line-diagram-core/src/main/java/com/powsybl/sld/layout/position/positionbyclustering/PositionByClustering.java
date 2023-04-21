@@ -40,21 +40,12 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
  * (and in many case having the same horizontal structuralPosition).
  * The first step consists in building LegBusSets that contains busBars that shall be vertically aligned (considering
  * they have legs of cell that impose it).
- * Then VBSClusters are initiated by building one VBSCluster per LegBusSet.
- * The VBSClusters are then merged 2 by 2 starting by VBSclusters that have the strongest Link.
- * Two strategies of strength assessment of the links between clusters are implemented:
- * <ul>
- * <li>
- * if useVbsLinkOnly is true: the strength between LegBusSets is considered: this means that the strength of
- * the link between two clusters is the one of the strongest link between two LegBusSets (one per cluster). This
- * is a simple implementation that is limited as it it does not consider the difference between the side of a
- * cluster: if two clusters A and B are to be merged, the result can either be A-B or B-A.
- * </li>
- * <li>
- * if useVbsLinkOnly is false: the strength between VbsClusterSide is considered. This is similar
+ * Then BSClusters are initiated by building one BSCluster per LegBusSet.
+ * The BSClusters are then merged 2 by 2 starting by BSClusters that have the strongest Link.
+ * We differentiate the side of a BSCluster using BSClusterSide is considered. This is similar
  * to what si done with LegBusSet but the assessment of the strength of the link considers both sides of the
  * cluster.
- * Therefore, with cluster A and B, there are 4 VbsClusterSide A-Right A-Left B-Right and B-Left. The links that
+ * Therefore, with cluster A and B, there are 4 BSClusterSide A-Right A-Left B-Right and B-Left. The links that
  * are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
  * alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
  * 2 clusters are respected : 1st cluster-Right is merged with 2nd cluster-left).
@@ -221,8 +212,8 @@ public class PositionByClustering extends AbstractPositionFinder {
         myConcernedFlatCells.stream()
                 .sorted(Comparator
                         .<InternCell>comparingInt(cell -> Link.flatCellDistanceToEdges(cell,
-                                new VBSClusterSide(leftCluster, Side.RIGHT),
-                                new VBSClusterSide(rightCluster, Side.LEFT)))
+                                new BSClusterSide(leftCluster, Side.RIGHT),
+                                new BSClusterSide(rightCluster, Side.LEFT)))
                         .thenComparing(InternCell::getFullId))
                 .forEachOrdered(internCell -> {
                     Optional<BusNode> myNode = internCellNodeInHblSide(leftCluster, Side.RIGHT, internCell);
