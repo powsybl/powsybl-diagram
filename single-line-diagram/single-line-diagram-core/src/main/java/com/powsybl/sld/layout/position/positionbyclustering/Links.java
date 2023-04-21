@@ -19,7 +19,7 @@ import java.util.*;
  */
 final class Links {
 
-    private final List<VBSClusterSide> bsClusterSides = new LinkedList<>();
+    private final List<BSClusterSide> bsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
     private final HorizontalBusListManager hblManager;
     private int linkCounter = 0;
@@ -35,22 +35,22 @@ final class Links {
     }
 
     private static void addClusterSidesTwins(Links links, BSCluster bsCluster) {
-        VBSClusterSide vbsSLeft = new VBSClusterSide(bsCluster, Side.LEFT);
-        VBSClusterSide vbsSRight = new VBSClusterSide(bsCluster, Side.RIGHT);
-        vbsSLeft.setOtherSameRoot(vbsSRight);
-        vbsSRight.setOtherSameRoot(vbsSLeft);
-        links.addVbsClusterSide(vbsSLeft);
-        links.addVbsClusterSide(vbsSRight);
+        BSClusterSide bsSLeft = new BSClusterSide(bsCluster, Side.LEFT);
+        BSClusterSide bsSRight = new BSClusterSide(bsCluster, Side.RIGHT);
+        bsSLeft.setOtherSameRoot(bsSRight);
+        bsSRight.setOtherSameRoot(bsSLeft);
+        links.addVbsClusterSide(bsSLeft);
+        links.addVbsClusterSide(bsSRight);
     }
 
-    private void addVbsClusterSide(VBSClusterSide vbsClusterSide) {
-        bsClusterSides.forEach(cc -> buildNewLink(cc, vbsClusterSide));
-        bsClusterSides.add(vbsClusterSide);
+    private void addVbsClusterSide(BSClusterSide bsClusterSide) {
+        bsClusterSides.forEach(cc -> buildNewLink(cc, bsClusterSide));
+        bsClusterSides.add(bsClusterSide);
     }
 
-    private void buildNewLink(VBSClusterSide vbsClusterSide1, VBSClusterSide vbsClusterSide2) {
-        if (!vbsClusterSide1.hasSameRoot(vbsClusterSide2)) {
-            Link linkToAdd = new Link(vbsClusterSide1, vbsClusterSide2, linkCounter++);
+    private void buildNewLink(BSClusterSide bsClusterSide1, BSClusterSide bsClusterSide2) {
+        if (!bsClusterSide1.hasSameRoot(bsClusterSide2)) {
+            Link linkToAdd = new Link(bsClusterSide1, bsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
         }
     }
@@ -69,9 +69,9 @@ final class Links {
         addClusterSidesTwins(this, mergedCluster);
     }
 
-    private void removeVbsClusterSide(VBSClusterSide vbsClusterSide) {
-        bsClusterSides.remove(vbsClusterSide);
-        List<Link> linksCopy = new ArrayList<>(vbsClusterSide.getLinks());
+    private void removeVbsClusterSide(BSClusterSide bsClusterSide) {
+        bsClusterSides.remove(bsClusterSide);
+        List<Link> linksCopy = new ArrayList<>(bsClusterSide.getLinks());
         linksCopy.forEach(link -> {
             link.removeMe();
             linkSet.remove(link);
