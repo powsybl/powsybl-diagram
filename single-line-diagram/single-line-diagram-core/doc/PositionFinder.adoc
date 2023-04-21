@@ -1,14 +1,14 @@
 == Position of `BusNodes` and `Cells` order
 === Definitions and goal
-Positioning the bus nodes and determination of the external cells order are performed by implementing `PositionFinder` interface.
+Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing `PositionFinder` interface.
 
+The goal is to:
 
-The goal is to set:
+* set the horizontal and vertical *structural _(h,v)_* `BusNode.structuralPosition`
+* set the horizontal *order* of the cells: `Cell.order`
+* provide a `List<Subsection>`. See link:Subsection.adoc[Subsection].
 
-* the horizontal and vertical *structural _(h,v)_* `Position` of the bus nodes: `NodeBus.structuralPosition`
-* the horizontal *order* of the cells: `Cell.order`
-
-The picture hereafter shows the information that are to be established. But actually, the outcome of `PositionFinder` is delivered another way, throug a coherent `List<Subsection>`. See link:Subsection.adoc[Subsection]
+The picture hereafter shows the information that are to be established.
 
 .(h,v) positions of `BusNodes` and `ExternCell` cells order
 image::images/busbars.svg[align="center"]
@@ -19,7 +19,12 @@ Two implementations are available:
 * `PositionFromExtension` which rely on explicitly given positions (for example to reflect the on-site real structure and/or the way the SCADA organises it). See link:PositionFromExtension.adoc[PositionFromExtension]
 * `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See link:PositionByClustering[PositionByClustering]
 
-Both rely on the `BSCluster`. See link:BSCluster.adoc[BSCluster]
+Both rely on the `BSCluster` (see link:BSCluster.adoc[BSCluster]) and have the same skeleton:
+
+* Step 1: Build of `VerticalBusSets`
+* Step 2: Build of unitary `BSCluster` in the `bsClusters` list
+* Step 3: Merge of `bsClsuters` into a single `BSCluster`
+* Step 4: Build of the `List<Subsection>subsections`
 
 === Illustration of algorithms based on `BSCluster`
 The illustration will be based on the following graph and shall result in the above layout.
@@ -59,6 +64,7 @@ The result of `VerticalBusSet.createVerticalBusSets` is
 At that stage, the `LEFT` and `RIGHT` side of an `IntenCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
 ==== step 2: Build unitary `BSClusters`
+
 This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 [cols=".^1, .^2, 1"]
@@ -85,13 +91,20 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 image::images/BSClusterInit.svg[align="center"]
 
+[IMPORTANT]
+.On this result:
+====
+ - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See link:PositionFromExtension.adoc[PositionFromExtension].
+ - Regarding the picture: the rows do not exist in real. It presented to highlight we have no clue of whether one `NodeBus` will be horizontally aligned with one another, except we know for sure that both `B1` shall end up in the same row.
+====
+
 ==== step 3: Merge `BSClusters` into a single one
 That's where the magic happens. This is where the implementations mainly differ. The goal is to merge the `BSClusters` to one another.
 
 The principle of the merging of a `BSCluster` are:
 
 - simply concat the `VerticalBusSet` List
-- merge the `HorizontalBusList`
+- merge the `HorizontalBusList` using a proper implementation of `HorizontalBusLane::mergeHbl`.
  
 This expected result should be similar to the following `BSCluster`:
 
@@ -118,8 +131,9 @@ image::images/BSClusterFinal.svg[align="center"]
     [B5, B1, B1]
     
 ]
-
 |===
+
+The way this example is handled is detailed in each implementation documentation: link:PositionFromExtension.adoc[PositionFromExtension], link:PositionByClustering[PositionByClustering].
 
 
 ==== step 4: Build the `List<Subsection>`
