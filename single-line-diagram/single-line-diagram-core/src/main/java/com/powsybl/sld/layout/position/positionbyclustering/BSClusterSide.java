@@ -26,7 +26,6 @@ class BSClusterSide {
 
     private final BSCluster bsCluster;
     private final Side side;
-    private final List<Link> myLinks = new ArrayList<>();
     private BSClusterSide otherSameRoot;
 
     BSClusterSide(BSCluster bsCluster, Side side) {
@@ -94,18 +93,6 @@ class BSClusterSide {
                 return bsCluster.getVerticalBusSets().size() - horizontalBusList.get().getEndingIndex();
             }
         }
-    }
-
-    void addLink(Link link) {
-        myLinks.add(link);
-    }
-
-    void removeLink(Link link) {
-        myLinks.remove(link);
-    }
-
-    List<Link> getLinks() {
-        return myLinks;
     }
 
     @Override

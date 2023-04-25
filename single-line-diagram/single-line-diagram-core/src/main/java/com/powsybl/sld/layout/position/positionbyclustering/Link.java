@@ -59,8 +59,6 @@ class Link implements Comparable<Link> {
     Link(BSClusterSide bsClusterSide1, BSClusterSide bsClusterSide2, int nb) {
         this.bsClusterSide1 = bsClusterSide1;
         this.bsClusterSide2 = bsClusterSide2;
-        bsClusterSide1.addLink(this);
-        bsClusterSide2.addLink(this);
         this.nb = nb;
         assessLink();
     }
@@ -155,11 +153,6 @@ class Link implements Comparable<Link> {
                 bsClusterSide1.getMySideInCluster(),
                 bsClusterSide2.getCluster(),
                 bsClusterSide2.getMySideInCluster(), hblManager);
-    }
-
-    void removeMe() {
-        bsClusterSide1.removeLink(this);
-        bsClusterSide2.removeLink(this);
     }
 
     @Override
