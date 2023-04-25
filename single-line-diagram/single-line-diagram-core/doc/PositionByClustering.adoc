@@ -1,5 +1,34 @@
-= `PositionByClustering`: Finding positions driven by similarities
+= `PositionByClustering`: Establishing positions driven by similarities
 
-The goal of the algorithm is to find an organization of the `VoltageLevel` with no other information than the graph itself. The positionning is based on sequential agregation of `BSCluster` based on their similarities.
+== Context
+The goal of the algorithm is to find an organization of the `VoltageLevel` with no other information than the graph itself.
 
-The key criteria that is followed to find a suitable organisation is the fact that each external cells, and any "leg" of an `InternCell` could be *stacked* - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. (This criteria applies only when the structure of the cell allows it - which may not not the case)
+== Algorithm
+=== Principle
+The positionning is based on sequential merges of `BSCluster` considering:
+
+* the fact that each external cells, and any "leg" of an `InternCell` could be *stacked* - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. This implies the `busNodes` of a leg shall be spread in different vertical structural positions.
+* attractivity: which is expressed in terms of strength of a `Link` between sides (left/right) of `BSCluster`. The stronger the link, the more likely it is to make a connection.
+
+The name of the implementation comes from the fact that `BSClusters` are absorbing one another growing clusters to a single one.
+
+=== Dedicated classes
+
+The `BSClusterSide` is a composition of a `BSCluster` and a `Side` (`LEFT/RIGHT`).
+
+The `Link` holds 2 `BSClusterSides`.
+
+`Links` is a 
+
+=== Steps
+
+== Example
+=== The end in mind
+=== Input information
+
+=== Steps 
+==== Step 1: Build of `VerticalBusSets`
+==== Step 2: Build of unitary `BSClusters`
+==== Step 3: Merge of `BSClusters` into a single one
+==== Step 4: Build of the `List<Subsection>subsections`
+Done by calling `Subsection::createSubsections`. See link:Subsection.adoc[Subsection].
