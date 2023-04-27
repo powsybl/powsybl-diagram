@@ -15,11 +15,11 @@ The algorithm considers that the positional information given (by the *iidm* ext
 The algorithm may sound not straightforward, but that approach eases the elaboration of the next step (building of `List<Substation>`), and naturally addresses the constraints raised by non horizontaly symetrical arrangements of `BusNodes` (case developed in example below).
 
 === Steps
-`PositionFromExtension::organizeBusSets`:
 
-- builds the `Map<BusNode, Integer> busToNb` by calling `PositionFromExtension::indexBusPosition`,
-- builds `List<BSCluster>bsClusters` by providing the list of initial `VerticalBusSet` sorted by the comparator `VBSCOMPARATOR`
-- merges `bsClusters` sequentially by merging the first `BSCluster` of the list with the second until only one remain.
+* `PositionFromExtension::indexBusPosition` builds the `Map<BusNode, Integer> busToNb`
+* `PositionFromExtension::organizeBusSets`:
+** builds `List<BSCluster>bsClusters` by providing the list of initial `VerticalBusSet` sorted by the comparator `VBSCOMPARATOR`
+** merges `bsClusters` sequentially by merging the first `BSCluster` of the list with the second until only one remain.
 
 ==== Sorting the `BusNodes` of the `VerticalBusSets`
 This sorting order foster `busbarIndex` reflecting the *vertical view* of the structure.
@@ -135,7 +135,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 |BSCluster | VerticalBusSets | HorizontalBusLists
 
 |bsc-1
-|[ ( [ B5 ] , , [ IC1.L , IC2.L ] ) ]
+|[ ( [ B5 ] , , [ IC1.R , IC2.L ] ) ]
 |[ [ B5(1, 1) ] ]
 
 |bsc-2
@@ -162,7 +162,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 = bsc-1 + *bsc-2*
 
-| [ ( [ B5 ] , , [ IC1.L , IC2.L ] ), 
+| [ ( [ B5 ] , , [ IC1.R , IC2.L ] ), 
 
 *( [ B2 ] , , [ IC1.L ] )* ] 
 
@@ -175,7 +175,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 = bsc-12 + *bsc-3*
 
-| [ ( [ B5 ] , , [ IC1.L , IC2.L ] ), 
+| [ ( [ B5 ] , , [ IC1.R , IC2.L ] ), 
 
 ( [ B2 ] , , [ IC1.L ] ),
 
@@ -194,7 +194,7 @@ bsc-1234
 
 = bsc-123 + *bsc-4*
 
-| [ ( [ B5 ] , , [ IC1.L , IC2.L ] ), 
+| [ ( [ B5 ] , , [ IC1.R , IC2.L ] ), 
 
 ( [ B2 ] , , [ IC1.L ] ),
 
