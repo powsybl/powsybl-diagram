@@ -17,7 +17,7 @@ image::images/busbars.svg[align="center"]
 Two implementations are available:
 
 * `PositionFromExtension` which rely on explicitly given positions (for example to reflect the on-site real structure and/or the way the SCADA organises it). See link:PositionFromExtension.adoc[PositionFromExtension]
-* `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See link:PositionByClustering[PositionByClustering]
+* `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See link:PositionByClustering.adoc[PositionByClustering]
 
 Both rely on the `BSCluster` (see link:BSCluster.adoc[BSCluster]) and have the same skeleton:
 
