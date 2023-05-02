@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ZoneGraphTest {
+class ZoneGraphTest {
 
     private static final String SUBSTATION_ID_1 = "Substation1";
     private static final String SUBSTATION_ID_2 = "Substation2";

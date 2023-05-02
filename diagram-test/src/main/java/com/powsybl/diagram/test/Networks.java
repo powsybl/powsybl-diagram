@@ -52,6 +52,8 @@ public final class Networks {
     private static final String LOAD_C_ID = "loadC";
     private static final String LOAD_D_ID = "loadD";
 
+    private static final String THREE_WINDING_TRANSFORMER_12_ID = "T3_12";
+
     private Networks() {
     }
 
@@ -1145,7 +1147,7 @@ public final class Networks {
         network.getTwoWindingsTransformer("T11").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.PLANNED_OUTAGE).add();
         network.getTwoWindingsTransformer("T12").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
 
-        network.getThreeWindingsTransformer("T3_12").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
+        network.getThreeWindingsTransformer(THREE_WINDING_TRANSFORMER_12_ID).newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
     }
 
     public static Network createNodeBreakerNetworkWithInternalBranches(String id, String sourceFormat) {
@@ -1245,13 +1247,13 @@ public final class Networks {
         createSwitch(vl2, "D37", "D37", SwitchKind.DISCONNECTOR, false, false, false, 30, 37);
         createSwitch(vl2, "BR38", "BR38", SwitchKind.BREAKER, false, false, false, 37, 38);
 
-        createThreeWindingsTransformer(substation, "T3_12", "T3_12", vl1.getId(), vl1.getId(), vl2.getId(),
+        createThreeWindingsTransformer(substation, THREE_WINDING_TRANSFORMER_12_ID, THREE_WINDING_TRANSFORMER_12_ID, vl1.getId(), vl1.getId(), vl2.getId(),
                 45, 47, 49, 35, 32, 39., 25, 15,
                 5, 7, 9,
                 190, 290, 38,
-                "T3_12", null, ConnectablePosition.Direction.TOP,
-                "T3_12", null, ConnectablePosition.Direction.TOP,
-                "T3_12", null, ConnectablePosition.Direction.TOP);
+                THREE_WINDING_TRANSFORMER_12_ID, null, ConnectablePosition.Direction.TOP,
+                THREE_WINDING_TRANSFORMER_12_ID, null, ConnectablePosition.Direction.TOP,
+                THREE_WINDING_TRANSFORMER_12_ID, null, ConnectablePosition.Direction.TOP);
 
         return network;
     }
@@ -1405,7 +1407,7 @@ public final class Networks {
                 .add();
 
         substation.newThreeWindingsTransformer()
-                .setId("T3_12")
+                .setId(THREE_WINDING_TRANSFORMER_12_ID)
                 .setRatedU0(234)
                 .newLeg1()
                 .setVoltageLevel("VL1")
@@ -1893,7 +1895,7 @@ public final class Networks {
     }
 
     private static void addFeederPosition(Extendable<?> extendable, String feederName, Integer feederOrder, ConnectablePosition.Direction direction) {
-        ConnectablePositionAdder.FeederAdder feederAdder = extendable.newExtension(ConnectablePositionAdder.class).newFeeder();
+        ConnectablePositionAdder.FeederAdder<?> feederAdder = extendable.newExtension(ConnectablePositionAdder.class).newFeeder();
         if (feederOrder != null) {
             feederAdder.withOrder(feederOrder);
         }
@@ -1904,13 +1906,13 @@ public final class Networks {
     private static void addTwoFeedersPosition(Extendable<?> extendable,
                                               String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
                                               String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
-        ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
-        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        ConnectablePositionAdder<?> extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
+        ConnectablePositionAdder.FeederAdder<?> feederAdder1 = extensionAdder.newFeeder1();
         if (feederOrder1 != null) {
             feederAdder1.withOrder(feederOrder1);
         }
         feederAdder1.withName(feederName1).withDirection(direction1).add();
-        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        ConnectablePositionAdder.FeederAdder<?> feederAdder2 = extensionAdder.newFeeder2();
         if (feederOrder2 != null) {
             feederAdder2.withOrder(feederOrder2);
         }
@@ -1922,18 +1924,18 @@ public final class Networks {
                                                 String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
                                                 String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2,
                                                 String feederName3, Integer feederOrder3, ConnectablePosition.Direction direction3) {
-        ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
-        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        ConnectablePositionAdder<?> extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
+        ConnectablePositionAdder.FeederAdder<?> feederAdder1 = extensionAdder.newFeeder1();
         if (feederOrder1 != null) {
             feederAdder1.withOrder(feederOrder1);
         }
         feederAdder1.withName(feederName1).withDirection(direction1).add();
-        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        ConnectablePositionAdder.FeederAdder<?> feederAdder2 = extensionAdder.newFeeder2();
         if (feederOrder2 != null) {
             feederAdder2.withOrder(feederOrder2);
         }
         feederAdder2.withName(feederName2).withDirection(direction2).add();
-        ConnectablePositionAdder.FeederAdder feederAdder3 = extensionAdder.newFeeder3();
+        ConnectablePositionAdder.FeederAdder<?> feederAdder3 = extensionAdder.newFeeder3();
         if (feederOrder3 != null) {
             feederAdder3.withOrder(feederOrder3);
         }
