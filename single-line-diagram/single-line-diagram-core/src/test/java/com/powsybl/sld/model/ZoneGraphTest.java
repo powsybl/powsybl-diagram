@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class ZoneGraphTest {
 
-    public static final String SUBSTATION_ID_1 = "Substation1";
-    public static final String SUBSTATION_ID_2 = "Substation2";
+    private static final String SUBSTATION_ID_1 = "Substation1";
+    private static final String SUBSTATION_ID_2 = "Substation2";
     private static final String VOLTAGELEVEL_ID_1 = "VoltageLevel1";
     private static final String VOLTAGELEVEL_ID_2 = "VoltageLevel2";
     private static final String LINE_ID = "Line";
