@@ -75,7 +75,7 @@ final class Links {
 
     private void removeBsClusterSide(BSClusterSide bsClusterSide) {
         bsClusterSides.remove(bsClusterSide);
-        bsCs2Link.get(bsClusterSide).forEach(link -> linkSet.remove(link));
+        bsCs2Link.get(bsClusterSide).forEach(linkSet::remove);
     }
 
     boolean isEmpty() {
