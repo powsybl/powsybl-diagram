@@ -24,6 +24,12 @@ public final class InfosNbSnakeLinesHorizontal {
     private final Map<Direction, Integer> nbSnakeLinesTopBottom;
     private final Map<String, Integer> nbSnakeLinesVerticalBetween;
 
+    static InfosNbSnakeLinesHorizontal create(ZoneGraph zoneGraph) {
+        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
+        Map<String, Integer> nbSnakeLinesVerticalBetween = zoneGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesVerticalBetween);
+    }
+
     static InfosNbSnakeLinesHorizontal create(SubstationGraph substationGraph) {
         Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         Map<String, Integer> nbSnakeLinesVerticalBetween = substationGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));

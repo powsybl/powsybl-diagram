@@ -673,10 +673,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
                 VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
 
-                Node n1 = g1.getNode(branch.getId() + "_" + branch.getSide(t1).name());
-                Node n2 = g2.getNode(branch.getId() + "_" + branch.getSide(t2).name());
-                graph.addLineEdge(branch.getId(), n1, n2);
-                linesIds.add(branch.getId());
+                if (g1 != null && g2 != null) {
+                    Node n1 = g1.getNode(branch.getId() + "_" + branch.getSide(t1).name());
+                    Node n2 = g2.getNode(branch.getId() + "_" + branch.getSide(t2).name());
+                    graph.addLineEdge(branch.getId(), n1, n2);
+                    linesIds.add(branch.getId());
+                }
             }
         });
     }
