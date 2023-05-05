@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
@@ -56,7 +55,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
-            vlGraph.setCoord(x, computeCoordY(layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x, HorizontalLayout.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
 
@@ -87,7 +86,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), computeCoordY(layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayout.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
             x += vlGraph.getWidth();
         }
 
@@ -100,39 +99,5 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         infosNbSnakeLines.reset();
         getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
-    }
-
-    double computeCoordY(LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
-        double y;
-        // Find maximum voltage level top height
-        double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(Direction.TOP)).max().orElse(0.0);
-        // Get gap between current voltage level and maximum height one
-        double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(Direction.TOP);
-        // Find maximum voltage level maxV
-        double maxV = getGraph().getVoltageLevelStream().mapToDouble(VoltageLevelGraph::getMaxV).max().orElse(0.0);
-        // Get all busbar section height
-        double bbsHeight = layoutParameters.getVerticalSpaceBus() * (maxV - vlGraph.getMaxV());
-
-        switch (layoutParameters.getBusbarsAlignment()) {
-            case FIRST: {
-                // Align on First busbar section
-                y = topPadding + delta;
-                break;
-            }
-            case LAST: {
-                // Align on Last busbar section
-                y = topPadding + delta + bbsHeight;
-                break;
-            }
-            case MIDDLE: {
-                // Align on middle of all busbar section
-                y = topPadding + delta + bbsHeight / 2;
-                break;
-            }
-            case NONE: // None alignment
-            default:
-                y = topPadding;
-        }
-        return y;
     }
 }
