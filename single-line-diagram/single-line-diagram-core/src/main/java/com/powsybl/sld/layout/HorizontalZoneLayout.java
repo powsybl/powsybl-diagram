@@ -66,8 +66,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageAllSnakeLines(layoutParameters);
 
         adaptPaddingToSnakeLines(layoutParameters);
     }
@@ -87,15 +86,15 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
             x += vlGraph.getWidth();
         }
 
-        double substationWidth = x - diagramPadding.getLeft();
+        double zoneWidth = x - diagramPadding.getLeft();
         double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
-        double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+        double zoneHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
-        getGraph().setSize(substationWidth, substationHeight);
+        getGraph().setSize(zoneWidth, zoneHeight);
 
         infosNbSnakeLines.reset();
-        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+
+        manageAllSnakeLines(layoutParameters);
     }
 
     double computeCoordY(LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
@@ -130,5 +129,11 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
                 y = topPadding;
         }
         return y;
+    }
+
+    private void manageAllSnakeLines(LayoutParameters layoutParameters) {
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
     }
 }

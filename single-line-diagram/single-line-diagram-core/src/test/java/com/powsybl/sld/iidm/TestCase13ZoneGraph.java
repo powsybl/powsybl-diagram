@@ -12,10 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.HorizontalZoneLayoutFactory;
-import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -181,7 +178,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
         // Run horizontal zone layout
-        new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphH.svg"), toSVG(g, "/TestCase13ZoneGraphH.svg"));
     }
