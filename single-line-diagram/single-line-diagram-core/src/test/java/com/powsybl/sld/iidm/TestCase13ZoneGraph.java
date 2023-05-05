@@ -182,4 +182,17 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
         assertEquals(toString("/TestCase13ZoneGraphH.svg"), toSVG(g, "/TestCase13ZoneGraphH.svg"));
     }
+
+    @Test
+    void testVertical() {
+        // build zone graph
+        network = createDiamond();
+        List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        // Run horizontal zone layout
+        new VerticalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphV.svg"), toSVG(g, "/TestCase13ZoneGraphV.svg"));
+    }
 }

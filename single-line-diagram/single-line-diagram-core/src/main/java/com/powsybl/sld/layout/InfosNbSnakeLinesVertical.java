@@ -25,7 +25,7 @@ public class InfosNbSnakeLinesVertical {
     private final List<String> vlYSorted;
     private final int[] nbSnakeLinesHorizontalBetween;
 
-    static InfosNbSnakeLinesVertical create(SubstationGraph substationGraph) {
+    static InfosNbSnakeLinesVertical create(AbstractBaseGraph substationGraph) {
         Map<Side, Integer> nbSnakeLinesLeftRight = EnumSet.allOf(Side.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         List<String> vlYSorted = substationGraph.getVoltageLevelStream().map(VoltageLevelGraph::getId).collect(Collectors.toList());
         int[] nbSnakeLinesHorizontalBetween = new int[(int) substationGraph.getVoltageLevelStream().count() + 1];

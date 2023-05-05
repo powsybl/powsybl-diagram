@@ -41,4 +41,9 @@ public abstract class AbstractZoneLayout extends AbstractLayout {
 
     protected abstract void calculateCoordSubstations(LayoutParameters layoutParameters);
 
+    protected void manageAllSnakeLines(LayoutParameters layoutParameters) {
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
+    }
 }

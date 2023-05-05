@@ -72,10 +72,4 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
 
         manageAllSnakeLines(layoutParameters);
     }
-
-    private void manageAllSnakeLines(LayoutParameters layoutParameters) {
-        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
-        manageSnakeLines(getGraph(), layoutParameters);
-    }
 }
