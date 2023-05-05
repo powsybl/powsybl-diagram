@@ -15,9 +15,6 @@ import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 
-import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
-import static com.powsybl.sld.model.coordinate.Direction.TOP;
-
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
@@ -71,27 +68,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
-
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-        LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
-
-        double topPadding = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
-        double x = diagramPadding.getLeft();
-
-        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayout.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
-            x += vlGraph.getWidth();
-        }
-
-        double zoneWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
-        double zoneHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
-
-        getGraph().setSize(zoneWidth, zoneHeight);
-
-        infosNbSnakeLines.reset();
+        HorizontalLayout.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
 
         manageAllSnakeLines(layoutParameters);
     }
