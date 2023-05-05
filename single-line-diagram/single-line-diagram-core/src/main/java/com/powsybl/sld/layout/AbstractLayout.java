@@ -128,11 +128,11 @@ public abstract class AbstractLayout implements Layout {
     protected abstract List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                               boolean increment);
 
-    protected Direction getNodeDirection(Node node, int nb) {
+    public static Direction getNodeDirection(BaseGraph graph, Node node, int nb) {
         if (node.getType() != Node.NodeType.FEEDER) {
             throw new PowsyblException("Node " + nb + " is not a feeder node");
         }
-        Direction dNode = getGraph().getCell(node).map(Cell::getDirection).orElse(Direction.TOP);
+        Direction dNode = graph.getCell(node).map(Cell::getDirection).orElse(Direction.TOP);
         if (dNode != Direction.TOP && dNode != Direction.BOTTOM) {
             throw new PowsyblException("Node " + nb + " cell direction not TOP or BOTTOM");
         }
@@ -143,31 +143,33 @@ public abstract class AbstractLayout implements Layout {
      * Calculate polyline points of a snakeLine
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
-    protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
-                                                                        boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
-                                                                        double yMin, double yMax) {
+    public static List<Point> calculatePolylineSnakeLineForHorizontalLayout(BaseGraph graph,
+                                                                            LayoutParameters layoutParam, Node node1, Node node2,
+                                                                            boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
+                                                                            double yMin, double yMax) {
         List<Point> pol = new ArrayList<>();
-        pol.add(getGraph().getShiftedPoint(node1));
-        addMiddlePoints(layoutParam, new Pair<>(node1, node2), infosNbSnakeLines, increment, pol, new Pair<>(yMin, yMax));
-        pol.add(getGraph().getShiftedPoint(node2));
+        pol.add(graph.getShiftedPoint(node1));
+        addMiddlePoints(graph, layoutParam, new Pair<>(node1, node2), infosNbSnakeLines, increment, pol, new Pair<>(yMin, yMax));
+        pol.add(graph.getShiftedPoint(node2));
         return pol;
     }
 
-    private void addMiddlePoints(LayoutParameters layoutParam,
-                                 Pair<Node, Node> nodes,
-                                 InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
-                                 List<Point> pol,
-                                 Pair<Double, Double> yMinMax) {
+    private static void addMiddlePoints(BaseGraph graph,
+                                        LayoutParameters layoutParam,
+                                        Pair<Node, Node> nodes,
+                                        InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
+                                        List<Point> pol,
+                                        Pair<Double, Double> yMinMax) {
         Node node1 = nodes.getFirst();
         Node node2 = nodes.getSecond();
         double yMin = yMinMax.getFirst();
         double yMax = yMinMax.getSecond();
 
-        Direction dNode1 = getNodeDirection(node1, 1);
-        Direction dNode2 = getNodeDirection(node2, 2);
+        Direction dNode1 = getNodeDirection(graph, node1, 1);
+        Direction dNode2 = getNodeDirection(graph, node2, 2);
 
-        VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
-        VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
+        VoltageLevelGraph vlGraph1 = graph.getVoltageLevelGraph(node1);
+        VoltageLevelGraph vlGraph2 = graph.getVoltageLevelGraph(node2);
 
         Map<Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
 
