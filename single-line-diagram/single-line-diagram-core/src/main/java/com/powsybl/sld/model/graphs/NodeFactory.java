@@ -45,9 +45,11 @@ public final class NodeFactory {
         return node;
     }
 
-    public static Node createBusConnection(VoltageLevelGraph graph, String idNodeConnectedToBusNode) {
-        String idBusConnection = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(idNodeConnectedToBusNode);
-        return createConnectivityNode(graph, idBusConnection, BUS_CONNECTION);
+    public static BusConnection createBusConnection(VoltageLevelGraph graph, String idBusConnection, String nodeConnectedToBusNodeId) {
+        String idBusConnectionWithPrefix = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(idBusConnection);
+        BusConnection node = new BusConnection(idBusConnectionWithPrefix, BUS_CONNECTION, graph.getNode(nodeConnectedToBusNodeId).isConnected());
+        graph.addNode(node);
+        return node;
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {

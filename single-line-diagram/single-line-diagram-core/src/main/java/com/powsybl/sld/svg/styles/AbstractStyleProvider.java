@@ -15,10 +15,7 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
@@ -52,6 +49,10 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         }
         if (node.isFictitious()) {
             styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);
+        }
+
+        if (node instanceof BusConnection) {
+            styles.add(node.isConnected() ? StyleClassConstants.CONNECTED_BUS_CONNECTION_STYLE_CLASS : StyleClassConstants.DISCONNECTED_BUS_CONNECTION_STYLE_CLASS);
         }
 
         return styles;

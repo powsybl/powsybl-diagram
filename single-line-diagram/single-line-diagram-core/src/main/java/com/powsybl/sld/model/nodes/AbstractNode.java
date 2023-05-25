@@ -47,6 +47,8 @@ public abstract class AbstractNode implements Node {
 
     private Orientation orientation;
 
+    protected boolean connectedNode;
+
     /**
      * Constructor
      */
@@ -225,6 +227,16 @@ public abstract class AbstractNode implements Node {
     @Override
     public int getCardinality(VoltageLevelGraph vlGraph) {
         return getAdjacentNodes().size();
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connectedNode;
+    }
+
+    @Override
+    public void setConnected(boolean connectedNode) {
+        this.connectedNode = connectedNode;
     }
 
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {

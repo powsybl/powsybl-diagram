@@ -77,5 +77,9 @@ public interface Node {
 
     int getCardinality(VoltageLevelGraph vlGraph);
 
+    boolean isConnected();
+
+    void setConnected(boolean connectedNode);
+
     void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 }
