@@ -13,6 +13,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-bus-connection.sld-connected-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-bus-connection.sld-disconnected-bus-connection {stroke: var(--sld-vl-color, black)}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
