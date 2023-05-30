@@ -327,11 +327,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
                 // create middle node
-                Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
-                        vlLegSide, firstOtherLegNode, secondOtherLegNode,
+                Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, "MIDDLE_" + transformer.getId() + "_" + side.name(), transformer.getNameOrId(), transformer.getId(),
+                        vlLegSide, firstOtherLegNode,
+                        secondOtherLegNode,
                         voltageLevelInfosBySide.get(NodeSide.ONE),
-                        voltageLevelInfosBySide.get(NodeSide.TWO),
-                        voltageLevelInfosBySide.get(NodeSide.THREE));
+                        voltageLevelInfosBySide.get(NodeSide.TWO), voltageLevelInfosBySide.get(NodeSide.THREE));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
@@ -711,8 +711,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return (FeederNode) graph.getVoltageLevel(vlId).getNode(idLeg);
             }).collect(Collectors.toList());
 
-            NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                    feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
+            NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(), transfo.getId(), feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
         });
     }
 

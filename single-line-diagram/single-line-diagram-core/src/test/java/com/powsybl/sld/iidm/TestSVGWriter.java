@@ -145,7 +145,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf2Two.setDirection(TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
-        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2","vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -220,7 +220,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf2Two.setDirection(TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
-        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -279,7 +279,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2Two.setDirection(TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
-        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -495,7 +495,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
         nMulti3.setCoordinates(750., 90.);
         nMulti3.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);

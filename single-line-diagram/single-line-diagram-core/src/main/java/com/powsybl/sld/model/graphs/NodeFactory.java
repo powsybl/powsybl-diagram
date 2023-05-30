@@ -196,14 +196,14 @@ public final class NodeFactory {
         return m2wn;
     }
 
-    public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, NodeSide vlSide,
+    public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, String equipmentId, NodeSide vlSide,
                                                     FeederNode firstOtherLegNode, FeederNode secondOtherLegNode,
                                                     VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3) {
         if (firstOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
                 || secondOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
-        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, true);
+        Middle3WTNode m3wn = new Middle3WTNode(id, name, equipmentId, vlLeg1, vlLeg2, vlLeg3, true);
         m3wn.setWindingOrder(Middle3WTNode.Winding.DOWN, vlSide);
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, ((FeederTwLeg) firstOtherLegNode.getFeeder()).getSide());
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, ((FeederTwLeg) secondOtherLegNode.getFeeder()).getSide());
@@ -213,17 +213,16 @@ public final class NodeFactory {
         return m3wn;
     }
 
-    public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, FeederNode legNode3) {
+    public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, String equipmentId, FeederNode legNode1, FeederNode legNode2, FeederNode legNode3) {
         if (legNode1.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
                 || legNode2.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
                 || legNode3.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
-        Middle3WTNode m3wn = new Middle3WTNode(id, name,
+        Middle3WTNode m3wn = new Middle3WTNode(id, name, equipmentId,
                 ((FeederTwLeg) legNode1.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode2.getFeeder()).getVoltageLevelInfos(),
-                ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(),
-                false);
+                ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(), false);
         baseGraph.addTwtEdge(legNode1, m3wn);
         baseGraph.addTwtEdge(legNode2, m3wn);
         baseGraph.addTwtEdge(legNode3, m3wn);

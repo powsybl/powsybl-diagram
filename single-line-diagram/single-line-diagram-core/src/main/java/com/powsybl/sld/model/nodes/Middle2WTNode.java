@@ -16,8 +16,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 public class Middle2WTNode extends MiddleTwtNode {
 
     public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, String componentType) {
-        super(id, name,
-            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2) },
-            componentType);
+        super(id, name, id,
+                new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2) }, componentType);
     }
 }
