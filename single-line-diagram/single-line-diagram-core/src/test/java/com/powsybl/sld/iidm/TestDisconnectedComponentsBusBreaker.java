@@ -115,4 +115,18 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
                 toSVG(g, "/disconnected3wtBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
+    @Test
+    void testOpenSwitch() {
+        // build graph
+        graphBuilder = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/openSwitchBusBreaker.svg"),
+                toSVG(g, "/openSwitchBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
 }

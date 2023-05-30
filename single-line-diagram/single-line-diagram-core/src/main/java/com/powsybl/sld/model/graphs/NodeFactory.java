@@ -184,6 +184,7 @@ public final class NodeFactory {
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
         SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
+        sn.setDisconnected(open);
         graph.addNode(sn);
         return sn;
     }
