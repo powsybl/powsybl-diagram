@@ -16,6 +16,7 @@ import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
@@ -50,6 +51,15 @@ public final class NodeFactory {
         BusConnection node = new BusConnection(idBusConnectionWithPrefix, BUS_CONNECTION, graph.getNode(nodeConnectedToBusNodeId).isDisconnected());
         graph.addNode(node);
         return node;
+    }
+
+    public static Node createBusConnectionForInternal2WTNode(VoltageLevelGraph graph, String busNodeId, Internal2WTNode nodeConnectedToBusNode) {
+        boolean isDisconnected = !nodeConnectedToBusNode.connectedToBus(busNodeId);
+        String idBusConnectionWithPrefix = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(busNodeId + "_" + nodeConnectedToBusNode.getId());
+        BusConnection node = new BusConnection(idBusConnectionWithPrefix, BUS_CONNECTION, isDisconnected);
+        graph.addNode(node);
+        return node;
+
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
@@ -178,9 +188,9 @@ public final class NodeFactory {
         return sn;
     }
 
-    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger) {
+    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger, Map<String, Boolean> connectionToBus) {
         String component = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, component);
+        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, component, connectionToBus);
         graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
         graph.addEdge(n2, i2wt);

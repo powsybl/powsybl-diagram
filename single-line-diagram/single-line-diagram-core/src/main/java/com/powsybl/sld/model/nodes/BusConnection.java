@@ -11,9 +11,9 @@ package com.powsybl.sld.model.nodes;
  */
 public class BusConnection extends ConnectivityNode {
 
-    public BusConnection(String id, String componentType, boolean connectedToBus) {
+    public BusConnection(String id, String componentType, boolean isDisconnected) {
         super(id, componentType);
-        this.disconnectedNode = connectedToBus;
+        this.disconnectedNode = isDisconnected;
     }
 
 }

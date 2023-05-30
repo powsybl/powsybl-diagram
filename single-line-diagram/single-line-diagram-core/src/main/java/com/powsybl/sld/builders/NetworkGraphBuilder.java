@@ -671,8 +671,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
             Node n1 = graph.getNode(transfo.getId() + "_" + Branch.Side.ONE);
             Node n2 = graph.getNode(transfo.getId() + "_" + Branch.Side.TWO);
+            Map<String, Boolean> connectionToBus = new HashMap<>();
+            Terminal terminal1 = transfo.getTerminal1();
+            Terminal terminal2 = transfo.getTerminal2();
+            connectionToBus.put(terminal1.getBusBreakerView().getConnectableBus().getId(), terminal1.isConnected());
+            connectionToBus.put(terminal2.getBusBreakerView().getConnectableBus().getId(), terminal2.isConnected());
             NodeFactory.createInternal2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                    n1, n2, transfo.hasPhaseTapChanger());
+                    n1, n2, transfo.hasPhaseTapChanger(), connectionToBus);
         }
     }
 
