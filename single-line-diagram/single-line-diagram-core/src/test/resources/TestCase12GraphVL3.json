@@ -107,6 +107,79 @@
     "y" : 282.0,
     "orientation" : "DOWN"
   }, {
+    "type" : "INTERNAL",
+    "id" : "MIDDLE_trf6_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 320.0,
+    "y" : 62.0,
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "INTERNAL",
+    "id" : "MIDDLE_trf7_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 480.0,
+    "y" : 282.0,
+    "orientation" : "DOWN",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "INTERNAL",
+    "id" : "MIDDLE_trf8_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 640.0,
+    "y" : 62.0,
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
     "type" : "BUS",
     "id" : "bbs7",
     "componentType" : "BUSBAR_SECTION",
@@ -404,30 +477,6 @@
       "nominalVoltage" : 380.0
     }
   }, {
-    "type" : "INTERNAL",
-    "id" : "trf6",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 320.0,
-    "y" : 62.0,
-    "name" : "trf6",
-    "equipmentId" : "trf6",
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    }
-  }, {
     "type" : "FEEDER",
     "id" : "trf6_ONE",
     "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -464,31 +513,6 @@
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
-    }
-  }, {
-    "type" : "INTERNAL",
-    "id" : "trf7",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 480.0,
-    "y" : 282.0,
-    "orientation" : "DOWN",
-    "name" : "trf7",
-    "equipmentId" : "trf7",
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
     }
   }, {
     "type" : "FEEDER",
@@ -529,30 +553,6 @@
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
-    }
-  }, {
-    "type" : "INTERNAL",
-    "id" : "trf8",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 640.0,
-    "y" : 62.0,
-    "name" : "trf8",
-    "equipmentId" : "trf8",
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
     }
   }, {
     "type" : "FEEDER",
@@ -929,7 +929,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_dtrf36-btrf36", "btrf36", "trf6" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf36-btrf36", "btrf36", "MIDDLE_trf6_THREE" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -970,7 +970,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf6", "trf6_ONE" ]
+          "nodes" : [ "MIDDLE_trf6_THREE", "trf6_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -991,7 +991,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf6", "trf6_TWO" ]
+          "nodes" : [ "MIDDLE_trf6_THREE", "trf6_TWO" ]
         } ]
       } ]
     }
@@ -1061,7 +1061,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_dtrf37-btrf37", "btrf37", "trf7" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf37-btrf37", "btrf37", "MIDDLE_trf7_THREE" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1102,7 +1102,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf7", "trf7_ONE" ]
+          "nodes" : [ "MIDDLE_trf7_THREE", "trf7_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1123,7 +1123,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf7", "trf7_TWO" ]
+          "nodes" : [ "MIDDLE_trf7_THREE", "trf7_TWO" ]
         } ]
       } ]
     }
@@ -1193,7 +1193,7 @@
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "INTERNAL_vl3_dtrf38-btrf38", "btrf38", "trf8" ]
+        "nodes" : [ "INTERNAL_vl3_dtrf38-btrf38", "btrf38", "MIDDLE_trf8_THREE" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1234,7 +1234,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf8", "trf8_ONE" ]
+          "nodes" : [ "MIDDLE_trf8_THREE", "trf8_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1255,7 +1255,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "trf8", "trf8_TWO" ]
+          "nodes" : [ "MIDDLE_trf8_THREE", "trf8_TWO" ]
         } ]
       } ]
     }
@@ -1442,22 +1442,22 @@
   } ],
   "edges" : [ {
     "node1" : "trf6_ONE",
-    "node2" : "trf6"
+    "node2" : "MIDDLE_trf6_THREE"
   }, {
     "node1" : "trf6_TWO",
-    "node2" : "trf6"
+    "node2" : "MIDDLE_trf6_THREE"
   }, {
     "node1" : "trf7_ONE",
-    "node2" : "trf7"
+    "node2" : "MIDDLE_trf7_THREE"
   }, {
     "node1" : "trf7_TWO",
-    "node2" : "trf7"
+    "node2" : "MIDDLE_trf7_THREE"
   }, {
     "node1" : "trf8_ONE",
-    "node2" : "trf8"
+    "node2" : "MIDDLE_trf8_THREE"
   }, {
     "node1" : "trf8_TWO",
-    "node2" : "trf8"
+    "node2" : "MIDDLE_trf8_THREE"
   }, {
     "node1" : "bbs7",
     "node2" : "dload4"
@@ -1472,19 +1472,19 @@
     "node2" : "dtrf36"
   }, {
     "node1" : "btrf36",
-    "node2" : "trf6"
+    "node2" : "MIDDLE_trf6_THREE"
   }, {
     "node1" : "bbs7",
     "node2" : "dtrf37"
   }, {
     "node1" : "btrf37",
-    "node2" : "trf7"
+    "node2" : "MIDDLE_trf7_THREE"
   }, {
     "node1" : "bbs7",
     "node2" : "dtrf38"
   }, {
     "node1" : "btrf38",
-    "node2" : "trf8"
+    "node2" : "MIDDLE_trf8_THREE"
   }, {
     "node1" : "bbs7",
     "node2" : "dself5"
