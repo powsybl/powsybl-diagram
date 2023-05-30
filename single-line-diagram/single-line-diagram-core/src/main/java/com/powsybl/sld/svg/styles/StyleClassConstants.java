@@ -42,7 +42,6 @@ public final class StyleClassConstants {
     public static final String LABEL_STYLE_CLASS = STYLE_PREFIX + "label";
     public static final String GRID_STYLE_CLASS = STYLE_PREFIX + "grid";
     public static final String WIRE_STYLE_CLASS = STYLE_PREFIX + "wire";
-    public static final String CONNECTED_BUS_CONNECTION_STYLE_CLASS = STYLE_PREFIX + "connected-bus-connection";
     public static final String DISCONNECTED_BUS_CONNECTION_STYLE_CLASS = STYLE_PREFIX + "disconnected-bus-connection";
 
     private StyleClassConstants() {

@@ -518,7 +518,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected void addTerminalNode(Node node, Terminal terminal) {
             node.setOrder(order++);
             node.setDirection(order % 2 == 0 ? Direction.TOP : Direction.BOTTOM);
-            node.setConnected(terminal.isConnected());
+            node.setDisconnected(!terminal.isConnected());
             connectToBus(node, terminal);
         }
 
@@ -531,6 +531,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             secondOtherLegNode.setOrder(order++);
             secondOtherLegNode.setDirection(direction);
+            middleNode.setDisconnected(!terminal.isConnected());
 
             connectToBus(middleNode, terminal);
         }

@@ -47,7 +47,7 @@ public final class NodeFactory {
 
     public static BusConnection createBusConnection(VoltageLevelGraph graph, String idBusConnection, String nodeConnectedToBusNodeId) {
         String idBusConnectionWithPrefix = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(idBusConnection);
-        BusConnection node = new BusConnection(idBusConnectionWithPrefix, BUS_CONNECTION, graph.getNode(nodeConnectedToBusNodeId).isConnected());
+        BusConnection node = new BusConnection(idBusConnectionWithPrefix, BUS_CONNECTION, graph.getNode(nodeConnectedToBusNodeId).isDisconnected());
         graph.addNode(node);
         return node;
     }

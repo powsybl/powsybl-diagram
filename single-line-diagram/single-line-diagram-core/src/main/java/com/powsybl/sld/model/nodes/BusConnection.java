@@ -13,7 +13,7 @@ public class BusConnection extends ConnectivityNode {
 
     public BusConnection(String id, String componentType, boolean connectedToBus) {
         super(id, componentType);
-        this.connectedNode = connectedToBus;
+        this.disconnectedNode = connectedToBus;
     }
 
 }

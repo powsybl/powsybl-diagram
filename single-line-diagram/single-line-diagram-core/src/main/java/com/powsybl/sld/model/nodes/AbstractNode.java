@@ -47,7 +47,7 @@ public abstract class AbstractNode implements Node {
 
     private Orientation orientation;
 
-    protected boolean connectedNode;
+    protected boolean disconnectedNode;
 
     /**
      * Constructor
@@ -230,13 +230,13 @@ public abstract class AbstractNode implements Node {
     }
 
     @Override
-    public boolean isConnected() {
-        return connectedNode;
+    public boolean isDisconnected() {
+        return disconnectedNode;
     }
 
     @Override
-    public void setConnected(boolean connectedNode) {
-        this.connectedNode = connectedNode;
+    public void setDisconnected(boolean disconnectedNode) {
+        this.disconnectedNode = disconnectedNode;
     }
 
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
