@@ -51,10 +51,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
             styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);
         }
 
-        if (node instanceof BusConnection) {
-            if (node.isDisconnected()) {
-                styles.add(StyleClassConstants.DISCONNECTED_BUS_CONNECTION_STYLE_CLASS);
-            }
+        if (node instanceof BusConnection && node.isDisconnected()) {
+            styles.add(StyleClassConstants.DISCONNECTED_BUS_CONNECTION_STYLE_CLASS);
         }
 
         return styles;
