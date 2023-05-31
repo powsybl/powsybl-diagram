@@ -32,12 +32,12 @@ class LayoutParametersTest {
                 .setStackHeight(40)
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
-                .setScaleFactor(2)
+                .setCgmesScaleFactor(2)
                 .setDrawStraightWires(true)
                 .setHorizontalSnakeLinePadding(25)
                 .setVerticalSnakeLinePadding(40)
                 .setFeederInfosOuterMargin(25)
-                .setDiagramName("diag")
+                .setCgmesDiagramName("diag")
                 .setAvoidSVGComponentsDuplication(true)
                 .setAdaptCellHeightToContent(true)
                 .setMaxComponentHeight(10)
@@ -52,7 +52,7 @@ class LayoutParametersTest {
                 .setFeederInfoSymmetry(true)
                 .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT)
                 .setSvgWidthAndHeightAdded(true)
-                .setUseName(true)
+                .setCgmesUseNames(true)
                 .setFeederInfosIntraMargin(21)
                 .setBusInfoMargin(22)
                 .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
@@ -86,12 +86,12 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getStackHeight(), layoutParameters2.getStackHeight(), 0);
         assertEquals(layoutParameters.isShowGrid(), layoutParameters2.isShowGrid());
         assertEquals(layoutParameters.isShowInternalNodes(), layoutParameters2.isShowInternalNodes());
-        assertEquals(layoutParameters.getScaleFactor(), layoutParameters2.getScaleFactor(), 0);
+        assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
         assertEquals(layoutParameters.isDrawStraightWires(), layoutParameters2.isDrawStraightWires());
         assertEquals(layoutParameters.getHorizontalSnakeLinePadding(), layoutParameters2.getHorizontalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getVerticalSnakeLinePadding(), layoutParameters2.getVerticalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getFeederInfosOuterMargin(), layoutParameters2.getFeederInfosOuterMargin(), 0);
-        assertEquals(layoutParameters.getDiagramName(), layoutParameters2.getDiagramName());
+        assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
         assertEquals(layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters2.isAvoidSVGComponentsDuplication());
         assertEquals(layoutParameters.isAdaptCellHeightToContent(), layoutParameters2.isAdaptCellHeightToContent());
         assertEquals(layoutParameters.getMaxComponentHeight(), layoutParameters2.getMaxComponentHeight(), 0);
@@ -106,7 +106,7 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.isFeederInfoSymmetry(), layoutParameters2.isFeederInfoSymmetry());
         assertEquals(layoutParameters.getCssLocation(), layoutParameters2.getCssLocation());
         assertEquals(layoutParameters.isSvgWidthAndHeightAdded(), layoutParameters2.isSvgWidthAndHeightAdded());
-        assertEquals(layoutParameters.isUseName(), layoutParameters2.isUseName());
+        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
         assertEquals(layoutParameters.getFeederInfosIntraMargin(), layoutParameters2.getFeederInfosIntraMargin(), 0);
         assertEquals(layoutParameters.getBusInfoMargin(), layoutParameters2.getBusInfoMargin(), 0);
         assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());

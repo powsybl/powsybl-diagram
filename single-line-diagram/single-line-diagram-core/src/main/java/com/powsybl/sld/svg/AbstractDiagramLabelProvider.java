@@ -59,7 +59,7 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     private Optional<String> getLabelOrNameOrId(Node node) {
         if (node instanceof EquipmentNode) {
             EquipmentNode eqNode = (EquipmentNode) node;
-            return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
+            return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isCgmesUseNames() ? eqNode.getName() : eqNode.getEquipmentId()));
         } else {
             return node.getLabel();
         }
