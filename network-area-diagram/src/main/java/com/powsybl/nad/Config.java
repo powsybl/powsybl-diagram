@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IdProvider;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -21,18 +22,18 @@ public class Config {
 
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
-    StyleProvider styleProvider;
-    LabelProvider labelProvider;
+    ConfigBuilder.StyleProviderFactory styleProviderFactory;
+    ConfigBuilder.LabelProviderFactory labelProviderFactory;
     LayoutFactory layoutFactory;
-    IdProvider idProvider;
+    ConfigBuilder.IdProviderFactory idProviderFactory;
 
-    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory, IdProvider idProvider) {
+    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ConfigBuilder.StyleProviderFactory styleProviderFactory, ConfigBuilder.LabelProviderFactory labelProviderFactory, LayoutFactory layoutFactory, ConfigBuilder.IdProviderFactory idProviderFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
-        this.styleProvider = styleProvider;
-        this.labelProvider = labelProvider;
+        this.styleProviderFactory = styleProviderFactory;
+        this.labelProviderFactory = labelProviderFactory;
         this.layoutFactory = layoutFactory;
-        this.idProvider = idProvider;
+        this.idProviderFactory = idProviderFactory;
     }
 
     public SvgParameters getSvgParameters() {
@@ -43,20 +44,20 @@ public class Config {
         return layoutParameters;
     }
 
-    public StyleProvider getStyleProvider() {
-        return styleProvider;
+    public StyleProvider createStyleProvider(Network network) {
+        return styleProviderFactory.create(network);
     }
 
-    public LabelProvider getLabelProvider() {
-        return labelProvider;
+    public LabelProvider createLabelProvider(Network network) {
+        return labelProviderFactory.create(network, svgParameters);
     }
 
     public LayoutFactory getLayoutFactory() {
         return layoutFactory;
     }
 
-    public IdProvider getIdProvider() {
-        return idProvider;
+    public IdProvider createIdProvider() {
+        return idProviderFactory.create();
     }
 
 }

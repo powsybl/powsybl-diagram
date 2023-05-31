@@ -18,8 +18,6 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 
-import java.util.function.BiFunction;
-
 /**
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
@@ -27,26 +25,31 @@ import java.util.function.BiFunction;
 public class ConfigBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
-    StyleProvider styleProvider;
-    LabelProvider labelProvider;
-    BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator = DefaultLabelProvider::new;
+    StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
+    LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     LayoutFactory layoutFactory = new BasicForceLayoutFactory();
-    IdProvider idProvider = new IntIdProvider();
-    Network network;
+    IdProviderFactory idProviderFactory = IntIdProvider::new;
 
-    private static <R extends LabelProvider> R factory(Network network, SvgParameters svgParameters, BiFunction<Network, SvgParameters, R> function) {
-        return function.apply(network, svgParameters);
+    @FunctionalInterface
+    public interface LabelProviderFactory {
+        LabelProvider create(Network network, SvgParameters svgParameters);
     }
 
-    public ConfigBuilder(Network network) {
-        this.network = network;
-        this.styleProvider = new TopologicalStyleProvider(network);
-        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
+    @FunctionalInterface
+    public interface IdProviderFactory {
+        IdProvider create();
+    }
+
+    @FunctionalInterface
+    public interface StyleProviderFactory {
+        StyleProvider create(Network network);
+    }
+
+    public ConfigBuilder() {
     }
 
     public ConfigBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
-        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
         return this;
     }
 
@@ -55,14 +58,13 @@ public class ConfigBuilder {
         return this;
     }
 
-    public ConfigBuilder withStyleProvider(StyleProvider styleProvider) {
-        this.styleProvider = styleProvider;
+    public ConfigBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
+        this.styleProviderFactory = styleProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withLabelProviderCreator(BiFunction<Network, SvgParameters, LabelProvider> labelProviderCreator) {
-        this.labelProviderCreator = labelProviderCreator;
-        this.labelProvider = factory(network, svgParameters, labelProviderCreator);
+    public ConfigBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
+        this.labelProviderFactory = labelProviderFactory;
         return this;
     }
 
@@ -71,13 +73,13 @@ public class ConfigBuilder {
         return this;
     }
 
-    public ConfigBuilder withIdProvider(IdProvider idProvider) {
-        this.idProvider = idProvider;
+    public ConfigBuilder withIdProviderFactory(IdProviderFactory idProviderFactory) {
+        this.idProviderFactory = idProviderFactory;
         return this;
     }
 
     public Config build() {
-        return new Config(svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, idProvider);
+        return new Config(svgParameters, layoutParameters, styleProviderFactory, labelProviderFactory, layoutFactory, idProviderFactory);
     }
 
 }

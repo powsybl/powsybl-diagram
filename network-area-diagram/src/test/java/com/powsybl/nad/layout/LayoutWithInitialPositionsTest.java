@@ -50,6 +50,10 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
         return new NominalVoltageStyleProvider(network);
     }
 
+    private ConfigBuilder.StyleProviderFactory getStyleProviderFactory() {
+        return network -> getStyleProvider(network);
+    }
+
     @Override
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters());
@@ -152,10 +156,10 @@ public class LayoutWithInitialPositionsTest extends AbstractTest {
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
         NetworkAreaDiagram.draw(network, writer,
-                new ConfigBuilder(network)
+                new ConfigBuilder()
                         .withSvgParameters(getSvgParameters())
                         .withLayoutParameters(getLayoutParameters())
-                        .withStyleProvider(getStyleProvider(network))
+                        .withStyleProviderFactory(getStyleProviderFactory())
                         .withLayoutFactory(positionsLayoutFactory)
                         .build(),
                 voltageLevelFilter);

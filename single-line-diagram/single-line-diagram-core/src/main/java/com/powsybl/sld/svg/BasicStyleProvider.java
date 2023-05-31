@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.cells.Cell;
