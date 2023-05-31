@@ -50,14 +50,14 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }
-        String diagramName = layoutParam.getDiagramName();
+        String diagramName = layoutParam.getCgmesDiagramName();
         if (!checkDiagram(diagramName, "")) {
             return;
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
+            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
         }
         for (BranchEdge edge : graph.getLineEdges()) {
             VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
@@ -65,18 +65,18 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         // shift coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
+            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            shiftLineCoordinates(edge, layoutParam.getScaleFactor());
+            shiftLineCoordinates(edge, layoutParam.getCgmesScaleFactor());
         }
         // scale coordinates
-        if (layoutParam.getScaleFactor() != 1) {
+        if (layoutParam.getCgmesScaleFactor() != 1) {
             for (VoltageLevelGraph vlGraph : vlGraphs) {
-                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
+                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
             }
             for (BranchEdge edge : graph.getLineEdges()) {
-                scaleLineCoordinates(edge, layoutParam.getScaleFactor());
+                scaleLineCoordinates(edge, layoutParam.getCgmesScaleFactor());
             }
         }
     }

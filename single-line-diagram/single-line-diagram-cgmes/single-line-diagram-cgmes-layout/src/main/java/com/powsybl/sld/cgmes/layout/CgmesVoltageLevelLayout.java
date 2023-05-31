@@ -34,15 +34,15 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        String diagramName = layoutParam.getDiagramName();
+        String diagramName = layoutParam.getCgmesDiagramName();
         if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), diagramName);
-        setNodeCoordinates(vl, graph, diagramName, layoutParam.isUseName());
-        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
-        if (layoutParam.getScaleFactor() != 1) {
-            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
+        setNodeCoordinates(vl, graph, diagramName, layoutParam.isCgmesUseNames());
+        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
+        if (layoutParam.getCgmesScaleFactor() != 1) {
+            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
         }
     }
 }

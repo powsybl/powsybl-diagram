@@ -38,10 +38,6 @@ public class LayoutParameters {
 
     private boolean showInternalNodes = false;
 
-    private double scaleFactor = 1;
-
-    private String diagramName = null;
-
     private boolean drawStraightWires = false;
 
     private double horizontalSnakeLinePadding = 20;
@@ -74,8 +70,6 @@ public class LayoutParameters {
 
     private boolean svgWidthAndHeightAdded = false;
 
-    private boolean useName = false;
-
     private double feederInfosIntraMargin = 10;
 
     private Alignment busbarsAlignment = Alignment.FIRST;
@@ -99,6 +93,10 @@ public class LayoutParameters {
     /** em dash unicode for undefined value */
     private String undefinedValueSymbol = "\u2014";
 
+    private double cgmesScaleFactor = 1;
+    private String cgmesDiagramName = null;
+    private boolean cgmesUseNames = true;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
     private boolean displayCurrentFeederInfo = false;
@@ -119,13 +117,13 @@ public class LayoutParameters {
                             @JsonProperty("showGrid") boolean showGrid,
                             @JsonProperty("tooltipEnabled") boolean tooltipEnabled,
                             @JsonProperty("showInternalNodes") boolean showInternalNodes,
-                            @JsonProperty("scaleFactor") double scaleFactor,
+                            @JsonProperty("scaleFactor") double cgmesScaleFactor,
                             @JsonProperty("drawStraightWires") boolean drawStraightWires,
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
                             @JsonProperty("feederInfosOuterMargin") double feederInfosOuterMargin,
                             @JsonProperty("spaceForFeederInfos") double spaceForFeederInfos,
-                            @JsonProperty("diagramName") String diagramName,
+                            @JsonProperty("diagramName") String cgmesDiagramName,
                             @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
                             @JsonProperty("maxComponentHeight") double maxComponentHeight,
@@ -138,7 +136,7 @@ public class LayoutParameters {
                             @JsonProperty("feederInfoSymmetry") boolean feederInfoSymmetry,
                             @JsonProperty("cssLocation") CssLocation cssLocation,
                             @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded,
-                            @JsonProperty("useName") boolean useName,
+                            @JsonProperty("useName") boolean cgmesUseNames,
                             @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
                             @JsonProperty("busInfoMargin") double busInfoMargin,
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
@@ -163,13 +161,13 @@ public class LayoutParameters {
         this.showGrid = showGrid;
         this.tooltipEnabled = tooltipEnabled;
         this.showInternalNodes = showInternalNodes;
-        this.scaleFactor = scaleFactor;
+        this.cgmesScaleFactor = cgmesScaleFactor;
         this.drawStraightWires = drawStraightWires;
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
         this.feederInfosOuterMargin = feederInfosOuterMargin;
         this.spaceForFeederInfos = spaceForFeederInfos;
-        this.diagramName = diagramName;
+        this.cgmesDiagramName = cgmesDiagramName;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
         this.adaptCellHeightToContent = adaptCellHeightToContent;
         this.maxComponentHeight = maxComponentHeight;
@@ -182,7 +180,7 @@ public class LayoutParameters {
         this.feederInfoSymmetry = feederInfoSymmetry;
         this.cssLocation = cssLocation;
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
-        this.useName = useName;
+        this.cgmesUseNames = cgmesUseNames;
         this.feederInfosIntraMargin = feederInfosIntraMargin;
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
@@ -210,13 +208,13 @@ public class LayoutParameters {
         showGrid = other.showGrid;
         tooltipEnabled = other.tooltipEnabled;
         showInternalNodes = other.showInternalNodes;
-        scaleFactor = other.scaleFactor;
+        cgmesScaleFactor = other.cgmesScaleFactor;
         drawStraightWires = other.drawStraightWires;
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
         feederInfosOuterMargin = other.feederInfosOuterMargin;
         spaceForFeederInfos = other.spaceForFeederInfos;
-        diagramName = other.diagramName;
+        cgmesDiagramName = other.cgmesDiagramName;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
         adaptCellHeightToContent = other.adaptCellHeightToContent;
         maxComponentHeight = other.maxComponentHeight;
@@ -230,7 +228,7 @@ public class LayoutParameters {
         feederInfoSymmetry = other.feederInfoSymmetry;
         cssLocation = other.cssLocation;
         svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
-        useName = other.useName;
+        cgmesUseNames = other.cgmesUseNames;
         feederInfosIntraMargin = other.feederInfosIntraMargin;
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
@@ -317,21 +315,21 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getScaleFactor() {
-        return scaleFactor;
+    public double getCgmesScaleFactor() {
+        return cgmesScaleFactor;
     }
 
-    public LayoutParameters setScaleFactor(double scaleFactor) {
-        this.scaleFactor = scaleFactor;
+    public LayoutParameters setCgmesScaleFactor(double cgmesScaleFactor) {
+        this.cgmesScaleFactor = cgmesScaleFactor;
         return this;
     }
 
-    public String getDiagramName() {
-        return diagramName;
+    public String getCgmesDiagramName() {
+        return cgmesDiagramName;
     }
 
-    public LayoutParameters setDiagramName(String diagramName) {
-        this.diagramName = diagramName;
+    public LayoutParameters setCgmesDiagramName(String cgmesDiagramName) {
+        this.cgmesDiagramName = cgmesDiagramName;
         return this;
     }
 
@@ -528,12 +526,12 @@ public class LayoutParameters {
         return getCellWidth() / 4;
     }
 
-    public boolean isUseName() {
-        return useName;
+    public boolean isCgmesUseNames() {
+        return cgmesUseNames;
     }
 
-    public LayoutParameters setUseName(boolean useName) {
-        this.useName = useName;
+    public LayoutParameters setCgmesUseNames(boolean cgmesUseNames) {
+        this.cgmesUseNames = cgmesUseNames;
         return this;
     }
 
