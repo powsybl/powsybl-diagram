@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -41,14 +42,14 @@ class TestCase2StackedCell extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 1);
-        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 3, 10, 10);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 1, 2);
-        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 2, 3);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 1);
+        Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 3, 10, 10);
+        Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 1, 2);
+        Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 2, 3);
     }
 
     @Test

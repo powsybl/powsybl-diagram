@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 
 /**
@@ -25,13 +26,13 @@ class TestCase7DoubleDJ extends AbstractTestCaseIidm {
     @Override
     public void setUp() {
         network = Network.create("testCase", "test");
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
-        createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 2, 3);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 3, 4);
-        createBusBarSection(vl, "bbs2", "bbs2", 4, 1, 2);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 2, 3);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 3, 4);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 4, 1, 2);
     }
 }

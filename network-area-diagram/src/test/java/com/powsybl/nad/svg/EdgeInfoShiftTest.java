@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -41,7 +42,7 @@ class EdgeInfoShiftTest extends AbstractTest {
 
     @Test
     void testArrowShift() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setArrowShift(20);
         assertEquals(toString("/edge_info_shift.svg"), generateSvgString(network, "/edge_info_shift.svg"));
     }

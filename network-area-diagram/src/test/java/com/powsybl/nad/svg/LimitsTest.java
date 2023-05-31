@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -40,7 +41,7 @@ class LimitsTest extends AbstractTest {
 
     @Test
     void testVoltageLimits() {
-        Network network = NetworkTestFactory.createTwoVoltageLevelsThreeBuses();
+        Network network = Networks.createTwoVoltageLevelsThreeBuses();
         network.getVoltageLevel("vl1")
                 .setHighVoltageLimit(385)
                 .getBusView().getBus("vl1_0").setV(385.1);
@@ -52,7 +53,7 @@ class LimitsTest extends AbstractTest {
 
     @Test
     void testCurrentLimits() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         network.getLine("l1").newCurrentLimits1().setPermanentLimit(250).add();
         network.getLine("l1").getTerminal1().setP(101).setQ(150).getBusView().getBus().setV(390);
         assertEquals(toString("/current_limits.svg"), generateSvgString(network, "/current_limits.svg"));

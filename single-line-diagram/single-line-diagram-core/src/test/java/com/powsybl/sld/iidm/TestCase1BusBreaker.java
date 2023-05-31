@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -25,8 +26,8 @@ class TestCase1BusBreaker extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("busBreakerTestCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380, 10);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
         VoltageLevel.BusBreakerView view = vl.getBusBreakerView();
         view.newBus()
                 .setId("b1")

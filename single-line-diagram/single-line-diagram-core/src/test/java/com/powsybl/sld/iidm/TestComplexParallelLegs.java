@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ class TestComplexParallelLegs extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
-        network = CreateNetworksUtil.createNetworkWithFourParallelLegs();
+        network = Networks.createNetworkWithFourParallelLegs();
         graphBuilder = new NetworkGraphBuilder(network);
     }
 

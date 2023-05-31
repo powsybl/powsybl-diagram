@@ -58,6 +58,7 @@
         <module>network-area-diagram</module>
         <module>single-line-diagram</module>
         <module>diagram-util</module>
+        <module>diagram-test</module>
     </modules>
 
     <properties>
@@ -149,9 +150,8 @@
             <!-- Test dependencies -->
             <dependency>
                 <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
+                <artifactId>powsybl-diagram-test</artifactId>
                 <version>${project.version}</version>
-                <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
             <dependency>

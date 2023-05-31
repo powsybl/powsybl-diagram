@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
@@ -59,7 +60,7 @@ class TextNodeTest extends AbstractTest {
 
     @Test
     void testVlId() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setIdDisplayed(true).setBusLegend(false);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_id.svg"), generateSvgString(network, "/vl_description_id.svg"));
@@ -67,7 +68,7 @@ class TextNodeTest extends AbstractTest {
 
     @Test
     void testSubstationDescription() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
@@ -75,21 +76,21 @@ class TextNodeTest extends AbstractTest {
 
     @Test
     void testSubstationId() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setIdDisplayed(true).setBusLegend(false);
         assertEquals(toString("/vl_description_substation_id.svg"), generateSvgString(network, "/vl_description_substation_id.svg"));
     }
 
     @Test
     void testDetailedTextNodeNoBusLegend() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
         assertEquals(toString("/detailed_text_node_no_legend.svg"), generateSvgString(network, "/detailed_text_node_no_legend.svg"));
     }
 
     @Test
     void testDetailedTextNode() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setVoltageLevelDetails(true).setSubstationDescriptionDisplayed(true);
         assertEquals(toString("/detailed_text_node.svg"), generateSvgString(network, "/detailed_text_node.svg"));
     }

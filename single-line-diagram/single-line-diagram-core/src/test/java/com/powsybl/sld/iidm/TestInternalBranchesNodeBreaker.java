@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
@@ -23,7 +24,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = CreateNetworksUtil.createNodeBreakerNetworkWithInternalBranches("TestInternalBranchesNodeBreaker", "test");
+        network = Networks.createNodeBreakerNetworkWithInternalBranches("TestInternalBranchesNodeBreaker", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.getSubstation("S1");
     }
