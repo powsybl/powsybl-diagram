@@ -11,7 +11,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
-import com.powsybl.nad.svg.NetworkTestFactory;
+import com.powsybl.diagram.test.Networks;
 
 import java.util.Map;
 
@@ -26,7 +26,7 @@ class FixedLayoutTest {
 
     @Test
     void testCurrentLimits() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
 
         Map<String, Point> expected = Map.of(
                 "dl1", new Point(0, 0),

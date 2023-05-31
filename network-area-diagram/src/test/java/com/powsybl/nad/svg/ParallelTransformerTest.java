@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -40,7 +41,7 @@ class ParallelTransformerTest extends AbstractTest {
 
     @Test
     void test() {
-        Network network = NetworkTestFactory.createTwoVoltageLevelsTwoTransformers();
+        Network network = Networks.createTwoVoltageLevelsTwoTransformers();
         assertEquals(toString("/parallel_transformers.svg"), generateSvgString(network, "/parallel_transformers.svg"));
     }
 }

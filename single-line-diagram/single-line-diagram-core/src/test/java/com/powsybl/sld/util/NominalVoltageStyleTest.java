@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.util;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
@@ -48,50 +49,50 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
 
         styleProvider = new StyleProvidersList(
                 new NominalVoltageStyleProvider(),
                 new HighlightLineStateStyleProvider(network));
 
         // first voltage level
-        vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
-        createLoad(vl1, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
-        createSwitch(vl1, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl1, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+        vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createLoad(vl1, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        Networks.createSwitch(vl1, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl1, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
 
         // second voltage level
-        vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 10);
-        createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
+        vl2 = Networks.createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225);
+        Networks.createBusBarSection(vl2, "bbs2", "bbs2", 0, 1, 1);
 
         // third voltage level
-        vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63, 10);
-        createBusBarSection(vl3, "bbs3", "bbs3", 0, 1, 1);
+        vl3 = Networks.createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 63);
+        Networks.createBusBarSection(vl3, "bbs3", "bbs3", 0, 1, 1);
 
         // 2WT between first and second voltage level
-        createTwoWindingsTransformer(substation, "2WT", "2WT", 1, 1, 1, 1, 1, 1,
+        Networks.createTwoWindingsTransformer(substation, "2WT", "2WT", 1, 1, 1, 1, 1, 1,
                 3, 1, vl1.getId(), vl2.getId(),
                 "2WT_1", 1, ConnectablePosition.Direction.TOP,
                 "2WT_2", 0, ConnectablePosition.Direction.TOP);
-        createSwitch(vl1, "d2WT_1", "d2WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
-        createSwitch(vl1, "b2WT_1", "b2WT_1", SwitchKind.BREAKER, true, false, true, 3, 4);
-        createSwitch(vl2, "d2WT_2", "d2WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
-        createSwitch(vl2, "b2WT_2", "b2WT_2", SwitchKind.BREAKER, true, true, true, 1, 2);
+        Networks.createSwitch(vl1, "d2WT_1", "d2WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
+        Networks.createSwitch(vl1, "b2WT_1", "b2WT_1", SwitchKind.BREAKER, true, false, true, 3, 4);
+        Networks.createSwitch(vl2, "d2WT_2", "d2WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
+        Networks.createSwitch(vl2, "b2WT_2", "b2WT_2", SwitchKind.BREAKER, true, true, true, 1, 2);
 
         // 3WT between the 3 voltage levels
-        createThreeWindingsTransformer(substation, "3WT", "3WT", vl1.getId(), vl2.getId(), vl3.getId(),
+        Networks.createThreeWindingsTransformer(substation, "3WT", "3WT", vl1.getId(), vl2.getId(), vl3.getId(),
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 5, 3, 1,
                 "3WT_1", 2, ConnectablePosition.Direction.TOP,
                 "3WT_2", 1, ConnectablePosition.Direction.TOP,
                 "3WT_3", 0, ConnectablePosition.Direction.TOP);
-        createSwitch(vl1, "d3WT_1", "d3WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 6);
-        createSwitch(vl1, "b3WT_1", "b3WT_1", SwitchKind.BREAKER, true, true, true, 5, 6);
-        createSwitch(vl2, "d3WT_2", "d3WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
-        createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, false, true, 3, 4);
-        createSwitch(vl3, "d3WT_3", "d3WT_3", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
-        createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
+        Networks.createSwitch(vl1, "d3WT_1", "d3WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 6);
+        Networks.createSwitch(vl1, "b3WT_1", "b3WT_1", SwitchKind.BREAKER, true, true, true, 5, 6);
+        Networks.createSwitch(vl2, "d3WT_2", "d3WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
+        Networks.createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, false, true, 3, 4);
+        Networks.createSwitch(vl3, "d3WT_3", "d3WT_3", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
+        Networks.createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
     private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {

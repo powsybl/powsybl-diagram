@@ -59,12 +59,22 @@
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-iidm-impl</artifactId>
+            <artifactId>powsybl-config-test</artifactId>
             <scope>test</scope>
         </dependency>
-      <dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-diagram-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-ieee-cdf-converter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -75,11 +85,6 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-ucte-converter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-config-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

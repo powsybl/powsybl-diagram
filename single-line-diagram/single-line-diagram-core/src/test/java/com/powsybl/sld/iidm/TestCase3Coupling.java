@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -38,13 +39,13 @@ class TestCase3Coupling extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
-        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
-        createBusBarSection(vl, "bbs2", "bbs2", 3, 2, 1);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        Networks.createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 3, 2, 1);
     }
 
     @Test
@@ -61,8 +62,8 @@ class TestCase3Coupling extends AbstractTestCaseIidm {
 
     @Test
     void test3Bars() {
-        createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
-        createBusBarSection(vl, "bbs3", "bbs3", 4, 3, 1);
+        Networks.createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+        Networks.createBusBarSection(vl, "bbs3", "bbs3", 4, 3, 1);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -76,8 +77,8 @@ class TestCase3Coupling extends AbstractTestCaseIidm {
 
     @Test
     void test3Bars2Sections() {
-        createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
-        createBusBarSection(vl, "bbs3", "bbs3", 4, 1, 2);
+        Networks.createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+        Networks.createBusBarSection(vl, "bbs3", "bbs3", 4, 1, 2);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());

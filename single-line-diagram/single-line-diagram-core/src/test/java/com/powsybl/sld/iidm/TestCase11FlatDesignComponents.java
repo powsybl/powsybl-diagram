@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -25,7 +26,7 @@ class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = NetworkFactory.createTestCase11Network();
+        network = Networks.createTestCase11Network();
         substation = network.getSubstation("subst");
         graphBuilder = new NetworkGraphBuilder(network);
     }

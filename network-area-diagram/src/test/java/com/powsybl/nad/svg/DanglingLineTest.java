@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -42,13 +43,13 @@ class DanglingLineTest extends AbstractTest {
 
     @Test
     void testConnected() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         assertEquals(toString("/dangling_line_connected.svg"), generateSvgString(network, "/dangling_line_connected.svg"));
     }
 
     @Test
     void testDisconnected() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         network.getDanglingLines().iterator().next().getTerminal().disconnect();
         assertEquals(toString("/dangling_line_disconnected.svg"), generateSvgString(network, "/dangling_line_disconnected.svg"));
     }

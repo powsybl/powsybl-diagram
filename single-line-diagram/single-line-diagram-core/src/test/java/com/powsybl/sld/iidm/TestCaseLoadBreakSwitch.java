@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -28,24 +29,24 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCaseLoadBreakSwitch", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
-        createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 2);
-        createGenerator(vl, "G", "G", "G", 0, ConnectablePosition.Direction.TOP, 2, 50, 100, false, 100, 400);
-        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
-        createSwitch(vl, "d", "d", SwitchKind.LOAD_BREAK_SWITCH, false, false, false, 0, 2);
-        createSwitch(vl, "b", "b", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 3);
-        createSwitch(vl, "b1", "b1", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 0, 1);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 2);
+        Networks.createGenerator(vl, "G", "G", "G", 0, ConnectablePosition.Direction.TOP, 2, 50, 100, false, 100, 400);
+        Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
+        Networks.createSwitch(vl, "d", "d", SwitchKind.LOAD_BREAK_SWITCH, false, false, false, 0, 2);
+        Networks.createSwitch(vl, "b", "b", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 3);
+        Networks.createSwitch(vl, "b1", "b1", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 0, 1);
 
-        createTwoWindingsTransformer(substation, "T11", "T11", 250, 100, 52, 12, 65, 90,
+        Networks.createTwoWindingsTransformer(substation, "T11", "T11", 250, 100, 52, 12, 65, 90,
                 4, 6, vl.getId(), vl.getId(),
                 "T11", null, ConnectablePosition.Direction.TOP,
                 "T11", null, ConnectablePosition.Direction.BOTTOM);
-        createSwitch(vl, "b2", "b2", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 0, 4);
-        createSwitch(vl, "b3", "b3", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 5);
-        createSwitch(vl, "b4", "b4", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 6);
-        createSwitch(vl, "b5", "b5", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 3);
+        Networks.createSwitch(vl, "b2", "b2", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 0, 4);
+        Networks.createSwitch(vl, "b3", "b3", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 5);
+        Networks.createSwitch(vl, "b4", "b4", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 6);
+        Networks.createSwitch(vl, "b5", "b5", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 3);
     }
 
     @Test

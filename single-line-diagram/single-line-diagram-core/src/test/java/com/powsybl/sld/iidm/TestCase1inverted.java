@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
@@ -41,12 +42,12 @@ class TestCase1inverted extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
-        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 0, 10, 10);
-        createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 2, 1);
-        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 0);
-        createBusBarSection(vl, "bbs", "bbs", 2, 1, 1);
+        substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 0, 10, 10);
+        Networks.createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 2, 1);
+        Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 0);
+        Networks.createBusBarSection(vl, "bbs", "bbs", 2, 1, 1);
     }
 
     @Test
