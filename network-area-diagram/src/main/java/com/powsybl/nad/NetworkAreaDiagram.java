@@ -41,35 +41,35 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Path svgFile) {
-        draw(network, svgFile, new ParamBuilder().build(), VoltageLevelFilter.NO_FILTER);
+        draw(network, svgFile, new ConfigBuilder().build(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Path svgFile, String voltageLevelId, int depth) {
-        draw(network, svgFile, new ParamBuilder().build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, svgFile, new ConfigBuilder().build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds) {
-        draw(network, svgFile, new ParamBuilder().build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, svgFile, new ConfigBuilder().build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, new ParamBuilder().build(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+        draw(network, svgFile, new ConfigBuilder().build(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
     /* ---------------------------------------------------------------- */
-    // Network, Path, Param, Predicate
+    // Network, Path, Configuration, Predicate
     /* ---------------------------------------------------------------- */
 
-    public static void draw(Network network, Path svgFile, Param param, Predicate<VoltageLevel> voltageLevelFilter) {
+    public static void draw(Network network, Path svgFile, Config config, Predicate<VoltageLevel> voltageLevelFilter) {
 
         Objects.requireNonNull(network);
         Objects.requireNonNull(svgFile);
-        LayoutParameters layoutParameters = param.getLayoutParameters();
-        SvgParameters svgParameters = param.getSvgParameters();
-        StyleProvider styleProvider = param.createStyleProvider(network);
-        LayoutFactory layoutFactory = param.getLayoutFactory();
-        IdProvider idProvider = param.createIdProvider();
-        LabelProvider labelProvider = param.createLabelProvider(network);
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        SvgParameters svgParameters = config.getSvgParameters();
+        StyleProvider styleProvider = config.createStyleProvider(network);
+        LayoutFactory layoutFactory = config.getLayoutFactory();
+        IdProvider idProvider = config.createIdProvider();
+        LabelProvider labelProvider = config.createLabelProvider(network);
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);
         Objects.requireNonNull(styleProvider);
@@ -87,35 +87,35 @@ public final class NetworkAreaDiagram {
     /* ------------------------------------------------------------------------------------------------ */
 
     public static void draw(Network network, Writer writer) {
-        draw(network, writer, new ParamBuilder().build(), VoltageLevelFilter.NO_FILTER);
+        draw(network, writer, new ConfigBuilder().build(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Writer writer, String voltageLevelId, int depth) {
-        draw(network, writer, new ParamBuilder().build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, writer, new ConfigBuilder().build(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Writer writer, List<String> voltageLevelIds) {
-        draw(network, writer, new ParamBuilder().build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, writer, new ConfigBuilder().build(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public void draw(Network network, Writer writer, Predicate<VoltageLevel> voltageLevelFilter) {
-        draw(network, writer, new ParamBuilder().build(), voltageLevelFilter);
+        draw(network, writer, new ConfigBuilder().build(), voltageLevelFilter);
     }
 
     /* ----------------------------------------------------------------------------------------------- */
-    // Network, Writer, Param, Predicate
+    // Network, Writer, Configuration, Predicate
     /* ----------------------------------------------------------------------------------------------- */
 
-    public static void draw(Network network, Writer writer, Param param, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, param.createIdProvider()).buildGraph();
-        param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
-        new SvgWriter(param.getSvgParameters(), param.createStyleProvider(network), param.createLabelProvider(network)).writeSvg(graph, writer);
+    public static void draw(Network network, Writer writer, Config config, Predicate<VoltageLevel> voltageLevelFilter) {
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, config.createIdProvider()).buildGraph();
+        config.getLayoutFactory().create().run(graph, config.getLayoutParameters());
+        new SvgWriter(config.getSvgParameters(), config.createStyleProvider(network), config.createLabelProvider(network)).writeSvg(graph, writer);
     }
 
     public String drawToString(Network network, SvgParameters svgParameters) {
         try (StringWriter writer = new StringWriter()) {
-            Param param = new ParamBuilder().withSvgParameters(svgParameters).build();
-            draw(network, writer, param, VoltageLevelFilter.NO_FILTER);
+            Config config = new ConfigBuilder().withSvgParameters(svgParameters).build();
+            draw(network, writer, config, VoltageLevelFilter.NO_FILTER);
             return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
