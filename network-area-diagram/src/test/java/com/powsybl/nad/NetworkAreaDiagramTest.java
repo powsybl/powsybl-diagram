@@ -9,29 +9,25 @@ package com.powsybl.nad;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.build.iidm.IdProvider;
-import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -54,18 +50,14 @@ class NetworkAreaDiagramTest extends AbstractTest {
         return new NominalVoltageStyleProvider(network);
     }
 
+    private ConfigBuilder.StyleProviderFactory getStyleProviderFactory() {
+        return network -> getStyleProvider(network);
+    }
+
     @Override
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
         };
-    }
-
-    private LayoutFactory getLayoutFactory() {
-        return new BasicForceLayoutFactory();
-    }
-
-    private IdProvider getIdProvider() {
-        return new IntIdProvider();
     }
 
     private String getContentFile(Path svgFile) {
@@ -79,14 +71,12 @@ class NetworkAreaDiagramTest extends AbstractTest {
     @Test
     void testDrawSvg() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        NetworkAreaDiagram nad = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-
         Path svgFile = fileSystem.getPath("nad-test.svg");
-        nad.draw(svgFile,
-                getSvgParameters(),
-                getLayoutParameters(),
-                getStyleProvider(network));
-
+        Config config = new ConfigBuilder()
+                .withSvgParameters(getSvgParameters())
+                .withStyleProviderFactory(getStyleProviderFactory())
+                .build();
+        NetworkAreaDiagram.draw(network, svgFile, config, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 }
