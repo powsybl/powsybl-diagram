@@ -135,20 +135,44 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
         Point p1 = getGraph().getShiftedPoint(node1);
         Point p2 = getGraph().getShiftedPoint(node2);
 
-        // FIXME : mising facing nodes
+        if (facingNodes(node1, node2)) {
+            // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
+            double ySnakeLine = Math.min(p1.getY(), p2.getY()) + decal1V;
+            if (p1.getX() != p2.getX()) {
+                polyline.add(new Point(p1.getX(), ySnakeLine));
+                polyline.add(new Point(p2.getX(), ySnakeLine));
+            } else {
+                polyline.add(new Point(p1.getX(), ySnakeLine));
+            }
+        } else {
+            String vl2 = getGraph().getVoltageLevelInfos(node2).getId();
+            int nbSnakeLines2 = infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
+            double decal2V = VerticalLayout.getVerticalShift(layoutParam, dNode2, nbSnakeLines2);
 
-        String vl2 = getGraph().getVoltageLevelInfos(node2).getId();
-        int nbSnakeLines2 = infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
-        double decal2V = VerticalLayout.getVerticalShift(layoutParam, dNode2, nbSnakeLines2);
+            double ySnakeLine1 = VerticalLayout.getYSnakeLine(getGraph(), node1, dNode1, decal1V, layoutParam);
+            double ySnakeLine2 = VerticalLayout.getYSnakeLine(getGraph(), node2, dNode2, decal2V, layoutParam);
 
-        double ySnakeLine1 = VerticalLayout.getYSnakeLine(getGraph(), node1, dNode1, decal1V, layoutParam);
-        double ySnakeLine2 = VerticalLayout.getYSnakeLine(getGraph(), node2, dNode2, decal2V, layoutParam);
+            Side side = VerticalLayout.getSide(increment);
+            double xSnakeLine = VerticalLayout.getXSnakeLine(getGraph(), node1, side, layoutParam, infosNbSnakeLines, maxVoltageLevelWidth);
+            polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
+                    xSnakeLine, ySnakeLine1,
+                    xSnakeLine, ySnakeLine2,
+                    p2.getX(), ySnakeLine2));
+        }
+    }
 
-        Side side = VerticalLayout.getSide(increment);
-        double xSnakeLine = VerticalLayout.getXSnakeLine(getGraph(), node1, side, layoutParam, infosNbSnakeLines, maxVoltageLevelWidth);
-        polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
-                xSnakeLine, ySnakeLine1,
-                xSnakeLine, ySnakeLine2,
-                p2.getX(), ySnakeLine2));
+    private boolean facingNodes(Node node1, Node node2) {
+        Direction dNode1 = getNodeDirection(getGraph(), node1, 1);
+        Direction dNode2 = getNodeDirection(getGraph(), node2, 2);
+        VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
+        VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
+        boolean isVl1Vl2Adjacent = false;
+        boolean isVl2Vl1Adjacent = false;
+        for (SubstationGraph substation : getGraph().getSubstations()) {
+            isVl1Vl2Adjacent |= substation.graphAdjacents(vlGraph1, vlGraph2);
+            isVl2Vl1Adjacent |= substation.graphAdjacents(vlGraph2, vlGraph1);
+        }
+        return (dNode1 == BOTTOM && dNode2 == TOP && isVl1Vl2Adjacent)
+                || (dNode1 == TOP && dNode2 == BOTTOM && isVl2Vl1Adjacent);
     }
 }
