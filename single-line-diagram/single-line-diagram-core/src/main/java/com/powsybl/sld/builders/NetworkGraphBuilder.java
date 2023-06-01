@@ -666,21 +666,47 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (!linesIds.contains(branch.getId())) {
                 Terminal t1 = branch.getTerminal1();
                 Terminal t2 = branch.getTerminal2();
-
-                VoltageLevel vl1 = t1.getVoltageLevel();
-                VoltageLevel vl2 = t2.getVoltageLevel();
-
-                VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
-                VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
-
-                if (g1 != null && g2 != null) {
-                    Node n1 = g1.getNode(branch.getId() + "_" + branch.getSide(t1).name());
-                    Node n2 = g2.getNode(branch.getId() + "_" + branch.getSide(t2).name());
-                    graph.addLineEdge(branch.getId(), n1, n2);
+                String nodeId1 = branch.getId() + "_" + branch.getSide(t1).name();
+                String nodeId2 = branch.getId() + "_" + branch.getSide(t2).name();
+                if (addLineEdge(graph, branch.getId(), t1, t2, nodeId1, nodeId2)) {
                     linesIds.add(branch.getId());
                 }
             }
         });
+    }
+
+    private void addHvdcLineEdges(Graph graph, List<HvdcLine> lines) {
+        Set<String> linesIds = new HashSet<>();
+        lines.forEach(line -> {
+            if (!linesIds.contains(line.getId())) {
+                HvdcConverterStation<?> cvs1 = line.getConverterStation1();
+                HvdcConverterStation<?> cvs2 = line.getConverterStation2();
+                Terminal t1 = cvs1.getTerminal();
+                Terminal t2 = cvs2.getTerminal();
+                String nodeId1 = cvs1.getId();
+                String nodeId2 = cvs2.getId();
+
+                if (addLineEdge(graph, line.getId(), t1, t2, nodeId1, nodeId2)) {
+                    linesIds.add(line.getId());
+                }
+            }
+        });
+    }
+
+    private boolean addLineEdge(Graph graph, String lineId, Terminal t1, Terminal t2, String nodeId1, String nodeId2) {
+        VoltageLevel vl1 = t1.getVoltageLevel();
+        VoltageLevel vl2 = t2.getVoltageLevel();
+
+        VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
+        VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
+
+        boolean isNotNull = g1 != null && g2 != null;
+        if (isNotNull) {
+            Node n1 = g1.getNode(nodeId1);
+            Node n2 = g2.getNode(nodeId2);
+            graph.addLineEdge(lineId, n1, n2);
+        }
+        return isNotNull;
     }
 
     private void add2wtEdges(VoltageLevelGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
@@ -787,6 +813,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
                 .filter(NetworkGraphBuilder::isNotInternalToSubstation)
+                .collect(Collectors.toList()));
+
+        // Add snake edges between different HVDC lines in the same zone
+        addHvdcLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(VscConverterStation.class))
+                .map(HvdcConverterStation::getHvdcLine)
+                .distinct()
                 .collect(Collectors.toList()));
     }
 }

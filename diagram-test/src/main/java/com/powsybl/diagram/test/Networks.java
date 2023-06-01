@@ -27,6 +27,8 @@ public final class Networks {
 
     private static final String SUBSTATION_1_ID = "Substation1";
 
+    private static final String SUBSTATION_2_ID = "Substation2";
+
     private static final String VOLTAGELEVEL_ID = "VoltageLevel";
 
     private static final String VOLTAGELEVEL_1_ID = "VoltageLevel1";
@@ -438,7 +440,7 @@ public final class Networks {
                 .setVoltageRegulatorOn(true)
                 .add();
         Substation substation2 = network.newSubstation()
-                .setId("Substation2")
+                .setId(SUBSTATION_2_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()

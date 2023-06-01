@@ -7,10 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.ZoneGraph;
@@ -163,16 +160,44 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         createLine(subJ10, subK10);
         createLine(subK10, subD10);
 
+        // HDVCLine between A 230 & B 230
+        String vlId = String.format("%s %.0f", subA.getId(), 230.0);
+        String busId = String.format("%s %s", vlId, "Bus");
+        network.getVoltageLevel(vlId).newVscConverterStation()
+                .setId("Converter1")
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+        vlId = String.format("%s %.0f", subB.getId(), 230.0);
+        busId = String.format("%s %s", vlId, "Bus");
+        network.getVoltageLevel(vlId).newVscConverterStation()
+                .setId("Converter2")
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setReactivePowerSetpoint(123)
+                .setVoltageRegulatorOn(false)
+                .add();
+        network.newHvdcLine()
+                .setId("HvdcLine")
+                .setConverterStationId1("Converter1")
+                .setConverterStationId2("Converter2")
+                .setR(1)
+                .setNominalV(400)
+                .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+                .setMaxP(300.0)
+                .setActivePowerSetpoint(280)
+                .add();
+
         return network;
     }
 
     @Test
     void testHorizontal() {
         // build zone graph
-        // network = NetworkFactory.createTestCase11Network();
-        // List<String> zone = Arrays.asList("subst");
-        // ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
-
         network = createDiamond();
         List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
