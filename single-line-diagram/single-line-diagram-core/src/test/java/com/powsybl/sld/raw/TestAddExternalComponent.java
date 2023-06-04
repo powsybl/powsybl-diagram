@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.NodeFactory;
@@ -50,7 +53,14 @@ class TestAddExternalComponent extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
+        Config config = new ConfigBuilder(Network.create("empty", ""))
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/TestCheese.svg"),
-                toSVG(g, "/TestCheese.svg", getRawLabelProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCheese.svg", config));
     }
 }

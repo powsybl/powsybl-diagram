@@ -7,6 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -44,6 +46,11 @@ class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         String filename = "/TestComplexParallelLegsInternalPst.svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString(filename), toSVG(g, filename, config));
     }
 }
