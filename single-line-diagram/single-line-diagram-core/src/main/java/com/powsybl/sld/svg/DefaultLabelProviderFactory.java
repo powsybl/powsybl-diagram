@@ -7,7 +7,6 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 
@@ -15,7 +14,7 @@ import com.powsybl.sld.library.ComponentLibrary;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class DefaultLabelProviderFactory implements ParamBuilder.LabelProviderFactory {
+public class DefaultLabelProviderFactory implements LabelProviderFactory {
 
     @Override
     public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {

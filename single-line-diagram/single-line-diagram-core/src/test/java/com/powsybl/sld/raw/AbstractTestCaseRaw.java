@@ -8,7 +8,8 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.ParamBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -34,12 +35,16 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph graph, String filename) {
-        LabelProvider labelProvider = labelRawProviderFactory.create(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters);
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        return toSVG(graph, filename, defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId());
+        Config config = new ConfigBuilder(Network.create("empty", ""))
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withLabelProviderFactory(labelRawProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+        return toSVG(graph, filename, config);
     }
 
-    private final ParamBuilder.LabelProviderFactory labelRawProviderFactory = new DefaultLabelProviderFactory() {
+    private final LabelProviderFactory labelRawProviderFactory = new DefaultLabelProviderFactory() {
 
         @Override
         public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
@@ -60,7 +65,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
     };
 
-    public ParamBuilder.LabelProviderFactory getLabelRawProviderFactory() {
+    public LabelProviderFactory getLabelRawProviderFactory() {
         return labelRawProviderFactory;
     }
 }

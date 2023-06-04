@@ -16,7 +16,10 @@ import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.GraphMetadata;
+import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,19 +60,19 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Network network, String id, Path svgFile) {
-        draw(network, id, svgFile, new ParamBuilder().build());
+        draw(network, id, svgFile, new ConfigBuilder(network).build());
     }
 
-    public static void draw(Network network, String id, Path svgFile, Param param) {
+    public static void draw(Network network, String id, Path svgFile, Config config) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
         Identifiable<?> identifiable = getIdentifiable(network, id);
 
         if (identifiable.getType() == VOLTAGE_LEVEL) {
-            drawVoltageLevel(network, id, svgFile, param);
+            drawVoltageLevel(network, id, svgFile, config);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, svgFile, param);
+            drawSubstation(network, id, svgFile, config);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
@@ -80,19 +83,18 @@ public final class SingleLineDiagram {
     }
 
     public static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile) {
-        drawVoltageLevel(network, voltageLevelId, svgFile, new ParamBuilder().build());
+        drawVoltageLevel(network, voltageLevelId, svgFile, new ConfigBuilder(network).build());
     }
 
-    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, Param param) {
-        LayoutParameters layoutParameters = param.getLayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = param.getVoltageLevelLayoutFactory();
+    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, Config config) {
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
 
         Objects.requireNonNull(voltageLevelLayoutFactory);
 
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
         voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(param.getComponentLibrary(), param.getLayoutParameters(), param.getSvgParameters());
-        draw(voltageLevelGraph, svgFile, svgWriter, param.createLabelProvider(network), param.createStyleProvider(network), param.getSvgParameters().getPrefixId());
+        draw(voltageLevelGraph, svgFile, config);
     }
 
     public static void drawSubstation(Network network, String id, String svgFile) {
@@ -100,25 +102,24 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new ParamBuilder().build());
+        drawSubstation(network, id, svgFile, new ConfigBuilder(network).build());
     }
 
-    private static void drawSubstation(Network network, String substationId, Path svgFile, Param param) {
+    private static void drawSubstation(Network network, String substationId, Path svgFile, Config config) {
 
-        LayoutParameters layoutParameters = param.getLayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = param.getVoltageLevelLayoutFactory();
-        SubstationLayoutFactory substationLayoutFactory = param.getSubstationLayoutFactory();
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
+        SubstationLayoutFactory substationLayoutFactory = config.getSubstationLayoutFactory();
 
         Objects.requireNonNull(substationLayoutFactory);
         Objects.requireNonNull(voltageLevelLayoutFactory);
 
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
         substationLayoutFactory.create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(param.getComponentLibrary(), param.getLayoutParameters(), param.getSvgParameters());
-        draw(substationGraph, svgFile, svgWriter, param.createLabelProvider(network), param.createStyleProvider(network), param.getSvgParameters().getPrefixId());
+        draw(substationGraph, svgFile, config);
     }
 
-    public static void draw(Graph graph, Path svgFile, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
+    public static void draw(Graph graph, Path svgFile, Config config) {
         Objects.requireNonNull(svgFile);
 
         Path dir = svgFile.toAbsolutePath().getParent();
@@ -128,7 +129,7 @@ public final class SingleLineDiagram {
         }
         try (Writer writerForSvg = Files.newBufferedWriter(svgFile, StandardCharsets.UTF_8);
              Writer metadataWriter = Files.newBufferedWriter(dir.resolve(svgFileName.replace(".svg", "_metadata.json")), StandardCharsets.UTF_8)) {
-            draw(graph, writerForSvg, metadataWriter, svgWriter, labelProvider, styleProvider, prefixId);
+            draw(graph, writerForSvg, metadataWriter, config);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -137,60 +138,67 @@ public final class SingleLineDiagram {
     /* draw functions with writer */
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter) {
-        draw(network, id, writerForSvg, metadataWriter, new ParamBuilder().build());
+        draw(network, id, writerForSvg, metadataWriter, new ConfigBuilder(network).build());
     }
 
-    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, Param param) {
+    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, Config config) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
         Identifiable<?> identifiable = getIdentifiable(network, id);
         if (identifiable.getType() == VOLTAGE_LEVEL) {
-            drawVoltageLevel(network, id, writerForSvg, metadataWriter, param);
+            drawVoltageLevel(network, id, writerForSvg, metadataWriter, config);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, writerForSvg, metadataWriter, param);
+            drawSubstation(network, id, writerForSvg, metadataWriter, config);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
     }
 
-    public static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, Param param) {
-        LayoutParameters layoutParameters = param.getLayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = param.getVoltageLevelLayoutFactory();
+    public static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, Config config) {
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
 
         Objects.requireNonNull(voltageLevelLayoutFactory);
 
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
         voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(param.getComponentLibrary(), param.getLayoutParameters(), param.getSvgParameters());
-        draw(voltageLevelGraph, writerForSvg, metadataWriter, svgWriter, param.createLabelProvider(network), param.createStyleProvider(network), param.getSvgParameters().getPrefixId());
+        draw(voltageLevelGraph, writerForSvg, metadataWriter, config);
     }
 
-    public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, Param param) {
-        LayoutParameters layoutParameters = param.getLayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = param.getVoltageLevelLayoutFactory();
-        SubstationLayoutFactory substationLayoutFactory = param.getSubstationLayoutFactory();
+    public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, Config config) {
+        LayoutParameters layoutParameters = config.getLayoutParameters();
+        VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
+        SubstationLayoutFactory substationLayoutFactory = config.getSubstationLayoutFactory();
 
         Objects.requireNonNull(substationLayoutFactory);
         Objects.requireNonNull(voltageLevelLayoutFactory);
 
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
         substationLayoutFactory.create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
-        DefaultSVGWriter svgWriter = new DefaultSVGWriter(param.getComponentLibrary(), param.getLayoutParameters(), param.getSvgParameters());
-        draw(substationGraph, writerForSvg, metadataWriter, svgWriter, param.createLabelProvider(network), param.createStyleProvider(network), param.getSvgParameters().getPrefixId());
+        draw(substationGraph, writerForSvg, metadataWriter, config);
     }
 
-    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
+    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter,
+                            Config config) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(writerForSvg);
         Objects.requireNonNull(metadataWriter);
+
+        LabelProvider labelProvider = config.getLabelProvider();
+        StyleProvider styleProvider = config.getStyleProvider();
+        SvgParameters svgParameters = config.getSvgParameters();
+
         Objects.requireNonNull(labelProvider);
         Objects.requireNonNull(styleProvider);
+        Objects.requireNonNull(svgParameters);
+
+        DefaultSVGWriter svgWriter = new DefaultSVGWriter(config.getComponentLibrary(), config.getLayoutParameters(), config.getSvgParameters());
 
         LOGGER.info("Writing SVG and JSON metadata files...");
 
         // write SVG file
-        GraphMetadata metadata = svgWriter.write(prefixId, graph, labelProvider, styleProvider, writerForSvg);
+        GraphMetadata metadata = svgWriter.write(svgParameters.getPrefixId(), graph, labelProvider, styleProvider, writerForSvg);
 
         // write metadata JSON file
         metadata.writeJson(metadataWriter);

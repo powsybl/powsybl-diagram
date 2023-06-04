@@ -536,19 +536,6 @@
   "electricalNodeInfos" : [ ],
   "busInfos" : [ ],
   "layoutParams" : {
-    "verticalSpaceBus" : 25.0,
-    "horizontalBusPadding" : 20.0,
-    "cellWidth" : 50.0,
-    "externCellHeight" : 250.0,
-    "internCellHeight" : 40.0,
-    "stackHeight" : 30.0,
-    "horizontalSnakeLinePadding" : 20.0,
-    "verticalSnakeLinePadding" : 25.0,
-    "spaceForFeederInfos" : 50.0,
-    "adaptCellHeightToContent" : true,
-    "maxComponentHeight" : 12.0,
-    "minSpaceBetweenComponents" : 15.0,
-    "minExternCellHeight" : 80.0,
     "voltageLevelPadding" : {
       "left" : 20.0,
       "top" : 60.0,
@@ -561,11 +548,24 @@
       "right" : 20.0,
       "bottom" : 20.0
     },
-    "busbarsAlignment" : "FIRST",
-    "componentsOnBusbars" : [ "DISCONNECTOR" ],
-    "removeFictitiousSwitchNodes" : false,
+    "verticalSpaceBus" : 25.0,
+    "horizontalBusPadding" : 20.0,
+    "cellWidth" : 50.0,
+    "externCellHeight" : 250.0,
+    "internCellHeight" : 40.0,
+    "stackHeight" : 30.0,
     "cgmesScaleFactor" : 1.0,
     "cgmesDiagramName" : null,
-    "cgmesUseNames" : true
+    "cgmesUseNames" : true,
+    "horizontalSnakeLinePadding" : 20.0,
+    "verticalSnakeLinePadding" : 25.0,
+    "spaceForFeederInfos" : 50.0,
+    "adaptCellHeightToContent" : true,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0,
+    "busbarsAlignment" : "FIRST",
+    "componentsOnBusbars" : [ "DISCONNECTOR" ],
+    "removeFictitiousSwitchNodes" : false
   }
 }

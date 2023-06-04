@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-class SvgParametersTest {
+public class SvgParametersTest {
 
     @Test
     void test() {

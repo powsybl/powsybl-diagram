@@ -10,7 +10,8 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.ParamBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -74,7 +75,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // many feeder values provider example for the test:
-        ParamBuilder.LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
+        LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
 
             @Override
             public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
@@ -104,9 +105,14 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         };
 
 // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelManyFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelManyFeederInfoProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", config));
     }
 
     @Test
@@ -122,9 +128,15 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+
         // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", config));
     }
 
     @Test
@@ -143,9 +155,10 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        Config config = new ConfigBuilder(network)
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", config));
     }
 
     @Test
@@ -187,7 +200,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         svgParameters.setFeederInfosIntraMargin(20);
 
-        ParamBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
+        LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
             @Override
             public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
                 return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
@@ -243,10 +256,16 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(styleProvider)
+                .build();
+
         // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", config));
 
     }
 }

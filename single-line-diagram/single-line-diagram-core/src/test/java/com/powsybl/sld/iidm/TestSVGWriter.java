@@ -8,7 +8,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ParamBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
@@ -61,10 +62,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g2;
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
-    private ParamBuilder.LabelProviderFactory labelProviderFactory;
-    private ParamBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory;
-    private ParamBuilder.LabelProviderFactory diagramLabelMultiLineTooltipProviderFactory;
-    private ParamBuilder.LabelProviderFactory diagramLabelSameNodeProviderFactory;
+    private LabelProviderFactory labelProviderFactory;
+    private LabelProviderFactory labelNoFeederInfoProviderFactory;
+    private LabelProviderFactory diagramLabelMultiLineTooltipProviderFactory;
+    private LabelProviderFactory diagramLabelSameNodeProviderFactory;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -690,148 +691,214 @@ class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     void testVl1() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1.svg"),
-                toSVG(g1, "/vl1.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1.svg", config));
     }
 
     @Test
     void testVl1CssExternalImported() {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_external_css.svg", config));
     }
 
     @Test
     void testVl1CssExternalNoImport() {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_external_css_no_import.svg"),
-                toSVG(g1, "/vl1_external_css_no_import.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_external_css_no_import.svg", config));
     }
 
     @Test
     void testVl2() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl2.svg"),
-                toSVG(g2, "/vl2.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g2, "/vl2.svg", config));
     }
 
     @Test
     void testVl3() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl3.svg"),
-                toSVG(g3, "/vl3.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g3, "/vl3.svg", config));
     }
 
     @Test
     void testSubstation() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new NominalVoltageStyleProvider())
+                .build();
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-                toSVG(substG, "/substation.svg", defaultSVGWriter, labelProvider, new NominalVoltageStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(substG, "/substation.svg", config));
     }
 
     @Test
     void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         svgParameters.setFeederInfoSymmetry(true);
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", config));
     }
 
     @Test
     void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelNoFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelNoFeederInfoProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_no_feeder_values.svg"),
-                toSVG(substG, "/substation_no_feeder_values.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(substG, "/substation_no_feeder_values.svg", config));
     }
 
     @Test
     void testVl1Optimized() {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_optimized.svg"),
-                toSVG(g1, "/vl1_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_optimized.svg", config));
     }
 
     @Test
     void testVl2Optimized() {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl2_optimized.svg"),
-                toSVG(g2, "/vl2_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g2, "/vl2_optimized.svg", config));
     }
 
     @Test
     void testVl3Optimized() {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl3_optimized.svg"),
-                toSVG(g3, "/vl3_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g3, "/vl3_optimized.svg", config));
     }
 
     @Test
     void testSubstationOptimized() {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/substation_optimized.svg"),
-                toSVG(substG, "/substation_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(substG, "/substation_optimized.svg", config));
     }
 
     @Test
     void testWriteZone() {
         svgParameters.setShowGrid(false);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/zone.svg"),
-                toSVG(zGraph, "/zone.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(zGraph, "/zone.svg", config));
     }
 
     @Test
     void testStraightWires() {
         svgParameters.setDrawStraightWires(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_straightWires.svg"),
-                toSVG(g1, "/vl1_straightWires.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_straightWires.svg", config));
     }
 
     @Test
     void testTooltip() {
         svgParameters.setTooltipEnabled(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_tooltip.svg"),
-                toSVG(g1, "/vl1_tooltip.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_tooltip.svg", config));
     }
 
     @Test
@@ -839,21 +906,29 @@ class TestSVGWriter extends AbstractTestCaseIidm {
 
         svgParameters.setAvoidSVGComponentsDuplication(true);
         svgParameters.setTooltipEnabled(true);
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = diagramLabelMultiLineTooltipProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(diagramLabelMultiLineTooltipProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-                toSVG(g1, "/vl1_multiline_tooltip.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/vl1_multiline_tooltip.svg", config));
     }
 
     @Test
     void testLabelOnAllNodes() {
         // same node label provider example for the test :
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = diagramLabelSameNodeProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(diagramLabelSameNodeProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/label_on_all_nodes.svg", config));
     }
 
     @Test
@@ -864,10 +939,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
                 return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");
             }
         };
-
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(styleProvider)
+                .build();
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+                toSVG(g1, "/with_frame_background.svg", config));
     }
 }

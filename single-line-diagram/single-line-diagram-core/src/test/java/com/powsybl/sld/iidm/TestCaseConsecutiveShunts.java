@@ -7,7 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ParamBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -37,7 +38,7 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
     }
 
-    ParamBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
+    LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
         @Override
         public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
             return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
@@ -61,8 +62,13 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", defaultSVGWriter, labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .build();
+        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", config));
     }
 
 }

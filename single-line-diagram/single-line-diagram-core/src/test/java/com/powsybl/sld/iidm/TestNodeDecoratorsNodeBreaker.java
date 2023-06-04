@@ -8,7 +8,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ParamBuilder;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -34,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    ParamBuilder.LabelProviderFactory labelTestProviderFactory = new DefaultLabelProviderFactory() {
+    LabelProviderFactory labelTestProviderFactory = new DefaultLabelProviderFactory() {
 
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
@@ -76,9 +77,14 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // Run horizontal substation layout
         substationGraphLayout(g);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .build();
+
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", config));
     }
 
     @Test
@@ -90,10 +96,14 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelTestProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelTestProviderFactory)
+                .build();
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-                toSVG(g, "/NodeDecoratorsSwitches.svg", defaultSVGWriter, labelProvider, getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/NodeDecoratorsSwitches.svg", config));
     }
 
 }
