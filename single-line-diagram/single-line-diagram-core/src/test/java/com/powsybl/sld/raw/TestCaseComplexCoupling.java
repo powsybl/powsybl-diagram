@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -54,7 +56,12 @@ class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
 
         voltageLevelGraphLayout(g);
+        Config config = new ConfigBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", config));
     }
 }

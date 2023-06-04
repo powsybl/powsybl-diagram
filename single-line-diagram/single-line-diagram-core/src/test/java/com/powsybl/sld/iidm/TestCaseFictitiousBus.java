@@ -11,6 +11,8 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
@@ -100,8 +102,14 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
+
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .build();
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/TestCaseFictitiousBus.svg", config));
     }
 
     @Test
@@ -113,7 +121,14 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
+
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withStyleProvider(new TopologicalStyleProvider(network))
+                .build();
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", config));
     }
 }

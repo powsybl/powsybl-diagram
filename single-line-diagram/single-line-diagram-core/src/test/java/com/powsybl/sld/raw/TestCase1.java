@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -49,7 +51,12 @@ class TestCase1 extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
+        Config config = new ConfigBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getRawLabelProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCase1.svg", config));
     }
 }

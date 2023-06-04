@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -52,7 +54,12 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        Config config = new ConfigBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", config));
     }
 
     @Test
@@ -65,6 +72,11 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        Config config = new ConfigBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", config));
     }
 }

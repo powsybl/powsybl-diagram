@@ -8,18 +8,18 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
-
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
-import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -31,9 +31,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -68,56 +65,78 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
-        layoutParameters.setSpaceForFeederInfos(100)
+        layoutParameters.setSpaceForFeederInfos(100);
+
+        svgParameters.setPowerValuePrecision(3)
                 .setFeederInfosIntraMargin(5)
-                .setPowerValuePrecision(3);
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // many feeder values provider example for the test :
-        DiagramLabelProvider manyFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
-
-            @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
-                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
-                if (!feederArrowSymmetry) {
-                    Collections.reverse(feederInfos);
-                }
-                return feederInfos;
-            }
-
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
-            }
-        };
-        // write SVG and compare to reference
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", manyFeederInfoProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testAllPossibleInfoItems() {
-        // build graph
-        network.getLoad("l").getTerminal().setP(100).setQ(10).getBusView().getBus().setV(vl.getNominalV());
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-
-        layoutParameters.setSpaceForFeederInfos(100)
-                .setFeederInfosIntraMargin(5)
-                .setPowerValuePrecision(0)
                 .setDisplayCurrentFeederInfo(true);
 
         // Run layout
         voltageLevelGraphLayout(g);
 
+        // many feeder values provider example for the test:
+        LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
+
+            @Override
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+
+                    @Override
+                    public List<FeederInfo> getFeederInfos(FeederNode node) {
+                        List<FeederInfo> feederInfos = Arrays.asList(
+                                new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
+                                new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                                new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
+                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
+                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                        boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
+                        if (!feederArrowSymmetry) {
+                            Collections.reverse(feederInfos);
+                        }
+                        return feederInfos;
+                    }
+
+                    @Override
+                    public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                        return new ArrayList<>();
+                    }
+                };
+            }
+        };
+
+// write SVG and compare to reference
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelManyFeederInfoProviderFactory)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", config));
+    }
+
+    @Test
+    void testAllPossibleInfoItems() {
+        layoutParameters.setSpaceForFeederInfos(100);
+        svgParameters.setFeederInfosIntraMargin(5)
+                .setPowerValuePrecision(0)
+                .setDisplayCurrentFeederInfo(true);
+        // build graph
+        network.getLoad("l").getTerminal().setP(100).setQ(10).getBusView().getBus().setV(vl.getNominalV());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
+
         // write SVG and compare to reference
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", new DefaultDiagramLabelProvider(network, getResourcesComponentLibrary(), layoutParameters), new BasicStyleProvider()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", config));
     }
 
     @Test
@@ -127,7 +146,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLoad("l").getTerminal().setP(1200.29);
         network.getLoad("l").getTerminal().setQ(-1);
 
-        layoutParameters.setLanguageTag("fr").setPowerValuePrecision(1);
+        svgParameters.setLanguageTag("fr").setPowerValuePrecision(1);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -136,15 +155,18 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
+        Config config = new ConfigBuilder(network)
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", config));
     }
 
     @Test
     void testBuildFeederInfosWithCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        layoutParameters.setDisplayCurrentFeederInfo(true);
+        svgParameters.setDisplayCurrentFeederInfo(true);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
-        List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
+        List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(3, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
@@ -154,9 +176,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     void testBuildFeederInfosWithoutCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        layoutParameters.setDisplayCurrentFeederInfo(false);
+        svgParameters.setDisplayCurrentFeederInfo(false);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
-        List<FeederInfo> feederInfoList = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters).getFeederInfos(g.getFeederNodes().get(0));
+        List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(2, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
@@ -176,45 +198,51 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLoad("l2").getTerminal().setP(501.0);
         network.getLoad("l2").getTerminal().setQ(0.0);
 
-        layoutParameters.setFeederInfosIntraMargin(20);
+        svgParameters.setFeederInfosIntraMargin(20);
 
-        DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
             @Override
-            public List<FeederInfo> getFeederInfos(FeederNode node) {
-                Load l = network.getLoad("l");
-                Load l2 = network.getLoad("l2");
+            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
-                if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
-                    return Arrays.asList(
-                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
-                } else {
-                    return Arrays.asList(
-                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                            new FeederInfo() {
-                                @Override
-                                public String getUserDefinedId() {
-                                    return null;
-                                }
+                    @Override
+                    public List<FeederInfo> getFeederInfos(FeederNode node) {
+                        Load l = network.getLoad("l");
+                        Load l2 = network.getLoad("l2");
 
-                                @Override
-                                public String getComponentType() {
-                                    return ARROW_ACTIVE;
-                                }
+                        if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
+                            return Arrays.asList(
+                                    new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
+                                    new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
+                        } else {
+                            return Arrays.asList(
+                                    new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
+                                    new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
+                                    new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                                    new FeederInfo() {
+                                        @Override
+                                        public String getUserDefinedId() {
+                                            return null;
+                                        }
 
-                                @Override
-                                public Optional<String> getLeftLabel() {
-                                    return Optional.of("Left");
-                                }
+                                        @Override
+                                        public String getComponentType() {
+                                            return ARROW_ACTIVE;
+                                        }
 
-                                @Override
-                                public Optional<String> getRightLabel() {
-                                    return Optional.of("Right");
-                                }
-                            });
-                }
+                                        @Override
+                                        public Optional<String> getLeftLabel() {
+                                            return Optional.of("Left");
+                                        }
+
+                                        @Override
+                                        public Optional<String> getRightLabel() {
+                                            return Optional.of("Right");
+                                        }
+                                    });
+                        }
+                    }
+                };
             }
         };
 
@@ -228,8 +256,16 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withLabelProviderFactory(labelProviderFactory)
+                .withStyleProvider(styleProvider)
+                .build();
+
         // write SVG and compare to reference
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", labelProvider, styleProvider));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", config));
 
     }
 }

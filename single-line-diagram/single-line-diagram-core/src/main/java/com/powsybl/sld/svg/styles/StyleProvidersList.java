@@ -15,7 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 
 import java.net.URL;
@@ -49,7 +49,7 @@ public class StyleProvidersList implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return concatenateLists(sp -> sp.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary));
     }
 

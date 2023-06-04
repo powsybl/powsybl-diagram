@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -52,7 +54,13 @@ class TestAddBatteries extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
+        Config config = new ConfigBuilder(null)
+                .withSvgParameters(svgParameters)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .withLabelProviderFactory(getLabelRawProviderFactory())
+                .withStyleProvider(new BasicStyleProvider())
+                .build();
         assertEquals(toString("/TestBatteriesRaw.svg"),
-                toSVG(g, "/TestBatteriesRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestBatteriesRaw.svg", config));
     }
 }
