@@ -7,6 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +38,9 @@ class TestBattery extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestBatteries.svg"), toSVG(g, "/TestBatteries.svg"));
+        Config config = new ConfigBuilder(network)
+                .withSvgParameters(svgParameters)
+                        .build();
+        assertEquals(toString("/TestBatteries.svg"), toSVG(g, "/TestBatteries.svg", config));
     }
 }

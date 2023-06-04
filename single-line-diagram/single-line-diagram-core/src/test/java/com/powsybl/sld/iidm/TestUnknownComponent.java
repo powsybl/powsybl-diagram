@@ -8,6 +8,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -37,7 +39,7 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        layoutParameters.setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph("vl1");
@@ -45,6 +47,11 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // write SVGs and compare to reference
-        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg"));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
+                .withComponentLibrary(getResourcesComponentLibrary())
+                .build();
+        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", config));
     }
 }

@@ -16,5 +16,5 @@ import java.io.Writer;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface SVGWriter {
-    GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider initProvider, StyleProvider styleProvider, Writer writer);
+    GraphMetadata write(String prefixId, Graph graph, LabelProvider initProvider, StyleProvider styleProvider, Writer writer);
 }

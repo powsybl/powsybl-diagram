@@ -10,6 +10,8 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.commons.config.ModuleConfigRepository;
 import com.powsybl.commons.config.PlatformConfig;
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
@@ -52,8 +54,14 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .withStyleProvider(getDefaultDiagramStyleProvider())
+                .build();
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
-                toSVG(g, "/InternalBranchesBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesBusBreaker.svg", config));
     }
 
     @Test

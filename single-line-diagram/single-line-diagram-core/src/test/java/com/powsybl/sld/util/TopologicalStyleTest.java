@@ -9,6 +9,8 @@ package com.powsybl.sld.util;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -140,6 +142,11 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withComponentLibrary(componentLibrary)
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", config));
     }
 }

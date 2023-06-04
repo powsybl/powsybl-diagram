@@ -9,6 +9,8 @@ package com.powsybl.sld.iidm;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.Config;
+import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -47,7 +49,11 @@ class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         factory.create(g1).run(layoutParameters);
 
         // write svg and compare to reference
-        assertEquals(toString("/TestCaseKeepFictitiousSwitchNode.svg"), toSVG(g1, "/TestCaseKeepFictitiousSwitchNode.svg"));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString("/TestCaseKeepFictitiousSwitchNode.svg"), toSVG(g1, "/TestCaseKeepFictitiousSwitchNode.svg", config));
     }
 
     @Test
@@ -62,7 +68,11 @@ class TestCaseFictitiousSwitchNode extends AbstractTestCaseIidm {
         factory.create(g2).run(layoutParameters);
 
         // write svg and compare to reference
-        assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"), toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg"));
+        Config config = new ConfigBuilder(network)
+                .withLayoutParameters(layoutParameters)
+                .withSvgParameters(svgParameters)
+                .build();
+        assertEquals(toString("/TestCaseRemoveFictitiousSwitchNode.svg"), toSVG(g2, "/TestCaseRemoveFictitiousSwitchNode.svg", config));
     }
 
 }

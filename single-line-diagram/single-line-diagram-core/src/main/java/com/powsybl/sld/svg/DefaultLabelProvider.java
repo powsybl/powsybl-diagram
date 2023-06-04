@@ -16,27 +16,28 @@ import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_CURRENT;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
  */
-public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
+public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
     protected final Network network;
 
-    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        super(componentLibrary, layoutParameters);
+    public DefaultLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        super(componentLibrary, layoutParameters, svgParameters);
         this.network = Objects.requireNonNull(net);
     }
 
@@ -66,7 +67,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
             default:
                 break;
         }
-        if (node.getDirection() == BOTTOM && !layoutParameters.isFeederInfoSymmetry()) {
+        if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
         return feederInfos;
@@ -220,7 +221,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         List<FeederInfo> feederInfoList = new ArrayList<>();
         feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
         feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
-        if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
+        if (this.svgParameters.isDisplayCurrentFeederInfo()) {
             feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
         }
         return feederInfoList;
