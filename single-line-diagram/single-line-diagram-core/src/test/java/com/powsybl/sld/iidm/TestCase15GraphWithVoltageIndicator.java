@@ -8,7 +8,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
@@ -55,9 +55,9 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private ConfigBuilder.LabelProviderFactory withFullBusInfoProviderFactory;
+    private ParamBuilder.LabelProviderFactory withFullBusInfoProviderFactory;
 
-    private ConfigBuilder.LabelProviderFactory withIncompleteBusInfoProviderFactory;
+    private ParamBuilder.LabelProviderFactory withIncompleteBusInfoProviderFactory;
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -151,7 +151,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProviderFactory);
     }
 
-    private void runTest(StyleProvider styleProvider, String filename, ConfigBuilder.LabelProviderFactory labelProviderFactory) {
+    private void runTest(StyleProvider styleProvider, String filename, ParamBuilder.LabelProviderFactory labelProviderFactory) {
         svgParameters.setBusInfoMargin(5);
 
         // build graph

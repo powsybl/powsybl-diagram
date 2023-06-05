@@ -8,7 +8,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
@@ -61,10 +61,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g2;
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
-    private ConfigBuilder.LabelProviderFactory labelProviderFactory;
-    private ConfigBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory;
-    private ConfigBuilder.LabelProviderFactory diagramLabelMultiLineTooltipProviderFactory;
-    private ConfigBuilder.LabelProviderFactory diagramLabelSameNodeProviderFactory;
+    private ParamBuilder.LabelProviderFactory labelProviderFactory;
+    private ParamBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory;
+    private ParamBuilder.LabelProviderFactory diagramLabelMultiLineTooltipProviderFactory;
+    private ParamBuilder.LabelProviderFactory diagramLabelSameNodeProviderFactory;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {

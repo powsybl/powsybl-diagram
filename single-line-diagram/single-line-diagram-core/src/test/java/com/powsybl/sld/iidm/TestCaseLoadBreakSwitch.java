@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.Config;
+import com.powsybl.sld.Param;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
-    Config config;
+    Param param;
 
     @BeforeEach
     public void setUp() {
