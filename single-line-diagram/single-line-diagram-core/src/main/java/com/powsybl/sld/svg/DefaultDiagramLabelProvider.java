@@ -189,6 +189,22 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         }
     }
 
+    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Branch branch) {
+        BranchStatus<?> branchStatus = (BranchStatus<?>) branch.getExtension(BranchStatus.class);
+        if (branchStatus != null) {
+            switch (branchStatus.getStatus()) {
+                case PLANNED_OUTAGE:
+                    nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    break;
+                case FORCED_OUTAGE:
+                    nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
         return (node instanceof Middle3WTNode) ?
                 new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node, direction)) :
