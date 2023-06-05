@@ -287,7 +287,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
-        //configure diagram
+        //parametrize diagram
         svgParameters.setAddNodesInfos(true);
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
