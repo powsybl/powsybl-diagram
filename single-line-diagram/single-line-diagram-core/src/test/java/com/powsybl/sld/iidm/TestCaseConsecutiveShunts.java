@@ -7,7 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -37,7 +37,7 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
     }
 
-    ConfigBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
+    ParamBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
         @Override
         public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
             return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {

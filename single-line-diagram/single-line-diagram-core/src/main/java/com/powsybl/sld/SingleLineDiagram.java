@@ -57,10 +57,10 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Network network, String id, Path svgFile) {
-        draw(network, id, svgFile, new ConfigBuilder().build());
+        draw(network, id, svgFile, new ParamBuilder().build());
     }
 
-    public static void draw(Network network, String id, Path svgFile, Config config) {
+    public static void draw(Network network, String id, Path svgFile, Param config) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
@@ -80,10 +80,10 @@ public final class SingleLineDiagram {
     }
 
     public static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile) {
-        drawVoltageLevel(network, voltageLevelId, svgFile, new ConfigBuilder().build());
+        drawVoltageLevel(network, voltageLevelId, svgFile, new ParamBuilder().build());
     }
 
-    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, Config config) {
+    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, Param config) {
         LayoutParameters layoutParameters = config.getLayoutParameters();
         VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
 
@@ -100,10 +100,10 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new ConfigBuilder().build());
+        drawSubstation(network, id, svgFile, new ParamBuilder().build());
     }
 
-    private static void drawSubstation(Network network, String substationId, Path svgFile, Config config) {
+    private static void drawSubstation(Network network, String substationId, Path svgFile, Param config) {
 
         LayoutParameters layoutParameters = config.getLayoutParameters();
         VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
@@ -137,10 +137,10 @@ public final class SingleLineDiagram {
     /* draw functions with writer */
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter) {
-        draw(network, id, writerForSvg, metadataWriter, new ConfigBuilder().build());
+        draw(network, id, writerForSvg, metadataWriter, new ParamBuilder().build());
     }
 
-    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, Config config) {
+    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, Param config) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
@@ -154,7 +154,7 @@ public final class SingleLineDiagram {
         }
     }
 
-    public static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, Config config) {
+    public static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, Param config) {
         LayoutParameters layoutParameters = config.getLayoutParameters();
         VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
 
@@ -166,7 +166,7 @@ public final class SingleLineDiagram {
         draw(voltageLevelGraph, writerForSvg, metadataWriter, svgWriter, config.createLabelProvider(network), config.createStyleProvider(network), config.getSvgParameters().getPrefixId());
     }
 
-    public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, Config config) {
+    public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, Param config) {
         LayoutParameters layoutParameters = config.getLayoutParameters();
         VoltageLevelLayoutFactory voltageLevelLayoutFactory = config.getVoltageLevelLayoutFactory();
         SubstationLayoutFactory substationLayoutFactory = config.getSubstationLayoutFactory();

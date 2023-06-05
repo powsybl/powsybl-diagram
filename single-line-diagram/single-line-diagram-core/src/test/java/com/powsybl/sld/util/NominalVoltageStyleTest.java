@@ -9,7 +9,7 @@ package com.powsybl.sld.util;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -97,7 +97,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Networks.createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private final ConfigBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
+    private final ParamBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
         @Override
         public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
             return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {

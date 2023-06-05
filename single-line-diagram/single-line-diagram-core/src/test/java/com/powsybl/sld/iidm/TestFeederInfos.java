@@ -10,7 +10,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -74,7 +74,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // many feeder values provider example for the test:
-        ConfigBuilder.LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
+        ParamBuilder.LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
 
             @Override
             public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
@@ -187,7 +187,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         svgParameters.setFeederInfosIntraMargin(20);
 
-        ConfigBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
+        ParamBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
             @Override
             public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
                 return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
