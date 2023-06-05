@@ -6,14 +6,15 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.Config;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,12 +55,10 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        Config config = new ConfigBuilder(null)
-                .withSvgParameters(svgParameters)
-                .withLabelProviderFactory(getLabelRawProviderFactory())
-                .withStyleProvider(new BasicStyleProvider())
-                .build();
-        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", config));
+
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        LabelProvider labelProvider = getLabelRawProviderFactory().create(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters);
+        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
     }
 
     @Test
@@ -72,11 +71,9 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        Config config = new ConfigBuilder(null)
-                .withSvgParameters(svgParameters)
-                .withLabelProviderFactory(getLabelRawProviderFactory())
-                .withStyleProvider(new BasicStyleProvider())
-                .build();
-        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", config));
+
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        LabelProvider labelProvider = getLabelRawProviderFactory().create(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters);
+        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
     }
 }
