@@ -22,7 +22,7 @@ import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class ConfigBuilder {
+public class ParamBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
     StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
@@ -45,41 +45,41 @@ public class ConfigBuilder {
         StyleProvider create(Network network);
     }
 
-    public ConfigBuilder() {
+    public ParamBuilder() {
     }
 
-    public ConfigBuilder withSvgParameters(SvgParameters svgParameters) {
+    public ParamBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
         return this;
     }
 
-    public ConfigBuilder withLayoutParameters(LayoutParameters layoutParameters) {
+    public ParamBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
         return this;
     }
 
-    public ConfigBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
+    public ParamBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
         this.styleProviderFactory = styleProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
+    public ParamBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
         this.labelProviderFactory = labelProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withLayoutFactory(LayoutFactory layoutFactory) {
+    public ParamBuilder withLayoutFactory(LayoutFactory layoutFactory) {
         this.layoutFactory = layoutFactory;
         return this;
     }
 
-    public ConfigBuilder withIdProviderFactory(IdProviderFactory idProviderFactory) {
+    public ParamBuilder withIdProviderFactory(IdProviderFactory idProviderFactory) {
         this.idProviderFactory = idProviderFactory;
         return this;
     }
 
-    public Config build() {
-        return new Config(svgParameters, layoutParameters, styleProviderFactory, labelProviderFactory, layoutFactory, idProviderFactory);
+    public Param build() {
+        return new Param(svgParameters, layoutParameters, styleProviderFactory, labelProviderFactory, layoutFactory, idProviderFactory);
     }
 
 }

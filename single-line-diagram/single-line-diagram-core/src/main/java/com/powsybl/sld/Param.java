@@ -19,17 +19,17 @@ import com.powsybl.sld.svg.styles.StyleProvider;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class Config {
+public class Param {
 
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
     ComponentLibrary componentLibrary;
-    ConfigBuilder.LabelProviderFactory labelProviderFactory;
-    ConfigBuilder.StyleProviderFactory styleProviderFactory;
+    ParamBuilder.LabelProviderFactory labelProviderFactory;
+    ParamBuilder.StyleProviderFactory styleProviderFactory;
     SubstationLayoutFactory substationLayoutFactory;
     VoltageLevelLayoutFactory voltageLevelLayoutFactory;
 
-    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, ConfigBuilder.LabelProviderFactory labelProviderFactory, ConfigBuilder.StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public Param(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, ParamBuilder.LabelProviderFactory labelProviderFactory, ParamBuilder.StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.componentLibrary = componentLibrary;

@@ -7,8 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.Config;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.Param;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -39,7 +39,7 @@ class TestBattery extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        Config config = new ConfigBuilder()
+        Param param = new ParamBuilder()
                 .withSvgParameters(svgParameters)
                         .build();
         DefaultSVGWriter defaultSvgWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);

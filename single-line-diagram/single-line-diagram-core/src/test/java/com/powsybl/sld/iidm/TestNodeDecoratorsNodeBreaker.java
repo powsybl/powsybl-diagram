@@ -8,7 +8,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    ConfigBuilder.LabelProviderFactory labelTestProviderFactory = new DefaultLabelProviderFactory() {
+    ParamBuilder.LabelProviderFactory labelTestProviderFactory = new DefaultLabelProviderFactory() {
 
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
