@@ -81,7 +81,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg", "/TestSldClassVlMetadata.json"));
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter(), new ConfigBuilder(network).build());
+        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter(), new ConfigBuilder().build());
         assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
 
         Path svgPath = tmpDir.resolve("result.svg");
@@ -122,7 +122,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         }
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter(), new ConfigBuilder(network).build());
+        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter(), new ConfigBuilder().build());
         assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
 
         Path svgPath = tmpDir.resolve("result.svg");

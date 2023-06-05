@@ -87,7 +87,7 @@ public class SingleLineDiagramTool implements Tool {
         Path svgFile = getSvgFile(outputDir, vlOrSubstationId);
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
-            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile, new ConfigBuilder(network).build());
+            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile, new ConfigBuilder().build());
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }

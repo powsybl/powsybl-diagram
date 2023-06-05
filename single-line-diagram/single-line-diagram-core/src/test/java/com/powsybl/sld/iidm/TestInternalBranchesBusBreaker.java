@@ -10,13 +10,12 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.commons.config.ModuleConfigRepository;
 import com.powsybl.commons.config.PlatformConfig;
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.Config;
-import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,14 +53,9 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        Config config = new ConfigBuilder(network)
-                .withLayoutParameters(layoutParameters)
-                .withComponentLibrary(componentLibrary)
-                .withSvgParameters(svgParameters)
-                .withStyleProvider(getDefaultDiagramStyleProvider())
-                .build();
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
-                toSVG(g, "/InternalBranchesBusBreaker.svg", config));
+                toSVG(g, "/InternalBranchesBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
     }
 
     @Test
