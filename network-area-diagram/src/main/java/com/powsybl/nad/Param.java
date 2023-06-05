@@ -18,16 +18,16 @@ import com.powsybl.nad.svg.SvgParameters;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class Config {
+public class Param {
 
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
-    ConfigBuilder.StyleProviderFactory styleProviderFactory;
-    ConfigBuilder.LabelProviderFactory labelProviderFactory;
+    ParamBuilder.StyleProviderFactory styleProviderFactory;
+    ParamBuilder.LabelProviderFactory labelProviderFactory;
     LayoutFactory layoutFactory;
-    ConfigBuilder.IdProviderFactory idProviderFactory;
+    ParamBuilder.IdProviderFactory idProviderFactory;
 
-    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ConfigBuilder.StyleProviderFactory styleProviderFactory, ConfigBuilder.LabelProviderFactory labelProviderFactory, LayoutFactory layoutFactory, ConfigBuilder.IdProviderFactory idProviderFactory) {
+    public Param(SvgParameters svgParameters, LayoutParameters layoutParameters, ParamBuilder.StyleProviderFactory styleProviderFactory, ParamBuilder.LabelProviderFactory labelProviderFactory, LayoutFactory layoutFactory, ParamBuilder.IdProviderFactory idProviderFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.styleProviderFactory = styleProviderFactory;

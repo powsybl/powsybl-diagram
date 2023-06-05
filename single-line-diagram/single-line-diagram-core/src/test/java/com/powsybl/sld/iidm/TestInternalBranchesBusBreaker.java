@@ -32,7 +32,7 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Override
     public StyleProvider getDefaultDiagramStyleProvider() {
-        // bypassing the config-test platform config to test the embedded base-voltages.yml file
+        // bypassing the param-test platform param to test the embedded base-voltages.yml file
         BaseVoltagesConfig baseVoltagesConfig = BaseVoltagesConfig.fromPlatformConfig(new PlatformConfig((ModuleConfigRepository) null, Path.of("./")));
         return new NominalVoltageStyleProvider(baseVoltagesConfig);
     }

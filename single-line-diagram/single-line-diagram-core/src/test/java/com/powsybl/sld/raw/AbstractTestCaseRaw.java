@@ -8,7 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.ConfigBuilder;
+import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -39,7 +39,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return toSVG(graph, filename, defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId());
     }
 
-    private final ConfigBuilder.LabelProviderFactory labelRawProviderFactory = new DefaultLabelProviderFactory() {
+    private final ParamBuilder.LabelProviderFactory labelRawProviderFactory = new DefaultLabelProviderFactory() {
 
         @Override
         public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
@@ -60,7 +60,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
     };
 
-    public ConfigBuilder.LabelProviderFactory getLabelRawProviderFactory() {
+    public ParamBuilder.LabelProviderFactory getLabelRawProviderFactory() {
         return labelRawProviderFactory;
     }
 }

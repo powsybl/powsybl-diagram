@@ -23,7 +23,7 @@ import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class ConfigBuilder {
+public class ParamBuilder {
 
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
@@ -50,46 +50,46 @@ public class ConfigBuilder {
         }
     }
 
-    public ConfigBuilder() {
+    public ParamBuilder() {
     }
 
-    public ConfigBuilder withSvgParameters(SvgParameters svgParameters) {
+    public ParamBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
         return this;
     }
 
-    public ConfigBuilder withLayoutParameters(LayoutParameters layoutParameters) {
+    public ParamBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
         return this;
     }
 
-    public ConfigBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
+    public ParamBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
         this.componentLibrary = componentLibrary;
         return this;
     }
 
-    public ConfigBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
+    public ParamBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
         this.labelProviderFactory = labelProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
+    public ParamBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
         this.styleProviderFactory = styleProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withVoltageLevelLayoutFactory(VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public ParamBuilder withVoltageLevelLayoutFactory(VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.voltageLevelLayoutFactory = voltageLevelLayoutFactory;
         return this;
     }
 
-    public ConfigBuilder withSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
+    public ParamBuilder withSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
         this.substationLayoutFactory = substationLayoutFactory;
         return this;
     }
 
-    public Config build() {
-        return new Config(svgParameters, layoutParameters, componentLibrary, labelProviderFactory, styleProviderFactory, substationLayoutFactory, voltageLevelLayoutFactory);
+    public Param build() {
+        return new Param(svgParameters, layoutParameters, componentLibrary, labelProviderFactory, styleProviderFactory, substationLayoutFactory, voltageLevelLayoutFactory);
     }
 
 }

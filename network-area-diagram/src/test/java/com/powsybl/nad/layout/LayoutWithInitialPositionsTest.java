@@ -10,7 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
-import com.powsybl.nad.ConfigBuilder;
+import com.powsybl.nad.ParamBuilder;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
@@ -52,7 +52,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         return new NominalVoltageStyleProvider(network);
     }
 
-    private ConfigBuilder.StyleProviderFactory getStyleProviderFactory() {
+    private ParamBuilder.StyleProviderFactory getStyleProviderFactory() {
         return this::getStyleProvider;
     }
 
@@ -158,7 +158,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
         NetworkAreaDiagram.draw(network, writer,
-                new ConfigBuilder()
+                new ParamBuilder()
                         .withSvgParameters(getSvgParameters())
                         .withLayoutParameters(getLayoutParameters())
                         .withStyleProviderFactory(getStyleProviderFactory())
