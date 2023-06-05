@@ -7,10 +7,9 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.Config;
-import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.DefaultSVGWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,12 +36,8 @@ class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        Config config = new ConfigBuilder(network)
-                .withLayoutParameters(layoutParameters)
-                .withComponentLibrary(componentLibrary)
-                .withSvgParameters(svgParameters)
-                .build();
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", config));
+                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
     }
 }

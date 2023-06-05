@@ -8,7 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.Config;
 import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -56,9 +55,9 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private LabelProviderFactory withFullBusInfoProviderFactory;
+    private ConfigBuilder.LabelProviderFactory withFullBusInfoProviderFactory;
 
-    private LabelProviderFactory withIncompleteBusInfoProviderFactory;
+    private ConfigBuilder.LabelProviderFactory withIncompleteBusInfoProviderFactory;
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -152,14 +151,14 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProviderFactory);
     }
 
-    private void runTest(StyleProvider styleProvider, String filename, LabelProviderFactory labelProviderFactory) {
+    private void runTest(StyleProvider styleProvider, String filename, ConfigBuilder.LabelProviderFactory labelProviderFactory) {
         svgParameters.setBusInfoMargin(5);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 
         // Run layout
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        LabelProvider labelProvider = labelProviderFactory.create(network, getResourcesComponentLibrary(), layoutParameters, svgParameters);
         new PositionVoltageLevelLayoutFactory()
                 .setBusInfoMap(labelProvider.getBusInfoSides(g))
                 .setExceptionIfPatternNotHandled(true)
@@ -167,15 +166,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 .create(g)
                 .run(layoutParameters);
 
-        Config config = new ConfigBuilder(network)
-                .withLayoutParameters(layoutParameters)
-                .withSvgParameters(svgParameters)
-                .withComponentLibrary(getResourcesComponentLibrary())
-                .withLabelProviderFactory(labelProviderFactory)
-                .withStyleProvider(styleProvider)
-                .build();
-
         // write SVG and compare to reference
-        assertEquals(toString(filename), toSVG(g, filename, config));
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
+        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
     }
 }

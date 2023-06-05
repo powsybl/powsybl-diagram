@@ -7,15 +7,16 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.SvgParameters;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
@@ -125,9 +126,9 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph, String filename, Config config) {
+    public String toSVG(Graph graph, String filename, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), config);
+            SingleLineDiagram.draw(graph, writer, new NullWriter(), svgWriter, labelProvider, styleProvider, prefixId);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -142,15 +143,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, Config config) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            config.getVoltageLevelLayoutFactory().create(graph).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, config);
+            voltageLevelLayoutFactory.create(graph).run(layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider, prefixId);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -170,15 +171,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, Config config) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            config.getSubstationLayoutFactory().create(graph, config.getVoltageLevelLayoutFactory()).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, config);
+            substationLayoutFactory.create(graph, voltageLevelLayoutFactory).run(layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider, prefixId);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);
@@ -243,4 +244,5 @@ public abstract class AbstractTestCase {
     protected void substationGraphLayout(SubstationGraph substationGraph) {
         new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
     }
+
 }
