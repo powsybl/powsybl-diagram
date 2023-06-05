@@ -13,7 +13,6 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultLabelProviderFactory;
 import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.LabelProviderFactory;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
@@ -29,46 +28,53 @@ public class ConfigBuilder {
     SvgParameters svgParameters = new SvgParameters();
     LayoutParameters layoutParameters = new LayoutParameters();
     ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-    LabelProvider labelProvider;
-    LabelProviderFactory labelProviderFactory;
-    StyleProvider styleProvider;
-    VoltageLevelLayoutFactory voltageLevelLayoutFactory;
+    LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory();
+    StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
+    VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory();
     SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
-    Network network;
 
-    public ConfigBuilder(Network network) {
-        this.network = network;
-        voltageLevelLayoutFactory = network != null ? new SmartVoltageLevelLayoutFactory(network) : new PositionVoltageLevelLayoutFactory();
-        labelProviderFactory = new DefaultLabelProviderFactory();
-        labelProvider = network != null ? labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
-        styleProvider = new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
+    @FunctionalInterface
+    public interface LabelProviderFactory {
+        LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
+    }
+
+    @FunctionalInterface
+    public interface StyleProviderFactory {
+        StyleProvider create(Network network);
+    }
+
+    private class DefaultStyleProviderFactory implements StyleProviderFactory {
+        @Override
+        public StyleProvider create(Network network) {
+            return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network));
+        }
+    }
+
+    public ConfigBuilder() {
     }
 
     public ConfigBuilder withSvgParameters(SvgParameters svgParameters) {
         this.svgParameters = svgParameters;
-        labelProvider = network != null ? labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public ConfigBuilder withLayoutParameters(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
-        this.labelProvider = network != null ? labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public ConfigBuilder withComponentLibrary(ComponentLibrary componentLibrary) {
         this.componentLibrary = componentLibrary;
-        this.labelProvider = network != null ? labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters) : null;
         return this;
     }
 
     public ConfigBuilder withLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
-        this.labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
+        this.labelProviderFactory = labelProviderFactory;
         return this;
     }
 
-    public ConfigBuilder withStyleProvider(StyleProvider styleProvider) {
-        this.styleProvider = styleProvider;
+    public ConfigBuilder withStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
+        this.styleProviderFactory = styleProviderFactory;
         return this;
     }
 
@@ -83,6 +89,7 @@ public class ConfigBuilder {
     }
 
     public Config build() {
-        return new Config(svgParameters, layoutParameters, componentLibrary, labelProvider, styleProvider, substationLayoutFactory, voltageLevelLayoutFactory);
+        return new Config(svgParameters, layoutParameters, componentLibrary, labelProviderFactory, styleProviderFactory, substationLayoutFactory, voltageLevelLayoutFactory);
     }
+
 }

@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
@@ -23,17 +24,17 @@ public class Config {
     SvgParameters svgParameters;
     LayoutParameters layoutParameters;
     ComponentLibrary componentLibrary;
-    LabelProvider labelProvider;
-    StyleProvider styleProvider;
+    ConfigBuilder.LabelProviderFactory labelProviderFactory;
+    ConfigBuilder.StyleProviderFactory styleProviderFactory;
     SubstationLayoutFactory substationLayoutFactory;
     VoltageLevelLayoutFactory voltageLevelLayoutFactory;
 
-    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, LabelProvider labelProvider, StyleProvider styleProvider, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public Config(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, ConfigBuilder.LabelProviderFactory labelProviderFactory, ConfigBuilder.StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.componentLibrary = componentLibrary;
-        this.labelProvider = labelProvider;
-        this.styleProvider = styleProvider;
+        this.labelProviderFactory = labelProviderFactory;
+        this.styleProviderFactory = styleProviderFactory;
         this.substationLayoutFactory = substationLayoutFactory;
         this.voltageLevelLayoutFactory = voltageLevelLayoutFactory;
     }
@@ -50,12 +51,12 @@ public class Config {
         return componentLibrary;
     }
 
-    public LabelProvider getLabelProvider() {
-        return labelProvider;
+    public LabelProvider createLabelProvider(Network network) {
+        return labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
     }
 
-    public StyleProvider getStyleProvider() {
-        return styleProvider;
+    public StyleProvider createStyleProvider(Network network) {
+        return styleProviderFactory.create(network);
     }
 
     public SubstationLayoutFactory getSubstationLayoutFactory() {

@@ -11,10 +11,9 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.Config;
-import com.powsybl.sld.ConfigBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -102,14 +101,9 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-
-        Config config = new ConfigBuilder(network)
-                .withLayoutParameters(layoutParameters)
-                .withComponentLibrary(componentLibrary)
-                .withSvgParameters(svgParameters)
-                .build();
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", config));
+                toSVG(g, "/TestCaseFictitiousBus.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
     }
 
     @Test
@@ -121,14 +115,8 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-
-        Config config = new ConfigBuilder(network)
-                .withLayoutParameters(layoutParameters)
-                .withComponentLibrary(componentLibrary)
-                .withSvgParameters(svgParameters)
-                .withStyleProvider(new TopologicalStyleProvider(network))
-                .build();
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", config));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), svgParameters.getPrefixId()));
     }
 }

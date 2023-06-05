@@ -283,6 +283,7 @@ public class LayoutParameters {
     public Map<String, ComponentSize> getComponentsSize() {
         return componentsSize;
     }
+
     public void setComponentsSize(Map<String, ComponentSize> componentsSize) {
         this.componentsSize = componentsSize;
     }
