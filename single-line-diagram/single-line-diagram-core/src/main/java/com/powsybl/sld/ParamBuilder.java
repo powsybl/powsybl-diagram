@@ -51,6 +51,7 @@ public class ParamBuilder {
     }
 
     public ParamBuilder() {
+        /* This builder is network-agnostic */
     }
 
     public ParamBuilder withSvgParameters(SvgParameters svgParameters) {
