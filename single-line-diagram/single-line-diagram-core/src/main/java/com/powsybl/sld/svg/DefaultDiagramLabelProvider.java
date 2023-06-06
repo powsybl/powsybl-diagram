@@ -189,7 +189,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         }
     }
 
-    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Branch branch) {
+    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Branch<?> branch) {
         BranchStatus<?> branchStatus = (BranchStatus<?>) branch.getExtension(BranchStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
