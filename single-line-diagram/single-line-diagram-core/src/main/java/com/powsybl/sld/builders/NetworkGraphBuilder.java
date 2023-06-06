@@ -374,11 +374,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (!dl.isPaired()) {
                 addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
             } else {
-                TieLine tieLine = dl.getTieLine().get();
-                Branch.Side side = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.ONE : Branch.Side.TWO;
-                Terminal terminal = dl.getTerminal();
-                addTerminalNode(createFeederTieLineNode(graph, tieLine, side), terminal);
+                dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
             }
+        }
+
+        private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+            Branch.Side side = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.ONE : Branch.Side.TWO;
+            Terminal terminal = dl.getTerminal();
+            addTerminalNode(createFeederTieLineNode((VoltageLevelGraph) graph, tieLine, side), terminal);
         }
 
         @Override
