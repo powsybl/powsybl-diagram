@@ -111,11 +111,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
-        BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
-        BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
-        boundaryNode.addBusNode(boundaryBusNode);
-        graph.addNode(boundaryNode);
-        addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        if (!dl.isPaired()) {
+            BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
+            BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
+            boundaryNode.addBusNode(boundaryBusNode);
+            graph.addNode(boundaryNode);
+            addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        } else {
+            TieLine tieLine = dl.getTieLine().get();
+            if (graph.containsEdge(tieLine.getId())) {
+                return;
+            }
+            Branch.Side otherSide = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.TWO : Branch.Side.ONE;
+            Terminal terminal = dl.getTerminal();
+            Terminal otherSideTerminal = tieLine.getDanglingLine(otherSide).getTerminal();
+            addEdge(graph, terminal, otherSideTerminal, tieLine, BranchEdge.TIE_LINE_EDGE, otherSide == Branch.Side.ONE);
+
+        }
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
