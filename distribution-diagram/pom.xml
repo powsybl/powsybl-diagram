@@ -48,6 +48,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>powsybl-diagram-test</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
