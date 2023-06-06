@@ -118,16 +118,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addNode(boundaryNode);
             addEdge(graph, dl, boundaryNode, boundaryBusNode);
         } else {
-            TieLine tieLine = dl.getTieLine().get();
-            if (graph.containsEdge(tieLine.getId())) {
-                return;
-            }
-            Branch.Side otherSide = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.TWO : Branch.Side.ONE;
-            Terminal terminal = dl.getTerminal();
-            Terminal otherSideTerminal = tieLine.getDanglingLine(otherSide).getTerminal();
-            addEdge(graph, terminal, otherSideTerminal, tieLine, BranchEdge.TIE_LINE_EDGE, otherSide == Branch.Side.ONE);
-
+            dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
         }
+    }
+
+    private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+        if (graph.containsEdge(tieLine.getId())) {
+            return;
+        }
+        Branch.Side otherSide = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.TWO : Branch.Side.ONE;
+        Terminal terminal = dl.getTerminal();
+        Terminal otherSideTerminal = tieLine.getDanglingLine(otherSide).getTerminal();
+        addEdge(graph, terminal, otherSideTerminal, tieLine, BranchEdge.TIE_LINE_EDGE, otherSide == Branch.Side.ONE);
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
