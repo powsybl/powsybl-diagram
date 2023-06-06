@@ -127,6 +127,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         && t.getLeg2().getTerminal().getVoltageLevel().getId().equals(t.getLeg3().getTerminal().getVoltageLevel().getId()))
                 .collect(Collectors.toList()));
 
+        addTieLineEdges(graph, vl.getConnectableStream(DanglingLine.class)
+                .filter(DanglingLine::isPaired)
+                .map(dl -> dl.getTieLine().get())
+                .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
+                .collect(Collectors.toList()));
+
     }
 
     @Override
@@ -180,6 +186,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
         add3wtEdges(graph, substation.getThreeWindingsTransformerStream()
                 .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
                 .collect(Collectors.toList()));
+
+        addTieLineEdges(graph, substation.getVoltageLevelStream()
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
+                .filter(DanglingLine::isPaired)
+                .map(dl -> dl.getTieLine().get())
+                .filter(NetworkGraphBuilder::isInternalToSubstation)
+                .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
+                .collect(Collectors.toList()));
     }
 
     static boolean isCapacitor(ShuntCompensator sc) {
@@ -216,6 +230,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             return NodeFactory.createFeederLineNode(graph, nodeId, equipmentNameOrId, equipmentId, s,
+                    new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
+        }
+
+        private FeederNode createFeederTieLineNode(VoltageLevelGraph graph, TieLine tieLine, Branch.Side side) {
+            String nodeId = tieLine.getId() + "_" + side.name();
+            String equipmentNameOrId = tieLine.getNameOrId();
+            String equipmentId = tieLine.getId();
+            NodeSide s = NodeSide.valueOf(side.name());
+            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+            VoltageLevel vlOtherSide = tieLine.getTerminal(otherSide).getVoltageLevel();
+            return NodeFactory.createFeederTieLineNode(graph, nodeId, equipmentNameOrId, equipmentId, s,
                     new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
         }
 
@@ -346,7 +371,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitDanglingLine(DanglingLine dl) {
-            addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
+            if (!dl.isPaired()) {
+                addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
+            } else {
+                TieLine tieLine = dl.getTieLine().get();
+                Branch.Side side = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.ONE : Branch.Side.TWO;
+                Terminal terminal = dl.getTerminal();
+                addTerminalNode(createFeederTieLineNode(graph, tieLine, side), terminal);
+            }
         }
 
         @Override
@@ -628,6 +660,27 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 Node n2 = g2.getNode(line.getId() + "_" + line.getSide(t2).name());
                 graph.addLineEdge(line.getId(), n1, n2);
                 linesIds.add(line.getId());
+            }
+        });
+    }
+
+    private void addTieLineEdges(Graph graph, List<TieLine> tieLines) {
+        Set<String> linesIds = new HashSet<>();
+        tieLines.forEach(tieLine -> {
+            if (!linesIds.contains(tieLine.getId())) {
+                Terminal t1 = tieLine.getTerminal1();
+                Terminal t2 = tieLine.getTerminal2();
+
+                VoltageLevel vl1 = t1.getVoltageLevel();
+                VoltageLevel vl2 = t2.getVoltageLevel();
+
+                VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
+                VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
+
+                Node n1 = g1.getNode(tieLine.getId() + "_" + tieLine.getSide(t1).name());
+                Node n2 = g2.getNode(tieLine.getId() + "_" + tieLine.getSide(t2).name());
+                graph.addLineEdge(tieLine.getId(), n1, n2);
+                linesIds.add(tieLine.getId());
             }
         });
     }

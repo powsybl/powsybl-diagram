@@ -32,6 +32,7 @@ public final class ComponentTypeName {
     public static final String THREE_WINDINGS_TRANSFORMER_LEG = "THREE_WINDINGS_TRANSFORMER_LEG";
     public static final String VSC_CONVERTER_STATION = "VSC_CONVERTER_STATION";
     public static final String DANGLING_LINE = "DANGLING_LINE";
+    public static final String TIE_LINE = "TIE_LINE";
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
     public static final String UNKNOWN_COMPONENT = "UNKNOWN_COMPONENT";

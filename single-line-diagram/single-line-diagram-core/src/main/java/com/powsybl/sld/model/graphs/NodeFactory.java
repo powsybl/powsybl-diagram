@@ -142,6 +142,10 @@ public final class NodeFactory {
         return createFeederBranchNode(graph, id, name, equipmentId, ComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
     }
 
+    public static FeederNode createFeederTieLineNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return createFeederBranchNode(graph, id, name, equipmentId, ComponentTypeName.TIE_LINE, side, otherSideVoltageLevelInfos);
+    }
+
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
