@@ -665,27 +665,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void addTieLineEdges(Graph graph, List<TieLine> tieLines) {
-        Set<String> linesIds = new HashSet<>();
-        tieLines.forEach(tieLine -> {
-            if (!linesIds.contains(tieLine.getId())) {
-                Terminal t1 = tieLine.getTerminal1();
-                Terminal t2 = tieLine.getTerminal2();
-
-                VoltageLevel vl1 = t1.getVoltageLevel();
-                VoltageLevel vl2 = t2.getVoltageLevel();
-
-                VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
-                VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
-
-                Node n1 = g1.getNode(tieLine.getId() + "_" + tieLine.getSide(t1).name());
-                Node n2 = g2.getNode(tieLine.getId() + "_" + tieLine.getSide(t2).name());
-                graph.addLineEdge(tieLine.getId(), n1, n2);
-                linesIds.add(tieLine.getId());
-            }
-        });
-    }
-
     private void add2wtEdges(VoltageLevelGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
         for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
             Node n1 = graph.getNode(transfo.getId() + "_" + Branch.Side.ONE);
