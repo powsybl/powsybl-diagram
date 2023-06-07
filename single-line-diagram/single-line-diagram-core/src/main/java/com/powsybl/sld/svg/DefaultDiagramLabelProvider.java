@@ -134,7 +134,10 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
                 switch (feederNode.getFeeder().getFeederType()) {
                     case BRANCH:
                     case TWO_WINDINGS_TRANSFORMER_LEG:
-                        addBranchStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
+                        Connectable<?> connectable = network.getConnectable(feederNode.getEquipmentId());
+                        if (connectable != null) {
+                            addBranchStatusDecorator(nodeDecorators, node, direction, network.getConnectable(feederNode.getEquipmentId()));
+                        }
                         break;
                     case THREE_WINDINGS_TRANSFORMER_LEG:
                         // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
@@ -175,22 +178,6 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
         BranchStatus<?> branchStatus = (BranchStatus<?>) c.getExtension(BranchStatus.class);
-        if (branchStatus != null) {
-            switch (branchStatus.getStatus()) {
-                case PLANNED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                case FORCED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Branch<?> branch) {
-        BranchStatus<?> branchStatus = (BranchStatus<?>) branch.getExtension(BranchStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
                 case PLANNED_OUTAGE:
