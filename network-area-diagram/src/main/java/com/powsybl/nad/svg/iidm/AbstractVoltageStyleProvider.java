@@ -104,6 +104,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 return Optional.of(HVDC_EDGE_CLASS);
             } else if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
                 return Optional.of(DANGLING_LINE_EDGE_CLASS);
+            } else if (branchType.equals(BranchEdge.TIE_LINE_EDGE)) {
+                return Optional.of(TIE_LINE_EDGE_CLASS);
             }
         } else if (edge instanceof ThreeWtEdge) {
             Terminal terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())

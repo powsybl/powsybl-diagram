@@ -111,11 +111,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
-        BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
-        BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
-        boundaryNode.addBusNode(boundaryBusNode);
-        graph.addNode(boundaryNode);
-        addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        if (!dl.isPaired()) {
+            BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
+            BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
+            boundaryNode.addBusNode(boundaryBusNode);
+            graph.addNode(boundaryNode);
+            addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        } else {
+            dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
+        }
+    }
+
+    private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+        addEdge(graph, tieLine, dl.getTerminal().getVoltageLevel(), BranchEdge.TIE_LINE_EDGE);
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
