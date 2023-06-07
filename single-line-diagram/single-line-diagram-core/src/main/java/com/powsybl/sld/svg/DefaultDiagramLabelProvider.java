@@ -225,7 +225,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
         HvdcConverterStation<?> hvdcConverterStation = side == NodeSide.ONE ? hvdcLine.getConverterStation1()
-                                                                                        : hvdcLine.getConverterStation2();
+                : hvdcLine.getConverterStation2();
         return this.buildFeederInfos(hvdcConverterStation.getTerminal());
     }
 

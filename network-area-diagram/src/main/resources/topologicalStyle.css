@@ -5,8 +5,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
-.nad-dangling-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; fill: none}
-.nad-tie-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 4; fill: none}
+.nad-branch-edges .nad-tie-line-edge .nad-edge-path {stroke-width: 7}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}

@@ -123,13 +123,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
-        if (graph.containsEdge(tieLine.getId())) {
-            return;
-        }
-        Branch.Side otherSide = tieLine.getDanglingLine1().getId().equals(dl.getId()) ? Branch.Side.TWO : Branch.Side.ONE;
-        Terminal terminal = dl.getTerminal();
-        Terminal otherSideTerminal = tieLine.getDanglingLine(otherSide).getTerminal();
-        addEdge(graph, terminal, otherSideTerminal, tieLine, BranchEdge.TIE_LINE_EDGE, otherSide == Branch.Side.ONE);
+        addEdge(graph, tieLine, dl.getTerminal().getVoltageLevel(), BranchEdge.TIE_LINE_EDGE);
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
