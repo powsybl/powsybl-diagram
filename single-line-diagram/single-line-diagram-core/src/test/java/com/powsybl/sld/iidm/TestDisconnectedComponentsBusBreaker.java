@@ -9,6 +9,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.commons.config.ModuleConfigRepository;
 import com.powsybl.commons.config.PlatformConfig;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
@@ -36,7 +37,7 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = CreateNetworksUtil.createBusBreakerNetworkWithInternalBranches("TestInternalBranchesBusBreaker", "test");
+        network = Networks.createBusBreakerNetworkWithInternalBranches("TestInternalBranchesBusBreaker", "test");
         substation = network.getSubstation("S1");
     }
 
