@@ -146,14 +146,13 @@
                 <artifactId>powsybl-diagram-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- Test dependencies -->
             <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-diagram-test</artifactId>
                 <version>${project.version}</version>
-                <scope>test</scope>
             </dependency>
+
+            <!-- Test dependencies -->
             <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-iidm-impl</artifactId>
