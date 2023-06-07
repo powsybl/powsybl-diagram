@@ -136,7 +136,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
                     case TWO_WINDINGS_TRANSFORMER_LEG:
                         Connectable<?> connectable = network.getConnectable(feederNode.getEquipmentId());
                         if (connectable != null) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, network.getConnectable(feederNode.getEquipmentId()));
+                            addBranchStatusDecorator(nodeDecorators, node, direction, connectable);
                         }
                         break;
                     case THREE_WINDINGS_TRANSFORMER_LEG:
