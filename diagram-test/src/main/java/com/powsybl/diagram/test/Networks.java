@@ -1942,4 +1942,35 @@ public final class Networks {
         feederAdder3.withName(feederName3).withDirection(direction3).add();
         extensionAdder.add();
     }
+
+    public static Network createNetworkWithTieLineInVoltageLevel() {
+        Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
+        network.getLine("L11").remove();
+        String tieLineId = "B11_B12_1";
+        String xnodeId = "XNODE1";
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setBus("B11").setUcteXnodeCode(xnodeId).add();
+        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setBus("B12").setUcteXnodeCode(xnodeId).add();
+        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b12.getId()).add();
+        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+
+        return network;
+
+    }
+
+    public static Network createNetworkWithTieLineInSubstation() {
+        Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
+        network.getLine("L12").remove();
+        String tieLineId = "B11_B21_1";
+        String xnodeId = "XNODE1";
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setBus("B11").setUcteXnodeCode(xnodeId).add();
+        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setBus("B21").setUcteXnodeCode(xnodeId).add();
+        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b21.getId()).add();
+        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+
+        return network;
+
+    }
+
 }

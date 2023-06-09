@@ -135,7 +135,10 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 switch (feederNode.getFeeder().getFeederType()) {
                     case BRANCH:
                     case TWO_WINDINGS_TRANSFORMER_LEG:
-                        addBranchStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
+                        Connectable<?> connectable = network.getConnectable(feederNode.getEquipmentId());
+                        if (connectable != null) {
+                            addBranchStatusDecorator(nodeDecorators, node, direction, connectable);
+                        }
                         break;
                     case THREE_WINDINGS_TRANSFORMER_LEG:
                         // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
@@ -210,7 +213,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
         HvdcConverterStation<?> hvdcConverterStation = side == NodeSide.ONE ? hvdcLine.getConverterStation1()
-                                                                                        : hvdcLine.getConverterStation2();
+                : hvdcLine.getConverterStation2();
         return this.buildFeederInfos(hvdcConverterStation.getTerminal());
     }
 
