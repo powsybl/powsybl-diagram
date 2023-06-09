@@ -68,7 +68,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        HorizontalLayout.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
+        HorizontalLayoutUtil.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
 
         manageAllSnakeLines(layoutParameters);
     }

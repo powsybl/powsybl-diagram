@@ -144,7 +144,7 @@ public final class Networks {
                 .setId("Bus1")
                 .add();
         Substation substation2 = network.newSubstation()
-                .setId("Substation2")
+                .setId(SUBSTATION_2_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()

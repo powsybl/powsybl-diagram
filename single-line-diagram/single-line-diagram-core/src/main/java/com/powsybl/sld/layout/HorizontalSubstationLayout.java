@@ -53,7 +53,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
-            vlGraph.setCoord(x, HorizontalLayout.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x, HorizontalLayoutUtil.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
 
@@ -74,7 +74,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        HorizontalLayout.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
+        HorizontalLayoutUtil.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
 
         getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);

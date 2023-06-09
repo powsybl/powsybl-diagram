@@ -17,9 +17,9 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public final class HorizontalLayout {
+public final class HorizontalLayoutUtil {
 
-    private HorizontalLayout() {
+    private HorizontalLayoutUtil() {
     }
 
     public static double computeCoordY(AbstractBaseGraph graph, LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
@@ -67,7 +67,7 @@ public final class HorizontalLayout {
 
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             x += AbstractLayout.getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayout.computeCoordY(graph, layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayoutUtil.computeCoordY(graph, layoutParameters, topPadding, vlGraph));
             x += vlGraph.getWidth();
         }
 
