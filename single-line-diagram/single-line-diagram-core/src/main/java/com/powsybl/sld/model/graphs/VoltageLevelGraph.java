@@ -316,12 +316,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void insertBusConnection(BusNode busNode, Node nodeConnectedToBusNode) {
-        Node fNodeToBus;
-        if (nodeConnectedToBusNode instanceof Internal2WTNode) {
-            fNodeToBus = NodeFactory.createBusConnectionForInternal2WTNode(this, busNode.getId(), (Internal2WTNode) nodeConnectedToBusNode);
-        } else {
-            fNodeToBus = NodeFactory.createBusConnection(this, busNode.getId() + "_" + nodeConnectedToBusNode.getId(), nodeConnectedToBusNode.getId());
-        }
+        Node fNodeToBus = NodeFactory.createBusConnection(this, busNode.getId(), nodeConnectedToBusNode);
         insertNode(busNode, fNodeToBus, nodeConnectedToBusNode);
     }
 

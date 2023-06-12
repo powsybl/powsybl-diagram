@@ -48,7 +48,7 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
     void testFeederOnBus() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", NodeSide.ONE, 0, null);
+        FeederNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", NodeSide.ONE, 0, null, false);
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
@@ -60,7 +60,7 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode busDisconnector = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "busDisconnector", false, false);
-        FeederNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", NodeSide.ONE, 0, BOTTOM);
+        FeederNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", NodeSide.ONE, 0, BOTTOM, false);
         vlBuilder.connectNode(bbs, busDisconnector);
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");

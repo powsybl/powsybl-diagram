@@ -45,7 +45,7 @@ class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs21, ss2);
         vlBuilder.connectNode(bbs22, ss2);
 
-        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP);
+        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP, false);
         SwitchNode d11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d11", false, false);
         SwitchNode d12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d12", false, false);
         ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
@@ -57,7 +57,7 @@ class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(f1, b1);
         vlBuilder.connectNode(b1, load1);
 
-        FeederNode loadMiddle = vlBuilder.createLoad("l", 1, TOP);
+        FeederNode loadMiddle = vlBuilder.createLoad("l", 1, TOP, false);
         SwitchNode dMiddle1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         SwitchNode dMiddle2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         ConnectivityNode fMiddle = vlBuilder.createConnectivityNode("f");
@@ -74,7 +74,7 @@ class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(fMiddle, bMiddle);
         vlBuilder.connectNode(bMiddle, loadMiddle);
 
-        FeederNode load2 = vlBuilder.createLoad("l2", 2, TOP);
+        FeederNode load2 = vlBuilder.createLoad("l2", 2, TOP, false);
         SwitchNode d21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d21", false, false);
         SwitchNode d22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d22", false, false);
         ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");

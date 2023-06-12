@@ -17,4 +17,6 @@ public interface Feeder {
     FeederType getFeederType();
 
     void writeJsonContent(JsonGenerator generator) throws IOException;
+
+    boolean isDisconnected();
 }

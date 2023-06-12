@@ -29,7 +29,7 @@ class TestAddBatteries extends AbstractTestCaseRaw {
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode battery1 = vlBuilder.createBattery("batt1", 0, TOP);
+        FeederNode battery1 = vlBuilder.createBattery("batt1", 0, TOP, false);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         SwitchNode b1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b1", false, false);
         FeederNode battery2 = vlBuilder.createBattery("batt2");

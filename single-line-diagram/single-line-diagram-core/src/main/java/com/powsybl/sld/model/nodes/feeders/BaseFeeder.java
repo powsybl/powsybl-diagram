@@ -21,9 +21,11 @@ import com.powsybl.sld.model.nodes.FeederType;
  */
 public class BaseFeeder implements Feeder {
     FeederType feederType;
+    private final boolean isDisconnected;
 
-    public BaseFeeder(FeederType feederType) {
+    public BaseFeeder(FeederType feederType, boolean isDisconnected) {
         this.feederType = Objects.requireNonNull(feederType);
+        this.isDisconnected = isDisconnected;
     }
 
     public FeederType getFeederType() {
@@ -32,5 +34,10 @@ public class BaseFeeder implements Feeder {
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {
     // nothing to add to json file in general case
+    }
+
+    @Override
+    public boolean isDisconnected() {
+        return this.isDisconnected;
     }
 }

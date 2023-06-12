@@ -222,7 +222,7 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-disconnected-bus-connection sld-vl300to500-0" id="idBUSCO_95_bbs11_95_b2" transform="translate(111.0,249.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_bbs11_95_b2" transform="translate(111.0,249.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_BUSCO_95_bbs11_95_b2_45_b2" transform="translate(111.0,279.0)">

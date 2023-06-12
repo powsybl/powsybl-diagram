@@ -37,7 +37,7 @@ class TestCase1 extends AbstractTestCaseRaw {
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP, false);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);

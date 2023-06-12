@@ -27,7 +27,7 @@ class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
-        FeederNode load1 = vlBuilder.createLoad("l1", 3, TOP);
+        FeederNode load1 = vlBuilder.createLoad("l1", 3, TOP, false);
         SwitchNode dl1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dl1", false, false);
         SwitchNode bl1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bl1", false, false);
         vlBuilder.connectNode(bbs1, dl1);
@@ -35,7 +35,7 @@ class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bl1, load1);
 
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
-        FeederNode load2 = vlBuilder.createLoad("l2", 1, TOP);
+        FeederNode load2 = vlBuilder.createLoad("l2", 1, TOP, false);
         SwitchNode dl2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dl2", false, false);
         SwitchNode bl2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bl2", false, false);
         vlBuilder.connectNode(bbs2, dl2);

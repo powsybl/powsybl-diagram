@@ -54,7 +54,7 @@ class TestCase4 extends AbstractTestCaseRaw {
         vlBuilder.connectNode(ss1, bbs11);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs2.1", 2, 1);
 
-        FeederNode la = vlBuilder.createLoad("la", 10, TOP);
+        FeederNode la = vlBuilder.createLoad("la", 10, TOP, false);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
         ConnectivityNode fa = vlBuilder.createConnectivityNode("4");
         SwitchNode da1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da1", false, false);
@@ -70,7 +70,7 @@ class TestCase4 extends AbstractTestCaseRaw {
         SwitchNode db2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db2", false, false);
         ConnectivityNode fb = vlBuilder.createConnectivityNode("6");
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
-        FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM);
+        FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM, false);
         vlBuilder.connectNode(lb, bb);
         vlBuilder.connectNode(bb, fb);
         vlBuilder.connectNode(fb, db1);
@@ -80,7 +80,7 @@ class TestCase4 extends AbstractTestCaseRaw {
 
         SwitchNode dc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc1", false, false);
         SwitchNode bc = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc", false, false);
-        FeederNode gc = vlBuilder.createGenerator("gc", 30, TOP);
+        FeederNode gc = vlBuilder.createGenerator("gc", 30, TOP, false);
         vlBuilder.connectNode(gc, bc);
         vlBuilder.connectNode(dc1, bbs12);
         vlBuilder.connectNode(bc, dc1);

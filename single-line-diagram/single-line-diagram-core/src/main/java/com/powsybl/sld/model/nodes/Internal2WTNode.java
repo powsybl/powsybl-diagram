@@ -38,6 +38,6 @@ public class Internal2WTNode extends EquipmentNode {
     }
 
     public boolean connectedToBus(String busId) {
-        return connectionToBus.get(busId);
+        return connectionToBus.getOrDefault(busId, false);
     }
 }

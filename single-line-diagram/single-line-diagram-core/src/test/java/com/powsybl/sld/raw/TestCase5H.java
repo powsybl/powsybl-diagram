@@ -39,14 +39,14 @@ class TestCase5H extends AbstractTestCaseRaw {
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode la = vlBuilder.createLoad("la", 10, TOP);
+        FeederNode la = vlBuilder.createLoad("la", 10, TOP, false);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
         SwitchNode da = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da", false, false);
         vlBuilder.connectNode(la, ba);
         vlBuilder.connectNode(ba, da);
         vlBuilder.connectNode(da, bbs);
 
-        FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM);
+        FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM, false);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
         vlBuilder.connectNode(lb, bb);

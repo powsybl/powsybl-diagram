@@ -23,10 +23,7 @@ import com.powsybl.sld.svg.styles.StyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
@@ -63,6 +60,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private DiagramLabelProvider noFeederInfoProvider;
     private ZoneGraph zGraph;
 
+    private static Map<String, Boolean> connectionToBus = new HashMap<>();
+
     private void createVoltageLevelGraphs() {
         // Creation "by hand" (without any network) of 3 voltage level graphs
         // and then generation of a SVG with DefaultDiagramStyleProvider (no network necessary)
@@ -75,6 +74,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     protected static VoltageLevelGraph createVoltageLevelGraph1() {
         VoltageLevelGraph g1 = new VoltageLevelGraph(new VoltageLevelInfos("vl1", "vl1", 400), null);
         g1.setCoord(40, 20);
+        Map<String, Boolean> connectionToBus = new HashMap<>();
 
         VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
         VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
@@ -105,7 +105,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1B1, vl1D2);
         g1.addEdge(vl1D2, vl1Bbs2);
 
-        FeederNode vl1Load1 = NodeFactory.createLoad(g1, "vl1_load1", "vl1_load1");
+        FeederNode vl1Load1 = NodeFactory.createLoad(g1, "vl1_load1", "vl1_load1", false);
         vl1Load1.setOrder(0);
         vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
@@ -120,7 +120,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Bload1, vl1Dload1);
         g1.addEdge(vl1Dload1, vl1Bbs1);
 
-        FeederNode vl1Trf1 = NodeFactory.createFeeder2WTNode(g1, "vl1_trf1", "vl1_trf1", "vl1_trf1", ONE, new VoltageLevelInfos("vl2", "vl2", 225));
+        FeederNode vl1Trf1 = NodeFactory.createFeeder2WTNode(g1, "vl1_trf1", "vl1_trf1", "vl1_trf1", ONE, new VoltageLevelInfos("vl2", "vl2", 225), false);
         vl1Trf1.setOrder(1);
         vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
@@ -135,17 +135,17 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Btrf1, vl1Dtrf1);
         g1.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        FeederNode vl1Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", ONE, new VoltageLevelInfos("vl2", "vl2", 225));
+        FeederNode vl1Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", ONE, new VoltageLevelInfos("vl2", "vl2", 225), false);
         vl1Trf2One.setOrder(2);
         vl1Trf2One.setDirection(TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
-        FeederNode vl1Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        FeederNode vl1Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63), false);
         vl1Trf2Two.setOrder(3);
         vl1Trf2Two.setDirection(TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
-        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true, connectionToBus);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -180,7 +180,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
-        FeederNode vl2Gen1 = NodeFactory.createGenerator(g2, "vl2_gen1", "vl2_gen1");
+        FeederNode vl2Gen1 = NodeFactory.createGenerator(g2, "vl2_gen1", "vl2_gen1", false);
         vl2Gen1.setOrder(0);
         vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
@@ -195,7 +195,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Bgen1, vl2Dgen1);
         g2.addEdge(vl2Dgen1, vl2Bbs1);
 
-        FeederNode vl2Trf1 = NodeFactory.createFeeder2WTNode(g2, "vl2_trf1", "vl2_trf1", "vl2_trf1", TWO, new VoltageLevelInfos("vl1", "vl1", 400));
+        FeederNode vl2Trf1 = NodeFactory.createFeeder2WTNode(g2, "vl2_trf1", "vl2_trf1", "vl2_trf1", TWO, new VoltageLevelInfos("vl1", "vl1", 400), false);
         vl2Trf1.setOrder(1);
         vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
@@ -210,17 +210,17 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Btrf1, vl2Dtrf1);
         g2.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        FeederNode vl2Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", ONE, new VoltageLevelInfos("vl1", "vl1", 400));
+        FeederNode vl2Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", ONE, new VoltageLevelInfos("vl1", "vl1", 400), false);
         vl2Trf2One.setOrder(2);
         vl2Trf2One.setDirection(TOP);
         vl2Trf2One.setX(130);
         vl2Trf2One.setY(80);
-        FeederNode vl2Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        FeederNode vl2Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63), false);
         vl2Trf2Two.setOrder(3);
         vl2Trf2Two.setDirection(TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
-        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true, connectionToBus);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -254,7 +254,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
         vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
-        FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3, "vl3_capa1", "vl3_capa1");
+        FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3, "vl3_capa1", "vl3_capa1", false);
         vl3Capa1.setOrder(0);
         vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
@@ -269,17 +269,17 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g3.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        FeederNode vl3Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", ONE, new VoltageLevelInfos("vl1", "vl1", 400));
+        FeederNode vl3Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", ONE, new VoltageLevelInfos("vl1", "vl1", 400), false);
         vl3Trf2One.setOrder(1);
         vl3Trf2One.setDirection(TOP);
         vl3Trf2One.setX(110);
         vl3Trf2One.setY(80);
-        FeederNode vl3Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", TWO, new VoltageLevelInfos("vl2", "vl2", 225));
+        FeederNode vl3Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", TWO, new VoltageLevelInfos("vl2", "vl2", 225), false);
         vl3Trf2Two.setOrder(2);
         vl3Trf2Two.setDirection(TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
-        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true, connectionToBus);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -338,7 +338,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1ForSubstation.addEdge(vl1B1, vl1D2);
         g1ForSubstation.addEdge(vl1D2, vl1Bbs2);
 
-        FeederNode vl1Load1 = NodeFactory.createLoad(g1ForSubstation, "vl1_load1", "vl1_load1");
+        FeederNode vl1Load1 = NodeFactory.createLoad(g1ForSubstation, "vl1_load1", "vl1_load1", false);
         vl1Load1.setOrder(0);
         vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
@@ -353,7 +353,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1ForSubstation.addEdge(vl1Bload1, vl1Dload1);
         g1ForSubstation.addEdge(vl1Dload1, vl1Bbs1);
 
-        FeederNode vl1Trf1 = NodeFactory.createFeeder2WTLegNode(g1ForSubstation, "vl1_trf1", "vl1_trf1", "vl1_trf1", ONE);
+        FeederNode vl1Trf1 = NodeFactory.createFeeder2WTLegNode(g1ForSubstation, "vl1_trf1", "vl1_trf1", "vl1_trf1", ONE, false);
         vl1Trf1.setOrder(1);
         vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
@@ -368,7 +368,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g1ForSubstation.addEdge(vl1Btrf1, vl1Dtrf1);
         g1ForSubstation.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        FeederNode vl1Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g1ForSubstation, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", ONE);
+        FeederNode vl1Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g1ForSubstation, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", ONE, false);
         vl1Trf2.setOrder(2);
         vl1Trf2.setDirection(TOP);
         vl1Trf2.setX(400);
@@ -395,7 +395,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
-        FeederNode vl2Gen1 = NodeFactory.createGenerator(g2ForSubstation, "vl2_gen1", "vl2_gen1");
+        FeederNode vl2Gen1 = NodeFactory.createGenerator(g2ForSubstation, "vl2_gen1", "vl2_gen1", false);
         vl2Gen1.setOrder(0);
         vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
@@ -410,7 +410,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g2ForSubstation.addEdge(vl2Bgen1, vl2Dgen1);
         g2ForSubstation.addEdge(vl2Dgen1, vl2Bbs1);
 
-        FeederNode vl2Trf1 = NodeFactory.createFeeder2WTLegNode(g2ForSubstation, "vl2_trf1", "vl2_trf1", "vl2_trf1", ONE);
+        FeederNode vl2Trf1 = NodeFactory.createFeeder2WTLegNode(g2ForSubstation, "vl2_trf1", "vl2_trf1", "vl2_trf1", ONE, false);
         vl2Trf1.setOrder(1);
         vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
@@ -425,7 +425,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g2ForSubstation.addEdge(vl2Btrf1, vl2Dtrf1);
         g2ForSubstation.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        FeederNode vl2Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g2ForSubstation, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", TWO);
+        FeederNode vl2Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g2ForSubstation, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", TWO, false);
         vl2Trf2.setOrder(2);
         vl2Trf2.setDirection(TOP);
         vl2Trf2.setX(160);
@@ -451,7 +451,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
         vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
-        FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3ForSubstation, "vl3_capa1", "vl3_capa1");
+        FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3ForSubstation, "vl3_capa1", "vl3_capa1", false);
         vl3Capa1.setOrder(0);
         vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
@@ -466,7 +466,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         g3ForSubstation.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3ForSubstation.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        FeederNode vl3Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g3ForSubstation, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", THREE);
+        FeederNode vl3Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g3ForSubstation, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", THREE, false);
         vl3Trf2.setOrder(1);
         vl3Trf2.setDirection(TOP);
         vl3Trf2.setX(150);
@@ -495,7 +495,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false, connectionToBus);
         nMulti3.setCoordinates(750., 90.);
         nMulti3.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
@@ -525,9 +525,9 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         BusNode bus11Node = NodeFactory.createBusNode(vl11Graph, BUS_11_ID, BUS_11_ID);
         bus11Node.setCoordinates(30, 160);
         bus11Node.setPxWidth(40);
-        FeederNode loadNode = NodeFactory.createLoad(vl11Graph, LOAD_ID, LOAD_ID);
+        FeederNode loadNode = NodeFactory.createLoad(vl11Graph, LOAD_ID, LOAD_ID, false);
         loadNode.setCoordinates(50, 10);
-        FeederNode twtSide1Node = NodeFactory.createFeeder2WTLegNode(vl11Graph, TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID, TRANSFORMER_ID, ONE);
+        FeederNode twtSide1Node = NodeFactory.createFeeder2WTLegNode(vl11Graph, TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID, TRANSFORMER_ID, ONE, false);
         twtSide1Node.setCoordinates(50, 260);
         vl11Graph.addEdge(bus11Node, loadNode);
         vl11Graph.addEdge(bus11Node, twtSide1Node);
@@ -538,9 +538,9 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         BusNode bus12Node = NodeFactory.createBusNode(vl12Graph, BUS_12_ID, BUS_12_ID);
         bus12Node.setCoordinates(30, 110);
         bus12Node.setPxWidth(40);
-        FeederNode twtSide2Node = NodeFactory.createFeeder2WTLegNode(vl12Graph, TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID, TRANSFORMER_ID, TWO);
+        FeederNode twtSide2Node = NodeFactory.createFeeder2WTLegNode(vl12Graph, TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID, TRANSFORMER_ID, TWO, false);
         twtSide2Node.setCoordinates(50, 10);
-        FeederNode lineSide1Node = NodeFactory.createFeederLineNode(vl12Graph, LINE_ID + "_" + Side.ONE, LINE_ID, LINE_ID, ONE, vl21Infos);
+        FeederNode lineSide1Node = NodeFactory.createFeederLineNode(vl12Graph, LINE_ID + "_" + Side.ONE, LINE_ID, LINE_ID, ONE, vl21Infos, false);
         lineSide1Node.setCoordinates(50, 260);
         vl12Graph.addEdge(bus12Node, twtSide2Node);
         vl12Graph.addEdge(bus12Node, lineSide1Node);
@@ -551,9 +551,9 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         BusNode bus21Node = NodeFactory.createBusNode(vl21Graph, BUS_21_ID, BUS_21_ID);
         bus21Node.setCoordinates(30, 160);
         bus21Node.setPxWidth(40);
-        FeederNode genNode = NodeFactory.createGenerator(vl21Graph, GENERATOR_ID, GENERATOR_ID);
+        FeederNode genNode = NodeFactory.createGenerator(vl21Graph, GENERATOR_ID, GENERATOR_ID, false);
         genNode.setCoordinates(50, 310);
-        FeederNode lineSide2Node = NodeFactory.createFeederLineNode(vl21Graph, LINE_ID + "_" + Side.TWO, LINE_ID, LINE_ID, TWO, vl12Infos);
+        FeederNode lineSide2Node = NodeFactory.createFeederLineNode(vl21Graph, LINE_ID + "_" + Side.TWO, LINE_ID, LINE_ID, TWO, vl12Infos, false);
         lineSide2Node.setCoordinates(50, 10);
         vl21Graph.addEdge(bus21Node, genNode);
         vl21Graph.addEdge(bus21Node, lineSide2Node);

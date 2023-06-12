@@ -30,9 +30,9 @@ class TestParallelFeedersOrders extends AbstractTestCaseRaw {
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         ConnectivityNode f = vlBuilder.createConnectivityNode("f");
-        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP);
+        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP, false);
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
-        FeederNode load2 = vlBuilder.createLoad("l2", 1, TOP);
+        FeederNode load2 = vlBuilder.createLoad("l2", 1, TOP, false);
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, b);
         vlBuilder.connectNode(b, f);
