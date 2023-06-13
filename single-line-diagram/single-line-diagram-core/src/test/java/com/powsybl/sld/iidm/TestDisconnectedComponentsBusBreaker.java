@@ -42,68 +42,28 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testDisconnectedLoad() {
+    void testConnectedComponents() {
+        graphBuilder = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/connectedComponentsBusBreaker.svg"),
+                toSVG(g, "/connectedComponentsBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
+    @Test
+    void testDisconnectedComponents() {
         network.getLoad("LD1").getTerminal().disconnect();
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        assertEquals(toString("/disconnectedLoadBusBreaker.svg"),
-                toSVG(g, "/disconnectedLoadBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-    }
-
-    @Test
-    void testDisconnectedLine() {
+        network.getGenerator("G").getTerminal().disconnect();
         network.getLine("L12").getTerminal(Branch.Side.ONE).disconnect();
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        assertEquals(toString("/disconnectedLineBusBreaker.svg"),
-                toSVG(g, "/disconnectedLineBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-    }
-
-    @Test
-    void testDisconnected2wt() {
+        network.getLine("L11").getTerminal(Branch.Side.ONE).disconnect();
         network.getTwoWindingsTransformer("T12").getTerminal(Branch.Side.ONE).disconnect();
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        assertEquals(toString("/disconnected2wtBusBreaker.svg"),
-                toSVG(g, "/disconnected2wtBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-    }
-
-    @Test
-    void testDisconnectedInternal2wt() {
         network.getTwoWindingsTransformer("T11").getTerminal(Branch.Side.TWO).disconnect();
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        assertEquals(toString("/disconnectedInternal2wtBusBreaker.svg"),
-                toSVG(g, "/disconnectedInternal2wtBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-    }
-
-    @Test
-    void testDisconnected3wt() {
         network.getThreeWindingsTransformer("T3_12").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+
         // build graph
         graphBuilder = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
@@ -112,22 +72,8 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/disconnected3wtBusBreaker.svg"),
-                toSVG(g, "/disconnected3wtBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-    }
-
-    @Test
-    void testOpenSwitch() {
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        assertEquals(toString("/openSwitchBusBreaker.svg"),
-                toSVG(g, "/openSwitchBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/disconnectedComponentsBusBreaker.svg"),
+                toSVG(g, "/disconnectedComponentsBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
 }
