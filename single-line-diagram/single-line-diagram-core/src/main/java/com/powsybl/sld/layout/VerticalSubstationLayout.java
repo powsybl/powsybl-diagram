@@ -11,6 +11,7 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.coordinate.Direction;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
 
@@ -104,10 +105,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout implement
      * Calculate polyline points of a snakeLine in the substation graph
      */
     @Override
-    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                      boolean increment) {
         return calculatePolylineSnakeLine(getGraph(),
-                layoutParam, node1, node2,
+                layoutParam, nodes,
                 increment);
     }
 

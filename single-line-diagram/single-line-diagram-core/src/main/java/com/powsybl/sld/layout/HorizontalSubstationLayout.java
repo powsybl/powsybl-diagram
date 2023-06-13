@@ -9,6 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout impleme
     }
 
     @Override
-    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                      boolean increment) {
         double yMin = getGraph().getVoltageLevels().stream().mapToDouble(VoltageLevelGraph::getY).min().orElse(0.0);
         double yMax = getGraph().getVoltageLevels().stream().mapToDouble(g -> g.getY() + g.getInnerHeight(layoutParam.getVerticalSpaceBus())).max().orElse(0.0);
-        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, node1, node2, increment, infosNbSnakeLines, yMin, yMax);
+        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
     }
 
     /**

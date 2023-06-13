@@ -9,6 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
 
@@ -30,10 +31,10 @@ public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
     }
 
     @Override
-    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2, boolean increment) {
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes, boolean increment) {
         double yMin = getGraph().getY();
         double yMax = getGraph().getY() + getGraph().getInnerHeight(layoutParam.getVerticalSpaceBus());
-        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, node1, node2, increment, infosNbSnakeLines, yMin, yMax);
+        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
     }
 
     @Override

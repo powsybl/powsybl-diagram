@@ -14,6 +14,7 @@ import com.powsybl.sld.model.graphs.AbstractBaseGraph;
 import com.powsybl.sld.model.graphs.BaseGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,11 @@ public interface VerticalLayout {
     boolean facingNodes(Node node1, Node node2);
 
     default List<Point> calculatePolylineSnakeLine(BaseGraph graph,
-                                                  LayoutParameters layoutParam, Node node1, Node node2,
+                                                  LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                   boolean increment) {
         List<Point> polyline;
+        Node node1 = nodes.getFirst();
+        Node node2 = nodes.getSecond();
         if (graph.getVoltageLevelGraph(node1) == graph.getVoltageLevelGraph(node2)) { // in the same VL (so far always horizontal layout)
             VoltageLevelGraph vlGraph = graph.getVoltageLevelGraph(node1);
             String graphId = vlGraph.getId();
@@ -54,7 +57,7 @@ public interface VerticalLayout {
             double yMax = vlGraph.getY() + vlGraph.getInnerHeight(layoutParam.getVerticalSpaceBus());
 
             // Calculate the snakeline as an horizontal layout
-            polyline = AbstractLayout.calculatePolylineSnakeLineForHorizontalLayout(graph, layoutParam, node1, node2, increment, infosNbSnakeLinesH, yMin, yMax);
+            polyline = AbstractLayout.calculatePolylineSnakeLineForHorizontalLayout(graph, layoutParam, new Pair<>(node1, node2), increment, infosNbSnakeLinesH, yMin, yMax);
 
             // Update the vertical layout maps
             Integer updatedNbLinesBottom = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BOTTOM);

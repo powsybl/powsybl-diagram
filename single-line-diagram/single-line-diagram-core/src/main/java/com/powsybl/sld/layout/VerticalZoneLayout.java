@@ -13,6 +13,7 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
 
@@ -77,10 +78,10 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
      * Calculate polyline points of a snakeLine in the substation graph
      */
     @Override
-    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                      boolean increment) {
         return calculatePolylineSnakeLine(getGraph(),
-                layoutParam, node1, node2,
+                layoutParam, nodes,
                 increment);
     }
 
