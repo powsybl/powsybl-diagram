@@ -69,7 +69,7 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        VerticalLayoutUtil.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
+        adaptPaddingToSnakeLines(getGraph(), layoutParameters);
         manageAllSnakeLines(layoutParameters);
     }
 
@@ -79,18 +79,9 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
     @Override
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
-        return VerticalLayoutUtil.calculatePolylineSnakeLine(this,
-                getGraph(), infosNbSnakeLines,
+        return calculatePolylineSnakeLine(getGraph(),
                 layoutParam, node1, node2,
                 increment);
-    }
-
-    @Override
-    public void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2, boolean increment, List<Point> polyline) {
-        VerticalLayoutUtil.addMiddlePoints(this,
-                getGraph(),
-                infosNbSnakeLines, maxVoltageLevelWidth,
-                layoutParam, node1, node2, increment, polyline);
     }
 
     @Override
@@ -107,5 +98,13 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
         }
         return (dNode1 == BOTTOM && dNode2 == TOP && isVl1Vl2Adjacent)
                 || (dNode1 == TOP && dNode2 == BOTTOM && isVl2Vl1Adjacent);
+    }
+
+    public InfosNbSnakeLinesVertical getInfosNbSnakeLines() {
+        return infosNbSnakeLines;
+    }
+
+    public double getMaxVoltageLevelWidth() {
+        return maxVoltageLevelWidth;
     }
 }

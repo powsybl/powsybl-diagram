@@ -17,12 +17,11 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public final class HorizontalLayoutUtil {
+public interface HorizontalLayout {
 
-    private HorizontalLayoutUtil() {
-    }
+    InfosNbSnakeLinesHorizontal getInfosNbSnakeLines();
 
-    public static double computeCoordY(AbstractBaseGraph graph, LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
+    static double computeCoordY(AbstractBaseGraph graph, LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
         double y;
         // Find maximum voltage level top height
         double maxTopExternCellHeight = graph.getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(Direction.TOP)).max().orElse(0.0);
@@ -56,8 +55,8 @@ public final class HorizontalLayoutUtil {
         return y;
     }
 
-    public static void adaptPaddingToSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
-        double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
+    default void adaptPaddingToSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
+        double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, getInfosNbSnakeLines());
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -66,17 +65,17 @@ public final class HorizontalLayoutUtil {
         double x = diagramPadding.getLeft();
 
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            x += AbstractLayout.getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayoutUtil.computeCoordY(graph, layoutParameters, topPadding, vlGraph));
+            x += AbstractLayout.getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, getInfosNbSnakeLines());
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), HorizontalLayout.computeCoordY(graph, layoutParameters, topPadding, vlGraph));
             x += vlGraph.getWidth();
         }
 
         double zoneWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
+        double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, getInfosNbSnakeLines());
         double zoneHeight = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
         graph.setSize(zoneWidth, zoneHeight);
 
-        infosNbSnakeLines.reset();
+        getInfosNbSnakeLines().reset();
     }
 }

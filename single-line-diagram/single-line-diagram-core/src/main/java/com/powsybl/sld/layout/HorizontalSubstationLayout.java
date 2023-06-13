@@ -16,7 +16,7 @@ import java.util.List;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public class HorizontalSubstationLayout extends AbstractSubstationLayout {
+public class HorizontalSubstationLayout extends AbstractSubstationLayout implements HorizontalLayout {
 
     private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
@@ -53,7 +53,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
-            vlGraph.setCoord(x, HorizontalLayoutUtil.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x, HorizontalLayout.computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
 
@@ -74,9 +74,14 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        HorizontalLayoutUtil.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
+        adaptPaddingToSnakeLines(getGraph(), layoutParameters);
 
         getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
+    }
+
+    @Override
+    public InfosNbSnakeLinesHorizontal getInfosNbSnakeLines() {
+        return infosNbSnakeLines;
     }
 }

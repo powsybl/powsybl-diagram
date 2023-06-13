@@ -106,18 +106,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout implement
     @Override
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
-        return VerticalLayoutUtil.calculatePolylineSnakeLine(this,
-                getGraph(), infosNbSnakeLines,
+        return calculatePolylineSnakeLine(getGraph(),
                 layoutParam, node1, node2,
                 increment);
-    }
-
-    @Override
-    public void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2, boolean increment, List<Point> polyline) {
-        VerticalLayoutUtil.addMiddlePoints(this,
-                getGraph(),
-                infosNbSnakeLines, maxVoltageLevelWidth,
-                layoutParam, node1, node2, increment, polyline);
     }
 
     @Override
@@ -128,5 +119,15 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout implement
         VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
         return dNode1 == BOTTOM && dNode2 == TOP && getGraph().graphAdjacents(vlGraph1, vlGraph2)
                 || dNode1 == TOP && dNode2 == BOTTOM && getGraph().graphAdjacents(vlGraph2, vlGraph1);
+    }
+
+    @Override
+    public InfosNbSnakeLinesVertical getInfosNbSnakeLines() {
+        return infosNbSnakeLines;
+    }
+
+    @Override
+    public double getMaxVoltageLevelWidth() {
+        return maxVoltageLevelWidth;
     }
 }

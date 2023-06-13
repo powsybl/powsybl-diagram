@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class HorizontalZoneLayout extends AbstractZoneLayout {
+public class HorizontalZoneLayout extends AbstractZoneLayout implements HorizontalLayout {
 
     private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
@@ -68,8 +68,13 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        HorizontalLayoutUtil.adaptPaddingToSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines);
+        adaptPaddingToSnakeLines(getGraph(), layoutParameters);
 
         manageAllSnakeLines(layoutParameters);
+    }
+
+    @Override
+    public InfosNbSnakeLinesHorizontal getInfosNbSnakeLines() {
+        return infosNbSnakeLines;
     }
 }
