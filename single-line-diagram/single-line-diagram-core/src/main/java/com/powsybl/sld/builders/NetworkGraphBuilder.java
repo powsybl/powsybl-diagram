@@ -239,7 +239,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
 
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-            return NodeFactory.createFeederLineNode(graph, nodeId, equipmentNameOrId, equipmentId, s,
+            return NodeFactory.createFeederBranchNode(graph, nodeId, equipmentNameOrId, equipmentId, componentTypeName, s,
                     new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()), !branch.getTerminal(side).isConnected());
         }
 
@@ -328,8 +328,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide), false);
 
-                Map<String, Boolean> connectionToBus = new HashMap<>();
-
                 // create middle node
                 Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, "MIDDLE_" + transformer.getId() + "_" + side.name(), transformer.getNameOrId(), transformer.getId(),
                         vlLegSide, firstOtherLegNode,
@@ -337,7 +335,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         voltageLevelInfosBySide.get(NodeSide.ONE),
                         voltageLevelInfosBySide.get(NodeSide.TWO),
                         voltageLevelInfosBySide.get(NodeSide.THREE),
-                        connectionToBus);
+                        connectedToBus3WT(transformer.getTerminal(ThreeWindingsTransformer.Side.ONE), transformer.getTerminal(ThreeWindingsTransformer.Side.TWO), transformer.getTerminal(ThreeWindingsTransformer.Side.THREE)));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
@@ -720,16 +718,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 return (FeederNode) graph.getVoltageLevel(vlId).getNode(idLeg);
             }).collect(Collectors.toList());
 
-            Map<String, Boolean> connectionToBus = new HashMap<>();
-            Terminal terminal1 = transfo.getTerminal(ThreeWindingsTransformer.Side.ONE);
-            Terminal terminal2 = transfo.getTerminal(ThreeWindingsTransformer.Side.TWO);
-            Terminal terminal3 = transfo.getTerminal(ThreeWindingsTransformer.Side.THREE);
-            connectionToBus.put(terminal1.getBusBreakerView().getConnectableBus().getId(), terminal1.isConnected());
-            connectionToBus.put(terminal2.getBusBreakerView().getConnectableBus().getId(), terminal2.isConnected());
-            connectionToBus.put(terminal3.getBusBreakerView().getConnectableBus().getId(), terminal3.isConnected());
-
-            NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(), transfo.getId(), feederNodes.get(0), feederNodes.get(1), feederNodes.get(2), connectionToBus);
+            NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(), transfo.getId(), feederNodes.get(0), feederNodes.get(1), feederNodes.get(2),
+                    connectedToBus3WT(transfo.getTerminal(ThreeWindingsTransformer.Side.ONE), transfo.getTerminal(ThreeWindingsTransformer.Side.TWO), transfo.getTerminal(ThreeWindingsTransformer.Side.THREE)));
         });
+    }
+
+    private static Map<String, Boolean> connectedToBus3WT(Terminal terminal1, Terminal terminal2, Terminal terminal3) {
+        Map<String, Boolean> connectionToBus = new HashMap<>();
+        connectionToBus.put(terminal1.getBusBreakerView().getConnectableBus().getId(), terminal1.isConnected());
+        connectionToBus.put(terminal2.getBusBreakerView().getConnectableBus().getId(), terminal2.isConnected());
+        connectionToBus.put(terminal3.getBusBreakerView().getConnectableBus().getId(), terminal3.isConnected());
+        return connectionToBus;
+
     }
 
     private SwitchNode createSwitchNodeFromSwitch(VoltageLevelGraph graph, Switch aSwitch) {
