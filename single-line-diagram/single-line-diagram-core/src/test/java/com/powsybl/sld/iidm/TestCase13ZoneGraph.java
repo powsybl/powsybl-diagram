@@ -192,6 +192,46 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
                 .setActivePowerSetpoint(280)
                 .add();
 
+        // Dangling Line
+        vlId = String.format("%s %.0f", subC.getId(), 66.0);
+        busId = String.format("%s %s", vlId, "Bus");
+        subC66.getVoltageLevel().newDanglingLine()
+                .setId("C66 - D")
+                .setBus(busId)
+                .setR(10.0)
+                .setX(1.0)
+                .setB(10e-6)
+                .setG(10e-5)
+                .setP0(50.0)
+                .setQ0(30.0)
+                .setUcteXnodeCode("C66 -D- D66")
+                .add();
+
+        vlId = String.format("%s %.0f", subD.getId(), 66.0);
+        busId = String.format("%s %s", vlId, "Bus");
+        subD66.getVoltageLevel().newDanglingLine()
+                .setId("D66 - D")
+                .setBus(busId)
+                .setR(10.0)
+                .setX(1.0)
+                .setB(10e-6)
+                .setG(10e-5)
+                .setP0(50.0)
+                .setQ0(30.0)
+                .setUcteXnodeCode("C66 -D- D66")
+                .add();
+
+        // TieLine between A 230 & B 230
+        String xnodeId = "XNODE1";
+        vlId = String.format("%s %.0f", subA.getId(), 230.0);
+        busId = String.format("%s %s", vlId, "Bus");
+        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        vlId = String.format("%s %.0f", subB.getId(), 230.0);
+        busId = String.format("%s %s", vlId, "Bus");
+        String tieLineId = "A230_B230";
+        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        //network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
+
         return network;
     }
 

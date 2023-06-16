@@ -638,12 +638,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
             return;
         }
+        // for stable fictitious node selection, also sort on id
         Node biggestFn = nodes.stream()
                 .filter(node -> node.getType() == Node.NodeType.INTERNAL)
-                .sorted(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
+                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
                         .reversed()
-                        .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
-                .findFirst()
+                        .thenComparing(Node::getId))
                 .orElseThrow(() -> new PowsyblException("Empty node set"));
         graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
     }
@@ -689,6 +689,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 if (addLineEdge(graph, line.getId(), t1, t2, nodeId1, nodeId2)) {
                     linesIds.add(line.getId());
                 }
+            }
+        });
+    }
+
+    private void addDanglingLineEdges(Graph graph, List<DanglingLine> danglingLines) {
+        // Try to find dangling lines couples
+        Map<String, List<DanglingLine>> dlbyXnodeCode = new HashMap<>();
+        for (DanglingLine dl : danglingLines) {
+            if (dl.getUcteXnodeCode() != null) {
+                dlbyXnodeCode.computeIfAbsent(dl.getUcteXnodeCode(), k -> new ArrayList<>()).add(dl);
+            }
+        }
+
+        dlbyXnodeCode.forEach((xnodeCode, dls) -> {
+            if (dls.size() == 2) {
+                DanglingLine dl1 = dls.get(0);
+                DanglingLine dl2 = dls.get(1);
+                addLineEdge(graph, xnodeCode, dl1.getTerminal(), dl2.getTerminal(), dl1.getId(), dl2.getId());
             }
         });
     }
@@ -809,17 +827,32 @@ public class NetworkGraphBuilder implements GraphBuilder {
             SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), zoneGraph);
             zoneGraph.addSubstation(sGraph);
         });
-        // Add snake edges between different substations in the same zone
+        // add snake edges between different
+        // - substations in the same zone
         addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
                 .filter(NetworkGraphBuilder::isNotInternalToSubstation)
                 .collect(Collectors.toList()));
 
-        // Add snake edges between different HVDC lines in the same zone
+        // - hvdc lines in the same zone
         addHvdcLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(VscConverterStation.class))
                 .map(HvdcConverterStation::getHvdcLine)
                 .distinct()
+                .collect(Collectors.toList()));
+
+        // - tie lines in the same zone
+        addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
+                .map(DanglingLine::getTieLine)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList()));
+
+        // - dangling lines in the same zone
+        addDanglingLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
+                .filter(dl -> dl.getTieLine().isEmpty())
                 .collect(Collectors.toList()));
     }
 }
