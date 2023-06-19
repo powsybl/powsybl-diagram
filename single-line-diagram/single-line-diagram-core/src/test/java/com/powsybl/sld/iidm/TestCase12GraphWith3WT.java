@@ -263,7 +263,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), svgParameters.getPrefixId()));
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -280,7 +280,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // write SVGs and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(new ConvergenceComponentLibrary(), layoutParameters, svgParameters);
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -296,7 +296,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(new ConvergenceComponentLibrary(), layoutParameters, svgParameters);
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), svgParameters.getPrefixId()));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
 }

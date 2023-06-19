@@ -8,10 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.RawGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -34,33 +31,26 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph graph, String filename) {
-        LabelProvider labelProvider = labelRawProviderFactory.create(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters);
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        return toSVG(graph, filename, defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId());
+        return toSVG(graph, filename, defaultSVGWriter, labelRawProvider, new BasicStyleProvider());
     }
 
-    private final ParamBuilder.LabelProviderFactory labelRawProviderFactory = new DefaultLabelProviderFactory() {
+    private final LabelProvider labelRawProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
         @Override
-        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+        public List<FeederInfo> getFeederInfos(FeederNode node) {
+            return Arrays.asList(
+                    new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
+                    new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
+        }
 
-                @Override
-                public List<FeederInfo> getFeederInfos(FeederNode node) {
-                    return Arrays.asList(
-                            new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
-                            new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
-                }
-
-                @Override
-                public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                    return new ArrayList<>();
-                }
-            };
+        @Override
+        public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+            return new ArrayList<>();
         }
     };
 
-    public ParamBuilder.LabelProviderFactory getLabelRawProviderFactory() {
-        return labelRawProviderFactory;
+    public LabelProvider getLabelRawProvider() {
+        return labelRawProvider;
     }
 }

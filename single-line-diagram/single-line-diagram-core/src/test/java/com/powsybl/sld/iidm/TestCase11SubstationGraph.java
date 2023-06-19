@@ -79,7 +79,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -141,7 +141,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), svgParameters.getPrefixId()));
+                new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -151,6 +151,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), svgParameters.getPrefixId()));
+        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 }

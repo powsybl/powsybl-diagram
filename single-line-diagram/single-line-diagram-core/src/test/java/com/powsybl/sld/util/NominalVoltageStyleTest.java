@@ -9,17 +9,16 @@ package com.powsybl.sld.util;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -97,18 +96,16 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Networks.createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private final ParamBuilder.LabelProviderFactory labelNoFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
-        @Override
-        public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-            return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
-
-                @Override
-                public List<FeederInfo> getFeederInfos(FeederNode node) {
-                    return Collections.emptyList();
-                }
-            };
+    private class NoFeederInfoProvider extends DefaultLabelProvider {
+        public NoFeederInfoProvider() {
+            super(NominalVoltageStyleTest.this.network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters, NominalVoltageStyleTest.this.svgParameters);
         }
-    };
+
+        @Override
+        public List<FeederInfo> getFeederInfos(FeederNode node) {
+            return Collections.emptyList();
+        }
+    }
 
     @Test
     void testAttributes() {
@@ -160,8 +157,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         substationGraphLayout(graph);
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelNoFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
@@ -170,8 +166,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(graph2);
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelNoFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
@@ -180,8 +175,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(graph3);
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelNoFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
     }
 
 }

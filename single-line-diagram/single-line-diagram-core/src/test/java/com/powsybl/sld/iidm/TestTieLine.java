@@ -43,7 +43,7 @@ class TestTieLine extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
     }
 
     @Test
@@ -58,7 +58,7 @@ class TestTieLine extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
     }
 
 }

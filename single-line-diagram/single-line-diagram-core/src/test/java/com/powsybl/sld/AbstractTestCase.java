@@ -126,9 +126,9 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph, String filename, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
+    public String toSVG(Graph graph, String filename, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), svgWriter, labelProvider, styleProvider, prefixId);
+            SingleLineDiagram.draw(graph, writer, new NullWriter(), svgWriter, labelProvider, styleProvider);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -143,7 +143,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
@@ -151,7 +151,7 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             voltageLevelLayoutFactory.create(graph).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider, prefixId);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -171,7 +171,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider, String prefixId) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, DefaultSVGWriter defaultSVGWriter, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
@@ -179,7 +179,7 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             substationLayoutFactory.create(graph, voltageLevelLayoutFactory).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider, prefixId);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, defaultSVGWriter, labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);

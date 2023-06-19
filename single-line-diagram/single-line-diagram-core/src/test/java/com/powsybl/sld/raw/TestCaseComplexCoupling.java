@@ -6,14 +6,12 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,8 +57,7 @@ class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         voltageLevelGraphLayout(g);
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = getLabelRawProviderFactory().create(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters);
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", defaultSVGWriter, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

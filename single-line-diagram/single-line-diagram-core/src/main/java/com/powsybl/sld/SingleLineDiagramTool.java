@@ -19,6 +19,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -80,39 +81,43 @@ public class SingleLineDiagramTool implements Tool {
     }
 
     private Path getSvgFile(Path outputDir, String id) {
-        return outputDir.resolve(URLEncoder.encode(id, StandardCharsets.UTF_8) + ".svg");
+        try {
+            return outputDir.resolve(URLEncoder.encode(id, StandardCharsets.UTF_8.name()) + ".svg");
+        } catch (UnsupportedEncodingException e) {
+            throw new PowsyblException(e);
+        }
     }
 
-    private void generateSvg(ToolRunningContext context, Path outputDir, String vlOrSubstationId, Network network) {
+    private void generateSvg(ToolRunningContext context, Path outputDir, String vlOrSubstationId, Network network, SldParameters sldParameters) {
         Path svgFile = getSvgFile(outputDir, vlOrSubstationId);
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
-            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile, new ParamBuilder().build());
+            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile, sldParameters);
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }
     }
 
-    private void generateSome(ToolRunningContext context, Path outputDir, List<String> ids, Network network) {
+    private void generateSome(ToolRunningContext context, Path outputDir, List<String> ids, Network network, SldParameters sldParameters) {
         for (String id : ids) {
-            generateSvg(context, outputDir, id, network);
+            generateSvg(context, outputDir, id, network, sldParameters);
         }
     }
 
     private void generateAll(ToolRunningContext context, boolean allVoltageLevels, boolean allSubstations,
-                             Path outputDir, Network network) {
+                             Path outputDir, Network network, SldParameters sldParameters) {
         // by default, export all voltage levels if no id given and no
         // additional option (all-voltage-levels or all-substations) given
         if (allVoltageLevels || !allSubstations) {
             // export all voltage levels
             for (VoltageLevel vl : network.getVoltageLevels()) {
-                generateSvg(context, outputDir, vl.getId(), network);
+                generateSvg(context, outputDir, vl.getId(), network, sldParameters);
             }
         }
         if (allSubstations) {
             // export all substations
             for (Substation s : network.getSubstations()) {
-                generateSvg(context, outputDir, s.getId(), network);
+                generateSvg(context, outputDir, s.getId(), network, sldParameters);
             }
         }
     }
@@ -128,12 +133,13 @@ public class SingleLineDiagramTool implements Tool {
         if (network == null) {
             throw new PowsyblException("File '" + inputFile + "' is not importable");
         }
+        SldParameters sldParameters = SldParameters.defaultParameters();
         if (ids.isEmpty()) {
             boolean allVoltageLevels = toolOptions.hasOption(ALL_VOLTAGE_LEVELS);
             boolean allSubstations = toolOptions.hasOption(ALL_SUBSTATIONS);
-            generateAll(context, allVoltageLevels, allSubstations, outputDir, network);
+            generateAll(context, allVoltageLevels, allSubstations, outputDir, network, sldParameters);
         } else {
-            generateSome(context, outputDir, ids, network);
+            generateSome(context, outputDir, ids, network, sldParameters);
         }
     }
 }

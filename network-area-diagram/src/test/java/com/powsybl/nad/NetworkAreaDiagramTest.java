@@ -50,10 +50,6 @@ class NetworkAreaDiagramTest extends AbstractTest {
         return new NominalVoltageStyleProvider(network);
     }
 
-    private ParamBuilder.StyleProviderFactory getStyleProviderFactory() {
-        return network -> getStyleProvider(network);
-    }
-
     @Override
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
@@ -72,11 +68,11 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testDrawSvg() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
         Path svgFile = fileSystem.getPath("nad-test.svg");
-        Param param = new ParamBuilder()
+        NadParameters nadParameters = NadParameters.builder()
                 .withSvgParameters(getSvgParameters())
-                .withStyleProviderFactory(getStyleProviderFactory())
+                .withStyleProviderFactory(this::getStyleProvider)
                 .build();
-        NetworkAreaDiagram.draw(network, svgFile, param, VoltageLevelFilter.NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 }

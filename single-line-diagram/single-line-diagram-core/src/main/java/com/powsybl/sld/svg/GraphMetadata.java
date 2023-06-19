@@ -326,6 +326,7 @@ public class GraphMetadata {
     private final Map<String, LineMetadata> lineMetadataMap = new HashMap<>();
 
     private final LayoutParameters layoutParameters;
+    private final SvgParameters svgParameters;
 
     private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
@@ -333,8 +334,8 @@ public class GraphMetadata {
 
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
-    public GraphMetadata(LayoutParameters layoutParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters);
+    public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
     }
 
     @JsonCreator
@@ -345,7 +346,8 @@ public class GraphMetadata {
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
                          @JsonProperty("electricalNodeInfos") List<ElectricalNodeInfoMetadata> electricalNodeInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
-                         @JsonProperty("layoutParams") LayoutParameters layoutParams) {
+                         @JsonProperty("layoutParams") LayoutParameters layoutParams,
+                         @JsonProperty("svgParams") SvgParameters svgParams) {
         for (Component component : componentList) {
             addComponent(component);
         }
@@ -368,6 +370,7 @@ public class GraphMetadata {
             addBusInfoMetadata(busInfoMetadata);
         }
         layoutParameters = layoutParams;
+        svgParameters = svgParams;
     }
 
     public static GraphMetadata parseJson(Path file) {
@@ -531,6 +534,12 @@ public class GraphMetadata {
     @JsonProperty("layoutParams")
     public LayoutParameters getLayoutParameters() {
         return layoutParameters;
+
+    }
+
+    @JsonProperty("svgParams")
+    public SvgParameters getSvgParameters() {
+        return svgParameters;
 
     }
 }

@@ -40,7 +40,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     @Override
     public String toSVG(Graph g, String filename) {
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        return toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId());
+        return toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     protected LabelProvider getDefaultDiagramLabelProvider() {
