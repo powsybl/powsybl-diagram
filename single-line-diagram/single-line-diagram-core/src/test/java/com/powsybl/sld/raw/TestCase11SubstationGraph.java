@@ -11,14 +11,16 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
@@ -125,7 +127,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         */
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs1 = ssb1.createFeeder2WT("trf1", vlb1, vlb2,
-                1, 1, TOP, TOP);
+                1, 1, TOP, TOP, false, false);
         SwitchNode dtrf11 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf11", false, false);
         SwitchNode btrf11 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf11", false, false);
         vlb1.connectNode(bbs1, dtrf11);
@@ -139,7 +141,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf21, feeder2WTs1.get(vlb2));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs2 = ssb1.createFeeder2WT("trf2", vlb1, vlb2,
-                11, 7, TOP, BOTTOM);
+                11, 7, TOP, BOTTOM, false, false);
         SwitchNode dtrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf12", false, false);
         SwitchNode btrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf12", false, false);
         vlb1.connectNode(bbs2, dtrf12);
@@ -153,7 +155,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf22, feeder2WTs2.get(vlb2));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs3 = ssb1.createFeeder2WT("trf3", vlb1, vlb2,
-                3, 8, BOTTOM, BOTTOM);
+                3, 8, BOTTOM, BOTTOM, false, false);
 
         SwitchNode dtrf13 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf13", false, false);
         SwitchNode btrf13 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf13", false, false);
@@ -168,7 +170,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf23, feeder2WTs3.get(vlb2));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs4 = ssb1.createFeeder2WT("trf4", vlb1, vlb2,
-                10, 3, BOTTOM, TOP);
+                10, 3, BOTTOM, TOP, false, false);
 
         SwitchNode dtrf14 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf14", false, false);
         SwitchNode btrf14 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf14", false, false);
@@ -183,7 +185,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf24, feeder2WTs4.get(vlb2));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs5 = ssb1.createFeeder2WT("trf5", vlb1, vlb3,
-                4, 1, TOP, BOTTOM);
+                4, 1, TOP, BOTTOM, false, false);
 
         SwitchNode dtrf15 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf15", false, false);
         SwitchNode btrf15 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf15", false, false);
@@ -201,10 +203,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         //
        */
 
-        Map<String, Boolean> connectionToBus = new HashMap<>();
-
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
-                5, 5, 2, TOP, TOP, TOP, connectionToBus);
+                5, 5, 2, TOP, TOP, TOP, false, false, false);
 
         SwitchNode dtrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf16", false, false);
         SwitchNode btrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf16", false, false);
@@ -225,7 +225,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb3.connectNode(btrf36, feeder3WTs6.get(vlb3));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
-                6, 4, 3, BOTTOM, TOP, BOTTOM, connectionToBus);
+                6, 4, 3, BOTTOM, TOP, BOTTOM, false, false, false);
 
         SwitchNode dtrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf17", false, false);
         SwitchNode btrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf17", false, false);
@@ -246,7 +246,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb3.connectNode(btrf37, feeder3WTs7.get(vlb3));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
-                9, 6, 4, TOP, BOTTOM, TOP, connectionToBus);
+                9, 6, 4, TOP, BOTTOM, TOP, false, false, false);
 
         SwitchNode dtrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf18", false, false);
         SwitchNode btrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf18", false, false);

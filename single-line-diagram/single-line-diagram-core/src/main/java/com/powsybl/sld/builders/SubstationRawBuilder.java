@@ -46,10 +46,10 @@ public class SubstationRawBuilder {
     }
 
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
-                                                                      Direction direction1, Direction direction2) {
+                                                                   Direction direction1, Direction direction2, boolean disconnected1, boolean disconnected2) {
         Map<VoltageLevelRawBuilder, FeederNode> f2WTNodes = new HashMap<>();
-        FeederNode feeder2WtNode1 = vl1.createFeeder2wtLegNode(id, ONE, order1, direction1, false);
-        FeederNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2, false);
+        FeederNode feeder2WtNode1 = vl1.createFeeder2wtLegNode(id, ONE, order1, direction1, disconnected1);
+        FeederNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2, disconnected2);
         f2WTNodes.put(vl1, feeder2WtNode1);
         f2WTNodes.put(vl2, feeder2WTNode2);
         NodeFactory.createMiddle2WTNode(substationGraph, id, id, feeder2WtNode1, feeder2WTNode2, vl1.getVoltageLevelInfos(), vl2.getVoltageLevelInfos(), false);
@@ -57,19 +57,24 @@ public class SubstationRawBuilder {
     }
 
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
-        return createFeeder2WT(id, vl1, vl2, 0, 0, null, null);
+        return createFeeder2WT(id, vl1, vl2, 0, 0, null, null, false, false);
     }
 
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3,
-                                                                      int order1, int order2, int order3,
-                                                                      Direction direction1, Direction direction2, Direction direction3, Map<String, Boolean> connectionToBus) {
+                                                                   int order1, int order2, int order3,
+                                                                   Direction direction1, Direction direction2, Direction direction3, boolean disconnected1, boolean disconnected2, boolean disconnected3) {
         Map<VoltageLevelRawBuilder, FeederNode> f3WTNodes = new HashMap<>();
-        FeederNode feeder3WTNode1 = vl1.createFeeder3wtLegNode(id, ONE, order1, direction1, false);
-        FeederNode feeder3WTNode2 = vl2.createFeeder3wtLegNode(id, TWO, order2, direction2, false);
-        FeederNode feeder3WTNode3 = vl3.createFeeder3wtLegNode(id, THREE, order3, direction3, false);
+        FeederNode feeder3WTNode1 = vl1.createFeeder3wtLegNode(id, ONE, order1, direction1, disconnected1);
+        FeederNode feeder3WTNode2 = vl2.createFeeder3wtLegNode(id, TWO, order2, direction2, disconnected2);
+        FeederNode feeder3WTNode3 = vl3.createFeeder3wtLegNode(id, THREE, order3, direction3, disconnected3);
         f3WTNodes.put(vl1, feeder3WTNode1);
         f3WTNodes.put(vl2, feeder3WTNode2);
         f3WTNodes.put(vl3, feeder3WTNode3);
+
+        Map<String, Boolean> connectionToBus = new HashMap<>();
+        connectionToBus.put("1", !disconnected1);
+        connectionToBus.put("2", !disconnected2);
+        connectionToBus.put("3", !disconnected3);
 
         // creation of the middle node and the edges linking the transformer leg nodes to this middle node
         NodeFactory.createMiddle3WTNode(substationGraph, id, id, id, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3, connectionToBus);
@@ -77,7 +82,7 @@ public class SubstationRawBuilder {
         return f3WTNodes;
     }
 
-    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3, Map<String, Boolean> connectionToBus) {
-        return createFeeder3WT(id, vl1, vl2, vl3, 0, 0, 0, null, null, null, connectionToBus);
+    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3) {
+        return createFeeder3WT(id, vl1, vl2, vl3, 0, 0, 0, null, null, null, false, false, false);
     }
 }
