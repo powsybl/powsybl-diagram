@@ -9,6 +9,7 @@ package com.powsybl.sld.model.nodes;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,12 +21,13 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
 public class Middle3WTNode extends MiddleTwtNode {
     private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);
     private final boolean embeddedInVlGraph;
+    Map<String, Boolean> connectionToBus;
 
-    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
-        super(id, name,
-            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
-            THREE_WINDINGS_TRANSFORMER);
+    public Middle3WTNode(String id, String name, String equipmentId, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph, Map<String, Boolean> connectionToBus) {
+        super(id, name, equipmentId,
+                new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)}, THREE_WINDINGS_TRANSFORMER);
         this.embeddedInVlGraph = embeddedInVLGraph;
+        this.connectionToBus = new HashMap<>(connectionToBus);
     }
 
     public boolean isEmbeddedInVlGraph() {
@@ -57,5 +59,9 @@ public class Middle3WTNode extends MiddleTwtNode {
 
     public enum Winding {
         UPPER_LEFT, UPPER_RIGHT, DOWN
+    }
+
+    public boolean connectedToBus(String busId) {
+        return connectionToBus.getOrDefault(busId, false);
     }
 }

@@ -17,8 +17,8 @@ import java.io.IOException;
 public class MiddleTwtNode extends EquipmentNode {
     protected final VoltageLevelInfos[] voltageLevelInfosLeg;
 
-    protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
-        super(NodeType.INTERNAL, id, name, id, componentType, true);
+    protected MiddleTwtNode(String id, String name, String equipmentId, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
+        super(NodeType.INTERNAL, id, name, equipmentId, componentType, true);
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
     }
 

@@ -13,6 +13,7 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-bus-connection.sld-disconnected-bus-connection {stroke: var(--sld-vl-color, black); fill: white}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -88,9 +89,9 @@
 .sld-vl0to30-9 {--sld-vl-color: #869D22}
 /* ----------------------------------------------------------------------- */
 /* File : highlightLineStates.css ---------------------------------------- */
-.sld-feeder-disconnected {stroke: black}
-.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
-.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
+.sld-wire.sld-feeder-disconnected {stroke: black}
+.sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
+.sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
@@ -401,10 +402,10 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_INTERNAL_95_VL1_95_D19_45_BR20_95_BR20">
                 <polyline points="540.0,222.0,540.0,192.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_BR20_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_BR20_95_MIDDLE_95_T3_95_12_95_ONE">
                 <polyline points="540.0,172.0,540.0,154.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95_VL1_95_T3_95_12_95_TWO_95_T3_95_12">
+            <g class="sld-wire sld-disconnected" id="_95_VL1_95_T3_95_12_95_TWO_95_MIDDLE_95_T3_95_12_95_ONE">
                 <polyline points="515.0,80.0,515.0,142.0,533.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_TWO_ARROW_ACTIVE" transform="translate(510.0,95.0)">
@@ -417,7 +418,7 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-1" id="_95_VL1_95_T3_95_12_95_THREE_95_MIDDLE_95_T3_95_12_95_ONE">
                 <polyline points="565.0,80.0,565.0,142.0,547.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(560.0,95.0)">
@@ -447,7 +448,7 @@
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(21.0,0.0)"/>
                 </g>
             </g>
-            <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(532.0,130.0)">
+            <g class="sld-three-wt sld-fictitious" id="idMIDDLE_95_T3_95_12_95_ONE" transform="translate(532.0,130.0)">
                 <circle class="sld-disconnected sld-winding" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl300to500-1 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5"/>
@@ -612,10 +613,10 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_INTERNAL_95_VL1_95_D29_45_BR30_95_BR30">
                 <polyline points="790.0,222.0,790.0,192.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_BR30_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_BR30_95_MIDDLE_95_T3_95_12_95_TWO">
                 <polyline points="790.0,172.0,790.0,154.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95_VL1_95_T3_95_12_95_ONE_95_T3_95_12">
+            <g class="sld-wire sld-disconnected" id="_95_VL1_95_T3_95_12_95_ONE_95_MIDDLE_95_T3_95_12_95_TWO">
                 <polyline points="765.0,80.0,765.0,142.0,783.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_ONE_ARROW_ACTIVE" transform="translate(760.0,95.0)">
@@ -628,7 +629,7 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500-1" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-1" id="_95_VL1_95_T3_95_12_95_THREE_95_MIDDLE_95_T3_95_12_95_TWO">
                 <polyline points="815.0,80.0,815.0,142.0,797.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(810.0,95.0)">
@@ -658,7 +659,7 @@
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(21.0,0.0)"/>
                 </g>
             </g>
-            <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(782.0,130.0)">
+            <g class="sld-three-wt sld-fictitious" id="idMIDDLE_95_T3_95_12_95_TWO" transform="translate(782.0,130.0)">
                 <circle class="sld-disconnected sld-winding" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl300to500-1 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5"/>

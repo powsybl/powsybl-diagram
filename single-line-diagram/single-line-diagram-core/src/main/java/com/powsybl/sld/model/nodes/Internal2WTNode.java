@@ -9,14 +9,20 @@ package com.powsybl.sld.model.nodes;
 
 import com.powsybl.sld.model.coordinate.Orientation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class Internal2WTNode extends EquipmentNode {
-    public Internal2WTNode(String id, String nameOrId, String componentType) {
+
+    Map<String, Boolean> connectionToBus;
+
+    public Internal2WTNode(String id, String nameOrId, String componentType, Map<String, Boolean> connectionToBus) {
         super(NodeType.INTERNAL, id, nameOrId, id, componentType, false);
+        this.connectionToBus = new HashMap<>(connectionToBus);
     }
 
     @Override
@@ -29,5 +35,9 @@ public class Internal2WTNode extends EquipmentNode {
                 break;
             }
         }
+    }
+
+    public boolean connectedToBus(String busId) {
+        return connectionToBus.getOrDefault(busId, false);
     }
 }

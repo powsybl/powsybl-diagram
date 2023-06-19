@@ -49,7 +49,7 @@ class TestCase2 extends AbstractTestCaseRaw {
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         Node f = vlBuilder.createConnectivityNode("2");
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP, false);
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(d1, f);
         vlBuilder.connectNode(bbs2, d2);

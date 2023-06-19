@@ -32,7 +32,7 @@ class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     public void setUp() {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP, false);
         vlBuilder.connectNode(bbs, load);
     }
 

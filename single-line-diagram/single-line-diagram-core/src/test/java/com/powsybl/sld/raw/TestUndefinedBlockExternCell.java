@@ -43,12 +43,12 @@ class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
         vlBuilder.connectNode(d, f0);
 
         ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
-        FeederNode l1 = vlBuilder.createLoad("l1", 0, TOP);
+        FeederNode l1 = vlBuilder.createLoad("l1", 0, TOP, false);
         vlBuilder.connectNode(f0, f1);
         vlBuilder.connectNode(f1, l1);
 
         ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");
-        FeederNode l2 = vlBuilder.createLoad("l2", 1, TOP);
+        FeederNode l2 = vlBuilder.createLoad("l2", 1, TOP, false);
         vlBuilder.connectNode(f1, f2);
         vlBuilder.connectNode(f2, l2);
 

@@ -79,57 +79,57 @@ public class VoltageLevelRawBuilder {
     }
 
     public FeederNode createLoad(String id) {
-        return createLoad(id, 0, null);
+        return createLoad(id, 0, null, false);
     }
 
-    public FeederNode createLoad(String id, int order, Direction direction) {
-        FeederNode fn = NodeFactory.createLoad(voltageLevelGraph, id, id);
+    public FeederNode createLoad(String id, int order, Direction direction, boolean disconnected) {
+        FeederNode fn = NodeFactory.createLoad(voltageLevelGraph, id, id, disconnected);
         commonFeederSetting(fn, id, order, direction);
         return fn;
     }
 
     public FeederNode createGenerator(String id) {
-        return createGenerator(id, 0, null);
+        return createGenerator(id, 0, null, false);
     }
 
-    public FeederNode createGenerator(String id, int order, Direction direction) {
-        FeederNode fn = NodeFactory.createGenerator(voltageLevelGraph, id, id);
+    public FeederNode createGenerator(String id, int order, Direction direction, boolean disconnected) {
+        FeederNode fn = NodeFactory.createGenerator(voltageLevelGraph, id, id, disconnected);
         commonFeederSetting(fn, id, order, direction);
         return fn;
     }
 
     public FeederNode createBattery(String id) {
-        return createBattery(id, 0, null);
+        return createBattery(id, 0, null, false);
     }
 
-    public FeederNode createBattery(String id, int order, Direction direction) {
-        FeederNode fn = NodeFactory.createBattery(voltageLevelGraph, id, id);
+    public FeederNode createBattery(String id, int order, Direction direction, boolean disconnected) {
+        FeederNode fn = NodeFactory.createBattery(voltageLevelGraph, id, id, disconnected);
         commonFeederSetting(fn, id, order, direction);
         return fn;
     }
 
-    public FeederNode createFeederLineNode(String id, String otherVlId, NodeSide side, int order, Direction direction) {
-        FeederNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
+    public FeederNode createFeederLineNode(String id, String otherVlId, NodeSide side, int order, Direction direction, boolean disconnected) {
+        FeederNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId), disconnected);
         commonFeederSetting(fln, id, order, direction);
         return fln;
     }
 
     public FeederNode createFeeder2WTNode(String id, String otherVlId, NodeSide side,
-                                             int order, Direction direction) {
-        FeederNode f2WTe = NodeFactory.createFeeder2WTNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
+                                             int order, Direction direction, boolean disconnected) {
+        FeederNode f2WTe = NodeFactory.createFeeder2WTNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId), disconnected);
         commonFeederSetting(f2WTe, id, order, direction);
         return f2WTe;
     }
 
     public FeederNode createFeeder2wtLegNode(String id, NodeSide side,
-                                                   int order, Direction direction) {
-        FeederNode f2WTe = NodeFactory.createFeeder2WTLegNode(voltageLevelGraph, id + "_" + side, id, id, side);
+                                             int order, Direction direction, boolean disconnected) {
+        FeederNode f2WTe = NodeFactory.createFeeder2WTLegNode(voltageLevelGraph, id + "_" + side, id, id, side, disconnected);
         commonFeederSetting(f2WTe, id, order, direction);
         return f2WTe;
     }
 
-    public FeederNode createFeeder3wtLegNode(String id, NodeSide side, int order, Direction direction) {
-        FeederNode f3WTe = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side);
+    public FeederNode createFeeder3wtLegNode(String id, NodeSide side, int order, Direction direction, boolean disconnected) {
+        FeederNode f3WTe = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side, disconnected);
         commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
         return f3WTe;
     }
