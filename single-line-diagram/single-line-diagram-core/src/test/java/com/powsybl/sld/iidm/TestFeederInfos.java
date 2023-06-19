@@ -10,10 +10,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -74,39 +71,33 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // many feeder values provider example for the test:
-        ParamBuilder.LabelProviderFactory labelManyFeederInfoProviderFactory = new DefaultLabelProviderFactory() {
+        LabelProvider labelManyFeederInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
             @Override
-            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
-
-                    @Override
-                    public List<FeederInfo> getFeederInfos(FeederNode node) {
-                        List<FeederInfo> feederInfos = Arrays.asList(
-                                new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
-                                new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                                new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
-                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                                new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
-                        boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
-                        if (!feederArrowSymmetry) {
-                            Collections.reverse(feederInfos);
-                        }
-                        return feederInfos;
-                    }
-
-                    @Override
-                    public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                        return new ArrayList<>();
-                    }
-                };
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                List<FeederInfo> feederInfos = Arrays.asList(
+                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
+                if (!feederArrowSymmetry) {
+                    Collections.reverse(feederInfos);
+                }
+                return feederInfos;
             }
+
+            @Override
+            public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                return new ArrayList<>();
+            }
+
         };
 
 // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelManyFeederInfoProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", defaultSVGWriter, labelManyFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -124,7 +115,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -145,7 +136,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         // write SVG and compare to reference
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -187,50 +178,46 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         svgParameters.setFeederInfosIntraMargin(20);
 
-        ParamBuilder.LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory() {
+        LabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+
             @Override
-            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                Load l = network.getLoad("l");
+                Load l2 = network.getLoad("l2");
 
-                    @Override
-                    public List<FeederInfo> getFeederInfos(FeederNode node) {
-                        Load l = network.getLoad("l");
-                        Load l2 = network.getLoad("l2");
+                if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
+                } else {
+                    return Arrays.asList(
+                            new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
+                            new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                            new FeederInfo() {
+                                @Override
+                                public String getUserDefinedId() {
+                                    return null;
+                                }
 
-                        if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
-                            return Arrays.asList(
-                                    new DirectionalFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
-                                    new DirectionalFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
-                        } else {
-                            return Arrays.asList(
-                                    new DirectionalFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
-                                    new DirectionalFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
-                                    new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                                    new FeederInfo() {
-                                        @Override
-                                        public String getUserDefinedId() {
-                                            return null;
-                                        }
+                                @Override
+                                public String getComponentType() {
+                                    return ARROW_ACTIVE;
+                                }
 
-                                        @Override
-                                        public String getComponentType() {
-                                            return ARROW_ACTIVE;
-                                        }
+                                @Override
+                                public Optional<String> getLeftLabel() {
+                                    return Optional.of("Left");
+                                }
 
-                                        @Override
-                                        public Optional<String> getLeftLabel() {
-                                            return Optional.of("Left");
-                                        }
-
-                                        @Override
-                                        public Optional<String> getRightLabel() {
-                                            return Optional.of("Right");
-                                        }
-                                    });
-                        }
-                    }
-                };
+                                @Override
+                                public Optional<String> getRightLabel() {
+                                    return Optional.of("Right");
+                                }
+                            });
+                }
             }
+
         };
 
         StyleProvider styleProvider = new StyleProvidersList(
@@ -245,8 +232,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        LabelProvider labelProvider = labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", defaultSVGWriter, labelProvider, styleProvider));
 
     }
 }

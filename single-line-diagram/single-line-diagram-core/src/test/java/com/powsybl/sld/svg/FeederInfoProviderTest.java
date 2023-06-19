@@ -50,7 +50,7 @@ class FeederInfoProviderTest extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
 
         Network network2 = Network.create("testCase2", "test2");
         DefaultLabelProvider wrongLabelProvider = new DefaultLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);

@@ -55,7 +55,7 @@ class GraphMetadataTest {
 
     @Test
     void test() throws IOException {
-        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
         metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
 
@@ -148,7 +148,7 @@ class GraphMetadataTest {
 
     @Test
     void testGraphMetadataWithLine() throws IOException {
-        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));

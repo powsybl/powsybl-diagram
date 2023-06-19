@@ -13,7 +13,8 @@ import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +42,8 @@ class TestTieLine extends AbstractTestCaseIidm {
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters), new TopologicalStyleProvider(network)));
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
     }
 
     @Test
@@ -55,7 +57,8 @@ class TestTieLine extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters), new TopologicalStyleProvider(network)));
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", defaultSVGWriter, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
     }
 
 }

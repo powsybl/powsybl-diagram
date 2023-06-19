@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.Param;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
-    Param param;
+    SldParameters sldParameters;
 
     @BeforeEach
     public void setUp() {
@@ -64,6 +64,6 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }

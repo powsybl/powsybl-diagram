@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -15,7 +14,6 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,9 +53,8 @@ class TestAddBatteries extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        LabelProvider labelProvider = getLabelRawProviderFactory().create(Network.create("empty", ""), getResourcesComponentLibrary(), layoutParameters, svgParameters);
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
         assertEquals(toString("/TestBatteriesRaw.svg"),
-                toSVG(g, "/TestBatteriesRaw.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/TestBatteriesRaw.svg", defaultSVGWriter, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

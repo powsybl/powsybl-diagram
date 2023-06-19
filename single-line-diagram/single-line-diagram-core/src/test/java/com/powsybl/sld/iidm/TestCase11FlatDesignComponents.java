@@ -53,6 +53,6 @@ class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
         String filename = "/TestCase11FlatDesign.svg";
 
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
-        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

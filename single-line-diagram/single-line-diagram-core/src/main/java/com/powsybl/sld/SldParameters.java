@@ -12,24 +12,25 @@ import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.LabelProviderFactory;
 import com.powsybl.sld.svg.SvgParameters;
-import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
 /**
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
-public class Param {
+public class SldParameters {
 
-    SvgParameters svgParameters;
-    LayoutParameters layoutParameters;
-    ComponentLibrary componentLibrary;
-    ParamBuilder.LabelProviderFactory labelProviderFactory;
-    ParamBuilder.StyleProviderFactory styleProviderFactory;
-    SubstationLayoutFactory substationLayoutFactory;
-    VoltageLevelLayoutFactory voltageLevelLayoutFactory;
+    private final SvgParameters svgParameters;
+    private final LayoutParameters layoutParameters;
+    private final ComponentLibrary componentLibrary;
+    private final LabelProviderFactory labelProviderFactory;
+    private final StyleProviderFactory styleProviderFactory;
+    private final SubstationLayoutFactory substationLayoutFactory;
+    private final VoltageLevelLayoutFactory voltageLevelLayoutFactory;
 
-    public Param(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, ParamBuilder.LabelProviderFactory labelProviderFactory, ParamBuilder.StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public SldParameters(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, LabelProviderFactory labelProviderFactory, StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.componentLibrary = componentLibrary;
@@ -55,8 +56,8 @@ public class Param {
         return labelProviderFactory.create(network, componentLibrary, layoutParameters, svgParameters);
     }
 
-    public StyleProvider createStyleProvider(Network network) {
-        return styleProviderFactory.create(network);
+    public StyleProviderFactory getStyleProviderFactory() {
+        return styleProviderFactory;
     }
 
     public SubstationLayoutFactory getSubstationLayoutFactory() {
@@ -65,5 +66,13 @@ public class Param {
 
     public VoltageLevelLayoutFactory getVoltageLevelLayoutFactory() {
         return voltageLevelLayoutFactory;
+    }
+
+    public static SldParametersBuilder builder() {
+        return new SldParametersBuilder();
+    }
+
+    public static SldParameters defaultParameters() {
+        return builder().build();
     }
 }

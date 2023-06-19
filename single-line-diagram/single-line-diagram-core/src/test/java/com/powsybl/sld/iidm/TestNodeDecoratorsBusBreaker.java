@@ -38,6 +38,6 @@ class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

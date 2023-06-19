@@ -7,17 +7,16 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.ParamBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
@@ -55,66 +54,57 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private ParamBuilder.LabelProviderFactory withFullBusInfoProviderFactory;
+    private LabelProvider withFullBusInfoProvider;
 
-    private ParamBuilder.LabelProviderFactory withIncompleteBusInfoProviderFactory;
+    private LabelProvider withIncompleteBusInfoProvider;
 
     @BeforeEach
     public void setUp() throws IOException {
         network = Networks.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
+        svgParameters.setBusInfoMargin(5);
 
-        withFullBusInfoProviderFactory = new DefaultLabelProviderFactory() {
+        withFullBusInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+
             @Override
-            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
-
-                    @Override
-                    public Optional<BusInfo> getBusInfo(BusNode node) {
-                        Objects.requireNonNull(node);
-                        BusInfo result = null;
-                        switch (node.getId()) {
-                            case "bbs21":
-                                result = new BusVoltageInfo(false);
-                                break;
-                            case "bbs1":
-                            case "bbs13":
-                                result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
-                                break;
-                            case "bbs22":
-                            case "bbs23":
-                                result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
-                                break;
-                        }
-                        return Optional.ofNullable(result);
-                    }
-                };
+            public Optional<BusInfo> getBusInfo(BusNode node) {
+                Objects.requireNonNull(node);
+                BusInfo result = null;
+                switch (node.getId()) {
+                    case "bbs21":
+                        result = new BusVoltageInfo(false);
+                        break;
+                    case "bbs1":
+                    case "bbs13":
+                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                        break;
+                    case "bbs22":
+                    case "bbs23":
+                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                        break;
+                }
+                return Optional.ofNullable(result);
             }
         };
 
-        withIncompleteBusInfoProviderFactory = new DefaultLabelProviderFactory() {
-            @Override
-            public LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
-                return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+        withIncompleteBusInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
-                    @Override
-                    public Optional<BusInfo> getBusInfo(BusNode node) {
-                        Objects.requireNonNull(node);
-                        BusInfo result = null;
-                        switch (node.getId()) {
-                            case "bbs21":
-                                result = new BusVoltageInfo(false);
-                                break;
-                            case "bbs13":
-                                result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
-                                break;
-                            case "bbs23":
-                                result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
-                                break;
-                        }
-                        return Optional.ofNullable(result);
-                    }
-                };
+            @Override
+            public Optional<BusInfo> getBusInfo(BusNode node) {
+                Objects.requireNonNull(node);
+                BusInfo result = null;
+                switch (node.getId()) {
+                    case "bbs21":
+                        result = new BusVoltageInfo(false);
+                        break;
+                    case "bbs13":
+                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                        break;
+                    case "bbs23":
+                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                        break;
+                }
+                return Optional.ofNullable(result);
             }
         };
     }
@@ -126,7 +116,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProviderFactory());
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters));
     }
 
     @Test
@@ -137,7 +127,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProviderFactory);
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
     }
 
     @Test
@@ -148,17 +138,15 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProviderFactory);
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);
     }
 
-    private void runTest(StyleProvider styleProvider, String filename, ParamBuilder.LabelProviderFactory labelProviderFactory) {
-        svgParameters.setBusInfoMargin(5);
+    private void runTest(StyleProvider styleProvider, String filename, LabelProvider labelProvider) {
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 
         // Run layout
-        LabelProvider labelProvider = labelProviderFactory.create(network, getResourcesComponentLibrary(), layoutParameters, svgParameters);
         new PositionVoltageLevelLayoutFactory()
                 .setBusInfoMap(labelProvider.getBusInfoSides(g))
                 .setExceptionIfPatternNotHandled(true)
@@ -168,6 +156,6 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
-        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, labelProvider, styleProvider, svgParameters.getPrefixId()));
+        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, labelProvider, styleProvider));
     }
 }

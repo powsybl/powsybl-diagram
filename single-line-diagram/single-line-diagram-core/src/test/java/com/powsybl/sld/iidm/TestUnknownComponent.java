@@ -47,6 +47,6 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
 
         // write SVGs and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
-        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

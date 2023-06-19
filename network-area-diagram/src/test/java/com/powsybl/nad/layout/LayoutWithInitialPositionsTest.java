@@ -10,7 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
-import com.powsybl.nad.ParamBuilder;
+import com.powsybl.nad.NadParameters;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
@@ -20,18 +20,17 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+import com.powsybl.nad.svg.iidm.StyleProviderFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
@@ -52,7 +51,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         return new NominalVoltageStyleProvider(network);
     }
 
-    private ParamBuilder.StyleProviderFactory getStyleProviderFactory() {
+    private StyleProviderFactory getStyleProviderFactory() {
         return this::getStyleProvider;
     }
 
@@ -158,10 +157,10 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
         NetworkAreaDiagram.draw(network, writer,
-                new ParamBuilder()
+                NadParameters.builder()
                         .withSvgParameters(getSvgParameters())
                         .withLayoutParameters(getLayoutParameters())
-                        .withStyleProviderFactory(getStyleProviderFactory())
+                        .withStyleProviderFactory(this::getStyleProvider)
                         .withLayoutFactory(positionsLayoutFactory)
                         .build(),
                 voltageLevelFilter);

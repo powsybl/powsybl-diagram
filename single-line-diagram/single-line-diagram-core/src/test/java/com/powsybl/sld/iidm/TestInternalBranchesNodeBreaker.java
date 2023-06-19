@@ -41,7 +41,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/InternalBranchesNodeBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
 
     }
 

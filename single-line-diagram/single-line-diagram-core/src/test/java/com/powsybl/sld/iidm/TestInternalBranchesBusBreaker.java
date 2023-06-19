@@ -32,7 +32,7 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Override
     public StyleProvider getDefaultDiagramStyleProvider() {
-        // bypassing the param-test platform param to test the embedded base-voltages.yml file
+        // bypassing the sldParameters-test platform sldParameters to test the embedded base-voltages.yml file
         BaseVoltagesConfig baseVoltagesConfig = BaseVoltagesConfig.fromPlatformConfig(new PlatformConfig((ModuleConfigRepository) null, Path.of("./")));
         return new NominalVoltageStyleProvider(baseVoltagesConfig);
     }
@@ -55,7 +55,7 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
-                toSVG(g, "/InternalBranchesBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), svgParameters.getPrefixId()));
+                toSVG(g, "/InternalBranchesBusBreaker.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
