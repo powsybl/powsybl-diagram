@@ -1482,5 +1482,32 @@
     "cgmesScaleFactor" : 1.0,
     "cgmesDiagramName" : null,
     "cgmesUseNames" : true
+  },
+  "svgParams" : {
+    "prefixId" : "",
+    "undefinedValueSymbol" : "—",
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "busInfoMargin" : 0.0,
+    "feederInfosIntraMargin" : 10.0,
+    "feederInfosOuterMargin" : 20.0,
+    "feederInfoSymmetry" : false,
+    "addNodesInfos" : true,
+    "useName" : true,
+    "angleLabelShift" : 15.0,
+    "labelCentered" : false,
+    "labelDiagonal" : false,
+    "tooltipEnabled" : false,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "avoidSVGComponentsDuplication" : true,
+    "diagramName" : null,
+    "drawStraightWires" : false,
+    "showGrid" : false,
+    "showInternalNodes" : false,
+    "displayCurrentFeederInfo" : false
   }
 }
