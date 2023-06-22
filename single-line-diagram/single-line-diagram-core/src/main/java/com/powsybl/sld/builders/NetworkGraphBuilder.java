@@ -684,24 +684,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void addDanglingLineEdges(Graph graph, List<DanglingLine> danglingLines) {
-        // Try to find dangling lines couples
-        Map<String, List<DanglingLine>> dlbyXnodeCode = new HashMap<>();
-        for (DanglingLine dl : danglingLines) {
-            if (dl.getUcteXnodeCode() != null) {
-                dlbyXnodeCode.computeIfAbsent(dl.getUcteXnodeCode(), k -> new ArrayList<>()).add(dl);
-            }
-        }
-
-        dlbyXnodeCode.forEach((xnodeCode, dls) -> {
-            if (dls.size() == 2) {
-                DanglingLine dl1 = dls.get(0);
-                DanglingLine dl2 = dls.get(1);
-                addLineEdge(graph, xnodeCode, dl1.getTerminal(), dl2.getTerminal(), dl1.getId(), dl2.getId());
-            }
-        });
-    }
-
     private boolean addLineEdge(Graph graph, String lineId, Terminal t1, Terminal t2, String nodeId1, String nodeId2) {
         VoltageLevel vl1 = t1.getVoltageLevel();
         VoltageLevel vl2 = t2.getVoltageLevel();
@@ -839,12 +821,5 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList()));
-
-        // - dangling lines in the same zone
-        addDanglingLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
-                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .filter(dl -> !dl.isPaired())
-                .collect(Collectors.toList()));
-
     }
 }
