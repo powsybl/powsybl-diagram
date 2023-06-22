@@ -638,12 +638,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
             return;
         }
-        // for stable fictitious node selection, also sort on id
         Node biggestFn = nodes.stream()
                 .filter(node -> node.getType() == Node.NodeType.INTERNAL)
                 .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
                         .reversed()
-                        .thenComparing(Node::getId))
+                        .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
                 .orElseThrow(() -> new PowsyblException("Empty node set"));
         graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
     }
@@ -666,9 +665,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (!linesIds.contains(branch.getId())) {
                 Terminal t1 = branch.getTerminal1();
                 Terminal t2 = branch.getTerminal2();
-                String nodeId1 = branch.getId() + "_" + branch.getSide(t1).name();
-                String nodeId2 = branch.getId() + "_" + branch.getSide(t2).name();
-                if (addLineEdge(graph, branch.getId(), t1, t2, nodeId1, nodeId2)) {
+                if (addLineEdge(graph, branch.getId(),
+                        t1,
+                        t2,
+                        branch.getId() + "_" + branch.getSide(t1).name(),
+                        branch.getId() + "_" + branch.getSide(t2).name())) {
                     linesIds.add(branch.getId());
                 }
             }
@@ -676,20 +677,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addHvdcLineEdges(Graph graph, List<HvdcLine> lines) {
-        Set<String> linesIds = new HashSet<>();
         lines.forEach(line -> {
-            if (!linesIds.contains(line.getId())) {
-                HvdcConverterStation<?> cvs1 = line.getConverterStation1();
-                HvdcConverterStation<?> cvs2 = line.getConverterStation2();
-                Terminal t1 = cvs1.getTerminal();
-                Terminal t2 = cvs2.getTerminal();
-                String nodeId1 = cvs1.getId();
-                String nodeId2 = cvs2.getId();
-
-                if (addLineEdge(graph, line.getId(), t1, t2, nodeId1, nodeId2)) {
-                    linesIds.add(line.getId());
-                }
-            }
+            HvdcConverterStation<?> cvs1 = line.getConverterStation1();
+            HvdcConverterStation<?> cvs2 = line.getConverterStation2();
+            addLineEdge(graph, line.getId(), cvs1.getTerminal(), cvs2.getTerminal(), cvs1.getId(), cvs2.getId());
         });
     }
 
@@ -852,7 +843,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         // - dangling lines in the same zone
         addDanglingLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .filter(dl -> dl.getTieLine().isEmpty())
+                .filter(dl -> !dl.isPaired())
                 .collect(Collectors.toList()));
     }
 }
