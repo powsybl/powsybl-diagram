@@ -845,5 +845,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
                 .filter(dl -> !dl.isPaired())
                 .collect(Collectors.toList()));
+
     }
 }
