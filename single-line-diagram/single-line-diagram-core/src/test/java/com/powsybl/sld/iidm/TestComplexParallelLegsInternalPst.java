@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -24,7 +25,7 @@ class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
-        network = CreateNetworksUtil.createNetworkWithInternalPst();
+        network = Networks.createNetworkWithInternalPst();
         graphBuilder = new NetworkGraphBuilder(network);
     }
 

@@ -44,13 +44,12 @@
         <!-- Test dependencies -->
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
-            <type>test-jar</type>
+            <artifactId>powsybl-diagram-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-config-test</artifactId>
+            <artifactId>powsybl-iidm-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
