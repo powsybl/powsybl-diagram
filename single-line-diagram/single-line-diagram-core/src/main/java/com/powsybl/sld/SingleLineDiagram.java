@@ -85,7 +85,7 @@ public final class SingleLineDiagram {
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters) {
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
-        DefaultSVGWriter svgWriter = preDrawVoltageLevel(voltageLevelGraph, sldParameters);
+        DefaultSVGWriter svgWriter = preDrawVoltageLevel(voltageLevelGraph, sldParameters, network);
         draw(voltageLevelGraph, svgFile, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
     }
 
@@ -99,7 +99,7 @@ public final class SingleLineDiagram {
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
-        DefaultSVGWriter svgWriter = preDrawSubstation(substationGraph, sldParameters);
+        DefaultSVGWriter svgWriter = preDrawSubstation(substationGraph, sldParameters, network);
         draw(substationGraph, svgFile, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
     }
 
@@ -141,25 +141,25 @@ public final class SingleLineDiagram {
 
     public static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
-        DefaultSVGWriter svgWriter = preDrawVoltageLevel(voltageLevelGraph, sldParameters);
+        DefaultSVGWriter svgWriter = preDrawVoltageLevel(voltageLevelGraph, sldParameters, network);
         draw(voltageLevelGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
     }
 
-    private static DefaultSVGWriter preDrawVoltageLevel(VoltageLevelGraph voltageLevelGraph, SldParameters sldParameters) {
+    private static DefaultSVGWriter preDrawVoltageLevel(VoltageLevelGraph voltageLevelGraph, SldParameters sldParameters, Network network) {
         LayoutParameters layoutParameters = sldParameters.getLayoutParameters();
-        sldParameters.getVoltageLevelLayoutFactory().create(voltageLevelGraph).run(layoutParameters);
+        sldParameters.createVoltageLevelLayoutFactory(network).create(voltageLevelGraph).run(layoutParameters);
         return new DefaultSVGWriter(sldParameters.getComponentLibrary(), layoutParameters, sldParameters.getSvgParameters());
     }
 
     public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
-        DefaultSVGWriter svgWriter = preDrawSubstation(substationGraph, sldParameters);
+        DefaultSVGWriter svgWriter = preDrawSubstation(substationGraph, sldParameters, network);
         draw(substationGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
     }
 
-    private static DefaultSVGWriter preDrawSubstation(SubstationGraph substationGraph, SldParameters sldParameters) {
+    private static DefaultSVGWriter preDrawSubstation(SubstationGraph substationGraph, SldParameters sldParameters, Network network) {
         LayoutParameters layoutParameters = sldParameters.getLayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = sldParameters.getVoltageLevelLayoutFactory();
+        VoltageLevelLayoutFactory voltageLevelLayoutFactory = sldParameters.createVoltageLevelLayoutFactory(network);
         SubstationLayoutFactory substationLayoutFactory = sldParameters.getSubstationLayoutFactory();
         substationLayoutFactory.create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
         return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters());

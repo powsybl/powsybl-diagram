@@ -22,6 +22,7 @@ import java.util.Objects;
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
+
 public class SldParametersBuilder {
 
     private SvgParameters svgParameters = new SvgParameters();
@@ -29,7 +30,7 @@ public class SldParametersBuilder {
     private ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
-    private VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory();
+    private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = SmartVoltageLevelLayoutFactory::new;
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
 
     public SldParametersBuilder withSvgParameters(SvgParameters svgParameters) {
@@ -57,8 +58,8 @@ public class SldParametersBuilder {
         return this;
     }
 
-    public SldParametersBuilder withVoltageLevelLayoutFactory(VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
-        this.voltageLevelLayoutFactory = Objects.requireNonNull(voltageLevelLayoutFactory);
+    public SldParametersBuilder withVoltageLevelLayoutFactoryCreator(VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {
+        this.voltageLevelLayoutFactoryCreator = Objects.requireNonNull(voltageLevelLayoutFactoryCreator);
         return this;
     }
 
@@ -68,7 +69,7 @@ public class SldParametersBuilder {
     }
 
     public SldParameters build() {
-        return new SldParameters(svgParameters, layoutParameters, componentLibrary, labelProviderFactory, styleProviderFactory, substationLayoutFactory, voltageLevelLayoutFactory);
+        return new SldParameters(svgParameters, layoutParameters, componentLibrary, labelProviderFactory, styleProviderFactory, substationLayoutFactory, voltageLevelLayoutFactoryCreator);
     }
 
 }

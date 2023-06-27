@@ -10,6 +10,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactoryCreator;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.LabelProviderFactory;
@@ -28,16 +29,16 @@ public class SldParameters {
     private final LabelProviderFactory labelProviderFactory;
     private final StyleProviderFactory styleProviderFactory;
     private final SubstationLayoutFactory substationLayoutFactory;
-    private final VoltageLevelLayoutFactory voltageLevelLayoutFactory;
+    private final VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator;
 
-    public SldParameters(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, LabelProviderFactory labelProviderFactory, StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory) {
+    public SldParameters(SvgParameters svgParameters, LayoutParameters layoutParameters, ComponentLibrary componentLibrary, LabelProviderFactory labelProviderFactory, StyleProviderFactory styleProviderFactory, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {
         this.svgParameters = svgParameters;
         this.layoutParameters = layoutParameters;
         this.componentLibrary = componentLibrary;
         this.labelProviderFactory = labelProviderFactory;
         this.styleProviderFactory = styleProviderFactory;
         this.substationLayoutFactory = substationLayoutFactory;
-        this.voltageLevelLayoutFactory = voltageLevelLayoutFactory;
+        this.voltageLevelLayoutFactoryCreator = voltageLevelLayoutFactoryCreator;
     }
 
     public SvgParameters getSvgParameters() {
@@ -64,8 +65,8 @@ public class SldParameters {
         return substationLayoutFactory;
     }
 
-    public VoltageLevelLayoutFactory getVoltageLevelLayoutFactory() {
-        return voltageLevelLayoutFactory;
+    public VoltageLevelLayoutFactory createVoltageLevelLayoutFactory(Network network) {
+        return voltageLevelLayoutFactoryCreator.create(network);
     }
 
     public static SldParametersBuilder builder() {
