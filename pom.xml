@@ -62,7 +62,7 @@
     </modules>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,

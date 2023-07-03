@@ -136,7 +136,13 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
+        String resourceName;
+        if (Runtime.version().feature() >= 13) {
+            resourceName = "/TestFormattingFeederInfosNNBSP.svg";
+        } else {
+            resourceName = "/TestFormattingFeederInfosNBSP.svg";
+        }
+        assertEquals(toString(resourceName), toSVG(g, "/TestFormattingFeederInfos.svg"));
     }
 
     @Test
