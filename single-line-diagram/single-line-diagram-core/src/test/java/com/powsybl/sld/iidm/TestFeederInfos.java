@@ -8,6 +8,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+
+import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -29,6 +31,9 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
+
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
