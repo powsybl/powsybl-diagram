@@ -296,13 +296,46 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
     }
 
     @Test
-    void testH() {
+    void testZoneHAndSubstationH() {
         ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
 
         // Run horizontal zone layout
         new HorizontalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/TestCase12ZoneGraphHRaw.svg"),
-                toSVG(g, "/TestCase12ZoneGraphHRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCase12ZoneGraphHHRaw.svg"),
+                toSVG(g, "/TestCase12ZoneGraphHHRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
+    }
+
+    @Test
+    void testZoneHAndSubstationV() {
+        ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
+
+        // Run horizontal zone layout
+        new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase12ZoneGraphHVRaw.svg"),
+                toSVG(g, "/TestCase12ZoneGraphHVRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
+    }
+
+    @Test
+    void testZoneVAndSubstationH() {
+        ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
+
+        // Run vertical zone layout
+        new VerticalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase12ZoneGraphVHRaw.svg"),
+                toSVG(g, "/TestCase12ZoneGraphVHRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
+    }
+
+    @Test
+    void testZoneVAndSubstationV() {
+        ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
+
+        // Run vertical zone layout
+        new VerticalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase12ZoneGraphVVRaw.svg"),
+                toSVG(g, "/TestCase12ZoneGraphVVRaw.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }
