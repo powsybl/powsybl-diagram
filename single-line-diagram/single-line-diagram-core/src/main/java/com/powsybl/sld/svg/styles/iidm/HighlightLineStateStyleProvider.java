@@ -57,7 +57,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         if (n.getFeeder().getFeederType() == FeederType.INJECTION) {
             Injection<?> injection = (Injection<?>) network.getIdentifiable(n.getEquipmentId());
             return injection.getTerminal().isConnected() ? Optional.empty() : Optional.of(StyleClassConstants.FEEDER_CONNECTED_DISCONNECTED);
-        } else {
+        } else if (n.getFeeder() instanceof FeederWithSides) {
             FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
             Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
             NodeSide side = null;
@@ -78,6 +78,8 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
                 otherSide = feederWs.getSide();
             }
             return getFeederStateStyle(side, otherSide, connectionStatus);
+        } else {
+            return Optional.empty();
         }
     }
 
