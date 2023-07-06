@@ -26,12 +26,22 @@ public class SubstationRawBuilder {
     SubstationGraph substationGraph;
     List<VoltageLevelRawBuilder> voltageLevelBuilders = new ArrayList<>();
 
-    public SubstationRawBuilder(String id) {
-        substationGraph = SubstationGraph.create(id);
+    ZoneRawBuilder zBuilder;
+
+    public SubstationRawBuilder(String id, ZoneRawBuilder parentBuilder) {
+        substationGraph = SubstationGraph.create(id, parentBuilder == null ? null : parentBuilder.getGraph());
     }
 
     public SubstationGraph getGraph() {
         return substationGraph;
+    }
+
+    public ZoneRawBuilder getSubstationBuilder() {
+        return zBuilder;
+    }
+
+    public void setZoneRawBuilder(ZoneRawBuilder zoneBuilder) {
+        this.zBuilder = zoneBuilder;
     }
 
     public void addVlBuilder(VoltageLevelRawBuilder vlBuilder) {
