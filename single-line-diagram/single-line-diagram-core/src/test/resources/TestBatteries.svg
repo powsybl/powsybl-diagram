@@ -208,7 +208,7 @@
             <g class="sld-wire sld-disconnected" id="_95_vl1_95_d2b_95_INTERNAL_95_vl1_95_batt2">
                 <polyline points="115.0,337.0,115.0,364.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl1_95_INTERNAL_95_vl1_95_batt2_95_batt2">
+            <g class="sld-wire sld-disconnected sld-feeder-disconnected-connected" id="_95_vl1_95_INTERNAL_95_vl1_95_batt2_95_batt2">
                 <polyline points="115.0,364.0,115.0,422.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt2_ARROW_REACTIVE" transform="translate(110.0,397.0)">
