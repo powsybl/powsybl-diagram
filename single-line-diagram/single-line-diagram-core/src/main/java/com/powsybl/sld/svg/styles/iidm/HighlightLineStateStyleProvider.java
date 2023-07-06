@@ -56,7 +56,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     protected Optional<String> getHighlightFeederStateStyle(Graph graph, FeederNode n) {
         if (n.getFeeder().getFeederType() == FeederType.INJECTION) {
             Injection<?> injection = (Injection<?>) network.getIdentifiable(n.getEquipmentId());
-            return injection.getTerminal().isConnected() ? Optional.empty() : Optional.of(StyleClassConstants.FEEDER_CONNECTED_DISCONNECTED);
+            return injection.getTerminal().isConnected() ? Optional.empty() : Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
         } else if (n.getFeeder() instanceof FeederWithSides) {
             FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
             Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
