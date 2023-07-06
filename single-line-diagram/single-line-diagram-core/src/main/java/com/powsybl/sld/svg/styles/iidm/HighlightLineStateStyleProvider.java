@@ -7,10 +7,7 @@
  */
 package com.powsybl.sld.svg.styles.iidm;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.*;
@@ -48,6 +45,8 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         if (n1 instanceof FeederNode || n2 instanceof FeederNode) {
             n = (FeederNode) (n1 instanceof FeederNode ? n1 : n2);
             return getHighlightFeederStateStyle(graph, n);
+        } else if (n1 instanceof Internal2WTNode || n2 instanceof Internal2WTNode) {
+            return getHighlightFeederStateStyleForInternal2WT(n1, n2);
         } else {
             return Optional.empty();
         }
@@ -80,6 +79,43 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
             return getFeederStateStyle(side, otherSide, connectionStatus);
         } else {
             return Optional.empty();
+        }
+    }
+
+    protected Optional<String> getHighlightFeederStateStyleForInternal2WT(Node n1, Node n2) {
+        Internal2WTNode n2WT = (Internal2WTNode) (n1 instanceof Internal2WTNode ? n1 : n2);
+        if (!(n1 instanceof ConnectivityNode) && !(n2 instanceof ConnectivityNode)) {
+            return Optional.empty();
+        }
+        ConnectivityNode connectivityNode = (ConnectivityNode) (n1 instanceof ConnectivityNode ? n1 : n2);
+        String connectivityNodeId = connectivityNode.getId();
+        int connectivityNodeIdLength = connectivityNodeId.length();
+        String busIdFromConnectivityNode = connectivityNodeId.substring(connectivityNodeIdLength - 11, connectivityNodeIdLength - 8);
+        TwoWindingsTransformer internal2WT = (TwoWindingsTransformer) network.getIdentifiable(n2WT.getEquipmentId());
+        Terminal terminal1 = internal2WT.getTerminal1();
+        Terminal terminal2 = internal2WT.getTerminal2();
+        if (terminal1.getBusBreakerView().getConnectableBus().getId().equals(busIdFromConnectivityNode)) {
+            return getStyleFromTerminalConnectionState(terminal1.isConnected(), terminal2.isConnected());
+        } else if (terminal2.getBusBreakerView().getConnectableBus().getId().equals(busIdFromConnectivityNode)) {
+            return getStyleFromTerminalConnectionState(terminal2.isConnected(), terminal1.isConnected());
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<String> getStyleFromTerminalConnectionState(boolean terminalConnected, boolean otherSideTerminalConnected) {
+        if (terminalConnected) {
+            if (otherSideTerminalConnected) {
+                return Optional.empty();
+            } else {
+                return Optional.of(StyleClassConstants.FEEDER_CONNECTED_DISCONNECTED);
+            }
+        } else {
+            if (otherSideTerminalConnected) {
+                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
+            } else {
+                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED);
+            }
         }
     }
 
