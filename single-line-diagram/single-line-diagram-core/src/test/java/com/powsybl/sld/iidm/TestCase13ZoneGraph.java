@@ -52,7 +52,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testHorizontal() {
+    void testZoneGraphHWithSubstationH() {
         // build zone graph
         network = Networks.createNetworkWithManySubstations();
         List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
@@ -61,19 +61,45 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         // Run horizontal zone layout
         new HorizontalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/TestCase13ZoneGraphH.svg"), toSVG(g, "/TestCase13ZoneGraphH.svg"));
+        assertEquals(toString("/TestCase13ZoneGraphHH.svg"), toSVG(g, "/TestCase13ZoneGraphHH.svg"));
     }
 
     @Test
-    void testVertical() {
+    void testZoneGraphHWithSubstationV() {
         // build zone graph
         network = Networks.createNetworkWithManySubstations();
         List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
         // Run horizontal zone layout
+        new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphHV.svg"), toSVG(g, "/TestCase13ZoneGraphHV.svg"));
+    }
+
+    @Test
+    void testZoneGraphVWithSubstationV() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        // Run vertical zone layout
         new VerticalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/TestCase13ZoneGraphV.svg"), toSVG(g, "/TestCase13ZoneGraphV.svg"));
+        assertEquals(toString("/TestCase13ZoneGraphVV.svg"), toSVG(g, "/TestCase13ZoneGraphVV.svg"));
+    }
+
+    @Test
+    void testZoneGraphVWithSubstationH() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        // Run vertical zone layout
+        new VerticalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphVH.svg"), toSVG(g, "/TestCase13ZoneGraphVH.svg"));
     }
 }
