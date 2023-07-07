@@ -16,10 +16,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.*;
 
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
@@ -42,6 +39,8 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
     }
 
     protected Optional<Boolean> facingNodes(Node node1, Node node2) {
+        Objects.requireNonNull(node1);
+        Objects.requireNonNull(node2);
         return Optional.empty();
     }
 
@@ -57,7 +56,7 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             String graphId = vlGraph.getId();
 
             InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(vlGraph);
-            InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
+            InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().orElseThrow(AssertionError::new);
 
             // Reset the horizontal layout numbers to current graph numbers
             int currentNbBottom = infosNbSnakeLinesV.getNbSnakeLinesHorizontalBetween(graphId, BOTTOM);
@@ -90,7 +89,7 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
     }
 
     protected void adaptPaddingToSnakeLinesForVertical(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
-        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
+        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().orElseThrow(AssertionError::new);
         double widthSnakeLinesLeft = Math.max(infosNbSnakeLinesV.getNbSnakeLinesLeftRight().get(Side.LEFT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
@@ -114,7 +113,7 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
     }
 
     protected void adaptPaddingToSnakeLinesForHorizontal(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
-        InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = getInfosNbSnakeLinesHorizontal().get();
+        InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = getInfosNbSnakeLinesHorizontal().orElseThrow(AssertionError::new);
         double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLinesH);
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
@@ -176,7 +175,7 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
                                    LayoutParameters layoutParam, Node node1, Node node2,
                                    boolean increment,
                                    List<Point> polyline) {
-        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
+        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().orElseThrow(AssertionError::new);
         Direction dNode1 = AbstractLayout.getNodeDirection(graph, node1, 1);
         Direction dNode2 = AbstractLayout.getNodeDirection(graph, node2, 2);
 
@@ -190,7 +189,8 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
         Point p1 = graph.getShiftedPoint(node1);
         Point p2 = graph.getShiftedPoint(node2);
 
-        if (facingNodes(node1, node2).get()) {
+        boolean isFacingNodes = facingNodes(node1, node2).orElseThrow(AssertionError::new);
+        if (isFacingNodes) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
             double ySnakeLine = Math.min(p1.getY(), p2.getY()) + decal1V;
             if (p1.getX() != p2.getX()) {
@@ -208,7 +208,7 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             double ySnakeLine2 = getYSnakeLine(graph, node2, dNode2, decal2V, layoutParam);
 
             Side side = getSide(increment);
-            double xSnakeLine = getXSnakeLine(graph, node1, side, layoutParam, infosNbSnakeLinesV, getMaxVoltageLevelWidth().getAsDouble());
+            double xSnakeLine = getXSnakeLine(graph, node1, side, layoutParam, infosNbSnakeLinesV, getMaxVoltageLevelWidth().orElseThrow(AssertionError::new));
             polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
                     xSnakeLine, ySnakeLine1,
                     xSnakeLine, ySnakeLine2,
