@@ -18,6 +18,8 @@ import org.jgrapht.alg.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
@@ -27,13 +29,21 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
  */
 public abstract class AbstractBaseLayout extends AbstractLayout {
 
-    protected abstract InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal();
+    protected Optional<InfosNbSnakeLinesHorizontal> getInfosNbSnakeLinesHorizontal() {
+        return Optional.empty();
+    }
 
-    protected abstract InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical();
+    protected Optional<InfosNbSnakeLinesVertical> getInfosNbSnakeLinesVertical() {
+        return Optional.empty();
+    }
 
-    protected abstract double getMaxVoltageLevelWidth();
+    protected OptionalDouble getMaxVoltageLevelWidth() {
+        return OptionalDouble.empty();
+    }
 
-    protected abstract boolean facingNodes(Node node1, Node node2);
+    protected Optional<Boolean> facingNodes(Node node1, Node node2) {
+        return Optional.empty();
+    }
 
     protected List<Point> calculatePolylineSnakeLine(BaseGraph graph,
                                                      LayoutParameters layoutParam,
@@ -47,11 +57,12 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             String graphId = vlGraph.getId();
 
             InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(vlGraph);
+            InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
 
             // Reset the horizontal layout numbers to current graph numbers
-            int currentNbBottom = getInfosNbSnakeLinesVertical().getNbSnakeLinesHorizontalBetween(graphId, BOTTOM);
-            int currentNbTop = getInfosNbSnakeLinesVertical().getNbSnakeLinesHorizontalBetween(graphId, TOP);
-            int currentNbLeft = getInfosNbSnakeLinesVertical().getNbSnakeLinesLeftRight().get(Side.LEFT);
+            int currentNbBottom = infosNbSnakeLinesV.getNbSnakeLinesHorizontalBetween(graphId, BOTTOM);
+            int currentNbTop = infosNbSnakeLinesV.getNbSnakeLinesHorizontalBetween(graphId, TOP);
+            int currentNbLeft = infosNbSnakeLinesV.getNbSnakeLinesLeftRight().get(Side.LEFT);
             infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(BOTTOM, currentNbBottom);
             infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(TOP, currentNbTop);
             infosNbSnakeLinesH.getNbSnakeLinesVerticalBetween().put(graphId, currentNbLeft);
@@ -66,9 +77,9 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             Integer updatedNbLinesBottom = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BOTTOM);
             Integer updatedNbLinesTop = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(TOP);
             Integer updatedNbLinesLeft = infosNbSnakeLinesH.getNbSnakeLinesVerticalBetween().get(graphId);
-            getInfosNbSnakeLinesVertical().setNbSnakeLinesTopBottom(graphId, BOTTOM, updatedNbLinesBottom);
-            getInfosNbSnakeLinesVertical().setNbSnakeLinesTopBottom(graphId, TOP, updatedNbLinesTop);
-            getInfosNbSnakeLinesVertical().getNbSnakeLinesLeftRight().put(Side.LEFT, updatedNbLinesLeft);
+            infosNbSnakeLinesV.setNbSnakeLinesTopBottom(graphId, BOTTOM, updatedNbLinesBottom);
+            infosNbSnakeLinesV.setNbSnakeLinesTopBottom(graphId, TOP, updatedNbLinesTop);
+            infosNbSnakeLinesV.getNbSnakeLinesLeftRight().put(Side.LEFT, updatedNbLinesLeft);
         } else {
             polyline = new ArrayList<>();
             polyline.add(graph.getShiftedPoint(node1));
@@ -79,30 +90,32 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
     }
 
     protected void adaptPaddingToSnakeLinesForVertical(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
-        double widthSnakeLinesLeft = Math.max(getInfosNbSnakeLinesVertical().getNbSnakeLinesLeftRight().get(Side.LEFT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
+        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
+        double widthSnakeLinesLeft = Math.max(infosNbSnakeLinesV.getNbSnakeLinesLeftRight().get(Side.LEFT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
 
         double xVoltageLevels = widthSnakeLinesLeft + diagramPadding.getLeft() + voltageLevelPadding.getLeft();
         double y = diagramPadding.getTop()
-                + graph.getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters, getInfosNbSnakeLinesVertical())).orElse(0.);
+                + graph.getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters, infosNbSnakeLinesV)).orElse(0.);
 
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
-            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters, getInfosNbSnakeLinesVertical());
+            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters, infosNbSnakeLinesV);
         }
 
-        double widthSnakeLinesRight = Math.max(getInfosNbSnakeLinesVertical().getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
+        double widthSnakeLinesRight = Math.max(infosNbSnakeLinesV.getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
         double substationWidth = graph.getWidth() + widthSnakeLinesLeft + widthSnakeLinesRight;
         double substationHeight = y - diagramPadding.getTop();
         graph.setSize(substationWidth, substationHeight);
 
-        getInfosNbSnakeLinesVertical().reset();
+        infosNbSnakeLinesV.reset();
     }
 
     protected void adaptPaddingToSnakeLinesForHorizontal(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, getInfosNbSnakeLinesHorizontal());
+        InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = getInfosNbSnakeLinesHorizontal().get();
+        double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLinesH);
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -111,18 +124,18 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
         double x = diagramPadding.getLeft();
 
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            x += AbstractLayout.getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, getInfosNbSnakeLinesHorizontal());
+            x += AbstractLayout.getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLinesH);
             vlGraph.setCoord(x + voltageLevelPadding.getLeft(), computeCoordY(graph, layoutParameters, topPadding, vlGraph));
             x += vlGraph.getWidth();
         }
 
         double zoneWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, getInfosNbSnakeLinesHorizontal());
+        double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLinesH);
         double zoneHeight = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
         graph.setSize(zoneWidth, zoneHeight);
 
-        getInfosNbSnakeLinesHorizontal().reset();
+        infosNbSnakeLinesH.reset();
     }
 
     static double computeCoordY(AbstractBaseGraph graph, LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
@@ -163,20 +176,21 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
                                    LayoutParameters layoutParam, Node node1, Node node2,
                                    boolean increment,
                                    List<Point> polyline) {
+        InfosNbSnakeLinesVertical infosNbSnakeLinesV = getInfosNbSnakeLinesVertical().get();
         Direction dNode1 = AbstractLayout.getNodeDirection(graph, node1, 1);
         Direction dNode2 = AbstractLayout.getNodeDirection(graph, node2, 2);
 
         // increment not needed for 3WT for the common node
         String vl1 = graph.getVoltageLevelInfos(node1).getId();
         int nbSnakeLines1 = increment
-                ? getInfosNbSnakeLinesVertical().incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
-                : getInfosNbSnakeLinesVertical().getNbSnakeLinesHorizontalBetween(vl1, dNode1);
+                ? infosNbSnakeLinesV.incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
+                : infosNbSnakeLinesV.getNbSnakeLinesHorizontalBetween(vl1, dNode1);
         double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLines1);
 
         Point p1 = graph.getShiftedPoint(node1);
         Point p2 = graph.getShiftedPoint(node2);
 
-        if (facingNodes(node1, node2)) {
+        if (facingNodes(node1, node2).get()) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
             double ySnakeLine = Math.min(p1.getY(), p2.getY()) + decal1V;
             if (p1.getX() != p2.getX()) {
@@ -187,14 +201,14 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             }
         } else {
             String vl2 = graph.getVoltageLevelInfos(node2).getId();
-            int nbSnakeLines2 = getInfosNbSnakeLinesVertical().incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
+            int nbSnakeLines2 = infosNbSnakeLinesV.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
             double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLines2);
 
             double ySnakeLine1 = getYSnakeLine(graph, node1, dNode1, decal1V, layoutParam);
             double ySnakeLine2 = getYSnakeLine(graph, node2, dNode2, decal2V, layoutParam);
 
             Side side = getSide(increment);
-            double xSnakeLine = getXSnakeLine(graph, node1, side, layoutParam, getInfosNbSnakeLinesVertical(), getMaxVoltageLevelWidth());
+            double xSnakeLine = getXSnakeLine(graph, node1, side, layoutParam, infosNbSnakeLinesV, getMaxVoltageLevelWidth().getAsDouble());
             polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
                     xSnakeLine, ySnakeLine1,
                     xSnakeLine, ySnakeLine2,

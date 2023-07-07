@@ -12,6 +12,7 @@ import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -82,22 +83,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    public InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal() {
-        return infosNbSnakeLines;
-    }
-
-    @Override
-    protected InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical() {
-        return null;
-    }
-
-    @Override
-    protected double getMaxVoltageLevelWidth() {
-        return Double.NaN;
-    }
-
-    @Override
-    protected boolean facingNodes(Node node1, Node node2) {
-        return false;
+    public Optional<InfosNbSnakeLinesHorizontal> getInfosNbSnakeLinesHorizontal() {
+        return Optional.of(infosNbSnakeLines);
     }
 }

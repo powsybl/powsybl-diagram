@@ -16,6 +16,8 @@ import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
@@ -86,7 +88,7 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
     }
 
     @Override
-    public boolean facingNodes(Node node1, Node node2) {
+    public Optional<Boolean> facingNodes(Node node1, Node node2) {
         Direction dNode1 = getNodeDirection(getGraph(), node1, 1);
         Direction dNode2 = getNodeDirection(getGraph(), node2, 2);
         VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
@@ -97,22 +99,17 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
             isVl1Vl2Adjacent |= substation.graphAdjacents(vlGraph1, vlGraph2);
             isVl2Vl1Adjacent |= substation.graphAdjacents(vlGraph2, vlGraph1);
         }
-        return (dNode1 == BOTTOM && dNode2 == TOP && isVl1Vl2Adjacent)
-                || (dNode1 == TOP && dNode2 == BOTTOM && isVl2Vl1Adjacent);
+        return Optional.of((dNode1 == BOTTOM && dNode2 == TOP && isVl1Vl2Adjacent)
+                || (dNode1 == TOP && dNode2 == BOTTOM && isVl2Vl1Adjacent));
     }
 
     @Override
-    protected InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal() {
-        return null;
+    public Optional<InfosNbSnakeLinesVertical> getInfosNbSnakeLinesVertical() {
+        return Optional.of(infosNbSnakeLines);
     }
 
     @Override
-    public InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical() {
-        return infosNbSnakeLines;
-    }
-
-    @Override
-    public double getMaxVoltageLevelWidth() {
-        return maxVoltageLevelWidth;
+    public OptionalDouble getMaxVoltageLevelWidth() {
+        return OptionalDouble.of(maxVoltageLevelWidth);
     }
 }
