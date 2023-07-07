@@ -79,11 +79,13 @@ public abstract class AbstractBaseLayout extends AbstractLayout {
             infosNbSnakeLinesV.setNbSnakeLinesTopBottom(graphId, BOTTOM, updatedNbLinesBottom);
             infosNbSnakeLinesV.setNbSnakeLinesTopBottom(graphId, TOP, updatedNbLinesTop);
             infosNbSnakeLinesV.getNbSnakeLinesLeftRight().put(Side.LEFT, updatedNbLinesLeft);
-        } else {
+        } else if (graph.getAllNodesStream().anyMatch(node -> node == node1) && graph.getAllNodesStream().anyMatch(node -> node == node2)) { // in the same SS
             polyline = new ArrayList<>();
             polyline.add(graph.getShiftedPoint(node1));
             addMiddlePoints(graph, layoutParam, node1, node2, increment, polyline);
             polyline.add(graph.getShiftedPoint(node2));
+        } else { // in the same Zone
+            polyline = new ArrayList<>();
         }
         return polyline;
     }
