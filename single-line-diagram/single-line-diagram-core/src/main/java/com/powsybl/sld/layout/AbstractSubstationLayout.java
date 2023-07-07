@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractSubstationLayout extends AbstractLayout {
+public abstract class AbstractSubstationLayout extends AbstractBaseLayout {
 
     private final SubstationGraph graph;
     protected VoltageLevelLayoutFactory vLayoutFactory;

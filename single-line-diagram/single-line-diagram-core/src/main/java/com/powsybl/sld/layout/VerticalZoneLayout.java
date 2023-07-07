@@ -23,7 +23,7 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLayout {
+public class VerticalZoneLayout extends AbstractZoneLayout {
 
     private final InfosNbSnakeLinesVertical infosNbSnakeLines;
     private double maxVoltageLevelWidth;
@@ -70,7 +70,7 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        adaptPaddingToSnakeLines(getGraph(), layoutParameters);
+        adaptPaddingToSnakeLinesForVertical(getGraph(), layoutParameters);
         manageAllSnakeLines(layoutParameters);
     }
 
@@ -101,10 +101,17 @@ public class VerticalZoneLayout extends AbstractZoneLayout implements VerticalLa
                 || (dNode1 == TOP && dNode2 == BOTTOM && isVl2Vl1Adjacent);
     }
 
-    public InfosNbSnakeLinesVertical getInfosNbSnakeLines() {
+    @Override
+    protected InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal() {
+        return null;
+    }
+
+    @Override
+    public InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical() {
         return infosNbSnakeLines;
     }
 
+    @Override
     public double getMaxVoltageLevelWidth() {
         return maxVoltageLevelWidth;
     }

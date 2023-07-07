@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public abstract class AbstractZoneLayout extends AbstractLayout {
+public abstract class AbstractZoneLayout extends AbstractBaseLayout {
 
     private final ZoneGraph graph;
     protected SubstationLayoutFactory sLayoutFactory;

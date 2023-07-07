@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class HorizontalZoneLayout extends AbstractZoneLayout implements HorizontalLayout {
+public class HorizontalZoneLayout extends AbstractZoneLayout {
 
     private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
@@ -69,13 +69,28 @@ public class HorizontalZoneLayout extends AbstractZoneLayout implements Horizont
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        adaptPaddingToSnakeLines(getGraph(), layoutParameters);
+        adaptPaddingToSnakeLinesForHorizontal(getGraph(), layoutParameters);
 
         manageAllSnakeLines(layoutParameters);
     }
 
     @Override
-    public InfosNbSnakeLinesHorizontal getInfosNbSnakeLines() {
+    public InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal() {
         return infosNbSnakeLines;
+    }
+
+    @Override
+    protected InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical() {
+        return null;
+    }
+
+    @Override
+    protected double getMaxVoltageLevelWidth() {
+        return Double.NaN;
+    }
+
+    @Override
+    protected boolean facingNodes(Node node1, Node node2) {
+        return false;
     }
 }

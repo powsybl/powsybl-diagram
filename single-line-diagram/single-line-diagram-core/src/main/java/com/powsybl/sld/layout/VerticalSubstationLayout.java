@@ -20,7 +20,7 @@ import static com.powsybl.sld.model.coordinate.Direction.*;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class VerticalSubstationLayout extends AbstractSubstationLayout implements VerticalLayout {
+public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
     private final InfosNbSnakeLinesVertical infosNbSnakeLines;
     private double maxVoltageLevelWidth;
@@ -123,7 +123,12 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout implement
     }
 
     @Override
-    public InfosNbSnakeLinesVertical getInfosNbSnakeLines() {
+    protected InfosNbSnakeLinesHorizontal getInfosNbSnakeLinesHorizontal() {
+        return null;
+    }
+
+    @Override
+    public InfosNbSnakeLinesVertical getInfosNbSnakeLinesVertical() {
         return infosNbSnakeLines;
     }
 
