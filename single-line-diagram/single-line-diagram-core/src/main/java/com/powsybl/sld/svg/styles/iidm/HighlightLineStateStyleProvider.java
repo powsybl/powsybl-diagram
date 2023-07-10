@@ -84,39 +84,16 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     protected Optional<String> getHighlightFeederStateStyleForInternal2WT(Node n1, Node n2) {
         Internal2WTNode n2WT = (Internal2WTNode) (n1 instanceof Internal2WTNode ? n1 : n2);
-        if (!(n1 instanceof ConnectivityNode) && !(n2 instanceof ConnectivityNode)) {
-            return Optional.empty();
+        TwoWindingsTransformer twt = (TwoWindingsTransformer) network.getIdentifiable(n2WT.getEquipmentId());
+        boolean connected1 = twt.getTerminal1().isConnected();
+        boolean connected2 = twt.getTerminal2().isConnected();
+        if (!connected1 && !connected2) {
+            return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED);
+        } else if (connected1 != connected2) {
+            // TODO we cannot with SLD model as it is, detect which side is connected: to improve later.
+            return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
         }
-        ConnectivityNode connectivityNode = (ConnectivityNode) (n1 instanceof ConnectivityNode ? n1 : n2);
-        String connectivityNodeId = connectivityNode.getId();
-        int connectivityNodeIdLength = connectivityNodeId.length();
-        String busIdFromConnectivityNode = connectivityNodeId.substring(connectivityNodeIdLength - 11, connectivityNodeIdLength - 8);
-        TwoWindingsTransformer internal2WT = (TwoWindingsTransformer) network.getIdentifiable(n2WT.getEquipmentId());
-        Terminal terminal1 = internal2WT.getTerminal1();
-        Terminal terminal2 = internal2WT.getTerminal2();
-        if (terminal1.getBusBreakerView().getConnectableBus().getId().equals(busIdFromConnectivityNode)) {
-            return getStyleFromTerminalConnectionState(terminal1.isConnected(), terminal2.isConnected());
-        } else if (terminal2.getBusBreakerView().getConnectableBus().getId().equals(busIdFromConnectivityNode)) {
-            return getStyleFromTerminalConnectionState(terminal2.isConnected(), terminal1.isConnected());
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    private Optional<String> getStyleFromTerminalConnectionState(boolean terminalConnected, boolean otherSideTerminalConnected) {
-        if (terminalConnected) {
-            if (otherSideTerminalConnected) {
-                return Optional.empty();
-            } else {
-                return Optional.of(StyleClassConstants.FEEDER_CONNECTED_DISCONNECTED);
-            }
-        } else {
-            if (otherSideTerminalConnected) {
-                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED_CONNECTED);
-            } else {
-                return Optional.of(StyleClassConstants.FEEDER_DISCONNECTED);
-            }
-        }
+        return Optional.empty();
     }
 
     protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
