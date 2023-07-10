@@ -37,9 +37,7 @@ public final class Networks {
     private static final String CONVERTER_1_ID = "Converter1";
 
     private static final String CONVERTER_2_ID = "Converter2";
-
     private static final String CONVERTER_3_ID = "Converter3";
-
     private static final String CONVERTER_4_ID = "Converter4";
     private static final String LOAD_3_ID = "load3";
     private static final String LOAD_1_ID = "load1";
@@ -2103,9 +2101,39 @@ public final class Networks {
                 .setVoltageRegulatorOn(false)
                 .add();
         network.newHvdcLine()
-                .setId("HvdcLine")
+                .setId("HvdcLine (Vsc)")
                 .setConverterStationId1(CONVERTER_1_ID)
                 .setConverterStationId2(CONVERTER_2_ID)
+                .setR(1)
+                .setNominalV(400)
+                .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+                .setMaxP(300.0)
+                .setActivePowerSetpoint(280)
+                .add();
+
+        // HDVCLine between A 230 & B 230
+        vlId = String.format(vlFormat, subA.getId(), 230.0);
+        busId = String.format(busIdFormat, vlId);
+        network.getVoltageLevel(vlId).newLccConverterStation()
+                .setId(CONVERTER_3_ID)
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setPowerFactor(0.5f)
+                .add();
+        vlId = String.format(vlFormat, subB.getId(), 230.0);
+        busId = String.format(busIdFormat, vlId);
+        network.getVoltageLevel(vlId).newLccConverterStation()
+                .setId(CONVERTER_4_ID)
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setPowerFactor(-0.5f)
+                .add();
+        network.newHvdcLine()
+                .setId("HvdcLine (Lcc)")
+                .setConverterStationId1(CONVERTER_3_ID)
+                .setConverterStationId2(CONVERTER_4_ID)
                 .setR(1)
                 .setNominalV(400)
                 .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
