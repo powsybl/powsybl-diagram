@@ -149,10 +149,10 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_2_95_bpst">
                 <polyline points="65.0,135.0,65.0,154.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bpst_95_trf3">
+            <g class="sld-wire sld-vl300to500-0 sld-feeder-disconnected-connected" id="_95_vl1_95_bpst_95_trf3">
                 <polyline points="65.0,170.0,65.0,179.5"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dpst_95_trf3">
+            <g class="sld-wire sld-vl300to500-0 sld-feeder-disconnected-connected" id="_95_vl1_95_dpst_95_trf3">
                 <polyline points="65.0,208.0,65.0,198.5"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl1_95_dpst_95_INTERNAL_95_vl1_95_5">
@@ -170,7 +170,7 @@
             <g class="sld-wire sld-disconnected" id="_95_vl1_95_bl_95_INTERNAL_95_vl1_95_load">
                 <polyline points="90.0,278.0,90.0,297.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl1_95_INTERNAL_95_vl1_95_load_95_load">
+            <g class="sld-wire sld-disconnected sld-feeder-disconnected-connected" id="_95_vl1_95_INTERNAL_95_vl1_95_load_95_load">
                 <polyline points="90.0,297.0,90.0,351.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_ARROW_REACTIVE" transform="translate(85.0,326.0)">
