@@ -45,6 +45,6 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/disconnectedComponentsBusBreaker.svg"),
-                toSVG(g, "/disconnectedComponentsBusBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/disconnectedComponentsBusBreaker.svg"));
     }
 }
