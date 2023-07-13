@@ -1,6 +1,7 @@
 package com.powsybl.sld.svg;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.DoubleFunction;
 
 /**
@@ -31,6 +32,12 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
 
     public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter, String userDefinedId) {
         super(componentType, null, formatter.apply(value), userDefinedId);
+        this.arrowDirection = Objects.requireNonNull(getArrowDirection(value));
+        this.value = value;
+    }
+
+    public DirectionalFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter) {
+        super(componentType, null, formatter.apply(value, unit), null);
         this.arrowDirection = Objects.requireNonNull(getArrowDirection(value));
         this.value = value;
     }

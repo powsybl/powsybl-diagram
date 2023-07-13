@@ -217,11 +217,12 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        //TODO after API modification: fill unit parameter with svgParameters.getPUnit(), svgParameters.getQUnit(), svgParameters.getIUnit()
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), "", (value, unit) -> valueFormatter.formatPower(value, unit)));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), "", (value, unit) -> valueFormatter.formatPower(value, unit)));
         if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), "", (value, unit) -> valueFormatter.formatCurrent(value, unit)));
         }
         return feederInfoList;
     }
