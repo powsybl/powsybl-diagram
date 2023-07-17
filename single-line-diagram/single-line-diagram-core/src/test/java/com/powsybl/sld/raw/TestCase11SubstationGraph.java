@@ -262,11 +262,12 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb3.connectNode(bbs7, dtrf38);
         vlb3.connectNode(dtrf38, btrf38);
         vlb3.connectNode(btrf38, feeder3WTs8.get(vlb3));
-        /*
-        // Creation of another substation, another voltageLevel and a line between the two substations
-        //
-       */
 
+        /*
+        // Creation of another substation, another voltageLevel
+        // - a line between the two substations
+        //
+        */
         SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2");
         VoltageLevelRawBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
         ssb2.addVlBuilder(vlsubst2);
@@ -279,13 +280,54 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
         SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
         Map<VoltageLevelRawBuilder, FeederNode> line1 =
-                ssb2.createLine("line1", vlb1, vlsubst2, 7, 1, TOP, TOP);
+                ssb1.createLine("line1", vlb1, vlsubst2, 7, 1, TOP, TOP);
         vlb1.connectNode(bbs1, dline112);
         vlb1.connectNode(dline112, bline112);
         vlb1.connectNode(bline112, line1.get(vlb1));
         vlsubst2.connectNode(bbs12, dline212);
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
+
+        /*
+        // - a two windings transformers between the two substations
+        */
+        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ssb1.createFeeder2WT("trf211", vlb3, vlsubst2,
+                1, 1, TOP, TOP);
+        SwitchNode dtrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf231", false, false);
+        SwitchNode btrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf231", false, false);
+        vlb3.connectNode(bbs7, dtrf231);
+        vlb3.connectNode(dtrf231, btrf231);
+        vlb3.connectNode(btrf231, feeder2WTs211.get(vlb3));
+
+        SwitchNode dtrf211 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf211", false, false);
+        SwitchNode btrf211 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf211", false, false);
+        vlsubst2.connectNode(bbs12, dtrf211);
+        vlsubst2.connectNode(dtrf211, btrf211);
+        vlsubst2.connectNode(btrf211, feeder2WTs211.get(vlsubst2));
+
+        /*
+        // - a three windings transformers between the two substations
+        */
+        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2,
+                9, 6, 4, TOP, BOTTOM, TOP);
+
+        SwitchNode dtrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf318", false, false);
+        SwitchNode btrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf318", false, false);
+        vlb1.connectNode(bbs2, dtrf318);
+        vlb1.connectNode(dtrf318, btrf318);
+        vlb1.connectNode(btrf318, feeder3WTs311.get(vlb1));
+
+        SwitchNode dtrf328 = vlb2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf328", false, false);
+        SwitchNode btrf328 = vlb2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf328", false, false);
+        vlb2.connectNode(bbs6, dtrf328);
+        vlb2.connectNode(dtrf328, btrf328);
+        vlb2.connectNode(btrf328, feeder3WTs311.get(vlb2));
+
+        SwitchNode dtrf338 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf338", false, false);
+        SwitchNode btrf338 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf338", false, false);
+        vlsubst2.connectNode(bbs12, dtrf338);
+        vlsubst2.connectNode(dtrf338, btrf338);
+        vlsubst2.connectNode(btrf338, feeder3WTs311.get(vlsubst2));
     }
 
     @Test
