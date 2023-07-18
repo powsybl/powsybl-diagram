@@ -38,7 +38,7 @@ public class SubstationRawBuilder {
         vlBuilder.setSubstationBuilder(this);
     }
 
-    private boolean hasVoltageLevelRawBuilder(VoltageLevelRawBuilder vl) {
+    private boolean containsVoltageLevelRawBuilder(VoltageLevelRawBuilder vl) {
         return vl.getSubstationBuilder() == this;
     }
 
@@ -50,12 +50,12 @@ public class SubstationRawBuilder {
         feederLineNodes.put(vl1, feederLineNode1);
         feederLineNodes.put(vl2, feederLineNode2);
 
-        if (hasVoltageLevelRawBuilder(vl1) && hasVoltageLevelRawBuilder(vl2)) {
+        if (containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2)) {
             // All VoltageLevel must be in the same Substation
             substationGraph.addLineEdge(id, feederLineNode1, feederLineNode2);
         } else {
             // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2).filter(vl -> !hasVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
+            Stream.of(vl1, vl2).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
         }
         return feederLineNodes;
     }
@@ -71,12 +71,12 @@ public class SubstationRawBuilder {
         FeederNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
         f2WTNodes.put(vl1, feeder2WtNode1);
         f2WTNodes.put(vl2, feeder2WTNode2);
-        if (hasVoltageLevelRawBuilder(vl1) && hasVoltageLevelRawBuilder(vl2)) {
+        if (containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2)) {
             // All VoltageLevel must be in the same Substation
             NodeFactory.createMiddle2WTNode(substationGraph, id, id, feeder2WtNode1, feeder2WTNode2, vl1.getVoltageLevelInfos(), vl2.getVoltageLevelInfos(), false);
         } else {
             // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2).filter(vl -> !hasVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
+            Stream.of(vl1, vl2).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
         }
         return f2WTNodes;
     }
@@ -96,13 +96,13 @@ public class SubstationRawBuilder {
         f3WTNodes.put(vl2, feeder3WTNode2);
         f3WTNodes.put(vl3, feeder3WTNode3);
 
-        if (hasVoltageLevelRawBuilder(vl1) && hasVoltageLevelRawBuilder(vl2) && hasVoltageLevelRawBuilder(vl3)) {
+        if (containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2) && containsVoltageLevelRawBuilder(vl3)) {
             // All VoltageLevel must be in the same Substation
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
             NodeFactory.createMiddle3WTNode(substationGraph, id, id, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3);
         } else {
             // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2, vl3).filter(vl -> !hasVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
+            Stream.of(vl1, vl2, vl3).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
         }
 
         return f3WTNodes;
