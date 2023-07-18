@@ -25,12 +25,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
+    private SubstationRawBuilder ssb1;
+    private VoltageLevelRawBuilder vlb1;
+
+    private VoltageLevelRawBuilder vlb2;
+
+    private SubstationRawBuilder ssb2;
+    private VoltageLevelRawBuilder vlsubst2;
+    private BusNode bbs1;
+    private BusNode bbs12;
+
     @BeforeEach
     public void setUp() {
-        SubstationRawBuilder ssb1 = rawGraphBuilder.createSubstationBuilder("subst");
-        VoltageLevelRawBuilder vlb1 = rawGraphBuilder.createVoltageLevelBuilder("vl1", 380, ssb1);
+        ssb1 = rawGraphBuilder.createSubstationBuilder("subst");
+        vlb1 = rawGraphBuilder.createVoltageLevelBuilder("vl1", 380, ssb1);
 
-        BusNode bbs1 = vlb1.createBusBarSection("bbs1", 1, 1);
+        bbs1 = vlb1.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlb1.createBusBarSection("bbs2", 1, 2);
         BusNode bbs3 = vlb1.createBusBarSection("bbs3", 2, 1);
         BusNode bbs4 = vlb1.createBusBarSection("bbs4", 2, 2);
@@ -79,7 +89,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb1.connectNode(dgen2, bgen2);
         vlb1.connectNode(gen2, bgen2);
 
-        VoltageLevelRawBuilder vlb2 = rawGraphBuilder.createVoltageLevelBuilder("vl2", 225, ssb1);
+        vlb2 = rawGraphBuilder.createVoltageLevelBuilder("vl2", 225, ssb1);
 
         BusNode bbs5 = vlb2.createBusBarSection("bbs5", 1, 1);
         BusNode bbs6 = vlb2.createBusBarSection("bbs6", 2, 1);
@@ -268,11 +278,10 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         // - a line between the two substations
         //
         */
-        SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2");
-        VoltageLevelRawBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
-        ssb2.addVlBuilder(vlsubst2);
+        ssb2 = rawGraphBuilder.createSubstationBuilder("subst2");
+        vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
 
-        BusNode bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);
+        bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);
 
         SwitchNode dline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline11_2", false, false);
         SwitchNode bline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline11_2", false, false);
@@ -291,8 +300,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         /*
         // - a two windings transformers between the two substations
         */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ssb1.createFeeder2WT("trf211", vlb3, vlsubst2,
-                1, 1, TOP, TOP);
+        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ssb1.createFeeder2WT("trf211", vlb3, vlsubst2);
         SwitchNode dtrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf231", false, false);
         SwitchNode btrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf231", false, false);
         vlb3.connectNode(bbs7, dtrf231);
@@ -308,8 +316,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         /*
         // - a three windings transformers between the two substations
         */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2,
-                9, 6, 4, TOP, BOTTOM, TOP);
+        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
 
         SwitchNode dtrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf318", false, false);
         SwitchNode btrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf318", false, false);
@@ -338,9 +345,53 @@ class TestCase11SubstationGraph extends AbstractTestCaseRaw {
     }
 
     @Test
+    void testHWithLines() {
+        /*
+        // Creation of another substation, another voltageLevel
+        // - a line between the two substations
+        //
+        */
+        VoltageLevelRawBuilder vl22 = rawGraphBuilder.createVoltageLevelBuilder("vl2_2", 380, ssb2);
+
+        BusNode bbs13 = vl22.createBusBarSection("bbs1_3", 1, 1);
+
+        // Add line between vlsubst2 & vl22
+        SwitchNode dline21 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_1", false, false);
+        SwitchNode bline21 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_1", false, false);
+
+        SwitchNode dline22 = vl22.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
+        SwitchNode bline22 = vl22.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
+        Map<VoltageLevelRawBuilder, FeederNode> line2 = ssb2.createLine("line2", vlsubst2, vl22);
+        vlsubst2.connectNode(bbs12, dline21);
+        vlsubst2.connectNode(dline21, bline21);
+        vlsubst2.connectNode(bline21, line2.get(vlsubst2));
+        vl22.connectNode(bbs13, dline22);
+        vl22.connectNode(dline22, bline22);
+        vl22.connectNode(bline22, line2.get(vl22));
+
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst2");
+        substationGraphLayout(g);
+        assertEquals(toString("/TestCase11SubstationGraphHRawWithLines.json"), toJson(g, "/TestCase11SubstationGraphHRawWithLines.json"));
+    }
+
+    @Test
     void testV() {
         SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst");
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphVRaw.json"), toJson(g, "/TestCase11SubstationGraphVRaw.json"));
+    }
+
+    @Test
+    void testH2() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst2");
+        substationGraphLayout(g);
+        assertEquals(toString("/TestCase11SubstationGraphHRaw2.json"), toJson(g, "/TestCase11SubstationGraphHRaw2.json"));
+    }
+
+    @Test
+    void testV2() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst2");
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphVRaw2.json"), toJson(g, "/TestCase11SubstationGraphVRaw2.json"));
     }
 }
