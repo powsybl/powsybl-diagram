@@ -354,6 +354,27 @@
     } ],
     "styleClass" : "sld-vsc"
   }, {
+    "type" : "LCC_CONVERTER_STATION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 8.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "LCC_CONVERTER_STATION",
+      "fileName" : "lcc.svg"
+    } ],
+    "styleClass" : "sld-lcc"
+  }, {
     "type" : "BUSBAR_SECTION",
     "styleClass" : "sld-busbar-section"
   }, {

@@ -152,6 +152,8 @@ public class LayoutToCgmesExtensionsConverter {
 
             vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), VSC_CONVERTER_STATION)).forEach(node -> applyLayoutOnVscConverterStation(node, voltageLevel, diagramName, offsetPoint));
 
+            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LCC_CONVERTER_STATION)).forEach(node -> applyLayoutOnLccConverterStation(node, voltageLevel, diagramName, offsetPoint));
+
             if (TopologyKind.BUS_BREAKER.equals(voltageLevel.getTopologyKind())) {
                 voltageLevel.getBusBreakerView().getBusStream().forEach(bus ->
                         vlGraph.getNodeBuses().stream().filter(busNode -> busNode.getId().equals(bus.getId())).findFirst().ifPresent(busNode -> {
@@ -249,6 +251,20 @@ public class LayoutToCgmesExtensionsConverter {
 
             LOG.debug("setting CGMES DL IIDM extensions for Vsc Converter Station {} ({}),  point {}", vscConverterStation.getId(), vscConverterStation.getNameOrId(), vcsPoint);
             vscConverterStation.addExtension(LineDiagramData.class, vcsDiagramData);
+        }
+    }
+
+    private void applyLayoutOnLccConverterStation(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        FeederNode lccNode = (FeederNode) node;
+        LccConverterStation lccConverterStation = voltageLevel.getConnectable(lccNode.getId(), LccConverterStation.class);
+        if (lccConverterStation != null) {
+            LineDiagramData<LccConverterStation> lccDiagramData = LineDiagramData.getOrCreateDiagramData(lccConverterStation);
+            int danglingLineSeq = getMaxSeq(lccDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint vcsPoint = offsetPoint.newDiagramPoint(lccNode.getX(), lccNode.getY(), danglingLineSeq);
+            lccDiagramData.addPoint(diagramName, vcsPoint);
+
+            LOG.debug("setting CGMES DL IIDM extensions for Lcc Converter Station {} ({}),  point {}", lccConverterStation.getId(), lccConverterStation.getNameOrId(), vcsPoint);
+            lccConverterStation.addExtension(LineDiagramData.class, lccDiagramData);
         }
     }
 

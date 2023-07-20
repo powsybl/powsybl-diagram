@@ -119,4 +119,11 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         return vcsLineData;
     }
 
+    public static LineDiagramData<LccConverterStation> getOrCreateDiagramData(LccConverterStation lcc) {
+        LineDiagramData<LccConverterStation> lccLineData = lcc.getExtension(LineDiagramData.class);
+        if (lccLineData == null) {
+            lccLineData = new LineDiagramData<>(lcc);
+        }
+        return lccLineData;
+    }
 }

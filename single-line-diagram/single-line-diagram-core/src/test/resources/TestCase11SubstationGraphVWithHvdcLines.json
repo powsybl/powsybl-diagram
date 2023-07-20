@@ -1,0 +1,343 @@
+{
+  "substationId" : "Substation1",
+  "voltageLevels" : [ {
+    "voltageLevelInfos" : {
+      "id" : "VoltageLevel1",
+      "name" : "VoltageLevel1",
+      "nominalVoltage" : 400.0
+    },
+    "x" : 40.0,
+    "y" : 80.0,
+    "nodes" : [ {
+      "type" : "INTERNAL",
+      "id" : "BUSCO_Bus1_Converter1",
+      "componentType" : "BUS_CONNECTION",
+      "fictitious" : true,
+      "x" : 25.0,
+      "y" : 172.0
+    }, {
+      "type" : "INTERNAL",
+      "id" : "BUSCO_Bus3_Converter3",
+      "componentType" : "BUS_CONNECTION",
+      "fictitious" : true,
+      "x" : 75.0,
+      "y" : 197.0,
+      "orientation" : "DOWN"
+    }, {
+      "type" : "BUS",
+      "id" : "Bus1",
+      "componentType" : "BUSBAR_SECTION",
+      "fictitious" : false,
+      "x" : 12.5,
+      "y" : 172.0,
+      "name" : "Bus1",
+      "equipmentId" : "Bus1",
+      "pxWidth" : 75.0,
+      "busbarIndex" : 1,
+      "sectionIndex" : 1,
+      "position" : {
+        "h" : 0,
+        "v" : 0,
+        "hSpan" : 4,
+        "vSpan" : 0
+      }
+    }, {
+      "type" : "BUS",
+      "id" : "Bus3",
+      "componentType" : "BUSBAR_SECTION",
+      "fictitious" : false,
+      "x" : 12.5,
+      "y" : 197.0,
+      "name" : "Bus3",
+      "equipmentId" : "Bus3",
+      "pxWidth" : 75.0,
+      "busbarIndex" : 2,
+      "sectionIndex" : 1,
+      "position" : {
+        "h" : 0,
+        "v" : 1,
+        "hSpan" : 4,
+        "vSpan" : 0
+      }
+    }, {
+      "type" : "FEEDER",
+      "id" : "Converter1",
+      "componentType" : "VSC_CONVERTER_STATION",
+      "fictitious" : false,
+      "x" : 25.0,
+      "y" : 0.0,
+      "name" : "Converter1",
+      "equipmentId" : "HvdcLine",
+      "feederType" : "HVDC",
+      "order" : 1,
+      "direction" : "TOP",
+      "side" : "ONE",
+      "otherSideVoltageLevelInfos" : {
+        "id" : "VoltageLevel2",
+        "name" : "VoltageLevel2",
+        "nominalVoltage" : 400.0
+      }
+    }, {
+      "type" : "FEEDER",
+      "id" : "Converter3",
+      "componentType" : "LCC_CONVERTER_STATION",
+      "fictitious" : false,
+      "x" : 75.0,
+      "y" : 369.0,
+      "orientation" : "DOWN",
+      "name" : "Converter3",
+      "equipmentId" : "HvdcLine2",
+      "feederType" : "HVDC",
+      "order" : 2,
+      "direction" : "BOTTOM",
+      "side" : "ONE",
+      "otherSideVoltageLevelInfos" : {
+        "id" : "VoltageLevel2",
+        "name" : "VoltageLevel2",
+        "nominalVoltage" : 400.0
+      }
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_VoltageLevel1_BUSCO_Bus1_Converter1-Converter1",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 25.0,
+      "y" : 142.0
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_VoltageLevel1_BUSCO_Bus3_Converter3-Converter3",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 75.0,
+      "y" : 227.0,
+      "orientation" : "DOWN"
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_VoltageLevel1_Converter1",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 25.0,
+      "y" : 62.0
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_VoltageLevel1_Converter3",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 75.0,
+      "y" : 307.0,
+      "orientation" : "DOWN"
+    } ],
+    "cells" : [ {
+      "type" : "EXTERN",
+      "number" : 0,
+      "direction" : "TOP",
+      "order" : 1,
+      "rootBlock" : {
+        "type" : "SERIAL",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 25.0,
+          "y" : 102.0,
+          "xSpan" : 50.0,
+          "ySpan" : 80.0
+        },
+        "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 25.0,
+            "y" : 142.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "Bus1", "BUSCO_Bus1_Converter1", "INTERNAL_VoltageLevel1_BUSCO_Bus1_Converter1-Converter1" ]
+        }, {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 25.0,
+            "y" : 102.0,
+            "xSpan" : 50.0,
+            "ySpan" : 80.0
+          },
+          "nodes" : [ "INTERNAL_VoltageLevel1_BUSCO_Bus1_Converter1-Converter1", "INTERNAL_VoltageLevel1_Converter1" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 25.0,
+            "y" : 62.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "INTERNAL_VoltageLevel1_Converter1", "Converter1" ]
+        } ]
+      }
+    }, {
+      "type" : "EXTERN",
+      "number" : 1,
+      "direction" : "BOTTOM",
+      "order" : 2,
+      "rootBlock" : {
+        "type" : "SERIAL",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 2,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 75.0,
+          "y" : 267.0,
+          "xSpan" : 50.0,
+          "ySpan" : 80.0
+        },
+        "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 75.0,
+            "y" : 227.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "Bus3", "BUSCO_Bus3_Converter3", "INTERNAL_VoltageLevel1_BUSCO_Bus3_Converter3-Converter3" ]
+        }, {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 75.0,
+            "y" : 267.0,
+            "xSpan" : 50.0,
+            "ySpan" : 80.0
+          },
+          "nodes" : [ "INTERNAL_VoltageLevel1_BUSCO_Bus3_Converter3-Converter3", "INTERNAL_VoltageLevel1_Converter3" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 75.0,
+            "y" : 307.0,
+            "xSpan" : 50.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "INTERNAL_VoltageLevel1_Converter3", "Converter3" ]
+        } ]
+      }
+    } ],
+    "edges" : [ {
+      "node1" : "Bus1",
+      "node2" : "BUSCO_Bus1_Converter1"
+    }, {
+      "node1" : "Bus3",
+      "node2" : "BUSCO_Bus3_Converter3"
+    }, {
+      "node1" : "BUSCO_Bus1_Converter1",
+      "node2" : "INTERNAL_VoltageLevel1_BUSCO_Bus1_Converter1-Converter1"
+    }, {
+      "node1" : "BUSCO_Bus3_Converter3",
+      "node2" : "INTERNAL_VoltageLevel1_BUSCO_Bus3_Converter3-Converter3"
+    }, {
+      "node1" : "INTERNAL_VoltageLevel1_BUSCO_Bus1_Converter1-Converter1",
+      "node2" : "INTERNAL_VoltageLevel1_Converter1"
+    }, {
+      "node1" : "INTERNAL_VoltageLevel1_Converter1",
+      "node2" : "Converter1"
+    }, {
+      "node1" : "INTERNAL_VoltageLevel1_BUSCO_Bus3_Converter3-Converter3",
+      "node2" : "INTERNAL_VoltageLevel1_Converter3"
+    }, {
+      "node1" : "INTERNAL_VoltageLevel1_Converter3",
+      "node2" : "Converter3"
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
+}
