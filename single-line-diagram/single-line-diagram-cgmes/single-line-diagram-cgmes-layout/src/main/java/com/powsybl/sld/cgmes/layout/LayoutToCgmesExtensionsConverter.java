@@ -241,16 +241,16 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private void applyLayoutOnVscConverterStation(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
-        FeederNode vcsNode = (FeederNode) node;
-        VscConverterStation vscConverterStation = voltageLevel.getConnectable(vcsNode.getId(), VscConverterStation.class);
+        FeederNode vscNode = (FeederNode) node;
+        VscConverterStation vscConverterStation = voltageLevel.getConnectable(vscNode.getId(), VscConverterStation.class);
         if (vscConverterStation != null) {
-            LineDiagramData<VscConverterStation> vcsDiagramData = LineDiagramData.getOrCreateDiagramData(vscConverterStation);
-            int danglingLineSeq = getMaxSeq(vcsDiagramData.getPoints(diagramName)) + 1;
-            DiagramPoint vcsPoint = offsetPoint.newDiagramPoint(vcsNode.getX(), vcsNode.getY(), danglingLineSeq);
-            vcsDiagramData.addPoint(diagramName, vcsPoint);
+            LineDiagramData<VscConverterStation> vscDiagramData = LineDiagramData.getOrCreateDiagramData(vscConverterStation);
+            int danglingLineSeq = getMaxSeq(vscDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint vscPoint = offsetPoint.newDiagramPoint(vscNode.getX(), vscNode.getY(), danglingLineSeq);
+            vscDiagramData.addPoint(diagramName, vscPoint);
 
-            LOG.debug("setting CGMES DL IIDM extensions for Vsc Converter Station {} ({}),  point {}", vscConverterStation.getId(), vscConverterStation.getNameOrId(), vcsPoint);
-            vscConverterStation.addExtension(LineDiagramData.class, vcsDiagramData);
+            LOG.debug("setting CGMES DL IIDM extensions for Vsc Converter Station {} ({}),  point {}", vscConverterStation.getId(), vscConverterStation.getNameOrId(), vscPoint);
+            vscConverterStation.addExtension(LineDiagramData.class, vscDiagramData);
         }
     }
 
@@ -260,10 +260,10 @@ public class LayoutToCgmesExtensionsConverter {
         if (lccConverterStation != null) {
             LineDiagramData<LccConverterStation> lccDiagramData = LineDiagramData.getOrCreateDiagramData(lccConverterStation);
             int danglingLineSeq = getMaxSeq(lccDiagramData.getPoints(diagramName)) + 1;
-            DiagramPoint vcsPoint = offsetPoint.newDiagramPoint(lccNode.getX(), lccNode.getY(), danglingLineSeq);
-            lccDiagramData.addPoint(diagramName, vcsPoint);
+            DiagramPoint lccPoint = offsetPoint.newDiagramPoint(lccNode.getX(), lccNode.getY(), danglingLineSeq);
+            lccDiagramData.addPoint(diagramName, lccPoint);
 
-            LOG.debug("setting CGMES DL IIDM extensions for Lcc Converter Station {} ({}),  point {}", lccConverterStation.getId(), lccConverterStation.getNameOrId(), vcsPoint);
+            LOG.debug("setting CGMES DL IIDM extensions for Lcc Converter Station {} ({}),  point {}", lccConverterStation.getId(), lccConverterStation.getNameOrId(), lccPoint);
             lccConverterStation.addExtension(LineDiagramData.class, lccDiagramData);
         }
     }
