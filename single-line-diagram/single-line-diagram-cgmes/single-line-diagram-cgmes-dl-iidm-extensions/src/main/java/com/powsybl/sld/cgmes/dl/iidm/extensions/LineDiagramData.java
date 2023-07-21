@@ -111,12 +111,19 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         return danglingLineData;
     }
 
-    public static LineDiagramData<VscConverterStation> getOrCreateDiagramData(VscConverterStation vcs) {
-        LineDiagramData<VscConverterStation> vcsLineData = vcs.getExtension(LineDiagramData.class);
-        if (vcsLineData == null) {
-            vcsLineData = new LineDiagramData<>(vcs);
+    public static LineDiagramData<VscConverterStation> getOrCreateDiagramData(VscConverterStation vsc) {
+        LineDiagramData<VscConverterStation> vscLineData = vsc.getExtension(LineDiagramData.class);
+        if (vscLineData == null) {
+            vscLineData = new LineDiagramData<>(vsc);
         }
-        return vcsLineData;
+        return vscLineData;
     }
 
+    public static LineDiagramData<LccConverterStation> getOrCreateDiagramData(LccConverterStation lcc) {
+        LineDiagramData<LccConverterStation> lccLineData = lcc.getExtension(LineDiagramData.class);
+        if (lccLineData == null) {
+            lccLineData = new LineDiagramData<>(lcc);
+        }
+        return lccLineData;
+    }
 }
