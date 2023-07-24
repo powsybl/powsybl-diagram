@@ -2111,36 +2111,6 @@ public final class Networks {
                 .setActivePowerSetpoint(280)
                 .add();
 
-        // HDVCLine between A 230 & B 230
-        vlId = String.format(vlFormat, subA.getId(), 230.0);
-        busId = String.format(busIdFormat, vlId);
-        network.getVoltageLevel(vlId).newLccConverterStation()
-                .setId(CONVERTER_3_ID)
-                .setConnectableBus(busId)
-                .setBus(busId)
-                .setLossFactor(0.011f)
-                .setPowerFactor(0.5f)
-                .add();
-        vlId = String.format(vlFormat, subB.getId(), 230.0);
-        busId = String.format(busIdFormat, vlId);
-        network.getVoltageLevel(vlId).newLccConverterStation()
-                .setId(CONVERTER_4_ID)
-                .setConnectableBus(busId)
-                .setBus(busId)
-                .setLossFactor(0.011f)
-                .setPowerFactor(-0.5f)
-                .add();
-        network.newHvdcLine()
-                .setId("HvdcLine (Lcc)")
-                .setConverterStationId1(CONVERTER_3_ID)
-                .setConverterStationId2(CONVERTER_4_ID)
-                .setR(1)
-                .setNominalV(400)
-                .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
-                .setMaxP(300.0)
-                .setActivePowerSetpoint(280)
-                .add();
-
         // Dangling Line
         vlId = String.format(vlFormat, subC.getId(), 66.0);
         busId = String.format(busIdFormat, vlId);
@@ -2174,11 +2144,11 @@ public final class Networks {
         String xnodeId = XNODE_1_ID;
         vlId = String.format(vlFormat, subA.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
-        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
         String tieLineId = "A230_B230";
-        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
 
         return network;

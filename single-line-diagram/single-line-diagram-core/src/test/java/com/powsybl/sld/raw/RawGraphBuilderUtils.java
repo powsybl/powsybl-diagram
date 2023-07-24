@@ -31,7 +31,7 @@ public final class RawGraphBuilderUtils {
                                                           boolean appendLines,
                                                           boolean append2wt,
                                                           boolean append3wts) {
-        SubstationRawBuilder ssb1 = rawGraphBuilder.createSubstationBuilder("subst");
+        SubstationRawBuilder ssb1 = rawGraphBuilder.createSubstationBuilder("subst", parentGraph);
         VoltageLevelRawBuilder vlb1 = rawGraphBuilder.createVoltageLevelBuilder("vl1", 380, ssb1);
 
         BusNode bbs1 = vlb1.createBusBarSection("bbs1", 1, 1);
@@ -272,7 +272,7 @@ public final class RawGraphBuilderUtils {
         // - a line between the two substations
         //
         */
-        SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2");
+        SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2", parentGraph);
         VoltageLevelRawBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
 
         BusNode bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);

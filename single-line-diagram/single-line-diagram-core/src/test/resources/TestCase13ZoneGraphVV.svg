@@ -117,6 +117,7 @@
 .sld-pst-arrow {stroke: black; fill: none}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
@@ -286,7 +287,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-vsc sld-top-feeder sld-vl180to300-0" id="idConverter1" transform="translate(397.0,398.0)">
-                <text x="-5.3" y="6.6">AC / DC</text>
+                <text x="-15.5" y="6.6">AC / DC - VSC</text>
                 <text class="sld-label" id="Converter1_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
         </g>
@@ -436,7 +437,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-vsc sld-top-feeder sld-vl180to300-1" id="idConverter2" transform="translate(397.0,952.0)">
-                <text x="-5.3" y="6.6">AC / DC</text>
+                <text x="-15.5" y="6.6">AC / DC - VSC</text>
                 <text class="sld-label" id="Converter2_N_LABEL" x="-5.0" y="-5.0">Converter2</text>
             </g>
         </g>
@@ -1085,7 +1086,7 @@
         <g class="sld-wire sld-vl0to30-2" id="idD_32__45__32_E">
             <polyline points="355.0,3598.0,355.0,3658.0,80.0,3658.0,80.0,3688.0,305.0,3688.0,305.0,3748.0"/>
         </g>
-        <g class="sld-wire sld-vl180to300-0" id="idHvdcLine">
+        <g class="sld-wire sld-vl180to300-0" id="idHvdcLine_32__40_Vsc_41_">
             <polyline points="405.0,402.0,405.0,342.0,50.0,342.0,50.0,866.0,405.0,866.0,405.0,956.0"/>
         </g>
         <g class="sld-wire sld-vl180to300-0" id="idA230_95_B230">
