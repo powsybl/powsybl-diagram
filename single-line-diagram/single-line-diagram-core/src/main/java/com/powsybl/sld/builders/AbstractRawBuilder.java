@@ -26,11 +26,11 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractRawBuilder.class);
 
-    protected static final String REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER = "Require %d VoltageLevelRawBuilder (found %d)";
+    private static final String REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER = "Expected '%d' VoltageLevelRawBuilders but only '%d' found";
 
-    protected static final String REQUIRED_N_ORDER = "Require %d node order (found %d)";
+    private static final String REQUIRED_N_ORDER = "Expected '%d' node orders but only '%d' found";
 
-    protected static final String REQUIRED_N_DIRECTION = "Require %d node direction (found %d)";
+    private static final String REQUIRED_N_DIRECTION = "Expected '%d' node directions but only '%d' found";
 
     protected abstract BaseGraph getGraph();
 
@@ -41,15 +41,8 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
                                                               List<VoltageLevelRawBuilder> vls,
                                                               List<Integer> orders,
                                                               List<Direction> directions) {
-        if (vls.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, 2, Math.abs(2 - vls.size())));
-        }
-        if (orders.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, 2, Math.abs(2 - orders.size())));
-        }
-        if (directions.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, 2, Math.abs(2 - directions.size())));
-        }
+        checkInputParameters(2, vls, orders, directions);
+
         VoltageLevelRawBuilder vl1 = vls.get(0);
         VoltageLevelRawBuilder vl2 = vls.get(1);
         int order1 = orders.get(0);
@@ -63,7 +56,7 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
         feederLineNodes.put(vl2, feederLineNode2);
 
         if (containsVoltageLevelRawBuilders(vl1, vl2)) {
-            // All VoltageLevel must be in the same Substation
+            // All VoltageLevel must be in the same Substation or the same Zone
             getGraph().addLineEdge(id, feederLineNode1, feederLineNode2);
         }
         return feederLineNodes;
@@ -72,5 +65,20 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
     @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
         return createLine(id, List.of(vl1, vl2), List.of(0, 0), Stream.of((Direction) null, null).toList());
+    }
+
+    protected void checkInputParameters(int expectedSize,
+                                        List<VoltageLevelRawBuilder> vls,
+                                        List<Integer> orders,
+                                        List<Direction> directions) {
+        if (vls.size() != expectedSize) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, expectedSize, Math.abs(expectedSize - vls.size())));
+        }
+        if (orders.size() != expectedSize) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, expectedSize, Math.abs(expectedSize - orders.size())));
+        }
+        if (directions.size() != expectedSize) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, expectedSize, Math.abs(expectedSize - directions.size())));
+        }
     }
 }

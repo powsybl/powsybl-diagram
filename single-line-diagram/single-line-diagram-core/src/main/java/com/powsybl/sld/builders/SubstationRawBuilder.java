@@ -54,15 +54,7 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
                                                                    List<VoltageLevelRawBuilder> vls,
                                                                    List<Integer> orders,
                                                                    List<Direction> directions) {
-        if (vls.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, 2, Math.abs(2 - vls.size())));
-        }
-        if (orders.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, 2, Math.abs(2 - orders.size())));
-        }
-        if (directions.size() != 2) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, 2, Math.abs(2 - directions.size())));
-        }
+        checkInputParameters(2, vls, orders, directions);
         VoltageLevelRawBuilder vl1 = vls.get(0);
         VoltageLevelRawBuilder vl2 = vls.get(1);
         int order1 = orders.get(0);
@@ -92,15 +84,7 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
                                                                    List<VoltageLevelRawBuilder> vls,
                                                                    List<Integer> orders,
                                                                    List<Direction> directions) {
-        if (vls.size() != 3) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, Math.abs(3 - vls.size())));
-        }
-        if (orders.size() != 3) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, Math.abs(3 - orders.size())));
-        }
-        if (directions.size() != 3) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, Math.abs(3 - directions.size())));
-        }
+        checkInputParameters(3, vls, orders, directions);
         VoltageLevelRawBuilder vl1 = vls.get(0);
         VoltageLevelRawBuilder vl2 = vls.get(1);
         VoltageLevelRawBuilder vl3 = vls.get(2);
