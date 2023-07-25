@@ -24,18 +24,11 @@
       "y" : 142.0
     }, {
       "type" : "INTERNAL",
-      "id" : "INTERNAL_vlSubst2_dline21_2-bline21_2",
+      "id" : "INTERNAL_vlSubst2_dline2_4-bline2_4",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 142.0
-    }, {
-      "type" : "INTERNAL",
-      "id" : "INTERNAL_vlSubst2_line1_ONE",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 125.0,
-      "y" : 62.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_vlSubst2_line1_TWO",
@@ -49,6 +42,13 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
+      "y" : 62.0
+    }, {
+      "type" : "INTERNAL",
+      "id" : "INTERNAL_vlSubst2_line3_ONE",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 125.0,
       "y" : 62.0
     }, {
       "type" : "BUS",
@@ -92,13 +92,13 @@
       "kind" : "BREAKER"
     }, {
       "type" : "SWITCH",
-      "id" : "bline21_2",
+      "id" : "bline2_4",
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 125.0,
       "y" : 102.0,
-      "name" : "bline21_2",
-      "equipmentId" : "bline21_2",
+      "name" : "bline2_4",
+      "equipmentId" : "bline2_4",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -125,34 +125,15 @@
       "kind" : "DISCONNECTOR"
     }, {
       "type" : "SWITCH",
-      "id" : "dline21_2",
+      "id" : "dline2_4",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
       "x" : 125.0,
       "y" : 172.0,
-      "name" : "dline21_2",
-      "equipmentId" : "dline21_2",
+      "name" : "dline2_4",
+      "equipmentId" : "dline2_4",
       "open" : false,
       "kind" : "DISCONNECTOR"
-    }, {
-      "type" : "FEEDER",
-      "id" : "line1_ONE",
-      "componentType" : "LINE",
-      "fictitious" : false,
-      "x" : 125.0,
-      "y" : 0.0,
-      "label" : "line1",
-      "name" : "line1",
-      "equipmentId" : "line1",
-      "feederType" : "BRANCH",
-      "order" : 7,
-      "direction" : "TOP",
-      "side" : "ONE",
-      "otherSideVoltageLevelInfos" : {
-        "id" : "vl1",
-        "name" : "vl1",
-        "nominalVoltage" : 380.0
-      }
     }, {
       "type" : "FEEDER",
       "id" : "line1_TWO",
@@ -188,6 +169,25 @@
       "otherSideVoltageLevelInfos" : {
         "id" : "vl2_2",
         "name" : "vl2_2",
+        "nominalVoltage" : 380.0
+      }
+    }, {
+      "type" : "FEEDER",
+      "id" : "line3_ONE",
+      "componentType" : "LINE",
+      "fictitious" : false,
+      "x" : 125.0,
+      "y" : 0.0,
+      "label" : "line3",
+      "name" : "line3",
+      "equipmentId" : "line3",
+      "feederType" : "BRANCH",
+      "order" : 7,
+      "direction" : "TOP",
+      "side" : "ONE",
+      "otherSideVoltageLevelInfos" : {
+        "id" : "vl1",
+        "name" : "vl1",
         "nominalVoltage" : 380.0
       }
     } ],
@@ -415,7 +415,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1_2", "dline21_2", "INTERNAL_vlSubst2_dline21_2-bline21_2" ]
+          "nodes" : [ "bbs1_2", "dline2_4", "INTERNAL_vlSubst2_dline2_4-bline2_4" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -436,7 +436,7 @@
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
-          "nodes" : [ "INTERNAL_vlSubst2_dline21_2-bline21_2", "bline21_2", "INTERNAL_vlSubst2_line1_ONE" ]
+          "nodes" : [ "INTERNAL_vlSubst2_dline2_4-bline2_4", "bline2_4", "INTERNAL_vlSubst2_line3_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -457,7 +457,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "INTERNAL_vlSubst2_line1_ONE", "line1_ONE" ]
+          "nodes" : [ "INTERNAL_vlSubst2_line3_ONE", "line3_ONE" ]
         } ]
       }
     } ],
@@ -469,7 +469,7 @@
       "node2" : "dline21_1"
     }, {
       "node1" : "bbs1_2",
-      "node2" : "dline21_2"
+      "node2" : "dline2_4"
     }, {
       "node1" : "dline21_2",
       "node2" : "INTERNAL_vlSubst2_dline21_2-bline21_2"
@@ -483,11 +483,11 @@
       "node1" : "INTERNAL_vlSubst2_dline21_1-bline21_1",
       "node2" : "bline21_1"
     }, {
-      "node1" : "dline21_2",
-      "node2" : "INTERNAL_vlSubst2_dline21_2-bline21_2"
+      "node1" : "dline2_4",
+      "node2" : "INTERNAL_vlSubst2_dline2_4-bline2_4"
     }, {
-      "node1" : "INTERNAL_vlSubst2_dline21_2-bline21_2",
-      "node2" : "bline21_2"
+      "node1" : "INTERNAL_vlSubst2_dline2_4-bline2_4",
+      "node2" : "bline2_4"
     }, {
       "node1" : "bline21_2",
       "node2" : "INTERNAL_vlSubst2_line1_TWO"
@@ -501,11 +501,11 @@
       "node1" : "INTERNAL_vlSubst2_line2_ONE",
       "node2" : "line2_ONE"
     }, {
-      "node1" : "bline21_2",
-      "node2" : "INTERNAL_vlSubst2_line1_ONE"
+      "node1" : "bline2_4",
+      "node2" : "INTERNAL_vlSubst2_line3_ONE"
     }, {
-      "node1" : "INTERNAL_vlSubst2_line1_ONE",
-      "node2" : "line1_ONE"
+      "node1" : "INTERNAL_vlSubst2_line3_ONE",
+      "node2" : "line3_ONE"
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],

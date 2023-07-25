@@ -291,44 +291,19 @@ public final class RawGraphBuilderUtils {
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
 
-        /*
-        // - a two windings transformers between the two substations
-        */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ((parentGraph != null) ? parentGraph : ssb1).createFeeder2WT("trf211", vlb3, vlsubst2);
-        SwitchNode dtrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf231", false, false);
-        SwitchNode btrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf231", false, false);
-        vlb3.connectNode(bbs7, dtrf231);
-        vlb3.connectNode(dtrf231, btrf231);
-        vlb3.connectNode(btrf231, feeder2WTs211.get(vlb3));
+        if (append2wt) {
+            /*
+            // - a two windings transformers between the two substations
+            */
+            ssb1.createFeeder2WT("trf211", vlb3, vlsubst2);
+        }
 
-        SwitchNode dtrf211 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf211", false, false);
-        SwitchNode btrf211 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf211", false, false);
-        vlsubst2.connectNode(bbs12, dtrf211);
-        vlsubst2.connectNode(dtrf211, btrf211);
-        vlsubst2.connectNode(btrf211, feeder2WTs211.get(vlsubst2));
-
-        /*
-        // - a three windings transformers between the two substations
-        */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ((parentGraph != null) ? parentGraph : ssb1).createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
-
-        SwitchNode dtrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf318", false, false);
-        SwitchNode btrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf318", false, false);
-        vlb1.connectNode(bbs2, dtrf318);
-        vlb1.connectNode(dtrf318, btrf318);
-        vlb1.connectNode(btrf318, feeder3WTs311.get(vlb1));
-
-        SwitchNode dtrf328 = vlb2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf328", false, false);
-        SwitchNode btrf328 = vlb2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf328", false, false);
-        vlb2.connectNode(bbs6, dtrf328);
-        vlb2.connectNode(dtrf328, btrf328);
-        vlb2.connectNode(btrf328, feeder3WTs311.get(vlb2));
-
-        SwitchNode dtrf338 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf338", false, false);
-        SwitchNode btrf338 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf338", false, false);
-        vlsubst2.connectNode(bbs12, dtrf338);
-        vlsubst2.connectNode(dtrf338, btrf338);
-        vlsubst2.connectNode(btrf338, feeder3WTs311.get(vlsubst2));
+        if (append3wts) {
+            /*
+            // - a three windings transformers between the two substations
+            */
+            ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
+        }
 
         if (appendLines) {
         /*
@@ -369,69 +344,6 @@ public final class RawGraphBuilderUtils {
             vlsubst2.connectNode(bbs12, dline24);
             vlsubst2.connectNode(dline24, bline24);
             vlsubst2.connectNode(bline24, line3.get(vlsubst2));
-        }
-
-        if (append2wt) {
-        /*
-        // - a two windings transformers between the two substations
-        */
-            Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs212 = ssb2.createFeeder2WT("trf211", vlb3, vlsubst2);
-            SwitchNode dtrf232 = vlb3.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf232", false, false);
-            SwitchNode btrf232 = vlb3.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf232", false, false);
-            vlb3.connectNode(bbs7, dtrf232);
-            vlb3.connectNode(dtrf232, btrf232);
-            vlb3.connectNode(btrf232, feeder2WTs212.get(vlb3));
-
-            SwitchNode dtrf212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf212", false, false);
-            SwitchNode btrf212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf212", false, false);
-            vlsubst2.connectNode(bbs12, dtrf212);
-            vlsubst2.connectNode(dtrf212, btrf212);
-            vlsubst2.connectNode(btrf212, feeder2WTs212.get(vlsubst2));
-        }
-
-        if (append3wts) {
-        /*
-        // - two three windings transformers between the two substations
-        */
-            Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs312 = ssb2.createFeeder3WT("trf312", vlb1, vlsubst2, vlb2);
-
-            SwitchNode dtrf319 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf319", false, false);
-            SwitchNode btrf319 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf319", false, false);
-            vlb1.connectNode(bbs2, dtrf319);
-            vlb1.connectNode(dtrf319, btrf319);
-            vlb1.connectNode(btrf319, feeder3WTs312.get(vlb1));
-
-            SwitchNode dtrf329 = vlb2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf329", false, false);
-            SwitchNode btrf329 = vlb2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf328", false, false);
-            vlb2.connectNode(bbs6, dtrf329);
-            vlb2.connectNode(dtrf329, btrf329);
-            vlb2.connectNode(btrf329, feeder3WTs312.get(vlb2));
-
-            SwitchNode dtrf339 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf339", false, false);
-            SwitchNode btrf339 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf339", false, false);
-            vlsubst2.connectNode(bbs12, dtrf339);
-            vlsubst2.connectNode(dtrf339, btrf339);
-            vlsubst2.connectNode(btrf339, feeder3WTs312.get(vlsubst2));
-
-            Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs313 = ssb2.createFeeder3WT("trf313", vlsubst2, vlb1, vlb2);
-
-            SwitchNode dtrf3110 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf318", false, false);
-            SwitchNode btrf3110 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf318", false, false);
-            vlb1.connectNode(bbs2, dtrf3110);
-            vlb1.connectNode(dtrf3110, btrf3110);
-            vlb1.connectNode(btrf3110, feeder3WTs313.get(vlb1));
-
-            SwitchNode dtrf3210 = vlb2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf328", false, false);
-            SwitchNode btrf3210 = vlb2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf328", false, false);
-            vlb2.connectNode(bbs6, dtrf3210);
-            vlb2.connectNode(dtrf3210, btrf3210);
-            vlb2.connectNode(btrf3210, feeder3WTs313.get(vlb2));
-
-            SwitchNode dtrf3310 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf338", false, false);
-            SwitchNode btrf3310 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf338", false, false);
-            vlsubst2.connectNode(bbs12, dtrf3310);
-            vlsubst2.connectNode(dtrf3310, btrf3310);
-            vlsubst2.connectNode(btrf3310, feeder3WTs313.get(vlsubst2));
         }
     }
 
