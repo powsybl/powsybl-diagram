@@ -283,7 +283,7 @@ public final class RawGraphBuilderUtils {
         SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
         SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
         Map<VoltageLevelRawBuilder, FeederNode> line1 =
-                ssb1.createLine("line1", vlb1, vlsubst2, 7, 1, TOP, TOP);
+                ((parentGraph != null) ? parentGraph : ssb1).createLine("line1", vlb1, vlsubst2, 7, 1, TOP, TOP);
         vlb1.connectNode(bbs1, dline112);
         vlb1.connectNode(dline112, bline112);
         vlb1.connectNode(bline112, line1.get(vlb1));
@@ -294,7 +294,7 @@ public final class RawGraphBuilderUtils {
         /*
         // - a two windings transformers between the two substations
         */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ssb1.createFeeder2WT("trf211", vlb3, vlsubst2);
+        Map<VoltageLevelRawBuilder, FeederNode> feeder2WTs211 = ((parentGraph != null) ? parentGraph : ssb1).createFeeder2WT("trf211", vlb3, vlsubst2);
         SwitchNode dtrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf231", false, false);
         SwitchNode btrf231 = vlb3.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf231", false, false);
         vlb3.connectNode(bbs7, dtrf231);
@@ -310,7 +310,7 @@ public final class RawGraphBuilderUtils {
         /*
         // - a three windings transformers between the two substations
         */
-        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
+        Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs311 = ((parentGraph != null) ? parentGraph : ssb1).createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
 
         SwitchNode dtrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf318", false, false);
         SwitchNode btrf318 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf318", false, false);

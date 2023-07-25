@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 import static com.powsybl.sld.model.nodes.NodeSide.*;
 
-public class SubstationRawBuilder {
+public class SubstationRawBuilder extends AbstractRawBuilder {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SubstationRawBuilder.class);
 
@@ -32,6 +32,7 @@ public class SubstationRawBuilder {
         substationGraph = SubstationGraph.create(id, parentBuilder == null ? null : parentBuilder.getGraph());
     }
 
+    @Override
     public SubstationGraph getGraph() {
         return substationGraph;
     }
@@ -53,6 +54,7 @@ public class SubstationRawBuilder {
         return vl.getSubstationBuilder() == this;
     }
 
+    @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
                                                                Direction direction1, Direction direction2) {
         Map<VoltageLevelRawBuilder, FeederNode> feederLineNodes = new HashMap<>();
@@ -68,10 +70,7 @@ public class SubstationRawBuilder {
         return feederLineNodes;
     }
 
-    public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
-        return createLine(id, vl1, vl2, 0, 0, null, null);
-    }
-
+    @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
                                                                       Direction direction1, Direction direction2) {
         Map<VoltageLevelRawBuilder, FeederNode> f2WTNodes = new HashMap<>();
@@ -90,10 +89,7 @@ public class SubstationRawBuilder {
         return f2WTNodes;
     }
 
-    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
-        return createFeeder2WT(id, vl1, vl2, 0, 0, null, null);
-    }
-
+    @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3,
                                                                       int order1, int order2, int order3,
                                                                       Direction direction1, Direction direction2, Direction direction3) {
@@ -116,9 +112,5 @@ public class SubstationRawBuilder {
         }
 
         return f3WTNodes;
-    }
-
-    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3) {
-        return createFeeder3WT(id, vl1, vl2, vl3, 0, 0, 0, null, null, null);
     }
 }

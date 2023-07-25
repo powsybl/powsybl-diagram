@@ -8,7 +8,7 @@
         "nominalVoltage" : 380.0
       },
       "x" : 40.0,
-      "y" : 260.0,
+      "y" : 350.0,
       "nodes" : [ {
         "type" : "INTERNAL",
         "id" : "INTERNAL_vl1_dgen1-bgen1",
@@ -2651,7 +2651,7 @@
         "nominalVoltage" : 225.0
       },
       "x" : 920.0,
-      "y" : 260.0,
+      "y" : 350.0,
       "nodes" : [ {
         "type" : "INTERNAL",
         "id" : "INTERNAL_vl2_dgen4-bgen4",
@@ -4461,7 +4461,7 @@
         "nominalVoltage" : 225.0
       },
       "x" : 1620.0,
-      "y" : 260.0,
+      "y" : 350.0,
       "nodes" : [ {
         "type" : "INTERNAL",
         "id" : "INTERNAL_vl3_dload4-bload4",
@@ -5455,7 +5455,7 @@
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 630.0,
-      "y" : 200.0,
+      "y" : 290.0,
       "orientation" : "RIGHT",
       "name" : "trf1",
       "equipmentId" : "trf1",
@@ -5475,7 +5475,7 @@
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 900.0,
-      "y" : 429.5,
+      "y" : 519.5,
       "orientation" : "DOWN",
       "name" : "trf2",
       "equipmentId" : "trf2",
@@ -5495,7 +5495,7 @@
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 855.0,
-      "y" : 719.0,
+      "y" : 809.0,
       "orientation" : "RIGHT",
       "name" : "trf3",
       "equipmentId" : "trf3",
@@ -5515,7 +5515,7 @@
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 870.0,
-      "y" : 444.5,
+      "y" : 534.5,
       "name" : "trf4",
       "equipmentId" : "trf4",
       "voltageLevelInfosLeg1" : {
@@ -5534,7 +5534,7 @@
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 1600.0,
-      "y" : 444.5,
+      "y" : 534.5,
       "orientation" : "DOWN",
       "name" : "trf5",
       "equipmentId" : "trf5",
@@ -5554,7 +5554,7 @@
       "componentType" : "THREE_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 1345.0,
-      "y" : 80.0,
+      "y" : 170.0,
       "name" : "trf6",
       "equipmentId" : "trf6",
       "voltageLevelInfosLeg1" : {
@@ -5578,7 +5578,7 @@
       "componentType" : "THREE_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 1295.0,
-      "y" : 50.0,
+      "y" : 140.0,
       "name" : "trf7",
       "equipmentId" : "trf7",
       "voltageLevelInfosLeg1" : {
@@ -5602,7 +5602,7 @@
       "componentType" : "THREE_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "x" : 1395.0,
-      "y" : 839.0,
+      "y" : 929.0,
       "orientation" : "DOWN",
       "name" : "trf8",
       "equipmentId" : "trf8",
@@ -5628,133 +5628,133 @@
         "node1" : "trf1_ONE",
         "node2" : "trf1"
       } ],
-      "snakeLine" : [ 115.0, 260.0, 115.0, 200.0, 630.0, 200.0 ]
+      "snakeLine" : [ 115.0, 350.0, 115.0, 290.0, 630.0, 290.0 ]
     }, {
       "id" : "EDGE_trf1_TWO",
       "nodes" : [ {
         "node1" : "trf1_TWO",
         "node2" : "trf1"
       } ],
-      "snakeLine" : [ 1145.0, 260.0, 1145.0, 200.0, 630.0, 200.0 ]
+      "snakeLine" : [ 1145.0, 350.0, 1145.0, 290.0, 630.0, 290.0 ]
     }, {
       "id" : "EDGE_trf2_ONE",
       "nodes" : [ {
         "node1" : "trf2_ONE",
         "node2" : "trf2"
       } ],
-      "snakeLine" : [ 715.0, 260.0, 715.0, 170.0, 900.0, 170.0, 900.0, 429.5 ]
+      "snakeLine" : [ 715.0, 350.0, 715.0, 260.0, 900.0, 260.0, 900.0, 519.5 ]
     }, {
       "id" : "EDGE_trf2_TWO",
       "nodes" : [ {
         "node1" : "trf2_TWO",
         "node2" : "trf2"
       } ],
-      "snakeLine" : [ 1445.0, 629.0, 1445.0, 689.0, 900.0, 689.0, 900.0, 429.5 ]
+      "snakeLine" : [ 1445.0, 719.0, 1445.0, 779.0, 900.0, 779.0, 900.0, 519.5 ]
     }, {
       "id" : "EDGE_trf3_ONE",
       "nodes" : [ {
         "node1" : "trf3_ONE",
         "node2" : "trf3"
       } ],
-      "snakeLine" : [ 215.0, 629.0, 215.0, 719.0, 855.0, 719.0 ]
+      "snakeLine" : [ 215.0, 719.0, 215.0, 809.0, 855.0, 809.0 ]
     }, {
       "id" : "EDGE_trf3_TWO",
       "nodes" : [ {
         "node1" : "trf3_TWO",
         "node2" : "trf3"
       } ],
-      "snakeLine" : [ 1495.0, 629.0, 1495.0, 719.0, 855.0, 719.0 ]
+      "snakeLine" : [ 1495.0, 719.0, 1495.0, 809.0, 855.0, 809.0 ]
     }, {
       "id" : "EDGE_trf4_ONE",
       "nodes" : [ {
         "node1" : "trf4_ONE",
         "node2" : "trf4"
       } ],
-      "snakeLine" : [ 665.0, 629.0, 665.0, 749.0, 870.0, 749.0, 870.0, 444.5 ]
+      "snakeLine" : [ 665.0, 719.0, 665.0, 839.0, 870.0, 839.0, 870.0, 534.5 ]
     }, {
       "id" : "EDGE_trf4_TWO",
       "nodes" : [ {
         "node1" : "trf4_TWO",
         "node2" : "trf4"
       } ],
-      "snakeLine" : [ 1245.0, 260.0, 1245.0, 140.0, 870.0, 140.0, 870.0, 444.5 ]
+      "snakeLine" : [ 1245.0, 350.0, 1245.0, 230.0, 870.0, 230.0, 870.0, 534.5 ]
     }, {
       "id" : "EDGE_trf5_ONE",
       "nodes" : [ {
         "node1" : "trf5_ONE",
         "node2" : "trf5"
       } ],
-      "snakeLine" : [ 265.0, 260.0, 265.0, 110.0, 1600.0, 110.0, 1600.0, 444.5 ]
+      "snakeLine" : [ 265.0, 350.0, 265.0, 200.0, 1600.0, 200.0, 1600.0, 534.5 ]
     }, {
       "id" : "EDGE_trf5_TWO",
       "nodes" : [ {
         "node1" : "trf5_TWO",
         "node2" : "trf5"
       } ],
-      "snakeLine" : [ 1745.0, 604.0, 1745.0, 779.0, 1600.0, 779.0, 1600.0, 444.5 ]
+      "snakeLine" : [ 1745.0, 694.0, 1745.0, 869.0, 1600.0, 869.0, 1600.0, 534.5 ]
     }, {
       "id" : "EDGE_trf6_ONE",
       "nodes" : [ {
         "node1" : "trf6_ONE",
         "node2" : "trf6"
       } ],
-      "snakeLine" : [ 315.0, 260.0, 315.0, 80.0, 1345.0, 80.0 ]
+      "snakeLine" : [ 315.0, 350.0, 315.0, 170.0, 1345.0, 170.0 ]
     }, {
       "id" : "EDGE_trf6_TWO",
       "nodes" : [ {
         "node1" : "trf6_TWO",
         "node2" : "trf6"
       } ],
-      "snakeLine" : [ 1345.0, 260.0, 1345.0, 80.0 ]
+      "snakeLine" : [ 1345.0, 350.0, 1345.0, 170.0 ]
     }, {
       "id" : "EDGE_trf6_THREE",
       "nodes" : [ {
         "node1" : "trf6_THREE",
         "node2" : "trf6"
       } ],
-      "snakeLine" : [ 1795.0, 260.0, 1795.0, 80.0, 1345.0, 80.0 ]
+      "snakeLine" : [ 1795.0, 350.0, 1795.0, 170.0, 1345.0, 170.0 ]
     }, {
       "id" : "EDGE_trf7_ONE",
       "nodes" : [ {
         "node1" : "trf7_ONE",
         "node2" : "trf7"
       } ],
-      "snakeLine" : [ 365.0, 629.0, 365.0, 809.0, 840.0, 809.0, 840.0, 50.0, 1295.0, 50.0 ]
+      "snakeLine" : [ 365.0, 719.0, 365.0, 899.0, 840.0, 899.0, 840.0, 140.0, 1295.0, 140.0 ]
     }, {
       "id" : "EDGE_trf7_TWO",
       "nodes" : [ {
         "node1" : "trf7_TWO",
         "node2" : "trf7"
       } ],
-      "snakeLine" : [ 1295.0, 260.0, 1295.0, 50.0 ]
+      "snakeLine" : [ 1295.0, 350.0, 1295.0, 140.0 ]
     }, {
       "id" : "EDGE_trf7_THREE",
       "nodes" : [ {
         "node1" : "trf7_THREE",
         "node2" : "trf7"
       } ],
-      "snakeLine" : [ 1845.0, 604.0, 1845.0, 809.0, 1570.0, 809.0, 1570.0, 50.0, 1295.0, 50.0 ]
+      "snakeLine" : [ 1845.0, 694.0, 1845.0, 899.0, 1570.0, 899.0, 1570.0, 140.0, 1295.0, 140.0 ]
     }, {
       "id" : "EDGE_trf8_ONE",
       "nodes" : [ {
         "node1" : "trf8_ONE",
         "node2" : "trf8"
       } ],
-      "snakeLine" : [ 615.0, 260.0, 615.0, 20.0, 810.0, 20.0, 810.0, 839.0, 1395.0, 839.0 ]
+      "snakeLine" : [ 615.0, 350.0, 615.0, 110.0, 810.0, 110.0, 810.0, 929.0, 1395.0, 929.0 ]
     }, {
       "id" : "EDGE_trf8_TWO",
       "nodes" : [ {
         "node1" : "trf8_TWO",
         "node2" : "trf8"
       } ],
-      "snakeLine" : [ 1395.0, 629.0, 1395.0, 839.0 ]
+      "snakeLine" : [ 1395.0, 719.0, 1395.0, 929.0 ]
     }, {
       "id" : "EDGE_trf8_THREE",
       "nodes" : [ {
         "node1" : "trf8_THREE",
         "node2" : "trf8"
       } ],
-      "snakeLine" : [ 1895.0, 260.0, 1895.0, 20.0, 1540.0, 20.0, 1540.0, 839.0, 1395.0, 839.0 ]
+      "snakeLine" : [ 1895.0, 350.0, 1895.0, 110.0, 1540.0, 110.0, 1540.0, 929.0, 1395.0, 929.0 ]
     } ],
     "lineEdges" : [ ]
   }, {
@@ -5766,7 +5766,7 @@
         "nominalVoltage" : 380.0
       },
       "x" : 1960.0,
-      "y" : 260.0,
+      "y" : 350.0,
       "nodes" : [ {
         "type" : "INTERNAL",
         "id" : "INTERNAL_vlSubst2_dline21_2-bline21_2",
@@ -6272,5 +6272,12 @@
     "twtEdges" : [ ],
     "lineEdges" : [ ]
   } ],
-  "lineEdges" : [ ]
+  "lineEdges" : [ {
+    "id" : "line1",
+    "nodes" : [ {
+      "node1" : "line1_ONE",
+      "node2" : "line1_TWO"
+    } ],
+    "snakeLine" : [ 415.0, 350.0, 415.0, 20.0, 2085.0, 20.0, 2085.0, 350.0 ]
+  } ]
 }
