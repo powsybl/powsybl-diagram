@@ -50,24 +50,25 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
         return containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2);
     }
 
-    @Override
-    public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
-                                                              Direction direction1, Direction direction2) {
-        Map<VoltageLevelRawBuilder, FeederNode> feederLineNodes = new HashMap<>();
-        FeederNode feederLineNode1 = vl1.createFeederLineNode(id, vl2.getVoltageLevelInfos().getId(), NodeSide.ONE, order1, direction1);
-        FeederNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.getVoltageLevelInfos().getId(), NodeSide.TWO, order2, direction2);
-        feederLineNodes.put(vl1, feederLineNode1);
-        feederLineNodes.put(vl2, feederLineNode2);
-
-        if (containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2)) {
-            // All VoltageLevel must be in the same Substation
-            substationGraph.addLineEdge(id, feederLineNode1, feederLineNode2);
+    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id,
+                                                                   List<VoltageLevelRawBuilder> vls,
+                                                                   List<Integer> orders,
+                                                                   List<Direction> directions) {
+        if (vls.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, 2, Math.abs(2 - vls.size())));
         }
-        return feederLineNodes;
-    }
-
-    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
-                                                                   Direction direction1, Direction direction2) {
+        if (orders.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, 2, Math.abs(2 - orders.size())));
+        }
+        if (directions.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, 2, Math.abs(2 - directions.size())));
+        }
+        VoltageLevelRawBuilder vl1 = vls.get(0);
+        VoltageLevelRawBuilder vl2 = vls.get(1);
+        int order1 = orders.get(0);
+        int order2 = orders.get(1);
+        Direction direction1 = directions.get(0);
+        Direction direction2 = directions.get(1);
         Map<VoltageLevelRawBuilder, FeederNode> f2WTNodes = new HashMap<>();
         FeederNode feeder2WtNode1 = vl1.createFeeder2wtLegNode(id, NodeSide.ONE, order1, direction1);
         FeederNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, NodeSide.TWO, order2, direction2);
@@ -84,12 +85,31 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
     }
 
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder2WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
-        return createFeeder2WT(id, vl1, vl2, 0, 0, null, null);
+        return createFeeder2WT(id, List.of(vl1, vl2), List.of(0, 0), Stream.of((Direction) null, null).toList());
     }
 
-    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3,
-                                                                   int order1, int order2, int order3,
-                                                                   Direction direction1, Direction direction2, Direction direction3) {
+    public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id,
+                                                                   List<VoltageLevelRawBuilder> vls,
+                                                                   List<Integer> orders,
+                                                                   List<Direction> directions) {
+        if (vls.size() != 3) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, Math.abs(3 - vls.size())));
+        }
+        if (orders.size() != 3) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, Math.abs(3 - orders.size())));
+        }
+        if (directions.size() != 3) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, Math.abs(3 - directions.size())));
+        }
+        VoltageLevelRawBuilder vl1 = vls.get(0);
+        VoltageLevelRawBuilder vl2 = vls.get(1);
+        VoltageLevelRawBuilder vl3 = vls.get(2);
+        int order1 = orders.get(0);
+        int order2 = orders.get(1);
+        int order3 = orders.get(2);
+        Direction direction1 = directions.get(0);
+        Direction direction2 = directions.get(1);
+        Direction direction3 = directions.get(2);
         Map<VoltageLevelRawBuilder, FeederNode> f3WTNodes = new HashMap<>();
         FeederNode feeder3WTNode1 = vl1.createFeeder3wtLegNode(id, NodeSide.ONE, order1, direction1);
         FeederNode feeder3WTNode2 = vl2.createFeeder3wtLegNode(id, NodeSide.TWO, order2, direction2);
@@ -111,7 +131,7 @@ public class SubstationRawBuilder extends AbstractRawBuilder {
     }
 
     public Map<VoltageLevelRawBuilder, FeederNode> createFeeder3WT(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, VoltageLevelRawBuilder vl3) {
-        return createFeeder3WT(id, vl1, vl2, vl3, 0, 0, 0, null, null, null);
+        return createFeeder3WT(id, List.of(vl1, vl2, vl3), List.of(0, 0, 0), Stream.of((Direction) null, null, null).toList());
     }
 
     private void manageErrorCase(Stream<VoltageLevelRawBuilder> stream) {

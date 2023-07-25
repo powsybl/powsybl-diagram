@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.*;
 
 import static com.powsybl.sld.model.nodes.NodeSide.*;
 
@@ -24,13 +26,36 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractRawBuilder.class);
 
+    protected static final String REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER = "Require %d VoltageLevelRawBuilder (found %d)";
+
+    protected static final String REQUIRED_N_ORDER = "Require %d node order (found %d)";
+
+    protected static final String REQUIRED_N_DIRECTION = "Require %d node direction (found %d)";
+
     protected abstract BaseGraph getGraph();
 
     protected abstract boolean containsVoltageLevelRawBuilders(VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2);
 
     @Override
-    public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
-                                                              Direction direction1, Direction direction2) {
+    public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id,
+                                                              List<VoltageLevelRawBuilder> vls,
+                                                              List<Integer> orders,
+                                                              List<Direction> directions) {
+        if (vls.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, 2, Math.abs(2 - vls.size())));
+        }
+        if (orders.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, 2, Math.abs(2 - orders.size())));
+        }
+        if (directions.size() != 2) {
+            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, 2, Math.abs(2 - directions.size())));
+        }
+        VoltageLevelRawBuilder vl1 = vls.get(0);
+        VoltageLevelRawBuilder vl2 = vls.get(1);
+        int order1 = orders.get(0);
+        int order2 = orders.get(1);
+        Direction direction1 = directions.get(0);
+        Direction direction2 = directions.get(1);
         Map<VoltageLevelRawBuilder, FeederNode> feederLineNodes = new HashMap<>();
         FeederNode feederLineNode1 = vl1.createFeederLineNode(id, vl2.getVoltageLevelInfos().getId(), ONE, order1, direction1);
         FeederNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.getVoltageLevelInfos().getId(), TWO, order2, direction2);
@@ -46,6 +71,6 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
 
     @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
-        return createLine(id, vl1, vl2, 0, 0, null, null);
+        return createLine(id, List.of(vl1, vl2), List.of(0, 0), Stream.of((Direction) null, null).toList());
     }
 }

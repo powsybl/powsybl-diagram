@@ -9,6 +9,7 @@ package com.powsybl.sld.builders;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.FeederNode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +17,10 @@ import java.util.Map;
  */
 public interface BaseRawBuilder {
 
-    Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2, int order1, int order2,
-                                                              Direction direction1, Direction direction2);
+    Map<VoltageLevelRawBuilder, FeederNode> createLine(String id,
+                                                       List<VoltageLevelRawBuilder> vls,
+                                                       List<Integer> orders,
+                                                       List<Direction> directions);
 
     Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2);
 }
