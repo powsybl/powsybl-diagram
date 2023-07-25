@@ -72,13 +72,13 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
                                         List<Integer> orders,
                                         List<Direction> directions) {
         if (vls.size() != expectedSize) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, expectedSize, Math.abs(expectedSize - vls.size())));
+            throw new IllegalArgumentException(String.format(REQUIRED_N_VOLTAGELEVEL_RAW_BUILDER, expectedSize, vls.size()));
         }
         if (orders.size() != expectedSize) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, expectedSize, Math.abs(expectedSize - orders.size())));
+            throw new IllegalArgumentException(String.format(REQUIRED_N_ORDER, expectedSize, orders.size()));
         }
         if (directions.size() != expectedSize) {
-            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, expectedSize, Math.abs(expectedSize - directions.size())));
+            throw new IllegalArgumentException(String.format(REQUIRED_N_DIRECTION, expectedSize, directions.size()));
         }
     }
 }
