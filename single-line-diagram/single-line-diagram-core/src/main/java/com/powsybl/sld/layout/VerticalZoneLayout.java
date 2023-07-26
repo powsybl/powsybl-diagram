@@ -67,11 +67,6 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
         manageAllSnakeLines(layoutParameters);
-
-        adaptPaddingToSnakeLines(layoutParameters);
-    }
-
-    private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
         adaptPaddingToSnakeLinesForVertical(getGraph(), layoutParameters);
         manageAllSnakeLines(layoutParameters);
     }

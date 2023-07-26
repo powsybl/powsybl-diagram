@@ -22,5 +22,6 @@ public interface BaseRawBuilder {
                                                        List<Integer> orders,
                                                        List<Direction> directions);
 
-    Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2);
+    Map<VoltageLevelRawBuilder, FeederNode> createLine(String id,
+                                                       VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2);
 }

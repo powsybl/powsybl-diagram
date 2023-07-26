@@ -4,12 +4,15 @@ import com.powsybl.commons.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
-
 import com.powsybl.sld.model.nodes.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class SubstationRawBuilder extends AbstractRawBuilder {
