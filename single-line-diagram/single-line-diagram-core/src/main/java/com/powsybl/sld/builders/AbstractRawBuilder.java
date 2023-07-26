@@ -6,8 +6,10 @@
  */
 package com.powsybl.sld.builders;
 
+import com.powsybl.iidm.network.HvdcConverterStation;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.nodes.FeederNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +67,62 @@ public abstract class AbstractRawBuilder implements BaseRawBuilder {
     @Override
     public Map<VoltageLevelRawBuilder, FeederNode> createLine(String id, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
         return createLine(id, List.of(vl1, vl2), List.of(0, 0), Stream.of((Direction) null, null).toList());
+    }
+
+    @Override
+    public Map<VoltageLevelRawBuilder, FeederNode> createHdvcLine(String id,
+                                                                  HvdcConverterStation.HvdcType type,
+                                                                  List<VoltageLevelRawBuilder> vls,
+                                                                  List<Integer> orders,
+                                                                  List<Direction> directions) {
+        checkInputParameters(2, vls, orders, directions);
+
+        VoltageLevelRawBuilder vl1 = vls.get(0);
+        VoltageLevelRawBuilder vl2 = vls.get(1);
+        int order1 = orders.get(0);
+        int order2 = orders.get(1);
+        Direction direction1 = directions.get(0);
+        Direction direction2 = directions.get(1);
+        Map<VoltageLevelRawBuilder, FeederNode> feederLineNodes = new HashMap<>();
+
+        FeederNode feederLccNode1;
+        FeederNode feederLccNode2;
+        switch (type) {
+            case LCC: {
+                feederLccNode1 = NodeFactory.createLccConverterStation(vl1.getGraph(), id + "_" + ONE, id, id, ONE, vl2.getVoltageLevelInfos());
+                feederLccNode2 = NodeFactory.createLccConverterStation(vl2.getGraph(), id + "_" + TWO, id, id, TWO, vl1.getVoltageLevelInfos());
+                break;
+            }
+            case VSC: {
+                feederLccNode1 = NodeFactory.createVscConverterStation(vl1.getGraph(), id + "_" + ONE, id, id, ONE, vl2.getVoltageLevelInfos());
+                feederLccNode2 = NodeFactory.createVscConverterStation(vl2.getGraph(), id + "_" + TWO, id, id, TWO, vl1.getVoltageLevelInfos());
+                break;
+            }
+            default: {
+                throw new AssertionError();
+            }
+        }
+        feederLccNode1.setLabel(id);
+        feederLccNode1.setOrder(order1);
+        feederLccNode1.setDirection(direction1 == null ? Direction.UNDEFINED : direction1);
+        feederLccNode2.setLabel(id);
+        feederLccNode2.setOrder(order2);
+        feederLccNode2.setDirection(direction1 == null ? Direction.UNDEFINED : direction2);
+
+        feederLineNodes.put(vl1, feederLccNode1);
+        feederLineNodes.put(vl2, feederLccNode2);
+
+        if (containsVoltageLevelRawBuilders(vl1, vl2)) {
+            // All VoltageLevel must be in the same Substation or the same Zone
+            getGraph().addLineEdge(id, feederLccNode1, feederLccNode2);
+        }
+
+        return feederLineNodes;
+    }
+
+    @Override
+    public Map<VoltageLevelRawBuilder, FeederNode> createHdvcLine(String id, HvdcConverterStation.HvdcType type, VoltageLevelRawBuilder vl1, VoltageLevelRawBuilder vl2) {
+        return createHdvcLine(id, type, List.of(vl1, vl2), List.of(0, 0), Stream.of((Direction) null, null).toList());
     }
 
     protected void checkInputParameters(int expectedSize,

@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.iidm.network.HvdcConverterStation;
 import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.builders.SubstationRawBuilder;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
@@ -291,6 +292,42 @@ public final class RawGraphBuilderUtils {
         vlsubst2.connectNode(bbs12, dline212);
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
+
+        /*
+        // - a HVDC line (LCC) between the two substations
+        //
+        */
+        SwitchNode dHvdclcc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_lcc11_2", false, false);
+        SwitchNode bHvdclcc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_lcc11_2", false, false);
+
+        SwitchNode dHvdclcc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_lcc21_2", false, false);
+        SwitchNode bHvdclcc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_lcc21_2", false, false);
+        Map<VoltageLevelRawBuilder, FeederNode> hvdclcc =
+                ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_lcc", HvdcConverterStation.HvdcType.LCC, vlb1, vlsubst2);
+        vlb1.connectNode(bbs1, dHvdclcc112);
+        vlb1.connectNode(dHvdclcc112, bHvdclcc112);
+        vlb1.connectNode(bHvdclcc112, hvdclcc.get(vlb1));
+        vlsubst2.connectNode(bbs12, dHvdclcc212);
+        vlsubst2.connectNode(dHvdclcc212, bHvdclcc212);
+        vlsubst2.connectNode(bHvdclcc212, hvdclcc.get(vlsubst2));
+
+        /*
+        // - a HVDC line (VSC) between the two substations
+        //
+        */
+        SwitchNode dHvdcvsc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_vsc11_2", false, false);
+        SwitchNode bHvdcvsc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_vsc11_2", false, false);
+
+        SwitchNode dHvdcvsc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_vsc21_2", false, false);
+        SwitchNode bHvdcvsc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_vsc21_2", false, false);
+        Map<VoltageLevelRawBuilder, FeederNode> hvdcvsc =
+                ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_vsc", HvdcConverterStation.HvdcType.VSC, vlb1, vlsubst2);
+        vlb1.connectNode(bbs1, dHvdcvsc112);
+        vlb1.connectNode(dHvdcvsc112, bHvdcvsc112);
+        vlb1.connectNode(bHvdcvsc112, hvdcvsc.get(vlb1));
+        vlsubst2.connectNode(bbs12, dHvdcvsc212);
+        vlsubst2.connectNode(dHvdcvsc212, bHvdcvsc212);
+        vlsubst2.connectNode(bHvdcvsc212, hvdcvsc.get(vlsubst2));
 
         if (append2wt) {
             /*
