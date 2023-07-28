@@ -41,7 +41,7 @@ class HvdcLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporte
 
     @Override
     protected void checkStatements() {
-        checkStatements(hvdcLine.getId(), hvdcLine.getName(), "bus-branch");
+        checkStatements(hvdcLine.getId(), hvdcLine.getNameOrId(), "bus-branch");
     }
 
 }
