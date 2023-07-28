@@ -8,6 +8,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -30,6 +31,24 @@ class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
         network = Networks.createTestCase11Network();
         substation = network.getSubstation("subst");
         graphBuilder = new NetworkGraphBuilder(network);
+
+        // Add VSC
+        VoltageLevel voltageLevel1 = network.getVoltageLevel("vl1");
+        voltageLevel1.newVscConverterStation()
+                .setId("Converter1")
+                .setNode(5)
+                .setLossFactor(0.011f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+
+        // Add LCC
+        voltageLevel1.newLccConverterStation()
+                .setId("Converter2")
+                .setNode(7)
+                .setLossFactor(0.011f)
+                .setPowerFactor(0.5f)
+                .add();
     }
 
     @Override

@@ -134,6 +134,20 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
+    void testWithHvdcLines() {
+        network = Networks.createNetworkWithHvdcLines();
+        substation = network.getSubstation("Substation1");
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase11SubstationGraphVWithHvdcLines.json"), toJson(g, "/TestCase11SubstationGraphVWithHvdcLines.json"));
+    }
+
+    @Test
     void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)

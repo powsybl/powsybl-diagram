@@ -252,6 +252,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseGet(() -> NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
+        private FeederNode createFeederLccNode(VoltageLevelGraph graph, HvdcConverterStation<?> hvdcStation) {
+            // An injection node is created if only one side of the station in the network
+            return hvdcStation.getOtherConverterStation()
+                    .map(otherStation -> otherStation.getTerminal().getVoltageLevel())
+                    .map(otherVl -> new VoltageLevelInfos(otherVl.getId(), otherVl.getNameOrId(), otherVl.getNominalV()))
+                    .map(otherVlInfo -> NodeFactory.createLccConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcStation.getHvdcLine().getId(),
+                            hvdcStation.getHvdcLine().getConverterStation1() == hvdcStation ? NodeSide.ONE : NodeSide.TWO, otherVlInfo))
+                    .orElseGet(() -> NodeFactory.createLccConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
+        }
+
         private Node createInternal2wtSideNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, Branch.Side side) {
             return NodeFactory.createConnectivityNode(graph, branch.getId() + "_" + side.name(), NODE);
         }
@@ -384,7 +394,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            addTerminalNode(createFeederVscNode(graph, converterStation), converterStation.getTerminal());
+            FeederNode node;
+            switch (converterStation.getHvdcType()) {
+                case LCC: node = createFeederLccNode(graph, converterStation); break;
+                case VSC: node = createFeederVscNode(graph, converterStation); break;
+                default: throw new AssertionError();
+            }
+            addTerminalNode(node, converterStation.getTerminal());
         }
 
         @Override

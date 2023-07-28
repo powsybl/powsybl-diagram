@@ -107,6 +107,7 @@
 .sld-inductor {fill: var(--sld-vl-color, blue)}
 .sld-svc {fill: var(--sld-vl-color, blue)}
 .sld-vsc {fill: var(--sld-vl-color, blue)}
+.sld-lcc {fill: var(--sld-vl-color, blue)}
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}

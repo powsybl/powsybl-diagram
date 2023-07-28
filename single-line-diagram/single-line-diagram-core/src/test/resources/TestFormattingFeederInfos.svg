@@ -117,6 +117,7 @@
 .sld-pst-arrow {stroke: black; fill: none}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
@@ -163,7 +164,7 @@
             <g class="sld-active-power sld-feeder-info sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">1 200,3</text>
+                <text class="sld-label" x="15.0" y="5.0">1 200,3</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
