@@ -448,9 +448,9 @@ public class DefaultSVGWriter implements SVGWriter {
                              Collection<? extends Node> nodes) {
 
         for (Node node : nodes) {
-            String nodeId = IdUtil.escapeId(prefixId + node.getId());
+            String nodeEscapedId = IdUtil.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute("id", nodeId);
+            g.setAttribute("id", nodeEscapedId);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
@@ -461,11 +461,11 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(g);
 
             Direction direction = node instanceof FeederNode ? graph.getDirection(node) : Direction.UNDEFINED;
-            setMetadata(prefixId, metadata, node, nodeId, graph, direction, nodeLabels);
+            setMetadata(prefixId, metadata, node, nodeEscapedId, graph, direction, nodeLabels);
         }
     }
 
-    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
+    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeEscapedId, BaseGraph graph, Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
         if (node instanceof FeederNode && ((FeederNode) node).getFeeder() instanceof FeederWithSides) {
             FeederWithSides feederWs = (FeederWithSides) ((FeederNode) node).getFeeder();
@@ -475,10 +475,12 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
+        String vId = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
+        String unescapedId = (node.getComponentType().compareTo(VSC_CONVERTER_STATION) == 0 || node.getComponentType().compareTo(LCC_CONVERTER_STATION) == 0) ? IdUtil.unescapeId(nodeEscapedId) : null;
+
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, id, nextVId, node.getComponentType(), isOpen, direction, false,
+                new GraphMetadata.NodeMetadata(unescapedId, nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
                         node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
                         createNodeLabelMetadata(prefixId, node, nodeLabels)));
 

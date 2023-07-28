@@ -149,6 +149,7 @@ class GraphMetadataTest {
     @Test
     void testGraphMetadataWithLine() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("STATION_EXEMPLE", "idSTATION_95_EXEMPLE", "vid1", null, LCC_CONVERTER_STATION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
@@ -170,8 +171,10 @@ class GraphMetadataTest {
     }
 
     private void checkMetadata(GraphMetadata metadata) {
-        assertEquals(4, metadata.getNodeMetadata().size());
+        assertEquals(5, metadata.getNodeMetadata().size());
+        assertEquals("STATION_EXEMPLE", metadata.getNodeMetadata("idSTATION_95_EXEMPLE").getUnescapedId());
         assertNotNull(metadata.getNodeMetadata("bid1"));
+        assertNull(metadata.getNodeMetadata("bid1").getUnescapedId());
         assertEquals("bid1", metadata.getNodeMetadata("bid1").getId());
         assertEquals("vid1", metadata.getNodeMetadata("bid1").getVId());
         assertEquals(BUSBAR_SECTION, metadata.getNodeMetadata("bid1").getComponentType());

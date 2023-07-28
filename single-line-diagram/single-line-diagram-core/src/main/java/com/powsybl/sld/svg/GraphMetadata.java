@@ -33,6 +33,8 @@ public class GraphMetadata {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
 
+        private final String unescapedId;
+
         private final String id;
 
         private final String componentType;
@@ -51,8 +53,7 @@ public class GraphMetadata {
 
         private final List<NodeLabelMetadata> labels;
 
-        @JsonCreator
-        public NodeMetadata(@JsonProperty("id") String id,
+        public NodeMetadata(@JsonProperty("id") String escapedId,
                             @JsonProperty("vid") String vId,
                             @JsonProperty("nextVId") String nextVId,
                             @JsonProperty("componentType") String componentType,
@@ -61,7 +62,22 @@ public class GraphMetadata {
                             @JsonProperty("vlabel") boolean vLabel,
                             @JsonProperty("equipmentId") String equipmentId,
                             @JsonProperty("labels") List<NodeLabelMetadata> labels) {
-            this.id = Objects.requireNonNull(id);
+            this(null, escapedId, vId, nextVId, componentType, open, direction, vLabel, equipmentId, labels);
+        }
+
+        @JsonCreator
+        public NodeMetadata(@JsonProperty("unescapedId") String unescapedId,
+                            @JsonProperty("id") String escapedId,
+                            @JsonProperty("vid") String vId,
+                            @JsonProperty("nextVId") String nextVId,
+                            @JsonProperty("componentType") String componentType,
+                            @JsonProperty("open") boolean open,
+                            @JsonProperty("direction") Direction direction,
+                            @JsonProperty("vlabel") boolean vLabel,
+                            @JsonProperty("equipmentId") String equipmentId,
+                            @JsonProperty("labels") List<NodeLabelMetadata> labels) {
+            this.unescapedId = unescapedId;
+            this.id = Objects.requireNonNull(escapedId);
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
             this.componentType = componentType;
@@ -70,6 +86,10 @@ public class GraphMetadata {
             this.vLabel = vLabel;
             this.equipmentId = equipmentId;
             this.labels = Objects.requireNonNull(labels);
+        }
+
+        public String getUnescapedId() {
+            return unescapedId;
         }
 
         public String getId() {

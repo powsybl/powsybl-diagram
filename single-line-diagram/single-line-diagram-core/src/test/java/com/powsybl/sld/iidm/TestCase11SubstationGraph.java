@@ -147,6 +147,21 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
+    void testMetadataWithHvdcLines() {
+        network = Networks.createNetworkWithHvdcLines("VSC_1", "VSC_2", "LCC_1", "LCC_2");
+        substation = network.getSubstation("Substation1");
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+                new BasicStyleProvider()));
+    }
+
+    @Test
     void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
