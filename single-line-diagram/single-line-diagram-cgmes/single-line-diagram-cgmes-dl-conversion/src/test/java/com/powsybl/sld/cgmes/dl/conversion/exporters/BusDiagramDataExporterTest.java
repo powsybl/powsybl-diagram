@@ -42,7 +42,7 @@ class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest
 
     @Override
     protected void checkStatements() {
-        checkStatements(bus.getId(), bus.getName(), "bus-branch");
+        checkStatements(bus.getId(), bus.getNameOrId(), "bus-branch");
     }
 
 }
