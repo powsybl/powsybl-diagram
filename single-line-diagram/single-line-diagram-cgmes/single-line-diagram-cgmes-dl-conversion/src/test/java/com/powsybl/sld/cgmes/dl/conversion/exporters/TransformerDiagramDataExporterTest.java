@@ -43,7 +43,7 @@ class TransformerDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDa
 
     @Override
     protected void checkStatements() {
-        checkStatements(twt.getId(), twt.getName(), "bus-branch");
+        checkStatements(twt.getId(), twt.getNameOrId(), "bus-branch");
     }
 
 }

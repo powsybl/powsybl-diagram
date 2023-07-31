@@ -51,7 +51,7 @@ class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterT
 
     @Override
     protected void checkStatements() {
-        checkStatements(busbarNodeId, busbar.getName(), "node-breaker");
+        checkStatements(busbarNodeId, busbar.getNameOrId(), "node-breaker");
     }
 
 }
