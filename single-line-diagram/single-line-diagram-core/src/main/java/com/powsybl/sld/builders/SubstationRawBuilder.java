@@ -1,5 +1,6 @@
 package com.powsybl.sld.builders;
 
+import com.powsybl.commons.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -20,7 +21,7 @@ public class SubstationRawBuilder {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SubstationRawBuilder.class);
 
-    private static final String VL_NOT_PRESENT = "VoltageLevel \"{}\" not in Substation \"{}\"";
+    private static final String VL_NOT_PRESENT = "VoltageLevel(s) '%s' not found in Substation '%s'";
 
     SubstationGraph substationGraph;
     List<VoltageLevelRawBuilder> voltageLevelBuilders = new ArrayList<>();
@@ -53,9 +54,6 @@ public class SubstationRawBuilder {
         if (containsVoltageLevelRawBuilder(vl1) && containsVoltageLevelRawBuilder(vl2)) {
             // All VoltageLevel must be in the same Substation
             substationGraph.addLineEdge(id, feederLineNode1, feederLineNode2);
-        } else {
-            // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
         }
         return feederLineNodes;
     }
@@ -76,7 +74,8 @@ public class SubstationRawBuilder {
             NodeFactory.createMiddle2WTNode(substationGraph, id, id, feeder2WtNode1, feeder2WTNode2, vl1.getVoltageLevelInfos(), vl2.getVoltageLevelInfos(), false);
         } else {
             // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
+            String vls = String.join(", ", Stream.of(vl1, vl2).filter(vl -> !containsVoltageLevelRawBuilder(vl)).map(vl -> vl.getGraph().getId()).toList());
+            throw new PowsyblException(String.format(VL_NOT_PRESENT, vls, substationGraph.getId()));
         }
         return f2WTNodes;
     }
@@ -102,7 +101,8 @@ public class SubstationRawBuilder {
             NodeFactory.createMiddle3WTNode(substationGraph, id, id, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3);
         } else {
             // At least one VoltageLevel is not in the same Substation (Zone graph case)
-            Stream.of(vl1, vl2, vl3).filter(vl -> !containsVoltageLevelRawBuilder(vl)).forEach(vl -> LOGGER.warn(VL_NOT_PRESENT, vl.getGraph().getId(), substationGraph.getId()));
+            String vls = String.join(", ", Stream.of(vl1, vl2, vl3).filter(vl -> !containsVoltageLevelRawBuilder(vl)).map(vl -> vl.getGraph().getId()).toList());
+            throw new PowsyblException(String.format(VL_NOT_PRESENT, vls, substationGraph.getId()));
         }
 
         return f3WTNodes;
