@@ -41,7 +41,7 @@ class LineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTes
 
     @Override
     protected void checkStatements() {
-        checkStatements(line.getId(), line.getName(), "bus-branch");
+        checkStatements(line.getId(), line.getNameOrId(), "bus-branch");
     }
 
 }

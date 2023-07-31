@@ -41,7 +41,7 @@ class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterT
 
     @Override
     protected void checkStatements() {
-        checkStatements(shunt.getId(), shunt.getName(), "bus-branch");
+        checkStatements(shunt.getId(), shunt.getNameOrId(), "bus-branch");
     }
 
 }

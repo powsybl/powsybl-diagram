@@ -44,7 +44,7 @@ class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExp
 
     @Override
     protected void checkStatements() {
-        checkStatements(sw.getId(), sw.getName(), "bus-branch");
+        checkStatements(sw.getId(), sw.getNameOrId(), "bus-branch");
     }
 
 }

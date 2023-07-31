@@ -41,7 +41,7 @@ class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTes
 
     @Override
     protected void checkStatements() {
-        checkStatements(svc.getId(), svc.getName(), "bus-branch");
+        checkStatements(svc.getId(), svc.getNameOrId(), "bus-branch");
     }
 
 }

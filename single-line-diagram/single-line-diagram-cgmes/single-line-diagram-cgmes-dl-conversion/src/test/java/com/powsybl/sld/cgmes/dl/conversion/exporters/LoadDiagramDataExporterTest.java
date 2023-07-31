@@ -40,7 +40,7 @@ class LoadDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTe
 
     @Override
     protected void checkStatements() {
-        checkStatements(load.getId(), load.getName(), "bus-branch");
+        checkStatements(load.getId(), load.getNameOrId(), "bus-branch");
     }
 
 }

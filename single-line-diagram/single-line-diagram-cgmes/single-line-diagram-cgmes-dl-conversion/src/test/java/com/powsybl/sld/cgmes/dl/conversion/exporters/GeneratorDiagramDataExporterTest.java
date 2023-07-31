@@ -41,7 +41,7 @@ class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExpor
 
     @Override
     protected void checkStatements() {
-        checkStatements(generator.getId(), generator.getName(), "bus-branch");
+        checkStatements(generator.getId(), generator.getNameOrId(), "bus-branch");
     }
 
 }
