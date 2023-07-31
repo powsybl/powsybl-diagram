@@ -477,14 +477,22 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String vId = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
-        String unescapedId = (node.getComponentType().compareTo(VSC_CONVERTER_STATION) == 0 || node.getComponentType().compareTo(LCC_CONVERTER_STATION) == 0) ? IdUtil.unescapeId(nodeEscapedId) : null;
 
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(unescapedId, nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
+                new GraphMetadata.NodeMetadata(getUnescapedId(node, nodeEscapedId), nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
                         node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
                         createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
+    }
+
+    private String getUnescapedId(Node node, String nodeEscapedId) {
+        String unescapedId = null;
+        if (node.getComponentType().compareTo(VSC_CONVERTER_STATION) == 0 ||
+            node.getComponentType().compareTo(LCC_CONVERTER_STATION) == 0) {
+            unescapedId = IdUtil.unescapeId(nodeEscapedId);
+        }
+        return unescapedId;
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
