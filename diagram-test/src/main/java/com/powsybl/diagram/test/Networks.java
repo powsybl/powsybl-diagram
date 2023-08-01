@@ -410,6 +410,10 @@ public final class Networks {
     }
 
     public static Network createNetworkWithHvdcLine() {
+        return createNetworkWithHvdcLine(CONVERTER_1_ID, CONVERTER_2_ID);
+    }
+
+    public static Network createNetworkWithHvdcLine(String vsc1Id, String vsc2Id) {
         Network network = Network.create(NETWORK_ID, "test");
         network.setCaseDate(DateTime.parse(CASE_DATE));
         Substation substation1 = network.newSubstation()
@@ -426,7 +430,7 @@ public final class Networks {
                 .add();
         // VSC 1
         voltageLevel1.newVscConverterStation()
-                .setId(CONVERTER_1_ID)
+                .setId(vsc1Id)
                 .setConnectableBus("Bus1")
                 .setBus("Bus1")
                 .setLossFactor(0.011f)
@@ -447,7 +451,7 @@ public final class Networks {
                 .add();
         // VSC 2
         voltageLevel2.newVscConverterStation()
-                .setId(CONVERTER_2_ID)
+                .setId(vsc2Id)
                 .setConnectableBus("Bus2")
                 .setBus("Bus2")
                 .setLossFactor(0.011f)
@@ -456,8 +460,8 @@ public final class Networks {
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine")
-                .setConverterStationId1(CONVERTER_1_ID)
-                .setConverterStationId2(CONVERTER_2_ID)
+                .setConverterStationId1(vsc1Id)
+                .setConverterStationId2(vsc2Id)
                 .setR(1)
                 .setNominalV(400)
                 .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
@@ -467,8 +471,9 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkWithHvdcLines() {
-        Network network = Networks.createNetworkWithHvdcLine();
+    public static Network createNetworkWithHvdcLines(String vsc1Id, String vsc2Id,
+                                                     String lcc1Id, String lcc2Id) {
+        Network network = Networks.createNetworkWithHvdcLine(vsc1Id, vsc2Id);
         VoltageLevel voltageLevel1 = network.getVoltageLevel(VOLTAGELEVEL_1_ID);
         VoltageLevel voltageLevel2 = network.getVoltageLevel(VOLTAGELEVEL_2_ID);
         voltageLevel1.getBusBreakerView().newBus()
@@ -476,7 +481,7 @@ public final class Networks {
                 .add();
         // LCC 1
         voltageLevel1.newLccConverterStation()
-                .setId(CONVERTER_3_ID)
+                .setId(lcc1Id)
                 .setConnectableBus("Bus3")
                 .setBus("Bus3")
                 .setLossFactor(0.011f)
@@ -487,7 +492,7 @@ public final class Networks {
                 .add();
         // LCC 2
         voltageLevel2.newLccConverterStation()
-                .setId(CONVERTER_4_ID)
+                .setId(lcc2Id)
                 .setConnectableBus("Bus4")
                 .setBus("Bus4")
                 .setLossFactor(0.011f)
@@ -495,8 +500,8 @@ public final class Networks {
                 .add();
         network.newHvdcLine()
                 .setId("HvdcLine2")
-                .setConverterStationId1(CONVERTER_3_ID)
-                .setConverterStationId2(CONVERTER_4_ID)
+                .setConverterStationId1(lcc1Id)
+                .setConverterStationId2(lcc2Id)
                 .setR(1)
                 .setNominalV(400)
                 .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
@@ -504,6 +509,10 @@ public final class Networks {
                 .setActivePowerSetpoint(280)
                 .add();
         return network;
+    }
+
+    public static Network createNetworkWithHvdcLines() {
+        return createNetworkWithHvdcLines(CONVERTER_1_ID, CONVERTER_2_ID, CONVERTER_3_ID, CONVERTER_4_ID);
     }
 
     public static Network createNetworkWithBusbarAndSwitch() {
