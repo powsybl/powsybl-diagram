@@ -53,6 +53,11 @@ public class GraphMetadata {
 
         private final List<NodeLabelMetadata> labels;
 
+
+        /**
+         * @deprecated use {@link NodeMetadata#NodeMetadata(String, String, String, String, String, boolean, Direction, boolean, String, List)} instead.
+         */
+        @Deprecated(since = "4.0.0", forRemoval = true)
         public NodeMetadata(@JsonProperty("id") String escapedId,
                             @JsonProperty("vid") String vId,
                             @JsonProperty("nextVId") String nextVId,

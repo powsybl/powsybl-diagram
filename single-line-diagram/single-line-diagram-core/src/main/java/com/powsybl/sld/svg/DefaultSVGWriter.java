@@ -350,7 +350,7 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
         }
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, gridId,
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
@@ -412,7 +412,7 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(g);
 
             metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
+                new GraphMetadata.NodeMetadata(null, nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
                     false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
@@ -479,18 +479,18 @@ public class DefaultSVGWriter implements SVGWriter {
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
 
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(getUnescapedId(node, nodeEscapedId), nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
+                new GraphMetadata.NodeMetadata(getUnescapedId(node), nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
                         node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
                         createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
     }
 
-    private String getUnescapedId(Node node, String nodeEscapedId) {
+    private String getUnescapedId(Node node) {
         String unescapedId = null;
-        if (node.getComponentType().compareTo(VSC_CONVERTER_STATION) == 0 ||
-            node.getComponentType().compareTo(LCC_CONVERTER_STATION) == 0) {
-            unescapedId = IdUtil.unescapeId(nodeEscapedId);
+        if (node.getComponentType().equals(VSC_CONVERTER_STATION) ||
+            node.getComponentType().equals(LCC_CONVERTER_STATION)) {
+            unescapedId = node.getId();
         }
         return unescapedId;
     }
@@ -535,7 +535,7 @@ public class DefaultSVGWriter implements SVGWriter {
         gLabel.appendChild(label);
         root.appendChild(gLabel);
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, idLabelVoltageLevel,
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
