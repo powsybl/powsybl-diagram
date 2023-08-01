@@ -1,0 +1,323 @@
+{
+  "components" : [ {
+    "type" : "BUSBAR_SECTION",
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    },
+    "styleClass" : "sld-busbar-section"
+  }, {
+    "type" : "LCC_CONVERTER_STATION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 8.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-lcc"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-reactive-power"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-active-power"
+  }, {
+    "type" : "NODE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-node"
+  }, {
+    "type" : "VSC_CONVERTER_STATION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 8.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-vsc"
+  }, {
+    "type" : "BUS_CONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-bus-connection"
+  } ],
+  "nodes" : [ {
+    "id" : "idBus1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "Bus1",
+    "labels" : [ {
+      "id" : "Bus1_NW_LABEL",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VoltageLevel1_95_LCC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBus3",
+    "vid" : "VoltageLevel1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "Bus3",
+    "labels" : [ {
+      "id" : "Bus3_NW_LABEL",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "idLCC_95_1",
+    "vid" : "VoltageLevel1",
+    "nextVId" : "VoltageLevel2",
+    "componentType" : "LCC_CONVERTER_STATION",
+    "open" : false,
+    "direction" : "BOTTOM",
+    "vlabel" : false,
+    "equipmentId" : "HvdcLine2",
+    "labels" : [ {
+      "id" : "LCC_1_S_LABEL",
+      "positionName" : "S_LABEL"
+    } ],
+    "unescapedId" : "LCC_1"
+  }, {
+    "id" : "LABEL_VL_VoltageLevel1",
+    "vid" : "VoltageLevel1",
+    "open" : false,
+    "vlabel" : true,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_Bus3_95_LCC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idVSC_95_1",
+    "vid" : "VoltageLevel1",
+    "nextVId" : "VoltageLevel2",
+    "componentType" : "VSC_CONVERTER_STATION",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "HvdcLine",
+    "labels" : [ {
+      "id" : "VSC_1_N_LABEL",
+      "positionName" : "N_LABEL"
+    } ],
+    "unescapedId" : "VSC_1"
+  }, {
+    "id" : "idBUSCO_95_Bus1_95_VSC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VoltageLevel1_95_VSC_95_1",
+    "vid" : "VoltageLevel1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  } ],
+  "wires" : [ {
+    "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_LCC_95_1_95_LCC_95_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_LCC_95_1",
+    "nodeId2" : "idLCC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1_95_INTERNAL_95_VoltageLevel1_95_LCC_95_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_LCC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_VSC_95_1_95_VSC_95_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_VSC_95_1",
+    "nodeId2" : "idVSC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
+    "nodeId1" : "idBUSCO_95_Bus1_95_VSC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1_95_INTERNAL_95_VoltageLevel1_95_VSC_95_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_VSC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_Bus1_95_BUSCO_95_Bus1_95_VSC_95_1",
+    "nodeId1" : "idBus1",
+    "nodeId2" : "idBUSCO_95_Bus1_95_VSC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_Bus3_95_BUSCO_95_Bus3_95_LCC_95_1",
+    "nodeId1" : "idBus3",
+    "nodeId2" : "idBUSCO_95_Bus3_95_LCC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
+    "nodeId1" : "idBUSCO_95_Bus3_95_LCC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
+    "straight" : false,
+    "snakeLine" : false
+  } ],
+  "lines" : [ ],
+  "feederInfos" : [ {
+    "id" : "idVSC_95_1_ARROW_ACTIVE",
+    "equipmentId" : "HvdcLine",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idVSC_95_1_ARROW_REACTIVE",
+    "equipmentId" : "HvdcLine",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idLCC_95_1_ARROW_REACTIVE",
+    "equipmentId" : "HvdcLine2",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idLCC_95_1_ARROW_ACTIVE",
+    "equipmentId" : "HvdcLine2",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  } ],
+  "electricalNodeInfos" : [ ],
+  "busInfos" : [ ],
+  "layoutParams" : {
+    "voltageLevelPadding" : {
+      "left" : 20.0,
+      "top" : 60.0,
+      "right" : 20.0,
+      "bottom" : 60.0
+    },
+    "diagramPadding" : {
+      "left" : 20.0,
+      "top" : 20.0,
+      "right" : 20.0,
+      "bottom" : 20.0
+    },
+    "verticalSpaceBus" : 25.0,
+    "horizontalBusPadding" : 20.0,
+    "cellWidth" : 50.0,
+    "externCellHeight" : 250.0,
+    "internCellHeight" : 40.0,
+    "stackHeight" : 30.0,
+    "showGrid" : false,
+    "tooltipEnabled" : false,
+    "showInternalNodes" : false,
+    "scaleFactor" : 1.0,
+    "drawStraightWires" : false,
+    "horizontalSnakeLinePadding" : 30.0,
+    "verticalSnakeLinePadding" : 30.0,
+    "feederInfosOuterMargin" : 20.0,
+    "spaceForFeederInfos" : 50.0,
+    "diagramName" : null,
+    "avoidSVGComponentsDuplication" : false,
+    "adaptCellHeightToContent" : true,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0,
+    "labelCentered" : false,
+    "labelDiagonal" : false,
+    "angleLabelShift" : 15.0,
+    "addNodesInfos" : false,
+    "feederInfoSymmetry" : false,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "svgWidthAndHeightAdded" : true,
+    "useName" : true,
+    "feederInfosIntraMargin" : 10.0,
+    "busInfoMargin" : 0.0,
+    "busbarsAlignment" : "FIRST",
+    "componentsOnBusbars" : [ "DISCONNECTOR" ],
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "displayCurrentFeederInfo" : false,
+    "undefinedValueSymbol" : "—",
+    "removeFictitiousSwitchNodes" : false
+  }
+}
