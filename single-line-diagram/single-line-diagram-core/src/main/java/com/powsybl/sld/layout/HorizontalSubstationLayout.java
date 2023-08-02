@@ -6,13 +6,15 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
+import static com.powsybl.sld.model.coordinate.Direction.*;
+
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -32,7 +34,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                                                      boolean increment) {
         double yMin = getGraph().getVoltageLevels().stream().mapToDouble(VoltageLevelGraph::getY).min().orElse(0.0);
         double yMax = getGraph().getVoltageLevels().stream().mapToDouble(g -> g.getY() + g.getInnerHeight(layoutParam.getVerticalSpaceBus())).max().orElse(0.0);
-        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
     }
 
     /**
@@ -55,7 +57,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
-            vlGraph.setCoord(x, computeCoordY(getGraph(), layoutParameters, topPadding, vlGraph));
+            vlGraph.setCoord(x, computeCoordY(layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
 
@@ -76,14 +78,62 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        adaptPaddingToSnakeLinesForHorizontal(getGraph(), layoutParameters);
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
 
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
+        LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
+
+        double topPadding = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
+        double x = diagramPadding.getLeft();
+
+        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
+            x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), computeCoordY(layoutParameters, topPadding, vlGraph));
+            x += vlGraph.getWidth();
+        }
+
+        double substationWidth = x - diagramPadding.getLeft();
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
+        double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+
+        getGraph().setSize(substationWidth, substationHeight);
+
+        infosNbSnakeLines.reset();
         getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
-    @Override
-    public Optional<InfosNbSnakeLinesHorizontal> getInfosNbSnakeLinesHorizontal() {
-        return Optional.of(infosNbSnakeLines);
+    double computeCoordY(LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
+        double y;
+        // Find maximum voltage level top height
+        double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(Direction.TOP)).max().orElse(0.0);
+        // Get gap between current voltage level and maximum height one
+        double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(Direction.TOP);
+        // Find maximum voltage level maxV
+        double maxV = getGraph().getVoltageLevelStream().mapToDouble(VoltageLevelGraph::getMaxV).max().orElse(0.0);
+        // Get all busbar section height
+        double bbsHeight = layoutParameters.getVerticalSpaceBus() * (maxV - vlGraph.getMaxV());
+
+        switch (layoutParameters.getBusbarsAlignment()) {
+            case FIRST: {
+                // Align on First busbar section
+                y = topPadding + delta;
+                break;
+            }
+            case LAST: {
+                // Align on Last busbar section
+                y = topPadding + delta + bbsHeight;
+                break;
+            }
+            case MIDDLE: {
+                // Align on middle of all busbar section
+                y = topPadding + delta + bbsHeight / 2;
+                break;
+            }
+            case NONE: // None alignment
+            default:
+                y = topPadding;
+        }
+        return y;
     }
 }

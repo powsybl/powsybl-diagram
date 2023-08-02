@@ -34,7 +34,7 @@ public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes, boolean increment) {
         double yMin = getGraph().getY();
         double yMax = getGraph().getY() + getGraph().getInnerHeight(layoutParam.getVerticalSpaceBus());
-        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
     }
 
     @Override
