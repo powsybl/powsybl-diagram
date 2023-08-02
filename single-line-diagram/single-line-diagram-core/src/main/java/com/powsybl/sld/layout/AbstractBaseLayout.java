@@ -7,8 +7,13 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.graphs.*;
+
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public abstract class AbstractBaseLayout extends AbstractLayout {
+public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends AbstractLayout<T> {
+    protected AbstractBaseLayout(T graph) {
+        super(graph);
+    }
 }

@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
@@ -16,18 +16,13 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
+public abstract class AbstractVoltageLevelLayout extends AbstractLayout<VoltageLevelGraph> {
 
-    private final VoltageLevelGraph graph;
     protected final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
     protected AbstractVoltageLevelLayout(VoltageLevelGraph graph) {
-        this.graph = graph;
+        super(graph);
         this.infosNbSnakeLines = InfosNbSnakeLinesHorizontal.create(graph);
-    }
-
-    public VoltageLevelGraph getGraph() {
-        return graph;
     }
 
     @Override

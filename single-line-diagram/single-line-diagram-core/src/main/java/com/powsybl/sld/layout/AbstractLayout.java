@@ -11,8 +11,7 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.BaseGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import org.jgrapht.alg.util.Pair;
 
@@ -23,9 +22,15 @@ import java.util.function.BooleanSupplier;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractLayout implements Layout {
+public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Layout {
 
-    public abstract BaseGraph getGraph();
+    private final T graph;
+
+    protected AbstractLayout(T graph) {
+        this.graph = graph;
+    }
+
+    public T getGraph() { return graph; }
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
