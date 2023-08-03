@@ -15,7 +15,9 @@ import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
-import java.util.Optional;
+
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -34,7 +36,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
                                                      boolean increment) {
         double yMin = getGraph().getVoltageLevels().stream().mapToDouble(VoltageLevelGraph::getY).min().orElse(0.0);
         double yMax = getGraph().getVoltageLevels().stream().mapToDouble(g -> g.getY() + g.getInnerHeight(layoutParam.getVerticalSpaceBus())).max().orElse(0.0);
-        return calculatePolylineSnakeLineForHorizontalLayout(getGraph(), layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, nodes, increment, infosNbSnakeLines, yMin, yMax);
     }
 
     /**
@@ -42,41 +44,60 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
      */
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
-
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-
-        double x = diagramPadding.getLeft();
-        double zoneHeight = 0;
+        double zoneWidth = 0.0;
+        double zoneHeight = 0.0;
 
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
-
             // Calculate the objects coordinates inside the zone graph
             Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
             sLayout.run(layoutParameters);
-
-            x += subGraph.getWidth();
+            for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
+                vlGraph.setCoord(vlGraph.getX() + zoneWidth, vlGraph.getY());
+            }
+            zoneWidth += subGraph.getWidth();
             zoneHeight = Math.max(zoneHeight, subGraph.getHeight());
         }
-
-        double zoneWidth = x - diagramPadding.getLeft();
         getGraph().setSize(zoneWidth, zoneHeight);
+        // Align all substations BusBarSections
+        // FIXME : need to align with valud of layoutParameters.getBusbarsAlignment() ? -> need to be confirmed
+        for (SubstationGraph subGraph : getGraph().getSubstations()) {
+            if (getGraph().getHeight() > subGraph.getHeight()) {
+                double delta = getGraph().getHeight() - subGraph.getHeight();
+                for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
+                    vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + delta);
+                }
+            }
+        }
     }
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        manageAllSnakeLines(layoutParameters);
-
+        // Draw snakelines for each Substations
+        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        // Draw snakelines between all Substations
+        manageSnakeLines(getGraph(), layoutParameters);
+        // Change Voltagelevels coordinates in function of snakelines drawn
         adaptPaddingToSnakeLines(layoutParameters);
+        // Redraw all snakelines
+        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        adaptPaddingToSnakeLinesForHorizontal(getGraph(), layoutParameters);
+        double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
 
-        manageAllSnakeLines(layoutParameters);
-    }
+        for (SubstationGraph subGraph : getGraph().getSubstations()) {
+            for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
+                vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + heightSnakeLinesTop);
+            }
+            subGraph.setSize(subGraph.getWidth(), subGraph.getHeight() + heightSnakeLinesTop);
+        }
 
-    @Override
-    public Optional<InfosNbSnakeLinesHorizontal> getInfosNbSnakeLinesHorizontal() {
-        return Optional.of(infosNbSnakeLines);
+        double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
+        double zoneHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+
+        getGraph().setSize(getGraph().getWidth(), zoneHeight);
+
+        infosNbSnakeLines.reset();
     }
 }

@@ -14,20 +14,15 @@ import java.util.Objects;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public abstract class AbstractZoneLayout extends AbstractBaseLayout {
+public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
 
-    private final ZoneGraph graph;
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
 
     protected AbstractZoneLayout(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        this.graph = graph;
+        super(graph);
         this.sLayoutFactory = Objects.requireNonNull(sLayoutFactory);
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
-    }
-
-    public ZoneGraph getGraph() {
-        return graph;
     }
 
     @Override
@@ -40,10 +35,4 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout {
     }
 
     protected abstract void calculateCoordSubstations(LayoutParameters layoutParameters);
-
-    protected void manageAllSnakeLines(LayoutParameters layoutParameters) {
-        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
-        manageSnakeLines(getGraph(), layoutParameters);
-    }
 }
