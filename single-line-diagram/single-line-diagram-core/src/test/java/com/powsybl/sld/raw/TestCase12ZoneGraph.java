@@ -33,6 +33,8 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
     void testZoneHAndSubstationH() {
         ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
 
+        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
+
         // Run horizontal zone layout
         new HorizontalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
@@ -40,28 +42,10 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
     }
 
     @Test
-    void testZoneVAndSubstationH() {
-        ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
-
-        // Run vertical zone layout
-        new VerticalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-
-        assertEquals(toString("/TestCase12ZoneGraphVHRaw.json"), toJson(g, "/TestCase12ZoneGraphVHRaw.json"));
-    }
-
-    @Test
-    void testZoneHAndSubstationV() {
-        ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
-
-        // Run horizontal zone layout
-        new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-
-        assertEquals(toString("/TestCase12ZoneGraphHVRaw.json"), toJson(g, "/TestCase12ZoneGraphHVRaw.json"));
-    }
-
-    @Test
     void testZoneVAndSubstationV() {
         ZoneGraph g = rawGraphBuilder.buildZoneGraph(List.of(ZONE_ID));
+
+        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
         new VerticalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);

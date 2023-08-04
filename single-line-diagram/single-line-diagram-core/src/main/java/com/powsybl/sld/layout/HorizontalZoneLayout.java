@@ -58,16 +58,6 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
             zoneHeight = Math.max(zoneHeight, subGraph.getHeight());
         }
         getGraph().setSize(zoneWidth, zoneHeight);
-        // Align all substations BusBarSections
-        // FIXME : need to align with valud of layoutParameters.getBusbarsAlignment() ? -> need to be confirmed
-        for (SubstationGraph subGraph : getGraph().getSubstations()) {
-            if (getGraph().getHeight() > subGraph.getHeight()) {
-                double delta = getGraph().getHeight() - subGraph.getHeight();
-                for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
-                    vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + delta);
-                }
-            }
-        }
     }
 
     @Override
@@ -85,17 +75,13 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
         double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
-
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
             for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
                 vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + heightSnakeLinesTop);
             }
-            subGraph.setSize(subGraph.getWidth(), subGraph.getHeight() + heightSnakeLinesTop);
         }
-
         double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
         double zoneHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
-
         getGraph().setSize(getGraph().getWidth(), zoneHeight);
 
         infosNbSnakeLines.reset();

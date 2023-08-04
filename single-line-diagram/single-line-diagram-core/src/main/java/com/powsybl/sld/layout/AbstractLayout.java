@@ -30,7 +30,9 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
         this.graph = graph;
     }
 
-    public T getGraph() { return graph; }
+    public T getGraph() {
+        return graph;
+    }
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
