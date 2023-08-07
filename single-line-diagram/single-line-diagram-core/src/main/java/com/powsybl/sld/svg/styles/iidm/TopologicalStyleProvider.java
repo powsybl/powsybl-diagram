@@ -64,7 +64,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     protected boolean isNodeSeparatingStyles(Node node) {
         return isMultiTerminalNode(node)
                 // filtering out leg nodes as they are nodes with the same voltage level at each side
-                && !((node instanceof FeederNode) && (((FeederNode) node).getFeeder() instanceof FeederTwLeg));
+                && !(node instanceof FeederNode && ((FeederNode) node).getFeeder() instanceof FeederTwLeg);
     }
 
     private boolean isMultiTerminalNode(Node node) {
