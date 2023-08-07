@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-parent</artifactId>
-        <version>10</version>
+        <version>13</version>
         <relativePath/>
     </parent>
     <artifactId>powsybl-diagram</artifactId>
