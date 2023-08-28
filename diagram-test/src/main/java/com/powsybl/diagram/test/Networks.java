@@ -35,6 +35,10 @@ public final class Networks {
     private static final String CONVERTER_1_ID = "Converter1";
 
     private static final String CONVERTER_2_ID = "Converter2";
+
+    private static final String CONVERTER_3_ID = "Converter3";
+
+    private static final String CONVERTER_4_ID = "Converter4";
     private static final String LOAD_3_ID = "load3";
     private static final String LOAD_1_ID = "load1";
     private static final String LOAD_2_ID = "load2";
@@ -420,6 +424,7 @@ public final class Networks {
         voltageLevel1.getBusBreakerView().newBus()
                 .setId("Bus1")
                 .add();
+        // VSC 1
         voltageLevel1.newVscConverterStation()
                 .setId(CONVERTER_1_ID)
                 .setConnectableBus("Bus1")
@@ -440,6 +445,7 @@ public final class Networks {
         voltageLevel2.getBusBreakerView().newBus()
                 .setId("Bus2")
                 .add();
+        // VSC 2
         voltageLevel2.newVscConverterStation()
                 .setId(CONVERTER_2_ID)
                 .setConnectableBus("Bus2")
@@ -452,6 +458,45 @@ public final class Networks {
                 .setId("HvdcLine")
                 .setConverterStationId1(CONVERTER_1_ID)
                 .setConverterStationId2(CONVERTER_2_ID)
+                .setR(1)
+                .setNominalV(400)
+                .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+                .setMaxP(300.0)
+                .setActivePowerSetpoint(280)
+                .add();
+        return network;
+    }
+
+    public static Network createNetworkWithHvdcLines() {
+        Network network = Networks.createNetworkWithHvdcLine();
+        VoltageLevel voltageLevel1 = network.getVoltageLevel(VOLTAGELEVEL_1_ID);
+        VoltageLevel voltageLevel2 = network.getVoltageLevel(VOLTAGELEVEL_2_ID);
+        voltageLevel1.getBusBreakerView().newBus()
+                .setId("Bus3")
+                .add();
+        // LCC 1
+        voltageLevel1.newLccConverterStation()
+                .setId(CONVERTER_3_ID)
+                .setConnectableBus("Bus3")
+                .setBus("Bus3")
+                .setLossFactor(0.011f)
+                .setPowerFactor(0.5f)
+                .add();
+        voltageLevel2.getBusBreakerView().newBus()
+                .setId("Bus4")
+                .add();
+        // LCC 2
+        voltageLevel2.newLccConverterStation()
+                .setId(CONVERTER_4_ID)
+                .setConnectableBus("Bus4")
+                .setBus("Bus4")
+                .setLossFactor(0.011f)
+                .setPowerFactor(-0.5f)
+                .add();
+        network.newHvdcLine()
+                .setId("HvdcLine2")
+                .setConverterStationId1(CONVERTER_3_ID)
+                .setConverterStationId2(CONVERTER_4_ID)
                 .setR(1)
                 .setNominalV(400)
                 .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)

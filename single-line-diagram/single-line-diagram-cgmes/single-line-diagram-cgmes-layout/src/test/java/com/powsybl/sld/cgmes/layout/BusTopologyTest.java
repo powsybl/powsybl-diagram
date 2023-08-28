@@ -134,8 +134,8 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
                 .setBmin(0.0002)
                 .setBmax(0.0008)
                 .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
-                .setVoltageSetPoint(390.0)
-                .setReactivePowerSetPoint(1.0)
+                .setVoltageSetpoint(390.0)
+                .setReactivePowerSetpoint(1.0)
                 .add();
         return voltageLevel2;
     }

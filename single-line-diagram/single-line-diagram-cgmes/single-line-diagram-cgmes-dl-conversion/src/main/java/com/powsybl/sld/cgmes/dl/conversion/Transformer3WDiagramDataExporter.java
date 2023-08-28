@@ -38,7 +38,7 @@ public class Transformer3WDiagramDataExporter extends AbstractDiagramDataExporte
             transformerDiagramData.getDiagramsNames().forEach(diagramName -> {
                 ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails details = transformerDiagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
-                String diagramObjectId = addDiagramObject(transformer.getId(), transformer.getName(), details.getRotation(), diagramObjectStyleId, diagramId);
+                String diagramObjectId = addDiagramObject(transformer.getId(), transformer.getNameOrId(), details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());
                 addTerminalData(transformer.getId(), transformer.getNameOrId(), 1, details.getTerminalPoints(DiagramTerminal.TERMINAL1), diagramObjectStyleId, diagramId);
                 addTerminalData(transformer.getId(), transformer.getNameOrId(), 2, details.getTerminalPoints(DiagramTerminal.TERMINAL2), diagramObjectStyleId, diagramId);

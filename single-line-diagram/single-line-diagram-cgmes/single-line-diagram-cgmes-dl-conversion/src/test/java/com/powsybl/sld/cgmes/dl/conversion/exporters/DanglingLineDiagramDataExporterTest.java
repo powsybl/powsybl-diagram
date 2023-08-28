@@ -40,7 +40,7 @@ class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExp
 
     @Override
     protected void checkStatements() {
-        checkStatements(danglingLine.getId(), danglingLine.getName(), "bus-branch");
+        checkStatements(danglingLine.getId(), danglingLine.getNameOrId(), "bus-branch");
     }
 
 }
