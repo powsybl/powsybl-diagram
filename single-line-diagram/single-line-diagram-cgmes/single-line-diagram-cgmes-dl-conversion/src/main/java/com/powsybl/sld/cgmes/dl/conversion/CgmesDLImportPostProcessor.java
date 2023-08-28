@@ -43,7 +43,7 @@ public class CgmesDLImportPostProcessor implements CgmesImportPostProcessor {
     }
 
     private boolean isDlProfileAvailable(Network network, TripleStore tripleStore) {
-        return (tripleStore != null) && (tripleStore.contextNames().contains(ContextUtils.contextNameFor(CgmesSubset.DIAGRAM_LAYOUT, tripleStore, network.getId())));
+        return tripleStore != null && tripleStore.contextNames().contains(ContextUtils.contextNameFor(CgmesSubset.DIAGRAM_LAYOUT, tripleStore, network.getId()));
     }
 
     @Override

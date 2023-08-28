@@ -59,7 +59,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vlGraph.setCoord(x, computeCoordY(layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
-            substationHeight = Math.max(substationHeight, vlGraph.getHeight());
+
+            double deltaY = vlGraph.getY() - topPadding;
+            substationHeight = Math.max(substationHeight, deltaY + vlGraph.getHeight());
         }
 
         double substationWidth = x - diagramPadding.getLeft();

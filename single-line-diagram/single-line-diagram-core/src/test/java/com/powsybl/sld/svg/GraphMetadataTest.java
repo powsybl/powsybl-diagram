@@ -61,8 +61,8 @@ class GraphMetadataTest {
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, false, Direction.UNDEFINED, false, null, labels));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "id1", "vid1", null, BREAKER, false, Direction.UNDEFINED, false, null, labels));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "COMPONENT_TYPE", "user_id"));
         metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
@@ -149,11 +149,12 @@ class GraphMetadataTest {
     @Test
     void testGraphMetadataWithLine() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("STATION_EXAMPLE", "idSTATION_95_EXAMPLE", "vid1", null, LCC_CONVERTER_STATION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid2", "vid2", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid2", "vid2", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, false));
         metadata.addLineMetadata(new GraphMetadata.LineMetadata("lid", "lid1", "lid2"));
 
@@ -170,8 +171,10 @@ class GraphMetadataTest {
     }
 
     private void checkMetadata(GraphMetadata metadata) {
-        assertEquals(4, metadata.getNodeMetadata().size());
+        assertEquals(5, metadata.getNodeMetadata().size());
+        assertEquals("STATION_EXAMPLE", metadata.getNodeMetadata("idSTATION_95_EXAMPLE").getUnescapedId());
         assertNotNull(metadata.getNodeMetadata("bid1"));
+        assertNull(metadata.getNodeMetadata("bid1").getUnescapedId());
         assertEquals("bid1", metadata.getNodeMetadata("bid1").getId());
         assertEquals("vid1", metadata.getNodeMetadata("bid1").getVId());
         assertEquals(BUSBAR_SECTION, metadata.getNodeMetadata("bid1").getComponentType());
