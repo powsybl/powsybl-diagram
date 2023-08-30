@@ -10,6 +10,7 @@ package com.powsybl.sld.svg;
 import com.powsybl.diagram.util.ValueFormatter;
 
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  *
@@ -51,6 +52,7 @@ public class SvgParameters {
     }
 
     public SvgParameters(SvgParameters other) {
+        Objects.requireNonNull(other);
         this.prefixId = other.prefixId;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
         this.languageTag = other.languageTag;
@@ -87,6 +89,7 @@ public class SvgParameters {
     }
 
     public SvgParameters setPrefixId(String prefixId) {
+        Objects.requireNonNull(prefixId);
         this.prefixId = prefixId;
         return this;
     }
@@ -96,6 +99,7 @@ public class SvgParameters {
     }
 
     public SvgParameters setUndefinedValueSymbol(String undefinedValueSymbol) {
+        Objects.requireNonNull(undefinedValueSymbol);
         this.undefinedValueSymbol = undefinedValueSymbol;
         return this;
     }
@@ -109,6 +113,7 @@ public class SvgParameters {
      * @param languageTag Specified IETF BCP 47 language tag string
      */
     public SvgParameters setLanguageTag(String languageTag) {
+        Objects.requireNonNull(languageTag);
         this.languageTag = languageTag;
         return this;
     }
@@ -253,6 +258,7 @@ public class SvgParameters {
     }
 
     public SvgParameters setCssLocation(CssLocation cssLocation) {
+        Objects.requireNonNull(cssLocation);
         this.cssLocation = cssLocation;
         return this;
     }
