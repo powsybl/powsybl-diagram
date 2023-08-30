@@ -36,7 +36,7 @@ class TestViewBox extends AbstractTestCaseIidm {
         substation = network.getSubstation("ST");
         graphBuilder = new NetworkGraphBuilder(network);
 
-        layoutParameters.setShowGrid(true);
+        svgParameters.setShowGrid(true);
 
         // build substation ST graph
         SubstationGraph g1 = graphBuilder.buildSubstationGraph("ST");

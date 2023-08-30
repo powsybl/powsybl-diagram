@@ -14,6 +14,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
@@ -158,7 +159,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+                new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters),
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters),
                 new BasicStyleProvider()));
     }
 

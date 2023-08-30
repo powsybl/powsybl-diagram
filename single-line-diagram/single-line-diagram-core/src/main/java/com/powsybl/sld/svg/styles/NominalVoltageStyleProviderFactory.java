@@ -14,7 +14,6 @@ import com.powsybl.iidm.network.Network;
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
  */
 
-
 public class NominalVoltageStyleProviderFactory implements StyleProviderFactory {
     @Override
     public StyleProvider create(Network network) {
