@@ -81,16 +81,16 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         Writer writerForSvg = new StringWriter();
         SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter());
-        assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
+        assertEquals(expected, normalizeLineSeparator(writerForSvg.toString()));
 
         Path svgPath = tmpDir.resolve("result.svg");
         Path metadataPath = tmpDir.resolve("result_metadata.json");
         SingleLineDiagram.drawVoltageLevel(network, vl.getId(), svgPath);
-        assertEquals(expected, fixSvg(toString(Files.newInputStream(svgPath))));
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 
         SingleLineDiagram.draw(network, vl.getId(), svgPath);
-        assertEquals(expected, fixSvg(toString(Files.newInputStream(svgPath))));
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
     }
 
@@ -108,7 +108,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
     @Test
     void testSvgSubs() throws IOException {
-        String expected = fixSvg(toString("/TestSldClassSubstation.svg"));
+        String expected = toString("/TestSldClassSubstation.svg");
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
 
@@ -122,16 +122,16 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         Writer writerForSvg = new StringWriter();
         SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter());
-        assertEquals(expected, fixSvg(normalizeLineSeparator(writerForSvg.toString())));
+        assertEquals(expected, normalizeLineSeparator(writerForSvg.toString()));
 
         Path svgPath = tmpDir.resolve("result.svg");
         Path metadataPath = tmpDir.resolve("result_metadata.json");
         SingleLineDiagram.drawSubstation(network, substation.getId(), svgPath);
-        assertEquals(expected, fixSvg(toString(Files.newInputStream(svgPath))));
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 
         SingleLineDiagram.draw(network, substation.getId(), svgPath);
-        assertEquals(expected, fixSvg(toString(Files.newInputStream(svgPath))));
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 
         PowsyblException e2 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "bbs2", svgPath));
@@ -158,7 +158,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
                 overrideTestReference(jsonFilename, metadataWriter);
             }
 
-            return fixSvg(normalizeLineSeparator(writer.toString()));
+            return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
