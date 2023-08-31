@@ -8,15 +8,13 @@
 package com.powsybl.nad;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.nad.build.iidm.IntIdProvider;
+import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.iidm.IdProviderFactory;
-import com.powsybl.nad.svg.iidm.LabelProviderFactory;
-import com.powsybl.nad.svg.iidm.StyleProviderFactory;
-
-import java.util.Objects;
+import com.powsybl.nad.svg.iidm.*;
 
 /**
  *
@@ -24,52 +22,65 @@ import java.util.Objects;
  */
 public class NadParameters {
 
-    private final SvgParameters svgParameters;
-    private final LayoutParameters layoutParameters;
-    private final StyleProviderFactory styleProviderFactory;
-    private final LabelProviderFactory labelProviderFactory;
-    private final LayoutFactory layoutFactory;
-    private final IdProviderFactory idProviderFactory;
-
-    public NadParameters(SvgParameters svgParameters, LayoutParameters layoutParameters, StyleProviderFactory styleProviderFactory, LabelProviderFactory labelProviderFactory, LayoutFactory layoutFactory, IdProviderFactory idProviderFactory) {
-        this.svgParameters = Objects.requireNonNull(svgParameters);
-        this.layoutParameters = Objects.requireNonNull(layoutParameters);
-        this.styleProviderFactory = Objects.requireNonNull(styleProviderFactory);
-        this.labelProviderFactory = Objects.requireNonNull(labelProviderFactory);
-        this.layoutFactory = Objects.requireNonNull(layoutFactory);
-        this.idProviderFactory = Objects.requireNonNull(idProviderFactory);
-    }
+    private SvgParameters svgParameters = new SvgParameters();
+    private LayoutParameters layoutParameters = new LayoutParameters();
+    private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
+    private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
+    private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
+    private IdProviderFactory idProviderFactory = IntIdProvider::new;
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
+    }
+
+    public NadParameters setSvgParameters(SvgParameters svgParameters) {
+        this.svgParameters = svgParameters;
+        return this;
     }
 
     public LayoutParameters getLayoutParameters() {
         return layoutParameters;
     }
 
+    public NadParameters setLayoutParameters(LayoutParameters layoutParameters) {
+        this.layoutParameters = layoutParameters;
+        return this;
+    }
+
     public StyleProviderFactory getStyleProviderFactory() {
         return styleProviderFactory;
+    }
+
+    public NadParameters setStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
+        this.styleProviderFactory = styleProviderFactory;
+        return this;
     }
 
     public LabelProvider createLabelProvider(Network network) {
         return labelProviderFactory.create(network, svgParameters);
     }
 
+    public NadParameters setLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
+        this.labelProviderFactory = labelProviderFactory;
+        return this;
+    }
+
     public LayoutFactory getLayoutFactory() {
         return layoutFactory;
+    }
+
+    public NadParameters setLayoutFactory(LayoutFactory layoutFactory) {
+        this.layoutFactory = layoutFactory;
+        return this;
     }
 
     public IdProviderFactory getIdProviderFactory() {
         return idProviderFactory;
     }
 
-    public static NadParametersBuilder builder() {
-        return new NadParametersBuilder();
-    }
-
-    public static NadParameters defaultParameters() {
-        return builder().build();
+    public NadParameters setIdProviderFactory(IdProviderFactory idProviderFactory) {
+        this.idProviderFactory = idProviderFactory;
+        return this;
     }
 
 }

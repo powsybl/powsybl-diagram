@@ -134,7 +134,7 @@ public class SingleLineDiagramTool implements Tool {
         if (network == null) {
             throw new PowsyblException("File '" + inputFile + "' is not importable");
         }
-        SldParameters sldParameters = SldParameters.defaultParameters();
+        SldParameters sldParameters = new SldParameters();
         if (ids.isEmpty()) {
             boolean allVoltageLevels = toolOptions.hasOption(ALL_VOLTAGE_LEVELS);
             boolean allSubstations = toolOptions.hasOption(ALL_SUBSTATIONS);

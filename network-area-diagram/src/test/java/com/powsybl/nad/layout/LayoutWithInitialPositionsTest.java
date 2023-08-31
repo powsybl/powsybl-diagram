@@ -158,12 +158,11 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
         NetworkAreaDiagram.draw(network, writer,
-                NadParameters.builder()
-                        .withSvgParameters(getSvgParameters())
-                        .withLayoutParameters(getLayoutParameters())
-                        .withStyleProviderFactory(this::getStyleProvider)
-                        .withLayoutFactory(positionsLayoutFactory)
-                        .build(),
+                new NadParameters()
+                        .setSvgParameters(getSvgParameters())
+                        .setLayoutParameters(getLayoutParameters())
+                        .setStyleProviderFactory(this::getStyleProvider)
+                        .setLayoutFactory(positionsLayoutFactory),
                 voltageLevelFilter);
         return positionsLayoutFactory.getLayoutResult().positions;
     }

@@ -56,11 +56,11 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Network network, String id, Path svgFile) {
-        draw(network, id, svgFile, SldParameters.defaultParameters());
+        draw(network, id, svgFile, new SldParameters());
     }
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter) {
-        draw(network, id, writerForSvg, metadataWriter, SldParameters.defaultParameters());
+        draw(network, id, writerForSvg, metadataWriter, new SldParameters());
     }
 
     public static void draw(Network network, String id, Path svgFile, SldParameters sldParameters) {
@@ -97,7 +97,7 @@ public final class SingleLineDiagram {
     }
 
     public static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile) {
-        drawVoltageLevel(network, voltageLevelId, svgFile, SldParameters.defaultParameters());
+        drawVoltageLevel(network, voltageLevelId, svgFile, new SldParameters());
     }
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters) {
@@ -117,7 +117,7 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, SldParameters.defaultParameters());
+        drawSubstation(network, id, svgFile, new SldParameters());
     }
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {

@@ -34,35 +34,35 @@ public final class NetworkAreaDiagram {
     }
 
     public static void draw(Network network, Path svgFile) {
-        draw(network, svgFile, NadParameters.defaultParameters(), VoltageLevelFilter.NO_FILTER);
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Writer writer) {
-        draw(network, writer, NadParameters.defaultParameters(), VoltageLevelFilter.NO_FILTER);
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.NO_FILTER);
     }
 
     public static void draw(Network network, Path svgFile, String voltageLevelId, int depth) {
-        draw(network, svgFile, NadParameters.defaultParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Writer writer, String voltageLevelId, int depth) {
-        draw(network, writer, NadParameters.defaultParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds) {
-        draw(network, svgFile, NadParameters.defaultParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public static void draw(Network network, Writer writer, List<String> voltageLevelIds) {
-        draw(network, writer, NadParameters.defaultParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
     public static void draw(Network network, Path svgFile, List<String> voltageLevelIds, int depth) {
-        draw(network, svgFile, NadParameters.defaultParameters(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
     public void draw(Network network, Writer writer, Predicate<VoltageLevel> voltageLevelFilter) {
-        draw(network, writer, NadParameters.defaultParameters(), voltageLevelFilter);
+        draw(network, writer, new NadParameters(), voltageLevelFilter);
     }
 
     public static void draw(Network network, Path svgFile, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -94,7 +94,7 @@ public final class NetworkAreaDiagram {
 
     public String drawToString(Network network, SvgParameters svgParameters) {
         try (StringWriter writer = new StringWriter()) {
-            NadParameters nadParameters = NadParameters.builder().withSvgParameters(svgParameters).build();
+            NadParameters nadParameters = new NadParameters().setSvgParameters(svgParameters);
             draw(network, writer, nadParameters, VoltageLevelFilter.NO_FILTER);
             return writer.toString();
         } catch (IOException e) {
