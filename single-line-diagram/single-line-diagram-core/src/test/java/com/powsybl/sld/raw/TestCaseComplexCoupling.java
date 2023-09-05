@@ -12,7 +12,6 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,8 +56,6 @@ class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
         voltageLevelGraphLayout(g);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", defaultSVGWriter, getLabelRawProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

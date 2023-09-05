@@ -666,66 +666,58 @@ class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     void testVl1() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1.svg"),
-                toSVG(g1, "/vl1.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testVl1CssExternalImported() {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testVl1CssExternalNoImport() {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_external_css_no_import.svg"),
-                toSVG(g1, "/vl1_external_css_no_import.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testVl2() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl2.svg"),
-                toSVG(g2, "/vl2.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testVl3() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl3.svg"),
-                toSVG(g3, "/vl3.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testSubstation() {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-                toSVG(substG, "/substation.svg", defaultSVGWriter, labelProvider, new NominalVoltageStyleProvider()));
+                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider()));
     }
 
     @Test
     void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         svgParameters.setFeederInfoSymmetry(true);
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/substation_no_feeder_values.svg"),
-                toSVG(substG, "/substation_no_feeder_values.svg", defaultSVGWriter, labelNoFeederInfoProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -733,9 +725,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_optimized.svg"),
-                toSVG(g1, "/vl1_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -743,9 +734,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl2_optimized.svg"),
-                toSVG(g2, "/vl2_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -753,9 +743,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl3_optimized.svg"),
-                toSVG(g3, "/vl3_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -763,36 +752,32 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // Same tests than before, with optimized svg
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/substation_optimized.svg"),
-                toSVG(substG, "/substation_optimized.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testWriteZone() {
         svgParameters.setShowGrid(false);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/zone.svg"),
-                toSVG(zGraph, "/zone.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testStraightWires() {
         svgParameters.setDrawStraightWires(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_straightWires.svg"),
-                toSVG(g1, "/vl1_straightWires.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testTooltip() {
         svgParameters.setTooltipEnabled(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_tooltip.svg"),
-                toSVG(g1, "/vl1_tooltip.svg", defaultSVGWriter, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -801,18 +786,16 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
         svgParameters.setTooltipEnabled(true);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-                toSVG(g1, "/vl1_multiline_tooltip.svg", defaultSVGWriter, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testLabelOnAllNodes() {
         // same node label provider example for the test :
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", defaultSVGWriter, diagramLabelSameNodeProvider, new BasicStyleProvider()));
+                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -824,8 +807,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
             }
         };
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", defaultSVGWriter, labelProvider, styleProvider));
+                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
     }
 }

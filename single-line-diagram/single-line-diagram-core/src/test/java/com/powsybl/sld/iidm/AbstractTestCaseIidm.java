@@ -18,7 +18,6 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
@@ -40,8 +39,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph g, String filename) {
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        return toSVG(g, filename, defaultSVGWriter, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        return toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     protected LabelProvider getDefaultDiagramLabelProvider() {

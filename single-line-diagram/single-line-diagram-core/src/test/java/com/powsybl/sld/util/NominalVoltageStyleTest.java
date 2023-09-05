@@ -18,7 +18,6 @@ import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
@@ -157,8 +156,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
@@ -166,8 +164,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
@@ -175,8 +172,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", defaultSVGWriter, new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
 }

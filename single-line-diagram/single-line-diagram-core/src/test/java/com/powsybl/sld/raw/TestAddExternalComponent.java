@@ -15,7 +15,6 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,8 +51,7 @@ class TestAddExternalComponent extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
         assertEquals(toString("/TestCheese.svg"),
-                toSVG(g, "/TestCheese.svg", defaultSVGWriter, getLabelRawProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCheese.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

@@ -14,7 +14,6 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -263,8 +262,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -279,9 +277,8 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // write SVGs and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(new ConvergenceComponentLibrary(), layoutParameters, svgParameters);
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
@@ -294,10 +291,8 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         voltageLevelGraphLayout(g1);
 
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(new ConvergenceComponentLibrary(), layoutParameters, svgParameters);
-
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", defaultSVGWriter, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
 }

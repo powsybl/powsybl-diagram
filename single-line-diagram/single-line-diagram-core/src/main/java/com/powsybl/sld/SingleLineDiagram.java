@@ -14,6 +14,7 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -156,12 +157,18 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(styleProvider);
 
         LOGGER.info("Writing SVG and JSON metadata files...");
-
         // write SVG file
         GraphMetadata metadata = svgWriter.write(graph, labelProvider, styleProvider, writerForSvg);
-
         // write metadata JSON file
         metadata.writeJson(metadataWriter);
+    }
+
+    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+        Objects.requireNonNull(componentLibrary);
+        Objects.requireNonNull(layoutParameters);
+        Objects.requireNonNull(svgParameters);
+        DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
+        draw(graph, writerForSvg, metadataWriter, svgWriter, labelProvider, styleProvider);
     }
 
     private static DefaultSVGWriter preDraw(Graph graph, SldParameters sldParameters, Network network) {

@@ -157,6 +157,6 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
-        assertEquals(toString(filename), toSVG(g, filename, defaultSVGWriter, labelProvider, styleProvider));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, labelProvider, styleProvider));
     }
 }

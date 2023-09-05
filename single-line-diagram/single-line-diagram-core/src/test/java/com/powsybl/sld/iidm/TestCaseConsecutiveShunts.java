@@ -13,7 +13,6 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.LabelPosition;
 import com.powsybl.sld.svg.LabelProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,8 +59,7 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
-        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", defaultSVGWriter, labelProvider, getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider()));
     }
 
 }
