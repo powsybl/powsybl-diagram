@@ -56,8 +56,8 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
             isVl1Vl2Adjacent |= substation.graphAdjacents(vlGraph1, vlGraph2);
             isVl2Vl1Adjacent |= substation.graphAdjacents(vlGraph2, vlGraph1);
         }
-        return (dNode1 == Direction.BOTTOM && dNode2 == Direction.TOP && isVl1Vl2Adjacent)
-                || (dNode1 == Direction.TOP && dNode2 == Direction.BOTTOM && isVl2Vl1Adjacent);
+        return dNode1 == Direction.BOTTOM && dNode2 == Direction.TOP && isVl1Vl2Adjacent
+                || dNode1 == Direction.TOP && dNode2 == Direction.BOTTOM && isVl2Vl1Adjacent;
     }
 
     /**
