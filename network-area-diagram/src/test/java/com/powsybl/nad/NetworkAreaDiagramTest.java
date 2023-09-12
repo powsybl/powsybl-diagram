@@ -10,11 +10,7 @@ package com.powsybl.nad;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.build.iidm.IdProvider;
-import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.diagram.test.Networks;
@@ -27,11 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -58,22 +50,6 @@ class NetworkAreaDiagramTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
         };
-    }
-
-    private LayoutFactory getLayoutFactory() {
-        return new BasicForceLayoutFactory();
-    }
-
-    private IdProvider getIdProvider() {
-        return new IntIdProvider();
-    }
-
-    private String getContentFile(Path svgFile) {
-        try (Stream<String> lines = Files.lines(svgFile)) {
-            return lines.collect(Collectors.joining("\n")) + "\n";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test

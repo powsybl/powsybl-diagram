@@ -147,6 +147,13 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
                 nextDepthVoltageLevels.add(voltageLevel);
             }
         }
+
+        @Override
+        public void visitDanglingLine(DanglingLine danglingLine) {
+            if (danglingLine.isPaired()) {
+                danglingLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(danglingLine.getTerminal())));
+            }
+        }
     }
 
 }
