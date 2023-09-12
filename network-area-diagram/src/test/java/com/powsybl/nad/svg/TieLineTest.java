@@ -7,14 +7,17 @@
  */
 package com.powsybl.nad.svg;
 
+import com.google.common.jimfs.*;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
-import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.*;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.nio.file.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,8 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TieLineTest extends AbstractTest {
 
+    protected java.nio.file.FileSystem fileSystem;
+
     @BeforeEach
     void setup() {
+        fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -48,4 +54,16 @@ class TieLineTest extends AbstractTest {
         assertEquals(toString("/tie_line.svg"), generateSvgString(network, "/tie_line.svg"));
     }
 
+    @Test
+    void testDanglingLinePaired() {
+        Network network = EurostagTutorialExample1Factory.createWithTieLine();
+        NetworkAreaDiagram nad = new NetworkAreaDiagram(network, "VLHV1", 1);
+        Path svgFile = fileSystem.getPath("tie_line_filtered.svg");
+        nad.draw(svgFile,
+                getSvgParameters(),
+                getLayoutParameters(),
+                getStyleProvider(network));
+
+        assertEquals(toString("/tie_line_filtered.svg"), getContentFile(svgFile));
+    }
 }

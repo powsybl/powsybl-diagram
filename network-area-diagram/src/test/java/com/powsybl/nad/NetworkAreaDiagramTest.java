@@ -21,11 +21,7 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -54,14 +50,6 @@ class NetworkAreaDiagramTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
         };
-    }
-
-    private String getContentFile(Path svgFile) {
-        try (Stream<String> lines = Files.lines(svgFile)) {
-            return lines.collect(Collectors.joining("\n")) + "\n";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test
