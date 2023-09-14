@@ -74,9 +74,8 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
             Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
             sLayout.run(layoutParameters);
 
-            for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
-                vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + zoneHeight);
-            }
+            move(subGraph, 0, zoneHeight);
+
             zoneHeight += subGraph.getHeight() - diagramPadding.getTop();
             zoneWidth = Math.max(zoneWidth, subGraph.getWidth());
         }
@@ -106,8 +105,11 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
         double y = diagramPadding.getTop()
                 + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters)).orElse(0.);
 
+        for (SubstationGraph subGraph : getGraph().getSubstations()) {
+            move(subGraph, widthSnakeLinesLeft, y + voltageLevelPadding.getTop());
+        }
+
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            vlGraph.setCoord(diagramPadding.getLeft() + voltageLevelPadding.getLeft() + widthSnakeLinesLeft, y + voltageLevelPadding.getTop());
             y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters);
         }
 

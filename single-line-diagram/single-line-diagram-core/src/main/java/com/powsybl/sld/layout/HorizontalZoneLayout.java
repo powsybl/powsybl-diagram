@@ -51,9 +51,9 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
             // Calculate the objects coordinates inside the zone graph
             Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
             sLayout.run(layoutParameters);
-            for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
-                vlGraph.setCoord(vlGraph.getX() + zoneWidth, vlGraph.getY());
-            }
+
+            move(subGraph, zoneWidth, 0);
+
             zoneWidth += subGraph.getWidth();
             zoneHeight = Math.max(zoneHeight, subGraph.getHeight());
         }
@@ -76,9 +76,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
         double heightSnakeLinesTop = AbstractLayout.getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
-            for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
-                vlGraph.setCoord(vlGraph.getX(), vlGraph.getY() + heightSnakeLinesTop);
-            }
+            move(subGraph, 0, heightSnakeLinesTop);
         }
         double heightSnakeLinesBottom = AbstractLayout.getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
         double zoneHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;

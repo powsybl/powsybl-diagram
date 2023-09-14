@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
 import java.util.Objects;
@@ -15,7 +17,6 @@ import java.util.Objects;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
-
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
 
@@ -35,4 +36,10 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     }
 
     protected abstract void calculateCoordSubstations(LayoutParameters layoutParameters);
+
+    protected void move(SubstationGraph subGraph, double dx, double dy) {
+        for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
+            vlGraph.setCoord(vlGraph.getX() + dx, vlGraph.getY() + dy);
+        }
+    }
 }
