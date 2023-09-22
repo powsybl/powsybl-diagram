@@ -27,6 +27,8 @@ public final class Networks {
 
     private static final String SUBSTATION_1_ID = "Substation1";
 
+    private static final String SUBSTATION_2_ID = "Substation2";
+
     private static final String VOLTAGELEVEL_ID = "VoltageLevel";
 
     private static final String VOLTAGELEVEL_1_ID = "VoltageLevel1";
@@ -35,9 +37,7 @@ public final class Networks {
     private static final String CONVERTER_1_ID = "Converter1";
 
     private static final String CONVERTER_2_ID = "Converter2";
-
     private static final String CONVERTER_3_ID = "Converter3";
-
     private static final String CONVERTER_4_ID = "Converter4";
     private static final String LOAD_3_ID = "load3";
     private static final String LOAD_1_ID = "load1";
@@ -55,6 +55,8 @@ public final class Networks {
     private static final String BBS_23_ID = "bbs23";
     private static final String LOAD_C_ID = "loadC";
     private static final String LOAD_D_ID = "loadD";
+
+    private static final String XNODE_1_ID = "XNODE1";
 
     private static final String THREE_WINDING_TRANSFORMER_12_ID = "T3_12";
 
@@ -142,7 +144,7 @@ public final class Networks {
                 .setId("Bus1")
                 .add();
         Substation substation2 = network.newSubstation()
-                .setId("Substation2")
+                .setId(SUBSTATION_2_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
@@ -438,7 +440,7 @@ public final class Networks {
                 .setVoltageRegulatorOn(true)
                 .add();
         Substation substation2 = network.newSubstation()
-                .setId("Substation2")
+                .setId(SUBSTATION_2_ID)
                 .setCountry(Country.FR)
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
@@ -2001,9 +2003,8 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
         network.getLine("L11").remove();
         String tieLineId = "B11_B12_1";
-        String xnodeId = "XNODE1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(xnodeId).add();
-        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setUcteXnodeCode(xnodeId).add();
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(XNODE_1_ID).add();
+        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setUcteXnodeCode(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b12.getId()).add();
         network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2016,9 +2017,8 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
         network.getLine("L12").remove();
         String tieLineId = "B11_B21_1";
-        String xnodeId = "XNODE1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(xnodeId).add();
-        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setUcteXnodeCode(xnodeId).add();
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(XNODE_1_ID).add();
+        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setUcteXnodeCode(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b21.getId()).add();
         network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2027,4 +2027,189 @@ public final class Networks {
 
     }
 
+    public static Network createNetworkWithManySubstations() {
+        Network network = com.powsybl.iidm.network.NetworkFactory.findDefault().createNetwork("diamond", "manual");
+        network.setName("diamond");
+
+        Substation subA = network.newSubstation().setId("A").add();
+        Bus subA400 = createBus(subA, 400);
+        Bus subA230 = createBus(subA, 230);
+        createTransformer(subA400, subA230);
+
+        Substation subB = network.newSubstation().setId("B").add();
+        Bus subB230 = createBus(subB, 230);
+        createLine(subA230, subB230);
+
+        Substation subC = network.newSubstation().setId("C").add();
+        Bus subC230 = createBus(subC, 230);
+        Bus subC66 = createBus(subC, 66);
+        Bus subC20 = createBus(subC, 20);
+        createTransformer(subC230, subC66);
+        createTransformer(subC66, subC20);
+        createLine(subB230, subC230);
+
+        Substation subD = network.newSubstation().setId("D").add();
+        Bus subD66 = createBus(subD, 66);
+        Bus subD10 = createBus(subD, 10);
+        createTransformer(subD66, subD10);
+        createLine(subC66, subD66);
+
+        Substation subE = network.newSubstation().setId("E").add();
+        Bus subE10 = createBus(subE, 10);
+        createLine(subD10, subE10);
+
+        Bus subF10 = createBus(network, "F", 10);
+        Bus subG10 = createBus(network, "G", 10);
+        Bus subH10 = createBus(network, "H", 10);
+        Bus subI10 = createBus(network, "I", 10);
+        Bus subJ10 = createBus(network, "J", 10);
+        Bus subK10 = createBus(network, "K", 10);
+
+        createLine(subE10, subF10);
+        createLine(subF10, subG10);
+        createLine(subG10, subH10);
+        createLine(subH10, subD10);
+
+        createLine(subF10, subI10);
+        createLine(subI10, subJ10);
+        createLine(subJ10, subK10);
+        createLine(subK10, subD10);
+
+        // HDVCLine between A 230 & B 230
+        String vlFormat = "%s %.0f";
+        String busIdFormat = "%s Bus";
+        String vlId = String.format(vlFormat, subA.getId(), 230.0);
+        String busId = String.format(busIdFormat, vlId);
+        network.getVoltageLevel(vlId).newVscConverterStation()
+                .setId(CONVERTER_1_ID)
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+        vlId = String.format(vlFormat, subB.getId(), 230.0);
+        busId = String.format(busIdFormat, vlId);
+        network.getVoltageLevel(vlId).newVscConverterStation()
+                .setId(CONVERTER_2_ID)
+                .setConnectableBus(busId)
+                .setBus(busId)
+                .setLossFactor(0.011f)
+                .setReactivePowerSetpoint(123)
+                .setVoltageRegulatorOn(false)
+                .add();
+        network.newHvdcLine()
+                .setId("HvdcLine (Vsc)")
+                .setConverterStationId1(CONVERTER_1_ID)
+                .setConverterStationId2(CONVERTER_2_ID)
+                .setR(1)
+                .setNominalV(400)
+                .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+                .setMaxP(300.0)
+                .setActivePowerSetpoint(280)
+                .add();
+
+        // Dangling Line
+        vlId = String.format(vlFormat, subC.getId(), 66.0);
+        busId = String.format(busIdFormat, vlId);
+        subC66.getVoltageLevel().newDanglingLine()
+                .setId("C66 - D")
+                .setBus(busId)
+                .setR(10.0)
+                .setX(1.0)
+                .setB(10e-6)
+                .setG(10e-5)
+                .setP0(50.0)
+                .setQ0(30.0)
+                .setUcteXnodeCode("C66 -D- D66")
+                .add();
+
+        vlId = String.format(vlFormat, subD.getId(), 66.0);
+        busId = String.format(busIdFormat, vlId);
+        subD66.getVoltageLevel().newDanglingLine()
+                .setId("D66 - D")
+                .setBus(busId)
+                .setR(10.0)
+                .setX(1.0)
+                .setB(10e-6)
+                .setG(10e-5)
+                .setP0(50.0)
+                .setQ0(30.0)
+                .setUcteXnodeCode("C66 -D- D66")
+                .add();
+
+        // TieLine between A 230 & B 230
+        String xnodeId = XNODE_1_ID;
+        vlId = String.format(vlFormat, subA.getId(), 230.0);
+        busId = String.format(busIdFormat, vlId);
+        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        vlId = String.format(vlFormat, subB.getId(), 230.0);
+        busId = String.format(busIdFormat, vlId);
+        String tieLineId = "A230_B230";
+        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
+
+        return network;
+    }
+
+    public static void createLine(Bus bus1, Bus bus2) {
+        String id = String.format("%s - %s",
+                bus1.getVoltageLevel().getSubstation().orElseThrow().getId(),
+                bus2.getVoltageLevel().getSubstation().orElseThrow().getId());
+        bus1.getNetwork().newLine().setId(id)
+                .setR(0.0)
+                .setX(1.0)
+                .setG1(0.0)
+                .setB1(0.0)
+                .setG2(0.0)
+                .setB2(0.0)
+                .setVoltageLevel1(bus1.getVoltageLevel().getId())
+                .setVoltageLevel2(bus2.getVoltageLevel().getId())
+                .setConnectableBus1(bus1.getId())
+                .setConnectableBus2(bus2.getId())
+                .setBus1(bus1.getId())
+                .setBus2(bus2.getId())
+                .add();
+    }
+
+    public static Bus createBus(Network network, String substationId, double nominalVoltage) {
+        Substation substation = network.newSubstation().setId(substationId).add();
+        return createBus(substation, nominalVoltage);
+    }
+
+    public static Bus createBus(Substation substation, double nominalVoltage) {
+        String vlId = String.format("%s %.0f", substation.getId(), nominalVoltage);
+        String busId = String.format("%s %s", vlId, "Bus");
+        return substation.newVoltageLevel()
+                .setId(vlId)
+                .setNominalV(nominalVoltage)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add()
+                .getBusBreakerView()
+                .newBus()
+                .setId(busId)
+                .add();
+    }
+
+    public static void createTransformer(Bus bus1, Bus bus2) {
+        Substation substation = bus1.getVoltageLevel().getSubstation().orElseThrow();
+        String id = String.format("%s %.0f %.0f",
+                substation.getId(),
+                bus1.getVoltageLevel().getNominalV(),
+                bus2.getVoltageLevel().getNominalV());
+        substation.newTwoWindingsTransformer().setId(id)
+                .setR(0.0)
+                .setX(1.0)
+                .setG(0.0)
+                .setB(0.0)
+                .setVoltageLevel1(bus1.getVoltageLevel().getId())
+                .setVoltageLevel2(bus2.getVoltageLevel().getId())
+                .setConnectableBus1(bus1.getId())
+                .setConnectableBus2(bus2.getId())
+                .setRatedU1(bus1.getVoltageLevel().getNominalV())
+                .setRatedU2(bus2.getVoltageLevel().getNominalV())
+                .setBus1(bus1.getId())
+                .setBus2(bus2.getId())
+                .add();
+    }
 }

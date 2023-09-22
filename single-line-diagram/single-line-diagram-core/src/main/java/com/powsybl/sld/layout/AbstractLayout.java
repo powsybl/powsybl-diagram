@@ -11,8 +11,7 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.BaseGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import org.jgrapht.alg.util.Pair;
 
@@ -23,9 +22,17 @@ import java.util.function.BooleanSupplier;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractLayout implements Layout {
+public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Layout {
 
-    public abstract BaseGraph getGraph();
+    private final T graph;
+
+    protected AbstractLayout(T graph) {
+        this.graph = graph;
+    }
+
+    public T getGraph() {
+        return graph;
+    }
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
@@ -34,14 +41,14 @@ public abstract class AbstractLayout implements Layout {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (multiNode instanceof Middle2WTNode) {
-                List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
+                List<Point> pol = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
                 ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
                 ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
                 handle2wtNodeOrientation((Middle2WTNode) multiNode, pollingSplit);
             } else if (multiNode instanceof Middle3WTNode) {
-                List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
-                List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), false);
+                List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true);
+                List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(1), adjacentNodes.get(2)), false);
                 List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
                 for (int i = 0; i < 3; i++) {
                     ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
@@ -52,7 +59,7 @@ public abstract class AbstractLayout implements Layout {
 
         for (BranchEdge lineEdge : graph.getLineEdges()) {
             List<Node> adjacentNodes = lineEdge.getNodes();
-            lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true));
+            lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true));
         }
     }
 
@@ -125,7 +132,7 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    protected abstract List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+    protected abstract List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                               boolean increment);
 
     protected Direction getNodeDirection(Node node, int nb) {
@@ -143,12 +150,15 @@ public abstract class AbstractLayout implements Layout {
      * Calculate polyline points of a snakeLine
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
-    protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam,
+                                                                        Pair<Node, Node> nodes,
                                                                         boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
                                                                         double yMin, double yMax) {
+        Node node1 = nodes.getFirst();
+        Node node2 = nodes.getSecond();
         List<Point> pol = new ArrayList<>();
         pol.add(getGraph().getShiftedPoint(node1));
-        addMiddlePoints(layoutParam, new Pair<>(node1, node2), infosNbSnakeLines, increment, pol, new Pair<>(yMin, yMax));
+        addMiddlePoints(layoutParam, nodes, infosNbSnakeLines, increment, pol, new Pair<>(yMin, yMax));
         pol.add(getGraph().getShiftedPoint(node2));
         return pol;
     }

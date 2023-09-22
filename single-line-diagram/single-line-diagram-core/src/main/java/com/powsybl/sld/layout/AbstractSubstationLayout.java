@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.*;
 
 import java.util.Objects;
 
@@ -14,18 +14,13 @@ import java.util.Objects;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public abstract class AbstractSubstationLayout extends AbstractLayout {
+public abstract class AbstractSubstationLayout extends AbstractBaseLayout<SubstationGraph> {
 
-    private final SubstationGraph graph;
     protected VoltageLevelLayoutFactory vLayoutFactory;
 
     protected AbstractSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        this.graph = graph;
+        super(graph);
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
-    }
-
-    public SubstationGraph getGraph() {
-        return graph;
     }
 
     @Override
