@@ -31,6 +31,7 @@ public class SldParameters {
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = SmartVoltageLevelLayoutFactory::new;
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
+    private ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
@@ -92,6 +93,15 @@ public class SldParameters {
 
     public SldParameters setSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
         this.substationLayoutFactory = substationLayoutFactory;
+        return this;
+    }
+
+    public ZoneLayoutFactory getZoneLayoutFactory() {
+        return zoneLayoutFactory;
+    }
+
+    public SldParameters setZoneLayoutFactory(ZoneLayoutFactory zoneLayoutFactory) {
+        this.zoneLayoutFactory = zoneLayoutFactory;
         return this;
     }
 

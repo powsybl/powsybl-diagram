@@ -12,12 +12,12 @@ import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.slf4j.Logger;
@@ -29,6 +29,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 import static com.powsybl.iidm.network.IdentifiableType.SUBSTATION;
@@ -133,6 +134,22 @@ public final class SingleLineDiagram {
         draw(substationGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
     }
 
+    public static void drawMultiSubstations(Network network, List<String> substationIdList, Path svgFile) {
+        drawMultiSubstations(network, substationIdList, svgFile, new SldParameters());
+    }
+
+    public static void drawMultiSubstations(Network network, List<String> substationIdList, Path svgFile, SldParameters sldParameters) {
+        ZoneGraph zoneGraph = new NetworkGraphBuilder(network).buildZoneGraph(substationIdList);
+        DefaultSVGWriter svgWriter = preDraw(zoneGraph, sldParameters, network);
+        draw(zoneGraph, svgFile, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
+    }
+
+    public static void drawMultiSubstations(Network network, List<String> substationIdList, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
+        ZoneGraph zoneGraph = new NetworkGraphBuilder(network).buildZoneGraph(substationIdList);
+        DefaultSVGWriter svgWriter = preDraw(zoneGraph, sldParameters, network);
+        draw(zoneGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network));
+    }
+
     public static void draw(Graph graph, Path svgFile, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider) {
         Objects.requireNonNull(svgFile);
 
@@ -177,8 +194,9 @@ public final class SingleLineDiagram {
         if (graph instanceof VoltageLevelGraph voltageLevelGraph) {
             voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         } else if (graph instanceof SubstationGraph substationGraph) {
-            SubstationLayoutFactory substationLayoutFactory = sldParameters.getSubstationLayoutFactory();
-            substationLayoutFactory.create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
+            sldParameters.getSubstationLayoutFactory().create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
+        } else if (graph instanceof ZoneGraph zoneGraph) {
+            sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
         } else {
             throw new PowsyblException("First argument is an instance of an unexpected class");
         }

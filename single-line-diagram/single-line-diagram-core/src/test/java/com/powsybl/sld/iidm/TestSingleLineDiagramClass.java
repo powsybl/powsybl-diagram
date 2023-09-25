@@ -16,6 +16,8 @@ import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.VerticalSubstationLayout;
+import com.powsybl.sld.layout.VerticalZoneLayoutFactory;
 import org.apache.commons.io.output.NullWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +30,8 @@ import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -147,6 +151,23 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         Path svgPath = tmpDir.resolve("result.svg");
         PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
         assertEquals("Network element 'foo' not found", exception.getMessage());
+    }
+
+    @Test
+    void testMultiSubstations() throws IOException {
+        String expected = toString("/TestCase13ZoneGraphVV.svg");
+        network = Networks.createNetworkWithManySubstations();
+        List<String> substationIdList = Arrays.asList("A", "B", "C", "D", "E");
+        Path svgPath = tmpDir.resolve("result.svg");
+        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
+        SldParameters sldParameters = new SldParameters()
+                .setLayoutParameters(layoutParameters)
+                .setSvgParameters(svgParameters)
+                .setSubstationLayoutFactory(VerticalSubstationLayout::new)
+                .setZoneLayoutFactory(new VerticalZoneLayoutFactory());
+
+        SingleLineDiagram.drawMultiSubstations(network, substationIdList, svgPath, sldParameters);
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
     }
 
     private String toDefaultSVG(Network network, String id, String filename, String jsonFilename) {
