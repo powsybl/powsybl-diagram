@@ -62,25 +62,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .toList();
     }
 
-    public List<VoltageLevel> getVisibleVoltageLevels(int depth) {
-        List<String> voltageLevelIds = getVoltageLevels().stream()
-                .map(VoltageLevel::getId)
-                .sorted()
-                .toList();
-        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth);
-        return network.getVoltageLevelStream()
-                .filter(filter)
-                .sorted(Comparator.comparing(VoltageLevel::getId))
-                .toList();
-    }
-
-    public List<String> getVisibleVoltageLevelIds(int depth) {
-        return getVisibleVoltageLevels(depth).stream()
-                .map(VoltageLevel::getId)
-                .sorted()
-                .toList();
-    }
-
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         vl.getBusView().getBusStream()

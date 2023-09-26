@@ -10,6 +10,7 @@ package com.powsybl.nad;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.*;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
@@ -69,8 +70,11 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
     @Test
     void testGetVisibleVoltageLevels() {
-        Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        List<String> ids = new NetworkAreaDiagram(network).getVisibleVoltageLevels(0);
-        assertEquals("vl1, vl2, vl3", String.join(", ", ids));
+        Network network = EurostagTutorialExample1Factory.createWithTieLine();
+        List<String> ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 1);
+        assertEquals("VLGEN, VLHV1, VLHV2", String.join(", ", ids));
+
+        ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 2);
+        assertEquals("VLGEN, VLHV1, VLHV2, VLLOAD", String.join(", ", ids));
     }
 }

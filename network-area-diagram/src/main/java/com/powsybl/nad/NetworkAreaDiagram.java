@@ -151,7 +151,11 @@ public class NetworkAreaDiagram {
         }
     }
 
-    public List<String> getVisibleVoltageLevels(int depth) {
-        return new NetworkGraphBuilder(network, voltageLevelFilter, new IntIdProvider()).getVisibleVoltageLevelIds(depth);
+    public static List<String> getDisplayedVoltageLevels(Network network, List<String> voltageLevelIds, int depth) {
+        NetworkGraphBuilder builder = new NetworkGraphBuilder(network, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+        return builder.getVoltageLevels().stream()
+                .map(VoltageLevel::getId)
+                .sorted()
+                .toList();
     }
 }
