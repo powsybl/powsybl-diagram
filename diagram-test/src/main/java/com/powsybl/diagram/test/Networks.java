@@ -2003,8 +2003,8 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
         network.getLine("L11").remove();
         String tieLineId = "B11_B12_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(XNODE_1_ID).add();
-        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setUcteXnodeCode(XNODE_1_ID).add();
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b12.getId()).add();
         network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2017,8 +2017,8 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
         network.getLine("L12").remove();
         String tieLineId = "B11_B21_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setUcteXnodeCode(XNODE_1_ID).add();
-        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setUcteXnodeCode(XNODE_1_ID).add();
+        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b21.getId()).add();
         network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2121,7 +2121,7 @@ public final class Networks {
                 .setG(10e-5)
                 .setP0(50.0)
                 .setQ0(30.0)
-                .setUcteXnodeCode("C66 -D- D66")
+                .setPairingKey("C66 -D- D66")
                 .add();
 
         vlId = String.format(vlFormat, subD.getId(), 66.0);
@@ -2135,18 +2135,18 @@ public final class Networks {
                 .setG(10e-5)
                 .setP0(50.0)
                 .setQ0(30.0)
-                .setUcteXnodeCode("C66 -D- D66")
+                .setPairingKey("C66 -D- D66")
                 .add();
 
         // TieLine between A 230 & B 230
         String xnodeId = XNODE_1_ID;
         vlId = String.format(vlFormat, subA.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
-        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
         String tieLineId = "A230_B230";
-        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setUcteXnodeCode(xnodeId).add();
+        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
 
         return network;
