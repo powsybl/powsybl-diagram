@@ -29,7 +29,7 @@ public class SldParameters {
     private ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
-    private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = SmartVoltageLevelLayoutFactory::new;
+    private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
     private ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
 

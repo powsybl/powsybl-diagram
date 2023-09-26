@@ -18,4 +18,17 @@ import com.powsybl.iidm.network.Network;
 @FunctionalInterface
 public interface VoltageLevelLayoutFactoryCreator {
     VoltageLevelLayoutFactory create(Network network);
+
+    static VoltageLevelLayoutFactoryCreator newSmartVoltageLevelLayoutFactoryCreator() {
+        return SmartVoltageLevelLayoutFactory::new;
+    }
+
+    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator(PositionFinder positionFinder) {
+        return i -> new PositionVoltageLevelLayoutFactory(positionFinder);
+    }
+
+    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator() {
+        return i -> new PositionVoltageLevelLayoutFactory();
+    }
+
 }
