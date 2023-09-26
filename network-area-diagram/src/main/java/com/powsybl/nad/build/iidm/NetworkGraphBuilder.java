@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -45,18 +44,41 @@ public class NetworkGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        List<VoltageLevel> voltageLevelsVisible = network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .sorted(Comparator.comparing(VoltageLevel::getId))
-                .collect(Collectors.toList());
+        List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
         List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
                 .stream()
                 .sorted(Comparator.comparing(VoltageLevel::getId))
-                .collect(Collectors.toList());
+                .toList();
         voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
         voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false));
         voltageLevelsVisible.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
+    }
+
+    public List<VoltageLevel> getVoltageLevels() {
+        return network.getVoltageLevelStream()
+                .filter(voltageLevelFilter)
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .toList();
+    }
+
+    public List<VoltageLevel> getVisibleVoltageLevels(int depth) {
+        List<String> voltageLevelIds = getVoltageLevels().stream()
+                .map(VoltageLevel::getId)
+                .sorted()
+                .toList();
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth);
+        return network.getVoltageLevelStream()
+                .filter(filter)
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .toList();
+    }
+
+    public List<String> getVisibleVoltageLevelIds(int depth) {
+        return getVisibleVoltageLevels(depth).stream()
+                .map(VoltageLevel::getId)
+                .sorted()
+                .toList();
     }
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {

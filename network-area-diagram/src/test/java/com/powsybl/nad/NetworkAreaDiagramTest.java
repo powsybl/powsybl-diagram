@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.nio.file.Path;
+import java.util.*;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -64,5 +65,12 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 getStyleProvider(network));
 
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
+    }
+
+    @Test
+    void testGetVisibleVoltageLevels() {
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        List<String> ids = new NetworkAreaDiagram(network).getVisibleVoltageLevels(0);
+        assertEquals("vl1, vl2, vl3", String.join(", ", ids));
     }
 }

@@ -150,4 +150,8 @@ public class NetworkAreaDiagram {
             throw new UncheckedIOException(e);
         }
     }
+
+    public List<String> getVisibleVoltageLevels(int depth) {
+        return new NetworkGraphBuilder(network, voltageLevelFilter, new IntIdProvider()).getVisibleVoltageLevelIds(depth);
+    }
 }
