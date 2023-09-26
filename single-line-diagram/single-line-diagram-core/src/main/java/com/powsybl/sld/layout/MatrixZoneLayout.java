@@ -32,9 +32,9 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
         // Height by rows
-        List<Double> rowsHeight = new ArrayList<>();
+        List<Double> maxHeightByRow = new ArrayList<>();
         // Width by col
-        List<Double> colsWidth = new ArrayList<>();
+        List<Double> maxWidthByCol = new ArrayList<>();
 
         for (String[] strings : matrix) {
             double rowHeight = 0;
@@ -50,9 +50,9 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                     rowHeight = Math.max(rowHeight, graph.getHeight());
                     colWidth = Math.max(colWidth, graph.getWidth());
                 }
-                colsWidth.add(colWidth);
+                maxWidthByCol.add(colWidth);
             }
-            rowsHeight.add(rowHeight);
+            maxHeightByRow.add(rowHeight);
         }
 
         double zoneWidth = 0.0;
@@ -63,18 +63,17 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             double maxColWidth = 0.0;
             for (int col = 0; col < matrix[row].length; col++) {
                 String id = matrix[row][col];
-
+                double dx = maxWidthByCol.get(col);
                 Optional<SubstationGraph> subGraph = getGraph().getSubstations().stream().filter(s -> s.getSubstationId().equals(id)).findFirst();
                 if (subGraph.isPresent()) {
                     SubstationGraph graph = subGraph.get();
-                    double dx = colsWidth.get(col);
                     move(graph, col * dx, row * dy);
                 }
-                maxColWidth += colsWidth.get(col);
+                maxColWidth += dx;
             }
-            dy = rowsHeight.get(row);
+            dy = maxHeightByRow.get(row);
             zoneWidth = Math.max(maxColWidth, zoneWidth);
-            zoneHeight += rowsHeight.get(row);
+            zoneHeight += dy;
         }
 
         getGraph().setSize(zoneWidth, zoneHeight);
@@ -97,44 +96,5 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     public void manageSnakeLines(LayoutParameters layoutParameters) {
         // Draw snakelines for each Substations
         getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
-        // Draw snakelines between all Substations
-        //manageSnakeLines(getGraph(), layoutParameters);
-        /*
-        // Change Voltagelevels coordinates in function of snakelines drawn
-        adaptPaddingToSnakeLines(layoutParameters);
-        // Redraw all snakelines
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
-        manageSnakeLines(getGraph(), layoutParameters);
-        */
     }
-/*
-    private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double widthSnakeLinesLeft = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
-
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-        LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
-
-        double y = diagramPadding.getTop()
-                + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters)).orElse(0.);
-
-        for (SubstationGraph subGraph : getGraph().getSubstations()) {
-            move(subGraph, widthSnakeLinesLeft, y + voltageLevelPadding.getTop());
-        }
-
-        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters);
-        }
-
-        double widthSnakeLinesRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
-        double substationWidth = getGraph().getWidth() + widthSnakeLinesLeft + widthSnakeLinesRight;
-        double substationHeight = y - diagramPadding.getTop();
-        getGraph().setSize(substationWidth, substationHeight);
-
-        infosNbSnakeLines.reset();
-    }
-
-    private double getHeightHorizontalSnakeLines(String vlGraphId, Direction direction, LayoutParameters layoutParameters) {
-        return Math.max(infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(vlGraphId, direction) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
-    }
- */
 }
