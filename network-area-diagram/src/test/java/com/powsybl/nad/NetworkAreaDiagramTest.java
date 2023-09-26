@@ -11,6 +11,7 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.*;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,5 +63,15 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .setStyleProviderFactory(this::getStyleProvider);
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
+    }
+
+    @Test
+    void testGetVisibleVoltageLevels() {
+        Network network = EurostagTutorialExample1Factory.createWithTieLine();
+        List<String> ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 1);
+        assertEquals("VLGEN, VLHV1, VLHV2", String.join(", ", ids));
+
+        ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 2);
+        assertEquals("VLGEN, VLHV1, VLHV2, VLLOAD", String.join(", ", ids));
     }
 }
