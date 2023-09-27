@@ -18,6 +18,8 @@ import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
+import java.util.Objects;
+
 /**
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
@@ -38,7 +40,7 @@ public class SldParameters {
     }
 
     public SldParameters setSvgParameters(SvgParameters svgParameters) {
-        this.svgParameters = svgParameters;
+        this.svgParameters = Objects.requireNonNull(svgParameters);
         return this;
     }
 
@@ -47,7 +49,7 @@ public class SldParameters {
     }
 
     public SldParameters setLayoutParameters(LayoutParameters layoutParameters) {
-        this.layoutParameters = layoutParameters;
+        this.layoutParameters = Objects.requireNonNull(layoutParameters);
         return this;
     }
 
@@ -56,7 +58,7 @@ public class SldParameters {
     }
 
     public SldParameters setComponentLibrary(ComponentLibrary componentLibrary) {
-        this.componentLibrary = componentLibrary;
+        this.componentLibrary = Objects.requireNonNull(componentLibrary);
         return this;
     }
 
@@ -65,7 +67,7 @@ public class SldParameters {
     }
 
     public SldParameters setLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
-        this.labelProviderFactory = labelProviderFactory;
+        this.labelProviderFactory = Objects.requireNonNull(labelProviderFactory);
         return this;
     }
 
@@ -74,7 +76,7 @@ public class SldParameters {
     }
 
     public SldParameters setStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
-        this.styleProviderFactory = styleProviderFactory;
+        this.styleProviderFactory = Objects.requireNonNull(styleProviderFactory);
         return this;
     }
 
@@ -83,7 +85,7 @@ public class SldParameters {
     }
 
     public SldParameters setVoltageLevelLayoutFactoryCreator(VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {
-        this.voltageLevelLayoutFactoryCreator = voltageLevelLayoutFactoryCreator;
+        this.voltageLevelLayoutFactoryCreator = Objects.requireNonNull(voltageLevelLayoutFactoryCreator);
         return this;
     }
 
@@ -92,7 +94,7 @@ public class SldParameters {
     }
 
     public SldParameters setSubstationLayoutFactory(SubstationLayoutFactory substationLayoutFactory) {
-        this.substationLayoutFactory = substationLayoutFactory;
+        this.substationLayoutFactory = Objects.requireNonNull(substationLayoutFactory);
         return this;
     }
 
@@ -101,7 +103,7 @@ public class SldParameters {
     }
 
     public SldParameters setZoneLayoutFactory(ZoneLayoutFactory zoneLayoutFactory) {
-        this.zoneLayoutFactory = zoneLayoutFactory;
+        this.zoneLayoutFactory = Objects.requireNonNull(zoneLayoutFactory);
         return this;
     }
 

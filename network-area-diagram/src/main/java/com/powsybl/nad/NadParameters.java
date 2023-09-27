@@ -16,6 +16,8 @@ import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
 
+import java.util.Objects;
+
 /**
  *
  * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
@@ -34,7 +36,7 @@ public class NadParameters {
     }
 
     public NadParameters setSvgParameters(SvgParameters svgParameters) {
-        this.svgParameters = svgParameters;
+        this.svgParameters = Objects.requireNonNull(svgParameters);
         return this;
     }
 
@@ -43,7 +45,7 @@ public class NadParameters {
     }
 
     public NadParameters setLayoutParameters(LayoutParameters layoutParameters) {
-        this.layoutParameters = layoutParameters;
+        this.layoutParameters = Objects.requireNonNull(layoutParameters);
         return this;
     }
 
@@ -52,7 +54,7 @@ public class NadParameters {
     }
 
     public NadParameters setStyleProviderFactory(StyleProviderFactory styleProviderFactory) {
-        this.styleProviderFactory = styleProviderFactory;
+        this.styleProviderFactory = Objects.requireNonNull(styleProviderFactory);
         return this;
     }
 
@@ -61,7 +63,7 @@ public class NadParameters {
     }
 
     public NadParameters setLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
-        this.labelProviderFactory = labelProviderFactory;
+        this.labelProviderFactory = Objects.requireNonNull(labelProviderFactory);
         return this;
     }
 
@@ -70,7 +72,7 @@ public class NadParameters {
     }
 
     public NadParameters setLayoutFactory(LayoutFactory layoutFactory) {
-        this.layoutFactory = layoutFactory;
+        this.layoutFactory = Objects.requireNonNull(layoutFactory);
         return this;
     }
 
@@ -79,7 +81,7 @@ public class NadParameters {
     }
 
     public NadParameters setIdProviderFactory(IdProviderFactory idProviderFactory) {
-        this.idProviderFactory = idProviderFactory;
+        this.idProviderFactory = Objects.requireNonNull(idProviderFactory);
         return this;
     }
 

@@ -22,6 +22,7 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class NetworkAreaDiagramTest extends AbstractTest {
 
-    protected java.nio.file.FileSystem fileSystem;
+    protected FileSystem fileSystem;
 
     @BeforeEach
     void setup() {
