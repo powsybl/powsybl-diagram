@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
 import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.jupiter.api.BeforeEach;

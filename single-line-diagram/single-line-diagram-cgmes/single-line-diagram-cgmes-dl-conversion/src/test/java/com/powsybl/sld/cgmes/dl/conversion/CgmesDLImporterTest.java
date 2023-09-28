@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.triplestore.api.PropertyBags;
 
 import org.junit.jupiter.api.BeforeEach;

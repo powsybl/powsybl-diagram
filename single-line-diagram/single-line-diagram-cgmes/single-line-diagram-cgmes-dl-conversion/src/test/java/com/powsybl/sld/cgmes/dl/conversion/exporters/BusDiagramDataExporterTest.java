@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.triplestore.api.PropertyBags;
@@ -42,7 +42,7 @@ class BusDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest
 
     @Override
     protected void checkStatements() {
-        checkStatements(bus.getId(), bus.getName(), "bus-branch");
+        checkStatements(bus.getId(), bus.getNameOrId(), "bus-branch");
     }
 
 }

@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.iidm.CreateNetworksUtil;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = CreateNetworksUtil.createNetworkWithSvcVscScDl();
+        network = Networks.createNetworkWithSvcVscScDl();
         graphBuilder = new NetworkGraphBuilder(network);
         vl = network.getVoltageLevel("vl");
     }

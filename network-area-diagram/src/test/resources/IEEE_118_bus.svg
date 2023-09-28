@@ -8,7 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
-.nad-dangling-line-edge {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; fill: none}
+.nad-branch-edges .nad-tie-line-edge .nad-edge-path {stroke-width: 7}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
@@ -550,7 +550,7 @@
         </g>
         <g transform="translate(-1307.45,-2918.68)" id="2">
             <desc>VL10</desc>
-            <circle r="27.50" id="3" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="3" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(2323.85,-469.66)" id="4">
             <desc>VL100</desc>
@@ -694,7 +694,7 @@
         </g>
         <g transform="translate(-1584.83,-1094.99)" id="74">
             <desc>VL26</desc>
-            <circle r="27.50" id="75" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="75" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-2396.03,-1575.73)" id="76">
             <desc>VL27</desc>
@@ -714,7 +714,7 @@
         </g>
         <g transform="translate(-967.99,-1064.51)" id="84">
             <desc>VL30</desc>
-            <circle r="27.50" id="85" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="85" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-1563.34,-1851.27)" id="86">
             <desc>VL31</desc>
@@ -746,7 +746,7 @@
         </g>
         <g transform="translate(-515.99,257.27)" id="100">
             <desc>VL38</desc>
-            <circle r="27.50" id="101" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="101" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(707.42,1039.26)" id="102">
             <desc>VL39</desc>
@@ -858,15 +858,15 @@
         </g>
         <g transform="translate(-1522.71,2138.63)" id="156">
             <desc>VL63</desc>
-            <circle r="27.50" id="157" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="157" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-1223.07,1924.77)" id="158">
             <desc>VL64</desc>
-            <circle r="27.50" id="159" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="159" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-838.01,1302.47)" id="160">
             <desc>VL65</desc>
-            <circle r="27.50" id="161" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="161" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-724.94,2291.00)" id="162">
             <desc>VL66</desc>
@@ -878,7 +878,7 @@
         </g>
         <g transform="translate(-432.82,839.16)" id="166">
             <desc>VL68</desc>
-            <circle r="27.50" id="167" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="167" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(-737.13,811.74)" id="168">
             <desc>VL69</desc>
@@ -930,7 +930,7 @@
         </g>
         <g transform="translate(-822.77,-2072.63)" id="192">
             <desc>VL8</desc>
-            <circle r="27.50" id="193" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="193" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(1115.02,-106.19)" id="194">
             <desc>VL80</desc>
@@ -938,7 +938,7 @@
         </g>
         <g transform="translate(555.40,284.23)" id="196">
             <desc>VL81</desc>
-            <circle r="27.50" id="197" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="197" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(1185.49,633.29)" id="198">
             <desc>VL82</desc>
@@ -962,7 +962,7 @@
         </g>
         <g transform="translate(2281.30,2465.48)" id="208">
             <desc>VL87</desc>
-            <circle r="27.50" id="209" class="nad-vl300to500-0 nad-busnode"/>
+            <circle r="27.50" id="209" class="nad-vl120to180-0 nad-busnode"/>
         </g>
         <g transform="translate(2651.27,1470.48)" id="210">
             <desc>VL88</desc>
@@ -974,7 +974,7 @@
         </g>
         <g transform="translate(-1110.36,-2546.02)" id="214">
             <desc>VL9</desc>
-            <circle r="27.50" id="215" class="nad-vl120to180-0 nad-busnode"/>
+            <circle r="27.50" id="215" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(3119.18,992.09)" id="216">
             <desc>VL90</desc>
@@ -1074,7 +1074,7 @@
         </g>
         <g id="238">
             <desc>L9-10-1</desc>
-            <g id="238.1" class="nad-vl120to180-line">
+            <g id="238.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1123.22,-2570.33 -1208.91,-2732.35"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1138.41,-2599.06)">
                     <g class="nad-active nad-state-out">
@@ -1086,7 +1086,7 @@
                     </g>
                 </g>
             </g>
-            <g id="238.2" class="nad-vl120to180-line">
+            <g id="238.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-1294.60,-2894.37 -1208.91,-2732.35"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-1279.40,-2865.64)">
                     <g class="nad-active nad-state-out">
@@ -1938,7 +1938,7 @@
         </g>
         <g id="270">
             <desc>L68-116-1</desc>
-            <g id="270.1" class="nad-vl120to180-line">
+            <g id="270.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-460.27,840.92 -751.79,859.68"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-492.70,843.01)">
                     <g class="nad-active nad-state-out">
@@ -2397,7 +2397,7 @@
         </g>
         <g id="287">
             <desc>T30-17-1</desc>
-            <g id="287.1" class="nad-vl120to180-line">
+            <g id="287.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-958.02,-1090.14 -900.75,-1237.35"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-946.24,-1120.43)">
                     <g class="nad-active nad-state-out">
@@ -2422,7 +2422,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-893.50" cy="-1255.99" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-893.50" cy="-1255.99" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-886.25" cy="-1274.63" r="20.00"/>
             </g>
         </g>
@@ -2752,7 +2752,7 @@
         </g>
         <g id="300">
             <desc>T26-25-1</desc>
-            <g id="300.1" class="nad-vl120to180-line">
+            <g id="300.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1612.14,-1098.25 -1837.84,-1125.23"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1644.41,-1102.11)">
                     <g class="nad-active nad-state-out">
@@ -2777,13 +2777,13 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-1857.70" cy="-1127.60" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-1857.70" cy="-1127.60" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-1877.56" cy="-1129.97" r="20.00"/>
             </g>
         </g>
         <g id="301">
             <desc>L26-30-1</desc>
-            <g id="301.1" class="nad-vl120to180-line">
+            <g id="301.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1557.37,-1093.63 -1276.41,-1079.75"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1524.91,-1092.03)">
                     <g class="nad-active nad-state-out">
@@ -2795,7 +2795,7 @@
                     </g>
                 </g>
             </g>
-            <g id="301.2" class="nad-vl120to180-line">
+            <g id="301.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-995.45,-1065.86 -1276.41,-1079.75"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-1027.91,-1067.47)">
                     <g class="nad-active nad-state-out">
@@ -2945,7 +2945,7 @@
         </g>
         <g id="307">
             <desc>L8-30-1</desc>
-            <g id="307.1" class="nad-vl120to180-line">
+            <g id="307.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-826.69,-2045.41 -895.38,-1568.57"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-831.33,-2013.24)">
                     <g class="nad-active nad-state-out">
@@ -2957,7 +2957,7 @@
                     </g>
                 </g>
             </g>
-            <g id="307.2" class="nad-vl120to180-line">
+            <g id="307.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-964.07,-1091.73 -895.38,-1568.57"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-959.43,-1123.89)">
                     <g class="nad-active nad-state-out">
@@ -2972,7 +2972,7 @@
         </g>
         <g id="308">
             <desc>L30-38-1</desc>
-            <g id="308.1" class="nad-vl120to180-line">
+            <g id="308.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-959.09,-1038.49 -741.99,-403.62"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-948.57,-1007.73)">
                     <g class="nad-active nad-state-out">
@@ -2984,7 +2984,7 @@
                     </g>
                 </g>
             </g>
-            <g id="308.2" class="nad-vl120to180-line">
+            <g id="308.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-524.89,231.24 -741.99,-403.62"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-535.40,200.49)">
                     <g class="nad-active nad-state-out">
@@ -3242,7 +3242,7 @@
         </g>
         <g id="318">
             <desc>T38-37-1</desc>
-            <g id="318.1" class="nad-vl120to180-line">
+            <g id="318.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-490.21,266.84 -165.30,387.44"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-459.74,278.15)">
                     <g class="nad-active nad-state-out">
@@ -3267,13 +3267,13 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-146.55" cy="394.40" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-146.55" cy="394.40" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-127.80" cy="401.36" r="20.00"/>
             </g>
         </g>
         <g id="319">
             <desc>L38-65-1</desc>
-            <g id="319.1" class="nad-vl120to180-line">
+            <g id="319.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-524.09,283.55 -677.00,779.87"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-533.66,314.61)">
                     <g class="nad-active nad-state-out">
@@ -3285,7 +3285,7 @@
                     </g>
                 </g>
             </g>
-            <g id="319.2" class="nad-vl120to180-line">
+            <g id="319.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-829.92,1276.19 -677.00,779.87"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-820.35,1245.13)">
                     <g class="nad-active nad-state-out">
@@ -3948,7 +3948,7 @@
         </g>
         <g id="344">
             <desc>T8-5-1</desc>
-            <g id="344.1" class="nad-vl120to180-line">
+            <g id="344.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-802.12,-2090.79 -546.98,-2315.22"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-777.72,-2112.26)">
                     <g class="nad-active nad-state-out">
@@ -3973,7 +3973,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-531.96" cy="-2328.43" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-531.96" cy="-2328.43" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-516.95" cy="-2341.64" r="20.00"/>
             </g>
         </g>
@@ -4411,7 +4411,7 @@
         </g>
         <g id="361">
             <desc>T63-59-1</desc>
-            <g id="361.1" class="nad-vl120to180-line">
+            <g id="361.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1532.86,2164.19 -1592.46,2314.14"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1544.87,2194.39)">
                     <g class="nad-active nad-state-out">
@@ -4436,7 +4436,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-1599.84" cy="2332.72" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-1599.84" cy="2332.72" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-1607.23" cy="2351.31" r="20.00"/>
             </g>
         </g>
@@ -4550,7 +4550,7 @@
         </g>
         <g id="366">
             <desc>T64-61-1</desc>
-            <g id="366.1" class="nad-vl120to180-line">
+            <g id="366.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1223.60,1952.26 -1229.63,2263.50"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1224.23,1984.76)">
                     <g class="nad-active nad-state-out">
@@ -4575,7 +4575,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-1230.01" cy="2283.50" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-1230.01" cy="2283.50" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-1230.40" cy="2303.49" r="20.00"/>
             </g>
         </g>
@@ -4635,7 +4635,7 @@
         </g>
         <g id="369">
             <desc>L63-64-1</desc>
-            <g id="369.1" class="nad-vl120to180-line">
+            <g id="369.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1500.32,2122.66 -1372.89,2031.70"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1473.87,2103.78)">
                     <g class="nad-active nad-state-out">
@@ -4647,7 +4647,7 @@
                     </g>
                 </g>
             </g>
-            <g id="369.2" class="nad-vl120to180-line">
+            <g id="369.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-1245.45,1940.74 -1372.89,2031.70"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-1271.91,1959.63)">
                     <g class="nad-active nad-state-out">
@@ -4662,7 +4662,7 @@
         </g>
         <g id="370">
             <desc>L64-65-1</desc>
-            <g id="370.1" class="nad-vl120to180-line">
+            <g id="370.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-1208.60,1901.38 -1030.54,1613.62"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-1191.50,1873.75)">
                     <g class="nad-active nad-state-out">
@@ -4674,7 +4674,7 @@
                     </g>
                 </g>
             </g>
-            <g id="370.2" class="nad-vl120to180-line">
+            <g id="370.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-852.48,1325.86 -1030.54,1613.62"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-869.59,1353.50)">
                     <g class="nad-active nad-state-out">
@@ -4689,7 +4689,7 @@
         </g>
         <g id="371">
             <desc>L65-68-1</desc>
-            <g id="371.1" class="nad-vl120to180-line">
+            <g id="371.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-819.91,1281.77 -635.42,1070.82"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-798.52,1257.31)">
                     <g class="nad-active nad-state-out">
@@ -4701,7 +4701,7 @@
                     </g>
                 </g>
             </g>
-            <g id="371.2" class="nad-vl120to180-line">
+            <g id="371.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-450.93,859.86 -635.42,1070.82"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-472.32,884.32)">
                     <g class="nad-active nad-state-out">
@@ -4716,7 +4716,7 @@
         </g>
         <g id="372">
             <desc>T65-66-1</desc>
-            <g id="372.1" class="nad-vl120to180-line">
+            <g id="372.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-834.89,1329.80 -784.89,1766.93"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-831.20,1362.08)">
                     <g class="nad-active nad-state-out">
@@ -4741,7 +4741,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-782.61" cy="1786.80" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-782.61" cy="1786.80" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-780.34" cy="1806.67" r="20.00"/>
             </g>
         </g>
@@ -4774,7 +4774,7 @@
         </g>
         <g id="374">
             <desc>L68-81-1</desc>
-            <g id="374.1" class="nad-vl120to180-line">
+            <g id="374.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-408.85,825.69 61.29,561.70"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-380.51,809.78)">
                     <g class="nad-active nad-state-out">
@@ -4786,7 +4786,7 @@
                     </g>
                 </g>
             </g>
-            <g id="374.2" class="nad-vl120to180-line">
+            <g id="374.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="531.42,297.70 61.29,561.70"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(503.08,313.61)">
                     <g class="nad-active nad-state-out">
@@ -4801,7 +4801,7 @@
         </g>
         <g id="375">
             <desc>T68-69-1</desc>
-            <g id="375.1" class="nad-vl120to180-line">
+            <g id="375.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-460.21,836.69 -555.10,828.14"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-492.58,833.77)">
                     <g class="nad-active nad-state-out">
@@ -4826,7 +4826,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="-575.02" cy="826.35" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-575.02" cy="826.35" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="-594.94" cy="824.55" r="20.00"/>
             </g>
         </g>
@@ -5291,7 +5291,7 @@
         </g>
         <g id="393">
             <desc>L8-9-1</desc>
-            <g id="393.1" class="nad-vl120to180-line">
+            <g id="393.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-837.05,-2096.13 -966.57,-2309.32"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-853.93,-2123.91)">
                     <g class="nad-active nad-state-out">
@@ -5303,7 +5303,7 @@
                     </g>
                 </g>
             </g>
-            <g id="393.2" class="nad-vl120to180-line">
+            <g id="393.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-1096.08,-2522.51 -966.57,-2309.32"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-1079.21,-2494.74)">
                     <g class="nad-active nad-state-out">
@@ -5426,7 +5426,7 @@
         </g>
         <g id="398">
             <desc>T81-80-1</desc>
-            <g id="398.1" class="nad-vl120to180-line">
+            <g id="398.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="577.95,268.50 810.61,106.19"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(604.61,249.90)">
                     <g class="nad-active nad-state-out">
@@ -5451,7 +5451,7 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-vl120to180-line nad-winding" cx="827.01" cy="94.74" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="827.01" cy="94.74" r="20.00"/>
                 <circle class="nad-vl120to180-line nad-winding" cx="843.41" cy="83.30" r="20.00"/>
             </g>
         </g>
@@ -5685,7 +5685,7 @@
                     </g>
                 </g>
             </g>
-            <g id="407.2" class="nad-vl300to500-line">
+            <g id="407.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="2282.39,2438.00 2289.37,2261.37"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(2283.67,2405.53)">
                     <g class="nad-active nad-state-out">
@@ -6206,7 +6206,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>153.8 kV / 10.7°</td>
+                        <td>131.8 kV / 10.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6217,9 +6217,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>144.9 kV / 35.6°</td>
+                        <td>362.2 kV / 35.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6232,7 +6232,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>163.7 kV / 28.0°</td>
+                        <td>140.3 kV / 28.0°</td>
                     </tr>
                 </table>
             </div>
@@ -6245,7 +6245,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.9 kV / 29.6°</td>
+                        <td>137.0 kV / 29.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6258,7 +6258,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.6 kV / 32.3°</td>
+                        <td>136.8 kV / 32.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6271,7 +6271,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.2 kV / 24.4°</td>
+                        <td>138.1 kV / 24.4°</td>
                     </tr>
                 </table>
             </div>
@@ -6284,7 +6284,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.3 kV / 21.7°</td>
+                        <td>134.0 kV / 21.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6297,7 +6297,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.4 kV / 20.6°</td>
+                        <td>133.2 kV / 20.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6310,7 +6310,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.9 kV / 20.3°</td>
+                        <td>132.8 kV / 20.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6323,7 +6323,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>153.3 kV / 17.5°</td>
+                        <td>131.4 kV / 17.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6336,7 +6336,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 19.4°</td>
+                        <td>133.4 kV / 19.4°</td>
                     </tr>
                 </table>
             </div>
@@ -6349,7 +6349,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 18.9°</td>
+                        <td>133.4 kV / 18.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6362,7 +6362,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 12.7°</td>
+                        <td>135.9 kV / 12.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6375,7 +6375,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.7 kV / 18.1°</td>
+                        <td>134.3 kV / 18.1°</td>
                     </tr>
                 </table>
             </div>
@@ -6388,7 +6388,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.8 kV / 19.7°</td>
+                        <td>135.2 kV / 19.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6401,7 +6401,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.0 kV / 15.0°</td>
+                        <td>134.5 kV / 15.0°</td>
                     </tr>
                 </table>
             </div>
@@ -6414,7 +6414,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.9 kV / 13.7°</td>
+                        <td>137.0 kV / 13.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6427,7 +6427,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.6 kV / 14.5°</td>
+                        <td>132.5 kV / 14.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6440,7 +6440,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.6 kV / 14.5°</td>
+                        <td>132.5 kV / 14.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6453,7 +6453,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.8 kV / 27.1°</td>
+                        <td>138.7 kV / 27.1°</td>
                     </tr>
                 </table>
             </div>
@@ -6466,7 +6466,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.8 kV / 10.7°</td>
+                        <td>134.4 kV / 10.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6479,7 +6479,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>152.8 kV / 21.9°</td>
+                        <td>131.0 kV / 21.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6492,7 +6492,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.4 kV / 12.2°</td>
+                        <td>136.6 kV / 12.2°</td>
                     </tr>
                 </table>
             </div>
@@ -6505,7 +6505,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.8 kV / 11.3°</td>
+                        <td>133.6 kV / 11.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6518,7 +6518,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.4 kV / 11.5°</td>
+                        <td>135.8 kV / 11.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6531,7 +6531,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.2 kV / 11.2°</td>
+                        <td>133.9 kV / 11.2°</td>
                     </tr>
                 </table>
             </div>
@@ -6544,7 +6544,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.4 kV / 11.9°</td>
+                        <td>135.8 kV / 11.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6557,7 +6557,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>160.2 kV / 13.7°</td>
+                        <td>137.3 kV / 13.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6570,7 +6570,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.7 kV / 11.5°</td>
+                        <td>134.3 kV / 11.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6583,7 +6583,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.0 kV / 11.1°</td>
+                        <td>132.9 kV / 11.1°</td>
                     </tr>
                 </table>
             </div>
@@ -6596,7 +6596,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.3 kV / 11.2°</td>
+                        <td>134.0 kV / 11.2°</td>
                     </tr>
                 </table>
             </div>
@@ -6609,7 +6609,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.2 kV / 11.9°</td>
+                        <td>132.2 kV / 11.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6622,7 +6622,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.4 kV / 13.5°</td>
+                        <td>132.3 kV / 13.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6635,7 +6635,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.2 kV / 16.1°</td>
+                        <td>133.9 kV / 16.1°</td>
                     </tr>
                 </table>
             </div>
@@ -6648,7 +6648,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.0 kV / 21.0°</td>
+                        <td>138.0 kV / 21.0°</td>
                     </tr>
                 </table>
             </div>
@@ -6661,7 +6661,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.7 kV / 20.9°</td>
+                        <td>136.9 kV / 20.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6674,7 +6674,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>169.1 kV / 27.9°</td>
+                        <td>144.9 kV / 27.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6685,9 +6685,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>140.1 kV / 29.7°</td>
+                        <td>350.2 kV / 29.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6700,7 +6700,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.8 kV / 15.3°</td>
+                        <td>133.6 kV / 15.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6713,7 +6713,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.9 kV / 13.6°</td>
+                        <td>132.8 kV / 13.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6726,7 +6726,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.0 kV / 12.6°</td>
+                        <td>132.9 kV / 12.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6739,7 +6739,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.8 kV / 11.6°</td>
+                        <td>133.6 kV / 11.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6750,9 +6750,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>133.6 kV / 18.8°</td>
+                        <td>334.0 kV / 18.8°</td>
                     </tr>
                 </table>
             </div>
@@ -6765,7 +6765,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 12.8°</td>
+                        <td>133.4 kV / 12.8°</td>
                     </tr>
                 </table>
             </div>
@@ -6778,7 +6778,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.2 kV / 14.8°</td>
+                        <td>133.0 kV / 14.8°</td>
                     </tr>
                 </table>
             </div>
@@ -6791,7 +6791,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.5 kV / 10.6°</td>
+                        <td>134.1 kV / 10.6°</td>
                     </tr>
                 </table>
             </div>
@@ -6804,7 +6804,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.7 kV / 11.3°</td>
+                        <td>136.1 kV / 11.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6817,7 +6817,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.9 kV / 10.9°</td>
+                        <td>135.4 kV / 10.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6830,7 +6830,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.8 kV / 10.9°</td>
+                        <td>135.2 kV / 10.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6843,7 +6843,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.7 kV / 11.8°</td>
+                        <td>136.9 kV / 11.8°</td>
                     </tr>
                 </table>
             </div>
@@ -6854,9 +6854,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>132.8 kV / 16.9°</td>
+                        <td>331.9 kV / 16.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6869,7 +6869,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.2 kV / 8.4°</td>
+                        <td>133.9 kV / 8.4°</td>
                     </tr>
                 </table>
             </div>
@@ -6882,7 +6882,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>160.7 kV / 15.3°</td>
+                        <td>137.7 kV / 15.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6895,7 +6895,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.2 kV / 7.3°</td>
+                        <td>133.9 kV / 7.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6908,7 +6908,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 6.9°</td>
+                        <td>133.4 kV / 6.9°</td>
                     </tr>
                 </table>
             </div>
@@ -6921,7 +6921,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 8.5°</td>
+                        <td>135.9 kV / 8.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6934,7 +6934,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.5 kV / 11.3°</td>
+                        <td>135.0 kV / 11.3°</td>
                     </tr>
                 </table>
             </div>
@@ -6947,7 +6947,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 13.8°</td>
+                        <td>135.9 kV / 13.8°</td>
                     </tr>
                 </table>
             </div>
@@ -6960,7 +6960,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.9 kV / 15.7°</td>
+                        <td>136.2 kV / 15.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6973,7 +6973,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.8 kV / 18.5°</td>
+                        <td>138.7 kV / 18.5°</td>
                     </tr>
                 </table>
             </div>
@@ -6986,7 +6986,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>163.7 kV / 20.7°</td>
+                        <td>140.3 kV / 20.7°</td>
                     </tr>
                 </table>
             </div>
@@ -6999,7 +6999,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>164.4 kV / 19.9°</td>
+                        <td>140.9 kV / 19.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7012,7 +7012,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>165.0 kV / 20.9°</td>
+                        <td>141.4 kV / 20.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7025,7 +7025,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.3 kV / 15.7°</td>
+                        <td>138.3 kV / 15.7°</td>
                     </tr>
                 </table>
             </div>
@@ -7038,7 +7038,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.2 kV / 18.9°</td>
+                        <td>138.1 kV / 18.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7051,7 +7051,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 16.3°</td>
+                        <td>133.4 kV / 16.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7064,7 +7064,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.1 kV / 15.3°</td>
+                        <td>132.1 kV / 15.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7077,7 +7077,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>152.3 kV / 14.3°</td>
+                        <td>130.5 kV / 14.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7090,7 +7090,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>153.8 kV / 15.3°</td>
+                        <td>131.8 kV / 15.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7103,7 +7103,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>153.3 kV / 15.0°</td>
+                        <td>131.4 kV / 15.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7116,7 +7116,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>153.6 kV / 15.2°</td>
+                        <td>131.7 kV / 15.2°</td>
                     </tr>
                 </table>
             </div>
@@ -7129,7 +7129,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>156.3 kV / 16.4°</td>
+                        <td>134.0 kV / 16.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7142,7 +7142,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.4 kV / 15.5°</td>
+                        <td>132.3 kV / 15.5°</td>
                     </tr>
                 </table>
             </div>
@@ -7155,7 +7155,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 19.4°</td>
+                        <td>135.9 kV / 19.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7168,7 +7168,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.4 kV / 13.0°</td>
+                        <td>136.6 kV / 13.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7181,7 +7181,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.9 kV / 23.1°</td>
+                        <td>137.0 kV / 23.1°</td>
                     </tr>
                 </table>
             </div>
@@ -7194,7 +7194,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>160.2 kV / 24.0°</td>
+                        <td>137.3 kV / 24.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7207,7 +7207,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>160.7 kV / 23.4°</td>
+                        <td>137.7 kV / 23.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7218,9 +7218,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>133.7 kV / 22.8°</td>
+                        <td>334.3 kV / 22.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7231,9 +7231,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>135.8 kV / 24.5°</td>
+                        <td>339.5 kV / 24.5°</td>
                     </tr>
                 </table>
             </div>
@@ -7244,9 +7244,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>138.7 kV / 27.6°</td>
+                        <td>346.7 kV / 27.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7259,7 +7259,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>169.1 kV / 27.5°</td>
+                        <td>144.9 kV / 27.5°</td>
                     </tr>
                 </table>
             </div>
@@ -7272,7 +7272,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>164.2 kV / 24.8°</td>
+                        <td>140.8 kV / 24.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7283,9 +7283,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>138.4 kV / 27.6°</td>
+                        <td>346.0 kV / 27.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7298,7 +7298,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>166.6 kV / 30.0°</td>
+                        <td>142.8 kV / 30.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7311,7 +7311,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.2 kV / 12.6°</td>
+                        <td>136.5 kV / 12.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7324,7 +7324,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.4 kV / 22.6°</td>
+                        <td>135.8 kV / 22.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7337,7 +7337,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.9 kV / 22.1°</td>
+                        <td>136.2 kV / 22.1°</td>
                     </tr>
                 </table>
             </div>
@@ -7350,7 +7350,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.8 kV / 21.0°</td>
+                        <td>135.2 kV / 21.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7363,7 +7363,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.6 kV / 21.9°</td>
+                        <td>136.8 kV / 21.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7376,7 +7376,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>154.2 kV / 21.6°</td>
+                        <td>132.2 kV / 21.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7389,7 +7389,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>155.7 kV / 22.9°</td>
+                        <td>133.4 kV / 22.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7402,7 +7402,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>151.8 kV / 21.8°</td>
+                        <td>130.1 kV / 21.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7415,7 +7415,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>162.0 kV / 26.7°</td>
+                        <td>138.8 kV / 26.7°</td>
                     </tr>
                 </table>
             </div>
@@ -7428,7 +7428,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.5 kV / 26.4°</td>
+                        <td>138.4 kV / 26.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7441,7 +7441,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>162.4 kV / 26.7°</td>
+                        <td>139.2 kV / 26.7°</td>
                     </tr>
                 </table>
             </div>
@@ -7452,9 +7452,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>140.1 kV / 20.8°</td>
+                        <td>350.2 kV / 20.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7467,7 +7467,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>167.4 kV / 29.0°</td>
+                        <td>143.5 kV / 29.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7478,9 +7478,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>137.6 kV / 28.1°</td>
+                        <td>344.0 kV / 28.1°</td>
                     </tr>
                 </table>
             </div>
@@ -7493,7 +7493,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.2 kV / 27.2°</td>
+                        <td>136.5 kV / 27.2°</td>
                     </tr>
                 </table>
             </div>
@@ -7506,7 +7506,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 28.4°</td>
+                        <td>135.9 kV / 28.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7519,7 +7519,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.8 kV / 30.9°</td>
+                        <td>135.2 kV / 30.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7532,7 +7532,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 32.5°</td>
+                        <td>135.9 kV / 32.5°</td>
                     </tr>
                 </table>
             </div>
@@ -7545,7 +7545,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.9 kV / 31.1°</td>
+                        <td>136.2 kV / 31.1°</td>
                     </tr>
                 </table>
             </div>
@@ -7556,9 +7556,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>350.2 kV / 31.4°</td>
+                        <td>163.4 kV / 31.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7571,7 +7571,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.9 kV / 35.6°</td>
+                        <td>136.2 kV / 35.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7584,7 +7584,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>161.8 kV / 39.7°</td>
+                        <td>138.7 kV / 39.7°</td>
                     </tr>
                 </table>
             </div>
@@ -7595,9 +7595,9 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
                         </td>
-                        <td>143.9 kV / 28.0°</td>
+                        <td>359.8 kV / 28.0°</td>
                     </tr>
                 </table>
             </div>
@@ -7610,7 +7610,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.6 kV / 33.3°</td>
+                        <td>135.9 kV / 33.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7623,7 +7623,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.8 kV / 33.3°</td>
+                        <td>135.2 kV / 33.3°</td>
                     </tr>
                 </table>
             </div>
@@ -7636,7 +7636,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.9 kV / 33.8°</td>
+                        <td>137.0 kV / 33.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7649,7 +7649,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>158.9 kV / 30.8°</td>
+                        <td>136.2 kV / 30.8°</td>
                     </tr>
                 </table>
             </div>
@@ -7662,7 +7662,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.6 kV / 28.6°</td>
+                        <td>136.8 kV / 28.6°</td>
                     </tr>
                 </table>
             </div>
@@ -7675,7 +7675,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>157.9 kV / 27.7°</td>
+                        <td>135.4 kV / 27.7°</td>
                     </tr>
                 </table>
             </div>
@@ -7688,7 +7688,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>159.9 kV / 27.5°</td>
+                        <td>137.0 kV / 27.5°</td>
                     </tr>
                 </table>
             </div>
@@ -7701,7 +7701,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>162.8 kV / 27.9°</td>
+                        <td>139.5 kV / 27.9°</td>
                     </tr>
                 </table>
             </div>
@@ -7714,7 +7714,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>164.9 kV / 27.4°</td>
+                        <td>141.3 kV / 27.4°</td>
                     </tr>
                 </table>
             </div>
@@ -7727,7 +7727,7 @@
                         <td>
                             <div class="nad-vl120to180-0 nad-legend-square"/>
                         </td>
-                        <td>162.6 kV / 27.0°</td>
+                        <td>139.4 kV / 27.0°</td>
                     </tr>
                 </table>
             </div>

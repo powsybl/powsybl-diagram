@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Generator;
 
@@ -41,7 +41,7 @@ class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExpor
 
     @Override
     protected void checkStatements() {
-        checkStatements(generator.getId(), generator.getName(), "bus-branch");
+        checkStatements(generator.getId(), generator.getNameOrId(), "bus-branch");
     }
 
 }

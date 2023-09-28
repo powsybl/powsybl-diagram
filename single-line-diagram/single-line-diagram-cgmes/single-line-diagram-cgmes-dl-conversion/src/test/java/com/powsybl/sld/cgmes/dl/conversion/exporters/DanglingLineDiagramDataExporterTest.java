@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.triplestore.api.PropertyBags;
@@ -40,7 +40,7 @@ class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExp
 
     @Override
     protected void checkStatements() {
-        checkStatements(danglingLine.getId(), danglingLine.getName(), "bus-branch");
+        checkStatements(danglingLine.getId(), danglingLine.getNameOrId(), "bus-branch");
     }
 
 }

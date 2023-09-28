@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -45,18 +44,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        List<VoltageLevel> voltageLevelsVisible = network.getVoltageLevelStream()
-                .filter(voltageLevelFilter)
-                .sorted(Comparator.comparing(VoltageLevel::getId))
-                .collect(Collectors.toList());
+        List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
         List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
                 .stream()
                 .sorted(Comparator.comparing(VoltageLevel::getId))
-                .collect(Collectors.toList());
+                .toList();
         voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
         voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false));
         voltageLevelsVisible.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
+    }
+
+    public List<VoltageLevel> getVoltageLevels() {
+        return network.getVoltageLevelStream()
+                .filter(voltageLevelFilter)
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .toList();
     }
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
@@ -111,11 +114,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
-        BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
-        BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
-        boundaryNode.addBusNode(boundaryBusNode);
-        graph.addNode(boundaryNode);
-        addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        if (!dl.isPaired()) {
+            BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
+            BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
+            boundaryNode.addBusNode(boundaryBusNode);
+            graph.addNode(boundaryNode);
+            addEdge(graph, dl, boundaryNode, boundaryBusNode);
+        } else {
+            dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
+        }
+    }
+
+    private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+        addEdge(graph, tieLine, dl.getTerminal().getVoltageLevel(), BranchEdge.TIE_LINE_EDGE);
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {

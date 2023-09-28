@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-parent</artifactId>
-        <version>9</version>
+        <version>15</version>
         <relativePath/>
     </parent>
     <artifactId>powsybl-diagram</artifactId>
@@ -58,10 +58,11 @@
         <module>network-area-diagram</module>
         <module>single-line-diagram</module>
         <module>diagram-util</module>
+        <module>diagram-test</module>
     </modules>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,
@@ -72,9 +73,8 @@
             **/generated/**/*
         </sonar.exclusions>
 
-        <powsybl-core.version>5.2.0</powsybl-core.version>
+        <powsybl-core.version>6.0.0-RC1</powsybl-core.version>
 
-        <powsybl-olf.version>0.23.0</powsybl-olf.version>
     </properties>
 
     <profiles>
@@ -145,15 +145,13 @@
                 <artifactId>powsybl-diagram-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- Test dependencies -->
             <dependency>
                 <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
+                <artifactId>powsybl-diagram-test</artifactId>
                 <version>${project.version}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
             </dependency>
+
+            <!-- Test dependencies -->
             <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-iidm-impl</artifactId>
@@ -176,24 +174,6 @@
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-ucte-converter</artifactId>
                 <version>${powsybl-core.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-config-test</artifactId>
-                <version>${powsybl-core.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-loadflow-api</artifactId>
-                <version>${powsybl-core.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.powsybl</groupId>
-                <artifactId>powsybl-open-loadflow</artifactId>
-                <version>${powsybl-olf.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

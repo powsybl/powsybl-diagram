@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 /**
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class ZoneGraph extends AbstractGraph {
+public class ZoneGraph extends AbstractBaseGraph {
 
     private final List<String> zone;
     private final List<SubstationGraph> substations = new ArrayList<>();

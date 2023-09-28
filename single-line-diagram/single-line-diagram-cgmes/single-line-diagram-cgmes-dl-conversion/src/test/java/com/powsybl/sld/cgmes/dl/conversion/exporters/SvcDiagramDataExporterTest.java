@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.StaticVarCompensator;
 
@@ -41,7 +41,7 @@ class SvcDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTes
 
     @Override
     protected void checkStatements() {
-        checkStatements(svc.getId(), svc.getName(), "bus-branch");
+        checkStatements(svc.getId(), svc.getNameOrId(), "bus-branch");
     }
 
 }

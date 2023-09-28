@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -98,6 +99,14 @@ public abstract class AbstractTest {
     private static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
+    }
+
+    protected static String getContentFile(Path svgFile) {
+        try (Stream<String> lines = Files.lines(svgFile)) {
+            return lines.collect(Collectors.joining("\n")) + "\n";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected LayoutParameters getLayoutParameters() {

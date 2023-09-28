@@ -107,23 +107,13 @@ public abstract class AbstractTestCase {
             return;
         }
         try (BufferedWriter bw = Files.newBufferedWriter(testReference, StandardCharsets.UTF_8)) {
-            bw.write(normalizeLineSeparator(fixSvg(content.toString())));
+            bw.write(normalizeLineSeparator(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
     public abstract String toSVG(Graph g, String filename);
-
-    /**
-     * Between Java 9 and 14 an extra new lines is added before and after CDATA element. To support both Java 11 and 17
-     * we need to remove these new lines => To remove when migrating to Java 17.
-     *
-     * See https://stackoverflow.com/questions/55853220/handling-change-in-newlines-by-xml-transformation-for-cdata-from-java-8-to-java
-     */
-    protected static String fixSvg(String svg) {
-        return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
-    }
 
     public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
@@ -137,7 +127,7 @@ public abstract class AbstractTestCase {
                 overrideTestReference(filename, writer);
             }
 
-            return fixSvg(normalizeLineSeparator(writer.toString()));
+            return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -80,7 +80,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected boolean isLineNode(Node node) {
-        return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
+        return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION, LCC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {

@@ -10,7 +10,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.ShuntCompensator;
 
@@ -41,7 +41,7 @@ class ShuntDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterT
 
     @Override
     protected void checkStatements() {
-        checkStatements(shunt.getId(), shunt.getName(), "bus-branch");
+        checkStatements(shunt.getId(), shunt.getNameOrId(), "bus-branch");
     }
 
 }

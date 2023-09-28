@@ -9,11 +9,15 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 
+import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class LayoutToCgmesExtensionsTest {
 
-    private List<Network> networks = new ArrayList<>();
+    private final List<Network> networks = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
@@ -43,7 +47,7 @@ class LayoutToCgmesExtensionsTest {
         networks.add(Networks.createNetworkWithThreeWindingsTransformer());
         networks.add(Networks.createNetworkWithBusbarAndSwitch());
         networks.add(Networks.createNetworkWithPhaseShiftTransformer());
-        networks.add(Networks.createNetworkWithHvdcLine());
+        networks.add(Networks.createNetworkWithHvdcLines());
     }
 
     private void checkExtensionsSet(Network network) {
@@ -160,12 +164,12 @@ class LayoutToCgmesExtensionsTest {
 
     @Test
     void testCgmesDlExtensionsEmpty() {
-        networks.stream().forEach(this::checkExtensionsUnset);
+        networks.forEach(this::checkExtensionsUnset);
     }
 
     @Test
     void testCgmesDlExtensionsSet() {
-        networks.stream().forEach(network -> {
+        networks.forEach(network -> {
             LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
             lconv.convertLayout(network, "new-diagram");
             checkExtensionsSet(network);
@@ -174,7 +178,7 @@ class LayoutToCgmesExtensionsTest {
 
     @Test
     void testCgmesDlExtensionsSetNoname() {
-        networks.stream().forEach(network -> {
+        networks.forEach(network -> {
             LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
             lconv.convertLayout(network);
             checkExtensionsSet(network);
@@ -209,5 +213,30 @@ class LayoutToCgmesExtensionsTest {
         assertFalse(VoltageLevelDiagramData.checkDiagramData(vl3));
 
         assertEquals(2, VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl1, vl1.getSubstation().map(Substation::getId).orElse(null)).length);
+    }
+
+    @Test
+    void testCoverage() {
+        // Spying Network
+        Network network = Mockito.spy(Networks.createNetworkWithHvdcLines());
+        // Spying Substation1
+        Substation substation = Mockito.spy(network.getSubstation("Substation1"));
+        // Spying VoltageLevel
+        VoltageLevel vl1 = Mockito.spy(network.getVoltageLevel("VoltageLevel1"));
+        // Using Substation1 only
+        Mockito.doReturn(substation).when(network).getSubstation(Mockito.anyString());
+        // Using VoltageLevel1 only
+        Answer<Stream<VoltageLevel>> answer = invocation -> Stream.of(vl1);
+        Mockito.doAnswer(answer).when(substation).getVoltageLevelStream();
+        // Faking Converter1 to null
+        Mockito.doReturn(null).when(vl1).getConnectable("Converter1", VscConverterStation.class);
+        // Faking Converter3 to null
+        Mockito.doReturn(null).when(vl1).getConnectable("Converter3", LccConverterStation.class);
+
+        LayoutToCgmesExtensionsConverter lconv = new LayoutToCgmesExtensionsConverter();
+        lconv.convertLayout(network, "new-diagram");
+
+        network.getVscConverterStationStream().forEach(vsc -> assertNull(vsc.getExtension(LineDiagramData.class)));
+        network.getLccConverterStationStream().forEach(lcc -> assertNull(lcc.getExtension(LineDiagramData.class)));
     }
 }

@@ -118,6 +118,15 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
     }
 
+    public static FeederNode createLccConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
+        return createFeederNode(graph, id, name, equipmentId, ComponentTypeName.LCC_CONVERTER_STATION, feeder);
+    }
+
+    public static FeederNode createLccConverterStationInjection(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, LCC_CONVERTER_STATION);
+    }
+
     public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(FeederType.BRANCH, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }

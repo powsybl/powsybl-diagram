@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -41,14 +42,14 @@ class EdgeIdTest extends AbstractTest {
 
     @Test
     void testNameOnEdgeDisplayed() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(true);
         assertEquals(toString("/edge_with_id.svg"), generateSvgString(network, "/edge_with_id.svg"));
     }
 
     @Test
     void testNameOnEdgeNotDisplayed() {
-        Network network = NetworkTestFactory.createThreeVoltageLevelsFiveBuses();
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(false);
         assertEquals(toString("/edge_without_id.svg"), generateSvgString(network, "/edge_without_id.svg"));
     }

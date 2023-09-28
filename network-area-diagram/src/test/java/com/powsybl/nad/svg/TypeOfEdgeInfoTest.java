@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
@@ -33,7 +34,7 @@ class TypeOfEdgeInfoTest extends AbstractTest {
                 .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
-        network = NetworkTestFactory.createTwoVoltageLevels();
+        network = Networks.createTwoVoltageLevels();
         Line l1 = network.getLine("l1");
         l1.getTerminal1().setP(100).setQ(10);
         l1.getTerminal2().setP(99).setQ(11);

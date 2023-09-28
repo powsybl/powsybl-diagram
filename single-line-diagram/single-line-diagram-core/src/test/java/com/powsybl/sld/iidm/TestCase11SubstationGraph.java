@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
@@ -30,7 +31,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = NetworkFactory.createTestCase11Network();
+        network = Networks.createTestCase11Network();
         substation = network.getSubstation("subst");
         graphBuilder = new NetworkGraphBuilder(network);
     }
@@ -95,7 +96,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     void testRight3wtOrientation() {
         // build substation graph
         network.getThreeWindingsTransformer("trf7").remove();
-        createThreeWindingsTransformer(substation, "trf7", "trf7", "vl3", "vl2", "vl1",
+        Networks.createThreeWindingsTransformer(substation, "trf7", "trf7", "vl3", "vl2", "vl1",
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
                 50., 225., 400.,
                 8, 19, 31,
@@ -115,7 +116,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     void testLeft3wtOrientation() {
         // build substation graph
         network.getThreeWindingsTransformer("trf7").remove();
-        createThreeWindingsTransformer(substation, "trf7", "trf7", "vl2", "vl1", "vl3",
+        Networks.createThreeWindingsTransformer(substation, "trf7", "trf7", "vl2", "vl1", "vl3",
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
                 225., 400., 50.,
                 19, 31, 8,
@@ -129,6 +130,35 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase11Left3wtOrientation.json"), toJson(g, "/TestCase11Left3wtOrientation.json"));
+    }
+
+    @Test
+    void testWithHvdcLines() {
+        network = Networks.createNetworkWithHvdcLines();
+        substation = network.getSubstation("Substation1");
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase11SubstationGraphVWithHvdcLines.json"), toJson(g, "/TestCase11SubstationGraphVWithHvdcLines.json"));
+    }
+
+    @Test
+    void testMetadataWithHvdcLines() {
+        network = Networks.createNetworkWithHvdcLines("VSC_1", "VSC_2", "LCC_1", "LCC_2");
+        substation = network.getSubstation("Substation1");
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+                new BasicStyleProvider()));
     }
 
     @Test

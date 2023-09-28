@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
 /**

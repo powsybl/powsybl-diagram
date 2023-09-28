@@ -192,6 +192,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
                  componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
                  componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
                  componentType.equals(ComponentTypeName.LINE) ||
+                 componentType.equals(ComponentTypeName.TIE_LINE) ||
                  componentType.equals(ComponentTypeName.DANGLING_LINE) ||
                  componentType.equals(ComponentTypeName.BUSBAR_SECTION));
     }

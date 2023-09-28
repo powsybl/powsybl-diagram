@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.iidm.CreateNetworksUtil;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -34,7 +34,7 @@ class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        network = CreateNetworksUtil.createNetworkWithSvcVscScDl();
+        network = Networks.createNetworkWithSvcVscScDl();
         graphBuilder = new NetworkGraphBuilder(network);
         vl = network.getVoltageLevel("vl");
         vl2 = network.getVoltageLevel("vl2");

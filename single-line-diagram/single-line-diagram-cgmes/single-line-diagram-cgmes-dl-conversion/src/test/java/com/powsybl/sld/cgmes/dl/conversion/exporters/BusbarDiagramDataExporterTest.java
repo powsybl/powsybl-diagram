@@ -13,7 +13,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.triplestore.api.PropertyBag;
@@ -51,7 +51,7 @@ class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterT
 
     @Override
     protected void checkStatements() {
-        checkStatements(busbarNodeId, busbar.getName(), "node-breaker");
+        checkStatements(busbarNodeId, busbar.getNameOrId(), "node-breaker");
     }
 
 }

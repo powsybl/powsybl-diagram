@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
@@ -69,14 +70,14 @@ class EdgeInfoLabelTest extends AbstractTest {
 
     @Test
     void testMissingLabels() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setArrowShift(10);
         assertEquals(toString("/edge_info_missing_label.svg"), generateSvgString(network, "/edge_info_missing_label.svg"));
     }
 
     @Test
     void testPerpendicularLabels() {
-        Network network = NetworkTestFactory.createTwoVoltageLevels();
+        Network network = Networks.createTwoVoltageLevels();
         internalLabel = "int";
         externalLabel = "ext";
         getSvgParameters().setEdgeInfoAlongEdge(false)
