@@ -124,7 +124,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         // Run matrix zone layout
         String[][] substationsIds = {{"A", "B", "C"},
                                      {"D", "", "E"}};
-        new MatrixZoneLayoutFactory().create(g, substationsIds, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new MatrixZoneLayoutFactory().create(g, substationsIds, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix2x3.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix2x3.svg"));
     }

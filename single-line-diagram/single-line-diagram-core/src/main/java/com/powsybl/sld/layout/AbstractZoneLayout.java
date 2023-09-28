@@ -11,7 +11,7 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -19,11 +19,17 @@ import java.util.Objects;
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
+    protected Map<SubstationGraph, AbstractLayout<SubstationGraph>> layoutBySubstation;
 
     protected AbstractZoneLayout(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph);
         this.sLayoutFactory = Objects.requireNonNull(sLayoutFactory);
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
+        this.layoutBySubstation = new HashMap<>();
+        for (SubstationGraph subGraph : getGraph().getSubstations()) {
+            Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
+            layoutBySubstation.put(subGraph, (AbstractLayout<SubstationGraph>) sLayout);
+        }
     }
 
     @Override

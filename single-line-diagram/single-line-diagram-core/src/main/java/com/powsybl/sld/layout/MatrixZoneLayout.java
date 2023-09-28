@@ -32,48 +32,41 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
         // Height by rows
-        List<Double> maxHeightByRow = new ArrayList<>();
+        double maxHeightRow = 0.0;
         // Width by col
-        List<Double> maxWidthByCol = new ArrayList<>();
+        double maxWidthCol = 0.0;
 
         for (String[] strings : matrix) {
-            double rowHeight = 0;
-            double colWidth = 0;
             for (String id : strings) {
                 Optional<SubstationGraph> subGraph = getGraph().getSubstations().stream().filter(s -> s.getSubstationId().equals(id)).findFirst();
                 if (subGraph.isPresent()) {
                     SubstationGraph graph = subGraph.get();
                     // Display substations
-                    Layout sLayout = sLayoutFactory.create(graph, vLayoutFactory);
-                    sLayout.run(layoutParameters);
+                    layoutBySubstation.get(graph).run(layoutParameters);
 
-                    rowHeight = Math.max(rowHeight, graph.getHeight());
-                    colWidth = Math.max(colWidth, graph.getWidth());
+                    maxHeightRow = Math.max(maxHeightRow, graph.getHeight());
+                    maxWidthCol = Math.max(maxWidthCol, graph.getWidth());
                 }
-                maxWidthByCol.add(colWidth);
             }
-            maxHeightByRow.add(rowHeight);
         }
 
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         double zoneWidth = 0.0;
         double zoneHeight = 0.0;
-        double dy = 0.0;
 
         for (int row = 0; row < matrix.length; row++) {
             double maxColWidth = 0.0;
             for (int col = 0; col < matrix[row].length; col++) {
                 String id = matrix[row][col];
-                double dx = maxWidthByCol.get(col);
                 Optional<SubstationGraph> subGraph = getGraph().getSubstations().stream().filter(s -> s.getSubstationId().equals(id)).findFirst();
                 if (subGraph.isPresent()) {
                     SubstationGraph graph = subGraph.get();
-                    move(graph, col * dx, row * dy);
+                    move(graph, col * maxWidthCol + diagramPadding.getLeft(), row * maxHeightRow + diagramPadding.getTop());
                 }
-                maxColWidth += dx;
+                maxColWidth += maxWidthCol;
             }
-            dy = maxHeightByRow.get(row);
             zoneWidth = Math.max(maxColWidth, zoneWidth);
-            zoneHeight += dy;
+            zoneHeight += maxHeightRow;
         }
 
         getGraph().setSize(zoneWidth, zoneHeight);
@@ -83,18 +76,42 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     @Override
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
                                                      boolean increment) {
-        // FIXME: need to be implemented
+        List<Point> polyline;
         Node node1 = nodes.getFirst();
         Node node2 = nodes.getSecond();
-        List<Point> pol = new ArrayList<>();
-        pol.add(getGraph().getShiftedPoint(node1));
-        pol.add(getGraph().getShiftedPoint(node2));
-        return pol;
+        VoltageLevelGraph vl1Graph = getGraph().getVoltageLevelGraph(node1);
+        VoltageLevelGraph vl2Graph = getGraph().getVoltageLevelGraph(node2);
+        SubstationGraph ss1Graph = getGraph().getSubstationGraph(node1).orElse(null);
+        SubstationGraph ss2Graph = getGraph().getSubstationGraph(node2).orElse(null);
+        if (vl1Graph == vl2Graph) { // in the same VL (so far always horizontal layout)
+            throw new UnsupportedOperationException();
+        } else if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same SS
+            polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
+        } else { // in the same Zone
+            // FIXME: need to be improved
+            polyline = new ArrayList<>();
+            //polyline.add(getGraph().getShiftedPoint(node1));
+            //polyline.add(getGraph().getShiftedPoint(node2));
+        }
+        return polyline;
     }
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        // Draw snakelines for each Substations
+        // Draw snakelines between VoltageLevel for each Substations
         getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        // Draw snakelines between Substations
+        manageSnakeLines(getGraph(), layoutParameters);
+        // Move each substation taking into account snakelines
+        adaptPaddingToSnakeLines(layoutParameters);
+    }
+
+    private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
+        // FIXME: need to be implemented
+
+        // Re-draw snakelines between VoltageLevel for each Substations
+        // getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
+        // Re-draw snakelines between Substations
+        // manageSnakeLines(getGraph(), layoutParameters);
     }
 }

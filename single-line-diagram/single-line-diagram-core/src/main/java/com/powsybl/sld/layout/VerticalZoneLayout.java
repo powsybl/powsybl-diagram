@@ -71,8 +71,7 @@ public class VerticalZoneLayout extends AbstractZoneLayout {
 
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
             // Calculate the objects coordinates inside the substation graph
-            Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
-            sLayout.run(layoutParameters);
+            layoutBySubstation.get(subGraph).run(layoutParameters);
 
             move(subGraph, 0, zoneHeight);
 

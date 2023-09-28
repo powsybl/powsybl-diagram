@@ -48,9 +48,7 @@ public class HorizontalZoneLayout extends AbstractZoneLayout {
         double zoneHeight = 0.0;
 
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
-            // Calculate the objects coordinates inside the zone graph
-            Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
-            sLayout.run(layoutParameters);
+            layoutBySubstation.get(subGraph).run(layoutParameters);
 
             move(subGraph, zoneWidth, 0);
 
