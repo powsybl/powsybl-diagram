@@ -26,6 +26,9 @@ class SvgParametersTest {
                 .setPowerValuePrecision(3)
                 .setAngleValuePrecision(2)
                 .setCurrentValuePrecision(1)
+                .setActivePowerUnit("MW")
+                .setReactivePowerUnit("MVAR")
+                .setCurrentUnit("A")
                 .setBusInfoMargin(22)
                 .setFeederInfosIntraMargin(21)
                 .setFeederInfosOuterMargin(25)
@@ -54,6 +57,9 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getPowerValuePrecision(), svgParameters1.getPowerValuePrecision());
         assertEquals(svgParameters0.getAngleValuePrecision(), svgParameters1.getAngleValuePrecision());
         assertEquals(svgParameters0.getCurrentValuePrecision(), svgParameters1.getCurrentValuePrecision());
+        assertEquals(svgParameters0.getActivePowerUnit(), svgParameters1.getActivePowerUnit());
+        assertEquals(svgParameters0.getReactivePowerUnit(), svgParameters1.getReactivePowerUnit());
+        assertEquals(svgParameters0.getCurrentUnit(), svgParameters1.getCurrentUnit());
         assertEquals(svgParameters0.getBusInfoMargin(), svgParameters1.getBusInfoMargin(), 0);
         assertEquals(svgParameters0.getFeederInfosIntraMargin(), svgParameters1.getFeederInfosIntraMargin(), 0);
         assertEquals(svgParameters0.getFeederInfosOuterMargin(), svgParameters1.getFeederInfosOuterMargin(), 0);

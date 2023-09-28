@@ -25,6 +25,9 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
+    private String activePowerUnit = "";
+    private String reactivePowerUnit = "";
+    private String currentUnit = "";
     private double busInfoMargin = 0.0; //Can be used as horizontal shifting value for busInfo indicator. Can be negative value
     private double feederInfosIntraMargin = 10;
     private double feederInfosOuterMargin = 20;
@@ -60,6 +63,9 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
+        this.activePowerUnit = other.activePowerUnit;
+        this.reactivePowerUnit = other.reactivePowerUnit;
+        this.currentUnit = other.currentUnit;
         this.busInfoMargin = other.busInfoMargin;
         this.feederInfosIntraMargin = other.feederInfosIntraMargin;
         this.feederInfosOuterMargin = other.feederInfosOuterMargin;
@@ -151,6 +157,33 @@ public class SvgParameters {
 
     public SvgParameters setCurrentValuePrecision(int currentValuePrecision) {
         this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
+    public String getActivePowerUnit() {
+        return activePowerUnit;
+    }
+
+    public SvgParameters setActivePowerUnit(String activePowerUnit) {
+        this.activePowerUnit = activePowerUnit;
+        return this;
+    }
+
+    public String getReactivePowerUnit() {
+        return reactivePowerUnit;
+    }
+
+    public SvgParameters setReactivePowerUnit(String reactivePowerUnit) {
+        this.reactivePowerUnit = reactivePowerUnit;
+        return this;
+    }
+
+    public String getCurrentUnit() {
+        return currentUnit;
+    }
+
+    public SvgParameters setCurrentUnit(String currentUnit) {
+        this.currentUnit = currentUnit;
         return this;
     }
 
