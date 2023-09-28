@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -14,8 +15,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,7 +79,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+        assertEquals(toString(filename), toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -157,8 +158,10 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new BasicStyleProvider()));
+                componentLibrary,
+                layoutParameters,
+                svgParameters,
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider()));
     }
 
     @Test
@@ -167,11 +170,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json",
-                new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new BasicStyleProvider()));
+        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -180,10 +180,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json",
-                new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageStyleProvider()));
+        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 }

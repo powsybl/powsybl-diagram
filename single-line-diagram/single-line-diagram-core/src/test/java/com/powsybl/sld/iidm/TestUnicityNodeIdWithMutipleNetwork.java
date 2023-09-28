@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -11,8 +12,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +31,8 @@ class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        layoutParameters
-                .setAdaptCellHeightToContent(false)
-                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        layoutParameters.setAdaptCellHeightToContent(false);
+        svgParameters.setCssLocation(SvgParameters.CssLocation.INSERTED_IN_SVG);
 
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");

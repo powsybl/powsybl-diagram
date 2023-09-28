@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -101,7 +102,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/TestCaseFictitiousBus.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -114,6 +115,6 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }

@@ -9,30 +9,31 @@ package com.powsybl.nad;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.*;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
 class NetworkAreaDiagramTest extends AbstractTest {
 
-    protected java.nio.file.FileSystem fileSystem;
+    protected FileSystem fileSystem;
 
     @BeforeEach
     void setup() {
@@ -57,14 +58,11 @@ class NetworkAreaDiagramTest extends AbstractTest {
     @Test
     void testDrawSvg() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        NetworkAreaDiagram nad = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-
         Path svgFile = fileSystem.getPath("nad-test.svg");
-        nad.draw(svgFile,
-                getSvgParameters(),
-                getLayoutParameters(),
-                getStyleProvider(network));
-
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setStyleProviderFactory(this::getStyleProvider);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, VoltageLevelFilter.NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 

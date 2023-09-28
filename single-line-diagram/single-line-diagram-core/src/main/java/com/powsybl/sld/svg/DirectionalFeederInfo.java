@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 package com.powsybl.sld.svg;
 
 import java.util.Objects;
@@ -11,15 +18,15 @@ import java.util.function.DoubleFunction;
  */
 public class DirectionalFeederInfo extends AbstractFeederInfo {
 
-    private final DiagramLabelProvider.LabelDirection arrowDirection;
+    private final LabelProvider.LabelDirection arrowDirection;
 
     private final double value;
 
-    public DirectionalFeederInfo(String componentType, DiagramLabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel) {
+    public DirectionalFeederInfo(String componentType, LabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel) {
         this(componentType, arrowDirection, leftLabel, rightLabel, null);
     }
 
-    public DirectionalFeederInfo(String componentType, DiagramLabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
+    public DirectionalFeederInfo(String componentType, LabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
         super(componentType, leftLabel, rightLabel, userDefinedId);
         this.arrowDirection = Objects.requireNonNull(arrowDirection);
         this.value = Double.NaN;
@@ -35,11 +42,11 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
         this.value = value;
     }
 
-    private static DiagramLabelProvider.LabelDirection getArrowDirection(double value) {
-        return value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN;
+    private static LabelProvider.LabelDirection getArrowDirection(double value) {
+        return value > 0 ? LabelProvider.LabelDirection.OUT : LabelProvider.LabelDirection.IN;
     }
 
-    public DiagramLabelProvider.LabelDirection getDirection() {
+    public LabelProvider.LabelDirection getDirection() {
         return arrowDirection;
     }
 

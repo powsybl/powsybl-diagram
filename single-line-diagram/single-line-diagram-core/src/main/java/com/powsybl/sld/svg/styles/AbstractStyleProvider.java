@@ -19,7 +19,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -62,7 +62,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
                 .map(List::of)
                 .orElse(Collections.emptyList());
@@ -94,7 +94,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
+            styles.add(((DirectionalFeederInfo) info).getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
         }
         return styles;
     }

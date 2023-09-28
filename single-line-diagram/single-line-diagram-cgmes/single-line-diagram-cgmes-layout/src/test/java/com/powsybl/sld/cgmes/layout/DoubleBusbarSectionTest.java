@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.cgmes.layout;
 
@@ -133,8 +134,8 @@ class DoubleBusbarSectionTest {
         NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(voltageLevel.getNetwork());
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(voltageLevel.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(1);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(1);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesVoltageLevelLayout(graph, voltageLevel.getNetwork()).run(layoutParameters);
         return graph;
     }

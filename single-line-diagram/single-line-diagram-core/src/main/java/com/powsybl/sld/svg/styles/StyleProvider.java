@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.svg.styles;
 
@@ -14,8 +15,8 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
-import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelProvider;
 
 import java.net.URL;
 import java.util.List;
@@ -31,7 +32,7 @@ public interface StyleProvider {
 
     List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
-    List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
+    List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
 
     List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary);
 

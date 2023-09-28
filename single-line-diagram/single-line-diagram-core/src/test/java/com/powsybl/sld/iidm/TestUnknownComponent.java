@@ -37,7 +37,7 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        layoutParameters.setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph("vl1");
@@ -45,6 +45,6 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // write SVGs and compare to reference
-        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg"));
+        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

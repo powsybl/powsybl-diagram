@@ -8,7 +8,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -69,6 +69,7 @@ class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         String filename = "/TestCase11FlatDesign.svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

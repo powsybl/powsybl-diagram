@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -14,8 +15,9 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.svg.BusInfo;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
@@ -53,16 +55,18 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private DiagramLabelProvider withFullBusInfoProvider;
+    private LabelProvider withFullBusInfoProvider;
 
-    private DiagramLabelProvider withIncompleteBusInfoProvider;
+    private LabelProvider withIncompleteBusInfoProvider;
 
     @BeforeEach
     public void setUp() throws IOException {
         network = Networks.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
+        svgParameters.setBusInfoMargin(5);
 
-        withFullBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        withFullBusInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
@@ -84,7 +88,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
             }
         };
 
-        withIncompleteBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        withIncompleteBusInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
+
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
@@ -112,7 +117,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters));
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters));
     }
 
     @Test
@@ -137,8 +142,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);
     }
 
-    private void runTest(StyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
-        layoutParameters.setBusInfoMargin(5);
+    private void runTest(StyleProvider styleProvider, String filename, LabelProvider labelProvider) {
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
@@ -152,6 +156,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 .run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString(filename), toSVG(g, filename, labelProvider, styleProvider));
+        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, labelProvider, styleProvider));
     }
 }

@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.cgmes.layout;
 
@@ -313,8 +314,8 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     void testSubstationLayout() {
         SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph(substation.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, network).run(layoutParameters);
         checkGraph(graph.getVoltageLevel(voltageLevel.getId()));
         checkCoordinates(graph.getVoltageLevel(voltageLevel.getId()));
@@ -467,8 +468,8 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     void testSubstationLayout3WT() {
         SubstationGraph graph = new NetworkGraphBuilder(networkWith3WT).buildSubstationGraph(substation2.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, networkWith3WT).run(layoutParameters);
         checkGraph(graph.getVoltageLevel(voltageLevel21.getId()));
         checkCoordinates(graph.getVoltageLevel(voltageLevel21.getId()));

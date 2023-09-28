@@ -3,12 +3,12 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -59,8 +59,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g2;
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
-    private DiagramLabelProvider labelProvider;
-    private DiagramLabelProvider noFeederInfoProvider;
+    private LabelProvider labelProvider;
+    private LabelProvider labelNoFeederInfoProvider;
+    private LabelProvider diagramLabelMultiLineTooltipProvider;
+    private LabelProvider diagramLabelSameNodeProvider;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -590,18 +592,18 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         createZoneGraph();
 
         // Layout parameters :
-        layoutParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
+        svgParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
 
         // initValueProvider example for the test :
         //
-        labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        labelProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
-                boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
+                boolean feederArrowSymmetry = node.getDirection() == TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
                 }
@@ -609,137 +611,29 @@ class TestSVGWriter extends AbstractTestCaseIidm {
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+            public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };
 
         // no feeder value provider example for the test :
-        //
-        noFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        labelNoFeederInfoProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 return Collections.emptyList();
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+            public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };
-    }
 
-    @Test
-    void testVl1() {
-        assertEquals(toString("/vl1.svg"),
-            toSVG(g1, "/vl1.svg", labelProvider, new BasicStyleProvider()));
-    }
+        // no feeder value provider example for the test :
+        //
+        diagramLabelMultiLineTooltipProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
-    @Test
-    void testVl1CssExternalImported() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_IMPORTED);
-        assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl1CssExternalNoImport() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
-        assertEquals(toString("/vl1_external_css_no_import.svg"),
-            toSVG(g1, "/vl1_external_css_no_import.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl2() {
-        assertEquals(toString("/vl2.svg"),
-            toSVG(g2, "/vl2.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl3() {
-        assertEquals(toString("/vl3.svg"),
-            toSVG(g3, "/vl3.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testSubstation() {
-        // SVG file generation for substation and comparison to reference
-        assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageStyleProvider()));
-    }
-
-    @Test
-    void testSubstationArrowSymmetry() {
-        // SVG file generation for substation with symmetric feeder arrow and comparison to reference
-        layoutParameters.setFeederInfoSymmetry(true);
-        assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-            toSVG(substG, "/substation_feeder_arrow_symmetry.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testSubstationNoFeederInfos() {
-        // SVG file generation for substation and comparison to reference but with no feeder values
-        assertEquals(toString("/substation_no_feeder_values.svg"),
-            toSVG(substG, "/substation_no_feeder_values.svg", noFeederInfoProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl1Optimized() {
-        // Same tests than before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/vl1_optimized.svg"),
-            toSVG(g1, "/vl1_optimized.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl2Optimized() {
-        // Same tests than before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/vl2_optimized.svg"),
-            toSVG(g2, "/vl2_optimized.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testVl3Optimized() {
-        // Same tests than before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/vl3_optimized.svg"),
-            toSVG(g3, "/vl3_optimized.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testSubstationOptimized() {
-        // Same tests than before, with optimized svg
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/substation_optimized.svg"),
-            toSVG(substG, "/substation_optimized.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testWriteZone() {
-        layoutParameters.setShowGrid(false);
-        assertEquals(toString("/zone.svg"),
-            toSVG(zGraph, "/zone.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testStraightWires() {
-        StyleProvider styleProvider = new BasicStyleProvider();
-        layoutParameters.setDrawStraightWires(true);
-        assertEquals(toString("/vl1_straightWires.svg"),
-            toSVG(g1, "/vl1_straightWires.svg", labelProvider, styleProvider));
-    }
-
-    @Test
-    void testTooltip() {
-        layoutParameters.setTooltipEnabled(true);
-        assertEquals(toString("/vl1_tooltip.svg"),
-            toSVG(g1, "/vl1_tooltip.svg", labelProvider, new BasicStyleProvider()));
-    }
-
-    @Test
-    void testMultiLineTooltip() {
-        DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public String getTooltip(Node node) {
                 String tooltip = node.getId();
@@ -754,32 +648,154 @@ class TestSVGWriter extends AbstractTestCaseIidm {
                 return Collections.emptyList();
             }
         };
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        layoutParameters.setTooltipEnabled(true);
+
+        diagramLabelSameNodeProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
+
+            @Override
+            public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
+                LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
+                return Collections.singletonList(new LabelProvider.NodeLabel("Tests", labelPosition, null));
+            }
+
+            @Override
+            public List<LabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+                return new ArrayList<>();
+            }
+        };
+    }
+
+    @Test
+    void testVl1() {
+        assertEquals(toString("/vl1.svg"),
+                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl1CssExternalImported() {
+        svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
+
+        assertEquals(toString("/vl1_external_css.svg"),
+                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl1CssExternalNoImport() {
+        svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
+
+        assertEquals(toString("/vl1_external_css_no_import.svg"),
+                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl2() {
+        assertEquals(toString("/vl2.svg"),
+                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl3() {
+        assertEquals(toString("/vl3.svg"),
+                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testSubstation() {
+        // SVG file generation for substation and comparison to reference
+        assertEquals(toString("/substation.svg"),
+                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider()));
+    }
+
+    @Test
+    void testSubstationArrowSymmetry() {
+        // SVG file generation for substation with symmetric feeder arrow and comparison to reference
+        svgParameters.setFeederInfoSymmetry(true);
+        assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
+                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testSubstationNoFeederInfos() {
+        // SVG file generation for substation and comparison to reference but with no feeder values
+        assertEquals(toString("/substation_no_feeder_values.svg"),
+                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl1Optimized() {
+        // Same tests than before, with optimized svg
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+
+        assertEquals(toString("/vl1_optimized.svg"),
+                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl2Optimized() {
+        // Same tests than before, with optimized svg
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+
+        assertEquals(toString("/vl2_optimized.svg"),
+                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testVl3Optimized() {
+        // Same tests than before, with optimized svg
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+
+        assertEquals(toString("/vl3_optimized.svg"),
+                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testSubstationOptimized() {
+        // Same tests than before, with optimized svg
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+
+        assertEquals(toString("/substation_optimized.svg"),
+                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testWriteZone() {
+        svgParameters.setShowGrid(false);
+
+        assertEquals(toString("/zone.svg"),
+                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testStraightWires() {
+        svgParameters.setDrawStraightWires(true);
+
+        assertEquals(toString("/vl1_straightWires.svg"),
+                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testTooltip() {
+        svgParameters.setTooltipEnabled(true);
+
+        assertEquals(toString("/vl1_tooltip.svg"),
+                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    void testMultiLineTooltip() {
+
+        svgParameters.setAvoidSVGComponentsDuplication(true);
+        svgParameters.setTooltipEnabled(true);
+
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-            toSVG(g1, "/vl1_multiline_tooltip.svg", labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider()));
     }
 
     @Test
     void testLabelOnAllNodes() {
         // same node label provider example for the test :
-        //
-        DiagramLabelProvider sameNodeLabelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
-            @Override
-            public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
-                LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
-                return Collections.singletonList(new DiagramLabelProvider.NodeLabel("Tests", labelPosition, null));
-            }
 
-            @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
-                return new ArrayList<>();
-            }
-        };
-
-        StyleProvider styleProvider = new BasicStyleProvider();
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", sameNodeLabelProvider, styleProvider));
+                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider()));
     }
 
     @Test
@@ -790,7 +806,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
                 return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");
             }
         };
+
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", labelProvider, styleProvider));
+                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
     }
 }

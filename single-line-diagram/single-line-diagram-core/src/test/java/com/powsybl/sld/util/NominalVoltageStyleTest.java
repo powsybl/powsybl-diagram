@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.util;
 
@@ -16,7 +17,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
@@ -95,9 +96,9 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Networks.createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
+    private class NoFeederInfoProvider extends DefaultLabelProvider {
         public NoFeederInfoProvider() {
-            super(NominalVoltageStyleTest.this.network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters);
+            super(NominalVoltageStyleTest.this.network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters, NominalVoltageStyleTest.this.svgParameters);
         }
 
         @Override
@@ -154,21 +155,24 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", new NoFeederInfoProvider(), styleProvider));
+
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     void testVl2() {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", new NoFeederInfoProvider(), styleProvider));
+
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     void testVl3() {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", new NoFeederInfoProvider(), styleProvider));
+
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider));
     }
 
 }

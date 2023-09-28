@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.svg;
 
@@ -43,19 +44,20 @@ class FeederInfoProviderTest extends AbstractTestCaseIidm {
     @Test
     void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        layoutParameters.setFeederInfoSymmetry(true);
+        svgParameters.setFeederInfoSymmetry(true);
 
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg"));
+
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
 
         Network network2 = Network.create("testCase2", "test2");
-        DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
+        DefaultLabelProvider wrongLabelProvider = new DefaultLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos = wrongLabelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertTrue(feederInfos.isEmpty());
 
-        DefaultDiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
         List<FeederInfo> feederInfos1 = labelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertEquals(2, feederInfos1.size());
         assertEquals(ARROW_ACTIVE, feederInfos1.get(0).getComponentType());
@@ -106,7 +108,7 @@ class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos4.get(1).getLeftLabel().isPresent());
 
         // Reverse order
-        layoutParameters.setFeederInfoSymmetry(false);
+        svgParameters.setFeederInfoSymmetry(false);
         List<FeederInfo> feederInfos5 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(ARROW_REACTIVE, feederInfos5.get(0).getComponentType());
         assertEquals(ARROW_ACTIVE, feederInfos5.get(1).getComponentType());

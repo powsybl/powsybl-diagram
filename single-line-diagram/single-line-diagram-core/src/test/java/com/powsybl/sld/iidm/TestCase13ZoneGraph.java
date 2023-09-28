@@ -3,14 +3,15 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        svgParameters.setCssLocation(SvgParameters.CssLocation.INSERTED_IN_SVG);
         network = Networks.createNetworkWithLine();
         // In order to keep same results -> can be removed later
         network.getVoltageLevelStream().forEach(vl -> vl.setNominalV(380));

@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.util;
 
@@ -140,6 +141,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     void testSubstation() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));
+
+        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

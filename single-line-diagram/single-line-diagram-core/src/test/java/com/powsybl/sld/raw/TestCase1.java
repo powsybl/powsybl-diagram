@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.raw;
 
@@ -49,7 +50,8 @@ class TestCase1 extends AbstractTestCaseRaw {
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
+
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getRawLabelProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCase1.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }
