@@ -220,10 +220,10 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
         if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), svgParameters.getCurrentUnit(), valueFormatter::formatPower));
         }
         return feederInfoList;
     }

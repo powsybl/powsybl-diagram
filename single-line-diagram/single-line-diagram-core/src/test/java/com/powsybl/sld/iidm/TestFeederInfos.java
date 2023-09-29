@@ -12,6 +12,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -20,10 +21,7 @@ import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
-import com.powsybl.sld.svg.styles.BasicStyleProvider;
-import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.*;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -232,5 +230,17 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
+    }
+
+    @Test
+    void testBuildFeederInfosWithUnits() {
+        Network network = IeeeCdfNetworkFactory.create9();
+        svgParameters.setDisplayCurrentFeederInfo(true)
+                .setActivePowerUnit("MW")
+                .setReactivePowerUnit("MVAR")
+                .setCurrentUnit("A");
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
+        new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
+        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new NominalVoltageStyleProvider()));
     }
 }
