@@ -38,12 +38,10 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
         for (String[] strings : matrix) {
             for (String id : strings) {
-                Optional<SubstationGraph> subGraph = getGraph().getSubstations().stream().filter(s -> s.getSubstationId().equals(id)).findFirst();
-                if (subGraph.isPresent()) {
-                    SubstationGraph graph = subGraph.get();
+                SubstationGraph graph = getGraph().getSubstationGraph(id);
+                if (graph != null) {
                     // Display substations
                     layoutBySubstation.get(graph).run(layoutParameters);
-
                     maxHeightRow = Math.max(maxHeightRow, graph.getHeight());
                     maxWidthCol = Math.max(maxWidthCol, graph.getWidth());
                 }
@@ -58,10 +56,11 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             double maxColWidth = 0.0;
             for (int col = 0; col < matrix[row].length; col++) {
                 String id = matrix[row][col];
-                Optional<SubstationGraph> subGraph = getGraph().getSubstations().stream().filter(s -> s.getSubstationId().equals(id)).findFirst();
-                if (subGraph.isPresent()) {
-                    SubstationGraph graph = subGraph.get();
-                    move(graph, col * maxWidthCol + diagramPadding.getLeft(), row * maxHeightRow + diagramPadding.getTop());
+                SubstationGraph graph = getGraph().getSubstationGraph(id);
+                if (graph != null) {
+                    double dx = col * maxWidthCol + diagramPadding.getLeft();
+                    double dy = row * maxHeightRow + diagramPadding.getTop();
+                    move(graph, dx, dy);
                 }
                 maxColWidth += maxWidthCol;
             }
@@ -83,9 +82,9 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         VoltageLevelGraph vl2Graph = getGraph().getVoltageLevelGraph(node2);
         SubstationGraph ss1Graph = getGraph().getSubstationGraph(node1).orElse(null);
         SubstationGraph ss2Graph = getGraph().getSubstationGraph(node2).orElse(null);
-        if (vl1Graph == vl2Graph) { // in the same VL (so far always horizontal layout)
+        if (vl1Graph == vl2Graph) { // in the same VoltageLevel
             throw new UnsupportedOperationException();
-        } else if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same SS
+        } else if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same Substation
             polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
         } else { // in the same Zone
             // FIXME: need to be improved
@@ -98,10 +97,8 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        // Draw snakelines between VoltageLevel for each Substations
-        getGraph().getSubstations().forEach(g -> manageSnakeLines(g, layoutParameters));
         // Draw snakelines between Substations
-        manageSnakeLines(getGraph(), layoutParameters);
+        // manageSnakeLines(getGraph(), layoutParameters);
         // Move each substation taking into account snakelines
         adaptPaddingToSnakeLines(layoutParameters);
     }

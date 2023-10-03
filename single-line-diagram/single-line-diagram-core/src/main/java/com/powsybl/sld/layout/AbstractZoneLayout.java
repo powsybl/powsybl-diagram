@@ -10,6 +10,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 
@@ -46,6 +47,16 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected void move(SubstationGraph subGraph, double dx, double dy) {
         for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
             vlGraph.setCoord(vlGraph.getX() + dx, vlGraph.getY() + dy);
+            vlGraph.getLineEdges().forEach(s -> s.shiftSnakeLine(dx, dy));
         }
+        subGraph.getMultiTermNodes().forEach(node -> {
+            node.setCoordinates(node.getX() + dx, node.getY() + dy);
+            node.getAdjacentEdges().forEach(edge -> {
+                if (edge instanceof BranchEdge branch) {
+                    branch.shiftSnakeLine(dx, dy);
+                }
+            });
+        });
+        subGraph.getLineEdges().forEach(s -> s.shiftSnakeLine(dx, dy));
     }
 }

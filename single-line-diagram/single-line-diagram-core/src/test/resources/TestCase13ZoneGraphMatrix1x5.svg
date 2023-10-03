@@ -325,12 +325,12 @@
             </g>
         </g>
         <g class="sld-wire sld-vl300to500-0" id="idEDGE_95_A_32_400_32_230_95_ONE">
-            <polyline points="47.0,62.0,47.0,-28.0,-28.0,-28.0,-28.0,140.0"/>
+            <polyline points="47.0,62.0,47.0,2.0,2.0,2.0,2.0,140.0"/>
         </g>
         <g class="sld-wire sld-vl180to300-0" id="idEDGE_95_A_32_400_32_230_95_TWO">
-            <polyline points="47.0,354.0,47.0,324.0,-28.0,324.0,-28.0,156.0"/>
+            <polyline points="47.0,354.0,47.0,294.0,2.0,294.0,2.0,156.0"/>
         </g>
-        <g class="sld-two-wt sld-fictitious" id="idA_32_400_32_230" transform="translate(-33.0,140.5)">
+        <g class="sld-two-wt sld-fictitious" id="idA_32_400_32_230" transform="translate(-3.0,140.5)">
             <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl180to300-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
@@ -727,22 +727,22 @@
             </g>
         </g>
         <g class="sld-wire sld-vl180to300-2" id="idEDGE_95_C_32_230_32_66_95_ONE">
-            <polyline points="527.0,62.0,527.0,-28.0,452.0,-28.0,452.0,226.0"/>
+            <polyline points="527.0,62.0,527.0,2.0,482.0,2.0,482.0,226.0"/>
         </g>
         <g class="sld-wire sld-vl50to70-0" id="idEDGE_95_C_32_230_32_66_95_TWO">
-            <polyline points="527.0,526.0,527.0,496.0,452.0,496.0,452.0,242.0"/>
+            <polyline points="527.0,526.0,527.0,466.0,482.0,466.0,482.0,242.0"/>
         </g>
         <g class="sld-wire sld-vl50to70-0" id="idEDGE_95_C_32_66_32_20_95_ONE">
-            <polyline points="577.0,870.0,577.0,960.0,560.0,960.0"/>
+            <polyline points="577.0,870.0,577.0,930.0,560.0,930.0"/>
         </g>
         <g class="sld-wire sld-vl0to30-0" id="idEDGE_95_C_32_66_32_20_95_TWO">
-            <polyline points="527.0,990.0,527.0,960.0,544.0,960.0"/>
+            <polyline points="527.0,990.0,527.0,930.0,544.0,930.0"/>
         </g>
-        <g class="sld-two-wt sld-fictitious" id="idC_32_230_32_66" transform="translate(447.0,226.5)">
+        <g class="sld-two-wt sld-fictitious" id="idC_32_230_32_66" transform="translate(477.0,226.5)">
             <circle class="sld-vl180to300-2 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl50to70-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
-        <g class="sld-two-wt sld-fictitious" id="idC_32_66_32_20" transform="translate(547.0,952.5)">
+        <g class="sld-two-wt sld-fictitious" id="idC_32_66_32_20" transform="translate(547.0,922.5)">
             <circle class="sld-vl50to70-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
             <circle class="sld-vl0to30-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
         </g>
@@ -992,12 +992,12 @@
             </g>
         </g>
         <g class="sld-wire sld-vl50to70-1" id="idEDGE_95_D_32_66_32_10_95_ONE">
-            <polyline points="767.0,62.0,767.0,-28.0,692.0,-28.0,692.0,226.0"/>
+            <polyline points="767.0,62.0,767.0,2.0,722.0,2.0,722.0,226.0"/>
         </g>
         <g class="sld-wire sld-vl0to30-1" id="idEDGE_95_D_32_66_32_10_95_TWO">
-            <polyline points="767.0,526.0,767.0,496.0,692.0,496.0,692.0,242.0"/>
+            <polyline points="767.0,526.0,767.0,466.0,722.0,466.0,722.0,242.0"/>
         </g>
-        <g class="sld-two-wt sld-fictitious" id="idD_32_66_32_10" transform="translate(687.0,226.5)">
+        <g class="sld-two-wt sld-fictitious" id="idD_32_66_32_10" transform="translate(717.0,226.5)">
             <circle class="sld-vl50to70-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl0to30-1 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
