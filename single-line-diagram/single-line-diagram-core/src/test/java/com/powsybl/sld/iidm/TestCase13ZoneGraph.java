@@ -119,11 +119,13 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
-        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
+        layoutParameters.setDiagrammPadding(10.0, 10.0, 10.0, 10.0);
 
         // Run matrix zone layout
         String[][] substationsIds = {{"A", "B", "C"},
                                      {"D", "", "E"}};
+        //String[][] substationsIds = {{"A", "B"},
+        //                             {"D", "E"}};
         new MatrixZoneLayoutFactory().create(g, substationsIds, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix2x3.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix2x3.svg"));
@@ -136,7 +138,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
-        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
+        layoutParameters.setDiagrammPadding(10.0, 10.0, 10.0, 10.0);
 
         // Run default matrix zone layout
         new MatrixZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
