@@ -1,86 +1,139 @@
-== Position of the Bus nodes and cells order
+== Position of `BusNodes` and `Cells` order
 === Definitions and goal
-Positioning the bus nodes and determination of the external cells order are performed by implementing `PositionFinder` interface.
+Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing `PositionFinder` interface.
 
-The goal is to set:
+The goal is to:
 
-* the horizontal and vertical *structural _(h,v)_* `Position` of the bus nodes: `NodeBus.structuralPosition`
-* the horizontal order of the cells: `Cell.order`
+* set the horizontal and vertical *structural _(h,v)_* `BusNode.structuralPosition`
+* set the horizontal *order* of the cells: `Cell.order`
+* provide a `List<Subsection>`. See link:Subsection.adoc[Subsection].
 
-The figure hereafter shows the information that are to be established.
+The picture hereafter shows the information that are to be established.
 
-.(h,v) positions of busbars and `ExternCell` cells order
+.(h,v) positions of `BusNodes` and `ExternCell` cells order
 image::images/busbars.svg[align="center"]
 
-The above structure will be used to explain the different steps of the positioning algorithms.
+=== Available implementations
+Two implementations are available:
 
-This information can be
+* `PositionFromExtension` which rely on explicitly given positions (for example to reflect the on-site real structure and/or the way the SCADA organises it). See link:PositionFromExtension.adoc[PositionFromExtension]
+* `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See link:PositionByClustering.adoc[PositionByClustering]
 
-* explicitly given (for example to reflect the on site real structure and/or the way the SCADA organises it). One implementation is the `PositionFromExtension` class
-* or automatically to fit some layout criteria. One implementation is the `PositionFree` class
+Both rely on the `BSCluster` (see link:BSCluster.adoc[BSCluster]) and have the same skeleton:
 
-=== Implementations
-==== PositionFromExtension: explicit configuration
-The `PositionFromExtension` takes the information from the `iidm` extension.
-It is gathered:
+* Step 1: Build of `VerticalBusSets`
+* Step 2: Build of unitary `BSCluster` in the `bsClusters` list
+* Step 3: Merge of `bsClsuters` into a single `BSCluster`
+* Step 4: Build of the `List<Subsection>subsections`
 
-* in `Graph.visitBusbarSection()` when building the graph for the NodeBus positions
-* and completed in `PositionFromExtension.gatherLayoutExtensionInformation()` for the feeders' order, in which the `Cell.orderFromFeederOrders()` is called to determine the order of the cell.
+=== Illustration of algorithms based on `BSCluster`
+The illustration will be based on the following graph and shall result in the above layout.
 
+image::images/rawGraphVBS.svg[align="center"]
 
+==== step 1: Build `VerticalBusSets`
+The result of `VerticalBusSet.createVerticalBusSets` is
 
-==== The `PositionFree` class
-The goal of the algorithm is to find an organization of the `VoltageLevel` with no other information that the graph itself. This is a "free" positioning since no constraints are given from a configuration source.
-
-The key criteria that is followed to find a suitable organisation is the fact that each external cells, and any "leg" of an internal cell can be "stacked" - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. (This criteria applies only when the structure of the cell allows it - which may not not the case)
-
-A straightforward approach to this criteria would lead to the following structure, that the algorithm will try to reduce.
-
-.Raw positionning (the information in gray are not known and will be established by the algorithm)
-image::images/rawPosition.svg[align="center"]
-
-
-===== Gathering `VerticalBusConnectionPattern` elements
-`VerticalBusConnectionPattern` is na inner class that represents the connection pattern to the busbars as a set of `busNode` for:
-
-* an external cell
-* or a leg of an intern cell.
-
-Let's call them indistinctly as *cell leg*.
-
-.verticalBusConnectionPattern of cell legs
-image::images/verticalBusConnectionPattern.svg[align="center"]
-
-This enables to gather all the cell legs having the same pattern as they share the same organisation constraint.
-
-The possible `VerticalBusConnectionPatterns` are gathered as the key of the `vbcpToCells` map, the value being the list of `ExternCell` cells having this pattern (no need to gather internal cells).
-
-When the `vbcpToCells` map is built, if a pattern is fully included or fully embraces an already existing `vbcp`, they are merged into the embracing one. For example, the pattern (3) is included in the pattern (3,5).
-
-CAUTION: Different merges of vbcp can occurs if the structure is not visited in the same order: for example if 3 external cells have (1,2) (1,3) and (1) as vbcp: the cell having the vbcp (1) could be included either into the (1,2) or (1,3) vbcp.
-
-===== Structuring with internal cells
-If the two legs of an internal cell are fully included into a single known vbcp, then this cell is considered as vertical and is not structuring. Indeed, one cell leg already constraints all the busbars of the cell to be parallel.
-
-This would lead to:
-
-.vbcpToCell
+[cols="1,1,1,1"]
 |===
-| vbcp | External Cells
+|VerticalBusSet |BusNodes | ExternCells | InternCellSides
 
-|(1) | -
-|(2) | -
-|(3,4) | 1 External cells
-|(3,5) | 3 External cells
+|vbs-1
+|B3, B1
+|EC1
+|IC2.R, IC3.L
+
+|vbs-2
+|B2
+|
+|IC1.L
+
+|vbs-3
+|B1, B4
+|EC2, EC3, EC4
+|IC3.R
+
+|vbs-4
+|B5
+|
+|IC1.R, IC2.L
+
 |===
 
-Therefore the algorithm works on structuring cells that are the ones that are not vertical.
+[NOTE]
+At that stage, the `LEFT` and `RIGHT` side of an `IntenCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
-Among these structuring cells, the algorithm will look for candidate flat cells (reminder: a flat cell is a 3-node cell having the `BUS-SWITCH-BUS` pattern for which the two buses have the same vertical position, and have contiguous horizontal positions).
+==== step 2: Build unitary `BSClusters`
 
-Then it will chain the `BUS` nodes with the `candidateFlatCell` into `HorizontalChain` objects.
+This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
-`VerticalBusConnectionPattern` class::
-qsd
-`VerticalBusConnectionPattern` class::
-qsd
+[cols=".^1, .^2, 1"]
+|===
+|BSCluster | VerticalBusSets | HorizontalBusLists
+
+|bsc-1
+|[ ( [B3, B1] , [EC1] , [IC2.R, IC3.L] ) ]
+|[ [B3] , [B1] ]
+
+|bsc-2
+|[ ( [B2] , , [IC1.L] ) ]
+|[ [B2] ]
+
+|bsc-3
+|[ ( [B1, B4] , [EC2, EC3, EC4] , [IC3.R] ) ]
+|[ [B1], [B4] ]
+
+|bsc-4
+|[ ( [B5] , , [IC1.L , IC2.L] ) ]
+|[ [B5] ]
+
+|===
+
+image::images/BSClusterInit.svg[align="center"]
+
+[IMPORTANT]
+.On this result:
+====
+ - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See link:PositionFromExtension.adoc[PositionFromExtension].
+ - Regarding the picture: the rows do not exist in real. It presented to highlight we have no clue of whether one `NodeBus` will be horizontally aligned with one another, except we know for sure that both `B1` shall end up in the same row.
+====
+
+==== step 3: Merge `BSClusters` into a single one
+That's where the magic happens. This is where the implementations mainly differ. The goal is to merge the `BSClusters` to one another.
+
+The principle of the merging of a `BSCluster` are:
+
+- simply concat the `VerticalBusSet` List
+- merge the `HorizontalBusList` using a proper implementation of `HorizontalBusLane::mergeHbl`.
+ 
+This expected result should be similar to the following `BSCluster`:
+
+image::images/BSClusterFinal.svg[align="center"]
+
+[cols="1, 1"]
+|===
+|VerticalBusSets | HorizontalBusLists
+
+| [
+
+( [B2, B5] , , [IC1.L, IC1.R, IC2.L] ) ,
+
+( [B4, B1] ,  [EC2, EC3, EC4] , [IC3.R] ) ,
+
+( [B3, B1] , [EC1] , [IC2.R, IC3.L] )
+
+]
+
+|  [
+
+    [B2, B4, B3] ,
+
+    [B5, B1, B1]
+    
+]
+|===
+
+The way this example is handled is detailed in each implementation documentation: link:PositionFromExtension.adoc[PositionFromExtension], link:PositionByClustering[PositionByClustering].
+
+
+==== step 4: Build the `List<Subsection>`

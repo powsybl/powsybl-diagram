@@ -4,14 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.position;
 
-import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * a PositionFinder determines:
@@ -25,13 +22,5 @@ import java.util.Map;
  */
 public interface PositionFinder {
 
-    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
-
-    LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets);
-
     List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt);
-
-    void forceSameOrientationForShuntedCell(VoltageLevelGraph graph);
-
-    void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections);
 }

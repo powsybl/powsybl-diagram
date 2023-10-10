@@ -13,6 +13,8 @@ import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.util.GraphTraversal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

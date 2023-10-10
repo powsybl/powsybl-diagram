@@ -4,8 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.position;
 
+import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -18,17 +19,21 @@ import java.util.Map;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public abstract class AbstractPositionFinder implements PositionFinder {
+public abstract class AbstractPositionFinder implements PositionFinder, HorizontalBusListManager {
+
+    public abstract Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
+
+    public abstract BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
 
     public List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
         }
         Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses(), graph.getBusCells());
-        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
-        LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
+        List<VerticalBusSet> verticalBusSets = VerticalBusSet.createVerticalBusSets(graph, busToNb);
+        BSCluster bsCluster = organizeBusSets(graph, verticalBusSets);
         graph.setMaxBusPosition();
-        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, handleShunt);
+        List<Subsection> subsections = Subsection.createSubsections(graph, bsCluster, busToNb, handleShunt);
         organizeDirections(graph, subsections);
         return subsections;
     }
@@ -39,5 +44,14 @@ public abstract class AbstractPositionFinder implements PositionFinder {
 
     public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
         forceSameOrientationForShuntedCell(graph);
+    }
+
+    public void mergeHblWithNoLink(BSCluster leftCluster, BSCluster rightCluster) {
+        rightCluster.getHorizontalBusLists().forEach(hbl -> {
+            hbl.shift(leftCluster.getLength());
+            hbl.setBsCluster(leftCluster);
+        });
+        leftCluster.getHorizontalBusLists().addAll(rightCluster.getHorizontalBusLists());
+        rightCluster.getHorizontalBusLists().removeAll(rightCluster.getHorizontalBusLists());
     }
 }
