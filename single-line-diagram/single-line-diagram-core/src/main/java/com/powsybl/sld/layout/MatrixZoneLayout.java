@@ -19,12 +19,12 @@ import java.util.*;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class MatrixZoneLayout extends AbstractZoneLayout {
-    private final MatrixZoneLayoutModel privateData;
+    private final MatrixZoneLayoutModel model;
     private final String[][] matrix;
 
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
-        this.privateData = new MatrixZoneLayoutModel(1);
+        this.model = new MatrixZoneLayoutModel(90);
         this.matrix = matrix;
     }
 
@@ -41,23 +41,23 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                     // Display substations
                     layoutBySubstation.get(graph).run(layoutParameters);
                 }
-                privateData.addGraph(graph, col, row);
+                model.addGraph(graph, col, row);
             }
         }
         // Height by rows
-        int maxHeightRow = privateData.getMatrixCellHeight();
+        int maxHeightRow = model.getMatrixCellHeight();
         // Width by col
-        int maxWidthCol = privateData.getMatrixCellWidth();
+        int maxWidthCol = model.getMatrixCellWidth();
         // Snakeline hallway
-        int hallway = privateData.getSnakelineHallwayWidth();
-        // Zone size
-        double zoneWidth = hallway;
-        double zoneHeight = hallway;
+        int hallway = model.getSnakelineHallwayWidth();
         // Padding
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-
+        // Zone size
+        double zoneWidth = 0.0;
+        double zoneHeight = diagramPadding.getTop() + hallway;
+        // Move each substation into its matrix position
         for (int row = 0; row < matrix.length; row++) {
-            double maxColWidth = 0.0;
+            zoneWidth = hallway;
             int hallwayRow = (row + 1) * hallway;
             for (int col = 0; col < matrix[row].length; col++) {
                 String id = matrix[row][col];
@@ -68,13 +68,12 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                     double dy = row * maxHeightRow + hallwayRow + diagramPadding.getTop();
                     move(graph, dx, dy);
                 }
-                maxColWidth += maxWidthCol + hallway;
+                zoneWidth += maxWidthCol + hallway;
             }
-            zoneWidth = Math.max(maxColWidth, zoneWidth);
             zoneHeight += maxHeightRow + hallway;
         }
 
-        getGraph().setSize(zoneWidth, zoneHeight);
+        getGraph().setSize(diagramPadding.getLeft() + zoneWidth + diagramPadding.getRight(), zoneHeight + diagramPadding.getBottom());
     }
 
     @Override
@@ -87,11 +86,10 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
         SubstationGraph ss1Graph = getGraph().getSubstationGraph(node1).orElse(null);
         SubstationGraph ss2Graph = getGraph().getSubstationGraph(node2).orElse(null);
-        if (vlGraph1 == vlGraph2) { // in the same VoltageLevel
-            throw new UnsupportedOperationException();
-        } else if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same Substation
+        if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same Substation
             polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
-        } else if (ss1Graph != null && ss2Graph != null && privateData.gridContains(ss1Graph.getId()) && privateData.gridContains(ss2Graph.getId())) {
+        } else if (ss1Graph != null && ss2Graph != null &&
+                   model.gridContains(ss1Graph.getId()) && model.gridContains(ss2Graph.getId())) { // in the same Zone
             String ss1Id = ss1Graph.getId();
             String ss2Id = ss2Graph.getId();
             Point p1 = vlGraph1.getShiftedPoint(node1);
@@ -101,20 +99,23 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(privateData.findPath(ss1Id, p1, dNode1, ss2Id, p2, dNode2));
+            polyline.addAll(model.buildSnakeline(ss1Id, p1, dNode1, ss2Id, p2, dNode2));
             // Add ending point
             polyline.add(p2);
         } else {
-            throw new UnsupportedOperationException();
+            // not found
         }
         return polyline;
     }
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        privateData.computeDefaultTiles(getGraph());
+        model.computePathFindingGrid(getGraph(), layoutParameters);
 
         // Draw snakelines between Substations
         manageSnakeLines(getGraph(), layoutParameters);
+
+        // FIXME: use diagram padding
+        getGraph().setSize(getGraph().getWidth() + 100, getGraph().getHeight() + 100);
     }
 }

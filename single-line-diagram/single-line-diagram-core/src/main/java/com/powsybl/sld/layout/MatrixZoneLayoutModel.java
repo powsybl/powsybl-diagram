@@ -7,13 +7,12 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.algo.*;
+import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 
-import java.io.*;
 import java.util.*;
 import java.util.function.*;
 
@@ -25,31 +24,32 @@ public class MatrixZoneLayoutModel {
     private final Map<String, MatrixCell> cellsById = new HashMap<>();
     private final List<MatrixCell> emptyCells = new ArrayList<>();
 
+    private int matrixNbRow = 0;
+
+    private int matrixNbCol = 0;
+
     private int matrixCellHeight = -1;
 
     private int matrixCellWidth = -1;
 
-    private int snakelineHallwayWidth = 1;
+    private final int snakelineHallwayWidth;
 
-    private float[][] privateTiles;
-
-    private static final float WALKABLE = 1.0f;
-
-    private static final float NOT_WALKABLE = 0.0f;
+    private Grid pathFindinGrid;
 
     protected MatrixZoneLayoutModel(int hallway) {
         this.snakelineHallwayWidth = hallway;
     }
 
-    public MatrixZoneLayoutModel addGraph(BaseGraph graph, int x, int y) {
+    public void addGraph(SubstationGraph graph, int col, int row) {
         if (graph != null) {
-            cellsById.put(graph.getId(), new MatrixCell(graph, x, y));
-            setCellHeight(Math.max(matrixCellHeight, (int) graph.getHeight()));
-            setCellWidth(Math.max(matrixCellWidth, (int) graph.getWidth()));
+            cellsById.put(graph.getId(), new MatrixCell(graph, col, row));
+            matrixCellHeight = Math.max(matrixCellHeight, (int) graph.getHeight());
+            matrixCellWidth = Math.max(matrixCellWidth, (int) graph.getWidth());
         } else {
-            emptyCells.add(new MatrixCell(null, x, y));
+            emptyCells.add(new MatrixCell(null, col, row));
         }
-        return this;
+        matrixNbRow = Math.max(matrixNbRow, row + 1);
+        matrixNbCol = Math.max(matrixNbCol, col + 1);
     }
 
     public int getSnakelineHallwayWidth() {
@@ -64,25 +64,9 @@ public class MatrixZoneLayoutModel {
         return matrixCellHeight;
     }
 
-    public MatrixZoneLayoutModel setCellWidth(int width) {
-        this.matrixCellWidth = width;
-        return this;
-    }
-
-    public MatrixZoneLayoutModel setCellHeight(int height) {
-        this.matrixCellHeight = height;
-        return this;
-    }
-
-    public MatrixZoneLayoutModel setHallway(int width) {
-        this.snakelineHallwayWidth = width;
-        return this;
-    }
-
     public int getX(String id) {
         MatrixCell cell = cellsById.get(id);
-        int col = cell.x();
-        return getX(col);
+        return getX(cell.col());
     }
 
     public int getX(int col) {
@@ -103,95 +87,110 @@ public class MatrixZoneLayoutModel {
 
     public int getY(String id, Direction direction) {
         MatrixCell cell = cellsById.get(id);
-        int row = cell.y();
+        int row = cell.row();
         return getY(row, direction);
     }
 
-    public List<Point> findPath(String ss1Id, Point p1, Direction d1,
-                                String ss2Id, Point p2, Direction d2) {
-        Grid grid = buildPathFindingGrid(ss1Id, p1, d1,
-                ss2Id, p2, d2);
-        com.powsybl.sld.layout.algo.Point start = new com.powsybl.sld.layout.algo.Point((int) p1.getY(), (int) p1.getX());
-        com.powsybl.sld.layout.algo.Point target = new com.powsybl.sld.layout.algo.Point((int) p2.getY(), (int) p2.getX());
-        // Last argument will make this search be 4 directional
-        List<com.powsybl.sld.layout.algo.Point> path = PathFinding.findPath(grid, start, target, false);
-        List<com.powsybl.sld.layout.algo.Point> simplifiedPoints = PathFinding.simplify(path, 1.0);
+    public List<Point> buildSnakeline(String ss1Id, Point p1, Direction d1,
+                                      String ss2Id, Point p2, Direction d2) {
+        Grid grid = setFreePath(ss1Id, p1, d1, ss2Id, p2, d2);
 
-        List<Point> polyline = new ArrayList<>();
-        for (com.powsybl.sld.layout.algo.Point point : simplifiedPoints) {
-            polyline.add(new Point(point.y(), point.x()));
-        }
+        // Use path finding algo
+        List<com.powsybl.sld.layout.pathfinding.Point> path = Dijkstra.findShortestPath(grid,
+                                                                                        (int) p1.getX(), (int) p1.getY(),
+                                                                                        (int) p2.getX(), (int) p2.getY());
 
-        // Only debug file
-        // dumpGridToFile("out.txt");
+        // Set snakeline as obstacles
+        pathFindinGrid.setObstacles(path);
 
-        return polyline;
+        // Only for debug
+        grid.dumpToFile("out.txt");
+
+        //
+        final List<Point> snakeline = new ArrayList<>();
+        path.forEach(p -> snakeline.add(new Point(p.x(), p.y())));
+
+        return snakeline;
     }
 
-    private Grid buildPathFindingGrid(String id1, Point p1, Direction d1,
-                                      String id2, Point p2, Direction d2) {
+    private Grid setFreePath(String id1, Point p1, Direction d1,
+                                  String id2, Point p2, Direction d2) {
+        int dy = 1;
+
         int x1 = (int) p1.getX();
         int y1 = (int) p1.getY();
-        int ss1Y = getY(id1, d1);
-        for (int y = Math.min(y1, ss1Y); y <= Math.max(y1, ss1Y); y++) {
-            privateTiles[y][x1] = WALKABLE;
+        int ss1Y = getY(id1, d1) + snakelineHallwayWidth * (d1 == Direction.TOP ? -1 : 1);
+        int min1Y = Math.max(Math.min(y1, ss1Y), 0);
+        int max1Y = Math.max(y1, ss1Y) + dy;
+        for (int y = min1Y; y < max1Y; y++) {
+            pathFindinGrid.setFreePath(x1, y);
         }
 
         int x2 = (int) p2.getX();
         int y2 = (int) p2.getY();
-        int ss2Y = getY(id2, d2);
-        for (int y = Math.min(y2, ss2Y); y <= Math.max(y2, ss2Y); y++) {
-            privateTiles[y][x2] = WALKABLE;
+        int ss2Y = getY(id2, d2) + snakelineHallwayWidth * (d2 == Direction.TOP ? -1 : 1);
+        int min2Y = Math.max(Math.min(y2, ss2Y), 0);
+        int max2Y = Math.max(y2, ss2Y) + dy;
+        for (int y = min2Y; y < max2Y; y++) {
+            pathFindinGrid.setFreePath(x2, y);
         }
-        return new Grid(privateTiles.length, privateTiles.length, privateTiles);
+        return pathFindinGrid;
     }
 
-    public void computeDefaultTiles(ZoneGraph graph) {
+    public void computePathFindingGrid(ZoneGraph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
-        int height = (int) graph.getHeight();
         int width = (int) graph.getWidth();
+        int height = (int) graph.getHeight();
 
-        // FIXME: not sure for equality -> maybe w & h inversion ?
-        // Width & height must be equal for tiles
-        int max = Math.max(height, width);
-        privateTiles = new float[max][max];
-        for (float[] tile : privateTiles) {
-            Arrays.fill(tile, WALKABLE);
+        pathFindinGrid = new Grid(width, height);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pathFindinGrid.setObstacle(x, y);
+            }
         }
+
+        // Substations
         cellsById.keySet().forEach(id -> {
             int ssX = getX(id);
             int ssY = getY(id);
-            for (int xx = ssX; xx < ssX + matrixCellWidth; xx++) {
-                for (int yy = ssY; yy < ssY + matrixCellHeight; yy++) {
-                    privateTiles[yy][xx] = NOT_WALKABLE;
+            for (int x = ssX; x < ssX + matrixCellWidth; x++) {
+                for (int y = ssY; y < ssY + matrixCellHeight; y++) {
+                    pathFindinGrid.setObstacle(x, y);
                 }
             }
         });
+        // Empty cells
         emptyCells.forEach(cell -> {
-            int ssX = getX(cell.x());
-            int ssY = getY(cell.y());
-            for (int xx = ssX; xx < ssX + matrixCellWidth; xx++) {
-                for (int yy = ssY; yy < ssY + matrixCellHeight; yy++) {
-                    privateTiles[yy][xx] = NOT_WALKABLE;
+            int ssX = getX(cell.col());
+            int ssY = getY(cell.row());
+            for (int x = ssX; x < ssX + matrixCellWidth; x++) {
+                for (int y = ssY; y < ssY + matrixCellHeight; y++) {
+                    pathFindinGrid.setObstacle(x, y);
                 }
             }
         });
-    }
 
-    public void dumpGridToFile(String filename) {
-        Objects.requireNonNull(filename);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (float[] privateTile : privateTiles) {
-                for (float b : privateTile) {
-                    String str = b == WALKABLE ? " " : "X";
-                    str += "";
-                    writer.write(str);
+        // Horizontal hallways
+        for (int r = 0; r < matrixNbRow; r++) {
+            for (int x = 0; x < width; x++) {
+                for (int hy = 0; hy < height; hy += snakelineHallwayWidth + matrixCellHeight) {
+                    // FIXME : 30 need to be parametrised
+                    for (int y = hy; y < hy + snakelineHallwayWidth; y += layoutParameters.getHorizontalSnakeLinePadding()) {
+                        pathFindinGrid.setFreePath(x, y);
+                    }
                 }
-                writer.write("\n");
-                writer.flush();
             }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        }
+        // Vertical hallways
+        for (int c = 0; c < matrixNbCol; c++) {
+            for (int y = 0; y < height; y++) {
+                for (int hx = 0; hx < width; hx += snakelineHallwayWidth + matrixCellWidth) {
+                    // FIXME : 30 need to be parametrised
+                    for (int x = hx; x < hx + snakelineHallwayWidth; x += layoutParameters.getVerticalSnakeLinePadding()) {
+                        pathFindinGrid.setFreePath(x, y);
+                    }
+                }
+            }
         }
     }
 
