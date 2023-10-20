@@ -5,16 +5,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.zonebygrid;
 
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 
 import java.util.*;
-import java.util.function.*;
 
 /**
  * @author Thomas Adam <tadam at neverhack.com>
@@ -34,9 +33,9 @@ public class MatrixZoneLayoutModel {
 
     private final int snakelineHallwayWidth;
 
-    private Grid pathFindinGrid;
+    private Grid pathFinderGrid;
 
-    protected MatrixZoneLayoutModel(int hallway) {
+    public MatrixZoneLayoutModel(int hallway) {
         this.snakelineHallwayWidth = hallway;
     }
 
@@ -91,30 +90,25 @@ public class MatrixZoneLayoutModel {
         return getY(row, direction);
     }
 
-    public List<Point> buildSnakeline(String ss1Id, Point p1, Direction d1,
+    public List<Point> buildSnakeline(PathFinder pathfinder,
+                                      String ss1Id, Point p1, Direction d1,
                                       String ss2Id, Point p2, Direction d2) {
-        Grid grid = setFreePath(ss1Id, p1, d1, ss2Id, p2, d2);
+        insertFreePathInSubstation(ss1Id, p1, d1, ss2Id, p2, d2);
 
         // Use path finding algo
-        List<com.powsybl.sld.layout.pathfinding.Point> path = Dijkstra.findShortestPath(grid,
-                                                                                        (int) p1.getX(), (int) p1.getY(),
-                                                                                        (int) p2.getX(), (int) p2.getY());
-
-        // Set snakeline as obstacles
-        pathFindinGrid.setObstacles(path);
+        List<Point> snakeLine = pathfinder.toSnakeLine(pathfinder.findShortestPath(pathFinderGrid,
+                (int) p1.getX(), (int) p1.getY(),
+                (int) p2.getX(), (int) p2.getY(),
+                true));
 
         // Only for debug
-        grid.dumpToFile("out.txt");
+        pathFinderGrid.dumpToFile("out.txt");
 
-        //
-        final List<Point> snakeline = new ArrayList<>();
-        path.forEach(p -> snakeline.add(new Point(p.x(), p.y())));
-
-        return snakeline;
+        return snakeLine;
     }
 
-    private Grid setFreePath(String id1, Point p1, Direction d1,
-                                  String id2, Point p2, Direction d2) {
+    private void insertFreePathInSubstation(String id1, Point p1, Direction d1,
+                                            String id2, Point p2, Direction d2) {
         int dy = 1;
 
         int x1 = (int) p1.getX();
@@ -123,7 +117,7 @@ public class MatrixZoneLayoutModel {
         int min1Y = Math.max(Math.min(y1, ss1Y), 0);
         int max1Y = Math.max(y1, ss1Y) + dy;
         for (int y = min1Y; y < max1Y; y++) {
-            pathFindinGrid.setFreePath(x1, y);
+            pathFinderGrid.setAvailability(x1, y, true);
         }
 
         int x2 = (int) p2.getX();
@@ -132,9 +126,8 @@ public class MatrixZoneLayoutModel {
         int min2Y = Math.max(Math.min(y2, ss2Y), 0);
         int max2Y = Math.max(y2, ss2Y) + dy;
         for (int y = min2Y; y < max2Y; y++) {
-            pathFindinGrid.setFreePath(x2, y);
+            pathFinderGrid.setAvailability(x2, y, true);
         }
-        return pathFindinGrid;
     }
 
     public void computePathFindingGrid(ZoneGraph graph, LayoutParameters layoutParameters) {
@@ -142,10 +135,10 @@ public class MatrixZoneLayoutModel {
         int width = (int) graph.getWidth();
         int height = (int) graph.getHeight();
 
-        pathFindinGrid = new Grid(width, height);
+        pathFinderGrid = new Grid(width, height);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                pathFindinGrid.setObstacle(x, y);
+                pathFinderGrid.setAvailability(x, y, false);
             }
         }
 
@@ -155,7 +148,7 @@ public class MatrixZoneLayoutModel {
             int ssY = getY(id);
             for (int x = ssX; x < ssX + matrixCellWidth; x++) {
                 for (int y = ssY; y < ssY + matrixCellHeight; y++) {
-                    pathFindinGrid.setObstacle(x, y);
+                    pathFinderGrid.setAvailability(x, y, false);
                 }
             }
         });
@@ -165,7 +158,7 @@ public class MatrixZoneLayoutModel {
             int ssY = getY(cell.row());
             for (int x = ssX; x < ssX + matrixCellWidth; x++) {
                 for (int y = ssY; y < ssY + matrixCellHeight; y++) {
-                    pathFindinGrid.setObstacle(x, y);
+                    pathFinderGrid.setAvailability(x, y, false);
                 }
             }
         });
@@ -174,9 +167,8 @@ public class MatrixZoneLayoutModel {
         for (int r = 0; r < matrixNbRow; r++) {
             for (int x = 0; x < width; x++) {
                 for (int hy = 0; hy < height; hy += snakelineHallwayWidth + matrixCellHeight) {
-                    // FIXME : 30 need to be parametrised
                     for (int y = hy; y < hy + snakelineHallwayWidth; y += layoutParameters.getHorizontalSnakeLinePadding()) {
-                        pathFindinGrid.setFreePath(x, y);
+                        pathFinderGrid.setAvailability(x, y, true);
                     }
                 }
             }
@@ -185,21 +177,16 @@ public class MatrixZoneLayoutModel {
         for (int c = 0; c < matrixNbCol; c++) {
             for (int y = 0; y < height; y++) {
                 for (int hx = 0; hx < width; hx += snakelineHallwayWidth + matrixCellWidth) {
-                    // FIXME : 30 need to be parametrised
                     for (int x = hx; x < hx + snakelineHallwayWidth; x += layoutParameters.getVerticalSnakeLinePadding()) {
-                        pathFindinGrid.setFreePath(x, y);
+                        pathFinderGrid.setAvailability(x, y, true);
                     }
                 }
             }
         }
     }
 
-    public boolean gridContains(String id) {
+    public boolean contains(String id) {
         Objects.requireNonNull(id);
         return cellsById.containsKey(id);
-    }
-
-    public void forEachCellGrid(Consumer<? super String> consumer) {
-        cellsById.keySet().forEach(consumer);
     }
 }

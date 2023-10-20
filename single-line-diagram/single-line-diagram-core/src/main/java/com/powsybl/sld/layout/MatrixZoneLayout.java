@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.pathfinding.*;
+import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
@@ -22,10 +24,13 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     private final MatrixZoneLayoutModel model;
     private final String[][] matrix;
 
+    private final PathFinder pathFinder;
+
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
         this.model = new MatrixZoneLayoutModel(90);
         this.matrix = matrix;
+        this.pathFinder = new PathFinderFactory().createDijkstra();
     }
 
     /**
@@ -89,7 +94,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same Substation
             polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
         } else if (ss1Graph != null && ss2Graph != null &&
-                   model.gridContains(ss1Graph.getId()) && model.gridContains(ss2Graph.getId())) { // in the same Zone
+                   model.contains(ss1Graph.getId()) && model.contains(ss2Graph.getId())) { // in the same Zone
             String ss1Id = ss1Graph.getId();
             String ss2Id = ss2Graph.getId();
             Point p1 = vlGraph1.getShiftedPoint(node1);
@@ -99,10 +104,11 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(model.buildSnakeline(ss1Id, p1, dNode1, ss2Id, p2, dNode2));
+            polyline.addAll(model.buildSnakeline(pathFinder, ss1Id, p1, dNode1, ss2Id, p2, dNode2));
             // Add ending point
             polyline.add(p2);
         } else {
+            // FIXME : substation link but not displayed
             // not found
         }
         return polyline;
