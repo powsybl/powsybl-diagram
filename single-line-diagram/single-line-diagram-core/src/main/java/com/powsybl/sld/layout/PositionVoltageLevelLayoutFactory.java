@@ -7,11 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,90 +20,36 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private final PositionFinder positionFinder;
 
-    private boolean feederStacked = true;
-
-    private boolean removeUnnecessaryFictitiousNodes = true;
-
-    private boolean substituteSingularFictitiousByFeederNode = true;
-
-    private boolean exceptionIfPatternNotHandled = false;
-
-    private boolean handleShunts = false;
-
-    private Map<String, Side> busInfoMap = new HashMap<>();
+    private PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters = new PositionVoltageLevelLayoutFactoryParameters();
 
     public PositionVoltageLevelLayoutFactory() {
         this(new PositionFromExtension());
+    }
+
+    public PositionVoltageLevelLayoutFactory(PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
+        this(new PositionFromExtension());
+        this.positionVoltageLevelLayoutFactoryParameters = positionVoltageLevelLayoutFactoryParameters;
     }
 
     public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
     }
 
-    public boolean isFeederStacked() {
-        return feederStacked;
-    }
-
-    public PositionVoltageLevelLayoutFactory setFeederStacked(boolean feederStacked) {
-        this.feederStacked = feederStacked;
-        return this;
-    }
-
-    public boolean isExceptionIfPatternNotHandled() {
-        return exceptionIfPatternNotHandled;
-    }
-
-    public PositionVoltageLevelLayoutFactory setExceptionIfPatternNotHandled(boolean exceptionIfPatternNotHandled) {
-        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
-        return this;
-    }
-
-    public boolean isRemoveUnnecessaryFictitiousNodes() {
-        return removeUnnecessaryFictitiousNodes;
-    }
-
-    public PositionVoltageLevelLayoutFactory setRemoveUnnecessaryFictitiousNodes(boolean removeUnnecessaryFictitiousNodes) {
-        this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
-        return this;
-    }
-
-    public boolean isSubstituteSingularFictitiousByFeederNode() {
-        return substituteSingularFictitiousByFeederNode;
-    }
-
-    public PositionVoltageLevelLayoutFactory setSubstituteSingularFictitiousByFeederNode(boolean substituteSingularFictitiousByFeederNode) {
-        this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
-        return this;
-    }
-
-    public boolean isHandleShunts() {
-        return handleShunts;
-    }
-
-    public PositionVoltageLevelLayoutFactory setHandleShunts(boolean handleShunts) {
-        this.handleShunts = handleShunts;
-        return this;
-    }
-
-    public Map<String, Side> getBusInfoMap() {
-        return busInfoMap;
-    }
-
-    public PositionVoltageLevelLayoutFactory setBusInfoMap(Map<String, Side> busInfoMap) {
-        this.busInfoMap = busInfoMap;
-        return this;
+    public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder, PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
+        this.positionFinder = Objects.requireNonNull(positionFinder);
+        this.positionVoltageLevelLayoutFactoryParameters = positionVoltageLevelLayoutFactoryParameters;
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
         // For adapting the graph to the diagram layout
-        GraphRefiner graphRefiner = new GraphRefiner(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
+        GraphRefiner graphRefiner = new GraphRefiner(positionVoltageLevelLayoutFactoryParameters.isRemoveUnnecessaryFictitiousNodes(), positionVoltageLevelLayoutFactoryParameters.isSubstituteSingularFictitiousByFeederNode());
 
         // For cell detection
-        ImplicitCellDetector cellDetector = new ImplicitCellDetector(exceptionIfPatternNotHandled);
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector(positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled());
 
         // For building blocks from cells
-        BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap);
+        BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, positionVoltageLevelLayoutFactoryParameters.isFeederStacked(), positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled(), positionVoltageLevelLayoutFactoryParameters.isHandleShunts(), positionVoltageLevelLayoutFactoryParameters.getBusInfoMap());
 
         return new PositionVoltageLevelLayout(graph, graphRefiner, cellDetector, blockOrganizer);
     }
