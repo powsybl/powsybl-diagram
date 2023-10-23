@@ -16,7 +16,7 @@ import com.powsybl.iidm.network.Generator;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
 

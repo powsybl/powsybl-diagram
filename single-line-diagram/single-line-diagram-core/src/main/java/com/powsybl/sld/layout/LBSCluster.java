@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * containing a single LBS.
  * LBSCluster handles the building of the horizontalBusLanes that are an horizontal strings of busNodes.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class LBSCluster {
 

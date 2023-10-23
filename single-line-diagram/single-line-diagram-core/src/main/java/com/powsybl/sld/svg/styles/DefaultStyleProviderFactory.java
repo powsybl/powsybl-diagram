@@ -14,7 +14,7 @@ import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 public class DefaultStyleProviderFactory implements StyleProviderFactory {

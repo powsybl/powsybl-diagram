@@ -13,7 +13,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.*;
 
 /**
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 public final class VoltageLevelDiagramData extends AbstractExtension<VoltageLevel> {
 

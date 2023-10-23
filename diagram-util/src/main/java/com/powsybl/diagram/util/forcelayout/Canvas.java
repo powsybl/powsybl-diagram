@@ -9,7 +9,7 @@ package com.powsybl.diagram.util.forcelayout;
 import java.util.Objects;
 
 /**
- * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class Canvas {
     private final double width;

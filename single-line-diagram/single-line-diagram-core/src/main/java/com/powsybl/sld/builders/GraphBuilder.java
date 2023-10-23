@@ -11,7 +11,7 @@ import java.util.List;
 import com.powsybl.sld.model.graphs.*;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public interface GraphBuilder {
 

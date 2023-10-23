@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);

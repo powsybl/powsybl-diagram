@@ -16,7 +16,7 @@ import com.powsybl.iidm.network.Load;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class LoadDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
     private Load load;

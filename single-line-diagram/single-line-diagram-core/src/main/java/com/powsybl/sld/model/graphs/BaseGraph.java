@@ -13,7 +13,7 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
 
 /**
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public interface BaseGraph extends Graph {
 

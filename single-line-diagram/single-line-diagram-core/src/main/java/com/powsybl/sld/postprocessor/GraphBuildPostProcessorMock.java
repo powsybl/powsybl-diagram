@@ -13,7 +13,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import java.util.Objects;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 @AutoService(GraphBuildPostProcessor.class)
 public class GraphBuildPostProcessorMock implements GraphBuildPostProcessor {

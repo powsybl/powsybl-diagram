@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.function.Function;
 
 /**
- * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class Point {
     private static final double DEFAULT_MASS = 1.0;

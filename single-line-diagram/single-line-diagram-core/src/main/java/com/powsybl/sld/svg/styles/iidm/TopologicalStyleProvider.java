@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer@rte-france.com>}
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 

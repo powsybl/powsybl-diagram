@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * <p>
  * Sorting this way enables to foster merging of clusters according to the strength of the link.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 class Link implements Comparable<Link> {

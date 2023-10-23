@@ -15,9 +15,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Slimane Amar <slimane.amar at rte-france.com>
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class InfosNbSnakeLinesVertical {
 

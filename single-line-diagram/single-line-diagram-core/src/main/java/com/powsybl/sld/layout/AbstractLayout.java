@@ -19,8 +19,8 @@ import java.util.*;
 import java.util.function.BooleanSupplier;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Layout {
 

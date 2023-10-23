@@ -10,7 +10,7 @@ package com.powsybl.sld.postprocessor;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public interface GraphBuildPostProcessor {
     String getId();

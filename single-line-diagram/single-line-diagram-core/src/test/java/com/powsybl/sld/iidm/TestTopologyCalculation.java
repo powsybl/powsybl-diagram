@@ -37,10 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * bbs 2.1 ----------x-d21-x-b2-x-d22-x---x------------x--- bbs 2.2
  * </PRE>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestTopologyCalculation extends AbstractTestCaseIidm {
 

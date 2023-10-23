@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtension<T> {
 

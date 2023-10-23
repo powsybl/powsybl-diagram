@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class CgmesSubstationLayout extends AbstractCgmesLayout {
 

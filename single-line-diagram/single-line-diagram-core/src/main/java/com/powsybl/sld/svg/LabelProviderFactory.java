@@ -13,7 +13,7 @@ import com.powsybl.sld.library.ComponentLibrary;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 @FunctionalInterface

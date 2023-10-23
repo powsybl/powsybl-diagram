@@ -22,7 +22,7 @@ import java.util.stream.*;
 import static com.powsybl.sld.model.nodes.NodeSide.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public abstract class AbstractRawBuilder implements BaseRawBuilder {
 

@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public abstract class AbstractLabelProvider implements LabelProvider {
 

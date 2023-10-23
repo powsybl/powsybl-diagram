@@ -10,7 +10,7 @@ import com.google.auto.service.AutoService;
 import com.powsybl.tools.*;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 @AutoService(Version.class)
 public class PowsyblDiagramVersion extends AbstractVersion {

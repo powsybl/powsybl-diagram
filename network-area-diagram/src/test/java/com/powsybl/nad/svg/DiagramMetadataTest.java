@@ -31,7 +31,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class DiagramMetadataTest extends AbstractTest {
 
