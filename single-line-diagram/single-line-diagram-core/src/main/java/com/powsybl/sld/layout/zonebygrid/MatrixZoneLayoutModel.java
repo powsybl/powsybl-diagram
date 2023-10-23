@@ -143,6 +143,19 @@ public class MatrixZoneLayoutModel {
         }
 
         // Substations
+        computeSubstationsAvailability();
+
+        // Empty cells
+        computeEmptyCellsAvailability();
+
+        // Horizontal hallways
+        computeHorizontalHallwaysAvailability(width, height, layoutParameters);
+
+        // Vertical hallways
+        computeVerticalHallwaysAvailability(width, height, layoutParameters);
+    }
+
+    private void computeSubstationsAvailability() {
         cellsById.keySet().forEach(id -> {
             int ssX = getX(id);
             int ssY = getY(id);
@@ -152,7 +165,9 @@ public class MatrixZoneLayoutModel {
                 }
             }
         });
-        // Empty cells
+    }
+
+    private void computeEmptyCellsAvailability() {
         emptyCells.forEach(cell -> {
             int ssX = getX(cell.col());
             int ssY = getY(cell.row());
@@ -162,8 +177,9 @@ public class MatrixZoneLayoutModel {
                 }
             }
         });
+    }
 
-        // Horizontal hallways
+    private void computeHorizontalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
         for (int r = 0; r < matrixNbRow; r++) {
             for (int x = 0; x < width; x++) {
                 for (int hy = 0; hy < height; hy += snakelineHallwayWidth + matrixCellHeight) {
@@ -173,7 +189,9 @@ public class MatrixZoneLayoutModel {
                 }
             }
         }
-        // Vertical hallways
+    }
+
+    private void computeVerticalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
         for (int c = 0; c < matrixNbCol; c++) {
             for (int y = 0; y < height; y++) {
                 for (int hx = 0; hx < width; hx += snakelineHallwayWidth + matrixCellWidth) {

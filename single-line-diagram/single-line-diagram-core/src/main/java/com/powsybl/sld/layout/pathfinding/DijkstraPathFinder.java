@@ -149,7 +149,7 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
 
     private static double perpendicularDistance(Point point, Point start, Point end) {
         double numerator = Math.abs((end.y() - start.y()) * point.x() - (end.x() - start.x()) * point.y() + end.x() * start.y() - end.y() * start.x());
-        double denominator = Math.sqrt(Math.pow(end.y() - start.y(), 2) + Math.pow(end.x() - start.x(), 2));
+        double denominator = Math.sqrt(Math.pow((double) end.y() - (double) start.y(), 2) + Math.pow((double) end.x() - (double) start.x(), 2));
         return numerator / denominator;
     }
 }
