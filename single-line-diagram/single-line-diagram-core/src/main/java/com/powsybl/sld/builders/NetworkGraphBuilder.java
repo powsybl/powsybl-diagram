@@ -763,6 +763,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             case LOAD_BREAK_SWITCH:
                 componentType = LOAD_BREAK_SWITCH;
                 break;
+            case GROUND_DISCONNECTOR:
+                componentType = GROUND_DISCONNECTOR;
+                break;
             default:
                 throw new AssertionError();
         }
