@@ -2,6 +2,7 @@
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
+.sld-ground-disconnector {stroke-width: 3; stroke: black; fill: none}
 /* Stroke blue */
 .sld-breaker {stroke-width: 2; stroke: blue; fill:white}
 .sld-load-break-switch {stroke: blue; fill: white}

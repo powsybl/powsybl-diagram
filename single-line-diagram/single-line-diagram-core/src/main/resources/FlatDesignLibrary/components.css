@@ -1,6 +1,7 @@
 /* File : components.css ------------------------------------------------- */
 .sld-disconnector.sld-open {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
 .sld-disconnector.sld-closed {fill: var(--sld-vl-color, black)}
+.sld-ground-disconnector {stroke-width: 1.5; stroke:  var(--sld-vl-color, black); fill: none}
 .sld-breaker, .sld-load-break-switch {fill: var(--sld-vl-color, blue)}
 .sld-bus-connection {fill: var(--sld-vl-color, black)}
 .sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
