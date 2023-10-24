@@ -16,12 +16,10 @@ public class Grid {
 
     static class Node {
         private final Point point;
-        private Point parent;
         private int cost;
 
         public Node(int x, int y) {
             point = new Point(x, y);
-            parent = null;
             cost = WALKABLE;
         }
 
@@ -43,13 +41,12 @@ public class Grid {
             }
             Node node = (Node) o;
             return point == node.point &&
-                   parent == node.parent &&
                    cost == node.cost;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(point, parent, cost);
+            return Objects.hash(point, cost);
         }
     }
 
@@ -88,18 +85,6 @@ public class Grid {
         int nodeX = Math.max(0, Math.min(x, width - 1));
         int nodeY = Math.max(0, Math.min(y, height - 1));
         return nodes[nodeX][nodeY];
-    }
-
-    public Point parent(Point current) {
-        return getNode(current).parent;
-    }
-
-    public void setParent(Point point, Point parent) {
-        getNode(point).parent = parent;
-    }
-
-    public void setParent(List<Point> path, Point parent) {
-        path.forEach(p -> getNode(p).parent = parent);
     }
 
     public void setAvailability(int x, int y, boolean available) {

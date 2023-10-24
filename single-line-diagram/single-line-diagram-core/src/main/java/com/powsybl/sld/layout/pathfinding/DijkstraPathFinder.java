@@ -25,6 +25,7 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
     public List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY, boolean setSnakeLineAsObstacle) {
         Point start = new Point(startX, startY);
         Point end = new Point(endX, endY);
+        Map<Point, Point> parent = new HashMap<>();
         Map<Point, Integer> distance = new HashMap<>();
 
         PriorityQueue<Point> queue = new PriorityQueue<>(Comparator.comparingInt(distance::get));
@@ -35,11 +36,9 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
         while (!queue.isEmpty()) {
             Point current = queue.poll();
             if (current.equals(end)) {
-                List<Point> path = reconstructPath(grid, end);
+                List<Point> path = reconstructPath(parent, end);
                 // Make path not available
                 grid.setAvailability(path, false);
-                // Reset parent link for next call
-                grid.setParent(path, null);
 
                 return smoothPath(path);
             }
@@ -56,7 +55,7 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
 
                     if (!distance.containsKey(neighbor) || newDist < distance.get(neighbor)) {
                         distance.put(neighbor, newDist + angle);
-                        grid.setParent(neighbor, current);
+                        parent.put(neighbor, current);
                         queue.add(neighbor);
                     }
                 }
@@ -65,12 +64,12 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
         return new ArrayList<>();  // No path found
     }
 
-    private List<Point> reconstructPath(Grid grid, Point end) {
+    private List<Point> reconstructPath(Map<Point, Point> parent, Point end) {
         List<Point> path = new ArrayList<>();
         Point current = end;
-        while (current != null) {
+        while (parent.containsKey(current)) {
             path.add(current);
-            current = grid.parent(current);
+            current = parent.get(current);
         }
         Collections.reverse(path);
         return path;
