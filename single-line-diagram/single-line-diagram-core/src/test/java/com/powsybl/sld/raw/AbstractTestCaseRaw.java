@@ -28,7 +28,7 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();

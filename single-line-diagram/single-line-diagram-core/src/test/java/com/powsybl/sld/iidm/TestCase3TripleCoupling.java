@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * </pre>
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class TestCase3TripleCoupling extends AbstractTestCaseIidm {
 

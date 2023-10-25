@@ -9,7 +9,7 @@ package com.powsybl.nad.model;
 import java.util.Optional;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public interface Identifiable {
 

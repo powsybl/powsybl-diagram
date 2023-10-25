@@ -10,7 +10,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class VerticalZoneLayoutFactory implements ZoneLayoutFactory {
 

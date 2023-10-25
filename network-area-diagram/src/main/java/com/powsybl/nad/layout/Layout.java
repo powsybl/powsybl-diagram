@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface Layout {
     void run(Graph graph, LayoutParameters layoutParameters);

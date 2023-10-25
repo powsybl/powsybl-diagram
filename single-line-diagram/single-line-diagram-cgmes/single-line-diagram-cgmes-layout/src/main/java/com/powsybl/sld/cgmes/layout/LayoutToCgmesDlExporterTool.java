@@ -34,7 +34,7 @@ import static com.powsybl.sld.AbstractSingleLineDiagramCommand.INPUT_FILE;
 import static com.powsybl.sld.AbstractSingleLineDiagramCommand.OUTPUT_DIR;
 
 /**
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 @AutoService(Tool.class)
 public class LayoutToCgmesDlExporterTool implements Tool {

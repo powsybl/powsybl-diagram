@@ -11,7 +11,7 @@ import java.util.List;
 import com.powsybl.sld.model.nodes.Node;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public interface PrimaryBlock extends Block {
 

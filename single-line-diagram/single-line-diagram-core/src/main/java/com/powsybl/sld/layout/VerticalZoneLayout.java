@@ -22,7 +22,7 @@ import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class VerticalZoneLayout extends AbstractZoneLayout {
 

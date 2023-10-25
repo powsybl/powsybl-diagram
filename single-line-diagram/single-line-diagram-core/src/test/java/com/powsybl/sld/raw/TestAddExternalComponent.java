@@ -23,7 +23,7 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 class TestAddExternalComponent extends AbstractTestCaseRaw {
     private static final String CHEESE = "CHEESE";

@@ -35,7 +35,7 @@ import static com.powsybl.sld.model.nodes.NodeSide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestSVGWriter extends AbstractTestCaseIidm {
 

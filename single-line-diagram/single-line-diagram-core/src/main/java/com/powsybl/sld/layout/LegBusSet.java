@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * connection included in the busNodeSet. It is embedded into a LBSCluster. It contains links to all the other
  * LegBusSet of the Graph.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public final class LegBusSet {
 

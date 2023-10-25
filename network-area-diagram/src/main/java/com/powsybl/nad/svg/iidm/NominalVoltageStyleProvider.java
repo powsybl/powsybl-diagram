@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
 

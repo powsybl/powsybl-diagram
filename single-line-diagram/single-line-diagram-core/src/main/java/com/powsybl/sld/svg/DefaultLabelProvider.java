@@ -27,8 +27,8 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at franck.lecuyer@rte-france.com>}
  */
 public class DefaultLabelProvider extends AbstractLabelProvider {
 

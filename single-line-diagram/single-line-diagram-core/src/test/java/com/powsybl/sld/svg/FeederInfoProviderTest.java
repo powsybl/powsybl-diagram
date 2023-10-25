@@ -26,8 +26,8 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class FeederInfoProviderTest extends AbstractTestCaseIidm {
 

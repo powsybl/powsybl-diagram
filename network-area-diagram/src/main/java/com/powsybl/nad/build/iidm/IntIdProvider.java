@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class IntIdProvider implements IdProvider {
     private int count;

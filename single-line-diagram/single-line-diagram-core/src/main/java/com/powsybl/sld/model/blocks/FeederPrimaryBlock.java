@@ -19,7 +19,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public final class FeederPrimaryBlock extends AbstractPrimaryBlock {
 

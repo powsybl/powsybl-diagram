@@ -7,7 +7,7 @@
 package com.powsybl.nad.model;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class TextNode extends AbstractNode {
 

@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 

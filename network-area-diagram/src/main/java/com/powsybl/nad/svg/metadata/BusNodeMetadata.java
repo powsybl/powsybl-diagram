@@ -10,7 +10,7 @@ import javax.xml.stream.XMLStreamReader;
 
 /**
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 
 public class BusNodeMetadata extends AbstractMetadataItem {

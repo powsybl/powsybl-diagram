@@ -14,11 +14,11 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import java.util.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Thomas Adam <tadam at silicom>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Thomas Adam {@literal <tadam at silicom>}
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Component {

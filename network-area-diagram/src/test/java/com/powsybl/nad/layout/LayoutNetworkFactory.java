@@ -9,7 +9,7 @@ package com.powsybl.nad.layout;
 import com.powsybl.iidm.network.*;
 
 /**
- * @author Luma Zamarreno <zamarrenolm at aia.es>
+ * @author Luma Zamarreno {@literal <zamarrenolm at aia.es>}
  */
 final class LayoutNetworkFactory {
 
