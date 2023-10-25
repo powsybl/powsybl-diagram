@@ -21,7 +21,7 @@ import java.util.Objects;
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public final class NodeFactory {

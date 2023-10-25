@@ -18,7 +18,7 @@ import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends AbstractLayout<T> {
     protected AbstractBaseLayout(T graph) {

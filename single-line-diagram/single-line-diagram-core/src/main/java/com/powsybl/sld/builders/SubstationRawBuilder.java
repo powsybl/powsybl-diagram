@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
- * @author Benoit Jeanson <Benoit.Jeanson at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ * @author Benoit Jeanson {@literal <Benoit.Jeanson at rte-france.com>}
  */
 
 public class SubstationRawBuilder extends AbstractRawBuilder {

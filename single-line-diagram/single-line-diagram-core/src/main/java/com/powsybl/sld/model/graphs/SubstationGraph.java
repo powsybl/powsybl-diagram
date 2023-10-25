@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * This class builds the connectivity among the voltageLevels of a substation
  * buildSubstationGraph establishes the List of nodes, edges
  *
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class SubstationGraph extends AbstractBaseGraph {
 

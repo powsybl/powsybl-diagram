@@ -11,7 +11,7 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Direction;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public final class StyleClassConstants {
     public static final String STYLE_PREFIX = "sld-";

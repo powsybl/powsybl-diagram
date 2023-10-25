@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Side.LEFT;
 import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public class Subsection {

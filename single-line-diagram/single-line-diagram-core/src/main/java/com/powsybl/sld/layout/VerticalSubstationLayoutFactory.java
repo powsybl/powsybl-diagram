@@ -9,7 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class VerticalSubstationLayoutFactory implements SubstationLayoutFactory {
 

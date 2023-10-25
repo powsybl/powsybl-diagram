@@ -19,7 +19,7 @@ import com.powsybl.nad.utils.iidm.IidmUtils;
 import java.util.*;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider {
 

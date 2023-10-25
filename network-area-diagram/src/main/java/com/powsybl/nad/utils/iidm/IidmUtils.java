@@ -15,8 +15,8 @@ import java.util.Objects;
 
 /**
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
- * @author Luma Zamarreño <zamarrenolm at aia.es>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 
 public final class IidmUtils {

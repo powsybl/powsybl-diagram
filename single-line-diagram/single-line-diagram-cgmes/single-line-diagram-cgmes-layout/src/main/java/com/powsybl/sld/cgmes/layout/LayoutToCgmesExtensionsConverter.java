@@ -28,8 +28,8 @@ import java.util.stream.Stream;
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer@rte-france.com>}
  */
 public class LayoutToCgmesExtensionsConverter {
 

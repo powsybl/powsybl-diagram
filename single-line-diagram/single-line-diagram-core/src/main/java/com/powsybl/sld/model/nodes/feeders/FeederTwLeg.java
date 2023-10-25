@@ -11,7 +11,7 @@ import com.powsybl.sld.model.nodes.FeederType;
 import com.powsybl.sld.model.nodes.NodeSide;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public class FeederTwLeg extends FeederWithSides {
 

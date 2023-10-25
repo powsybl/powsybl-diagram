@@ -20,7 +20,7 @@ import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public final class CalculateCoordCellVisitor implements CellVisitor {
     private final LayoutParameters layoutParameters;

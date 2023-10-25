@@ -9,8 +9,8 @@ package com.powsybl.sld.svg;
 import java.util.Objects;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Jacques Borsenberger {@literal <jacques.borsenberger at rte-france.com>}
  */
 public class LabelPosition {
 

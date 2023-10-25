@@ -12,9 +12,9 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
  * this interface is implemented by classes determining the cells.
  * The expected result of CellDector is the creation and association of cell
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public interface CellDetector {
 

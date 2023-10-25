@@ -15,7 +15,7 @@ import java.util.function.DoubleFunction;
  * Class used to specify a directional element
  * (see FeederInfo & AbstractFeederInfo)
  *
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class DirectionalFeederInfo extends AbstractFeederInfo {
 

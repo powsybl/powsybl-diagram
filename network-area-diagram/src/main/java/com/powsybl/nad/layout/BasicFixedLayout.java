@@ -12,7 +12,7 @@ import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 
 /**
- * @author Luma Zamarreño <zamarrenolm at aia.es>
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 public class BasicFixedLayout extends AbstractLayout {
 

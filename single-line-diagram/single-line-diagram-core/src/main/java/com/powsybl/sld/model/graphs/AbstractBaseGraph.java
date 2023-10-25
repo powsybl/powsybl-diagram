@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGraph {
 

@@ -18,8 +18,8 @@ import com.powsybl.sld.svg.styles.StyleClassConstants;
 import java.util.*;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 

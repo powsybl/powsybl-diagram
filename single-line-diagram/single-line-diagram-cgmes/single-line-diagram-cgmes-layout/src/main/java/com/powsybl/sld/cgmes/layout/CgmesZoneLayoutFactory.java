@@ -16,7 +16,7 @@ import com.powsybl.sld.model.graphs.ZoneGraph;
 import java.util.Objects;
 
 /**
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
 
