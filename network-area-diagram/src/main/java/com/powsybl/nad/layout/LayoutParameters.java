@@ -51,4 +51,15 @@ public class LayoutParameters {
         this.textNodeFixedShift = new Point(textNodeFixedShiftX, textNodeFixedShiftY);
         return this;
     }
+
+    // FIXME(Luma) Temporary param for debugging purposes
+    private boolean xxxFixedScale = false;
+
+    public boolean xxxIsFixedScale() {
+        return xxxFixedScale;
+    }
+
+    public void xxxSetFixedScale(boolean useFixedScale) {
+        this.xxxFixedScale = useFixedScale;
+    }
 }

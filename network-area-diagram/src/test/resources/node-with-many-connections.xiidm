@@ -1,0 +1,1729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_11" id="A" caseDate="2021-04-22T09:30:00.000+02:00" forecastDistance="0" sourceFormat="NF" minimumValidationLevel="STEADY_STATE_HYPOTHESIS">
+    <iidm:substation id="B" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="NANTES"/>
+        <iidm:voltageLevel id="D" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="E" v="239.26870727539062" angle="-4.107585266839166"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="F" loadType="FICTITIOUS" p0="-19.661388397216797" q0="-17.078611373901367" bus="E" connectableBus="E" p="-19.661388397216797" q="-17.078611373901367"/>
+            <iidm:load id="G" loadType="FICTITIOUS" p0="-19.509546279907227" q0="-17.228759765625" bus="E" connectableBus="E" p="-19.509546279907227" q="-17.228759765625"/>
+            <iidm:load id="H" loadType="FICTITIOUS" p0="-19.449495315551758" q0="-20.32736587524414" bus="E" connectableBus="E" p="-19.449495315551758" q="-20.32736587524414"/>
+            <iidm:load id="I" loadType="FICTITIOUS" p0="4.0713645284995437E-4" q0="-7.215676307678223" bus="E" connectableBus="E" p="4.0713645284995437E-4" q="-7.215676307678223"/>
+            <iidm:load id="J" loadType="FICTITIOUS" p0="64.0965576171875" q0="16.31853485107422" bus="E" connectableBus="E" p="64.0965576171875" q="16.31853485107422"/>
+            <iidm:load id="K" loadType="FICTITIOUS" p0="2.0431697368621826" q0="-5.95180606842041" bus="E" connectableBus="E" p="2.0431697368621826" q="-5.95180606842041"/>
+            <iidm:load id="L" loadType="FICTITIOUS" p0="55.59402084350586" q0="39.61346435546875" bus="E" connectableBus="E" p="55.59402084350586" q="39.61346435546875"/>
+            <iidm:load id="M" loadType="FICTITIOUS" p0="12.414176940917969" q0="20.445884704589844" bus="E" connectableBus="E" p="12.414176940917969" q="20.445884704589844"/>
+            <iidm:load id="N" loadType="FICTITIOUS" p0="11.042854309082031" q0="-23.324689865112305" bus="E" connectableBus="E" p="11.042854309082031" q="-23.324689865112305"/>
+            <iidm:load id="O" loadType="FICTITIOUS" p0="-93.35040283203125" q0="64.79044342041016" bus="E" connectableBus="E" p="-93.35040283203125" q="64.79044342041016"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="P" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="Q" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="R" v="243.04576110839844" angle="-10.376655613515151"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="S" loadType="FICTITIOUS" p0="8.506322046741843E-8" q0="-1.417710781097412" bus="R" connectableBus="R" p="8.506322046741843E-8" q="-1.417710781097412"/>
+            <iidm:load id="T" loadType="FICTITIOUS" p0="0.0" q0="0.0" connectableBus="R" p="0.0" q="0.0"/>
+            <iidm:load id="U" loadType="FICTITIOUS" p0="0.0" q0="0.0" connectableBus="R" p="0.0" q="0.0"/>
+            <iidm:load id="V" loadType="FICTITIOUS" p0="84.63111877441406" q0="-28.709354400634766" bus="R" connectableBus="R" p="84.63111877441406" q="-28.709354400634766"/>
+            <iidm:load id="W" loadType="FICTITIOUS" p0="3.4147524274885654E-7" q0="-1.8312101364135742" bus="R" connectableBus="R" p="3.4147524274885654E-7" q="-1.8312101364135742"/>
+            <iidm:load id="X" loadType="FICTITIOUS" p0="-226.1750030517578" q0="51.307804107666016" bus="R" connectableBus="R" p="-226.1750030517578" q="51.307804107666016"/>
+            <iidm:load id="Y" loadType="FICTITIOUS" p0="52.450096130371094" q0="-30.653654098510742" bus="R" connectableBus="R" p="52.450096130371094" q="-30.653654098510742"/>
+            <iidm:load id="Z" loadType="FICTITIOUS" p0="209.37254333496094" q0="-51.418827056884766" bus="R" connectableBus="R" p="209.37254333496094" q="-51.418827056884766"/>
+            <iidm:load id="AA" loadType="FICTITIOUS" p0="-226.16140747070312" q0="50.98908233642578" bus="R" connectableBus="R" p="-226.16140747070312" q="50.98908233642578"/>
+            <iidm:load id="AB" loadType="FICTITIOUS" p0="41.093597412109375" q0="-10.80918025970459" bus="R" connectableBus="R" p="41.093597412109375" q="-10.80918025970459"/>
+            <iidm:load id="AC" loadType="FICTITIOUS" p0="36.05879211425781" q0="10.669379234313965" bus="R" connectableBus="R" p="36.05879211425781" q="10.669379234313965"/>
+            <iidm:shunt id="AD" sectionCount="0" voltageRegulatorOn="false" connectableBus="R" q="-0.0">
+                <iidm:property name="qMax" value="-80"/>
+                <iidm:property name="codeOI" value="ARRIG-MC361"/>
+                <iidm:shuntLinearModel bPerSection="-0.0015802469570189714" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="AE" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="AF" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AG" v="408.14300537109375" angle="-11.910766473745145"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AH" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AI" v="408.57305908203125" angle="-9.044130956448916"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AJ" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AK" v="410.9066467285156" angle="-12.310334247738183"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AL" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AM" v="412.4853210449219" angle="-12.756965440207194"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AN" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AO" v="407.8583984375" angle="-11.586598011773523"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AP" nominalV="20.0" lowVoltageLimit="19.0" highVoltageLimit="22.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="AQ" v="21.481210708618164" angle="-11.910766473745145"/>
+                <iidm:bus id="AR" v="20.42791175842285" angle="-12.249168196173427"/>
+                <iidm:bus id="AS" v="20.549409866333008" angle="-12.693747770570495"/>
+                <iidm:bus id="AT" v="21.466230392456055" angle="-11.586598011773523"/>
+                <iidm:bus id="AU" v="21.503843307495117" angle="-9.044130956448916"/>
+            </iidm:busBreakerTopology>
+            <iidm:shunt id="AV" sectionCount="0" voltageRegulatorOn="false" connectableBus="AQ" q="-0.0">
+                <iidm:property name="qMax" value="-64"/>
+                <iidm:property name="codeOI" value="VLEJU-MC311"/>
+                <iidm:shuntLinearModel bPerSection="-0.1599999964237213" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="AW" sectionCount="1" voltageRegulatorOn="false" bus="AR" connectableBus="AR" q="66.76793670654297">
+                <iidm:property name="qMax" value="-64"/>
+                <iidm:property name="codeOI" value="VLEJU-MC314"/>
+                <iidm:shuntLinearModel bPerSection="-0.1599999964237213" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="AX" sectionCount="1" voltageRegulatorOn="false" bus="AS" connectableBus="AS" q="67.56451416015625">
+                <iidm:property name="qMax" value="-64"/>
+                <iidm:property name="codeOI" value="VLEJU-MC315"/>
+                <iidm:shuntLinearModel bPerSection="-0.1599999964237213" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="AY" sectionCount="0" voltageRegulatorOn="false" connectableBus="AT" q="-0.0">
+                <iidm:property name="qMax" value="-64"/>
+                <iidm:property name="codeOI" value="VLEJU-MC316"/>
+                <iidm:shuntLinearModel bPerSection="-0.1599999964237213" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="AZ" sectionCount="0" voltageRegulatorOn="false" connectableBus="AU" q="-0.0">
+                <iidm:property name="qMax" value="-64"/>
+                <iidm:property name="codeOI" value="VLEJU-MC313"/>
+                <iidm:shuntLinearModel bPerSection="-0.1599999964237213" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="BA" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="BB" v="92.76220703125" angle="-11.633837307620624"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="BC" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="BD" v="241.15451049804688" angle="-11.039206161121191"/>
+                <iidm:bus id="BE" v="241.52220153808594" angle="-8.514359286307924"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="BF" nominalV="380.0" lowVoltageLimit="390.0" highVoltageLimit="420.0000305175781" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="BG" v="406.2021179199219" angle="-6.623927702362121"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="BH" loadType="FICTITIOUS" p0="0.0" q0="0.0" connectableBus="BG" p="0.0" q="0.0"/>
+            <iidm:load id="BI" loadType="FICTITIOUS" p0="-655.0126953125" q0="47.995521545410156" bus="BG" connectableBus="BG" p="-655.0126953125" q="47.995521545410156"/>
+            <iidm:load id="BJ" loadType="FICTITIOUS" p0="-613.9805908203125" q0="68.1426010131836" bus="BG" connectableBus="BG" p="-613.9805908203125" q="68.1426010131836"/>
+            <iidm:load id="BK" loadType="FICTITIOUS" p0="-499.0577087402344" q0="42.30215072631836" bus="BG" connectableBus="BG" p="-499.0577087402344" q="42.30215072631836"/>
+            <iidm:load id="BL" loadType="FICTITIOUS" p0="332.18280029296875" q0="-83.64338684082031" bus="BG" connectableBus="BG" p="332.18280029296875" q="-83.64338684082031"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="BM" r="4.920000076293945" x="136.3000030517578" g="0.0" b="0.0" ratedU1="20.0" ratedU2="380.0" bus1="AQ" connectableBus1="AQ" voltageLevelId1="AP" bus2="AG" connectableBus2="AG" voltageLevelId2="AF" p1="-7.105427357601002E-15" q1="0.0" p2="-7.105427357601002E-15" q2="0.0">
+            <iidm:property name="codeOI" value="VLEJU-Y762"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BN" r="0.3599998950958252" x="-7.90000057220459" g="0.0" b="0.0" ratedU1="225.0" ratedU2="380.0" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="AG" connectableBus2="AG" voltageLevelId2="AF" p1="-321.3078918457031" q1="27.24977684020996" p2="321.5335693359375" q2="-32.20187759399414">
+            <iidm:property name="codeOI" value="VLEJU-Y762"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9589999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9169999957084656"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.0"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2885.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BO" r="0.09999999403953552" x="47.500003814697266" g="0.0" b="0.0" ratedU1="380.0" ratedU2="380.0" bus1="BG" connectableBus1="BG" voltageLevelId1="BF" bus2="AG" connectableBus2="AG" voltageLevelId2="AF" p1="321.59625244140625" q1="-2.4265904426574707" p2="-321.5335693359375" q2="32.20187759399414">
+            <iidm:property name="codeOI" value="VLEJU-Y762"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0"/>
+            <iidm:currentLimits2 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0001220703125"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.00048828125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300"/>
+            </iidm:currentLimits2>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BP" r="2.7200002670288086" x="134.8000030517578" g="0.0" b="0.0" ratedU1="20.0" ratedU2="380.0" bus1="AU" connectableBus1="AU" voltageLevelId1="AP" bus2="AI" connectableBus2="AI" voltageLevelId2="AH" p1="-3.552713678800501E-15" q1="-2.2737367544323206E-13" p2="3.552713678800501E-15" q2="2.2737367544323206E-13">
+            <iidm:property name="codeOI" value="VLEJU-Y763"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BQ" r="0.17999963462352753" x="-11.100001335144043" g="0.0" b="0.0" ratedU1="225.0" ratedU2="380.0" bus1="BE" connectableBus1="BE" voltageLevelId1="BC" bus2="AI" connectableBus2="AI" voltageLevelId2="AH" p1="-139.17568969726562" q1="21.6803035736084" p2="139.1971435546875" q2="-23.00387191772461">
+            <iidm:property name="codeOI" value="VLEJU-Y763"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9589999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9169999957084656"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.0"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2885.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BR" r="0.28999993205070496" x="50.29998779296875" g="0.0" b="0.0" ratedU1="380.0" ratedU2="380.0" bus1="BG" connectableBus1="BG" voltageLevelId1="BF" bus2="AI" connectableBus2="AI" voltageLevelId2="AH" p1="139.2317352294922" q1="-17.00608253479004" p2="-139.1971435546875" q2="23.00387191772461">
+            <iidm:property name="codeOI" value="VLEJU-Y763"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0"/>
+            <iidm:currentLimits2 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0001220703125"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.00048828125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300"/>
+            </iidm:currentLimits2>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BS" r="2.549999952316284" x="132.39999389648438" g="0.0" b="0.0" ratedU1="20.0" ratedU2="380.0" bus1="AR" connectableBus1="AR" voltageLevelId1="AP" bus2="AK" connectableBus2="AK" voltageLevelId2="AJ" p1="1.7763568394002505E-14" q1="-66.76793670654297" p2="0.07546071708202362" q2="70.68598175048828">
+            <iidm:property name="codeOI" value="VLEJU-Y764"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BT" r="0.2500000596046448" x="-11.399999618530273" g="0.0" b="0.0" ratedU1="225.0" ratedU2="380.0" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="AK" connectableBus2="AK" voltageLevelId2="AJ" p1="-328.2627868652344" q1="118.64142608642578" p2="328.4464111328125" q2="-127.01428985595703">
+            <iidm:property name="codeOI" value="VLEJU-Y764"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9589999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9169999957084656"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.0"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2885.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BU" r="0.23999999463558197" x="50.29999923706055" g="0.0" b="0.0" ratedU1="380.0" ratedU2="380.0" bus1="BG" connectableBus1="BG" voltageLevelId1="BF" bus2="AK" connectableBus2="AK" voltageLevelId2="AJ" p1="328.6797790527344" q1="-23.230918884277344" p2="-328.5218505859375" q2="56.32830810546875">
+            <iidm:property name="codeOI" value="VLEJU-Y764"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0"/>
+            <iidm:currentLimits2 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0001220703125"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.00048828125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300"/>
+            </iidm:currentLimits2>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BV" r="2.629999876022339" x="127.39998626708984" g="0.0" b="0.0" ratedU1="20.0" ratedU2="380.0" bus1="AS" connectableBus1="AS" voltageLevelId1="AP" bus2="AM" connectableBus2="AM" voltageLevelId2="AL" p1="-1.4210854715202004E-14" q1="-67.56451416015625" p2="0.07875663787126541" q2="71.37957000732422">
+            <iidm:property name="codeOI" value="VLEJU-Y765"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BW" r="0.19000087678432465" x="-15.799999237060547" g="0.0" b="0.0" ratedU1="225.0" ratedU2="380.0" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="AM" connectableBus2="AM" voltageLevelId2="AL" p1="-320.2384033203125" q1="125.46768951416016" p2="320.3739013671875" q2="-136.73524475097656">
+            <iidm:property name="codeOI" value="VLEJU-Y765"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9589999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9169999957084656"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.0"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2885.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BX" r="0.2999999523162842" x="55.80000305175781" g="0.0" b="0.0" ratedU1="380.0" ratedU2="380.0" bus1="BG" connectableBus1="BG" voltageLevelId1="BF" bus2="AM" connectableBus2="AM" voltageLevelId2="AL" p1="320.6412658691406" q1="-30.276947021484375" p2="-320.4526672363281" q2="65.35566711425781">
+            <iidm:property name="codeOI" value="VLEJU-Y765"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0"/>
+            <iidm:currentLimits2 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0001220703125"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.00048828125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300"/>
+            </iidm:currentLimits2>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BY" r="4.850000381469727" x="144.1999969482422" g="0.0" b="0.0" ratedU1="20.0" ratedU2="380.0" bus1="AT" connectableBus1="AT" voltageLevelId1="AP" bus2="AO" connectableBus2="AO" voltageLevelId2="AN" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+            <iidm:property name="codeOI" value="VLEJU-Y766"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="BZ" r="0.28999942541122437" x="-4.899999618530273" g="0.0" b="0.0" ratedU1="225.0" ratedU2="380.0" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="AO" connectableBus2="AO" voltageLevelId2="AN" p1="-325.4735107421875" q1="26.997961044311523" p2="325.6600036621094" q2="-30.148700714111328">
+            <iidm:property name="codeOI" value="VLEJU-Y766"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9589999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9169999957084656"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.0"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2885.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="CA" r="0.09199998527765274" x="44.0" g="0.0" b="0.0" ratedU1="380.0" ratedU2="380.0" bus1="BG" connectableBus1="BG" voltageLevelId1="BF" bus2="AO" connectableBus2="AO" voltageLevelId2="AN" p1="325.7191467285156" q1="-1.856350064277649" p2="-325.6600036621094" q2="30.148700714111328">
+            <iidm:property name="codeOI" value="VLEJU-Y766"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="0" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0"/>
+            <iidm:currentLimits2 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="1659.0001220703125"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2164.00048828125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300"/>
+            </iidm:currentLimits2>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="CB" r="1.600000023841858" x="58.29999923706055" g="0.0" b="0.0" ratedU1="90.0" ratedU2="225.0" connectableBus1="BB" voltageLevelId1="BA" connectableBus2="BD" voltageLevelId2="BC" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+            <iidm:property name="codeOI" value="VLEJU-Y641"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="14" loadTapChangingCapabilities="true" regulating="false">
+                <iidm:terminalRef id="CB" side="ONE"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0529999732971191"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0440000295639038"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.034999966621399"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0260000228881836"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0169999599456787"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0069999694824219"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9980000257492065"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9890000224113464"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9710000157356262"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9620000123977661"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.953000009059906"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9430000185966492"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9340000152587891"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.925000011920929"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9160000085830688"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9070000052452087"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8970000147819519"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8880000114440918"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8790000081062317"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8700000047683716"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8610000014305115"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8519999980926514"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8429999947547913"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8339999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8240000009536743"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8149999976158142"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8059999942779541"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.796999990940094"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.7879999876022339"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.777999997138977"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="691.0000610351562"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="901.0000610351562"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="1201.0001220703125"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="CC" r="1.8200002908706665" x="61.19999694824219" g="0.0" b="0.0" ratedU1="90.0" ratedU2="225.0" bus1="BB" connectableBus1="BB" voltageLevelId1="BA" bus2="BE" connectableBus2="BE" voltageLevelId2="BC" p1="-51.63435745239258" q1="-2.9437594413757324" p2="51.71885681152344" q2="5.785179138183594">
+            <iidm:property name="codeOI" value="VLEJU-Y642"/>
+            <iidm:ratioTapChanger lowTapPosition="0" tapPosition="2" targetDeadband="0.0" loadTapChangingCapabilities="true" regulating="true" targetV="92.76309967041016">
+                <iidm:terminalRef id="CC" side="ONE"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0529999732971191"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0440000295639038"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.034999966621399"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0260000228881836"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0169999599456787"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0069999694824219"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9980000257492065"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9890000224113464"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9800000190734863"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9710000157356262"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9620000123977661"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.953000009059906"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9430000185966492"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9340000152587891"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.925000011920929"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9160000085830688"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9070000052452087"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8970000147819519"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8880000114440918"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8790000081062317"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8700000047683716"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8610000014305115"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8519999980926514"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8429999947547913"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8339999914169312"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8240000009536743"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8149999976158142"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8059999942779541"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.796999990940094"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.7879999876022339"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.777999997138977"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="9999.0">
+                <iidm:temporaryLimit name="N/A" value="713.0000610351562"/>
+                <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="930.0001220703125"/>
+                <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="1240.0"/>
+                <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+            </iidm:currentLimits1>
+            <iidm:currentLimits2 permanentLimit="9999.0"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="CD" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="CE" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="CF" v="241.53543090820312" angle="-11.782844714553622"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="CG" loadType="FICTITIOUS" p0="57.01490020751953" q0="-12.861224174499512" bus="CF" connectableBus="CF" p="57.01490020751953" q="-12.861224174499512"/>
+            <iidm:load id="CH" loadType="FICTITIOUS" p0="72.40575408935547" q0="-34.02471160888672" bus="CF" connectableBus="CF" p="72.40575408935547" q="-34.02471160888672"/>
+            <iidm:load id="CI" loadType="FICTITIOUS" p0="36.763031005859375" q0="-3.971973419189453" bus="CF" connectableBus="CF" p="36.763031005859375" q="-3.971973419189453"/>
+            <iidm:load id="CJ" loadType="FICTITIOUS" p0="0.0" q0="0.0" connectableBus="CF" p="0.0" q="0.0"/>
+            <iidm:load id="CK" loadType="FICTITIOUS" p0="42.239864349365234" q0="39.91910934448242" bus="CF" connectableBus="CF" p="42.239864349365234" q="39.91910934448242"/>
+            <iidm:load id="CL" loadType="FICTITIOUS" p0="35.540653228759766" q0="31.978515625" bus="CF" connectableBus="CF" p="35.540653228759766" q="31.978515625"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="CM" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="CN" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="CO" v="241.41180419921875" angle="-11.973829610351872"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="CP" energySource="SOLAR" minP="0.0" maxP="0.20000000298023224" voltageRegulatorOn="false" targetP="0.0926700010895729" targetV="0.0" targetQ="0.0" bus="CO" connectableBus="CO" p="-0.0926700010895729" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="BERT5INF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.20000000298023224" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="CQ" energySource="SOLAR" minP="0.0" maxP="0.20000000298023224" voltageRegulatorOn="false" targetP="0.0926700010895729" targetV="0.0" targetQ="0.0" bus="CO" connectableBus="CO" p="-0.0926700010895729" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="BERT5ING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.20000000298023224" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="CR" loadType="UNDEFINED" p0="27.1412410736084" q0="5.237479209899902" bus="CO" connectableBus="CO" p="27.1412410736084" q="5.237479209899902">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="AULNA-Y411"/>
+                <iidm:property name="codeOI" value="BERT5-Y611"/>
+            </iidm:load>
+            <iidm:load id="CS" loadType="UNDEFINED" p0="18.746856689453125" q0="2.618739604949951" bus="CO" connectableBus="CO" p="18.746856689453125" q="2.618739604949951">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="AULNA-Y413"/>
+                <iidm:property name="codeOI" value="BERT5-Y612"/>
+            </iidm:load>
+            <iidm:load id="CT" loadType="UNDEFINED" p0="20.51960563659668" q0="2.618739604949951" bus="CO" connectableBus="CO" p="20.51960563659668" q="2.618739604949951">
+                <iidm:property name="codeOI" value="BERT5-Y613"/>
+            </iidm:load>
+            <iidm:load id="CU" loadType="FICTITIOUS" p0="37.205570220947266" q0="-5.641612529754639" bus="CO" connectableBus="CO" p="37.205570220947266" q="-5.641612529754639"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="CV" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="CW" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="CX" v="240.24993896484375" angle="-4.2835134374989465"/>
+                <iidm:bus id="CY"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="CZ" loadType="UNDEFINED" p0="3.92829966545105" q0="1.4167001247406006" bus="CX" connectableBus="CX" p="3.92829966545105" q="1.4167001247406006">
+                <iidm:property name="codeOI" value="CARR5-Y611"/>
+            </iidm:load>
+            <iidm:load id="DA" loadType="UNDEFINED" p0="0.0" q0="0.0" bus="CY" connectableBus="CY" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="CARR5-Y612"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="DB" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="DC" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="DD" v="241.55491638183594" angle="-11.800154121457727"/>
+                <iidm:bus id="DE" v="241.53570556640625" angle="-11.840101336592193"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="DF" loadType="UNDEFINED" p0="22.758773803710938" q0="-0.6449920535087585" bus="DD" connectableBus="DD" p="22.758773803710938" q="-0.6449920535087585">
+                <iidm:property name="codeOI" value="CASTA-Y611"/>
+            </iidm:load>
+            <iidm:load id="DG" loadType="UNDEFINED" p0="30.57402229309082" q0="2.7707953453063965" bus="DE" connectableBus="DE" p="30.57402229309082" q="2.7707953453063965">
+                <iidm:property name="codeOI" value="CASTA-Y612"/>
+            </iidm:load>
+            <iidm:load id="DH" loadType="FICTITIOUS" p0="71.16793823242188" q0="-3.9512991905212402" bus="DE" connectableBus="DE" p="71.16793823242188" q="-3.9512991905212402"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="DI" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="DJ" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="DK" v="92.57825469970703" angle="-11.84302892642519"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="DL" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.13900499045848846" targetV="0.0" targetQ="0.0" bus="DK" connectableBus="DK" p="-0.13900499045848846" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHARTINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="DM" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.13900499045848846" targetV="0.0" targetQ="0.0" bus="DK" connectableBus="DK" p="-0.13900499045848846" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHARTING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="DN" loadType="UNDEFINED" p0="10.466022491455078" q0="-0.22368815541267395" bus="DK" connectableBus="DK" p="10.466022491455078" q="-0.22368815541267395">
+                <iidm:property name="codeOI" value="CHART-Y411"/>
+            </iidm:load>
+            <iidm:load id="DO" loadType="UNDEFINED" p0="10.466022491455078" q0="-0.22368815541267395" bus="DK" connectableBus="DK" p="10.466022491455078" q="-0.22368815541267395">
+                <iidm:property name="codeOI" value="CHART-Y412"/>
+            </iidm:load>
+            <iidm:load id="DP" loadType="UNDEFINED" p0="10.327017784118652" q0="-0.22368815541267395" bus="DK" connectableBus="DK" p="10.327017784118652" q="-0.22368815541267395">
+                <iidm:property name="codeOI" value="CHART-Y413"/>
+            </iidm:load>
+            <iidm:load id="DQ" loadType="FICTITIOUS" p0="-9.746831893920898" q0="4.29171895980835" bus="DK" connectableBus="DK" p="-9.746831893920898" q="4.29171895980835"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="DR" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="DS" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="DT" v="241.3998565673828" angle="-11.717163907947487"/>
+                <iidm:bus id="DU" v="241.3608856201172" angle="-11.295166646493772"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="DV" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.13900499045848846" targetV="0.0" targetQ="0.0" bus="DT" connectableBus="DT" p="-0.13900499045848846" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHATIINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="DW" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.13900499045848846" targetV="0.0" targetQ="0.0" bus="DT" connectableBus="DT" p="-0.13900499045848846" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHATIING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="DX" loadType="UNDEFINED" p0="30.71910285949707" q0="4.304048538208008" bus="DT" connectableBus="DT" p="30.71910285949707" q="4.304048538208008">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="CHATI-Y611"/>
+                <iidm:property name="codeOI" value="CHATI-Y611"/>
+            </iidm:load>
+            <iidm:load id="DY" loadType="UNDEFINED" p0="37.271976470947266" q0="0.30404865741729736" bus="DT" connectableBus="DT" p="37.271976470947266" q="0.30404865741729736">
+                <iidm:property name="codeOI" value="CHATI-Y612"/>
+            </iidm:load>
+            <iidm:load id="DZ" loadType="UNDEFINED" p0="30.77928924560547" q0="1.9623359441757202" bus="DU" connectableBus="DU" p="30.77928924560547" q="1.9623359441757202">
+                <iidm:property name="codeOI" value="CHATI-Y613"/>
+            </iidm:load>
+            <iidm:shunt id="EA" sectionCount="0" voltageRegulatorOn="false" connectableBus="DT" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="CHATI-Y611"/>
+                <iidm:property name="qMax" value="3.33148"/>
+                <iidm:property name="codeOI" value="CHATIINA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="EB" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="EC" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="ED" v="241.4522247314453" angle="-11.907867058442474"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="EE" energySource="SOLAR" minP="0.0" maxP="0.8999999761581421" voltageRegulatorOn="false" targetP="0.4324599802494049" targetV="0.0" targetQ="0.0" bus="ED" connectableBus="ED" p="-0.4324599802494049" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHEVIINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.8999999761581421" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="EF" energySource="SOLAR" minP="0.0" maxP="0.8999999761581421" voltageRegulatorOn="false" targetP="0.4324599802494049" targetV="0.0" targetQ="0.0" bus="ED" connectableBus="ED" p="-0.4324599802494049" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CHEVIING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.8999999761581421" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="EG" loadType="UNDEFINED" p0="26.4683780670166" q0="2.997168779373169" bus="ED" connectableBus="ED" p="26.4683780670166" q="2.997168779373169">
+                <iidm:property name="codeOI" value="CHEVI-Y611"/>
+            </iidm:load>
+            <iidm:load id="EH" loadType="UNDEFINED" p0="26.4683780670166" q0="4.495753288269043" bus="ED" connectableBus="ED" p="26.4683780670166" q="4.495753288269043">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="CHEVI-Y612"/>
+                <iidm:property name="codeOI" value="CHEVI-Y612"/>
+            </iidm:load>
+            <iidm:shunt id="EI" sectionCount="0" voltageRegulatorOn="false" connectableBus="ED" q="-0.0">
+                <iidm:property name="qMax" value="80"/>
+                <iidm:property name="codeOI" value="CHEVI-MC261"/>
+                <iidm:shuntLinearModel bPerSection="0.0015802469570189714" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="EJ" sectionCount="0" voltageRegulatorOn="false" connectableBus="ED" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="CHEVI-Y612"/>
+                <iidm:property name="qMax" value="2.2491"/>
+                <iidm:property name="codeOI" value="CHEVIINA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="EK" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="EL" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="EM" v="241.51931762695312" angle="-11.805022338788653"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="EN" loadType="UNDEFINED" p0="41.0" q0="6.642806529998779" bus="EM" connectableBus="EM" p="41.0" q="6.642806529998779">
+                <iidm:property name="codeOI" value="CONVE-Y611"/>
+            </iidm:load>
+            <iidm:load id="EO" loadType="UNDEFINED" p0="20.0" q0="-0.33929842710494995" bus="EM" connectableBus="EM" p="20.0" q="-0.33929842710494995">
+                <iidm:property name="codeOI" value="CONVE-Y612"/>
+            </iidm:load>
+            <iidm:load id="EP" loadType="FICTITIOUS" p0="11.317696571350098" q0="-4.880696773529053" bus="EM" connectableBus="EM" p="11.317696571350098" q="-4.880696773529053"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="EQ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="ER" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="ES" v="241.54519653320312" angle="-12.027703581203994"/>
+                <iidm:bus id="ET" v="243.0859832763672" angle="-10.506100504891586"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="EU" loadType="UNDEFINED" p0="52.6739501953125" q0="1.3043581247329712" bus="ES" connectableBus="ES" p="52.6739501953125" q="1.3043581247329712">
+                <iidm:property name="codeOI" value="CORIO-Y611"/>
+            </iidm:load>
+            <iidm:load id="EV" loadType="FICTITIOUS" p0="11.674749374389648" q0="-6.088018417358398" bus="ES" connectableBus="ES" p="11.674749374389648" q="-6.088018417358398"/>
+            <iidm:load id="EW" loadType="UNDEFINED" p0="0.0" q0="0.0" connectableBus="ET" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="CORIO-Y612"/>
+            </iidm:load>
+            <iidm:load id="EX" loadType="FICTITIOUS" p0="-55.30059051513672" q0="-1.923458218574524" bus="ET" connectableBus="ET" p="-55.30059051513672" q="-1.923458218574524"/>
+            <iidm:load id="EY" loadType="FICTITIOUS" p0="55.30059051513672" q0="1.923458218574524" bus="ET" connectableBus="ET" p="55.30059051513672" q="1.923458218574524"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="EZ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="FA" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FB" v="241.42462158203125" angle="-11.964913652164066"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="FC" energySource="SOLAR" minP="0.0" maxP="0.20000000298023224" voltageRegulatorOn="false" targetP="0.0926700010895729" targetV="0.0" targetQ="0.0" bus="FB" connectableBus="FB" p="-0.0926700010895729" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CRETAINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.20000000298023224" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="FD" energySource="SOLAR" minP="0.0" maxP="0.20000000298023224" voltageRegulatorOn="true" targetP="0.0926700010895729" targetV="241.42724609375" targetQ="0.0" bus="FB" connectableBus="FB" p="-0.0926700010895729" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="CRETAING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.20000000298023224" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="FE" loadType="UNDEFINED" p0="51.97764587402344" q0="8.56998348236084" bus="FB" connectableBus="FB" p="51.97764587402344" q="8.56998348236084">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="CRETA-Y611"/>
+                <iidm:property name="codeOI" value="CRETA-Y611"/>
+            </iidm:load>
+            <iidm:load id="FF" loadType="UNDEFINED" p0="0.0926700010895729" q0="0.0" connectableBus="FB" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="CRETA-Y612"/>
+            </iidm:load>
+            <iidm:load id="FG" loadType="FICTITIOUS" p0="16.442834854125977" q0="-14.19393253326416" bus="FB" connectableBus="FB" p="16.442834854125977" q="-14.19393253326416"/>
+            <iidm:load id="FH" loadType="FICTITIOUS" p0="14.884973526000977" q0="-10.429749488830566" bus="FB" connectableBus="FB" p="14.884973526000977" q="-10.429749488830566"/>
+            <iidm:load id="FI" loadType="FICTITIOUS" p0="112.17952728271484" q0="-6.6715264320373535" bus="FB" connectableBus="FB" p="112.17952728271484" q="-6.6715264320373535"/>
+            <iidm:shunt id="FJ" sectionCount="0" voltageRegulatorOn="false" connectableBus="FB" q="-0.0">
+                <iidm:property name="qMax" value="80"/>
+                <iidm:property name="codeOI" value="CRETA-MC261"/>
+                <iidm:shuntLinearModel bPerSection="0.0015802469570189714" maximumSectionCount="1"/>
+            </iidm:shunt>
+            <iidm:shunt id="FK" sectionCount="0" voltageRegulatorOn="false" connectableBus="FB" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="PERCY-Y411"/>
+                <iidm:property name="qMax" value="13.498"/>
+                <iidm:property name="codeOI" value="CRETAINA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="FL" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="FM" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="FN" v="241.50006103515625" angle="-12.593066513336275"/>
+                <iidm:bus id="FO" v="241.1468963623047" angle="-12.903609601687368"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="FP" loadType="UNDEFINED" p0="37.95734786987305" q0="2.947357177734375" bus="FN" connectableBus="FN" p="37.95734786987305" q="2.947357177734375">
+                <iidm:property name="codeOI" value="ELANC-Y611"/>
+            </iidm:load>
+            <iidm:load id="FQ" loadType="FICTITIOUS" p0="-65.29196166992188" q0="11.882205963134766" bus="FN" connectableBus="FN" p="-65.29196166992188" q="11.882205963134766"/>
+            <iidm:load id="FR" loadType="FICTITIOUS" p0="85.3123550415039" q0="-21.16660499572754" bus="FN" connectableBus="FN" p="85.3123550415039" q="-21.16660499572754"/>
+            <iidm:load id="FS" loadType="FICTITIOUS" p0="-264.184326171875" q0="39.64157485961914" bus="FN" connectableBus="FN" p="-264.184326171875" q="39.64157485961914"/>
+            <iidm:load id="FT" loadType="FICTITIOUS" p0="85.54478454589844" q0="-21.187835693359375" bus="FN" connectableBus="FN" p="85.54478454589844" q="-21.187835693359375"/>
+            <iidm:load id="FU" loadType="FICTITIOUS" p0="50.38531494140625" q0="2.078181266784668" bus="FN" connectableBus="FN" p="50.38531494140625" q="2.078181266784668"/>
+            <iidm:load id="FV" loadType="FICTITIOUS" p0="50.797393798828125" q0="-5.1686835289001465" bus="FN" connectableBus="FN" p="50.797393798828125" q="-5.1686835289001465"/>
+            <iidm:load id="FW" loadType="UNDEFINED" p0="0.0" q0="0.0" connectableBus="FO" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="ELANC-Y612"/>
+            </iidm:load>
+            <iidm:load id="FX" loadType="FICTITIOUS" p0="-69.6495361328125" q0="5.288495063781738" bus="FO" connectableBus="FO" p="-69.6495361328125" q="5.288495063781738"/>
+            <iidm:load id="FY" loadType="FICTITIOUS" p0="47.06483840942383" q0="15.607455253601074" bus="FO" connectableBus="FO" p="47.06483840942383" q="15.607455253601074"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="FZ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="GA" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="GB" v="241.28900146484375" angle="-8.508741455715588"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="GC" loadType="UNDEFINED" p0="23.35723876953125" q0="0.15763840079307556" bus="GB" connectableBus="GB" p="23.35723876953125" q="0.15763840079307556">
+                <iidm:property name="codeOI" value="LIERS-Y611"/>
+            </iidm:load>
+            <iidm:load id="GD" loadType="UNDEFINED" p0="0.0" q0="0.0" connectableBus="GB" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="LIERS-Y612"/>
+            </iidm:load>
+            <iidm:load id="GE" loadType="UNDEFINED" p0="23.35723876953125" q0="0.15763840079307556" bus="GB" connectableBus="GB" p="23.35723876953125" q="0.15763840079307556">
+                <iidm:property name="codeOI" value="LIERS-Y613"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="GF" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="GG" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="GH" v="241.13848876953125" angle="-8.293588789312894"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="GI" energySource="SOLAR" minP="0.0" maxP="0.20000000298023224" voltageRegulatorOn="false" targetP="0.0926700010895729" targetV="0.0" targetQ="0.0" bus="GH" connectableBus="GH" p="-0.0926700010895729" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="LOGESING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.20000000298023224" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="GJ" loadType="UNDEFINED" p0="8.809070587158203" q0="-4.132095813751221" bus="GH" connectableBus="GH" p="8.809070587158203" q="-4.132095813751221">
+                <iidm:property name="codeOI" value="LOGES-Y611"/>
+            </iidm:load>
+            <iidm:load id="GK" loadType="FICTITIOUS" p0="-107.02862548828125" q0="44.19992446899414" bus="GH" connectableBus="GH" p="-107.02862548828125" q="44.19992446899414"/>
+            <iidm:load id="GL" loadType="FICTITIOUS" p0="-113.37149047851562" q0="47.048919677734375" bus="GH" connectableBus="GH" p="-113.37149047851562" q="47.048919677734375"/>
+            <iidm:load id="GM" loadType="FICTITIOUS" p0="64.66399383544922" q0="-22.95853614807129" bus="GH" connectableBus="GH" p="64.66399383544922" q="-22.95853614807129"/>
+            <iidm:load id="GN" loadType="FICTITIOUS" p0="64.15237426757812" q0="-9.66546630859375" bus="GH" connectableBus="GH" p="64.15237426757812" q="-9.66546630859375"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="GO" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="GP" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="GQ" v="92.73224639892578" angle="-11.691150278719848"/>
+                <iidm:bus id="GR" v="92.73499298095703" angle="-11.693494741152454"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="GS" loadType="UNDEFINED" p0="13.111156463623047" q0="3.60190486907959" bus="GQ" connectableBus="GQ" p="13.111156463623047" q="3.60190486907959">
+                <iidm:property name="codeOI" value="MARC7-Y411"/>
+            </iidm:load>
+            <iidm:load id="GT" loadType="UNDEFINED" p0="13.110764503479004" q0="3.1608810424804688" bus="GR" connectableBus="GR" p="13.110764503479004" q="3.1608810424804688">
+                <iidm:property name="codeOI" value="MARC7-Y412"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="GU" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="GV" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="GW" v="92.76712799072266" angle="-11.63530494451853"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="GX" energySource="SOLAR" minP="0.0" maxP="1.100000023841858" voltageRegulatorOn="false" targetP="0.525130033493042" targetV="0.0" targetQ="0.0" bus="GW" connectableBus="GW" p="-0.525130033493042" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="MASSYINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="1.100000023841858" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="GY" loadType="UNDEFINED" p0="0.6389400959014893" q0="0.14906279742717743" bus="GW" connectableBus="GW" p="0.6389400959014893" q="0.14906279742717743">
+                <iidm:property name="codeOI" value="MASSY-Y411"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="GZ" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="HA" v="241.22760009765625" angle="-11.49844929789263"/>
+                <iidm:bus id="HB" v="241.13015747070312" angle="-11.153780876900862"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="HC" loadType="UNDEFINED" p0="31.23268699645996" q0="0.0" bus="HA" connectableBus="HA" p="31.23268699645996" q="0.0">
+                <iidm:property name="codeOI" value="MASSY-Y612"/>
+            </iidm:load>
+            <iidm:load id="HD" loadType="UNDEFINED" p0="39.04085922241211" q0="3.112546443939209" bus="HA" connectableBus="HA" p="39.04085922241211" q="3.112546443939209">
+                <iidm:property name="codeOI" value="MASSY-Y614"/>
+            </iidm:load>
+            <iidm:load id="HE" loadType="UNDEFINED" p0="29.198333740234375" q0="0.0" bus="HB" connectableBus="HB" p="29.198333740234375" q="0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="MASSY-Y611"/>
+                <iidm:property name="codeOI" value="MASSY-Y611"/>
+            </iidm:load>
+            <iidm:load id="HF" loadType="UNDEFINED" p0="25.027143478393555" q0="-3.3617117404937744" bus="HB" connectableBus="HB" p="25.027143478393555" q="-3.3617117404937744">
+                <iidm:property name="codeOI" value="MASSY-Y613"/>
+            </iidm:load>
+            <iidm:shunt id="HG" sectionCount="0" voltageRegulatorOn="false" connectableBus="HA" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="MASSY-Y611"/>
+                <iidm:property name="qMax" value="11.1555"/>
+                <iidm:property name="codeOI" value="MASSYINA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="HH" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="HI" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="HJ" v="241.55157470703125" angle="-11.774116586567992"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="HK" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.15346498787403107" targetV="0.0" targetQ="0.0" bus="HJ" connectableBus="HJ" p="-0.15346498787403107" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="MOUL8INF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="HL" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="true" targetP="0.15346498787403107" targetV="241.55419921875" targetQ="0.0" bus="HJ" connectableBus="HJ" p="-0.15346498787403107" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="MOUL8ING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="HM" loadType="UNDEFINED" p0="18.644075393676758" q0="12.165329933166504" bus="HJ" connectableBus="HJ" p="18.644075393676758" q="12.165329933166504">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="MOUL8-Y611"/>
+                <iidm:property name="codeOI" value="MOUL8-Y611"/>
+            </iidm:load>
+            <iidm:load id="HN" loadType="UNDEFINED" p0="0.15346498787403107" q0="0.0" connectableBus="HJ" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="MOUL8-Y612"/>
+            </iidm:load>
+            <iidm:load id="HO" loadType="UNDEFINED" p0="18.490610122680664" q0="0.0" bus="HJ" connectableBus="HJ" p="18.490610122680664" q="0.0">
+                <iidm:property name="codeOI" value="MOUL8-Y613"/>
+            </iidm:load>
+            <iidm:shunt id="HP" sectionCount="1" voltageRegulatorOn="false" bus="HJ" connectableBus="HJ" q="-8.9064359664917">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="MOUL8-Y611"/>
+                <iidm:property name="qMax" value="8.90644"/>
+                <iidm:property name="codeOI" value="MOUL8INA"/>
+                <iidm:shuntLinearModel bPerSection="1.7592959920875728E-4" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="HQ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="HR" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="HS" v="241.65728759765625" angle="-12.783778201567726"/>
+                <iidm:bus id="HT" v="241.5498809814453" angle="-8.621977454417937"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="HU" loadType="UNDEFINED" p0="19.468313217163086" q0="-2.090388298034668" bus="HS" connectableBus="HS" p="19.468313217163086" q="-2.090388298034668">
+                <iidm:property name="codeOI" value="MTJAY-Y611"/>
+            </iidm:load>
+            <iidm:load id="HV" loadType="UNDEFINED" p0="14.71252727508545" q0="1.2728502750396729" bus="HT" connectableBus="HT" p="14.71252727508545" q="1.2728502750396729">
+                <iidm:property name="codeOI" value="MTJAY-Y612"/>
+            </iidm:load>
+            <iidm:load id="HW" loadType="UNDEFINED" p0="14.71252727508545" q0="1.2728502750396729" bus="HT" connectableBus="HT" p="14.71252727508545" q="1.2728502750396729">
+                <iidm:property name="codeOI" value="MTJAY-Y613"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="HX" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="HY" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="HZ" v="92.75936889648438" angle="-11.64693504912777"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="IA" loadType="UNDEFINED" p0="6.113255023956299" q0="-1.6095563173294067" bus="HZ" connectableBus="HZ" p="6.113255023956299" q="-1.6095563173294067">
+                <iidm:property name="codeOI" value="NOZAY-Y411"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="IB" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="IC" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="ID" v="241.3788299560547" angle="-8.376810375481268"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="IE" loadType="UNDEFINED" p0="-0.8696858286857605" q0="-0.6283880472183228" bus="ID" connectableBus="ID" p="-0.8696858286857605" q="-0.6283880472183228">
+                <iidm:property name="codeOI" value="P.BOI-Y611"/>
+            </iidm:load>
+            <iidm:load id="IF" loadType="UNDEFINED" p0="-0.8696858286857605" q0="-0.6283880472183228" bus="ID" connectableBus="ID" p="-0.8696858286857605" q="-0.6283880472183228">
+                <iidm:property name="codeOI" value="P.BOI-Y612"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="IG" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="IH" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="II" v="241.43968200683594" angle="-11.685698080214884"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="IJ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="IK" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="IL"/>
+                <iidm:bus id="IM" v="241.36293029785156" angle="-11.286114084522566"/>
+                <iidm:bus id="IN" v="241.61993408203125" angle="-11.619990806625715"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="IO" energySource="SOLAR" minP="0.0" maxP="0.6000000238418579" voltageRegulatorOn="true" targetP="0.29345500469207764" targetV="236.25" targetQ="0.0" bus="IL" connectableBus="IL" p="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="ROBI5INF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.6000000238418579" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="IP" energySource="SOLAR" minP="0.0" maxP="0.6000000238418579" voltageRegulatorOn="false" targetP="0.29345500469207764" targetV="0.0" targetQ="0.0" bus="IM" connectableBus="IM" p="-0.29345500469207764" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="ROBI5ING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.6000000238418579" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="IQ" loadType="UNDEFINED" p0="0.29345500469207764" q0="0.0" bus="IL" connectableBus="IL" p="0.0" q="0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="ROBI5-Y611"/>
+                <iidm:property name="codeOI" value="ROBI5-Y611"/>
+            </iidm:load>
+            <iidm:load id="IR" loadType="FICTITIOUS" p0="0.0" q0="0.8372108936309814" bus="IL" connectableBus="IL" p="-0.0" q="0.8372108936309814">
+                <iidm:property name="chargeFictive" value="consoFictive"/>
+            </iidm:load>
+            <iidm:load id="IS" loadType="UNDEFINED" p0="29.070085525512695" q0="-0.047456398606300354" bus="IM" connectableBus="IM" p="29.070085525512695" q="-0.047456398606300354">
+                <iidm:property name="codeOI" value="ROBI5-Y612"/>
+            </iidm:load>
+            <iidm:load id="IT" loadType="UNDEFINED" p0="29.28948974609375" q0="-1.7886348962783813" bus="IN" connectableBus="IN" p="29.28948974609375" q="-1.7886348962783813">
+                <iidm:property name="codeOI" value="ROBI5-Y613"/>
+            </iidm:load>
+            <iidm:shunt id="IU" sectionCount="0" voltageRegulatorOn="false" connectableBus="IL" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="ROBI5-Y611"/>
+                <iidm:property name="qMax" value="10.795"/>
+                <iidm:property name="codeOI" value="ROBI5INA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="IV" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="IW" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="IX" v="241.36968994140625" angle="-11.958586335671697"/>
+                <iidm:bus id="IY" v="241.30531311035156" angle="-11.995763909097722"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="IZ" loadType="UNDEFINED" p0="30.0" q0="5.720726490020752" bus="IX" connectableBus="IX" p="30.0" q="5.720726490020752">
+                <iidm:property name="codeOI" value="RUNGI-Y612"/>
+            </iidm:load>
+            <iidm:load id="JA" loadType="FICTITIOUS" p0="13.009949684143066" q0="0.7207642793655396" bus="IX" connectableBus="IX" p="13.009949684143066" q="0.7207642793655396"/>
+            <iidm:load id="JB" loadType="UNDEFINED" p0="34.611915588378906" q0="0.0" bus="IY" connectableBus="IY" p="34.611915588378906" q="0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="RUNGI-Y611"/>
+                <iidm:property name="codeOI" value="RUNGI-Y611"/>
+            </iidm:load>
+            <iidm:load id="JC" loadType="UNDEFINED" p0="41.73789978027344" q0="11.501847267150879" bus="IY" connectableBus="IY" p="41.73789978027344" q="11.501847267150879">
+                <iidm:property name="codeOI" value="RUNGI-Y613"/>
+            </iidm:load>
+            <iidm:shunt id="JD" sectionCount="0" voltageRegulatorOn="false" connectableBus="IX" q="-0.0">
+                <iidm:property name="VECTCodeOITransfoDistrib" value="RUNGI-Y611"/>
+                <iidm:property name="qMax" value="16.8725"/>
+                <iidm:property name="codeOI" value="RUNGIINA"/>
+                <iidm:shuntLinearModel bPerSection="-0.19751110672950745" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="JE" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="JF" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="JG" v="241.77420043945312" angle="-8.785298376530344"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="JH" loadType="UNDEFINED" p0="10.538641929626465" q0="-2.1057887077331543" bus="JG" connectableBus="JG" p="10.538641929626465" q="-2.1057887077331543">
+                <iidm:property name="codeOI" value="SACL5-Y611"/>
+            </iidm:load>
+            <iidm:load id="JI" loadType="UNDEFINED" p0="9.0" q0="-1.4038591384887695" bus="JG" connectableBus="JG" p="9.0" q="-1.4038591384887695">
+                <iidm:property name="codeOI" value="SACL5-Y612"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="JJ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="JK" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="JL" v="241.7406005859375" angle="-8.792113197774723"/>
+                <iidm:bus id="JM" v="241.6339111328125" angle="-13.088561732901205"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="JN" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.15346498787403107" targetV="0.0" targetQ="0.0" bus="JL" connectableBus="JL" p="-0.15346498787403107" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="SSAU5INF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="JO" energySource="SOLAR" minP="0.0" maxP="0.30000001192092896" voltageRegulatorOn="false" targetP="0.15346498787403107" targetV="0.0" targetQ="0.0" bus="JL" connectableBus="JL" p="-0.15346498787403107" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="SSAU5ING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.30000001192092896" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="JP" loadType="UNDEFINED" p0="12.77507209777832" q0="6.076125144958496" bus="JL" connectableBus="JL" p="12.77507209777832" q="6.076125144958496">
+                <iidm:property name="codeOI" value="SSAU5-Y611"/>
+            </iidm:load>
+            <iidm:load id="JQ" loadType="UNDEFINED" p0="28.651702880859375" q0="0.0" bus="JL" connectableBus="JL" p="28.651702880859375" q="0.0">
+                <iidm:property name="codeOI" value="SSAU5-Y612"/>
+            </iidm:load>
+            <iidm:load id="JR" loadType="UNDEFINED" p0="24.720911026000977" q0="-2.35432505607605" bus="JL" connectableBus="JL" p="24.720911026000977" q="-2.35432505607605">
+                <iidm:property name="codeOI" value="SSAU5-Y613"/>
+            </iidm:load>
+            <iidm:load id="JS" loadType="UNDEFINED" p0="17.55382537841797" q0="-0.25381073355674744" bus="JM" connectableBus="JM" p="17.55382537841797" q="-0.25381073355674744">
+                <iidm:property name="codeOI" value="SSAU5-Y614"/>
+            </iidm:load>
+            <iidm:load id="JT" loadType="FICTITIOUS" p0="-42.21574783325195" q0="-15.30010986328125" bus="JM" connectableBus="JM" p="-42.21574783325195" q="-15.30010986328125"/>
+            <iidm:load id="JU" loadType="FICTITIOUS" p0="26.623611450195312" q0="5.382025718688965" bus="JM" connectableBus="JM" p="26.623611450195312" q="5.382025718688965"/>
+            <iidm:load id="JV" loadType="FICTITIOUS" p0="20.60599136352539" q0="-7.397552967071533" bus="JM" connectableBus="JM" p="20.60599136352539" q="-7.397552967071533"/>
+            <iidm:shunt id="JW" sectionCount="0" voltageRegulatorOn="false" connectableBus="JM" q="-0.0">
+                <iidm:property name="qMax" value="80"/>
+                <iidm:property name="codeOI" value="SSAU5-MC261"/>
+                <iidm:shuntLinearModel bPerSection="0.0015802469570189714" maximumSectionCount="1"/>
+            </iidm:shunt>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="JX" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="JY" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="JZ" v="242.8520050048828" angle="-10.443415590010149"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="KA" energySource="SOLAR" minP="0.0" maxP="0.6000000238418579" voltageRegulatorOn="false" targetP="0.29345500469207764" targetV="0.0" targetQ="0.0" bus="JZ" connectableBus="JZ" p="-0.29345500469207764" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="V.GEOINF"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.6000000238418579" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:generator id="KB" energySource="SOLAR" minP="0.0" maxP="0.6000000238418579" voltageRegulatorOn="false" targetP="0.29345500469207764" targetV="0.0" targetQ="0.0" bus="JZ" connectableBus="JZ" p="-0.29345500469207764" q="-0.0">
+                <iidm:property name="genreCvg" value="PHOTOVOLTAIQUE"/>
+                <iidm:property name="codeOI" value="V.GEOING"/>
+                <iidm:reactiveCapabilityCurve>
+                    <iidm:point p="0.0" minQ="0.0" maxQ="0.0"/>
+                    <iidm:point p="0.6000000238418579" minQ="0.0" maxQ="0.0"/>
+                </iidm:reactiveCapabilityCurve>
+            </iidm:generator>
+            <iidm:load id="KC" loadType="UNDEFINED" p0="32.54038619995117" q0="0.0" bus="JZ" connectableBus="JZ" p="32.54038619995117" q="0.0">
+                <iidm:property name="codeOI" value="V.GEO-Y611"/>
+            </iidm:load>
+            <iidm:load id="KD" loadType="UNDEFINED" p0="38.58668518066406" q0="7.311154842376709" bus="JZ" connectableBus="JZ" p="38.58668518066406" q="7.311154842376709">
+                <iidm:property name="codeOI" value="V.GEO-Y612"/>
+            </iidm:load>
+            <iidm:load id="KE" loadType="UNDEFINED" p0="31.239215850830078" q0="0.0" bus="JZ" connectableBus="JZ" p="31.239215850830078" q="0.0">
+                <iidm:property name="codeOI" value="V.GEO-Y613"/>
+            </iidm:load>
+            <iidm:load id="KF" loadType="FICTITIOUS" p0="-85.79845428466797" q0="8.46915054321289" bus="JZ" connectableBus="JZ" p="-85.79845428466797" q="8.46915054321289"/>
+            <iidm:load id="KG" loadType="FICTITIOUS" p0="12.742096900939941" q0="-1.2353402376174927" bus="JZ" connectableBus="JZ" p="12.742096900939941" q="-1.2353402376174927"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KH" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="KI" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="KJ" v="241.74281311035156" angle="-8.758417313278112"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="KK" loadType="UNDEFINED" p0="0.0" q0="0.0" bus="KJ" connectableBus="KJ" p="0.0" q="0.0">
+                <iidm:property name="codeOI" value="VLERA-Y612"/>
+            </iidm:load>
+            <iidm:load id="KL" loadType="UNDEFINED" p0="4.338964939117432" q0="2.462512493133545" bus="KJ" connectableBus="KJ" p="4.338964939117432" q="2.462512493133545">
+                <iidm:property name="codeOI" value="VLERA-Y613"/>
+            </iidm:load>
+            <iidm:load id="KM" loadType="UNDEFINED" p0="6.074551105499268" q0="4.104187488555908" bus="KJ" connectableBus="KJ" p="6.074551105499268" q="4.104187488555908">
+                <iidm:property name="codeOI" value="VLERA-Y614"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KN" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="KO" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="KP" v="241.22845458984375" angle="-11.04332476519071"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KQ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="KR" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="KS" v="240.25067138671875" angle="-4.283136923320949"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KT" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="KU" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="KV" v="241.5277099609375" angle="-8.51577228169247"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KW" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="KX" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="KY" v="241.35687255859375" angle="-8.374761318730265"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="KZ" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LA" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LB" v="241.23931884765625" angle="-11.481932192932248"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LC" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LD" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LE" v="241.6586151123047" angle="-12.782334470331914"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LF" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LG" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LH" v="241.5518341064453" angle="-8.619104506098301"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LI" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LJ" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LK" v="92.74736022949219" angle="-11.633109038700372"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="LL" loadType="FICTITIOUS" p0="1.271460951102199E-5" q0="-0.4817524254322052" bus="LK" connectableBus="LK" p="1.271460951102199E-5" q="-0.4817524254322052"/>
+            <iidm:load id="LM" loadType="FICTITIOUS" p0="0.11377617716789246" q0="1.0283440351486206" bus="LK" connectableBus="LK" p="0.11377617716789246" q="1.0283440351486206"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LN" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LO" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LP" v="92.767578125" angle="-11.634631317111637"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="LQ" loadType="FICTITIOUS" p0="3.4924596548080444E-10" q0="-0.01721164770424366" bus="LP" connectableBus="LP" p="3.4924596548080444E-10" q="-0.01721164770424366"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LR" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LS" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LT" v="241.3637237548828" angle="-11.283899395684191"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LU" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LV" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="LW"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="LX" loadType="FICTITIOUS" p0="0.0" q0="20.59598731994629" bus="LW" connectableBus="LW" p="-0.0" q="20.59598731994629">
+                <iidm:property name="chargeFictive" value="consoFictive"/>
+            </iidm:load>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="LY" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="PARIS"/>
+        <iidm:voltageLevel id="LZ" nominalV="90.0" lowVoltageLimit="85.0" highVoltageLimit="97.00000762939453" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="MA" v="92.58770751953125" angle="-11.518675195572332"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="MB" loadType="FICTITIOUS" p0="-2.816340446472168" q0="4.496217727661133" bus="MA" connectableBus="MA" p="-2.816340446472168" q="4.496217727661133"/>
+            <iidm:load id="MC" loadType="FICTITIOUS" p0="0.6122706532478333" q0="0.12826848030090332" bus="MA" connectableBus="MA" p="0.6122706532478333" q="0.12826848030090332"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="MD" country="FR" tso="C">
+        <iidm:property name="paysCvg" value="FRANCE"/>
+        <iidm:property name="regionCvg" value="NANTES"/>
+        <iidm:voltageLevel id="ME" nominalV="225.0" lowVoltageLimit="220.0" highVoltageLimit="245.00001525878906" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="MF" v="239.91448974609375" angle="-4.163764426536167"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="MG" loadType="FICTITIOUS" p0="2.8179774284362793" q0="-39.980403900146484" bus="MF" connectableBus="MF" p="2.8179774284362793" q="-39.980403900146484"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:line id="MH" r="0.9620000123977661" x="5.289999961853027" g1="0.0" b1="6.500000017695129E-5" g2="0.0" b2="1.0299999848939478E-4" connectableBus1="R" voltageLevelId1="Q" connectableBus2="ED" voltageLevelId2="EC" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="ARRIGL61CHEVI"/>
+        <iidm:currentLimits1 permanentLimit="910.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="910.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="910.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="910.0"/>
+    </iidm:line>
+    <iidm:line id="MI" r="0.12399999797344208" x="0.7550000548362732" g1="0.0" b1="2.1100000594742596E-4" g2="0.0" b2="2.1100000594742596E-4" connectableBus1="R" voltageLevelId1="Q" connectableBus2="FB" voltageLevelId2="FA" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="ARRIGL61CRETA"/>
+        <iidm:currentLimits1 permanentLimit="1095.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2200.0"/>
+            <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="2200.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1095.0"/>
+    </iidm:line>
+    <iidm:line id="MJ" r="0.42500001192092896" x="2.5929999351501465" g1="0.0" b1="2.7000001864507794E-5" g2="0.0" b2="1.8999999156221747E-5" bus1="R" connectableBus1="R" voltageLevelId1="Q" bus2="JZ" connectableBus2="JZ" voltageLevelId2="JY" p1="28.730262756347656" q1="11.873672485351562" p2="-28.723018646240234" q2="-14.544965744018555">
+        <iidm:property name="codeOI" value="ARRIGL61V.GEO"/>
+        <iidm:currentLimits1 permanentLimit="830.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1250.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1457.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="830.0"/>
+    </iidm:line>
+    <iidm:line id="MK" r="0.22499996423721313" x="0.703999936580658" g1="0.0" b1="1.5300000086426735E-4" g2="0.0" b2="1.500000071246177E-4" bus1="CO" connectableBus1="CO" voltageLevelId1="CN" bus2="ED" connectableBus2="ED" voltageLevelId2="EC" p1="-90.49453735351562" q1="6.188209056854248" p2="90.52703857421875" q2="-23.748193740844727">
+        <iidm:property name="codeOI" value="BERT5L61CHEVI"/>
+        <iidm:currentLimits1 permanentLimit="850.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1399.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1490.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="850.0"/>
+    </iidm:line>
+    <iidm:line id="ML" r="0.08999998867511749" x="0.7199999094009399" g1="0.0" b1="1.4300001203082502E-4" g2="0.0" b2="1.4300001203082502E-4" bus1="CO" connectableBus1="CO" voltageLevelId1="CN" bus2="FB" connectableBus2="FB" voltageLevelId2="FA" p1="-12.933392524719238" q1="-11.021554946899414" p2="12.933662414550781" q2="-5.6451568603515625">
+        <iidm:property name="codeOI" value="BERT5L61CRETA"/>
+        <iidm:currentLimits1 permanentLimit="870.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1275.0"/>
+            <iidm:temporaryLimit name="IT5" acceptableDuration="300" value="1650.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="870.0"/>
+    </iidm:line>
+    <iidm:line id="MM" r="0.009999999776482582" x="0.10000001639127731" g1="0.0" b1="1.0000001111620804E-6" g2="0.0" b2="1.0000001111620804E-6" bus1="CX" connectableBus1="CX" voltageLevelId1="CW" bus2="KS" connectableBus2="KS" voltageLevelId2="KR" p1="-3.92829966545105" q1="-1.4167001247406006" p2="3.928302526473999" q2="1.301289677619934">
+        <iidm:property name="codeOI" value="CARR5L61ZCARR"/>
+        <iidm:currentLimits1 permanentLimit="1285.0"/>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="MN" r="0.009999999776482582" x="0.10000001639127731" g1="0.0" b1="1.0000001111620804E-6" g2="0.0" b2="1.0000001111620804E-6" connectableBus1="CY" voltageLevelId1="CW" bus2="KP" connectableBus2="KP" voltageLevelId2="KO" p1="0.0" q1="0.0" p2="5.819118520378197E-10" q2="-0.11638235300779343">
+        <iidm:property name="codeOI" value="CARR5L62ZCAR6"/>
+        <iidm:currentLimits1 permanentLimit="1285.0"/>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="MO" r="0.11999998986721039" x="0.7200000286102295" g1="0.0" b1="1.6599999798927456E-4" g2="0.0" b2="1.669999910518527E-4" bus1="DD" connectableBus1="DD" voltageLevelId1="DC" bus2="CF" connectableBus2="CF" voltageLevelId2="CE" p1="-22.758773803710938" q1="0.6449920535087585" p2="22.760059356689453" q2="-20.065855026245117">
+        <iidm:property name="codeOI" value="CASTAL61HARC7"/>
+        <iidm:currentLimits1 permanentLimit="300.0"/>
+        <iidm:currentLimits2 permanentLimit="300.0"/>
+    </iidm:line>
+    <iidm:line id="MP" r="0.1029999777674675" x="0.6499999165534973" g1="0.0" b1="1.5600000915583223E-4" g2="0.0" b2="1.4600000577047467E-4" bus1="DE" connectableBus1="DE" voltageLevelId1="DC" bus2="HJ" connectableBus2="HJ" voltageLevelId2="HI" p1="-101.74195861816406" q1="1.1805039644241333" p2="101.76042175292969" q2="-18.683643341064453">
+        <iidm:property name="codeOI" value="CASTAL61MOUL8"/>
+        <iidm:currentLimits1 permanentLimit="600.0"/>
+        <iidm:currentLimits2 permanentLimit="600.0"/>
+    </iidm:line>
+    <iidm:line id="MQ" r="0.5620001554489136" x="1.5620003938674927" g1="0.0" b1="4.5999997382750735E-5" g2="0.0" b2="5.99999930273043E-6" bus1="DK" connectableBus1="DK" voltageLevelId1="DJ" bus2="BB" connectableBus2="BB" voltageLevelId2="BA" p1="-21.234220504760742" q1="-3.620654582977295" p2="21.264469146728516" q2="3.258843183517456">
+        <iidm:property name="codeOI" value="CHARTL41VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="427.0">
+            <iidm:temporaryLimit name="N/A" value="606.0"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="427.0"/>
+    </iidm:line>
+    <iidm:line id="MR" r="0.10999997705221176" x="0.47999992966651917" g1="0.0" b1="2.000000222324161E-6" g2="0.0" b2="2.000000222324161E-6" bus1="DT" connectableBus1="DT" voltageLevelId1="DS" bus2="II" connectableBus2="II" voltageLevelId2="IH" p1="-67.71306610107422" q1="-4.608097076416016" p2="67.72176361083984" q2="4.412896633148193">
+        <iidm:property name="codeOI" value="CHATIL61R.TOR"/>
+        <iidm:currentLimits1 permanentLimit="534.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="752.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="877.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="534.0"/>
+    </iidm:line>
+    <iidm:line id="MS" r="0.10000000149011612" x="0.3400000035762787" g1="0.0" b1="1.4899999951012433E-4" g2="0.0" b2="1.4899999951012433E-4" connectableBus1="DT" voltageLevelId1="DS" bus2="LW" connectableBus2="LW" voltageLevelId2="LV" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="CHATIL61ZROBI"/>
+        <iidm:currentLimits1 permanentLimit="660.0"/>
+        <iidm:currentLimits2 permanentLimit="660.0"/>
+    </iidm:line>
+    <iidm:line id="MT" r="0.09999999403953552" x="0.34999996423721313" g1="0.0" b1="1.5100000018719584E-4" g2="0.0" b2="1.5100000018719584E-4" bus1="DU" connectableBus1="DU" voltageLevelId1="DS" bus2="LT" connectableBus2="LT" voltageLevelId2="LS" p1="-30.77928924560547" q1="-1.9623359441757202" p2="30.780994415283203" q2="-15.624930381774902">
+        <iidm:property name="codeOI" value="CHATIL62ZROB5"/>
+        <iidm:currentLimits1 permanentLimit="660.0"/>
+        <iidm:currentLimits2 permanentLimit="660.0"/>
+    </iidm:line>
+    <iidm:line id="MU" r="0.35600000619888306" x="1.7519999742507935" g1="0.0" b1="3.3000000985339284E-4" g2="0.0" b2="3.6299999919719994E-4" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="ES" connectableBus2="ES" voltageLevelId2="ER" p1="64.3780746459961" q1="-45.056705474853516" p2="-64.34870147705078" q2="4.783660411834717">
+        <iidm:property name="codeOI" value="CHEVIL61CORIO"/>
+        <iidm:currentLimits1 permanentLimit="680.0"/>
+        <iidm:currentLimits2 permanentLimit="680.0"/>
+    </iidm:line>
+    <iidm:line id="MV" r="0.1379999816417694" x="0.42799997329711914" g1="0.0" b1="9.499999578110874E-5" g2="0.0" b2="9.399999544257298E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="FB" connectableBus2="FB" voltageLevelId2="FA" p1="127.40388488769531" q1="-30.97182846069336" p2="-127.36392974853516" q2="20.078449249267578">
+        <iidm:property name="codeOI" value="CHEVIL61CRETA"/>
+        <iidm:currentLimits1 permanentLimit="850.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1490.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="850.0"/>
+    </iidm:line>
+    <iidm:line id="MW" r="0.29899999499320984" x="1.2389997243881226" g1="0.0" b1="8.900000102585182E-5" g2="0.0" b2="1.2999999853491317E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="IX" connectableBus2="IX" voltageLevelId2="IW" p1="43.01961135864258" q1="0.535520076751709" p2="-43.00994873046875" q2="-6.441490650177002">
+        <iidm:property name="codeOI" value="CHEVIL61RUNGI"/>
+        <iidm:currentLimits1 permanentLimit="593.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="819.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="945.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="593.0"/>
+    </iidm:line>
+    <iidm:line id="MX" r="0.5679999589920044" x="2.9509999752044678" g1="0.0" b1="6.100000246078707E-5" g2="0.0" b2="9.600000339560211E-5" connectableBus1="ED" voltageLevelId1="EC" connectableBus2="JZ" voltageLevelId2="JY" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="CHEVIL61V.GEO"/>
+        <iidm:currentLimits1 permanentLimit="750.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1200.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1200.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="750.0"/>
+    </iidm:line>
+    <iidm:line id="MY" r="0.6499999761581421" x="4.860000133514404" g1="0.0" b1="5.0999999075429514E-5" g2="0.0" b2="2.4000000848900527E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-176.31944274902344" q1="36.775970458984375" p2="176.6836700439453" q2="-38.42161178588867">
+        <iidm:property name="codeOI" value="CHEVIL61VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="817.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1038.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1187.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="817.0"/>
+    </iidm:line>
+    <iidm:line id="MZ" r="0.21199998259544373" x="0.6770000457763672" g1="0.0" b1="1.1200000153621659E-4" g2="0.0" b2="1.2399999832268804E-4" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="FB" connectableBus2="FB" voltageLevelId2="FA" p1="80.89403533935547" q1="-21.97012710571289" p2="-80.86936950683594" q2="8.291932106018066">
+        <iidm:property name="codeOI" value="CHEVIL62CRETA"/>
+        <iidm:currentLimits1 permanentLimit="910.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1750.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="910.0"/>
+    </iidm:line>
+    <iidm:line id="NA" r="0.29200002551078796" x="1.2119998931884766" g1="0.0" b1="8.399999933317304E-5" g2="0.0" b2="1.2000000424450263E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="IY" connectableBus2="IY" voltageLevelId2="IW" p1="76.37963104248047" q1="6.029740810394287" p2="-76.34981536865234" q2="-11.501847267150879">
+        <iidm:property name="codeOI" value="CHEVIL62RUNGI"/>
+        <iidm:currentLimits1 permanentLimit="593.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="819.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="945.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="593.0"/>
+    </iidm:line>
+    <iidm:line id="NB" r="0.6499999761581421" x="4.840000152587891" g1="0.0" b1="5.0999999075429514E-5" g2="0.0" b2="2.4000000848900527E-5" connectableBus1="ED" voltageLevelId1="EC" connectableBus2="BD" voltageLevelId2="BC" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="CHEVIL62VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="817.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1038.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1187.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="817.0"/>
+    </iidm:line>
+    <iidm:line id="NC" r="0.46000009775161743" x="4.449999809265137" g1="0.0" b1="4.699999772128649E-5" g2="0.0" b2="2.9999999242136255E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-194.4674835205078" q1="35.01919937133789" p2="194.77713012695312" q2="-36.50846481323242">
+        <iidm:property name="codeOI" value="CHEVIL63VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="1975.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2785.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="3200.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1975.0"/>
+    </iidm:line>
+    <iidm:line id="ND" r="0.2699999511241913" x="2.5799999237060547" g1="0.0" b1="3.099999958067201E-5" g2="0.0" b2="1.799999881768599E-5" bus1="ED" connectableBus1="ED" voltageLevelId1="EC" bus2="LB" connectableBus2="LB" voltageLevelId2="LA" p1="-163.88719177246094" q1="35.89350128173828" p2="164.01815795898438" q2="-37.49677658081055">
+        <iidm:property name="codeOI" value="CHEVIL64ZMAS5"/>
+        <iidm:currentLimits1 permanentLimit="2140.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2800.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="3200.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="2140.0"/>
+    </iidm:line>
+    <iidm:line id="NE" r="0.13099998235702515" x="0.4280000329017639" g1="0.0" b1="9.200000204145908E-5" g2="0.0" b2="9.700000373413786E-5" bus1="EM" connectableBus1="EM" voltageLevelId1="EL" bus2="HJ" connectableBus2="HJ" voltageLevelId2="HI" p1="-72.31769561767578" q1="-1.4228111505508423" p2="72.32947540283203" q2="-9.5648832321167">
+        <iidm:property name="codeOI" value="CONVEL61MOUL8"/>
+        <iidm:currentLimits1 permanentLimit="800.0"/>
+        <iidm:currentLimits2 permanentLimit="800.0"/>
+    </iidm:line>
+    <iidm:line id="NF" r="0.6970000267028809" x="3.2219998836517334" g1="0.0" b1="1.096500000130618E-5" g2="0.0" b2="1.0908000149356667E-5" bus1="E" connectableBus1="E" voltageLevelId1="D" bus2="MF" connectableBus2="MF" voltageLevelId2="ME" p1="6.7796430587768555" q1="-50.041419982910156" p2="-6.749356269836426" q2="48.92583084106445">
+        <iidm:property name="codeOI" value="DAMBRL61ZSEMO"/>
+        <iidm:currentLimits1 permanentLimit="983.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1174.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1316.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="983.0"/>
+    </iidm:line>
+    <iidm:line id="NG" r="6.142000198364258" x="27.955997467041016" g1="0.0" b1="9.285300620831549E-5" g2="0.0" b2="9.388400212628767E-5" connectableBus1="E" voltageLevelId1="D" bus2="KP" connectableBus2="KP" voltageLevelId2="KO" p1="0.0" q1="0.0" p2="0.003097535576671362" q2="-10.880504608154297">
+        <iidm:property name="codeOI" value="DAMBRL62ZCAR6"/>
+        <iidm:currentLimits1 permanentLimit="964.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1174.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1316.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="964.0"/>
+    </iidm:line>
+    <iidm:line id="NH" r="1.119999885559082" x="7.369999408721924" g1="0.0" b1="2.7000001864507794E-5" g2="0.0" b2="3.2000003557186574E-5" bus1="FO" connectableBus1="FO" voltageLevelId1="FM" bus2="JM" connectableBus2="JM" voltageLevelId2="JK" p1="22.584699630737305" q1="-20.895950317382812" p2="-22.56768226623535" q2="17.569448471069336">
+        <iidm:property name="codeOI" value="ELANCL61SSAU5"/>
+        <iidm:currentLimits1 permanentLimit="768.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1137.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1347.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="768.0"/>
+    </iidm:line>
+    <iidm:line id="NI" r="1.4410003423690796" x="9.376001358032227" g1="0.0" b1="3.4000004234258085E-5" g2="0.0" b2="3.4000004234258085E-5" bus1="FN" connectableBus1="FN" voltageLevelId1="FM" bus2="LE" connectableBus2="LE" voltageLevelId2="LD" p1="19.479101181030273" q1="-9.026195526123047" p2="-19.468502044677734" q2="5.126649856567383">
+        <iidm:property name="codeOI" value="ELANCL61ZMTJ5"/>
+        <iidm:currentLimits1 permanentLimit="768.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1137.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1357.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="768.0"/>
+    </iidm:line>
+    <iidm:line id="NJ" r="0.027000002562999725" x="0.11700000613927841" g1="0.0" b1="2.9999999242136255E-5" g2="0.0" b2="2.9999999242136255E-5" bus1="CF" connectableBus1="CF" voltageLevelId1="CE" bus2="HJ" connectableBus2="HJ" voltageLevelId2="HI" p1="-79.42620086669922" q1="-16.75653648376465" p2="79.4292221069336" q2="13.26904296875">
+        <iidm:property name="codeOI" value="HARC7L61MOUL8"/>
+        <iidm:currentLimits1 permanentLimit="1115.0"/>
+        <iidm:currentLimits2 permanentLimit="1115.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2130.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="NK" r="0.15000000596046448" x="1.3500001430511475" g1="0.0" b1="2.390000008745119E-4" g2="0.0" b2="1.289999927394092E-4" bus1="CF" connectableBus1="CF" voltageLevelId1="CE" bus2="II" connectableBus2="II" voltageLevelId2="IH" p1="-70.46117401123047" q1="11.082228660583496" p2="70.47555541992188" q2="-32.415771484375">
+        <iidm:property name="codeOI" value="HARC7L61R.TOR"/>
+        <iidm:currentLimits1 permanentLimit="1095.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1660.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1943.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1095.0"/>
+    </iidm:line>
+    <iidm:line id="NL" r="0.4129999577999115" x="1.3459999561309814" g1="0.0" b1="2.770000137388706E-4" g2="0.0" b2="3.1999999191612005E-4" bus1="CF" connectableBus1="CF" voltageLevelId1="CE" bus2="IN" connectableBus2="IN" voltageLevelId2="IK" p1="-116.8368911743164" q1="4.700447082519531" p2="116.93660736083984" q2="-39.217124938964844">
+        <iidm:property name="codeOI" value="HARC7L61ROBI5"/>
+        <iidm:currentLimits1 permanentLimit="484.0"/>
+        <iidm:currentLimits2 permanentLimit="484.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="900.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="NM" r="0.6720000505447388" x="4.492001056671143" g1="0.0" b1="1.7000002117129043E-5" g2="0.0" b2="7.500000356230885E-5" bus1="GB" connectableBus1="GB" voltageLevelId1="GA" bus2="GH" connectableBus2="GH" voltageLevelId2="GG" p1="-46.37820053100586" q1="14.12458324432373" p2="46.405662536621094" q2="-19.291831970214844">
+        <iidm:property name="codeOI" value="LIERSL61LOGES"/>
+        <iidm:currentLimits1 permanentLimit="880.0"/>
+        <iidm:currentLimits2 permanentLimit="880.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1660.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1943.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="NN" r="0.6320001482963562" x="4.230000019073486" g1="0.0" b1="1.4999999621068127E-5" g2="0.0" b2="1.4999999621068127E-5" bus1="GB" connectableBus1="GB" voltageLevelId1="GA" bus2="KV" connectableBus2="KV" voltageLevelId2="KU" p1="-0.33627963066101074" q1="-14.439860343933105" p2="0.33827880024909973" q2="12.704900741577148">
+        <iidm:property name="codeOI" value="LIERSL61ZLIN7"/>
+        <iidm:currentLimits1 permanentLimit="1285.0"/>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="NO" r="0.30000001192092896" x="2.0" g1="0.0" b1="5.8999998145736754E-5" g2="0.0" b2="8.000000889296643E-6" bus1="GH" connectableBus1="GH" voltageLevelId1="GG" bus2="KY" connectableBus2="KY" voltageLevelId2="KX" p1="36.46167755126953" q1="-35.2009162902832" p2="-36.44961166381836" q2="31.384614944458008">
+        <iidm:property name="codeOI" value="LOGESL61ZLINA"/>
+        <iidm:currentLimits1 permanentLimit="880.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1660.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1943.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="880.0"/>
+    </iidm:line>
+    <iidm:line id="NP" r="0.13100002706050873" x="0.671999990940094" g1="0.0" b1="2.359999780310318E-4" g2="0.0" b2="2.569999487604946E-4" bus1="GQ" connectableBus1="GQ" voltageLevelId1="GP" bus2="BB" connectableBus2="BB" voltageLevelId2="BA" p1="-13.111156463623047" q1="-3.60190486907959" p2="13.113813400268555" q2="-0.6253365278244019">
+        <iidm:property name="codeOI" value="MARC7L42VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="870.0001220703125">
+            <iidm:temporaryLimit name="N/A" value="1000.0000610351562"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="870.0001220703125"/>
+    </iidm:line>
+    <iidm:line id="NQ" r="0.15200001001358032" x="0.6920000910758972" g1="0.0" b1="2.7899997076019645E-4" g2="0.0" b2="2.7899997076019645E-4" bus1="GR" connectableBus1="GR" voltageLevelId1="GP" bus2="BB" connectableBus2="BB" voltageLevelId2="BA" p1="-13.110764503479004" q1="-3.1608810424804688" p2="13.113813400268555" q2="-1.6253257989883423">
+        <iidm:property name="codeOI" value="MARC7L43VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="870.0001220703125">
+            <iidm:temporaryLimit name="N/A" value="1000.0000610351562"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="870.0001220703125"/>
+    </iidm:line>
+    <iidm:line id="NR" r="0.1860000193119049" x="1.3650001287460327" g1="0.0" b1="5.799999416922219E-5" g2="0.0" b2="3.199999991920777E-5" bus1="GW" connectableBus1="GW" voltageLevelId1="GV" bus2="BB" connectableBus2="BB" voltageLevelId2="BA" p1="-0.11381006240844727" q1="-0.14906279742717743" p2="0.11381299048662186" q2="-0.6254031658172607">
+        <iidm:property name="codeOI" value="MASSYL41VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="450.00006103515625">
+            <iidm:temporaryLimit name="N/A" value="450.0000305175781"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="450.00006103515625"/>
+    </iidm:line>
+    <iidm:line id="NS" r="0.2630000114440918" x="2.124999761581421" g1="0.0" b1="1.1000000085914508E-5" g2="0.0" b2="1.4000000192027073E-5" bus1="HB" connectableBus1="HB" voltageLevelId1="GZ" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-54.2254753112793" q1="3.3617117404937744" p2="54.23884963989258" q2="-4.70742130279541">
+        <iidm:property name="codeOI" value="MASSYL62VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="1285.0"/>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="NT" r="0.029999997466802597" x="0.23999997973442078" g1="0.0" b1="2.000000222324161E-6" g2="0.0" b2="2.000000222324161E-6" bus1="HA" connectableBus1="HA" voltageLevelId1="GZ" bus2="LB" connectableBus2="LB" voltageLevelId2="LA" p1="-70.27354431152344" q1="-3.112546443939209" p2="70.27609252929688" q2="2.900176763534546">
+        <iidm:property name="codeOI" value="MASSYL64ZMAS5"/>
+        <iidm:currentLimits1 permanentLimit="1086.0"/>
+        <iidm:currentLimits2 permanentLimit="1086.0"/>
+    </iidm:line>
+    <iidm:line id="NU" r="0.5529999732971191" x="5.11299991607666" g1="0.0" b1="5.130000063218176E-4" g2="0.0" b2="8.499999967170879E-5" bus1="HJ" connectableBus1="HJ" voltageLevelId1="HI" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-142.3313751220703" q1="5.15749979019165" p2="142.53504943847656" q2="-38.149681091308594">
+        <iidm:property name="codeOI" value="MOUL8L61VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="980.0"/>
+        <iidm:currentLimits2 permanentLimit="980.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1645.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1645.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="NV" r="0.5389999747276306" x="4.914000034332275" g1="0.0" b1="5.170000367797911E-4" g2="0.0" b2="8.800000068731606E-5" bus1="HJ" connectableBus1="HJ" voltageLevelId1="HI" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-148.0155029296875" q1="6.563089847564697" p2="148.2303466796875" q2="-39.88751220703125">
+        <iidm:property name="codeOI" value="MOUL8L62VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="980.0"/>
+        <iidm:currentLimits2 permanentLimit="980.0">
+            <iidm:temporaryLimit name="N/A" value="1030.0"/>
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1645.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1645.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="NW" r="0.02800000086426735" x="0.07100000232458115" g1="0.0" b1="1.8999999156221747E-5" g2="0.0" b2="1.8999999156221747E-5" bus1="HS" connectableBus1="HS" voltageLevelId1="HR" bus2="LE" connectableBus2="LE" voltageLevelId2="LD" p1="-19.468313217163086" q1="2.090388298034668" p2="19.4685001373291" q2="-4.309060096740723">
+        <iidm:property name="codeOI" value="MTJAYL61ZMTJ5"/>
+        <iidm:currentLimits1 permanentLimit="845.0"/>
+        <iidm:currentLimits2 permanentLimit="845.0"/>
+    </iidm:line>
+    <iidm:line id="NX" r="0.009999999776482582" x="0.10000001639127731" g1="0.0" b1="1.4000000192027073E-5" g2="0.0" b2="1.4000000192027073E-5" bus1="HT" connectableBus1="HT" voltageLevelId1="HR" bus2="LH" connectableBus2="LH" voltageLevelId2="LG" p1="-29.4250545501709" q1="-2.5457005500793457" p2="29.425203323364258" q2="0.9134786128997803">
+        <iidm:property name="codeOI" value="MTJAYL61ZMTJA"/>
+        <iidm:currentLimits1 permanentLimit="438.0"/>
+        <iidm:currentLimits2 permanentLimit="438.0"/>
+    </iidm:line>
+    <iidm:line id="NY" r="0.12000001221895218" x="0.2900000214576721" g1="0.0" b1="9.999999974752427E-7" g2="0.0" b2="9.999999974752427E-7" bus1="HZ" connectableBus1="HZ" voltageLevelId1="HY" bus2="BB" connectableBus2="BB" voltageLevelId2="BA" p1="-6.113255023956299" q1="1.6095563173294067" p2="6.1138129234313965" q2="-1.625417709350586">
+        <iidm:property name="codeOI" value="NOZAYL41VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="315.0">
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="315.0"/>
+    </iidm:line>
+    <iidm:line id="NZ" r="0.2409999817609787" x="0.7369999885559082" g1="0.0" b1="1.0599999950500205E-4" g2="0.0" b2="1.0599999950500205E-4" connectableBus1="ID" voltageLevelId1="IC" bus2="KV" connectableBus2="KV" voltageLevelId2="KU" p1="0.0" q1="0.0" p2="1.5799033280927688E-4" q2="-12.367637634277344">
+        <iidm:property name="codeOI" value="P.BOIL61ZLIN7"/>
+        <iidm:currentLimits1 permanentLimit="440.0"/>
+        <iidm:currentLimits2 permanentLimit="440.0"/>
+    </iidm:line>
+    <iidm:line id="OA" r="0.42399999499320984" x="0.6140000224113464" g1="0.0" b1="1.0599999950500205E-4" g2="0.0" b2="1.0599999950500205E-4" bus1="ID" connectableBus1="ID" voltageLevelId1="IC" bus2="KY" connectableBus2="KY" voltageLevelId2="KX" p1="1.739371657371521" q1="1.2567760944366455" p2="-1.7389476299285889" q2="-13.606950759887695">
+        <iidm:property name="codeOI" value="P.BOIL61ZLINA"/>
+        <iidm:currentLimits1 permanentLimit="440.0"/>
+        <iidm:currentLimits2 permanentLimit="440.0"/>
+    </iidm:line>
+    <iidm:line id="OB" r="0.47999992966651917" x="4.650000095367432" g1="0.0" b1="3.2000003557186574E-5" g2="0.0" b2="3.2000003557186574E-5" bus1="II" connectableBus1="II" voltageLevelId1="IH" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-138.1973114013672" q1="28.00287437438965" p2="138.36192321777344" q2="-30.134593963623047">
+        <iidm:property name="codeOI" value="R.TORL61VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="1095.0"/>
+        <iidm:currentLimits2 permanentLimit="1095.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1660.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1943.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="OC" r="0.40400001406669617" x="3.9159998893737793" g1="0.0" b1="6.100000246078707E-5" g2="0.0" b2="2.7000001864507794E-5" bus1="IN" connectableBus1="IN" voltageLevelId1="IK" bus2="BD" connectableBus2="BD" voltageLevelId2="BC" p1="-146.22610473632812" q1="41.005760192871094" p2="146.3878173828125" q2="-44.569664001464844">
+        <iidm:property name="codeOI" value="ROBI5L61VLEJU"/>
+        <iidm:currentLimits1 permanentLimit="1280.0"/>
+        <iidm:currentLimits2 permanentLimit="1280.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1774.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="2080.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits2>
+    </iidm:line>
+    <iidm:line id="OD" r="0.008999998681247234" x="0.07699999958276749" g1="0.0" b1="1.4999999621068127E-5" g2="0.0" b2="1.4999999621068127E-5" bus1="IL" connectableBus1="IL" voltageLevelId1="IK" bus2="LW" connectableBus2="LW" voltageLevelId2="LV" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="ROBI5L61ZROBI"/>
+        <iidm:currentLimits1 permanentLimit="470.0"/>
+        <iidm:currentLimits2 permanentLimit="470.0"/>
+    </iidm:line>
+    <iidm:line id="OE" r="0.008999999612569809" x="0.07800000160932541" g1="0.0" b1="1.4000000192027073E-5" g2="0.0" b2="1.4000000192027073E-5" bus1="IM" connectableBus1="IM" voltageLevelId1="IK" bus2="LT" connectableBus2="LT" voltageLevelId2="LS" p1="-28.776630401611328" q1="0.047456398606300354" p2="28.776758193969727" q2="-1.677521824836731">
+        <iidm:property name="codeOI" value="ROBI5L62ZROB5"/>
+        <iidm:currentLimits1 permanentLimit="470.0"/>
+        <iidm:currentLimits2 permanentLimit="470.0"/>
+    </iidm:line>
+    <iidm:line id="OF" r="0.16899999976158142" x="0.856999933719635" g1="0.0" b1="1.5999999595806003E-4" g2="0.0" b2="1.5999999595806003E-4" bus1="JG" connectableBus1="JG" voltageLevelId1="JF" bus2="JL" connectableBus2="JL" voltageLevelId2="JK" p1="9.607125282287598" q1="-1.7683364152908325" p2="-9.60669231414795" q2="-16.932392120361328">
+        <iidm:property name="codeOI" value="SACL5L61SSAU5"/>
+        <iidm:currentLimits1 permanentLimit="600.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1500.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="600.0"/>
+    </iidm:line>
+    <iidm:line id="OG" r="0.16899999976158142" x="0.8560001254081726" g1="0.0" b1="1.5999999595806003E-4" g2="0.0" b2="1.5999999595806003E-4" bus1="JG" connectableBus1="JG" voltageLevelId1="JF" bus2="KJ" connectableBus2="KJ" voltageLevelId2="KI" p1="-29.145767211914062" q1="5.277984142303467" p2="29.148841857910156" q2="-23.965505599975586">
+        <iidm:property name="codeOI" value="SACL5L61VLERA"/>
+        <iidm:currentLimits1 permanentLimit="600.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1500.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="600.0"/>
+    </iidm:line>
+    <iidm:line id="OH" r="0.18299999833106995" x="1.2299998998641968" g1="0.0" b1="2.8000000384054147E-5" g2="0.0" b2="8.000000889296643E-6" bus1="JL" connectableBus1="JL" voltageLevelId1="JK" bus2="KJ" connectableBus2="KJ" voltageLevelId2="KI" p1="-27.39817237854004" q1="2.016448736190796" p2="27.400564193725586" q2="-4.104163646697998">
+        <iidm:property name="codeOI" value="SSAU5L61VLERA"/>
+        <iidm:currentLimits1 permanentLimit="764.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1542.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1855.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="764.0"/>
+    </iidm:line>
+    <iidm:line id="OI" r="0.8790000081062317" x="5.736000061035156" g1="0.0" b1="2.099999983329326E-5" g2="0.0" b2="2.099999983329326E-5" bus1="JL" connectableBus1="JL" voltageLevelId1="JK" bus2="LH" connectableBus2="LH" voltageLevelId2="LG" p1="-28.835891723632812" q1="11.194144248962402" p2="28.850719451904297" q2="-13.549885749816895">
+        <iidm:property name="codeOI" value="SSAU5L61ZMTJA"/>
+        <iidm:currentLimits1 permanentLimit="768.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1137.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1357.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="768.0"/>
+    </iidm:line>
+    <iidm:line id="OJ" r="0.9200000166893005" x="2.763000249862671" g1="0.0" b1="9.99999883788405E-6" g2="0.0" b2="9.99999883788405E-6" bus1="BB" connectableBus1="BB" voltageLevelId1="BA" bus2="LK" connectableBus2="LK" voltageLevelId2="LJ" p1="0.11381296813488007" q1="0.37459489703178406" p2="-0.1137888953089714" q2="-0.546591579914093">
+        <iidm:property name="codeOI" value="VLEJUL41ZOLLA"/>
+        <iidm:currentLimits1 permanentLimit="486.00006103515625">
+            <iidm:temporaryLimit name="N/A" value="729.0"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="486.00006103515625"/>
+    </iidm:line>
+    <iidm:line id="OK" r="0.33800002932548523" x="1.41100013256073" g1="0.0" b1="2.2999998691375367E-5" g2="0.0" b2="5.99999930273043E-6" bus1="BB" connectableBus1="BB" voltageLevelId1="BA" bus2="LP" connectableBus2="LP" voltageLevelId2="LO" p1="5.577634510700591E-6" q1="-0.5507317781448364" p2="-6.879288321215427E-7" q2="0.30120620131492615">
+        <iidm:property name="codeOI" value="VLEJUL42ZPROV"/>
+        <iidm:currentLimits1 permanentLimit="603.0000610351562">
+            <iidm:temporaryLimit name="N/A" value="787.0"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="603.0000610351562"/>
+    </iidm:line>
+    <iidm:line id="OL" r="1.6759999990463257" x="4.420000076293945" g1="0.0" b1="1.5999999959603883E-5" g2="0.0" b2="1.5999999959603883E-5" bus1="BB" connectableBus1="BB" voltageLevelId1="BA" bus2="MA" connectableBus2="MA" voltageLevelId2="LZ" p1="-2.199183225631714" q1="4.362536430358887" p2="2.2040698528289795" q2="-4.624486446380615">
+        <iidm:property name="codeOI" value="VLEJUL42ZSAU6"/>
+        <iidm:currentLimits1 permanentLimit="427.0">
+            <iidm:temporaryLimit name="N/A" value="606.0"/>
+            <iidm:temporaryLimit name="IT105" acceptableDuration="6300"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="427.0"/>
+    </iidm:line>
+    <iidm:line id="OM" r="0.4200000464916229" x="3.570000410079956" g1="0.0" b1="1.1799999629147351E-4" g2="0.0" b2="2.5000001187436283E-5" bus1="BE" connectableBus1="BE" voltageLevelId1="BC" bus2="KJ" connectableBus2="KJ" voltageLevelId2="KI" p1="66.99893951416016" q1="-29.54111099243164" p2="-66.96292114257812" q2="21.50296974182129">
+        <iidm:property name="codeOI" value="VLEJUL61VLERA"/>
+        <iidm:currentLimits1 permanentLimit="946.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1542.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1855.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="946.0"/>
+    </iidm:line>
+    <iidm:line id="ON" r="0.3700000047683716" x="1.5800000429153442" g1="0.0" b1="4.999999873689376E-6" g2="0.0" b2="4.999999873689376E-6" connectableBus1="BD" voltageLevelId1="BC" bus2="KS" connectableBus2="KS" voltageLevelId2="KR" p1="0.0" q1="0.0" p2="5.339219910638349E-7" q2="-0.5772061347961426">
+        <iidm:property name="codeOI" value="VLEJUL61ZCARR"/>
+        <iidm:currentLimits1 permanentLimit="964.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1194.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1347.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="964.0"/>
+    </iidm:line>
+    <iidm:line id="OO" r="0.5339999794960022" x="3.5870001316070557" g1="0.0" b1="1.2999999853491317E-5" g2="0.0" b2="1.2999999853491317E-5" bus1="BE" connectableBus1="BE" voltageLevelId1="BC" bus2="KV" connectableBus2="KV" voltageLevelId2="KU" p1="0.3384394645690918" q1="-1.1794098615646362" p2="-0.3384367823600769" q2="-0.33726412057876587">
+        <iidm:property name="codeOI" value="VLEJUL61ZLIN7"/>
+        <iidm:currentLimits1 permanentLimit="1285.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1660.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1943.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="OP" r="0.5189999938011169" x="3.486999988555908" g1="0.0" b1="1.2000000424450263E-5" g2="0.0" b2="1.2000000424450263E-5" bus1="BE" connectableBus1="BE" voltageLevelId1="BC" bus2="KY" connectableBus2="KY" voltageLevelId2="KX" p1="-38.17296600341797" q1="16.483386993408203" p2="38.188560485839844" q2="-17.777664184570312">
+        <iidm:property name="codeOI" value="VLEJUL61ZLINA"/>
+        <iidm:currentLimits1 permanentLimit="1285.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1600.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1600.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1285.0"/>
+    </iidm:line>
+    <iidm:line id="OQ" r="0.2800000011920929" x="1.8199999332427979" g1="0.0" b1="7.000000096013537E-6" g2="0.0" b2="7.000000096013537E-6" connectableBus1="BD" voltageLevelId1="BC" bus2="LE" connectableBus2="LE" voltageLevelId2="LD" p1="0.0" q1="0.0" p2="8.012530656742456E-7" q2="-0.817589521408081">
+        <iidm:property name="codeOI" value="VLEJUL61ZMTJ5"/>
+        <iidm:currentLimits1 permanentLimit="979.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1304.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1528.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="979.0"/>
+    </iidm:line>
+    <iidm:line id="OR" r="0.27000001072883606" x="1.7699997425079346" g1="0.0" b1="6.000000212225132E-6" g2="0.0" b2="6.000000212225132E-6" bus1="BE" connectableBus1="BE" voltageLevelId1="BC" bus2="LH" connectableBus2="LH" voltageLevelId2="LG" p1="58.29241943359375" q1="-13.228349685668945" p2="-58.27592468261719" q2="12.636406898498535">
+        <iidm:property name="codeOI" value="VLEJUL61ZMTJA"/>
+        <iidm:currentLimits1 permanentLimit="768.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1137.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1357.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="768.0"/>
+    </iidm:line>
+    <iidm:line id="OS" r="0.43000006675720215" x="4.030000686645508" g1="0.0" b1="2.8000000384054147E-5" g2="0.0" b2="2.8000000384054147E-5" connectableBus1="BD" voltageLevelId1="BC" bus2="LW" connectableBus2="LW" voltageLevelId2="LV" p1="0.0" q1="0.0" p2="0.0" q2="0.0">
+        <iidm:property name="codeOI" value="VLEJUL61ZROBI"/>
+        <iidm:currentLimits1 permanentLimit="1086.0"/>
+        <iidm:currentLimits2 permanentLimit="1086.0"/>
+    </iidm:line>
+    <iidm:line id="OT" r="0.3700000047683716" x="1.5800000429153442" g1="0.0" b1="4.999999873689376E-6" g2="0.0" b2="4.999999873689376E-6" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="KP" connectableBus2="KP" voltageLevelId2="KO" p1="0.003907687962055206" q1="-11.575160026550293" p2="-0.0030975360423326492" q2="10.996886253356934">
+        <iidm:property name="codeOI" value="VLEJUL62ZCAR6"/>
+        <iidm:currentLimits1 permanentLimit="964.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1194.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1347.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="964.0"/>
+    </iidm:line>
+    <iidm:line id="OU" r="0.4269999861717224" x="4.038000106811523" g1="0.0" b1="2.7000001864507794E-5" g2="0.0" b2="2.8000000384054147E-5" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="LT" connectableBus2="LT" voltageLevelId2="LS" p1="59.58638000488281" q1="-20.233118057250977" p2="-59.55775451660156" q2="17.302452087402344">
+        <iidm:property name="codeOI" value="VLEJUL62ZROB5"/>
+        <iidm:currentLimits1 permanentLimit="1086.0"/>
+        <iidm:currentLimits2 permanentLimit="1086.0"/>
+    </iidm:line>
+    <iidm:line id="OV" r="0.1899999976158142" x="1.8899999856948853" g1="0.0" b1="1.2000000424450263E-5" g2="0.0" b2="1.2000000424450263E-5" bus1="BD" connectableBus1="BD" voltageLevelId1="BC" bus2="LB" connectableBus2="LB" voltageLevelId2="LA" p1="234.4775390625" q1="-34.16962432861328" p2="-234.29425048828125" q2="34.59659957885742">
+        <iidm:property name="codeOI" value="VLEJUL64ZMAS5"/>
+        <iidm:currentLimits1 permanentLimit="1975.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="2785.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="3200.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="1975.0"/>
+    </iidm:line>
+    <iidm:line id="OW" r="5.471999645233154" x="24.82499885559082" g1="0.0" b1="8.399999933317304E-5" g2="0.0" b2="8.399999933317304E-5" bus1="KS" connectableBus1="KS" voltageLevelId1="KR" bus2="MF" connectableBus2="MF" voltageLevelId2="ME" p1="-3.9283032417297363" q1="-0.7240835428237915" p2="3.9313788414001465" q2="-8.945427894592285">
+        <iidm:property name="codeOI" value="ZCARRL61ZSEMO"/>
+        <iidm:currentLimits1 permanentLimit="964.0">
+            <iidm:temporaryLimit name="IT20" acceptableDuration="1200" value="1174.0"/>
+            <iidm:temporaryLimit name="IT10" acceptableDuration="600" value="1316.0"/>
+            <iidm:temporaryLimit name="IT1" acceptableDuration="60"/>
+        </iidm:currentLimits1>
+        <iidm:currentLimits2 permanentLimit="964.0"/>
+    </iidm:line>
+</iidm:network>

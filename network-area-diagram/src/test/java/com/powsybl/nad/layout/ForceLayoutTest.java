@@ -7,6 +7,7 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.xml.NetworkXml;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -54,5 +55,22 @@ class ForceLayoutTest extends AbstractTest {
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.2.svg"),
                 generateSvgString(LayoutNetworkFactory.createDiamond(), "/diamond-spring-repulsion-factor-0.2.svg"));
+    }
+
+    @Test
+    void testNodeWithManyConnections() {
+        Network network = NetworkXml.read(getClass().getResourceAsStream("/node-with-many-connections.xiidm"));
+        assertEquals(
+                toString("/node-with-many-connections-spring-repulsion-factor-0.0.svg"),
+                generateSvgString(network, "/node-with-many-connections-spring-repulsion-factor-0.0.svg"));
+    }
+
+    @Test
+    void testNodeWithManyConnectionsSpringRepulsion() {
+        getLayoutParameters().setSpringRepulsionFactorForceLayout(100.0);
+        Network network = NetworkXml.read(getClass().getResourceAsStream("/node-with-many-connections.xiidm"));
+        assertEquals(
+                toString("/node-with-many-connections-spring-repulsion-factor-big.svg"),
+                generateSvgString(network, "/node-with-many-connections-spring-repulsion-factor-big.svg"));
     }
 }

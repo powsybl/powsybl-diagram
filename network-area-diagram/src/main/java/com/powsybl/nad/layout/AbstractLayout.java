@@ -98,6 +98,9 @@ public abstract class AbstractLayout implements Layout {
 
     private void computeSize(Graph graph) {
         double[] dims = new double[4];
+        // FIXME(Luma) If the bounding box has minX, minY > 0
+        //  it will return (0, 0, maxX, maxY) instead of (minX, minY, maxX, maxY)
+        //  similar problem if maxX, maxY < 0
         Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
             dims[1] = Math.max(dims[1], node.getX());
