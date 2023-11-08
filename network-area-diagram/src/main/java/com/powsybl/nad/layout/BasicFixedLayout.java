@@ -17,18 +17,22 @@ import com.powsybl.nad.model.Point;
 public class BasicFixedLayout extends AbstractLayout {
 
     @Override
-    protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
+    protected LayoutResult nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
 
+        LayoutResult layoutResult = new LayoutResult();
         jgraphtGraph.vertexSet().forEach(node -> {
             Point p = getInitialNodePositions().get(node.getEquipmentId());
             if (p != null) {
                 node.setPosition(p.getX(), p.getY());
+                layoutResult.add(node, p);
             }
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
             graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
         }
+
+        return layoutResult;
     }
 }

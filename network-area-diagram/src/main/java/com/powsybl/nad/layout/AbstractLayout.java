@@ -22,15 +22,16 @@ public abstract class AbstractLayout implements Layout {
     private Set<String> nodesWithFixedPosition = Collections.emptySet();
 
     @Override
-    public void run(Graph graph, LayoutParameters layoutParameters) {
+    public LayoutResult run(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
 
-        nodesLayout(graph, layoutParameters);
+        LayoutResult layoutResult = nodesLayout(graph, layoutParameters);
         busNodesLayout(graph);
         edgesLayout(graph, layoutParameters);
 
         computeSize(graph);
+        return layoutResult;
     }
 
     @Override
@@ -59,7 +60,7 @@ public abstract class AbstractLayout implements Layout {
         setNodesWithFixedPosition(fixedNodePositions.keySet());
     }
 
-    protected abstract void nodesLayout(Graph graph, LayoutParameters layoutParameters);
+    protected abstract LayoutResult nodesLayout(Graph graph, LayoutParameters layoutParameters);
 
     protected void busNodesLayout(Graph graph) {
         Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());

@@ -168,10 +168,6 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
     }
 
     static class PositionsLayoutFactory implements LayoutFactory {
-        static class LayoutResult {
-            Map<String, Point> positions;
-        }
-
         private final LayoutFactory delegateLayoutFactory;
         private final LayoutResult layoutResult = new LayoutResult();
         private final Map<String, Point> initialNodePositions;
@@ -198,7 +194,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             final Layout delegateLayout = delegateLayoutFactory.create();
             return new Layout() {
                 @Override
-                public void run(Graph graph, LayoutParameters layoutParameters) {
+                public LayoutResult run(Graph graph, LayoutParameters layoutParameters) {
                     if (!initialNodePositions.isEmpty()) {
                         delegateLayout.setInitialNodePositions(initialNodePositions);
                     }
@@ -211,7 +207,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                         ((AbstractLayout) delegateLayout).setFixedNodePositions(fixedNodePositions);
                     }
                     delegateLayout.run(graph, layoutParameters);
-                    layoutResult.positions = graph.getNodePositions();
+                    layoutResult.setPositions(graph.getNodePositions());
+                    return layoutResult;
                 }
 
                 @Override

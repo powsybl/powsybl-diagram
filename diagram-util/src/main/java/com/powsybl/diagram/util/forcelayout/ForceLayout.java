@@ -64,6 +64,9 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_MAX_SPEED = 100;
     /** Spring repulsion is disabled by default */
     private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0;
+    private static final int DEFAULT_WEIGHT_EXPONENT = 1;
+    private static final double GLOBAL_SPEED_RATIO = 1;
+    private static final double GLOBAL_SPEED_INCREMENT_FACTOR = 1.5;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -72,6 +75,7 @@ public class ForceLayout<V, E> {
     private double friction;
     private double maxSpeed;
     private double springRepulsionFactor;
+    private double globalSpeed = Double.NaN;
     /** Initial location for some nodes */
     private Map<V, Point> initialPoints = Collections.emptyMap();
     /** The location of these nodes should not be modified by the layout */
@@ -151,7 +155,7 @@ public class ForceLayout<V, E> {
             if (initialPoints.containsKey(vertex)) {
                 p = initialPoints.get(vertex);
             } else {
-                p = new Point(random.nextDouble(), random.nextDouble());
+                p = new Point(random.nextDouble(), random.nextDouble(), graph.degreeOf(vertex));
             }
             points.put(vertex, p);
         }
@@ -175,18 +179,33 @@ public class ForceLayout<V, E> {
 
         int i;
         for (i = 0; i < maxSteps; i++) {
-            applyCoulombsLawToPoints();
+            applyPointsRepulsionForces();
+            //applyPointsRepulsionForcesAlfa();
+            //applyPointsRepulsionForces1();
+            //applyCoulombsLawToPoints();
             if (springRepulsionFactor != 0.0) {
                 applyCoulombsLawToSprings();
             }
-            applyHookesLaw();
-            attractToCenter();
-            updateVelocity();
+            applySpringsAttractionForces();
+            //applyHookesLaw();
+
+            attractToCenterDegree();
+            //attractToCenter();
+
+            updateNodalAndGlobalVelocity();
+            //updateNodalAndGlobalVelocityKs();
+            //updateVelocity();
             updatePosition();
 
-            if (isStable()) {
+            if (isStable(i)) {
                 break;
             }
+        }
+
+        // Log history
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            Point point = vertexPoint.getValue();
+            point.history(vertexPoint.toString());
         }
 
         hasBeenExecuted = true;
@@ -195,6 +214,55 @@ public class ForceLayout<V, E> {
 
         LOGGER.info("Number of steps: {}", i);
         LOGGER.info("Elapsed time: {}", elapsedTime / 1e9);
+    }
+
+    private Vector repulsionForce2(Vector p1, int degree1, Vector p2, int degree2, double repulsion) {
+        Vector distance = p1.subtract(p2);
+        Vector direction = distance.normalize();
+        return direction.multiply(repulsion * (degree1 + 1) * (degree2 + 1)).divide(distance.magnitudeSquare());
+    }
+
+    private Vector repulsionForce1(Vector p1, int degree1, Vector p2, int degree2, double repulsion) {
+        Vector distance = p1.subtract(p2);
+        Vector direction = distance.normalize();
+        return direction.multiply(repulsion * (degree1 + 1) * (degree2 + 1)).divide(distance.magnitude());
+    }
+
+    private void applyPointsRepulsionForces() {
+        for (Point point : points.values()) {
+            Vector p = point.getPosition();
+            int degree = point.getDegree();
+            for (Point otherPoint : points.values()) {
+                if (!point.equals(otherPoint)) {
+                    point.applyForce(repulsionForce2(p, degree, otherPoint.getPosition(), otherPoint.getDegree(), repulsion));
+                }
+            }
+        }
+    }
+
+    private void applyPointsRepulsionForcesAlfa() {
+        for (Point point : points.values()) {
+            Vector p = point.getPosition();
+            int degree = point.getDegree();
+            for (Point otherPoint : points.values()) {
+                if (!point.equals(otherPoint)) {
+                    double alfa = 1 - (point.getDegree() + 1.0) / (point.getDegree() + 1.0 + otherPoint.getDegree() + 1.0);
+                    point.applyForce(repulsionForce2(p, degree, otherPoint.getPosition(), otherPoint.getDegree(), repulsion).multiply(alfa));
+                }
+            }
+        }
+    }
+
+    private void applyPointsRepulsionForces1() {
+        for (Point point : points.values()) {
+            Vector p = point.getPosition();
+            int degree = point.getDegree();
+            for (Point otherPoint : points.values()) {
+                if (!point.equals(otherPoint)) {
+                    point.applyForce(repulsionForce1(p, degree, otherPoint.getPosition(), otherPoint.getDegree(), repulsion));
+                }
+            }
+        }
     }
 
     private Vector coulombsForce(Vector p1, Vector p2, double repulsion) {
@@ -253,6 +321,23 @@ public class ForceLayout<V, E> {
         }
     }
 
+    private void applySpringsAttractionForces() {
+        int d = DEFAULT_WEIGHT_EXPONENT;
+        for (Spring spring : springs) {
+            Point point1 = spring.getNode1();
+            Point point2 = spring.getNode2();
+
+            Vector distance = point2.getPosition().subtract(point1.getPosition());
+            double displacement = spring.getLength() - distance.magnitude();
+            Vector direction = distance.normalize();
+
+            Vector force = direction.multiply(Math.pow(spring.getLength(), d) * spring.getStiffness() * displacement);
+            double alfa2 = 1 - (point2.getDegree() + 1.0) / (point1.getDegree() + 1.0 + point2.getDegree() + 1.0);
+            point1.applyForce(force.multiply(-1 * (1.0 - alfa2)));
+            point2.applyForce(force.multiply(alfa2));
+        }
+    }
+
     private void applyHookesLaw() {
         for (Spring spring : springs) {
             Point point1 = spring.getNode1();
@@ -276,6 +361,61 @@ public class ForceLayout<V, E> {
         }
     }
 
+    private void attractToCenterDegree() {
+        for (Point point : points.values()) {
+            Vector direction = point.getPosition().multiply(-1);
+            point.applyForce(direction.multiply(1.0 / (point.getDegree() + 1) * repulsion / 200.0));
+        }
+    }
+
+    private void updateNodalAndGlobalVelocity() {
+        double globalTraction = calculateGlobalTraction();
+        double globalSwinging = calculateGlobalSwinging();
+        double globalSpeed = calculateGlobalSpeed();
+
+        for (Point point : points.values()) {
+            double ks = (1 - Math.exp(-deltaTime * friction / point.getMass())) / friction;
+            double nodalSpeed = calculateNodalSpeed(point, ks, globalSpeed);
+
+            Vector newVelocity = point.getForces().multiply(nodalSpeed);
+            point.setVelocity(newVelocity);
+
+            if (point.getVelocity().magnitude() > maxSpeed) {
+                Vector velocity = point.getVelocity().normalize().multiply(maxSpeed);
+                point.setVelocity(velocity);
+            }
+            //point.recordHistory();
+
+            point.setPreviousForces();
+            point.resetForces();
+        }
+        this.globalSpeed = globalSpeed;
+    }
+
+    private void updateNodalAndGlobalVelocityKs() {
+        double globalTraction = calculateGlobalTraction();
+        double globalSwinging = calculateGlobalSwinging();
+        double globalSpeed = calculateGlobalSpeed();
+
+        for (Point point : points.values()) {
+            double ks = 0.1;
+            double nodalSpeed = calculateNodalSpeed(point, ks, globalSpeed);
+
+            Vector newVelocity = point.getForces().multiply(nodalSpeed);
+            point.setVelocity(newVelocity);
+
+            if (point.getVelocity().magnitude() > maxSpeed) {
+                Vector velocity = point.getVelocity().normalize().multiply(maxSpeed);
+                point.setVelocity(velocity);
+            }
+            //point.recordHistory();
+
+            point.setPreviousForces();
+            point.resetForces();
+        }
+        this.globalSpeed = globalSpeed;
+    }
+
     private void updateVelocity() {
         for (Point point : points.values()) {
             Vector newVelocity = point.getForces().multiply((1 - Math.exp(-deltaTime * friction / point.getMass())) / friction);
@@ -285,6 +425,7 @@ public class ForceLayout<V, E> {
                 Vector velocity = point.getVelocity().normalize().multiply(maxSpeed);
                 point.setVelocity(velocity);
             }
+            //point.recordHistory();
 
             point.resetForces();
         }
@@ -302,11 +443,80 @@ public class ForceLayout<V, E> {
             Point point = vertexPoint.getValue();
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
+
+            //Vector previousPosition = point.getPosition();
+            //point.setPosition(computeNewPosition(previousPosition, position, 1.0));
         }
     }
 
-    private boolean isStable() {
+    private static Vector computeNewPosition(Vector previousPosition, Vector position, double alfa) {
+        return position.multiply(alfa).add(previousPosition.multiply(1 - alfa));
+    }
+
+    private boolean isStable(int step) {
+        // printMaxEnergy
+        recordMaxEnergy(step);
         return points.values().stream().allMatch(p -> p.getEnergy() < minEnergyThreshold);
+    }
+
+    private double calculateGlobalSwinging() {
+        double globalSwinging = 0.0;
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            if (fixedNodes.contains(vertexPoint.getKey())) {
+                continue;
+            }
+            Point point = vertexPoint.getValue();
+            globalSwinging += calculateNodalSwinging(point);
+        }
+        return globalSwinging;
+    }
+
+    private static double calculateNodalSwinging(Point point) {
+        return (point.getDegree() + 1) * point.getForces().subtract(point.getPreviousForces()).magnitude();
+    }
+
+    private double calculateGlobalTraction() {
+        double globalTraction = 0.0;
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            if (fixedNodes.contains(vertexPoint.getKey())) {
+                continue;
+            }
+            Point point = vertexPoint.getValue();
+            globalTraction += (point.getDegree() + 1) * point.getForces().add(point.getPreviousForces()).magnitude() * 0.5;
+        }
+        return globalTraction;
+    }
+
+    private double calculateGlobalSpeed() {
+        double globalSpeed = GLOBAL_SPEED_RATIO * calculateGlobalTraction() / calculateGlobalSwinging();
+        if (!Double.isNaN(this.globalSpeed) && globalSpeed > GLOBAL_SPEED_INCREMENT_FACTOR * this.globalSpeed) {
+            globalSpeed = GLOBAL_SPEED_INCREMENT_FACTOR * this.globalSpeed;
+        }
+        return globalSpeed;
+    }
+
+    private static double calculateNodalSpeed(Point point, double ks, double globalSpeed) {
+        return ks * globalSpeed / (1 + globalSpeed * Math.sqrt(calculateNodalSwinging(point)));
+    }
+
+    private void recordMaxEnergy(int step) {
+        for (Point point : points.values()) {
+            double energy = point.getEnergy();
+            if (energy >= minEnergyThreshold) {
+                point.setLastStepEnergy(step, energy);
+            }
+        }
+    }
+
+    private void printMaxEnergy() {
+        double maxEnergy = 0.0;
+        for (Point point : points.values()) {
+            double energy = point.getEnergy();
+            if (energy > maxEnergy) {
+                maxEnergy = energy;
+            }
+            System.err.printf("Exit maxEnergy %f Tolerance %f %n", maxEnergy, minEnergyThreshold);
+        }
     }
 
     public Vector getStablePosition(V vertex) {
@@ -314,6 +524,10 @@ public class ForceLayout<V, E> {
             LOGGER.warn("Force layout has not been executed yet");
         }
         return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
+    }
+
+    public Point.LastStepEnergy getLastStepEnergy(V vertex) {
+        return points.get(vertex).getLastStepEnergy();
     }
 
     public Set<Spring> getSprings() {
@@ -341,10 +555,31 @@ public class ForceLayout<V, E> {
         printWriter.printf(Locale.US, "<svg width=\"%.2f\" height=\"%.2f\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
         printWriter.println("<style>");
         printWriter.println("<![CDATA[");
+
+        // XXX(Luma) Text {
+        printWriter.printf("text {font: %dpx sans-serif; fill: %s}%n", 12, "gray");
+        // XXX(Luma) }
+
         printWriter.printf("circle {fill: %s;}%n", "purple");
         printWriter.printf("line {stroke: %s; stroke-width: 2}%n", "purple");
         printWriter.println("]]>");
         printWriter.println("</style>");
+
+        // XXX(Luma) Debug parameters and bounding box {
+        int dy = 20;
+        int row = 0;
+        LOG.info(String.format("boundingBox = (%.2f, %.2f, %.2f, %.2f)",
+                boundingBox.getLeft(),
+                boundingBox.getTop(),
+                boundingBox.getWidth(),
+                boundingBox.getHeight()));
+        printWriter.printf("<text x=\"20\" y=\"%d\">boundingBox = (%.2f, %.2f, %.2f, %.2f)</text>%n", ++row * dy,
+                boundingBox.getLeft(),
+                boundingBox.getTop(),
+                boundingBox.getWidth(),
+                boundingBox.getHeight());
+        printWriter.printf("<text x=\"20\" y=\"%d\">springRepulsionFactor = %.2f</text>%n", ++row * dy, springRepulsionFactor);
+        // XXX(Luma) }
 
         points.forEach((vertex, point) -> point.toSVG(printWriter, canvas, tooltip, vertex));
 
@@ -357,4 +592,33 @@ public class ForceLayout<V, E> {
         printWriter.close();
     }
 
+    public UsedParameters getUsedParameters() {
+        return new UsedParameters(DEFAULT_REPULSION, DEFAULT_FRICTION, DEFAULT_SPRING_REPULSION_FACTOR);
+    }
+
+    public static final class UsedParameters {
+        private final double repulsion;
+        private final double friction;
+        private final double springRepulsionFactor;
+
+        private UsedParameters(double repulsion, double friction, double springRepulsionFactor) {
+            this.repulsion = repulsion;
+            this.friction = friction;
+            this.springRepulsionFactor = springRepulsionFactor;
+        }
+
+        public double getRepulsion() {
+            return repulsion;
+        }
+
+        public double getFriction() {
+            return friction;
+        }
+
+        public double getSpringRepulsionFactor() {
+            return springRepulsionFactor;
+        }
+    }
+
+    static final Logger LOG = LoggerFactory.getLogger(ForceLayout.class);
 }

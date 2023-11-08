@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public interface Layout {
-    void run(Graph graph, LayoutParameters layoutParameters);
+    LayoutResult run(Graph graph, LayoutParameters layoutParameters);
 
     void setInitialNodePositions(Map<String, Point> initialNodePositions);
 

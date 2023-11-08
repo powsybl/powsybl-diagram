@@ -25,7 +25,7 @@ public class BasicForceLayout extends AbstractLayout {
     private static final int SCALE = 100;
 
     @Override
-    protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
+    protected LayoutResult nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
@@ -39,14 +39,19 @@ public class BasicForceLayout extends AbstractLayout {
 
         forceLayout.execute();
 
+        LayoutResult layoutResult = new LayoutResult();
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
             node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+            layoutResult.add(node, node.getPosition());
+            layoutResult.add(node, forceLayout.getLastStepEnergy(node));
         });
+        layoutResult.setUsedParameters(forceLayout.getUsedParameters());
 
         if (!layoutParameters.isTextNodesForceLayout()) {
             graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
         }
+        return layoutResult;
     }
 
     private void setInitialPositions(ForceLayout<Node, Edge> forceLayout, Graph graph) {
