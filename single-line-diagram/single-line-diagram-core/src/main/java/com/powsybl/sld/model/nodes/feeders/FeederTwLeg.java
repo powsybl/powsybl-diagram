@@ -31,8 +31,4 @@ public class FeederTwLeg extends FeederWithSides {
         }
         return super.getVoltageLevelInfos();
     }
-
-    public VoltageLevelInfos getOwnVoltageLevelInfos() {
-        return ownVoltageLevelInfos;
-    }
 }
