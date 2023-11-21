@@ -10,6 +10,7 @@ package com.powsybl.nad;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.*;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -74,5 +75,37 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         ids = NetworkAreaDiagram.getDisplayedVoltageLevels(network, List.of("VLHV1"), 2);
         assertEquals("VLGEN, VLHV1, VLHV2, VLLOAD", String.join(", ", ids));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramTwoBounds() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 180, 120, 2));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramLowBound() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), -1, 120, 2));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramHighBound() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 180, -1, 2));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramNoBound() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), -1, -1, 2));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
     }
 }
