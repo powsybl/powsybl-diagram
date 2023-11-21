@@ -35,6 +35,8 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return voltageLevels;
     }
 
+    private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
+
     @Override
     public boolean test(VoltageLevel voltageLevel) {
         return voltageLevels.contains(voltageLevel);
@@ -47,7 +49,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
         if (vl == null) {
-            throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
+            throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
         }
 
         Set<VoltageLevel> startingSet = new HashSet<>();
@@ -63,7 +65,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         for (String voltageLevelId : voltageLevelIds) {
             VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
             if (vl == null) {
-                throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
+                throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
             startingSet.add(vl);
         }
@@ -142,7 +144,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         for (String voltageLevelId : voltageLevelIds) {
             VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
             if (vl == null) {
-                throw new PowsyblException("Unknown voltage level id '" + voltageLevelId + "'");
+                throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
             if (lowNominalVoltageBound > 0 && vl.getNominalV() < lowNominalVoltageBound ||
                     highNominalVoltageBound > 0 && vl.getNominalV() > highNominalVoltageBound) {
