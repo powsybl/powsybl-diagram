@@ -113,16 +113,16 @@ class NetworkAreaDiagramTest extends AbstractTest {
     @Test
     void testVoltageFilteredDiagramOutOfBound() {
         Network network = IeeeCdfNetworkFactory.create14();
-        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 90, -1, 2)));
+        List<String> voltageLevelList = List.of("VL4");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, 90, -1, 2));
         assertTrue(e.getMessage().contains("vl 'VL4' has his nominal voltage out of the indicated thresholds"));
     }
 
     @Test
     void testVoltageFilteredDiagramUnexistingVoltageLevel() {
         Network network = IeeeCdfNetworkFactory.create14();
-        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL456"), 90, -1, 2)));
+        List<String> voltageLevelList = List.of("VL456");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, 90, -1, 2));
         assertTrue(e.getMessage().contains("Unknown voltage level id 'VL456'"));
     }
 }
