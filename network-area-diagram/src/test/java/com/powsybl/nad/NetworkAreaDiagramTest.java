@@ -9,6 +9,7 @@ package com.powsybl.nad;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
@@ -27,7 +28,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -107,5 +108,21 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), -1, -1, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramOutOfBound() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 90, -1, 2)));
+        assertTrue(e.getMessage().contains("vl 'VL4' has his nominal voltage out of the indicated thresholds"));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramUnexistingVoltageLevel() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL456"), 90, -1, 2)));
+        assertTrue(e.getMessage().contains("Unknown voltage level id 'VL456'"));
     }
 }
