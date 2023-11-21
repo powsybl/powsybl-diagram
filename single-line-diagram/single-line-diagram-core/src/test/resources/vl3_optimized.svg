@@ -140,12 +140,12 @@
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2">
             <polyline points="150.0,100.0,150.0,160.0,183.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_one_ARROW_ACTIVE" transform="translate(145.0,115.0)">
+        <g class="sld-active-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_one_ARROW_ACTIVE" transform="translate(145.0,115.0)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_one_ARROW_REACTIVE" transform="translate(145.0,135.0)">
+        <g class="sld-reactive-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_one_ARROW_REACTIVE" transform="translate(145.0,135.0)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -153,12 +153,12 @@
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,197.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
+        <g class="sld-active-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
+        <g class="sld-reactive-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
