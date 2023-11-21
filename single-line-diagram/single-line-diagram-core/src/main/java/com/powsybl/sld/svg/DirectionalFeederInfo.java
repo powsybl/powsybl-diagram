@@ -19,9 +19,9 @@ import java.util.function.DoubleFunction;
  */
 public class DirectionalFeederInfo extends AbstractFeederInfo {
 
-    private final LabelProvider.LabelDirection arrowDirection;
+    private LabelProvider.LabelDirection arrowDirection;
 
-    private final double value;
+    private double value;
 
     public DirectionalFeederInfo(String componentType, LabelProvider.LabelDirection arrowDirection, String leftLabel, String rightLabel) {
         this(componentType, arrowDirection, leftLabel, rightLabel, null);
@@ -59,6 +59,16 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
 
     public LabelProvider.LabelDirection getDirection() {
         return arrowDirection;
+    }
+
+    public void reverseArrowDirectionAndValue() {
+        if (arrowDirection == LabelProvider.LabelDirection.OUT) {
+            arrowDirection = LabelProvider.LabelDirection.IN;
+        } else {
+            arrowDirection = LabelProvider.LabelDirection.OUT;
+        }
+        double tempValue = this.value;
+        this.value = - tempValue;
     }
 
     public double getValue() {
