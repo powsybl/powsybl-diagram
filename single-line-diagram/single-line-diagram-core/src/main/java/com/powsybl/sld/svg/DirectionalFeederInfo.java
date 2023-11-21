@@ -68,7 +68,7 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
             arrowDirection = LabelProvider.LabelDirection.OUT;
         }
         double tempValue = this.value;
-        this.value = - tempValue;
+        this.value = -tempValue;
     }
 
     public double getValue() {
