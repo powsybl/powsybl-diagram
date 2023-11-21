@@ -863,7 +863,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String voltageLevelId = graph.getVoltageLevelInfos().getId();
             if (feederNode.getFeeder() instanceof FeederTwLeg feederTwLeg) {
                 String feederTwLegVoltageLevelId = feederTwLeg.getVoltageLevelInfos().getId();
-                if (voltageLevelId != feederTwLegVoltageLevelId && feederInfo instanceof DirectionalFeederInfo directionalFeederInfo) {
+                if (!voltageLevelId.equals(feederTwLegVoltageLevelId) && feederInfo instanceof DirectionalFeederInfo directionalFeederInfo) {
                     directionalFeederInfo.reverseArrowDirectionAndValue();
                 }
             }
