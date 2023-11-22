@@ -15,11 +15,8 @@ import com.powsybl.sld.model.nodes.NodeSide;
  */
 public class FeederTwLeg extends FeederWithSides {
 
-    VoltageLevelInfos ownVoltageLevelInfos;
-
     public FeederTwLeg(FeederType feederType, NodeSide side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(feederType, side, myVoltageLevelInfos, otherSideVoltageLevelInfos);
-        this.ownVoltageLevelInfos = myVoltageLevelInfos;
     }
 
     @Override
