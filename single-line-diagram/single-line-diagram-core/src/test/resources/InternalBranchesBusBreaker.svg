@@ -269,12 +269,12 @@
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="465.0,449.0,465.0,387.0,447.0,387.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-out" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(460.0,424.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(460.0,424.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(460.0,404.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(460.0,404.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -424,12 +424,12 @@
             <g class="sld-wire sld-vl300to500" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="715.0,449.0,715.0,387.0,697.0,387.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-out" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(710.0,424.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(710.0,424.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(710.0,404.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(710.0,404.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>

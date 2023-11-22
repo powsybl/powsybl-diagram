@@ -121,12 +121,12 @@
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2">
             <polyline points="400.0,100.0,433.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-in" id="idvl1_95_trf2_95_one_ARROW_ACTIVE" transform="matrix(0.8762,-0.4819,0.4819,0.8762,402.8477,115.5528)">
+        <g class="sld-active-power sld-feeder-info sld-out" id="idvl1_95_trf2_95_one_ARROW_ACTIVE" transform="matrix(0.8762,-0.4819,0.4819,0.8762,402.8477,115.5528)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-out" id="idvl1_95_trf2_95_one_ARROW_REACTIVE" transform="matrix(0.8762,-0.4819,0.4819,0.8762,412.4861,133.0772)">
+        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl1_95_trf2_95_one_ARROW_REACTIVE" transform="matrix(0.8762,-0.4819,0.4819,0.8762,412.4861,133.0772)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -134,12 +134,12 @@
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2">
             <polyline points="480.0,100.0,447.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-in" id="idvl1_95_trf2_95_two_ARROW_ACTIVE" transform="matrix(0.8762,0.4819,-0.4819,0.8762,468.3901,110.7336)">
+        <g class="sld-active-power sld-feeder-info sld-out" id="idvl1_95_trf2_95_two_ARROW_ACTIVE" transform="matrix(0.8762,0.4819,-0.4819,0.8762,468.3901,110.7336)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-out" id="idvl1_95_trf2_95_two_ARROW_REACTIVE" transform="matrix(0.8762,0.4819,-0.4819,0.8762,458.7518,128.258)">
+        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl1_95_trf2_95_two_ARROW_REACTIVE" transform="matrix(0.8762,0.4819,-0.4819,0.8762,458.7518,128.258)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
