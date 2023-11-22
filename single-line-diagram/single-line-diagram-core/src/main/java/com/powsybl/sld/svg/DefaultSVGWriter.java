@@ -22,7 +22,6 @@ import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
@@ -860,13 +859,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
-            String voltageLevelId = graph.getVoltageLevelInfos().getId();
-            if (feederNode.getFeeder() instanceof FeederTwLeg feederTwLeg) {
-                String feederTwLegVoltageLevelId = feederTwLeg.getVoltageLevelInfos().getId();
-                if (!voltageLevelId.equals(feederTwLegVoltageLevelId) && feederInfo instanceof DirectionalFeederInfo directionalFeederInfo) {
-                    directionalFeederInfo.reverseArrowDirectionAndValue();
-                }
-            }
             drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
