@@ -24,7 +24,7 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
     @BeforeEach
     public void setUp() {
         network = ThreeWindingsTransformerNetworkFactory.create();
-        network.getThreeWindingsTransformer("3WT").getLeg1().getTerminal().setP(1400.0).setQ(400.0);
+        network.getThreeWindingsTransformer("3WT").getLeg1().getTerminal().setP(-2800.0).setQ(400.0);
         network.getThreeWindingsTransformer("3WT").getLeg2().getTerminal().setP(1400.0).setQ(400.0);
         network.getThreeWindingsTransformer("3WT").getLeg3().getTerminal().setP(1400.0).setQ(400.0);
         graphBuilder = new NetworkGraphBuilder(network);

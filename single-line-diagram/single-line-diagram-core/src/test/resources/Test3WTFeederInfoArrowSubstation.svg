@@ -202,10 +202,10 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">400</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="id3WT_95_ONE_ARROW_ACTIVE" transform="translate(110.0,379.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="id3WT_95_ONE_ARROW_ACTIVE" transform="translate(110.0,379.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">1,400</text>
+                <text class="sld-label" x="15.0" y="5.0">-2,800</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl120to180-0" id="idBUSCO_95_BUS_95_132_95_3WT_95_ONE" transform="translate(111.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
