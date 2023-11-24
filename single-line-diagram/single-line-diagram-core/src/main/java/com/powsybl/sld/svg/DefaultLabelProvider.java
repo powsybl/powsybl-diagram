@@ -98,7 +98,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(feeder.getSide().name());
-            feederInfos = buildFeederInfos(transformer, side);
+            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
+            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
         }
         return feederInfos;
     }
@@ -200,8 +201,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
-        return this.buildFeederInfos(transformer.getTerminal(side));
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side, boolean insideVoltageLevel) {
+        return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
@@ -219,11 +220,23 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        return buildFeederInfos(terminal, true);
+    }
+
+    private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
+        double terminalP = terminal.getP();
+        double terminalQ = terminal.getQ();
+        double terminalI = terminal.getI();
+        if (!insideVoltageLevel) {
+            terminalP = -terminalP;
+            terminalQ = -terminalQ;
+            terminalI = -terminalI;
+        }
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
         if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), svgParameters.getCurrentUnit(), valueFormatter::formatPower));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatPower));
         }
         return feederInfoList;
     }
