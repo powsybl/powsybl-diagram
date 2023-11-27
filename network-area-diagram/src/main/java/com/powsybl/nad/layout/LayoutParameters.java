@@ -24,6 +24,7 @@ public class LayoutParameters {
         this.textNodesForceLayout = other.textNodesForceLayout;
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
+        this.maxSteps = other.maxSteps;
     }
 
     public boolean isTextNodesForceLayout() {
