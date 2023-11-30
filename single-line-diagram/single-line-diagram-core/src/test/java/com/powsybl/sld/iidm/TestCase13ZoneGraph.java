@@ -138,6 +138,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
         layoutParameters.setDiagrammPadding(0.0, 0.0, 0.0, 0.0);
+        layoutParameters.setVoltageLevelPadding(20, 60, 20, 60);
 
         // Run default matrix zone layout
         new MatrixZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);

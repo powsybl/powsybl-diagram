@@ -30,7 +30,7 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
 
         PriorityQueue<Point> queue = new PriorityQueue<>(Comparator.comparingInt(distance::get));
 
-        distance.put(start, 0);
+        distance.put(start, start.manhattanDistance(end));
         queue.add(start);
 
         while (!queue.isEmpty()) {
@@ -49,12 +49,10 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
                 Point neighbor = new Point(newX, newY);
 
                 if (grid.isValid(neighbor)) {
-                    int newDist = distance.get(current) + 1;
-                    // Calculate the angle between the current path and the new path
-                    int angle = current.angleBetween(neighbor, start);
+                    int newDist = neighbor.manhattanDistance(end);
 
                     if (!distance.containsKey(neighbor) || newDist < distance.get(neighbor)) {
-                        distance.put(neighbor, newDist + angle);
+                        distance.put(neighbor, newDist);
                         parent.put(neighbor, current);
                         queue.add(neighbor);
                     }
@@ -108,47 +106,5 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
         int dy2 = p3.y() - p2.y();
 
         return dx1 * dx2 + dy1 * dy2 == 0;
-    }
-
-    public static List<Point> simplify(List<Point> path, double tolerance) {
-        if (path == null || path.size() < 3) {
-            return path;
-        }
-
-        List<Point> simplifiedPath = new ArrayList<>();
-        simplifiedPath.add(path.get(0));
-        simplifyRecursive(path, 0, path.size() - 1, tolerance, simplifiedPath);
-        simplifiedPath.add(path.get(path.size() - 1));
-
-        return simplifiedPath;
-    }
-
-    private static void simplifyRecursive(List<Point> path, int start, int end, double tolerance, List<Point> simplifiedPath) {
-        double maxDistance = 0;
-        int index = 0;
-
-        for (int i = start + 1; i < end; i++) {
-            double distance = perpendicularDistance(path.get(i), path.get(start), path.get(end));
-            if (distance > maxDistance) {
-                maxDistance = distance;
-                index = i;
-            }
-        }
-
-        if (maxDistance > tolerance) {
-            if (index - start > 1) {
-                simplifyRecursive(path, start, index, tolerance, simplifiedPath);
-            }
-            simplifiedPath.add(path.get(index));
-            if (end - index > 1) {
-                simplifyRecursive(path, index, end, tolerance, simplifiedPath);
-            }
-        }
-    }
-
-    private static double perpendicularDistance(Point point, Point start, Point end) {
-        double numerator = Math.abs((end.y() - start.y()) * point.x() - (end.x() - start.x()) * point.y() + end.x() * start.y() - end.y() * start.x());
-        double denominator = Math.sqrt(Math.pow((double) end.y() - (double) start.y(), 2) + Math.pow((double) end.x() - (double) start.x(), 2));
-        return numerator / denominator;
     }
 }

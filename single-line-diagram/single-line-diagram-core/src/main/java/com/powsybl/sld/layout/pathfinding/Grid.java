@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.layout.pathfinding;
 
@@ -20,7 +21,7 @@ public class Grid {
 
         public Node(int x, int y) {
             point = new Point(x, y);
-            cost = WALKABLE;
+            cost = NOT_WALKABLE;
         }
 
         public int x() {
@@ -101,35 +102,5 @@ public class Grid {
 
     public boolean isValid(Point point) {
         return point.x() >= 0 && point.x() < width && point.y() >= 0 && point.y() < height && nodes[point.x()][point.y()].cost != -1;
-    }
-
-    public void dumpToFile(String filename) {
-        Objects.requireNonNull(filename);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            // Transpose from row / col to x / y
-            int[][] toDump = transposeCost(nodes);
-
-            for (int[] ints : toDump) {
-                for (int y = 0; y < toDump[0].length; y++) {
-                    String str = ints[y] == 0 ? " " : "X";
-                    str += "";
-                    writer.write(str);
-                }
-                writer.write("\n");
-                writer.flush();
-            }
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private static int[][] transposeCost(Node[][] mat) {
-        int[][] result = new int[mat[0].length][mat.length];
-        for (int i = 0; i < mat.length; ++i) {
-            for (int j = 0; j < mat[0].length; ++j) {
-                result[j][i] = mat[i][j].cost;
-            }
-        }
-        return result;
     }
 }

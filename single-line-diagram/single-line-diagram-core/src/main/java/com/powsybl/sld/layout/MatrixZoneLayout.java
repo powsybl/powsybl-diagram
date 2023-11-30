@@ -28,6 +28,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
+        // FIXME: add hallway size into LayoutParameters.get
         this.model = new MatrixZoneLayoutModel(90);
         this.matrix = matrix;
         this.pathFinder = new PathFinderFactory().createDijkstra();
@@ -95,8 +96,6 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
         } else if (ss1Graph != null && ss2Graph != null &&
                    model.contains(ss1Graph.getId()) && model.contains(ss2Graph.getId())) { // in the same Zone
-            String ss1Id = ss1Graph.getId();
-            String ss2Id = ss2Graph.getId();
             Point p1 = vlGraph1.getShiftedPoint(node1);
             Point p2 = vlGraph2.getShiftedPoint(node2);
             Direction dNode1 = getNodeDirection(node1, 1);
@@ -104,7 +103,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(model.buildSnakeline(pathFinder, ss1Id, p1, dNode1, ss2Id, p2, dNode2));
+            polyline.addAll(model.buildSnakeline(pathFinder, p1, dNode1, p2, dNode2));
             // Add ending point
             polyline.add(p2);
         } else {
