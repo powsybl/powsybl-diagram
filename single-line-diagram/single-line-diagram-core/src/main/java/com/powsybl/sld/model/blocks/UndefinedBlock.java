@@ -14,8 +14,8 @@ import java.util.Objects;
  * A block group that cannot be correctly decomposed anymore.
  * All subBlocks are superposed.
  *
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class UndefinedBlock extends AbstractComposedBlock {
 

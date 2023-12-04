@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 /**
  * Contain function to dispose components of cells based on Hierarchical Layout
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 final class CellBlockDecomposer {
 

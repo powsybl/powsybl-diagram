@@ -36,7 +36,7 @@ import static com.powsybl.iidm.network.IdentifiableType.SUBSTATION;
 import static com.powsybl.iidm.network.IdentifiableType.VOLTAGE_LEVEL;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public final class SingleLineDiagram {
 

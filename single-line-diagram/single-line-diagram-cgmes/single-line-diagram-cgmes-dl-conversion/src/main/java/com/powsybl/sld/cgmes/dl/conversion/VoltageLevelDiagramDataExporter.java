@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 public class VoltageLevelDiagramDataExporter extends AbstractDiagramDataExporter {
     private static final Logger LOG = LoggerFactory.getLogger(VoltageLevelDiagramDataExporter.class);

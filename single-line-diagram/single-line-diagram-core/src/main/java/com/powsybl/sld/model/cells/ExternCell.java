@@ -25,9 +25,9 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public class ExternCell extends AbstractBusCell {
 

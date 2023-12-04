@@ -48,7 +48,7 @@ import java.util.function.Function;
  *
  * The algorithm is taken from: https://github.com/dhotson/springy
  *
- * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);

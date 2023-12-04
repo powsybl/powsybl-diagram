@@ -17,7 +17,7 @@ import com.powsybl.sld.model.nodes.Node;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public final class CalculateCellHeightBlockVisitor implements BlockVisitor {

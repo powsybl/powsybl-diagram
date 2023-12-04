@@ -15,7 +15,7 @@ import java.util.Objects;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class Middle3WTNode extends MiddleTwtNode {
     private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);

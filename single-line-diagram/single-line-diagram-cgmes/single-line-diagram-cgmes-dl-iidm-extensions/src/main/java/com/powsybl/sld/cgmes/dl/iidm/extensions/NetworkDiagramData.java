@@ -19,7 +19,7 @@ import com.powsybl.iidm.network.Network;
 
 /**
  *
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 public final class NetworkDiagramData extends AbstractExtension<Network> {
 

@@ -27,8 +27,8 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public class NetworkGraphBuilder implements GraphBuilder {
 

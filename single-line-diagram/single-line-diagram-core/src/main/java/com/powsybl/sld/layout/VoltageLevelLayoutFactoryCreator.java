@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.Network;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 @FunctionalInterface

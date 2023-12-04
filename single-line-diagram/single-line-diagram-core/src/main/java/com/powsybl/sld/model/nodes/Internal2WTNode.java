@@ -12,7 +12,7 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import java.util.List;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class Internal2WTNode extends EquipmentNode {
     public Internal2WTNode(String id, String nameOrId, String componentType) {

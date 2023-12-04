@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;

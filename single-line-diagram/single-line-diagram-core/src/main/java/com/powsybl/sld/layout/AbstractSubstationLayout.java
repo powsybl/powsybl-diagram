@@ -11,8 +11,8 @@ import com.powsybl.sld.model.graphs.*;
 import java.util.Objects;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractSubstationLayout extends AbstractBaseLayout<SubstationGraph> {
 

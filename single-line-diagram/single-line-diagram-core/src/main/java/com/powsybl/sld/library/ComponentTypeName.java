@@ -7,7 +7,7 @@
 package com.powsybl.sld.library;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public final class ComponentTypeName {
     public static final String ARROW_ACTIVE = "ARROW_ACTIVE";

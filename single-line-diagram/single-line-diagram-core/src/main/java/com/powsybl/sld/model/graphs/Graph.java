@@ -20,7 +20,7 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 
 /**
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public interface Graph {
     String getId();

@@ -14,7 +14,7 @@ import org.jgrapht.alg.util.Pair;
 import java.util.List;
 
 /**
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public abstract class AbstractVoltageLevelLayout extends AbstractLayout<VoltageLevelGraph> {
 

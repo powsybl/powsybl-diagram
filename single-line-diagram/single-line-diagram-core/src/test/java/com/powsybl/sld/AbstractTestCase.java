@@ -28,7 +28,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public abstract class AbstractTestCase {
 

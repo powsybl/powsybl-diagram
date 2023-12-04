@@ -9,7 +9,7 @@ package com.powsybl.nad.layout;
 import com.powsybl.nad.model.Point;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;

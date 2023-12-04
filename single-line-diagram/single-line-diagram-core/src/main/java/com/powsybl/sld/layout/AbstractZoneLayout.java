@@ -14,7 +14,7 @@ import com.powsybl.sld.model.graphs.ZoneGraph;
 import java.util.Objects;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected SubstationLayoutFactory sLayoutFactory;

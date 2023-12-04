@@ -9,7 +9,7 @@ package com.powsybl.sld.library;
 import com.google.auto.service.AutoService;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 @AutoService(ComponentLibrary.class)
 public class ConvergenceComponentLibrary extends ResourcesComponentLibrary {

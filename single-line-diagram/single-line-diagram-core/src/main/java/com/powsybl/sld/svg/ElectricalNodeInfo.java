@@ -8,7 +8,7 @@
 package com.powsybl.sld.svg;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class ElectricalNodeInfo {
 
