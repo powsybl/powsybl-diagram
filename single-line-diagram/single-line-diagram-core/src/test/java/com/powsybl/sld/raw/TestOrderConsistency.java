@@ -8,6 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -90,7 +91,7 @@ class TestOrderConsistency extends AbstractTestCaseRaw {
     @Test
     void testClustMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1");
-        new PositionVoltageLevelLayoutFactory(new PositionByClustering()).create(g).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory(new PositionByClustering(), new PositionVoltageLevelLayoutFactoryParameters()).create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyClust1.json"), toJson(g, "/orderConsistencyClust1.json"));
     }
 

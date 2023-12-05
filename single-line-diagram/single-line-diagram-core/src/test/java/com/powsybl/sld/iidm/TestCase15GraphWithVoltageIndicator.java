@@ -10,6 +10,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -148,10 +149,11 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory()
+        PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters = new PositionVoltageLevelLayoutFactoryParameters()
                 .setBusInfoMap(labelProvider.getBusInfoSides(g))
                 .setExceptionIfPatternNotHandled(true)
-                .setHandleShunts(true)
+                .setHandleShunts(true);
+        new PositionVoltageLevelLayoutFactory(positionVoltageLevelLayoutFactoryParameters)
                 .create(g)
                 .run(layoutParameters);
 
