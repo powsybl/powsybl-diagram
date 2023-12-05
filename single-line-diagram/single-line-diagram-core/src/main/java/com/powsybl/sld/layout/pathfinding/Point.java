@@ -44,12 +44,18 @@ public class Point {
         return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }
 
-    public int angleBetween(Point a, Point b) {
-        int dx1 = a.x - this.x;
-        int dy1 = a.y - this.y;
-        int dx2 = b.x - this.x;
-        int dy2 = b.y - this.y;
-        return Math.abs(dx1 * dx2 + dy1 * dy2);
+    public boolean isRightAngle(Point b, Point c) {
+        // Check if the angle is a right angle using dot product
+        int vectorABx = b.x() - x();
+        int vectorABy = b.y() - y();
+        int vectorBCx = c.x() - b.x();
+        int vectorBCy = c.y() - b.y();
+
+        // Dot product of vectors AB and BC
+        int dotProduct = vectorABx * vectorBCx + vectorABy * vectorBCy;
+
+        // Check if the dot product is zero (cosine of 90 degrees)
+        return dotProduct == 0;
     }
 
     @Override
