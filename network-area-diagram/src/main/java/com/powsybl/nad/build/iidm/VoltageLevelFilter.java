@@ -109,11 +109,10 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
         Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
         for (VoltageLevel vl : voltageLevelsDepth) {
-            if (!visitedVoltageLevels.contains(vl)) {
-                if (vl.getNominalV() >= lowNominalVoltageBound
-                        && vl.getNominalV() <= highNominalVoltageBound) {
-                    traverseVoltageLevel(visitedVoltageLevels, nextDepthVoltageLevels, vl);
-                }
+            if (!visitedVoltageLevels.contains(vl)
+                    && vl.getNominalV() >= lowNominalVoltageBound
+                    && vl.getNominalV() <= highNominalVoltageBound) {
+                traverseVoltageLevel(visitedVoltageLevels, nextDepthVoltageLevels, vl);
             }
         }
         traverseVoltageLevelsWithVoltageFilter(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels, lowNominalVoltageBound, highNominalVoltageBound);
