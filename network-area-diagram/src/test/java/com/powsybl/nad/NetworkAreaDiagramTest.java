@@ -82,7 +82,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramTwoBounds() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 180, 120, 2));
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 120, 180, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
     }
 
@@ -90,7 +90,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramLowBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), -1, 120, 2));
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, List.of("VL4"), 120, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
     }
 
@@ -98,15 +98,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramHighBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 180, -1, 2));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
-    }
-
-    @Test
-    void testVoltageFilteredDiagramNoBound() {
-        Network network = IeeeCdfNetworkFactory.create14();
-        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), -1, -1, 2));
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, List.of("VL4"), 180, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
     }
 
@@ -114,15 +106,31 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramOutOfBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         List<String> voltageLevelList = List.of("VL4");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, 90, -1, 2));
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2));
         assertTrue(e.getMessage().contains("vl 'VL4' has his nominal voltage out of the indicated thresholds"));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramNegativeBound() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        List<String> voltageLevelList = List.of("VL4");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, -100, 180, 2));
+        assertTrue(e.getMessage().contains("Voltage bounds must be positive"));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramInconsistentBounds() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        List<String> voltageLevelList = List.of("VL4");
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, 180, 90, 2));
+        assertTrue(e.getMessage().contains("Low bound must be less than or equal to high bound"));
     }
 
     @Test
     void testVoltageFilteredDiagramUnexistingVoltageLevel() {
         Network network = IeeeCdfNetworkFactory.create14();
         List<String> voltageLevelList = List.of("VL456");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageFilter(network, voltageLevelList, 90, -1, 2));
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2));
         assertTrue(e.getMessage().contains("Unknown voltage level id 'VL456'"));
     }
 }
