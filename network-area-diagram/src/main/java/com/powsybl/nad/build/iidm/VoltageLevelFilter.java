@@ -9,6 +9,8 @@ package com.powsybl.nad.build.iidm;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class VoltageLevelFilter implements Predicate<VoltageLevel> {
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
@@ -138,10 +142,11 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
                 throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
             if (vl.getNominalV() < lowNominalVoltageBound || vl.getNominalV() > highNominalVoltageBound) {
-                throw new PowsyblException("vl '" + voltageLevelId +
+                LOGGER.warn("vl '" + voltageLevelId +
                         "' has his nominal voltage out of the indicated thresholds");
+            } else {
+                startingSet.add(vl);
             }
-            startingSet.add(vl);
         }
 
         Set<VoltageLevel> voltageLevels = new HashSet<>();

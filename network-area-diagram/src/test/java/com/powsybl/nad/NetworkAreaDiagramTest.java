@@ -7,13 +7,15 @@
  */
 package com.powsybl.nad;
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.test.*;
+import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
@@ -23,10 +25,12 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ch.qos.logback.classic.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,10 +108,15 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
     @Test
     void testVoltageFilteredDiagramOutOfBound() {
+        ListAppender<ILoggingEvent> logWatcher = new ListAppender<>();
+        logWatcher.start();
+        ((Logger) LoggerFactory.getLogger(VoltageLevelFilter.class)).addAppender(logWatcher);
         Network network = IeeeCdfNetworkFactory.create14();
         List<String> voltageLevelList = List.of("VL4");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2));
-        assertTrue(e.getMessage().contains("vl 'VL4' has his nominal voltage out of the indicated thresholds"));
+        VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2);
+        List<ILoggingEvent> logsList = logWatcher.list;
+        assertEquals(1, logsList.size());
+        assertEquals("vl 'VL4' has his nominal voltage out of the indicated thresholds", logsList.get(0).getFormattedMessage());
     }
 
     @Test
