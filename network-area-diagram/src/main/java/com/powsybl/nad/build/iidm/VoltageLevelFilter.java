@@ -91,41 +91,29 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return voltageLevelSet;
     }
 
-    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
+    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> predicate) {
         if (depth < 0) {
             return;
         }
         Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
         for (VoltageLevel vl : voltageLevelsDepth) {
-            if (!visitedVoltageLevels.contains(vl)) {
+            if (!visitedVoltageLevels.contains(vl) && predicate.test(vl)) {
                 visitedVoltageLevels.add(vl);
                 vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
             }
         }
-        traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels);
+        traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels, predicate);
+    }
+
+    private static void traverseVoltageLevels(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels) {
+        traverseVoltageLevels(voltageLevelsDepth, depth, visitedVoltageLevels, NO_FILTER);
     }
 
     private static void traverseVoltageLevelsWithVoltageFilter(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels,
                                                                double lowNominalVoltageBound, double highNominalVoltageBound) {
-        if (depth < 0) {
-            return;
-        }
 
-        Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
-        for (VoltageLevel vl : voltageLevelsDepth) {
-            if (!visitedVoltageLevels.contains(vl)
-                    && vl.getNominalV() >= lowNominalVoltageBound
-                    && vl.getNominalV() <= highNominalVoltageBound) {
-                traverseVoltageLevel(visitedVoltageLevels, nextDepthVoltageLevels, vl);
-            }
-        }
-        traverseVoltageLevelsWithVoltageFilter(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels, lowNominalVoltageBound, highNominalVoltageBound);
-
-    }
-
-    private static void traverseVoltageLevel(Set<VoltageLevel> visitedVoltageLevels, Set<VoltageLevel> nextDepthVoltageLevels, VoltageLevel vl) {
-        visitedVoltageLevels.add(vl);
-        vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
+        Predicate<VoltageLevel> voltageFilterPredicate = voltageLevel -> voltageLevel.getNominalV() >= lowNominalVoltageBound && voltageLevel.getNominalV() <= highNominalVoltageBound;
+        traverseVoltageLevels(voltageLevelsDepth, depth, visitedVoltageLevels, voltageFilterPredicate);
     }
 
     public static VoltageLevelFilter createNominalVoltageFilter(Network network, List<String> voltageLevelIds,
