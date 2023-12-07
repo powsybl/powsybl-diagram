@@ -130,8 +130,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
                 throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
             if (vl.getNominalV() < lowNominalVoltageBound || vl.getNominalV() > highNominalVoltageBound) {
-                LOGGER.warn("vl '" + voltageLevelId +
-                        "' has his nominal voltage out of the indicated thresholds");
+                LOGGER.warn("vl '{}' has his nominal voltage out of the indicated thresholds", voltageLevelId);
             } else {
                 startingSet.add(vl);
             }
