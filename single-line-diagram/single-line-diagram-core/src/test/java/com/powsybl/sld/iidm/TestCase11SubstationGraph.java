@@ -155,13 +155,13 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
+        compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 componentLibrary,
                 layoutParameters,
                 svgParameters,
-                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider()));
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider());
     }
 
     @Test
@@ -170,8 +170,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
+        compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider());
     }
 
     @Test
@@ -180,6 +180,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+        compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider());
     }
 }

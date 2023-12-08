@@ -19,6 +19,7 @@ import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
+import org.opentest4j.AssertionFailedError;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +27,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -163,7 +166,8 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public void compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider)
+            throws AssertionFailedError {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
@@ -185,7 +189,7 @@ public abstract class AbstractTestCase {
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
-            return refMetadata.compareTo(metadata) == 0;
+            assertEquals(refMetadata, metadata);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
