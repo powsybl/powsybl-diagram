@@ -1272,10 +1272,10 @@ public final class Networks {
                 "T11", null, ConnectablePosition.Direction.TOP);
 
         TwoWindingsTransformer twoWindingsTransformer = network.getTwoWindingsTransformer("T11");
-        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setP(375);
-        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setP(375);
-        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setQ(48);
-        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setQ(48);
+        twoWindingsTransformer.getTerminal(TwoSides.ONE).setP(375);
+        twoWindingsTransformer.getTerminal(TwoSides.TWO).setP(375);
+        twoWindingsTransformer.getTerminal(TwoSides.ONE).setQ(48);
+        twoWindingsTransformer.getTerminal(TwoSides.TWO).setQ(48);
 
         createSwitch(vl1, "D27", "D27", SwitchKind.DISCONNECTOR, false, false, false, 20, 27);
         createSwitch(vl1, "BR28", "BR28", SwitchKind.BREAKER, false, false, false, 27, 28);
@@ -1289,10 +1289,10 @@ public final class Networks {
                 "T12", null, ConnectablePosition.Direction.TOP);
 
         twoWindingsTransformer = network.getTwoWindingsTransformer("T12");
-        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setP(375);
-        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setP(375);
-        twoWindingsTransformer.getTerminal(Branch.Side.ONE).setQ(48);
-        twoWindingsTransformer.getTerminal(Branch.Side.TWO).setQ(48);
+        twoWindingsTransformer.getTerminal(TwoSides.ONE).setP(375);
+        twoWindingsTransformer.getTerminal(TwoSides.TWO).setP(375);
+        twoWindingsTransformer.getTerminal(TwoSides.ONE).setQ(48);
+        twoWindingsTransformer.getTerminal(TwoSides.TWO).setQ(48);
 
         createSwitch(vl1, "D19", "D19", SwitchKind.DISCONNECTOR, false, false, false, 10, 19);
         createSwitch(vl1, "BR20", "BR20", SwitchKind.BREAKER, false, false, false, 19, 190);

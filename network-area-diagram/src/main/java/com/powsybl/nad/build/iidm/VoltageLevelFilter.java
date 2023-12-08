@@ -109,26 +109,26 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
 
         @Override
-        public void visitLine(Line line, Branch.Side side) {
+        public void visitLine(Line line, TwoSides side) {
             visitBranch(line, side);
         }
 
         @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer twt, Branch.Side side) {
+        public void visitTwoWindingsTransformer(TwoWindingsTransformer twt, TwoSides side) {
             visitBranch(twt, side);
         }
 
         @Override
-        public void visitThreeWindingsTransformer(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
-            if (side == ThreeWindingsTransformer.Side.ONE) {
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.TWO));
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.THREE));
-            } else if (side == ThreeWindingsTransformer.Side.TWO) {
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.ONE));
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.THREE));
+        public void visitThreeWindingsTransformer(ThreeWindingsTransformer twt, ThreeSides side) {
+            if (side == ThreeSides.ONE) {
+                visitTerminal(twt.getTerminal(ThreeSides.TWO));
+                visitTerminal(twt.getTerminal(ThreeSides.THREE));
+            } else if (side == ThreeSides.TWO) {
+                visitTerminal(twt.getTerminal(ThreeSides.ONE));
+                visitTerminal(twt.getTerminal(ThreeSides.THREE));
             } else {
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.ONE));
-                visitTerminal(twt.getTerminal(ThreeWindingsTransformer.Side.TWO));
+                visitTerminal(twt.getTerminal(ThreeSides.ONE));
+                visitTerminal(twt.getTerminal(ThreeSides.TWO));
             }
         }
 
@@ -137,7 +137,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
             converterStation.getOtherConverterStation().ifPresent(c -> visitTerminal(c.getTerminal()));
         }
 
-        private void visitBranch(Branch<?> branch, Branch.Side side) {
+        private void visitBranch(Branch<?> branch, TwoSides side) {
             visitTerminal(branch.getTerminal(IidmUtils.getOpposite(side)));
         }
 

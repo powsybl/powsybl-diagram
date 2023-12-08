@@ -7,7 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.TwoSides;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -44,13 +44,13 @@ class ZoneGraphTest {
         assertEquals(1, graph.getLineEdges().size());
         BranchEdge edge = graph.getLineEdges().get(0);
         assertEquals(LINE_ID, edge.getId());
-        String lineNodeId1 = getLineNodeId(graph, SUBSTATION_ID_1, VOLTAGELEVEL_ID_1, Branch.Side.ONE);
-        String lineNodeId2 = getLineNodeId(graph, SUBSTATION_ID_2, VOLTAGELEVEL_ID_2, Branch.Side.TWO);
+        String lineNodeId1 = getLineNodeId(graph, SUBSTATION_ID_1, VOLTAGELEVEL_ID_1, TwoSides.ONE);
+        String lineNodeId2 = getLineNodeId(graph, SUBSTATION_ID_2, VOLTAGELEVEL_ID_2, TwoSides.TWO);
         assertEquals(lineNodeId1, edge.getNode1().getId());
         assertEquals(lineNodeId2, edge.getNode2().getId());
     }
 
-    private String getLineNodeId(ZoneGraph graph, String substationId, String voltageLevelId, Branch.Side side) {
+    private String getLineNodeId(ZoneGraph graph, String substationId, String voltageLevelId, TwoSides side) {
         SubstationGraph substationGraph1 = graph.getSubstationGraph(substationId);
         assertNotNull(substationGraph1);
         VoltageLevelGraph voltageLevelGraph1 = substationGraph1.getVoltageLevel(voltageLevelId);

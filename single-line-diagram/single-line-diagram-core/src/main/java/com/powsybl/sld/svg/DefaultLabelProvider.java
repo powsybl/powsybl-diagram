@@ -87,7 +87,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(branch, side);
         }
         return measures;
@@ -97,7 +97,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(feeder.getSide().name());
+            ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
             boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
             feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
         }
@@ -108,7 +108,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(transformer, side);
         }
         return measures;
@@ -201,7 +201,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side, boolean insideVoltageLevel) {
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
         return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
     }
 
@@ -209,7 +209,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return this.buildFeederInfos(injection.getTerminal());
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side) {
         return this.buildFeederInfos(branch.getTerminal(side));
     }
 

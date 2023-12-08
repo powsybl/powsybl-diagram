@@ -8,8 +8,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.TwoSides;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,9 +33,9 @@ class TestDisconnectedComponentsBusBreaker extends AbstractTestCaseIidm {
     void testDisconnectedComponents() {
         network.getLoad("LD1").getTerminal().disconnect();
         network.getGenerator("G").getTerminal().disconnect();
-        network.getLine("L12").getTerminal(Branch.Side.TWO).disconnect();
-        network.getTwoWindingsTransformer("T11").getTerminal(Branch.Side.TWO).disconnect();
-        network.getThreeWindingsTransformer("T3_12").getTerminal(ThreeWindingsTransformer.Side.THREE).disconnect();
+        network.getLine("L12").getTerminal(TwoSides.TWO).disconnect();
+        network.getTwoWindingsTransformer("T11").getTerminal(TwoSides.TWO).disconnect();
+        network.getThreeWindingsTransformer("T3_12").getTerminal(ThreeSides.THREE).disconnect();
 
         // build graph
         graphBuilder = new NetworkGraphBuilder(network);

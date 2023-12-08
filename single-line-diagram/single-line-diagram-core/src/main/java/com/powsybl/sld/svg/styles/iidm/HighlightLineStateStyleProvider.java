@@ -101,15 +101,15 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
             Branch<?> branch = network.getBranch(node.getEquipmentId());
             if (branch != null) {
-                res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
+                res.put(NodeSide.ONE, branch.getTerminal(TwoSides.ONE).isConnected());
+                res.put(NodeSide.TWO, branch.getTerminal(TwoSides.TWO).isConnected());
             }
         } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
             if (transformer != null) {
-                res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
-                res.put(NodeSide.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
-                res.put(NodeSide.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
+                res.put(NodeSide.ONE, transformer.getTerminal(ThreeSides.ONE).isConnected());
+                res.put(NodeSide.TWO, transformer.getTerminal(ThreeSides.TWO).isConnected());
+                res.put(NodeSide.THREE, transformer.getTerminal(ThreeSides.THREE).isConnected());
             }
         }
         return res;
@@ -120,9 +120,9 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     }
 
     private static NodeSide getTransformerSide(String idVl, ThreeWindingsTransformer transformer) {
-        if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
+        if (transformer.getTerminal(ThreeSides.ONE).getVoltageLevel().getId().equals(idVl)) {
             return NodeSide.ONE;
-        } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
+        } else if (transformer.getTerminal(ThreeSides.TWO).getVoltageLevel().getId().equals(idVl)) {
             return NodeSide.TWO;
         } else {
             return NodeSide.THREE;
