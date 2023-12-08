@@ -75,7 +75,7 @@ class DiagramMetadataTest extends AbstractTest {
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadata.xml");
         writeMetadata(metadata, outPath);
@@ -108,7 +108,7 @@ class DiagramMetadataTest extends AbstractTest {
                 </svg>""";
         InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadataInvalid.xml");
         writeMetadata(metadata, outPath);

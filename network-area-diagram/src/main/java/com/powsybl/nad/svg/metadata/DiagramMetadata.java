@@ -36,11 +36,11 @@ public class DiagramMetadata {
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
 
-    public static DiagramMetadata readXml(InputStream inputStream) throws XMLStreamException {
-        return readXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
+    public static DiagramMetadata readFromSvg(InputStream inputStream) throws XMLStreamException {
+        return readFromSvg(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
     }
 
-    public static DiagramMetadata readXml(XMLStreamReader reader) throws XMLStreamException {
+    public static DiagramMetadata readFromSvg(XMLStreamReader reader) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
 
         XmlUtil.readUntilStartElement("/svg/metadata/nad", reader, metadataToken ->
