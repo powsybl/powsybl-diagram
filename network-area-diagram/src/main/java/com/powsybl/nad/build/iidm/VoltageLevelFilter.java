@@ -86,10 +86,9 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
                 throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
             if (!voltageLevelPredicate.test(vl)) {
-                LOGGER.warn("vl '{}' has his nominal voltage out of the indicated thresholds", voltageLevelId);
-            } else {
-                startingSet.add(vl);
+                LOGGER.warn("vl '{}' does not comply with the predicate", voltageLevelId);
             }
+            startingSet.add(vl);
         }
         Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevelFilter.traverseVoltageLevels(startingSet, depth, voltageLevels, voltageLevelPredicate);
@@ -110,9 +109,9 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
         Set<VoltageLevel> nextDepthVoltageLevels = new HashSet<>();
         for (VoltageLevel vl : voltageLevelsDepth) {
-            if (!visitedVoltageLevels.contains(vl) && predicate.test(vl)) {
+            if (!visitedVoltageLevels.contains(vl)) {
                 visitedVoltageLevels.add(vl);
-                vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels));
+                vl.visitEquipments(new VlVisitor(nextDepthVoltageLevels, visitedVoltageLevels, predicate));
             }
         }
         traverseVoltageLevels(nextDepthVoltageLevels, depth - 1, visitedVoltageLevels, predicate);
@@ -130,10 +129,12 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     private static class VlVisitor extends DefaultTopologyVisitor {
         private final Set<VoltageLevel> nextDepthVoltageLevels;
         private final Set<VoltageLevel> visitedVoltageLevels;
+        private final Predicate<VoltageLevel> voltageLevelPredicate;
 
-        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels) {
+        public VlVisitor(Set<VoltageLevel> nextDepthVoltageLevels, Set<VoltageLevel> visitedVoltageLevels, Predicate<VoltageLevel> voltageLevelPredicate) {
             this.nextDepthVoltageLevels = nextDepthVoltageLevels;
             this.visitedVoltageLevels = visitedVoltageLevels;
+            this.voltageLevelPredicate = voltageLevelPredicate;
         }
 
         @Override
@@ -171,7 +172,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
         private void visitTerminal(Terminal terminal) {
             VoltageLevel voltageLevel = terminal.getVoltageLevel();
-            if (!visitedVoltageLevels.contains(voltageLevel)) {
+            if (!visitedVoltageLevels.contains(voltageLevel) && voltageLevelPredicate.test(voltageLevel)) {
                 nextDepthVoltageLevels.add(voltageLevel);
             }
         }

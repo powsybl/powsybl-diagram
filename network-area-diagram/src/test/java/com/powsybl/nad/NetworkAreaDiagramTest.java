@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad;
 
+import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import com.google.common.jimfs.Configuration;
@@ -25,13 +26,13 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.List;
 
+import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -68,7 +69,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
                 .setStyleProviderFactory(this::getStyleProvider);
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, VoltageLevelFilter.NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
         assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
     }
 
@@ -112,11 +113,15 @@ class NetworkAreaDiagramTest extends AbstractTest {
         logWatcher.start();
         ((Logger) LoggerFactory.getLogger(VoltageLevelFilter.class)).addAppender(logWatcher);
         Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         List<String> voltageLevelList = List.of("VL4");
-        VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, voltageLevelList, 90, 2);
+        VoltageLevelFilter voltageLevelFilter = VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, voltageLevelList, 130, 2);
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), voltageLevelFilter);
+
         List<ILoggingEvent> logsList = logWatcher.list;
         assertEquals(1, logsList.size());
-        assertEquals("vl 'VL4' has his nominal voltage out of the indicated thresholds", logsList.get(0).getFormattedMessage());
+        assertEquals("vl 'VL4' does not comply with the predicate", logsList.get(0).getFormattedMessage());
+        assertEquals(toString("/IEEE_14_bus_voltage_filter3.svg"), getContentFile(svgFileVoltageFilter));
     }
 
     @Test
