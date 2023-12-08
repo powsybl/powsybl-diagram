@@ -110,18 +110,18 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     }
 
     private static void traverseVoltageLevelsWithVoltageFilter(Set<VoltageLevel> voltageLevelsDepth, int depth, Set<VoltageLevel> visitedVoltageLevels,
-                                                               double lowNominalVoltageBound, double highNominalVoltageBound) {
+                                                               double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
 
-        Predicate<VoltageLevel> voltageFilterPredicate = voltageLevel -> voltageLevel.getNominalV() >= lowNominalVoltageBound && voltageLevel.getNominalV() <= highNominalVoltageBound;
+        Predicate<VoltageLevel> voltageFilterPredicate = voltageLevel -> voltageLevel.getNominalV() >= nominalVoltageLowerBound && voltageLevel.getNominalV() <= nominalVoltageUpperBound;
         traverseVoltageLevels(voltageLevelsDepth, depth, visitedVoltageLevels, voltageFilterPredicate);
     }
 
     public static VoltageLevelFilter createNominalVoltageFilter(Network network, List<String> voltageLevelIds,
-                                                                double lowNominalVoltageBound, double highNominalVoltageBound,
+                                                                double nominalVoltageLowerBound, double nominalVoltageUpperBound,
                                                                 int depth) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(voltageLevelIds);
-        checkVoltageBoundValues(lowNominalVoltageBound, highNominalVoltageBound);
+        checkVoltageBoundValues(nominalVoltageLowerBound, nominalVoltageUpperBound);
         Set<VoltageLevel> startingSet = new HashSet<>();
 
         for (String voltageLevelId : voltageLevelIds) {
@@ -129,7 +129,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
             if (vl == null) {
                 throw new PowsyblException(UNKNOWN_VOLTAGE_LEVEL + voltageLevelId + "'");
             }
-            if (vl.getNominalV() < lowNominalVoltageBound || vl.getNominalV() > highNominalVoltageBound) {
+            if (vl.getNominalV() < nominalVoltageLowerBound || vl.getNominalV() > nominalVoltageUpperBound) {
                 LOGGER.warn("vl '{}' has his nominal voltage out of the indicated thresholds", voltageLevelId);
             } else {
                 startingSet.add(vl);
@@ -137,25 +137,25 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         }
 
         Set<VoltageLevel> voltageLevels = new HashSet<>();
-        VoltageLevelFilter.traverseVoltageLevelsWithVoltageFilter(startingSet, depth, voltageLevels, lowNominalVoltageBound, highNominalVoltageBound);
+        VoltageLevelFilter.traverseVoltageLevelsWithVoltageFilter(startingSet, depth, voltageLevels, nominalVoltageLowerBound, nominalVoltageUpperBound);
         return new VoltageLevelFilter(voltageLevels);
     }
 
-    private static void checkVoltageBoundValues(double lowNominalVoltageBound, double highNominalVoltageBound) {
-        if (lowNominalVoltageBound < 0 || highNominalVoltageBound < 0) {
+    private static void checkVoltageBoundValues(double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
+        if (nominalVoltageLowerBound < 0 || nominalVoltageUpperBound < 0) {
             throw new PowsyblException("Voltage bounds must be positive");
         }
-        if (lowNominalVoltageBound > highNominalVoltageBound) {
+        if (nominalVoltageLowerBound > nominalVoltageUpperBound) {
             throw new PowsyblException("Low bound must be less than or equal to high bound");
         }
     }
 
-    public static VoltageLevelFilter createNominalVoltageLowerBoundFilter(Network network, List<String> voltageLevelIds, double lowNominalVoltageBound, int depth) {
-        return createNominalVoltageFilter(network, voltageLevelIds, lowNominalVoltageBound, Double.MAX_VALUE, depth);
+    public static VoltageLevelFilter createNominalVoltageLowerBoundFilter(Network network, List<String> voltageLevelIds, double nominalVoltageLowerBound, int depth) {
+        return createNominalVoltageFilter(network, voltageLevelIds, nominalVoltageLowerBound, Double.MAX_VALUE, depth);
     }
 
-    public static VoltageLevelFilter createNominalVoltageUpperBoundFilter(Network network, List<String> voltageLevelIds, double highNominalVoltageBound, int depth) {
-        return createNominalVoltageFilter(network, voltageLevelIds, 0, highNominalVoltageBound, depth);
+    public static VoltageLevelFilter createNominalVoltageUpperBoundFilter(Network network, List<String> voltageLevelIds, double nominalVoltageUpperBound, int depth) {
+        return createNominalVoltageFilter(network, voltageLevelIds, 0, nominalVoltageUpperBound, depth);
     }
 
     private static class VlVisitor extends DefaultTopologyVisitor {
