@@ -154,7 +154,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return createNominalVoltageFilter(network, voltageLevelIds, lowNominalVoltageBound, Double.MAX_VALUE, depth);
     }
 
-    public static VoltageLevelFilter createNominalVoltageHigherBoundFilter(Network network, List<String> voltageLevelIds, double highNominalVoltageBound, int depth) {
+    public static VoltageLevelFilter createNominalVoltageUpperBoundFilter(Network network, List<String> voltageLevelIds, double highNominalVoltageBound, int depth) {
         return createNominalVoltageFilter(network, voltageLevelIds, 0, highNominalVoltageBound, depth);
     }
 

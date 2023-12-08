@@ -102,7 +102,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramHighBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, List.of("VL4"), 180, 2));
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, List.of("VL4"), 180, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
     }
 
@@ -113,7 +113,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         ((Logger) LoggerFactory.getLogger(VoltageLevelFilter.class)).addAppender(logWatcher);
         Network network = IeeeCdfNetworkFactory.create14();
         List<String> voltageLevelList = List.of("VL4");
-        VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2);
+        VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, voltageLevelList, 90, 2);
         List<ILoggingEvent> logsList = logWatcher.list;
         assertEquals(1, logsList.size());
         assertEquals("vl 'VL4' has his nominal voltage out of the indicated thresholds", logsList.get(0).getFormattedMessage());
@@ -139,7 +139,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramUnexistingVoltageLevel() {
         Network network = IeeeCdfNetworkFactory.create14();
         List<String> voltageLevelList = List.of("VL456");
-        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageHigherBoundFilter(network, voltageLevelList, 90, 2));
+        PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, voltageLevelList, 90, 2));
         assertTrue(e.getMessage().contains("Unknown voltage level id 'VL456'"));
     }
 }
