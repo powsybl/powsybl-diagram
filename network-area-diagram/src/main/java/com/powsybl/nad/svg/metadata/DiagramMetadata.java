@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.xml.XmlUtil;
 
 import javax.xml.stream.XMLInputFactory;
@@ -39,24 +40,19 @@ public class DiagramMetadata {
         return readXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
     }
 
-    public static DiagramMetadata readXml(XMLStreamReader reader) {
+    public static DiagramMetadata readXml(XMLStreamReader reader) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
 
-        XmlUtil.readSubElements(reader, token -> {
-            switch (token) {
-                case METADATA_BUS_NODES_ELEMENT_NAME:
-                    readCollection(metadata.busNodesMetadata, new BusNodeMetadata.Reader(), reader);
-                    break;
-                case METADATA_NODES_ELEMENT_NAME:
-                    readCollection(metadata.nodesMetadata, new NodeMetadata.Reader(), reader);
-                    break;
-                case METADATA_EDGES_ELEMENT_NAME:
-                    readCollection(metadata.edgesMetadata, new EdgeMetadata.Reader(), reader);
-                    break;
-                default:
-                    // Not managed
-            }
-        });
+        XmlUtil.readUntilStartElement("/svg/metadata/nad", reader, metadataToken ->
+            XmlUtil.readSubElements(reader, token -> {
+                switch (token) {
+                    case METADATA_BUS_NODES_ELEMENT_NAME -> readCollection(metadata.busNodesMetadata, new BusNodeMetadata.Reader(), reader);
+                    case METADATA_NODES_ELEMENT_NAME -> readCollection(metadata.nodesMetadata, new NodeMetadata.Reader(), reader);
+                    case METADATA_EDGES_ELEMENT_NAME -> readCollection(metadata.edgesMetadata, new EdgeMetadata.Reader(), reader);
+                    default -> throw new PowsyblException("Unexpected element '" + token + "' in metadata");
+                }
+            })
+        );
         return metadata;
     }
 

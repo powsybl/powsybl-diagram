@@ -7,6 +7,9 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
+import com.powsybl.commons.xml.XmlUtil;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -48,9 +51,16 @@ public class EdgeMetadata extends AbstractMetadataItem {
         }
 
         public EdgeMetadata read(XMLStreamReader reader) {
-            return new EdgeMetadata(readDiagramId(reader), readEquipmentId(reader),
-                    reader.getAttributeValue(null, NODE1_ATTRIBUTE),
-                    reader.getAttributeValue(null, NODE2_ATTRIBUTE));
+            try {
+                String svgId = readDiagramId(reader);
+                String equipmentId = readEquipmentId(reader);
+                String node1 = reader.getAttributeValue(null, NODE1_ATTRIBUTE);
+                String node2 = reader.getAttributeValue(null, NODE2_ATTRIBUTE);
+                XmlUtil.readEndElementOrThrow(reader);
+                return new EdgeMetadata(svgId, equipmentId, node1, node2);
+            } catch (XMLStreamException e) {
+                throw new UncheckedXmlStreamException(e);
+            }
         }
     }
 }

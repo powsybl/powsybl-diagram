@@ -6,6 +6,10 @@ package com.powsybl.nad.svg.metadata;
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
+import com.powsybl.commons.xml.XmlUtil;
+
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 /**
@@ -32,7 +36,14 @@ public class BusNodeMetadata extends AbstractMetadataItem {
         }
 
         public BusNodeMetadata read(XMLStreamReader reader) {
-            return new BusNodeMetadata(readDiagramId(reader), readEquipmentId(reader));
+            try {
+                String diagramId = readDiagramId(reader);
+                String equipmentId = readEquipmentId(reader);
+                XmlUtil.readEndElementOrThrow(reader);
+                return new BusNodeMetadata(diagramId, equipmentId);
+            } catch (XMLStreamException e) {
+                throw new UncheckedXmlStreamException(e);
+            }
         }
     }
 }
