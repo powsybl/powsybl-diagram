@@ -25,6 +25,8 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
+    private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
+
     private final Set<VoltageLevel> voltageLevels;
 
     public VoltageLevelFilter(Set<VoltageLevel> voltageLevels) {
@@ -38,8 +40,6 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     private Set<VoltageLevel> getVoltageLevels() {
         return voltageLevels;
     }
-
-    private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
 
     @Override
     public boolean test(VoltageLevel voltageLevel) {
