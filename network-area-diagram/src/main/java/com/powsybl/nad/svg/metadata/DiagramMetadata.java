@@ -39,20 +39,19 @@ public class DiagramMetadata {
         return readXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
     }
 
-    public static DiagramMetadata readXml(XMLStreamReader reader) throws XMLStreamException {
+    public static DiagramMetadata readXml(XMLStreamReader reader) {
         DiagramMetadata metadata = new DiagramMetadata();
 
-        XmlUtil.readUntilEndElement(METADATA_DIAGRAM_ELEMENT_NAME, reader, () -> {
-            String token = reader.getLocalName();
+        XmlUtil.readSubElements(reader, token -> {
             switch (token) {
                 case METADATA_BUS_NODES_ELEMENT_NAME:
-                    readCollection(metadata.busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, new BusNodeMetadata.Reader(), reader);
+                    readCollection(metadata.busNodesMetadata, new BusNodeMetadata.Reader(), reader);
                     break;
                 case METADATA_NODES_ELEMENT_NAME:
-                    readCollection(metadata.nodesMetadata, METADATA_NODES_ELEMENT_NAME, new NodeMetadata.Reader(), reader);
+                    readCollection(metadata.nodesMetadata, new NodeMetadata.Reader(), reader);
                     break;
                 case METADATA_EDGES_ELEMENT_NAME:
-                    readCollection(metadata.edgesMetadata, METADATA_EDGES_ELEMENT_NAME, new EdgeMetadata.Reader(), reader);
+                    readCollection(metadata.edgesMetadata, new EdgeMetadata.Reader(), reader);
                     break;
                 default:
                     // Not managed
@@ -63,11 +62,10 @@ public class DiagramMetadata {
 
     private static <M extends AbstractMetadataItem, R extends AbstractMetadataItem.MetadataItemReader<M>> void readCollection(
             Collection<M> items,
-            String collectionElementName,
             R itemReader,
-            XMLStreamReader reader) throws XMLStreamException {
-        XmlUtil.readUntilEndElement(collectionElementName, reader, () -> {
-            if (reader.getLocalName().equals(itemReader.getElementName())) {
+            XMLStreamReader reader) {
+        XmlUtil.readSubElements(reader, token -> {
+            if (token.equals(itemReader.getElementName())) {
                 items.add(itemReader.read(reader));
             }
         });
