@@ -9,8 +9,8 @@ package com.powsybl.diagram.test;
 import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
-import org.joda.time.DateTime;
 
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
@@ -65,7 +65,7 @@ public final class Networks {
 
     public static Network createNetworkWithBusbar() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -84,7 +84,7 @@ public final class Networks {
 
     public static Network createNetworkWithBus() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -102,7 +102,7 @@ public final class Networks {
 
     public static Network createNetworkWithGenerator() {
         Network network = Network.create("test", "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -130,7 +130,7 @@ public final class Networks {
 
     public static Network createNetworkWithLine() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation1 = network.newSubstation()
                 .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
@@ -175,7 +175,7 @@ public final class Networks {
 
     public static Network createNetworkWithLoad() {
         Network network = Network.create("test", "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -200,7 +200,7 @@ public final class Networks {
 
     public static Network createNetworkWithShuntCompensator() {
         Network network = Network.create("test", "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -228,7 +228,7 @@ public final class Networks {
 
     public static Network createNetworkWithStaticVarCompensator() {
         Network network = Network.create("test", "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -256,7 +256,7 @@ public final class Networks {
 
     public static Network createNetworkWithSwitch() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -283,7 +283,7 @@ public final class Networks {
 
     public static Network createNetworkWithThreeWindingsTransformer() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -343,7 +343,7 @@ public final class Networks {
 
     public static Network createNetworkWithTwoWindingsTransformer() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -385,7 +385,7 @@ public final class Networks {
 
     public static Network createNetworkWithDanglingLine() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
                 .setId(SUBSTATION_ID)
                 .setCountry(Country.FR)
@@ -417,7 +417,7 @@ public final class Networks {
 
     public static Network createNetworkWithHvdcLine(String vsc1Id, String vsc2Id) {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation1 = network.newSubstation()
                 .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
@@ -519,7 +519,7 @@ public final class Networks {
 
     public static Network createNetworkWithBusbarAndSwitch() {
         Network network = Network.create(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse(CASE_DATE));
+        network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation s = network.newSubstation()
                 .setId("S")
                 .setCountry(Country.FR)
@@ -647,7 +647,7 @@ public final class Networks {
 
     public static Network createNetworkWithBridge() {
         Network network = NetworkFactory.findDefault().createNetwork(NETWORK_ID, "test");
-        network.setCaseDate(DateTime.parse("2020-01-01T00:30:00.000+01:00"));
+        network.setCaseDate(ZonedDateTime.parse("2020-01-01T00:30:00.000+01:00"));
 
         Substation substation = network.newSubstation()
                 .setId("S")

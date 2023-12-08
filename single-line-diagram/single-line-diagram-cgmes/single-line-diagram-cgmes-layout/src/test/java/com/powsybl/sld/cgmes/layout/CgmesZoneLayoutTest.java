@@ -19,9 +19,9 @@ import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +51,7 @@ class CgmesZoneLayoutTest {
 
     private Network createNetwork() {
         Network network = Network.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        network.setCaseDate(ZonedDateTime.parse("2018-01-01T00:30:00.000+01:00"));
         Substation substation1 = network.newSubstation()
                 .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
