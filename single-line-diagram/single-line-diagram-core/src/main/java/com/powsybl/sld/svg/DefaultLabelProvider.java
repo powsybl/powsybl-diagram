@@ -8,7 +8,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.extensions.BranchStatus;
+import com.powsybl.iidm.network.extensions.OperatingStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -130,7 +130,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
 
-        // BranchStatus extension is on connectables, so we're looking for them
+        // OperatingStatus extension is on identifiables, so we're looking for them
         if (node instanceof EquipmentNode && !(node instanceof SwitchNode)) {
             if (node instanceof FeederNode) {
                 FeederNode feederNode = (FeederNode) node;
@@ -180,7 +180,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
-        BranchStatus<?> branchStatus = (BranchStatus<?>) c.getExtension(BranchStatus.class);
+        OperatingStatus<?> branchStatus = (OperatingStatus<?>) c.getExtension(OperatingStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
                 case PLANNED_OUTAGE:

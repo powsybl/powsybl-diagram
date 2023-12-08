@@ -1197,13 +1197,13 @@ public final class Networks {
     }
 
     private static void createStatusExtensions(Network network) {
-        network.getLine("L11").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.PLANNED_OUTAGE).add();
-        network.getLine("L12").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
+        network.getLine("L11").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.PLANNED_OUTAGE).add();
+        network.getLine("L12").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
 
-        network.getTwoWindingsTransformer("T11").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.PLANNED_OUTAGE).add();
-        network.getTwoWindingsTransformer("T12").newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
+        network.getTwoWindingsTransformer("T11").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.PLANNED_OUTAGE).add();
+        network.getTwoWindingsTransformer("T12").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
 
-        network.getThreeWindingsTransformer(THREE_WINDING_TRANSFORMER_12_ID).newExtension(BranchStatusAdder.class).withStatus(BranchStatus.Status.FORCED_OUTAGE).add();
+        network.getThreeWindingsTransformer(THREE_WINDING_TRANSFORMER_12_ID).newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
     }
 
     public static Network createNodeBreakerNetworkWithInternalBranches(String id, String sourceFormat) {
