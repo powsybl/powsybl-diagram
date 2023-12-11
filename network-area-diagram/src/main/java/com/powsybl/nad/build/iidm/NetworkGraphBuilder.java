@@ -103,7 +103,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         ThreeSides side = Arrays.stream(ThreeSides.values())
                 .filter(streamedSide -> thwt.getLeg(streamedSide).getTerminal().getVoltageLevel() == vl)
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException());
+                .orElseThrow(IllegalStateException::new);
 
         for (ThreeSides s : getSidesArray(side)) {
             addThreeWtEdge(graph, thwt, tn, s);
