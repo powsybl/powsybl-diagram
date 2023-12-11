@@ -39,13 +39,14 @@ public class SvgParameters {
     private boolean labelDiagonal = false;
     private boolean tooltipEnabled = false;
     private boolean svgWidthAndHeightAdded = false;
-    private SvgParameters.CssLocation cssLocation = SvgParameters.CssLocation.INSERTED_IN_SVG;
+    private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
     private boolean avoidSVGComponentsDuplication = false;
     private String diagramName = null;
     private boolean drawStraightWires = false;
     private boolean showGrid = false;
     private boolean showInternalNodes = false;
     private boolean displayCurrentFeederInfo = false;
+    private boolean displayEquipmentNodesLabel;
 
     public SvgParameters() {
     }
@@ -84,6 +85,7 @@ public class SvgParameters {
         this.showGrid = other.showGrid;
         this.showInternalNodes = other.showInternalNodes;
         this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
+        this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
     }
 
     public ValueFormatter createValueFormatter() {
@@ -347,6 +349,15 @@ public class SvgParameters {
 
     public SvgParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
         this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+        return this;
+    }
+
+    public boolean isDisplayEquipmentNodesLabel() {
+        return displayEquipmentNodesLabel;
+    }
+
+    public SvgParameters setDisplayEquipmentNodesLabel(boolean displayEquipmentNodesLabel) {
+        this.displayEquipmentNodesLabel = displayEquipmentNodesLabel;
         return this;
     }
 }

@@ -46,7 +46,8 @@ class SvgParametersTest {
                 .setDrawStraightWires(true)
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
-                .setDisplayCurrentFeederInfo(true);
+                .setDisplayCurrentFeederInfo(true)
+                .setDisplayEquipmentNodesLabel(true)
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -78,5 +79,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isShowGrid(), svgParameters1.isShowGrid());
         assertEquals(svgParameters0.isShowInternalNodes(), svgParameters1.isShowInternalNodes());
         assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
+        assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
     }
 }
