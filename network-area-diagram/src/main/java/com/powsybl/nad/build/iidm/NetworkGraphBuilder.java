@@ -13,6 +13,7 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -99,14 +100,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
         graph.addNode(tn);
 
-        ThreeSides side;
-        if (thwt.getLeg1().getTerminal().getVoltageLevel() == vl) {
-            side = ThreeSides.ONE;
-        } else if (thwt.getLeg2().getTerminal().getVoltageLevel() == vl) {
-            side = ThreeSides.TWO;
-        } else {
-            side = ThreeSides.THREE;
-        }
+        ThreeSides side = Arrays.stream(ThreeSides.values())
+                .filter(streamedSide -> thwt.getLeg(streamedSide).getTerminal().getVoltageLevel() == vl)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException());
 
         for (ThreeSides s : getSidesArray(side)) {
             addThreeWtEdge(graph, thwt, tn, s);
@@ -204,18 +201,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private ThreeSides[] getSidesArray(ThreeSides sideA) {
-        ThreeSides sideB;
-        ThreeSides sideC;
-        if (sideA == ThreeSides.ONE) {
-            sideB = ThreeSides.TWO;
-            sideC = ThreeSides.THREE;
-        } else if (sideA == ThreeSides.TWO) {
-            sideB = ThreeSides.ONE;
-            sideC = ThreeSides.THREE;
-        } else {
-            sideB = ThreeSides.ONE;
-            sideC = ThreeSides.TWO;
-        }
-        return new ThreeSides[] {sideA, sideB, sideC};
+        return new ThreeSides[] {sideA, ThreeSides.valueOf(getNextSideNum(sideA.getNum(), 1)), ThreeSides.valueOf(getNextSideNum(sideA.getNum(), 2))};
+    }
+
+    private int getNextSideNum(int sideNum, int steps) {
+        return (sideNum + steps) % 3 == 0 ? 3 : (sideNum + steps) % 3;
     }
 }
