@@ -15,6 +15,7 @@ public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private double springRepulsionFactorForceLayout = 0.0;
     private Point textNodeFixedShift = new Point(100, -15);
+    private int maxSteps = 1000;
 
     public LayoutParameters() {
     }
@@ -23,6 +24,7 @@ public class LayoutParameters {
         this.textNodesForceLayout = other.textNodesForceLayout;
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
+        this.maxSteps = other.maxSteps;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -49,6 +51,15 @@ public class LayoutParameters {
 
     public LayoutParameters setTextNodeFixedShift(double textNodeFixedShiftX, double textNodeFixedShiftY) {
         this.textNodeFixedShift = new Point(textNodeFixedShiftX, textNodeFixedShiftY);
+        return this;
+    }
+
+    public int getMaxSteps() {
+        return maxSteps;
+    }
+
+    public LayoutParameters setMaxSteps(int maxSteps) {
+        this.maxSteps = maxSteps;
         return this;
     }
 }
