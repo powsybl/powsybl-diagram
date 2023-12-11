@@ -328,6 +328,6 @@
     "showInternalNodes" : false,
     "displayCurrentFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
-    "displayInternalNodesId" : false
+    "displayConnectivityNodesId" : false
   }
 }

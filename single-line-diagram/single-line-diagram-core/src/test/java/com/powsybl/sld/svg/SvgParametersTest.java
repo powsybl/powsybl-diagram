@@ -48,7 +48,7 @@ class SvgParametersTest {
                 .setShowInternalNodes(true)
                 .setDisplayCurrentFeederInfo(true)
                 .setDisplayEquipmentNodesLabel(true)
-                .setDisplayInternalNodesId(true);
+                .setDisplayConnectivityNodesId(true);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -81,6 +81,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isShowInternalNodes(), svgParameters1.isShowInternalNodes());
         assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
         assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
-        assertEquals(svgParameters0.isDisplayInternalNodesId(), svgParameters1.isDisplayInternalNodesId());
+        assertEquals(svgParameters0.isDisplayConnectivityNodesId(), svgParameters1.isDisplayConnectivityNodesId());
     }
 }

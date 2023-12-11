@@ -65,10 +65,10 @@ class TestCase1 extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testDisplayInternalNodes() {
+    void testDisplayConnectivityNodes() {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g);
-        svgParameters.setDisplayInternalNodesId(true).setShowInternalNodes(true);
-        assertEquals(toString("/TestCase1_internalLabels.svg"), toSVG(g, "/TestCase1_internalLabels.svg"));
+        svgParameters.setDisplayConnectivityNodesId(true).setShowInternalNodes(true);
+        assertEquals(toString("/TestCase1_connectivityLabels.svg"), toSVG(g, "/TestCase1_connectivityLabels.svg"));
     }
 }

@@ -54,7 +54,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
         } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getLabelPosition(node, direction), null)));
-        } else if (svgParameters.isDisplayInternalNodesId() && node instanceof ConnectivityNode) {
+        } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
             nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }
 

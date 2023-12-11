@@ -47,7 +47,7 @@ public class SvgParameters {
     private boolean showInternalNodes = false;
     private boolean displayCurrentFeederInfo = false;
     private boolean displayEquipmentNodesLabel;
-    private boolean displayInternalNodesId;
+    private boolean displayConnectivityNodesId;
 
     public SvgParameters() {
     }
@@ -87,7 +87,7 @@ public class SvgParameters {
         this.showInternalNodes = other.showInternalNodes;
         this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
-        this.displayInternalNodesId = other.displayInternalNodesId;
+        this.displayConnectivityNodesId = other.displayConnectivityNodesId;
     }
 
     public ValueFormatter createValueFormatter() {
@@ -363,12 +363,12 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isDisplayInternalNodesId() {
-        return displayInternalNodesId;
+    public boolean isDisplayConnectivityNodesId() {
+        return displayConnectivityNodesId;
     }
 
-    public SvgParameters setDisplayInternalNodesId(boolean displayInternalNodesId) {
-        this.displayInternalNodesId = displayInternalNodesId;
+    public SvgParameters setDisplayConnectivityNodesId(boolean displayConnectivityNodesId) {
+        this.displayConnectivityNodesId = displayConnectivityNodesId;
         return this;
     }
 }
