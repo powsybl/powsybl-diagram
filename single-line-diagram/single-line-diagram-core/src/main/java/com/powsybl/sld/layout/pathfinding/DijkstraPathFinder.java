@@ -33,7 +33,10 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
             Grid.Node currentParent = current.getParent();
             // Path can be rebuilt only when goal point is reached
             if (currentPoint.equals(goal)) {
-                return rebuildPath(current);
+                List<Point> path = rebuildPath(current);
+                // Make path not available
+                grid.setAvailability(path, false);
+                return path;
             }
             // Store node already visited
             visited.add(currentPoint);
@@ -60,7 +63,8 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
         return new ArrayList<>();
     }
 
-    private List<Point> rebuildPath(Grid.Node current) {
+    private List<Point> rebuildPath(Grid.Node goal) {
+        Grid.Node current = goal;
         // Reconstruct path
         List<Point> path = new ArrayList<>();
         while (current != null) {

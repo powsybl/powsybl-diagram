@@ -133,6 +133,14 @@ public class Grid {
         getNode(x, y).cost = available ? WALKABLE : NOT_WALKABLE;
     }
 
+    public void setAvailability(Point point, boolean available) {
+        setAvailability(point.x(), point.y(), available);
+    }
+
+    public void setAvailability(List<com.powsybl.sld.layout.pathfinding.Point> path, boolean available) {
+        path.forEach(p -> setAvailability(p, available));
+    }
+
     public boolean isAvailable(Node n) {
         return isAvailable(n.point);
     }
@@ -144,21 +152,21 @@ public class Grid {
     public List<Node> getNeighbors(Point point) {
         // Considering only adjacent points
         List<Node> neighbors = new ArrayList<>();
-        Node n = getNode(point.x() + 1, point.y());
-        if (isAvailable(n)) {
-            neighbors.add(n);
+        Node right = getNode(point.x() + 1, point.y());
+        Node left = getNode(point.x() - 1, point.y());
+        Node up = getNode(point.x(), point.y() + 1);
+        Node down = getNode(point.x(), point.y() - 1);
+        if (isAvailable(right)) {
+            neighbors.add(right);
         }
-        n = getNode(point.x() - 1, point.y());
-        if (isAvailable(n)) {
-            neighbors.add(n);
+        if (isAvailable(left)) {
+            neighbors.add(left);
         }
-        n = getNode(point.x(), point.y() + 1);
-        if (isAvailable(n)) {
-            neighbors.add(n);
+        if (isAvailable(up)) {
+            neighbors.add(up);
         }
-        n = getNode(point.x(), point.y() - 1);
-        if (isAvailable(n)) {
-            neighbors.add(n);
+        if (isAvailable(down)) {
+            neighbors.add(down);
         }
         return neighbors;
     }
