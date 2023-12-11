@@ -205,6 +205,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private int getNextSideNum(int sideNum, int steps) {
-        return (sideNum + steps) % 3 == 0 ? 3 : (sideNum + steps) % 3;
+        return (sideNum + steps + 2) % 3 + 1;
     }
 }
