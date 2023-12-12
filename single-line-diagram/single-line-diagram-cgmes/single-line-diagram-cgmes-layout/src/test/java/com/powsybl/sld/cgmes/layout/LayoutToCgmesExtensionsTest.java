@@ -6,10 +6,9 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-
-import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -79,7 +78,7 @@ class LayoutToCgmesExtensionsTest {
                 }
 
                 @Override
-                public void visitLine(Line line, Branch.Side side) {
+                public void visitLine(Line line, TwoSides side) {
                     assertNotNull(line.getExtension(LineDiagramData.class));
                 }
 
@@ -89,12 +88,12 @@ class LayoutToCgmesExtensionsTest {
                 }
 
                 @Override
-                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, Branch.Side side) {
+                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
                     assertNotNull(transformer.getExtension(CouplingDeviceDiagramData.class));
                 }
 
                 @Override
-                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
                     assertNotNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
                 }
 
@@ -135,7 +134,7 @@ class LayoutToCgmesExtensionsTest {
                 }
 
                 @Override
-                public void visitLine(Line line, Branch.Side side) {
+                public void visitLine(Line line, TwoSides side) {
                     assertNull(line.getExtension(LineDiagramData.class));
                 }
 
@@ -145,12 +144,12 @@ class LayoutToCgmesExtensionsTest {
                 }
 
                 @Override
-                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, Branch.Side side) {
+                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
                     assertNull(transformer.getExtension(CouplingDeviceDiagramData.class));
                 }
 
                 @Override
-                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
                     assertNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
                 }
 

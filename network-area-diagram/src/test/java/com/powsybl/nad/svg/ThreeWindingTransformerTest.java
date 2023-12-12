@@ -7,7 +7,7 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.ThreeSides;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -56,7 +56,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
     @Test
     void testDisconnected3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
         assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
     }
@@ -64,7 +64,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
     @Test
     void testDisconnected3wtTopologicalStyle() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
         styleProvider = new TopologicalStyleProvider(network);
         assertEquals(toString("/3wt_disconnected_topological.svg"), generateSvgString(network, "/3wt_disconnected_topological.svg"));
