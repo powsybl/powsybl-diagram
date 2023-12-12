@@ -50,10 +50,12 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         Objects.requireNonNull(node);
 
         List<NodeLabel> nodeLabels = new ArrayList<>();
-        if (node instanceof FeederNode) {
-            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getFeederLabelPosition(node, direction), null)));
-        } else if (node instanceof BusNode) {
+        if (node instanceof BusNode) {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
+        } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
+            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getLabelPosition(node, direction), null)));
+        } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
+            nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }
 
         return nodeLabels;
@@ -93,7 +95,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
                 0, yShift, true, 0);
     }
 
-    protected LabelPosition getFeederLabelPosition(Node node, Direction direction) {
+    protected LabelPosition getLabelPosition(Node node, Direction direction) {
         double yShift = -LABEL_OFFSET;
         String positionName = "";
         double angle = 0;
