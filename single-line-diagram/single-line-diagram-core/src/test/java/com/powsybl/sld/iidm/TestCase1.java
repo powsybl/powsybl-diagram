@@ -51,13 +51,24 @@ class TestCase1 extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-
-        // Run layout
         voltageLevelGraphLayout(g);
-
-        // write Json and compare to reference
         assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
+    }
+
+    @Test
+    void testDisplayEquipmentNodesLabel() {
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(g);
+        svgParameters.setDisplayEquipmentNodesLabel(true);
+        assertEquals(toString("/TestCase1_equipmentLabels.svg"), toSVG(g, "/TestCase1_equipmentLabels.svg"));
+    }
+
+    @Test
+    void testDisplayConnectivityNodes() {
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(g);
+        svgParameters.setDisplayConnectivityNodesId(true).setShowInternalNodes(true);
+        assertEquals(toString("/TestCase1_connectivityLabels.svg"), toSVG(g, "/TestCase1_connectivityLabels.svg"));
     }
 }
