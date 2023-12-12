@@ -30,16 +30,6 @@ public class Point {
         return y;
     }
 
-    public Point setX(int x) {
-        this.x = x;
-        return this;
-    }
-
-    public Point setY(int y) {
-        this.y = y;
-        return this;
-    }
-
     public int manhattanDistance(Point other) {
         return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }

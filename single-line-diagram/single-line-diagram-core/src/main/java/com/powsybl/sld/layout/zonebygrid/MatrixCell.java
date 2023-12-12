@@ -13,8 +13,4 @@ import com.powsybl.sld.model.graphs.*;
  * @author Thomas Adam <tadam at neverhack.com>
  */
 public record MatrixCell(BaseGraph graph, int col, int row) {
-
-    public String getId() {
-        return graph.getId();
-    }
 }

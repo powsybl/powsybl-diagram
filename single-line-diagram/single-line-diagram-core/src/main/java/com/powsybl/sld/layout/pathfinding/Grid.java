@@ -7,7 +7,6 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -16,7 +15,7 @@ import java.util.*;
 public class Grid {
 
     static class Node {
-        private Point point;
+        private final Point point;
         private int cost;
         private int distance;
         private Node parent;
@@ -29,9 +28,7 @@ public class Grid {
         }
 
         public Node(int x, int y, int cost, int distance) {
-            this.point = new Point(x, y);
-            this.cost = cost;
-            this.distance = distance;
+            this(new Point(x, y), cost, distance);
         }
 
         public Point getPoint() {
@@ -48,21 +45,6 @@ public class Grid {
 
         public Node getParent() {
             return parent;
-        }
-
-        public Node setCost(int cost) {
-            this.cost = cost;
-            return this;
-        }
-
-        public Node setDistance(int distance) {
-            this.distance = distance;
-            return this;
-        }
-
-        public Node setParent(Node parent) {
-            this.parent = parent;
-            return this;
         }
 
         @Override
@@ -101,14 +83,6 @@ public class Grid {
                 nodes[x][y] = new Node(x, y, NOT_WALKABLE, 0);
             }
         }
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
     }
 
     public void updateNode(Point point, int cost, int distance, Node parent) {
