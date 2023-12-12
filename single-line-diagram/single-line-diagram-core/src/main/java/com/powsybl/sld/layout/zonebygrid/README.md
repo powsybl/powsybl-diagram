@@ -1,17 +1,17 @@
 # Zone Matrix Layout
 
-On veut afficher toutes les "substations" d'une zone en ligne et en colonne.<BR>
-En choississant l'emplacement de chaque "Substation".
+We want to display every substations included in same zone as matrix way (row and column).<BR>
+The user can choose the location of each substation.
 
-## Paramètres d'entrée
+## Input parameters
 
-- `VoltageLevelLayoutFactory`: donne le "layout" des "voltagelevels"<br>
-- `SubstationLayoutFactory`: donne le "layout" des "substations"<br>
-- `2D String array`: donne la position matricielle des "substations" de la zone<br>
+- `VoltageLevelLayoutFactory`: builder of  layout used by voltagelevels<br>
+- `SubstationLayoutFactory`: builder of layout used by substations<br>
+- `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 orw, 3 columns)<br>
 
-**Exemple d'utilisation:**<BR>
-Voici une zone constituée de 5 "substations" représenté sur 3 colonnes et 2 lignes.<BR>
-Avec une celulle vide au milieu de la seconde ligne.
+**Usage example:**<BR>
+The following example use 5 substations distributed on 3 columns and 2 lines,<BR>
+with an empty area at middle of the second line.
 ```java
 // build zone graph
 Network network = ...
@@ -27,15 +27,15 @@ Layout matrixLayout = new MatrixZoneLayoutFactory().create(g, substationsIds, ne
 matrixLayout.run(layoutParameters);
 ```
 
-## Principe de fonctionnement
+## Path finding description 
 
-### Postulas de départ: 
-- Toutes les lignes de la matrice ont la même hauteur
-- Toutes les colonnes de la matrice ont la même largeur
-- Chaque lignes sont espacées de `LayoutParameters.getMatrixLayoutPadding` : TOP et BOTTOM
-- Chaque colonnes sont espacées de `LayoutParameters.getMatrixLayoutPadding` : LEFT et RIGHT
+### Premise:
+- same height for each line: maximum height of all voltagelevels
+- same width for each columns: maximum width of all voltagelevels
+- each lines margin can be set with `LayoutParameters.getMatrixLayoutPadding` : TOP et BOTTOM
+- each lines columns can be set with `LayoutParameters.getMatrixLayoutPadding` : LEFT et RIGHT
 
-Exemple:
+Example:
 
 |          |       |    Top     |        |           |          |       |    Top     |       |   |   |       |    Top     |       |   |
 |:--------:|:-----:|:----------:|:------:|:---------:|:--------:|:-----:|:----------:|:-----:|:-:|:-:|:-----:|:----------:|:-----:|:-:|
@@ -50,16 +50,13 @@ Exemple:
 |          |       | __Bottom__ |        |           |          |       | __Bottom__ |       |   |   |       | __Bottom__ |       |   |
 
 
-La classe représentant le "layout" matriciel est la suivante:
-```java
-class MatrixZoneLayout
-```
-On positionne chaque "substation" dans la ligne et la colonne spécifiée par l'utilisateur. 
+The class `MatrixZoneLayout` represent the matrix layout.<BR>
+Each substation position is computed in following method: 
 ```java
 protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 ```
-On applique le `SubstationLayout` sur chacune des "substations" de la zone.
-Chaque `SubstationGraph` est ajouté au modèle du layout matriciel.
+The `SubstationLayout` is applied on each substation specified.<BR>
+Each `SubstationGraph` is added to the class `MatrixZoneLayoutModel` (internal model of matrix layout).
 ```java
 
     for (int row = 0; row < matrix.length; row++) {
@@ -76,29 +73,33 @@ Chaque `SubstationGraph` est ajouté au modèle du layout matriciel.
     ...
 ```
 
-### Cacul d'une snakeline entre substation
+### Snakeline way computation between substation
 
-On représente le diagram de sortie avec la classe `Grid`,
-qui se constitue d'une liste de `Node` sous la forme d'un tableau à 2 dimensions.
-Chaque `Node` possède sa position en coordonées carthésiennes et un coût de traversée.
+The `Grid` class is a 2D array as a list of `Node` class representing each pixel of SLD output file.
+Each `Node` store :
+* a carteian position (x and y)
+* a walkthrough cost
+* a parent node reference
+* a distance to goal point
 
-#### Calcul d'une zone d'exclusion
-Une zone d'exclusion est un ensemble de `Node` dont le coût est affecté à `-1` 
-Cette zone est interdite pour le tracé d'une `snakeline`.
-Cette zone permet à la snakeline d'éviter:
-- les voltagelevels
-- les zones de la matrice vides (substations absentes)
-- les snakelines précédentes
+#### Exclusion area
+An exclusion area is all `Node` with cost equals to `-1` 
+This area can be used to draw a `snakeline`.
+This area allow snakeline to escape to:
+- voltagelevels
+- empty areas (missing substations)
+- previous snakelines
 
-Exemple:
+Example:
 
 
-#### Calcul du chemin le plus court
 
-Voici les différentes étapes :
-* on applique un coût nulle au point de départ
-* on cherche les voisins proches (gauche, droite, haut et bas) : pas de déplacement en diagonale
-  * ces voisins sont considérés seulement si
-    * le voisin est disponible (cost != -1)
-    * le voisin n'a pas déjà était considéré
-  * si le choix du voisin produit un angle droit alors 
+#### Shorter path computation
+
+Computation steps:
+* starting point cost is set to 0
+* get nearest neighbors (left, right, up and down): no diagonal moves
+  * these neighbors are used only if:
+    * the neighbor is available (cost != -1)
+    * the neighbor was not already visited
+  * to avoid useless right angle the cost is increased when next point will create a right angle
