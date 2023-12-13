@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.commons.*;
 import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
@@ -46,6 +47,8 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 if (graph != null) {
                     // Display substations
                     layoutBySubstation.get(graph).run(layoutParameters);
+                } else if (!id.isEmpty()) {
+                    throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
                 }
                 model.addGraph(graph, col, row);
             }
@@ -56,30 +59,24 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         int maxWidthCol = model.getMatrixCellWidth();
         // Snakeline hallway
         int hallway = model.getSnakelineHallwayWidth();
-        // Padding
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         // Zone size
-        double zoneWidth = 0.0;
-        double zoneHeight = diagramPadding.getTop() + hallway;
+        int nbRows = matrix.length;
+        int nbCols = matrix[0].length;
         // Move each substation into its matrix position
-        for (int row = 0; row < matrix.length; row++) {
-            zoneWidth = hallway;
-            int hallwayRow = (row + 1) * hallway;
-            for (int col = 0; col < matrix[row].length; col++) {
+        for (int row = 0; row < nbRows; row++) {
+            for (int col = 0; col < nbCols; col++) {
                 String id = matrix[row][col];
                 SubstationGraph graph = getGraph().getSubstationGraph(id);
-                int hallwayCol = (col + 1) * hallway;
                 if (graph != null) {
-                    double dx = col * maxWidthCol + hallwayCol + diagramPadding.getLeft();
-                    double dy = row * maxHeightRow + hallwayRow + diagramPadding.getTop();
+                    double dx = col * maxWidthCol + (col + 1) * hallway;
+                    double dy = row * maxHeightRow + (row + 1) * hallway;
                     move(graph, dx, dy);
                 }
-                zoneWidth += maxWidthCol + hallway;
             }
-            zoneHeight += maxHeightRow + hallway;
         }
-
-        getGraph().setSize(diagramPadding.getLeft() + zoneWidth + diagramPadding.getRight(), zoneHeight + diagramPadding.getBottom());
+        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1) * hallway;
+        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1) * hallway;
+        getGraph().setSize(zoneWidth, zoneHeight);
     }
 
     @Override
@@ -107,8 +104,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add ending point
             polyline.add(p2);
         } else {
-            // FIXME : substation link but not displayed
-            // not found
+            // Not specified in matrix by user
         }
         return polyline;
     }
@@ -119,8 +115,5 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
         // Draw snakelines between Substations
         manageSnakeLines(getGraph(), layoutParameters);
-
-        // FIXME: use diagram padding
-        getGraph().setSize(getGraph().getWidth() + 100, getGraph().getHeight() + 100);
     }
 }

@@ -22,7 +22,7 @@ public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
 
     @Override
     public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        // By default work as Horizontal layout
+        // By default, work as Horizontal layout
         List<String> substations = graph.getSubstations().stream().map(SubstationGraph::getId).toList();
         String[] array = new String[substations.size()];
         String[][] matrix = new String[1][];
