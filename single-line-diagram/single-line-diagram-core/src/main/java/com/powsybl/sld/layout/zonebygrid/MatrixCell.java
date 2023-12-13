@@ -10,7 +10,7 @@ package com.powsybl.sld.layout.zonebygrid;
 import com.powsybl.sld.model.graphs.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public record MatrixCell(BaseGraph graph, int col, int row) {
 }

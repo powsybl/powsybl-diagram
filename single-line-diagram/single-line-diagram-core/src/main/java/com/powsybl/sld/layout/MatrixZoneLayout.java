@@ -18,7 +18,7 @@ import org.jgrapht.alg.util.*;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayout extends AbstractZoneLayout {
     private final MatrixZoneLayoutModel model;

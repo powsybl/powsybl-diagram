@@ -16,7 +16,7 @@ import com.powsybl.sld.model.graphs.*;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayoutModel {
 
@@ -63,17 +63,8 @@ public class MatrixZoneLayoutModel {
         return matrixCellHeight;
     }
 
-    public int getX(String id) {
-        MatrixCell cell = cellsById.get(id);
-        return getX(cell.col());
-    }
-
     public int getX(int col) {
         return ((col + 1) * snakelineHallwayWidth) + (col * matrixCellWidth);
-    }
-
-    public int getY(String id) {
-        return getY(id, Direction.TOP);
     }
 
     public int getY(int row) {
@@ -84,12 +75,6 @@ public class MatrixZoneLayoutModel {
         return (row + 1) * snakelineHallwayWidth + (row + (direction == Direction.TOP ? 0 : 1)) * matrixCellHeight;
     }
 
-    public int getY(String id, Direction direction) {
-        MatrixCell cell = cellsById.get(id);
-        int row = cell.row();
-        return getY(row, direction);
-    }
-
     public List<Point> buildSnakeline(PathFinder pathfinder,
                                       Point p1, Direction d1,
                                       Point p2, Direction d2) {
@@ -98,8 +83,7 @@ public class MatrixZoneLayoutModel {
         // Use path finding algo
         return pathfinder.toSnakeLine(pathfinder.findShortestPath(pathFinderGrid,
                 (int) p1.getX(), (int) p1.getY(),
-                (int) p2.getX(), (int) p2.getY(),
-                true));
+                (int) p2.getX(), (int) p2.getY()));
     }
 
     private void insertFreePathInSubstation(Point p1, Direction d1,

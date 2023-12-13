@@ -10,7 +10,7 @@ package com.powsybl.sld.layout.pathfinding;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class Grid {
 
@@ -45,25 +45,6 @@ public class Grid {
 
         public Node getParent() {
             return parent;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Node node = (Node) o;
-            return point == node.point &&
-                   cost == node.cost &&
-                   distance == node.distance;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(point, cost, distance);
         }
     }
 
@@ -111,7 +92,7 @@ public class Grid {
         setAvailability(point.x(), point.y(), available);
     }
 
-    public void setAvailability(List<com.powsybl.sld.layout.pathfinding.Point> path, boolean available) {
+    public void setAvailability(List<Point> path, boolean available) {
         path.forEach(p -> setAvailability(p, available));
     }
 
@@ -123,7 +104,7 @@ public class Grid {
         return point.x() >= 0 && point.x() < width && point.y() >= 0 && point.y() < height && nodes[point.x()][point.y()].cost != -1;
     }
 
-    public List<Node> getNeighbors(Point point) {
+    protected List<Node> getNeighbors(Point point) {
         // Considering only adjacent points
         List<Node> neighbors = new ArrayList<>();
         Node right = getNode(point.x() + 1, point.y());

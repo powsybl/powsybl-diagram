@@ -10,7 +10,7 @@ package com.powsybl.sld.layout.pathfinding;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public abstract class AbstractPathFinder implements PathFinder {
     @Override

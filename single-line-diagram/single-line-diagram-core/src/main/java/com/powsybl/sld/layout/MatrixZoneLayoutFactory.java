@@ -12,7 +12,7 @@ import com.powsybl.sld.model.graphs.*;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
 

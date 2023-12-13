@@ -8,7 +8,7 @@
 package com.powsybl.sld.layout.pathfinding;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class PathFinderFactory {
 

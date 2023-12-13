@@ -10,7 +10,7 @@ package com.powsybl.sld.layout.pathfinding;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public final class DijkstraPathFinder extends AbstractPathFinder {
 
@@ -19,7 +19,7 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
     }
 
     @Override
-    public List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY, boolean setSnakeLineAsObstacle) {
+    public List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY) {
         Point start = new Point(startX, startY);
         Point goal = new Point(endX, endY);
 

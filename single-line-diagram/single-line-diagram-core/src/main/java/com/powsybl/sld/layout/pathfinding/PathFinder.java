@@ -10,11 +10,11 @@ package com.powsybl.sld.layout.pathfinding;
 import java.util.*;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public interface PathFinder {
 
-    List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY, boolean setSnakeLineAsObstacle);
+    List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY);
 
     List<com.powsybl.sld.model.coordinate.Point> toSnakeLine(List<Point> path);
 }
