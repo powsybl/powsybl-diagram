@@ -1,6 +1,6 @@
 # Zone Matrix Layout
 
-We want to display every substations included in same zone as matrix way (row and column).<BR>
+We want to display each substation included in same zone as matrix way (row and column).<BR>
 The user can choose the location of each substation.
 
 ## Input parameters
@@ -32,22 +32,21 @@ matrixLayout.run(layoutParameters);
 ### Premise:
 - same height for each line: maximum height of all voltagelevels
 - same width for each columns: maximum width of all voltagelevels
-- each lines margin can be set with `LayoutParameters.getMatrixLayoutPadding` : TOP et BOTTOM
-- each lines columns can be set with `LayoutParameters.getMatrixLayoutPadding` : LEFT et RIGHT
+- each lines margin can be set with `LayoutParameters.getMatrixLayoutPadding`
+- each lines columns can be set with `LayoutParameters.getMatrixLayoutPadding`
 
 Example:
 
-|          |       |    Top     |        |           |          |       |    Top     |       |   |   |       |    Top     |       |   |
-|:--------:|:-----:|:----------:|:------:|:---------:|:--------:|:-----:|:----------:|:-----:|:-:|:-:|:-----:|:----------:|:-----:|:-:|
-|          | __X__ |   __X__    | __X__  |           |          | __X__ |   __X__    | __X__ |   |   | __X__ |   __X__    | __X__ |   |
-| __Left__ | __X__ |   __A__    | __X__  | __Right__ | __Left__ | __X__ |   __B__    | __X__ |   |   | __X__ |   __C__    | __X__ |   |
-|          | __X__ |   __X__    | __X__  |           |          | __X__ |   __X__    | __X__ |   |   | __X__ |   __X__    | __X__ |   |
-|          |       | __Bottom__ |        |           |          |       | __Bottom__ |       |   |   |       | __Bottom__ |       |   |
-|          |       |  __Top__   |        |           |          |       |  __Top__   |       |   |   |       |  __Top__   |       |   |
-|          | __X__ |   __X__    | __X__  |           |          | __X__ |   __X__    | __X__ |   |   | __X__ |   __X__    | __X__ |   |
-| __Left__ | __X__ |   __D__    | __X__  | __Right__ | __Left__ | __X__ |     _      | __X__ |   |   | __X__ |   __E__    | __X__ |   |
-|          | __X__ |   __X__    | __X__  |           |          | __X__ |   __X__    | __X__ |   |   | __X__ |   __X__    | __X__ |   |
-|          |       | __Bottom__ |        |           |          |       | __Bottom__ |       |   |   |       | __Bottom__ |       |   |
+|            |       |   Margin   |        |            |       |   Margin   |       |            |       |  Margin    |       |            |
+|:----------:|:-----:|:----------:|:------:|:----------:|:-----:|:----------:|:-----:|:----------:|:-----:|:----------:|:-----:|:----------:|
+|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
+| __Margin__ | __X__ |   __A__    | __X__  | __Margin__ | __X__ |   __B__    | __X__ | __Margin__ | __X__ |   __C__    | __X__ | __Margin__ |
+|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
+|            |       | __Margin__ |        |            |       | __Margin__ |       |            |       | __Margin__ |       |            |
+|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
+| __Margin__ | __X__ |   __D__    | __X__  | __Margin__ | __X__ |     _      | __X__ | __Margin__ | __X__ |   __E__    | __X__ | __Margin__ |
+|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
+|            |       | __Margin__ |        |            |       | __Margin__ |       |            |       | __Margin__ |       |            |
 
 
 The class `MatrixZoneLayout` represent the matrix layout.<BR>
