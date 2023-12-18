@@ -44,15 +44,40 @@ public class BasicForceLayout extends AbstractLayout {
 
         forceLayout.execute();
 
-        if (layoutParameters.xxxIsFixedScale()) {
-            jgraphtGraph.vertexSet().forEach(node -> {
+        switch (layoutParameters.xxxGetScaling()) {
+            case FIXED -> jgraphtGraph.vertexSet().forEach(node -> {
                 Vector p = forceLayout.getStablePosition(node);
                 node.setPosition(SCALE * p.getX(), SCALE * p.getY());
             });
-        } else {
-            Collection<Node> laidOutNodes = jgraphtGraph.vertexSet();
-            updatePositions(forceLayout, laidOutNodes);
-            scaleToPreferedNodeSize(laidOutNodes);
+            case PREFERRED_NODE_SIZE -> {
+                Collection<Node> laidOutNodes = jgraphtGraph.vertexSet();
+                updatePositions(forceLayout, laidOutNodes);
+                scaleToPreferedNodeSize(laidOutNodes);
+            }
+            case SHORTEST_EDGE -> {
+                double d2min = jgraphtGraph.edgeSet().stream()
+                        .filter(edge -> jgraphtGraph.getEdgeSource(edge) != jgraphtGraph.getEdgeTarget(edge))
+                        .map(edge -> {
+                            Node n1 = jgraphtGraph.getEdgeSource(edge);
+                            Node n2 = jgraphtGraph.getEdgeTarget(edge);
+                            Vector p1 = forceLayout.getStablePosition(n1);
+                            Vector p2 = forceLayout.getStablePosition(n2);
+                            return p1.subtract(p2).magnitudeSquare();
+                        })
+                        .filter(d2 -> d2 > 0)
+                        .min(Double::compareTo)
+                        .orElse(jgraphtGraph.vertexSet().stream()
+                                .map(node -> forceLayout.getStablePosition(node).magnitudeSquare())
+                                .min(Double::compareTo)
+                                .orElse(0.0));
+                double dmin = Math.sqrt(d2min);
+                double preferredNodeSpace = 5.0 * PREFERRED_NODE_SIZE;
+                double f = preferredNodeSpace / dmin;
+                jgraphtGraph.vertexSet().forEach(node -> {
+                    Vector p = forceLayout.getStablePosition(node);
+                    node.setPosition(f * p.getX(), f * p.getY());
+                });
+            }
         }
 
         if (!layoutParameters.isTextNodesForceLayout()) {

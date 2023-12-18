@@ -53,13 +53,20 @@ public class LayoutParameters {
     }
 
     // FIXME(Luma) Temporary param for debugging purposes
-    private boolean xxxFixedScale = false;
 
-    public boolean xxxIsFixedScale() {
-        return xxxFixedScale;
+    public enum Scaling {
+        FIXED,
+        PREFERRED_NODE_SIZE,
+        SHORTEST_EDGE
     }
 
-    public void xxxSetFixedScale(boolean useFixedScale) {
-        this.xxxFixedScale = useFixedScale;
+    private Scaling xxxScaling = Scaling.PREFERRED_NODE_SIZE;
+
+    public Scaling xxxGetScaling() {
+        return xxxScaling;
+    }
+
+    public void xxxSetFixedScale(Scaling scaling) {
+        this.xxxScaling = scaling;
     }
 }
