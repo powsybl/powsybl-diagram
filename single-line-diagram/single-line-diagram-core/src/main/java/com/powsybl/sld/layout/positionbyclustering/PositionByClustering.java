@@ -73,6 +73,7 @@ public class PositionByClustering extends AbstractPositionFinder {
                 .sorted(Comparator.comparing(BusNode::getId))
                 .collect(Collectors.toList())) {
             busToNb.put(n, i);
+            n.setBusBarIndexSectionIndex(0, 0);
             i++;
         }
         return busToNb;
