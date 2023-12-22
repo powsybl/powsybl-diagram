@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -99,12 +101,22 @@ public final class LegBusSet {
         return internCellSides;
     }
 
-    void setExtendedNodeSet(Collection<BusNode> busNodes) {
+    void addToExtendedNodeSet(Collection<BusNode> busNodes) {
         if (busNodes.containsAll(busNodeSet)) {
-            extendedNodeSet.addAll(busNodes.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+            // The given busNodes correspond to all vertical bus nodes for a specific index of the horizontalBusLanes:
+            // those nodes correspond to a slice of busbars.
+            // There can't be more than one busNode per busbar index, we check this by creating the following map with
+            // an exception-throwing merge method
+            Map<Integer, BusNode> indexToBusNode = busNodes.stream().filter(Objects::nonNull)
+                    .collect(Collectors.toMap(BusNode::getBusbarIndex, Function.identity(), this::detectConflictingBusNodes));
+            extendedNodeSet.addAll(indexToBusNode.values());
         } else {
             LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
         }
+    }
+
+    private BusNode detectConflictingBusNodes(BusNode busNode1, BusNode busNode2) {
+        throw new PowsyblException("Inconsistent legBusSet: extended node set contains two busNodes with same index");
     }
 
     Set<BusNode> getExtendedNodeSet() {
