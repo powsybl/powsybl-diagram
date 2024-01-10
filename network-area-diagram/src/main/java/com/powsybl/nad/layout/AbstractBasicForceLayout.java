@@ -6,7 +6,7 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.diagram.util.forcelayout.ForceLayoutSpringy;
+import com.powsybl.diagram.util.forcelayout.AbstractForceLayout;
 import com.powsybl.diagram.util.forcelayout.Vector;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -19,16 +19,18 @@ import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
-public class BasicForceLayout extends AbstractLayout {
+public abstract class AbstractBasicForceLayout extends AbstractLayout {
 
-    private static final int SCALE = 100;
+    protected abstract int getScale();
+
+    protected abstract AbstractForceLayout<Node, Edge> getForceLayoutAlgorithm(org.jgrapht.Graph<Node, Edge> jgraphtGraph, LayoutParameters layoutParameters);
 
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayoutSpringy<Node, Edge> forceLayout = new ForceLayoutSpringy<>(jgraphtGraph);
-        forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
+        AbstractForceLayout<Node, Edge> forceLayout = getForceLayoutAlgorithm(jgraphtGraph, layoutParameters);
         forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
 
         setInitialPositions(forceLayout, graph);
@@ -38,11 +40,12 @@ public class BasicForceLayout extends AbstractLayout {
                 .collect(Collectors.toSet());
         forceLayout.setFixedNodes(fixedNodes);
 
-        forceLayout.execute();
+        forceLayout.computePositions();
 
+        int scale = getScale();
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+            node.setPosition(scale * p.getX(), scale * p.getY());
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {
@@ -50,15 +53,16 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    private void setInitialPositions(ForceLayoutSpringy<Node, Edge> forceLayout, Graph graph) {
+    private void setInitialPositions(AbstractForceLayout<Node, Edge> forceLayout, Graph graph) {
+        int scale = getScale();
         Map<Node, com.powsybl.diagram.util.forcelayout.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
                     nodePosition -> new com.powsybl.diagram.util.forcelayout.Point(
-                            nodePosition.getValue().getX() / SCALE,
-                            nodePosition.getValue().getY() / SCALE)
+                            nodePosition.getValue().getX() / scale,
+                            nodePosition.getValue().getY() / scale)
                 ));
         forceLayout.setInitialPoints(initialPoints);
     }

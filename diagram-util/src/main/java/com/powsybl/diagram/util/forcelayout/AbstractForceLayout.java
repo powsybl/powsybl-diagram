@@ -48,14 +48,19 @@ public abstract class AbstractForceLayout<V, E> {
 
     private boolean hasBeenExecuted = false;
 
-    public abstract void execute();
-
     protected AbstractForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
         this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
         this.deltaTime = DEFAULT_DELTA_TIME;
         this.graph = Objects.requireNonNull(graph);
     }
+
+    public final void computePositions() {
+        execute();
+        hasBeenExecuted = true;
+    }
+
+    protected abstract void execute();
 
     public AbstractForceLayout<V, E> setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
@@ -94,52 +99,6 @@ public abstract class AbstractForceLayout<V, E> {
     public AbstractForceLayout<V, E> setFixedNodes(Set<V> fixedNodes) {
         this.fixedNodes = Objects.requireNonNull(fixedNodes);
         return this;
-    }
-
-    public void setHasBeenExecuted(boolean hasBeenExecuted) {
-        this.hasBeenExecuted = hasBeenExecuted;
-    }
-
-    void initializePoints() {
-        for (V vertex : graph.vertexSet()) {
-            Point p;
-            if (initialPoints.containsKey(vertex)) {
-                Point pInitial = initialPoints.get(vertex);
-                p = new Point(pInitial.getPosition().getX(), pInitial.getPosition().getY(), graph.degreeOf(vertex));
-            } else {
-                p = new Point(random.nextDouble(), random.nextDouble(), graph.degreeOf(vertex));
-            }
-            points.put(vertex, p);
-        }
-    }
-
-    void initializeSprings() {
-        for (E e : graph.edgeSet()) {
-            Point pointSource = points.get(graph.getEdgeSource(e));
-            Point pointTarget = points.get(graph.getEdgeTarget(e));
-            if (pointSource != pointTarget) { // no use in force layout to add loops
-                springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
-            }
-        }
-    }
-
-    void updatePosition() {
-        // Optimisation hint: do not compute forces or update velocities for fixed nodes
-        // We have computed forces and velocities for all nodes, even for the fixed ones
-        // We can optimize calculations by ignoring fixed nodes in those calculations
-        // Here we only update the position for the nodes that do not have fixed positions
-        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
-            if (fixedNodes.contains(vertexPoint.getKey())) {
-                continue;
-            }
-            Point point = vertexPoint.getValue();
-            Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
-            point.setPosition(position);
-        }
-    }
-
-    boolean isStable() {
-        return points.values().stream().allMatch(p -> p.getEnergy() < minEnergyThreshold);
     }
 
     public Vector getStablePosition(V vertex) {
@@ -196,5 +155,47 @@ public abstract class AbstractForceLayout<V, E> {
         printWriter.println("</svg>");
 
         printWriter.close();
+    }
+
+    protected void initializePoints() {
+        for (V vertex : graph.vertexSet()) {
+            Point p;
+            if (initialPoints.containsKey(vertex)) {
+                Point pInitial = initialPoints.get(vertex);
+                p = new Point(pInitial.getPosition().getX(), pInitial.getPosition().getY(), graph.degreeOf(vertex));
+            } else {
+                p = new Point(random.nextDouble(), random.nextDouble(), graph.degreeOf(vertex));
+            }
+            points.put(vertex, p);
+        }
+    }
+
+    protected void initializeSprings() {
+        for (E e : graph.edgeSet()) {
+            Point pointSource = points.get(graph.getEdgeSource(e));
+            Point pointTarget = points.get(graph.getEdgeTarget(e));
+            if (pointSource != pointTarget) { // no use in force layout to add loops
+                springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
+            }
+        }
+    }
+
+    protected void updatePosition() {
+        // Optimisation hint: do not compute forces or update velocities for fixed nodes
+        // We have computed forces and velocities for all nodes, even for the fixed ones
+        // We can optimize calculations by ignoring fixed nodes in those calculations
+        // Here we only update the position for the nodes that do not have fixed positions
+        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
+            if (fixedNodes.contains(vertexPoint.getKey())) {
+                continue;
+            }
+            Point point = vertexPoint.getValue();
+            Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
+            point.setPosition(position);
+        }
+    }
+
+    protected boolean isStable() {
+        return points.values().stream().allMatch(p -> p.getEnergy() < minEnergyThreshold);
     }
 }

@@ -11,7 +11,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
+import com.powsybl.nad.layout.BasicForceLayoutSpringyFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
@@ -35,7 +35,7 @@ public abstract class AbstractTest {
 
     protected boolean debugSvg = false;
     protected boolean overrideTestReferences = false;
-    protected LayoutFactory defaultLayoutFactory = new BasicForceLayoutFactory();
+    protected LayoutFactory defaultLayoutFactory = new BasicForceLayoutSpringyFactory();
 
     private SvgParameters svgParameters;
 

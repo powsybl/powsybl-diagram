@@ -104,8 +104,6 @@ public class ForceLayoutSpringy<V, E> extends AbstractForceLayout<V, E> {
             }
         }
 
-        setHasBeenExecuted(true);
-
         long elapsedTime = System.nanoTime() - start;
 
         LOGGER.info("Number of steps: {}", i);

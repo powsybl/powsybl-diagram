@@ -9,9 +9,9 @@ package com.powsybl.nad.layout;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class BasicForceLayoutFactory implements LayoutFactory {
+public class BasicForceLayoutSpringyFactory implements LayoutFactory {
     @Override
     public Layout create() {
-        return new BasicForceLayout();
+        return new BasicForceLayoutSpringy();
     }
 }
