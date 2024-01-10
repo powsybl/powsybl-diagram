@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public class BasicForceAtlas2Layout extends AbstractLayout {
 
-    private static final int SCALE = 100;
+    private static final int SCALE = 20;
 
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
