@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * The following algorithm is a first implementation of the ForceAtlas2 layout algorithm.
- * The implementation is based on the https://doi.org/10.1371/journal.pone.0098679 paper
+ * The following algorithm is an implementation of the ForceAtlas2 layout algorithm.
+ * The implementation is based on the paper <a href="https://doi.org/10.1371/journal.pone.0098679">ForceAtlas2, a Continuous Graph Layout Algorithm for Handy Network Visualization Designed for the Gephi Software</a>
  *
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  * @author José Antonio Marqués {@literal <marquesja at aia.es>}
@@ -32,6 +32,7 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
     private static final double DEFAULT_GLOBAL_SPEED_RATIO = 1.0;
     private static final double DEFAULT_GLOBAL_SPEED_INCREMENT_FACTOR = 1.5;
     private static final boolean DEFAULT_STRONG_GRAVITY_MODE = false;
+
     private double kRepulsion;
     private int repulsionModel;
     private int edgeWeightInfluence;
@@ -58,8 +59,98 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
         this.strongGravityMode = DEFAULT_STRONG_GRAVITY_MODE;
     }
 
+    public double getkRepulsion() {
+        return kRepulsion;
+    }
+
+    public void setkRepulsion(double kRepulsion) {
+        this.kRepulsion = kRepulsion;
+    }
+
+    public int getRepulsionModel() {
+        return repulsionModel;
+    }
+
+    public void setRepulsionModel(int repulsionModel) {
+        this.repulsionModel = repulsionModel;
+    }
+
+    public int getEdgeWeightInfluence() {
+        return edgeWeightInfluence;
+    }
+
+    public void setEdgeWeightInfluence(int edgeWeightInfluence) {
+        this.edgeWeightInfluence = edgeWeightInfluence;
+    }
+
+    public int getAttractionModel() {
+        return attractionModel;
+    }
+
+    public void setAttractionModel(int attractionModel) {
+        this.attractionModel = attractionModel;
+    }
+
+    public double getkGravity() {
+        return kGravity;
+    }
+
+    public void setkGravity(double kGravity) {
+        this.kGravity = kGravity;
+    }
+
+    public double getkSpeed() {
+        return kSpeed;
+    }
+
+    public void setkSpeed(double kSpeed) {
+        this.kSpeed = kSpeed;
+    }
+
+    public double getkMaxSpeed() {
+        return kMaxSpeed;
+    }
+
+    public void setkMaxSpeed(double kMaxSpeed) {
+        this.kMaxSpeed = kMaxSpeed;
+    }
+
+    public double getGlobalSpeedRatio() {
+        return globalSpeedRatio;
+    }
+
+    public void setGlobalSpeedRatio(double globalSpeedRatio) {
+        this.globalSpeedRatio = globalSpeedRatio;
+    }
+
+    public double getGlobalSpeedIncrementFactor() {
+        return globalSpeedIncrementFactor;
+    }
+
+    public void setGlobalSpeedIncrementFactor(double globalSpeedIncrementFactor) {
+        this.globalSpeedIncrementFactor = globalSpeedIncrementFactor;
+    }
+
+    public boolean isStrongGravityMode() {
+        return strongGravityMode;
+    }
+
+    public void setStrongGravityMode(boolean strongGravityMode) {
+        this.strongGravityMode = strongGravityMode;
+    }
+
+    public double getGlobalSpeed() {
+        return globalSpeed;
+    }
+
+    public void setGlobalSpeed(double globalSpeed) {
+        this.globalSpeed = globalSpeed;
+    }
+
+    @Override
     public void execute() {
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
+
         initializePoints();
         initializeSprings();
 
@@ -75,7 +166,7 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
                 gravity(kGravity);
             }
 
-            updateNodalAndGlobalVelocity(kMaxSpeed, kMaxSpeed, globalSpeedRatio, globalSpeedIncrementFactor);
+            updateNodalAndGlobalVelocity(kSpeed, kMaxSpeed, globalSpeedRatio, globalSpeedIncrementFactor);
             updatePosition();
 
             if (isStable()) {
@@ -147,27 +238,22 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
     }
 
     private void updateNodalAndGlobalVelocity(double kSpeed, double kMaxSpeed, double globalSpeedRatio, double globalSpeedIncrementFactor) {
-        double globalTraction = calculateGlobalTraction();
-        double globalSwinging = calculateGlobalSwinging();
-        double globalSpeed = calculateGlobalSpeed(globalSpeedRatio, globalSpeedIncrementFactor);
-
+        double nextGlobalSpeed = calculateGlobalSpeed(globalSpeedRatio, globalSpeedIncrementFactor);
         for (Point point : getPoints().values()) {
-            double nodalSpeed = calculateNodalSpeed(point, kSpeed, globalSpeed);
-
+            double nodalSpeed = calculateNodalSpeed(point, kSpeed, nextGlobalSpeed);
             Vector newVelocity = point.getForces().multiply(nodalSpeed);
             if (newVelocity.magnitude() >= kMaxSpeed) {
                 newVelocity = newVelocity.normalize().multiply(kMaxSpeed);
             }
             point.setVelocity(newVelocity);
-
             point.setPreviousForces();
             point.resetForces();
         }
-        this.globalSpeed = globalSpeed;
+        this.globalSpeed = nextGlobalSpeed;
     }
 
     private double calculateGlobalSwinging() {
-        double globalSwinging = 0.0;
+        double globalSwinging = 0;
         for (Map.Entry<V, Point> vertexPoint : getPoints().entrySet()) {
             if (getFixedNodes().contains(vertexPoint.getKey())) {
                 continue;
@@ -175,7 +261,8 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
             Point point = vertexPoint.getValue();
             globalSwinging += calculateNodalSwinging(point);
         }
-        return globalSwinging;
+        // Avoid potential division by zero
+        return globalSwinging == 0.0 ? Double.MIN_VALUE : globalSwinging;
     }
 
     private static double calculateNodalSwinging(Point point) {
@@ -195,11 +282,11 @@ public class ForceAtlas2Layout<V, E> extends AbstractForceLayout<V, E> {
     }
 
     private double calculateGlobalSpeed(double globalSpeedRatio, double globalSpeedIncrementFactor) {
-        double globalSpeed = globalSpeedRatio * calculateGlobalTraction() / calculateGlobalSwinging();
-        if (!Double.isNaN(this.globalSpeed) && globalSpeed > globalSpeedIncrementFactor * this.globalSpeed) {
-            globalSpeed = globalSpeedIncrementFactor * this.globalSpeed;
+        double nextGlobalSpeed = globalSpeedRatio * calculateGlobalTraction() / calculateGlobalSwinging();
+        if (!Double.isNaN(this.globalSpeed) && nextGlobalSpeed > globalSpeedIncrementFactor * this.globalSpeed) {
+            nextGlobalSpeed = globalSpeedIncrementFactor * this.globalSpeed;
         }
-        return globalSpeed;
+        return nextGlobalSpeed;
     }
 
     private static double calculateNodalSpeed(Point point, double kSpeed, double globalSpeed) {

@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
  *
- * The algorithm is taken from: https://github.com/dhotson/springy
+ * The algorithm is taken from: <a href="https://github.com/dhotson/springy">Springy. A force directed graph layout algorithm in JavaScript</a>
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
@@ -81,6 +81,7 @@ public class ForceLayout<V, E> extends AbstractForceLayout<V, E> {
         return this;
     }
 
+    @Override
     public void execute() {
         long start = System.nanoTime();
 

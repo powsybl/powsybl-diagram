@@ -13,9 +13,7 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.VoltageLevelNode;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
@@ -24,14 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class ForceAtlas2LayoutTest {
 
     @Test
-    void tenBusesTest() throws IOException {
+    void tenBusesTest() {
         Graph graph = createTenBusesGraph();
 
         Layout forceAtlas2Layout = new BasicForceAtlas2LayoutFactory().create();
         LayoutParameters layoutParameters = new LayoutParameters();
         forceAtlas2Layout.run(graph, layoutParameters);
 
-        assertFalse(graph.getVoltageLevelNodesStream().anyMatch(vlNode -> !validPosition(vlNode)));
+        assertTrue(graph.getVoltageLevelNodesStream().allMatch(this::validPosition));
     }
 
     private boolean validPosition(VoltageLevelNode vlNode) {
@@ -39,28 +37,19 @@ class ForceAtlas2LayoutTest {
         double x = vlNode.getPosition().getX();
         double y = vlNode.getPosition().getY();
 
-        if (id.equals("VL0")) {
-            return equalPosition(-3666.6, 2450.4, x, y);
-        } else if (id.equals("VL1")) {
-            return equalPosition(-3540.9, 2599.9, x, y);
-        } else if (id.equals("VL2")) {
-            return equalPosition(-2811.5, 2019.1, x, y);
-        } else if (id.equals("VL3")) {
-            return equalPosition(-870.8, 81.8, x, y);
-        } else if (id.equals("VL4")) {
-            return equalPosition(841.0, -129.5, x, y);
-        } else if (id.equals("VL5")) {
-            return equalPosition(1538.4, 680.0, x, y);
-        } else if (id.equals("VL6")) {
-            return equalPosition(1551.8, 501.4, x, y);
-        } else if (id.equals("VL7")) {
-            return equalPosition(1389.2, -2993.5, x, y);
-        } else if (id.equals("VL8")) {
-            return equalPosition(1008.7, -5363.8, x, y);
-        } else if (id.equals("VL9")) {
-            return equalPosition(2984.5, -4696.3, x, y);
-        }
-        return false;
+        return switch (id) {
+            case "VL0" -> equalPosition(-4779.2, 973.6, x, y);
+            case "VL1" -> equalPosition(-4519.7, 1807.8, x, y);
+            case "VL2" -> equalPosition(-2992.6, 859.7, x, y);
+            case "VL3" -> equalPosition(-1616.8, 307.3, x, y);
+            case "VL4" -> equalPosition(3.4, -2.4, x, y);
+            case "VL5" -> equalPosition(1032.4, 1508.9, x, y);
+            case "VL6" -> equalPosition(1532.8, 843.2, x, y);
+            case "VL7" -> equalPosition(2200.5, -2675.0, x, y);
+            case "VL8" -> equalPosition(2891.8, -4164.0, x, y);
+            case "VL9" -> equalPosition(3557.4, -3620.8, x, y);
+            default -> false;
+        };
     }
 
     private boolean equalPosition(double expectedX, double expectedY, double x, double y) {
