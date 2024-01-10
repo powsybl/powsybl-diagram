@@ -57,6 +57,7 @@ public class ForceLayout<V, E> extends AbstractForceLayout<V, E> {
         super(graph);
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
+        this.repulsion = DEFAULT_REPULSION;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
     }
 
