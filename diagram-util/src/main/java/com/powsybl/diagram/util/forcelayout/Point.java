@@ -20,16 +20,28 @@ public class Point {
     private Vector velocity;
     private Vector forces;
     private final double mass;
+    private Vector previousForces;
+    private final int degree;
 
     public Point(double x, double y) {
-        this(x, y, DEFAULT_MASS);
+        this(x, y, DEFAULT_MASS, 0);
+    }
+
+    public Point(double x, double y, int degree) {
+        this(x, y, DEFAULT_MASS, degree);
     }
 
     public Point(double x, double y, double mass) {
+        this(x, y, mass, 0);
+    }
+
+    public Point(double x, double y, double mass, int degree) {
         this.position = new Vector(x, y);
         this.velocity = new Vector(0, 0);
+        this.previousForces = new Vector(0, 0);
         this.forces = new Vector(0, 0);
         this.mass = mass;
+        this.degree = degree;
     }
 
     public void applyForce(Vector force) {
@@ -42,6 +54,10 @@ public class Point {
 
     public Vector getVelocity() {
         return velocity;
+    }
+
+    public Vector getPreviousForces() {
+        return previousForces;
     }
 
     public Vector getForces() {
@@ -64,8 +80,16 @@ public class Point {
         return this.mass;
     }
 
+    public int getDegree() {
+        return this.degree;
+    }
+
     public void resetForces() {
         this.forces = new Vector(0, 0);
+    }
+
+    public void setPreviousForces() {
+        this.previousForces = new Vector(forces.getX(), forces.getY());
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {
