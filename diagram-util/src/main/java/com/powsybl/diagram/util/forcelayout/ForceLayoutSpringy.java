@@ -41,8 +41,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
-public class ForceLayout<V, E> extends AbstractForceLayout<V, E> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
+public class ForceLayoutSpringy<V, E> extends AbstractForceLayout<V, E> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayoutSpringy.class);
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
@@ -53,7 +53,7 @@ public class ForceLayout<V, E> extends AbstractForceLayout<V, E> {
     private double maxSpeed;
     private double springRepulsionFactor;
 
-    public ForceLayout(Graph<V, E> graph) {
+    public ForceLayoutSpringy(Graph<V, E> graph) {
         super(graph);
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
@@ -61,22 +61,22 @@ public class ForceLayout<V, E> extends AbstractForceLayout<V, E> {
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
     }
 
-    public ForceLayout<V, E> setRepulsion(double repulsion) {
+    public ForceLayoutSpringy<V, E> setRepulsion(double repulsion) {
         this.repulsion = repulsion;
         return this;
     }
 
-    public ForceLayout<V, E> setFriction(double friction) {
+    public ForceLayoutSpringy<V, E> setFriction(double friction) {
         this.friction = friction;
         return this;
     }
 
-    public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
+    public ForceLayoutSpringy<V, E> setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
         return this;
     }
 
-    public ForceLayout<V, E> setSpringRepulsionFactor(double springRepulsionFactor) {
+    public ForceLayoutSpringy<V, E> setSpringRepulsionFactor(double springRepulsionFactor) {
         this.springRepulsionFactor = springRepulsionFactor;
         return this;
     }

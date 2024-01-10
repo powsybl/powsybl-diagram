@@ -21,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * @author Luma Zamarreno {@literal <zamarrenolm at aia.es>}
  */
-class ForceLayoutTest extends AbstractTest {
+class ForceLayoutSpringyTest extends AbstractTest {
 
     @BeforeEach
     void setup() {

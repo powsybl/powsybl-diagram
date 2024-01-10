@@ -6,7 +6,7 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.diagram.util.forcelayout.ForceLayout;
+import com.powsybl.diagram.util.forcelayout.ForceLayoutSpringy;
 import com.powsybl.diagram.util.forcelayout.Vector;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -27,7 +27,7 @@ public class BasicForceLayout extends AbstractLayout {
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
+        ForceLayoutSpringy<Node, Edge> forceLayout = new ForceLayoutSpringy<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
         forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
 
@@ -50,7 +50,7 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    private void setInitialPositions(ForceLayout<Node, Edge> forceLayout, Graph graph) {
+    private void setInitialPositions(ForceLayoutSpringy<Node, Edge> forceLayout, Graph graph) {
         Map<Node, com.powsybl.diagram.util.forcelayout.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
