@@ -62,17 +62,31 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         return createNominalVoltageFilter(network, voltageLevelIds, nominalVoltageLowerBound, Double.MAX_VALUE, depth);
     }
 
+    public static VoltageLevelFilter createNominalVoltageLowerBoundFilter(Network network, double nominalVoltageLowerBound) {
+        return createNominalVoltageFilter(network, nominalVoltageLowerBound, Double.MAX_VALUE);
+    }
+
     public static VoltageLevelFilter createNominalVoltageUpperBoundFilter(Network network, List<String> voltageLevelIds, double nominalVoltageUpperBound, int depth) {
         return createNominalVoltageFilter(network, voltageLevelIds, 0, nominalVoltageUpperBound, depth);
+    }
+
+    public static VoltageLevelFilter createNominalVoltageUpperBoundFilter(Network network, double nominalVoltageUpperBound) {
+        return createNominalVoltageFilter(network, 0, nominalVoltageUpperBound);
     }
 
     public static VoltageLevelFilter createNominalVoltageFilter(Network network, List<String> voltageLevelIds,
                                                                 double nominalVoltageLowerBound, double nominalVoltageUpperBound,
                                                                 int depth) {
-        checkVoltageBoundValues(nominalVoltageLowerBound, nominalVoltageUpperBound);
-        Predicate<VoltageLevel> voltageLevelPredicate = voltageLevel -> voltageLevel.getNominalV() >= nominalVoltageLowerBound && voltageLevel.getNominalV() <= nominalVoltageUpperBound;
+        return createVoltageLevelFilterWithPredicate(network, voltageLevelIds, depth, getPredicateFromVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
+    }
 
-        return createVoltageLevelFilterWithPredicate(network, voltageLevelIds, depth, voltageLevelPredicate);
+    public static VoltageLevelFilter createNominalVoltageFilter(Network network, double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
+        return createNominalVoltageFilterWithPredicate(network, getPredicateFromVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
+    }
+
+    private static Predicate<VoltageLevel> getPredicateFromVoltageBounds(double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
+        checkVoltageBoundValues(nominalVoltageLowerBound, nominalVoltageUpperBound);
+        return voltageLevel -> voltageLevel.getNominalV() >= nominalVoltageLowerBound && voltageLevel.getNominalV() <= nominalVoltageUpperBound;
     }
 
     public static VoltageLevelFilter createVoltageLevelFilterWithPredicate(Network network, List<String> voltageLevelIds, int depth, Predicate<VoltageLevel> voltageLevelPredicate) {
@@ -93,6 +107,10 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
         Set<VoltageLevel> voltageLevels = new HashSet<>();
         VoltageLevelFilter.traverseVoltageLevels(startingSet, depth, voltageLevels, voltageLevelPredicate);
         return new VoltageLevelFilter(voltageLevels);
+    }
+
+    public static VoltageLevelFilter createNominalVoltageFilterWithPredicate(Network network, Predicate<VoltageLevel> voltageLevelPredicate) {
+        return new VoltageLevelFilter(network.getVoltageLevelStream().filter(voltageLevelPredicate).collect(Collectors.toSet()));
     }
 
     public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
