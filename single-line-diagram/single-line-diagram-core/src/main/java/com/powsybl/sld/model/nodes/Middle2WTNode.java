@@ -11,7 +11,7 @@ import java.util.Objects;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class Middle2WTNode extends MiddleTwtNode {
 

@@ -55,7 +55,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
  * </li>
  * </ul>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
@@ -73,6 +73,7 @@ public class PositionByClustering extends AbstractPositionFinder {
                 .sorted(Comparator.comparing(BusNode::getId))
                 .collect(Collectors.toList())) {
             busToNb.put(n, i);
+            n.setBusBarIndexSectionIndex(0, 0);
             i++;
         }
         return busToNb;

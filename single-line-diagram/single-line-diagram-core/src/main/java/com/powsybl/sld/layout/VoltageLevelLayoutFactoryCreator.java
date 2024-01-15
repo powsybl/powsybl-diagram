@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.Network;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 @FunctionalInterface
@@ -27,8 +27,16 @@ public interface VoltageLevelLayoutFactoryCreator {
         return i -> new PositionVoltageLevelLayoutFactory(positionFinder);
     }
 
+    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator(PositionFinder positionFinder, PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
+        return i -> new PositionVoltageLevelLayoutFactory(positionFinder, positionVoltageLevelLayoutFactoryParameters);
+    }
+
     static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator() {
         return i -> new PositionVoltageLevelLayoutFactory();
+    }
+
+    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator(PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
+        return i -> new PositionVoltageLevelLayoutFactory(positionVoltageLevelLayoutFactoryParameters);
     }
 
 }

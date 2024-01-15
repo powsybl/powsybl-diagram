@@ -8,6 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
@@ -20,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 class TestCaseShuntArrangement extends AbstractTestCaseRaw {
 
@@ -169,8 +170,7 @@ class TestCaseShuntArrangement extends AbstractTestCaseRaw {
     @Test
     void test1() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new PositionVoltageLevelLayoutFactory()
-                .setExceptionIfPatternNotHandled(true)
+        new PositionVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactoryParameters().setExceptionIfPatternNotHandled(true))
                 .create(g)
                 .run(layoutParameters);
         assertEquals(toString("/TestCaseShuntArrangementNo.json"), toJson(g, "/TestCaseShuntArrangementNo.json"));
@@ -179,9 +179,10 @@ class TestCaseShuntArrangement extends AbstractTestCaseRaw {
     @Test
     void test2() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new PositionVoltageLevelLayoutFactory()
+        PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters = new PositionVoltageLevelLayoutFactoryParameters()
                 .setExceptionIfPatternNotHandled(true)
-                .setHandleShunts(true)
+                .setHandleShunts(true);
+        new PositionVoltageLevelLayoutFactory(positionVoltageLevelLayoutFactoryParameters)
                 .create(g)
                 .run(layoutParameters);
         assertEquals(toString("/TestCaseShuntArrangementYes.json"), toJson(g, "/TestCaseShuntArrangementYes.json"));

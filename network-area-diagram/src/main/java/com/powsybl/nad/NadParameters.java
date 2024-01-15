@@ -20,7 +20,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class NadParameters {
 

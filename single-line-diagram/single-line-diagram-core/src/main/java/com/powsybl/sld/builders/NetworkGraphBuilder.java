@@ -27,8 +27,8 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 public class NetworkGraphBuilder implements GraphBuilder {
 
@@ -222,21 +222,21 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, FeederNode firstOtherLegNode,
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
-        private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, Branch.Side side) {
+        private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
             return createFeederBranchNode(graph, line, side, LINE);
         }
 
-        private FeederNode createFeederTieLineNode(VoltageLevelGraph graph, TieLine tieLine, Branch.Side side) {
+        private FeederNode createFeederTieLineNode(VoltageLevelGraph graph, TieLine tieLine, TwoSides side) {
             return createFeederBranchNode(graph, tieLine, side, TIE_LINE);
         }
 
-        private FeederNode createFeederBranchNode(VoltageLevelGraph graph, Branch<?> branch, Branch.Side side, String componentTypeName) {
+        private FeederNode createFeederBranchNode(VoltageLevelGraph graph, Branch<?> branch, TwoSides side, String componentTypeName) {
             String nodeId = branch.getId() + "_" + side.name();
             String equipmentNameOrId = branch.getNameOrId();
             String equipmentId;
             equipmentId = branch.getId();
             NodeSide s = NodeSide.valueOf(side.name());
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             return NodeFactory.createFeederBranchNode(graph, nodeId, equipmentNameOrId, equipmentId, componentTypeName, s,
                     new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
@@ -262,15 +262,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseGet(() -> NodeFactory.createLccConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
-        private Node createInternal2wtSideNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, Branch.Side side) {
+        private Node createInternal2wtSideNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, TwoSides side) {
             return NodeFactory.createConnectivityNode(graph, branch.getId() + "_" + side.name(), NODE);
         }
 
-        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, Branch.Side side) {
+        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, TwoSides side) {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getNameOrId();
             String equipmentId = branch.getId();
-            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
 
@@ -291,7 +291,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private void addFeeder3wtNode(VoltageLevelGraph graph,
                                       ThreeWindingsTransformer transformer,
-                                      ThreeWindingsTransformer.Side side) {
+                                      ThreeSides side) {
             if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(transformer)) {
                 // in a voltageLevel diagram we represent 3 windings transformers by a double feeder cell:
                 //   - a transformer middle node at double feeder fork
@@ -387,7 +387,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
-            Branch.Side side = tieLine.getSide(dl.getTerminal());
+            TwoSides side = tieLine.getSide(dl.getTerminal());
             Terminal terminal = dl.getTerminal();
             addTerminalNode(createFeederTieLineNode((VoltageLevelGraph) graph, tieLine, side), terminal);
         }
@@ -409,7 +409,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, Branch.Side side) {
+        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
             Node transformerNode = isInternalToVoltageLevel(transformer)
                     ? createInternal2wtSideNode(graph, transformer, side)
                     : createFeeder2wtNode(graph, transformer, side);
@@ -417,7 +417,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        public void visitLine(Line line, Branch.Side side) {
+        public void visitLine(Line line, TwoSides side) {
             addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
@@ -428,7 +428,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer,
-                                                  ThreeWindingsTransformer.Side side) {
+                                                  ThreeSides side) {
             addFeeder3wtNode(graph, transformer, side);
         }
     }
@@ -702,8 +702,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void add2wtEdges(VoltageLevelGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
         for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
-            Node n1 = graph.getNode(transfo.getId() + "_" + Branch.Side.ONE);
-            Node n2 = graph.getNode(transfo.getId() + "_" + Branch.Side.TWO);
+            Node n1 = graph.getNode(transfo.getId() + "_" + TwoSides.ONE);
+            Node n2 = graph.getNode(transfo.getId() + "_" + TwoSides.TWO);
             NodeFactory.createInternal2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
                     n1, n2, transfo.hasPhaseTapChanger());
         }

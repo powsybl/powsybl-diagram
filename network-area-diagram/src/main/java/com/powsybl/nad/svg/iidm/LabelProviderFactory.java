@@ -14,7 +14,7 @@ import com.powsybl.nad.svg.SvgParameters;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 @FunctionalInterface
 public interface LabelProviderFactory {

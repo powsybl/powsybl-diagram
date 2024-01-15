@@ -18,7 +18,7 @@ import java.util.Set;
  * The <code>borderNodes</code> holds the nodes that are at the border of this set, that is for which 1 adjacent node
  * (at least) is in the nodeSet, and for which 1 other adjacent node (at least) is not.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class TopologicallyConnectedNodesSet {
 

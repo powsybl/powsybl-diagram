@@ -22,8 +22,8 @@ import java.util.Optional;
 import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
 

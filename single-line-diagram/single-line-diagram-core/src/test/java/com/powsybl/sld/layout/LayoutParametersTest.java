@@ -14,9 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
- * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Jacques Borsenberger {@literal <jacques.borsenberger at rte-france.com>}
  */
 class LayoutParametersTest {
 

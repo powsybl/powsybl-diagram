@@ -7,8 +7,8 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.TwoSides;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -35,7 +35,7 @@ import static com.powsybl.sld.model.nodes.NodeSide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestSVGWriter extends AbstractTestCaseIidm {
 
@@ -529,7 +529,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         bus11Node.setPxWidth(40);
         FeederNode loadNode = NodeFactory.createLoad(vl11Graph, LOAD_ID, LOAD_ID);
         loadNode.setCoordinates(50, 10);
-        FeederNode twtSide1Node = NodeFactory.createFeeder2WTLegNode(vl11Graph, TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID, TRANSFORMER_ID, ONE);
+        FeederNode twtSide1Node = NodeFactory.createFeeder2WTLegNode(vl11Graph, TRANSFORMER_ID + "_" + TwoSides.ONE, TRANSFORMER_ID, TRANSFORMER_ID, ONE);
         twtSide1Node.setCoordinates(50, 260);
         vl11Graph.addEdge(bus11Node, loadNode);
         vl11Graph.addEdge(bus11Node, twtSide1Node);
@@ -540,9 +540,9 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         BusNode bus12Node = NodeFactory.createBusNode(vl12Graph, BUS_12_ID, BUS_12_ID);
         bus12Node.setCoordinates(30, 110);
         bus12Node.setPxWidth(40);
-        FeederNode twtSide2Node = NodeFactory.createFeeder2WTLegNode(vl12Graph, TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID, TRANSFORMER_ID, TWO);
+        FeederNode twtSide2Node = NodeFactory.createFeeder2WTLegNode(vl12Graph, TRANSFORMER_ID + "_" + TwoSides.TWO, TRANSFORMER_ID, TRANSFORMER_ID, TWO);
         twtSide2Node.setCoordinates(50, 10);
-        FeederNode lineSide1Node = NodeFactory.createFeederLineNode(vl12Graph, LINE_ID + "_" + Side.ONE, LINE_ID, LINE_ID, ONE, vl21Infos);
+        FeederNode lineSide1Node = NodeFactory.createFeederLineNode(vl12Graph, LINE_ID + "_" + TwoSides.ONE, LINE_ID, LINE_ID, ONE, vl21Infos);
         lineSide1Node.setCoordinates(50, 260);
         vl12Graph.addEdge(bus12Node, twtSide2Node);
         vl12Graph.addEdge(bus12Node, lineSide1Node);
@@ -555,7 +555,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         bus21Node.setPxWidth(40);
         FeederNode genNode = NodeFactory.createGenerator(vl21Graph, GENERATOR_ID, GENERATOR_ID);
         genNode.setCoordinates(50, 310);
-        FeederNode lineSide2Node = NodeFactory.createFeederLineNode(vl21Graph, LINE_ID + "_" + Side.TWO, LINE_ID, LINE_ID, TWO, vl12Infos);
+        FeederNode lineSide2Node = NodeFactory.createFeederLineNode(vl21Graph, LINE_ID + "_" + TwoSides.TWO, LINE_ID, LINE_ID, TWO, vl12Infos);
         lineSide2Node.setCoordinates(50, 10);
         vl21Graph.addEdge(bus21Node, genNode);
         vl21Graph.addEdge(bus21Node, lineSide2Node);

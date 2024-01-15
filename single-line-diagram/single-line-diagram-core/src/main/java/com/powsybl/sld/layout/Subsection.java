@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Side.LEFT;
 import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public class Subsection {
@@ -93,7 +93,7 @@ public class Subsection {
         subsections.add(currentSubsection);
         int i = 0;
         for (LegBusSet lbs : lbsCluster.getLbsList()) {
-            lbs.setExtendedNodeSet(lbsCluster.getVerticalBuseNodes(i));
+            lbs.addToExtendedNodeSet(lbsCluster.getVerticalBuseNodes(i));
             if (!currentSubsection.checkAbsorbability(lbs)) {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);

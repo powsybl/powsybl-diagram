@@ -31,7 +31,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class DiagramMetadataTest extends AbstractTest {
 
@@ -75,7 +75,7 @@ class DiagramMetadataTest extends AbstractTest {
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadata.xml");
         writeMetadata(metadata, outPath);
@@ -93,19 +93,22 @@ class DiagramMetadataTest extends AbstractTest {
     @Test
     void testInvalid() throws XMLStreamException {
         // Referenced svg file
-        String reference = "<metadata>\n" +
-                "        <nad:nad xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
-                "            <nad:nodes>\n" +
-                "                <nad:edge diagramId=\"10\" equipmentId=\"TWT\"/>\n" +
-                "            </nad:nodes>\n" +
-                "            <nad:edges>\n" +
-                "                <nad:node diagramId=\"0\" equipmentId=\"S1VL1\"/>\n" +
-                "            </nad:edges>\n" +
-                "        </nad:nad>\n" +
-                "    </metadata>";
+        String reference = """
+                <svg>
+                    <metadata>
+                        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+                            <nad:nodes>
+                                <nad:edge diagramId="10" equipmentId="TWT"/>
+                            </nad:nodes>
+                            <nad:edges>
+                                <nad:node diagramId="0" equipmentId="S1VL1"/>
+                            </nad:edges>
+                        </nad:nad>
+                    </metadata>
+                </svg>""";
         InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadataInvalid.xml");
         writeMetadata(metadata, outPath);
@@ -114,13 +117,14 @@ class DiagramMetadataTest extends AbstractTest {
         // remove xml header (first line)
         actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
         // Keep only metadata from svg file
-        String expected = "<metadata>\n" +
-                "        <nad:nad xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">" +
-                "            <nad:busNodes/>\n" +
-                "            <nad:nodes/>\n" +
-                "            <nad:edges/>\n" +
-                "        </nad:nad>" +
-                "    </metadata>";
+        String expected = """
+                <metadata>
+                    <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+                        <nad:busNodes/>
+                        <nad:nodes/>
+                        <nad:edges/>
+                    </nad:nad>
+                </metadata>""";
         // Checking
         assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
     }

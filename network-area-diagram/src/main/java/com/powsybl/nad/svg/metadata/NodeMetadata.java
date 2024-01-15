@@ -7,12 +7,15 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
+import com.powsybl.commons.xml.XmlUtil;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 /**
- * @author Luma Zamarreño <zamarrenolm at aia.es>
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 public class NodeMetadata extends AbstractMetadataItem {
     private static final String ELEMENT_NAME = "node";
@@ -54,9 +57,16 @@ public class NodeMetadata extends AbstractMetadataItem {
         }
 
         public NodeMetadata read(XMLStreamReader reader) {
-            return new NodeMetadata(readDiagramId(reader), readEquipmentId(reader),
-                    reader.getAttributeValue(null, POSITION_X_ATTRIBUTE),
-                    reader.getAttributeValue(null, POSITION_Y_ATTRIBUTE));
+            try {
+                String diagramId = readDiagramId(reader);
+                String equipmentId = readEquipmentId(reader);
+                String positionX = reader.getAttributeValue(null, POSITION_X_ATTRIBUTE);
+                String positionY = reader.getAttributeValue(null, POSITION_Y_ATTRIBUTE);
+                XmlUtil.readEndElementOrThrow(reader);
+                return new NodeMetadata(diagramId, equipmentId, positionX, positionY);
+            } catch (XMLStreamException e) {
+                throw new UncheckedXmlStreamException(e);
+            }
         }
     }
 }

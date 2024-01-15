@@ -1511,6 +1511,8 @@
     "drawStraightWires" : false,
     "showGrid" : false,
     "showInternalNodes" : false,
-    "displayCurrentFeederInfo" : false
+    "displayCurrentFeederInfo" : false,
+    "displayEquipmentNodesLabel" : false,
+    "displayConnectivityNodesId" : false
   }
 }

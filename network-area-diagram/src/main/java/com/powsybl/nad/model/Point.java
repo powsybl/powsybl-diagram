@@ -9,7 +9,7 @@ package com.powsybl.nad.model;
 import java.util.Objects;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class Point {
 

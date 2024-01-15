@@ -11,12 +11,15 @@ import com.powsybl.sld.model.nodes.FeederType;
 import com.powsybl.sld.model.nodes.NodeSide;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public class FeederTwLeg extends FeederWithSides {
 
+    private final VoltageLevelInfos ownVoltageLevelInfos;
+
     public FeederTwLeg(FeederType feederType, NodeSide side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(feederType, side, myVoltageLevelInfos, otherSideVoltageLevelInfos);
+        this.ownVoltageLevelInfos = myVoltageLevelInfos;
     }
 
     @Override
@@ -27,5 +30,9 @@ public class FeederTwLeg extends FeederWithSides {
             return otherSideVoltageLevelInfos;
         }
         return super.getVoltageLevelInfos();
+    }
+
+    public VoltageLevelInfos getOwnVoltageLevelInfos() {
+        return ownVoltageLevelInfos;
     }
 }

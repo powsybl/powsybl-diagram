@@ -9,7 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.coordinate.Direction;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public final class LayoutContext {
     private final double firstBusY;

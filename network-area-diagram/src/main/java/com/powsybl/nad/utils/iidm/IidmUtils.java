@@ -15,8 +15,8 @@ import java.util.Objects;
 
 /**
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
- * @author Luma Zamarreño <zamarrenolm at aia.es>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 
 public final class IidmUtils {
@@ -47,41 +47,41 @@ public final class IidmUtils {
         }
     }
 
-    public static ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeWindingsTransformer.Side side) {
-        if (side == ThreeWindingsTransformer.Side.ONE) {
+    public static ThreeWindingsTransformer.Leg get3wtLeg(ThreeWindingsTransformer twt, ThreeSides side) {
+        if (side == ThreeSides.ONE) {
             return twt.getLeg1();
-        } else if (side == ThreeWindingsTransformer.Side.TWO) {
+        } else if (side == ThreeSides.TWO) {
             return twt.getLeg2();
         } else {
             return twt.getLeg3();
         }
     }
 
-    public static Branch.Side getOpposite(Branch.Side side) {
-        return side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+    public static TwoSides getOpposite(TwoSides side) {
+        return side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
     }
 
-    public static Branch.Side getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {
-        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? Branch.Side.ONE : Branch.Side.TWO;
+    public static TwoSides getIidmSideFromBranchEdgeSide(BranchEdge.Side side) {
+        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? TwoSides.ONE : TwoSides.TWO;
     }
 
-    public static HvdcLine.Side getIidmHvdcSideFromBranchEdgeSide(BranchEdge.Side side) {
-        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? HvdcLine.Side.ONE : HvdcLine.Side.TWO;
+    public static TwoSides getIidmHvdcSideFromBranchEdgeSide(BranchEdge.Side side) {
+        return Objects.requireNonNull(side) == BranchEdge.Side.ONE ? TwoSides.ONE : TwoSides.TWO;
     }
 
-    public static ThreeWindingsTransformer.Side getIidmSideFromThreeWtEdgeSide(ThreeWtEdge.Side side) {
+    public static ThreeSides getIidmSideFromThreeWtEdgeSide(ThreeWtEdge.Side side) {
         switch (Objects.requireNonNull(side)) {
             case ONE:
-                return ThreeWindingsTransformer.Side.ONE;
+                return ThreeSides.ONE;
             case TWO:
-                return ThreeWindingsTransformer.Side.TWO;
+                return ThreeSides.TWO;
             case THREE:
-                return ThreeWindingsTransformer.Side.THREE;
+                return ThreeSides.THREE;
         }
         return null;
     }
 
-    public static ThreeWtEdge.Side getThreeWtEdgeSideFromIidmSide(ThreeWindingsTransformer.Side side) {
+    public static ThreeWtEdge.Side getThreeWtEdgeSideFromIidmSide(ThreeSides side) {
         switch (Objects.requireNonNull(side)) {
             case ONE:
                 return ThreeWtEdge.Side.ONE;

@@ -20,7 +20,7 @@ import java.util.Optional;
  * </ul>
  * Each of these two labels part is optional
  *
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class BusInfo {
 

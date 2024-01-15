@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * </pre>
  *
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 

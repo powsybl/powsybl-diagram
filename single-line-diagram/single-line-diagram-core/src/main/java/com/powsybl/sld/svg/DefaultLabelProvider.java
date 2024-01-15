@@ -8,7 +8,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.extensions.BranchStatus;
+import com.powsybl.iidm.network.extensions.OperatingStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -27,8 +27,8 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at franck.lecuyer@rte-france.com>}
  */
 public class DefaultLabelProvider extends AbstractLabelProvider {
 
@@ -87,7 +87,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(branch, side);
         }
         return measures;
@@ -97,8 +97,9 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(feeder.getSide().name());
-            feederInfos = buildFeederInfos(transformer, side);
+            ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
+            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
+            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
         }
         return feederInfos;
     }
@@ -107,7 +108,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(transformer, side);
         }
         return measures;
@@ -129,7 +130,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
 
-        // BranchStatus extension is on connectables, so we're looking for them
+        // OperatingStatus extension is on identifiables, so we're looking for them
         if (node instanceof EquipmentNode && !(node instanceof SwitchNode)) {
             if (node instanceof FeederNode) {
                 FeederNode feederNode = (FeederNode) node;
@@ -179,7 +180,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
-        BranchStatus<?> branchStatus = (BranchStatus<?>) c.getExtension(BranchStatus.class);
+        OperatingStatus<?> branchStatus = (OperatingStatus<?>) c.getExtension(OperatingStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
                 case PLANNED_OUTAGE:
@@ -200,15 +201,15 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
-        return this.buildFeederInfos(transformer.getTerminal(side));
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
+        return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
         return this.buildFeederInfos(injection.getTerminal());
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side) {
         return this.buildFeederInfos(branch.getTerminal(side));
     }
 
@@ -219,11 +220,23 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        return buildFeederInfos(terminal, true);
+    }
+
+    private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
+        double terminalP = terminal.getP();
+        double terminalQ = terminal.getQ();
+        double terminalI = terminal.getI();
+        if (!insideVoltageLevel) {
+            terminalP = -terminalP;
+            terminalQ = -terminalQ;
+            terminalI = -terminalI;
+        }
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
         if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), svgParameters.getCurrentUnit(), valueFormatter::formatPower));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatPower));
         }
         return feederInfoList;
     }

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class SvgParameters {
 
@@ -39,13 +39,15 @@ public class SvgParameters {
     private boolean labelDiagonal = false;
     private boolean tooltipEnabled = false;
     private boolean svgWidthAndHeightAdded = false;
-    private SvgParameters.CssLocation cssLocation = SvgParameters.CssLocation.INSERTED_IN_SVG;
+    private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
     private boolean avoidSVGComponentsDuplication = false;
     private String diagramName = null;
     private boolean drawStraightWires = false;
     private boolean showGrid = false;
     private boolean showInternalNodes = false;
     private boolean displayCurrentFeederInfo = false;
+    private boolean displayEquipmentNodesLabel;
+    private boolean displayConnectivityNodesId;
 
     public SvgParameters() {
     }
@@ -84,6 +86,8 @@ public class SvgParameters {
         this.showGrid = other.showGrid;
         this.showInternalNodes = other.showInternalNodes;
         this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
+        this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
+        this.displayConnectivityNodesId = other.displayConnectivityNodesId;
     }
 
     public ValueFormatter createValueFormatter() {
@@ -347,6 +351,24 @@ public class SvgParameters {
 
     public SvgParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
         this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+        return this;
+    }
+
+    public boolean isDisplayEquipmentNodesLabel() {
+        return displayEquipmentNodesLabel;
+    }
+
+    public SvgParameters setDisplayEquipmentNodesLabel(boolean displayEquipmentNodesLabel) {
+        this.displayEquipmentNodesLabel = displayEquipmentNodesLabel;
+        return this;
+    }
+
+    public boolean isDisplayConnectivityNodesId() {
+        return displayConnectivityNodesId;
+    }
+
+    public SvgParameters setDisplayConnectivityNodesId(boolean displayConnectivityNodesId) {
+        this.displayConnectivityNodesId = displayConnectivityNodesId;
         return this;
     }
 }
