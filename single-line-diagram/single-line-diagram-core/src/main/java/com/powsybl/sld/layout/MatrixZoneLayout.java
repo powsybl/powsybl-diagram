@@ -68,14 +68,14 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 String id = matrix[row][col];
                 SubstationGraph graph = getGraph().getSubstationGraph(id);
                 if (graph != null) {
-                    double dx = col * maxWidthCol + (col + 1) * hallway;
-                    double dy = row * maxHeightRow + (row + 1) * hallway;
+                    double dx = col * maxWidthCol + (col + 1.0) * hallway;
+                    double dy = row * maxHeightRow + (row + 1.0) * hallway;
                     move(graph, dx, dy);
                 }
             }
         }
-        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1) * hallway;
-        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1) * hallway;
+        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1.0) * hallway;
+        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1.0) * hallway;
         getGraph().setSize(zoneWidth, zoneHeight);
     }
 
