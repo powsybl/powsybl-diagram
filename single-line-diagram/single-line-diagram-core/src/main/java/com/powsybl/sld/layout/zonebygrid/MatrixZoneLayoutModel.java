@@ -81,9 +81,7 @@ public class MatrixZoneLayoutModel {
         insertFreePathInSubstation(p1, d1, p2, d2);
 
         // Use path finding algo
-        return pathfinder.toSnakeLine(pathfinder.findShortestPath(pathFinderGrid,
-                (int) p1.getX(), (int) p1.getY(),
-                (int) p2.getX(), (int) p2.getY()));
+        return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
     }
 
     private void insertFreePathInSubstation(Point p1, Direction d1,

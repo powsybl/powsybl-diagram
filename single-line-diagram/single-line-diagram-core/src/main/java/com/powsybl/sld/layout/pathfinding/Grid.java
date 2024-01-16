@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.model.coordinate.*;
+
 import java.util.*;
 
 /**
@@ -17,18 +19,14 @@ public class Grid {
     static class Node {
         private final Point point;
         private int cost;
-        private int distance;
+        private double distance;
         private Node parent;
 
-        public Node(Point p, int cost, int distance) {
+        public Node(Point p, int cost, double distance) {
             this.point = p;
             this.cost = cost;
             this.distance = distance;
             this.parent = null;
-        }
-
-        public Node(int x, int y, int cost, int distance) {
-            this(new Point(x, y), cost, distance);
         }
 
         public Point getPoint() {
@@ -39,7 +37,7 @@ public class Grid {
             return cost;
         }
 
-        public int getDistance() {
+        public double getDistance() {
             return distance;
         }
 
@@ -61,12 +59,12 @@ public class Grid {
         this.nodes = new Node[width][height];
         for (int x = 0; x < nodes.length; ++x) {
             for (int y = 0; y < nodes[0].length; ++y) {
-                nodes[x][y] = new Node(x, y, NOT_WALKABLE, 0);
+                nodes[x][y] = new Node(new Point(x, y), NOT_WALKABLE, 0);
             }
         }
     }
 
-    public void updateNode(Point point, int cost, int distance, Node parent) {
+    public void updateNode(Point point, int cost, double distance, Node parent) {
         Node node = getNode(point);
         node.cost = cost;
         node.distance = distance;
@@ -74,22 +72,22 @@ public class Grid {
     }
 
     private Node getNode(Point point) {
-        return getNode(point.x(), point.y());
+        return getNode(point.getX(), point.getY());
     }
 
-    private Node getNode(int x, int y) {
+    private Node getNode(double x, double y) {
         // Make sure we are not out of bounds
-        int nodeX = Math.max(0, Math.min(x, width - 1));
-        int nodeY = Math.max(0, Math.min(y, height - 1));
-        return nodes[nodeX][nodeY];
+        double nodeX = Math.max(0, Math.min(x, width - 1.0));
+        double nodeY = Math.max(0, Math.min(y, height - 1.0));
+        return nodes[(int) nodeX][(int) nodeY];
     }
 
-    public void setAvailability(int x, int y, boolean available) {
+    public void setAvailability(double x, double y, boolean available) {
         getNode(x, y).cost = available ? WALKABLE : NOT_WALKABLE;
     }
 
     public void setAvailability(Point point, boolean available) {
-        setAvailability(point.x(), point.y(), available);
+        setAvailability(point.getX(), point.getY(), available);
     }
 
     public void setAvailability(List<Point> path, boolean available) {
@@ -101,16 +99,16 @@ public class Grid {
     }
 
     public boolean isAvailable(Point point) {
-        return point.x() >= 0 && point.x() < width && point.y() >= 0 && point.y() < height && nodes[point.x()][point.y()].cost != -1;
+        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].cost != -1;
     }
 
     protected List<Node> getNeighbors(Point point) {
         // Considering only adjacent points
         List<Node> neighbors = new ArrayList<>();
-        Node right = getNode(point.x() + 1, point.y());
-        Node left = getNode(point.x() - 1, point.y());
-        Node up = getNode(point.x(), point.y() + 1);
-        Node down = getNode(point.x(), point.y() - 1);
+        Node right = getNode(point.getX() + 1.0, point.getY());
+        Node left = getNode(point.getX() - 1.0, point.getY());
+        Node up = getNode(point.getX(), point.getY() + 1.0);
+        Node down = getNode(point.getX(), point.getY() - 1.0);
         if (isAvailable(right)) {
             neighbors.add(right);
         }
@@ -124,5 +122,19 @@ public class Grid {
             neighbors.add(down);
         }
         return neighbors;
+    }
+
+    public static boolean isRightAngle(Point previous, Point current, Point next) {
+        // Check if the angle is a right angle using dot product
+        double vectorABx = current.getX() - previous.getX();
+        double vectorABy = current.getY() - previous.getY();
+        double vectorBCx = next.getX() - current.getX();
+        double vectorBCy = next.getY() - current.getY();
+
+        // Dot product of vectors AB and BC
+        double dotProduct = vectorABx * vectorBCx + vectorABy * vectorBCy;
+
+        // Check if the dot product is zero (cosine of 90 degrees)
+        return dotProduct == 0.0;
     }
 }

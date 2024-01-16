@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.model.coordinate.*;
+
 import java.util.*;
 
 /**
@@ -14,7 +16,5 @@ import java.util.*;
  */
 public interface PathFinder {
 
-    List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY);
-
-    List<com.powsybl.sld.model.coordinate.Point> toSnakeLine(List<Point> path);
+    List<Point> findShortestPath(Grid grid, Point start, Point goal);
 }

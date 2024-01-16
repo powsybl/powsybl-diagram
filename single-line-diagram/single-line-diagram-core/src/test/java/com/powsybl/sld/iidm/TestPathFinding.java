@@ -40,9 +40,9 @@ class TestPathFinding extends AbstractTestCaseIidm {
             pathFinderGrid.setAvailability(i + 1, i + 1, true);
             expectedSnakeline.add(new Point(i + 1, i + 1));
         }
-        List<Point> snakeline = pathfinder.toSnakeLine(pathfinder.findShortestPath(pathFinderGrid,
-                0, 0,
-                11, 11));
+        List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
+                new Point(0, 0),
+                new Point(11, 11));
         assertEquals(expectedSnakeline.size(), snakeline.size());
         for (int i = 0; i < expectedSnakeline.size(); i++) {
             assertEquals(expectedSnakeline.get(i).toString(), snakeline.get(i).toString());
@@ -55,18 +55,21 @@ class TestPathFinding extends AbstractTestCaseIidm {
         // Make available left & right borders
         for (int y = 0; y < 12; y++) {
             pathFinderGrid.setAvailability(0, y, true);
-            expectedSnakeline.add(new Point(0, y));
             pathFinderGrid.setAvailability(11, y, true);
         }
         // Make available up & down borders
         for (int x = 1; x < 12; x++) {
             pathFinderGrid.setAvailability(x, 0, true);
             pathFinderGrid.setAvailability(x, 11, true);
-            expectedSnakeline.add(new Point(x, 11));
         }
-        List<Point> snakeline = pathfinder.toSnakeLine(pathfinder.findShortestPath(pathFinderGrid,
-                0, 0,
-                11, 11));
+
+        expectedSnakeline.add(new Point(0, 0)); // first point
+        expectedSnakeline.add(new Point(0, 11)); // right angle point
+        expectedSnakeline.add(new Point(11, 11)); // last point
+
+        List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
+                new Point(0, 0),
+                new Point(11, 11));
         assertEquals(expectedSnakeline.size(), snakeline.size());
         for (int i = 0; i < expectedSnakeline.size(); i++) {
             assertEquals(expectedSnakeline.get(i).toString(), snakeline.get(i).toString());

@@ -7,25 +7,24 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.model.coordinate.*;
+
 import java.util.*;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
-public final class DijkstraPathFinder extends AbstractPathFinder {
+public final class DijkstraPathFinder implements PathFinder {
 
     public DijkstraPathFinder() {
         // Nothing to do
     }
 
     @Override
-    public List<Point> findShortestPath(Grid grid, int startX, int startY, int endX, int endY) {
-        Point start = new Point(startX, startY);
-        Point goal = new Point(endX, endY);
-
+    public List<Point> findShortestPath(Grid grid, Point start, Point goal) {
         Set<Point> visited = new HashSet<>();
-        PriorityQueue<Grid.Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getCost() + node.getDistance()));
-        queue.add(new Grid.Node(start.x(), start.y(), 0, start.manhattanDistance(goal)));
+        PriorityQueue<Grid.Node> queue = new PriorityQueue<>(Comparator.comparingDouble(node -> node.getCost() + node.getDistance()));
+        queue.add(new Grid.Node(start, 0, start.distance(goal)));
 
         while (!queue.isEmpty()) {
             Grid.Node current = queue.poll();
@@ -46,14 +45,14 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
                 // Avoid to visit previous visited point
                 if (!visited.contains(neighborPoint)) {
                     int cost = 1;
-                    if (currentParent != null && currentParent.getPoint().isRightAngle(currentPoint, neighborPoint)) {
+                    if (currentParent != null && Grid.isRightAngle(currentParent.getPoint(), currentPoint, neighborPoint)) {
                         // Assuming right angle are useless
                         cost++;
                     }
                     // Update Node parameters
                     grid.updateNode(neighborPoint,
                             current.getCost() + cost,
-                            neighborPoint.manhattanDistance(goal),
+                            neighborPoint.distance(goal),
                             current);
                     // Adding next path node
                     queue.add(neighbor);
@@ -72,6 +71,30 @@ public final class DijkstraPathFinder extends AbstractPathFinder {
             current = current.getParent();
         }
         Collections.reverse(path);
-        return path;
+        return smoothPath(path);
+    }
+
+    // Only keep directions changes points
+    public static List<Point> smoothPath(List<Point> path) {
+        if (path.size() < 3) {
+            return path;
+        }
+
+        List<Point> smoothedPath = new ArrayList<>();
+        smoothedPath.add(path.get(0));
+
+        for (int i = 1; i < path.size() - 1; i++) {
+            Point prev = smoothedPath.get(smoothedPath.size() - 1);
+            Point current = path.get(i);
+            Point next = path.get(i + 1);
+
+            if (Grid.isRightAngle(prev, current, next)) {
+                smoothedPath.add(current);
+            }
+        }
+
+        smoothedPath.add(path.get(path.size() - 1));
+
+        return smoothedPath;
     }
 }
