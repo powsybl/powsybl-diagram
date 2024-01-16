@@ -50,15 +50,15 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 } else if (!id.isEmpty()) {
                     throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
                 }
-                model.addGraph(graph, col, row);
+                model.addSubstationSubgraph(graph, col, row);
             }
         }
         // Height by rows
         int maxHeightRow = model.getMatrixCellHeight();
         // Width by col
         int maxWidthCol = model.getMatrixCellWidth();
-        // Snakeline hallway
-        int hallway = model.getSnakelineHallwayWidth();
+        // Snakeline hallway (horizontal & vertical)
+        int hallway = model.getSnakelineMargin();
         // Zone size
         int nbRows = matrix.length;
         int nbCols = matrix[0].length;
@@ -89,22 +89,19 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
         SubstationGraph ss1Graph = getGraph().getSubstationGraph(node1).orElse(null);
         SubstationGraph ss2Graph = getGraph().getSubstationGraph(node2).orElse(null);
-        if (ss1Graph != null && ss1Graph == ss2Graph) { // in the same Substation
-            polyline = layoutBySubstation.get(ss1Graph).calculatePolylineSnakeLine(layoutParam, nodes, increment);
-        } else if (ss1Graph != null && ss2Graph != null &&
-                   model.contains(ss1Graph.getId()) && model.contains(ss2Graph.getId())) { // in the same Zone
+        if (ss1Graph != null && ss2Graph != null &&
+                model.contains(ss1Graph.getId()) && model.contains(ss2Graph.getId())) { // in the same Zone
             Point p1 = vlGraph1.getShiftedPoint(node1);
             Point p2 = vlGraph2.getShiftedPoint(node2);
             Direction dNode1 = getNodeDirection(node1, 1);
             Direction dNode2 = getNodeDirection(node2, 2);
+            polyline = new ArrayList<>();
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
             polyline.addAll(model.buildSnakeline(pathFinder, p1, dNode1, p2, dNode2));
             // Add ending point
             polyline.add(p2);
-        } else {
-            // Not specified in matrix by user
         }
         return polyline;
     }

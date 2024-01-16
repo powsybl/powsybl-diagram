@@ -99,7 +99,7 @@ public class Grid {
     }
 
     public boolean isAvailable(Point point) {
-        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].cost != -1;
+        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].cost != NOT_WALKABLE;
     }
 
     protected List<Node> getNeighbors(Point point) {

@@ -59,6 +59,7 @@ public final class DijkstraPathFinder implements PathFinder {
                 }
             }
         }
+        // No path found
         return new ArrayList<>();
     }
 
