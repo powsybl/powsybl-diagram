@@ -48,6 +48,7 @@ public class LayoutParameters {
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
     private boolean cgmesUseNames = true;
+    private double zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -77,7 +78,8 @@ public class LayoutParameters {
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
-                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames) {
+                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
+                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -100,6 +102,7 @@ public class LayoutParameters {
         this.cgmesDiagramName = cgmesDiagramName;
         this.cgmesScaleFactor = cgmesScaleFactor;
         this.cgmesUseNames = cgmesUseNames;
+        this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -126,6 +129,7 @@ public class LayoutParameters {
         cgmesScaleFactor = other.cgmesScaleFactor;
         cgmesDiagramName = other.cgmesDiagramName;
         cgmesUseNames = other.cgmesUseNames;
+        zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
     }
 
     public double getVerticalSpaceBus() {
@@ -330,8 +334,17 @@ public class LayoutParameters {
         return this;
     }
 
+    public double getZoneLayoutSnakeLinePadding() {
+        return zoneLayoutSnakeLinePadding;
+    }
+
+    public LayoutParameters setZoneLayoutSnakeLinePadding(double zoneLayoutSnakeLinePadding) {
+        this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        return this;
+    }
+
     public enum Alignment {
-        FIRST, LAST, MIDDLE, NONE;
+        FIRST, LAST, MIDDLE, NONE
     }
 
     public static class Padding {

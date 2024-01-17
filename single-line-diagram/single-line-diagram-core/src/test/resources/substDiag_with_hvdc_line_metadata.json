@@ -296,7 +296,8 @@
     "removeFictitiousSwitchNodes" : false,
     "cgmesScaleFactor" : 1.0,
     "cgmesDiagramName" : null,
-    "cgmesUseNames" : true
+    "cgmesUseNames" : true,
+    "zoneLayoutSnakeLinePadding" : 90.0
   },
   "svgParams" : {
     "prefixId" : "",

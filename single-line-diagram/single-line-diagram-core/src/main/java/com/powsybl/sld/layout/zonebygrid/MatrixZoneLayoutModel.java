@@ -31,13 +31,7 @@ public class MatrixZoneLayoutModel {
 
     private int matrixCellWidth = -1;
 
-    private final int snakelineMargin;
-
     private Grid pathFinderGrid;
-
-    public MatrixZoneLayoutModel(int hallway) {
-        this.snakelineMargin = hallway;
-    }
 
     public void addSubstationSubgraph(SubstationGraph graph, int col, int row) {
         if (graph != null) {
@@ -51,10 +45,6 @@ public class MatrixZoneLayoutModel {
         matrixNbCol = Math.max(matrixNbCol, col + 1);
     }
 
-    public int getSnakelineMargin() {
-        return snakelineMargin;
-    }
-
     public int getMatrixCellWidth() {
         return matrixCellWidth;
     }
@@ -63,30 +53,31 @@ public class MatrixZoneLayoutModel {
         return matrixCellHeight;
     }
 
-    private int getX(int col) {
-        return ((col + 1) * snakelineMargin) + (col * matrixCellWidth);
+    private int getX(int col, double snakelineMargin) {
+        return ((col + 1) * (int) snakelineMargin) + (col * matrixCellWidth);
     }
 
-    private int getY(int row) {
-        return (row + 1) * snakelineMargin + row * matrixCellHeight;
+    private int getY(int row, double snakelineMargin) {
+        return (row + 1) * (int) snakelineMargin + row * matrixCellHeight;
     }
 
     public List<Point> buildSnakeline(PathFinder pathfinder,
                                       Point p1, Direction d1,
-                                      Point p2, Direction d2) {
-        insertFreePathInSubstation(p1, d1);
-        insertFreePathInSubstation(p2, d2);
+                                      Point p2, Direction d2,
+                                      double snakelineMargin) {
+        insertFreePathInSubstation(p1, d1, snakelineMargin);
+        insertFreePathInSubstation(p2, d2, snakelineMargin);
 
         // Use path finding algo
         return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
     }
 
-    private void insertFreePathInSubstation(Point p, Direction d) {
+    private void insertFreePathInSubstation(Point p, Direction d, double snakelineMargin) {
         int dy = 1;
 
         int x1 = (int) p.getX();
         int y1 = (int) p.getY();
-        int ss1Y = y1 + snakelineMargin * (d == Direction.TOP ? -1 : 1);
+        int ss1Y = y1 + (int) snakelineMargin * (d == Direction.TOP ? -1 : 1);
         int min1Y = Math.max(Math.min(y1, ss1Y), 0);
         int max1Y = Math.max(y1, ss1Y) + dy;
         for (int y = min1Y; y < max1Y; y++) {
@@ -134,12 +125,13 @@ public class MatrixZoneLayoutModel {
     }
 
     private void computeMatrixCellsAvailability(LayoutParameters layoutParameters) {
+        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         List<MatrixCell> allCells = new ArrayList<>(cellsById.values().stream().toList());
         // Make empty cells available for snakeline computation
         allCells.addAll(emptyCells);
         allCells.forEach(cell -> {
-            int ssX = getX(cell.col());
-            int ssY = getY(cell.row());
+            int ssX = getX(cell.col(), snakelineMargin);
+            int ssY = getY(cell.row(), snakelineMargin);
             for (int x = ssX - snakelineMargin; x < ssX - snakelineMargin + matrixCellWidth + snakelineMargin; x++) {
                 for (int y = ssY - snakelineMargin; y < ssY - snakelineMargin + matrixCellHeight + snakelineMargin; y += layoutParameters.getHorizontalSnakeLinePadding()) {
                     pathFinderGrid.setAvailability(x, y, true);
@@ -154,6 +146,7 @@ public class MatrixZoneLayoutModel {
     }
 
     private void computeHorizontalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
+        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         for (int r = 0; r < matrixNbRow; r++) {
             for (int x = 0; x < width; x++) {
                 for (int hy = 0; hy < height; hy += snakelineMargin + matrixCellHeight) {
@@ -166,6 +159,7 @@ public class MatrixZoneLayoutModel {
     }
 
     private void computeVerticalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
+        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         for (int c = 0; c < matrixNbCol; c++) {
             for (int y = 0; y < height; y++) {
                 for (int hx = 0; hx < width; hx += snakelineMargin + matrixCellWidth) {

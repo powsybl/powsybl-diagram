@@ -29,8 +29,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
-        // FIXME: add hallway size into LayoutParameters.get
-        this.model = new MatrixZoneLayoutModel(90);
+        this.model = new MatrixZoneLayoutModel();
         this.matrix = matrix;
         this.pathFinder = new PathFinderFactory().createDijkstra();
     }
@@ -58,7 +57,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         // Width by col
         int maxWidthCol = model.getMatrixCellWidth();
         // Snakeline hallway (horizontal & vertical)
-        int hallway = model.getSnakelineMargin();
+        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         // Zone size
         int nbRows = matrix.length;
         int nbCols = matrix[0].length;
@@ -68,19 +67,19 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 String id = matrix[row][col];
                 SubstationGraph graph = getGraph().getSubstationGraph(id);
                 if (graph != null) {
-                    double dx = col * maxWidthCol + (col + 1.0) * hallway;
-                    double dy = row * maxHeightRow + (row + 1.0) * hallway;
+                    double dx = col * maxWidthCol + (col + 1.0) * snakelineMargin;
+                    double dy = row * maxHeightRow + (row + 1.0) * snakelineMargin;
                     move(graph, dx, dy);
                 }
             }
         }
-        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1.0) * hallway;
-        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1.0) * hallway;
+        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1.0) * snakelineMargin;
+        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1.0) * snakelineMargin;
         getGraph().setSize(zoneWidth, zoneHeight);
     }
 
     @Override
-    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Pair<Node, Node> nodes,
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParameters, Pair<Node, Node> nodes,
                                                      boolean increment) {
         List<Point> polyline = new ArrayList<>();
         Node node1 = nodes.getFirst();
@@ -99,7 +98,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(model.buildSnakeline(pathFinder, p1, dNode1, p2, dNode2));
+            polyline.addAll(model.buildSnakeline(pathFinder, p1, dNode1, p2, dNode2, layoutParameters.getZoneLayoutSnakeLinePadding()));
             // Add ending point
             polyline.add(p2);
         }
