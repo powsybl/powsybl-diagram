@@ -13,7 +13,7 @@ import java.util.function.DoubleFunction;
 
 /**
  * Class used to specify a directional element
- * (see FeederInfo & AbstractFeederInfo)
+ * (see FeederInfo and AbstractFeederInfo)
  *
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */

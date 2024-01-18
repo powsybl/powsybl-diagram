@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * Refines the graph so that it becomes consistent with the diagram layout.
- * In particular for cell detection: it inserts the {@link BusConnection} nodes and {@link InternalNode} hook nodes needed for it.
+ * In particular for cell detection: it inserts the bus connection nodes and the hook nodes needed for it.
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
