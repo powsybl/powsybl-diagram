@@ -9,7 +9,7 @@ package com.powsybl.nad;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IntIdProvider;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
+import com.powsybl.nad.layout.BasicForceLayoutSpringyFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
@@ -28,7 +28,7 @@ public class NadParameters {
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
-    private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
+    private LayoutFactory layoutFactory = new BasicForceLayoutSpringyFactory();
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
 
     public SvgParameters getSvgParameters() {

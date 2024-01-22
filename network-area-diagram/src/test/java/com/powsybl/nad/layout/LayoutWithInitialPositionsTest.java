@@ -150,7 +150,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                                             Map<String, Point> fixedNodePositions,
                                             Predicate<VoltageLevel> voltageLevelFilter
     ) {
-        LayoutFactory delegateLayoutFactory = new BasicForceLayoutFactory();
+        LayoutFactory delegateLayoutFactory = new BasicForceLayoutSpringyFactory();
         PositionsLayoutFactory positionsLayoutFactory = new PositionsLayoutFactory(
                 delegateLayoutFactory,
                 initialNodePositions,

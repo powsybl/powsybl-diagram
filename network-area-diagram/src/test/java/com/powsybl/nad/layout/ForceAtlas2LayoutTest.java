@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ Copyright (c) 2024, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.layout;
 
@@ -13,15 +14,16 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Luma Zamarreno {@literal <zamarrenolm at aia.es>}
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
+ * @author José Antonio Marqués {@literal <marquesja at aia.es>}
  */
-class ForceLayoutTest extends AbstractTest {
+class ForceAtlas2LayoutTest extends AbstractTest {
 
     @BeforeEach
     void setup() {
@@ -42,17 +44,9 @@ class ForceLayoutTest extends AbstractTest {
     }
 
     @Test
-    void testDiamondNoSpringRepulsionFactor() {
+    void testDiamond() {
         assertEquals(
-                toString("/diamond-spring-repulsion-factor-0.0.svg"),
-                generateSvgString(LayoutNetworkFactory.createDiamond(), "/diamond-spring-repulsion-factor-0.0.svg"));
-    }
-
-    @Test
-    void testDiamondSmallSpringRepulsionFactor() {
-        getLayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
-        assertEquals(
-                toString("/diamond-spring-repulsion-factor-0.2.svg"),
-                generateSvgString(LayoutNetworkFactory.createDiamond(), "/diamond-spring-repulsion-factor-0.2.svg"));
+                toString("/diamond-atlas2.svg"),
+                generateSvgString(new BasicForceAtlas2LayoutFactory(), LayoutNetworkFactory.createDiamond(), "/diamond-atlas2.svg"));
     }
 }

@@ -11,7 +11,8 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayout;
+import com.powsybl.nad.layout.BasicForceLayoutSpringyFactory;
+import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.LabelProvider;
@@ -34,6 +35,7 @@ public abstract class AbstractTest {
 
     protected boolean debugSvg = false;
     protected boolean overrideTestReferences = false;
+    protected LayoutFactory defaultLayoutFactory = new BasicForceLayoutSpringyFactory();
 
     private SvgParameters svgParameters;
 
@@ -44,12 +46,20 @@ public abstract class AbstractTest {
     protected abstract LabelProvider getLabelProvider(Network network);
 
     protected String generateSvgString(Network network, String refFilename) {
-        return generateSvgString(network, VoltageLevelFilter.NO_FILTER, refFilename);
+        return generateSvgString(defaultLayoutFactory, network, VoltageLevelFilter.NO_FILTER, refFilename);
+    }
+
+    protected String generateSvgString(LayoutFactory layoutFactory, Network network, String refFilename) {
+        return generateSvgString(layoutFactory, network, VoltageLevelFilter.NO_FILTER, refFilename);
     }
 
     protected String generateSvgString(Network network, Predicate<VoltageLevel> voltageLevelFilter, String refFilename) {
+        return generateSvgString(defaultLayoutFactory, network, voltageLevelFilter, refFilename);
+    }
+
+    protected String generateSvgString(LayoutFactory layoutFactory, Network network, Predicate<VoltageLevel> voltageLevelFilter, String refFilename) {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
-        new BasicForceLayout().run(graph, getLayoutParameters());
+        layoutFactory.create().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
         String svgString = writer.toString();
