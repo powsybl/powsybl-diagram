@@ -58,7 +58,7 @@ public class ForceLayout<V, E> {
 
     private static final int DEFAULT_MAX_STEPS = 1000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
-    private static final double DEFAULT_DELTA_TIME = 1;
+    private static final double DEFAULT_DELTA_TIME = 0.1;
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
