@@ -56,7 +56,7 @@ public class ForceLayout<V, E> {
     /** Deterministic randomness */
     private final Random random = new Random(3L);
 
-    private static final int DEFAULT_MAX_STEPS = 1000;
+    private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
     private static final double DEFAULT_REPULSION = 800.0;
