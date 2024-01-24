@@ -107,23 +107,6 @@
       ],
       "styleClass": "sld-load-break-switch"
     }, {
-      "type" : "GROUND_DISCONNECTOR",
-      "anchorPoints" : [ {
-        "x" : 0.0,
-        "y" : -11.0,
-        "orientation" : "VERTICAL"
-      } ],
-      "size" : {
-        "width" : 20.0,
-        "height" : 24.0
-      },
-      "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-      "subComponents" : [ {
-        "name" : "GROUND_DISCONNECTOR",
-        "fileName" : "ground-disconnector.svg"
-      } ],
-      "styleClass" : "sld-ground-disconnector"
-    }, {
       "type": "LOAD",
       "anchorPoints": [
         {
@@ -449,6 +432,23 @@
           "styleClass": "sld-lcc"
         }
       ]
+    }, {
+      "type" : "GROUND",
+      "anchorPoints" : [ {
+        "x" : 0.0,
+        "y" : -11.0,
+        "orientation" : "VERTICAL"
+      } ],
+      "size" : {
+        "width" : 20.0,
+        "height" : 24.0
+      },
+      "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+      "subComponents" : [ {
+        "name" : "GROUND",
+        "fileName" : "ground.svg"
+      } ],
+      "styleClass" : "sld-ground"
     },
     {
       "type": "BUSBAR_SECTION",
