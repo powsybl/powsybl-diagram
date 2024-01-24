@@ -146,14 +146,12 @@ public class ForceLayout<V, E> {
     }
 
     private void initializePoints() {
+        int nbUnknownPositions = graph.vertexSet().size() - initialPoints.size();
+
+        // instead of generating initial points in the [0,1] interval apply a scale depending on the number of unknown positions
+        double scale = Math.sqrt(nbUnknownPositions) * 5;
         for (V vertex : graph.vertexSet()) {
-            Point p;
-            if (initialPoints.containsKey(vertex)) {
-                p = initialPoints.get(vertex);
-            } else {
-                p = new Point(random.nextDouble(), random.nextDouble());
-            }
-            points.put(vertex, p);
+            points.put(vertex, initialPoints.getOrDefault(vertex, new Point(scale * random.nextDouble(), scale * random.nextDouble())));
         }
     }
 
