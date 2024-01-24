@@ -25,13 +25,10 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
     private final MatrixZoneLayoutModel model;
     private final String[][] matrix;
 
-    private final PathFinder pathFinder;
-
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
         this.model = new MatrixZoneLayoutModel();
         this.matrix = matrix;
-        this.pathFinder = new PathFinderFactory().createDijkstra();
     }
 
     /**

@@ -49,6 +49,7 @@ public class LayoutParameters {
     private String cgmesDiagramName = null;
     private boolean cgmesUseNames = true;
     private double zoneLayoutSnakeLinePadding = 90;
+    private PathFinderType zoneLayoutPathFinder = PathFinderType.DIJKSTRA;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -79,7 +80,8 @@ public class LayoutParameters {
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
                             @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
-                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
+                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
+                            @JsonProperty("zoneLayoutPathFinder") PathFinderType zoneLayoutPathFinder) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -103,6 +105,7 @@ public class LayoutParameters {
         this.cgmesScaleFactor = cgmesScaleFactor;
         this.cgmesUseNames = cgmesUseNames;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -130,6 +133,7 @@ public class LayoutParameters {
         cgmesDiagramName = other.cgmesDiagramName;
         cgmesUseNames = other.cgmesUseNames;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
+        zoneLayoutPathFinder = other.zoneLayoutPathFinder;
     }
 
     public double getVerticalSpaceBus() {
@@ -341,6 +345,19 @@ public class LayoutParameters {
     public LayoutParameters setZoneLayoutSnakeLinePadding(double zoneLayoutSnakeLinePadding) {
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
         return this;
+    }
+
+    public PathFinderType getZoneLayoutPathFinder() {
+        return zoneLayoutPathFinder;
+    }
+
+    public LayoutParameters setZoneLayoutPathFinder(PathFinderType zoneLayoutPathFinder) {
+        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
+        return this;
+    }
+
+    public enum PathFinderType {
+        DIJKSTRA
     }
 
     public enum Alignment {
