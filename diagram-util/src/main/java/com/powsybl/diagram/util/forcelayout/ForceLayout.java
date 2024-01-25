@@ -56,9 +56,9 @@ public class ForceLayout<V, E> {
     /** Deterministic randomness */
     private final Random random = new Random(3L);
 
-    private static final int DEFAULT_MAX_STEPS = 1000;
+    private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
-    private static final double DEFAULT_DELTA_TIME = 1;
+    private static final double DEFAULT_DELTA_TIME = 0.1;
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
@@ -146,14 +146,12 @@ public class ForceLayout<V, E> {
     }
 
     private void initializePoints() {
+        int nbUnknownPositions = graph.vertexSet().size() - initialPoints.size();
+
+        // instead of generating initial points in the [0,1] interval apply a scale depending on the number of unknown positions
+        double scale = Math.sqrt(nbUnknownPositions) * 5;
         for (V vertex : graph.vertexSet()) {
-            Point p;
-            if (initialPoints.containsKey(vertex)) {
-                p = initialPoints.get(vertex);
-            } else {
-                p = new Point(random.nextDouble(), random.nextDouble());
-            }
-            points.put(vertex, p);
+            points.put(vertex, initialPoints.getOrDefault(vertex, new Point(scale * random.nextDouble(), scale * random.nextDouble())));
         }
     }
 
