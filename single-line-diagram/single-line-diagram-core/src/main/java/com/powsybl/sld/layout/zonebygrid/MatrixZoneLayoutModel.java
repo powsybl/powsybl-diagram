@@ -80,7 +80,7 @@ public class MatrixZoneLayoutModel {
         pathFinderGrid = new Grid(width, height);
 
         // Horizontal hallways lines
-        computeHorizontalHallwaysAvailability(width, height, layoutParameters);
+        computeHorizontalHallwaysAvailability(width, layoutParameters);
 
         // Vertical hallways lines
         computeVerticalHallwaysAvailability(width, height, layoutParameters);
@@ -135,7 +135,7 @@ public class MatrixZoneLayoutModel {
         });
     }
 
-    private void computeHorizontalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
+    private void computeHorizontalHallwaysAvailability(int width, LayoutParameters layoutParameters) {
         int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         int nextY = 0;
         for (int r = 0; r < matrix.rowCount(); r++) {

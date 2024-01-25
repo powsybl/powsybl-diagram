@@ -176,7 +176,11 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         // Run matrix zone layout
         String[][] substationsIds = {{"B", "A"}};
 
-        PowsyblException e = assertThrows(PowsyblException.class, () -> new MatrixZoneLayoutFactory().create(g, substationsIds, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()));
+        HorizontalSubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
+        PositionVoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
+        MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();
+
+        PowsyblException e = assertThrows(PowsyblException.class, () -> mFactory.create(g, substationsIds, sFactory, vFactory));
         assertEquals("Substation 'A' was not found in zone graph 'B_C'", e.getMessage());
     }
 }
