@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  *
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 public class PositionVoltageLevelLayoutFactoryParameters {
