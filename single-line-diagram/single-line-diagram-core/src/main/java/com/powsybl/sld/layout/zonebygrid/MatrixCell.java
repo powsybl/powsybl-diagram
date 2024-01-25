@@ -12,5 +12,12 @@ import com.powsybl.sld.model.graphs.*;
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
-public record MatrixCell(BaseGraph graph, int col, int row) {
+public record MatrixCell(BaseGraph graph, int row, int col) {
+    public boolean isEmpty() {
+        return graph() == null;
+    }
+
+    public String getId() {
+        return graph == null ? "" : graph.getId();
+    }
 }

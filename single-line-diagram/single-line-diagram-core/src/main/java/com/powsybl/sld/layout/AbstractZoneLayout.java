@@ -7,9 +7,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.layout.pathfinding.*;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
@@ -20,7 +19,8 @@ import java.util.*;
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
-    protected Map<SubstationGraph, AbstractLayout<SubstationGraph>> layoutBySubstation;
+    protected Map<BaseGraph, AbstractLayout<SubstationGraph>> layoutBySubstation;
+    protected PathFinder pathFinder;
 
     protected AbstractZoneLayout(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph);
@@ -35,6 +35,8 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
 
     @Override
     public void run(LayoutParameters layoutParameters) {
+        pathFinder = new PathFinderFactory().create(layoutParameters.getZoneLayoutPathFinder());
+
         // Calculate all the coordinates for the substation graphs in the zone graph
         calculateCoordSubstations(layoutParameters);
 
@@ -44,7 +46,7 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
 
     protected abstract void calculateCoordSubstations(LayoutParameters layoutParameters);
 
-    protected void move(SubstationGraph subGraph, double dx, double dy) {
+    protected void move(BaseGraph subGraph, double dx, double dy) {
         for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
             vlGraph.setCoord(vlGraph.getX() + dx, vlGraph.getY() + dy);
             vlGraph.getLineEdges().forEach(s -> s.shiftSnakeLine(dx, dy));

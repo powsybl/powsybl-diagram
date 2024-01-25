@@ -8,7 +8,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.*;
-import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
@@ -23,12 +22,20 @@ import java.util.*;
  */
 public class MatrixZoneLayout extends AbstractZoneLayout {
     private final MatrixZoneLayoutModel model;
-    private final String[][] matrix;
 
     protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
-        this.model = new MatrixZoneLayoutModel();
-        this.matrix = matrix;
+        this.model = new MatrixZoneLayoutModel(Objects.requireNonNull(matrix));
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                String id = matrix[row][col];
+                SubstationGraph sGraph = graph.getSubstationGraph(id);
+                if (sGraph == null && !id.isEmpty()) {
+                    throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
+                }
+                model.addSubstationGraph(sGraph, row, col);
+            }
+        }
     }
 
     /**
@@ -36,42 +43,36 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
      */
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                String id = matrix[row][col];
-                SubstationGraph graph = getGraph().getSubstationGraph(id);
-                if (graph != null) {
-                    // Display substations
-                    layoutBySubstation.get(graph).run(layoutParameters);
-                } else if (!id.isEmpty()) {
-                    throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
-                }
-                model.addSubstationSubgraph(graph, col, row);
-            }
-        }
+        Matrix matrix = model.getMatrix();
+        // Display substations on not empty Matrix cell
+        matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
         // Height by rows
-        int maxHeightRow = model.getMatrixCellHeight();
+        int maxHeightRow = 0;
         // Width by col
-        int maxWidthCol = model.getMatrixCellWidth();
+        int maxWidthCol = 0;
         // Snakeline hallway (horizontal & vertical)
         int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         // Zone size
-        int nbRows = matrix.length;
-        int nbCols = matrix[0].length;
+        int nbRows = matrix.rowCount();
+        int nbCols = matrix.columnCount();
         // Move each substation into its matrix position
         for (int row = 0; row < nbRows; row++) {
+            maxWidthCol = 0;
             for (int col = 0; col < nbCols; col++) {
-                String id = matrix[row][col];
-                SubstationGraph graph = getGraph().getSubstationGraph(id);
+                MatrixCell cell = matrix.get(row, col);
+                BaseGraph graph = cell.graph();
                 if (graph != null) {
-                    double dx = col * maxWidthCol + (col + 1.0) * snakelineMargin;
-                    double dy = row * maxHeightRow + (row + 1.0) * snakelineMargin;
+                    double dx = maxWidthCol + (col + 1.0) * snakelineMargin;
+                    double dy = maxHeightRow + (row + 1.0) * snakelineMargin;
                     move(graph, dx, dy);
                 }
+                maxWidthCol += matrix.getMatrixCellWidth(col);
             }
+            double tmp = matrix.getMatrixCellHeight(row);
+            maxHeightRow += tmp;
         }
-        double zoneWidth = nbCols * maxWidthCol + (nbCols + 1.0) * snakelineMargin;
-        double zoneHeight = nbRows * maxHeightRow + (nbRows + 1.0) * snakelineMargin;
+        double zoneWidth = maxWidthCol + (nbCols + 1.0) * snakelineMargin;
+        double zoneHeight = maxHeightRow + (nbRows + 1.0) * snakelineMargin;
         getGraph().setSize(zoneWidth, zoneHeight);
     }
 
