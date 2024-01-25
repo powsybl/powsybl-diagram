@@ -97,7 +97,7 @@ public abstract class AbstractLayout implements Layout {
     }
 
     private void computeSize(Graph graph) {
-        double[] dims = new double[4];
+        double[] dims = new double[] {Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE};
         Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
             dims[1] = Math.max(dims[1], node.getX());
