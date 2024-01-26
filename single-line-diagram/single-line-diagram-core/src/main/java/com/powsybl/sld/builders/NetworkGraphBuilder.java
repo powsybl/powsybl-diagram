@@ -431,6 +431,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                                   ThreeSides side) {
             addFeeder3wtNode(graph, transformer, side);
         }
+
+        @Override
+        public void visitGround(Ground ground) {
+            addTerminalNode(NodeFactory.createGround(graph, ground.getId(), ground.getNameOrId()), ground.getTerminal());
+        }
     }
 
     public static class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
