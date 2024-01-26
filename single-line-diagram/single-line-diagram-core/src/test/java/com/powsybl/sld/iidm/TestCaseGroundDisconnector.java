@@ -29,11 +29,11 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
     @Test
     void testGroundDisconnectorOnLineNodeBreaker() {
         // Create network
-        Network network = Networks.createNetworkGroundDisconnectorOnLineNodeBreaker();
+        network = Networks.createNetworkGroundDisconnectorOnLineNodeBreaker();
 
         // Build graph
         graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -45,11 +45,11 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
     @Test
     void testGroundDisconnectorOnBusBarNodeBreaker() {
         // Create network
-        Network network = Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker();
+        network = Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker();
 
         // build graph
         graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -61,11 +61,11 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
     @Test
     void testGroundDisconnectorOnLineBusBreaker() {
         // Create network
-        Network network = Networks.createNetworkGroundDisconnectorOnLineBusBreaker();
+        network = Networks.createNetworkGroundDisconnectorOnLineBusBreaker();
 
         // build graph
         graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -77,11 +77,11 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
     @Test
     void testGroundDisconnectorOnBusBarBusBreaker() {
         // Create network
-        Network network = Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker();
+        network = Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker();
 
         // build graph
         graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
 
         // Run layout
         voltageLevelGraphLayout(g);
