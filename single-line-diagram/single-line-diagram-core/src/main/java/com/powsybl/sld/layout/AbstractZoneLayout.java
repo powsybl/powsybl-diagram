@@ -35,8 +35,6 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
 
     @Override
     public void run(LayoutParameters layoutParameters) {
-        pathFinder = new PathFinderFactory().create(layoutParameters.getZoneLayoutPathFinder());
-
         // Calculate all the coordinates for the substation graphs in the zone graph
         calculateCoordSubstations(layoutParameters);
 

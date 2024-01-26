@@ -120,7 +120,7 @@ public abstract class AbstractTestCase {
     public String toSVG(Graph graph, String filename, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);

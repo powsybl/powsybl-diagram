@@ -7,23 +7,13 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
-import com.powsybl.sld.layout.*;
-
-import java.util.*;
-
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
-public class PathFinderFactory {
+public class DijkstraZoneLayoutPathFinderFactory implements ZoneLayoutPathFinderFactory {
 
-    public PathFinder create(LayoutParameters.PathFinderType type) {
-        if (Objects.requireNonNull(type) == LayoutParameters.PathFinderType.DIJKSTRA) {
-            return createDijkstra();
-        }
-        throw new UnsupportedOperationException("Unknown path finder type '" + type + "'");
-    }
-
-    private PathFinder createDijkstra() {
+    @Override
+    public PathFinder create() {
         return new DijkstraPathFinder();
     }
 }

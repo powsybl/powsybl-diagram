@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.graphs.*;
 
 import java.util.*;
@@ -23,6 +24,6 @@ public class VerticalZoneLayoutFactory implements ZoneLayoutFactory {
         for (int row = 0; row < substations.size(); row++) {
             matrix[row][0] = substations.get(row);
         }
-        return new MatrixZoneLayout(graph, matrix, sLayoutFactory, vLayoutFactory);
+        return new MatrixZoneLayout(graph, matrix, new DijkstraZoneLayoutPathFinderFactory(), sLayoutFactory, vLayoutFactory);
     }
 }

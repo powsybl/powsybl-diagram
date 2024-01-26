@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.graphs.*;
 
 import java.util.*;
@@ -16,8 +17,8 @@ import java.util.*;
  */
 public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
 
-    public Layout create(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new MatrixZoneLayout(graph, matrix, sLayoutFactory, vLayoutFactory);
+    public Layout create(ZoneGraph graph, String[][] matrix, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+        return new MatrixZoneLayout(graph, matrix, pathFinderFactory, sLayoutFactory, vLayoutFactory);
     }
 
     @Override
@@ -27,6 +28,6 @@ public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
         String[] array = new String[substations.size()];
         String[][] matrix = new String[1][];
         matrix[0] = substations.toArray(array);
-        return new MatrixZoneLayout(graph, matrix, sLayoutFactory, vLayoutFactory);
+        return new MatrixZoneLayout(graph, matrix, new DijkstraZoneLayoutPathFinderFactory(), sLayoutFactory, vLayoutFactory);
     }
 }

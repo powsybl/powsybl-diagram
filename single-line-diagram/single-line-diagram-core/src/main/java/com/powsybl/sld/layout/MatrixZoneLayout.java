@@ -8,6 +8,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.*;
+import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.layout.zonebygrid.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
@@ -23,8 +24,9 @@ import java.util.*;
 public class MatrixZoneLayout extends AbstractZoneLayout {
     private final MatrixZoneLayoutModel model;
 
-    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
+        this.pathFinder = pathFinderFactory.create();
         this.model = new MatrixZoneLayoutModel(Objects.requireNonNull(matrix));
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
@@ -68,8 +70,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 }
                 maxWidthCol += matrix.getMatrixCellWidth(col);
             }
-            double tmp = matrix.getMatrixCellHeight(row);
-            maxHeightRow += tmp;
+            maxHeightRow += matrix.getMatrixCellHeight(row);
         }
         double zoneWidth = maxWidthCol + (nbCols + 1.0) * snakelineMargin;
         double zoneHeight = maxHeightRow + (nbRows + 1.0) * snakelineMargin;
