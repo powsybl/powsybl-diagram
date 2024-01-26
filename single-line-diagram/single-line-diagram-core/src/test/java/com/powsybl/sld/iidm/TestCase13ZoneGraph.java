@@ -128,7 +128,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         String[][] substationsIds = {{"A", "B", "C"},
                                      {"D", "", "E"}};
         //String[][] substationsIds = {{"B", "C"}};
-        new MatrixZoneLayoutFactory().create(g, substationsIds, new DijkstraZoneLayoutPathFinderFactory(), new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix2x3.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix2x3.svg"));
     }
@@ -160,7 +160,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
         // Run matrix zone layout
         String[][] substationsIds = {{"B", "C"}};
-        new MatrixZoneLayoutFactory().create(g, substationsIds, new DijkstraZoneLayoutPathFinderFactory(), new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix1x2.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix1x2.svg"));
     }
@@ -177,7 +177,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         // Run matrix zone layout
         String[][] substationsIds = {{"B", "A"}};
 
-        ZoneLayoutPathFinderFactory pFinderFactory = new DijkstraZoneLayoutPathFinderFactory();
+        ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
         SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
         VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
         MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();

@@ -24,6 +24,6 @@ public class VerticalZoneLayoutFactory implements ZoneLayoutFactory {
         for (int row = 0; row < substations.size(); row++) {
             matrix[row][0] = substations.get(row);
         }
-        return new MatrixZoneLayout(graph, matrix, new DijkstraZoneLayoutPathFinderFactory(), sLayoutFactory, vLayoutFactory);
+        return new MatrixZoneLayout(graph, matrix, DijkstraPathFinder::new, sLayoutFactory, vLayoutFactory);
     }
 }

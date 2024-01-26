@@ -28,6 +28,6 @@ public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
         String[] array = new String[substations.size()];
         String[][] matrix = new String[1][];
         matrix[0] = substations.toArray(array);
-        return new MatrixZoneLayout(graph, matrix, new DijkstraZoneLayoutPathFinderFactory(), sLayoutFactory, vLayoutFactory);
+        return new MatrixZoneLayout(graph, matrix, DijkstraPathFinder::new, sLayoutFactory, vLayoutFactory);
     }
 }

@@ -16,10 +16,6 @@ import java.util.*;
  */
 public final class DijkstraPathFinder implements PathFinder {
 
-    public DijkstraPathFinder() {
-        // Nothing to do
-    }
-
     @Override
     public List<Point> findShortestPath(Grid grid, Point start, Point goal) {
         Set<Point> visited = new HashSet<>();
