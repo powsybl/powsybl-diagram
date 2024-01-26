@@ -109,6 +109,10 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.DANGLING_LINE);
     }
 
+    public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.GROUND);
+    }
+
     public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         return createFeederNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, feeder);
