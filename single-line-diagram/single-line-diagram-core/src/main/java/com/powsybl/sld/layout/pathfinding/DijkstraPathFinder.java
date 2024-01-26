@@ -20,7 +20,7 @@ public final class DijkstraPathFinder implements PathFinder {
     public List<Point> findShortestPath(Grid grid, Point start, Point goal) {
         Set<Point> visited = new HashSet<>();
         PriorityQueue<Grid.Node> queue = new PriorityQueue<>(Comparator.comparingDouble(node -> node.getCost() + node.getDistance()));
-        queue.add(new Grid.Node(start, 0, start.distance(goal)));
+        queue.add(new Grid.Node(start, true, start.distance(goal)));
 
         while (!queue.isEmpty()) {
             Grid.Node current = queue.poll();

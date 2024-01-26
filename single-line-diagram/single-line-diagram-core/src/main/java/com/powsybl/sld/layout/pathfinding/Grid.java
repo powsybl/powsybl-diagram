@@ -18,13 +18,14 @@ public class Grid {
 
     static class Node {
         private final Point point;
+        private boolean available;
         private int cost;
         private double distance;
         private Node parent;
 
-        public Node(Point p, int cost, double distance) {
+        public Node(Point p, boolean available, double distance) {
             this.point = p;
-            this.cost = cost;
+            this.available = available;
             this.distance = distance;
             this.parent = null;
         }
@@ -46,9 +47,6 @@ public class Grid {
         }
     }
 
-    private static final int NOT_WALKABLE = -1;
-    private static final int WALKABLE = 0;
-
     private final Node[][] nodes;
     private final int width;
     private final int height;
@@ -59,7 +57,7 @@ public class Grid {
         this.nodes = new Node[width][height];
         for (int x = 0; x < nodes.length; ++x) {
             for (int y = 0; y < nodes[0].length; ++y) {
-                nodes[x][y] = new Node(new Point(x, y), NOT_WALKABLE, 0);
+                nodes[x][y] = new Node(new Point(x, y), false, 0);
             }
         }
     }
@@ -83,7 +81,7 @@ public class Grid {
     }
 
     public void setAvailability(double x, double y, boolean available) {
-        getNode(x, y).cost = available ? WALKABLE : NOT_WALKABLE;
+        getNode(x, y).available = available;
     }
 
     public void setAvailability(Point point, boolean available) {
@@ -99,7 +97,7 @@ public class Grid {
     }
 
     public boolean isAvailable(Point point) {
-        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].cost != NOT_WALKABLE;
+        return point.getX() >= 0 && point.getX() < width && point.getY() >= 0 && point.getY() < height && nodes[(int) point.getX()][(int) point.getY()].available;
     }
 
     protected List<Node> getNeighbors(Point point) {
