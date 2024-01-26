@@ -2179,7 +2179,7 @@ public final class Networks {
 
     public static Network createNetworkGroundDisconnectorOnLineBusBreaker() {
         Network network = Network.create("testCaseGroundDisconnectorOnLineBB", "test");
-        Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        Substation substation = Networks.createSubstation(network, "s1", "s1", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
         Substation substation2 = Networks.createSubstation(network, "s2", "s2", Country.FR);
         Networks.createVoltageLevel(substation2, "vl2", "vl2", TopologyKind.BUS_BREAKER, 380);
@@ -2193,12 +2193,6 @@ public final class Networks {
                 .setId("b1g")
                 .add();
         Networks.createLine(b1, b2);
-        vl.getBusBreakerView().newSwitch()
-                .setId("gd")
-                .setBus1("b1")
-                .setBus2("b1g")
-                .setOpen(true)
-                .add();
         Networks.createGround(b1g);
         return network;
     }
@@ -2212,12 +2206,6 @@ public final class Networks {
                 .add();
         Bus b1g = network.getVoltageLevel("vl").getBusBreakerView().newBus()
                 .setId("b1g")
-                .add();
-        vl.getBusBreakerView().newSwitch()
-                .setId("gd")
-                .setBus1("b1")
-                .setBus2("b1g")
-                .setOpen(true)
                 .add();
         Networks.createGround(b1g);
         return network;
