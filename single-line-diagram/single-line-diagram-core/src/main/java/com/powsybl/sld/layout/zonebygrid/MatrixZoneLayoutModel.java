@@ -83,7 +83,7 @@ public class MatrixZoneLayoutModel {
         computeHorizontalHallwaysAvailability(width, layoutParameters);
 
         // Vertical hallways lines
-        computeVerticalHallwaysAvailability(width, height, layoutParameters);
+        computeVerticalHallwaysAvailability(height, layoutParameters);
 
         // Make available all matrix cells
         computeMatrixCellsAvailability(layoutParameters);
@@ -122,13 +122,14 @@ public class MatrixZoneLayoutModel {
             int ssX = getX(cell.col(), snakelineMargin);
             int ssY = getY(cell.row(), snakelineMargin);
 
-            for (int x = ssX - snakelineMargin; x < ssX + matrixCellWidth + snakelineMargin; x++) {
-                for (int y = ssY - snakelineMargin; y < ssY + matrixCellHeight + snakelineMargin; y += layoutParameters.getHorizontalSnakeLinePadding()) {
+            for (int x = ssX; x < ssX + matrixCellWidth; x++) {
+                for (int y = ssY; y < ssY + matrixCellHeight; y += layoutParameters.getHorizontalSnakeLinePadding()) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
-            for (int x = ssX - snakelineMargin; x < ssX + matrixCellWidth + snakelineMargin; x += layoutParameters.getVerticalSnakeLinePadding()) {
-                for (int y = ssY - snakelineMargin; y < ssY + matrixCellHeight + snakelineMargin; y++) {
+
+            for (int x = ssX; x < ssX + matrixCellWidth; x += layoutParameters.getVerticalSnakeLinePadding()) {
+                for (int y = ssY; y < ssY + matrixCellHeight; y++) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
@@ -139,13 +140,12 @@ public class MatrixZoneLayoutModel {
         int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
         int nextY = 0;
         for (int r = 0; r < matrix.rowCount(); r++) {
-            double matrixCellHeight = matrix.getMatrixCellHeight(r);
             for (int x = 0; x < width; x++) {
-                for (int y = nextY; y < nextY + snakelineMargin; y += layoutParameters.getHorizontalSnakeLinePadding()) {
+                for (int y = getY(r, snakelineMargin); y >= getY(r, snakelineMargin) - snakelineMargin; y -= layoutParameters.getHorizontalSnakeLinePadding()) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
-            nextY += snakelineMargin + matrixCellHeight;
+            nextY += snakelineMargin + matrix.getMatrixCellHeight(r);
         }
         // Last snakelineMargin
         for (int x = 0; x < width; x++) {
@@ -155,16 +155,21 @@ public class MatrixZoneLayoutModel {
         }
     }
 
-    private void computeVerticalHallwaysAvailability(int width, int height, LayoutParameters layoutParameters) {
+    private void computeVerticalHallwaysAvailability(int height, LayoutParameters layoutParameters) {
         int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
+        int nextX = 0;
         for (int c = 0; c < matrix.columnCount(); c++) {
-            double matrixCellWidth = matrix.getMatrixCellWidth(c);
             for (int y = 0; y < height; y++) {
-                for (int hx = 0; hx < width; hx += snakelineMargin + matrixCellWidth) {
-                    for (int x = hx; x < hx + snakelineMargin; x += layoutParameters.getVerticalSnakeLinePadding()) {
-                        pathFinderGrid.setAvailability(x, y, true);
-                    }
+                for (int x = getX(c, snakelineMargin); x >= getX(c, snakelineMargin) - snakelineMargin; x -= layoutParameters.getVerticalSnakeLinePadding()) {
+                    pathFinderGrid.setAvailability(x, y, true);
                 }
+            }
+            nextX += snakelineMargin + matrix.getMatrixCellWidth(c);
+        }
+        // Last snakelineMargin
+        for (int y = 0; y < height; y++) {
+            for (int x = nextX; x < nextX + snakelineMargin; x += layoutParameters.getVerticalSnakeLinePadding()) {
+                pathFinderGrid.setAvailability(x, y, true);
             }
         }
     }
