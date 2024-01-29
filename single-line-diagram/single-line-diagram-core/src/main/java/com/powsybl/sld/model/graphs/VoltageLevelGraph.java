@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.GraphTraversal;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -485,10 +487,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public List<FeederNode> getFeederNodes() {
-        return nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>())
+        return getFeederNodeStream().collect(Collectors.toList());
+    }
+
+    private Stream<FeederNode> getFeederNodeStream() {
+        return nodesByType.computeIfAbsent(NodeType.FEEDER, nodeType -> new ArrayList<>())
                 .stream()
-                .map(FeederNode.class::cast)
-                .collect(Collectors.toList());
+                .map(FeederNode.class::cast);
     }
 
     public List<Node> getNodes() {
@@ -653,5 +658,35 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public double getInnerHeight(double verticalSpaceBus) {
         return getExternCellHeight(Direction.TOP) + verticalSpaceBus * getMaxV() + getExternCellHeight(Direction.BOTTOM);
+    }
+
+    public void substituteNodesMirroringGroundDisconnectionComponent() {
+        List<GroundDisconnection> groundDisconnections = getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == FeederType.GROUND)
+                .map(this::getGroundDisconnection)
+                .filter(Objects::nonNull)
+                .toList();
+        for (GroundDisconnection gd : groundDisconnections) {
+            gd.nodes().forEach(this::removeNode);
+            substituteNode(gd.forkNode(), NodeFactory.createGroundDisconnectionNode(this, gd.disconnector(), gd.ground()));
+        }
+    }
+
+    private GroundDisconnection getGroundDisconnection(FeederNode groundFeederNode) {
+        Set<Node> setFromGround = new LinkedHashSet<>();
+        AtomicReference<SwitchNode> aSwitch = new AtomicReference<>();
+        boolean groundDisconnectionSetIdentified = GraphTraversal.run(groundFeederNode,
+                node -> node.getAdjacentEdges().size() > 2, // traversal ends successfully when encountering a fork node, which will be replaced by the ground disconnection component
+                node -> node.getType() == NodeType.BUS || node.getType() == NodeType.FEEDER // traversal fails and stops when encountering a bus, a feeder, or more than one switch
+                        || node.getType() == NodeType.SWITCH && aSwitch.getAndSet((SwitchNode) node) != null,
+                setFromGround,
+                Collections.emptySet());
+        if (groundDisconnectionSetIdentified && aSwitch.get() != null && aSwitch.get().getKind() == SwitchNode.SwitchKind.DISCONNECTOR) {
+            List<Node> list = setFromGround.stream().toList(); // the list contains the fork node which should not be removed but substituted
+            return new GroundDisconnection(list.subList(0, list.size() - 1), groundFeederNode, aSwitch.get(), list.get(list.size() - 1));
+        }
+        return null;
+    }
+
+    private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
     }
 }

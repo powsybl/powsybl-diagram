@@ -54,6 +54,27 @@
       } ],
     "styleClass" : "sld-load-break-switch"
   }, {
+    "type" : "GROUND_DISCONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "disconnector-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    }, {
+      "name" : "OPEN",
+      "fileName" : "disconnector-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-disconnector"
+  }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
       "x" : 0.0,

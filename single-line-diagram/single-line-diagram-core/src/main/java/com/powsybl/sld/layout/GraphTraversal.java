@@ -12,7 +12,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -31,11 +30,8 @@ public final class GraphTraversal {
      * @return true if no unsuccessfulCriteria reached or node outside
      **/
 
-    static boolean run(Node node,
-                       Predicate<Node> extremityCriteria,
-                       Predicate<Node> unsuccessfulCriteria,
-                       Set<Node> nodesResult,
-                       Set<Node> outsideNodes) {
+    public static boolean run(Node node, Predicate<Node> extremityCriteria, Predicate<Node> unsuccessfulCriteria,
+                       Set<Node> nodesResult, Set<Node> outsideNodes) {
 
         if (outsideNodes.contains(node)) {
             return false;
@@ -43,10 +39,7 @@ public final class GraphTraversal {
         nodesResult.add(node);
         List<Node> nodesToVisit = node.getAdjacentNodes().stream()
                 .filter(n -> !outsideNodes.contains(n) && !nodesResult.contains(n))
-                .collect(Collectors.toList());
-        if (nodesToVisit.isEmpty()) {
-            return true;
-        }
+                .toList();
         for (Node n : nodesToVisit) {
             if (unsuccessfulCriteria.test(n)) {
                 return false;
@@ -59,12 +52,9 @@ public final class GraphTraversal {
         return true;
     }
 
-    static Set<Node> run(Node node,
-                          Predicate<Node> extremityCriteria,
-                          Set<Node> outsideNodes) {
+    static Set<Node> run(Node node, Predicate<Node> extremityCriteria, Set<Node> outsideNodes) {
         Set<Node> nodesResult = new LinkedHashSet<>();
         run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
         return nodesResult;
     }
-
 }

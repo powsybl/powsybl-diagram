@@ -110,7 +110,14 @@ public final class NodeFactory {
     }
 
     public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.GROUND);
+        return createFeederNode(graph, id, name, id, ComponentTypeName.GROUND, false, new BaseFeeder(FeederType.GROUND), null);
+    }
+
+    public static Node createGroundDisconnectionNode(VoltageLevelGraph graph, SwitchNode disconnector, FeederNode ground) {
+        String name = "Ground disconnection (ground " + ground.getId() + ", disconnector " + disconnector.getId() + ")";
+        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, ComponentTypeName.GROUND_DISCONNECTION);
+        graph.addNode(gdNode);
+        return gdNode;
     }
 
     public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
