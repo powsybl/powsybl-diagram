@@ -12,7 +12,6 @@ import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -59,6 +58,11 @@ public class ZoneGraph extends AbstractBaseGraph {
         return substations;
     }
 
+    public Optional<SubstationGraph> getSubstationGraph(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return getSubstations().stream().filter(s -> s.getVoltageLevels().contains(vlGraph)).findFirst();
+    }
+
     @Override
     public VoltageLevelGraph getVoltageLevel(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
@@ -72,7 +76,7 @@ public class ZoneGraph extends AbstractBaseGraph {
 
     @Override
     public List<VoltageLevelGraph> getVoltageLevels() {
-        return getVoltageLevelStream().collect(Collectors.toList());
+        return getVoltageLevelStream().toList();
     }
 
     @Override

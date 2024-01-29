@@ -42,6 +42,13 @@ public class BranchEdge extends Edge {
         this.snakeLine = Objects.requireNonNull(snakeLine);
     }
 
+    public void shiftSnakeLine(double dx, double dy) {
+        snakeLine.forEach(p -> {
+            p.shiftX(dx);
+            p.shiftY(dy);
+        });
+    }
+
     @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         writeJson(generator, false);

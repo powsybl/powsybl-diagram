@@ -7,11 +7,11 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.layout.pathfinding.*;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -19,11 +19,18 @@ import java.util.Objects;
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
+    protected Map<BaseGraph, AbstractLayout<SubstationGraph>> layoutBySubstation;
+    protected PathFinder pathFinder;
 
     protected AbstractZoneLayout(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph);
         this.sLayoutFactory = Objects.requireNonNull(sLayoutFactory);
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
+        this.layoutBySubstation = new HashMap<>();
+        for (SubstationGraph subGraph : getGraph().getSubstations()) {
+            Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
+            layoutBySubstation.put(subGraph, (AbstractLayout<SubstationGraph>) sLayout);
+        }
     }
 
     @Override
@@ -37,9 +44,19 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
 
     protected abstract void calculateCoordSubstations(LayoutParameters layoutParameters);
 
-    protected void move(SubstationGraph subGraph, double dx, double dy) {
+    protected void move(BaseGraph subGraph, double dx, double dy) {
         for (VoltageLevelGraph vlGraph : subGraph.getVoltageLevels()) {
             vlGraph.setCoord(vlGraph.getX() + dx, vlGraph.getY() + dy);
+            vlGraph.getLineEdges().forEach(s -> s.shiftSnakeLine(dx, dy));
         }
+        subGraph.getMultiTermNodes().forEach(node -> {
+            node.setCoordinates(node.getX() + dx, node.getY() + dy);
+            node.getAdjacentEdges().forEach(edge -> {
+                if (edge instanceof BranchEdge branch) {
+                    branch.shiftSnakeLine(dx, dy);
+                }
+            });
+        });
+        subGraph.getLineEdges().forEach(s -> s.shiftSnakeLine(dx, dy));
     }
 }

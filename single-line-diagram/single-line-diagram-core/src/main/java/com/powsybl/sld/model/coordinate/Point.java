@@ -6,9 +6,7 @@
  */
 package com.powsybl.sld.model.coordinate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -68,7 +66,7 @@ public class Point {
     }
 
     public static List<Double> pointsToDoubles(List<Point> pol) {
-        return pol.stream().flatMap(p -> Stream.of(p.getX(), p.getY())).collect(Collectors.toList());
+        return pol.stream().flatMap(p -> Stream.of(p.getX(), p.getY())).toList();
     }
 
     public Point getMiddlePoint(Point other) {
@@ -114,5 +112,21 @@ public class Point {
         return "{" + x + ',' + y + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
 
