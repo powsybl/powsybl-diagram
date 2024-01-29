@@ -81,7 +81,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 try {
                     Document doc = db.parse(getClass().getResourceAsStream(resourceName));
-                    svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), getElements(doc));
+                    svgDocuments.computeIfAbsent(componentType, k -> new LinkedHashMap<>()).put(s.getName(), getElements(doc));
                 } catch (SAXException e) {
                     throw new UncheckedSaxException(e);
                 } catch (IOException e) {
