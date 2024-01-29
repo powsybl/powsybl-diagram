@@ -11,7 +11,14 @@ package com.powsybl.sld.model.nodes;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class GroundDisconnectionNode extends EquipmentNode {
-    public GroundDisconnectionNode(String id, String name, String componentTypeName) {
+    private final boolean isDisconnectorOpen;
+
+    public GroundDisconnectionNode(String id, String name, boolean isDisconnectorOpen, String componentTypeName) {
         super(NodeType.INTERNAL, id, name, id, componentTypeName, false);
+        this.isDisconnectorOpen = isDisconnectorOpen;
+    }
+
+    public boolean isDisconnectorOpen() {
+        return isDisconnectorOpen;
     }
 }

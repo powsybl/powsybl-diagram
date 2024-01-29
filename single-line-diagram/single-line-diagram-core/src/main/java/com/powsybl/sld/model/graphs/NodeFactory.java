@@ -115,7 +115,7 @@ public final class NodeFactory {
 
     public static Node createGroundDisconnectionNode(VoltageLevelGraph graph, SwitchNode disconnector, FeederNode ground) {
         String name = "Ground disconnection (ground " + ground.getId() + ", disconnector " + disconnector.getId() + ")";
-        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, ComponentTypeName.GROUND_DISCONNECTION);
+        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(), ComponentTypeName.GROUND_DISCONNECTION);
         graph.addNode(gdNode);
         return gdNode;
     }
