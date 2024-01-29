@@ -68,8 +68,8 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 BaseGraph graph = cell.graph();
                 if (graph != null) {
                     // Compute delta in order to center substations into own matrix cell
-                    int deltaX = (int)(matrix.getMatrixCellWidth(col) % graph.getWidth()) / 2;
-                    int deltaY = (int)(matrix.getMatrixCellHeight(row) % graph.getHeight()) / 2;
+                    int deltaX = (int) (matrix.getMatrixCellWidth(col) % graph.getWidth()) / 2;
+                    int deltaY = (int) (matrix.getMatrixCellHeight(row) % graph.getHeight()) / 2;
                     double dx = maxWidthCol + (col + 1.0) * snakelineMargin;
                     double dy = maxHeightRow + (row + 1.0) * snakelineMargin;
                     move(graph, dx - leftPadding + deltaX, dy - topPadding + deltaY);
