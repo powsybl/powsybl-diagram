@@ -49,25 +49,27 @@ public class MatrixZoneLayoutModel {
     }
 
     public List<Point> buildSnakeline(PathFinder pathfinder,
-                                      Point p1, Direction d1,
-                                      Point p2, Direction d2,
+                                      String ss1Id, Point p1, Direction d1,
+                                      String ss2Id, Point p2, Direction d2,
                                       double snakelineMargin) {
-        insertFreePathInSubstation(p1, d1, snakelineMargin);
-        insertFreePathInSubstation(p2, d2, snakelineMargin);
+        matrix.get(ss1Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell.row(), p1, d1, snakelineMargin));
+        matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell.row(), p2, d2, snakelineMargin));
 
         // Use path finding algo
         return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
     }
 
-    private void insertFreePathInSubstation(Point p, Direction d, double snakelineMargin) {
-        int dy = 1;
-
+    private void insertFreePathInSubstation(int row, Point p, Direction d, double snakelineMargin) {
         int x1 = (int) p.getX();
         int y1 = (int) p.getY();
-        int ss1Y = y1 + (int) snakelineMargin * (d == Direction.TOP ? -1 : 1);
-        int min1Y = Math.max(Math.min(y1, ss1Y), 0);
-        int max1Y = Math.max(y1, ss1Y) + dy;
-        for (int y = min1Y; y < max1Y; y++) {
+        int ssY = getY(row, snakelineMargin);
+        int min1Y = ssY - (int) snakelineMargin;
+        int max1Y = y1;
+        if (d == Direction.BOTTOM) {
+            min1Y = y1;
+            max1Y = ssY + (int) matrix.getMatrixCellHeight(row) + (int) snakelineMargin;
+        }
+        for (int y = min1Y; y <= max1Y; y++) {
             pathFinderGrid.setAvailability(x1, y, true);
         }
     }
