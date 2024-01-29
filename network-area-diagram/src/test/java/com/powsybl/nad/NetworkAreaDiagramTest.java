@@ -119,8 +119,8 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testVoltageFilteredDiagramLowerBoundNoVoltageLevelIdInput() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
-        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 120));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter5.svg"), getContentFile(svgFileVoltageFilter));
     }
 
     @Test

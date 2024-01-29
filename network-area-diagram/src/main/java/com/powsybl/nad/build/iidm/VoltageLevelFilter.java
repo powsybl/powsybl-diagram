@@ -77,14 +77,14 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     public static VoltageLevelFilter createNominalVoltageFilter(Network network, List<String> voltageLevelIds,
                                                                 double nominalVoltageLowerBound, double nominalVoltageUpperBound,
                                                                 int depth) {
-        return createVoltageLevelFilterWithPredicate(network, voltageLevelIds, depth, getPredicateFromVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
+        return createVoltageLevelFilterWithPredicate(network, voltageLevelIds, depth, getPredicateFromNominalVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
     }
 
     public static VoltageLevelFilter createNominalVoltageFilter(Network network, double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
-        return createNominalVoltageFilterWithPredicate(network, getPredicateFromVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
+        return createNominalVoltageFilterWithPredicate(network, getPredicateFromNominalVoltageBounds(nominalVoltageLowerBound, nominalVoltageUpperBound));
     }
 
-    private static Predicate<VoltageLevel> getPredicateFromVoltageBounds(double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
+    private static Predicate<VoltageLevel> getPredicateFromNominalVoltageBounds(double nominalVoltageLowerBound, double nominalVoltageUpperBound) {
         checkVoltageBoundValues(nominalVoltageLowerBound, nominalVoltageUpperBound);
         return voltageLevel -> voltageLevel.getNominalV() >= nominalVoltageLowerBound && voltageLevel.getNominalV() <= nominalVoltageUpperBound;
     }
