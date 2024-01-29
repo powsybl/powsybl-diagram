@@ -57,23 +57,31 @@
     "type" : "GROUND_DISCONNECTION",
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : 0.0,
+      "y" : -5.0,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
-      "width" : 8.0,
-      "height" : 8.0
+      "width" : 56.0,
+      "height" : 20.0
     },
     "subComponents" : [ {
+      "name" : "ATTACH",
+      "fileName" : "ground-disconnection-attach.svg",
+      "styleClass" : "sld-ground-disconnection-attach"
+    }, {
+      "name" : "GROUND",
+      "fileName" : "ground-disconnection-ground.svg",
+      "styleClass" : "sld-ground-disconnection-ground"
+    }, {
       "name" : "CLOSED",
-      "fileName" : "disconnector-closed.svg",
+      "fileName" : "ground-disconnector-closed.svg",
       "styleClass" : "sld-sw-closed"
     }, {
       "name" : "OPEN",
-      "fileName" : "disconnector-open.svg",
+      "fileName" : "ground-disconnector-open.svg",
       "styleClass" : "sld-sw-open"
     } ],
-    "styleClass" : "sld-disconnector"
+    "styleClass" : "sld-ground-disconnection"
   }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
