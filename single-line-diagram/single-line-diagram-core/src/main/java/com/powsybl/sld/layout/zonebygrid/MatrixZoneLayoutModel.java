@@ -117,18 +117,23 @@ public class MatrixZoneLayoutModel {
         // Make empty cells available for snakeline computation
         List<MatrixCell> allCells = matrix.stream().toList();
         allCells.forEach(cell -> {
-            double matrixCellWidth = matrix.getMatrixCellWidth(cell.col());
-            double matrixCellHeight = matrix.getMatrixCellHeight(cell.row());
+            int matrixCellWidth = (int) matrix.getMatrixCellWidth(cell.col());
+            int matrixCellHeight = (int) matrix.getMatrixCellHeight(cell.row());
             int ssX = getX(cell.col(), snakelineMargin);
             int ssY = getY(cell.row(), snakelineMargin);
-
+            // Horizontal lines
+            int stepH = (int) layoutParameters.getHorizontalSnakeLinePadding();
+            int deltaH = (matrixCellHeight % stepH) / 2;
             for (int x = ssX; x < ssX + matrixCellWidth; x++) {
-                for (int y = ssY; y < ssY + matrixCellHeight; y += layoutParameters.getHorizontalSnakeLinePadding()) {
+                for (int y = ssY + deltaH + stepH; y < ssY + matrixCellHeight - deltaH; y += stepH) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
 
-            for (int x = ssX; x < ssX + matrixCellWidth; x += layoutParameters.getVerticalSnakeLinePadding()) {
+            // Vertical lines
+            int stepV = (int) layoutParameters.getVerticalSnakeLinePadding();
+            int deltaV = (matrixCellWidth % stepV) / 2;
+            for (int x = ssX + deltaV + stepV; x < ssX + matrixCellWidth - deltaV; x += stepV) {
                 for (int y = ssY; y < ssY + matrixCellHeight; y++) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }

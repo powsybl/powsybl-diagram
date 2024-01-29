@@ -57,6 +57,9 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         // Zone size
         int nbRows = matrix.rowCount();
         int nbCols = matrix.columnCount();
+        // FIXME : padding diagram is canceled here !
+        double leftPadding = layoutParameters.getDiagramPadding().getLeft();
+        double topPadding = layoutParameters.getDiagramPadding().getTop();
         // Move each substation into its matrix position
         for (int row = 0; row < nbRows; row++) {
             maxWidthCol = 0;
@@ -64,9 +67,12 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                 MatrixCell cell = matrix.get(row, col);
                 BaseGraph graph = cell.graph();
                 if (graph != null) {
+                    // Compute delta in order to center substations into own matrix cell
+                    int deltaX = (int)(matrix.getMatrixCellWidth(col) % graph.getWidth()) / 2;
+                    int deltaY = (int)(matrix.getMatrixCellHeight(row) % graph.getHeight()) / 2;
                     double dx = maxWidthCol + (col + 1.0) * snakelineMargin;
                     double dy = maxHeightRow + (row + 1.0) * snakelineMargin;
-                    move(graph, dx, dy);
+                    move(graph, dx - leftPadding + deltaX, dy - topPadding + deltaY);
                 }
                 maxWidthCol += matrix.getMatrixCellWidth(col);
             }
