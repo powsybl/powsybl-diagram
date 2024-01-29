@@ -92,7 +92,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
     }
 
     @Test
-    void testVoltageFilteredDiagramLowBound() {
+    void testVoltageFilteredDiagramLowerBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, List.of("VL4"), 120, 2));
@@ -100,11 +100,35 @@ class NetworkAreaDiagramTest extends AbstractTest {
     }
 
     @Test
-    void testVoltageFilteredDiagramHighBound() {
+    void testVoltageFilteredDiagramUpperBound() {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, List.of("VL4"), 180, 2));
         assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramNoVoltageLevelIdInput() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, 120, 180));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramLowerBoundNoVoltageLevelIdInput() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter5.svg"), getContentFile(svgFileVoltageFilter));
+    }
+
+    @Test
+    void testVoltageFilteredDiagramUpperBoundNoVoltageLevelIdInput() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
+        NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, 90));
+        assertEquals(toString("/IEEE_14_bus_voltage_filter4.svg"), getContentFile(svgFileVoltageFilter));
     }
 
     @Test
