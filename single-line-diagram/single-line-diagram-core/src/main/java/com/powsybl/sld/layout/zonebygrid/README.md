@@ -10,95 +10,107 @@ The user can choose the location of each substation.
 - `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 orw, 3 columns)<br>
 
 **Usage example:**<BR>
-The following example use 5 substations distributed on 3 columns and 2 lines,<BR>
+The following example use 3 substations distributed on 2 columns and 2 lines,<BR>
 with an empty area at middle of the second line.
 ```java
 // build zone graph
 Network network = ...
-List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+List<String> zone = Arrays.asList("A", "B", "C");
 ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
 // Create substation 2D array representation
-String[][] substationsIds = {{"A", "B", "C"},
-                             {"D", "", "E"}};
+String[][] substationsIds = {{"A", "B"},
+                             {"D", ""}};
 // Create matrix zone layout using 2D array
-Layout matrixLayout = new MatrixZoneLayoutFactory().create(g, substationsIds, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory());
+ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
+SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
+VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
+MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();
+Layout matrixLayout = mFactory.create(g, substationsIds, pFinderFactory, sFactory, vFactory);
 // Apply matrix zone layout
 matrixLayout.run(layoutParameters);
 ```
 
-## Path finding description 
+## Path finding description
 
 ### Premise:
-- same height for each line: maximum height of all voltagelevels
-- same width for each columns: maximum width of all voltagelevels
-- each lines margin can be set with `LayoutParameters.getMatrixLayoutPadding`
-- each lines columns can be set with `LayoutParameters.getMatrixLayoutPadding`
+- column width is computed for each column : maximum width of all substations
+- row height is computed for each row : maximum height of all substations
+- each lines margin can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
+- each lines columns can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
 
 Example:
 
-|            |       |   Margin   |        |            |       |   Margin   |       |            |       |  Margin    |       |            |
-|:----------:|:-----:|:----------:|:------:|:----------:|:-----:|:----------:|:-----:|:----------:|:-----:|:----------:|:-----:|:----------:|
-|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
-| __Margin__ | __X__ |   __A__    | __X__  | __Margin__ | __X__ |   __B__    | __X__ | __Margin__ | __X__ |   __C__    | __X__ | __Margin__ |
-|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
-|            |       | __Margin__ |        |            |       | __Margin__ |       |            |       | __Margin__ |       |            |
-|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
-| __Margin__ | __X__ |   __D__    | __X__  | __Margin__ | __X__ |     _      | __X__ | __Margin__ | __X__ |   __E__    | __X__ | __Margin__ |
-|            | __X__ |   __X__    | __X__  |            | __X__ |   __X__    | __X__ |            | __X__ |   __X__    | __X__ |            |
-|            |       | __Margin__ |        |            |       | __Margin__ |       |            |       | __Margin__ |       |            |
+|                 |                     |      ZonePadding      |                      |                 |                     |      ZonePadding      |                      |                 |
+|:---------------:|:-------------------:|:---------------------:|:--------------------:|:---------------:|:-------------------:|:---------------------:|:--------------------:|:---------------:|
+|                 |                     |  __VL TOP Padding__   |                      |                 |                     |  __VL TOP Padding__   |                      |                 | 
+| __ZonePadding__ | __VL LEFT Padding__ |         __A__         | __VL RIGHT Padding__ | __ZonePadding__ | __VL LEFT Padding__ |         __B__         | __VL RIGHT Padding__ | __ZonePadding__ |
+|                 |                     | __VL BOTTOM Padding__ |                      |                 |                     | __VL BOTTOM Padding__ |                      |                 | 
+|                 |                     |    __ZonePadding__    |                      |                 |                     |    __ZonePadding__    |                      |                 |
+|                 |                     |  __VL TOP Padding__   |                      |                 |                     |  __VL TOP Padding__   |                      |                 |
+| __ZonePadding__ | __VL LEFT Padding__ |         __D__         | __VL RIGHT Padding__ | __ZonePadding__ | __VL LEFT Padding__ |           _           | __VL RIGHT Padding__ | __ZonePadding__ |
+|                 |                     | __VL BOTTOM Padding__ |                      |                 |                     | __VL BOTTOM Padding__ |                      |                 |
+|                 |                     |    __ZonePadding__    |                      |                 |                     |    __ZonePadding__    |                      |                 |
 
 
 The class `MatrixZoneLayout` represent the matrix layout.<BR>
-Each substation position is computed in following method: 
+The class `MatrixZoneLayoutModel` represent the matrix and the path finder information.
+The class `Matrix` represent a list of `MatrixCell`.
+
+The class `MatrixCell` represent all matrix cell information:
+- position (indexes) in the matrix : row, column
+- substation graph reference
+
+### Substations positioning
+1) In constructor each `SubstationGraph` is added to the class `MatrixZoneLayoutModel` (internal model of matrix layout) as following:
+```java
+for (int row = 0; row < matrix.length; row++) {
+    for (int col = 0; col < matrix[row].length; col++) {
+        String id = matrix[row][col];
+        SubstationGraph sGraph = graph.getSubstationGraph(id);
+        if (sGraph == null && !id.isEmpty()) {
+            throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
+        }
+        model.addSubstationGraph(sGraph, row, col);
+    }
+}
+    ...
+```
+2) Each substation position is computed in following method:
 ```java
 protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 ```
-The `SubstationLayout` is applied on each substation specified.<BR>
-Each `SubstationGraph` is added to the class `MatrixZoneLayoutModel` (internal model of matrix layout).
+- the `SubstationLayout` is applied on each not empty substation specified as following:
 ```java
-
-    for (int row = 0; row < matrix.length; row++) {
-        for (int col = 0; col < matrix[row].length; col++) {
-            String id = matrix[row][col];
-            SubstationGraph graph = getGraph().getSubstationGraph(id);
-            if (graph != null) {
-                // Display substations
-                layoutBySubstation.get(graph).run(layoutParameters);
-            }
-            model.addGraph(graph, col, row);
-        }
-    }
-    ...
-```
+    // Display substations on not empty Matrix cell
+    matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
+ ```
+- each substation is moved into matrix position as specified
 
 ### Snakeline way computation between substation
 
 The `Grid` class is a 2D array as a list of `Node` class representing each pixel of SLD output file.
 Each `Node` store :
-* a carteian position (x and y)
+* a cartesian position (x and y)
+* an availability (Node can be used are not)
 * a walkthrough cost
 * a parent node reference
 * a distance to goal point
 
 #### Exclusion area
-An exclusion area is all `Node` with cost equals to `-1` 
+An exclusion area is all `Node` with an availability equals to `false`
 This area can be used to draw a `snakeline`.
 This area allow snakeline to escape to:
 - voltagelevels
 - empty areas (missing substations)
-- previous snakelines
-
-Example:
-
-
+- previous snakelines right angles
 
 #### Shorter path computation
-
-Computation steps:
+Dijkstra's computation steps:
 * starting point cost is set to 0
 * get nearest neighbors (left, right, up and down): no diagonal moves
   * these neighbors are used only if:
-    * the neighbor is available (cost != -1)
+    * the neighbor is available
     * the neighbor was not already visited
   * to avoid useless right angle the cost is increased when next point will create a right angle
+* In case of not route found, a strait line is drawn.
