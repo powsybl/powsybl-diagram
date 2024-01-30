@@ -97,7 +97,7 @@ Each `Node` store :
 * The distance to the end point of the snakeline
 
 #### Exclusion area
-An exclusion area is all `Node` with an availability equals to `false`
+An exclusion area is an area where all `Node` have an availability equals to `false`
 This area cannot be used to draw a `snakeline`.
 Those areas are:
 - diagram padding
