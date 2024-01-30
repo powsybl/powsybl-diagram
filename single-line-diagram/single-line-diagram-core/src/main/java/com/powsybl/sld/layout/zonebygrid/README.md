@@ -88,7 +88,7 @@ protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 
 ### Snakeline route computation between substations
 
-The `Grid` class is a 2D array as a list of `Node` class representing each pixel of SLD output file.
+The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
 Each `Node` store :
 * a cartesian position (x and y)
 * an availability (Node can be used are not)
