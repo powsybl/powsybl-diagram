@@ -99,11 +99,11 @@ Each `Node` store :
 
 #### Exclusion area
 An exclusion area is all `Node` with an availability equals to `false`
-This area can be used to draw a `snakeline`.
-This area allow snakeline to escape to:
-- voltagelevels
-- empty areas (missing substations)
-- previous snakelines right angles
+This area cannot be used to draw a `snakeline`.
+Those areas are:
+- diagram padding
+- voltagelevels with padding
+- snakelines right angles
 
 #### Shorter path computation
 Dijkstra's computation steps:
