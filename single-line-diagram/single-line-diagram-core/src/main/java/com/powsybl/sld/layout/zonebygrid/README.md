@@ -113,4 +113,4 @@ Dijkstra's computation steps:
     * The neighbor is available
     * The neighbor was not already visited
   * In order to avoid superfluous right angles, the cost is increased when the next point creates a right angle
-* In case of not route found, a strait line is drawn.
+* If no route can be computed by the algorithm, a straight line is drawn from the starting point to the end point of the snakeline (diagonal moves are allowed here)
