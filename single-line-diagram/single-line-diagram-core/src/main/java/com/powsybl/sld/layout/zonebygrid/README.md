@@ -84,7 +84,7 @@ protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
     // Display substations on not empty Matrix cell
     matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
  ```
-- each substation is moved into matrix position as specified
+- Each substation is moved into its matrix position as specified
 
 ### Snakeline way computation between substation
 
