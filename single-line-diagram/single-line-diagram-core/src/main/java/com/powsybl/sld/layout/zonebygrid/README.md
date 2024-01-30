@@ -7,7 +7,7 @@ The user can choose the location of each substation.
 
 - `VoltageLevelLayoutFactory`: builder of  layout used by voltagelevels<br>
 - `SubstationLayoutFactory`: builder of layout used by substations<br>
-- `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 orw, 3 columns)<br>
+- `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 row, 3 columns)<br>
 
 **Usage example:**<BR>
 The following example use 3 substations distributed on 2 columns and 2 lines,<BR>
