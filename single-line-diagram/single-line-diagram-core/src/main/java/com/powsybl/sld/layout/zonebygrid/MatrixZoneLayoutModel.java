@@ -12,6 +12,7 @@ import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 
@@ -111,6 +112,18 @@ public class MatrixZoneLayoutModel {
                     }
                 }
             });
+
+            // Make unavailable all multi term nodes (3wt, 2wt, etc...) center
+            graph.getMultiTermNodes().forEach(node -> {
+                pathFinderGrid.setAvailability(node.getCoordinates(), false);
+                node.getAdjacentEdges().forEach(edge -> {
+                    if (edge instanceof BranchEdge branch) {
+                        List<Point> points = Grid.getPointsAlongSnakeline(branch.getSnakeLine());
+                        points.forEach(p -> pathFinderGrid.setAvailability(p, false));
+                    }
+                });
+            });
+            graph.getLineEdges().forEach(s -> Grid.getPointsAlongSnakeline(s.getSnakeLine()).forEach(p -> pathFinderGrid.setAvailability(p, false)));
         });
     }
 

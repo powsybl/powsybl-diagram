@@ -9,6 +9,7 @@ package com.powsybl.sld.layout.pathfinding;
 
 import com.powsybl.sld.model.coordinate.*;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -134,5 +135,59 @@ public class Grid {
 
         // Check if the dot product is zero (cosine of 90 degrees)
         return dotProduct == 0.0;
+    }
+
+    public static List<Point> getPointsAlongSnakeline(List<Point> points) {
+        List<Point> pointsList = new ArrayList<>();
+
+        for (int i = 0; i < points.size() - 1; i++) {
+            Point p1 = points.get(i);
+            Point p2 = points.get(i + 1);
+
+            List<Point> pointsAlongSegment = getPointsAlongLineSegment(p1, p2);
+            pointsList.addAll(pointsAlongSegment);
+        }
+        // Adding last point
+        pointsList.add(points.get(points.size() - 1));
+        return pointsList;
+    }
+
+    private static List<Point> getPointsAlongLineSegment(Point p1, Point p2) {
+        List<Point> points = new ArrayList<>();
+        int x1 = (int) p1.getX();
+        int y1 = (int) p1.getY();
+        int x2 = (int) p2.getX();
+        int y2 = (int) p2.getY();
+        // Compute coordinates differences
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        // Find out incrementation directions for x and y
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? 1 : -1;
+        // Initialize error values
+        int err = dx - dy;
+        // Bresenham main loop
+        while (true) {
+            // Adding first point
+            points.add(new Point(x1, y1));
+
+            // Check if final destination is reached
+            if (x1 == x2 && y1 == y2) {
+                break;
+            }
+            // Compute next error value
+            int e2 = 2 * err;
+            // If error is bigger than difference in x, move in y
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+            }
+            // If error is smaller than difference in y, move in x
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+            }
+        }
+        return points;
     }
 }
