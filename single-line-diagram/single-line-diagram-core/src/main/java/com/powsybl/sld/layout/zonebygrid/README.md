@@ -75,7 +75,7 @@ for (int row = 0; row < matrix.length; row++) {
 }
     ...
 ```
-2) Each substation position is computed in following method:
+2) Each substation position is computed following this method:
 ```java
 protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 ```
