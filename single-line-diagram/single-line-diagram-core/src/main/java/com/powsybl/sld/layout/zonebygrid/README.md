@@ -58,7 +58,7 @@ The class `Matrix` represent a list of `MatrixCell`.
 
 The class `MatrixCell` stores information related to the matrix cell:
 - Position (indices) in the matrix : row, column
-- substation graph reference
+- The id of the substation grpah contained by the cell
 
 ### Substations positioning
 1) In constructor each `SubstationGraph` is added to the class `MatrixZoneLayoutModel` (internal model of matrix layout) as following:
