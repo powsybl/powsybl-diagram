@@ -113,6 +113,7 @@
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 .sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
@@ -135,6 +136,12 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
+.sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 .sld-voltage-indicator .sld-label {dominant-baseline: middle}
@@ -149,8 +156,8 @@
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
             <g class="sld-voltage-indicator sld-powered" id="idbbs1_VOLTAGE_INDICATOR" transform="translate(200.0,-5.0)">
-                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <text class="sld-label" x="0.0" y="-5.0">Top</text>
             </g>
         </g>
@@ -158,16 +165,16 @@
             <line x1="0" x2="75.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs21_NW_LABEL" x="-5.0" y="-5.0">bbs21</text>
             <g class="sld-voltage-indicator sld-unpowered" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
-                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
             </g>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs22" transform="translate(152.5,305.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs22_NW_LABEL" x="-5.0" y="-5.0">bbs22</text>
             <g class="sld-voltage-indicator sld-unpowered" id="idbbs22_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
-                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <text class="sld-label" x="0.0" y="15.0">Bottom</text>
             </g>
         </g>
@@ -175,8 +182,8 @@
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs13_NW_LABEL" x="-5.0" y="-5.0">bbs13</text>
             <g class="sld-voltage-indicator sld-powered" id="idbbs13_VOLTAGE_INDICATOR" transform="translate(200.0,-5.0)">
-                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <text class="sld-label" x="0.0" y="-5.0">Top</text>
             </g>
         </g>
@@ -184,8 +191,8 @@
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs23_NW_LABEL" x="-5.0" y="-5.0">bbs23</text>
             <g class="sld-voltage-indicator sld-unpowered" id="idbbs23_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
-                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
                 <text class="sld-label" x="0.0" y="15.0">Bottom</text>
             </g>
         </g>
@@ -206,13 +213,13 @@
                 <polyline points="115.0,142.0,115.0,84.5"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idloadA_ARROW_ACTIVE" transform="translate(110.0,99.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idloadA_ARROW_REACTIVE" transform="translate(110.0,119.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-disconnector sld-closed sld-vl300to500-0" id="iddA1" transform="translate(111.0,276.0)">
@@ -257,13 +264,13 @@
                 <polyline points="215.0,142.0,215.0,84.5"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idloadB_ARROW_ACTIVE" transform="translate(210.0,99.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idloadB_ARROW_REACTIVE" transform="translate(210.0,119.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_5" transform="translate(211.0,246.0)">
@@ -362,26 +369,26 @@
                 <polyline points="377.5,84.5,377.5,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idloadD_ARROW_ACTIVE" transform="translate(372.5,99.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idloadD_ARROW_REACTIVE" transform="translate(372.5,119.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_loadC">
                 <polyline points="452.5,142.0,452.5,84.5"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idloadC_ARROW_ACTIVE" transform="translate(447.5,99.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idloadC_ARROW_REACTIVE" transform="translate(447.5,119.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_loadC_95_fork" transform="translate(411.0,192.0)">
