@@ -57,7 +57,7 @@ The class `MatrixZoneLayoutModel` represents the matrix and the path finder info
 The class `Matrix` represent a list of `MatrixCell`.
 
 The class `MatrixCell` stores information related to the matrix cell:
-- position (indexes) in the matrix : row, column
+- Position (indices) in the matrix : row, column
 - substation graph reference
 
 ### Substations positioning
