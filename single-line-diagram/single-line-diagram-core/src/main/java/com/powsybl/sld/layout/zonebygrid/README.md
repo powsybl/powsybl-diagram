@@ -53,7 +53,7 @@ Example:
 
 
 The class `MatrixZoneLayout` represents the matrix layout.<BR>
-The class `MatrixZoneLayoutModel` represent the matrix and the path finder information.
+The class `MatrixZoneLayoutModel` represents the matrix and the path finder information.
 The class `Matrix` represent a list of `MatrixCell`.
 
 The class `MatrixCell` represent all matrix cell information:
