@@ -112,5 +112,5 @@ Dijkstra's computation steps:
   * These neighbors are used only if:
     * The neighbor is available
     * The neighbor was not already visited
-  * to avoid useless right angle the cost is increased when next point will create a right angle
+  * In order to avoid superfluous right angles, the cost is increased when the next point creates a right angle
 * In case of not route found, a strait line is drawn.
