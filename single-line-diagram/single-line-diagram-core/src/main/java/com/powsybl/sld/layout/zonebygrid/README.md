@@ -52,7 +52,7 @@ Example:
 |                 |                     |    __ZonePadding__    |                      |                 |                     |    __ZonePadding__    |                      |                 |
 
 
-The class `MatrixZoneLayout` represent the matrix layout.<BR>
+The class `MatrixZoneLayout` represents the matrix layout.<BR>
 The class `MatrixZoneLayoutModel` represent the matrix and the path finder information.
 The class `Matrix` represent a list of `MatrixCell`.
 
