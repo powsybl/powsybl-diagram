@@ -43,7 +43,9 @@ class LayoutParametersTest {
                 .setRemoveFictitiousSwitchNodes(true)
                 .setCgmesScaleFactor(2)
                 .setCgmesDiagramName("diag")
-                .setCgmesUseNames(true);
+                .setCgmesUseNames(true)
+                .setZoneLayoutSnakeLinePadding(120)
+                .setZoneLayoutPathFinder(LayoutParameters.PathFinderType.DIJKSTRA);
 
         layoutParameters.setComponentsSize(null);
 
@@ -62,6 +64,25 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getMaxComponentHeight(), layoutParameters2.getMaxComponentHeight(), 0);
         assertEquals(layoutParameters.getMinSpaceBetweenComponents(), layoutParameters2.getMinSpaceBetweenComponents(), 0);
         assertEquals(layoutParameters.getMinExternCellHeight(), layoutParameters2.getMinExternCellHeight(), 0);
+        assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());
+        assertEquals(layoutParameters.getComponentsOnBusbars(), layoutParameters2.getComponentsOnBusbars());
+        assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
+        assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
+        assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
+        assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
+        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
+        assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
+        assertEquals(layoutParameters.getZoneLayoutPathFinder(), layoutParameters2.getZoneLayoutPathFinder());
+    }
+
+    @Test
+    void testPadding() {
+        LayoutParameters layoutParameters = new LayoutParameters()
+                .setVoltageLevelPadding(15, 35, 25, 45)
+                .setDiagrammPadding(20, 40, 30, 50);
+
+        LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
+
         assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
         assertEquals(layoutParameters.getVoltageLevelPadding().getTop(), layoutParameters2.getVoltageLevelPadding().getTop(), 0);
         assertEquals(layoutParameters.getVoltageLevelPadding().getRight(), layoutParameters2.getVoltageLevelPadding().getRight(), 0);
@@ -70,12 +91,5 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getDiagramPadding().getTop(), layoutParameters2.getDiagramPadding().getTop(), 0);
         assertEquals(layoutParameters.getDiagramPadding().getRight(), layoutParameters2.getDiagramPadding().getRight(), 0);
         assertEquals(layoutParameters.getDiagramPadding().getBottom(), layoutParameters2.getDiagramPadding().getBottom(), 0);
-        assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());
-        assertEquals(layoutParameters.getComponentsOnBusbars(), layoutParameters2.getComponentsOnBusbars());
-        assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
-        assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
-        assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
-        assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
-        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
     }
 }

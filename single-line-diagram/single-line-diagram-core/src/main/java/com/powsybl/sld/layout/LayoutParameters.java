@@ -48,6 +48,8 @@ public class LayoutParameters {
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
     private boolean cgmesUseNames = true;
+    private double zoneLayoutSnakeLinePadding = 90;
+    private PathFinderType zoneLayoutPathFinder = PathFinderType.DIJKSTRA;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -77,7 +79,9 @@ public class LayoutParameters {
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
-                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames) {
+                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
+                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
+                            @JsonProperty("zoneLayoutPathFinder") PathFinderType zoneLayoutPathFinder) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -100,6 +104,8 @@ public class LayoutParameters {
         this.cgmesDiagramName = cgmesDiagramName;
         this.cgmesScaleFactor = cgmesScaleFactor;
         this.cgmesUseNames = cgmesUseNames;
+        this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -126,6 +132,8 @@ public class LayoutParameters {
         cgmesScaleFactor = other.cgmesScaleFactor;
         cgmesDiagramName = other.cgmesDiagramName;
         cgmesUseNames = other.cgmesUseNames;
+        zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
+        zoneLayoutPathFinder = other.zoneLayoutPathFinder;
     }
 
     public double getVerticalSpaceBus() {
@@ -330,8 +338,30 @@ public class LayoutParameters {
         return this;
     }
 
+    public double getZoneLayoutSnakeLinePadding() {
+        return zoneLayoutSnakeLinePadding;
+    }
+
+    public LayoutParameters setZoneLayoutSnakeLinePadding(double zoneLayoutSnakeLinePadding) {
+        this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        return this;
+    }
+
+    public PathFinderType getZoneLayoutPathFinder() {
+        return zoneLayoutPathFinder;
+    }
+
+    public LayoutParameters setZoneLayoutPathFinder(PathFinderType zoneLayoutPathFinder) {
+        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
+        return this;
+    }
+
+    public enum PathFinderType {
+        DIJKSTRA
+    }
+
     public enum Alignment {
-        FIRST, LAST, MIDDLE, NONE;
+        FIRST, LAST, MIDDLE, NONE
     }
 
     public static class Padding {

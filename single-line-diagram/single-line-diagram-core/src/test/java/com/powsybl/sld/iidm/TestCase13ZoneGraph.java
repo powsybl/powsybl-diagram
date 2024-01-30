@@ -7,9 +7,11 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.commons.*;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
@@ -110,5 +112,77 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphHV.svg"), toSVG(g, "/TestCase13ZoneGraphHV.svg"));
+    }
+
+    @Test
+    void testZoneGraphMatrix2rows3cols() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        layoutParameters.setDiagrammPadding(50.0, 50.0, 50.0, 50.0);
+        layoutParameters.setVoltageLevelPadding(20, 60, 20, 60);
+
+        // Run matrix zone layout
+        String[][] substationsIds = {{"A", "B", "C"},
+                                     {"D", "", "E"}};
+        //String[][] substationsIds = {{"B", "C"}};
+        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphMatrix2x3.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix2x3.svg"));
+    }
+
+    @Test
+    void testZoneGraphMatrix1row5cols() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("A", "B", "C", "D", "E");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        layoutParameters.setDiagrammPadding(0.0, 0.0, 0.0, 0.0);
+        layoutParameters.setVoltageLevelPadding(20, 60, 20, 60);
+
+        // Run default matrix zone layout
+        new MatrixZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphMatrix1x5.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix1x5.svg"));
+    }
+
+    @Test
+    void testZoneGraphMatrix1rows2cols() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("B", "C");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        layoutParameters.setDiagrammPadding(0.0, 0.0, 0.0, 0.0);
+
+        // Run matrix zone layout
+        String[][] substationsIds = {{"B", "C"}};
+        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphMatrix1x2.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix1x2.svg"));
+    }
+
+    @Test
+    void testInvalidZoneGraphMatrix() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<String> zone = Arrays.asList("B", "C");
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
+
+        layoutParameters.setDiagrammPadding(0.0, 0.0, 0.0, 0.0);
+
+        // Run matrix zone layout
+        String[][] substationsIds = {{"B", "A"}};
+
+        ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
+        SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
+        VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
+        MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();
+
+        PowsyblException e = assertThrows(PowsyblException.class, () -> mFactory.create(g, substationsIds, pFinderFactory, sFactory, vFactory));
+        assertEquals("Substation 'A' was not found in zone graph 'B_C'", e.getMessage());
     }
 }

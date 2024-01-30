@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/*
+/**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class TestCase12ZoneGraph extends AbstractTestCaseRaw {
