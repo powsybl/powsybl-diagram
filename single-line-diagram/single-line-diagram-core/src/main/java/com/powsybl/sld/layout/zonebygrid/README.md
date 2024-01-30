@@ -11,7 +11,7 @@ The user can choose the location of each substation.
 
 **Usage example:**<BR>
 The following example displays 3 substations distributed on 2 columns and 2 lines,<BR>
-with an empty area at middle of the second line.
+with an empty area at the middle of the second line.
 ```java
 // build zone graph
 Network network = ...
