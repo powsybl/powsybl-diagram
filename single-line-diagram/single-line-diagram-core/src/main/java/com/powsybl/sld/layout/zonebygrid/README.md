@@ -92,7 +92,7 @@ The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel
 Each `Node` store :
 * A position (x and y)
 * An availability (whether the `Node` can be used to draw the snakeline or not)
-* a walkthrough cost
+* A walk-through cost
 * a parent node reference
 * a distance to goal point
 
