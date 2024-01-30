@@ -10,7 +10,7 @@ The user can choose the location of each substation.
 - `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 row, 3 columns)<br>
 
 **Usage example:**<BR>
-The following example use 3 substations distributed on 2 columns and 2 lines,<BR>
+The following example displays 3 substations distributed on 2 columns and 2 lines,<BR>
 with an empty area at middle of the second line.
 ```java
 // build zone graph
