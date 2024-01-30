@@ -108,7 +108,7 @@ Those areas are:
 #### Shorter path computation
 Dijkstra's computation steps:
 * starting point cost is set to 0
-* get nearest neighbors (left, right, up and down): no diagonal moves
+* The nearest neighbors (left, right, up and down) are computed (no diagonal moves allowed here)
   * These neighbors are used only if:
     * The neighbor is available
     * The neighbor was not already visited
