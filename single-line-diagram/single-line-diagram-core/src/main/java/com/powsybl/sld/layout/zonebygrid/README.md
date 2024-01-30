@@ -34,7 +34,7 @@ matrixLayout.run(layoutParameters);
 ## Path finding description
 
 ### Premise:
-- column width is computed for each column : maximum width of all substations
+- The column width is computed for each column as the maximum width of all the substations on the column
 - row height is computed for each row : maximum height of all substations
 - each lines margin can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
 - each lines columns can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
