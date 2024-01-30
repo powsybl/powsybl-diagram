@@ -94,7 +94,7 @@ Each `Node` store :
 * An availability (whether the `Node` can be used to draw the snakeline or not)
 * A walk-through cost
 * A parent node reference
-* a distance to goal point
+* The distance to the end point of the snakeline
 
 #### Exclusion area
 An exclusion area is all `Node` with an availability equals to `false`
