@@ -35,7 +35,7 @@ matrixLayout.run(layoutParameters);
 
 ### Premise:
 - The column width is computed for each column as the maximum width of all the substations on the column
-- row height is computed for each row : maximum height of all substations
+- The row height is computed for each row as the maximum height of all the substations on the row
 - each lines margin can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
 - each lines columns can be set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
 
