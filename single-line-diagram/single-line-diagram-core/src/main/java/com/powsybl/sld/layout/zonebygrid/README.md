@@ -90,7 +90,7 @@ protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 
 The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
 Each `Node` store :
-* a cartesian position (x and y)
+* A position (x and y)
 * an availability (Node can be used are not)
 * a walkthrough cost
 * a parent node reference
