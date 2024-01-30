@@ -407,14 +407,14 @@
     "type" : "GROUND",
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -11.0,
+      "y" : 10.0,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
       "width" : 20.0,
-      "height" : 24.0
+      "height" : 20.0
     },
-    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "transformations" : { "DOWN":"ROTATION" },
     "subComponents" : [ {
       "name" : "GROUND",
       "fileName" : "ground.svg"
