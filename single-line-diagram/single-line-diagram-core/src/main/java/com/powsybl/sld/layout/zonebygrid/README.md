@@ -93,7 +93,7 @@ Each `Node` store :
 * A position (x and y)
 * An availability (whether the `Node` can be used to draw the snakeline or not)
 * A walk-through cost
-* a parent node reference
+* A parent node reference
 * a distance to goal point
 
 #### Exclusion area
