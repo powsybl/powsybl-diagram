@@ -60,7 +60,7 @@ The class `MatrixCell` stores information related to the matrix cell:
 - Position (indices) in the matrix : row, column
 - The id of the substation grpah contained by the cell
 
-### Substations positioning
+### Substation positioning
 1) In constructor each `SubstationGraph` is added to the class `MatrixZoneLayoutModel` (internal model of matrix layout) as following:
 ```java
 for (int row = 0; row < matrix.length; row++) {
