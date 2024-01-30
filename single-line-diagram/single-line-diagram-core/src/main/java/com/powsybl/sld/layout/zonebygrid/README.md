@@ -91,7 +91,7 @@ protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
 Each `Node` store :
 * A position (x and y)
-* an availability (Node can be used are not)
+* An availability (whether the `Node` can be used to draw the snakeline or not)
 * a walkthrough cost
 * a parent node reference
 * a distance to goal point
