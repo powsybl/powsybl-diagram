@@ -110,7 +110,7 @@ Dijkstra's computation steps:
 * starting point cost is set to 0
 * get nearest neighbors (left, right, up and down): no diagonal moves
   * These neighbors are used only if:
-    * the neighbor is available
+    * The neighbor is available
     * The neighbor was not already visited
   * to avoid useless right angle the cost is increased when next point will create a right angle
 * In case of not route found, a strait line is drawn.
