@@ -11,6 +11,7 @@ import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.ZoneLayoutFactory;
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
     }
 
     @Override
-    public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         return new CgmesZoneLayout(graph, network);
     }
 
