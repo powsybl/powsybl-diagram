@@ -15,7 +15,7 @@ import com.powsybl.sld.model.graphs.*;
  */
 public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
 
-    String[][] matrix;
+    private String[][] matrix;
 
     public MatrixZoneLayoutFactory(String[][] matrix) {
         this.matrix = matrix;
