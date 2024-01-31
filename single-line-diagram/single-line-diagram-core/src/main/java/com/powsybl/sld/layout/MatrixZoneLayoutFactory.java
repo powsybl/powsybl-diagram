@@ -17,17 +17,14 @@ import java.util.*;
  */
 public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
 
-    public Layout create(ZoneGraph graph, String[][] matrix, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    String[][] matrix;
+
+    public MatrixZoneLayoutFactory(String[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         return new MatrixZoneLayout(graph, matrix, pathFinderFactory, sLayoutFactory, vLayoutFactory);
     }
 
-    @Override
-    public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        // By default, work as Horizontal layout
-        List<String> substations = graph.getSubstations().stream().map(SubstationGraph::getId).toList();
-        String[] array = new String[substations.size()];
-        String[][] matrix = new String[1][];
-        matrix[0] = substations.toArray(array);
-        return new MatrixZoneLayout(graph, matrix, DijkstraPathFinder::new, sLayoutFactory, vLayoutFactory);
-    }
 }

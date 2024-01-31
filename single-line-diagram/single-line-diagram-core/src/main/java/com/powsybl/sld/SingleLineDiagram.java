@@ -196,7 +196,7 @@ public final class SingleLineDiagram {
         } else if (graph instanceof SubstationGraph substationGraph) {
             sldParameters.getSubstationLayoutFactory().create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
         } else if (graph instanceof ZoneGraph zoneGraph) {
-            sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
+            sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getZoneLayoutPathFinderFactory(), sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
         } else {
             throw new PowsyblException("First argument is an instance of an unexpected class");
         }

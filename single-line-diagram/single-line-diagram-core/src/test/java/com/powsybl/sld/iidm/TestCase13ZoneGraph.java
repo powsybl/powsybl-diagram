@@ -64,7 +64,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run horizontal zone layout
-        new HorizontalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphHH.svg"), toSVG(g, "/TestCase13ZoneGraphHH.svg"));
     }
@@ -79,7 +79,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
-        new VerticalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphVV.svg"), toSVG(g, "/TestCase13ZoneGraphVV.svg"));
     }
@@ -94,7 +94,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
-        new VerticalZoneLayoutFactory().create(g, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphVH.svg"), toSVG(g, "/TestCase13ZoneGraphVH.svg"));
     }
@@ -109,7 +109,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
-        new HorizontalZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphHV.svg"), toSVG(g, "/TestCase13ZoneGraphHV.svg"));
     }
@@ -128,7 +128,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         String[][] substationsIds = {{"A", "B", "C"},
                                      {"D", "", "E"}};
         //String[][] substationsIds = {{"B", "C"}};
-        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new MatrixZoneLayoutFactory(substationsIds).create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix2x3.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix2x3.svg"));
     }
@@ -144,7 +144,8 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         layoutParameters.setVoltageLevelPadding(20, 60, 20, 60);
 
         // Run default matrix zone layout
-        new MatrixZoneLayoutFactory().create(g, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        String[][] matrix = {{"A", "B", "C", "D", "E"}};
+        new MatrixZoneLayoutFactory(matrix).create(g, DijkstraPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix1x5.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix1x5.svg"));
     }
@@ -160,7 +161,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
         // Run matrix zone layout
         String[][] substationsIds = {{"B", "C"}};
-        new MatrixZoneLayoutFactory().create(g, substationsIds, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new MatrixZoneLayoutFactory(substationsIds).create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase13ZoneGraphMatrix1x2.svg"), toSVG(g, "/TestCase13ZoneGraphMatrix1x2.svg"));
     }
@@ -180,9 +181,9 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
         SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
         VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
-        MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();
+        MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory(substationsIds);
 
-        PowsyblException e = assertThrows(PowsyblException.class, () -> mFactory.create(g, substationsIds, pFinderFactory, sFactory, vFactory));
+        PowsyblException e = assertThrows(PowsyblException.class, () -> mFactory.create(g, pFinderFactory, sFactory, vFactory));
         assertEquals("Substation 'A' was not found in zone graph 'B_C'", e.getMessage());
     }
 }
