@@ -38,7 +38,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // Write Json and compare to reference
+        // Write svg and compare to reference
         assertEquals(toString("/TestCaseGroundDisconnectorOnLineNodeBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnLineNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
@@ -54,7 +54,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // Write Json and compare to reference
+        // Write svg and compare to reference
         assertEquals(toString("/TestCaseGroundDisconnectorOnBusBarNodeBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnBusBarNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
@@ -70,7 +70,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // Write Json and compare to reference
+        // Write svg and compare to reference
         assertEquals(toString("/TestCaseGroundDisconnectorOnLineBusBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnLineBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
@@ -86,7 +86,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        // Write Json and compare to reference
+        // Write svg and compare to reference
         assertEquals(toString("/TestCaseGroundDisconnectorOnBusBarBusBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnBusBarBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }
