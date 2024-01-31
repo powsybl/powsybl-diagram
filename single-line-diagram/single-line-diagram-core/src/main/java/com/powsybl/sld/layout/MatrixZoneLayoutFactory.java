@@ -21,6 +21,7 @@ public class MatrixZoneLayoutFactory implements ZoneLayoutFactory {
         this.matrix = matrix;
     }
 
+    @Override
     public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         return new MatrixZoneLayout(graph, matrix, pathFinderFactory, sLayoutFactory, vLayoutFactory);
     }
