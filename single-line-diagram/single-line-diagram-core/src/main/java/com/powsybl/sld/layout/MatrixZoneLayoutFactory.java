@@ -10,8 +10,6 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.graphs.*;
 
-import java.util.*;
-
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
