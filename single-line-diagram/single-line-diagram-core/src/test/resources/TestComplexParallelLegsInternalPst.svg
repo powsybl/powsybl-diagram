@@ -129,6 +129,12 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open.sld-ground-disconnection {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
+.sld-closed.sld-ground-disconnection {fill: var(--sld-vl-color, black)}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
