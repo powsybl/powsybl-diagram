@@ -9,6 +9,8 @@ package com.powsybl.sld;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultLabelProvider;
@@ -34,6 +36,8 @@ public class SldParameters {
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
     private ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
+
+    private ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = DijkstraPathFinder::new;
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
@@ -107,4 +111,12 @@ public class SldParameters {
         return this;
     }
 
+    public ZoneLayoutPathFinderFactory getZoneLayoutPathFinderFactory() {
+        return zoneLayoutPathFinderFactory;
+    }
+
+    public SldParameters setZoneLayoutPathFinderFactory(ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory) {
+        this.zoneLayoutPathFinderFactory = zoneLayoutPathFinderFactory;
+        return this;
+    }
 }
