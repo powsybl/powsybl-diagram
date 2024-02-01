@@ -2183,13 +2183,13 @@ public final class Networks {
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
         Substation substation2 = Networks.createSubstation(network, "s2", "s2", Country.FR);
         Networks.createVoltageLevel(substation2, "vl2", "vl2", TopologyKind.BUS_BREAKER, 380);
-        Bus b1 = network.getVoltageLevel("vl").getBusBreakerView().newBus()
+        Bus b1 = vl.getBusBreakerView().newBus()
                 .setId("b1")
                 .add();
         Bus b2 = network.getVoltageLevel("vl2").getBusBreakerView().newBus()
                 .setId("b2")
                 .add();
-        Bus b1g = network.getVoltageLevel("vl").getBusBreakerView().newBus()
+        Bus b1g = vl.getBusBreakerView().newBus()
                 .setId("b1g")
                 .add();
         Networks.createLine(b1, b2);
@@ -2201,10 +2201,10 @@ public final class Networks {
         Network network = Network.create("testCaseGroundDisconnectorOnBusBarBB", "test");
         Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
-        network.getVoltageLevel("vl").getBusBreakerView().newBus()
+        vl.getBusBreakerView().newBus()
                 .setId("b1")
                 .add();
-        Bus b1g = network.getVoltageLevel("vl").getBusBreakerView().newBus()
+        Bus b1g = vl.getBusBreakerView().newBus()
                 .setId("b1g")
                 .add();
         Networks.createGround(b1g);
