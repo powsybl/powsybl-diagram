@@ -15,10 +15,7 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
@@ -49,6 +46,9 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         }
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(((SwitchNode) node).isOpen() ? StyleClassConstants.OPEN_SWITCH_STYLE_CLASS : StyleClassConstants.CLOSED_SWITCH_STYLE_CLASS);
+        }
+        if (node instanceof GroundDisconnectionNode gdn) {
+            styles.add(gdn.isDisconnectorOpen() ? StyleClassConstants.OPEN_SWITCH_STYLE_CLASS : StyleClassConstants.CLOSED_SWITCH_STYLE_CLASS);
         }
         if (node.isFictitious()) {
             styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);

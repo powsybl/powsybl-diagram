@@ -16,6 +16,8 @@ public final class ComponentTypeName {
     public static final String BUSBAR_SECTION = "BUSBAR_SECTION";
     public static final String BREAKER = "BREAKER";
     public static final String DISCONNECTOR = "DISCONNECTOR";
+    public static final String GROUND = "GROUND";
+    public static final String GROUND_DISCONNECTION = "GROUND_DISCONNECTION";
     public static final String BATTERY = "BATTERY";
     public static final String BUS_CONNECTION = "BUS_CONNECTION";
     public static final String GENERATOR = "GENERATOR";

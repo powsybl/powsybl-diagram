@@ -47,6 +47,8 @@ public class GraphRefiner {
         graph.insertBusConnections(nodesOnBus);
         graph.insertHookNodesAtBuses();
         graph.insertHookNodesAtFeeders();
+
+        graph.substituteNodesMirroringGroundDisconnectionComponent();
     }
 
     private Predicate<Node> getNodesOnBusPredicate(VoltageLevelGraph graph, List<String> componentsOnBusbars) {
