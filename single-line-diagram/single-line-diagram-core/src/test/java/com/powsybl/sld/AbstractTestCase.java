@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld;
 
+import com.fasterxml.jackson.databind.*;
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -132,7 +133,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public JsonNode[] compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
@@ -152,15 +153,19 @@ public abstract class AbstractTestCase {
                 writeToFileInDebugDir(refMetadataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
-            String metadata = normalizeLineSeparator(metadataWriter.toString());
-            return refMetadata.compareTo(metadata) == 0;
+            String refMetadata = new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8);
+            String metadata = metadataWriter.toString();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode[] results = new JsonNode[2];
+            results[0] = mapper.readTree(refMetadata); // Expected
+            results[1] = mapper.readTree(metadata); // Actual
+            return results;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
-    public String[] compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public JsonNode[] compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
@@ -180,11 +185,12 @@ public abstract class AbstractTestCase {
                 writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
-            String metadata = normalizeLineSeparator(metadataWriter.toString());
-            String[] results = new String[2];
-            results[0] = refMetadata; // Expected
-            results[1] = metadata; // Actual
+            String refMetadata = new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8);
+            String metadata = metadataWriter.toString();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode[] results = new JsonNode[2];
+            results[0] = mapper.readTree(refMetadata); // Expected
+            results[1] = mapper.readTree(metadata); // Actual
             return results;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
