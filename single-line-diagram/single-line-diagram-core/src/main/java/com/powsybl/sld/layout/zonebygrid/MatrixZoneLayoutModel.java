@@ -61,7 +61,7 @@ public class MatrixZoneLayoutModel {
             pathFinderGrid.setAvailability(x1, y, true);
         }
         // Make available a horizontal line large as matrix width + left and right zone layout snakeline padding
-        // In order ot allowed snakeline between 2 vertical voltagelevels
+        // In order to allow snakeline between 2 vertical voltagelevels
         int col = cell.col();
         int ssX = this.matrix.getX(col);
         for (int x = ssX - snakelinePadding; x < ssX + matrix.getMatrixCellWidth(col) + snakelinePadding; x++) {
