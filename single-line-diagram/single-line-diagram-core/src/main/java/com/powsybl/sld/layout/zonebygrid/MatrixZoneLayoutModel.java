@@ -29,7 +29,7 @@ public class MatrixZoneLayoutModel {
 
     public MatrixZoneLayoutModel(String[][] ids, LayoutParameters layoutParameters) {
         this.matrix = new Matrix(ids.length, ids[0].length, layoutParameters);
-        this.snakelinePadding = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
+        this.snakelinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
     }
 
     public void addSubstationGraph(SubstationGraph graph, int row, int col) {

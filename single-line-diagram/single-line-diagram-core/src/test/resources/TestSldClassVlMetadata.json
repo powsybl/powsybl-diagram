@@ -326,7 +326,7 @@
     "cgmesScaleFactor" : 1.0,
     "cgmesDiagramName" : null,
     "cgmesUseNames" : true,
-    "zoneLayoutSnakeLinePadding" : 90.0,
+    "zoneLayoutSnakeLinePadding" : 90,
     "zoneLayoutPathFinder" : "DIJKSTRA"
   },
   "svgParams" : {

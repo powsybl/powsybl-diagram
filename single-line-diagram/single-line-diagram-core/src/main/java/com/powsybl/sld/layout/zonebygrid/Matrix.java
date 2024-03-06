@@ -26,7 +26,7 @@ public class Matrix {
 
     public Matrix(int rows, int cols, LayoutParameters layoutParameters) {
         this.cells = new MatrixCell[rows][cols];
-        this.snakelinePadding = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
+        this.snakelinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         this.diagramPadding = layoutParameters.getDiagramPadding();
     }
 

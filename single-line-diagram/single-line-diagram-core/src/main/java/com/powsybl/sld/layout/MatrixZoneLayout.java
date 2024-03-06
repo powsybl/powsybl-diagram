@@ -58,7 +58,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         // Width by col
         int maxWidthCol = 0;
         // Snakeline hallway (horizontal & vertical)
-        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
+        int snakelineMargin = layoutParameters.getZoneLayoutSnakeLinePadding();
         // Zone size
         int nbRows = matrix.rowCount();
         int nbCols = matrix.columnCount();
