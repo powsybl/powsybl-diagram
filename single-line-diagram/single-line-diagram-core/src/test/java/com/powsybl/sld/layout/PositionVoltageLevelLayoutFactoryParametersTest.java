@@ -37,7 +37,7 @@ class PositionVoltageLevelLayoutFactoryParametersTest {
         assertFalse(parameters.isSubstituteSingularFictitiousByFeederNode());
 
         assertTrue(parameters.isSubstituteInternalMiddle2wtByEquipmentNodes());
-        parameters.setSubstituteSingularFictitiousByFeederNode(false);
+        parameters.setSubstituteInternalMiddle2wtByEquipmentNodes(false);
         assertFalse(parameters.isSubstituteInternalMiddle2wtByEquipmentNodes());
 
         assertFalse(parameters.isExceptionIfPatternNotHandled());

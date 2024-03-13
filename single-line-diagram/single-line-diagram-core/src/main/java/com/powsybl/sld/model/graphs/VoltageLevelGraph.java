@@ -723,7 +723,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             ConnectivityNode connectivityNode1 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeB : connectivityNodeA;
             ConnectivityNode connectivityNode2 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeA : connectivityNodeB;
             NodeFactory.createInternal2WTNode(this,
-                    middle2WTNode.getId() + "_intern", middle2WTNode.getName(), middle2WTNode.getEquipmentId(),
+                    middle2WTNode.getId(), middle2WTNode.getName(), middle2WTNode.getEquipmentId(),
                     connectivityNode1, connectivityNode2, middle2WTNode.getComponentType());
             multiTermNodes.remove(middleNode);
             twtEdges.removeAll(middleNode.getAdjacentEdges());
