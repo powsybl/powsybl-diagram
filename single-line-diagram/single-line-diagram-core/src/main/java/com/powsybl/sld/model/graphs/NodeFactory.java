@@ -196,9 +196,8 @@ public final class NodeFactory {
         return sn;
     }
 
-    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger) {
-        String component = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, component);
+    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, String equipmentId, Node n1, Node n2, String component) {
+        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, equipmentId, component);
         graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
         graph.addEdge(n2, i2wt);

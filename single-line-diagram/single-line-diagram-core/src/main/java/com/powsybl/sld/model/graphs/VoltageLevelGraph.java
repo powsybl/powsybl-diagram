@@ -16,6 +16,7 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -496,6 +497,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .map(FeederNode.class::cast);
     }
 
+    private Stream<FeederNode> getFeederNodeStream(FeederType feederType) {
+        return getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == feederType);
+    }
+
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
     }
@@ -661,7 +666,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public void substituteNodesMirroringGroundDisconnectionComponent() {
-        List<GroundDisconnection> groundDisconnections = getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == FeederType.GROUND)
+        List<GroundDisconnection> groundDisconnections = getFeederNodeStream(FeederType.GROUND)
                 .map(this::getGroundDisconnection)
                 .filter(Objects::nonNull)
                 .toList();
@@ -685,6 +690,44 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             return new GroundDisconnection(list.subList(0, list.size() - 1), groundFeederNode, aSwitch.get(), list.get(list.size() - 1));
         }
         return null;
+    }
+
+    public void substituteInternalMiddle2wtByEquipmentNodes() {
+        for (FeederNode feederNode : getFeederNodeStream(FeederType.TWO_WINDINGS_TRANSFORMER_LEG).toList()) {
+            if (nodesById.get(feederNode.getId()) == feederNode) { // check if not already removed
+                substituteInternalMiddle2wtByEquipmentNode(feederNode);
+            }
+        }
+    }
+
+    private void substituteInternalMiddle2wtByEquipmentNode(FeederNode feederNode) {
+        MiddleTwtNode middleNode = getMultiTermNodes().stream()
+                .filter(m2wtn -> m2wtn.getAdjacentNodes().stream().anyMatch(n -> n == feederNode))
+                .findFirst().orElse(null);
+        Node otherSideNode = Optional.ofNullable(middleNode)
+                .flatMap(m2wtn -> m2wtn.getAdjacentNodes().stream().filter(n -> n != feederNode).findFirst())
+                .orElse(null);
+        if (middleNode instanceof Middle2WTNode middle2WTNode
+                && otherSideNode instanceof FeederNode otherSideFeederNode
+                && otherSideFeederNode.getFeeder() instanceof FeederTwLeg otherSideFeederTwLeg
+                && otherSideFeederTwLeg.getOwnVoltageLevelInfos().getId().equals(voltageLevelInfos.getId())) {
+
+            ConnectivityNode connectivityNodeA = NodeFactory.createConnectivityNode(this, feederNode.getId(), ComponentTypeName.NODE);
+            ConnectivityNode connectivityNodeB = NodeFactory.createConnectivityNode(this, otherSideNode.getId(), ComponentTypeName.NODE);
+
+            // substitute nodes in voltage level
+            substituteNode(feederNode, connectivityNodeA);
+            substituteNode(otherSideNode, connectivityNodeB);
+
+            // substitute the node which was "outside" the voltage level (multiTermNode / snake line) by a node inside the voltage level
+            ConnectivityNode connectivityNode1 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeB : connectivityNodeA;
+            ConnectivityNode connectivityNode2 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeA : connectivityNodeB;
+            NodeFactory.createInternal2WTNode(this,
+                    middle2WTNode.getId() + "_intern", middle2WTNode.getName(), middle2WTNode.getEquipmentId(),
+                    connectivityNode1, connectivityNode2, middle2WTNode.getComponentType());
+            multiTermNodes.remove(middleNode);
+            twtEdges.removeAll(middleNode.getAdjacentEdges());
+        }
     }
 
     private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
