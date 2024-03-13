@@ -10,7 +10,11 @@ package com.powsybl.sld.iidm;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -36,14 +40,22 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
-        // Run layout
+        // Run layout with default parameters and compare subsequent SVG with reference
         voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
-        DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
                 toSVG(g, "/InternalBranchesNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+    @Test
+    void testVLGraphExternalPst() {
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
+        // Run layout with specific parameters and compare subsequent SVG with reference
+        PositionVoltageLevelLayoutFactoryParameters pvllfParameters = new PositionVoltageLevelLayoutFactoryParameters()
+                .setSubstituteInternalMiddle2wtByEquipmentNodes(false);
+        new PositionVoltageLevelLayoutFactory(new PositionFromExtension(), pvllfParameters).create(g).run(this.layoutParameters);
+        assertEquals(toString("/InternalBranchesNodeBreaker_externalPst.svg"),
+                toSVG(g, "/InternalBranchesNodeBreaker_externalPst.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
