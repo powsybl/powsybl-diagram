@@ -138,15 +138,15 @@ public final class LegBusSet {
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
-                .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell, Side.UNDEFINED)));
-
-        graph.getInternCellStream()
-                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
+                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.MAYBE_ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+                .forEachOrdered(cell -> pushInternCell(legBusSets, nodeToNb, cell));
+
+        graph.getInternCellStream()
+                .filter(cell -> cell.checkIsShape(InternCell.Shape.MAYBE_ONE_LEG))
+                .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
+                .forEachOrdered(cell -> pushInternCell(legBusSets, nodeToNb, cell));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
@@ -232,15 +232,30 @@ public final class LegBusSet {
         legBusSets.add(legBusSet);
     }
 
-    private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+    private static void pushInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(internCell.getBusNodes())) {
                 lbs.addInternCell(internCell, Side.UNDEFINED);
-                internCell.setShape(InternCell.Shape.VERTICAL);
+                if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
+                    internCell.setShape(InternCell.Shape.ONE_LEG);
+                } else {
+                    internCell.setShape(InternCell.Shape.VERTICAL);
+                }
                 return;
             }
         }
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
+        if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
+            // the one leg intern cell cannot be absorbed by any existing legBusSet
+            // we consider that a one leg intern cell should not force the corresponding busNodes
+            // to be parallel, hence we try to replace that one leg by a multileg
+            internCell.replaceOneLegByMultiLeg();
+        }
+        if (internCell.getShape() != InternCell.Shape.ONE_LEG) {
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
+        } else {
+            // if call to replaceOneLegByMultiLeg was not successful
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.UNDEFINED));
+        }
     }
 }

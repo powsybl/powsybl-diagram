@@ -43,7 +43,18 @@ public class InternCell extends AbstractBusCell {
         UNHANDLED_PATTERN,
 
         /**
-         * Intermediary state: the intern cell is either flat or crossover
+         * Intermediary state:
+         * <ul>
+         *     <li>if, due to some extern cells, the bus nodes are not in the same {@link com.powsybl.sld.layout.LegBusSet}, the intern cell is {@link #ONE_LEG}</li>
+         *     <li>if not, the shape is put to either {@link #MAYBE_FLAT} if connecting only two bus nodes, or {@link #UNDEFINED}</li>
+         * </ul>
+         */
+        MAYBE_ONE_LEG,
+
+        /**
+         * Intermediary state: the intern cell has only one BusNode on each side and therefore might be {@link #FLAT}.
+         * If the corresponding bus nodes positions make it impossible, it could be either {@link #CROSSOVER} or
+         * {@link #VERTICAL}.
          */
         MAYBE_FLAT,
 
@@ -119,7 +130,7 @@ public class InternCell extends AbstractBusCell {
             }
         } else {
             if (candidateLegs.size() == 1) {
-                shape = Shape.ONE_LEG;
+                shape = Shape.MAYBE_ONE_LEG;
                 LegBlock leg = candidateLegs.get(0);
                 legs.put(Side.UNDEFINED, leg);
                 leg.setOrientation(Orientation.UP);
@@ -135,6 +146,29 @@ public class InternCell extends AbstractBusCell {
                 }
             }
         }
+    }
+
+    public void replaceOneLegByMultiLeg() {
+        LegBlock oneLeg = legs.get(Side.UNDEFINED); // non-null as once one-leg
+        if (oneLeg instanceof LegParallelBlock legParallelBlock) {
+            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks()
+                    .stream().map(LegPrimaryBlock.class::cast).toList();
+            if (subBlocks.size() == 2) {
+                body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(subBlocks.get(0).getEndingNode()));
+                body.setOrientation(Orientation.RIGHT);
+                SerialBlock serialRootBlock = new SerialBlock(List.of(subBlocks.get(0), body, subBlocks.get(1)));
+                blocksSetting(serialRootBlock, getLegPrimaryBlocks(), List.of());
+                legs.remove(Side.UNDEFINED);
+                assignLeg(serialRootBlock, subBlocks.get(0));
+                assignLeg(serialRootBlock, subBlocks.get(1));
+            }
+            if (subBlocks.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
+                shape = Shape.MAYBE_FLAT;
+            }
+            return;
+        }
+        // Fails to replace it by a multileg -> marks it one leg
+        shape = Shape.ONE_LEG;
     }
 
     public void setFlat() {
