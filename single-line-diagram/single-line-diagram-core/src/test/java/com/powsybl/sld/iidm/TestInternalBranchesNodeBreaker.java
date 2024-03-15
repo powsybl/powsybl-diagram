@@ -44,7 +44,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testVLGraphExternalPst() {
+    void testVLGraphExternal2WT() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
