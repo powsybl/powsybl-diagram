@@ -24,7 +24,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class SerialBlock extends AbstractComposedBlock {
+public class SerialBlock extends AbstractComposedBlock<Block> {
 
     /**
      * Constructor
