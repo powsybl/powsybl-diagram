@@ -149,8 +149,7 @@ public class InternCell extends AbstractBusCell {
     public void replaceOneLegByMultiLeg() {
         LegBlock oneLeg = legs.get(Side.UNDEFINED); // non-null as once one-leg
         if (oneLeg instanceof LegParallelBlock legParallelBlock) {
-            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks()
-                    .stream().map(LegPrimaryBlock.class::cast).toList();
+            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks();
             if (subBlocks.size() == 2) {
                 body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(subBlocks.get(0).getEndingNode()));
                 body.setOrientation(Orientation.RIGHT);

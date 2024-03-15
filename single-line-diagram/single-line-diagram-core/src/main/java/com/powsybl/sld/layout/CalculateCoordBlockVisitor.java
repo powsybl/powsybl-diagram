@@ -120,19 +120,19 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
     }
 
-    void translatePosInCoord(ComposedBlock block, Coord.Dimension cDimSteady,
+    <T extends Block> void translatePosInCoord(ComposedBlock<T> block, Coord.Dimension cDimSteady,
             Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
         replicateCoordInSubblocks(block, cDimSteady);
         distributeCoordInSubblocs(block, pDim, cDimVariable, sign);
         block.getSubBlocks().forEach(sub -> sub.accept(this));
     }
 
-    void replicateCoordInSubblocks(ComposedBlock block, Coord.Dimension dim) {
+    <T extends Block> void replicateCoordInSubblocks(ComposedBlock<T> block, Coord.Dimension dim) {
         block.getCoord().getSegment(dim)
                 .replicateMe(block.getSubBlocks().stream().map(b -> b.getCoord().getSegment(dim)));
     }
 
-    void distributeCoordInSubblocs(ComposedBlock block, Position.Dimension pDim, Coord.Dimension cDim, int sign) {
+    <T extends Block> void distributeCoordInSubblocs(ComposedBlock<T> block, Position.Dimension pDim, Coord.Dimension cDim, int sign) {
         // Computes the step, avoiding the division by 0 for 0-span composed block (e.g.
         // LegPrimaryBlock + Feeder)
         double init = block.getCoord().get(cDim) - sign * block.getCoord().getSpan(cDim) / 2;

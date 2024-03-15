@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public abstract class AbstractComposedBlock<T extends Block> extends AbstractBlock implements ComposedBlock {
+public abstract class AbstractComposedBlock<T extends Block> extends AbstractBlock implements ComposedBlock<T> {
 
     List<T> subBlocks;
 
