@@ -43,7 +43,10 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     @Override
     public Layout create(VoltageLevelGraph graph) {
         // For adapting the graph to the diagram layout
-        GraphRefiner graphRefiner = new GraphRefiner(positionVoltageLevelLayoutFactoryParameters.isRemoveUnnecessaryFictitiousNodes(), positionVoltageLevelLayoutFactoryParameters.isSubstituteSingularFictitiousByFeederNode());
+        GraphRefiner graphRefiner = new GraphRefiner(
+                positionVoltageLevelLayoutFactoryParameters.isRemoveUnnecessaryFictitiousNodes(),
+                positionVoltageLevelLayoutFactoryParameters.isSubstituteSingularFictitiousByFeederNode(),
+                positionVoltageLevelLayoutFactoryParameters.isSubstituteInternalMiddle2wtByEquipmentNodes());
 
         // For cell detection
         ImplicitCellDetector cellDetector = new ImplicitCellDetector(positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled());

@@ -15,8 +15,8 @@ import java.util.List;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class Internal2WTNode extends EquipmentNode {
-    public Internal2WTNode(String id, String nameOrId, String componentType) {
-        super(NodeType.INTERNAL, id, nameOrId, id, componentType, false);
+    public Internal2WTNode(String id, String nameOrId, String equipmentId, String componentType) {
+        super(NodeType.INTERNAL, id, nameOrId, equipmentId, componentType, false);
     }
 
     @Override

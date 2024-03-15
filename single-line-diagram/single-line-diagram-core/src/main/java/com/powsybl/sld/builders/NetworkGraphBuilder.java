@@ -15,7 +15,6 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
-import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,8 +108,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
 
         handleGraphPostProcessors(graph);
-
-        handleConnectedComponents(graph);
     }
 
     private void addBranchEdges(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -262,10 +259,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseGet(() -> NodeFactory.createLccConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
-        private Node createInternal2wtSideNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, TwoSides side) {
-            return NodeFactory.createConnectivityNode(graph, branch.getId() + "_" + side.name(), NODE);
-        }
-
         private FeederNode createFeeder2wtNode(VoltageLevelGraph graph, TwoWindingsTransformer branch, TwoSides side) {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getNameOrId();
@@ -410,9 +403,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
-            Node transformerNode = isInternalToVoltageLevel(transformer)
-                    ? createInternal2wtSideNode(graph, transformer, side)
-                    : createFeeder2wtNode(graph, transformer, side);
+            Node transformerNode = createFeeder2wtNode(graph, transformer, side);
             addTerminalNode(transformerNode, transformer.getTerminal(side));
         }
 
@@ -625,34 +616,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     /**
-     * Check if the graph is connected or not
-     */
-    private void handleConnectedComponents(VoltageLevelGraph graph) {
-        List<Set<Node>> connectedSets = new ConnectivityInspector<>(graph.toJgrapht()).connectedSets();
-        if (connectedSets.size() != 1) {
-            LOGGER.warn("{} connected components found", connectedSets.size());
-            connectedSets.stream()
-                    .sorted(Comparator.comparingInt(Set::size))
-                    .map(setNodes -> setNodes.stream().map(Node::getId).collect(Collectors.toSet()))
-                    .forEach(strings -> LOGGER.warn("   - {}", strings));
-        }
-        connectedSets.forEach(s -> ensureOneBusInConnectedComponent(graph, s));
-    }
-
-    private void ensureOneBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
-        if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
-            return;
-        }
-        Node biggestFn = nodes.stream()
-                .filter(node -> node.getType() == Node.NodeType.INTERNAL)
-                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
-                        .reversed()
-                        .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
-                .orElseThrow(() -> new PowsyblException("Empty node set"));
-        graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
-    }
-
-    /**
      * Discover and apply postprocessor plugins to add custom nodes
      **/
     private void handleGraphPostProcessors(VoltageLevelGraph graph) {
@@ -705,16 +668,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return isNotNull;
     }
 
-    private void add2wtEdges(VoltageLevelGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
-        for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
-            Node n1 = graph.getNode(transfo.getId() + "_" + TwoSides.ONE);
-            Node n2 = graph.getNode(transfo.getId() + "_" + TwoSides.TWO);
-            NodeFactory.createInternal2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                    n1, n2, transfo.hasPhaseTapChanger());
-        }
-    }
-
-    private void add2wtEdges(SubstationGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
+    private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
         for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
