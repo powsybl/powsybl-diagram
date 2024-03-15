@@ -97,14 +97,12 @@ public class InternCell extends AbstractBusCell {
     private Shape shape;
     private final Map<Side, LegBlock> legs;
     private Block body;
-    private final boolean exceptionIfPatternNotHandled;
 
-    public InternCell(int cellNumber, Collection<Node> nodes, boolean exceptionIfPatternNotHandled) {
+    public InternCell(int cellNumber, Collection<Node> nodes) {
         super(cellNumber, CellType.INTERN, nodes);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
         shape = Shape.UNDEFINED;
-        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     @Override
@@ -112,7 +110,7 @@ public class InternCell extends AbstractBusCell {
         cellVisitor.visit(this);
     }
 
-    public void organizeBlocks() {
+    public void organizeBlocks(boolean exceptionIfPatternNotHandled) {
         List<LegBlock> candidateLegs = searchLegs();
         if (getRootBlock().getType() == Block.Type.SERIAL && candidateLegs.size() == 2) {
             SerialBlock serialRootBlock = (SerialBlock) getRootBlock();

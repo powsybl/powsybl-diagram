@@ -65,7 +65,7 @@ public class ImplicitCellDetector implements CellDetector {
         stopTypes.add(BUS);
         List<Set<Node>> internCellsNodes = detectCell(graph, stopTypes, exclusionTypes, allocatedNodes);
         for (Set<Node> nodes : internCellsNodes) {
-            graph.addCell(new InternCell(graph.getNextCellNumber(), nodes, exceptionIfPatternNotHandled));
+            graph.addCell(new InternCell(graph.getNextCellNumber(), nodes));
         }
 
         // ****************EXTERN AND SHUNT CELLS******
