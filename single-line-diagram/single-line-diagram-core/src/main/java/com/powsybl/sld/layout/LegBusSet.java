@@ -7,6 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.blocks.LegBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -69,12 +72,8 @@ public final class LegBusSet {
         internCellSides.add(new InternCellSide(internCell, side));
     }
 
-    private boolean contains(Collection<BusNode> busNodeCollection) {
-        return busNodeSet.containsAll(busNodeCollection);
-    }
-
     private boolean contains(LegBusSet lbs) {
-        return contains(lbs.getBusNodeSet());
+        return busNodeSet.containsAll(lbs.getBusNodeSet());
     }
 
     private void absorbs(LegBusSet lbsToAbsorb) {
@@ -233,29 +232,58 @@ public final class LegBusSet {
     }
 
     private static void pushInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+        List<LegBusSet> attachedLegBusSets = new ArrayList<>();
         for (LegBusSet lbs : legBusSets) {
-            if (lbs.contains(internCell.getBusNodes())) {
-                lbs.addInternCell(internCell, Side.UNDEFINED);
-                if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
-                    internCell.setShape(InternCell.Shape.ONE_LEG);
-                } else {
-                    internCell.setShape(InternCell.Shape.VERTICAL);
+            boolean attachedToLbs = internCell.getBusNodes().stream().anyMatch(lbs.busNodeSet::contains);
+            if (attachedToLbs) {
+                attachedLegBusSets.add(lbs);
+                if (lbs.busNodeSet.containsAll(internCell.getBusNodes())) {
+                    lbs.addInternCell(internCell, Side.UNDEFINED);
+                    if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
+                        internCell.setShape(InternCell.Shape.ONE_LEG);
+                    } else {
+                        internCell.setShape(InternCell.Shape.VERTICAL);
+                    }
+                    return;
                 }
-                return;
             }
         }
         if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
-            // the one leg intern cell cannot be absorbed by any existing legBusSet
-            // we consider that a one leg intern cell should not force the corresponding busNodes
-            // to be parallel, hence we try to replace that one leg by a multileg
-            internCell.replaceOneLegByMultiLeg();
+            replaceByMultilegOrSetOneLeg(internCell, attachedLegBusSets);
         }
         if (internCell.getShape() != InternCell.Shape.ONE_LEG) {
             pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
             pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
         } else {
-            // if call to replaceOneLegByMultiLeg was not successful
             pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.UNDEFINED));
+        }
+    }
+
+    private static void replaceByMultilegOrSetOneLeg(InternCell internCell, List<LegBusSet> attachedLegBusSets) {
+        // the one leg intern cell cannot be absorbed by any existing legBusSet
+        // we consider that a one leg intern cell should not force the corresponding busNodes
+        // to be parallel, hence we try to replace that one leg by a multileg
+        LegBlock oneLeg = internCell.getSideToLeg(Side.UNDEFINED);
+        if (attachedLegBusSets.size() > 1 && oneLeg instanceof LegParallelBlock legParallelBlock) {
+            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks();
+            if (subBlocks.size() == 2) {
+                internCell.replaceOneLegByMultiLeg(subBlocks.get(0), subBlocks.get(1));
+            } else {
+                Collection<List<LegPrimaryBlock>> groupSubBlocks = subBlocks.stream().collect(Collectors.groupingBy(
+                        sb -> attachedLegBusSets.stream().filter(lbs -> lbs.busNodeSet.contains(sb.getBusNode())).findFirst())).values();
+                if (groupSubBlocks.size() == 2) {
+                    var it = groupSubBlocks.iterator();
+                    LegParallelBlock left = new LegParallelBlock(it.next(), true);
+                    LegParallelBlock right = new LegParallelBlock(it.next(), true);
+                    internCell.replaceOneLegByMultiLeg(left, right);
+                } else { // means > 2, attachedLegBusSets size is > 1
+                    // Fails to replace it by a multileg because it's on 3 or more LBS -> marks it one leg
+                    internCell.setOneLeg();
+                }
+            }
+        } else {
+            // Attached to zero or one leg bus set, the shape might be one-leg
+            internCell.setOneLeg();
         }
     }
 }

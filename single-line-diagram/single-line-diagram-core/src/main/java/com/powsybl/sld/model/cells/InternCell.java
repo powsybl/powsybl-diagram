@@ -146,32 +146,29 @@ public class InternCell extends AbstractBusCell {
         }
     }
 
-    public void replaceOneLegByMultiLeg() {
-        LegBlock oneLeg = legs.get(Side.UNDEFINED); // non-null as once one-leg
-        if (oneLeg instanceof LegParallelBlock legParallelBlock) {
-            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks();
-            if (subBlocks.size() == 2) {
-                body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(subBlocks.get(0).getEndingNode()));
-                body.setOrientation(Orientation.RIGHT);
-                SerialBlock serialRootBlock = new SerialBlock(List.of(subBlocks.get(0), body, subBlocks.get(1)));
-                blocksSetting(serialRootBlock, getLegPrimaryBlocks(), List.of());
-                legs.remove(Side.UNDEFINED);
-                assignLeg(serialRootBlock, subBlocks.get(0));
-                assignLeg(serialRootBlock, subBlocks.get(1));
-            }
-            if (subBlocks.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
-                shape = Shape.MAYBE_FLAT;
-            }
-            return;
+    public void replaceOneLegByMultiLeg(LegBlock left, LegBlock right) {
+        body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(left.getEndingNode()));
+        body.setOrientation(Orientation.RIGHT);
+        SerialBlock serialRootBlock = new SerialBlock(List.of(left, body, right));
+        setRootBlock(serialRootBlock);
+        legs.remove(Side.UNDEFINED);
+        assignLeg(serialRootBlock, left);
+        assignLeg(serialRootBlock, right);
+        if (left.getBusNodes().size() == 1 && right.getBusNodes().size() == 1) {
+            shape = Shape.MAYBE_FLAT;
+        } else {
+            shape = Shape.UNDEFINED;
         }
-        // Fails to replace it by a multileg -> marks it one leg
-        shape = Shape.ONE_LEG;
     }
 
     public void setFlat() {
         shape = Shape.FLAT;
         setDirection(Direction.MIDDLE);
         legs.values().forEach(l -> l.setOrientation(Orientation.RIGHT));
+    }
+
+    public void setOneLeg() {
+        shape = Shape.ONE_LEG;
     }
 
     private void assignLeg(SerialBlock sb, LegBlock candidateLeg) {
