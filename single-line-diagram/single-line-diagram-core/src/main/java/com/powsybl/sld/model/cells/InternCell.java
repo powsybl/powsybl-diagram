@@ -161,6 +161,16 @@ public class InternCell extends AbstractBusCell {
         }
     }
 
+    public void replaceBackMultiLegByOneLeg() {
+        body = null;
+        LegParallelBlock rootBlock = new LegParallelBlock(getLegPrimaryBlocks(), true);
+        rootBlock.setOrientation(Orientation.UP);
+        setRootBlock(rootBlock);
+        legs.clear();
+        legs.put(Side.UNDEFINED, rootBlock);
+        shape = Shape.ONE_LEG;
+    }
+
     public void setFlat() {
         shape = Shape.FLAT;
         setDirection(Direction.MIDDLE);

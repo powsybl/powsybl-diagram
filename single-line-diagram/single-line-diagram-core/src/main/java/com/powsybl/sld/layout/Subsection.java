@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
@@ -117,10 +118,22 @@ public class Subsection {
     }
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+        identifyOneLegInternCells(vlGraph, subsections);
         identifyVerticalInternCells(vlGraph, subsections);
         identifyFlatInternCells(lbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
+    }
+
+    private static void identifyOneLegInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
+        graph.getInternCellStream()
+                .filter(c -> c.checkIsShape(InternCell.Shape.MAYBE_FLAT, InternCell.Shape.UNDEFINED))
+                .filter(c -> c.getBodyBlock() instanceof BodyPrimaryBlock bpb && bpb.getNodes().size() == 1 && bpb.getNodes().get(0) instanceof ConnectivityNode)
+                .forEach(c -> subsections.stream().filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes())).findFirst().ifPresent(s -> {
+                    c.replaceBackMultiLegByOneLeg();
+                    s.internCellSides.removeIf(ics -> ics.getCell() == c);
+                    s.internCellSides.add(new InternCellSide(c, Side.UNDEFINED));
+                }));
     }
 
     private static void identifyVerticalInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
