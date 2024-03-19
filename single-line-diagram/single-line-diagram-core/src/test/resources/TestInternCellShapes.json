@@ -44,21 +44,21 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dCrossOverBk2-crossOverBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dF1-dF2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dFlatBk1-flatBreaker",
@@ -81,14 +81,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dVerticalBk2-verticalBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "BUS",
     "id" : "bbs11",
@@ -359,7 +359,7 @@
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 50.0,
           "y" : 44.0,
           "xSpan" : 50.0,
           "ySpan" : 40.0
@@ -447,7 +447,7 @@
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 125.0,
+          "x" : 150.0,
           "y" : 44.0,
           "xSpan" : 50.0,
           "ySpan" : 40.0

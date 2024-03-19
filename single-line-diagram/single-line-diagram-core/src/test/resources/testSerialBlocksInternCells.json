@@ -28,14 +28,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 71.0
+    "y" : 81.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_sd22-b22",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 71.0
+    "y" : 81.0
   }, {
     "type" : "SWITCH",
     "id" : "b11",
@@ -351,7 +351,7 @@
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 50.0,
+          "x" : 75.0,
           "y" : 71.0,
           "xSpan" : 100.0,
           "ySpan" : 40.0

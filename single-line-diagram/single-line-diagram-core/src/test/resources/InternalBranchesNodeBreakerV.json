@@ -318,7 +318,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D11-BR12",
@@ -346,7 +346,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D19-BR20",
@@ -360,7 +360,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D21-BR22",
@@ -381,7 +381,7 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D27-BR28",
@@ -642,7 +642,7 @@
             "orientation" : "RIGHT"
           },
           "coord" : {
-            "x" : 25.0,
+            "x" : 50.0,
             "y" : 132.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
@@ -730,7 +730,7 @@
             "orientation" : "RIGHT"
           },
           "coord" : {
-            "x" : 175.0,
+            "x" : 200.0,
             "y" : 132.0,
             "xSpan" : 150.0,
             "ySpan" : 40.0

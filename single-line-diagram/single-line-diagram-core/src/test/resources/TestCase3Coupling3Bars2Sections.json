@@ -12,14 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_d1-b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 44.0
+    "y" : 54.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -221,7 +221,7 @@
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 50.0,
           "y" : 44.0,
           "xSpan" : 50.0,
           "ySpan" : 40.0
