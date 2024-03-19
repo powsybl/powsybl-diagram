@@ -38,26 +38,34 @@ public class MatrixZoneLayoutModel {
 
     public List<Point> buildSnakeline(PathFinder pathfinder,
                                       String ss1Id, Point p1, Direction d1,
-                                      String ss2Id, Point p2, Direction d2) {
-        matrix.get(ss1Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell.row(), p1, d1));
-        matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell.row(), p2, d2));
+                                      String ss2Id, Point p2, Direction d2,
+                                      LayoutParameters layoutParameters) {
+        matrix.get(ss1Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell, p1, d1, layoutParameters));
+        matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell, p2, d2, layoutParameters));
 
         // Use path finding algo
         return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
     }
 
-    private void insertFreePathInSubstation(int row, Point p, Direction d) {
-        int x1 = (int) p.getX();
-        int y1 = (int) p.getY();
-        int ssY = matrix.getY(row);
-        int min1Y = ssY - snakelinePadding;
-        int max1Y = y1;
+    private void insertFreePathInSubstation(MatrixCell cell, Point p, Direction d, LayoutParameters layoutParameters) {
+        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+        double x1 = p.getX();
+        double y1 = p.getY();
+        double min1Y = y1 - vlPadding.getTop();
+        double max1Y = y1;
         if (d == Direction.BOTTOM) {
             min1Y = y1;
-            max1Y = ssY + (int) matrix.getMatrixCellHeight(row) + snakelinePadding;
+            max1Y = y1 + vlPadding.getBottom();
         }
-        for (int y = min1Y; y <= max1Y; y++) {
+        for (int y = (int) min1Y; y <= max1Y; y++) {
             pathFinderGrid.setAvailability(x1, y, true);
+        }
+        // Make available a horizontal line large as matrix width + left and right zone layout snakeline padding
+        // In order to allow snakeline between 2 vertical voltagelevels
+        int col = cell.col();
+        int ssX = this.matrix.getX(col);
+        for (int x = ssX - snakelinePadding; x < ssX + matrix.getMatrixCellWidth(col) + snakelinePadding; x++) {
+            pathFinderGrid.setAvailability(x, d == Direction.TOP ? min1Y : max1Y, true);
         }
     }
 
@@ -92,8 +100,10 @@ public class MatrixZoneLayoutModel {
                 int xGraph = (int) vlGraph.getX();
                 int yGraph = (int) vlGraph.getY();
 
-                for (int x = xGraph; x < xGraph + widthNoPadding; x++) {
-                    for (int y = yGraph; y < yGraph + heightNoPadding; y++) {
+                LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+
+                for (int x = xGraph - ((int) vlPadding.getLeft() - 1); x < xGraph + widthNoPadding + (int) vlPadding.getRight(); x++) {
+                    for (int y = yGraph - ((int) vlPadding.getTop() - 1); y < yGraph + heightNoPadding + (int) vlPadding.getBottom(); y++) {
                         pathFinderGrid.setAvailability(x, y, false);
                     }
                 }

@@ -107,7 +107,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(model.buildSnakeline(pathFinder, ss1Graph.getId(), p1, dNode1, ss2Graph.getId(), p2, dNode2));
+            polyline.addAll(model.buildSnakeline(pathFinder, ss1Graph.getId(), p1, dNode1, ss2Graph.getId(), p2, dNode2, layoutParameters));
             // Add ending point
             polyline.add(p2);
         }
