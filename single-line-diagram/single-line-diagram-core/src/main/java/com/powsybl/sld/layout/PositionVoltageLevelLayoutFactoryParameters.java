@@ -25,6 +25,7 @@ public class PositionVoltageLevelLayoutFactoryParameters {
     private boolean exceptionIfPatternNotHandled = false;
     private boolean handleShunts = false;
     private Map<String, Side> busInfoMap = new HashMap<>();
+    private boolean substituteInternalMiddle2wtByEquipmentNodes = true;
 
     public boolean isFeederStacked() {
         return feederStacked;
@@ -77,6 +78,15 @@ public class PositionVoltageLevelLayoutFactoryParameters {
 
     public PositionVoltageLevelLayoutFactoryParameters setBusInfoMap(Map<String, Side> busInfoMap) {
         this.busInfoMap = busInfoMap;
+        return this;
+    }
+
+    public boolean isSubstituteInternalMiddle2wtByEquipmentNodes() {
+        return substituteInternalMiddle2wtByEquipmentNodes;
+    }
+
+    public PositionVoltageLevelLayoutFactoryParameters setSubstituteInternalMiddle2wtByEquipmentNodes(boolean substituteInternalMiddle2wtByEquipmentNodes) {
+        this.substituteInternalMiddle2wtByEquipmentNodes = substituteInternalMiddle2wtByEquipmentNodes;
         return this;
     }
 }
