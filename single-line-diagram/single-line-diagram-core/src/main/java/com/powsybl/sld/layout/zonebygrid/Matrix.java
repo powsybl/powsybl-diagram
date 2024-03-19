@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.*;
 
 import java.util.*;
@@ -19,8 +20,14 @@ public class Matrix {
     // [row] [col]
     private final MatrixCell[][] cells;
 
-    public Matrix(int rows, int cols) {
-        cells = new MatrixCell[rows][cols];
+    private final int snakelinePadding;
+
+    private final LayoutParameters.Padding diagramPadding;
+
+    public Matrix(int rows, int cols, LayoutParameters layoutParameters) {
+        this.cells = new MatrixCell[rows][cols];
+        this.snakelinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
+        this.diagramPadding = layoutParameters.getDiagramPadding();
     }
 
     public Matrix set(int row, int col, MatrixCell cell) {
@@ -61,5 +68,21 @@ public class Matrix {
 
     public int columnCount() {
         return cells[0].length;
+    }
+
+    protected int getX(int col) {
+        int matrixCellWidth = 0;
+        for (int c = 0; c < col; c++) {
+            matrixCellWidth += getMatrixCellWidth(c);
+        }
+        return (int) diagramPadding.getLeft() + ((col + 1) * snakelinePadding) + matrixCellWidth;
+    }
+
+    protected int getY(int row) {
+        int matrixCellHeight = 0;
+        for (int r = 0; r < row; r++) {
+            matrixCellHeight += getMatrixCellHeight(r);
+        }
+        return (int) diagramPadding.getTop() + (row + 1) * snakelinePadding + matrixCellHeight;
     }
 }

@@ -6,9 +6,16 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -21,15 +28,23 @@ import java.util.stream.Collectors;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class GraphRefiner {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphRefiner.class);
     private final boolean removeUnnecessaryFictitiousNodes;
     private final boolean substituteSingularFictitiousByFeederNode;
+    private final boolean substituteInternalMiddle2wtByEquipmentNodes;
 
-    public GraphRefiner(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
+    public GraphRefiner(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode,
+                        boolean substituteInternalMiddle2wtByEquipmentNodes) {
         this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
         this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
+        this.substituteInternalMiddle2wtByEquipmentNodes = substituteInternalMiddle2wtByEquipmentNodes;
     }
 
     void run(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
+        if (substituteInternalMiddle2wtByEquipmentNodes) {
+            graph.substituteInternalMiddle2wtByEquipmentNodes();
+        }
+        handleConnectedComponents(graph);
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {
             graph.removeUnnecessaryConnectivityNodes();
@@ -49,6 +64,34 @@ public class GraphRefiner {
         graph.insertHookNodesAtFeeders();
 
         graph.substituteNodesMirroringGroundDisconnectionComponent();
+    }
+
+    /**
+     * Check if the graph is connected or not
+     */
+    private void handleConnectedComponents(VoltageLevelGraph graph) {
+        List<Set<Node>> connectedSets = new ConnectivityInspector<>(graph.toJgrapht()).connectedSets();
+        if (connectedSets.size() != 1) {
+            LOGGER.warn("{} connected components found", connectedSets.size());
+            connectedSets.stream()
+                    .sorted(Comparator.comparingInt(Set::size))
+                    .map(setNodes -> setNodes.stream().map(Node::getId).collect(Collectors.toSet()))
+                    .forEach(strings -> LOGGER.warn("   - {}", strings));
+        }
+        connectedSets.forEach(s -> ensureOneBusInConnectedComponent(graph, s));
+    }
+
+    private void ensureOneBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
+        if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
+            return;
+        }
+        Node biggestFn = nodes.stream()
+                .filter(node -> node.getType() == Node.NodeType.INTERNAL)
+                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
+                        .reversed()
+                        .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
+                .orElseThrow(() -> new PowsyblException("Empty node set"));
+        graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
     }
 
     private Predicate<Node> getNodesOnBusPredicate(VoltageLevelGraph graph, List<String> componentsOnBusbars) {

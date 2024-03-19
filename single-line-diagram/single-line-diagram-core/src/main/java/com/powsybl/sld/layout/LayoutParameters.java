@@ -48,7 +48,7 @@ public class LayoutParameters {
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
     private boolean cgmesUseNames = true;
-    private double zoneLayoutSnakeLinePadding = 90;
+    private int zoneLayoutSnakeLinePadding = 90;
     private PathFinderType zoneLayoutPathFinder = PathFinderType.DIJKSTRA;
 
     @JsonIgnore
@@ -338,11 +338,11 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getZoneLayoutSnakeLinePadding() {
+    public int getZoneLayoutSnakeLinePadding() {
         return zoneLayoutSnakeLinePadding;
     }
 
-    public LayoutParameters setZoneLayoutSnakeLinePadding(double zoneLayoutSnakeLinePadding) {
+    public LayoutParameters setZoneLayoutSnakeLinePadding(int zoneLayoutSnakeLinePadding) {
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
         return this;
     }
