@@ -142,9 +142,9 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         int pSpan = block.getPosition().getSpan(pDim);
         double step = pSpan == 0 ? 0 : block.getCoord().getSpan(cDim) / pSpan;
         block.getSubBlocks().forEach(sub -> {
-            sub.getCoord().set(cDim, init
-                    + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
-            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
+            double value = init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2);
+            double span = sub.getPosition().getSpan(pDim) * step;
+            sub.getCoord().set(cDim, value, span);
         });
     }
 }

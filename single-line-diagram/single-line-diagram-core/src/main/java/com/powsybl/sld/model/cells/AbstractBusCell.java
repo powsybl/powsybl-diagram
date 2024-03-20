@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -112,6 +113,25 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
                 generator.writeNumberField("order", order);
             }
         }
+    }
+
+    public void removeOtherLegs(LegPrimaryBlock legKept) {
+        if (feederPrimaryBlocks.isEmpty()
+                || !(getRootBlock() instanceof SerialBlock serialBlock)) {
+            return;
+        }
+
+        Block legBlock = serialBlock.getSubBlocks().get(0);
+        Block feederBlock = serialBlock.getSubBlocks().get(serialBlock.getSubBlocks().size() - 1);
+        Block body = serialBlock.extractBody(List.of(legBlock, feederBlock));
+
+        setRootBlock(new SerialBlock(List.of(legKept, body, feederBlock)));
+
+        legPrimaryBlocks.stream()
+                .filter(l -> l != legKept)
+                .forEach(l -> l.getNodes().stream().filter(n -> !legKept.getNodes().contains(n)).forEach(nodes::remove));
+        legPrimaryBlocks.clear();
+        legPrimaryBlocks.add(legKept);
     }
 
     @Override

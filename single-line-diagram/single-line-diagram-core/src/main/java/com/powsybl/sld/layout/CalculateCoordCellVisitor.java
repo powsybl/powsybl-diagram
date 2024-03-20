@@ -54,12 +54,12 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         Position position = block.getPosition();
         Coord coord = block.getCoord();
         double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
-        coord.setSpan(X, spanX);
-        coord.set(X, hToX(layoutParameters, position.get(H)) + spanX / 2);
+        double valueX = hToX(layoutParameters, position.get(H)) + spanX / 2;
+        coord.set(X, valueX, spanX);
 
         double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
-        coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(position, layoutParameters, spanY, layoutContext));
+        double valueY = getRootYCoord(position, layoutParameters, spanY, layoutContext);
+        coord.set(Y, valueY, spanY);
         CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
         block.accept(cc);
     }
