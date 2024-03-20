@@ -2211,6 +2211,20 @@ public final class Networks {
         return network;
     }
 
+    public static Network createNetworkWithInternCellDifferentSubsections() {
+        Network network = Network.create("testCaseOneLegInternCellOnDifferentSubsections", "test");
+        Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel voltageLevel = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        Networks.createBusBarSection(voltageLevel, "1.1", "1.1", 0, 1, 1);
+        Networks.createBusBarSection(voltageLevel, "1.2", "1.2", 1, 1, 2);
+        Networks.createBusBarSection(voltageLevel, "1.3", "1.3", 2, 1, 3);
+
+        Networks.createSwitch(voltageLevel, "d1", "d1", SwitchKind.DISCONNECTOR, false, true, false, 0, 11);
+        Networks.createSwitch(voltageLevel, "d2", "d2", SwitchKind.DISCONNECTOR, false, true, false, 11, 2);
+
+        return network;
+    }
+
     public static void createLine(Bus bus1, Bus bus2) {
         String id = String.format("%s - %s",
                 bus1.getVoltageLevel().getSubstation().orElseThrow().getId(),

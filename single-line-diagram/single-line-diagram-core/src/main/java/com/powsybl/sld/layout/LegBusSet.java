@@ -264,7 +264,7 @@ public final class LegBusSet {
         // we consider that a one leg intern cell should not force the corresponding busNodes
         // to be parallel, hence we try to replace that one leg by a multileg
         LegBlock oneLeg = internCell.getSideToLeg(Side.UNDEFINED);
-        if (attachedLegBusSets.size() > 1 && oneLeg instanceof LegParallelBlock legParallelBlock) {
+        if (oneLeg instanceof LegParallelBlock legParallelBlock) {
             List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks();
             if (subBlocks.size() == 2) {
                 internCell.replaceOneLegByMultiLeg(subBlocks.get(0), subBlocks.get(1));
