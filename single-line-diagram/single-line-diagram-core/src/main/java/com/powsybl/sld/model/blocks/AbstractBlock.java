@@ -122,10 +122,8 @@ public abstract class AbstractBlock implements Block {
 
     @Override
     public void setCoord(double x, double y, double spanX, double spanY) {
-        coord.set(Coord.Dimension.X, x);
-        coord.set(Coord.Dimension.Y, y);
-        coord.setSpan(Coord.Dimension.X, spanX);
-        coord.setSpan(Coord.Dimension.Y, spanY);
+        coord.set(Coord.Dimension.X, x, spanX);
+        coord.set(Coord.Dimension.Y, y, spanY);
     }
 
     @Override

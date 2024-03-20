@@ -23,7 +23,6 @@ import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 public final class CalculateCoordBlockVisitor implements BlockVisitor {
     private final LayoutParameters layoutParameters;
 
-
     public CalculateCoordBlockVisitor(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
     }
@@ -56,9 +55,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
     public void visit(LegPrimaryBlock block) {
         if (block.getPosition().getOrientation().isVertical()) {
             block.getNodeOnBus().setCoordinates(block.getCoord().get(X), block.getBusNode().getY());
-            block.getLegNode().setX(block.getCoord().get(X));
-            block.getLegNode().setY(block.getCoord().get(Y)
-                    + (block.getOrientation() == UP ? -1 : 1) * layoutParameters.getStackHeight());
+            block.getLegNode().setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
         } else {
             block.getNodeOnBus().setCoordinates(block.getCoord().get(X) + block.getCoord().getSpan(X) / 2,
                     block.getBusNode().getY());
@@ -132,9 +129,9 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         int pSpan = block.getPosition().getSpan(pDim);
         double step = pSpan == 0 ? 0 : block.getCoord().getSpan(cDim) / pSpan;
         block.getSubBlocks().forEach(sub -> {
-            sub.getCoord().set(cDim, init
-                    + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
-            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
+            double value = init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2);
+            double span = sub.getPosition().getSpan(pDim) * step;
+            sub.getCoord().set(cDim, value, span);
         });
     }
 }

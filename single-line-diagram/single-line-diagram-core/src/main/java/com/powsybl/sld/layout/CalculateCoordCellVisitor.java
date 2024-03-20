@@ -81,7 +81,9 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
 
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        double spanY = layoutContext.getExternCellHeight(direction) - layoutParameters.getStackHeight() - layoutParameters.getFeederSpan();
+        double spanY = position.getSpan(V) != 0
+                ? layoutContext.getExternCellHeight(direction) - layoutParameters.getStackHeight() - layoutParameters.getFeederSpan()
+                : 0;
         double dyToBus = spanY / 2 + layoutParameters.getStackHeight();
         double y = direction == Direction.BOTTOM
                 ? layoutContext.getLastBusY() + dyToBus
