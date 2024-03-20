@@ -12,6 +12,7 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,8 +26,7 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
-        network = Networks.createNetworkWithInternCellDifferentSubsections();
-        graphBuilder = new NetworkGraphBuilder(network);
+
     }
 
     @Override
@@ -35,7 +35,10 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
     }
 
     @Test
-    void test() {
+    void testBasicInternCellOnDifferentSubsections() {
+        network = Networks.createNetworkWithInternCellDifferentSubsections();
+        graphBuilder = new NetworkGraphBuilder(network);
+
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
 
@@ -44,6 +47,24 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         String filename = "/TestInternCellDifferentSubsections.svg";
+
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
+    @Test
+    @Disabled
+    void testComplexInternCellDifferentSubsections() {
+        network = Networks.createNetworkWithComplexInternCellDifferentSubsections();
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        String filename = "/TestComplexInternCellDifferentSubsections.svg";
 
         assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
