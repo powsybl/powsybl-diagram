@@ -2233,12 +2233,15 @@ public final class Networks {
         Networks.createBusBarSection(voltageLevel, "1.1", "1.1", 0, 1, 1);
         Networks.createBusBarSection(voltageLevel, "1.2", "1.2", 1, 2, 1);
         Networks.createBusBarSection(voltageLevel, "2.1", "2.1", 2, 1, 2);
-        Networks.createLoad(voltageLevel, "load", "load", "load", null, ConnectablePosition.Direction.TOP, 3, 10d, 10d);
-        Networks.createSwitch(voltageLevel, "dl111", "dl111", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        Networks.createSwitch(voltageLevel, "dl112", "dl112", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        Networks.createSwitch(voltageLevel, "dl121", "dl121", SwitchKind.DISCONNECTOR, false, true, false, 1, 3);
-        Networks.createSwitch(voltageLevel, "dl122", "dl122", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
-        Networks.createSwitch(voltageLevel, "dl211", "dl211", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
+
+        Networks.createLoad(voltageLevel, "load0", "load0", "load0", null, ConnectablePosition.Direction.TOP, 3, 10d, 10d);
+        Networks.createSwitch(voltageLevel, "dl0", "dl0", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        Networks.createLoad(voltageLevel, "load2", "load2", "load2", null, ConnectablePosition.Direction.TOP, 4, 10d, 10d);
+        Networks.createSwitch(voltageLevel, "dl2", "dl2", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+
+        Networks.createSwitch(voltageLevel, "d0", "d0", SwitchKind.DISCONNECTOR, false, true, false, 0, 11);
+        Networks.createSwitch(voltageLevel, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 1, 11);
+        Networks.createSwitch(voltageLevel, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 11);
 
         return network;
     }
