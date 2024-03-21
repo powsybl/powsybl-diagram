@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
@@ -23,7 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -148,20 +149,21 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testMetadataWithHvdcLines() {
+    void testMetadataWithHvdcLines() throws JsonProcessingException {
         network = Networks.createNetworkWithHvdcLines("VSC_1", "VSC_2", "LCC_1", "LCC_2");
         substation = network.getSubstation("Substation1");
         graphBuilder = new NetworkGraphBuilder(network);
 
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
+        JsonNode[] metadata = compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 componentLibrary,
                 layoutParameters,
                 svgParameters,
-                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider()));
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider());
+        assertEquals(metadata[0], metadata[1]);
     }
 
     @Test
@@ -170,8 +172,9 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
+        JsonNode[] metadata = compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider());
+        assertEquals(metadata[0], metadata[1]);
     }
 
     @Test
@@ -180,6 +183,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+        JsonNode[] metadata = compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider());
+        assertEquals(metadata[0], metadata[1]);
     }
 }
