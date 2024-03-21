@@ -66,12 +66,6 @@
             <artifactId>jimfs</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-diagram-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-diagram-test</artifactId>
