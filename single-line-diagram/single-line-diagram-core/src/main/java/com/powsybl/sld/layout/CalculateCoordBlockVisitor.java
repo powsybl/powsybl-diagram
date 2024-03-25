@@ -11,6 +11,8 @@ import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.Node;
 
+import java.util.List;
+
 import static com.powsybl.sld.model.coordinate.Orientation.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
@@ -33,26 +35,27 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
 
     @Override
     public void visit(BodyPrimaryBlock block) {
+        List<Node> blockNodes = block.getNodes();
+        if (blockNodes.size() == 1) {
+            blockNodes.get(0).setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
+            return;
+        }
+
         if (block.getPosition().getOrientation().isVertical()) {
             int sign = block.getOrientation() == UP ? 1 : -1;
             double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
-            double yPxStep = block.getPosition().getSpan(V) == 0 ? 0
-                    : sign * block.getCoord().getSpan(Y) / (block.getNodes().size() - 1);
-            int v = 0;
-            for (Node node : block.getNodes()) {
-                node.setCoordinates(block.getCoord().get(X), y0 - yPxStep * v);
-                v++;
+            double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
+            for (int i = 0; i < blockNodes.size(); i++) {
+                blockNodes.get(i).setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
             }
         } else {
             double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
             if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
                 x0 += layoutParameters.getCellWidth() / 2;
             }
-            double xPxStep = block.getCoord().getSpan(X) / (block.getNodes().size() - 1);
-            int h = 0;
-            for (Node node : block.getNodes()) {
-                node.setCoordinates(x0 + xPxStep * h, block.getCoord().get(Y));
-                h++;
+            double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
+            for (int i = 0; i < blockNodes.size(); i++) {
+                blockNodes.get(i).setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
             }
         }
     }
@@ -120,19 +123,19 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
     }
 
-    void translatePosInCoord(ComposedBlock block, Coord.Dimension cDimSteady,
+    <T extends Block> void translatePosInCoord(ComposedBlock<T> block, Coord.Dimension cDimSteady,
             Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
         replicateCoordInSubblocks(block, cDimSteady);
         distributeCoordInSubblocs(block, pDim, cDimVariable, sign);
         block.getSubBlocks().forEach(sub -> sub.accept(this));
     }
 
-    void replicateCoordInSubblocks(ComposedBlock block, Coord.Dimension dim) {
+    <T extends Block> void replicateCoordInSubblocks(ComposedBlock<T> block, Coord.Dimension dim) {
         block.getCoord().getSegment(dim)
                 .replicateMe(block.getSubBlocks().stream().map(b -> b.getCoord().getSegment(dim)));
     }
 
-    void distributeCoordInSubblocs(ComposedBlock block, Position.Dimension pDim, Coord.Dimension cDim, int sign) {
+    <T extends Block> void distributeCoordInSubblocs(ComposedBlock<T> block, Position.Dimension pDim, Coord.Dimension cDim, int sign) {
         // Computes the step, avoiding the division by 0 for 0-span composed block (e.g.
         // LegPrimaryBlock + Feeder)
         double init = block.getCoord().get(cDim) - sign * block.getCoord().getSpan(cDim) / 2;

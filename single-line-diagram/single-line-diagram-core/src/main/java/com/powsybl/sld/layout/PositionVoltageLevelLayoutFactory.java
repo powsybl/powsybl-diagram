@@ -49,7 +49,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
                 positionVoltageLevelLayoutFactoryParameters.isSubstituteInternalMiddle2wtByEquipmentNodes());
 
         // For cell detection
-        ImplicitCellDetector cellDetector = new ImplicitCellDetector(positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled());
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector();
 
         // For building blocks from cells
         BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, positionVoltageLevelLayoutFactoryParameters.isFeederStacked(), positionVoltageLevelLayoutFactoryParameters.isExceptionIfPatternNotHandled(), positionVoltageLevelLayoutFactoryParameters.isHandleShunts(), positionVoltageLevelLayoutFactoryParameters.getBusInfoMap());

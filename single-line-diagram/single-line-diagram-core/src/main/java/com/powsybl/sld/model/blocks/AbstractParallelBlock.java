@@ -19,12 +19,12 @@ import static com.powsybl.sld.model.blocks.Block.Extremity.*;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-abstract class AbstractParallelBlock extends AbstractComposedBlock {
+abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBlock<T> {
 
-    AbstractParallelBlock(Type type, List<Block> subBlocks, boolean allowMerge) {
+    AbstractParallelBlock(Type type, List<T> subBlocks, boolean allowMerge) {
         super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
-        for (Block child : subBlocks) {
+        for (T child : subBlocks) {
             if (child.getType().isParallel() && allowMerge) {
                 this.subBlocks.addAll(((ComposedBlock) child).getSubBlocks());
             } else {

@@ -21,11 +21,11 @@ import java.util.stream.Stream;
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public abstract class AbstractComposedBlock extends AbstractBlock implements ComposedBlock {
+public abstract class AbstractComposedBlock<T extends Block> extends AbstractBlock implements ComposedBlock<T> {
 
-    List<Block> subBlocks;
+    List<T> subBlocks;
 
-    AbstractComposedBlock(Type type, List<Block> subBlocks) {
+    AbstractComposedBlock(Type type, List<T> subBlocks) {
         super(type);
         if (subBlocks.isEmpty()) {
             throw new IllegalArgumentException("Empty block list");
@@ -33,7 +33,7 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         subBlocks.forEach(b -> b.setParentBlock(this));
     }
 
-    public List<Block> getSubBlocks() {
+    public List<T> getSubBlocks() {
         return subBlocks;
     }
 
