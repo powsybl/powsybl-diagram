@@ -12,7 +12,6 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -52,8 +51,7 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
     }
 
     @Test
-    @Disabled
-    void testComplexInternCellDifferentSubsections() {
+    void test3SubBlockInternCellDifferentSubsectionsSectionIndexGrouping() {
         network = Networks.createNetworkWithComplexInternCellDifferentSubsections();
         graphBuilder = new NetworkGraphBuilder(network);
 
@@ -64,7 +62,24 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        String filename = "/TestComplexInternCellDifferentSubsections.svg";
+        String filename = "/TestOneLegInternCellDifferentSubsectionsSi.svg";
+
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
+    @Test
+    void test3SubBlockInternCellDifferentSubsectionsLegBusSetsGrouping() {
+        network = Networks.createNetworkWithComplexInternCellDifferentSubsections1();
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write SVG and compare to reference
+        String filename = "/TestOneLegInternCellDifferentSubsectionsLbs.svg";
 
         assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }

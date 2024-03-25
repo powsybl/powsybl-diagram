@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.LegBlock;
 import com.powsybl.sld.model.blocks.LegParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
@@ -248,6 +247,8 @@ public final class LegBusSet {
                 }
             }
         }
+
+        // We didn't find any legBusSet which absorbs the intern cell
         if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
             replaceByMultilegOrSetOneLeg(internCell, attachedLegBusSets);
         }
@@ -260,30 +261,41 @@ public final class LegBusSet {
     }
 
     private static void replaceByMultilegOrSetOneLeg(InternCell internCell, List<LegBusSet> attachedLegBusSets) {
-        // the one leg intern cell cannot be absorbed by any existing legBusSet
-        // we consider that a one leg intern cell should not force the corresponding busNodes
-        // to be parallel, hence we try to replace that one leg by a multileg
-        LegBlock oneLeg = internCell.getSideToLeg(Side.UNDEFINED);
-        if (oneLeg instanceof LegParallelBlock legParallelBlock) {
-            List<LegPrimaryBlock> subBlocks = legParallelBlock.getSubBlocks();
-            if (subBlocks.size() == 2) {
-                internCell.replaceOneLegByMultiLeg(subBlocks.get(0), subBlocks.get(1));
+        // We consider that a one leg intern cell should not force the corresponding busNodes to be in the same LegBusSet
+        // (forcing them to be parallel), hence we try to replace that one leg by a multileg
+        // The goal here is to split the corresponding LegParallelBlock into 2 stacked parts
+        LegParallelBlock oneLeg = (LegParallelBlock) internCell.getSideToLeg(Side.UNDEFINED);
+        List<LegPrimaryBlock> subBlocks = oneLeg.getSubBlocks();
+        if (subBlocks.size() == 2) {
+            internCell.replaceOneLegByMultiLeg(subBlocks.get(0), subBlocks.get(1));
+        } else {
+            // Each subBlock has one BusNode which might be in the existing LegBusSets.
+            // The LegBusSets which contain at least one BusNode from current internCell are given as attachedLegBusSets parameter.
+            // We first try to split the subBlocks based on the LegBusSets
+            Collection<List<LegPrimaryBlock>> groupSubBlocksLbs = subBlocks.stream().collect(Collectors.groupingBy(
+                    sb -> attachedLegBusSets.stream().filter(lbs -> lbs.busNodeSet.contains(sb.getBusNode())).findFirst())).values();
+            if (groupSubBlocksLbs.size() == 2) {
+                replaceByMultiLeg(internCell, groupSubBlocksLbs);
             } else {
-                Collection<List<LegPrimaryBlock>> groupSubBlocks = subBlocks.stream().collect(Collectors.groupingBy(
-                        sb -> attachedLegBusSets.stream().filter(lbs -> lbs.busNodeSet.contains(sb.getBusNode())).findFirst())).values();
-                if (groupSubBlocks.size() == 2) {
-                    var it = groupSubBlocks.iterator();
-                    LegParallelBlock left = new LegParallelBlock(it.next(), true);
-                    LegParallelBlock right = new LegParallelBlock(it.next(), true);
-                    internCell.replaceOneLegByMultiLeg(left, right);
-                } else { // means > 2, attachedLegBusSets size is > 1
-                    // Fails to replace it by a multileg because it's on 3 or more LBS -> marks it one leg
+                // We then try to split the subBlocks using the sectionIndex of their busNode
+                Collection<List<LegPrimaryBlock>> groupSubBlocksSi = subBlocks.stream().collect(Collectors.groupingBy(
+                        sb -> sb.getBusNode().getSectionIndex())).values();
+                if (groupSubBlocksSi.size() == 2) {
+                    replaceByMultiLeg(internCell, groupSubBlocksSi);
+                } else {
+                    // Failed to replace it by a multileg -> marks it one leg
                     internCell.setOneLeg();
                 }
             }
-        } else {
-            // Attached to zero or one leg bus set, the shape might be one-leg
-            internCell.setOneLeg();
         }
+    }
+
+    private static void replaceByMultiLeg(InternCell internCell, Collection<List<LegPrimaryBlock>> groupSubBlocks) {
+        var it = groupSubBlocks.iterator();
+        List<LegPrimaryBlock> left = it.next();
+        List<LegPrimaryBlock> right = it.next();
+        internCell.replaceOneLegByMultiLeg(
+                left.size() == 1 ? left.get(0) : new LegParallelBlock(left, true),
+                right.size() == 1 ? right.get(0) : new LegParallelBlock(right, true));
     }
 }
