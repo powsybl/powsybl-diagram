@@ -31,15 +31,6 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 public class ImplicitCellDetector implements CellDetector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
-    private final boolean exceptionIfPatternNotHandled;
-
-    public ImplicitCellDetector(boolean exceptionIfPatternNotHandled) {
-        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
-    }
-
-    public ImplicitCellDetector() {
-        this(false);
-    }
 
     /**
      * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
