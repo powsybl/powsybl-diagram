@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -78,20 +77,25 @@ public class GraphRefiner {
                     .map(setNodes -> setNodes.stream().map(Node::getId).collect(Collectors.toSet()))
                     .forEach(strings -> LOGGER.warn("   - {}", strings));
         }
-        connectedSets.forEach(s -> ensureOneBusInConnectedComponent(graph, s));
+        // Add a fictitious bus for all connected components without any bus
+        connectedSets.stream()
+                .filter(s -> s.stream().noneMatch(node -> node.getType() == Node.NodeType.BUS))
+                .forEach(s -> addFictitiousBusInConnectedComponent(graph, s));
     }
 
-    private void ensureOneBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
-        if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
-            return;
-        }
-        Node biggestFn = nodes.stream()
-                .filter(node -> node.getType() == Node.NodeType.INTERNAL)
-                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
-                        .reversed()
-                        .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
-                .orElseThrow(() -> new PowsyblException("Empty node set"));
-        graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
+    private void addFictitiousBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
+        // Replace the most meshed fictitious node by a fictitious BusNode.
+        // If no fictitious node, insert a fictitious BusNode at the first node of the set.
+        nodes.stream().filter(node -> node.getType() == Node.NodeType.INTERNAL)
+                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
+                .ifPresentOrElse(
+                        mostMeshedFictitiousNode -> graph.substituteNode(mostMeshedFictitiousNode,
+                                NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus")),
+                        () -> {
+                            Node attachedNode = nodes.iterator().next();
+                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, attachedNode.getId() + "_FictitiousBus");
+                            graph.addEdge(busNode, attachedNode);
+                        });
     }
 
     private Predicate<Node> getNodesOnBusPredicate(VoltageLevelGraph graph, List<String> componentsOnBusbars) {
