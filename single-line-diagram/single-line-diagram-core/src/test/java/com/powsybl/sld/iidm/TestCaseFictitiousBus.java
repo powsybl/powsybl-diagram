@@ -68,7 +68,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseFictitiousBusDanglingLoad.svg"),
-                toSVG(g, "/TestCaseFictitiousBusDanglingLoad.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseFictitiousBusDanglingConnectables.svg"),
+                toSVG(g, "/TestCaseFictitiousBusDanglingConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }
