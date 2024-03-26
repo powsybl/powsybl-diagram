@@ -11,11 +11,14 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -24,6 +27,8 @@ import java.util.List;
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractPrimaryBlock extends AbstractBlock implements PrimaryBlock {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPrimaryBlock.class);
 
     protected final List<Node> nodes;
 
@@ -46,6 +51,21 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         this.nodes = new ArrayList<>(nodes);
         setCardinality(Extremity.START, 1);
         setCardinality(Extremity.END, 1);
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        nodes.set(nodes.size() - 1, newEndingNode);
+    }
+
+    @Override
+    public Stream<Node> getNodeStream() {
+        return nodes.stream();
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return nodes.contains(node);
     }
 
     @Override

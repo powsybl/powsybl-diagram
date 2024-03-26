@@ -435,10 +435,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void transferEdges(Node nodeOrigin, Node newNode) {
+        transferEdges(nodeOrigin, newNode, new ArrayList<>(nodeOrigin.getAdjacentEdges()));
+    }
+
+    public void transferEdges(Node nodeOrigin, Node newNode, List<Edge> edgesToTransfer) {
         if (!nodesById.containsKey(newNode.getId())) {
             throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
         }
-        for (Edge edge : new ArrayList<>(nodeOrigin.getAdjacentEdges())) {
+        for (Edge edge : edgesToTransfer) {
+            if (!edge.getNodes().contains(nodeOrigin)) {
+                throw new PowsyblException("Edge to transfer not in adjacent edges of given node");
+            }
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
             Node node2 = edge.getNode2() == nodeOrigin ? newNode : edge.getNode2();
             addEdge(node1, node2);

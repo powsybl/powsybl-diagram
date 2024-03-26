@@ -7,20 +7,16 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.LegParallelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.SerialBlock;
-import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.ConnectivityNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -176,8 +172,12 @@ public final class LegBusSet {
                 && externCell.getRootBlock() instanceof SerialBlock rootSerialBlock) {
             List<LegPrimaryBlock> sortedLegs = legPrimaryBlocks.stream().sorted(Comparator.comparing(lpb -> lpb.getBusNode().getBusbarIndex())).toList();
             LegPrimaryBlock legKept = sortedLegs.get(0);
+            int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
+            var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst().orElse(Direction.UNDEFINED);
             if (rootSerialBlock.getLowerBlock() instanceof LegParallelBlock) {
-                fixLegParallelExternCell(externCell, graph, sortedLegs, legKept);
+                fixLegParallelExternCell(externCell, graph, sortedLegs, legKept, order, direction);
+            } else if (rootSerialBlock.getLowerBlock() instanceof BodyParallelBlock legBodyParallelBlock) {
+                fixLegBodyParallelExternCell(externCell, graph, legBodyParallelBlock, sortedLegs, legKept, order, direction);
             } else {
                 externCell.setRootBlock(new UndefinedBlock(List.of(externCell.getRootBlock())));
                 LOGGER.error("ExternCell pattern not handled");
@@ -185,13 +185,62 @@ public final class LegBusSet {
         }
     }
 
-    private static void fixLegParallelExternCell(ExternCell externCell, VoltageLevelGraph graph, List<LegPrimaryBlock> sortedLegs, LegPrimaryBlock legKept) {
+    private static void fixLegBodyParallelExternCell(ExternCell externCell, VoltageLevelGraph graph,
+                                                     BodyParallelBlock legBodyParallelBlock, List<LegPrimaryBlock> sortedLegs,
+                                                     LegPrimaryBlock legKept, int orderMin, Direction direction) {
+        Map<LegPrimaryBlock, Block> legToSubBlock = new HashMap<>();
+        Map<Block, List<LegPrimaryBlock>> subBlockToLegs = new HashMap<>();
+        for (LegPrimaryBlock legPrimaryBlock : sortedLegs) {
+            Block ancestor = legPrimaryBlock;
+            while (ancestor.getParentBlock() != legBodyParallelBlock) {
+                ancestor = ancestor.getParentBlock();
+            }
+            legToSubBlock.put(legPrimaryBlock, ancestor);
+            subBlockToLegs.computeIfAbsent(ancestor, b -> new ArrayList<>()).add(legPrimaryBlock);
+        }
+
+        Block subBlockKept = legToSubBlock.get(legKept);
+        List<SerialBlock> subBlocksRemoved = legBodyParallelBlock.getSubBlocks().stream().filter(b -> b != subBlockKept)
+                .filter(SerialBlock.class::isInstance).map(SerialBlock.class::cast)
+                .toList();
+
+        externCell.removeOtherLegs(subBlockKept, legKept);
+
+        Node fork = subBlockKept.getEndingNode();
+        int order = orderMin;
+
+        for (int i = 0; i < subBlocksRemoved.size(); i++) {
+
+            SerialBlock sBlock = subBlocksRemoved.get(i);
+
+            ConnectivityNode shuntNode = NodeFactory.createConnectivityNode(graph, "Shunt" + i + "_" + fork.getId());
+            sBlock.replaceEndingNode(shuntNode);
+            List<Edge> edgesToTransfer = new ArrayList<>(fork.getAdjacentEdges()).stream()
+                    .filter(edge -> sBlock.contains(edge.getOppositeNode(fork)))
+                    .toList();
+            graph.transferEdges(fork, shuntNode, edgesToTransfer);
+            graph.addEdge(fork, shuntNode);
+
+            ShuntCell shunt = ShuntCell.create(graph, List.of(fork, shuntNode));
+
+            ExternCell fakeCell = ExternCell.create(graph, sBlock.getNodeStream().toList(), List.of(shunt));
+            fakeCell.setOrder(++order);
+            fakeCell.setDirection(direction);
+            externCell.addShuntCell(shunt);
+
+            CellBlockDecomposer.determineShuntCellBlocks(shunt);
+            fakeCell.blocksSetting(sBlock, subBlockToLegs.get(sBlock), List.of());
+        }
+    }
+
+    private static void fixLegParallelExternCell(ExternCell externCell, VoltageLevelGraph graph,
+                                                 List<LegPrimaryBlock> sortedLegs, LegPrimaryBlock legKept,
+                                                 int orderMin, Direction direction) {
         List<LegPrimaryBlock> legsRemoved = sortedLegs.subList(1, sortedLegs.size());
 
         externCell.removeOtherLegs(legKept);
-        int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
-        var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst();
 
+        int order = orderMin;
         for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
             List<Node> legNodes = legPrimaryBlock.getNodes();
             Node fork = legNodes.get(legNodes.size() - 1);
@@ -203,7 +252,7 @@ public final class LegBusSet {
             fakeCellNodes.add(shuntNode);
             ExternCell fakeCell = ExternCell.create(graph, fakeCellNodes, List.of(shunt));
             fakeCell.setOrder(++order);
-            direction.ifPresent(fakeCell::setDirection);
+            fakeCell.setDirection(direction);
             externCell.addShuntCell(shunt);
 
             CellBlockDecomposer.determineShuntCellBlocks(shunt);

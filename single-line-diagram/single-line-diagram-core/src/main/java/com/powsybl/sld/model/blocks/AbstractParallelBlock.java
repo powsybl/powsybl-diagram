@@ -44,4 +44,11 @@ abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBl
         setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(START) : 1).sum());
         setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(END) : 1).sum());
     }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        for (Block subBlock : subBlocks) {
+            subBlock.replaceEndingNode(newEndingNode);
+        }
+    }
 }
