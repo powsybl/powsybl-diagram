@@ -144,13 +144,9 @@ final class CellBlockDecomposer {
             }
         }
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
-            Block parallelBlock;
-            if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                parallelBlock = new BodyParallelBlock(blocksBundle, false);
-            } else {
-                parallelBlock = new LegParallelBlock(blocksBundle, true);
-            }
-            blocks.add(parallelBlock);
+            blocks.add(blocksBundle.stream().allMatch(LegPrimaryBlock.class::isInstance)
+                    ? new LegParallelBlock(blocksBundle.stream().filter(LegPrimaryBlock.class::isInstance).map(LegPrimaryBlock.class::cast).toList(), true)
+                    : new BodyParallelBlock(blocksBundle, false));
         }
         return !blocksBundlesToMerge.isEmpty();
     }

@@ -65,7 +65,7 @@ public class BlockOrganizer {
             CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
             checkBlocks(cell, layoutParameters);
             if (cell.getType() == INTERN) {
-                ((InternCell) cell).organizeBlocks();
+                ((InternCell) cell).organizeBlocks(exceptionIfPatternNotHandled);
             }
         });
         graph.getShuntCellStream().forEach(CellBlockDecomposer::determineShuntCellBlocks);

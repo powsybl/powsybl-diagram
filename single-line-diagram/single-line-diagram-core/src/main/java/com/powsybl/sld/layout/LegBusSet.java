@@ -7,6 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -69,12 +71,8 @@ public final class LegBusSet {
         internCellSides.add(new InternCellSide(internCell, side));
     }
 
-    private boolean contains(Collection<BusNode> busNodeCollection) {
-        return busNodeSet.containsAll(busNodeCollection);
-    }
-
     private boolean contains(LegBusSet lbs) {
-        return contains(lbs.getBusNodeSet());
+        return busNodeSet.containsAll(lbs.getBusNodeSet());
     }
 
     private void absorbs(LegBusSet lbsToAbsorb) {
@@ -138,15 +136,15 @@ public final class LegBusSet {
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
-                .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell, Side.UNDEFINED)));
-
-        graph.getInternCellStream()
-                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
+                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.MAYBE_ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+                .forEachOrdered(cell -> pushInternCell(legBusSets, nodeToNb, cell));
+
+        graph.getInternCellStream()
+                .filter(cell -> cell.checkIsShape(InternCell.Shape.MAYBE_ONE_LEG))
+                .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
+                .forEachOrdered(cell -> pushInternCell(legBusSets, nodeToNb, cell));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
@@ -232,15 +230,72 @@ public final class LegBusSet {
         legBusSets.add(legBusSet);
     }
 
-    private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+    private static void pushInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+        List<LegBusSet> attachedLegBusSets = new ArrayList<>();
         for (LegBusSet lbs : legBusSets) {
-            if (lbs.contains(internCell.getBusNodes())) {
-                lbs.addInternCell(internCell, Side.UNDEFINED);
-                internCell.setShape(InternCell.Shape.VERTICAL);
-                return;
+            boolean attachedToLbs = internCell.getBusNodes().stream().anyMatch(lbs.busNodeSet::contains);
+            if (attachedToLbs) {
+                attachedLegBusSets.add(lbs);
+                if (lbs.busNodeSet.containsAll(internCell.getBusNodes())) {
+                    lbs.addInternCell(internCell, Side.UNDEFINED);
+                    if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
+                        internCell.setShape(InternCell.Shape.ONE_LEG);
+                    } else {
+                        internCell.setShape(InternCell.Shape.VERTICAL);
+                    }
+                    return;
+                }
             }
         }
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
-        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
+
+        // We didn't find any legBusSet which absorbs the intern cell
+        if (internCell.getShape() == InternCell.Shape.MAYBE_ONE_LEG) {
+            replaceByMultilegOrSetOneLeg(internCell, attachedLegBusSets);
+        }
+        if (internCell.getShape() != InternCell.Shape.ONE_LEG) {
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
+        } else {
+            pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.UNDEFINED));
+        }
+    }
+
+    private static void replaceByMultilegOrSetOneLeg(InternCell internCell, List<LegBusSet> attachedLegBusSets) {
+        // We consider that a one leg intern cell should not force the corresponding busNodes to be in the same LegBusSet
+        // (forcing them to be parallel), hence we try to replace that one leg by a multileg
+        // The goal here is to split the corresponding LegParallelBlock into 2 stacked parts
+        LegParallelBlock oneLeg = (LegParallelBlock) internCell.getSideToLeg(Side.UNDEFINED);
+        List<LegPrimaryBlock> subBlocks = oneLeg.getSubBlocks();
+        if (subBlocks.size() == 2) {
+            internCell.replaceOneLegByMultiLeg(subBlocks.get(0), subBlocks.get(1));
+        } else {
+            // Each subBlock has one BusNode which might be in the existing LegBusSets.
+            // The LegBusSets which contain at least one BusNode from current internCell are given as attachedLegBusSets parameter.
+            // We first try to split the subBlocks based on the LegBusSets
+            Collection<List<LegPrimaryBlock>> groupSubBlocksLbs = subBlocks.stream().collect(Collectors.groupingBy(
+                    sb -> attachedLegBusSets.stream().filter(lbs -> lbs.busNodeSet.contains(sb.getBusNode())).findFirst())).values();
+            if (groupSubBlocksLbs.size() == 2) {
+                replaceByMultiLeg(internCell, groupSubBlocksLbs);
+            } else {
+                // We then try to split the subBlocks using the sectionIndex of their busNode
+                Collection<List<LegPrimaryBlock>> groupSubBlocksSi = subBlocks.stream().collect(Collectors.groupingBy(
+                        sb -> sb.getBusNode().getSectionIndex())).values();
+                if (groupSubBlocksSi.size() == 2) {
+                    replaceByMultiLeg(internCell, groupSubBlocksSi);
+                } else {
+                    // Failed to replace it by a multileg -> marks it one leg
+                    internCell.setOneLeg();
+                }
+            }
+        }
+    }
+
+    private static void replaceByMultiLeg(InternCell internCell, Collection<List<LegPrimaryBlock>> groupSubBlocks) {
+        var it = groupSubBlocks.iterator();
+        List<LegPrimaryBlock> left = it.next();
+        List<LegPrimaryBlock> right = it.next();
+        internCell.replaceOneLegByMultiLeg(
+                left.size() == 1 ? left.get(0) : new LegParallelBlock(left, true),
+                right.size() == 1 ? right.get(0) : new LegParallelBlock(right, true));
     }
 }
