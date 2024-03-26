@@ -1706,6 +1706,32 @@ public final class Networks {
         return network;
     }
 
+    /**
+     * <PRE>
+     *         l
+     *         |
+     *     ___ b ____
+     *    |          |
+     *    |          |
+     * --d1--  x  --d2--
+     *  bbs1  dc   bbs2
+     * </PRE>
+     *
+     */
+    public static Network createSimpleExternCellOnTwoSections() {
+        Network network = Network.create("test", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 225);
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        createBusBarSection(vl, "bbs2", "bbs2", 1, 1, 2);
+        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
+        createSwitch(vl, "dc", "dc", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 3, 2);
+        return network;
+    }
+
     public static Substation createSubstation(Network n, String id, String name, Country country) {
         return n.newSubstation()
                 .setId(id)
