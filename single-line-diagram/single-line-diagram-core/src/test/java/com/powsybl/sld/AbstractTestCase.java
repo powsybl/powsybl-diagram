@@ -32,8 +32,6 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractTestCase {
 
-    private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
-
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;

@@ -2346,12 +2346,14 @@ public final class Networks {
                 .setNominalV(50)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        createLoad(vl, "dLoad", 2, ConnectablePosition.Direction.BOTTOM, 0, 0, 0);
-        createBusBarSection(vl, "bbs1", 1, 1, 1);
-        createBusBarSection(vl, "bbs2", 2, 1, 2);
-        createSwitch(vl, "d", SwitchKind.DISCONNECTOR, true, false, false, 1, 3);
-        createSwitch(vl, "d12", SwitchKind.DISCONNECTOR, true, false, false, 1, 2);
-        createLoad(vl, "load", 1, ConnectablePosition.Direction.TOP, 3, 0, 0);
+        createBusBarSection(vl, "bbs1", 0, 1, 1);
+        createBusBarSection(vl, "bbs2", 1, 1, 2);
+        createSwitch(vl, "d", SwitchKind.DISCONNECTOR, true, false, false, 0, 2);
+        createSwitch(vl, "d12", SwitchKind.DISCONNECTOR, true, false, false, 0, 1);
+        createSwitch(vl, "ddl2", SwitchKind.DISCONNECTOR, true, false, false, 4, 5);
+        createLoad(vl, "load", 1, ConnectablePosition.Direction.TOP, 2, 0, 0);
+        createLoad(vl, "dLoad1", 2, ConnectablePosition.Direction.BOTTOM, 3, 0, 0);
+        createLoad(vl, "dLoad2", 0, ConnectablePosition.Direction.TOP, 4, 0, 0);
         return network;
     }
 

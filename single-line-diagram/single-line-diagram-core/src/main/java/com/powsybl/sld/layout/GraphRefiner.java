@@ -90,10 +90,12 @@ public class GraphRefiner {
         nodes.stream().filter(node -> node.getType() == Node.NodeType.INTERNAL)
                 .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
                 .ifPresentOrElse(
-                        mostMeshedFictitiousNode -> graph.substituteNode(mostMeshedFictitiousNode,
-                                NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus", 1, sectionIndex)),
+                        mostMeshedFictitiousNode -> {
+                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus", 1, sectionIndex);
+                            graph.substituteNode(mostMeshedFictitiousNode, busNode);
+                        },
                         () -> {
-                            Node attachedNode = nodes.stream().min(Comparator.comparing(Node::getId)).orElse(nodes.iterator().next());
+                            Node attachedNode = nodes.stream().min(Comparator.comparing(Node::getId)).orElse(nodes.iterator().next()); // for stable node selection
                             BusNode busNode = NodeFactory.createFictitiousBusNode(graph, attachedNode.getId() + "_FictitiousBus", 1, sectionIndex);
                             graph.addEdge(busNode, attachedNode);
                         });
