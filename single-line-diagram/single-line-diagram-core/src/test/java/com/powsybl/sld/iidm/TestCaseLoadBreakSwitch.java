@@ -33,7 +33,7 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
         vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
         Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
-        Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 2);
+        Networks.createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 1);
         Networks.createGenerator(vl, "G", "G", "G", 0, ConnectablePosition.Direction.TOP, 2, 50, 100, false, 100, 400);
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
         Networks.createSwitch(vl, "d", "d", SwitchKind.LOAD_BREAK_SWITCH, false, false, false, 0, 2);
