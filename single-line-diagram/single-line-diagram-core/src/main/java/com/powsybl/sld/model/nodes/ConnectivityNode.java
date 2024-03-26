@@ -7,7 +7,6 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
@@ -31,9 +30,6 @@ public class ConnectivityNode extends AbstractNode {
     }
 
     public void setShunt(boolean shunt) {
-        if (getAdjacentNodes().size() < 3) {
-            throw new PowsyblException("to be a shunt, a node must have 3+ adjacent nodes");
-        }
         isShunt = shunt;
     }
 

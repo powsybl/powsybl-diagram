@@ -14,25 +14,14 @@ import com.powsybl.sld.model.coordinate.Direction;
 public final class LayoutContext {
     private final double firstBusY;
     private final double lastBusY;
-    private final double maxInternCellHeight;
-    private final Direction direction;
-    private final boolean isInternCell;
-    private final boolean isFlat;
-    private final boolean isUnileg;
+    private final double externCellHeightTop;
+    private final double externCellHeightBottom;
 
-    public LayoutContext(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction,
-                         boolean isInternCell, boolean isFlat, boolean isUnileg) {
+    public LayoutContext(double firstBusY, double lastBusY, double externCellHeightTop, double externCellHeightBottom) {
         this.firstBusY = firstBusY;
         this.lastBusY = lastBusY;
-        this.maxInternCellHeight = maxInternCellHeight;
-        this.direction = direction;
-        this.isInternCell = isInternCell;
-        this.isFlat = isFlat;
-        this.isUnileg = isUnileg;
-    }
-
-    public LayoutContext(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction) {
-        this(firstBusY, lastBusY, maxInternCellHeight, direction, false, false, false);
+        this.externCellHeightTop = externCellHeightTop;
+        this.externCellHeightBottom = externCellHeightBottom;
     }
 
     public double getFirstBusY() {
@@ -43,23 +32,7 @@ public final class LayoutContext {
         return lastBusY;
     }
 
-    public double getMaxInternCellHeight() {
-        return maxInternCellHeight;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public boolean isInternCell() {
-        return isInternCell;
-    }
-
-    public boolean isFlat() {
-        return isFlat;
-    }
-
-    public boolean isUnileg() {
-        return isUnileg;
+    public double getExternCellHeight(Direction direction) {
+        return direction == Direction.TOP ? externCellHeightTop : externCellHeightBottom;
     }
 }

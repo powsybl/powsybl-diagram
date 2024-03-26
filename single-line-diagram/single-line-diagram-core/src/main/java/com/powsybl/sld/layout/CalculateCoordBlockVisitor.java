@@ -22,15 +22,9 @@ import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
  */
 public final class CalculateCoordBlockVisitor implements BlockVisitor {
     private final LayoutParameters layoutParameters;
-    private final LayoutContext layoutContext;
 
-    private CalculateCoordBlockVisitor(LayoutParameters layoutParameters, LayoutContext layoutContext) {
+    public CalculateCoordBlockVisitor(LayoutParameters layoutParameters) {
         this.layoutParameters = layoutParameters;
-        this.layoutContext = layoutContext;
-    }
-
-    public static CalculateCoordBlockVisitor create(LayoutParameters layoutParameters, LayoutContext layoutContext) {
-        return new CalculateCoordBlockVisitor(layoutParameters, layoutContext);
     }
 
     @Override
@@ -50,9 +44,6 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
             }
         } else {
             double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
-            if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
-                x0 += layoutParameters.getCellWidth() / 2;
-            }
             double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
             for (int i = 0; i < blockNodes.size(); i++) {
                 blockNodes.get(i).setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
@@ -64,11 +55,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
     public void visit(LegPrimaryBlock block) {
         if (block.getPosition().getOrientation().isVertical()) {
             block.getNodeOnBus().setCoordinates(block.getCoord().get(X), block.getBusNode().getY());
-            block.getLegNode().setX(block.getCoord().get(X));
-            if (layoutContext.isInternCell() && layoutContext.isUnileg()) {
-                block.getLegNode().setY(block.getCoord().get(Y)
-                        + (block.getOrientation() == UP ? -1 : 1) * layoutParameters.getInternCellHeight());
-            }
+            block.getLegNode().setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
         } else {
             block.getNodeOnBus().setCoordinates(block.getCoord().get(X) + block.getCoord().getSpan(X) / 2,
                     block.getBusNode().getY());
@@ -142,9 +129,9 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         int pSpan = block.getPosition().getSpan(pDim);
         double step = pSpan == 0 ? 0 : block.getCoord().getSpan(cDim) / pSpan;
         block.getSubBlocks().forEach(sub -> {
-            sub.getCoord().set(cDim, init
-                    + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
-            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
+            double value = init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2);
+            double span = sub.getPosition().getSpan(pDim) * step;
+            sub.getCoord().set(cDim, value, span);
         });
     }
 }

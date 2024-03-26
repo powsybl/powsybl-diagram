@@ -13,16 +13,15 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
-import com.powsybl.sld.layout.LayoutContext;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -107,11 +106,9 @@ class TestSerialParallelBlock extends AbstractTestCaseIidm {
         assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getSpan(H));
         assertEquals(4, subPB.getSubBlocks().get(1).getPosition().getSpan(V));
 
-        sb.getCoord().set(X, 10);
-        sb.getCoord().set(Y, 20);
-        sb.getCoord().setSpan(X, 100);
-        sb.getCoord().setSpan(Y, 200);
-        CalculateCoordBlockVisitor ccbv = CalculateCoordBlockVisitor.create(layoutParameters, new LayoutContext(0., 0., 0., null, false, false, false));
+        sb.getCoord().set(X, 10, 100);
+        sb.getCoord().set(Y, 20, 200);
+        CalculateCoordBlockVisitor ccbv = new CalculateCoordBlockVisitor(layoutParameters);
         sb.getPosition().setOrientation(Orientation.LEFT);
         sb.accept(ccbv);
 

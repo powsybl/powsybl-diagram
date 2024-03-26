@@ -2514,14 +2514,14 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_vl2_dscpl2-ddcpl1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 132.0
+      "y" : 142.0
     }, {
       "type" : "INTERNAL",
       "id" : "INTERNAL_vl2_dtrf21-btrf21",
@@ -3140,7 +3140,7 @@
             "orientation" : "RIGHT"
           },
           "coord" : {
-            "x" : 25.0,
+            "x" : 50.0,
             "y" : 132.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0

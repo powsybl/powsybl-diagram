@@ -10,13 +10,12 @@ import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.cells.InternCell.Shape;
-import com.powsybl.sld.model.coordinate.Coord;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.Node;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 
 /**
@@ -34,14 +33,14 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
     @Override
     public void visit(InternCell cell) {
         if (cell.getShape().checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
-            calculateRootCoord(cell.getBodyBlock(), layoutContext);
+            calculateInternCellRootCoord(cell.getBodyBlock(), cell.getDirection(), cell.getShape(), false);
         }
-        cell.getLegs().values().forEach(lb -> calculateRootCoord(lb, layoutContext));
+        cell.getLegs().values().forEach(lb -> calculateInternCellRootCoord(lb, cell.getDirection(), cell.getShape(), true));
     }
 
     @Override
     public void visit(ExternCell cell) {
-        calculateRootCoord(cell.getRootBlock(), layoutContext);
+        calculateExternCellRootCoord(cell.getRootBlock(), layoutContext, cell.getDirection());
     }
 
     @Override
@@ -50,53 +49,60 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         coordShuntCase(cell.getRootBlock(), lPos.get(H) + lPos.getSpan(H), cell.getSidePosition(Side.RIGHT).get(H));
     }
 
-    private void calculateRootCoord(Block block, LayoutContext layoutContext) {
+    private void calculateInternCellRootCoord(Block block, Direction direction, Shape shape, boolean leg) {
         Position position = block.getPosition();
-        Coord coord = block.getCoord();
-        double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
-        coord.setSpan(X, spanX);
-        coord.set(X, hToX(layoutParameters, position.get(H)) + spanX / 2);
 
-        double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
-        coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(position, layoutParameters, spanY, layoutContext));
-        CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
-        block.accept(cc);
+        double spanX = getRootSpanX(position);
+        double x = getRootX(position, spanX);
+        if (!leg && shape != Shape.FLAT) {
+            x += layoutParameters.getCellWidth() / 2;
+        }
+
+        double spanY = position.getSpan(V) / 2. * layoutParameters.getInternCellHeight();
+        double dyToBus = spanY / 2 + layoutParameters.getInternCellHeight() * (1 + position.get(V)) / 2.;
+        double y = 0;
+        if (direction == Direction.BOTTOM) {
+            y = layoutContext.getLastBusY() + dyToBus;
+        } else if (direction == Direction.TOP) {
+            y = layoutContext.getFirstBusY() - dyToBus;
+        } else if (direction == Direction.MIDDLE) {
+            y = layoutContext.getFirstBusY() + (position.get(V) - 1) * layoutParameters.getVerticalSpaceBus();
+        }
+
+        block.setCoord(x, y, spanX, spanY);
+        block.accept(new CalculateCoordBlockVisitor(layoutParameters));
+    }
+
+    private void calculateExternCellRootCoord(Block block, LayoutContext layoutContext, Direction direction) {
+        Position position = block.getPosition();
+
+        double spanX = getRootSpanX(position);
+        double x = getRootX(position, spanX);
+
+        // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
+        // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
+        double spanY = position.getSpan(V) != 0
+                ? layoutContext.getExternCellHeight(direction) - layoutParameters.getStackHeight() - layoutParameters.getFeederSpan()
+                : 0;
+        double dyToBus = spanY / 2 + layoutParameters.getStackHeight();
+        double y = direction == Direction.BOTTOM
+                ? layoutContext.getLastBusY() + dyToBus
+                : layoutContext.getFirstBusY() - dyToBus;
+
+        block.setCoord(x, y, spanX, spanY);
+        block.accept(new CalculateCoordBlockVisitor(layoutParameters));
+    }
+
+    private double getRootSpanX(Position position) {
+        return position.getSpan(H) / 2. * layoutParameters.getCellWidth();
+    }
+
+    private double getRootX(Position position, double spanX) {
+        return hToX(layoutParameters, position.get(H)) + spanX / 2;
     }
 
     private double hToX(LayoutParameters layoutParameters, int h) {
         return layoutParameters.getCellWidth() * h / 2;
-    }
-
-    private double getRootSpanYCoord(Position position, LayoutParameters layoutParam, double externCellHeight, boolean isInternCell) {
-        double ySpan;
-        if (isInternCell) {
-            ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
-        } else {
-            // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
-            // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-            ySpan = externCellHeight - layoutParam.getStackHeight() - layoutParam.getFeederSpan();
-        }
-        return ySpan;
-    }
-
-    private double getRootYCoord(Position position, LayoutParameters layoutParam, double spanY, LayoutContext layoutContext) {
-        double dyToBus = 0;
-        if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
-            dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
-        } else {
-            dyToBus = spanY / 2 + layoutParam.getStackHeight();
-        }
-        switch (layoutContext.getDirection()) {
-            case BOTTOM:
-                return layoutContext.getLastBusY() + dyToBus;
-            case TOP:
-                return layoutContext.getFirstBusY() - dyToBus;
-            case MIDDLE:
-                return layoutContext.getFirstBusY() + (position.get(V) - 1) * layoutParam.getVerticalSpaceBus();
-            default:
-                return 0;
-        }
     }
 
     public void coordShuntCase(BodyPrimaryBlock block, int hLeft, int hRight) {
