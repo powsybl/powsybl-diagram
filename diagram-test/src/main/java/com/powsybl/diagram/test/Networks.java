@@ -1781,6 +1781,13 @@ public final class Networks {
         addFeederPosition(load, feederName, feederOrder, direction);
     }
 
+    public static void createGenerator(VoltageLevel vl, String id, Integer feederOrder,
+                                       ConnectablePosition.Direction direction, int node,
+                                       double minP, double maxP, boolean voltageRegulator,
+                                       double targetP, double targetQ) {
+        createGenerator(vl, id, id, id, feederOrder, direction, node, minP, maxP, voltageRegulator, targetP, targetQ);
+    }
+
     public static void createGenerator(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                        ConnectablePosition.Direction direction, int node,
                                        double minP, double maxP, boolean voltageRegulator,
@@ -2339,7 +2346,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createDanglingLoadNetwork() {
+    public static Network createDanglingConnectablesNetwork() {
         Network network = Network.create("testDLoad", "testDLoad");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")
@@ -2353,7 +2360,8 @@ public final class Networks {
         createSwitch(vl, "ddl2", SwitchKind.DISCONNECTOR, true, false, false, 4, 5);
         createLoad(vl, "load", 1, ConnectablePosition.Direction.TOP, 2, 0, 0);
         createLoad(vl, "dLoad1", 2, ConnectablePosition.Direction.BOTTOM, 3, 0, 0);
-        createLoad(vl, "dLoad2", 0, ConnectablePosition.Direction.TOP, 4, 0, 0);
+        createLoad(vl, "dLoad2", 0, ConnectablePosition.Direction.TOP, 4, 10, 0);
+        createGenerator(vl, "dGen", null, ConnectablePosition.Direction.TOP, 5, 50, 100, false, 100, 400);
         return network;
     }
 

@@ -58,8 +58,8 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testDanglingLoad() {
-        network = Networks.createDanglingLoadNetwork();
+    void testDanglingConnectables() {
+        network = Networks.createDanglingConnectablesNetwork();
 
         // build graph
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl");
