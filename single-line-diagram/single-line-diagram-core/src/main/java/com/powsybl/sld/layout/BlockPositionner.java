@@ -264,6 +264,8 @@ class BlockPositionner {
                     }
                     if (!c.checkIsShape(InternCell.Shape.ONE_LEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);
+                    } else {
+                        c.getRootBlock().getPosition().set(V, newV);
                     }
                 });
                 i++;
