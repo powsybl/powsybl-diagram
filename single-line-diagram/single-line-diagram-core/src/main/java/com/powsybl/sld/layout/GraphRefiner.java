@@ -85,19 +85,20 @@ public class GraphRefiner {
 
     private void addFictitiousBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
         // Replace the most meshed fictitious node by a fictitious BusNode.
-        // If no fictitious node, insert a fictitious BusNode at the first node of the set (sorted in alphabetical order).
+        // If no fictitious node, insert/add a fictitious BusNode at the most meshed node of the set.
+        Comparator<Node> mostMeshedComparator = Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId); // for stable fictitious node selection, also sort on id
         int sectionIndex = 1 + graph.getNodeBuses().stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
         nodes.stream().filter(node -> node.getType() == Node.NodeType.INTERNAL)
-                .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
+                .min(mostMeshedComparator)
                 .ifPresentOrElse(
                         mostMeshedFictitiousNode -> {
                             BusNode busNode = NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus", 1, sectionIndex);
                             graph.substituteNode(mostMeshedFictitiousNode, busNode);
                         },
                         () -> {
-                            Node attachedNode = nodes.stream().min(Comparator.comparing(Node::getId)).orElse(nodes.iterator().next()); // for stable node selection
-                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, attachedNode.getId() + "_FictitiousBus", 1, sectionIndex);
-                            graph.addEdge(busNode, attachedNode);
+                            Node mostMeshedNode = nodes.stream().min(mostMeshedComparator).orElseThrow(); // always non-empty set
+                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, mostMeshedNode.getId() + "_FictitiousBus", 1, sectionIndex);
+                            graph.insertNodeNextTo(busNode, mostMeshedNode);
                         });
     }
 

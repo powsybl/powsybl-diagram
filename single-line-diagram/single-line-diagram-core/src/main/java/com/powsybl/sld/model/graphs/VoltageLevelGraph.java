@@ -730,6 +730,15 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
     }
 
+    public void insertNodeNextTo(Node nodeToInsert, Node adjacentNode) {
+        List<Node> neighbours = adjacentNode.getAdjacentNodes();
+        if (neighbours.isEmpty()) {
+            addEdge(nodeToInsert, adjacentNode);
+        } else {
+            insertNode(adjacentNode, nodeToInsert, neighbours.get(0));
+        }
+    }
+
     private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
     }
 }
