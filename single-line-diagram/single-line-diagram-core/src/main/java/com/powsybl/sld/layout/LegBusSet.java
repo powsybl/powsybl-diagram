@@ -9,6 +9,8 @@ package com.powsybl.sld.layout;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.LegParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
@@ -170,32 +172,42 @@ public final class LegBusSet {
         // (note that zero means no value in the code so far) by dismissing the detection if there is a zero busbar
         // index. There cannot be any zero busbar index with PositionFromExtension, they are replaced in the call
         // PositionFromExtension::setMissingPositionIndices.
-        if (busbarIndices.size() < busNodes.size() && busbarIndices.get(0) != 0) {
+        if (busbarIndices.size() < busNodes.size() && busbarIndices.get(0) != 0
+                && externCell.getRootBlock() instanceof SerialBlock rootSerialBlock) {
             List<LegPrimaryBlock> sortedLegs = legPrimaryBlocks.stream().sorted(Comparator.comparing(lpb -> lpb.getBusNode().getBusbarIndex())).toList();
-            List<LegPrimaryBlock> legsRemoved = sortedLegs.subList(1, sortedLegs.size());
-
             LegPrimaryBlock legKept = sortedLegs.get(0);
-            externCell.removeOtherLegs(legKept);
-            int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
-            var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst();
-
-            for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
-                List<Node> legNodes = legPrimaryBlock.getNodes();
-                Node fork = legNodes.get(legNodes.size() - 1);
-                ConnectivityNode shuntNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
-
-                ShuntCell shunt = ShuntCell.create(graph, List.of(fork, shuntNode));
-
-                List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
-                fakeCellNodes.add(shuntNode);
-                ExternCell fakeCell = ExternCell.create(graph, fakeCellNodes, List.of(shunt));
-                fakeCell.setOrder(++order);
-                direction.ifPresent(fakeCell::setDirection);
-                externCell.addShuntCell(shunt);
-
-                CellBlockDecomposer.determineShuntCellBlocks(shunt);
-                fakeCell.blocksSetting(new LegPrimaryBlock(fakeCellNodes), List.of(legPrimaryBlock), List.of());
+            if (rootSerialBlock.getLowerBlock() instanceof LegParallelBlock) {
+                fixLegParallelExternCell(externCell, graph, sortedLegs, legKept);
+            } else {
+                externCell.setRootBlock(new UndefinedBlock(List.of(externCell.getRootBlock())));
+                LOGGER.error("ExternCell pattern not handled");
             }
+        }
+    }
+
+    private static void fixLegParallelExternCell(ExternCell externCell, VoltageLevelGraph graph, List<LegPrimaryBlock> sortedLegs, LegPrimaryBlock legKept) {
+        List<LegPrimaryBlock> legsRemoved = sortedLegs.subList(1, sortedLegs.size());
+
+        externCell.removeOtherLegs(legKept);
+        int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
+        var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst();
+
+        for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
+            List<Node> legNodes = legPrimaryBlock.getNodes();
+            Node fork = legNodes.get(legNodes.size() - 1);
+            ConnectivityNode shuntNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
+
+            ShuntCell shunt = ShuntCell.create(graph, List.of(fork, shuntNode));
+
+            List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
+            fakeCellNodes.add(shuntNode);
+            ExternCell fakeCell = ExternCell.create(graph, fakeCellNodes, List.of(shunt));
+            fakeCell.setOrder(++order);
+            direction.ifPresent(fakeCell::setDirection);
+            externCell.addShuntCell(shunt);
+
+            CellBlockDecomposer.determineShuntCellBlocks(shunt);
+            fakeCell.blocksSetting(new LegPrimaryBlock(fakeCellNodes), List.of(legPrimaryBlock), List.of());
         }
     }
 
