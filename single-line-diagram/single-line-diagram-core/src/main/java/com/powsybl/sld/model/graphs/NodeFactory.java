@@ -56,9 +56,9 @@ public final class NodeFactory {
         return bn;
     }
 
-    public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id) {
+    public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id, int busbarIndex, int sectionIndex) {
         BusNode bn = new BusNode(id, null, true);
-        bn.setBusBarIndexSectionIndex(1, 1);
+        bn.setBusBarIndexSectionIndex(busbarIndex, sectionIndex);
         graph.addNode(bn);
         return bn;
     }

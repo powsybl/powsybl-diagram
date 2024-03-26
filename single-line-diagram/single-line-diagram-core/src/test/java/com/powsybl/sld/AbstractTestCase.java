@@ -25,14 +25,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public abstract class AbstractTestCase {
-
-    private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
