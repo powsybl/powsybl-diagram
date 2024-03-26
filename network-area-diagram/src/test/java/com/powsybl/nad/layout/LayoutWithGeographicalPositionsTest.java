@@ -7,10 +7,9 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.extensions.Coordinate;
-import com.powsybl.iidm.network.impl.extensions.SubstationPositionAdderImplProvider;
+import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
@@ -28,12 +27,7 @@ class LayoutWithGeographicalPositionsTest {
 
     @Test
     void layoutWithGeographicalPositionsTest() {
-        Network network = IeeeCdfNetworkFactory.create9();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S1")).withCoordinate(new Coordinate(2d, 3d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S2")).withCoordinate(new Coordinate(4d, 5d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S3")).withCoordinate(new Coordinate(6d, 7d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S5")).withCoordinate(new Coordinate(8d, 9d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S6")).withCoordinate(new Coordinate(10d, 11d)).add();
+        Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
 
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network).create();
@@ -44,6 +38,39 @@ class LayoutWithGeographicalPositionsTest {
         assertEquals(200, actual.get("VL1").getY());
         assertEquals(500, actual.get("VL2").getX());
         assertEquals(400, actual.get("VL2").getY());
+    }
+
+    @Test
+    void layoutWithGeographicalPositionsCustomisedParametersTest() {
+        Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
+
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Layout forceLayout = new GeographicalLayoutFactory(network, 200, 50d).create();
+        forceLayout.run(graph, new LayoutParameters());
+        Map<String, Point> actual = graph.getNodePositions();
+
+        assertEquals(600, actual.get("VL1").getX());
+        assertEquals(400, actual.get("VL1").getY());
+        assertEquals(1000, actual.get("VL2").getX());
+        assertEquals(800, actual.get("VL2").getY());
+    }
+
+    @Test
+    void layoutWithGeographicalPositionsTwoVoltageLevelsInSameSubstationTest() {
+        Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
+        network.getSubstation("S1").newVoltageLevel().setNominalV(400d).setTopologyKind(TopologyKind.BUS_BREAKER).setId("VL1_1").add();
+        network.getSubstation("S1").newVoltageLevel().setNominalV(400d).setTopologyKind(TopologyKind.BUS_BREAKER).setId("VL1_2").add();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Layout forceLayout = new GeographicalLayoutFactory(network, 100, 50d).create();
+        forceLayout.run(graph, new LayoutParameters());
+        Map<String, Point> actual = graph.getNodePositions();
+
+        assertEquals(350, actual.get("VL1").getX());
+        assertEquals(200, actual.get("VL1").getY());
+        assertEquals(275, actual.get("VL1_1").getX());
+        assertEquals(243.3d, actual.get("VL1_1").getY(), 0.1);
+        assertEquals(275, actual.get("VL1_2").getX());
+        assertEquals(156.7, actual.get("VL1_2").getY(), 0.1);
     }
 }
 

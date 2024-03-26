@@ -49,5 +49,15 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-extensions</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-impl</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-ieee-cdf-converter</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
