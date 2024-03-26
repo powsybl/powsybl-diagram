@@ -72,7 +72,7 @@ public class GeographicalLayoutFactory implements LayoutFactory {
                             int i = 0;
                             for (VoltageLevel voltageLevel : voltageLevelList) {
                                 double angleVoltageLevel = angle * i;
-                                fixedNodePositionMap.put(voltageLevel.getId(), new Point(longitude * scalingFactor + repulsionFactor * Math.cos(angleVoltageLevel), latitude * scalingFactor + repulsionFactor * Math.cos(angleVoltageLevel)));
+                                fixedNodePositionMap.put(voltageLevel.getId(), new Point(longitude * scalingFactor + repulsionFactor * Math.cos(angleVoltageLevel), latitude * scalingFactor + repulsionFactor * Math.sin(angleVoltageLevel)));
                                 i++;
                             }
                         }
