@@ -85,15 +85,16 @@ public class GraphRefiner {
 
     private void addFictitiousBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
         // Replace the most meshed fictitious node by a fictitious BusNode.
-        // If no fictitious node, insert a fictitious BusNode at the first node of the set.
+        // If no fictitious node, insert a fictitious BusNode at the first node of the set (sorted in alphabetical order).
+        int sectionIndex = 1 + graph.getNodeBuses().stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
         nodes.stream().filter(node -> node.getType() == Node.NodeType.INTERNAL)
                 .min(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size()).reversed().thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id
                 .ifPresentOrElse(
                         mostMeshedFictitiousNode -> graph.substituteNode(mostMeshedFictitiousNode,
-                                NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus")),
+                                NodeFactory.createFictitiousBusNode(graph, mostMeshedFictitiousNode.getId() + "_FictitiousBus", 1, sectionIndex)),
                         () -> {
-                            Node attachedNode = nodes.iterator().next();
-                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, attachedNode.getId() + "_FictitiousBus");
+                            Node attachedNode = nodes.stream().min(Comparator.comparing(Node::getId)).orElse(nodes.iterator().next());
+                            BusNode busNode = NodeFactory.createFictitiousBusNode(graph, attachedNode.getId() + "_FictitiousBus", 1, sectionIndex);
                             graph.addEdge(busNode, attachedNode);
                         });
     }
