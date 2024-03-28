@@ -9,15 +9,17 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
-import com.powsybl.sld.model.cells.InternCell.Shape;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.Node;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -64,7 +66,7 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         if (block == null) {
             return;
         }
-        
+
         Position position = block.getPosition();
         setCoordX(block.getCoord(), position);
 
