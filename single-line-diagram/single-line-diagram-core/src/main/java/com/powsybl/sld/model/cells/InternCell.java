@@ -92,8 +92,6 @@ public class InternCell extends AbstractBusCell {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InternCell.class);
 
-    private static final Side BODY_SIDE = Side.LEFT;
-
     private Shape shape;
     private final Map<Side, LegBlock> legs;
     private Block body;
@@ -267,23 +265,13 @@ public class InternCell extends AbstractBusCell {
     }
 
     public int newHPosition(int hPosition, Side side) {
-        int h = hPosition;
         if (side == Side.LEFT) {
-            legs.get(Side.LEFT).getPosition().set(H, h);
-            h += legs.get(Side.LEFT).getPosition().getSpan(H);
-        }
-        if (side == BODY_SIDE) {
-            h -= 2;
             Position pos = body.getPosition();
-            pos.set(H, h);
+            pos.set(H, hPosition);
             pos.set(V, 1);
-            h += body.getPosition().getSpan(H);
         }
-        if (side == Side.RIGHT) {
-            legs.get(Side.RIGHT).getPosition().set(H, h);
-            h += legs.get(Side.RIGHT).getPosition().getSpan(H);
-        }
-        return h;
+        legs.get(side).getPosition().set(H, hPosition);
+        return hPosition + 2;
     }
 
     @Override
