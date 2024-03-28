@@ -139,6 +139,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public String toString() {
-        return getType() + " " + direction + " " + nodes;
+        return getType() + " " + order + " " + direction + " " + nodes;
     }
 }

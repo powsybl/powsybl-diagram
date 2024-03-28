@@ -551,6 +551,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return cells.stream().filter(ExternCell.class::isInstance).map(ExternCell.class::cast);
     }
 
+    public Stream<ArchCell> getArchCellStream() {
+        return cells.stream().filter(ArchCell.class::isInstance).map(ArchCell.class::cast);
+    }
+
     public Stream<ShuntCell> getShuntCellStream() {
         return cells.stream().filter(ShuntCell.class::isInstance).map(ShuntCell.class::cast);
     }

@@ -9,10 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
@@ -78,6 +75,7 @@ public class BlockOrganizer {
         //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
 
         graph.getExternCellStream().forEach(ExternCell::organizeBlockDirections);
+        graph.getArchCellStream().forEach(ArchCell::organizeBlockDirections);
 
         graph.getCellStream().forEach(Cell::blockSizing);
 

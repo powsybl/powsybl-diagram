@@ -33,15 +33,25 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
 
     @Override
     public void visit(InternCell cell) {
-        if (cell.getShape().checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
-            calculateRootCoord(cell.getBodyBlock(), layoutContext);
-        }
         cell.getLegs().values().forEach(lb -> calculateRootCoord(lb, layoutContext));
+        calculateRootCoord(cell.getBodyBlock(), layoutContext);
     }
 
     @Override
     public void visit(ExternCell cell) {
         calculateRootCoord(cell.getRootBlock(), layoutContext);
+    }
+
+    @Override
+    public void visit(ArchCell cell) {
+        Block rootBlock = cell.getRootBlock();
+        Position position = rootBlock.getPosition();
+        setCoordX(rootBlock.getCoord(), position);
+
+        // pillar block Coord has been calculated beforehand
+        rootBlock.getCoord().set(Y, cell.getPillarBlock().getCoord());
+        CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
+        rootBlock.accept(cc);
     }
 
     @Override
@@ -51,17 +61,25 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
     }
 
     private void calculateRootCoord(Block block, LayoutContext layoutContext) {
+        if (block == null) {
+            return;
+        }
+        
         Position position = block.getPosition();
-        Coord coord = block.getCoord();
-        double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
-        double valueX = hToX(layoutParameters, position.get(H)) + spanX / 2;
-        coord.set(X, valueX, spanX);
+        setCoordX(block.getCoord(), position);
 
         double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
         double valueY = getRootYCoord(position, layoutParameters, spanY, layoutContext);
-        coord.set(Y, valueY, spanY);
+        block.getCoord().set(Y, valueY, spanY);
+
         CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
         block.accept(cc);
+    }
+
+    private void setCoordX(Coord coord, Position position) {
+        double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
+        double valueX = hToX(layoutParameters, position.get(H)) + spanX / 2;
+        coord.set(X, valueX, spanX);
     }
 
     private double hToX(LayoutParameters layoutParameters, int h) {

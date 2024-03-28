@@ -87,11 +87,6 @@ public final class ExternCell extends AbstractBusCell {
     }
 
     @Override
-    public String toString() {
-        return getType() + " " + getOrder() + " " + getDirection() + " " + nodes;
-    }
-
-    @Override
     public void setDirection(Direction direction) {
         super.setDirection(direction);
         getNodes().stream().filter(f -> f.getType() == FEEDER)

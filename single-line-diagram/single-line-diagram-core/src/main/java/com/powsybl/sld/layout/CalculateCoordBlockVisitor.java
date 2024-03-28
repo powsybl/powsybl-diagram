@@ -62,15 +62,16 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
 
     @Override
     public void visit(LegPrimaryBlock block) {
+        Coord blockCoord = block.getCoord();
         if (block.getPosition().getOrientation().isVertical()) {
-            block.getNodeOnBus().setCoordinates(block.getCoord().get(X), block.getBusNode().getY());
-            block.getLegNode().setX(block.getCoord().get(X));
+            block.getNodeOnBus().setCoordinates(blockCoord.get(X), block.getBusNode().getY());
+            block.getLegNode().setCoordinates(blockCoord.get(X), blockCoord.get(Y));
             if (layoutContext.isInternCell() && layoutContext.isUnileg()) {
-                block.getLegNode().setY(block.getCoord().get(Y)
+                block.getLegNode().setY(blockCoord.get(Y)
                         + (block.getOrientation() == UP ? -1 : 1) * layoutParameters.getInternCellHeight());
             }
         } else {
-            block.getNodeOnBus().setCoordinates(block.getCoord().get(X) + block.getCoord().getSpan(X) / 2,
+            block.getNodeOnBus().setCoordinates(blockCoord.get(X) + blockCoord.getSpan(X) / 2,
                     block.getBusNode().getY());
             block.getLegNode().setY(block.getBusNode().getY());
         }

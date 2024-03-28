@@ -88,6 +88,7 @@ class BlockPositionner {
         List<BusCell> verticalCells = new ArrayList<>();
         verticalCells.addAll(ss.getVerticalInternCells());
         verticalCells.addAll(ss.getExternCells());
+        verticalCells.addAll(ss.getArchCells());
         verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
         return verticalCells;
     }

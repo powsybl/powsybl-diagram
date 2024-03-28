@@ -78,6 +78,10 @@ public class Coord {
         dim2seg.put(dimension, new Segment(value, span));
     }
 
+    public void set(Dimension dimension, Coord coord) {
+        dim2seg.put(dimension, new Segment(coord.get(dimension), coord.getSpan(dimension)));
+    }
+
     @Override
     public String toString() {
         return "Coord(x=" + get(X) + ", y=" + get(Y) + ", xSpan=" + getSpan(X) + ", ySpan=" + getSpan(Y) + ")";

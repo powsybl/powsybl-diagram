@@ -8,10 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.NodeFactory;
@@ -38,6 +35,7 @@ public final class LegBusSet {
     private final Set<BusNode> busNodeSet;
     private final Set<BusNode> extendedNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
+    private final List<ArchCell> archCells = new ArrayList<>();
 
     private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
@@ -50,6 +48,11 @@ public final class LegBusSet {
     private LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
         this(nodeToNb, cell.getBusNodes());
         externCells.add(cell);
+    }
+
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, ArchCell cell) {
+        this(nodeToNb, cell.getBusNodes());
+        archCells.add(cell);
     }
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, ShuntCell cell) {
@@ -77,6 +80,7 @@ public final class LegBusSet {
     private void absorbs(LegBusSet lbsToAbsorb) {
         busNodeSet.addAll(lbsToAbsorb.busNodeSet);
         externCells.addAll(lbsToAbsorb.externCells);
+        archCells.addAll(lbsToAbsorb.archCells);
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
@@ -93,6 +97,10 @@ public final class LegBusSet {
 
     public Set<ExternCell> getExternCells() {
         return externCells;
+    }
+
+    public List<ArchCell> getArchCells() {
+        return archCells;
     }
 
     Set<InternCellSide> getInternCellSides() {
@@ -135,6 +143,8 @@ public final class LegBusSet {
         }
 
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
+
+        graph.getArchCellStream().forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsNotShape(InternCell.Shape.MAYBE_ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
@@ -213,23 +223,19 @@ public final class LegBusSet {
 
             SerialBlock sBlock = subBlocksRemoved.get(i);
 
-            ConnectivityNode shuntNode = NodeFactory.createConnectivityNode(graph, "Shunt" + i + "_" + fork.getId());
-            sBlock.replaceEndingNode(shuntNode);
+            ConnectivityNode archNode = NodeFactory.createConnectivityNode(graph, "Shunt" + i + "_" + fork.getId());
+            sBlock.replaceEndingNode(archNode);
             List<Edge> edgesToTransfer = new ArrayList<>(fork.getAdjacentEdges()).stream()
                     .filter(edge -> sBlock.contains(edge.getOppositeNode(fork)))
                     .toList();
-            graph.transferEdges(fork, shuntNode, edgesToTransfer);
-            graph.addEdge(fork, shuntNode);
+            graph.transferEdges(fork, archNode, edgesToTransfer);
+            graph.addEdge(fork, archNode);
 
-            ShuntCell shunt = ShuntCell.create(graph, List.of(fork, shuntNode));
+            ArchCell archCell = ArchCell.create(graph, sBlock.getNodeStream().toList(), subBlockKept);
+            archCell.setOrder(++order);
+            archCell.setDirection(direction);
 
-            ExternCell fakeCell = ExternCell.create(graph, sBlock.getNodeStream().toList(), List.of(shunt));
-            fakeCell.setOrder(++order);
-            fakeCell.setDirection(direction);
-            externCell.addShuntCell(shunt);
-
-            CellBlockDecomposer.determineShuntCellBlocks(shunt);
-            fakeCell.blocksSetting(sBlock, subBlockToLegs.get(sBlock), List.of());
+            archCell.blocksSetting(sBlock, subBlockToLegs.get(sBlock), List.of());
         }
     }
 
@@ -246,17 +252,13 @@ public final class LegBusSet {
             Node fork = legNodes.get(legNodes.size() - 1);
             ConnectivityNode shuntNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
 
-            ShuntCell shunt = ShuntCell.create(graph, List.of(fork, shuntNode));
-
             List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
             fakeCellNodes.add(shuntNode);
-            ExternCell fakeCell = ExternCell.create(graph, fakeCellNodes, List.of(shunt));
-            fakeCell.setOrder(++order);
-            fakeCell.setDirection(direction);
-            externCell.addShuntCell(shunt);
+            ArchCell archCell = ArchCell.create(graph, fakeCellNodes, legKept);
+            archCell.setOrder(++order);
+            archCell.setDirection(direction);
 
-            CellBlockDecomposer.determineShuntCellBlocks(shunt);
-            fakeCell.blocksSetting(new LegPrimaryBlock(fakeCellNodes), List.of(legPrimaryBlock), List.of());
+            archCell.blocksSetting(new LegPrimaryBlock(fakeCellNodes), List.of(legPrimaryBlock), List.of());
         }
     }
 

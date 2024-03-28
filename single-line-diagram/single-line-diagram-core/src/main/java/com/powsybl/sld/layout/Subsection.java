@@ -11,7 +11,10 @@ import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 import java.util.function.Function;
@@ -27,11 +30,12 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 public class Subsection {
 
-    private int size;
-    private BusNode[] busNodes;
-    private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
-    private List<ExternCell> externCells = new LinkedList<>();
-    private static Comparator<ExternCell> compareOrder = Comparator
+    private final int size;
+    private final BusNode[] busNodes;
+    private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
+    private final List<ExternCell> externCells = new ArrayList<>();
+    private final List<ArchCell> archCells = new ArrayList<>();
+    private static final Comparator<BusCell> COMPARE_ORDER = Comparator
             .comparingInt(extCell -> extCell.getOrder().orElse(-1));
 
     Subsection(int size) {
@@ -48,8 +52,8 @@ public class Subsection {
 
     private void addLegBusSet(LegBusSet lbs) {
         lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
-        externCells.addAll(lbs.getExternCells());
-        externCells.sort(compareOrder);
+        lbs.getExternCells().stream().sorted(COMPARE_ORDER).forEach(externCells::add);
+        lbs.getArchCells().stream().sorted(COMPARE_ORDER).forEach(archCells::add);
         internCellSides.addAll(lbs.getInternCellSides());
     }
 
@@ -80,6 +84,10 @@ public class Subsection {
 
     public List<ExternCell> getExternCells() {
         return externCells;
+    }
+
+    public List<ArchCell> getArchCells() {
+        return archCells;
     }
 
     private boolean containsAllBusNodes(List<BusNode> nodes) {
