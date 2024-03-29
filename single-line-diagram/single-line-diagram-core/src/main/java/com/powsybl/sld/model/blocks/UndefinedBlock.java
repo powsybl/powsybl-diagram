@@ -7,6 +7,8 @@
 
 package com.powsybl.sld.model.blocks;
 
+import com.powsybl.sld.model.nodes.Node;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +24,11 @@ public class UndefinedBlock extends AbstractComposedBlock<Block> {
     public UndefinedBlock(List<Block> subBlocks) {
         super(Type.UNDEFINED, subBlocks);
         this.subBlocks = Objects.requireNonNull(subBlocks);
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -29,13 +30,19 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public class ExternCell extends AbstractBusCell {
+public final class ExternCell extends AbstractBusCell {
 
     private final List<ShuntCell> shuntCells = new ArrayList<>();
 
-    public ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
+    private ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
         super(cellNumber, EXTERN, nodes);
         shuntCells.forEach(this::addShuntCell);
+    }
+
+    public static ExternCell create(VoltageLevelGraph graph, Collection<Node> nodes, List<ShuntCell> shuntCells) {
+        var externCell = new ExternCell(graph.getNextCellNumber(), nodes, shuntCells);
+        graph.addCell(externCell);
+        return externCell;
     }
 
     public void organizeBlockDirections() {
@@ -77,11 +84,6 @@ public class ExternCell extends AbstractBusCell {
             throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
         }
         this.shuntCells.add(shuntCell);
-    }
-
-    @Override
-    public String toString() {
-        return getType() + " " + getOrder() + " " + getDirection() + " " + nodes;
     }
 
     @Override

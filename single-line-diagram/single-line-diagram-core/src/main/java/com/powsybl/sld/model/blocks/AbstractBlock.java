@@ -86,6 +86,7 @@ public abstract class AbstractBlock implements Block {
         cardinality.put(extremity, i);
     }
 
+    @Override
     public Block getParentBlock() {
         return parentBlock;
     }

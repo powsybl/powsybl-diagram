@@ -107,10 +107,8 @@ class TestSerialParallelBlock extends AbstractTestCaseIidm {
         assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getSpan(H));
         assertEquals(4, subPB.getSubBlocks().get(1).getPosition().getSpan(V));
 
-        sb.getCoord().set(X, 10);
-        sb.getCoord().set(Y, 20);
-        sb.getCoord().setSpan(X, 100);
-        sb.getCoord().setSpan(Y, 200);
+        sb.getCoord().set(X, 10, 100);
+        sb.getCoord().set(Y, 20, 200);
         CalculateCoordBlockVisitor ccbv = CalculateCoordBlockVisitor.create(layoutParameters, new LayoutContext(0., 0., 0., null, false, false, false));
         sb.getPosition().setOrientation(Orientation.LEFT);
         sb.accept(ccbv);

@@ -38,6 +38,16 @@ public abstract class AbstractComposedBlock<T extends Block> extends AbstractBlo
     }
 
     @Override
+    public Stream<Node> getNodeStream() {
+        return subBlocks.stream().flatMap(Block::getNodeStream);
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return subBlocks.stream().anyMatch(b -> b.contains(node));
+    }
+
+    @Override
     public boolean isEmbeddingNodeType(Node.NodeType type) {
         return subBlocks.stream().anyMatch(b -> b.isEmbeddingNodeType(type));
     }
