@@ -11,8 +11,6 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,8 +25,6 @@ import java.util.stream.Stream;
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractPrimaryBlock extends AbstractBlock implements PrimaryBlock {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractPrimaryBlock.class);
 
     protected final List<Node> nodes;
 
