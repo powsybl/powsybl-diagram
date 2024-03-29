@@ -40,4 +40,12 @@ class TestCaseExternCellOnTwoSections extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCaseComplexExternCellOnTwoSections.svg"), toSVG(g, "/TestCaseComplexExternCellOnTwoSections.svg"));
     }
+
+    @Test
+    void testComplexExternCellOnThreeSections() {
+        network = Networks.createComplexExternCellOnThreeSections();
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl");
+        voltageLevelGraphLayout(g);
+        assertEquals(toString("/TestCaseComplexExternCellOnThreeSections.svg"), toSVG(g, "/TestCaseComplexExternCellOnThreeSections.svg"));
+    }
 }
