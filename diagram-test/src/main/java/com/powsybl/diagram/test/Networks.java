@@ -1763,31 +1763,33 @@ public final class Networks {
 
     /**
      * <PRE>
-     *            l
-     *            |
-     *            b
-     *            |
-     *     ___________________
-     *    |          |       |
-     *    |          |    -------
-     *    |          |    |     |
-     *    |          |    b3    b4
-     *    |          |    |     |
-     *    |          |    -------
-     *    b1         b2      |
-     *    |          |       |
-     * --d1--  x  --d2--  --d3--
-     *  bbs1  dc   bbs2    bbs3
+     *                   l
+     *                   |
+     *                   b
+     *                   |
+     *     _____________________________
+     *    |          |       |         |
+     *    |          |    -------      |
+     *    |          |    |     |      |
+     *    |          |    b3    b4     |
+     *    |          |    |     |      |
+     *    |          |    -------      |
+     *    b1         b2      |         |
+     *    |          |       |         |
+     * --d1--  x  --d2--  --d3--    --d4--
+     *  bbs1  dc   bbs2    bbs3      bbs4
      * </PRE>
      *
      */
-    public static Network createComplexExternCellOnThreeSections() {
+    public static Network createComplexExternCellOnFourSections() {
         Network network = createComplexExternCellOnTwoSections();
         VoltageLevel vl = network.getVoltageLevel("vl");
         createBusBarSection(vl, "bbs3", "bbs3", 6, 1, 3);
-        createSwitch(vl, "b3", SwitchKind.BREAKER, true, false, false, 3, 7);
-        createSwitch(vl, "b4", SwitchKind.BREAKER, true, true, false, 3, 7);
-        createSwitch(vl, "d3", SwitchKind.DISCONNECTOR, false, false, false, 7, 6);
+        createBusBarSection(vl, "bbs4", "bbs3", 7, 1, 3);
+        createSwitch(vl, "b3", SwitchKind.BREAKER, true, false, false, 3, 8);
+        createSwitch(vl, "b4", SwitchKind.BREAKER, true, true, false, 3, 8);
+        createSwitch(vl, "d3", SwitchKind.DISCONNECTOR, false, false, false, 8, 6);
+        createSwitch(vl, "d4", SwitchKind.DISCONNECTOR, false, false, false, 3, 7);
         return network;
     }
 

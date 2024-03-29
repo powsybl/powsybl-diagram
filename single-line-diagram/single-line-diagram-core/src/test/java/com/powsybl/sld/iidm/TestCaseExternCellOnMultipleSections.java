@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 
-class TestCaseExternCellOnTwoSections extends AbstractTestCaseIidm {
+class TestCaseExternCellOnMultipleSections extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
@@ -42,10 +42,10 @@ class TestCaseExternCellOnTwoSections extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testComplexExternCellOnThreeSections() {
-        network = Networks.createComplexExternCellOnThreeSections();
+    void testComplexExternCellOnFourSections() {
+        network = Networks.createComplexExternCellOnFourSections();
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestCaseComplexExternCellOnThreeSections.svg"), toSVG(g, "/TestCaseComplexExternCellOnThreeSections.svg"));
+        assertEquals(toString("/TestCaseComplexExternCellOnFourSections.svg"), toSVG(g, "/TestCaseComplexExternCellOnFourSections.svg"));
     }
 }
