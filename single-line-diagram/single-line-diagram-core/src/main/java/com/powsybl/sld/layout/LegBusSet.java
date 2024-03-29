@@ -210,9 +210,7 @@ public final class LegBusSet {
         }
 
         Block subBlockKept = legToSubBlock.get(legKept);
-        List<SerialBlock> subBlocksRemoved = legBodyParallelBlock.getSubBlocks().stream().filter(b -> b != subBlockKept)
-                .filter(SerialBlock.class::isInstance).map(SerialBlock.class::cast)
-                .toList();
+        List<Block> subBlocksRemoved = legBodyParallelBlock.getSubBlocks().stream().filter(b -> b != subBlockKept).toList();
 
         externCell.removeOtherLegs(subBlockKept, legKept);
 
@@ -221,15 +219,18 @@ public final class LegBusSet {
 
         for (int i = 0; i < subBlocksRemoved.size(); i++) {
 
-            SerialBlock sBlock = subBlocksRemoved.get(i);
-
+            Block sBlock = subBlocksRemoved.get(i);
             ConnectivityNode archNode = NodeFactory.createConnectivityNode(graph, "Shunt" + i + "_" + fork.getId());
-            sBlock.replaceEndingNode(archNode);
-            List<Edge> edgesToTransfer = new ArrayList<>(fork.getAdjacentEdges()).stream()
-                    .filter(edge -> sBlock.contains(edge.getOppositeNode(fork)))
-                    .toList();
-            graph.transferEdges(fork, archNode, edgesToTransfer);
-            graph.addEdge(fork, archNode);
+            substituteForkNode(graph, sBlock, archNode, fork);
+
+            if (sBlock instanceof LegPrimaryBlock lpb) {
+                // If one of the detached subBlocks is a LegPrimaryBlock, we need to replace it by a SerialBlock so that
+                // it gets properly displayed. On extra node needs to be added for the stack line
+                ConnectivityNode hookNode = graph.insertConnectivityNode(archNode, fork, archNode.getId() + "_hook");
+                BodyPrimaryBlock body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(hookNode, archNode));
+                sBlock = new SerialBlock(List.of(lpb, body));
+                subBlockToLegs.put(sBlock, subBlockToLegs.get(lpb));
+            }
 
             ArchCell archCell = ArchCell.create(graph, sBlock.getNodeStream().toList(), subBlockKept);
             archCell.setOrder(++order);
@@ -237,6 +238,15 @@ public final class LegBusSet {
 
             archCell.blocksSetting(sBlock, subBlockToLegs.get(sBlock), List.of());
         }
+    }
+
+    private static void substituteForkNode(VoltageLevelGraph graph, Block block, ConnectivityNode substitute, Node fork) {
+        block.replaceEndingNode(substitute);
+        List<Edge> edgesToTransfer = new ArrayList<>(fork.getAdjacentEdges()).stream()
+                .filter(edge -> block.contains(edge.getOppositeNode(fork)))
+                .toList();
+        graph.transferEdges(fork, substitute, edgesToTransfer);
+        graph.addEdge(fork, substitute);
     }
 
     private static void fixLegParallelExternCell(ExternCell externCell, VoltageLevelGraph graph,
@@ -250,10 +260,10 @@ public final class LegBusSet {
         for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
             List<Node> legNodes = legPrimaryBlock.getNodes();
             Node fork = legNodes.get(legNodes.size() - 1);
-            ConnectivityNode shuntNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
+            ConnectivityNode archNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
 
             List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
-            fakeCellNodes.add(shuntNode);
+            fakeCellNodes.add(archNode);
             ArchCell archCell = ArchCell.create(graph, fakeCellNodes, legKept);
             archCell.setOrder(++order);
             archCell.setDirection(direction);
