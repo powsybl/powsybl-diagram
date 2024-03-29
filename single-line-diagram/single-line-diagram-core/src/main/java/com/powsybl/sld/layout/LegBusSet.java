@@ -220,7 +220,7 @@ public final class LegBusSet {
         for (int i = 0; i < subBlocksRemoved.size(); i++) {
 
             Block sBlock = subBlocksRemoved.get(i);
-            ConnectivityNode archNode = NodeFactory.createConnectivityNode(graph, "Shunt" + i + "_" + fork.getId());
+            ConnectivityNode archNode = NodeFactory.createConnectivityNode(graph, "Arch" + i + "_" + fork.getId());
             substituteForkNode(graph, sBlock, archNode, fork);
 
             if (sBlock instanceof LegPrimaryBlock lpb) {
@@ -260,7 +260,7 @@ public final class LegBusSet {
         for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
             List<Node> legNodes = legPrimaryBlock.getNodes();
             Node fork = legNodes.get(legNodes.size() - 1);
-            ConnectivityNode archNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Shunt-" + legNodes.get(1).getId());
+            ConnectivityNode archNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Arch_" + legNodes.get(1).getId());
 
             List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
             fakeCellNodes.add(archNode);

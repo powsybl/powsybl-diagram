@@ -257,7 +257,7 @@
             <g class="sld-wire sld-vl180to300-0" id="_95_vl_95_b2_95_INTERNAL_95_vl_95_d2_45_b2">
                 <polyline points="165.0,233.0,165.0,250.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl_95_INTERNAL_95_vl_95_Shunt0_95_INTERNAL_95_vl_95_3_95_b2">
+            <g class="sld-wire sld-vl180to300-0" id="_95_vl_95_INTERNAL_95_vl_95_Arch0_95_INTERNAL_95_vl_95_3_95_b2">
                 <polyline points="165.0,196.0,165.0,213.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-vl180to300-0" id="idd2" transform="translate(161.0,276.0)">
@@ -274,11 +274,11 @@
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl_95_Shunt0_95_INTERNAL_95_vl_95_3" transform="translate(161.0,192.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl_95_Arch0_95_INTERNAL_95_vl_95_3" transform="translate(161.0,192.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
         </g>
-        <g class="sld-wire sld-vl180to300-0" id="_95_vl_95_INTERNAL_95_vl_95_3_95_INTERNAL_95_vl_95_Shunt0_95_INTERNAL_95_vl_95_3">
+        <g class="sld-wire sld-vl180to300-0" id="_95_vl_95_INTERNAL_95_vl_95_3_95_INTERNAL_95_vl_95_Arch0_95_INTERNAL_95_vl_95_3">
             <polyline points="65.0,196.0,165.0,196.0"/>
         </g>
     </g>
