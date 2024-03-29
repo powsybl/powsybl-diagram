@@ -41,8 +41,8 @@ abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBl
             }
         }
 
-        setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(START) : 1).sum());
-        setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(END) : 1).sum());
+        setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getCardinality(START)).sum());
+        setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getCardinality(END)).sum());
     }
 
     @Override

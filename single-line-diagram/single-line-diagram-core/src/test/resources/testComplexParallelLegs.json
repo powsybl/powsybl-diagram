@@ -159,7 +159,7 @@
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
-        "START" : 3
+        "START" : 4
       }, {
         "END" : 1
       } ],
@@ -179,7 +179,7 @@
       "subBlocks" : [ {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
-          "START" : 3
+          "START" : 4
         }, {
           "END" : 3
         } ],
