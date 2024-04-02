@@ -133,33 +133,22 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         if (node instanceof EquipmentNode equipmentNode && !(node instanceof SwitchNode)) {
             if (node instanceof FeederNode feederNode) {
                 switch (feederNode.getFeeder().getFeederType()) {
-                    case BRANCH, TWO_WINDINGS_TRANSFORMER_LEG:
-                        Identifiable<?> identifiable = network.getIdentifiable(feederNode.getEquipmentId());
-                        if (identifiable != null) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, identifiable);
-                        }
-                        break;
-                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                    case BRANCH, TWO_WINDINGS_TRANSFORMER_LEG -> addBranchStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(feederNode.getEquipmentId()));
+                    case THREE_WINDINGS_TRANSFORMER_LEG -> {
                         // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
                         if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
                             addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
                         }
-                        break;
-                    case HVDC:
-                        addBranchStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
-                        break;
-                    default:
-                        break;
+                    }
+                    case HVDC -> addBranchStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
+                    default -> { }
                 }
             } else if (node instanceof MiddleTwtNode) {
                 if (node instanceof Middle3WTNode middle3WTNode && middle3WTNode.isEmbeddedInVlGraph()) {
                     addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(middle3WTNode.getEquipmentId()));
                 }
             } else {
-                Identifiable<?> identifiable = network.getIdentifiable(equipmentNode.getEquipmentId());
-                if (identifiable != null) {
-                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(equipmentNode.getEquipmentId()));
-                }
+                addBranchStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(equipmentNode.getEquipmentId()));
             }
         }
 
@@ -175,17 +164,14 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<?> identifiable) {
-        OperatingStatus<?> branchStatus = (OperatingStatus<?>) identifiable.getExtension(OperatingStatus.class);
-        if (branchStatus != null) {
-            switch (branchStatus.getStatus()) {
-                case PLANNED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                case FORCED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                default:
-                    break;
+        if (identifiable != null) {
+            OperatingStatus<?> branchStatus = (OperatingStatus<?>) identifiable.getExtension(OperatingStatus.class);
+            if (branchStatus != null) {
+                switch (branchStatus.getStatus()) {
+                    case PLANNED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case FORCED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    default -> { }
+                }
             }
         }
     }
