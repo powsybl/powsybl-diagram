@@ -1708,7 +1708,6 @@ public final class Networks {
         return network;
     }
 
-
     public static Network createIeee9NetworkWithOneMissingSubstationPosition() {
         Network network = IeeeCdfNetworkFactory.create9();
         new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S1")).withCoordinate(new Coordinate(2d, 3d)).add();
