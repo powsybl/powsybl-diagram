@@ -6,11 +6,15 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 import java.util.function.Function;
@@ -26,11 +30,12 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 public class Subsection {
 
-    private int size;
-    private BusNode[] busNodes;
-    private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
-    private List<ExternCell> externCells = new LinkedList<>();
-    private static Comparator<ExternCell> compareOrder = Comparator
+    private final int size;
+    private final BusNode[] busNodes;
+    private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
+    private final List<ExternCell> externCells = new ArrayList<>();
+    private final List<ArchCell> archCells = new ArrayList<>();
+    private static final Comparator<BusCell> COMPARE_ORDER = Comparator
             .comparingInt(extCell -> extCell.getOrder().orElse(-1));
 
     Subsection(int size) {
@@ -47,8 +52,8 @@ public class Subsection {
 
     private void addLegBusSet(LegBusSet lbs) {
         lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
-        externCells.addAll(lbs.getExternCells());
-        externCells.sort(compareOrder);
+        lbs.getExternCells().stream().sorted(COMPARE_ORDER).forEach(externCells::add);
+        lbs.getArchCells().stream().sorted(COMPARE_ORDER).forEach(archCells::add);
         internCellSides.addAll(lbs.getInternCellSides());
     }
 
@@ -79,6 +84,10 @@ public class Subsection {
 
     public List<ExternCell> getExternCells() {
         return externCells;
+    }
+
+    public List<ArchCell> getArchCells() {
+        return archCells;
     }
 
     private boolean containsAllBusNodes(List<BusNode> nodes) {
@@ -117,10 +126,22 @@ public class Subsection {
     }
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+        identifyOneLegInternCells(vlGraph, subsections);
         identifyVerticalInternCells(vlGraph, subsections);
         identifyFlatInternCells(lbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
+    }
+
+    private static void identifyOneLegInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
+        graph.getInternCellStream()
+                .filter(c -> c.checkIsShape(InternCell.Shape.MAYBE_FLAT, InternCell.Shape.UNDEFINED))
+                .filter(c -> c.getBodyBlock() instanceof BodyPrimaryBlock bpb && bpb.getNodes().size() == 1 && bpb.getNodes().get(0) instanceof ConnectivityNode)
+                .forEach(c -> subsections.stream().filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes())).findFirst().ifPresent(s -> {
+                    c.replaceBackMultiLegByOneLeg();
+                    s.internCellSides.removeIf(ics -> ics.getCell() == c);
+                    s.internCellSides.add(new InternCellSide(c, Side.UNDEFINED));
+                }));
     }
 
     private static void identifyVerticalInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {

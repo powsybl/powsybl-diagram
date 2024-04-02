@@ -31,15 +31,6 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 public class ImplicitCellDetector implements CellDetector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
-    private final boolean exceptionIfPatternNotHandled;
-
-    public ImplicitCellDetector(boolean exceptionIfPatternNotHandled) {
-        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
-    }
-
-    public ImplicitCellDetector() {
-        this(false);
-    }
 
     /**
      * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
@@ -65,7 +56,7 @@ public class ImplicitCellDetector implements CellDetector {
         stopTypes.add(BUS);
         List<Set<Node>> internCellsNodes = detectCell(graph, stopTypes, exclusionTypes, allocatedNodes);
         for (Set<Node> nodes : internCellsNodes) {
-            graph.addCell(new InternCell(graph.getNextCellNumber(), nodes, exceptionIfPatternNotHandled));
+            graph.addCell(new InternCell(graph.getNextCellNumber(), nodes));
         }
 
         // ****************EXTERN AND SHUNT CELLS******
@@ -87,7 +78,7 @@ public class ImplicitCellDetector implements CellDetector {
 
     private void createExternAndShuntCells(VoltageLevelGraph graph, Set<Node> nodes, List<ShuntCell> shuntCells) {
         if (isPureExternCell(graph, nodes)) {
-            graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes, shuntCells));
+            ExternCell.create(graph, nodes, shuntCells);
         } else {
             // if a shunt cell is detected two or more EXTERN cells and one or more SHUNT cells are created
             detectAndTypeShunt(graph, nodes, shuntCells);
@@ -205,7 +196,7 @@ public class ImplicitCellDetector implements CellDetector {
 
         } else {
             // if no shunt node is found (checkCandidateShuntNode always returns an empty list), create a cell anyway with all nodes
-            graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes, shuntCells));
+            ExternCell.create(graph, nodes, shuntCells);
         }
     }
 
@@ -230,8 +221,7 @@ public class ImplicitCellDetector implements CellDetector {
         List<ShuntCell> linkedShuntCells = shuntCellsCreated.stream()
                 .filter(shuntCell -> cellNodesExtern.contains(shuntCell.getSideShuntNode(Side.RIGHT)))
                 .collect(Collectors.toList());
-        ExternCell newExternCell = new ExternCell(graph.getNextCellNumber(), cellNodesExtern, linkedShuntCells);
-        graph.addCell(newExternCell);
+        ExternCell newExternCell = ExternCell.create(graph, cellNodesExtern, linkedShuntCells);
 
         // remove used nodes from remaining nodes
         cellNodesExtern.stream()
@@ -244,7 +234,7 @@ public class ImplicitCellDetector implements CellDetector {
                 .filter(m -> !isShunt(m))
                 .forEach(remainingNodes::remove);
         shuntsNodes.stream()
-                .map(shuntNodes -> createShuntCell(graph, shuntNodes))
+                .map(shuntNodes -> ShuntCell.create(graph, shuntNodes))
                 .forEach(shuntCell -> {
                     newExternCell.addShuntCell(shuntCell);
                     shuntCellsCreated.add(shuntCell);
@@ -263,23 +253,6 @@ public class ImplicitCellDetector implements CellDetector {
     private boolean isIsolatedBusOrShunt(Set<Node> remainingNodes, Node rn) {
         return (rn.getType() == BUS || isShunt(rn))
                 && rn.getAdjacentNodes().stream().noneMatch(remainingNodes::contains);
-    }
-
-    /**
-     * @param vlGraph the VoltageLevelGraph
-     * @param shuntNodes a list of nodes that constitute a ShuntCell: the first and last nodes are both {@link ConnectivityNode}
-     * @return a ShuntCell
-     */
-    private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
-        int cellNumber = vlGraph.getNextCellNumber();
-
-        ConnectivityNode iNode1 = vlGraph.insertConnectivityNode(shuntNodes.get(0), shuntNodes.get(1), "Shunt " + cellNumber + ".1");
-        shuntNodes.add(1, iNode1);
-
-        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(shuntNodes.get(shuntNodes.size() - 1), shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
-        shuntNodes.add(shuntNodes.size() - 1, iNode2);
-
-        return ShuntCell.create(cellNumber, shuntNodes, vlGraph);
     }
 
     /**

@@ -435,10 +435,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void transferEdges(Node nodeOrigin, Node newNode) {
+        transferEdges(nodeOrigin, newNode, new ArrayList<>(nodeOrigin.getAdjacentEdges()));
+    }
+
+    public void transferEdges(Node nodeOrigin, Node newNode, List<Edge> edgesToTransfer) {
         if (!nodesById.containsKey(newNode.getId())) {
             throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
         }
-        for (Edge edge : new ArrayList<>(nodeOrigin.getAdjacentEdges())) {
+        for (Edge edge : edgesToTransfer) {
+            if (!edge.getNodes().contains(nodeOrigin)) {
+                throw new PowsyblException("Edge to transfer not in adjacent edges of given node");
+            }
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
             Node node2 = edge.getNode2() == nodeOrigin ? newNode : edge.getNode2();
             addEdge(node1, node2);
@@ -542,6 +549,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Stream<ExternCell> getExternCellStream() {
         return cells.stream().filter(ExternCell.class::isInstance).map(ExternCell.class::cast);
+    }
+
+    public Stream<ArchCell> getArchCellStream() {
+        return cells.stream().filter(ArchCell.class::isInstance).map(ArchCell.class::cast);
     }
 
     public Stream<ShuntCell> getShuntCellStream() {
@@ -727,6 +738,15 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     connectivityNode1, connectivityNode2, middle2WTNode.getComponentType());
             multiTermNodes.remove(middleNode);
             twtEdges.removeAll(middleNode.getAdjacentEdges());
+        }
+    }
+
+    public void insertNodeNextTo(Node nodeToInsert, Node adjacentNode) {
+        List<Node> neighbours = adjacentNode.getAdjacentNodes();
+        if (neighbours.isEmpty()) {
+            addEdge(nodeToInsert, adjacentNode);
+        } else {
+            insertNode(adjacentNode, nodeToInsert, neighbours.get(0));
         }
     }
 
