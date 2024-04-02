@@ -7,9 +7,9 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.io.IOException;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -91,8 +90,8 @@ public abstract class AbstractNode implements Node {
     @Override
     public List<Node> getAdjacentNodes() {
         return adjacentEdges.stream()
-                .map(edge -> edge.getNode1() == AbstractNode.this ? edge.getNode2() : edge.getNode1())
-                .collect(Collectors.toList());
+                .map(edge -> edge.getOppositeNode(this))
+                .toList();
     }
 
     @Override

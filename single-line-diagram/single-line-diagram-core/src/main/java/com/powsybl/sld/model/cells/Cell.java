@@ -22,7 +22,7 @@ import java.util.*;
  */
 public interface Cell {
     enum CellType {
-        INTERN, EXTERN, SHUNT;
+        INTERN, EXTERN, ARCH, SHUNT;
     }
 
     List<Node> getNodes();

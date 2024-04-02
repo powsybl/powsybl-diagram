@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -46,6 +47,21 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         this.nodes = new ArrayList<>(nodes);
         setCardinality(Extremity.START, 1);
         setCardinality(Extremity.END, 1);
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        nodes.set(nodes.size() - 1, newEndingNode);
+    }
+
+    @Override
+    public Stream<Node> getNodeStream() {
+        return nodes.stream();
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return nodes.contains(node);
     }
 
     @Override

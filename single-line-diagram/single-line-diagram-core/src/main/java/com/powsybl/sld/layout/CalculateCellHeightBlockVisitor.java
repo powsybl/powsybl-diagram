@@ -62,7 +62,7 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
 
         // we increment the height only if the node is not a bus node and has not been
         // already encountered
-        long nbNodes = block.getNodes().stream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
+        long nbNodes = block.getNodeStream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
                 .count();
 
         this.blockHeight = (nbNodes - 1) * componentHeight;

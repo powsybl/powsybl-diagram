@@ -44,7 +44,7 @@ public class Middle3WTNode extends MiddleTwtNode {
 
     public Node getAdjacentNode(Winding winding) {
         Edge edge = getAdjacentEdges().get(windingToLegIndex(winding));
-        return edge.getNode1() == this ? edge.getNode2() : edge.getNode1();
+        return edge.getOppositeNode(this);
     }
 
     public VoltageLevelInfos getVoltageLevelInfos(Winding winding) {

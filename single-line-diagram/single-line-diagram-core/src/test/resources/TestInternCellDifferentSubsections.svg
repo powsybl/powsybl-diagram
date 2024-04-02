@@ -165,16 +165,16 @@
         </g>
         <g class="sld-intern-cell sld-cell-shape-crossover" id="idINTERN_32_0">
             <g class="sld-wire sld-disconnected" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_d1_45_d2">
-                <polyline points="65.0,110.0,65.0,70.0,165.0,70.0"/>
+                <polyline points="65.0,110.0,65.0,70.0,90.0,70.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_d1_45_d2_95_d2">
-                <polyline points="165.0,70.0,165.0,110.0"/>
+                <polyline points="90.0,70.0,165.0,70.0,165.0,110.0"/>
             </g>
             <g class="sld-disconnector sld-open sld-disconnected" id="idd1" transform="translate(61.0,106.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_d1_45_d2" transform="translate(161.0,66.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_d1_45_d2" transform="translate(86.0,66.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-disconnector sld-open sld-disconnected" id="idd2" transform="translate(161.0,106.0)">
