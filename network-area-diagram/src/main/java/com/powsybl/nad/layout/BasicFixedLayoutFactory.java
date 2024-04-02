@@ -29,4 +29,15 @@ public class BasicFixedLayoutFactory implements LayoutFactory {
         layout.setFixedNodePositions(fixedPositions);
         return layout;
     }
+
+    public Layout create(LayoutFactory layoutFactory) {
+        if (layoutFactory == null) {
+            return create();
+        } else {
+            Layout layout = layoutFactory.create();
+            layout.setInitialNodePositions(fixedPositions);
+            layout.setNodesWithFixedPosition(fixedPositions.keySet());
+            return layout;
+        }
+    }
 }
