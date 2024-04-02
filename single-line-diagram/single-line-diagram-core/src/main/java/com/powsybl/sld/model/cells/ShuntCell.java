@@ -40,8 +40,22 @@ public final class ShuntCell extends AbstractCell {
         ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);
     }
 
-    public static ShuntCell create(int cellNumber, List<Node> nodes, VoltageLevelGraph vlGraph) {
-        ShuntCell shuntCell = new ShuntCell(cellNumber, nodes);
+    /**
+     * @param vlGraph the VoltageLevelGraph
+     * @param shuntNodes a list of nodes that constitute a ShuntCell: the first and last nodes are both {@link ConnectivityNode}
+     * @return a ShuntCell
+     */
+    public static ShuntCell create(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
+        int cellNumber = vlGraph.getNextCellNumber();
+
+        List<Node> extended = new ArrayList<>(shuntNodes);
+        ConnectivityNode iNode1 = vlGraph.insertConnectivityNode(shuntNodes.get(0), shuntNodes.get(1), "Shunt " + cellNumber + ".1");
+        extended.add(1, iNode1);
+
+        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(extended.get(extended.size() - 1), extended.get(extended.size() - 2), "Shunt " + cellNumber + ".2");
+        extended.add(extended.size() - 1, iNode2);
+
+        ShuntCell shuntCell = new ShuntCell(cellNumber, extended);
         vlGraph.addCell(shuntCell);
         return shuntCell;
     }

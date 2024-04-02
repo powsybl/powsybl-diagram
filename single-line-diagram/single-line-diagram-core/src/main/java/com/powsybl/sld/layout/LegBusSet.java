@@ -7,17 +7,13 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.LegParallelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.UndefinedBlock;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +35,7 @@ public final class LegBusSet {
     private final Set<BusNode> busNodeSet;
     private final Set<BusNode> extendedNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
+    private final List<ArchCell> archCells = new ArrayList<>();
 
     private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
@@ -51,6 +48,11 @@ public final class LegBusSet {
     private LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
         this(nodeToNb, cell.getBusNodes());
         externCells.add(cell);
+    }
+
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, ArchCell cell) {
+        this(nodeToNb, cell.getBusNodes());
+        archCells.add(cell);
     }
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, ShuntCell cell) {
@@ -78,6 +80,7 @@ public final class LegBusSet {
     private void absorbs(LegBusSet lbsToAbsorb) {
         busNodeSet.addAll(lbsToAbsorb.busNodeSet);
         externCells.addAll(lbsToAbsorb.externCells);
+        archCells.addAll(lbsToAbsorb.archCells);
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
@@ -94,6 +97,10 @@ public final class LegBusSet {
 
     public Set<ExternCell> getExternCells() {
         return externCells;
+    }
+
+    public List<ArchCell> getArchCells() {
+        return archCells;
     }
 
     Set<InternCellSide> getInternCellSides() {
@@ -123,17 +130,21 @@ public final class LegBusSet {
     }
 
     static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
-        List<LegBusSet> legBusSets = new ArrayList<>();
 
+        graph.getExternCellStream().toList().forEach(cell -> fixMultisectionExternCells(cell, graph));
         List<ExternCell> externCells = graph.getExternCellStream()
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .collect(Collectors.toList());
+
+        List<LegBusSet> legBusSets = new ArrayList<>();
 
         if (handleShunts) {
             manageShunts(graph, externCells, legBusSets, nodeToNb);
         }
 
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
+
+        graph.getArchCellStream().forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
                 .filter(cell -> cell.checkIsNotShape(InternCell.Shape.MAYBE_ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
@@ -154,6 +165,111 @@ public final class LegBusSet {
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
                 .forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
         return legBusSets;
+    }
+
+    private static void fixMultisectionExternCells(ExternCell externCell, VoltageLevelGraph graph) {
+        List<LegPrimaryBlock> legPrimaryBlocks = externCell.getLegPrimaryBlocks();
+        List<BusNode> busNodes = legPrimaryBlocks.stream().map(LegPrimaryBlock::getBusNode).distinct().toList();
+
+        List<Integer> busbarIndices = busNodes.stream().map(BusNode::getBusbarIndex).distinct().toList();
+        // Detecting incoherent bus positions set from the user (from extension or directly when creating the
+        // busNode, WHEN PositionFromExtension is used instead of PositionByClustering).
+        // We rule out PositionByClustering where all busbar indices are set to zero and still are at this point
+        // (note that zero means no value in the code so far) by dismissing the detection if there is a zero busbar
+        // index. There cannot be any zero busbar index with PositionFromExtension, they are replaced in the call
+        // PositionFromExtension::setMissingPositionIndices.
+        if (busbarIndices.size() < busNodes.size() && busbarIndices.get(0) != 0
+                && externCell.getRootBlock() instanceof SerialBlock rootSerialBlock) {
+            List<LegPrimaryBlock> sortedLegs = legPrimaryBlocks.stream().sorted(Comparator.comparing(lpb -> lpb.getBusNode().getBusbarIndex())).toList();
+            LegPrimaryBlock legKept = sortedLegs.get(0);
+            int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
+            var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst().orElse(Direction.UNDEFINED);
+            if (rootSerialBlock.getLowerBlock() instanceof LegParallelBlock) {
+                fixLegParallelExternCell(externCell, graph, sortedLegs, legKept, order, direction);
+            } else if (rootSerialBlock.getLowerBlock() instanceof BodyParallelBlock legBodyParallelBlock) {
+                fixLegBodyParallelExternCell(externCell, graph, legBodyParallelBlock, sortedLegs, legKept, order, direction);
+            } else {
+                externCell.setRootBlock(new UndefinedBlock(List.of(externCell.getRootBlock())));
+                LOGGER.error("ExternCell pattern not handled");
+            }
+        }
+    }
+
+    private static void fixLegBodyParallelExternCell(ExternCell externCell, VoltageLevelGraph graph,
+                                                     BodyParallelBlock legBodyParallelBlock, List<LegPrimaryBlock> sortedLegs,
+                                                     LegPrimaryBlock legKept, int orderMin, Direction direction) {
+        Map<LegPrimaryBlock, Block> legToSubBlock = new HashMap<>();
+        Map<Block, List<LegPrimaryBlock>> subBlockToLegs = new HashMap<>();
+        for (LegPrimaryBlock legPrimaryBlock : sortedLegs) {
+            Block ancestor = legPrimaryBlock;
+            while (ancestor.getParentBlock() != legBodyParallelBlock) {
+                ancestor = ancestor.getParentBlock();
+            }
+            legToSubBlock.put(legPrimaryBlock, ancestor);
+            subBlockToLegs.computeIfAbsent(ancestor, b -> new ArrayList<>()).add(legPrimaryBlock);
+        }
+
+        Block subBlockKept = legToSubBlock.get(legKept);
+        List<Block> subBlocksRemoved = legBodyParallelBlock.getSubBlocks().stream().filter(b -> b != subBlockKept).toList();
+
+        externCell.removeOtherLegs(subBlockKept, legKept);
+
+        Node fork = subBlockKept.getEndingNode();
+        int order = orderMin;
+
+        for (int i = 0; i < subBlocksRemoved.size(); i++) {
+
+            Block sBlock = subBlocksRemoved.get(i);
+            ConnectivityNode archNode = NodeFactory.createConnectivityNode(graph, "Arch" + i + "_" + fork.getId());
+            substituteForkNode(graph, sBlock, archNode, fork);
+
+            if (sBlock instanceof LegPrimaryBlock lpb) {
+                // If one of the detached subBlocks is a LegPrimaryBlock, we need to replace it by a SerialBlock so that
+                // it gets properly displayed. On extra node needs to be added for the stack line
+                ConnectivityNode hookNode = graph.insertConnectivityNode(archNode, fork, archNode.getId() + "_hook");
+                BodyPrimaryBlock body = BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(List.of(hookNode, archNode));
+                sBlock = new SerialBlock(List.of(lpb, body));
+                subBlockToLegs.put(sBlock, subBlockToLegs.get(lpb));
+            }
+
+            ArchCell archCell = ArchCell.create(graph, sBlock.getNodeStream().toList(), subBlockKept);
+            archCell.setOrder(++order);
+            archCell.setDirection(direction);
+
+            archCell.blocksSetting(sBlock, subBlockToLegs.get(sBlock), List.of());
+        }
+    }
+
+    private static void substituteForkNode(VoltageLevelGraph graph, Block block, ConnectivityNode substitute, Node fork) {
+        block.replaceEndingNode(substitute);
+        List<Edge> edgesToTransfer = new ArrayList<>(fork.getAdjacentEdges()).stream()
+                .filter(edge -> block.contains(edge.getOppositeNode(fork)))
+                .toList();
+        graph.transferEdges(fork, substitute, edgesToTransfer);
+        graph.addEdge(fork, substitute);
+    }
+
+    private static void fixLegParallelExternCell(ExternCell externCell, VoltageLevelGraph graph,
+                                                 List<LegPrimaryBlock> sortedLegs, LegPrimaryBlock legKept,
+                                                 int orderMin, Direction direction) {
+        List<LegPrimaryBlock> legsRemoved = sortedLegs.subList(1, sortedLegs.size());
+
+        externCell.removeOtherLegs(legKept);
+
+        int order = orderMin;
+        for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
+            List<Node> legNodes = legPrimaryBlock.getNodes();
+            Node fork = legNodes.get(legNodes.size() - 1);
+            ConnectivityNode archNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Arch_" + legNodes.get(1).getId());
+
+            List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
+            fakeCellNodes.add(archNode);
+            ArchCell archCell = ArchCell.create(graph, fakeCellNodes, legKept);
+            archCell.setOrder(++order);
+            archCell.setDirection(direction);
+
+            archCell.blocksSetting(new LegPrimaryBlock(fakeCellNodes), List.of(legPrimaryBlock), List.of());
+        }
     }
 
     private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
@@ -186,33 +302,7 @@ public final class LegBusSet {
         return busNodes1.containsAll(busNodes2) && busNodes2.containsAll(busNodes1);
     }
 
-    private static boolean checkLbs(LegBusSet legBusSet) {
-        // FIXME: workaround to detect incoherent LegBusSet without any piece of refactoring
-        boolean externCellLbs = legBusSet.externCells.size() == 1; // detecting a posteriori a legBusSet created from an ExternCell
-        if (externCellLbs) {
-            List<Integer> busbarIndices = legBusSet.busNodeSet.stream().map(BusNode::getBusbarIndex).distinct().toList();
-            // Detecting incoherent bus positions set from the user (from extension or directly when creating the
-            // busNode, WHEN PositionFromExtension is used instead of PositionByClustering).
-            // We rule out PositionByClustering where all busbar indices are set to zero and still are at this point
-            // (note that zero means no value in the code so far) by dismissing the detection if there is a zero busbar
-            // index. There cannot be any zero busbar index with PositionFromExtension, they are replaced in the call
-            // PositionFromExtension::setMissingPositionIndices.
-            if (busbarIndices.size() < legBusSet.busNodeSet.size() && busbarIndices.get(0) != 0) {
-                // Corresponding extern cell set as undefined block, leading to a squashed externCell at abscissa 0
-                ExternCell externCell = legBusSet.externCells.iterator().next();
-                externCell.setRootBlock(new UndefinedBlock(List.of(externCell.getRootBlock())));
-                LOGGER.error("ExternCell pattern not handled: attached to several busbar sections with same busbar index");
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void pushLBS(List<LegBusSet> legBusSets, LegBusSet legBusSet) {
-        if (!checkLbs(legBusSet)) {
-            return;
-        }
-
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(legBusSet)) {
                 lbs.absorbs(legBusSet);
