@@ -130,41 +130,25 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
 
-        // OperatingStatus extension is on identifiables, so we're looking for them
-        if (node instanceof EquipmentNode && !(node instanceof SwitchNode)) {
-            if (node instanceof FeederNode) {
-                FeederNode feederNode = (FeederNode) node;
+        if (node instanceof EquipmentNode equipmentNode && !(node instanceof SwitchNode)) {
+            if (node instanceof FeederNode feederNode) {
                 switch (feederNode.getFeeder().getFeederType()) {
-                    case BRANCH:
-                    case TWO_WINDINGS_TRANSFORMER_LEG:
-                        Connectable<?> connectable = network.getConnectable(feederNode.getEquipmentId());
-                        if (connectable != null) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, connectable);
-                        }
-                        break;
-                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                    case BRANCH, TWO_WINDINGS_TRANSFORMER_LEG -> addOperatingStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
+                    case THREE_WINDINGS_TRANSFORMER_LEG -> {
                         // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
                         if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
+                            addOperatingStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
                         }
-                        break;
-                    case HVDC:
-                        HvdcLine hvdcLine = network.getHvdcLine(feederNode.getEquipmentId());
-                        Connectable<?> converterStation = ((FeederWithSides) feederNode.getFeeder()).getSide() == NodeSide.ONE ? hvdcLine.getConverterStation1() : hvdcLine.getConverterStation2();
-                        addBranchStatusDecorator(nodeDecorators, node, direction, converterStation);
-                        break;
-                    default:
-                        break;
+                    }
+                    case HVDC -> addOperatingStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
+                    default -> { /* No decorator for other feeder types */ }
                 }
             } else if (node instanceof MiddleTwtNode) {
-                if (node instanceof Middle3WTNode && ((Middle3WTNode) node).isEmbeddedInVlGraph()) {
-                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(((Middle3WTNode) node).getEquipmentId()));
+                if (node instanceof Middle3WTNode middle3WTNode && middle3WTNode.isEmbeddedInVlGraph()) {
+                    addOperatingStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(middle3WTNode.getEquipmentId()));
                 }
             } else {
-                Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
-                if (identifiable instanceof Connectable<?>) {
-                    addBranchStatusDecorator(nodeDecorators, node, direction, (Connectable<?>) identifiable);
-                }
+                addOperatingStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(equipmentNode.getEquipmentId()));
             }
         }
 
@@ -179,25 +163,22 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 .collect(Collectors.toList());
     }
 
-    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
-        OperatingStatus<?> branchStatus = (OperatingStatus<?>) c.getExtension(OperatingStatus.class);
-        if (branchStatus != null) {
-            switch (branchStatus.getStatus()) {
-                case PLANNED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                case FORCED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                default:
-                    break;
+    private <T extends Identifiable<T>> void addOperatingStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<T> identifiable) {
+        if (identifiable != null) {
+            OperatingStatus<T> operatingStatus = identifiable.getExtension(OperatingStatus.class);
+            if (operatingStatus != null) {
+                switch (operatingStatus.getStatus()) {
+                    case PLANNED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case FORCED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case IN_OPERATION -> { /* No decorator for IN_OPERATION equipment */ }
+                }
             }
         }
     }
 
     private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
-        return (node instanceof Middle3WTNode) ?
-                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node, direction)) :
+        return (node instanceof Middle3WTNode middle3WTNode) ?
+                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction)) :
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
