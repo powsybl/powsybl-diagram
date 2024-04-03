@@ -14,16 +14,16 @@ import java.util.Objects;
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
-public class BasicFixedLayoutFactory implements LayoutFactory {
+public class FixedLayoutFactory implements LayoutFactory {
 
     private final Map<String, Point> fixedPositions;
     private final LayoutFactory layoutFactory;
 
-    public BasicFixedLayoutFactory(Map<String, Point> fixedPositions) {
+    public FixedLayoutFactory(Map<String, Point> fixedPositions) {
         this(fixedPositions, BasicFixedLayout::new);
     }
 
-    public BasicFixedLayoutFactory(Map<String, Point> fixedPositions, LayoutFactory layoutFactory) {
+    public FixedLayoutFactory(Map<String, Point> fixedPositions, LayoutFactory layoutFactory) {
         this.fixedPositions = Objects.requireNonNull(fixedPositions);
         this.layoutFactory = Objects.requireNonNull(layoutFactory);
     }
