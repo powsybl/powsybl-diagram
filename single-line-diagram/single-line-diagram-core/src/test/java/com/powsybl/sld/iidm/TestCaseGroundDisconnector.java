@@ -53,14 +53,10 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
 
     private static List<Arguments> provideTestData() {
         return List.of(
-                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnector.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnBusBarNodeBreaker(), "/GroundOnBusBarNodeBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnLineBusBreaker(), "/GroundOnLineBusBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnBusBarBusBreaker(), "/GroundOnBusBarBusBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnectorFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnBusBarNodeBreaker(), "/GroundOnBusBarNodeBreakerFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnLineBusBreaker(), "/GroundOnLineBusBreakerFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundOnBusBarBusBreaker(), "/GroundOnBusBarBusBreakerFlat.svg", new FlatDesignLibrary())
+                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnectorsAndGround.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundsBusBreaker(), "/GroundsBusBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnectorsAndGroundFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundsBusBreaker(), "/GroundsBusBreakerFlat.svg", new FlatDesignLibrary())
         );
     }
 }
