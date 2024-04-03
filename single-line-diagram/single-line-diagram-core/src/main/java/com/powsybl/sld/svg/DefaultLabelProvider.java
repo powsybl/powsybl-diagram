@@ -141,7 +141,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                         }
                     }
                     case HVDC -> addOperatingStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
-                    default -> { /* Do nothing */ }
+                    default -> { /* No decorator for other feeder types */ }
                 }
             } else if (node instanceof MiddleTwtNode) {
                 if (node instanceof Middle3WTNode middle3WTNode && middle3WTNode.isEmbeddedInVlGraph()) {
@@ -170,7 +170,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 switch (operatingStatus.getStatus()) {
                     case PLANNED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
                     case FORCED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    default -> { /* Do nothing */ }
+                    case IN_OPERATION -> { /* No decorator for IN_OPERATION equipment */ }
                 }
             }
         }
