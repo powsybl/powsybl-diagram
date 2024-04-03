@@ -34,13 +34,13 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
         super(getFixedNodePosition(network, scalingFactor, radiusFactor), layoutFactory);
     }
 
-    private static Map<String, Point> getFixedNodePosition(Network network, int scalingFactor, double repulsionFactor) {
+    private static Map<String, Point> getFixedNodePosition(Network network, int scalingFactor, double radiusFactor) {
         Map<String, Point> fixedNodePositionMap = new HashMap<>();
-        network.getSubstationStream().forEach(substation -> fillPositionMap(substation, fixedNodePositionMap, scalingFactor, repulsionFactor));
+        network.getSubstationStream().forEach(substation -> fillPositionMap(substation, fixedNodePositionMap, scalingFactor, radiusFactor));
         return fixedNodePositionMap;
     }
 
-    private static void fillPositionMap(Substation substation, Map<String, Point> fixedNodePositionMap, int scalingFactor, double repulsionFactor) {
+    private static void fillPositionMap(Substation substation, Map<String, Point> fixedNodePositionMap, int scalingFactor, double radiusFactor) {
         SubstationPosition substationPosition = substation.getExtension(SubstationPosition.class);
         if (substationPosition != null) {
             Coordinate coordinate = substationPosition.getCoordinate();
@@ -59,7 +59,7 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
                 int i = 0;
                 for (VoltageLevel voltageLevel : voltageLevelList) {
                     double angleVoltageLevel = angle * i;
-                    fixedNodePositionMap.put(voltageLevel.getId(), new Point(longitude * scalingFactor + repulsionFactor * Math.cos(angleVoltageLevel), latitude * scalingFactor + repulsionFactor * Math.sin(angleVoltageLevel)));
+                    fixedNodePositionMap.put(voltageLevel.getId(), new Point(longitude * scalingFactor + radiusFactor * Math.cos(angleVoltageLevel), latitude * scalingFactor + radiusFactor * Math.sin(angleVoltageLevel)));
                     i++;
                 }
             }
