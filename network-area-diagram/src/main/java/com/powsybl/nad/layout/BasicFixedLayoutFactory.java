@@ -17,27 +17,22 @@ import java.util.Objects;
 public class BasicFixedLayoutFactory implements LayoutFactory {
 
     private final Map<String, Point> fixedPositions;
+    private final LayoutFactory layoutFactory;
 
     public BasicFixedLayoutFactory(Map<String, Point> fixedPositions) {
-        Objects.requireNonNull(fixedPositions);
-        this.fixedPositions = fixedPositions;
+        this(fixedPositions, BasicFixedLayout::new);
+    }
+
+    public BasicFixedLayoutFactory(Map<String, Point> fixedPositions, LayoutFactory layoutFactory) {
+        this.fixedPositions = Objects.requireNonNull(fixedPositions);
+        this.layoutFactory = Objects.requireNonNull(layoutFactory);
     }
 
     @Override
     public Layout create() {
-        AbstractLayout layout = new BasicFixedLayout();
-        layout.setFixedNodePositions(fixedPositions);
+        Layout layout = layoutFactory.create();
+        layout.setInitialNodePositions(fixedPositions);
+        layout.setNodesWithFixedPosition(fixedPositions.keySet());
         return layout;
-    }
-
-    public Layout create(LayoutFactory layoutFactory) {
-        if (layoutFactory == null) {
-            return create();
-        } else {
-            Layout layout = layoutFactory.create();
-            layout.setInitialNodePositions(fixedPositions);
-            layout.setNodesWithFixedPosition(fixedPositions.keySet());
-            return layout;
-        }
     }
 }
