@@ -8,8 +8,11 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +35,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
 
     @ParameterizedTest(name = "{1}")
     @MethodSource("provideTestData")
-    void test(Network network, String resourceName) {
+    void test(Network network, String resourceName, ComponentLibrary componentLibrary) {
         // Create network
         this.network = network;
 
@@ -50,10 +53,14 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
 
     private static List<Arguments> provideTestData() {
         return List.of(
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreaker.svg"),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreaker.svg"),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreaker.svg"),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreaker.svg")
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreakerFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreakerFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreakerFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreakerFlat.svg", new FlatDesignLibrary())
         );
     }
 }
