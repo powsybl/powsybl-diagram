@@ -53,14 +53,14 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
 
     private static List<Arguments> provideTestData() {
         return List.of(
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreaker.svg", new ConvergenceComponentLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreakerFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreakerFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreakerFlat.svg", new FlatDesignLibrary()),
-                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreakerFlat.svg", new FlatDesignLibrary())
+                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnector.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnBusBarNodeBreaker(), "/GroundOnBusBarNodeBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnLineBusBreaker(), "/GroundOnLineBusBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnBusBarBusBreaker(), "/GroundOnBusBarBusBreaker.svg", new ConvergenceComponentLibrary()),
+                Arguments.of(Networks.createNetworkGroundDisconnector(), "/GroundDisconnectorFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnBusBarNodeBreaker(), "/GroundOnBusBarNodeBreakerFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnLineBusBreaker(), "/GroundOnLineBusBreakerFlat.svg", new FlatDesignLibrary()),
+                Arguments.of(Networks.createNetworkGroundOnBusBarBusBreaker(), "/GroundOnBusBarBusBreakerFlat.svg", new FlatDesignLibrary())
         );
     }
 }

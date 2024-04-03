@@ -2259,7 +2259,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkGroundDisconnectorOnLineNodeBreaker() {
+    public static Network createNetworkGroundDisconnector() {
         Network network = Network.create("testCaseGroundDisconnectorOnLineNB", "test");
         Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
@@ -2274,7 +2274,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkGroundDisconnectorOnBusBarNodeBreaker() {
+    public static Network createNetworkGroundOnBusBarNodeBreaker() {
         Network network = Network.create("testCaseGroundDisconnectorOnBusBarNB", "test");
         Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
@@ -2284,7 +2284,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkGroundDisconnectorOnLineBusBreaker() {
+    public static Network createNetworkGroundOnLineBusBreaker() {
         Network network = Network.create("testCaseGroundDisconnectorOnLineBB", "test");
         Substation substation = Networks.createSubstation(network, "s1", "s1", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
@@ -2304,7 +2304,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkGroundDisconnectorOnBusBarBusBreaker() {
+    public static Network createNetworkGroundOnBusBarBusBreaker() {
         Network network = Network.create("testCaseGroundDisconnectorOnBusBarBB", "test");
         Substation substation = Networks.createSubstation(network, "s", "s", Country.FR);
         VoltageLevel vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380);
