@@ -103,7 +103,7 @@
 .sld-svc {fill: var(--sld-vl-color, blue)}
 .sld-vsc {fill: var(--sld-vl-color, blue)}
 .sld-lcc {fill: var(--sld-vl-color, blue)}
-.sld-ground {stroke-width: 1.5; stroke:  var(--sld-vl-color, black); fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
@@ -128,7 +128,7 @@
 .sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
 .sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
-.sld-open.sld-ground-disconnection {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
+.sld-open.sld-ground-disconnection {stroke: var(--sld-vl-color, black); fill: none}
 .sld-closed.sld-ground-disconnection {fill: var(--sld-vl-color, black)}
 
 ]]></style>
@@ -146,7 +146,7 @@
                 <polyline points="65.0,222.0,65.0,142.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_ground_95_ground">
-                <polyline points="65.0,142.0,65.0,69.0"/>
+                <polyline points="65.0,142.0,65.0,90.0"/>
             </g>
             <g class="sld-disconnector sld-open sld-disconnected" id="idgd" transform="translate(61.0,248.0)">
                 <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
@@ -157,8 +157,8 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_ground" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-ground sld-top-feeder sld-disconnected" id="idground" transform="translate(55.0,68.0)">
-                <path d="M10 0 V10 M0 10 H20 M5 16 H15 M8 22 H12"/>
+            <g class="sld-ground sld-top-feeder sld-disconnected" id="idground" transform="translate(55.0,70.0)">
+                <path d="M10,10 v10 M0,10 h20 M5,5 h10 M8,0 h4"/>
                 <text class="sld-label" id="ground_N_LABEL" x="-5.0" y="-5.0">ground</text>
             </g>
         </g>
