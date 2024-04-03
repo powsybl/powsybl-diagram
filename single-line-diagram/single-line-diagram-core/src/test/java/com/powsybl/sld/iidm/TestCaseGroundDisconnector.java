@@ -13,7 +13,11 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,10 +30,11 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
     public void setUp() {
     }
 
-    @Test
-    void testGroundDisconnectorOnLineNodeBreaker() {
+    @ParameterizedTest(name = "{1}")
+    @MethodSource("provideTestData")
+    void test(Network network, String resourceName) {
         // Create network
-        network = Networks.createNetworkGroundDisconnectorOnLineNodeBreaker();
+        this.network = network;
 
         // Build graph
         graphBuilder = new NetworkGraphBuilder(network);
@@ -39,54 +44,16 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // Write svg and compare to reference
-        assertEquals(toString("/TestCaseGroundDisconnectorOnLineNodeBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnLineNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString(resourceName), toSVG(g, resourceName, componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
-    @Test
-    void testGroundDisconnectorOnBusBarNodeBreaker() {
-        // Create network
-        network = Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker();
-
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // Write svg and compare to reference
-        assertEquals(toString("/TestCaseGroundDisconnectorOnBusBarNodeBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnBusBarNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
-    }
-
-    @Test
-    void testGroundDisconnectorOnLineBusBreaker() {
-        // Create network
-        network = Networks.createNetworkGroundDisconnectorOnLineBusBreaker();
-
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // Write svg and compare to reference
-        assertEquals(toString("/TestCaseGroundDisconnectorOnLineBusBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnLineBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
-    }
-
-    @Test
-    void testGroundDisconnectorOnBusBarBusBreaker() {
-        // Create network
-        network = Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker();
-
-        // build graph
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
-
-        // Run layout
-        voltageLevelGraphLayout(g);
-
-        // Write svg and compare to reference
-        assertEquals(toString("/TestCaseGroundDisconnectorOnBusBarBusBreaker.svg"), toSVG(g, "/TestCaseGroundDisconnectorOnBusBarBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+    private static List<Arguments> provideTestData() {
+        return List.of(
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineNodeBreaker(), "/GroundDisconnectorOnLineNodeBreaker.svg"),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarNodeBreaker(), "/GroundDisconnectorOnBusBarNodeBreaker.svg"),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnLineBusBreaker(), "/GroundDisconnectorOnLineBusBreaker.svg"),
+                Arguments.of(Networks.createNetworkGroundDisconnectorOnBusBarBusBreaker(), "/GroundDisconnectorOnBusBarBusBreaker.svg")
+        );
     }
 }
