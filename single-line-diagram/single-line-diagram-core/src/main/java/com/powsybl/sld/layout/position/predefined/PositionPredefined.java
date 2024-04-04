@@ -8,6 +8,7 @@ package com.powsybl.sld.layout.position.predefined;
 
 import com.powsybl.sld.layout.position.AbstractPositionFinder;
 import com.powsybl.sld.layout.position.BSCluster;
+import com.powsybl.sld.layout.position.HorizontalBusListManager;
 import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -28,12 +29,12 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-public class PositionPredefined extends AbstractPositionFinder {
+public class PositionPredefined extends AbstractPositionFinder implements HorizontalBusListManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionPredefined.class);
 
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
 
-    private static final Comparator<VerticalBusSet> VBSCOMPARATOR = new Comparator<VerticalBusSet>() {
+    private static final Comparator<VerticalBusSet> VBS_COMPARATOR = new Comparator<>() {
         @Override
         public int compare(VerticalBusSet vbs1, VerticalBusSet vbs2) {
             for (BusNode busNode : vbs1.getBusNodeSet()) {
@@ -149,7 +150,7 @@ public class PositionPredefined extends AbstractPositionFinder {
         gatherLayoutExtensionInformation(graph);
 
         List<BSCluster> bsClusters = BSCluster.createBSClusters(
-                verticalBusSets.stream().sorted(VBSCOMPARATOR).collect(Collectors.toList()));
+                verticalBusSets.stream().sorted(VBS_COMPARATOR).collect(Collectors.toList()));
 
         BSCluster bsCluster = bsClusters.get(0);
 

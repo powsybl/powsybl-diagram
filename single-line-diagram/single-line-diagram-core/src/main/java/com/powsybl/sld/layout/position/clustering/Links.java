@@ -25,23 +25,18 @@ final class Links {
     private final HorizontalBusListManager hblManager;
     private int linkCounter = 0;
 
-    private Links(HorizontalBusListManager hblManager) {
+    public Links(List<BSCluster> bsClusters, HorizontalBusListManager hblManager) {
         this.hblManager = hblManager;
+        bsClusters.forEach(this::addClusterSidesTwins);
     }
 
-    public static Links create(List<BSCluster> bsClusters, HorizontalBusListManager hblManager) {
-        Links links = new Links(hblManager);
-        bsClusters.forEach(bsCluster -> addClusterSidesTwins(links, bsCluster));
-        return links;
-    }
-
-    private static void addClusterSidesTwins(Links links, BSCluster bsCluster) {
+    private void addClusterSidesTwins(BSCluster bsCluster) {
         BSClusterSide bsSLeft = new BSClusterSide(bsCluster, Side.LEFT);
         BSClusterSide bsSRight = new BSClusterSide(bsCluster, Side.RIGHT);
         bsSLeft.setOtherSameRoot(bsSRight);
         bsSRight.setOtherSameRoot(bsSLeft);
-        links.addBsClusterSide(bsSLeft);
-        links.addBsClusterSide(bsSRight);
+        addBsClusterSide(bsSLeft);
+        addBsClusterSide(bsSRight);
     }
 
     private void addBsClusterSide(BSClusterSide bsClusterSide) {
@@ -70,7 +65,7 @@ final class Links {
         removeBsClusterSide(link.getBsClusterSide(1));
         removeBsClusterSide(link.getBsClusterSide(0).getOtherSameRoot());
         removeBsClusterSide(link.getBsClusterSide(1).getOtherSameRoot());
-        addClusterSidesTwins(this, mergedCluster);
+        addClusterSidesTwins(mergedCluster);
     }
 
     private void removeBsClusterSide(BSClusterSide bsClusterSide) {

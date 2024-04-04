@@ -6,11 +6,7 @@
  */
 package com.powsybl.sld.layout.position.clustering;
 
-import com.powsybl.sld.layout.position.AbstractPositionFinder;
-import com.powsybl.sld.layout.position.BSCluster;
-import com.powsybl.sld.layout.position.HorizontalBusList;
-import com.powsybl.sld.layout.position.Subsection;
-import com.powsybl.sld.layout.position.VerticalBusSet;
+import com.powsybl.sld.layout.position.*;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -57,7 +53,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
 
-public class PositionByClustering extends AbstractPositionFinder {
+public class PositionByClustering extends AbstractPositionFinder implements HorizontalBusListManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
 
@@ -77,7 +73,7 @@ public class PositionByClustering extends AbstractPositionFinder {
 
     public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
         List<BSCluster> bsClusters = BSCluster.createBSClusters(verticalBusSets);
-        Links links = Links.create(bsClusters, this);
+        Links links = new Links(bsClusters, this);
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }

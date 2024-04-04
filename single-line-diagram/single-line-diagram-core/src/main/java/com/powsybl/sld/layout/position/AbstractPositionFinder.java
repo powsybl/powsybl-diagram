@@ -19,7 +19,7 @@ import java.util.Map;
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public abstract class AbstractPositionFinder implements PositionFinder, HorizontalBusListManager {
+public abstract class AbstractPositionFinder implements PositionFinder {
 
     public abstract Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
 
