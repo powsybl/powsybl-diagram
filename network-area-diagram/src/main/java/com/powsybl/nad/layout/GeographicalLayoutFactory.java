@@ -71,7 +71,7 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
 
     private static Pair<Double, Double> useMercatorLikeProjection(double longitude, double latitude) {
         double x = longitude * Math.PI / 180;
-        double y = Math.log(Math.tan(Math.PI / 4 + latitude * Math.PI / 180 / 2));
+        double y = -Math.log(Math.tan(Math.PI / 4 + latitude * Math.PI / 180 / 2));
         return new Pair(x, y);
     }
 
