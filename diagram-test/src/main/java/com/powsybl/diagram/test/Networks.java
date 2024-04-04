@@ -10,7 +10,6 @@ import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
-import com.powsybl.iidm.network.impl.extensions.SubstationPositionAdderImplProvider;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -1710,11 +1709,11 @@ public final class Networks {
 
     public static Network createIeee9NetworkWithOneMissingSubstationPosition() {
         Network network = IeeeCdfNetworkFactory.create9();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S1")).withCoordinate(new Coordinate(2d, 3d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S2")).withCoordinate(new Coordinate(4d, 5d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S3")).withCoordinate(new Coordinate(6d, 7d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S5")).withCoordinate(new Coordinate(8d, 9d)).add();
-        new SubstationPositionAdderImplProvider().newAdder(network.getSubstation("S6")).withCoordinate(new Coordinate(10d, 11d)).add();
+        network.getSubstation("S1").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(2d, 3d)).add();
+        network.getSubstation("S2").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(4d, 5d)).add();
+        network.getSubstation("S3").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(6d, 7d)).add();
+        network.getSubstation("S5").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(8d, 9d)).add();
+        network.getSubstation("S6").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(10d, 11d)).add();
         return network;
     }
 
