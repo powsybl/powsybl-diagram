@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout.position.clustering;
 
-import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
@@ -48,13 +47,13 @@ import java.util.stream.Collectors;
 class Link implements Comparable<Link> {
 
     enum LinkCategory {
-        COMMONBUSES, FLATCELLS, CROSSOVER, SHUNT
+        COMMON_BUSES, FLAT_CELLS, CROSSOVER, SHUNT
     }
 
     private final BSClusterSide bsClusterSide1;
     private final BSClusterSide bsClusterSide2;
     private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
-    private int nb;
+    private final int nb;
 
     Link(BSClusterSide bsClusterSide1, BSClusterSide bsClusterSide2, int nb) {
         this.bsClusterSide1 = bsClusterSide1;
@@ -64,8 +63,8 @@ class Link implements Comparable<Link> {
     }
 
     private void assessLink() {
-        categoryToWeight.put(LinkCategory.COMMONBUSES, assessCommonBusNodes());
-        categoryToWeight.put(LinkCategory.FLATCELLS, assessFlatCell());
+        categoryToWeight.put(LinkCategory.COMMON_BUSES, assessCommonBusNodes());
+        categoryToWeight.put(LinkCategory.FLAT_CELLS, assessFlatCell());
         categoryToWeight.put(LinkCategory.CROSSOVER, assessCrossOver());
         categoryToWeight.put(LinkCategory.SHUNT, assessShunt());
     }
@@ -167,7 +166,7 @@ class Link implements Comparable<Link> {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return nb;
     }
 
     @Override
@@ -185,8 +184,8 @@ class Link implements Comparable<Link> {
 
     @Override
     public String toString() {
-        return "CommonBus: " + categoryToWeight.get(LinkCategory.COMMONBUSES)
-                + " FlatCell: " + categoryToWeight.get(LinkCategory.FLATCELLS)
+        return "CommonBus: " + categoryToWeight.get(LinkCategory.COMMON_BUSES)
+                + " FlatCell: " + categoryToWeight.get(LinkCategory.FLAT_CELLS)
                 + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER)
                 + " Shunt: " + categoryToWeight.get(LinkCategory.SHUNT)
                 + "\n\tvbsClusterSide1: " + bsClusterSide1.toString()
