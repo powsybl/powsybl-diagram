@@ -9,9 +9,9 @@ package com.powsybl.sld.layout.position;
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
+@FunctionalInterface
+public interface HorizontalBusListsMerger {
 
-public interface HorizontalBusListManager {
-
-    void mergeHbl(BSCluster leftCluster, BSCluster rightCluster);
+    void apply(BSCluster leftCluster, BSCluster rightCluster);
 
 }

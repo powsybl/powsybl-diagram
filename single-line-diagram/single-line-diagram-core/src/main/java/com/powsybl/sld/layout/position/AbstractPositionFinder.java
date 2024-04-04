@@ -46,7 +46,7 @@ public abstract class AbstractPositionFinder implements PositionFinder {
         forceSameOrientationForShuntedCell(graph);
     }
 
-    public void mergeHblWithNoLink(BSCluster leftCluster, BSCluster rightCluster) {
+    public static void mergeHblWithNoLink(BSCluster leftCluster, BSCluster rightCluster) {
         rightCluster.getHorizontalBusLists().forEach(hbl -> {
             hbl.shift(leftCluster.getLength());
             hbl.setBsCluster(leftCluster);

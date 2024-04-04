@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout.position.clustering;
 
 import com.powsybl.sld.layout.position.BSCluster;
-import com.powsybl.sld.layout.position.HorizontalBusListManager;
 import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
@@ -21,12 +20,10 @@ final class Links {
 
     private final List<BSClusterSide> bsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
-    private final Map<BSClusterSide, List<Link>> bsCsToLink = new HashMap<>();
-    private final HorizontalBusListManager hblManager;
+    private final Map<BSClusterSide, List<Link>> bsClusterSideToLink = new HashMap<>();
     private int linkCounter = 0;
 
-    public Links(List<BSCluster> bsClusters, HorizontalBusListManager hblManager) {
-        this.hblManager = hblManager;
+    public Links(List<BSCluster> bsClusters) {
         bsClusters.forEach(this::addClusterSidesTwins);
     }
 
@@ -40,7 +37,7 @@ final class Links {
     }
 
     private void addBsClusterSide(BSClusterSide bsClusterSide) {
-        bsCsToLink.put(bsClusterSide, new ArrayList<>());
+        bsClusterSideToLink.put(bsClusterSide, new ArrayList<>());
         bsClusterSides.forEach(cc -> buildNewLink(cc, bsClusterSide));
         bsClusterSides.add(bsClusterSide);
     }
@@ -49,8 +46,8 @@ final class Links {
         if (bsClusterSide1.getCluster() != bsClusterSide2.getCluster()) {
             Link linkToAdd = new Link(bsClusterSide1, bsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
-            bsCsToLink.get(bsClusterSide1).add(linkToAdd);
-            bsCsToLink.get(bsClusterSide2).add(linkToAdd);
+            bsClusterSideToLink.get(bsClusterSide1).add(linkToAdd);
+            bsClusterSideToLink.get(bsClusterSide2).add(linkToAdd);
         }
     }
 
@@ -59,7 +56,7 @@ final class Links {
     }
 
     void mergeLink(Link link) {
-        link.mergeClusters(hblManager);
+        link.mergeClusters();
         BSCluster mergedCluster = link.getBsClusterSide(0).getCluster();
         removeBsClusterSide(link.getBsClusterSide(0));
         removeBsClusterSide(link.getBsClusterSide(1));
@@ -70,7 +67,7 @@ final class Links {
 
     private void removeBsClusterSide(BSClusterSide bsClusterSide) {
         bsClusterSides.remove(bsClusterSide);
-        bsCsToLink.get(bsClusterSide).forEach(linkSet::remove);
+        bsClusterSideToLink.get(bsClusterSide).forEach(linkSet::remove);
     }
 
     boolean isEmpty() {

@@ -8,7 +8,6 @@ package com.powsybl.sld.layout.position.predefined;
 
 import com.powsybl.sld.layout.position.AbstractPositionFinder;
 import com.powsybl.sld.layout.position.BSCluster;
-import com.powsybl.sld.layout.position.HorizontalBusListManager;
 import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -29,7 +28,7 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-public class PositionPredefined extends AbstractPositionFinder implements HorizontalBusListManager {
+public class PositionPredefined extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionPredefined.class);
 
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
@@ -155,7 +154,7 @@ public class PositionPredefined extends AbstractPositionFinder implements Horizo
         BSCluster bsCluster = bsClusters.get(0);
 
         while (bsClusters.size() != 1) {
-            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, this);
+            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, PositionPredefined::mergeHorizontalBusLists);
             bsClusters.remove(1);
         }
         bsCluster.sortHblByVPos();
@@ -208,8 +207,7 @@ public class PositionPredefined extends AbstractPositionFinder implements Horizo
                 .ifPresent(bc::setOrder);
     }
 
-    @Override
-    public void mergeHbl(BSCluster leftCluster, BSCluster rightCluster) {
+    public static void mergeHorizontalBusLists(BSCluster leftCluster, BSCluster rightCluster) {
         //for this implementation, the busBar structuralPosition are already defined,
         // we must ensure that structuralPosition vPos when merging left and right HorizontalPosition,
         // and structuralPosition hPos are ordered

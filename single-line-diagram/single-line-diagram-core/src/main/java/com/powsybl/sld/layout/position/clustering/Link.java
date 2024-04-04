@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout.position.clustering;
 
-import com.powsybl.sld.layout.position.HorizontalBusListManager;
+import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
@@ -143,7 +143,7 @@ class Link implements Comparable<Link> {
         return null;
     }
 
-    void mergeClusters(HorizontalBusListManager hblManager) {
+    void mergeClusters() {
         if (bsClusterSide1.getCluster() == bsClusterSide2.getCluster()
                 || bsClusterSide1.getMySideInCluster() == Side.UNDEFINED
                 || bsClusterSide2.getMySideInCluster() == Side.UNDEFINED) {
@@ -152,7 +152,8 @@ class Link implements Comparable<Link> {
         bsClusterSide1.getCluster().merge(
                 bsClusterSide1.getMySideInCluster(),
                 bsClusterSide2.getCluster(),
-                bsClusterSide2.getMySideInCluster(), hblManager);
+                bsClusterSide2.getMySideInCluster(),
+                PositionByClustering::mergeHorizontalBusLists);
     }
 
     @Override

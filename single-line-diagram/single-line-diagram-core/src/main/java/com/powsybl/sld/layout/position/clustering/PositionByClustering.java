@@ -53,7 +53,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
 
-public class PositionByClustering extends AbstractPositionFinder implements HorizontalBusListManager {
+public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
 
@@ -73,7 +73,7 @@ public class PositionByClustering extends AbstractPositionFinder implements Hori
 
     public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
         List<BSCluster> bsClusters = BSCluster.createBSClusters(verticalBusSets);
-        Links links = new Links(bsClusters, this);
+        Links links = new Links(bsClusters);
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }
@@ -178,22 +178,21 @@ public class PositionByClustering extends AbstractPositionFinder implements Hori
                 .forEach(sc -> shuntTraversal(sc, visitedShuntCells, externCells));
     }
 
-    @Override
-    public void mergeHbl(BSCluster leftCluster, BSCluster rightCluster) {
+    public static void mergeHorizontalBusLists(BSCluster leftCluster, BSCluster rightCluster) {
         List<HorizontalBusList> availableHblToMerge = new ArrayList<>(leftCluster.getHorizontalBusLists());
         mergeHblWithCommonBusNode(leftCluster, rightCluster, availableHblToMerge);
         mergeHblWithFlatCell(leftCluster, rightCluster, availableHblToMerge);
         mergeHblWithNoLink(leftCluster, rightCluster);
     }
 
-    private void mergeHblWithCommonBusNode(BSCluster leftCluster, BSCluster rightCluster, List<HorizontalBusList> availableHblToMerge) {
+    private static void mergeHblWithCommonBusNode(BSCluster leftCluster, BSCluster rightCluster, List<HorizontalBusList> availableHblToMerge) {
         List<BusNode> commonNodes = new ArrayList<>(leftCluster.hblSideBuses(Side.RIGHT));
         commonNodes.retainAll(rightCluster.hblSideBuses(Side.LEFT));
         commonNodes.forEach(busNode ->
                 finalizeHblBuilding(leftCluster, rightCluster, busNode, busNode, availableHblToMerge));
     }
 
-    private void mergeHblWithFlatCell(BSCluster leftCluster, BSCluster rightCluster,
+    private static void mergeHblWithFlatCell(BSCluster leftCluster, BSCluster rightCluster,
                                         List<HorizontalBusList> availableHblToMerge) {
         List<BusNode> myAvailableRightBuses = BSCluster.hblSideBuses(Side.RIGHT, availableHblToMerge);
         List<InternCell> myConcernedFlatCells = leftCluster.getSideCandidateFlatCell(Side.RIGHT)
@@ -222,13 +221,13 @@ public class PositionByClustering extends AbstractPositionFinder implements Hori
                 });
     }
 
-    private Optional<BusNode> internCellNodeInHblSide(BSCluster bsCluster, Side side, InternCell cell) {
+    private static Optional<BusNode> internCellNodeInHblSide(BSCluster bsCluster, Side side, InternCell cell) {
         List<BusNode> hblBuses = bsCluster.hblSideBuses(side);
         hblBuses.retainAll(cell.getBusNodes());
         return hblBuses.stream().findFirst();
     }
 
-    private void finalizeHblBuilding(BSCluster leftCluster, BSCluster rightCluster,
+    private static void finalizeHblBuilding(BSCluster leftCluster, BSCluster rightCluster,
                                       BusNode myNode, BusNode otherBus, List<HorizontalBusList> availableHblToMerge) {
         Optional<HorizontalBusList> myHbl = leftCluster.getHblFromSideBus(myNode, Side.RIGHT);
         Optional<HorizontalBusList> otherHbl = rightCluster.getHblFromSideBus(otherBus, Side.LEFT);

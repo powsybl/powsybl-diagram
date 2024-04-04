@@ -39,14 +39,15 @@ public class BSCluster {
         return bsClusters;
     }
 
-    public void merge(Side myConcernedSide, BSCluster otherBsCluster, Side otherSide, HorizontalBusListManager hblManager) {
+    public void merge(Side myConcernedSide, BSCluster otherBsCluster, Side otherSide,
+                      HorizontalBusListsMerger hblMerger) {
         if (myConcernedSide == Side.LEFT) {
             reverse();
         }
         if (otherSide == Side.RIGHT) {
             otherBsCluster.reverse();
         }
-        hblManager.mergeHbl(this, otherBsCluster);
+        hblMerger.apply(this, otherBsCluster);
         verticalBusSets.addAll(otherBsCluster.verticalBusSets);
     }
 
