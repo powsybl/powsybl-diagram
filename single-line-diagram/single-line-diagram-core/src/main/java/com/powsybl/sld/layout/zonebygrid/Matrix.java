@@ -36,7 +36,7 @@ public class Matrix {
     }
 
     public Optional<MatrixCell> get(String id) {
-        return stream().filter(c -> c.getId().equals(id)).findAny();
+        return stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 
     public MatrixCell get(int row, int col) {

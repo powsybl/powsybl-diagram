@@ -75,7 +75,7 @@ public class BSCluster {
         return horizontalBusLists
                 .stream()
                 .filter(hbl -> hbl.getSideNode(side) == busNode)
-                .findAny();
+                .findFirst();
     }
 
     List<BusNode> getVerticalBusNodes(int i) {

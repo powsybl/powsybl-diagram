@@ -71,7 +71,7 @@ public class PositionFromExtension extends AbstractPositionFinder {
         }
 
         private Optional<Integer> externCellOrderNb(VerticalBusSet vbs) {
-            return vbs.getExternCells().stream().findAny().map(exCell -> exCell.getOrder().orElse(-1));
+            return vbs.getExternCells().stream().findFirst().map(exCell -> exCell.getOrder().orElse(-1));
         }
 
     };
