@@ -234,8 +234,8 @@ public class ForceLayout<V, E> {
                 if (!n1.equals(point) && !n2.equals(point)) {
                     Vector q1 = spring.getNode1().getPosition();
                     Vector q2 = spring.getNode2().getPosition();
-                    Vector center = q1.add(q2.subtract(q1).multiply(0.5));
-                    Vector force = coulombsForce(p, center, repulsion * springRepulsionFactor);
+                    Vector newCenter = q1.add(q2.subtract(q1).multiply(0.5));
+                    Vector force = coulombsForce(p, newCenter, repulsion * springRepulsionFactor);
                     point.applyForce(force);
                     n1.applyForce(force.multiply(-0.5));
                     n2.applyForce(force.multiply(-0.5));
@@ -247,14 +247,14 @@ public class ForceLayout<V, E> {
             Point n2 = spring.getNode2();
             Vector p1 = spring.getNode1().getPosition();
             Vector p2 = spring.getNode2().getPosition();
-            Vector center = p1.add(p2.subtract(p1).multiply(0.5));
+            Vector newCenter = p1.add(p2.subtract(p1).multiply(0.5));
             for (Spring otherSpring : springs) {
                 if (!spring.equals(otherSpring)) {
                     // Compute the repulsion force between centers of the springs
                     Vector op1 = otherSpring.getNode1().getPosition();
                     Vector op2 = otherSpring.getNode2().getPosition();
                     Vector otherCenter = op1.add(op2.subtract(op1).multiply(0.5));
-                    Vector force = coulombsForce(center, otherCenter, repulsion * springRepulsionFactor);
+                    Vector force = coulombsForce(newCenter, otherCenter, repulsion * springRepulsionFactor);
 
                     // And apply it to both points of the spring
                     n1.applyForce(force);
