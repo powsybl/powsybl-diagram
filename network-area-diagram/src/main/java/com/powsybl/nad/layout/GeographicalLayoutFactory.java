@@ -13,6 +13,7 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.Coordinate;
 import com.powsybl.iidm.network.extensions.SubstationPosition;
 import com.powsybl.nad.model.Point;
+import org.jgrapht.alg.util.Pair;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,22 +48,31 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
             double latitude = coordinate.getLatitude();
             double longitude = coordinate.getLongitude();
 
+            Pair<Double, Double> mercatorCoordinates = useMercatorLikeProjection(longitude, latitude);
+
             List<VoltageLevel> voltageLevelList = substation.getVoltageLevelStream().toList();
             int voltageLevelListSize = voltageLevelList.size();
 
             if (voltageLevelListSize == 1) {
                 String voltageLevelId = voltageLevelList.get(0).getId();
-                fixedNodePositionMap.put(voltageLevelId, new Point(longitude * scalingFactor, latitude * scalingFactor));
+                fixedNodePositionMap.put(voltageLevelId, new Point(scalingFactor * mercatorCoordinates.getFirst(), scalingFactor * mercatorCoordinates.getSecond()));
             } else if (voltageLevelListSize > 1) {
                 //Deal with voltage levels within the same substation (and thus with the same coordinates)
                 double angle = 2 * Math.PI / voltageLevelListSize;
                 int i = 0;
                 for (VoltageLevel voltageLevel : voltageLevelList) {
                     double angleVoltageLevel = angle * i;
-                    fixedNodePositionMap.put(voltageLevel.getId(), new Point(longitude * scalingFactor + radiusFactor * Math.cos(angleVoltageLevel), latitude * scalingFactor + radiusFactor * Math.sin(angleVoltageLevel)));
+                    fixedNodePositionMap.put(voltageLevel.getId(), new Point(scalingFactor * mercatorCoordinates.getFirst() + radiusFactor * Math.cos(angleVoltageLevel), scalingFactor * mercatorCoordinates.getSecond() + radiusFactor * Math.sin(angleVoltageLevel)));
                     i++;
                 }
             }
         }
     }
+
+    private static Pair<Double, Double> useMercatorLikeProjection(double longitude, double latitude) {
+        double x = longitude * Math.PI / 180;
+        double y = Math.log(Math.tan(Math.PI / 4 + latitude * Math.PI / 180 / 2));
+        return new Pair(x, y);
+    }
+
 }
