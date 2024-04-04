@@ -30,10 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * ------ bbs
  * </PRE>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestCase1 extends AbstractTestCaseIidm {
 
@@ -51,13 +51,24 @@ class TestCase1 extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-
-        // Run layout
         voltageLevelGraphLayout(g);
-
-        // write Json and compare to reference
         assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
+    }
+
+    @Test
+    void testDisplayEquipmentNodesLabel() {
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(g);
+        svgParameters.setDisplayEquipmentNodesLabel(true);
+        assertEquals(toString("/TestCase1_equipmentLabels.svg"), toSVG(g, "/TestCase1_equipmentLabels.svg"));
+    }
+
+    @Test
+    void testDisplayConnectivityNodes() {
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(g);
+        svgParameters.setDisplayConnectivityNodesId(true).setShowInternalNodes(true);
+        assertEquals(toString("/TestCase1_connectivityLabels.svg"), toSVG(g, "/TestCase1_connectivityLabels.svg"));
     }
 }

@@ -6,14 +6,14 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public interface ZoneLayoutFactory {
 
-    Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory);
-
+    Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory);
 }

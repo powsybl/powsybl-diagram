@@ -16,7 +16,7 @@ import java.util.List;
 import static com.powsybl.sld.svg.styles.StyleClassConstants.STYLE_PREFIX;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class AnimatedFeederInfoStyleProvider extends EmptyStyleProvider {
 

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 class ComponentLibraryTest {
 
@@ -25,6 +25,6 @@ class ComponentLibraryTest {
         ComponentLibrary cvg = ComponentLibrary.find("Convergence").orElse(null);
         assertNotNull(cvg);
         assertEquals("Convergence", cvg.getName());
-        assertEquals(23, cvg.getComponentsSize().size());
+        assertEquals(25, cvg.getComponentsSize().size());
     }
 }

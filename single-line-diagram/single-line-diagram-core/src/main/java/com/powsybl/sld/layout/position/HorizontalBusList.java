@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * LegBusSet in the cluster). Therefore startingIndex + length - 1 = the last position occupied by the HorizontalBusList in
  * the LBSCluster.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class HorizontalBusList {
 

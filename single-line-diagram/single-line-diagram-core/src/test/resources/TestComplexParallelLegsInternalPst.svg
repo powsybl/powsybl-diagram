@@ -108,6 +108,7 @@
 .sld-svc {fill: var(--sld-vl-color, blue)}
 .sld-vsc {fill: var(--sld-vl-color, blue)}
 .sld-lcc {fill: var(--sld-vl-color, blue)}
+.sld-ground {stroke-width: 1.5; stroke:  var(--sld-vl-color, black); fill: none}
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
@@ -128,6 +129,12 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open.sld-ground-disconnection {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
+.sld-closed.sld-ground-disconnection {fill: var(--sld-vl-color, black)}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -175,13 +182,13 @@
                 <polyline points="90.0,297.0,90.0,351.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_ARROW_REACTIVE" transform="translate(85.0,326.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idload_ARROW_ACTIVE" transform="translate(85.0,306.0)">
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
+                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-disconnector sld-closed sld-vl300to500-0" id="idd1a" transform="translate(61.0,76.0)">

@@ -8,6 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
@@ -17,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
 
@@ -56,8 +57,7 @@ class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
     @Test
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new PositionVoltageLevelLayoutFactory()
-                .setRemoveUnnecessaryFictitiousNodes(false)
+        new PositionVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactoryParameters().setRemoveUnnecessaryFictitiousNodes(false))
                 .create(g)
                 .run(layoutParameters);
         assertEquals(toString("/testSerialBlocksInternCells.json"), toJson(g, "/testSerialBlocksInternCells.json"));

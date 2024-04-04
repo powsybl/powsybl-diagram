@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestSerialBlock extends AbstractTestCaseIidm {
 
@@ -102,10 +102,8 @@ class TestSerialBlock extends AbstractTestCaseIidm {
         assertEquals(2, sb.getUpperBlock().getPosition().getSpan(H));
         assertEquals(0, sb.getUpperBlock().getPosition().getSpan(V));
 
-        sb.getCoord().set(X, 10);
-        sb.getCoord().set(Y, 20);
-        sb.getCoord().setSpan(X, 100);
-        sb.getCoord().setSpan(Y, 200);
+        sb.getCoord().set(X, 10, 100);
+        sb.getCoord().set(Y, 20, 200);
         CalculateCoordBlockVisitor ccbv = CalculateCoordBlockVisitor.create(layoutParameters, new LayoutContext(0., 0., 0., null));
         sb.getPosition().setOrientation(Orientation.LEFT);
         sb.accept(ccbv);

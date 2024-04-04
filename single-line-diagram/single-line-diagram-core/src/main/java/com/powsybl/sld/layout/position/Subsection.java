@@ -6,13 +6,17 @@
  */
 package com.powsybl.sld.layout.position;
 
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.util.GraphTraversal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,16 +29,17 @@ import static com.powsybl.sld.model.coordinate.Side.LEFT;
 import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public class Subsection {
 
-    private int size;
-    private BusNode[] busNodes;
-    private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
-    private List<ExternCell> externCells = new LinkedList<>();
-    private static Comparator<ExternCell> compareOrder = Comparator
+    private final int size;
+    private final BusNode[] busNodes;
+    private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
+    private final List<ExternCell> externCells = new ArrayList<>();
+    private final List<ArchCell> archCells = new ArrayList<>();
+    private static final Comparator<BusCell> COMPARE_ORDER = Comparator
             .comparingInt(extCell -> extCell.getOrder().orElse(-1));
     private static final Logger LOGGER = LoggerFactory.getLogger(Subsection.class);
 
@@ -53,7 +58,9 @@ public class Subsection {
     private void addVerticalBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
         extendedNodeSet.forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
         externCells.addAll(vbs.getExternCells());
-        externCells.sort(compareOrder);
+        externCells.sort(COMPARE_ORDER);
+        archCells.addAll(vbs.getArchCells());
+        archCells.sort(COMPARE_ORDER);
         internCellSides.addAll(vbs.getInternCellSides());
     }
 
@@ -86,6 +93,10 @@ public class Subsection {
         return externCells;
     }
 
+    public List<ArchCell> getArchCells() {
+        return archCells;
+    }
+
     private boolean containsAllBusNodes(List<BusNode> nodes) {
         return Arrays.asList(busNodes).containsAll(nodes);
     }
@@ -101,6 +112,15 @@ public class Subsection {
             Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
             List<BusNode> vbn = bsCluster.getVerticalBusNodes(i);
             if (vbs.getBusNodeSet().containsAll(vbn)) {
+                // The given busNodes correspond to all vertical bus nodes for a specific index of the horizontalBusLanes:
+                // those nodes correspond to a slice of busbars.
+                // There can't be more than one busNode per busbar index, we check this by creating a HashSet with busbar indices
+                Set<Integer> indices = new HashSet<>();
+                for (BusNode busNode : vbn) {
+                    if (!indices.add(busNode.getBusbarIndex())) {
+                        throw new PowsyblException("Inconsistent legBusSet: extended node set contains two busNodes with same index");
+                    }
+                }
                 extendedNodeSet.addAll(vbn);
             } else {
                 LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
@@ -124,10 +144,22 @@ public class Subsection {
     }
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<VerticalBusSet> vbsList, List<Subsection> subsections) {
+        identifyOneLegInternCells(vlGraph, subsections);
         identifyVerticalInternCells(vlGraph, subsections);
         identifyFlatInternCells(vbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
+    }
+
+    private static void identifyOneLegInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
+        graph.getInternCellStream()
+                .filter(c -> c.checkIsShape(InternCell.Shape.MAYBE_FLAT, InternCell.Shape.UNDEFINED))
+                .filter(c -> c.getBodyBlock() instanceof BodyPrimaryBlock bpb && bpb.getNodes().size() == 1 && bpb.getNodes().get(0) instanceof ConnectivityNode)
+                .forEach(c -> subsections.stream().filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes())).findFirst().ifPresent(s -> {
+                    c.replaceBackMultiLegByOneLeg();
+                    s.internCellSides.removeIf(ics -> ics.getCell() == c);
+                    s.internCellSides.add(new InternCellSide(c, Side.UNDEFINED));
+                }));
     }
 
     private static void identifyVerticalInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {

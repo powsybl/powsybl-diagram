@@ -10,7 +10,7 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class InternCellSide {
 

@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
- * @author Slimane Amar <slimane.amar at rte-france.com>
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class BranchEdge extends Edge {
 
@@ -40,6 +40,13 @@ public class BranchEdge extends Edge {
 
     public void setSnakeLine(List<Point> snakeLine) {
         this.snakeLine = Objects.requireNonNull(snakeLine);
+    }
+
+    public void shiftSnakeLine(double dx, double dy) {
+        snakeLine.forEach(p -> {
+            p.shiftX(dx);
+            p.shiftY(dy);
+        });
     }
 
     @Override

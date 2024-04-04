@@ -3,13 +3,16 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.position.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Slimane Amar <slimane.amar at rte-france.com>
+ * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
 class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
 
@@ -34,13 +37,23 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
-        // Run layout
+        // Run layout with default parameters and compare subsequent SVG with reference
         voltageLevelGraphLayout(g);
-
-        // write SVG and compare to reference
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
 
+    @Test
+    void testVLGraphExternal2WT() {
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
+
+        // Run layout with specific parameters and compare subsequent SVG with reference
+        PositionVoltageLevelLayoutFactoryParameters pvllfParameters = new PositionVoltageLevelLayoutFactoryParameters()
+                .setSubstituteInternalMiddle2wtByEquipmentNodes(false);
+        new PositionVoltageLevelLayoutFactory(new PositionFromExtension(), pvllfParameters).create(g).run(this.layoutParameters);
+        assertEquals(toString("/InternalBranchesNodeBreaker_externalPst.svg"),
+                toSVG(g, "/InternalBranchesNodeBreaker_externalPst.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test

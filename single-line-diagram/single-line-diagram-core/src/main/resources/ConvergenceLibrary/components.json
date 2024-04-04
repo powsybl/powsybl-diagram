@@ -54,6 +54,35 @@
       } ],
     "styleClass" : "sld-load-break-switch"
   }, {
+    "type" : "GROUND_DISCONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -5.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 56.0,
+      "height" : 20.0
+    },
+    "subComponents" : [ {
+      "name" : "ATTACH",
+      "fileName" : "ground-disconnection-attach.svg",
+      "styleClass" : "sld-ground-disconnection-attach"
+    }, {
+      "name" : "GROUND",
+      "fileName" : "ground-disconnection-ground.svg",
+      "styleClass" : "sld-ground-disconnection-ground"
+    }, {
+      "name" : "CLOSED",
+      "fileName" : "ground-disconnector-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    }, {
+      "name" : "OPEN",
+      "fileName" : "ground-disconnector-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-ground-disconnection"
+  }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -374,6 +403,23 @@
       "fileName" : "lcc.svg"
     } ],
     "styleClass" : "sld-lcc"
+  }, {
+    "type" : "GROUND",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "DOWN":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "GROUND",
+      "fileName" : "ground.svg"
+    } ],
+    "styleClass" : "sld-ground"
   }, {
     "type" : "BUSBAR_SECTION",
     "styleClass" : "sld-busbar-section"

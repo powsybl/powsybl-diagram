@@ -19,10 +19,10 @@ import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractBlock implements Block {
 
@@ -86,6 +86,7 @@ public abstract class AbstractBlock implements Block {
         cardinality.put(extremity, i);
     }
 
+    @Override
     public Block getParentBlock() {
         return parentBlock;
     }

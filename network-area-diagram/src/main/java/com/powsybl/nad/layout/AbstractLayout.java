@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.*;
@@ -6,6 +12,10 @@ import org.jgrapht.alg.util.Pair;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ *
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ */
 public abstract class AbstractLayout implements Layout {
 
     private Map<String, Point> initialNodePositions = Collections.emptyMap();
@@ -87,7 +97,7 @@ public abstract class AbstractLayout implements Layout {
     }
 
     private void computeSize(Graph graph) {
-        double[] dims = new double[4];
+        double[] dims = new double[] {Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE};
         Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
             dims[0] = Math.min(dims[0], node.getX());
             dims[1] = Math.max(dims[1], node.getX());

@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 /**
  *
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 abstract class AbstractVoltageLevelDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
 

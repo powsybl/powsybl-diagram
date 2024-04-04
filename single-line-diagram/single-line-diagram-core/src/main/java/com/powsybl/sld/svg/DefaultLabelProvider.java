@@ -3,11 +3,12 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.extensions.BranchStatus;
+import com.powsybl.iidm.network.extensions.OperatingStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -16,27 +17,28 @@ import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_CURRENT;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
 /**
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at franck.lecuyer@rte-france.com>}
  */
-public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
+public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
     protected final Network network;
 
-    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        super(componentLibrary, layoutParameters);
+    public DefaultLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+        super(componentLibrary, layoutParameters, svgParameters);
         this.network = Objects.requireNonNull(net);
     }
 
@@ -66,7 +68,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
             default:
                 break;
         }
-        if (node.getDirection() == BOTTOM && !layoutParameters.isFeederInfoSymmetry()) {
+        if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
         return feederInfos;
@@ -85,7 +87,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(branch, side);
         }
         return measures;
@@ -95,8 +97,9 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(feeder.getSide().name());
-            feederInfos = buildFeederInfos(transformer, side);
+            ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
+            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
+            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
         }
         return feederInfos;
     }
@@ -105,7 +108,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
+            TwoSides side = TwoSides.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(transformer, side);
         }
         return measures;
@@ -127,41 +130,25 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
 
-        // BranchStatus extension is on connectables, so we're looking for them
-        if (node instanceof EquipmentNode && !(node instanceof SwitchNode)) {
-            if (node instanceof FeederNode) {
-                FeederNode feederNode = (FeederNode) node;
+        if (node instanceof EquipmentNode equipmentNode && !(node instanceof SwitchNode)) {
+            if (node instanceof FeederNode feederNode) {
                 switch (feederNode.getFeeder().getFeederType()) {
-                    case BRANCH:
-                    case TWO_WINDINGS_TRANSFORMER_LEG:
-                        Connectable<?> connectable = network.getConnectable(feederNode.getEquipmentId());
-                        if (connectable != null) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, connectable);
-                        }
-                        break;
-                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                    case BRANCH, TWO_WINDINGS_TRANSFORMER_LEG -> addOperatingStatusDecorator(nodeDecorators, node, direction, network.getBranch(feederNode.getEquipmentId()));
+                    case THREE_WINDINGS_TRANSFORMER_LEG -> {
                         // if this is an outer leg (leg corresponding to another voltage level), we display the decorator on the inner 3wt
                         if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
-                            addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
+                            addOperatingStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(feederNode.getEquipmentId()));
                         }
-                        break;
-                    case HVDC:
-                        HvdcLine hvdcLine = network.getHvdcLine(feederNode.getEquipmentId());
-                        Connectable<?> converterStation = ((FeederWithSides) feederNode.getFeeder()).getSide() == NodeSide.ONE ? hvdcLine.getConverterStation1() : hvdcLine.getConverterStation2();
-                        addBranchStatusDecorator(nodeDecorators, node, direction, converterStation);
-                        break;
-                    default:
-                        break;
+                    }
+                    case HVDC -> addOperatingStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(feederNode.getEquipmentId()));
+                    default -> { /* No decorator for other feeder types */ }
                 }
             } else if (node instanceof MiddleTwtNode) {
-                if (node instanceof Middle3WTNode && ((Middle3WTNode) node).isEmbeddedInVlGraph()) {
-                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(((Middle3WTNode) node).getEquipmentId()));
+                if (node instanceof Middle3WTNode middle3WTNode && middle3WTNode.isEmbeddedInVlGraph()) {
+                    addOperatingStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(middle3WTNode.getEquipmentId()));
                 }
             } else {
-                Identifiable<?> identifiable = network.getIdentifiable(((EquipmentNode) node).getEquipmentId());
-                if (identifiable instanceof Connectable<?>) {
-                    addBranchStatusDecorator(nodeDecorators, node, direction, (Connectable<?>) identifiable);
-                }
+                addOperatingStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(equipmentNode.getEquipmentId()));
             }
         }
 
@@ -176,37 +163,34 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
                 .collect(Collectors.toList());
     }
 
-    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Connectable<?> c) {
-        BranchStatus<?> branchStatus = (BranchStatus<?>) c.getExtension(BranchStatus.class);
-        if (branchStatus != null) {
-            switch (branchStatus.getStatus()) {
-                case PLANNED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                case FORCED_OUTAGE:
-                    nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    break;
-                default:
-                    break;
+    private <T extends Identifiable<T>> void addOperatingStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<T> identifiable) {
+        if (identifiable != null) {
+            OperatingStatus<T> operatingStatus = identifiable.getExtension(OperatingStatus.class);
+            if (operatingStatus != null) {
+                switch (operatingStatus.getStatus()) {
+                    case PLANNED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case FORCED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case IN_OPERATION -> { /* No decorator for IN_OPERATION equipment */ }
+                }
             }
         }
     }
 
     private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
-        return (node instanceof Middle3WTNode) ?
-                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node, direction)) :
+        return (node instanceof Middle3WTNode middle3WTNode) ?
+                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction)) :
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
-        return this.buildFeederInfos(transformer.getTerminal(side));
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
+        return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
         return this.buildFeederInfos(injection.getTerminal());
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side) {
         return this.buildFeederInfos(branch.getTerminal(side));
     }
 
@@ -217,11 +201,23 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal) {
+        return buildFeederInfos(terminal, true);
+    }
+
+    private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminal.getP(), valueFormatter::formatPower));
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminal.getQ(), valueFormatter::formatPower));
-        if (this.layoutParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+        double terminalP = terminal.getP();
+        double terminalQ = terminal.getQ();
+        double terminalI = terminal.getI();
+        if (!insideVoltageLevel) {
+            terminalP = -terminalP;
+            terminalQ = -terminalQ;
+            terminalI = -terminalI;
+        }
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
+        if (this.svgParameters.isDisplayCurrentFeederInfo()) {
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatPower));
         }
         return feederInfoList;
     }

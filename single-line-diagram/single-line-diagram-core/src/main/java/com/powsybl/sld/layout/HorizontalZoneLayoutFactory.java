@@ -7,15 +7,22 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
+import com.powsybl.sld.model.graphs.*;
+
+import java.util.List;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class HorizontalZoneLayoutFactory implements ZoneLayoutFactory {
 
     @Override
-    public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new HorizontalZoneLayout(graph, sLayoutFactory, vLayoutFactory);
+    public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+        List<String> substations = graph.getSubstations().stream().map(SubstationGraph::getId).toList();
+        String[] array = new String[substations.size()];
+        String[][] matrix = new String[1][];
+        matrix[0] = substations.toArray(array);
+        return new MatrixZoneLayoutFactory(matrix).create(graph, pathFinderFactory, sLayoutFactory, vLayoutFactory);
     }
 }

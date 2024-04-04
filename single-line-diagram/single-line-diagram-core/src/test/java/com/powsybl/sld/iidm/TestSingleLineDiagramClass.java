@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -12,8 +13,11 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.VerticalSubstationLayout;
+import com.powsybl.sld.layout.VerticalZoneLayoutFactory;
 import org.apache.commons.io.output.NullWriter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,12 +30,14 @@ import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
@@ -80,7 +86,8 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg", "/TestSldClassVlMetadata.json"));
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter());
+
+        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter(), new SldParameters());
         assertEquals(expected, normalizeLineSeparator(writerForSvg.toString()));
 
         Path svgPath = tmpDir.resolve("result.svg");
@@ -121,7 +128,8 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         }
 
         Writer writerForSvg = new StringWriter();
-        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter());
+
+        SingleLineDiagram.drawSubstation(network, substation.getId(), writerForSvg, new NullWriter(), new SldParameters());
         assertEquals(expected, normalizeLineSeparator(writerForSvg.toString()));
 
         Path svgPath = tmpDir.resolve("result.svg");
@@ -143,6 +151,23 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         Path svgPath = tmpDir.resolve("result.svg");
         PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
         assertEquals("Network element 'foo' not found", exception.getMessage());
+    }
+
+    @Test
+    void testMultiSubstations() throws IOException {
+        String expected = toString("/TestCase13ZoneGraphVV.svg");
+        network = Networks.createNetworkWithManySubstations();
+        List<String> substationIdList = Arrays.asList("A", "B", "C", "D", "E");
+        Path svgPath = tmpDir.resolve("result.svg");
+        layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
+        SldParameters sldParameters = new SldParameters()
+                .setLayoutParameters(layoutParameters)
+                .setSvgParameters(svgParameters)
+                .setSubstationLayoutFactory(VerticalSubstationLayout::new)
+                .setZoneLayoutFactory(new VerticalZoneLayoutFactory());
+
+        SingleLineDiagram.drawMultiSubstations(network, substationIdList, svgPath, sldParameters);
+        assertEquals(expected, toString(Files.newInputStream(svgPath)));
     }
 
     private String toDefaultSVG(Network network, String id, String filename, String jsonFilename) {

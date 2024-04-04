@@ -27,10 +27,10 @@ import java.util.*;
 /**
  * Library of resources components, that is, the SVG image files representing the components, together with the styles
  * associated to each component
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class ResourcesComponentLibrary implements ComponentLibrary {
 
@@ -81,7 +81,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 try {
                     Document doc = db.parse(getClass().getResourceAsStream(resourceName));
-                    svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), getElements(doc));
+                    svgDocuments.computeIfAbsent(componentType, k -> new LinkedHashMap<>()).put(s.getName(), getElements(doc));
                 } catch (SAXException e) {
                     throw new UncheckedSaxException(e);
                 } catch (IOException e) {

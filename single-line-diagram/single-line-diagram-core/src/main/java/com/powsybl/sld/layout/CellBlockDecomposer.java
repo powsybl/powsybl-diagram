@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 /**
  * Contain function to dispose components of cells based on Hierarchical Layout
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 final class CellBlockDecomposer {
 
@@ -144,13 +144,9 @@ final class CellBlockDecomposer {
             }
         }
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
-            Block parallelBlock;
-            if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                parallelBlock = new BodyParallelBlock(blocksBundle, false);
-            } else {
-                parallelBlock = new LegParallelBlock(blocksBundle, true);
-            }
-            blocks.add(parallelBlock);
+            blocks.add(blocksBundle.stream().allMatch(LegPrimaryBlock.class::isInstance)
+                    ? new LegParallelBlock(blocksBundle.stream().filter(LegPrimaryBlock.class::isInstance).map(LegPrimaryBlock.class::cast).toList(), true)
+                    : new BodyParallelBlock(blocksBundle, false));
         }
         return !blocksBundlesToMerge.isEmpty();
     }

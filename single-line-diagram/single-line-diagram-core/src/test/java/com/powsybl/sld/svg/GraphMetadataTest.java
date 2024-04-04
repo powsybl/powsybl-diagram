@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.svg;
 
@@ -32,10 +33,10 @@ import java.util.List;
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class GraphMetadataTest {
 
@@ -55,7 +56,7 @@ class GraphMetadataTest {
 
     @Test
     void test() throws IOException {
-        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
         metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
 
@@ -148,7 +149,7 @@ class GraphMetadataTest {
 
     @Test
     void testGraphMetadataWithLine() throws IOException {
-        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("STATION_EXAMPLE", "idSTATION_95_EXAMPLE", "vid1", null, LCC_CONVERTER_STATION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));

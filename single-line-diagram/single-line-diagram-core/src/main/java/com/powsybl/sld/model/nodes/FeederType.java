@@ -7,7 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public enum FeederType {
     INJECTION,
@@ -15,5 +15,6 @@ public enum FeederType {
     TWO_WINDINGS_TRANSFORMER_LEG,
     THREE_WINDINGS_TRANSFORMER_LEG,
     HVDC,
+    GROUND,
     FICTITIOUS
 }

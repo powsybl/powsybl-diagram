@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.raw;
 
@@ -36,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * line
  * </PRE>
  *
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
@@ -52,7 +53,8 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(), new BasicStyleProvider()));
+
+        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -65,6 +67,7 @@ class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(), new BasicStyleProvider()));
+
+        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

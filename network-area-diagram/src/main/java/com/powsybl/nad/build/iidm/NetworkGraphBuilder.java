@@ -13,13 +13,14 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class NetworkGraphBuilder implements GraphBuilder {
 
@@ -99,16 +100,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
         graph.addNode(tn);
 
-        ThreeWindingsTransformer.Side side;
-        if (thwt.getLeg1().getTerminal().getVoltageLevel() == vl) {
-            side = ThreeWindingsTransformer.Side.ONE;
-        } else if (thwt.getLeg2().getTerminal().getVoltageLevel() == vl) {
-            side = ThreeWindingsTransformer.Side.TWO;
-        } else {
-            side = ThreeWindingsTransformer.Side.THREE;
-        }
+        ThreeSides side = Arrays.stream(ThreeSides.values())
+                .filter(streamedSide -> thwt.getLeg(streamedSide).getTerminal().getVoltageLevel() == vl)
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
 
-        for (ThreeWindingsTransformer.Side s : getSidesArray(side)) {
+        for (ThreeSides s : getSidesArray(side)) {
             addThreeWtEdge(graph, thwt, tn, s);
         }
     }
@@ -136,17 +133,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return;
         }
 
-        HvdcLine.Side otherSide = (hvdcLine.getConverterStation1().getId().equals(converterStation.getId()))
-                ? HvdcLine.Side.TWO : HvdcLine.Side.ONE;
+        TwoSides otherSide = (hvdcLine.getConverterStation1().getId().equals(converterStation.getId()))
+                ? TwoSides.TWO : TwoSides.ONE;
 
         Terminal terminal = converterStation.getTerminal();
         Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
 
-        addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == HvdcLine.Side.ONE);
+        addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == TwoSides.ONE);
     }
 
     private void addEdge(Graph graph, Branch<?> branch, VoltageLevel vl, String edgeType) {
-        Branch.Side side = branch.getTerminal(Branch.Side.ONE).getVoltageLevel() == vl ? Branch.Side.ONE : Branch.Side.TWO;
+        TwoSides side = branch.getTerminal(TwoSides.ONE).getVoltageLevel() == vl ? TwoSides.ONE : TwoSides.TWO;
         // check if the edge was not already added (at the other side of the transformer)
         if (graph.containsEdge(branch.getId())) {
             return;
@@ -155,7 +152,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminalA = branch.getTerminal(side);
         Terminal terminalB = branch.getTerminal(IidmUtils.getOpposite(side));
 
-        addEdge(graph, terminalA, terminalB, branch, edgeType, side == Branch.Side.TWO);
+        addEdge(graph, terminalA, terminalB, branch, edgeType, side == TwoSides.TWO);
     }
 
     private void addEdge(Graph graph, Terminal terminalA, Terminal terminalB, Identifiable<?> identifiable, String edgeType, boolean terminalsInReversedOrder) {
@@ -173,7 +170,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void addThreeWtEdge(Graph graph, ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeWindingsTransformer.Side side) {
+    private void addThreeWtEdge(Graph graph, ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeSides side) {
         Terminal terminal = twt.getTerminal(side);
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
@@ -203,19 +200,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminal.getVoltageLevel().getId() + "'"));
     }
 
-    private ThreeWindingsTransformer.Side[] getSidesArray(ThreeWindingsTransformer.Side sideA) {
-        ThreeWindingsTransformer.Side sideB;
-        ThreeWindingsTransformer.Side sideC;
-        if (sideA == ThreeWindingsTransformer.Side.ONE) {
-            sideB = ThreeWindingsTransformer.Side.TWO;
-            sideC = ThreeWindingsTransformer.Side.THREE;
-        } else if (sideA == ThreeWindingsTransformer.Side.TWO) {
-            sideB = ThreeWindingsTransformer.Side.ONE;
-            sideC = ThreeWindingsTransformer.Side.THREE;
-        } else {
-            sideB = ThreeWindingsTransformer.Side.ONE;
-            sideC = ThreeWindingsTransformer.Side.TWO;
-        }
-        return new ThreeWindingsTransformer.Side[] {sideA, sideB, sideC};
+    private ThreeSides[] getSidesArray(ThreeSides sideA) {
+        return new ThreeSides[] {sideA, ThreeSides.valueOf(getNextSideNum(sideA.getNum(), 1)), ThreeSides.valueOf(getNextSideNum(sideA.getNum(), 2))};
+    }
+
+    private int getNextSideNum(int sideNum, int steps) {
+        return (sideNum + steps + 2) % 3 + 1;
     }
 }

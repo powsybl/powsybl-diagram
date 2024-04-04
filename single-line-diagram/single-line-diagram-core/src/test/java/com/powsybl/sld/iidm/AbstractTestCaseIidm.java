@@ -3,10 +3,13 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
@@ -14,18 +17,18 @@ import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
 import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
@@ -36,11 +39,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph g, String filename) {
-        return toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        return toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
-    protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+    protected LabelProvider getDefaultDiagramLabelProvider() {
+        return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 
     protected StyleProvider getDefaultDiagramStyleProvider() {

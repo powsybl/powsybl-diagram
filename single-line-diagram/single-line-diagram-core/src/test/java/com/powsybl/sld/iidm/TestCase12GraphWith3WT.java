@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -11,12 +12,9 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
-import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
@@ -259,55 +257,42 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     void testMetadata() {
 
         // Optimize SVG by avoiding duplication
-        layoutParameters.setAvoidSVGComponentsDuplication(true)
+        svgParameters.setAvoidSVGComponentsDuplication(true)
                 .setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json",
-                new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageStyleProvider()));
+        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
     void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
-        layoutParameters.setAddNodesInfos(true);
+        svgParameters.setAddNodesInfos(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
 
         voltageLevelGraphLayout(g1);
 
-        StyleProvider vNomStyleProvider = new NominalVoltageStyleProvider();
-
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", initProvider, vNomStyleProvider));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 
     @Test
     void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
-        layoutParameters.setAddNodesInfos(true);
+        //parametrize diagram
+        svgParameters.setAddNodesInfos(true);
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-
         voltageLevelGraphLayout(g1);
 
-        StyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
-
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", initProvider, topoStyleProvider));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 
 }

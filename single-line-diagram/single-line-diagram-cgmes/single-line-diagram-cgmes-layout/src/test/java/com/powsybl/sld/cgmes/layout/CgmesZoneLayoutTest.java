@@ -3,10 +3,10 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
@@ -18,9 +18,9 @@ import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesZoneLayoutTest {
 
@@ -50,7 +50,7 @@ class CgmesZoneLayoutTest {
 
     private Network createNetwork() {
         Network network = Network.create("Network", "test");
-        network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
+        network.setCaseDate(ZonedDateTime.parse("2018-01-01T00:30:00.000+01:00"));
         Substation substation1 = network.newSubstation()
                 .setId(SUBSTATION_1_ID)
                 .setCountry(Country.FR)
@@ -204,8 +204,8 @@ class CgmesZoneLayoutTest {
         List<String> zone = Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID);
         ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_ID);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_ID);
         new CgmesZoneLayout(graph, network).run(layoutParameters);
 
         assertEquals(2, graph.getSubstations().size());
@@ -217,29 +217,29 @@ class CgmesZoneLayoutTest {
         VoltageLevelGraph vlGraph11 = graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevel(VOLTAGE_LEVEL_11_ID);
         assertEquals(3, vlGraph11.getNodes().size());
         assertEquals(2, vlGraph11.getEdges().size());
-        checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(LOAD_ID, TRANSFORMER_ID + "_" + Side.ONE), 60, 10, true);
+        checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(LOAD_ID, TRANSFORMER_ID + "_" + TwoSides.ONE), 60, 10, true);
         checkNode(vlGraph11.getNodes().get(1), Node.NodeType.FEEDER, LOAD_ID, LOAD, Arrays.asList(BUS_11_ID), 20, 30, true);
-        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_11_ID), 100, 30, false);
+        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + TwoSides.ONE, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_11_ID), 100, 30, false);
 
         VoltageLevelGraph vlGraph12 = graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevel(VOLTAGE_LEVEL_12_ID);
         assertEquals(3, vlGraph12.getNodes().size());
         assertEquals(2, vlGraph12.getEdges().size());
-        checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.TWO), 140, 10, true);
-        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.TWO, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_12_ID), 100, 30, false);
-        checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.ONE, LINE, Arrays.asList(BUS_12_ID), 180, 30, true);
+        checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + TwoSides.ONE, TRANSFORMER_ID + "_" + TwoSides.TWO), 140, 10, true);
+        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + TwoSides.TWO, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_12_ID), 100, 30, false);
+        checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + TwoSides.ONE, LINE, Arrays.asList(BUS_12_ID), 180, 30, true);
 
         VoltageLevelGraph vlGraph21 = graph.getSubstationGraph(SUBSTATION_2_ID).getVoltageLevel(VOLTAGE_LEVEL_21_ID);
         assertEquals(3, vlGraph21.getNodes().size());
         assertEquals(2, vlGraph21.getEdges().size());
-        checkNode(vlGraph21.getNodes().get(0), Node.NodeType.BUS, BUS_21_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + Side.TWO, GENERATOR_ID), 260, 90, true);
+        checkNode(vlGraph21.getNodes().get(0), Node.NodeType.BUS, BUS_21_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + TwoSides.TWO, GENERATOR_ID), 260, 90, true);
         checkNode(vlGraph21.getNodes().get(1), Node.NodeType.FEEDER, GENERATOR_ID, GENERATOR, Arrays.asList(BUS_21_ID), 300, 110, false);
-        checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.TWO, LINE, Arrays.asList(BUS_21_ID), 220, 110, true);
+        checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + TwoSides.TWO, LINE, Arrays.asList(BUS_21_ID), 220, 110, true);
 
         assertEquals(1, graph.getLineEdges().size());
         BranchEdge linEdge = graph.getLineEdges().get(0);
         assertEquals(LINE_ID, linEdge.getId());
-        assertEquals(LINE_ID + "_" + Side.ONE, linEdge.getNode1().getId());
-        assertEquals(LINE_ID + "_" + Side.TWO, linEdge.getNode2().getId());
+        assertEquals(LINE_ID + "_" + TwoSides.ONE, linEdge.getNode1().getId());
+        assertEquals(LINE_ID + "_" + TwoSides.TWO, linEdge.getNode2().getId());
         List<Point> points = linEdge.getSnakeLine();
         assertEquals(4, points.size());
         checkLinePointCoordinates(points.get(0), 180, 30);

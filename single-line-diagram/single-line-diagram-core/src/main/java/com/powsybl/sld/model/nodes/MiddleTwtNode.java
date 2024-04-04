@@ -12,7 +12,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import java.io.IOException;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class MiddleTwtNode extends EquipmentNode {
     protected final VoltageLevelInfos[] voltageLevelInfosLeg;

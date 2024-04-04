@@ -15,12 +15,15 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.util.GraphTraversal;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,10 +36,10 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  * buildGraphAndDetectCell establishes the List of nodes, edges and nodeBuses
  * cells is built by the PatternCellDetector Class
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class VoltageLevelGraph extends AbstractBaseGraph {
 
@@ -432,10 +435,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void transferEdges(Node nodeOrigin, Node newNode) {
+        transferEdges(nodeOrigin, newNode, new ArrayList<>(nodeOrigin.getAdjacentEdges()));
+    }
+
+    public void transferEdges(Node nodeOrigin, Node newNode, List<Edge> edgesToTransfer) {
         if (!nodesById.containsKey(newNode.getId())) {
             throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
         }
-        for (Edge edge : new ArrayList<>(nodeOrigin.getAdjacentEdges())) {
+        for (Edge edge : edgesToTransfer) {
+            if (!edge.getNodes().contains(nodeOrigin)) {
+                throw new PowsyblException("Edge to transfer not in adjacent edges of given node");
+            }
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
             Node node2 = edge.getNode2() == nodeOrigin ? newNode : edge.getNode2();
             addEdge(node1, node2);
@@ -485,10 +495,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public List<FeederNode> getFeederNodes() {
-        return nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>())
+        return getFeederNodeStream().collect(Collectors.toList());
+    }
+
+    private Stream<FeederNode> getFeederNodeStream() {
+        return nodesByType.computeIfAbsent(NodeType.FEEDER, nodeType -> new ArrayList<>())
                 .stream()
-                .map(FeederNode.class::cast)
-                .collect(Collectors.toList());
+                .map(FeederNode.class::cast);
+    }
+
+    private Stream<FeederNode> getFeederNodeStream(FeederType feederType) {
+        return getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == feederType);
     }
 
     public List<Node> getNodes() {
@@ -532,6 +549,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Stream<ExternCell> getExternCellStream() {
         return cells.stream().filter(ExternCell.class::isInstance).map(ExternCell.class::cast);
+    }
+
+    public Stream<ArchCell> getArchCellStream() {
+        return cells.stream().filter(ArchCell.class::isInstance).map(ArchCell.class::cast);
     }
 
     public Stream<ShuntCell> getShuntCellStream() {
@@ -653,5 +674,82 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public double getInnerHeight(double verticalSpaceBus) {
         return getExternCellHeight(Direction.TOP) + verticalSpaceBus * getMaxV() + getExternCellHeight(Direction.BOTTOM);
+    }
+
+    public void substituteNodesMirroringGroundDisconnectionComponent() {
+        List<GroundDisconnection> groundDisconnections = getFeederNodeStream(FeederType.GROUND)
+                .map(this::getGroundDisconnection)
+                .filter(Objects::nonNull)
+                .toList();
+        for (GroundDisconnection gd : groundDisconnections) {
+            gd.nodes().forEach(this::removeNode);
+            substituteNode(gd.forkNode(), NodeFactory.createGroundDisconnectionNode(this, gd.disconnector(), gd.ground()));
+        }
+    }
+
+    private GroundDisconnection getGroundDisconnection(FeederNode groundFeederNode) {
+        Set<Node> setFromGround = new LinkedHashSet<>();
+        AtomicReference<SwitchNode> aSwitch = new AtomicReference<>();
+        boolean groundDisconnectionSetIdentified = GraphTraversal.run(groundFeederNode,
+                node -> node.getAdjacentEdges().size() > 2, // traversal ends successfully when encountering a fork node, which will be replaced by the ground disconnection component
+                node -> node.getType() == NodeType.BUS || node.getType() == NodeType.FEEDER // traversal fails and stops when encountering a bus, a feeder, or more than one switch
+                        || node.getType() == NodeType.SWITCH && aSwitch.getAndSet((SwitchNode) node) != null,
+                setFromGround,
+                Collections.emptySet());
+        if (groundDisconnectionSetIdentified && aSwitch.get() != null && aSwitch.get().getKind() == SwitchNode.SwitchKind.DISCONNECTOR) {
+            List<Node> list = setFromGround.stream().toList(); // the list contains the fork node which should not be removed but substituted
+            return new GroundDisconnection(list.subList(0, list.size() - 1), groundFeederNode, aSwitch.get(), list.get(list.size() - 1));
+        }
+        return null;
+    }
+
+    public void substituteInternalMiddle2wtByEquipmentNodes() {
+        for (FeederNode feederNode : getFeederNodeStream(FeederType.TWO_WINDINGS_TRANSFORMER_LEG).toList()) {
+            if (nodesById.get(feederNode.getId()) == feederNode) { // check if not already removed
+                substituteInternalMiddle2wtByEquipmentNode(feederNode);
+            }
+        }
+    }
+
+    private void substituteInternalMiddle2wtByEquipmentNode(FeederNode feederNode) {
+        MiddleTwtNode middleNode = getMultiTermNodes().stream()
+                .filter(m2wtn -> m2wtn.getAdjacentNodes().stream().anyMatch(n -> n == feederNode))
+                .findFirst().orElse(null);
+        Node otherSideNode = Optional.ofNullable(middleNode)
+                .flatMap(m2wtn -> m2wtn.getAdjacentNodes().stream().filter(n -> n != feederNode).findFirst())
+                .orElse(null);
+        if (middleNode instanceof Middle2WTNode middle2WTNode
+                && otherSideNode instanceof FeederNode otherSideFeederNode
+                && otherSideFeederNode.getFeeder() instanceof FeederTwLeg otherSideFeederTwLeg
+                && otherSideFeederTwLeg.getOwnVoltageLevelInfos().getId().equals(voltageLevelInfos.getId())) {
+
+            ConnectivityNode connectivityNodeA = NodeFactory.createConnectivityNode(this, feederNode.getId(), ComponentTypeName.NODE);
+            ConnectivityNode connectivityNodeB = NodeFactory.createConnectivityNode(this, otherSideNode.getId(), ComponentTypeName.NODE);
+
+            // substitute nodes in voltage level
+            substituteNode(feederNode, connectivityNodeA);
+            substituteNode(otherSideNode, connectivityNodeB);
+
+            // substitute the node which was "outside" the voltage level (multiTermNode / snake line) by a node inside the voltage level
+            ConnectivityNode connectivityNode1 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeB : connectivityNodeA;
+            ConnectivityNode connectivityNode2 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeA : connectivityNodeB;
+            NodeFactory.createInternal2WTNode(this,
+                    middle2WTNode.getId(), middle2WTNode.getName(), middle2WTNode.getEquipmentId(),
+                    connectivityNode1, connectivityNode2, middle2WTNode.getComponentType());
+            multiTermNodes.remove(middleNode);
+            twtEdges.removeAll(middleNode.getAdjacentEdges());
+        }
+    }
+
+    public void insertNodeNextTo(Node nodeToInsert, Node adjacentNode) {
+        List<Node> neighbours = adjacentNode.getAdjacentNodes();
+        if (neighbours.isEmpty()) {
+            addEdge(nodeToInsert, adjacentNode);
+        } else {
+            insertNode(adjacentNode, nodeToInsert, neighbours.get(0));
+        }
+    }
+
+    private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {
     }
 }

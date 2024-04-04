@@ -18,7 +18,7 @@ import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactorySmartSelector;
 
 /**
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 @AutoService(VoltageLevelLayoutFactorySmartSelector.class)
 public class CgmesVoltageLevelLayoutFactorySmartSelector implements VoltageLevelLayoutFactorySmartSelector {

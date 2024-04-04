@@ -21,7 +21,7 @@ import java.util.Objects;
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public final class NodeFactory {
@@ -56,9 +56,9 @@ public final class NodeFactory {
         return bn;
     }
 
-    public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id) {
+    public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id, int busbarIndex, int sectionIndex) {
         BusNode bn = new BusNode(id, null, true);
-        bn.setBusBarIndexSectionIndex(1, 1);
+        bn.setBusBarIndexSectionIndex(busbarIndex, sectionIndex);
         graph.addNode(bn);
         return bn;
     }
@@ -107,6 +107,17 @@ public final class NodeFactory {
 
     public static FeederNode createDanglingLine(VoltageLevelGraph graph, String id, String name) {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.DANGLING_LINE);
+    }
+
+    public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {
+        return createFeederNode(graph, id, name, id, ComponentTypeName.GROUND, false, new BaseFeeder(FeederType.GROUND), null);
+    }
+
+    public static Node createGroundDisconnectionNode(VoltageLevelGraph graph, SwitchNode disconnector, FeederNode ground) {
+        String name = "Ground disconnection (ground " + ground.getId() + ", disconnector " + disconnector.getId() + ")";
+        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(), ComponentTypeName.GROUND_DISCONNECTION);
+        graph.addNode(gdNode);
+        return gdNode;
     }
 
     public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
@@ -185,9 +196,8 @@ public final class NodeFactory {
         return sn;
     }
 
-    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, Node n1, Node n2, boolean hasPhaseTapChanger) {
-        String component = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, component);
+    public static EquipmentNode createInternal2WTNode(VoltageLevelGraph graph, String id, String nameOrId, String equipmentId, Node n1, Node n2, String component) {
+        EquipmentNode i2wt = new Internal2WTNode(id, nameOrId, equipmentId, component);
         graph.addNode(i2wt);
         graph.addEdge(n1, i2wt);
         graph.addEdge(n2, i2wt);

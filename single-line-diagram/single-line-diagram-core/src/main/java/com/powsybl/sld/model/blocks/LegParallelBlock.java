@@ -9,25 +9,26 @@ package com.powsybl.sld.model.blocks;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.BusNode;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public class LegParallelBlock extends AbstractParallelBlock implements LegBlock {
+public class LegParallelBlock extends AbstractParallelBlock<LegPrimaryBlock> implements LegBlock {
 
-    public LegParallelBlock(List<Block> subBlocks, boolean allowMerge) {
+    public LegParallelBlock(List<LegPrimaryBlock> subBlocks, boolean allowMerge) {
         super(Type.LEGPARALLEL, subBlocks, allowMerge);
     }
 
     @Override
     public List<BusNode> getBusNodes() {
-        return subBlocks.stream().map(b -> ((LegPrimaryBlock) b).getBusNode()).collect(Collectors.toList());
+        return subBlocks.stream().map(LegPrimaryBlock::getBusNode).toList();
     }
 
     @Override
@@ -35,8 +36,7 @@ public class LegParallelBlock extends AbstractParallelBlock implements LegBlock 
         subBlocks.forEach(Block::sizing);
         if (getPosition().getOrientation().isVertical()) {
             getPosition().setSpan(V, 0);
-            List<LegPrimaryBlock> subBlocksCopy = subBlocks.stream()
-                    .map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
+            List<LegPrimaryBlock> subBlocksCopy = new ArrayList<>(subBlocks);
             int h = 0;
             while (!subBlocksCopy.isEmpty()) {
                 LegPrimaryBlock b = subBlocksCopy.get(0);

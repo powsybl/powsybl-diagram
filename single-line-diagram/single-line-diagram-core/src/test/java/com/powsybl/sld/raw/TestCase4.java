@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * <p>
  * the branch c is to cover the merging part of SubSections class (and use of generator)
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 class TestCase4 extends AbstractTestCaseRaw {

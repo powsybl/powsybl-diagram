@@ -10,7 +10,7 @@ package com.powsybl.sld.library;
 import com.google.auto.service.AutoService;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 @AutoService(ComponentLibrary.class)
 public class FlatDesignLibrary extends ResourcesComponentLibrary {

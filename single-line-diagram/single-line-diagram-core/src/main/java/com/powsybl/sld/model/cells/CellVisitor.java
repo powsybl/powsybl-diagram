@@ -7,12 +7,14 @@
 package com.powsybl.sld.model.cells;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 public interface CellVisitor {
 
     void visit(ExternCell cell);
+
+    void visit(ArchCell cell);
 
     void visit(InternCell cell);
 

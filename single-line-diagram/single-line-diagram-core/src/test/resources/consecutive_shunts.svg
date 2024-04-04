@@ -118,6 +118,7 @@
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 .sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
@@ -140,6 +141,12 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
+.sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -563,13 +570,13 @@
                 <polyline points="165.0,632.0,165.0,578.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_REACTIVE" transform="translate(160.0,607.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_ACTIVE" transform="translate(160.0,587.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
@@ -940,13 +947,13 @@
                 <polyline points="515.0,84.5,515.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idFP_ARROW_ACTIVE" transform="translate(510.0,99.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idFP_ARROW_REACTIVE" transform="translate(510.0,119.5)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_AX_95_CJ" transform="translate(511.0,249.0)">
@@ -981,13 +988,13 @@
                 <polyline points="565.0,578.0,565.0,632.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(560.0,607.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_ACTIVE" transform="translate(560.0,587.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_AZ_95_FX_95_ONE" transform="translate(561.0,274.0)">
@@ -1019,13 +1026,13 @@
                 <polyline points="1065.0,88.0,1065.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(1060.0,103.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_REACTIVE" transform="translate(1060.0,123.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_BB_95_EF" transform="translate(1061.0,274.0)">
@@ -1099,13 +1106,13 @@
                 <polyline points="765.0,142.0,765.0,88.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(760.0,103.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_REACTIVE" transform="translate(760.0,123.0)">
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_BF_95_FR_95_ONE" transform="translate(761.0,249.0)">

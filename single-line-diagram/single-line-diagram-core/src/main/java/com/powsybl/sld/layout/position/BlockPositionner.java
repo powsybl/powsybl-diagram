@@ -20,7 +20,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public class BlockPositionner {
 
@@ -88,6 +88,7 @@ public class BlockPositionner {
         List<BusCell> verticalCells = new ArrayList<>();
         verticalCells.addAll(ss.getVerticalInternCells());
         verticalCells.addAll(ss.getExternCells());
+        verticalCells.addAll(ss.getArchCells());
         verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
         return verticalCells;
     }

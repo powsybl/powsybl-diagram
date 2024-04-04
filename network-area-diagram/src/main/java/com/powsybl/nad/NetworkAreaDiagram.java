@@ -3,25 +3,18 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.nad.build.iidm.IdProvider;
-import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactory;
-import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
-import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -33,118 +26,76 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class NetworkAreaDiagram {
+public final class NetworkAreaDiagram {
 
-    private final Network network;
-    private final Predicate<VoltageLevel> voltageLevelFilter;
-
-    public NetworkAreaDiagram(Network network) {
-        this(network, VoltageLevelFilter.NO_FILTER);
+    private NetworkAreaDiagram() {
     }
 
-    public NetworkAreaDiagram(Network network, String voltageLevelId, int depth) {
-        this(network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
+    public static void draw(Network network, Path svgFile) {
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.NO_FILTER);
     }
 
-    public NetworkAreaDiagram(Network network, List<String> voltageLevelIds) {
-        this(network, VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
+    public static void draw(Network network, Writer writer) {
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.NO_FILTER);
     }
 
-    public NetworkAreaDiagram(Network network, List<String> voltageLevelIds, int depth) {
-        this(network, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+    public static void draw(Network network, Path svgFile, String voltageLevelId, int depth) {
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
-    public NetworkAreaDiagram(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        this.network = Objects.requireNonNull(network);
-        this.voltageLevelFilter = Objects.requireNonNull(voltageLevelFilter);
+    public static void draw(Network network, Writer writer, String voltageLevelId, int depth) {
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.createVoltageLevelDepthFilter(network, voltageLevelId, depth));
     }
 
-    public Network getNetwork() {
-        return network;
+    public static void draw(Network network, Path svgFile, List<String> voltageLevelIds) {
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
-    public void draw(Path svgFile) {
-        draw(svgFile, new SvgParameters());
+    public static void draw(Network network, Writer writer, List<String> voltageLevelIds) {
+        draw(network, writer, new NadParameters(), VoltageLevelFilter.createVoltageLevelsFilter(network, voltageLevelIds));
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters) {
-        draw(svgFile, svgParameters, new LayoutParameters());
+    public static void draw(Network network, Path svgFile, List<String> voltageLevelIds, int depth) {
+        draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(svgFile, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
+    public void draw(Network network, Writer writer, Predicate<VoltageLevel> voltageLevelFilter) {
+        draw(network, writer, new NadParameters(), voltageLevelFilter);
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters));
+    public static void draw(Network network, Path svgFile, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
+        genericDraw(network, svgFile, param, voltageLevelFilter);
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
+    public static void draw(Network network, Writer writer, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
+        genericDraw(network, writer, param, voltageLevelFilter);
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(svgFile, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
+    private static void genericDraw(Network network, Object object, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
+        Objects.requireNonNull(network);
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(param);
+        Objects.requireNonNull(voltageLevelFilter);
+
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create()).buildGraph();
+        param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
+        SvgWriter svgWriter = new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network), param.createLabelProvider(network));
+
+        if (object instanceof Path svgFile) {
+            svgWriter.writeSvg(graph, svgFile);
+        } else if (object instanceof Writer writer) {
+            svgWriter.writeSvg(graph, writer);
+        } else {
+            throw new PowsyblException("Second argument is an instance of an unexpected class");
+        }
     }
 
-    public void draw(Path svgFile, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                                   StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
-                                   IdProvider idProvider) {
-        Objects.requireNonNull(svgFile);
-        Objects.requireNonNull(layoutParameters);
-        Objects.requireNonNull(svgParameters);
-        Objects.requireNonNull(styleProvider);
-        Objects.requireNonNull(layoutFactory);
-        Objects.requireNonNull(idProvider);
-
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
-        layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, svgFile);
-    }
-
-    public void draw(Writer writer) {
-        draw(writer, new SvgParameters());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters) {
-        draw(writer, svgParameters, new LayoutParameters());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters) {
-        draw(writer, svgParameters, layoutParameters, new TopologicalStyleProvider(network));
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, new DefaultLabelProvider(network, svgParameters));
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, new BasicForceLayoutFactory());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory) {
-        draw(writer, svgParameters, layoutParameters, styleProvider, labelProvider, layoutFactory, new IntIdProvider());
-    }
-
-    public void draw(Writer writer, SvgParameters svgParameters, LayoutParameters layoutParameters,
-                     StyleProvider styleProvider, LabelProvider labelProvider, LayoutFactory layoutFactory,
-                     IdProvider idProvider) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, idProvider).buildGraph();
-        layoutFactory.create().run(graph, layoutParameters);
-        new SvgWriter(svgParameters, styleProvider, labelProvider).writeSvg(graph, writer);
-    }
-
-    public String drawToString(SvgParameters svgParameters) {
+    public String drawToString(Network network, SvgParameters svgParameters) {
         try (StringWriter writer = new StringWriter()) {
-            draw(writer, svgParameters);
+            NadParameters nadParameters = new NadParameters().setSvgParameters(svgParameters);
+            draw(network, writer, nadParameters, VoltageLevelFilter.NO_FILTER);
             return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);

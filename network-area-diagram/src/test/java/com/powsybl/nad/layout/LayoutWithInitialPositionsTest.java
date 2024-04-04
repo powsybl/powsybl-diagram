@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.layout;
 
@@ -10,6 +11,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.NadParameters;
 import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
@@ -19,12 +21,9 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+import com.powsybl.nad.svg.iidm.StyleProviderFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.StringWriter;
 import java.util.Collections;
@@ -32,8 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * @author Luma Zamarreno <zamarrenolm at aia.es>
+ * @author Luma Zamarreno {@literal <zamarrenolm at aia.es>}
  */
 class LayoutWithInitialPositionsTest extends AbstractTest {
 
@@ -49,6 +50,10 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
     @Override
     protected StyleProvider getStyleProvider(Network network) {
         return new NominalVoltageStyleProvider(network);
+    }
+
+    private StyleProviderFactory getStyleProviderFactory() {
+        return this::getStyleProvider;
     }
 
     @Override
@@ -75,8 +80,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         Predicate<VoltageLevel> filter = vl -> vl.getNominalV() >= 100;
 
         // Perform an initial layout with only a few voltage levels of the network
-        NetworkAreaDiagram initialDiagram = new NetworkAreaDiagram(network, filter);
-        Map<String, Point> initialPositions = layoutResult(initialDiagram);
+        Map<String, Point> initialPositions = layoutResult(network, filter);
 
         // Check initial points contains an entry for all voltage levels filtered
         network.getVoltageLevelStream().filter(filter).forEach(vl -> assertTrue(initialPositions.containsKey(vl.getId())));
@@ -91,8 +95,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
     private void checkAllInitialPositionsFixed(Network network, Map<String, Point> initialPositions) {
         // Perform a global layout with all the voltage levels in the network,
         // giving fixed positions for some equipment
-        NetworkAreaDiagram completeNetworkDiagram = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
-        Map<String, Point> allPositions = layoutResult(completeNetworkDiagram, initialPositions);
+        Map<String, Point> allPositions = layoutResult(network, initialPositions);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {
@@ -109,10 +112,9 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         // Perform a global layout with all the voltage levels in the network,
         // giving initial positions for some equipment,
         // and fixing the position for only some equipment
-        NetworkAreaDiagram completeNetworkDiagram = new NetworkAreaDiagram(network, VoltageLevelFilter.NO_FILTER);
         // Only consider fixed the first one in the initial layout
         Set<String> fixedNodes = Set.of(initialPositions.keySet().iterator().next());
-        Map<String, Point> allPositions = layoutResult(completeNetworkDiagram, initialPositions, fixedNodes);
+        Map<String, Point> allPositions = layoutResult(network, initialPositions, fixedNodes);
 
         // Check positions of initial layout have been preserved in global layout
         for (Map.Entry<String, Point> l : initialPositions.entrySet()) {
@@ -130,22 +132,23 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         }
     }
 
-    private Map<String, Point> layoutResult(NetworkAreaDiagram nad) {
-        return layoutResult(nad, Collections.emptyMap(), Collections.emptySet(), Collections.emptyMap());
+    private Map<String, Point> layoutResult(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
+        return layoutResult(network, Collections.emptyMap(), Collections.emptySet(), Collections.emptyMap(), voltageLevelFilter);
     }
 
-    private Map<String, Point> layoutResult(NetworkAreaDiagram nad, Map<String, Point> initialNodePositions, Set<String> nodesWithFixedPositions) {
-        return layoutResult(nad, initialNodePositions, nodesWithFixedPositions, Collections.emptyMap());
+    private Map<String, Point> layoutResult(Network network, Map<String, Point> initialNodePositions, Set<String> nodesWithFixedPositions) {
+        return layoutResult(network, initialNodePositions, nodesWithFixedPositions, Collections.emptyMap(), VoltageLevelFilter.NO_FILTER);
     }
 
-    private Map<String, Point> layoutResult(NetworkAreaDiagram nad, Map<String, Point> fixedNodePositions) {
-        return layoutResult(nad, Collections.emptyMap(), Collections.emptySet(), fixedNodePositions);
+    private Map<String, Point> layoutResult(Network network, Map<String, Point> fixedNodePositions) {
+        return layoutResult(network, Collections.emptyMap(), Collections.emptySet(), fixedNodePositions, VoltageLevelFilter.NO_FILTER);
     }
 
-    private Map<String, Point> layoutResult(NetworkAreaDiagram nad,
+    private Map<String, Point> layoutResult(Network network,
                                             Map<String, Point> initialNodePositions,
                                             Set<String> nodesWithFixedPositions,
-                                            Map<String, Point> fixedNodePositions
+                                            Map<String, Point> fixedNodePositions,
+                                            Predicate<VoltageLevel> voltageLevelFilter
     ) {
         LayoutFactory delegateLayoutFactory = new BasicForceLayoutFactory();
         PositionsLayoutFactory positionsLayoutFactory = new PositionsLayoutFactory(
@@ -154,12 +157,13 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 nodesWithFixedPositions,
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
-        nad.draw(writer,
-                getSvgParameters(),
-                getLayoutParameters(),
-                getStyleProvider(nad.getNetwork()),
-                getLabelProvider(nad.getNetwork()),
-                positionsLayoutFactory);
+        NetworkAreaDiagram.draw(network, writer,
+                new NadParameters()
+                        .setSvgParameters(getSvgParameters())
+                        .setLayoutParameters(getLayoutParameters())
+                        .setStyleProviderFactory(this::getStyleProvider)
+                        .setLayoutFactory(positionsLayoutFactory),
+                voltageLevelFilter);
         return positionsLayoutFactory.getLayoutResult().positions;
     }
 
@@ -178,7 +182,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                                Map<String, Point> initialNodePositions,
                                Set<String> nodesWithFixedPositions,
                                Map<String, Point> fixedNodePositions
-                               ) {
+        ) {
             this.delegateLayoutFactory = delegateLayoutFactory;
             this.initialNodePositions = initialNodePositions;
             this.nodesWithFixedPositions = nodesWithFixedPositions;
@@ -233,3 +237,4 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
         }
     }
 }
+

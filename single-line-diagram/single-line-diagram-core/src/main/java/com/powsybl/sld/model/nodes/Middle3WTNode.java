@@ -15,7 +15,7 @@ import java.util.Objects;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class Middle3WTNode extends MiddleTwtNode {
     private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);
@@ -44,7 +44,7 @@ public class Middle3WTNode extends MiddleTwtNode {
 
     public Node getAdjacentNode(Winding winding) {
         Edge edge = getAdjacentEdges().get(windingToLegIndex(winding));
-        return edge.getNode1() == this ? edge.getNode2() : edge.getNode1();
+        return edge.getOppositeNode(this);
     }
 
     public VoltageLevelInfos getVoltageLevelInfos(Winding winding) {

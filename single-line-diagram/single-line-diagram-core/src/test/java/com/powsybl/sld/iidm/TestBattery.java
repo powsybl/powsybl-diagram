@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Sophie Frasnedo <sophie.frasnedo at rte-france.com>
+ * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 class TestBattery extends AbstractTestCaseIidm {
 
@@ -36,6 +37,6 @@ class TestBattery extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestBatteries.svg"), toSVG(g, "/TestBatteries.svg"));
+        assertEquals(toString("/TestBatteries.svg"), toSVG(g, "/TestBatteries.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

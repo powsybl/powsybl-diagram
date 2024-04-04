@@ -17,8 +17,8 @@ import java.util.List;
  * <li>cell order and direction of each cell connected to Bus (ie all cells except Shunt ones)</li>
  * </ul>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public interface PositionFinder {
 

@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.cgmes.layout;
 
@@ -21,8 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class CgmesSubstationLayout extends AbstractCgmesLayout {
 
@@ -42,21 +43,21 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        String diagramName = layoutParam.getDiagramName();
+        String diagramName = layoutParam.getCgmesDiagramName();
         if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
+            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
+            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
         }
-        if (layoutParam.getScaleFactor() != 1) {
+        if (layoutParam.getCgmesScaleFactor() != 1) {
             for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
+                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
             }
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {

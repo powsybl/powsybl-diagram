@@ -25,8 +25,8 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
- * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer@rte-france.com>}
  */
 public abstract class AbstractCgmesLayout implements Layout {
 

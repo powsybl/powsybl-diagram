@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.layout;
 
@@ -20,7 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class ComponentsOnBusTest extends AbstractTestCaseIidm {
 
@@ -36,7 +37,8 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(Collections.emptyList());
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg"));
+
+        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -44,6 +46,7 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
         layoutParameters.setComponentsOnBusbars(List.of(ComponentTypeName.BREAKER, ComponentTypeName.DISCONNECTOR));
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
-        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg"));
+
+        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

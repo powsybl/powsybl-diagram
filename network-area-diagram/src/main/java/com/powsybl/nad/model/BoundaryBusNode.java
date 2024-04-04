@@ -8,7 +8,7 @@
 package com.powsybl.nad.model;
 
 /**
- * @author Luma Zamarreño <zamarrenolm at aia.es>
+ * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 public class BoundaryBusNode extends BusNode {
 

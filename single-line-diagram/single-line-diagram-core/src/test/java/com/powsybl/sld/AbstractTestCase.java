@@ -3,17 +3,20 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
 
@@ -22,14 +25,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public abstract class AbstractTestCase {
-
-    private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
@@ -38,6 +38,16 @@ public abstract class AbstractTestCase {
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
     protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
+
+    protected final SvgParameters svgParameters = new SvgParameters()
+            .setFeederInfosIntraMargin(10)
+            .setUseName(true)
+            .setSvgWidthAndHeightAdded(true)
+            .setCssLocation(SvgParameters.CssLocation.INSERTED_IN_SVG)
+            .setFeederInfosOuterMargin(20)
+            .setDrawStraightWires(false)
+            .setShowGrid(false)
+            .setShowInternalNodes(false);
 
     private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
@@ -48,17 +58,10 @@ public abstract class AbstractTestCase {
                 .setExternCellHeight(250)
                 .setInternCellHeight(40)
                 .setStackHeight(30)
-                .setShowGrid(false)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setFeederInfosOuterMargin(20)
-                .setDrawStraightWires(false)
+                .setCgmesScaleFactor(1)
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30)
-                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
-                .setSvgWidthAndHeightAdded(true)
-                .setUseName(true)
-                .setFeederInfosIntraMargin(10);
+                .setCgmesUseNames(true);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
@@ -71,10 +74,6 @@ public abstract class AbstractTestCase {
     }
 
     public abstract void setUp() throws IOException;
-
-    String getName() {
-        return getClass().getSimpleName();
-    }
 
     protected void writeDebugFilesFromJson(String refMetdataName, StringWriter writer, StringWriter metadataWriter) {
         if (debugJsonFiles && metadataWriter != null) {
@@ -115,10 +114,10 @@ public abstract class AbstractTestCase {
 
     public abstract String toSVG(Graph g, String filename);
 
-    public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -133,18 +132,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName,
-                                   VoltageLevelLayoutFactory voltageLevelLayoutFactory,
-                                   DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
+    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            voltageLevelLayoutFactory.create(graph).run(this.layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -164,18 +160,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName,
-                                   SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
-                                   DiagramLabelProvider labelProvider, StyleProvider styleProvider) {
+    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
 
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            substationLayoutFactory.create(graph, voltageLevelLayoutFactory).run(this.layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);
@@ -240,4 +233,5 @@ public abstract class AbstractTestCase {
     protected void substationGraphLayout(SubstationGraph substationGraph) {
         new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
     }
+
 }

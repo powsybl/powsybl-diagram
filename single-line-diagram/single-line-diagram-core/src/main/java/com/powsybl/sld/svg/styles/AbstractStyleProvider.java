@@ -15,11 +15,8 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -28,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public abstract class AbstractStyleProvider implements StyleProvider {
 
@@ -50,6 +47,9 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(((SwitchNode) node).isOpen() ? StyleClassConstants.OPEN_SWITCH_STYLE_CLASS : StyleClassConstants.CLOSED_SWITCH_STYLE_CLASS);
         }
+        if (node instanceof GroundDisconnectionNode gdn) {
+            styles.add(gdn.isDisconnectorOpen() ? StyleClassConstants.OPEN_SWITCH_STYLE_CLASS : StyleClassConstants.CLOSED_SWITCH_STYLE_CLASS);
+        }
         if (node.isFictitious()) {
             styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);
         }
@@ -62,7 +62,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
                 .map(List::of)
                 .orElse(Collections.emptyList());
@@ -94,7 +94,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.FEEDER_INFO);
         if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
+            styles.add(((DirectionalFeederInfo) info).getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
         }
         return styles;
     }

@@ -21,8 +21,8 @@ import java.util.Map;
 
 import static com.powsybl.sld.model.coordinate.Direction.*;
 
-/*
- * @author Thomas Adam <tadam at neverhack.com>
+/**
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public final class RawGraphBuilderUtils {
 

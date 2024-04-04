@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * ------ bbs
  * </PRE>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
 
@@ -39,7 +39,7 @@ class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     @Test
     void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector(false).detectCells(g);
+        new ImplicitCellDetector().detectCells(g);
         assertEquals(1, g.getCellStream().count());
     }
 }

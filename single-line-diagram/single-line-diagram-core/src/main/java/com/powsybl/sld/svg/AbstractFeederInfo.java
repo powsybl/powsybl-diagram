@@ -17,8 +17,8 @@ import java.util.Optional;
  * </ul>
  * Each of these two element part is optional
  *
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public abstract class AbstractFeederInfo implements FeederInfo {
 

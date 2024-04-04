@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Point;
 
 import java.io.IOException;
@@ -14,9 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public class Edge {
 
@@ -54,5 +55,15 @@ public class Edge {
         Point node1 = getNode1().getCoordinates();
         Point node2 = getNode2().getCoordinates();
         return node1.getX() == node2.getX() && node1.getY() == node2.getY();
+    }
+
+    public Node getOppositeNode(Node node) {
+        if (node == getNode1()) {
+            return getNode2();
+        } else if (node == getNode2()) {
+            return getNode1();
+        } else {
+            throw new PowsyblException("Cannot get opposite node, the given node is not connected to this edge");
+        }
     }
 }

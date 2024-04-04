@@ -17,7 +17,7 @@ import com.powsybl.triplestore.api.PropertyBags;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractInjectionDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
     protected final DiagramPoint point = new DiagramPoint(20, 10, 0);

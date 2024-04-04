@@ -16,17 +16,18 @@ import java.util.Optional;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer@rte-france.com>}
  */
 public class SwitchNode extends EquipmentNode {
 
     public enum SwitchKind {
         BREAKER,
         DISCONNECTOR,
-        LOAD_BREAK_SWITCH;
+        LOAD_BREAK_SWITCH,
+        GROUND_DISCONNECTOR
     }
 
     private boolean open = false;

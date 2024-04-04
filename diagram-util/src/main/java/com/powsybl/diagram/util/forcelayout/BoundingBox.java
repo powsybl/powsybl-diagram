@@ -9,7 +9,7 @@ package com.powsybl.diagram.util.forcelayout;
 import java.util.Collection;
 
 /**
- * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public final class BoundingBox {
 

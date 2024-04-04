@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.cgmes.layout;
 
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractCgmesVoltageLevelLayoutTest {
 
@@ -27,8 +28,8 @@ abstract class AbstractCgmesVoltageLevelLayoutTest {
     protected void test(VoltageLevel vl) {
         VoltageLevelGraph graph = new NetworkGraphBuilder(vl.getNetwork()).buildVoltageLevelGraph(vl.getId());
         LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setScaleFactor(2);
-        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        layoutParameters.setCgmesScaleFactor(2);
+        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
         new CgmesVoltageLevelLayout(graph, vl.getNetwork()).run(layoutParameters);
         checkGraph(graph);
         checkCoordinates(graph);

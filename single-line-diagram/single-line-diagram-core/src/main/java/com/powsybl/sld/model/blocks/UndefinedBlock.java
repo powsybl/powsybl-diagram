@@ -7,6 +7,8 @@
 
 package com.powsybl.sld.model.blocks;
 
+import com.powsybl.sld.model.nodes.Node;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -14,14 +16,19 @@ import java.util.Objects;
  * A block group that cannot be correctly decomposed anymore.
  * All subBlocks are superposed.
  *
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class UndefinedBlock extends AbstractComposedBlock {
+public class UndefinedBlock extends AbstractComposedBlock<Block> {
 
     public UndefinedBlock(List<Block> subBlocks) {
         super(Type.UNDEFINED, subBlocks);
         this.subBlocks = Objects.requireNonNull(subBlocks);
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

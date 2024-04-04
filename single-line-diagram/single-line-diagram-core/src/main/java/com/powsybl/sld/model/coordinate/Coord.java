@@ -10,9 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
@@ -20,27 +18,24 @@ import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 /**
  * class use to store relatives coordinates of a nodeBus
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
 public class Coord {
 
-    public class Segment {
+    public static class Segment {
         private double value;
         private double span;
-        private double shift;
 
-        Segment(double value, double span, double shift) {
+        Segment(double value, double span) {
             this.value = value;
             this.span = span;
-            this.shift = shift;
         }
 
         public void copy(Segment segment) {
             this.value = segment.value;
             this.span = segment.span;
-            this.shift = segment.shift;
         }
 
         public void replicateMe(Stream<Segment> segments) {
@@ -51,40 +46,8 @@ public class Coord {
             return value;
         }
 
-        public void setValue(double value) {
-            this.value = value;
-        }
-
         public double getSpan() {
             return span;
-        }
-
-        public void setSpan(double span) {
-            this.span = span;
-        }
-
-        public double getShift() {
-            return shift;
-        }
-
-        public void setShift(double shift) {
-            this.shift = shift;
-        }
-
-        public void mergeEnvelop(Stream<Segment> segStream) {
-            List<Segment> segments = segStream.collect(Collectors.toList());
-            setSpan(segments.stream().mapToDouble(Segment::getSpan).max().orElse(0));
-            segments.forEach(seg -> seg.setValue(0));
-        }
-
-        void glue(Stream<Segment> segStream) {
-            List<Segment> segments = segStream.collect(Collectors.toList());
-            setSpan(segments.stream().mapToDouble(Segment::getSpan).sum());
-            double cumulSpan = 0;
-            for (Segment seg : segments) {
-                seg.setValue(cumulSpan);
-                cumulSpan += seg.getSpan();
-            }
         }
     }
 
@@ -92,11 +55,11 @@ public class Coord {
         X, Y
     }
 
-    private Map<Dimension, Segment> dim2seg = new EnumMap<>(Dimension.class);
+    private final Map<Dimension, Segment> dim2seg = new EnumMap<>(Dimension.class);
 
     public Coord(double x, double y) {
-        dim2seg.put(X, new Segment(x, 0, 0));
-        dim2seg.put(Y, new Segment(y, 0, 0));
+        dim2seg.put(X, new Segment(x, 0));
+        dim2seg.put(Y, new Segment(y, 0));
     }
 
     public double get(Dimension dimension) {
@@ -107,24 +70,16 @@ public class Coord {
         return dim2seg.get(dimension).getSpan();
     }
 
-    public double getShift(Dimension dimension) {
-        return dim2seg.get(dimension).getShift();
-    }
-
     public Segment getSegment(Dimension dimension) {
         return dim2seg.get(dimension);
     }
 
-    public void set(Dimension dimension, double value) {
-        dim2seg.get(dimension).setValue(value);
+    public void set(Dimension dimension, double value, double span) {
+        dim2seg.put(dimension, new Segment(value, span));
     }
 
-    public void setSpan(Dimension dimension, double span) {
-        dim2seg.get(dimension).setSpan(span);
-    }
-
-    public void setShift(Dimension dimension, double shift) {
-        dim2seg.get(dimension).setShift(shift);
+    public void set(Dimension dimension, Coord coord) {
+        dim2seg.put(dimension, new Segment(coord.get(dimension), coord.getSpan(dimension)));
     }
 
     @Override

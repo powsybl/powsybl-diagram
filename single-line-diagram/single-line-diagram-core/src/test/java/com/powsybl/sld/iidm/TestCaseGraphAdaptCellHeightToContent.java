@@ -14,6 +14,7 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
@@ -88,9 +89,10 @@ class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
-        new PositionVoltageLevelLayoutFactory()
+        PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters = new PositionVoltageLevelLayoutFactoryParameters()
                 .setFeederStacked(false)
-                .setRemoveUnnecessaryFictitiousNodes(false)
+                .setRemoveUnnecessaryFictitiousNodes(false);
+        new PositionVoltageLevelLayoutFactory(positionVoltageLevelLayoutFactoryParameters)
                 .create(g)
                 .run(layoutParameters);
 
@@ -104,8 +106,7 @@ class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
-        new PositionVoltageLevelLayoutFactory()
-                .setRemoveUnnecessaryFictitiousNodes(false)
+        new PositionVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactoryParameters().setRemoveUnnecessaryFictitiousNodes(false))
                 .create(g)
                 .run(layoutParameters);
 

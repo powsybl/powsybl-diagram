@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class BasicForceLayout extends AbstractLayout {
 
@@ -29,6 +29,7 @@ public class BasicForceLayout extends AbstractLayout {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
+        forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
 
         setInitialPositions(forceLayout, graph);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()

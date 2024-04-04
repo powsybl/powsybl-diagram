@@ -9,11 +9,11 @@ package com.powsybl.sld.model.blocks;
 import java.util.List;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public interface ComposedBlock extends Block {
+public interface ComposedBlock<T extends Block> extends Block {
 
-    List<Block> getSubBlocks();
+    List<T> getSubBlocks();
 }

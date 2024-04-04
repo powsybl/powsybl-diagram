@@ -6,13 +6,13 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.cells.*;
-import com.powsybl.sld.model.cells.InternCell.Shape;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +20,14 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
@@ -131,8 +132,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         if (cell.getType() != Cell.CellType.INTERN) {
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
         } else {
-            boolean isFlat = ((InternCell) cell).getShape() == Shape.FLAT;
-            boolean isUnileg = ((InternCell) cell).getShape() == Shape.ONE_LEG;
+            boolean isFlat = ((InternCell) cell).getShape() == InternCell.Shape.FLAT;
+            boolean isUnileg = ((InternCell) cell).getShape() == InternCell.Shape.ONE_LEG;
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection(), true, isFlat, isUnileg);
         }
     }

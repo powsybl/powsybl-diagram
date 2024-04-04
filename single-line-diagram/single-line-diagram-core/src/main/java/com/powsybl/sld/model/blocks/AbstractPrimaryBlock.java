@@ -16,12 +16,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
 public abstract class AbstractPrimaryBlock extends AbstractBlock implements PrimaryBlock {
 
@@ -46,6 +47,21 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         this.nodes = new ArrayList<>(nodes);
         setCardinality(Extremity.START, 1);
         setCardinality(Extremity.END, 1);
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        nodes.set(nodes.size() - 1, newEndingNode);
+    }
+
+    @Override
+    public Stream<Node> getNodeStream() {
+        return nodes.stream();
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return nodes.contains(node);
     }
 
     @Override

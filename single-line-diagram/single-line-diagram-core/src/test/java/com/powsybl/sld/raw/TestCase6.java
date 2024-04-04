@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * </pre>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 class TestCase6 extends AbstractTestCaseRaw {

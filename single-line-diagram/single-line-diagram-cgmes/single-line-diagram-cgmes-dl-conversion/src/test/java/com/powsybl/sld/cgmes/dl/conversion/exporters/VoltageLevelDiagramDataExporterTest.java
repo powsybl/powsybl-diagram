@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
 class VoltageLevelDiagramDataExporterTest extends AbstractVoltageLevelDiagramDataExporterTest {
 

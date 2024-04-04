@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -21,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Thomas Adam <tadam at silicom.fr>
+ * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
 
@@ -47,6 +48,7 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         Networks.createSwitch(vl, "b3", "b3", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 1, 5);
         Networks.createSwitch(vl, "b4", "b4", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 6);
         Networks.createSwitch(vl, "b5", "b5", SwitchKind.LOAD_BREAK_SWITCH, false, true, false, 5, 3);
+
     }
 
     @Test
@@ -58,6 +60,6 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }

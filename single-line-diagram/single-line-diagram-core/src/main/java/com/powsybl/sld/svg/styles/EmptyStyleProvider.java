@@ -15,14 +15,14 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
-import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class EmptyStyleProvider implements StyleProvider {
 
@@ -37,7 +37,7 @@ public class EmptyStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
         return Collections.emptyList();
     }
 

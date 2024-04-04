@@ -40,6 +40,7 @@
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 .sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
@@ -62,23 +63,29 @@
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
+.sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
 
 ]]></style>
     <defs>
         <g id="ARROW_REACTIVE">
-            <g id="ARROW_REACTIVE-DOWN">
-                <polygon points="0,0 10,0 5,10"/>
-            </g>
             <g id="ARROW_REACTIVE-UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-        </g>
-        <g id="ARROW_ACTIVE">
-            <g id="ARROW_ACTIVE-DOWN">
+            <g id="ARROW_REACTIVE-DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
+        </g>
+        <g id="ARROW_ACTIVE">
             <g id="ARROW_ACTIVE-UP">
                 <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g id="ARROW_ACTIVE-DOWN">
+                <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
         <g id="CAPACITOR">
@@ -125,13 +132,13 @@
             <polyline points="80.0,106.0,80.0,190.0"/>
         </g>
         <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_capa1_ARROW_ACTIVE" transform="translate(75.0,121.0)">
-            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_capa1_ARROW_REACTIVE" transform="translate(75.0,141.0)">
-            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
@@ -141,26 +148,26 @@
             <polyline points="150.0,100.0,150.0,160.0,183.0,160.0"/>
         </g>
         <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_one_ARROW_ACTIVE" transform="translate(145.0,115.0)">
-            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_one_ARROW_REACTIVE" transform="translate(145.0,135.0)">
-            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,197.0,160.0"/>
         </g>
         <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
-            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
-            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_vl3_95_btrf2">

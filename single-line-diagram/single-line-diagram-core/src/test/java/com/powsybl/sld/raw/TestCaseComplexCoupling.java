@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.raw;
 
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 
 class TestCaseComplexCoupling extends AbstractTestCaseRaw {
@@ -55,6 +56,6 @@ class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
     }
 }

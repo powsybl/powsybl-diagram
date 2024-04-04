@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.svg;
 
@@ -20,9 +21,9 @@ import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvider {
+public abstract class AbstractLabelProvider implements LabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
@@ -30,11 +31,13 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     protected final ComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
     protected final ValueFormatter valueFormatter;
+    protected final SvgParameters svgParameters;
 
-    protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+    protected AbstractLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
-        this.valueFormatter = layoutParameters.createValueFormatter();
+        this.svgParameters = svgParameters;
+        this.valueFormatter = svgParameters.createValueFormatter();
     }
 
     @Override
@@ -47,10 +50,12 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
         Objects.requireNonNull(node);
 
         List<NodeLabel> nodeLabels = new ArrayList<>();
-        if (node instanceof FeederNode) {
-            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getFeederLabelPosition(node, direction), null)));
-        } else if (node instanceof BusNode) {
+        if (node instanceof BusNode) {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
+        } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
+            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getLabelPosition(node, direction), null)));
+        } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
+            nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }
 
         return nodeLabels;
@@ -59,7 +64,7 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     private Optional<String> getLabelOrNameOrId(Node node) {
         if (node instanceof EquipmentNode) {
             EquipmentNode eqNode = (EquipmentNode) node;
-            return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
+            return Optional.ofNullable(node.getLabel().orElse(svgParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
         } else {
             return node.getLabel();
         }
@@ -90,7 +95,7 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
                 0, yShift, true, 0);
     }
 
-    protected LabelPosition getFeederLabelPosition(Node node, Direction direction) {
+    protected LabelPosition getLabelPosition(Node node, Direction direction) {
         double yShift = -LABEL_OFFSET;
         String positionName = "";
         double angle = 0;
@@ -99,13 +104,13 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
                     ? -LABEL_OFFSET
                     : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + LABEL_OFFSET);
             positionName = direction == TOP ? "N" : "S";
-            if (layoutParameters.isLabelDiagonal()) {
-                angle = direction == TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();
+            if (svgParameters.isLabelDiagonal()) {
+                angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
             }
         }
 
         return new LabelPosition(positionName + "_LABEL",
-                layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle);
+                svgParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, svgParameters.isLabelCentered(), (int) angle);
     }
 
     protected LabelPosition getBusLabelPosition() {

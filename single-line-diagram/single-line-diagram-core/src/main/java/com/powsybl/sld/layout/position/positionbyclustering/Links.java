@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Manages the links between a list of BSClusterSides.
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 final class Links {
 

@@ -8,6 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -31,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * </pre>
  *
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 class TestCase2 extends AbstractTestCaseRaw {
 
@@ -68,8 +69,7 @@ class TestCase2 extends AbstractTestCaseRaw {
     @Test
     void testUnstacked() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack");
-        new PositionVoltageLevelLayoutFactory()
-                .setFeederStacked(false)
+        new PositionVoltageLevelLayoutFactory(new PositionVoltageLevelLayoutFactoryParameters().setFeederStacked(false))
                 .create(g)
                 .run(layoutParameters);
         assertEquals(toString("/TestCase2UnStackedCell.json"), toJson(g, "/TestCase2UnStackedCell.json"));

@@ -3,6 +3,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.sld.iidm;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
@@ -44,6 +45,7 @@ class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         String filename = "/TestComplexParallelLegsInternalPst.svg";
-        assertEquals(toString(filename), toSVG(g, filename));
+
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 }

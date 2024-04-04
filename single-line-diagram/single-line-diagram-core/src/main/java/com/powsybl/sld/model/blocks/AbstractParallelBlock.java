@@ -14,17 +14,17 @@ import java.util.List;
 import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 
 /**
- * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-abstract class AbstractParallelBlock extends AbstractComposedBlock {
+abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBlock<T> {
 
-    AbstractParallelBlock(Type type, List<Block> subBlocks, boolean allowMerge) {
+    AbstractParallelBlock(Type type, List<T> subBlocks, boolean allowMerge) {
         super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
-        for (Block child : subBlocks) {
+        for (T child : subBlocks) {
             if (child.getType().isParallel() && allowMerge) {
                 this.subBlocks.addAll(((ComposedBlock) child).getSubBlocks());
             } else {
@@ -41,7 +41,14 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock {
             }
         }
 
-        setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(START) : 1).sum());
-        setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getType().isParallel() ? c.getCardinality(END) : 1).sum());
+        setCardinality(START, this.subBlocks.stream().mapToInt(c -> c.getCardinality(START)).sum());
+        setCardinality(END, this.subBlocks.stream().mapToInt(c -> c.getCardinality(END)).sum());
+    }
+
+    @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        for (Block subBlock : subBlocks) {
+            subBlock.replaceEndingNode(newEndingNode);
+        }
     }
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * @author Thomas Adam <tadam at neverhack.com>
+ * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 class TestViewBox extends AbstractTestCaseIidm {
 
@@ -36,7 +36,7 @@ class TestViewBox extends AbstractTestCaseIidm {
         substation = network.getSubstation("ST");
         graphBuilder = new NetworkGraphBuilder(network);
 
-        layoutParameters.setShowGrid(true);
+        svgParameters.setShowGrid(true);
 
         // build substation ST graph
         SubstationGraph g1 = graphBuilder.buildSubstationGraph("ST");
