@@ -34,10 +34,10 @@ class LayoutWithGeographicalPositionsTest {
         forceLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();
 
-        assertEquals(300, actual.get("VL1").getX());
-        assertEquals(200, actual.get("VL1").getY());
-        assertEquals(500, actual.get("VL2").getX());
-        assertEquals(400, actual.get("VL2").getY());
+        assertEquals(7854.0, actual.get("VL1").getX(), 0.1);
+        assertEquals(-5237.1, actual.get("VL1").getY(), 0.1);
+        assertEquals(13090.0, actual.get("VL2").getX(), 0.1);
+        assertEquals(-10480.5, actual.get("VL2").getY(), 0.1);
     }
 
     @Test
@@ -49,10 +49,10 @@ class LayoutWithGeographicalPositionsTest {
         forceLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();
 
-        assertEquals(600, actual.get("VL1").getX());
-        assertEquals(400, actual.get("VL1").getY());
-        assertEquals(1000, actual.get("VL2").getX());
-        assertEquals(800, actual.get("VL2").getY());
+        assertEquals(10.5, actual.get("VL1").getX(), 0.1);
+        assertEquals(-7.0, actual.get("VL1").getY(), 0.1);
+        assertEquals(17.5, actual.get("VL2").getX(), 0.1);
+        assertEquals(-14.0, actual.get("VL2").getY(), 0.1);
     }
 
     @Test
@@ -65,12 +65,12 @@ class LayoutWithGeographicalPositionsTest {
         forceLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();
 
-        assertEquals(350, actual.get("VL1").getX());
-        assertEquals(200, actual.get("VL1").getY());
-        assertEquals(275, actual.get("VL1_1").getX());
-        assertEquals(243.3d, actual.get("VL1_1").getY(), 0.1);
-        assertEquals(275, actual.get("VL1_2").getX());
-        assertEquals(156.7, actual.get("VL1_2").getY(), 0.1);
+        assertEquals(55.2, actual.get("VL1").getX(), 0.1);
+        assertEquals(-3.5, actual.get("VL1").getY(), 0.1);
+        assertEquals(-19.8, actual.get("VL1_1").getX(), 0.1);
+        assertEquals(39.8, actual.get("VL1_1").getY(), 0.1);
+        assertEquals(-19.8, actual.get("VL1_2").getX(), 0.1);
+        assertEquals(-46.8, actual.get("VL1_2").getY(), 0.1);
     }
 }
 
