@@ -12,7 +12,7 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.position.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.*;

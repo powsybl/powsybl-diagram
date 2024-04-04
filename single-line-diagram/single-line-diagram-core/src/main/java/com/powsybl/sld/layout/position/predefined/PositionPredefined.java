@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout.position.positionfromextension;
+package com.powsybl.sld.layout.position.predefined;
 
 import com.powsybl.sld.layout.position.AbstractPositionFinder;
 import com.powsybl.sld.layout.position.BSCluster;
@@ -28,8 +28,8 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-public class PositionFromExtension extends AbstractPositionFinder {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
+public class PositionPredefined extends AbstractPositionFinder {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PositionPredefined.class);
 
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
 

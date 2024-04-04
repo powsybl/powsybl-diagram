@@ -9,7 +9,7 @@ package com.powsybl.sld.layout;
 import com.google.auto.service.AutoService;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.layout.position.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}

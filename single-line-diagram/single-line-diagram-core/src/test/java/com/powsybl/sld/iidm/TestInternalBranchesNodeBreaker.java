@@ -12,7 +12,7 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
-import com.powsybl.sld.layout.position.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // Run layout with specific parameters and compare subsequent SVG with reference
         PositionVoltageLevelLayoutFactoryParameters pvllfParameters = new PositionVoltageLevelLayoutFactoryParameters()
                 .setSubstituteInternalMiddle2wtByEquipmentNodes(false);
-        new PositionVoltageLevelLayoutFactory(new PositionFromExtension(), pvllfParameters).create(g).run(this.layoutParameters);
+        new PositionVoltageLevelLayoutFactory(new PositionPredefined(), pvllfParameters).create(g).run(this.layoutParameters);
         assertEquals(toString("/InternalBranchesNodeBreaker_externalPst.svg"),
                 toSVG(g, "/InternalBranchesNodeBreaker_externalPst.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
