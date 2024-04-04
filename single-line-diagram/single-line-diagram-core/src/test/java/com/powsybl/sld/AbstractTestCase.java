@@ -133,14 +133,12 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public JsonNode[] compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public abstract String toMetadata(Graph g, String filename);
 
-        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
-
+    public String toMetadata(Graph graph, String refMetadataName, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(this.layoutParameters);
             SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugJsonFiles) {
@@ -153,45 +151,7 @@ public abstract class AbstractTestCase {
                 writeToFileInDebugDir(refMetadataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8);
-            String metadata = metadataWriter.toString();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode[] results = new JsonNode[2];
-            results[0] = mapper.readTree(refMetadata); // Expected
-            results[1] = mapper.readTree(metadata); // Actual
-            return results;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public JsonNode[] compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
-
-        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
-
-        try (StringWriter writer = new StringWriter();
-             StringWriter metadataWriter = new StringWriter()) {
-
-            substationLayoutFactory.create(graph, voltageLevelLayoutFactory).run(this.layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
-
-            if (debugJsonFiles) {
-                writeToFileInDebugDir(refMetdataName, metadataWriter);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(refMetdataName, metadataWriter);
-            }
-            if (debugSvgFiles) {
-                writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
-            }
-
-            String refMetadata = new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8);
-            String metadata = metadataWriter.toString();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode[] results = new JsonNode[2];
-            results[0] = mapper.readTree(refMetadata); // Expected
-            results[1] = mapper.readTree(metadata); // Actual
-            return results;
+            return normalizeLineSeparator(metadataWriter.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -38,6 +38,11 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
     }
 
+    @Override
+    public String toMetadata(Graph graph, String filename) {
+        return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
+    }
+
     private final LabelProvider labelRawProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
         @Override
