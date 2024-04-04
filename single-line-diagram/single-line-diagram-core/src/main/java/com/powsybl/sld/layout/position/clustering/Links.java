@@ -21,7 +21,7 @@ final class Links {
 
     private final List<BSClusterSide> bsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
-    private final Map<BSClusterSide, List<Link>> bsCs2Link = new HashMap<>();
+    private final Map<BSClusterSide, List<Link>> bsCsToLink = new HashMap<>();
     private final HorizontalBusListManager hblManager;
     private int linkCounter = 0;
 
@@ -40,7 +40,7 @@ final class Links {
     }
 
     private void addBsClusterSide(BSClusterSide bsClusterSide) {
-        bsCs2Link.put(bsClusterSide, new ArrayList<>());
+        bsCsToLink.put(bsClusterSide, new ArrayList<>());
         bsClusterSides.forEach(cc -> buildNewLink(cc, bsClusterSide));
         bsClusterSides.add(bsClusterSide);
     }
@@ -49,8 +49,8 @@ final class Links {
         if (bsClusterSide1.getCluster() != bsClusterSide2.getCluster()) {
             Link linkToAdd = new Link(bsClusterSide1, bsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
-            bsCs2Link.get(bsClusterSide1).add(linkToAdd);
-            bsCs2Link.get(bsClusterSide2).add(linkToAdd);
+            bsCsToLink.get(bsClusterSide1).add(linkToAdd);
+            bsCsToLink.get(bsClusterSide2).add(linkToAdd);
         }
     }
 
@@ -70,7 +70,7 @@ final class Links {
 
     private void removeBsClusterSide(BSClusterSide bsClusterSide) {
         bsClusterSides.remove(bsClusterSide);
-        bsCs2Link.get(bsClusterSide).forEach(linkSet::remove);
+        bsCsToLink.get(bsClusterSide).forEach(linkSet::remove);
     }
 
     boolean isEmpty() {
