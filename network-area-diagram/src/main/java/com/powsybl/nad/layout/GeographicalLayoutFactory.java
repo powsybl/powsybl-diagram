@@ -24,8 +24,8 @@ import java.util.Map;
  */
 public class GeographicalLayoutFactory extends FixedLayoutFactory implements LayoutFactory {
 
-    private static final int SCALING_FACTOR = 100;
-    private static final double RADIUS_FACTOR = 50;
+    private static final int SCALING_FACTOR = 150000;
+    private static final double RADIUS_FACTOR = 150;
 
     public GeographicalLayoutFactory(Network network) {
         this(network, SCALING_FACTOR, RADIUS_FACTOR, BasicForceLayout::new);
