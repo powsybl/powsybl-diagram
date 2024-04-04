@@ -1717,6 +1717,22 @@ public final class Networks {
         return network;
     }
 
+    public static Network createThreeSubstationsWithSubstationPosition() {
+        Network network = Network.create("TestSubstationPosition", "test");
+        Substation substation1 = createSubstation(network, "S1", "S1", Country.FR);
+        Substation substation2 = createSubstation(network, "S2", "S2", Country.FR);
+        Substation substation3 = createSubstation(network, "S3", "S3", Country.FR);
+        network.getSubstation("S1").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(43.633125, 3.716366666666667)).add();
+        network.getSubstation("S2").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(43.580397222222224, 3.849513888888889)).add();
+        network.getSubstation("S3").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(44.01473055555556, 4.643325)).add();
+        createVoltageLevel(substation1, "vl11", "vl11", TopologyKind.NODE_BREAKER, 380);
+        createVoltageLevel(substation1, "vl12", "vl12", TopologyKind.NODE_BREAKER, 225);
+        createVoltageLevel(substation1, "vl13", "vl13", TopologyKind.NODE_BREAKER, 45);
+        createVoltageLevel(substation2, "vl21", "vl21", TopologyKind.NODE_BREAKER, 225);
+        createVoltageLevel(substation3, "vl31", "vl31", TopologyKind.NODE_BREAKER, 380);
+        return network;
+    }
+
     /**
      * <PRE>
      *         l

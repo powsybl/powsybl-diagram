@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
@@ -71,6 +72,32 @@ class LayoutWithGeographicalPositionsTest {
         assertEquals(39.8, actual.get("VL1_1").getY(), 0.1);
         assertEquals(-19.8, actual.get("VL1_2").getX(), 0.1);
         assertEquals(-46.8, actual.get("VL1_2").getY(), 0.1);
+    }
+
+    @Test
+    void layoutWithGeographicalPositionRelativePositionsTest() {
+        Network network = Networks.createThreeSubstationsWithSubstationPosition();
+
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Layout forceLayout = new GeographicalLayoutFactory(network).create();
+        forceLayout.run(graph, new LayoutParameters());
+        Map<String, Point> actual = graph.getNodePositions();
+
+        assertTrue(actual.get("vl11").getX() < actual.get("vl21").getX());
+        assertTrue(actual.get("vl11").getY() < actual.get("vl21").getY());
+        assertTrue(actual.get("vl12").getX() < actual.get("vl21").getX());
+        assertTrue(actual.get("vl12").getY() < actual.get("vl21").getY());
+        assertTrue(actual.get("vl13").getX() < actual.get("vl21").getX());
+        assertTrue(actual.get("vl13").getY() < actual.get("vl21").getY());
+
+        assertTrue(actual.get("vl11").getX() < actual.get("vl31").getX());
+        assertTrue(actual.get("vl11").getY() > actual.get("vl31").getY());
+        assertTrue(actual.get("vl12").getX() < actual.get("vl31").getX());
+        assertTrue(actual.get("vl12").getY() > actual.get("vl31").getY());
+        assertTrue(actual.get("vl13").getX() < actual.get("vl31").getX());
+        assertTrue(actual.get("vl13").getY() > actual.get("vl31").getY());
+
+        assertTrue(actual.get("vl11").distance(actual.get("vl31")) > actual.get("vl11").distance(actual.get("vl21")));
     }
 }
 
