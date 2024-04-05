@@ -7,6 +7,7 @@
 package com.powsybl.diagram.test;
 
 import com.powsybl.commons.extensions.Extendable;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
 
@@ -1703,6 +1704,32 @@ public final class Networks {
         createSwitch(vl, "d2b", "d2b", SwitchKind.DISCONNECTOR, true, true, false, 3, 4);
         createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, true, true, false, 0, 3);
         createBattery(vl, BATT_2_ID, BATT_2_ID, BATT_2_ID, null, ConnectablePosition.Direction.BOTTOM, 4, 3, 10, 6, 6);
+        return network;
+    }
+
+    public static Network createIeee9NetworkWithOneMissingSubstationPosition() {
+        Network network = IeeeCdfNetworkFactory.create9();
+        network.getSubstation("S1").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(2d, 3d)).add();
+        network.getSubstation("S2").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(4d, 5d)).add();
+        network.getSubstation("S3").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(6d, 7d)).add();
+        network.getSubstation("S5").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(8d, 9d)).add();
+        network.getSubstation("S6").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(10d, 11d)).add();
+        return network;
+    }
+
+    public static Network createThreeSubstationsWithSubstationPosition() {
+        Network network = Network.create("TestSubstationPosition", "test");
+        Substation substation1 = createSubstation(network, "S1", "S1", Country.FR);
+        Substation substation2 = createSubstation(network, "S2", "S2", Country.FR);
+        Substation substation3 = createSubstation(network, "S3", "S3", Country.FR);
+        network.getSubstation("S1").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(43.633125, 3.716366666666667)).add();
+        network.getSubstation("S2").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(43.580397222222224, 3.849513888888889)).add();
+        network.getSubstation("S3").newExtension(SubstationPositionAdder.class).withCoordinate(new Coordinate(44.01473055555556, 4.643325)).add();
+        createVoltageLevel(substation1, "vl11", "vl11", TopologyKind.NODE_BREAKER, 380);
+        createVoltageLevel(substation1, "vl12", "vl12", TopologyKind.NODE_BREAKER, 225);
+        createVoltageLevel(substation1, "vl13", "vl13", TopologyKind.NODE_BREAKER, 45);
+        createVoltageLevel(substation2, "vl21", "vl21", TopologyKind.NODE_BREAKER, 225);
+        createVoltageLevel(substation3, "vl31", "vl31", TopologyKind.NODE_BREAKER, 380);
         return network;
     }
 
