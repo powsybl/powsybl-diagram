@@ -1,5 +1,0 @@
-== Manages `Subsections`
-Subsections detects and manages the case of none parallel busbar structures.
-****
-image::images/subsections.svg[]
-****
