@@ -4,8 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.layout.position;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -15,6 +16,9 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.util.GraphTraversal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Function;
@@ -37,24 +41,27 @@ public class Subsection {
     private final List<ArchCell> archCells = new ArrayList<>();
     private static final Comparator<BusCell> COMPARE_ORDER = Comparator
             .comparingInt(extCell -> extCell.getOrder().orElse(-1));
+    private static final Logger LOGGER = LoggerFactory.getLogger(Subsection.class);
 
     Subsection(int size) {
         this.size = size;
         busNodes = new BusNode[size];
     }
 
-    private boolean checkAbsorbability(LegBusSet lbs) {
-        return lbs.getExtendedNodeSet().stream().noneMatch(busNode -> {
+    private boolean checkAbsorbability(Set<BusNode> extendedNodeSet) {
+        return extendedNodeSet.stream().noneMatch(busNode -> {
             int vIndex = busNode.getBusbarIndex() - 1;
             return busNodes[vIndex] != null && busNodes[vIndex] != busNode;
         });
     }
 
-    private void addLegBusSet(LegBusSet lbs) {
-        lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
-        lbs.getExternCells().stream().sorted(COMPARE_ORDER).forEach(externCells::add);
-        lbs.getArchCells().stream().sorted(COMPARE_ORDER).forEach(archCells::add);
-        internCellSides.addAll(lbs.getInternCellSides());
+    private void addVerticalBusSet(VerticalBusSet vbs, Set<BusNode> extendedNodeSet) {
+        extendedNodeSet.forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
+        externCells.addAll(vbs.getExternCells());
+        externCells.sort(COMPARE_ORDER);
+        archCells.addAll(vbs.getArchCells());
+        archCells.sort(COMPARE_ORDER);
+        internCellSides.addAll(vbs.getInternCellSides());
     }
 
     public int getSize() {
@@ -94,24 +101,39 @@ public class Subsection {
         return Arrays.asList(busNodes).containsAll(nodes);
     }
 
-    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, boolean handleShunts) {
+    static List<Subsection> createSubsections(VoltageLevelGraph graph, BSCluster bsCluster, Map<BusNode, Integer> busToNb, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
 
         int vSize = graph.getMaxVerticalBusPosition();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
-        for (LegBusSet lbs : lbsCluster.getLbsList()) {
-            lbs.addToExtendedNodeSet(lbsCluster.getVerticalBuseNodes(i));
-            if (!currentSubsection.checkAbsorbability(lbs)) {
+        for (VerticalBusSet vbs : bsCluster.getVerticalBusSets()) {
+            Set<BusNode> extendedNodeSet = new TreeSet<>(Comparator.comparingInt(busToNb::get));
+            List<BusNode> vbn = bsCluster.getVerticalBusNodes(i);
+            if (vbs.getBusNodeSet().containsAll(vbn)) {
+                // The given busNodes correspond to all vertical bus nodes for a specific index of the horizontalBusLanes:
+                // those nodes correspond to a slice of busbars.
+                // There can't be more than one busNode per busbar index, we check this by creating a HashSet with busbar indices
+                Set<Integer> indices = new HashSet<>();
+                for (BusNode busNode : vbn) {
+                    if (!indices.add(busNode.getBusbarIndex())) {
+                        throw new PowsyblException("Inconsistent legBusSet: extended node set contains two busNodes with same index");
+                    }
+                }
+                extendedNodeSet.addAll(vbn);
+            } else {
+                LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
+            }
+            if (!currentSubsection.checkAbsorbability(extendedNodeSet)) {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
-            currentSubsection.addLegBusSet(lbs);
+            currentSubsection.addVerticalBusSet(vbs, extendedNodeSet);
             i++;
         }
 
-        internCellCoherence(graph, lbsCluster.getLbsList(), subsections);
+        internCellCoherence(graph, bsCluster.getVerticalBusSets(), subsections);
 
         graph.getShuntCellStream().forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
@@ -121,14 +143,10 @@ public class Subsection {
         return subsections;
     }
 
-    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster) {
-        return createSubsections(graph, lbsCluster, false);
-    }
-
-    private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+    private static void internCellCoherence(VoltageLevelGraph vlGraph, List<VerticalBusSet> vbsList, List<Subsection> subsections) {
         identifyOneLegInternCells(vlGraph, subsections);
         identifyVerticalInternCells(vlGraph, subsections);
-        identifyFlatInternCells(lbsList);
+        identifyFlatInternCells(vbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
     }
@@ -162,9 +180,9 @@ public class Subsection {
 
     }
 
-    private static void identifyFlatInternCells(List<LegBusSet> lbsList) {
-        lbsList.stream()
-                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
+    private static void identifyFlatInternCells(List<VerticalBusSet> vbsList) {
+        vbsList.stream()
+                .flatMap(vbs -> vbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
                 .distinct()
                 .forEach(internCell -> {
                     List<BusNode> buses = internCell.getBusNodes();

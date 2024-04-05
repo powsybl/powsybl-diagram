@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout;
+package com.powsybl.sld.util;
 
 import com.powsybl.sld.model.nodes.Node;
 
@@ -52,7 +52,7 @@ public final class GraphTraversal {
         return true;
     }
 
-    static Set<Node> run(Node node, Predicate<Node> extremityCriteria, Set<Node> outsideNodes) {
+    public static Set<Node> run(Node node, Predicate<Node> extremityCriteria, Set<Node> outsideNodes) {
         Set<Node> nodesResult = new LinkedHashSet<>();
         run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
         return nodesResult;

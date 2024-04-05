@@ -4,9 +4,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.layout.positionfromextension;
+package com.powsybl.sld.layout.position.predefined;
 
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.position.AbstractPositionFinder;
+import com.powsybl.sld.layout.position.BSCluster;
+import com.powsybl.sld.layout.position.Subsection;
+import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -26,10 +29,53 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-public class PositionFromExtension extends AbstractPositionFinder {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
+public class PositionPredefined extends AbstractPositionFinder {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PositionPredefined.class);
+
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
-    private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
+
+    private static final Comparator<VerticalBusSet> VBS_COMPARATOR = new Comparator<>() {
+        @Override
+        public int compare(VerticalBusSet vbs1, VerticalBusSet vbs2) {
+            for (BusNode busNode : vbs1.getBusNodeSet()) {
+                Optional<Integer> optionalSectionIndex2 = vbs2.getBusNodeSet().stream()
+                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
+                        .findFirst().map(BusNode::getSectionIndex);
+                if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
+                    return busNode.getSectionIndex() - optionalSectionIndex2.get();
+                }
+            }
+
+            Optional<Integer> order1 = externCellOrderNb(vbs1);
+            Optional<Integer> order2 = externCellOrderNb(vbs2);
+            if (order1.isPresent() && order2.isPresent()) {
+                return order1.get() - order2.get();
+            }
+
+            int h1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getSectionIndex);
+            int h2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getSectionIndex);
+            if (h1max != h2max) {
+                return h1max - h2max;
+            }
+
+            int v1max = getMaxPos(vbs1.getBusNodeSet(), BusNode::getBusbarIndex);
+            int v2max = getMaxPos(vbs2.getBusNodeSet(), BusNode::getBusbarIndex);
+            if (v1max != v2max) {
+                return v1max - v2max;
+            }
+            return vbs1.getBusNodeSet().size() - vbs2.getBusNodeSet().size();
+        }
+
+        private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
+            return busNodes.stream()
+                    .map(fun).max(Integer::compareTo).orElse(0);
+        }
+
+        private Optional<Integer> externCellOrderNb(VerticalBusSet vbs) {
+            return vbs.getExternCells().stream().findFirst().map(exCell -> exCell.getOrder().orElse(-1));
+        }
+
+    };
 
     /**
      * Builds the layout of the bus nodes, and organises cells (order and directions)
@@ -100,23 +146,23 @@ public class PositionFromExtension extends AbstractPositionFinder {
     }
 
     @Override
-    public LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets) {
+    public BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets) {
         gatherLayoutExtensionInformation(graph);
 
-        List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
-                legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
+        List<BSCluster> bsClusters = BSCluster.createBSClusters(
+                verticalBusSets.stream().sorted(VBS_COMPARATOR).collect(Collectors.toList()));
 
-        LBSCluster lbsCluster = lbsClusters.get(0);
+        BSCluster bsCluster = bsClusters.get(0);
 
-        while (lbsClusters.size() != 1) {
-            lbsCluster.merge(Side.RIGHT, lbsClusters.get(1), Side.LEFT, HBLMANAGER);
-            lbsClusters.remove(1);
+        while (bsClusters.size() != 1) {
+            bsCluster.merge(Side.RIGHT, bsClusters.get(1), Side.LEFT, PositionPredefined::mergeHorizontalBusLists);
+            bsClusters.remove(1);
         }
-        lbsCluster.sortHorizontalBusLanesByVPos();
-        return lbsCluster;
+        bsCluster.sortHblByVPos();
+        return bsCluster;
     }
 
-    private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
+    private static void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
 
         graph.getBusCellStream().forEach(bc -> {
             setDirection(bc);
@@ -162,46 +208,30 @@ public class PositionFromExtension extends AbstractPositionFinder {
                 .ifPresent(bc::setOrder);
     }
 
-    private Comparator<LegBusSet> sortLBS = new Comparator<LegBusSet>() {
-        @Override
-        public int compare(LegBusSet lbs1, LegBusSet lbs2) {
-            for (BusNode busNode : lbs1.getBusNodeSet()) {
-                Optional<Integer> optionalSectionIndex2 = lbs2.getBusNodeSet().stream()
-                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
-                        .findFirst().map(BusNode::getSectionIndex);
-                if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
-                    return busNode.getSectionIndex() - optionalSectionIndex2.get();
-                }
-            }
+    public static void mergeHorizontalBusLists(BSCluster leftCluster, BSCluster rightCluster) {
+        //for this implementation, the busBar structuralPosition are already defined,
+        // we must ensure that structuralPosition vPos when merging left and right HorizontalPosition,
+        // and structuralPosition hPos are ordered
+        leftCluster.getHorizontalBusLists().forEach(hbl -> {
+            BusNode rightNodeOfLeftHbl = hbl.getSideNode(Side.RIGHT);
+            rightCluster.getHorizontalBusLists().stream()
+                    .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
+                    .findFirst()
+                    .ifPresent(rightHbl -> {
+                        BusNode leftNodeOfRightHbl = rightHbl.getSideNode(Side.LEFT);
+                        if (leftNodeOfRightHbl == rightNodeOfLeftHbl
+                                || rightNodeOfLeftHbl.getSectionIndex() < leftNodeOfRightHbl.getSectionIndex()) {
+                            hbl.merge(rightHbl);
+                            rightCluster.removeHbl(rightHbl);
+                        }
+                    });
+        });
+        mergeHblWithNoLink(leftCluster, rightCluster);
+    }
 
-            Optional<Integer> order1 = externCellOrderNb(lbs1);
-            Optional<Integer> order2 = externCellOrderNb(lbs2);
-            if (order1.isPresent() && order2.isPresent()) {
-                return order1.get() - order2.get();
-            }
-
-            int h1max = getMaxPos(lbs1.getBusNodeSet(), BusNode::getSectionIndex);
-            int h2max = getMaxPos(lbs2.getBusNodeSet(), BusNode::getSectionIndex);
-            if (h1max != h2max) {
-                return h1max - h2max;
-            }
-
-            int v1max = getMaxPos(lbs1.getBusNodeSet(), BusNode::getBusbarIndex);
-            int v2max = getMaxPos(lbs2.getBusNodeSet(), BusNode::getBusbarIndex);
-            if (v1max != v2max) {
-                return v1max - v2max;
-            }
-            return lbs1.getBusNodeSet().size() - lbs2.getBusNodeSet().size();
-        }
-
-        private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
-            return busNodes.stream()
-                    .map(fun).max(Integer::compareTo).orElse(0);
-        }
-
-        private Optional<Integer> externCellOrderNb(LegBusSet lbs) {
-            return lbs.getExternCells().stream().findAny().map(exCell -> exCell.getOrder().orElse(-1));
-        }
-
-    };
+    @Override
+    public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
+        // Force same orientation for shunted cells
+        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
+    }
 }
