@@ -6,7 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.position.PositionFinder;
+import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.util.Objects;
@@ -23,11 +24,11 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     private PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters = new PositionVoltageLevelLayoutFactoryParameters();
 
     public PositionVoltageLevelLayoutFactory() {
-        this(new PositionFromExtension());
+        this(new PositionPredefined());
     }
 
     public PositionVoltageLevelLayoutFactory(PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
-        this(new PositionFromExtension());
+        this(new PositionPredefined());
         this.positionVoltageLevelLayoutFactoryParameters = positionVoltageLevelLayoutFactoryParameters;
     }
 
