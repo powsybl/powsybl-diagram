@@ -7,9 +7,10 @@
  */
 package com.powsybl.sld;
 
-import com.fasterxml.jackson.databind.*;
 import com.google.common.io.ByteStreams;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
