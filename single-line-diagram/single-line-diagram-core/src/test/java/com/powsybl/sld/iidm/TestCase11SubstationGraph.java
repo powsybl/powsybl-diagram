@@ -23,7 +23,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -154,10 +153,9 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
 
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertTrue(compareMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
-                new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
+        assertEquals(toString("/substDiag_with_hvdc_line_metadata.json"), toMetadata(g, "/substDiag_with_hvdc_line_metadata.json",
                 componentLibrary,
                 layoutParameters,
                 svgParameters,
@@ -169,9 +167,9 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/substDiag_metadata.json"), toMetadata(substationGraph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -179,7 +177,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        new HorizontalSubstationLayoutFactory().create(graph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertTrue(compareMetadata(graph, "/substDiag_metadata.json", new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+        assertEquals(toString("/substDiag_metadata.json"), toMetadata(graph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
     }
 }

@@ -42,6 +42,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         return toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
+    @Override
+    public String toMetadata(Graph g, String filename) {
+        return toMetadata(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+    }
+
     protected LabelProvider getDefaultDiagramLabelProvider() {
         return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }

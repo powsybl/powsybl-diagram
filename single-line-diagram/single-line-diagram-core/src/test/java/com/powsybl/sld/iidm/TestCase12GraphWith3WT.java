@@ -20,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -262,7 +261,9 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
-        assertTrue(compareMetadata(graph, "/vlDiag_metadata.json", new PositionVoltageLevelLayoutFactory(), componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+        new PositionVoltageLevelLayoutFactory().create(graph).run(layoutParameters);
+
+        assertEquals(toString("/vlDiag_metadata.json"), toMetadata(graph, "/vlDiag_metadata.json"));
     }
 
     @Test
