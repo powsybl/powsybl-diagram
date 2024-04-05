@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout.position;
 
 import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
@@ -25,6 +24,8 @@ public abstract class AbstractPositionFinder implements PositionFinder {
 
     public abstract BSCluster organizeBusSets(VoltageLevelGraph graph, List<VerticalBusSet> verticalBusSets);
 
+    public abstract void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections);
+
     public List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
@@ -36,14 +37,6 @@ public abstract class AbstractPositionFinder implements PositionFinder {
         List<Subsection> subsections = Subsection.createSubsections(graph, bsCluster, busToNb, handleShunt);
         organizeDirections(graph, subsections);
         return subsections;
-    }
-
-    public void forceSameOrientationForShuntedCell(VoltageLevelGraph graph) {
-        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
-    }
-
-    public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
-        forceSameOrientationForShuntedCell(graph);
     }
 
     public static void mergeHblWithNoLink(BSCluster leftCluster, BSCluster rightCluster) {

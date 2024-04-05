@@ -8,6 +8,7 @@ package com.powsybl.sld.layout.position.predefined;
 
 import com.powsybl.sld.layout.position.AbstractPositionFinder;
 import com.powsybl.sld.layout.position.BSCluster;
+import com.powsybl.sld.layout.position.Subsection;
 import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -228,4 +229,9 @@ public class PositionPredefined extends AbstractPositionFinder {
         mergeHblWithNoLink(leftCluster, rightCluster);
     }
 
+    @Override
+    public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
+        // Force same orientation for shunted cells
+        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
+    }
 }
