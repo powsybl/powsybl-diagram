@@ -49,10 +49,10 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="VLGEN_0"/>
-                <nad:busNode svgId="3" equipmentId="VLHV1_0"/>
-                <nad:busNode svgId="5" equipmentId="VLHV2_0"/>
-                <nad:busNode svgId="7" equipmentId="VLLOAD_0"/>
+                <nad:busNode svgId="1" equipmentId="VLGEN_0" nbNeighbours="0" index="0" vlNode="0"/>
+                <nad:busNode svgId="3" equipmentId="VLHV1_0" nbNeighbours="0" index="0" vlNode="2"/>
+                <nad:busNode svgId="5" equipmentId="VLHV2_0" nbNeighbours="0" index="0" vlNode="4"/>
+                <nad:busNode svgId="7" equipmentId="VLLOAD_0" nbNeighbours="0" index="0" vlNode="6"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="VLGEN" x="-452.59" y="-274.01"/>
@@ -61,10 +61,10 @@
                 <nad:node svgId="6" equipmentId="VLLOAD" x="430.90" y="-174.05"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="8" equipmentId="NGEN_NHV1" node1="0" node2="2"/>
-                <nad:edge svgId="9" equipmentId="NHV1_NHV2_1" node1="2" node2="4"/>
-                <nad:edge svgId="10" equipmentId="NHV1_NHV2_2" node1="2" node2="4"/>
-                <nad:edge svgId="11" equipmentId="NHV2_NLOAD" node1="4" node2="6"/>
+                <nad:edge svgId="8" equipmentId="NGEN_NHV1" node1="0" node2="2" busNode1="1" busNode2="3"/>
+                <nad:edge svgId="9" equipmentId="NHV1_NHV2_1" node1="2" node2="4" busNode1="3" busNode2="5"/>
+                <nad:edge svgId="10" equipmentId="NHV1_NHV2_2" node1="2" node2="4" busNode1="3" busNode2="5"/>
+                <nad:edge svgId="11" equipmentId="NHV2_NLOAD" node1="4" node2="6" busNode1="5" busNode2="7"/>
             </nad:edges>
         </nad:nad>
     </metadata>

@@ -114,33 +114,33 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="VL113_0"/>
-                <nad:busNode svgId="3" equipmentId="VL114_0"/>
-                <nad:busNode svgId="5" equipmentId="VL23_0"/>
-                <nad:busNode svgId="7" equipmentId="VL27_0"/>
-                <nad:busNode svgId="9" equipmentId="VL30_0"/>
-                <nad:busNode svgId="11" equipmentId="VL31_0"/>
-                <nad:busNode svgId="13" equipmentId="VL32_0"/>
-                <nad:busNode svgId="15" equipmentId="VL37_0"/>
-                <nad:busNode svgId="17" equipmentId="VL38_0"/>
-                <nad:busNode svgId="19" equipmentId="VL65_0"/>
-                <nad:busNode svgId="21" equipmentId="VL115_0"/>
-                <nad:busNode svgId="23" equipmentId="VL17_0"/>
-                <nad:busNode svgId="25" equipmentId="VL22_0"/>
-                <nad:busNode svgId="27" equipmentId="VL24_0"/>
-                <nad:busNode svgId="29" equipmentId="VL25_0"/>
-                <nad:busNode svgId="31" equipmentId="VL26_0"/>
-                <nad:busNode svgId="33" equipmentId="VL28_0"/>
-                <nad:busNode svgId="35" equipmentId="VL29_0"/>
-                <nad:busNode svgId="37" equipmentId="VL33_0"/>
-                <nad:busNode svgId="39" equipmentId="VL34_0"/>
-                <nad:busNode svgId="41" equipmentId="VL35_0"/>
-                <nad:busNode svgId="43" equipmentId="VL39_0"/>
-                <nad:busNode svgId="45" equipmentId="VL40_0"/>
-                <nad:busNode svgId="47" equipmentId="VL64_0"/>
-                <nad:busNode svgId="49" equipmentId="VL66_0"/>
-                <nad:busNode svgId="51" equipmentId="VL68_0"/>
-                <nad:busNode svgId="53" equipmentId="VL8_0"/>
+                <nad:busNode svgId="1" equipmentId="VL113_0" nbNeighbours="0" index="0" vlNode="0"/>
+                <nad:busNode svgId="3" equipmentId="VL114_0" nbNeighbours="0" index="0" vlNode="2"/>
+                <nad:busNode svgId="5" equipmentId="VL23_0" nbNeighbours="0" index="0" vlNode="4"/>
+                <nad:busNode svgId="7" equipmentId="VL27_0" nbNeighbours="0" index="0" vlNode="6"/>
+                <nad:busNode svgId="9" equipmentId="VL30_0" nbNeighbours="0" index="0" vlNode="8"/>
+                <nad:busNode svgId="11" equipmentId="VL31_0" nbNeighbours="0" index="0" vlNode="10"/>
+                <nad:busNode svgId="13" equipmentId="VL32_0" nbNeighbours="0" index="0" vlNode="12"/>
+                <nad:busNode svgId="15" equipmentId="VL37_0" nbNeighbours="0" index="0" vlNode="14"/>
+                <nad:busNode svgId="17" equipmentId="VL38_0" nbNeighbours="0" index="0" vlNode="16"/>
+                <nad:busNode svgId="19" equipmentId="VL65_0" nbNeighbours="0" index="0" vlNode="18"/>
+                <nad:busNode svgId="21" equipmentId="VL115_0" nbNeighbours="0" index="0" vlNode="20"/>
+                <nad:busNode svgId="23" equipmentId="VL17_0" nbNeighbours="0" index="0" vlNode="22"/>
+                <nad:busNode svgId="25" equipmentId="VL22_0" nbNeighbours="0" index="0" vlNode="24"/>
+                <nad:busNode svgId="27" equipmentId="VL24_0" nbNeighbours="0" index="0" vlNode="26"/>
+                <nad:busNode svgId="29" equipmentId="VL25_0" nbNeighbours="0" index="0" vlNode="28"/>
+                <nad:busNode svgId="31" equipmentId="VL26_0" nbNeighbours="0" index="0" vlNode="30"/>
+                <nad:busNode svgId="33" equipmentId="VL28_0" nbNeighbours="0" index="0" vlNode="32"/>
+                <nad:busNode svgId="35" equipmentId="VL29_0" nbNeighbours="0" index="0" vlNode="34"/>
+                <nad:busNode svgId="37" equipmentId="VL33_0" nbNeighbours="0" index="0" vlNode="36"/>
+                <nad:busNode svgId="39" equipmentId="VL34_0" nbNeighbours="0" index="0" vlNode="38"/>
+                <nad:busNode svgId="41" equipmentId="VL35_0" nbNeighbours="0" index="0" vlNode="40"/>
+                <nad:busNode svgId="43" equipmentId="VL39_0" nbNeighbours="0" index="0" vlNode="42"/>
+                <nad:busNode svgId="45" equipmentId="VL40_0" nbNeighbours="0" index="0" vlNode="44"/>
+                <nad:busNode svgId="47" equipmentId="VL64_0" nbNeighbours="0" index="0" vlNode="46"/>
+                <nad:busNode svgId="49" equipmentId="VL66_0" nbNeighbours="0" index="0" vlNode="48"/>
+                <nad:busNode svgId="51" equipmentId="VL68_0" nbNeighbours="0" index="0" vlNode="50"/>
+                <nad:busNode svgId="53" equipmentId="VL8_0" nbNeighbours="0" index="0" vlNode="52"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="VL113" x="442.82" y="546.19"/>
@@ -172,35 +172,35 @@
                 <nad:node svgId="52" equipmentId="VL8" x="-452.43" y="958.77"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="54" equipmentId="L17-113-1" node1="22" node2="0"/>
-                <nad:edge svgId="55" equipmentId="L32-113-1" node1="12" node2="0"/>
-                <nad:edge svgId="56" equipmentId="L32-114-1" node1="12" node2="2"/>
-                <nad:edge svgId="57" equipmentId="L114-115-1" node1="2" node2="20"/>
-                <nad:edge svgId="58" equipmentId="L22-23-1" node1="24" node2="4"/>
-                <nad:edge svgId="59" equipmentId="L23-24-1" node1="4" node2="26"/>
-                <nad:edge svgId="60" equipmentId="L23-25-1" node1="4" node2="28"/>
-                <nad:edge svgId="61" equipmentId="L23-32-1" node1="4" node2="12"/>
-                <nad:edge svgId="62" equipmentId="L25-27-1" node1="28" node2="6"/>
-                <nad:edge svgId="63" equipmentId="L27-28-1" node1="6" node2="32"/>
-                <nad:edge svgId="64" equipmentId="L27-32-1" node1="6" node2="12"/>
-                <nad:edge svgId="65" equipmentId="L27-115-1" node1="6" node2="20"/>
-                <nad:edge svgId="66" equipmentId="L8-30-1" node1="52" node2="8"/>
-                <nad:edge svgId="67" equipmentId="L26-30-1" node1="30" node2="8"/>
-                <nad:edge svgId="68" equipmentId="L30-38-1" node1="8" node2="16"/>
-                <nad:edge svgId="69" equipmentId="T30-17-1" node1="8" node2="22"/>
-                <nad:edge svgId="70" equipmentId="L17-31-1" node1="22" node2="10"/>
-                <nad:edge svgId="71" equipmentId="L29-31-1" node1="34" node2="10"/>
-                <nad:edge svgId="72" equipmentId="L31-32-1" node1="10" node2="12"/>
-                <nad:edge svgId="73" equipmentId="L35-37-1" node1="40" node2="14"/>
-                <nad:edge svgId="74" equipmentId="L33-37-1" node1="36" node2="14"/>
-                <nad:edge svgId="75" equipmentId="L34-37-1" node1="38" node2="14"/>
-                <nad:edge svgId="76" equipmentId="L37-39-1" node1="14" node2="42"/>
-                <nad:edge svgId="77" equipmentId="L37-40-1" node1="14" node2="44"/>
-                <nad:edge svgId="78" equipmentId="T38-37-1" node1="16" node2="14"/>
-                <nad:edge svgId="79" equipmentId="L38-65-1" node1="16" node2="18"/>
-                <nad:edge svgId="80" equipmentId="L64-65-1" node1="46" node2="18"/>
-                <nad:edge svgId="81" equipmentId="L65-68-1" node1="18" node2="50"/>
-                <nad:edge svgId="82" equipmentId="T65-66-1" node1="18" node2="48"/>
+                <nad:edge svgId="54" equipmentId="L17-113-1" node1="22" node2="0" busNode1="23" busNode2="1"/>
+                <nad:edge svgId="55" equipmentId="L32-113-1" node1="12" node2="0" busNode1="13" busNode2="1"/>
+                <nad:edge svgId="56" equipmentId="L32-114-1" node1="12" node2="2" busNode1="13" busNode2="3"/>
+                <nad:edge svgId="57" equipmentId="L114-115-1" node1="2" node2="20" busNode1="3" busNode2="21"/>
+                <nad:edge svgId="58" equipmentId="L22-23-1" node1="24" node2="4" busNode1="25" busNode2="5"/>
+                <nad:edge svgId="59" equipmentId="L23-24-1" node1="4" node2="26" busNode1="5" busNode2="27"/>
+                <nad:edge svgId="60" equipmentId="L23-25-1" node1="4" node2="28" busNode1="5" busNode2="29"/>
+                <nad:edge svgId="61" equipmentId="L23-32-1" node1="4" node2="12" busNode1="5" busNode2="13"/>
+                <nad:edge svgId="62" equipmentId="L25-27-1" node1="28" node2="6" busNode1="29" busNode2="7"/>
+                <nad:edge svgId="63" equipmentId="L27-28-1" node1="6" node2="32" busNode1="7" busNode2="33"/>
+                <nad:edge svgId="64" equipmentId="L27-32-1" node1="6" node2="12" busNode1="7" busNode2="13"/>
+                <nad:edge svgId="65" equipmentId="L27-115-1" node1="6" node2="20" busNode1="7" busNode2="21"/>
+                <nad:edge svgId="66" equipmentId="L8-30-1" node1="52" node2="8" busNode1="53" busNode2="9"/>
+                <nad:edge svgId="67" equipmentId="L26-30-1" node1="30" node2="8" busNode1="31" busNode2="9"/>
+                <nad:edge svgId="68" equipmentId="L30-38-1" node1="8" node2="16" busNode1="9" busNode2="17"/>
+                <nad:edge svgId="69" equipmentId="T30-17-1" node1="8" node2="22" busNode1="9" busNode2="23"/>
+                <nad:edge svgId="70" equipmentId="L17-31-1" node1="22" node2="10" busNode1="23" busNode2="11"/>
+                <nad:edge svgId="71" equipmentId="L29-31-1" node1="34" node2="10" busNode1="35" busNode2="11"/>
+                <nad:edge svgId="72" equipmentId="L31-32-1" node1="10" node2="12" busNode1="11" busNode2="13"/>
+                <nad:edge svgId="73" equipmentId="L35-37-1" node1="40" node2="14" busNode1="41" busNode2="15"/>
+                <nad:edge svgId="74" equipmentId="L33-37-1" node1="36" node2="14" busNode1="37" busNode2="15"/>
+                <nad:edge svgId="75" equipmentId="L34-37-1" node1="38" node2="14" busNode1="39" busNode2="15"/>
+                <nad:edge svgId="76" equipmentId="L37-39-1" node1="14" node2="42" busNode1="15" busNode2="43"/>
+                <nad:edge svgId="77" equipmentId="L37-40-1" node1="14" node2="44" busNode1="15" busNode2="45"/>
+                <nad:edge svgId="78" equipmentId="T38-37-1" node1="16" node2="14" busNode1="17" busNode2="15"/>
+                <nad:edge svgId="79" equipmentId="L38-65-1" node1="16" node2="18" busNode1="17" busNode2="19"/>
+                <nad:edge svgId="80" equipmentId="L64-65-1" node1="46" node2="18" busNode1="47" busNode2="19"/>
+                <nad:edge svgId="81" equipmentId="L65-68-1" node1="18" node2="50" busNode1="19" busNode2="51"/>
+                <nad:edge svgId="82" equipmentId="T65-66-1" node1="18" node2="48" busNode1="19" busNode2="49"/>
             </nad:edges>
         </nad:nad>
     </metadata>

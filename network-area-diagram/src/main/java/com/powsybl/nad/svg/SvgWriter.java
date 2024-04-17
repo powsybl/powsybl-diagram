@@ -894,15 +894,23 @@ public class SvgWriter {
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
 
-        graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
+        graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId(),
+                String.valueOf(busNode.getNbNeighbouringBusNodes()),
+                String.valueOf(busNode.getIndex()),
+                getPrefixedId(busNode.getVlNodeId())
+                ));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
         graph.getBranchEdgeStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getNode2(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId())));
         graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getNode2(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId())));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);

@@ -15,6 +15,7 @@ public class BusNode extends AbstractNode {
 
     private int index;
     private int nbNeighbouringBusNodes;
+    private String vlNodeId;
 
     public BusNode(String diagramId, String id) {
         super(diagramId, id, null);
@@ -34,5 +35,13 @@ public class BusNode extends AbstractNode {
 
     public int getNbNeighbouringBusNodes() {
         return nbNeighbouringBusNodes;
+    }
+
+    public String getVlNodeId() {
+        return vlNodeId;
+    }
+
+    public void setVlNodeId(String vlNodeId) {
+        this.vlNodeId = vlNodeId;
     }
 }

@@ -114,8 +114,8 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="VL_11_0"/>
-                <nad:busNode svgId="3" equipmentId="VL_132_0"/>
+                <nad:busNode svgId="1" equipmentId="VL_11_0" nbNeighbours="0" index="0" vlNode="0"/>
+                <nad:busNode svgId="3" equipmentId="VL_132_0" nbNeighbours="0" index="0" vlNode="2"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="VL_11" x="75.04" y="-513.76"/>
@@ -124,9 +124,9 @@
                 <nad:node svgId="5" equipmentId="3WT" x="-22.79" y="-128.62"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="6" equipmentId="3WT" node1="0" node2="5"/>
-                <nad:edge svgId="7" equipmentId="3WT" node1="2" node2="5"/>
-                <nad:edge svgId="8" equipmentId="3WT" node1="4" node2="5"/>
+                <nad:edge svgId="6" equipmentId="3WT" node1="0" node2="5" busNode1="1" busNode2="5"/>
+                <nad:edge svgId="7" equipmentId="3WT" node1="2" node2="5" busNode1="3" busNode2="5"/>
+                <nad:edge svgId="8" equipmentId="3WT" node1="4" node2="5" busNode1="" busNode2="5"/>
             </nad:edges>
         </nad:nad>
     </metadata>

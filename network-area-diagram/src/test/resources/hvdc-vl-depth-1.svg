@@ -49,15 +49,15 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="VL1_0"/>
-                <nad:busNode svgId="3" equipmentId="VL2_0"/>
+                <nad:busNode svgId="1" equipmentId="VL1_0" nbNeighbours="0" index="0" vlNode="0"/>
+                <nad:busNode svgId="3" equipmentId="VL2_0" nbNeighbours="0" index="0" vlNode="2"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="VL1" x="58.02" y="-185.43"/>
                 <nad:node svgId="2" equipmentId="VL2" x="-192.84" y="77.98"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="4" equipmentId="L" node1="0" node2="2"/>
+                <nad:edge svgId="4" equipmentId="L" node1="0" node2="2" busNode1="1" busNode2="3"/>
             </nad:edges>
         </nad:nad>
     </metadata>

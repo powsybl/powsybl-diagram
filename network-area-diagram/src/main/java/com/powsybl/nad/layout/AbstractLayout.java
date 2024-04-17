@@ -70,6 +70,7 @@ public abstract class AbstractLayout implements Layout {
                 BusNode busNode = sortedNodes.get(i);
                 busNode.setIndex(i);
                 busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
+                busNode.setVlNodeId(n.getDiagramId());
                 busNode.setPosition(n.getPosition());
             }
         });
