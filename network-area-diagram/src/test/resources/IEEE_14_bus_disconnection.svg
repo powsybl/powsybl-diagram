@@ -56,9 +56,9 @@
                 <nad:busNode svgId="9" equipmentId="VL13_0" nbNeighbours="0" index="0" vlNode="8"/>
                 <nad:busNode svgId="12" equipmentId="VL2_0" nbNeighbours="0" index="0" vlNode="11"/>
                 <nad:busNode svgId="14" equipmentId="VL3_0" nbNeighbours="0" index="0" vlNode="13"/>
-                <nad:busNode svgId="16" equipmentId="VL4_0" nbNeighbours="2" index="2" vlNode="15"/>
                 <nad:busNode svgId="17" equipmentId="VL4_1" nbNeighbours="2" index="0" vlNode="15"/>
                 <nad:busNode svgId="18" equipmentId="VL4_2" nbNeighbours="2" index="1" vlNode="15"/>
+                <nad:busNode svgId="16" equipmentId="VL4_0" nbNeighbours="2" index="2" vlNode="15"/>
                 <nad:busNode svgId="20" equipmentId="VL5_0" nbNeighbours="1" index="0" vlNode="19"/>
                 <nad:busNode svgId="21" equipmentId="VL5_1" nbNeighbours="1" index="1" vlNode="19"/>
                 <nad:busNode svgId="23" equipmentId="VL8_0" nbNeighbours="0" index="0" vlNode="22"/>
