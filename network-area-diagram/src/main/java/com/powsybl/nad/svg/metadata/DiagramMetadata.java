@@ -92,15 +92,15 @@ public class DiagramMetadata {
         }
     }
 
-    public void addBusNode(String svgId, String equipmentId) {
-        busNodesMetadata.add(new BusNodeMetadata(svgId, equipmentId));
+    public void addBusNode(String svgId, String equipmentId, String nbNeighbours, String index, String vlNodeId) {
+        busNodesMetadata.add(new BusNodeMetadata(svgId, equipmentId, nbNeighbours, index, vlNodeId));
     }
 
     public void addNode(String svgId, String equipmentId, String positionX, String positionY) {
         nodesMetadata.add(new NodeMetadata(svgId, equipmentId, positionX, positionY));
     }
 
-    public void addEdge(String svgId, String equipmentId, String node1SvgId, String node2SvgId) {
-        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1SvgId, node2SvgId));
+    public void addEdge(String svgId, String equipmentId, String node1SvgId, String node2SvgId, String busNode1SvgId, String busNode2SvgId) {
+        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1SvgId, node2SvgId, busNode1SvgId, busNode2SvgId));
     }
 }
