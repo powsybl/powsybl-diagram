@@ -44,8 +44,7 @@ class LayoutParametersTest {
                 .setCgmesScaleFactor(2)
                 .setCgmesDiagramName("diag")
                 .setCgmesUseNames(true)
-                .setZoneLayoutSnakeLinePadding(120)
-                .setZoneLayoutPathFinder(LayoutParameters.PathFinderType.DIJKSTRA);
+                .setZoneLayoutSnakeLinePadding(120);
 
         layoutParameters.setComponentsSize(null);
 
@@ -72,7 +71,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
         assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
         assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
-        assertEquals(layoutParameters.getZoneLayoutPathFinder(), layoutParameters2.getZoneLayoutPathFinder());
     }
 
     @Test
