@@ -122,11 +122,13 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
+            if (!svgParameters.isBoundaryEdgeDisplayed() && (!edge.isVisible(BranchEdge.Side.ONE) || !edge.isVisible(BranchEdge.Side.TWO))) {
+                continue;
+            }
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, edge);
             writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
-
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
 

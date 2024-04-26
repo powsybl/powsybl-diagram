@@ -40,6 +40,7 @@ public class SvgParameters {
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
     private boolean edgeNameDisplayed = false;
+    private boolean boundaryEdgeDisplayed = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
@@ -94,6 +95,7 @@ public class SvgParameters {
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.edgeNameDisplayed = other.edgeNameDisplayed;
+        this.boundaryEdgeDisplayed = other.boundaryEdgeDisplayed;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
@@ -328,6 +330,15 @@ public class SvgParameters {
 
     public SvgParameters setEdgeNameDisplayed(boolean edgeNameDisplayed) {
         this.edgeNameDisplayed = edgeNameDisplayed;
+        return this;
+    }
+
+    public boolean isBoundaryEdgeDisplayed() {
+        return boundaryEdgeDisplayed;
+    }
+
+    public SvgParameters setBoundaryEdgeDisplayed(boolean boundaryEdgeDisplayed) {
+        this.boundaryEdgeDisplayed = boundaryEdgeDisplayed;
         return this;
     }
 
