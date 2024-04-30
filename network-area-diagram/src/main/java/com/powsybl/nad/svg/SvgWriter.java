@@ -899,20 +899,21 @@ public class SvgWriter {
                 busNode.getEquipmentId(),
                 String.valueOf(busNode.getNbNeighbouringBusNodes()),
                 String.valueOf(busNode.getIndex()),
-                getPrefixedId(vlNode.getDiagramId())
-        )));
+                getPrefixedId(vlNode.getDiagramId()))));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
         graph.getBranchEdgeStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
+                edge.getType()));
         graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
+                "ThreeWtEdge"));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
