@@ -79,6 +79,7 @@ public class ForceLayout<V, E> {
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
+    private final Map<V, Point> fixedPoints = new LinkedHashMap<>();
     private final Set<Spring> springs = new LinkedHashSet<>();
 
     private boolean hasBeenExecuted = false;
@@ -160,18 +161,26 @@ public class ForceLayout<V, E> {
         setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
-            Point point = new Point(
-                    center.getX() + scale * (random.nextDouble() - 0.5),
-                    center.getY() + scale * (random.nextDouble() - 0.5)
-            );
-            points.put(vertex, initialPoints.getOrDefault(vertex, point));
+            if (!fixedNodes.contains(vertex)) {
+                points.put(vertex, new Point(
+                        center.getX() + scale * (random.nextDouble() - 0.5),
+                        center.getY() + scale * (random.nextDouble() - 0.5)
+                ));
+            } else {
+                fixedPoints.put(vertex, initialPoints.get(vertex));
+            }
         }
     }
 
     private void initializeSprings() {
         for (E e : graph.edgeSet()) {
-            Point pointSource = points.get(graph.getEdgeSource(e));
-            Point pointTarget = points.get(graph.getEdgeTarget(e));
+            V edgeSource = graph.getEdgeSource(e);
+            V edgeTarget = graph.getEdgeTarget(e);
+            if (fixedNodes.contains(edgeSource) && fixedNodes.contains(edgeTarget)) {
+                continue;
+            }
+            Point pointSource = points.getOrDefault(edgeSource, initialPoints.get(edgeSource));
+            Point pointTarget = points.getOrDefault(edgeTarget, initialPoints.get(edgeTarget));
             if (pointSource != pointTarget) { // no use in force layout to add loops
                 springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
             }
@@ -221,6 +230,9 @@ public class ForceLayout<V, E> {
                 if (!point.equals(otherPoint)) {
                     point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
                 }
+            }
+            for (Point fixedPoint : fixedPoints.values()) {
+                point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
             }
         }
     }
@@ -282,7 +294,6 @@ public class ForceLayout<V, E> {
     private void attractToCenter() {
         for (Point point : points.values()) {
             Vector direction = point.getPosition().multiply(-1).add(center);
-
             point.applyForce(direction.multiply(repulsion / 200.0));
         }
     }
@@ -302,15 +313,10 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        // TODO do not compute forces or update velocities for fixed nodes
         // We have computed forces and velocities for all nodes, even for the fixed ones
         // We can optimize calculations by ignoring fixed nodes in those calculations
         // Here we only update the position for the nodes that do not have fixed positions
-        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
-            if (fixedNodes.contains(vertexPoint.getKey())) {
-                continue;
-            }
-            Point point = vertexPoint.getValue();
+        for (Point point : points.values()) {
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
@@ -321,10 +327,15 @@ public class ForceLayout<V, E> {
     }
 
     public Vector getStablePosition(V vertex) {
-        if (!hasBeenExecuted) {
-            LOGGER.warn("Force layout has not been executed yet");
+        Point fixedPoint = fixedPoints.get(vertex);
+        if (fixedPoint != null) {
+            return fixedPoint.getPosition();
+        } else {
+            if (!hasBeenExecuted) {
+                LOGGER.warn("Vertex {} position was not fixed and force layout has not been executed yet", vertex);
+            }
+            return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
         }
-        return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
     }
 
     public Set<Spring> getSprings() {
