@@ -913,7 +913,7 @@ public class SvgWriter {
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                "ThreeWtEdge"));
+                edge.getType()));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
