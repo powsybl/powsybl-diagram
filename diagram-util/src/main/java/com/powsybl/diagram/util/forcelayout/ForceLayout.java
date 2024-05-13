@@ -180,8 +180,8 @@ public class ForceLayout<V, E> {
             if (fixedNodes.contains(edgeSource) && fixedNodes.contains(edgeTarget)) {
                 continue;
             }
-            Point pointSource = points.getOrDefault(edgeSource, initialPoints.get(edgeSource));
-            Point pointTarget = points.getOrDefault(edgeTarget, initialPoints.get(edgeTarget));
+            Point pointSource = Objects.requireNonNullElseGet(points.get(edgeSource), () -> initialPoints.get(edgeSource));
+            Point pointTarget = Objects.requireNonNullElseGet(points.get(edgeTarget), () -> initialPoints.get(edgeTarget));
             if (pointSource != pointTarget) { // no use in force layout to add loops
                 springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
             }
