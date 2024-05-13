@@ -161,13 +161,14 @@ public class ForceLayout<V, E> {
         setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
-            if (!fixedNodes.contains(vertex)) {
-                points.put(vertex, new Point(
+            if (fixedNodes.contains(vertex)) {
+                fixedPoints.put(vertex, initialPoints.get(vertex));
+            } else {
+                Point initialPoint = initialPoints.get(vertex);
+                points.put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
                         center.getX() + scale * (random.nextDouble() - 0.5),
                         center.getY() + scale * (random.nextDouble() - 0.5)
-                ));
-            } else {
-                fixedPoints.put(vertex, initialPoints.get(vertex));
+                )));
             }
         }
     }
