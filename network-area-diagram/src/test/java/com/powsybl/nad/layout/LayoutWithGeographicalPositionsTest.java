@@ -10,12 +10,17 @@ package com.powsybl.nad.layout;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.nad.NadParameters;
+import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.StyleProvider;
+import com.powsybl.nad.svg.iidm.CharlyStyleProvider;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +30,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 class LayoutWithGeographicalPositionsTest {
+
+    @Test
+    void charlyBuilder() {
+        Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/pf_with_substation_positions.xiidm"));
+        //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/LILLE_try_geo.xiidm"));
+        NetworkAreaDiagram.draw(network, Path.of("/home/boutiercha/LABO/POWSYBL/webserver/www/data.svg"),
+                new NadParameters()
+                        .setLayoutFactory(new GeographicalLayoutFactory(network))
+                        .setStyleProviderFactory(this::getStyleProvider)
+                        .setLayoutParameters(new LayoutParameters().setMaxSteps(1)), vl-> true);
+    }
+
+    protected StyleProvider getStyleProvider(Network network) {
+        return new CharlyStyleProvider(network);
+    }
 
     @Test
     void layoutWithGeographicalPositionsTest() {
