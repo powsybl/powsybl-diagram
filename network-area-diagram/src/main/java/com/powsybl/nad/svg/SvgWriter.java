@@ -29,6 +29,8 @@ import java.util.stream.Stream;
  */
 public class SvgWriter {
 
+    private static final int COORDINATE_CHUNK = 5000;
+
     private static final String INDENT = "    ";
     public static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
     public static final String XHTML_NAMESPACE_URI = "http://www.w3.org/1999/xhtml";
@@ -109,7 +111,8 @@ public class SvgWriter {
             addSvgRoot(graph, writer);
             addStyle(writer);
             addDefs(graph, writer);
-            //addMetadata(graph, writer);
+            //addMetadata(graph, writer); // TODO CHARLY redo this ?
+            // TODO CHARLY cut for the coordinate map once before these steps ?
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
@@ -556,24 +559,61 @@ public class SvgWriter {
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
-            if (vlNode.getBusNodes().size() == 1) {
-                drawOneBusNode(graph, writer, vlNode);
-            } else {
-                writer.writeStartElement(GROUP_ELEMENT_NAME);
-                writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode)); // TODO CHARLY getXCoordinate(vlNode) et getYCoordinate(vlNode)
-                drawNode(graph, writer, vlNode);
-                writer.writeEndElement();
+
+        HashMap<String, ArrayList<VoltageLevelNode>> coordinateMap = new HashMap<>();
+        // First pass to put the nodes in the coordinate map's correct cell
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
+            String cell = getPositionForCell(vlNode.getPosition());
+            coordinateMap.computeIfAbsent(cell, k -> new ArrayList<>()).add(vlNode);
+        }
+        // Second pass on the coordinate map to draw the nodes of each cells
+        for (Map.Entry<String, ArrayList<VoltageLevelNode>> entry : coordinateMap.entrySet()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, entry.getKey());
+            for (VoltageLevelNode vlNode : entry.getValue()) {
+                if (vlNode.getBusNodes().size() == 1) {
+                    drawOneBusNode(graph, writer, vlNode);
+                } else {
+                    writer.writeStartElement(GROUP_ELEMENT_NAME);
+                    writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
+                    drawNode(graph, writer, vlNode);
+                    writer.writeEndElement();
+                }
             }
+            writer.writeEndElement();
         }
         writer.writeEndElement();
+    }
+
+    private String getPositionForCell(Point position) {
+        if (position == null) {
+            return "no_position";
+        }
+        return "coordinate_"+((int)Math.floor(position.getX() / COORDINATE_CHUNK)) + "_" + ((int)Math.floor(position.getY() / COORDINATE_CHUNK));
     }
 
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
+
+        HashMap<String, ArrayList<Pair<VoltageLevelNode, TextNode>>> coordinateMap = new HashMap<>();
+        // First pass to put the textnodes in the coordinate map's correct cell
         for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
-            writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+            if(nodePair.getSecond() == null) {
+                coordinateMap.computeIfAbsent("no_position", k -> new ArrayList<>()).add(nodePair);
+            } else {
+                String cell = getPositionForCell(nodePair.getSecond().getPosition());
+                coordinateMap.computeIfAbsent(cell, k -> new ArrayList<>()).add(nodePair);
+            }
+        }
+        // Second pass on the coordinate map to draw the text nodes of each cells
+        for (Map.Entry<String, ArrayList<Pair<VoltageLevelNode, TextNode>>> entry : coordinateMap.entrySet()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, entry.getKey());
+            for (Pair<VoltageLevelNode, TextNode> nodePair : entry.getValue()) {
+                writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+            }
+            writer.writeEndElement();
         }
         writer.writeEndElement();
     }
