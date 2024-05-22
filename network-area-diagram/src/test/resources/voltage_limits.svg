@@ -60,9 +60,9 @@
                 <nad:node svgId="7" equipmentId="dl1" x="-49.12" y="317.14"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="5" equipmentId="l1" node1="0" node2="3" busNode1="1" busNode2="4"/>
-                <nad:edge svgId="6" equipmentId="l2" node1="0" node2="3" busNode1="2" busNode2="4"/>
-                <nad:edge svgId="9" equipmentId="dl1" node1="3" node2="7" busNode1="4" busNode2="8"/>
+                <nad:edge svgId="5" equipmentId="l1" node1="0" node2="3" busNode1="1" busNode2="4" type="LineEdge"/>
+                <nad:edge svgId="6" equipmentId="l2" node1="0" node2="3" busNode1="2" busNode2="4" type="LineEdge"/>
+                <nad:edge svgId="9" equipmentId="dl1" node1="3" node2="7" busNode1="4" busNode2="8" type="DanglingLineEdge"/>
             </nad:edges>
         </nad:nad>
     </metadata>

@@ -59,9 +59,9 @@
                 <nad:node svgId="5" equipmentId="3WT" x="-22.79" y="-128.62"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="6" equipmentId="3WT" node1="0" node2="5" busNode1="1" busNode2="5"/>
-                <nad:edge svgId="7" equipmentId="3WT" node1="2" node2="5" busNode1="3" busNode2="5"/>
-                <nad:edge svgId="8" equipmentId="3WT" node1="4" node2="5" busNode1="" busNode2="5"/>
+                <nad:edge svgId="6" equipmentId="3WT" node1="0" node2="5" busNode1="1" busNode2="5" type="ThreeWtEdge"/>
+                <nad:edge svgId="7" equipmentId="3WT" node1="2" node2="5" busNode1="3" busNode2="5" type="ThreeWtEdge"/>
+                <nad:edge svgId="8" equipmentId="3WT" node1="4" node2="5" busNode1="" busNode2="5" type="ThreeWtEdge"/>
             </nad:edges>
         </nad:nad>
     </metadata>
