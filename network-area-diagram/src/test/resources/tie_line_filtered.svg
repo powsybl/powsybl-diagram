@@ -61,10 +61,10 @@
                 <nad:node svgId="6" equipmentId="VLLOAD" x="430.90" y="-174.05"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="8" equipmentId="NGEN_NHV1" node1="0" node2="2" busNode1="1" busNode2="3"/>
-                <nad:edge svgId="9" equipmentId="NHV1_NHV2_1" node1="2" node2="4" busNode1="3" busNode2="5"/>
-                <nad:edge svgId="10" equipmentId="NHV1_NHV2_2" node1="2" node2="4" busNode1="3" busNode2="5"/>
-                <nad:edge svgId="11" equipmentId="NHV2_NLOAD" node1="4" node2="6" busNode1="5" busNode2="7"/>
+                <nad:edge svgId="8" equipmentId="NGEN_NHV1" node1="0" node2="2" busNode1="1" busNode2="3" type="TwoWtEdge"/>
+                <nad:edge svgId="9" equipmentId="NHV1_NHV2_1" node1="2" node2="4" busNode1="3" busNode2="5" type="TieLineEdge"/>
+                <nad:edge svgId="10" equipmentId="NHV1_NHV2_2" node1="2" node2="4" busNode1="3" busNode2="5" type="TieLineEdge"/>
+                <nad:edge svgId="11" equipmentId="NHV2_NLOAD" node1="4" node2="6" busNode1="5" busNode2="7" type="TwoWtEdge"/>
             </nad:edges>
         </nad:nad>
     </metadata>

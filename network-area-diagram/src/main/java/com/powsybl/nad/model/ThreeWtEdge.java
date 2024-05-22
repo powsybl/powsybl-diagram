@@ -19,6 +19,8 @@ public class ThreeWtEdge extends AbstractEdge {
         ONE, TWO, THREE;
     }
 
+    public static final String THREE_WT_EDGE = "ThreeWtEdge";
+
     private Side side;
 
     private List<Point> points;
@@ -26,7 +28,7 @@ public class ThreeWtEdge extends AbstractEdge {
     private final boolean visible;
 
     public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, boolean visible) {
-        super(diagramId, equipmentId, transformerName);
+        super(diagramId, equipmentId, transformerName, THREE_WT_EDGE);
         this.side = side;
         this.visible = visible;
     }
