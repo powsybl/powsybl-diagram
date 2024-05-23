@@ -17,7 +17,7 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.StyleProvider;
-import com.powsybl.nad.svg.iidm.CharlyStyleProvider;
+import com.powsybl.nad.svg.iidm.CustomStyleProvider;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
@@ -32,11 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class LayoutWithGeographicalPositionsTest {
 
     @Test
-    void charlyBuilder() {
+    void generateSvgForPOC() {
         //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/pf_with_substation_positions.xiidm"));
-        Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/Originaux/pf_with_geodata.xiidm"));
-        //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/LILLE_try_geo.xiidm"));
-        NetworkAreaDiagram.draw(network, Path.of("/home/boutiercha/LABO/POWSYBL/webserver/www/data.svg"),
+        //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/Originaux/pf_with_geodata.xiidm"));
+        Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/LILLE_try_geo.xiidm"));
+        NetworkAreaDiagram.draw(network, Path.of("/home/boutiercha/LABO/POWSYBL/nad-optimization/webserver/www/data.svg"),
                 new NadParameters()
                         .setLayoutFactory(new GeographicalLayoutFactory(network))
                         .setStyleProviderFactory(this::getStyleProvider)
@@ -44,7 +44,7 @@ class LayoutWithGeographicalPositionsTest {
     }
 
     protected StyleProvider getStyleProvider(Network network) {
-        return new CharlyStyleProvider(network);
+        return new CustomStyleProvider(network);
     }
 
     @Test

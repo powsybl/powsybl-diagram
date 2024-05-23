@@ -110,9 +110,9 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            addDefs(graph, writer);
-            //addMetadata(graph, writer); // TODO CHARLY redo this ?
-            // TODO CHARLY cut for the coordinate map once before these steps ?
+            //addDefs(graph, writer);
+            //addMetadata(graph, writer);
+            // TODO cut for the coordinate map once before these steps instead of in each step ?
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
@@ -523,7 +523,7 @@ public class SvgWriter {
         return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
-    private void addDefs(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    /*private void addDefs(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
 
         ArrayList<String> nadsVls = new ArrayList<>();
         nadsVls.add("nad-vl0to30");
@@ -542,19 +542,7 @@ public class SvgWriter {
             writer.writeAttribute(CLASS_ATTRIBUTE, nadVl+" nad-busnode");
         }
         writer.writeEndElement();
-
-        /*writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
-            if (vlNode.getBusNodes().size() != 1) {
-                // TODO CHARLY decide what to do here
-                continue;
-            }
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
-            drawNode(graph, writer, vlNode);
-            writer.writeEndElement();
-        }*/
-    }
+    }*/
 
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -571,19 +559,32 @@ public class SvgWriter {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(CLASS_ATTRIBUTE, entry.getKey());
             for (VoltageLevelNode vlNode : entry.getValue()) {
-                if (vlNode.getBusNodes().size() == 1) {
-                    drawOneBusNode(graph, writer, vlNode);
-                } else {
+                //if (vlNode.getBusNodes().size() == 1) {
+                //    drawOneBusNode(graph, writer, vlNode);
+                //} else {
                     writer.writeStartElement(GROUP_ELEMENT_NAME);
                     writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
                     drawNode(graph, writer, vlNode);
                     writer.writeEndElement();
-                }
+                //}
             }
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
+
+    /* ORIGINAL :
+    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
+            drawNode(graph, writer, vlNode);
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }*/
 
     private String getPositionForCell(Point position) {
         if (position == null) {
@@ -617,6 +618,16 @@ public class SvgWriter {
         }
         writer.writeEndElement();
     }
+
+    /* ORIGINAL
+    private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
+        for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
+            writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+        }
+        writer.writeEndElement();
+    }*/
 
     private String getTranslateString(Node node) {
         return getTranslateString(node.getPosition());
@@ -735,13 +746,13 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawOneBusNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+    /*private void drawOneBusNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(USE_ELEMENT_NAME);
         writeId(writer, vlNode);
-        writer.writeAttribute(HREF_ATTRIBUTE, "#"+styleProvider.getNodeStyleClasses(vlNode).get(0)); // TODO CHARLY pas terrible de se baser sur le style
+        writer.writeAttribute(HREF_ATTRIBUTE, "#"+styleProvider.getNodeStyleClasses(vlNode).get(0));
         writer.writeAttribute(X_ATTRIBUTE, getXCoordinate(vlNode));
         writer.writeAttribute(Y_ATTRIBUTE, getYCoordinate(vlNode));
-    }
+    }*/
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writeId(writer, vlNode);
