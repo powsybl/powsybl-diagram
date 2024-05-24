@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 public class SvgWriter {
 
     private static final int COORDINATE_CHUNK = 5000;
+    private static final boolean USE_GEOGRAPHICAL_GRID = false;
 
     private static final String INDENT = "    ";
     public static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
@@ -38,7 +39,6 @@ public class SvgWriter {
     private static final String STYLE_ELEMENT_NAME = "style";
     private static final String METADATA_ELEMENT_NAME = "metadata";
     private static final String GROUP_ELEMENT_NAME = "g";
-    private static final String USE_ELEMENT_NAME = "use";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
     private static final String PATH_ELEMENT_NAME = "path";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
@@ -49,9 +49,7 @@ public class SvgWriter {
     private static final String TABLE_ELEMENT_NAME = "table";
     private static final String TABLE_ROW_ELEMENT_NAME = "tr";
     private static final String TABLE_DATA_ELEMENT_NAME = "td";
-    private static final String DEFINITIONS_ELEMENT_NAME = "defs";
     private static final String ID_ATTRIBUTE = "id";
-    private static final String HREF_ATTRIBUTE = "href";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
     private static final String VIEW_BOX_ATTRIBUTE = "viewBox";
@@ -110,15 +108,14 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            //addDefs(graph, writer);
             //addMetadata(graph, writer);
             // TODO cut for the coordinate map once before these steps instead of in each step ?
-            drawVoltageLevelNodes(graph, writer);
+            drawVoltageLevelNodes(graph, writer, USE_GEOGRAPHICAL_GRID);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
-            drawTextNodes(graph, writer);
+            drawTextNodes(graph, writer, USE_GEOGRAPHICAL_GRID);
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
@@ -523,28 +520,15 @@ public class SvgWriter {
         return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
-    /*private void addDefs(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-
-        ArrayList<String> nadsVls = new ArrayList<>();
-        nadsVls.add("nad-vl0to30");
-        nadsVls.add("nad-vl120to180");
-        nadsVls.add("nad-vl180to300");
-        nadsVls.add("nad-vl300to500");
-        nadsVls.add("nad-vl30to50");
-        nadsVls.add("nad-vl50to70");
-        nadsVls.add("nad-vl70to120");
-
-        writer.writeStartElement(DEFINITIONS_ELEMENT_NAME);
-        for (String nadVl : nadsVls) {
-            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, "27.50");
-            writer.writeAttribute(ID_ATTRIBUTE, nadVl);
-            writer.writeAttribute(CLASS_ATTRIBUTE, nadVl+" nad-busnode");
+    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer, boolean useGeographicalGrid) throws XMLStreamException {
+        if(useGeographicalGrid) {
+            drawVoltageLevelNodesGeographicalGrid(graph, writer);
+        } else {
+            drawVoltageLevelNodes(graph, writer);
         }
-        writer.writeEndElement();
-    }*/
+    }
 
-    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawVoltageLevelNodesGeographicalGrid(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
 
@@ -559,21 +543,16 @@ public class SvgWriter {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(CLASS_ATTRIBUTE, entry.getKey());
             for (VoltageLevelNode vlNode : entry.getValue()) {
-                //if (vlNode.getBusNodes().size() == 1) {
-                //    drawOneBusNode(graph, writer, vlNode);
-                //} else {
-                    writer.writeStartElement(GROUP_ELEMENT_NAME);
-                    writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
-                    drawNode(graph, writer, vlNode);
-                    writer.writeEndElement();
-                //}
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
+                drawNode(graph, writer, vlNode);
+                writer.writeEndElement();
             }
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    /* ORIGINAL :
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
@@ -584,7 +563,7 @@ public class SvgWriter {
             writer.writeEndElement();
         }
         writer.writeEndElement();
-    }*/
+    }
 
     private String getPositionForCell(Point position) {
         if (position == null) {
@@ -593,7 +572,15 @@ public class SvgWriter {
         return "coordinate_"+((int)Math.floor(position.getX() / COORDINATE_CHUNK)) + "_" + ((int)Math.floor(position.getY() / COORDINATE_CHUNK));
     }
 
-    private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawTextNodes(Graph graph, XMLStreamWriter writer, boolean useGeographicalGrid) throws XMLStreamException {
+        if(useGeographicalGrid) {
+            drawTextNodesGeographicalGrid(graph, writer);
+        } else {
+            drawTextNodes(graph, writer);
+        }
+    }
+
+    private void drawTextNodesGeographicalGrid(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
 
@@ -619,7 +606,6 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    /* ORIGINAL
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
@@ -627,7 +613,7 @@ public class SvgWriter {
             writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
         }
         writer.writeEndElement();
-    }*/
+    }
 
     private String getTranslateString(Node node) {
         return getTranslateString(node.getPosition());
@@ -745,14 +731,6 @@ public class SvgWriter {
         }
         writer.writeEndElement();
     }
-
-    /*private void drawOneBusNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeEmptyElement(USE_ELEMENT_NAME);
-        writeId(writer, vlNode);
-        writer.writeAttribute(HREF_ATTRIBUTE, "#"+styleProvider.getNodeStyleClasses(vlNode).get(0));
-        writer.writeAttribute(X_ATTRIBUTE, getXCoordinate(vlNode));
-        writer.writeAttribute(Y_ATTRIBUTE, getYCoordinate(vlNode));
-    }*/
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writeId(writer, vlNode);

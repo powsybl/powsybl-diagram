@@ -33,9 +33,9 @@ class LayoutWithGeographicalPositionsTest {
 
     @Test
     void generateSvgForPOC() {
-        //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/pf_with_substation_positions.xiidm"));
+        Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/pf_with_substation_positions.xiidm"));
         //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/Originaux/pf_with_geodata.xiidm"));
-        Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/LILLE_try_geo.xiidm"));
+        //Network network = Network.read(Path.of("/home/boutiercha/LABO/POWSYBL/LILLE_try_geo.xiidm"));
         NetworkAreaDiagram.draw(network, Path.of("/home/boutiercha/LABO/POWSYBL/nad-optimization/webserver/www/data.svg"),
                 new NadParameters()
                         .setLayoutFactory(new GeographicalLayoutFactory(network))
