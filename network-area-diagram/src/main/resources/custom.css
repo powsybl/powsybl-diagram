@@ -4,34 +4,11 @@
     -ms-user-select: none;
     user-select: none;
 }
-.nad-text-edges {
-    display: none;
-}
-.nad-edge-infos {
-    display: none;
-}
-.nad-vl0to30 {
-    display: none;
-}
-.nad-vl30to50 {
-    display: none;
-}
-.nad-vl50to70 {
-    display: none;
-}
-.nad-vl70to120 {
-    display: none;
-}
-.nad-vl120to180 {
-    display: none;
-}
-.nad-vl180to300 {
-    display: none;
-}
-.nad-vl0to30 {fill: #AFB42B}
-.nad-vl30to50 {fill: #EF9A9A}
-.nad-vl50to70 {fill: #9C27B0}
-.nad-vl70to120 {fill: #E65100}
-.nad-vl120to180 {fill: #00ACC1}
-.nad-vl180to300 {fill: #2E7D32}
-.nad-vl300to500 {fill: #D32F2F}
+.nad-text-edges {display: none;}
+.nad-edge-infos {display: none;}
+.nad-vl0to30 {display: none;}
+.nad-vl30to50 {display: none;}
+.nad-vl50to70 {display: none;}
+.nad-vl70to120 {display: none;}
+.nad-vl120to180 {display: none;}
+.nad-vl180to300 {display: none;}

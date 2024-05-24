@@ -31,6 +31,7 @@ public class SvgWriter {
 
     private static final int COORDINATE_CHUNK = 5000;
     private static final boolean USE_GEOGRAPHICAL_GRID = false;
+    private static final boolean NO_FOREIGN_OBJECTS = false;
 
     private static final String INDENT = "    ";
     public static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
@@ -110,12 +111,12 @@ public class SvgWriter {
             addStyle(writer);
             //addMetadata(graph, writer);
             // TODO cut for the coordinate map once before these steps instead of in each step ?
-            drawVoltageLevelNodes(graph, writer, USE_GEOGRAPHICAL_GRID);
+            drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
-            drawTextNodes(graph, writer, USE_GEOGRAPHICAL_GRID);
+            drawTextNodes(graph, writer);
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
@@ -520,11 +521,11 @@ public class SvgWriter {
         return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
-    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer, boolean useGeographicalGrid) throws XMLStreamException {
-        if(useGeographicalGrid) {
+    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if(USE_GEOGRAPHICAL_GRID) {
             drawVoltageLevelNodesGeographicalGrid(graph, writer);
         } else {
-            drawVoltageLevelNodes(graph, writer);
+            drawVoltageLevelNodesOriginal(graph, writer);
         }
     }
 
@@ -553,7 +554,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawVoltageLevelNodesOriginal(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
@@ -572,11 +573,11 @@ public class SvgWriter {
         return "coordinate_"+((int)Math.floor(position.getX() / COORDINATE_CHUNK)) + "_" + ((int)Math.floor(position.getY() / COORDINATE_CHUNK));
     }
 
-    private void drawTextNodes(Graph graph, XMLStreamWriter writer, boolean useGeographicalGrid) throws XMLStreamException {
-        if(useGeographicalGrid) {
+    private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if(USE_GEOGRAPHICAL_GRID) {
             drawTextNodesGeographicalGrid(graph, writer);
         } else {
-            drawTextNodes(graph, writer);
+            drawTextNodesOriginal(graph, writer);
         }
     }
 
@@ -606,7 +607,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawTextNodesOriginal(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
         for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
@@ -657,6 +658,83 @@ public class SvgWriter {
     }
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+        if (NO_FOREIGN_OBJECTS) {
+            writeDetailedTextNodeNoForeign(writer, textNode, vlNode, content);
+        } else {
+            writeDetailedTextNodeOriginal(writer, textNode, vlNode, content);
+        }
+    }
+
+    private void writeDetailedTextNodeNoForeign(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
+
+        double y = textNode.getY() - svgParameters.getDetailedTextNodeYShift();
+        double x = textNode.getX();
+        int lineHeight = 30;
+        int offsetLegend = 10;
+        int offsetLegendText = 30;
+        int cariageReturns = 0;
+
+        // WRITE THE BACKGROUND SEMI TRANSPARENT RECTANGLE
+        writer.writeStartElement("rect");
+        writeId(writer, textNode);
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(y));
+        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(x));
+        writer.writeAttribute("ry", "10"); // border radius
+        writer.writeAttribute("rx", "10");
+        writer.writeAttribute("fill", "#C0A54620");
+        writer.writeAttribute(HEIGHT_ATTRIBUTE, "100"); // TODO compute the width and height using the text displayed in the box
+        writer.writeAttribute(WIDTH_ATTRIBUTE, "200"); // TODO compute the width and height using the text displayed in the box
+        writer.writeEndElement();
+
+        // WRITE THE LINE TITLE
+        for (String line : content) {
+            writer.writeStartElement(TEXT_ELEMENT_NAME);
+            writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(y + cariageReturns * lineHeight));
+            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(x));
+            writer.writeCharacters(line);
+            writer.writeEndElement();
+            cariageReturns++;
+        }
+
+        if (svgParameters.isBusLegend()) {
+            for (BusNode busNode : vlNode.getBusNodes()) {
+                // LEGEND : RECTANGLE
+                writer.writeStartElement("rect");
+                writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(y + cariageReturns * lineHeight));
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(x + offsetLegend));
+                writer.writeAttribute("fill", "red");
+                writer.writeAttribute(HEIGHT_ATTRIBUTE, "10");
+                writer.writeAttribute(WIDTH_ATTRIBUTE, "10");
+                writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+                writer.writeEndElement();
+
+                // LEGEND : VALUE ASSOCIATED
+                writer.writeStartElement(TEXT_ELEMENT_NAME);
+                writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(y + cariageReturns * lineHeight));
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(x + offsetLegendText));
+                writer.writeCharacters(labelProvider.getBusDescription(busNode));
+                writer.writeEndElement();
+                cariageReturns++;
+            }
+        }
+
+        if (svgParameters.isVoltageLevelDetails()) {
+            for (String line : labelProvider.getVoltageLevelDetails(vlNode)) {
+                writer.writeStartElement(TEXT_ELEMENT_NAME);
+                writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(y + cariageReturns * lineHeight));
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(x + offsetLegend));
+                writer.writeCharacters(line);
+                writer.writeEndElement();
+                cariageReturns++;
+            }
+        }
+        writer.writeEndElement();
+    }
+
+    private void writeDetailedTextNodeOriginal(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
