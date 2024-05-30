@@ -77,27 +77,28 @@
                 <nad:node svgId="22" equipmentId="VL8" x="-520.85" y="-451.48"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="24" equipmentId="L1-2-1" node1="0" node2="11" busNode1="1" busNode2="12"/>
-                <nad:edge svgId="25" equipmentId="L1-5-1" node1="0" node2="19" busNode1="1" busNode2="20"/>
-                <nad:edge svgId="26" equipmentId="L9-10-1" node1="15" node2="2" busNode1="18" busNode2="3"/>
-                <nad:edge svgId="27" equipmentId="L10-11-1" node1="2" node2="4" busNode1="3" busNode2="5"/>
-                <nad:edge svgId="28" equipmentId="L6-11-1" node1="19" node2="4" busNode1="21" busNode2="5"/>
-                <nad:edge svgId="29" equipmentId="L6-12-1" node1="19" node2="6" busNode1="21" busNode2="7"/>
-                <nad:edge svgId="30" equipmentId="L12-13-1" node1="6" node2="8" busNode1="7" busNode2="9"/>
-                <nad:edge svgId="31" equipmentId="L6-13-1" node1="19" node2="8" busNode1="21" busNode2="9"/>
-                <nad:edge svgId="32" equipmentId="L13-14-1" node1="8" node2="10" busNode1="9" busNode2=""/>
-                <nad:edge svgId="33" equipmentId="L9-14-1" node1="15" node2="10" busNode1="18" busNode2=""/>
-                <nad:edge svgId="34" equipmentId="L2-3-1" node1="11" node2="13" busNode1="12" busNode2="14"/>
-                <nad:edge svgId="35" equipmentId="L2-4-1" node1="11" node2="15" busNode1="12" busNode2="16"/>
-                <nad:edge svgId="36" equipmentId="L2-5-1" node1="11" node2="19" busNode1="12" busNode2="20"/>
-                <nad:edge svgId="37" equipmentId="L3-4-1" node1="13" node2="15" busNode1="14" busNode2="16"/>
-                <nad:edge svgId="38" equipmentId="L4-5-1" node1="15" node2="19" busNode1="16" busNode2="20"/>
-                <nad:edge svgId="39" equipmentId="L7-8-1" node1="15" node2="22" busNode1="17" busNode2="23"/>
-                <nad:edge svgId="40" equipmentId="L7-9-1" node1="15" node2="15" busNode1="17" busNode2="18"/>
-                <nad:edge svgId="41" equipmentId="T4-7-1" node1="15" node2="15" busNode1="16" busNode2="17"/>
-                <nad:edge svgId="42" equipmentId="T4-9-1" node1="15" node2="15" busNode1="16" busNode2="18"/>
-                <nad:edge svgId="43" equipmentId="T5-6-1" node1="19" node2="19" busNode1="20" busNode2="21"/>
+                <nad:edge svgId="24" equipmentId="L1-2-1" node1="0" node2="11" busNode1="1" busNode2="12" type="LineEdge"/>
+                <nad:edge svgId="25" equipmentId="L1-5-1" node1="0" node2="19" busNode1="1" busNode2="20" type="LineEdge"/>
+                <nad:edge svgId="26" equipmentId="L9-10-1" node1="15" node2="2" busNode1="18" busNode2="3" type="LineEdge"/>
+                <nad:edge svgId="27" equipmentId="L10-11-1" node1="2" node2="4" busNode1="3" busNode2="5" type="LineEdge"/>
+                <nad:edge svgId="28" equipmentId="L6-11-1" node1="19" node2="4" busNode1="21" busNode2="5" type="LineEdge"/>
+                <nad:edge svgId="29" equipmentId="L6-12-1" node1="19" node2="6" busNode1="21" busNode2="7" type="LineEdge"/>
+                <nad:edge svgId="30" equipmentId="L12-13-1" node1="6" node2="8" busNode1="7" busNode2="9" type="LineEdge"/>
+                <nad:edge svgId="31" equipmentId="L6-13-1" node1="19" node2="8" busNode1="21" busNode2="9" type="LineEdge"/>
+                <nad:edge svgId="32" equipmentId="L13-14-1" node1="8" node2="10" busNode1="9" busNode2="" type="LineEdge"/>
+                <nad:edge svgId="33" equipmentId="L9-14-1" node1="15" node2="10" busNode1="18" busNode2="" type="LineEdge"/>
+                <nad:edge svgId="34" equipmentId="L2-3-1" node1="11" node2="13" busNode1="12" busNode2="14" type="LineEdge"/>
+                <nad:edge svgId="35" equipmentId="L2-4-1" node1="11" node2="15" busNode1="12" busNode2="16" type="LineEdge"/>
+                <nad:edge svgId="36" equipmentId="L2-5-1" node1="11" node2="19" busNode1="12" busNode2="20" type="LineEdge"/>
+                <nad:edge svgId="37" equipmentId="L3-4-1" node1="13" node2="15" busNode1="14" busNode2="16" type="LineEdge"/>
+                <nad:edge svgId="38" equipmentId="L4-5-1" node1="15" node2="19" busNode1="16" busNode2="20" type="LineEdge"/>
+                <nad:edge svgId="39" equipmentId="L7-8-1" node1="15" node2="22" busNode1="17" busNode2="23" type="LineEdge"/>
+                <nad:edge svgId="40" equipmentId="L7-9-1" node1="15" node2="15" busNode1="17" busNode2="18" type="LineEdge"/>
+                <nad:edge svgId="41" equipmentId="T4-7-1" node1="15" node2="15" busNode1="16" busNode2="17" type="TwoWtEdge"/>
+                <nad:edge svgId="42" equipmentId="T4-9-1" node1="15" node2="15" busNode1="16" busNode2="18" type="TwoWtEdge"/>
+                <nad:edge svgId="43" equipmentId="T5-6-1" node1="19" node2="19" busNode1="20" busNode2="21" type="TwoWtEdge"/>
             </nad:edges>
+            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="2.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
