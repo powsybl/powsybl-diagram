@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  */
 public class SvgWriter {
 
-    private static final int COORDINATE_CHUNK = 5000;
+    public static final int COORDINATE_CHUNK = 5000;
     private static final boolean USE_GEOGRAPHICAL_GRID = false;
     private static final boolean NO_FOREIGN_OBJECTS = false;
 
@@ -124,6 +124,57 @@ public class SvgWriter {
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if(USE_GEOGRAPHICAL_GRID) {
+            drawBranchEdgesGeographicalGrid(graph, writer);
+        } else {
+            drawBranchEdgesOriginal(graph, writer);
+        }
+    }
+
+    private void drawBranchEdgesGeographicalGrid(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
+
+        HashMap<String, ArrayList<BranchEdge>> coordinateMap = new HashMap<>();
+        // First pass to put the edges in the coordinate map's correct cell
+        for (BranchEdge edge : graph.getBranchEdges()) {
+            Set<String> cells = new HashSet<>();
+            for (Point point: edge.getPoints1()) {
+                cells.add(getPositionForCell(point));
+            }
+            for (Point point: edge.getPoints2()) {
+                cells.add(getPositionForCell(point));
+            }
+            if (cells.size() == 1) {
+                String onlyCell = cells.stream().findFirst().orElse(null);
+                coordinateMap.computeIfAbsent(onlyCell, k -> new ArrayList<>()).add(edge);
+            } else {
+                coordinateMap.computeIfAbsent("multipleCells", k -> new ArrayList<>()).add(edge);
+            }
+        }
+        // Second pass on the coordinate map to draw the edges of each cells
+        for (Map.Entry<String, ArrayList<BranchEdge>> entry : coordinateMap.entrySet()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, entry.getKey());
+            for (BranchEdge edge : entry.getValue()) {
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                writeId(writer, edge);
+                writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
+                insertName(writer, edge::getName);
+
+                drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
+                drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+
+                drawEdgeCenter(writer, edge);
+
+                writer.writeEndElement();
+            }
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void drawBranchEdgesOriginal(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
@@ -1000,6 +1051,9 @@ public class SvgWriter {
             double[] diagramDimension = getDiagramDimensions(graph);
             writer.writeAttribute(WIDTH_ATTRIBUTE, getFormattedValue(diagramDimension[0]));
             writer.writeAttribute(HEIGHT_ATTRIBUTE, getFormattedValue(diagramDimension[1]));
+        }
+        if (USE_GEOGRAPHICAL_GRID) {
+            writer.writeAttribute("gridSize", ""+COORDINATE_CHUNK);
         }
         writer.writeAttribute(VIEW_BOX_ATTRIBUTE, getViewBoxValue(graph));
         writer.writeDefaultNamespace(SVG_NAMESPACE_URI);
