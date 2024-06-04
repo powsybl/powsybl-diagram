@@ -14,10 +14,12 @@ import java.util.List;
  */
 public class TextEdge extends AbstractEdge {
 
+    public static final String TEXT_EDGE = "TextEdge";
+
     private Point[] points;
 
     public TextEdge(String diagramId) {
-        super(diagramId, null, null);
+        super(diagramId, null, null, TEXT_EDGE);
     }
 
     public void setPoints(Point... points) {

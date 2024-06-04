@@ -140,25 +140,26 @@
                 <nad:node svgId="20" equipmentId="NNL3AA1" x="463.53" y="-419.36"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="22" equipmentId="BBE1AA1  BBE2AA1  1" node1="0" node2="3" busNode1="1" busNode2="4"/>
-                <nad:edge svgId="23" equipmentId="BBE1AA1  BBE3AA1  1" node1="0" node2="0" busNode1="1" busNode2="2"/>
-                <nad:edge svgId="24" equipmentId="BBE2AA1  BBE3AA1  1" node1="3" node2="0" busNode1="4" busNode2="2"/>
-                <nad:edge svgId="25" equipmentId="NNL2AA1  BBE3AA1  1" node1="18" node2="0" busNode1="19" busNode2="2"/>
-                <nad:edge svgId="26" equipmentId="BBE1AA1  BBE3AA1  2" node1="0" node2="0" busNode1="2" busNode2="1"/>
-                <nad:edge svgId="27" equipmentId="BBE2AA1  FFR3AA1  1" node1="3" node2="14" busNode1="4" busNode2="15"/>
-                <nad:edge svgId="28" equipmentId="DDE1AA1  DDE2AA1  1" node1="5" node2="7" busNode1="6" busNode2="8"/>
-                <nad:edge svgId="29" equipmentId="DDE1AA1  DDE3AA1  1" node1="5" node2="9" busNode1="6" busNode2="10"/>
-                <nad:edge svgId="30" equipmentId="DDE2AA1  DDE3AA1  1" node1="7" node2="9" busNode1="8" busNode2="10"/>
-                <nad:edge svgId="31" equipmentId="DDE2AA1  NNL3AA1  1" node1="7" node2="20" busNode1="8" busNode2="21"/>
-                <nad:edge svgId="32" equipmentId="FFR2AA1  DDE3AA1  1" node1="11" node2="9" busNode1="13" busNode2="10"/>
-                <nad:edge svgId="33" equipmentId="FFR1AA1  FFR2AA1  1" node1="11" node2="11" busNode1="12" busNode2="13"/>
-                <nad:edge svgId="34" equipmentId="FFR1AA1  FFR3AA1  1" node1="11" node2="14" busNode1="12" busNode2="15"/>
-                <nad:edge svgId="35" equipmentId="FFR2AA1  FFR3AA1  1" node1="11" node2="14" busNode1="13" busNode2="15"/>
-                <nad:edge svgId="36" equipmentId="FFR1AA1  FFR2AA1  2" node1="11" node2="11" busNode1="13" busNode2="12"/>
-                <nad:edge svgId="37" equipmentId="NNL1AA1  NNL2AA1  1" node1="16" node2="18" busNode1="17" busNode2="19"/>
-                <nad:edge svgId="38" equipmentId="NNL1AA1  NNL3AA1  1" node1="16" node2="20" busNode1="17" busNode2="21"/>
-                <nad:edge svgId="39" equipmentId="NNL2AA1  NNL3AA1  1" node1="18" node2="20" busNode1="19" busNode2="21"/>
+                <nad:edge svgId="22" equipmentId="BBE1AA1  BBE2AA1  1" node1="0" node2="3" busNode1="1" busNode2="4" type="LineEdge"/>
+                <nad:edge svgId="23" equipmentId="BBE1AA1  BBE3AA1  1" node1="0" node2="0" busNode1="1" busNode2="2" type="LineEdge"/>
+                <nad:edge svgId="24" equipmentId="BBE2AA1  BBE3AA1  1" node1="3" node2="0" busNode1="4" busNode2="2" type="LineEdge"/>
+                <nad:edge svgId="25" equipmentId="NNL2AA1  BBE3AA1  1" node1="18" node2="0" busNode1="19" busNode2="2" type="LineEdge"/>
+                <nad:edge svgId="26" equipmentId="BBE1AA1  BBE3AA1  2" node1="0" node2="0" busNode1="2" busNode2="1" type="PstEdge"/>
+                <nad:edge svgId="27" equipmentId="BBE2AA1  FFR3AA1  1" node1="3" node2="14" busNode1="4" busNode2="15" type="LineEdge"/>
+                <nad:edge svgId="28" equipmentId="DDE1AA1  DDE2AA1  1" node1="5" node2="7" busNode1="6" busNode2="8" type="LineEdge"/>
+                <nad:edge svgId="29" equipmentId="DDE1AA1  DDE3AA1  1" node1="5" node2="9" busNode1="6" busNode2="10" type="LineEdge"/>
+                <nad:edge svgId="30" equipmentId="DDE2AA1  DDE3AA1  1" node1="7" node2="9" busNode1="8" busNode2="10" type="LineEdge"/>
+                <nad:edge svgId="31" equipmentId="DDE2AA1  NNL3AA1  1" node1="7" node2="20" busNode1="8" busNode2="21" type="LineEdge"/>
+                <nad:edge svgId="32" equipmentId="FFR2AA1  DDE3AA1  1" node1="11" node2="9" busNode1="13" busNode2="10" type="LineEdge"/>
+                <nad:edge svgId="33" equipmentId="FFR1AA1  FFR2AA1  1" node1="11" node2="11" busNode1="12" busNode2="13" type="LineEdge"/>
+                <nad:edge svgId="34" equipmentId="FFR1AA1  FFR3AA1  1" node1="11" node2="14" busNode1="12" busNode2="15" type="LineEdge"/>
+                <nad:edge svgId="35" equipmentId="FFR2AA1  FFR3AA1  1" node1="11" node2="14" busNode1="13" busNode2="15" type="LineEdge"/>
+                <nad:edge svgId="36" equipmentId="FFR1AA1  FFR2AA1  2" node1="11" node2="11" busNode1="13" busNode2="12" type="PstEdge"/>
+                <nad:edge svgId="37" equipmentId="NNL1AA1  NNL2AA1  1" node1="16" node2="18" busNode1="17" busNode2="19" type="LineEdge"/>
+                <nad:edge svgId="38" equipmentId="NNL1AA1  NNL3AA1  1" node1="16" node2="20" busNode1="17" busNode2="21" type="LineEdge"/>
+                <nad:edge svgId="39" equipmentId="NNL2AA1  NNL3AA1  1" node1="18" node2="20" busNode1="19" busNode2="21" type="LineEdge"/>
             </nad:edges>
+            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">

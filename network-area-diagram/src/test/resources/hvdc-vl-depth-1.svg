@@ -57,8 +57,9 @@
                 <nad:node svgId="2" equipmentId="VL2" x="-192.84" y="77.98"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="4" equipmentId="L" node1="0" node2="2" busNode1="1" busNode2="3"/>
+                <nad:edge svgId="4" equipmentId="L" node1="0" node2="2" busNode1="1" busNode2="3" type="HvdcLineEdge"/>
             </nad:edges>
+            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_HEIGHT" fixedWidth="-1" fixedHeight="600" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">

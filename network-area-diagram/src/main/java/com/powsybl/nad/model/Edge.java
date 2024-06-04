@@ -11,4 +11,5 @@ package com.powsybl.nad.model;
  */
 public interface Edge extends Identifiable {
 
+    String getType();
 }
