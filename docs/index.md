@@ -1,3 +1,5 @@
+![PowSyBl Logo](_static/logos/logo_lfe_powsybl.svg)
+
 ```{toctree}
 ---
 caption: Contents of this website
