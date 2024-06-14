@@ -98,6 +98,11 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
+    public List<String> getProductionDemand(VoltageLevelNode voltageLevelNode) {
+        return new ArrayList<>();
+    }
+
+    @Override
     public String getArrowPathDIn() {
         return "M-1 -1 H1 L0 1z";
     }

@@ -48,6 +48,7 @@ class SvgParametersTest {
                 .setArrowHeight(25)
                 .setBusLegend(false)
                 .setVoltageLevelDetails(true)
+                .setProductionDemandDisplayed(true)
                 .setDetailedTextNodeYShift(100)
                 .setLanguageTag("de")
                 .setVoltageValuePrecision(0)
@@ -94,6 +95,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getArrowHeight(), svgParameters1.getArrowHeight(), 0);
         assertEquals(svgParameters0.isBusLegend(), svgParameters1.isBusLegend());
         assertEquals(svgParameters0.isVoltageLevelDetails(), svgParameters1.isVoltageLevelDetails());
+        assertEquals(svgParameters0.isProductionDemandDisplayed(), svgParameters1.isProductionDemandDisplayed());
         assertEquals(svgParameters0.getDetailedTextNodeYShift(), svgParameters1.getDetailedTextNodeYShift(), 0);
         assertEquals(svgParameters0.getLanguageTag(), svgParameters1.getLanguageTag());
         assertEquals(svgParameters0.getVoltageValuePrecision(), svgParameters1.getVoltageValuePrecision());

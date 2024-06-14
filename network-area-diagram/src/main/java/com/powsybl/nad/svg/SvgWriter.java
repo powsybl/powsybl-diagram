@@ -555,7 +555,7 @@ public class SvgWriter {
         }
 
         List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails()) {
+        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails() || svgParameters.isProductionDemandDisplayed()) {
             writeDetailedTextNode(writer, textNode, vlNode, content);
         } else {
             writeSimpleTextNode(writer, textNode, content);
@@ -585,6 +585,10 @@ public class SvgWriter {
 
         if (svgParameters.isVoltageLevelDetails()) {
             writeLines(labelProvider.getVoltageLevelDetails(vlNode), writer);
+        }
+
+        if (svgParameters.isProductionDemandDisplayed()) {
+            writeLines(labelProvider.getProductionDemand(vlNode), writer);
         }
 
         writer.writeEndElement();
