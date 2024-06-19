@@ -1,16 +1,15 @@
 # Network area diagrams
 
-The powsybl-network-area-diagram artifact provides features to generate concise and customized diagrams of the network.
 
 ```{toctree}
 ---
 maxdepth: 2
+hidden: true
 ---
 
 layout/layout.md
 ```
 
-## Introduction
 
 The powsybl-network-area-diagram artifact provides features to generate concise and customized diagrams of the network:
 - Display of the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels;

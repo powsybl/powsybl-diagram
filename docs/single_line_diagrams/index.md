@@ -1,16 +1,15 @@
 # Single line diagrams
 
-The powsybl-single-line-diagram-core artifact provides features to generate customized single-line diagrams.
 
 ```{toctree}
 ---
 maxdepth: 2
+hidden: true
 ---
 
 layout/layout.md
 ```
 
-## Introduction
 
 The powsybl-single-line-diagram-core artifact provides features to generate customized single-line diagrams:
 - Creation of single-line diagrams for given voltage levels, substations or zones in SVG format, for both node/breaker and bus/breaker topologies:

@@ -11,7 +11,7 @@ network_area_diagrams/index.md
 single_line_diagrams/index.md
 ```
 
-# powsybl-diagram
+# What is powsybl-diagram?
 
 PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams in SVG format files.
 
