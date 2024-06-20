@@ -70,7 +70,6 @@ class TextNodeTest extends AbstractTest {
     void testSubstationDescription() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
-        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
     }
 
