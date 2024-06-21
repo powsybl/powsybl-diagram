@@ -95,6 +95,19 @@ public abstract class AbstractLabelProvider implements LabelProvider {
                 0, yShift, true, 0);
     }
 
+    protected LabelPosition getBusNodeDecoratorPosition(BusNode node) {
+        double yShift = -DECORATOR_OFFSET;
+        String positionName = "";
+        if (direction != UNDEFINED) {
+            int excessHeight3wt = 10;
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
+            positionName = direction == TOP ? "N" : "S";
+        }
+
+        return new LabelPosition(positionName + "_DECORATOR",
+                0, yShift, true, 0);
+    }
+
     protected LabelPosition getLabelPosition(Node node, Direction direction) {
         double yShift = -LABEL_OFFSET;
         String positionName = "";
