@@ -1205,6 +1205,9 @@ public final class Networks {
         network.getTwoWindingsTransformer("T12").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
 
         network.getThreeWindingsTransformer(THREE_WINDING_TRANSFORMER_12_ID).newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
+        if (network.getVoltageLevel("VL2").getTopologyKind() == TopologyKind.NODE_BREAKER) {
+            network.getBusbarSection("BBS2").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
+        }
     }
 
     public static Network createNodeBreakerNetworkWithInternalBranches(String id, String sourceFormat) {
