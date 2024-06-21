@@ -8,8 +8,10 @@
 package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.styles.EmptyStyleProvider;
@@ -34,6 +36,27 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         return getHighlightLineStateStyle(graph, edge)
                 .map(List::of)
                 .orElse(Collections.emptyList());
+    }
+
+    @Override
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+        if (node instanceof BusNode busNode && isBusOrBbsConnected(busNode.getEquipmentId())) {
+            return List.of(StyleClassConstants.BUS_DISCONNECTED);
+        }
+        return Collections.emptyList();
+    }
+
+    private boolean isBusOrBbsConnected(String equipmentId) {
+        BusbarSection busbarSection = network.getBusbarSection(equipmentId);
+        if (busbarSection != null) {
+            return busbarSection.getTerminal().isConnected();
+        } else {
+            Bus bus = network.getBusBreakerView().getBus(equipmentId);
+            if (bus != null) {
+                return bus.getConnectedTerminalStream().anyMatch(Terminal::isConnected);
+            }
+            return false;
+        }
     }
 
     private Optional<String> getHighlightLineStateStyle(Graph graph, Edge edge) {
