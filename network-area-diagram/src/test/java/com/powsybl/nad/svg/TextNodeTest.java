@@ -103,4 +103,13 @@ class TextNodeTest extends AbstractTest {
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/production_consumption_text_node.svg"), generateSvgString(network, "/production_consumption_text_node.svg"));
     }
+
+    @Test
+    void testProductionConsumptionWithNaN() {
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
+
+        getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        assertEquals(toString("/production_consumption_text_node_nan.svg"), generateSvgString(network, "/production_consumption_text_node_nan.svg"));
+    }
 }
