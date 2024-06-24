@@ -16,9 +16,10 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -69,7 +70,7 @@ class TextNodeTest extends AbstractTest {
     @Test
     void testSubstationDescription() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
+        getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
     }
@@ -93,5 +94,14 @@ class TextNodeTest extends AbstractTest {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setVoltageLevelDetails(true).setSubstationDescriptionDisplayed(true);
         assertEquals(toString("/detailed_text_node.svg"), generateSvgString(network, "/detailed_text_node.svg"));
+    }
+
+    @Test
+    void testProductionConsumption() {
+        Network network = Networks.createThreeVoltageLevelsFiveBusesWithValuesAtTerminals();
+
+        getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        assertEquals(toString("/production_consumption_text_node.svg"), generateSvgString(network, "/production_consumption_text_node.svg"));
     }
 }

@@ -913,6 +913,15 @@ public final class Networks {
         return network;
     }
 
+    public static Network createThreeVoltageLevelsFiveBusesWithValuesAtTerminals() {
+        Network network = createThreeVoltageLevelsFiveBuses();
+        network.getGeneratorStream().forEach(generator -> generator.getTerminal().setP(-100d / network.getGeneratorCount()));
+        network.getGeneratorStream().forEach(generator -> generator.getTerminal().setQ(-10d / network.getGeneratorCount()));
+        network.getLoadStream().forEach(load -> load.getTerminal().setP(99d / network.getLoadCount()));
+        network.getLoadStream().forEach(load -> load.getTerminal().setQ(9d / network.getLoadCount()));
+        return network;
+    }
+
     /**
      * <pre>
      *   g1         dl1
