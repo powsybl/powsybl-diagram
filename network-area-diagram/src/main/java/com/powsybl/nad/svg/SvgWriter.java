@@ -742,8 +742,11 @@ public class SvgWriter {
     }
 
     private boolean isBusNodeDrawn(Node busGraphNode, BusNode busNodeCurrentlyDrawn) {
-        if (busGraphNode instanceof BusNode) {
-            return ((BusNode) busGraphNode).getIndex() < busNodeCurrentlyDrawn.getIndex();
+        if (busGraphNode == BusNode.UNKNOWN) {
+            return false;
+        }
+        if (busGraphNode instanceof BusNode busGraphBusNode) {
+            return busGraphBusNode.getIndex() < busNodeCurrentlyDrawn.getIndex();
         }
         return true;
     }

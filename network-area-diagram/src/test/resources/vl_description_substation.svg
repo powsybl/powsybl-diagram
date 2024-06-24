@@ -195,12 +195,20 @@
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 1</div>
                 <div>Substation 1</div>
+                <div>0 loads</div>
+                <div>1 generators</div>
+                <div>0 batteries</div>
+                <div>0 dangling lines</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-38.82" x="-130.42" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 2</div>
                 <div>Substation 1</div>
+                <div>0 loads</div>
+                <div>0 generators</div>
+                <div>0 batteries</div>
+                <div>1 dangling lines</div>
             </div>
         </foreignObject>
     </g>
