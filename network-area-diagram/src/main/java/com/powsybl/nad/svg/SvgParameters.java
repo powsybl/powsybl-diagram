@@ -47,7 +47,6 @@ public class SvgParameters {
     private double arrowHeight = 10;
     private boolean busLegend = true;
     private boolean voltageLevelDetails = false;
-    private boolean productionDemandDisplayed = false;
     private double detailedTextNodeYShift = 25;
     private String languageTag = "en";
     private int voltageValuePrecision = 1;
@@ -102,7 +101,6 @@ public class SvgParameters {
         this.arrowHeight = other.arrowHeight;
         this.busLegend = other.busLegend;
         this.voltageLevelDetails = other.voltageLevelDetails;
-        this.productionDemandDisplayed = other.productionDemandDisplayed;
         this.detailedTextNodeYShift = other.detailedTextNodeYShift;
         this.languageTag = other.languageTag;
         this.voltageValuePrecision = other.voltageValuePrecision;
@@ -393,15 +391,6 @@ public class SvgParameters {
 
     public SvgParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
         this.voltageLevelDetails = voltageLevelDetails;
-        return this;
-    }
-
-    public boolean isProductionDemandDisplayed() {
-        return productionDemandDisplayed;
-    }
-
-    public SvgParameters setProductionDemandDisplayed(boolean productionDemandDisplayed) {
-        this.productionDemandDisplayed = productionDemandDisplayed;
         return this;
     }
 

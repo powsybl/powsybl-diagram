@@ -16,7 +16,6 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,12 +93,14 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<String> getProductionDemand(VoltageLevelNode voltageLevelNode) {
-        return new ArrayList<>();
+        List<String> voltageLevelDetails = new ArrayList<>();
+        long activeProduction = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getP()) ? -generator.getTerminal().getP() : 0).sum());
+        long reactiveProduction = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getQ()) ? -generator.getTerminal().getQ() : 0).sum());
+        long activeConsumption = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getP()) ? load.getTerminal().getP() : 0).sum());
+        long reactiveConsumption = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getQ()) ? load.getTerminal().getQ() : 0).sum());
+        voltageLevelDetails.add(String.format("Production: %d MW / %d MVAR", activeProduction, reactiveProduction));
+        voltageLevelDetails.add(String.format("Consumption: %d MW / %d MVAR", activeConsumption, reactiveConsumption));
+        return voltageLevelDetails;
     }
 
     @Override
