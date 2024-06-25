@@ -79,6 +79,10 @@ class NominalVoltageStyleTest extends AbstractTest {
         network.getLine("L3-4-1").getTerminal1().disconnect();
         network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
         network.getVoltageLevel("VL14").getConnectableStream().map(connectable -> (Connectable<?>) connectable).forEach(connectable -> connectable.getTerminals().forEach(Terminal::disconnect));
+        network.getVoltageLevel("VL5").getBusView().getBusStream().findFirst()
+                .ifPresent(bus -> bus.getConnectedTerminals().forEach(Terminal::disconnect));
+        network.getVoltageLevel("VL4").getBusView().getBusStream().findFirst()
+                .ifPresent(bus -> bus.getConnectedTerminals().forEach(Terminal::disconnect));
         assertEquals(toString("/IEEE_14_bus_disconnection.svg"), generateSvgString(network, "/IEEE_14_bus_disconnection.svg"));
     }
 
