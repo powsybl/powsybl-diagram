@@ -49,20 +49,20 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="test_1" equipmentId="VL1_0"/>
-                <nad:busNode svgId="test_3" equipmentId="VL10_0"/>
-                <nad:busNode svgId="test_5" equipmentId="VL11_0"/>
-                <nad:busNode svgId="test_7" equipmentId="VL12_0"/>
-                <nad:busNode svgId="test_9" equipmentId="VL13_0"/>
-                <nad:busNode svgId="test_11" equipmentId="VL14_0"/>
-                <nad:busNode svgId="test_13" equipmentId="VL2_0"/>
-                <nad:busNode svgId="test_15" equipmentId="VL3_0"/>
-                <nad:busNode svgId="test_17" equipmentId="VL4_0"/>
-                <nad:busNode svgId="test_19" equipmentId="VL5_0"/>
-                <nad:busNode svgId="test_21" equipmentId="VL6_0"/>
-                <nad:busNode svgId="test_23" equipmentId="VL7_0"/>
-                <nad:busNode svgId="test_25" equipmentId="VL8_0"/>
-                <nad:busNode svgId="test_27" equipmentId="VL9_0"/>
+                <nad:busNode svgId="test_1" equipmentId="VL1_0" nbNeighbours="0" index="0" vlNode="test_0"/>
+                <nad:busNode svgId="test_3" equipmentId="VL10_0" nbNeighbours="0" index="0" vlNode="test_2"/>
+                <nad:busNode svgId="test_5" equipmentId="VL11_0" nbNeighbours="0" index="0" vlNode="test_4"/>
+                <nad:busNode svgId="test_7" equipmentId="VL12_0" nbNeighbours="0" index="0" vlNode="test_6"/>
+                <nad:busNode svgId="test_9" equipmentId="VL13_0" nbNeighbours="0" index="0" vlNode="test_8"/>
+                <nad:busNode svgId="test_11" equipmentId="VL14_0" nbNeighbours="0" index="0" vlNode="test_10"/>
+                <nad:busNode svgId="test_13" equipmentId="VL2_0" nbNeighbours="0" index="0" vlNode="test_12"/>
+                <nad:busNode svgId="test_15" equipmentId="VL3_0" nbNeighbours="0" index="0" vlNode="test_14"/>
+                <nad:busNode svgId="test_17" equipmentId="VL4_0" nbNeighbours="0" index="0" vlNode="test_16"/>
+                <nad:busNode svgId="test_19" equipmentId="VL5_0" nbNeighbours="0" index="0" vlNode="test_18"/>
+                <nad:busNode svgId="test_21" equipmentId="VL6_0" nbNeighbours="0" index="0" vlNode="test_20"/>
+                <nad:busNode svgId="test_23" equipmentId="VL7_0" nbNeighbours="0" index="0" vlNode="test_22"/>
+                <nad:busNode svgId="test_25" equipmentId="VL8_0" nbNeighbours="0" index="0" vlNode="test_24"/>
+                <nad:busNode svgId="test_27" equipmentId="VL9_0" nbNeighbours="0" index="0" vlNode="test_26"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="test_0" equipmentId="VL1" x="379.50" y="-897.76"/>
@@ -81,27 +81,28 @@
                 <nad:node svgId="test_26" equipmentId="VL9" x="88.08" y="340.05"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="test_28" equipmentId="L1-2-1" node1="test_0" node2="test_12"/>
-                <nad:edge svgId="test_29" equipmentId="L1-5-1" node1="test_0" node2="test_18"/>
-                <nad:edge svgId="test_30" equipmentId="L9-10-1" node1="test_26" node2="test_2"/>
-                <nad:edge svgId="test_31" equipmentId="L10-11-1" node1="test_2" node2="test_4"/>
-                <nad:edge svgId="test_32" equipmentId="L6-11-1" node1="test_20" node2="test_4"/>
-                <nad:edge svgId="test_33" equipmentId="L6-12-1" node1="test_20" node2="test_6"/>
-                <nad:edge svgId="test_34" equipmentId="L12-13-1" node1="test_6" node2="test_8"/>
-                <nad:edge svgId="test_35" equipmentId="L6-13-1" node1="test_20" node2="test_8"/>
-                <nad:edge svgId="test_36" equipmentId="L13-14-1" node1="test_8" node2="test_10"/>
-                <nad:edge svgId="test_37" equipmentId="L9-14-1" node1="test_26" node2="test_10"/>
-                <nad:edge svgId="test_38" equipmentId="L2-3-1" node1="test_12" node2="test_14"/>
-                <nad:edge svgId="test_39" equipmentId="L2-4-1" node1="test_12" node2="test_16"/>
-                <nad:edge svgId="test_40" equipmentId="L2-5-1" node1="test_12" node2="test_18"/>
-                <nad:edge svgId="test_41" equipmentId="L3-4-1" node1="test_14" node2="test_16"/>
-                <nad:edge svgId="test_42" equipmentId="L4-5-1" node1="test_16" node2="test_18"/>
-                <nad:edge svgId="test_43" equipmentId="T4-7-1" node1="test_16" node2="test_22"/>
-                <nad:edge svgId="test_44" equipmentId="T4-9-1" node1="test_16" node2="test_26"/>
-                <nad:edge svgId="test_45" equipmentId="T5-6-1" node1="test_18" node2="test_20"/>
-                <nad:edge svgId="test_46" equipmentId="L7-8-1" node1="test_22" node2="test_24"/>
-                <nad:edge svgId="test_47" equipmentId="L7-9-1" node1="test_22" node2="test_26"/>
+                <nad:edge svgId="test_28" equipmentId="L1-2-1" node1="test_0" node2="test_12" busNode1="test_1" busNode2="test_13" type="LineEdge"/>
+                <nad:edge svgId="test_29" equipmentId="L1-5-1" node1="test_0" node2="test_18" busNode1="test_1" busNode2="test_19" type="LineEdge"/>
+                <nad:edge svgId="test_30" equipmentId="L9-10-1" node1="test_26" node2="test_2" busNode1="test_27" busNode2="test_3" type="LineEdge"/>
+                <nad:edge svgId="test_31" equipmentId="L10-11-1" node1="test_2" node2="test_4" busNode1="test_3" busNode2="test_5" type="LineEdge"/>
+                <nad:edge svgId="test_32" equipmentId="L6-11-1" node1="test_20" node2="test_4" busNode1="test_21" busNode2="test_5" type="LineEdge"/>
+                <nad:edge svgId="test_33" equipmentId="L6-12-1" node1="test_20" node2="test_6" busNode1="test_21" busNode2="test_7" type="LineEdge"/>
+                <nad:edge svgId="test_34" equipmentId="L12-13-1" node1="test_6" node2="test_8" busNode1="test_7" busNode2="test_9" type="LineEdge"/>
+                <nad:edge svgId="test_35" equipmentId="L6-13-1" node1="test_20" node2="test_8" busNode1="test_21" busNode2="test_9" type="LineEdge"/>
+                <nad:edge svgId="test_36" equipmentId="L13-14-1" node1="test_8" node2="test_10" busNode1="test_9" busNode2="test_11" type="LineEdge"/>
+                <nad:edge svgId="test_37" equipmentId="L9-14-1" node1="test_26" node2="test_10" busNode1="test_27" busNode2="test_11" type="LineEdge"/>
+                <nad:edge svgId="test_38" equipmentId="L2-3-1" node1="test_12" node2="test_14" busNode1="test_13" busNode2="test_15" type="LineEdge"/>
+                <nad:edge svgId="test_39" equipmentId="L2-4-1" node1="test_12" node2="test_16" busNode1="test_13" busNode2="test_17" type="LineEdge"/>
+                <nad:edge svgId="test_40" equipmentId="L2-5-1" node1="test_12" node2="test_18" busNode1="test_13" busNode2="test_19" type="LineEdge"/>
+                <nad:edge svgId="test_41" equipmentId="L3-4-1" node1="test_14" node2="test_16" busNode1="test_15" busNode2="test_17" type="LineEdge"/>
+                <nad:edge svgId="test_42" equipmentId="L4-5-1" node1="test_16" node2="test_18" busNode1="test_17" busNode2="test_19" type="LineEdge"/>
+                <nad:edge svgId="test_43" equipmentId="T4-7-1" node1="test_16" node2="test_22" busNode1="test_17" busNode2="test_23" type="TwoWtEdge"/>
+                <nad:edge svgId="test_44" equipmentId="T4-9-1" node1="test_16" node2="test_26" busNode1="test_17" busNode2="test_27" type="TwoWtEdge"/>
+                <nad:edge svgId="test_45" equipmentId="T5-6-1" node1="test_18" node2="test_20" busNode1="test_19" busNode2="test_21" type="TwoWtEdge"/>
+                <nad:edge svgId="test_46" equipmentId="L7-8-1" node1="test_22" node2="test_24" busNode1="test_23" busNode2="test_25" type="LineEdge"/>
+                <nad:edge svgId="test_47" equipmentId="L7-9-1" node1="test_22" node2="test_26" busNode1="test_23" busNode2="test_27" type="LineEdge"/>
             </nad:edges>
+            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="2.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="test_" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">

@@ -38,15 +38,9 @@ public class BranchEdge extends AbstractEdge {
     private List<Point> points1 = Collections.emptyList();
     private List<Point> points2 = Collections.emptyList();
     private final boolean[] visible = new boolean[] {true, true};
-    private final String type;
 
     public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
-        super(diagramId, equipmentId, nameOrId);
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
+        super(diagramId, equipmentId, nameOrId, type);
     }
 
     public boolean isTransformerEdge() {

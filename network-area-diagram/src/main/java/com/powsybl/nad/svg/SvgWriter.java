@@ -742,8 +742,11 @@ public class SvgWriter {
     }
 
     private boolean isBusNodeDrawn(Node busGraphNode, BusNode busNodeCurrentlyDrawn) {
-        if (busGraphNode instanceof BusNode) {
-            return ((BusNode) busGraphNode).getIndex() < busNodeCurrentlyDrawn.getIndex();
+        if (busGraphNode == BusNode.UNKNOWN) {
+            return false;
+        }
+        if (busGraphNode instanceof BusNode busGraphBusNode) {
+            return busGraphBusNode.getIndex() < busNodeCurrentlyDrawn.getIndex();
         }
         return true;
     }
@@ -894,16 +897,47 @@ public class SvgWriter {
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
 
-        graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
+        graph.getVoltageLevelNodesStream().forEach(vlNode -> vlNode.getBusNodeStream().forEach(busNode -> metadata.addBusNode(
+                getPrefixedId(busNode.getDiagramId()),
+                busNode.getEquipmentId(),
+                String.valueOf(busNode.getNbNeighbouringBusNodes()),
+                String.valueOf(busNode.getIndex()),
+                getPrefixedId(vlNode.getDiagramId()))));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
         graph.getBranchEdgeStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getNode2(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
+                edge.getType()));
         graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId())));
-
+                getPrefixedId(graph.getNode2(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
+                edge.getType()));
+        metadata.addSvgParameters(String.valueOf(svgParameters.isInsertNameDesc()), String.valueOf(svgParameters.isSvgWidthAndHeightAdded()),
+                                  svgParameters.getCssLocation().name(), svgParameters.getSizeConstraint().name(),
+                                  String.valueOf(svgParameters.getFixedWidth()), String.valueOf(svgParameters.getFixedHeight()),
+                                  String.valueOf(svgParameters.getFixedScale()), getFormattedValue(svgParameters.getArrowShift()),
+                                  getFormattedValue(svgParameters.getArrowLabelShift()), getFormattedValue(svgParameters.getConverterStationWidth()),
+                                  getFormattedValue(svgParameters.getVoltageLevelCircleRadius()),
+                                  getFormattedValue(svgParameters.getFictitiousVoltageLevelCircleRadius()),
+                                  getFormattedValue(svgParameters.getTransformerCircleRadius()), getFormattedValue(svgParameters.getNodeHollowWidth()),
+                                  getFormattedValue(svgParameters.getEdgesForkLength()), getFormattedValue(svgParameters.getEdgesForkAperture()),
+                                  getFormattedValue(svgParameters.getEdgeStartShift()), getFormattedValue(svgParameters.getUnknownBusNodeExtraRadius()),
+                                  getFormattedValue(svgParameters.getLoopDistance()), getFormattedValue(svgParameters.getLoopEdgesAperture()),
+                                  getFormattedValue(svgParameters.getLoopControlDistance()), String.valueOf(svgParameters.isEdgeInfoAlongEdge()),
+                                  String.valueOf(svgParameters.isEdgeNameDisplayed()), getFormattedValue(svgParameters.getInterAnnulusSpace()),
+                                  svgParameters.getSvgPrefix(), String.valueOf(svgParameters.isIdDisplayed()),
+                                  String.valueOf(svgParameters.isSubstationDescriptionDisplayed()), getFormattedValue(svgParameters.getArrowHeight()),
+                                  String.valueOf(svgParameters.isBusLegend()), String.valueOf(svgParameters.isVoltageLevelDetails()),
+                                  getFormattedValue(svgParameters.getDetailedTextNodeYShift()), svgParameters.getLanguageTag(),
+                                  String.valueOf(svgParameters.getVoltageValuePrecision()), String.valueOf(svgParameters.getPowerValuePrecision()),
+                                  String.valueOf(svgParameters.getAngleValuePrecision()), String.valueOf(svgParameters.getCurrentValuePrecision()),
+                                  svgParameters.getEdgeInfoDisplayed().name(), getFormattedValue(svgParameters.getPstArrowHeadSize()),
+                                  svgParameters.getUndefinedValueSymbol());
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
         writer.writeEndElement();

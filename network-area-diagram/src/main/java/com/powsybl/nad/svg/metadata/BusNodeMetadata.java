@@ -11,6 +11,7 @@ import com.powsybl.commons.xml.XmlUtil;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  *
@@ -19,14 +20,32 @@ import javax.xml.stream.XMLStreamReader;
 
 public class BusNodeMetadata extends AbstractMetadataItem {
     private static final String ELEMENT_NAME = "busNode";
+    private static final String NB_NEIGHBOURS_ATTRIBUTE = "nbNeighbours";
+    private static final String INDEX_ATTRIBUTE = "index";
+    private static final String VL_NODE_ATTRIBUTE = "vlNode";
 
-    public BusNodeMetadata(String svgId, String equipmentId) {
+    private final String nbNeighbours;
+    private final String index;
+    private final String vlNodeId;
+
+    public BusNodeMetadata(String svgId, String equipmentId, String nbNeighbours, String index, String vlNodeId) {
         super(svgId, equipmentId);
+        this.nbNeighbours = nbNeighbours;
+        this.index = index;
+        this.vlNodeId = vlNodeId;
     }
 
     @Override
     String getElementName() {
         return ELEMENT_NAME;
+    }
+
+    @Override
+    void write(XMLStreamWriter writer) throws XMLStreamException {
+        super.write(writer);
+        writer.writeAttribute(NB_NEIGHBOURS_ATTRIBUTE, nbNeighbours);
+        writer.writeAttribute(INDEX_ATTRIBUTE, index);
+        writer.writeAttribute(VL_NODE_ATTRIBUTE, vlNodeId);
     }
 
     static class Reader implements AbstractMetadataItem.MetadataItemReader<BusNodeMetadata> {
@@ -39,8 +58,11 @@ public class BusNodeMetadata extends AbstractMetadataItem {
             try {
                 String diagramId = readDiagramId(reader);
                 String equipmentId = readEquipmentId(reader);
+                String nbNeighbours = reader.getAttributeValue(null, NB_NEIGHBOURS_ATTRIBUTE);
+                String index = reader.getAttributeValue(null, INDEX_ATTRIBUTE);
+                String vlNodeId = reader.getAttributeValue(null, VL_NODE_ATTRIBUTE);
                 XmlUtil.readEndElementOrThrow(reader);
-                return new BusNodeMetadata(diagramId, equipmentId);
+                return new BusNodeMetadata(diagramId, equipmentId, nbNeighbours, index, vlNodeId);
             } catch (XMLStreamException e) {
                 throw new UncheckedXmlStreamException(e);
             }

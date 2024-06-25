@@ -49,12 +49,12 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="vl1_0"/>
-                <nad:busNode svgId="2" equipmentId="vl1_1"/>
-                <nad:busNode svgId="4" equipmentId="vl2_0"/>
-                <nad:busNode svgId="6" equipmentId="vl3_0"/>
-                <nad:busNode svgId="7" equipmentId="vl3_1"/>
-                <nad:busNode svgId="13" equipmentId="dl1"/>
+                <nad:busNode svgId="1" equipmentId="vl1_0" nbNeighbours="1" index="0" vlNode="0"/>
+                <nad:busNode svgId="2" equipmentId="vl1_1" nbNeighbours="1" index="1" vlNode="0"/>
+                <nad:busNode svgId="4" equipmentId="vl2_0" nbNeighbours="0" index="0" vlNode="3"/>
+                <nad:busNode svgId="6" equipmentId="vl3_0" nbNeighbours="1" index="0" vlNode="5"/>
+                <nad:busNode svgId="7" equipmentId="vl3_1" nbNeighbours="1" index="1" vlNode="5"/>
+                <nad:busNode svgId="13" equipmentId="dl1" nbNeighbours="0" index="0" vlNode="12"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="vl1" x="-80.30" y="-211.15"/>
@@ -63,12 +63,13 @@
                 <nad:node svgId="12" equipmentId="dl1" x="210.36" y="-353.80"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="8" equipmentId="l1" node1="0" node2="3"/>
-                <nad:edge svgId="9" equipmentId="l2" node1="0" node2="3"/>
-                <nad:edge svgId="10" equipmentId="tr1" node1="0" node2="5"/>
-                <nad:edge svgId="11" equipmentId="tr2" node1="3" node2="5"/>
-                <nad:edge svgId="14" equipmentId="dl1" node1="3" node2="12"/>
+                <nad:edge svgId="8" equipmentId="l1" node1="0" node2="3" busNode1="1" busNode2="4" type="LineEdge"/>
+                <nad:edge svgId="9" equipmentId="l2" node1="0" node2="3" busNode1="2" busNode2="4" type="LineEdge"/>
+                <nad:edge svgId="10" equipmentId="tr1" node1="0" node2="5" busNode1="2" busNode2="6" type="TwoWtEdge"/>
+                <nad:edge svgId="11" equipmentId="tr2" node1="3" node2="5" busNode1="4" busNode2="7" type="TwoWtEdge"/>
+                <nad:edge svgId="14" equipmentId="dl1" node1="3" node2="12" busNode1="4" busNode2="13" type="DanglingLineEdge"/>
             </nad:edges>
+            <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="20.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
