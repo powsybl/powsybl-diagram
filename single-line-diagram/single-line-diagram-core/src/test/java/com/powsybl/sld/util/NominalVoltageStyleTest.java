@@ -128,7 +128,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         Node node3 = graph3.getNode("bbs3");
         List<String> nodeStyle3 = styleProvider.getNodeStyles(graph3, node3, componentLibrary, false);
-        assertEquals(2, nodeStyle3.size());
+        assertEquals(3, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-vl50to70"));
 
