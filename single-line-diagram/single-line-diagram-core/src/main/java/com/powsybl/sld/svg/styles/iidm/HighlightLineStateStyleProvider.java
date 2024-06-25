@@ -40,7 +40,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     @Override
     public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
-        if (node instanceof BusNode busNode && isBusOrBbsConnected(busNode.getEquipmentId())) {
+        if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode.getEquipmentId())) {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
         }
         return Collections.emptyList();
