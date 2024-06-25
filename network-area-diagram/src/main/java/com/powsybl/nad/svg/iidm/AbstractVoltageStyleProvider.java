@@ -98,21 +98,11 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected Optional<String> getBaseVoltageStyle(Edge edge) {
-        if (edge instanceof BranchEdge) {
-            String branchType = ((BranchEdge) edge).getType();
-            if (branchType.equals(BranchEdge.HVDC_LINE_EDGE)) {
-                return Optional.of(HVDC_EDGE_CLASS);
-            } else if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
-                return Optional.of(DANGLING_LINE_EDGE_CLASS);
-            } else if (branchType.equals(BranchEdge.TIE_LINE_EDGE)) {
-                return Optional.of(TIE_LINE_EDGE_CLASS);
-            }
-        } else if (edge instanceof ThreeWtEdge) {
+        if (edge instanceof ThreeWtEdge threeWtEdge) {
             Terminal terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
-                    .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(((ThreeWtEdge) edge).getSide()));
+                    .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
             return getBaseVoltageStyle(terminal);
         }
-
         return Optional.empty();
     }
 
