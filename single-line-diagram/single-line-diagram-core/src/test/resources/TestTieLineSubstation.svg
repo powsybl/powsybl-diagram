@@ -99,6 +99,8 @@
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 /* Stroke --sld-vl-color with fallback red */
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
 /* Stroke --sld-vl-color with fallback blue */
 .sld-load {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
@@ -327,7 +329,7 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B21_95_1_95_ONE_45_B11_95_B21_95_1_95_ONE_95_INTERNAL_95_VL1_95_B11_95_B21_95_1_95_ONE">
                 <polyline points="475.0,282.0,475.0,202.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_INTERNAL_95_VL1_95_B11_95_B21_95_1_95_ONE_95_B11_95_B21_95_1_95_ONE">
+            <g class="sld-wire sld-vl300to500-0 sld-tie-line" id="_95_VL1_95_INTERNAL_95_VL1_95_B11_95_B21_95_1_95_ONE_95_B11_95_B21_95_1_95_ONE">
                 <polyline points="475.0,202.0,475.0,140.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-out" id="idB11_95_B21_95_1_95_ONE_ARROW_ACTIVE" transform="translate(470.0,155.0)">
@@ -607,7 +609,7 @@
             <g class="sld-wire sld-vl300to500-2" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO">
                 <polyline points="275.0,861.0,275.0,941.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-2" id="_95_VL2_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO_95_B11_95_B21_95_1_95_TWO">
+            <g class="sld-wire sld-vl300to500-2 sld-tie-line" id="_95_VL2_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO_95_B11_95_B21_95_1_95_TWO">
                 <polyline points="275.0,941.0,275.0,1003.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idB11_95_B21_95_1_95_TWO_ARROW_REACTIVE" transform="translate(270.0,978.0)">
@@ -633,7 +635,7 @@
                 <text class="sld-label" id="B11_B21_1_TWO_S_LABEL" x="-5.0" y="5.0">B11_B21_1</text>
             </g>
         </g>
-        <g class="sld-wire sld-vl300to500-0" id="idB11_95_B21_95_1">
+        <g class="sld-wire sld-vl300to500-0 sld-tie-line" id="idB11_95_B21_95_1">
             <polyline points="475.0,140.0,475.0,20.0,20.0,20.0,20.0,1093.0,275.0,1093.0,275.0,1003.0"/>
         </g>
         <g class="sld-wire sld-vl300to500-1" id="idEDGE_95_T12_95_ONE">

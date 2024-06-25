@@ -104,6 +104,8 @@
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 /* Stroke --sld-vl-color with fallback red */
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
 /* Stroke --sld-vl-color with fallback blue */
 .sld-load {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
@@ -305,7 +307,7 @@
             <g class="sld-wire sld-vl180to300-0" id="_95_A_32_230_95_INTERNAL_95_A_32_230_95_BUSCO_95_A_32_230_32_Bus_95_A230_95_B230_95_ONE_45_A230_95_B230_95_ONE_95_INTERNAL_95_A_32_230_95_A230_95_B230_95_ONE">
                 <polyline points="286.0,645.0,286.0,725.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_A_32_230_95_INTERNAL_95_A_32_230_95_A230_95_B230_95_ONE_95_A230_95_B230_95_ONE">
+            <g class="sld-wire sld-vl180to300-0 sld-tie-line" id="_95_A_32_230_95_INTERNAL_95_A_32_230_95_A230_95_B230_95_ONE_95_A230_95_B230_95_ONE">
                 <polyline points="286.0,725.0,286.0,787.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idA230_95_B230_95_ONE_ARROW_REACTIVE" transform="translate(281.0,762.0)">
@@ -455,7 +457,7 @@
             <g class="sld-wire sld-vl180to300-1" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_BUSCO_95_B_32_230_32_Bus_95_A230_95_B230_95_TWO_45_A230_95_B230_95_TWO_95_INTERNAL_95_B_32_230_95_A230_95_B230_95_TWO">
                 <polyline points="286.0,1199.0,286.0,1279.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_A230_95_B230_95_TWO_95_A230_95_B230_95_TWO">
+            <g class="sld-wire sld-vl180to300-1 sld-tie-line" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_A230_95_B230_95_TWO_95_A230_95_B230_95_TWO">
                 <polyline points="286.0,1279.0,286.0,1341.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idA230_95_B230_95_TWO_ARROW_REACTIVE" transform="translate(281.0,1316.0)">
@@ -1096,7 +1098,7 @@
         <g class="sld-wire sld-vl180to300-0" id="idHvdcLine_32__40_Vsc_41_">
             <polyline points="236.0,443.0,236.0,443.0,236.0,383.0,360.0,383.0,360.0,937.0,236.0,937.0,236.0,997.0,236.0,997.0"/>
         </g>
-        <g class="sld-wire sld-vl180to300-0" id="idA230_95_B230">
+        <g class="sld-wire sld-vl180to300-0 sld-tie-line" id="idA230_95_B230">
             <polyline points="286.0,787.0,286.0,787.0,286.0,847.0,390.0,847.0,390.0,1401.0,286.0,1401.0,286.0,1341.0,286.0,1341.0"/>
         </g>
     </g>
