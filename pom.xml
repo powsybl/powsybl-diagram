@@ -73,7 +73,7 @@
             **/generated/**/*
         </sonar.exclusions>
 
-        <powsybl-core.version>6.3.0</powsybl-core.version>
+        <powsybl-core.version>6.4.0-RC2</powsybl-core.version>
 
     </properties>
 
