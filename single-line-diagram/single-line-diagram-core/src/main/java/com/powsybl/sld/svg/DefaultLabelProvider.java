@@ -147,8 +147,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 if (node instanceof Middle3WTNode middle3WTNode && middle3WTNode.isEmbeddedInVlGraph()) {
                     addOperatingStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(middle3WTNode.getEquipmentId()));
                 }
-            } else if (node instanceof BusNode) {
-                addOperatingStatusDecorator(nodeDecorators, node, direction, network.getBusbarSection(equipmentNode.getEquipmentId()));
+            } else {
+                addOperatingStatusDecorator(nodeDecorators, node, direction, network.getIdentifiable(equipmentNode.getEquipmentId()));
             }
         }
 
@@ -177,13 +177,9 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
-        if (node instanceof Middle3WTNode middle3WTNode) {
-            return new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
-        } else if (node instanceof BusNode busNode) {
-            return new NodeDecorator(decoratorType, getBusNodeDecoratorPosition(busNode));
-        } else {
-            return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
-        }
+        return (node instanceof Middle3WTNode middle3WTNode) ?
+                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction)) :
+                new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
