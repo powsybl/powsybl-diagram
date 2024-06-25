@@ -10,12 +10,15 @@ package com.powsybl.nad.layout;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.nad.NadParameters;
+import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +31,16 @@ class LayoutWithGeographicalPositionsTest {
 
     @Test
     void layoutWithGeographicalPositionsTest() {
-        Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
+//        Properties properties = new Properties();
+//        properties.put("iidm.import.xml.extensions", "substationPosition");
+//        Network network = Network.read(Path.of("/home/dupuyflo/Data/pf_with_geodata.xiidm.gz"), LocalComputationManager.getDefault(), new ImportConfig(),
+//                properties);
+//        network.write("XIIDM", new Properties(), Path.of("/tmp/pf_with_substation_positions.xiidm"));
+        Network network = Network.read("/home/dupuyflo/Data/pf_with_geodata.xiidm.gz");
+        NetworkAreaDiagram.draw(network, Path.of("/tmp/geo.svg"),
+        new NadParameters()
+                .setLayoutFactory(new GeographicalLayoutFactory(network))
+                .setLayoutParameters(new LayoutParameters().setMaxSteps(5000)), vl-> true);
 
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network).create();

@@ -158,6 +158,7 @@ public class ForceLayout<V, E> {
                 .map(Point::getPosition)
                 .reduce(Vector::add)
                 .map(sum -> sum.divide(initialPoints.size()));
+//                .map(c -> c.add(new Vector(400, 400)));
         setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
@@ -232,9 +233,9 @@ public class ForceLayout<V, E> {
                     point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
                 }
             }
-            for (Point fixedPoint : fixedPoints.values()) {
-                point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
-            }
+//            for (Point fixedPoint : fixedPoints.values()) {
+//                point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
+//            }
         }
     }
 
@@ -293,10 +294,10 @@ public class ForceLayout<V, E> {
     }
 
     private void attractToCenter() {
-        for (Point point : points.values()) {
-            Vector direction = point.getPosition().multiply(-1).add(center);
-            point.applyForce(direction.multiply(repulsion / 200.0));
-        }
+//        for (Point point : points.values()) {
+//            Vector direction = point.getPosition().multiply(-1).add(center);
+//            point.applyForce(direction.multiply(repulsion / 200.0));
+//        }
     }
 
     private void updateVelocity() {
