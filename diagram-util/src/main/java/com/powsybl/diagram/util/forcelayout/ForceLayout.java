@@ -314,8 +314,6 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        // We have computed forces and velocities for all nodes, even for the fixed ones
-        // We can optimize calculations by ignoring fixed nodes in those calculations
         // Here we only update the position for the nodes that do not have fixed positions
         for (Point point : points.values()) {
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
