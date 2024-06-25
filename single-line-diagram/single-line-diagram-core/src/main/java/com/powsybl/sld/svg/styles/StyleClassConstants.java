@@ -32,6 +32,8 @@ public final class StyleClassConstants {
     public static final String FEEDER_DISCONNECTED_CONNECTED = STYLE_PREFIX + "feeder-disconnected-connected";
     public static final String FEEDER_CONNECTED_DISCONNECTED = STYLE_PREFIX + "feeder-connected-disconnected";
     public static final String FEEDER_DISCONNECTED = STYLE_PREFIX + "feeder-disconnected";
+    public static final String TIE_LINE = STYLE_PREFIX + "tie-line";
+    public static final String DANGLING_LINE = STYLE_PREFIX + "dangling-line";
     public static final String CLOSED_SWITCH_STYLE_CLASS = STYLE_PREFIX + "closed";
     public static final String OPEN_SWITCH_STYLE_CLASS = STYLE_PREFIX + "open";
     public static final String DISCONNECTED_STYLE_CLASS = STYLE_PREFIX + "disconnected";
