@@ -27,7 +27,7 @@
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-/* ----------------------------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -87,7 +87,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-vl50to70" id="idbbs3" transform="translate(60.0,252.0)">
+        <g class="sld-busbar-section sld-vl50to70 sld-bus-disconnected" id="idbbs3" transform="translate(60.0,252.0)">
             <line x1="0" x2="120.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
