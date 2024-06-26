@@ -91,7 +91,7 @@
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-/* ----------------------------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -155,7 +155,7 @@
             <line x1="0" x2="75.0" y1="0" y2="0"/>
             <text class="sld-label" id="1.1_NW_LABEL" x="-5.0" y="-5.0">1.1</text>
         </g>
-        <g class="sld-busbar-section sld-disconnected" id="id1_46_2" transform="translate(52.5,277.0)">
+        <g class="sld-busbar-section sld-disconnected sld-bus-disconnected" id="id1_46_2" transform="translate(52.5,277.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
             <text class="sld-label" id="1.2_NW_LABEL" x="-5.0" y="-5.0">1.2</text>
         </g>
