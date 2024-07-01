@@ -9,8 +9,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.extensions.OperatingStatus;
-import com.powsybl.iidm.network.extensions.OperatingStatusAdder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
