@@ -1675,6 +1675,12 @@ public final class Networks {
         return network;
     }
 
+    public static Network createNetworkWithInternalPstAndBranchStatus() {
+        Network network = createNetworkWithInternalPst();
+        network.getTwoWindingsTransformer("trf3").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
+        return network;
+    }
+
     public static Network createNetworkWithFlatSections() {
         Network network = Network.create("TestSingleLineDiagramClass", "test");
         Substation substation = createSubstation(network, "s", "s", Country.FR);

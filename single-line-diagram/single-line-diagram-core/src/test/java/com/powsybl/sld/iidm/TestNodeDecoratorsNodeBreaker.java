@@ -8,7 +8,12 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.extensions.OperatingStatus;
+import com.powsybl.iidm.network.extensions.OperatingStatusAdder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -18,6 +23,9 @@ import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.LabelPosition;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +58,18 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
                 toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
+    @Test
+    void testBranchStatusForVerticalInternalPst() {
+        Network networkInternalPst = Networks.createNetworkWithInternalPstAndBranchStatus();
+        SubstationGraph g = new NetworkGraphBuilder(networkInternalPst).buildSubstationGraph("s");
+
+        // Run horizontal substation layout
+        new HorizontalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(networkInternalPst)).run(layoutParameters);
+
+        assertEquals(toString("/VerticalInternalPstBranchStatusNodeBreaker.svg"),
+                toSVG(g, "/VerticalInternalPstBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(networkInternalPst, componentLibrary, layoutParameters, svgParameters), new StyleProvidersList(new TopologicalStyleProvider(networkInternalPst), new HighlightLineStateStyleProvider(networkInternalPst))));
     }
 
     @Test
