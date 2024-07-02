@@ -30,7 +30,14 @@ public class EdgeInfo {
     }
 
     public EdgeInfo(String infoType, double value, DoubleFunction<String> formatter) {
-        this(infoType, value < 0 ? Direction.IN : Direction.OUT, null, formatter.apply(value));
+        this(infoType, getArrowDirection(value), null, formatter.apply(value));
+    }
+
+    private static Direction getArrowDirection(double value) {
+        if (Double.isNaN(value)) {
+            return null;
+        }
+        return value < 0 ? Direction.IN : Direction.OUT;
     }
 
     public String getInfoType() {
