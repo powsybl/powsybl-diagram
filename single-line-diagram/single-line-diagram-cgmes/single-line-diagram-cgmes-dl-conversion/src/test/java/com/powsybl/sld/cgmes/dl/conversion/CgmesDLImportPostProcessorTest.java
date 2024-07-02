@@ -6,18 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  *
@@ -26,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     @Test
-    void process() throws Exception {
+    void process() {
         Network network = Networks.createNetworkWithBusbar();
         new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
 
@@ -34,20 +30,12 @@ class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
         NodeDiagramData<BusbarSection> busDiagramData = busbar.getExtension(NodeDiagramData.class);
         assertNotNull(busDiagramData);
         assertNotNull(busDiagramData.getData(DEFAULT_DIAGRAM_NAME));
-        NodeDiagramData.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
+        NodeDiagramData<BusbarSection>.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
         assertEquals(1, nodeDiagramDataDetails.getPoint1().getSeq(), 0);
         assertEquals(20, nodeDiagramDataDetails.getPoint1().getX(), 0);
         assertEquals(5, nodeDiagramDataDetails.getPoint1().getY(), 0);
         assertEquals(2, nodeDiagramDataDetails.getPoint2().getSeq(), 0);
         assertEquals(20, nodeDiagramDataDetails.getPoint2().getX(), 0);
         assertEquals(40, nodeDiagramDataDetails.getPoint2().getY(), 0);
-    }
-
-    @Test
-    void processNoDlContext() {
-        Network network = Networks.createNetworkWithBusbar();
-        Mockito.when(tripleStore.contextNames()).thenReturn(new HashSet<>(Arrays.asList("Network_EQ.xml", "Network_SV.xml", "Network_TP.xml")));
-        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
-        assertNull(network.getBusbarSection("Busbar").getExtension(NodeDiagramData.class));
     }
 }

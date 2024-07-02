@@ -8,7 +8,6 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.cgmes.conversion.CgmesImportPostProcessor;
-import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.triplestore.api.QueryCatalog;
 import com.powsybl.triplestore.api.TripleStore;
@@ -42,19 +41,10 @@ public class CgmesDLImportPostProcessor implements CgmesImportPostProcessor {
         return NAME;
     }
 
-    private boolean isDlProfileAvailable(Network network, TripleStore tripleStore) {
-        return tripleStore != null && tripleStore.contextNames().contains(ContextUtils.contextNameFor(CgmesSubset.DIAGRAM_LAYOUT, tripleStore, network.getId()));
-    }
-
     @Override
     public void process(Network network, TripleStore tripleStore) {
-        if (isDlProfileAvailable(network, tripleStore)) {
-            LOG.info("Execute {} CGMES import post processor on network {}", getName(), network.getId());
-
-            CgmesDLModel cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
-            new CgmesDLImporter(network, cgmesDLModel).importDLData();
-        } else {
-            LOG.info("DL profile not found for network {}", network.getId());
-        }
+        LOG.info("Execute {} CGMES import post processor on network {}", getName(), network.getId());
+        CgmesDLModel cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
+        new CgmesDLImporter(network, cgmesDLModel).importDLData();
     }
 }
