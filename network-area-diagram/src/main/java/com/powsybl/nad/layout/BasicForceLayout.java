@@ -24,10 +24,22 @@ public class BasicForceLayout extends AbstractLayout {
 
     private static final int SCALE = 100;
 
+    private final boolean repulsionForceFromFixedPoints;
+    private final boolean attractToCenterForce;
+
+    public BasicForceLayout() {
+        this(true, true);
+    }
+
+    BasicForceLayout(boolean repulsionForceFromFixedPoints, boolean attractToCenterForce) {
+        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        this.attractToCenterForce = attractToCenterForce;
+    }
+
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph);
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph, repulsionForceFromFixedPoints, attractToCenterForce);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
         forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
 
