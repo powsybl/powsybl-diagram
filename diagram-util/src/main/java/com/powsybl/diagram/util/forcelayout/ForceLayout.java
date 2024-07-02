@@ -85,15 +85,10 @@ public class ForceLayout<V, E> {
     private boolean hasBeenExecuted = false;
     private Vector center = new Vector(0, 0);
 
-    private final boolean repulsionForceFromFixedPoints;
-    private final boolean attractToCenterForce;
+    private boolean repulsionForceFromFixedPoints = true;
+    private boolean attractToCenterForce = true;
 
     public ForceLayout(Graph<V, E> graph) {
-        this(graph, true, true);
-    }
-
-    public ForceLayout(Graph<V, E> graph, boolean repulsionForceFromFixedPoints, boolean attractToCenterForce) {
-        this.attractToCenterForce = attractToCenterForce;
         this.maxSteps = DEFAULT_MAX_STEPS;
         this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
         this.deltaTime = DEFAULT_DELTA_TIME;
@@ -102,7 +97,16 @@ public class ForceLayout<V, E> {
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
         this.graph = Objects.requireNonNull(graph);
+    }
+
+    public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
+        this.attractToCenterForce = attractToCenterForce;
+        return this;
+    }
+
+    public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
         this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {

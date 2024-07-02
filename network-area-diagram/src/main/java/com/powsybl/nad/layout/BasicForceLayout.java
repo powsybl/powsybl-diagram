@@ -39,7 +39,9 @@ public class BasicForceLayout extends AbstractLayout {
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph, repulsionForceFromFixedPoints, attractToCenterForce);
+        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
+                .setAttractToCenterForce(attractToCenterForce)
+                .setRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
         forceLayout.setSpringRepulsionFactor(layoutParameters.getSpringRepulsionFactorForceLayout());
         forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
 
