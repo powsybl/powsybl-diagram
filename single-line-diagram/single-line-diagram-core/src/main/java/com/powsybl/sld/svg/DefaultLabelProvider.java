@@ -183,8 +183,10 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             return new NodeDecorator(decoratorType, getBusDecoratorPosition());
         } else if (node instanceof FeederNode) {
             return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
-        } else {
+        } else if (node instanceof Internal2WTNode) {
             return new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
+        } else {
+            return new NodeDecorator(decoratorType, getGenericDecoratorPosition());
         }
     }
 
