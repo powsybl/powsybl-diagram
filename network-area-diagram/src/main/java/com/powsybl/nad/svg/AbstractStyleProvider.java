@@ -73,8 +73,19 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         if (isDisconnected(edge)) {
             result.add(DISCONNECTED_CLASS);
         }
+        getBranchTypeStyle(edge).ifPresent(result::add);
         getBaseVoltageStyle(edge).ifPresent(result::add);
         return result;
+    }
+
+    private static Optional<String> getBranchTypeStyle(Edge edge) {
+        String edgeType = edge.getType();
+        return switch (edgeType) {
+            case BranchEdge.HVDC_LINE_EDGE -> Optional.of(HVDC_EDGE_CLASS);
+            case BranchEdge.DANGLING_LINE_EDGE -> Optional.of(DANGLING_LINE_EDGE_CLASS);
+            case BranchEdge.TIE_LINE_EDGE -> Optional.of(TIE_LINE_EDGE_CLASS);
+            default -> Optional.empty();
+        };
     }
 
     @Override
