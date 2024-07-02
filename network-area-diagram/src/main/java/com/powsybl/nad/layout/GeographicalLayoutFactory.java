@@ -14,6 +14,9 @@ import com.powsybl.iidm.network.extensions.Coordinate;
 import com.powsybl.iidm.network.extensions.SubstationPosition;
 import com.powsybl.nad.model.Point;
 import org.jgrapht.alg.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +27,13 @@ import java.util.Map;
  */
 public class GeographicalLayoutFactory extends FixedLayoutFactory implements LayoutFactory {
 
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GeographicalLayoutFactory.class);
+
     private static final int SCALING_FACTOR = 150000;
     private static final double RADIUS_FACTOR = 150;
 
     public GeographicalLayoutFactory(Network network) {
-        this(network, SCALING_FACTOR, RADIUS_FACTOR, BasicForceLayout::new);
+        this(network, SCALING_FACTOR, RADIUS_FACTOR, () -> new BasicForceLayout(false, false));
     }
 
     public GeographicalLayoutFactory(Network network, int scalingFactor, double radiusFactor, LayoutFactory layoutFactory) {
@@ -38,6 +43,13 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
     private static Map<String, Point> getFixedNodePosition(Network network, int scalingFactor, double radiusFactor) {
         Map<String, Point> fixedNodePositionMap = new HashMap<>();
         network.getSubstationStream().forEach(substation -> fillPositionMap(substation, fixedNodePositionMap, scalingFactor, radiusFactor));
+
+        int voltageLevelCount = network.getVoltageLevelCount();
+        int missingPositions = voltageLevelCount - fixedNodePositionMap.size();
+        double missingPositionsRatio = (double) missingPositions / voltageLevelCount;
+        LOGGER.atLevel(missingPositionsRatio > 0.3 ? Level.WARN : Level.INFO)
+                .log("{} missing voltage level positions out of {} voltage levels", missingPositions, voltageLevelCount);
+
         return fixedNodePositionMap;
     }
 

@@ -85,6 +85,9 @@ public class ForceLayout<V, E> {
     private boolean hasBeenExecuted = false;
     private Vector center = new Vector(0, 0);
 
+    private boolean repulsionForceFromFixedPoints = true;
+    private boolean attractToCenterForce = true;
+
     public ForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
         this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
@@ -94,6 +97,16 @@ public class ForceLayout<V, E> {
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
         this.graph = Objects.requireNonNull(graph);
+    }
+
+    public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
+        this.attractToCenterForce = attractToCenterForce;
+        return this;
+    }
+
+    public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
+        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
@@ -201,7 +214,9 @@ public class ForceLayout<V, E> {
                 applyCoulombsLawToSprings();
             }
             applyHookesLaw();
-            attractToCenter();
+            if (attractToCenterForce) {
+                attractToCenter();
+            }
             updateVelocity();
             updatePosition();
 
@@ -232,8 +247,10 @@ public class ForceLayout<V, E> {
                     point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
                 }
             }
-            for (Point fixedPoint : fixedPoints.values()) {
-                point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
+            if (repulsionForceFromFixedPoints) {
+                for (Point fixedPoint : fixedPoints.values()) {
+                    point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
+                }
             }
         }
     }
