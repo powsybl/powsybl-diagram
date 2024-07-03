@@ -94,12 +94,28 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
         List<String> voltageLevelDetails = new ArrayList<>();
-        long activeProduction = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getP()) ? -generator.getTerminal().getP() : 0).sum());
-        long reactiveProduction = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getQ()) ? -generator.getTerminal().getQ() : 0).sum());
-        long activeConsumption = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getP()) ? load.getTerminal().getP() : 0).sum());
-        long reactiveConsumption = Math.round(network.getVoltageLevel(vlNode.getEquipmentId()).getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getQ()) ? load.getTerminal().getQ() : 0).sum());
-        voltageLevelDetails.add(String.format("Production: %d MW / %d MVAR", activeProduction, reactiveProduction));
-        voltageLevelDetails.add(String.format("Consumption: %d MW / %d MVAR", activeConsumption, reactiveConsumption));
+        VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
+
+        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getP()) ? -generator.getTerminal().getP() : 0).sum();
+        String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
+
+        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getQ()) ? -generator.getTerminal().getQ() : 0).sum();
+        String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
+
+        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getP()) ? load.getTerminal().getP() : 0).sum();
+        String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
+
+        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getQ()) ? load.getTerminal().getQ() : 0).sum();
+        String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
+
+        if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
+            voltageLevelDetails.add(String.format("~ %s / %s", activeProduction, reactiveProduction));
+        }
+
+        if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
+            voltageLevelDetails.add(String.format("⌂ %s / %s", activeConsumption, reactiveConsumption));
+        }
+
         return voltageLevelDetails;
     }
 

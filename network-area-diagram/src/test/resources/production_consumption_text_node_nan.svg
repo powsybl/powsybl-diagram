@@ -293,22 +293,16 @@
         <foreignObject id="0-textnode" y="-251.15" x="19.70" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 1</div>
-                <div>Production: 0 MW / 0 MVAR</div>
-                <div>Consumption: 0 MW / 0 MVAR</div>
             </div>
         </foreignObject>
         <foreignObject id="3-textnode" y="-83.40" x="-165.87" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 2</div>
-                <div>Production: 0 MW / 0 MVAR</div>
-                <div>Consumption: 0 MW / 0 MVAR</div>
             </div>
         </foreignObject>
         <foreignObject id="5-textnode" y="131.75" x="80.17" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>vl3</div>
-                <div>Production: 0 MW / 0 MVAR</div>
-                <div>Consumption: 0 MW / 0 MVAR</div>
             </div>
         </foreignObject>
     </g>
