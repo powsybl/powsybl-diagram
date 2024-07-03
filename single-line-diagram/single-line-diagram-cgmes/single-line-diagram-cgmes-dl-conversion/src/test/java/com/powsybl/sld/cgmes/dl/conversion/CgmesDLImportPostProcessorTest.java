@@ -48,7 +48,7 @@ class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
         assertEquals(20, nodeDiagramDataDetails.getPoint2().getX(), 0);
         assertEquals(40, nodeDiagramDataDetails.getPoint2().getY(), 0);
     }
-    
+
     @Test
     void processEmpty() {
         queryCatalog = Mockito.mock(QueryCatalog.class);
