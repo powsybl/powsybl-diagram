@@ -1214,6 +1214,9 @@ public final class Networks {
         network.getTwoWindingsTransformer("T12").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
 
         network.getThreeWindingsTransformer(THREE_WINDING_TRANSFORMER_12_ID).newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
+        if (network.getVoltageLevel("VL2").getTopologyKind() == TopologyKind.NODE_BREAKER) {
+            network.getBusbarSection("BBS2").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
+        }
     }
 
     public static Network createNodeBreakerNetworkWithInternalBranches(String id, String sourceFormat) {
@@ -1678,6 +1681,12 @@ public final class Networks {
         createSwitch(vl, "d2b", "d2bn", SwitchKind.DISCONNECTOR, false, true, false, 1, 5);
         createSwitch(vl, "bl", "bln", SwitchKind.BREAKER, false, false, false, 5, 6);
         createLoad(vl, "load", "load", "l", null, ConnectablePosition.Direction.BOTTOM, 6, 10, 10);
+        return network;
+    }
+
+    public static Network createNetworkWithInternalPstAndBranchStatus() {
+        Network network = createNetworkWithInternalPst();
+        network.getTwoWindingsTransformer("trf3").newExtension(OperatingStatusAdder.class).withStatus(OperatingStatus.Status.FORCED_OUTAGE).add();
         return network;
     }
 
