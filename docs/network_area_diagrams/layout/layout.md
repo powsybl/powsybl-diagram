@@ -1,12 +1,12 @@
 # Layouts
 
-Several layout factories implementations are available.
+Several layout factory implementations are available.
 
 ## Basic force layout
-The layout factory `BasicForceLayoutFactory` is based on a force layout algorithm, with the following forces interacting on the voltage levels graph:
-- repulsion Coulomb forces between all nodes,
-- attraction spring forces between nodes linked with an edge,
-- attraction force to the diagram center for all the node, to avoid the connected components to get further and further away at each step.
+The layout factory `BasicForceLayoutFactory` is based on a force layout algorithm, with the following forces interacting on the voltage level graph:
+- Repulsion Coulomb forces between all nodes;
+- Attraction spring forces between nodes linked with an edge;
+- Attraction force to the diagram center for all the nodes, to avoid the connected components to get further and further away at each step.
 
 ## Fixed layout
 The layout factory `FixedLayoutFactory` is based on a set of provided fixed positions, and on an additional layout.
@@ -20,5 +20,5 @@ Note that to avoid overlapping, voltage levels within the same substation are pl
 
 Then, the provided additional layout is run, with the previously mentioned projected coordinates fixed.
 Note that, by default, the additional layout is the basic force layout mentioned above, with some forces disabled:
-- the repulsion Coulomb forces are only between non-fixed nodes,
-- the attraction force to the diagram center is disabled.
+- The repulsion Coulomb forces are only between non-fixed nodes;
+- The attraction force to the diagram center is disabled.
