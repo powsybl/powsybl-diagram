@@ -168,18 +168,26 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             OperatingStatus<T> operatingStatus = identifiable.getExtension(OperatingStatus.class);
             if (operatingStatus != null) {
                 switch (operatingStatus.getStatus()) {
-                    case PLANNED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
-                    case FORCED_OUTAGE -> nodeDecorators.add(getBranchStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case PLANNED_OUTAGE -> nodeDecorators.add(getOperatingStatusDecorator(node, direction, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    case FORCED_OUTAGE -> nodeDecorators.add(getOperatingStatusDecorator(node, direction, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
                     case IN_OPERATION -> { /* No decorator for IN_OPERATION equipment */ }
                 }
             }
         }
     }
 
-    private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
-        return (node instanceof Middle3WTNode middle3WTNode) ?
-                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction)) :
-                new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
+    private NodeDecorator getOperatingStatusDecorator(Node node, Direction direction, String decoratorType) {
+        if (node instanceof Middle3WTNode middle3WTNode) {
+            return new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
+        } else if (node instanceof BusNode) {
+            return new NodeDecorator(decoratorType, getBusDecoratorPosition());
+        } else if (node instanceof FeederNode) {
+            return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
+        } else if (node instanceof Internal2WTNode) {
+            return new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
+        } else {
+            return new NodeDecorator(decoratorType, getGenericDecoratorPosition());
+        }
     }
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
