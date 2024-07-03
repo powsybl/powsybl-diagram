@@ -96,16 +96,16 @@ public class DefaultLabelProvider implements LabelProvider {
         List<String> voltageLevelDetails = new ArrayList<>();
         VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
 
-        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getP()) ? -generator.getTerminal().getP() : 0).sum();
+        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
         String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
 
-        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> !Double.isNaN(-generator.getTerminal().getQ()) ? -generator.getTerminal().getQ() : 0).sum();
+        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
         String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
 
-        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getP()) ? load.getTerminal().getP() : 0).sum();
+        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
         String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
 
-        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> !Double.isNaN(load.getTerminal().getQ()) ? load.getTerminal().getQ() : 0).sum();
+        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
         String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
 
         if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
