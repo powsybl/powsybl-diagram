@@ -10,10 +10,12 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.QueryCatalog;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -21,9 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
+    private Network network;
+
+    @BeforeEach
+    @Override
+    public void setUp() {
+        super.setUp();
+        network = Networks.createNetworkWithBusbar();
+    }
+
     @Test
     void process() {
-        Network network = Networks.createNetworkWithBusbar();
         new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
 
         BusbarSection busbar = network.getBusbarSection("Busbar");
@@ -37,5 +47,15 @@ class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
         assertEquals(2, nodeDiagramDataDetails.getPoint2().getSeq(), 0);
         assertEquals(20, nodeDiagramDataDetails.getPoint2().getX(), 0);
         assertEquals(40, nodeDiagramDataDetails.getPoint2().getY(), 0);
+    }
+    
+    @Test
+    void processEmpty() {
+        queryCatalog = Mockito.mock(QueryCatalog.class);
+        cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
+        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
+
+        BusbarSection busbar = network.getBusbarSection("Busbar");
+        assertNull(busbar.getExtension(NodeDiagramData.class));
     }
 }
