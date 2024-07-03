@@ -16,7 +16,6 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,7 +93,30 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-        return Collections.emptyList();
+        List<String> voltageLevelDetails = new ArrayList<>();
+        VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
+
+        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+        String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
+
+        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+        String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
+
+        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+        String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
+
+        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+        String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
+
+        if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
+            voltageLevelDetails.add(String.format("~ %s / %s", activeProduction, reactiveProduction));
+        }
+
+        if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
+            voltageLevelDetails.add(String.format("⌂ %s / %s", activeConsumption, reactiveConsumption));
+        }
+
+        return voltageLevelDetails;
     }
 
     @Override
