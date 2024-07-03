@@ -79,10 +79,14 @@ public class ForceLayout<V, E> {
 
     private final Graph<V, E> graph;
     private final Map<V, Point> points = new LinkedHashMap<>();
+    private final Map<V, Point> fixedPoints = new LinkedHashMap<>();
     private final Set<Spring> springs = new LinkedHashSet<>();
 
     private boolean hasBeenExecuted = false;
     private Vector center = new Vector(0, 0);
+
+    private boolean repulsionForceFromFixedPoints = true;
+    private boolean attractToCenterForce = true;
 
     public ForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
@@ -93,6 +97,16 @@ public class ForceLayout<V, E> {
         this.maxSpeed = DEFAULT_MAX_SPEED;
         this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
         this.graph = Objects.requireNonNull(graph);
+    }
+
+    public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
+        this.attractToCenterForce = attractToCenterForce;
+        return this;
+    }
+
+    public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
+        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
@@ -160,18 +174,27 @@ public class ForceLayout<V, E> {
         setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
-            Point point = new Point(
-                    center.getX() + scale * (random.nextDouble() - 0.5),
-                    center.getY() + scale * (random.nextDouble() - 0.5)
-            );
-            points.put(vertex, initialPoints.getOrDefault(vertex, point));
+            if (fixedNodes.contains(vertex)) {
+                fixedPoints.put(vertex, initialPoints.get(vertex));
+            } else {
+                Point initialPoint = initialPoints.get(vertex);
+                points.put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
+                        center.getX() + scale * (random.nextDouble() - 0.5),
+                        center.getY() + scale * (random.nextDouble() - 0.5)
+                )));
+            }
         }
     }
 
     private void initializeSprings() {
         for (E e : graph.edgeSet()) {
-            Point pointSource = points.get(graph.getEdgeSource(e));
-            Point pointTarget = points.get(graph.getEdgeTarget(e));
+            V edgeSource = graph.getEdgeSource(e);
+            V edgeTarget = graph.getEdgeTarget(e);
+            if (fixedNodes.contains(edgeSource) && fixedNodes.contains(edgeTarget)) {
+                continue;
+            }
+            Point pointSource = Objects.requireNonNullElseGet(points.get(edgeSource), () -> initialPoints.get(edgeSource));
+            Point pointTarget = Objects.requireNonNullElseGet(points.get(edgeTarget), () -> initialPoints.get(edgeTarget));
             if (pointSource != pointTarget) { // no use in force layout to add loops
                 springs.add(new Spring(pointSource, pointTarget, graph.getEdgeWeight(e)));
             }
@@ -191,7 +214,9 @@ public class ForceLayout<V, E> {
                 applyCoulombsLawToSprings();
             }
             applyHookesLaw();
-            attractToCenter();
+            if (attractToCenterForce) {
+                attractToCenter();
+            }
             updateVelocity();
             updatePosition();
 
@@ -220,6 +245,11 @@ public class ForceLayout<V, E> {
             for (Point otherPoint : points.values()) {
                 if (!point.equals(otherPoint)) {
                     point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
+                }
+            }
+            if (repulsionForceFromFixedPoints) {
+                for (Point fixedPoint : fixedPoints.values()) {
+                    point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
                 }
             }
         }
@@ -282,7 +312,6 @@ public class ForceLayout<V, E> {
     private void attractToCenter() {
         for (Point point : points.values()) {
             Vector direction = point.getPosition().multiply(-1).add(center);
-
             point.applyForce(direction.multiply(repulsion / 200.0));
         }
     }
@@ -302,15 +331,8 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        // TODO do not compute forces or update velocities for fixed nodes
-        // We have computed forces and velocities for all nodes, even for the fixed ones
-        // We can optimize calculations by ignoring fixed nodes in those calculations
         // Here we only update the position for the nodes that do not have fixed positions
-        for (Map.Entry<V, Point> vertexPoint : points.entrySet()) {
-            if (fixedNodes.contains(vertexPoint.getKey())) {
-                continue;
-            }
-            Point point = vertexPoint.getValue();
+        for (Point point : points.values()) {
             Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
@@ -321,10 +343,15 @@ public class ForceLayout<V, E> {
     }
 
     public Vector getStablePosition(V vertex) {
-        if (!hasBeenExecuted) {
-            LOGGER.warn("Force layout has not been executed yet");
+        Point fixedPoint = fixedPoints.get(vertex);
+        if (fixedPoint != null) {
+            return fixedPoint.getPosition();
+        } else {
+            if (!hasBeenExecuted) {
+                LOGGER.warn("Vertex {} position was not fixed and force layout has not been executed yet", vertex);
+            }
+            return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
         }
-        return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
     }
 
     public Set<Spring> getSprings() {

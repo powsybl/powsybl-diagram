@@ -11,6 +11,7 @@ import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -95,6 +96,10 @@ public abstract class AbstractLabelProvider implements LabelProvider {
                 0, yShift, true, 0);
     }
 
+    protected LabelPosition getBusDecoratorPosition() {
+        return new LabelPosition("BUS_DECORATOR", 35, -10, true, 0);
+    }
+
     protected LabelPosition getLabelPosition(Node node, Direction direction) {
         double yShift = -LABEL_OFFSET;
         String positionName = "";
@@ -111,6 +116,18 @@ public abstract class AbstractLabelProvider implements LabelProvider {
 
         return new LabelPosition(positionName + "_LABEL",
                 svgParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, svgParameters.isLabelCentered(), (int) angle);
+    }
+
+    protected LabelPosition getInternal2WTDecoratorPosition(Orientation orientation) {
+        if (orientation.isHorizontal()) {
+            return new LabelPosition("INTERNAL_2WT_DECORATOR", 0, -15, true, 0);
+        } else {
+            return new LabelPosition("INTERNAL_2WT_DECORATOR", 15, 0, true, 0);
+        }
+    }
+
+    protected LabelPosition getGenericDecoratorPosition() {
+        return new LabelPosition("GENERIC_DECORATOR", 0, 0, true, 0);
     }
 
     protected LabelPosition getBusLabelPosition() {

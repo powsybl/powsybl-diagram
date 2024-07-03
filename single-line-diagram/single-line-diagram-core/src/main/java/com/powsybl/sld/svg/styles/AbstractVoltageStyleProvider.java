@@ -8,6 +8,7 @@ package com.powsybl.sld.svg.styles;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
@@ -17,6 +18,8 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
@@ -41,9 +44,33 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
-        return getVoltageLevelEdgeStyle(graph, edge)
-                .map(vlStyle -> List.of(WIRE_STYLE_CLASS, vlStyle))
-                .orElse(List.of(WIRE_STYLE_CLASS));
+        List<String> list = Stream.of(getVoltageLevelEdgeStyle(graph, edge), getDanglingLineStyle(edge))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        list.add(0, WIRE_STYLE_CLASS);
+        return list;
+    }
+
+    private Optional<String> getDanglingLineStyle(Edge edge) {
+        if (edge.getNode1() instanceof FeederNode feederNode1) {
+            return getDanglingLineStyle(feederNode1);
+        }
+        if (edge.getNode2() instanceof FeederNode feederNode2) {
+            return getDanglingLineStyle(feederNode2);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> getDanglingLineStyle(FeederNode n) {
+        if (n.getFeeder().getFeederType() == FeederType.BRANCH) {
+            return switch (n.getComponentType()) {
+                case ComponentTypeName.TIE_LINE -> Optional.of(StyleClassConstants.TIE_LINE);
+                case ComponentTypeName.DANGLING_LINE -> Optional.of(StyleClassConstants.DANGLING_LINE);
+                default -> Optional.empty();
+            };
+        }
+        return Optional.empty();
     }
 
     protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {

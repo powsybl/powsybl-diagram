@@ -50,7 +50,7 @@ This sorting order foster `sectionIndex` reflecting the *horizontal view* of the
 ==== Merging
 The merging process consists in repeating the merging of the first `BSCluster` with the second one until only one remains.
 
-`HorizontalBusListManager::mergeHbl` merges the `HorizontalBusLists` from the 2 `BSClusters` by concatenating them when they have the same `busbarIndex`. As the `BSClusters` si sorted by `busbarIndex`, there is a coherent progression in each merged `HorizontalBusList`.
+`HorizontalBusListsMerger::mergeHbl` merges the `HorizontalBusLists` from the 2 `BSClusters` by concatenating them when they have the same `busbarIndex`. As the `BSClusters` si sorted by `busbarIndex`, there is a coherent progression in each merged `HorizontalBusList`.
 
 == Example
 === The end in mind

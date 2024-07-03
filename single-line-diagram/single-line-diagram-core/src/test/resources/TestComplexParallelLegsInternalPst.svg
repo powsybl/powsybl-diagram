@@ -91,7 +91,7 @@
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-/* File : components.css ------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* File : components.css ------------------------------------------------- */
 .sld-disconnector.sld-open {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
 .sld-disconnector.sld-closed {fill: var(--sld-vl-color, black)}
 .sld-breaker, .sld-load-break-switch {fill: var(--sld-vl-color, blue)}
@@ -99,6 +99,8 @@
 .sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
 .sld-load {fill: var(--sld-vl-color, blue)}
 .sld-battery {fill: var(--sld-vl-color, blue)}
 .sld-generator {fill: var(--sld-vl-color, blue)}

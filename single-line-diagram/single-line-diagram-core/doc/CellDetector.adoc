@@ -1,39 +1,37 @@
 == Detect the cells
 
 === Definitions and goal
-An object of `Cell` class represents a connected subgraph of nodes that participate to a common purpose. The goal of the cell detection is to create these subgraphs that will then:
+A `Cell` represents a connected subgraph of nodes that participate in a common purpose. The goal of the cell detection is to create these subgraphs that will then:
 
-* structures the organisation of the busbars layout
+* structure the organisation of the busbars layout
 * be displayed according to their types
 
 Two subclasses inherit the `Cell` class :
 
-* `InternCell` for cells that does not contain `FEEDER` nodes and are not shunting `ExternCell` cells,
+* `InternCell` for cells that does not contain `FEEDER` nodes and are not shunting `ExternCell` cells (see `SHUNT` definition below),
 * `ExternCell` for cells connecting `FEEDER` nodes to `BUS` nodes.
 
 Cells can be of one of the following enum `CellType`:
 
 `INTERN`::
-The smallest subGraph delimited by `BUS` nodes (ie not including `FEEDER`). +
-Such a cell instanciates the `InternCell` subclass
-
-`INTERNBOUND`::
-A singular intern Cell having exactly 3 nodes: 1 `SWITCH` node connecting 2 neighboring (ie having the same vertical position, and having contiguous horizontal values) `BUS` nodes  +
-(note that the cellDetector will detect this as `INTERN`, further processing will detect it)
-Such a cell instanciates the `InternCell` subclass +
+The smallest subGraph delimited by `BUS` nodes (i.e. not including `FEEDER`). +
+Such cells instantiate the `InternCell` subclass
 
 `EXTERN`::
 The smallest subGraph delimited by `BUS` nodes and `FEEDER` nodes with at least one node having the following property: each branch extracted from this very node ends with nodes of a single `nodeType` among: `BUS` or `FEEDER` or `SHUNT` +
- Such a cell instanciates the `ExternCell` subclass
+ Such cells instantiate the `ExternCell` subclass
 
 `SHUNT`::
-A path between 2 `FictitiousNode` nodes of 2 `ExternCell` cells +
-Such cell instanciates the `Cell` class
+A path between two `FictitiousNode` nodes of two `ExternCell` cells +
+Such cells instantiate the `ShuntCell` subclass
 
-`UNDEFINED`::
-Initial type, should not stay as is.
+`ARCH`::
+A path between an `ExternCell` and a `BusNode`. +
+Such cells instantiate the `ArchCell` class. +
+This type is obtained when an `ExternCell` is linked to two subsections, which cannot be displayed with current algorithm.
+Such an `ExternCell` is then cut in an `ExternCell` only on one subsection, and in several `ArchCell`
 
-The figure shows examples of cells of each `CellType`.
+The figure shows examples of cells of several `CellType`.
 
 .CellTypes enum
 image::images/CellTypes.svg[align="center"]
@@ -43,10 +41,12 @@ image::images/CellTypes.svg[align="center"]
 The ImplicitCellDetector implements an algorithm sticking to the above definitions.
 
 ===== Cleaning
-A preliminary step consists in calling some cleaning and tuning operations of the `Graph` class.
-
-* `Graph.removeUnnecessaryFictitiousNodes()` is _optionally_ called to simplify the graph by removing redundant `FICTITIOUS` nodes
-* `Graph.extendFeederWithMultipleSwitches()` is _systematically_ called to insert a `FICTITIOUS` node to a `FEEDER` node when it is originally connected to many `SWITCH` nodes as graphically, a `FeederNode` shall be connected to one and only one node.
+A preliminary step is done inside a `GraphRefiner` class which does some pre-processing on the input graph by calling several method:
+* An _optional_ call to `Graph.substituteInternalMiddle2wtByEquipmentNodes()` to simplify the graph by substituting each internal two-winding transformers (i.e. both ends are in the same voltage level) `FeederNode` by a `EquipmentNode`, to avoid unnecessary snake lines.
+* A _systematic_ call to `GraphRefiner::handleConnectedComponents` which ensures that each connected component contains a `BusNode`: it is adding one if there is none.
+* A _systematic_ call to `Graph.substituteFictitiousNodesMirroringBusNodes()` to simplify the graph by removing `FICTITIOUS` nodes which are the only adjacent node of a `BusNode`.
+* An _optional_ call to `Graph.removeUnnecessaryConnectivityNodes()` to simplify the graph by removing redundant `FICTITIOUS` nodes
+* A _systematic_ call `Graph.extendFeederWithMultipleSwitches()` is _systematically_ called to insert a `FICTITIOUS` node to a `FEEDER` node when it is originally connected to many `SWITCH` nodes as graphically, a `FeederNode` shall be connected to one and only one node.
 * `Graph.extendFirstOutsideNode()` copes with the case of a string of 2+ `SWITCH` nodes starting from a `BUS` node. In that case a `FICTITIOUS` node need to be applied to align the connection of the second `SWITCH` node at the `LayoutParameters.stackHeight`
 * `Graph.extendBreakerConnectedToBus()` copes with a breaker directly connected to the `BUS` node. A fictitious switch is inserted in between.
 * `Graph.extendFeederConnectedToBus()` copes with `FEEDER` node directly connected to the `BUS` node. A `FICTITIOUS` node is inserted in between.
