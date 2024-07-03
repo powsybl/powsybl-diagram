@@ -14,10 +14,7 @@ import com.powsybl.triplestore.api.PropertyBags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -37,94 +34,158 @@ public class CgmesDLImporter {
     }
 
     public void importDLData() {
-        importTerminalsDLData();
-        importBusesDLData();
-        importBusbarsDLData();
-        importLinesDLData();
-        importGeneratorsDLData();
-        importLoadsDLData();
-        importShuntsDLData();
-        importSwitchesDLData();
-        importTransformersDLData();
-        importHvdcLinesDLData();
-        importSvcsDLData();
-        importVoltageLevelDLData();
+        Boolean[] importDl = new Boolean[]{
+                importTerminalsDLData(),
+                importBusesDLData(),
+                importBusbarsDLData(),
+                importLinesDLData(),
+                importGeneratorsDLData(),
+                importLoadsDLData(),
+                importShuntsDLData(),
+                importSwitchesDLData(),
+                importTransformersDLData(),
+                importHvdcLinesDLData(),
+                importSvcsDLData(),
+                importVoltageLevelDLData()
+        };
+        if (Arrays.stream(importDl).noneMatch(imported -> imported)) {
+            LOG.info("No DL data found for network {}", network.getId());
+        }
     }
 
-    private void importTerminalsDLData() {
+    private boolean importTerminalsDLData() {
+        PropertyBags terminalDiagramData = cgmesDLModel.getTerminalsDiagramData();
+        if (terminalDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Terminals DL Data");
-        cgmesDLModel.getTerminalsDiagramData().forEach(terminalDiagramData -> {
-            String terminalKey = terminalDiagramData.get("diagramName") + "_" + terminalDiagramData.getId("terminalEquipment") + "_" + terminalDiagramData.get("terminalSide");
+        terminalDiagramData.forEach(propertyBag -> {
+            String terminalKey = propertyBag.get("diagramName") + "_" + propertyBag.getId("terminalEquipment") + "_" + propertyBag.get("terminalSide");
             PropertyBags equipmentTerminalsDiagramData = new PropertyBags();
             if (terminalsDiagramData.containsKey(terminalKey)) {
                 equipmentTerminalsDiagramData = terminalsDiagramData.get(terminalKey);
             }
-            equipmentTerminalsDiagramData.add(terminalDiagramData);
+            equipmentTerminalsDiagramData.add(propertyBag);
             terminalsDiagramData.put(terminalKey, equipmentTerminalsDiagramData);
         });
+        return true;
     }
 
-    private void importBusesDLData() {
+    private boolean importBusesDLData() {
+        PropertyBags busesDiagramData = cgmesDLModel.getBusesDiagramData();
+        if (busesDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Buses DL Data");
         BusDiagramDataImporter diagramDataImporter = new BusDiagramDataImporter(network);
-        cgmesDLModel.getBusesDiagramData().forEach(diagramDataImporter::importDiagramData);
+        busesDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importBusbarsDLData() {
+    private boolean importBusbarsDLData() {
+        PropertyBags busbarsDiagramData = cgmesDLModel.getBusbarsDiagramData();
+        if (busbarsDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Busbars DL Data");
         BusbarDiagramDataImporter diagramDataImporter = new BusbarDiagramDataImporter(network);
-        cgmesDLModel.getBusbarsDiagramData().forEach(diagramDataImporter::importDiagramData);
+        busbarsDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importLinesDLData() {
+    private boolean importLinesDLData() {
+        PropertyBags linesDiagramData = cgmesDLModel.getLinesDiagramData();
+        if (linesDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Lines DL Data");
         LineDiagramDataImporter diagramDataImporter = new LineDiagramDataImporter(network);
-        cgmesDLModel.getLinesDiagramData().forEach(diagramDataImporter::importDiagramData);
+        linesDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importGeneratorsDLData() {
+    private boolean importGeneratorsDLData() {
+        PropertyBags generatorsDiagramData = cgmesDLModel.getGeneratorsDiagramData();
+        if (generatorsDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Generators DL Data");
         GeneratorDiagramDataImporter diagramDataImporter = new GeneratorDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getGeneratorsDiagramData().forEach(diagramDataImporter::importDiagramData);
+        generatorsDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importLoadsDLData() {
+    private boolean importLoadsDLData() {
+        PropertyBags loadsDiagramData = cgmesDLModel.getLoadsDiagramData();
+        if (loadsDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Loads DL Data");
         LoadDiagramDataImporter diagramDataImporter = new LoadDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getLoadsDiagramData().forEach(diagramDataImporter::importDiagramData);
+        loadsDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importShuntsDLData() {
+    private boolean importShuntsDLData() {
+        PropertyBags shuntsDiagramData = cgmesDLModel.getShuntsDiagramData();
+        if (shuntsDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Shunts DL Data");
         ShuntDiagramDataImporter diagramDataImporter = new ShuntDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getShuntsDiagramData().forEach(diagramDataImporter::importDiagramData);
+        shuntsDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importSwitchesDLData() {
+    private boolean importSwitchesDLData() {
+        PropertyBags switchesDiagramData = cgmesDLModel.getSwitchesDiagramData();
+        if (switchesDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Switches DL Data");
         SwitchDiagramDataImporter diagramDataImporter = new SwitchDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getSwitchesDiagramData().forEach(diagramDataImporter::importDiagramData);
+        switchesDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importTransformersDLData() {
+    private boolean importTransformersDLData() {
+        PropertyBags transformersDiagramData = cgmesDLModel.getTransformersDiagramData();
+        if (transformersDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Transformers DL Data");
         TransformerDiagramDataImporter diagramDataImporter = new TransformerDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getTransformersDiagramData().forEach(diagramDataImporter::importDiagramData);
+        transformersDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importHvdcLinesDLData() {
+    private boolean importHvdcLinesDLData() {
+        PropertyBags hvdcLinesDiagramData = cgmesDLModel.getHvdcLinesDiagramData();
+        if (hvdcLinesDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing HVDC Lines DL Data");
         HvdcLineDiagramDataImporter diagramDataImporter = new HvdcLineDiagramDataImporter(network);
-        cgmesDLModel.getHvdcLinesDiagramData().forEach(diagramDataImporter::importDiagramData);
+        hvdcLinesDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importSvcsDLData() {
+    private boolean importSvcsDLData() {
+        PropertyBags svcsDiagramData = cgmesDLModel.getSvcsDiagramData();
+        if (svcsDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing Svcs DL Data");
         SvcDiagramDataImporter diagramDataImporter = new SvcDiagramDataImporter(network, terminalsDiagramData);
-        cgmesDLModel.getSvcsDiagramData().forEach(diagramDataImporter::importDiagramData);
+        svcsDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
-    private void importVoltageLevelDLData() {
+    private boolean importVoltageLevelDLData() {
+        PropertyBags voltageLevelDiagramData = cgmesDLModel.getVoltageLevelDiagramData();
+        if (voltageLevelDiagramData.isEmpty()) {
+            return false;
+        }
         LOG.info("Importing VoltageLevel DL Data");
         Map<String, Set<String>> nodeSwitches = cgmesDLModel.findCgmesConnectivityNodesSwitchesForks();
         Map<String, Map<String, Integer>> mapCnodeInode = new HashMap<>();
@@ -143,7 +204,8 @@ public class CgmesDLImporter {
             }
         });
         VoltageLevelDiagramDataImporter diagramDataImporter = new VoltageLevelDiagramDataImporter(network, mapCnodeInode);
-        cgmesDLModel.getVoltageLevelDiagramData().forEach(diagramDataImporter::importDiagramData);
+        voltageLevelDiagramData.forEach(diagramDataImporter::importDiagramData);
+        return true;
     }
 
     public Network getNetworkWithDLData() {
