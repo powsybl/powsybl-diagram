@@ -917,6 +917,13 @@ public class SvgWriter {
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
                 edge.getType()));
+        graph.getVoltageLevelTextPairs().forEach(textPair -> metadata.addTextNode(getPrefixedId(textPair.getSecond().getDiagramId()),
+                textPair.getFirst().getEquipmentId(),
+                getPrefixedId(textPair.getFirst().getDiagramId()),
+                getFormattedValue(textPair.getSecond().getX() - textPair.getFirst().getX()),
+                getFormattedValue(textPair.getSecond().getY() - svgParameters.getDetailedTextNodeYShift() - textPair.getFirst().getY()),
+                getFormattedValue(textPair.getSecond().getX() - textPair.getFirst().getX()),
+                getFormattedValue(textPair.getSecond().getY() - textPair.getFirst().getY())));
         metadata.addSvgParameters(String.valueOf(svgParameters.isInsertNameDesc()), String.valueOf(svgParameters.isSvgWidthAndHeightAdded()),
                                   svgParameters.getCssLocation().name(), svgParameters.getSizeConstraint().name(),
                                   String.valueOf(svgParameters.getFixedWidth()), String.valueOf(svgParameters.getFixedHeight()),
