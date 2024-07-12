@@ -475,7 +475,7 @@
             </g>
             <g class="sld-two-wt sld-bottom-feeder" id="idT12_95_ONE" transform="translate(610.0,441.5)">
                 <circle class="sld-vl300to500-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <circle class="sld-vl300to500-2 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <text class="sld-label" id="T12_ONE_S_LABEL" x="-5.0" y="20.0">T12</text>
             </g>
         </g>
@@ -520,7 +520,7 @@
             </g>
             <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(682.0,375.0)">
                 <circle class="sld-disconnected sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
-                <circle class="sld-vl300to500-2 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+                <circle class="sld-vl300to500-0 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
                 <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
             </g>
             <g class="sld-bottom-feeder sld-disconnected" id="idT3_95_12_95_ONE" transform="translate(665.0,449.0)">
