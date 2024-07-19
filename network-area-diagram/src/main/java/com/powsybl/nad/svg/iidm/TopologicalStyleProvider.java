@@ -40,16 +40,17 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
         List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
+        int styleIndex = busNode.getStyleIndex() < 0 ? busNode.getIndex() : busNode.getStyleIndex();
         if (busNode instanceof BoundaryBusNode) {
             String dlId = busNode.getEquipmentId();
             getBaseVoltageStyle(network.getDanglingLine(dlId).getTerminal().getVoltageLevel().getNominalV())
-                    .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getIndex())
+                    .map(baseVoltageStyle -> baseVoltageStyle + "-" + styleIndex)
                     .ifPresent(styles::add);
         } else {
             Bus b = network.getBusView().getBus(busNode.getEquipmentId());
             if (b != null) {
                 getBaseVoltageStyle(b.getVoltageLevel().getNominalV())
-                        .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getIndex())
+                        .map(baseVoltageStyle -> baseVoltageStyle + "-" + styleIndex)
                         .ifPresent(styles::add);
             }
         }
