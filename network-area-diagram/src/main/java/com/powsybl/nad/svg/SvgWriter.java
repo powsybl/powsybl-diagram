@@ -746,7 +746,7 @@ public class SvgWriter {
             return false;
         }
         if (busGraphNode instanceof BusNode busGraphBusNode) {
-            return busGraphBusNode.getIndex() < busNodeCurrentlyDrawn.getIndex();
+            return busGraphBusNode.getRingIndex() < busNodeCurrentlyDrawn.getRingIndex();
         }
         return true;
     }
@@ -901,7 +901,7 @@ public class SvgWriter {
                 getPrefixedId(busNode.getDiagramId()),
                 busNode.getEquipmentId(),
                 String.valueOf(busNode.getNbNeighbouringBusNodes()),
-                String.valueOf(busNode.getIndex()),
+                String.valueOf(busNode.getRingIndex()),
                 getPrefixedId(vlNode.getDiagramId()))));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
@@ -960,18 +960,18 @@ public class SvgWriter {
     }
 
     public static double getBusAnnulusInnerRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        if (node.getIndex() == 0) {
+        if (node.getRingIndex() == 0) {
             return 0;
         }
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return node.getIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
+        return node.getRingIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return (node.getIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
+        return (node.getRingIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public String getPrefixedId(String id) {

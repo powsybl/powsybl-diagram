@@ -64,17 +64,17 @@ public abstract class AbstractLayout implements Layout {
     protected void busNodesLayout(Graph graph) {
         Comparator<BusNode> c = Comparator.comparing(bn -> graph.getBusEdges(bn).size());
         graph.getVoltageLevelNodesStream().forEach(n -> {
-            // We store the original position of each bus in their styleIndex, to build the correct CSS class later
+            // We store the original position of each bus, to build the correct CSS class later
             List<BusNode> nodes = n.getBusNodes();
             for (int i = 0; i < nodes.size(); i++) {
-                nodes.get(i).setStyleIndex(i);
+                nodes.get(i).setBusIndex(i);
             }
             // We sort the buses to draw them later from less connections (center) to more connections (outer annulus)
             n.sortBusNodes(c);
             List<BusNode> sortedNodes = n.getBusNodes();
             for (int i = 0; i < sortedNodes.size(); i++) {
                 BusNode busNode = sortedNodes.get(i);
-                busNode.setIndex(i);
+                busNode.setRingIndex(i);
                 busNode.setNbNeighbouringBusNodes(sortedNodes.size() - 1);
                 busNode.setPosition(n.getPosition());
             }

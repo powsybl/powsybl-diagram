@@ -13,28 +13,28 @@ public class BusNode extends AbstractNode {
 
     public static final BusNode UNKNOWN = new BusNode("", "");
 
-    private int index; // Sorted order of the bus, used to draw them in the correct order
-    private int styleIndex = -1; // Sorted position of the bus in the network, used to create the correct corresponding CSS class
+    private int ringIndex;
+    private int busIndex;
     private int nbNeighbouringBusNodes;
 
     public BusNode(String diagramId, String id) {
         super(diagramId, id, null);
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setRingIndex(int ringIndex) {
+        this.ringIndex = ringIndex;
     }
 
-    public int getIndex() {
-        return index;
+    public int getRingIndex() {
+        return ringIndex;
     }
 
-    public void setStyleIndex(int styleIndex) {
-        this.styleIndex = styleIndex;
+    public void setBusIndex(int busIndex) {
+        this.busIndex = busIndex;
     }
 
-    public int getStyleIndex() {
-        return styleIndex;
+    public int getBusIndex() {
+        return busIndex;
     }
 
     public void setNbNeighbouringBusNodes(int nbNeighbouringBusNodes) {
