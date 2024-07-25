@@ -565,7 +565,7 @@ public class SvgWriter {
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
 
         // width and height cannot be set to auto, and object is of width and height 0 if not specified
@@ -619,15 +619,15 @@ public class SvgWriter {
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
         writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getConnection().getY()));
         if (content.size() == 1) {
-            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getConnection().getX()));
             writer.writeCharacters(content.get(0));
         } else {
             for (int i = 0; i < content.size(); i++) {
                 String line = content.get(i);
                 writer.writeStartElement(TSPAN_ELEMENT_NAME);
-                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getConnection().getX()));
                 if (i > 0) {
                     writer.writeAttribute(DY_ATTRIBUTE, "1.1em");
                 }
@@ -933,11 +933,10 @@ public class SvgWriter {
                                   svgParameters.getSvgPrefix(), String.valueOf(svgParameters.isIdDisplayed()),
                                   String.valueOf(svgParameters.isSubstationDescriptionDisplayed()), getFormattedValue(svgParameters.getArrowHeight()),
                                   String.valueOf(svgParameters.isBusLegend()), String.valueOf(svgParameters.isVoltageLevelDetails()),
-                                  getFormattedValue(svgParameters.getDetailedTextNodeYShift()), svgParameters.getLanguageTag(),
-                                  String.valueOf(svgParameters.getVoltageValuePrecision()), String.valueOf(svgParameters.getPowerValuePrecision()),
-                                  String.valueOf(svgParameters.getAngleValuePrecision()), String.valueOf(svgParameters.getCurrentValuePrecision()),
-                                  svgParameters.getEdgeInfoDisplayed().name(), getFormattedValue(svgParameters.getPstArrowHeadSize()),
-                                  svgParameters.getUndefinedValueSymbol());
+                                  svgParameters.getLanguageTag(), String.valueOf(svgParameters.getVoltageValuePrecision()),
+                                  String.valueOf(svgParameters.getPowerValuePrecision()), String.valueOf(svgParameters.getAngleValuePrecision()),
+                                  String.valueOf(svgParameters.getCurrentValuePrecision()), svgParameters.getEdgeInfoDisplayed().name(),
+                                  getFormattedValue(svgParameters.getPstArrowHeadSize()), svgParameters.getUndefinedValueSymbol());
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
         writer.writeEndElement();

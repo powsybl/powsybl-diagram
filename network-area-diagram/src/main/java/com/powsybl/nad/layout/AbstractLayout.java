@@ -20,6 +20,7 @@ public abstract class AbstractLayout implements Layout {
 
     private Map<String, Point> initialNodePositions = Collections.emptyMap();
     private Set<String> nodesWithFixedPosition = Collections.emptySet();
+    private Map<String, TextPosition> textNodesWithFixedPosition = Collections.emptyMap();
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {
@@ -54,6 +55,17 @@ public abstract class AbstractLayout implements Layout {
         return nodesWithFixedPosition;
     }
 
+    @Override
+    public Map<String, TextPosition> getTextNodesWithFixedPosition() {
+        return textNodesWithFixedPosition;
+    }
+
+    @Override
+    public void setTextNodesWithFixedPosition(Map<String, TextPosition> textNodesWithFixedPosition) {
+        Objects.requireNonNull(textNodesWithFixedPosition);
+        this.textNodesWithFixedPosition = textNodesWithFixedPosition;
+    }
+
     public void setFixedNodePositions(Map<String, Point> fixedNodePositions) {
         setInitialNodePositions(fixedNodePositions);
         setNodesWithFixedPosition(fixedNodePositions.keySet());
@@ -76,9 +88,17 @@ public abstract class AbstractLayout implements Layout {
     }
 
     protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
-        Point fixedShift = layoutParameters.getTextNodeFixedShift();
-        Point textPos = nodes.getFirst().getPosition().shift(fixedShift.getX(), fixedShift.getY());
+        String textNodeId = nodes.getSecond().getDiagramId();
+        Point textShift = textNodesWithFixedPosition.containsKey(textNodeId) ?
+                textNodesWithFixedPosition.get(textNodeId).position() :
+                layoutParameters.getTextNodeFixedShift();
+        Point textPos = nodes.getFirst().getPosition().shift(textShift.getX(), textShift.getY());
+        Point connectionShift = textNodesWithFixedPosition.containsKey(textNodeId) ?
+                textNodesWithFixedPosition.get(textNodeId).connection() :
+                new Point(layoutParameters.getTextNodeFixedShift().getX(), layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getDetailedTextNodeYShift());
+        Point connectionPos = nodes.getFirst().getPosition().shift(connectionShift.getX(), connectionShift.getY());
         nodes.getSecond().setPosition(textPos);
+        nodes.getSecond().setConnection(connectionPos);
     }
 
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {

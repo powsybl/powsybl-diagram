@@ -20,7 +20,8 @@ class LayoutParametersTest {
                 .setTextNodesForceLayout(true)
                 .setSpringRepulsionFactorForceLayout(1.0)
                 .setTextNodeFixedShift(50., 50.)
-                .setMaxSteps(20);
+                .setMaxSteps(20)
+                .setDetailedTextNodeYShift(30);
 
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
@@ -29,5 +30,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters0.getTextNodeFixedShift().getX(), layoutParameters1.getTextNodeFixedShift().getX(), 0);
         assertEquals(layoutParameters0.getTextNodeFixedShift().getY(), layoutParameters1.getTextNodeFixedShift().getY(), 0);
         assertEquals(layoutParameters0.getMaxSteps(), layoutParameters1.getMaxSteps());
+        assertEquals(layoutParameters0.getDetailedTextNodeYShift(), layoutParameters1.getDetailedTextNodeYShift(), 0);
     }
 }

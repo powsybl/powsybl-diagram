@@ -11,7 +11,18 @@ package com.powsybl.nad.model;
  */
 public class TextNode extends AbstractNode {
 
+    private Point connection;
+
     public TextNode(String diagramId) {
         super(diagramId, null, null);
+        connection = new Point();
+    }
+
+    public Point getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Point connection) {
+        this.connection = connection;
     }
 }

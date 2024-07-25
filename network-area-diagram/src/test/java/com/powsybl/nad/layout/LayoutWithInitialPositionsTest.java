@@ -16,6 +16,7 @@ import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextPosition;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -231,6 +232,16 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
 
                 @Override
                 public Set<String> getNodesWithFixedPosition() {
+                    throw new PowsyblException("not implemented");
+                }
+
+                @Override
+                public void setTextNodesWithFixedPosition(Map<String, TextPosition> initialTextNodePositions) {
+                    throw new PowsyblException("not implemented");
+                }
+
+                @Override
+                public Map<String, TextPosition> getTextNodesWithFixedPosition() {
                     throw new PowsyblException("not implemented");
                 }
             };

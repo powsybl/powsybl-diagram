@@ -8,6 +8,7 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextPosition;
 
 import java.util.Map;
 import java.util.Set;
@@ -25,4 +26,8 @@ public interface Layout {
     Map<String, Point> getInitialNodePositions();
 
     Set<String> getNodesWithFixedPosition();
+
+    void setTextNodesWithFixedPosition(Map<String, TextPosition> textNodesWithFixedPosition);
+
+    Map<String, TextPosition> getTextNodesWithFixedPosition();
 }

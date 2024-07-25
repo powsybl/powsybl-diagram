@@ -118,15 +118,14 @@ public class DiagramMetadata {
                                  String nodeHollowWidth, String edgesForkLength, String edgesForkAperture, String edgeStartShift, String unknownBusNodeExtraRadius,
                                  String loopDistance, String loopEdgesAperture, String loopControlDistance, String edgeInfoAlongEdge, String edgeNameDisplayed,
                                  String interAnnulusSpace, String svgPrefix, String idDisplayed, String substationDescriptionDisplayed, String arrowHeight,
-                                 String busLegend, String voltageLevelDetails, String detailedTextNodeYShift, String languageTag, String voltageValuePrecision,
-                                 String powerValuePrecision, String angleValuePrecision, String currentValuePrecision, String edgeInfoDisplayed,
-                                 String pstArrowHeadSize, String undefinedValueSymbol) {
+                                 String busLegend, String voltageLevelDetails, String languageTag, String voltageValuePrecision, String powerValuePrecision,
+                                 String angleValuePrecision, String currentValuePrecision, String edgeInfoDisplayed, String pstArrowHeadSize, String undefinedValueSymbol) {
         svgParametersMetadata = new SvgParametersMetadata(insertNameDesc, svgWidthAndHeightAdded, cssLocation, sizeConstraint, fixedWidth, fixedHeight, fixedScale,
                                                           arrowShift, arrowLabelShift, converterStationWidth, voltageLevelCircleRadius, fictitiousVoltageLevelCircleRadius,
                                                           transformerCircleRadius, nodeHollowWidth, edgesForkLength, edgesForkAperture, edgeStartShift,
                                                           unknownBusNodeExtraRadius, loopDistance, loopEdgesAperture, loopControlDistance, edgeInfoAlongEdge,
                                                           edgeNameDisplayed, interAnnulusSpace, svgPrefix, idDisplayed, substationDescriptionDisplayed, arrowHeight,
-                                                          busLegend, voltageLevelDetails, detailedTextNodeYShift, languageTag, voltageValuePrecision, powerValuePrecision,
-                                                          angleValuePrecision, currentValuePrecision, edgeInfoDisplayed, pstArrowHeadSize, undefinedValueSymbol);
+                                                          busLegend, voltageLevelDetails, languageTag, voltageValuePrecision, powerValuePrecision, angleValuePrecision,
+                                                          currentValuePrecision, edgeInfoDisplayed, pstArrowHeadSize, undefinedValueSymbol);
     }
 }

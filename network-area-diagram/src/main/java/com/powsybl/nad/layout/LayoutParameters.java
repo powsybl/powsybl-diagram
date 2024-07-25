@@ -14,8 +14,9 @@ import com.powsybl.nad.model.Point;
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private double springRepulsionFactorForceLayout = 0.0;
-    private Point textNodeFixedShift = new Point(100, -15);
+    private Point textNodeFixedShift = new Point(100, -40);
     private int maxSteps = 1000;
+    private double detailedTextNodeYShift = 25;
 
     public LayoutParameters() {
     }
@@ -25,6 +26,7 @@ public class LayoutParameters {
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
         this.maxSteps = other.maxSteps;
+        this.detailedTextNodeYShift = other.detailedTextNodeYShift;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -60,6 +62,15 @@ public class LayoutParameters {
 
     public LayoutParameters setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
+        return this;
+    }
+
+    public double getDetailedTextNodeYShift() {
+        return detailedTextNodeYShift;
+    }
+
+    public LayoutParameters setDetailedTextNodeYShift(double detailedTextNodeYShift) {
+        this.detailedTextNodeYShift = detailedTextNodeYShift;
         return this;
     }
 }
