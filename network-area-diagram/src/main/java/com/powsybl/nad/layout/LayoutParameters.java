@@ -16,7 +16,7 @@ public class LayoutParameters {
     private double springRepulsionFactorForceLayout = 0.0;
     private Point textNodeFixedShift = new Point(100, -40);
     private int maxSteps = 1000;
-    private double detailedTextNodeYShift = 25;
+    private double textNodeEdgeConnectionYShift = 25;
 
     public LayoutParameters() {
     }
@@ -26,7 +26,7 @@ public class LayoutParameters {
         this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
         this.maxSteps = other.maxSteps;
-        this.detailedTextNodeYShift = other.detailedTextNodeYShift;
+        this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -65,12 +65,12 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getDetailedTextNodeYShift() {
-        return detailedTextNodeYShift;
+    public double getTextNodeEdgeConnectionYShift() {
+        return textNodeEdgeConnectionYShift;
     }
 
-    public LayoutParameters setDetailedTextNodeYShift(double detailedTextNodeYShift) {
-        this.detailedTextNodeYShift = detailedTextNodeYShift;
+    public LayoutParameters setTextNodeEdgeConnectionYShift(double textNodeEdgeConnectionYShift) {
+        this.textNodeEdgeConnectionYShift = textNodeEdgeConnectionYShift;
         return this;
     }
 }

@@ -619,15 +619,15 @@ public class SvgWriter {
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
         writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getConnection().getY()));
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getY()));
         if (content.size() == 1) {
-            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getConnection().getX()));
+            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
             writer.writeCharacters(content.get(0));
         } else {
             for (int i = 0; i < content.size(); i++) {
                 String line = content.get(i);
                 writer.writeStartElement(TSPAN_ELEMENT_NAME);
-                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getConnection().getX()));
+                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
                 if (i > 0) {
                     writer.writeAttribute(DY_ATTRIBUTE, "1.1em");
                 }

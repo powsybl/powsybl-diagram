@@ -9,9 +9,6 @@ package com.powsybl.nad.layout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,12 +18,11 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
-import com.powsybl.nad.model.TextPosition;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
  */
-public class LayoutWithFixedTextNodePositionsTest {
+class LayoutWithFixedTextNodePositionsTest {
 
     private Network network;
     private LayoutParameters layoutParameters;
@@ -52,35 +48,28 @@ public class LayoutWithFixedTextNodePositionsTest {
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getPosition(),
                        layoutParameters.getTextNodeFixedShift().getX(),
                        layoutParameters.getTextNodeFixedShift().getY());
-            checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getConnection(),
+            checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getEdgeConnection(),
                        layoutParameters.getTextNodeFixedShift().getX(),
-                       layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getDetailedTextNodeYShift());
+                       layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
         });
     }
 
     @Test
     void testFixedTextNodePositions() {
-        Map<String, TextPosition> textNodeFixedPositions = new HashMap<String, TextPosition>();
-        textNodeFixedPositions.put("0-textnode", new TextPosition(new Point(100, -50), new Point(90, -25)));
-        basicForceLayout.setTextNodesWithFixedPosition(textNodeFixedPositions);
+        String voltageLevelId = "vl1";
+        Point topLeftPosition = new Point(100, -50);
+        Point edgeConnection = new Point(90, -25);
+        basicForceLayout.setTextNodeFixedPosition(voltageLevelId, topLeftPosition, edgeConnection);
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
         basicForceLayout.run(graph, layoutParameters);
         graph.getVoltageLevelTextPairs().forEach(textPair -> {
-            String textNodeId = textPair.getSecond().getDiagramId();
+            boolean fixedPosition = voltageLevelId.equals(textPair.getFirst().getEquipmentId());
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getPosition(),
-                       textNodeFixedPositions.containsKey(textNodeId)
-                           ? textNodeFixedPositions.get(textNodeId).position().getX()
-                           : layoutParameters.getTextNodeFixedShift().getX(),
-                       textNodeFixedPositions.containsKey(textNodeId)
-                           ? textNodeFixedPositions.get(textNodeId).position().getY()
-                           : layoutParameters.getTextNodeFixedShift().getY());
-            checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getConnection(),
-                       textNodeFixedPositions.containsKey(textNodeId)
-                           ? textNodeFixedPositions.get(textNodeId).connection().getX()
-                           : layoutParameters.getTextNodeFixedShift().getX(),
-                       textNodeFixedPositions.containsKey(textNodeId)
-                           ? textNodeFixedPositions.get(textNodeId).connection().getY()
-                           : layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getDetailedTextNodeYShift());
+                       fixedPosition ? topLeftPosition.getX() : layoutParameters.getTextNodeFixedShift().getX(),
+                       fixedPosition ? topLeftPosition.getY() : layoutParameters.getTextNodeFixedShift().getY());
+            checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getEdgeConnection(),
+                       fixedPosition ? edgeConnection.getX() : layoutParameters.getTextNodeFixedShift().getX(),
+                       fixedPosition ? edgeConnection.getY() : layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
         });
     }
 }
