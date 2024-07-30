@@ -164,6 +164,19 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <nad:edge svgId="45" equipmentId="L7-8-1" node1="16" node2="18" busNode1="17" busNode2="19" type="LineEdge"/>
                 <nad:edge svgId="46" equipmentId="L7-9-1" node1="16" node2="20" busNode1="17" busNode2="21" type="LineEdge"/>
             </nad:edges>
+            <nad:textNodes>
+                <nad:textNode svgId="0-textnode" equipmentId="VL1" vlNode="0" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="2-textnode" equipmentId="VL10" vlNode="2" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="4-textnode" equipmentId="VL14" vlNode="4" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="6-textnode" equipmentId="VL2" vlNode="6" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="8-textnode" equipmentId="VL3" vlNode="8" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="10-textnode" equipmentId="VL4" vlNode="10" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="12-textnode" equipmentId="VL5" vlNode="12" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="14-textnode" equipmentId="VL6" vlNode="14" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="16-textnode" equipmentId="VL7" vlNode="16" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="18-textnode" equipmentId="VL8" vlNode="18" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="20-textnode" equipmentId="VL9" vlNode="20" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+            </nad:textNodes>
             <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="false" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_SCALE" fixedWidth="-1" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>

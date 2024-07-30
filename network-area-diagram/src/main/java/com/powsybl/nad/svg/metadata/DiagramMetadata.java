@@ -31,11 +31,13 @@ public class DiagramMetadata {
     private static final String METADATA_BUS_NODES_ELEMENT_NAME = "busNodes";
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
+    private static final String METADATA_TEXT_NODES_ELEMENT_NAME = "textNodes";
     private static final String METADATA_SVG_PARAMETERS_ELEMENT_NAME = "svgParameters";
 
     private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
+    private final List<TextNodeMetadata> textNodesMetadata = new ArrayList<>();
     private SvgParametersMetadata svgParametersMetadata;
 
     public static DiagramMetadata readFromSvg(InputStream inputStream) throws XMLStreamException {
@@ -51,6 +53,7 @@ public class DiagramMetadata {
                     case METADATA_BUS_NODES_ELEMENT_NAME -> readCollection(metadata.busNodesMetadata, new BusNodeMetadata.Reader(), reader);
                     case METADATA_NODES_ELEMENT_NAME -> readCollection(metadata.nodesMetadata, new NodeMetadata.Reader(), reader);
                     case METADATA_EDGES_ELEMENT_NAME -> readCollection(metadata.edgesMetadata, new EdgeMetadata.Reader(), reader);
+                    case METADATA_TEXT_NODES_ELEMENT_NAME -> readCollection(metadata.textNodesMetadata, new TextNodeMetadata.Reader(), reader);
                     case METADATA_SVG_PARAMETERS_ELEMENT_NAME -> metadata.svgParametersMetadata = new SvgParametersMetadata.Reader().read(reader);
                     default -> throw new PowsyblException("Unexpected element '" + token + "' in metadata");
                 }
@@ -77,6 +80,7 @@ public class DiagramMetadata {
         writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, writer);
         writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, writer);
         writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, writer);
+        writeCollection(textNodesMetadata, METADATA_TEXT_NODES_ELEMENT_NAME, writer);
         if (svgParametersMetadata != null) {
             svgParametersMetadata.write(writer);
         } else {
@@ -110,6 +114,10 @@ public class DiagramMetadata {
 
     public void addEdge(String svgId, String equipmentId, String node1SvgId, String node2SvgId, String busNode1SvgId, String busNode2SvgId, String edgeType) {
         edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1SvgId, node2SvgId, busNode1SvgId, busNode2SvgId, edgeType));
+    }
+
+    public void addTextNode(String svgId, String equipmentId, String vlNodeId, String positionShiftX, String positionShiftY, String connectionShiftX, String connectionShiftY) {
+        textNodesMetadata.add(new TextNodeMetadata(svgId, equipmentId, vlNodeId, positionShiftX, positionShiftY, connectionShiftX, connectionShiftY));
     }
 
     public void addSvgParameters(String insertNameDesc, String svgWidthAndHeightAdded, String cssLocation, String sizeConstraint, String fixedWidth,

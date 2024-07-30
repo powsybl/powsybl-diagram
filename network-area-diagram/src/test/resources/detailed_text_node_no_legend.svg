@@ -125,6 +125,10 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <nad:edge svgId="4" equipmentId="l1" node1="0" node2="2" busNode1="1" busNode2="3" type="LineEdge"/>
                 <nad:edge svgId="7" equipmentId="dl1" node1="2" node2="5" busNode1="3" busNode2="6" type="DanglingLineEdge"/>
             </nad:edges>
+            <nad:textNodes>
+                <nad:textNode svgId="0-textnode" equipmentId="vl1" vlNode="0" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+                <nad:textNode svgId="2-textnode" equipmentId="vl2" vlNode="2" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
+            </nad:textNodes>
             <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="false" voltageLevelDetails="true" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
         </nad:nad>
     </metadata>
