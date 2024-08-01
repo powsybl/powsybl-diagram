@@ -1178,10 +1178,11 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel nodes infos
      */
-    private void drawNodeInfos(ElectricalNodeInfo nodeInfo, double xShift, double yShift,
+    private void drawNodeInfos(List<LabelProvider.NodeLegend> nodes, double xShift, double yShift,
                                Element g, String idNode, List<String> styles) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
+        // colored circle
         circle.setAttribute("id", idNode + "_circle");
         circle.setAttribute("cx", String.valueOf(xShift));
         circle.setAttribute("cy", String.valueOf(yShift));
@@ -1190,29 +1191,21 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute(CLASS, String.join(" ", styles));
         g.appendChild(circle);
 
-        // v
-        Element labelV = g.getOwnerDocument().createElement("text");
-        labelV.setAttribute("id", idNode + "_v");
-        String valueV = valueFormatter.formatVoltage(nodeInfo.getV(), "kV");
+        // legend nodes
+        double padding = 2.5;
+        for (LabelProvider.NodeLegend node : nodes) {
+            Element label = g.getOwnerDocument().createElement("text");
+            label.setAttribute("id", idNode + "_" + node.idName());
 
-        labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelV.setAttribute(CLASS, StyleClassConstants.VOLTAGE);
-        Text textV = g.getOwnerDocument().createTextNode(valueV);
-        labelV.appendChild(textV);
-        g.appendChild(labelV);
+            label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
+            label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
+            label.setAttribute(CLASS, node.className());
+            Text textNode = g.getOwnerDocument().createTextNode(node.label());
+            label.appendChild(textNode);
+            g.appendChild(label);
 
-        // angle
-        Element labelAngle = g.getOwnerDocument().createElement("text");
-        labelAngle.setAttribute("id", idNode + "_angle");
-        String valueAngle = valueFormatter.formatAngleInDegrees(nodeInfo.getAngle());
-
-        labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelAngle.setAttribute(CLASS, StyleClassConstants.ANGLE);
-        Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
-        labelAngle.appendChild(textAngle);
-        g.appendChild(labelAngle);
+            padding += 1.5;
+        }
     }
 
     private void drawNodesInfos(Element root, VoltageLevelGraph graph,
@@ -1232,7 +1225,8 @@ public class DefaultSVGWriter implements SVGWriter {
             gNode.setAttribute("id", idNode);
 
             List<String> styles = styleProvider.getBusStyles(node.getBusId(), graph);
-            drawNodeInfos(node, xShift, yPos, gNode, idNode, styles);
+            List<LabelProvider.NodeLegend> nodeLegends = initProvider.getElectricalNodeInfoNodes(node);
+            drawNodeInfos(nodeLegends, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 

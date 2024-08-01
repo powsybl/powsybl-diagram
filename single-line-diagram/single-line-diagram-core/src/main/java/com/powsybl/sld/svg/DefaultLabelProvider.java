@@ -16,6 +16,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
+import com.powsybl.sld.svg.styles.StyleClassConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -161,6 +162,14 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return vl.getBusView().getBusStream()
                 .map(b -> new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NodeLegend> getElectricalNodeInfoNodes(ElectricalNodeInfo nodeInfo) {
+        List<NodeLegend> nodeLegends = new ArrayList<>();
+        nodeLegends.add(new NodeLegend(valueFormatter.formatVoltage(nodeInfo.getV(), "kV"), StyleClassConstants.VOLTAGE, "v"));
+        nodeLegends.add(new NodeLegend(valueFormatter.formatAngleInDegrees(nodeInfo.getAngle()), StyleClassConstants.ANGLE, "angle"));
+        return nodeLegends;
     }
 
     private <T extends Identifiable<T>> void addOperatingStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<T> identifiable) {
