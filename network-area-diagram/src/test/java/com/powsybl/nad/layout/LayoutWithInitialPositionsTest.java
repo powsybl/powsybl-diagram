@@ -233,6 +233,11 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 public Set<String> getNodesWithFixedPosition() {
                     throw new PowsyblException("not implemented");
                 }
+
+                @Override
+                public void setTextNodeFixedPosition(String voltageLevelId, Point topLeft, Point edgeConnection) {
+                    throw new PowsyblException("not implemented");
+                }
             };
         }
     }

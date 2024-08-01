@@ -11,6 +11,8 @@ import com.powsybl.diagram.util.forcelayout.Vector;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextNode;
 
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +58,12 @@ public class BasicForceLayout extends AbstractLayout {
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+            if (node instanceof TextNode texNode) {
+                texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
+                texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
+            } else {
+                node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+            }
         });
 
         if (!layoutParameters.isTextNodesForceLayout()) {

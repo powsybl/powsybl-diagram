@@ -49,7 +49,6 @@ public class SvgParametersMetadata {
     private static final String ARROW_HEIGHT = "arrowHeight";
     private static final String BUS_LEGEND = "busLegend";
     private static final String VOLTAGE_LEVEL_DETAILS = "voltageLevelDetails";
-    private static final String DETAILED_TEXT_NODE_Y_SHIFT = "detailedTextNodeYShift";
     private static final String LANGUAGE_TAG = "languageTag";
     private static final String VOLTAGE_VALUE_PRECISION = "voltageValuePrecision";
     private static final String POWER_VALUE_PRECISION = "powerValuePrecision";
@@ -89,7 +88,6 @@ public class SvgParametersMetadata {
     private final String arrowHeight;
     private final String busLegend;
     private final String voltageLevelDetails;
-    private final String detailedTextNodeYShift;
     private final String languageTag;
     private final String voltageValuePrecision;
     private final String powerValuePrecision;
@@ -109,9 +107,9 @@ public class SvgParametersMetadata {
                                  String edgeInfoAlongEdge, String edgeNameDisplayed, String interAnnulusSpace,
                                  String svgPrefix, String idDisplayed, String substationDescriptionDisplayed,
                                  String arrowHeight, String busLegend, String voltageLevelDetails,
-                                 String detailedTextNodeYShift, String languageTag, String voltageValuePrecision,
-                                 String powerValuePrecision, String angleValuePrecision, String currentValuePrecision,
-                                 String edgeInfoDisplayed, String pstArrowHeadSize, String undefinedValueSymbol) {
+                                 String languageTag, String voltageValuePrecision, String powerValuePrecision,
+                                 String angleValuePrecision, String currentValuePrecision, String edgeInfoDisplayed,
+                                 String pstArrowHeadSize, String undefinedValueSymbol) {
         this.insertNameDesc = insertNameDesc;
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
         this.cssLocation = cssLocation;
@@ -142,7 +140,6 @@ public class SvgParametersMetadata {
         this.arrowHeight = arrowHeight;
         this.busLegend = busLegend;
         this.voltageLevelDetails = voltageLevelDetails;
-        this.detailedTextNodeYShift = detailedTextNodeYShift;
         this.languageTag = languageTag;
         this.voltageValuePrecision = voltageValuePrecision;
         this.powerValuePrecision = powerValuePrecision;
@@ -189,7 +186,6 @@ public class SvgParametersMetadata {
         writer.writeAttribute(ARROW_HEIGHT, arrowHeight);
         writer.writeAttribute(BUS_LEGEND, busLegend);
         writer.writeAttribute(VOLTAGE_LEVEL_DETAILS, voltageLevelDetails);
-        writer.writeAttribute(DETAILED_TEXT_NODE_Y_SHIFT, detailedTextNodeYShift);
         writer.writeAttribute(LANGUAGE_TAG, languageTag);
         writer.writeAttribute(VOLTAGE_VALUE_PRECISION, voltageValuePrecision);
         writer.writeAttribute(POWER_VALUE_PRECISION, powerValuePrecision);
@@ -248,7 +244,6 @@ public class SvgParametersMetadata {
                 String arrowHeight = reader.getAttributeValue(null, ARROW_HEIGHT);
                 String busLegend = reader.getAttributeValue(null, BUS_LEGEND);
                 String voltageLevelDetails = reader.getAttributeValue(null, VOLTAGE_LEVEL_DETAILS);
-                String detailedTextNodeYShift = reader.getAttributeValue(null, DETAILED_TEXT_NODE_Y_SHIFT);
                 String languageTag = reader.getAttributeValue(null, LANGUAGE_TAG);
                 String voltageValuePrecision = reader.getAttributeValue(null, VOLTAGE_VALUE_PRECISION);
                 String powerValuePrecision = reader.getAttributeValue(null, POWER_VALUE_PRECISION);
@@ -263,8 +258,8 @@ public class SvgParametersMetadata {
                                                  transformerCircleRadius, nodeHollowWidth, edgesForkLength, edgesForkAperture, edgeStartShift,
                                                  unknownBusNodeExtraRadius, loopDistance, loopEdgesAperture, loopControlDistance, edgeInfoAlongEdge,
                                                  edgeNameDisplayed, interAnnulusSpace, svgPrefix, idDisplayed, substationDescriptionDisplayed, arrowHeight,
-                                                 busLegend, voltageLevelDetails, detailedTextNodeYShift, languageTag, voltageValuePrecision, powerValuePrecision,
-                                                 angleValuePrecision, currentValuePrecision, edgeInfoDisplayed, pstArrowHeadSize, undefinedValueSymbol);
+                                                 busLegend, voltageLevelDetails, languageTag, voltageValuePrecision, powerValuePrecision, angleValuePrecision,
+                                                 currentValuePrecision, edgeInfoDisplayed, pstArrowHeadSize, undefinedValueSymbol);
             } catch (XMLStreamException e) {
                 throw new UncheckedXmlStreamException(e);
             }

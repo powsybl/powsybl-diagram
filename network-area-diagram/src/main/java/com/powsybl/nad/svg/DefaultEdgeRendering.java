@@ -27,8 +27,8 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
-    private void computeTextEdgeLayoutCoordinates(Node node1, Node node2, TextEdge edge) {
-        edge.setPoints(node1.getPosition(), node2.getPosition());
+    private void computeTextEdgeLayoutCoordinates(Node node1, TextNode node2, TextEdge edge) {
+        edge.setPoints(node1.getPosition(), node2.getEdgeConnection());
     }
 
     private void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge, SvgParameters svgParameters) {
