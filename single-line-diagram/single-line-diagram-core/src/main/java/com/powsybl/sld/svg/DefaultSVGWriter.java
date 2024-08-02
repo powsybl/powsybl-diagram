@@ -7,7 +7,6 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
@@ -82,13 +81,11 @@ public class DefaultSVGWriter implements SVGWriter {
     protected final ComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
-    private final ValueFormatter valueFormatter;
     protected final SvgParameters svgParameters;
 
     public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
-        this.valueFormatter = svgParameters.createValueFormatter();
         this.svgParameters = svgParameters;
     }
 
