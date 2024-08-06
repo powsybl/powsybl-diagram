@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.apache.commons.io.output.WriterOutputStream;
@@ -64,12 +65,15 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
+    private final LayoutParameters layoutParameters;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider,
+                     LayoutParameters layoutParameters) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
         this.edgeRendering = new DefaultEdgeRendering();
+        this.layoutParameters = layoutParameters;
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
@@ -944,6 +948,9 @@ public class SvgWriter {
                                   String.valueOf(svgParameters.getPowerValuePrecision()), String.valueOf(svgParameters.getAngleValuePrecision()),
                                   String.valueOf(svgParameters.getCurrentValuePrecision()), svgParameters.getEdgeInfoDisplayed().name(),
                                   getFormattedValue(svgParameters.getPstArrowHeadSize()), svgParameters.getUndefinedValueSymbol());
+        metadata.addLayoutParameters(String.valueOf(layoutParameters.isTextNodesForceLayout()), getFormattedValue(layoutParameters.getSpringRepulsionFactorForceLayout()),
+                                     getFormattedValue(layoutParameters.getTextNodeFixedShift().getX()), getFormattedValue(layoutParameters.getTextNodeFixedShift().getY()),
+                                     String.valueOf(layoutParameters.getMaxSteps()), getFormattedValue(layoutParameters.getTextNodeEdgeConnectionYShift()));
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
         writer.writeEndElement();
