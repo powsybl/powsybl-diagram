@@ -76,6 +76,9 @@ public interface LabelProvider {
 
     }
 
+    record NodeLegend(String label, String className, String idName) {
+    }
+
     enum LabelDirection {
         OUT, IN;
     }
@@ -89,6 +92,8 @@ public interface LabelProvider {
     List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
 
     List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph);
+
+    List<NodeLegend> getElectricalNodeInfoNodes(ElectricalNodeInfo nodeInfo);
 
     Optional<BusInfo> getBusInfo(BusNode node);
 
