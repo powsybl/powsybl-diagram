@@ -125,6 +125,7 @@ class DiagramMetadataTest extends AbstractTest {
                         <nad:edges/>
                         <nad:textNodes/>
                         <nad:svgParameters/>
+                        <nad:layoutParameters/>
                     </nad:nad>
                 </metadata>""";
         // Checking

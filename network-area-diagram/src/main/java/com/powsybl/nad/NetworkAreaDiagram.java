@@ -81,7 +81,8 @@ public final class NetworkAreaDiagram {
 
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create()).buildGraph();
         param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
-        SvgWriter svgWriter = new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network), param.createLabelProvider(network));
+        SvgWriter svgWriter = new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network), param.createLabelProvider(network),
+                                            param.getLayoutParameters());
 
         if (object instanceof Path svgFile) {
             svgWriter.writeSvg(graph, svgFile);

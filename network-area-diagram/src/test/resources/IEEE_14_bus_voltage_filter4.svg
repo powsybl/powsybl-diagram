@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="-1149.45 -873.15 2556.14 1661.13" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="-1149.45 -898.15 2556.14 1686.13" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
 .nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
@@ -163,7 +163,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <nad:textNode svgId="14-textnode" equipmentId="VL8" vlNode="14" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
                 <nad:textNode svgId="16-textnode" equipmentId="VL9" vlNode="16" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
             </nad:textNodes>
-            <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="false" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_SCALE" fixedWidth="-1" fixedHeight="-1" fixedScale="0.2" arrowShift="30.00" arrowLabelShift="19.00" converterStationWidth="70.00" voltageLevelCircleRadius="30.00" fictitiousVoltageLevelCircleRadius="15.00" transformerCircleRadius="20.00" nodeHollowWidth="15.00" edgesForkLength="80.00" edgesForkAperture="1.05" edgeStartShift="0.00" unknownBusNodeExtraRadius="10.00" loopDistance="120.00" loopEdgesAperture="1.05" loopControlDistance="40.00" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.00" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.00" busLegend="true" voltageLevelDetails="false" detailedTextNodeYShift="25.00" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.00" undefinedValueSymbol=""/>
+            <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="false" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_SCALE" fixedWidth="-1" fixedHeight="-1" fixedScale="0.2" arrowShift="30.0" arrowLabelShift="19.0" converterStationWidth="70.0" voltageLevelCircleRadius="30.0" fictitiousVoltageLevelCircleRadius="15.0" transformerCircleRadius="20.0" nodeHollowWidth="15.0" edgesForkLength="80.0" edgesForkAperture="1.0471975511965976" edgeStartShift="0.0" unknownBusNodeExtraRadius="10.0" loopDistance="120.0" loopEdgesAperture="1.0471975511965976" loopControlDistance="40.0" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.0" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.0" busLegend="true" voltageLevelDetails="false" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.0" undefinedValueSymbol=""/>
+            <nad:layoutParameters textNodesForceLayout="false" springRepulsionFactorForceLayout="0.0" textNodeFixedShiftX="100.0" textNodeFixedShiftY="-40.0" maxSteps="1000" textNodeEdgeConnectionYShift="25.0"/>
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
