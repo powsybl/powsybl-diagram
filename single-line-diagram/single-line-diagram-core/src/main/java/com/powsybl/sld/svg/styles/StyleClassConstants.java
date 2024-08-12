@@ -16,9 +16,8 @@ import com.powsybl.sld.model.coordinate.Direction;
 public final class StyleClassConstants {
     public static final String STYLE_PREFIX = "sld-";
     public static final String FEEDER_INFO = STYLE_PREFIX + "feeder-info";
-    public static final String ANGLE = STYLE_PREFIX + "angle";
-    public static final String VOLTAGE = STYLE_PREFIX + "voltage";
     public static final String LEGEND = STYLE_PREFIX + "legend";
+    public static final String NODE_LEGEND = STYLE_PREFIX + "node-legend";
     public static final String CELL_DIRECTION_PREFIX = STYLE_PREFIX + "cell-direction-";
     public static final String CELL_SHAPE_PREFIX = STYLE_PREFIX + "cell-shape-";
     public static final String SHUNT_CELL = STYLE_PREFIX + "shunt-cell";

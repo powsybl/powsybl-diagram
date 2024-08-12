@@ -135,7 +135,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
+    public List<NodeInfo> getNodesInfos(VoltageLevelGraph graph) {
         return Collections.emptyList();
     }
 
