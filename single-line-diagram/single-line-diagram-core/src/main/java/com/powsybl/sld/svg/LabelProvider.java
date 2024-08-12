@@ -76,9 +76,6 @@ public interface LabelProvider {
 
     }
 
-    record NodeLegend(String label, String className, String idName) {
-    }
-
     enum LabelDirection {
         OUT, IN;
     }
