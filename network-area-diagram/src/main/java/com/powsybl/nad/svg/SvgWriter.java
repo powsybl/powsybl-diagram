@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.apache.commons.io.output.WriterOutputStream;
@@ -64,12 +65,15 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
+    private final LayoutParameters layoutParameters;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider,
+                     LayoutParameters layoutParameters) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
         this.edgeRendering = new DefaultEdgeRendering();
+        this.layoutParameters = layoutParameters;
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
@@ -746,7 +750,7 @@ public class SvgWriter {
             return false;
         }
         if (busGraphNode instanceof BusNode busGraphBusNode) {
-            return busGraphBusNode.getIndex() < busNodeCurrentlyDrawn.getIndex();
+            return busGraphBusNode.getRingIndex() < busNodeCurrentlyDrawn.getRingIndex();
         }
         return true;
     }
@@ -901,7 +905,7 @@ public class SvgWriter {
                 getPrefixedId(busNode.getDiagramId()),
                 busNode.getEquipmentId(),
                 String.valueOf(busNode.getNbNeighbouringBusNodes()),
-                String.valueOf(busNode.getIndex()),
+                String.valueOf(busNode.getRingIndex()),
                 getPrefixedId(vlNode.getDiagramId()))));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
@@ -927,23 +931,26 @@ public class SvgWriter {
         metadata.addSvgParameters(String.valueOf(svgParameters.isInsertNameDesc()), String.valueOf(svgParameters.isSvgWidthAndHeightAdded()),
                                   svgParameters.getCssLocation().name(), svgParameters.getSizeConstraint().name(),
                                   String.valueOf(svgParameters.getFixedWidth()), String.valueOf(svgParameters.getFixedHeight()),
-                                  String.valueOf(svgParameters.getFixedScale()), getFormattedValue(svgParameters.getArrowShift()),
-                                  getFormattedValue(svgParameters.getArrowLabelShift()), getFormattedValue(svgParameters.getConverterStationWidth()),
-                                  getFormattedValue(svgParameters.getVoltageLevelCircleRadius()),
-                                  getFormattedValue(svgParameters.getFictitiousVoltageLevelCircleRadius()),
-                                  getFormattedValue(svgParameters.getTransformerCircleRadius()), getFormattedValue(svgParameters.getNodeHollowWidth()),
-                                  getFormattedValue(svgParameters.getEdgesForkLength()), getFormattedValue(svgParameters.getEdgesForkAperture()),
-                                  getFormattedValue(svgParameters.getEdgeStartShift()), getFormattedValue(svgParameters.getUnknownBusNodeExtraRadius()),
-                                  getFormattedValue(svgParameters.getLoopDistance()), getFormattedValue(svgParameters.getLoopEdgesAperture()),
-                                  getFormattedValue(svgParameters.getLoopControlDistance()), String.valueOf(svgParameters.isEdgeInfoAlongEdge()),
-                                  String.valueOf(svgParameters.isEdgeNameDisplayed()), getFormattedValue(svgParameters.getInterAnnulusSpace()),
+                                  String.valueOf(svgParameters.getFixedScale()), String.valueOf(svgParameters.getArrowShift()),
+                                  String.valueOf(svgParameters.getArrowLabelShift()), String.valueOf(svgParameters.getConverterStationWidth()),
+                                  String.valueOf(svgParameters.getVoltageLevelCircleRadius()),
+                                  String.valueOf(svgParameters.getFictitiousVoltageLevelCircleRadius()),
+                                  String.valueOf(svgParameters.getTransformerCircleRadius()), String.valueOf(svgParameters.getNodeHollowWidth()),
+                                  String.valueOf(svgParameters.getEdgesForkLength()), String.valueOf(svgParameters.getEdgesForkAperture()),
+                                  String.valueOf(svgParameters.getEdgeStartShift()), String.valueOf(svgParameters.getUnknownBusNodeExtraRadius()),
+                                  String.valueOf(svgParameters.getLoopDistance()), String.valueOf(svgParameters.getLoopEdgesAperture()),
+                                  String.valueOf(svgParameters.getLoopControlDistance()), String.valueOf(svgParameters.isEdgeInfoAlongEdge()),
+                                  String.valueOf(svgParameters.isEdgeNameDisplayed()), String.valueOf(svgParameters.getInterAnnulusSpace()),
                                   svgParameters.getSvgPrefix(), String.valueOf(svgParameters.isIdDisplayed()),
-                                  String.valueOf(svgParameters.isSubstationDescriptionDisplayed()), getFormattedValue(svgParameters.getArrowHeight()),
+                                  String.valueOf(svgParameters.isSubstationDescriptionDisplayed()), String.valueOf(svgParameters.getArrowHeight()),
                                   String.valueOf(svgParameters.isBusLegend()), String.valueOf(svgParameters.isVoltageLevelDetails()),
                                   svgParameters.getLanguageTag(), String.valueOf(svgParameters.getVoltageValuePrecision()),
                                   String.valueOf(svgParameters.getPowerValuePrecision()), String.valueOf(svgParameters.getAngleValuePrecision()),
                                   String.valueOf(svgParameters.getCurrentValuePrecision()), svgParameters.getEdgeInfoDisplayed().name(),
-                                  getFormattedValue(svgParameters.getPstArrowHeadSize()), svgParameters.getUndefinedValueSymbol());
+                                  String.valueOf(svgParameters.getPstArrowHeadSize()), svgParameters.getUndefinedValueSymbol());
+        metadata.addLayoutParameters(String.valueOf(layoutParameters.isTextNodesForceLayout()), String.valueOf(layoutParameters.getSpringRepulsionFactorForceLayout()),
+                                     String.valueOf(layoutParameters.getTextNodeFixedShift().getX()), String.valueOf(layoutParameters.getTextNodeFixedShift().getY()),
+                                     String.valueOf(layoutParameters.getMaxSteps()), String.valueOf(layoutParameters.getTextNodeEdgeConnectionYShift()));
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
         writer.writeEndElement();
@@ -966,18 +973,18 @@ public class SvgWriter {
     }
 
     public static double getBusAnnulusInnerRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        if (node.getIndex() == 0) {
+        if (node.getRingIndex() == 0) {
             return 0;
         }
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return node.getIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
+        return node.getRingIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return (node.getIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
+        return (node.getRingIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public String getPrefixedId(String id) {

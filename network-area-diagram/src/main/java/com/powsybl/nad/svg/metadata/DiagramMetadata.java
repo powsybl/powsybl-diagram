@@ -33,12 +33,14 @@ public class DiagramMetadata {
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
     private static final String METADATA_TEXT_NODES_ELEMENT_NAME = "textNodes";
     private static final String METADATA_SVG_PARAMETERS_ELEMENT_NAME = "svgParameters";
+    private static final String METADATA_LAYOUT_PARAMETERS_ELEMENT_NAME = "layoutParameters";
 
     private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
     private final List<TextNodeMetadata> textNodesMetadata = new ArrayList<>();
     private SvgParametersMetadata svgParametersMetadata;
+    private LayoutParametersMetadata layoutParametersMetadata;
 
     public static DiagramMetadata readFromSvg(InputStream inputStream) throws XMLStreamException {
         return readFromSvg(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -55,6 +57,7 @@ public class DiagramMetadata {
                     case METADATA_EDGES_ELEMENT_NAME -> readCollection(metadata.edgesMetadata, new EdgeMetadata.Reader(), reader);
                     case METADATA_TEXT_NODES_ELEMENT_NAME -> readCollection(metadata.textNodesMetadata, new TextNodeMetadata.Reader(), reader);
                     case METADATA_SVG_PARAMETERS_ELEMENT_NAME -> metadata.svgParametersMetadata = new SvgParametersMetadata.Reader().read(reader);
+                    case METADATA_LAYOUT_PARAMETERS_ELEMENT_NAME -> metadata.layoutParametersMetadata = new LayoutParametersMetadata.Reader().read(reader);
                     default -> throw new PowsyblException("Unexpected element '" + token + "' in metadata");
                 }
             })
@@ -85,6 +88,11 @@ public class DiagramMetadata {
             svgParametersMetadata.write(writer);
         } else {
             SvgParametersMetadata.writeEmpty(writer);
+        }
+        if (layoutParametersMetadata != null) {
+            layoutParametersMetadata.write(writer);
+        } else {
+            LayoutParametersMetadata.writeEmpty(writer);
         }
         writer.writeEndElement();
     }
@@ -135,5 +143,11 @@ public class DiagramMetadata {
                                                           edgeNameDisplayed, interAnnulusSpace, svgPrefix, idDisplayed, substationDescriptionDisplayed, arrowHeight,
                                                           busLegend, voltageLevelDetails, languageTag, voltageValuePrecision, powerValuePrecision, angleValuePrecision,
                                                           currentValuePrecision, edgeInfoDisplayed, pstArrowHeadSize, undefinedValueSymbol);
+    }
+
+    public void addLayoutParameters(String textNodesForceLayout, String springRepulsionFactorForceLayout, String textNodeFixedShiftX,
+                                    String textNodeFixedShiftY, String maxSteps, String textNodeEdgeConnectionYShift) {
+        layoutParametersMetadata = new LayoutParametersMetadata(textNodesForceLayout, springRepulsionFactorForceLayout, textNodeFixedShiftX,
+                                                                textNodeFixedShiftY, maxSteps, textNodeEdgeConnectionYShift);
     }
 }
