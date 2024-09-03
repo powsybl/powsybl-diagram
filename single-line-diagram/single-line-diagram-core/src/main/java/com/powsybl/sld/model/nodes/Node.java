@@ -76,6 +76,10 @@ public interface Node {
 
     Direction getDirection();
 
+    boolean isInOverload();
+
+    void setInOverload(boolean isInOverload);
+
     void setDirection(Direction direction);
 
     Orientation getOrientation();

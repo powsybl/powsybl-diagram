@@ -336,13 +336,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         voltageLevelInfosBySide.get(NodeSide.TWO),
                         voltageLevelInfosBySide.get(NodeSide.THREE));
 
+                if (transformer.isOverloaded()) {
+                    //control the container
+                    middleNode.setInOverload(true);
+                    firstOtherLegNode.setInOverload(true);
+                    secondOtherLegNode.setInOverload(true);
+
+                }
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
                 // in substation diagram, we only represent the leg node within the voltage level (3wt node will be on the snake line)
                 String id = transformer.getId() + "_" + side.name();
                 FeederNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         NodeSide.valueOf(side.name()));
-
+                if (transformer.isOverloaded()) {
+                    //control the container
+                    legNode.setInOverload(true);
+                }
                 addTerminalNode(legNode, transformer.getTerminal(side));
             }
         }
@@ -403,13 +413,20 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
-            Node transformerNode = createFeeder2wtNode(graph, transformer, side);
+            FeederNode transformerNode = createFeeder2wtNode(graph, transformer, side);
+            if (transformer.isOverloaded()) {
+                transformerNode.setInOverload(true);
+            }
             addTerminalNode(transformerNode, transformer.getTerminal(side));
         }
 
         @Override
         public void visitLine(Line line, TwoSides side) {
-            addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            FeederNode feederNode = createFeederLineNode(graph, line, side);
+            if (line.isOverloaded()) {
+                feederNode.setInOverload(true);
+            }
+            addTerminalNode(feederNode, line.getTerminal(side));
         }
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
