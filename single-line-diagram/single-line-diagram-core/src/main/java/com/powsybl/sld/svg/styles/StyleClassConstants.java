@@ -25,11 +25,11 @@ public final class StyleClassConstants {
     public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
     public static final String EXTERN_CELL = STYLE_PREFIX + "extern-cell";
     public static final String FICTITIOUS_NODE_STYLE_CLASS = STYLE_PREFIX + "fictitious";
+    public static final String OVERLOAD_STYLE_CLASS = STYLE_PREFIX + "overload";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";
     public static final String BOTTOM_FEEDER = STYLE_PREFIX + "bottom-feeder";
-    public static final String OVERLOAD = STYLE_PREFIX + "overload";
     public static final String BUS_DISCONNECTED = STYLE_PREFIX + "bus-disconnected";
     public static final String FEEDER_DISCONNECTED_CONNECTED = STYLE_PREFIX + "feeder-disconnected-connected";
     public static final String FEEDER_CONNECTED_DISCONNECTED = STYLE_PREFIX + "feeder-connected-disconnected";

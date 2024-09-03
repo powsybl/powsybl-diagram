@@ -586,11 +586,12 @@ public class DefaultSVGWriter implements SVGWriter {
         if (shiftAngle != 0) {
             label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         }
-        label.setAttribute(CLASS, StyleClassConstants.LABEL_STYLE_CLASS);
+        List<String> styles = new ArrayList<>();
+        styles.add(StyleClassConstants.LABEL_STYLE_CLASS);
         if (inOverload) {
-            String labelClass = label.getAttribute(CLASS); // add the overload class to the label
-            label.setAttribute(CLASS, labelClass + " " + StyleClassConstants.OVERLOAD);
+            styles.add(StyleClassConstants.OVERLOAD_STYLE_CLASS);
         }
+        label.setAttribute(CLASS, String.join(" ", styles));
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
@@ -1089,10 +1090,6 @@ public class DefaultSVGWriter implements SVGWriter {
         polyline.setAttribute(POINTS, pointsListToString(pol));
         g.appendChild(polyline);
 
-//        Branch<?> branch = network.getBranch(edge.getEquipmentId());
-//            if (branch.isOverloaded()) {
-//
-//            }
         metadata.addWireMetadata(new GraphMetadata.WireMetadata(snakeLineId,
                 escapeId(edge.getNode1().getId()),
                 escapeId(edge.getNode2().getId()),
