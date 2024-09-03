@@ -68,6 +68,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return !isInternalToSubstation(branch);
     }
 
+    public static boolean isOverLoaded(Branch<?> branch) {
+        return branch.isOverloaded();
+    }
+
+    public static boolean isOverLoaded(ThreeWindingsTransformer transformer) {
+        return transformer.isOverloaded();
+    }
+
     @Override
     public VoltageLevelGraph buildVoltageLevelGraph(String id, Graph parentGraph) {
         // get the voltageLevel from id
@@ -336,12 +344,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         voltageLevelInfosBySide.get(NodeSide.TWO),
                         voltageLevelInfosBySide.get(NodeSide.THREE));
 
-                if (transformer.isOverloaded()) {
-                    //control the container
+                if (isOverLoaded(transformer)) {
                     middleNode.setInOverload(true);
                     firstOtherLegNode.setInOverload(true);
                     secondOtherLegNode.setInOverload(true);
-
                 }
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
@@ -350,7 +356,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         NodeSide.valueOf(side.name()));
                 if (transformer.isOverloaded()) {
-                    //control the container
                     legNode.setInOverload(true);
                 }
                 addTerminalNode(legNode, transformer.getTerminal(side));
@@ -414,7 +419,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
             FeederNode transformerNode = createFeeder2wtNode(graph, transformer, side);
-            if (transformer.isOverloaded()) {
+            if (isOverLoaded(transformer)) {
                 transformerNode.setInOverload(true);
             }
             addTerminalNode(transformerNode, transformer.getTerminal(side));
@@ -423,7 +428,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitLine(Line line, TwoSides side) {
             FeederNode feederNode = createFeederLineNode(graph, line, side);
-            if (line.isOverloaded()) {
+            if (isOverLoaded(line)) {
                 feederNode.setInOverload(true);
             }
             addTerminalNode(feederNode, line.getTerminal(side));
