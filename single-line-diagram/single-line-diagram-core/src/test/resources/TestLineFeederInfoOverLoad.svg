@@ -158,29 +158,29 @@
             <text class="sld-label" id="Bus1_NW_LABEL" x="-5.0" y="-5.0">Bus1</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
-            <g class="sld-wire sld-vl300to500-0" id="_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE">
+            <g class="sld-wire sld-vl300to500-0 sld-overload" id="_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE">
                 <polyline points="65.0,252.0,65.0,222.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE_95_INTERNAL_95_VoltageLevel1_95_Line_95_ONE">
+            <g class="sld-wire sld-vl300to500-0 sld-overload" id="_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE_95_INTERNAL_95_VoltageLevel1_95_Line_95_ONE">
                 <polyline points="65.0,222.0,65.0,142.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_Line_95_ONE_95_Line_95_ONE">
+            <g class="sld-wire sld-vl300to500-0 sld-overload" id="_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_Line_95_ONE_95_Line_95_ONE">
                 <polyline points="65.0,142.0,65.0,80.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idLine_95_ONE_ARROW_ACTIVE" transform="translate(60.0,95.0)">
+            <g class="sld-active-power sld-feeder-info sld-out" id="idLine_95_ONE_ARROW_ACTIVE" transform="translate(60.0,95.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
+                <text class="sld-label" x="15.0" y="5.0">101</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idLine_95_ONE_ARROW_REACTIVE" transform="translate(60.0,115.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-out" id="idLine_95_ONE_ARROW_REACTIVE" transform="translate(60.0,115.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
+                <text class="sld-label" x="15.0" y="5.0">150</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-overload sld-vl300to500-0" id="idBUSCO_95_Bus1_95_Line_95_ONE" transform="translate(61.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-overload sld-vl300to500-0" id="idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE" transform="translate(61.0,218.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Line_95_ONE_45_Line_95_ONE" transform="translate(61.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-overload sld-vl300to500-0" id="idINTERNAL_95_VoltageLevel1_95_Line_95_ONE" transform="translate(61.0,138.0)">

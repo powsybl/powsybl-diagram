@@ -30,7 +30,7 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testLineOverLoad2() {
+    public void testLineOverLoad() {
         network = Networks.createNetworkWithLine();
         network.getVoltageLevel("VoltageLevel1")
                 .setHighVoltageLimit(400)
@@ -58,35 +58,6 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         // Build substation graph and run layout
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
-        voltageLevelGraphLayout(g);
-
-        assertEquals(toString("/Test3WTFeederInfoOverLoad.svg"), toSVG(g, "/Test3WTFeederInfoOverLoad.svg"));
-    }
-
-    @Test
-    public void testLineOverLoad() {
-        network = Networks.createNetworkWithLine();
-        graphBuilder = new NetworkGraphBuilder(network);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VoltageLevel1");
-        voltageLevelGraphLayout(g);
-        g.getNodes().stream()
-                .filter(node -> node.getId().contains("Line_ONE"))
-                .forEach(node -> node.setInOverload(true));
-        assertEquals(toString("/TestLineFeederInfoOverLoad.svg"), toSVG(g, "/TestLineFeederInfoOverLoad.svg"));
-    }
-
-    @Test
-    void test3WTOverLoad() {
-        network = ThreeWindingsTransformerNetworkFactory.create();
-        network.getThreeWindingsTransformer("3WT").getLeg1().getTerminal().setP(-2800.0).setQ(400.0);
-        network.getThreeWindingsTransformer("3WT").getLeg2().getTerminal().setP(1400.0).setQ(400.0);
-        network.getThreeWindingsTransformer("3WT").getLeg3().getTerminal().setP(1400.0).setQ(400.0);
-        graphBuilder = new NetworkGraphBuilder(network);
-        // Build substation graph and run layout
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
-        g.getNodes().stream()
-                .filter(node -> node.getId().contains("3WT"))
-                .forEach(node -> node.setInOverload(true));
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/Test3WTFeederInfoOverLoad.svg"), toSVG(g, "/Test3WTFeederInfoOverLoad.svg"));
