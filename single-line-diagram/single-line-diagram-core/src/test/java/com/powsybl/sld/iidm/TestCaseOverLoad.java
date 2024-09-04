@@ -9,8 +9,12 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +27,40 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
     @Override
     public void setUp() {
         // initialization of networks and graph builder done in each test
+    }
+
+    @Test
+    public void testLineOverLoad2() {
+        network = Networks.createNetworkWithLine();
+        network.getVoltageLevel("VoltageLevel1")
+                .setHighVoltageLimit(400)
+                .setLowVoltageLimit(390);
+        network.getLine("Line").newCurrentLimits1().setPermanentLimit(250).add();
+        network.getLine("Line").getTerminal1().setP(101).setQ(150).getBusView().getBus().setV(390);
+        graphBuilder = new NetworkGraphBuilder(network);
+        SldParameters sldParameters = new SldParameters();
+        sldParameters.setStyleProviderFactory(n ->
+                new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network)));
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VoltageLevel1");
+        voltageLevelGraphLayout(g);
+        assertEquals(toString("/TestLineFeederInfoOverLoad.svg"), toSVG(g, "/TestLineFeederInfoOverLoad.svg"));
+    }
+
+    @Test
+    public void test3WTOverLoad3() {
+        network = ThreeWindingsTransformerNetworkFactory.create();
+        network.getThreeWindingsTransformer("3WT").getLeg1().newCurrentLimits().setPermanentLimit(250).add();
+        network.getThreeWindingsTransformer("3WT").getLeg2().newCurrentLimits().setPermanentLimit(250).add();
+        network.getThreeWindingsTransformer("3WT").getLeg3().newCurrentLimits().setPermanentLimit(250).add();
+        network.getThreeWindingsTransformer("3WT").getLeg1().getTerminal().setP(-2800.0).setQ(400.0);
+        network.getThreeWindingsTransformer("3WT").getLeg2().getTerminal().setP(1400.0).setQ(400.0);
+        network.getThreeWindingsTransformer("3WT").getLeg3().getTerminal().setP(1400.0).setQ(400.0);
+        graphBuilder = new NetworkGraphBuilder(network);
+        // Build substation graph and run layout
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
+        voltageLevelGraphLayout(g);
+
+        assertEquals(toString("/Test3WTFeederInfoOverLoad.svg"), toSVG(g, "/Test3WTFeederInfoOverLoad.svg"));
     }
 
     @Test

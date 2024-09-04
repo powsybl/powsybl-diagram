@@ -49,6 +49,9 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 .map(Optional::get)
                 .collect(Collectors.toList());
         list.add(0, WIRE_STYLE_CLASS);
+        if (edge.isOverloaded()) {
+            list.add(StyleClassConstants.OVERLOAD_STYLE_CLASS);
+        }
         return list;
     }
 

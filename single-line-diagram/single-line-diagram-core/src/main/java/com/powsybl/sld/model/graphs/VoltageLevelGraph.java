@@ -332,6 +332,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             addEdge(nodeB, nodeToInsert);
             addEdge(nodeToInsert, nodeA);
         }
+
+        if (nodeA.isInOverload() || nodeB.isInOverload()) {
+            nodeToInsert.setInOverload(true);
+        }
     }
 
     public void insertHookNodesAtBuses() {
