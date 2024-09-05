@@ -238,10 +238,10 @@
                 <circle class="sld-vl120to180-0 sld-winding" cx="8" cy="19" r="5"/>
             </g>
             <g class="sld-top-feeder sld-overload sld-vl120to180-0" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
-                <text class="sld-label sld-overload" id="3WT_TWO_N_LABEL" x="-5.0" y="-5.0">3WT</text>
+                <text class="sld-label" id="3WT_TWO_N_LABEL" x="-5.0" y="-5.0">3WT</text>
             </g>
             <g class="sld-top-feeder sld-overload sld-vl120to180-0" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
-                <text class="sld-label sld-overload" id="3WT_THREE_N_LABEL" x="-5.0" y="-5.0">3WT</text>
+                <text class="sld-label" id="3WT_THREE_N_LABEL" x="-5.0" y="-5.0">3WT</text>
             </g>
         </g>
     </g>
