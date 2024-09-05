@@ -9,12 +9,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
-import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.styles.StyleProvidersList;
-import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
-import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,16 +34,24 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
         network.getLine("Line").newCurrentLimits1().setPermanentLimit(250).add();
         network.getLine("Line").getTerminal1().setP(101).setQ(150).getBusView().getBus().setV(390);
         graphBuilder = new NetworkGraphBuilder(network);
-        SldParameters sldParameters = new SldParameters();
-        sldParameters.setStyleProviderFactory(n ->
-                new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network)));
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VoltageLevel1");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestLineFeederInfoOverLoad.svg"), toSVG(g, "/TestLineFeederInfoOverLoad.svg"));
     }
 
     @Test
-    public void test3WTOverLoad3() {
+    public void test2WTOverLoad() {
+        network = Networks.createNetworkWithTwoWindingsTransformer();
+        network.getTwoWindingsTransformer("Transformer").newCurrentLimits2().setPermanentLimit(250).add();
+        network.getTwoWindingsTransformer("Transformer").getTerminal2().setP(101).setQ(150).getBusView().getBus().setV(390);
+        graphBuilder = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VoltageLevel1");
+        voltageLevelGraphLayout(g);
+        assertEquals(toString("/TestTransformerFeederInfoOverLoad.svg"), toSVG(g, "/TestTransformerFeederInfoOverLoad.svg"));
+    }
+
+    @Test
+    public void test3WTOverLoad() {
         network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getLeg1().newCurrentLimits().setPermanentLimit(250).add();
         network.getThreeWindingsTransformer("3WT").getLeg2().newCurrentLimits().setPermanentLimit(250).add();

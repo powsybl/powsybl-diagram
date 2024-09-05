@@ -509,7 +509,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (LabelProvider.NodeLabel nodeLabel : nodeLabels) {
 
             LabelPosition labelPosition = nodeLabel.getPosition();
-            Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g, node.isInOverload());
+            Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
 
             String svgId = getNodeLabelId(prefixId, node, labelPosition);
             label.setAttribute("id", svgId);
@@ -542,7 +542,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double yPos = graph.getY() - 20.;
 
         String graphName = svgParameters.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
-        Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel, false);
+        Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
         label.setAttribute(CLASS, StyleClassConstants.GRAPH_LABEL_STYLE_CLASS);
         gLabel.appendChild(label);
         root.appendChild(gLabel);
@@ -579,19 +579,14 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Create a label text element at the given position
      */
-    protected Element createLabelElement(String str, double xShift, double yShift, int shiftAngle, Element g, boolean inOverload) {
+    protected Element createLabelElement(String str, double xShift, double yShift, int shiftAngle, Element g) {
         Element label = g.getOwnerDocument().createElement("text");
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
         if (shiftAngle != 0) {
             label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         }
-        List<String> styles = new ArrayList<>();
-        styles.add(StyleClassConstants.LABEL_STYLE_CLASS);
-        if (inOverload) {
-            styles.add(StyleClassConstants.OVERLOAD_STYLE_CLASS);
-        }
-        label.setAttribute(CLASS, String.join(" ", styles));
+        label.setAttribute(CLASS, StyleClassConstants.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
@@ -912,13 +907,13 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // we draw the right label only if present
         feederInfo.getRightLabel().ifPresent(s -> {
-            Element labelRight = createLabelElement(s, shX, shY, 0, g, false);
+            Element labelRight = createLabelElement(s, shX, shY, 0, g);
             g.appendChild(labelRight);
         });
 
         // we draw the left label only if present
         feederInfo.getLeftLabel().ifPresent(s -> {
-            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g, false);
+            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
         });
@@ -966,13 +961,13 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // We draw the bottom label only if present
         busInfo.getBottomLabel().ifPresent(s -> {
-            Element labelBottom = createLabelElement(s, 0, shY, 0, g, false);
+            Element labelBottom = createLabelElement(s, 0, shY, 0, g);
             g.appendChild(labelBottom);
         });
 
         // We draw the top label only if present
         busInfo.getTopLabel().ifPresent(s -> {
-            Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g, false);
+            Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g);
             g.appendChild(labelTop);
         });
         root.appendChild(g);
