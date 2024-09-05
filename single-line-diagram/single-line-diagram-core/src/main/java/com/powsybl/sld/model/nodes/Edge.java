@@ -44,7 +44,7 @@ public class Edge {
     }
 
     public boolean isOverloaded() {
-        return getNode1().isInOverload() || getNode2().isInOverload();
+        return getNode1().isOverloaded() || getNode2().isOverloaded();
     }
 
     public void writeJson(JsonGenerator generator) throws IOException {

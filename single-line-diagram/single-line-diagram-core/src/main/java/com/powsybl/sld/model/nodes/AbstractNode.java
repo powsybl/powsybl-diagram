@@ -196,7 +196,7 @@ public abstract class AbstractNode implements Node {
     }
 
     @Override
-    public boolean isInOverload() {
+    public boolean isOverloaded() {
         return isInOverload;
     }
 

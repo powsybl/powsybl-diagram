@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Jamal KHEYYAD {@literal <jamal.kheyyad at rte-international.com>}
  */
-public class TestCaseOverLoad extends AbstractTestCaseIidm {
+class TestCaseOverLoad extends AbstractTestCaseIidm {
 
     @Override
     public void setUp() {
@@ -26,7 +26,7 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testLineOverLoad() {
+    void testLineOverLoad() {
         network = Networks.createNetworkWithLine();
         network.getVoltageLevel("VoltageLevel1")
                 .setHighVoltageLimit(400)
@@ -40,7 +40,7 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test2WTOverLoad() {
+    void test2WTOverLoad() {
         network = Networks.createNetworkWithTwoWindingsTransformer();
         network.getTwoWindingsTransformer("Transformer").newCurrentLimits2().setPermanentLimit(250).add();
         network.getTwoWindingsTransformer("Transformer").getTerminal2().setP(101).setQ(150).getBusView().getBus().setV(390);
@@ -51,7 +51,7 @@ public class TestCaseOverLoad extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test3WTOverLoad() {
+    void test3WTOverLoad() {
         network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getLeg1().newCurrentLimits().setPermanentLimit(250).add();
         network.getThreeWindingsTransformer("3WT").getLeg2().newCurrentLimits().setPermanentLimit(250).add();

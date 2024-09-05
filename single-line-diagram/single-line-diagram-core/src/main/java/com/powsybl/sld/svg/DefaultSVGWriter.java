@@ -510,7 +510,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
-
             String svgId = getNodeLabelId(prefixId, node, labelPosition);
             label.setAttribute("id", svgId);
             if (labelPosition.isCentered()) {
@@ -997,11 +996,6 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Edge edge : edges) {
             String wireId = getWireId(prefixId, voltageLevelId, edge);
 
-            if (edge instanceof BranchEdge) {
-                String id = ((BranchEdge) edge).getId();
-                System.out.println("id= " + id);
-            }
-
             List<Point> pol = new ArrayList<>();
             if (!edge.isZeroLength()) {
                 // Determine points of the polyline
@@ -1011,6 +1005,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
                 if (!pol.isEmpty()) {
                     Element g = root.getOwnerDocument().createElement(GROUP);
+
                     g.setAttribute("id", wireId);
                     List<String> wireStyles = styleProvider.getEdgeStyles(graph, edge);
                     g.setAttribute(CLASS, String.join(" ", wireStyles));

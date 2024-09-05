@@ -76,7 +76,7 @@ public interface Node {
 
     Direction getDirection();
 
-    boolean isInOverload();
+    boolean isOverloaded();
 
     void setInOverload(boolean isInOverload);
 
