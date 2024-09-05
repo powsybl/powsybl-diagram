@@ -58,12 +58,9 @@ The main features are:
 
 ## Getting started with PowSyBl diagram
 
-- Have a look at the tutorials presented [here](https://www.powsybl.org/pages/documentation/developer/tutorials/):
-  - Discover network-area diagrams by generating SVG files from a test network [here](https://www.powsybl.org/pages/documentation/developer/tutorials/diagram/nad-svg-writing.html)
-  - Get your hands dirty by generating your first single-line diagrams [here](https://www.powsybl.org/pages/documentation/developer/tutorials/diagram/svg-writing.html)
-  - Learn how to customize your single-line diagram [here](https://www.powsybl.org/pages/documentation/developer/tutorials/diagram/sld-custom-node.html)
+- Have a look at the tutorials presented [here](https://www.powsybl.org/pages/documentation/developer/tutorials/) and learn [how to customize your single-line diagram](https://www.powsybl.org/pages/documentation/developer/tutorials/diagram/sld-custom-node.html).
 
-- Pop in the [API guide](https://www.powsybl.org/pages/documentation/developer/api_guide/svg-writing.html) page to get more examples on how to use PowSyBl diagrams!
+- Pop in the [SLD](https://powsybl.readthedocs.io/projects/powsybl-diagram/latest/single_line_diagrams/index.html) and [NAD](https://powsybl.readthedocs.io/projects/powsybl-diagram/latest/network_area_diagrams/index.html) documentation pages to get some examples on how to use PowSyBl diagrams!
 
 
 
