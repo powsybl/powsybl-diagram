@@ -21,8 +21,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
-
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -48,7 +46,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-        list.add(0, WIRE_STYLE_CLASS);
+        list.add(0, StyleClassConstants.WIRE_STYLE_CLASS);
         if (edge.isOverloaded()) {
             list.add(StyleClassConstants.OVERLOAD_STYLE_CLASS);
         }
