@@ -1206,7 +1206,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawNodesInfos(Element root, VoltageLevelGraph graph,
-                                GraphMetadata metadata, LabelProvider initProvider, StyleProvider styleProvider) {
+                                GraphMetadata metadata, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
         root.appendChild(nodesInfosNode);
@@ -1216,7 +1216,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         double xShift = graph.getX() + xInitPos;
-        for (NodeInfo nodeInfo : initProvider.getNodesInfos(graph)) {
+        for (NodeInfo nodeInfo : labelProvider.getNodesInfos(graph)) {
             String userDefinedId = nodeInfo.captions().stream()
                 .filter(c -> c.type().equals("userDefinedId"))
                 .findFirst()
