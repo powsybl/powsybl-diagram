@@ -48,7 +48,8 @@ class SvgParametersTest {
                 .setShowInternalNodes(true)
                 .setDisplayCurrentFeederInfo(true)
                 .setDisplayEquipmentNodesLabel(true)
-                .setDisplayConnectivityNodesId(true);
+                .setDisplayConnectivityNodesId(true)
+                .setUnifyVoltageLevelColors(true);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -82,5 +83,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
         assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
         assertEquals(svgParameters0.isDisplayConnectivityNodesId(), svgParameters1.isDisplayConnectivityNodesId());
+        assertEquals(svgParameters0.isUnifyVoltageLevelColors(), svgParameters1.isUnifyVoltageLevelColors());
     }
 }

@@ -329,6 +329,7 @@
     "showInternalNodes" : false,
     "displayCurrentFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
-    "displayConnectivityNodesId" : false
+    "displayConnectivityNodesId" : false,
+    "unifyVoltageLevelColors" : false
   }
 }

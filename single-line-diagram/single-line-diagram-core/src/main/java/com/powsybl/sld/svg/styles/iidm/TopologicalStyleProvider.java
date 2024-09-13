@@ -14,6 +14,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.AbstractVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 
@@ -31,15 +32,22 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     private final Map<String, Map<String, String>> vlNodeIdStyleMap = new HashMap<>();
     private final Map<String, Map<String, String>> vlBusIdStyleMap = new HashMap<>();
+    private final Map<String, Integer> stylesIndices = new HashMap<>();
     private final Network network;
+    private final SvgParameters svgParameters;
 
     public TopologicalStyleProvider(Network network) {
-        this(BaseVoltagesConfig.fromPlatformConfig(), network);
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters());
     }
 
-    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
+    public TopologicalStyleProvider(Network network, SvgParameters svgParameters) {
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, svgParameters);
+    }
+
+    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network, SvgParameters svgParameters) {
         super(baseVoltagesConfig);
         this.network = network;
+        this.svgParameters = svgParameters;
     }
 
     @Override
@@ -87,10 +95,20 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
                 .getBusView().getBusStream().collect(Collectors.toList());
 
         Map<String, String> busIdStyleMap = new HashMap<>();
-        for (int i = 0; i < buses.size(); i++) {
-            Bus bus = buses.get(i);
-            busIdStyleMap.put(bus.getId(), baseVoltageLevelStyle + '-' + i);
+
+        if (svgParameters.isUnifyVoltageLevelColors()) {
+            for (int i = 0; i < buses.size(); i++) {
+                Bus bus = buses.get(i);
+                busIdStyleMap.put(bus.getId(), baseVoltageLevelStyle + '-' + i);
+            }
+        } else {
+            for (Bus b : buses) {
+                int newIndex = stylesIndices.compute(baseVoltageLevelStyle, (s, i) -> i == null ? 0 : i + 1);
+                String style = baseVoltageLevelStyle + '-' + newIndex;
+                busIdStyleMap.put(b.getId(), style);
+            }
         }
+
         return busIdStyleMap;
     }
 

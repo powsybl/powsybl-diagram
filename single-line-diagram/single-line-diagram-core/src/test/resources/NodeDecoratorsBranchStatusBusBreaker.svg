@@ -353,7 +353,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-2" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="465.0,449.0,465.0,387.0,447.0,387.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(460.0,424.0)">
@@ -374,7 +374,7 @@
             </g>
             <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(432.0,375.0)">
                 <circle class="sld-disconnected sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
-                <circle class="sld-vl300to500-0 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+                <circle class="sld-vl300to500-2 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
                 <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
                 <g class="sld-flash">
                     <path class="sld-disconnected" d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(3.0,18.5)"/>
@@ -490,7 +490,7 @@
             </g>
             <g class="sld-two-wt sld-bottom-feeder" id="idT12_95_ONE" transform="translate(610.0,441.5)">
                 <circle class="sld-vl300to500-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                <circle class="sld-vl300to500-2 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <text class="sld-label" id="T12_ONE_S_LABEL" x="-5.0" y="20.0">T12</text>
                 <g class="sld-flash">
                     <path class="sld-vl300to500-1" d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(10.0,-62.0)"/>
@@ -517,7 +517,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500-2" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="715.0,449.0,715.0,387.0,697.0,387.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(710.0,424.0)">
@@ -538,7 +538,7 @@
             </g>
             <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(682.0,375.0)">
                 <circle class="sld-disconnected sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
-                <circle class="sld-vl300to500-0 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+                <circle class="sld-vl300to500-2 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
                 <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
                 <g class="sld-flash">
                     <path class="sld-disconnected" d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(3.0,18.5)"/>
