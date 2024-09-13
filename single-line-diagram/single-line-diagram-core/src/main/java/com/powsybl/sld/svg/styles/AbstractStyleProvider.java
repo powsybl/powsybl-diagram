@@ -53,9 +53,6 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         if (node.isFictitious()) {
             styles.add(StyleClassConstants.FICTITIOUS_NODE_STYLE_CLASS);
         }
-        if (node.isOverloaded()) {
-            styles.add(StyleClassConstants.OVERLOAD_STYLE_CLASS);
-        }
 
         return styles;
     }
