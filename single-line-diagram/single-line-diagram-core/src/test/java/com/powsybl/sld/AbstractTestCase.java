@@ -34,7 +34,7 @@ import java.util.Objects;
 public abstract class AbstractTestCase {
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = false;
+    protected boolean debugSvgFiles = true;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();

@@ -68,14 +68,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return !isInternalToSubstation(branch);
     }
 
-    public static boolean isOverLoaded(Branch<?> branch) {
-        return branch.isOverloaded();
-    }
-
-    public static boolean isOverLoaded(ThreeWindingsTransformer transformer) {
-        return transformer.isOverloaded();
-    }
-
     @Override
     public VoltageLevelGraph buildVoltageLevelGraph(String id, Graph parentGraph) {
         // get the voltageLevel from id
@@ -228,7 +220,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
-            return createFeederBranchNode(graph, line, side, LINE);
+            FeederNode feederNode = createFeederBranchNode(graph, line, side, LINE);
+            if (line.isOverloaded()) {
+                feederNode.setOverload(true);
+            }
+            return feederNode;
         }
 
         private FeederNode createFeederTieLineNode(VoltageLevelGraph graph, TieLine tieLine, TwoSides side) {
@@ -274,20 +270,25 @@ public class NetworkGraphBuilder implements GraphBuilder {
             TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
-
+            FeederNode transformerNode;
             if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
                 if (!branch.hasPhaseTapChanger()) {
-                    return NodeFactory.createFeeder2WTNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    transformerNode = NodeFactory.createFeeder2WTNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
-                    return NodeFactory.createFeeder2WTNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    transformerNode = NodeFactory.createFeeder2WTNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
                 if (!branch.hasPhaseTapChanger()) {
-                    return NodeFactory.createFeeder2WTLegNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
+                    transformerNode = NodeFactory.createFeeder2WTLegNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
                 } else {
-                    return NodeFactory.createFeeder2WTLegNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
+                    transformerNode = NodeFactory.createFeeder2WTLegNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
                 }
             }
+
+            if (branch.isOverloaded()) {
+                transformerNode.setOverload(true);
+            }
+            return transformerNode;
         }
 
         private void addFeeder3wtNode(VoltageLevelGraph graph,
@@ -344,10 +345,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         voltageLevelInfosBySide.get(NodeSide.TWO),
                         voltageLevelInfosBySide.get(NodeSide.THREE));
 
-                if (isOverLoaded(transformer)) {
-                    middleNode.setInOverload(true);
-                    firstOtherLegNode.setInOverload(true);
-                    secondOtherLegNode.setInOverload(true);
+                if (transformer.isOverloaded()) {
+                    middleNode.setOverload(true);
+                    firstOtherLegNode.setOverload(true);
+                    secondOtherLegNode.setOverload(true);
                 }
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
@@ -356,7 +357,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         NodeSide.valueOf(side.name()));
                 if (transformer.isOverloaded()) {
-                    legNode.setInOverload(true);
+                    legNode.setOverload(true);
                 }
                 addTerminalNode(legNode, transformer.getTerminal(side));
             }
@@ -419,18 +420,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
             FeederNode transformerNode = createFeeder2wtNode(graph, transformer, side);
-            if (isOverLoaded(transformer)) {
-                transformerNode.setInOverload(true);
-            }
             addTerminalNode(transformerNode, transformer.getTerminal(side));
         }
 
         @Override
         public void visitLine(Line line, TwoSides side) {
             FeederNode feederNode = createFeederLineNode(graph, line, side);
-            if (isOverLoaded(line)) {
-                feederNode.setInOverload(true);
-            }
             addTerminalNode(feederNode, line.getTerminal(side));
         }
 

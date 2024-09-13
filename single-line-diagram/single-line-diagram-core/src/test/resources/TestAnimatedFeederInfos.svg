@@ -119,6 +119,22 @@
 .sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+
+@keyframes sld-overload-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ffeb3b;
+    stroke-width: 2;
+  }
+}
+
+.sld-overload {
+  animation: sld-overload-blink 3s infinite;
+}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */

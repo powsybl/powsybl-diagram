@@ -18,6 +18,7 @@ import com.powsybl.sld.svg.styles.EmptyStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -33,15 +34,25 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
-        return getHighlightLineStateStyle(graph, edge)
-                .map(List::of)
-                .orElse(Collections.emptyList());
+        Optional<String> stateStyle = getHighlightLineStateStyle(graph, edge);
+        Optional<String> overloadStyle = getOverloadStyle(edge);
+        return Stream.of(stateStyle, overloadStyle)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
+    }
+
+    private Optional<String> getOverloadStyle(Edge edge) {
+        return edge.isOverloaded() ? Optional.of(StyleClassConstants.OVERLOAD_STYLE_CLASS) : Optional.empty();
     }
 
     @Override
     public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode.getEquipmentId())) {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
+        }
+        if (node.isOverloaded()) {
+            return List.of(StyleClassConstants.OVERLOAD_STYLE_CLASS);
         }
         return Collections.emptyList();
     }

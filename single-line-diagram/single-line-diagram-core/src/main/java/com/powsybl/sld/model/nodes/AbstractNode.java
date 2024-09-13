@@ -46,7 +46,7 @@ public abstract class AbstractNode implements Node {
 
     private Orientation orientation;
 
-    private boolean isInOverload;
+    private boolean isOverload;
 
     /**
      * Constructor
@@ -56,7 +56,7 @@ public abstract class AbstractNode implements Node {
         this.id = Objects.requireNonNull(id);
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
-        this.isInOverload = false;
+        this.isOverload = false;
         setOrientation(defaultOrientation());
     }
 
@@ -197,12 +197,12 @@ public abstract class AbstractNode implements Node {
 
     @Override
     public boolean isOverloaded() {
-        return isInOverload;
+        return isOverload;
     }
 
     @Override
-    public void setInOverload(boolean isInOverload) {
-        this.isInOverload = isInOverload;
+    public void setOverload(boolean isOverload) {
+        this.isOverload = isOverload;
     }
 
     @Override
