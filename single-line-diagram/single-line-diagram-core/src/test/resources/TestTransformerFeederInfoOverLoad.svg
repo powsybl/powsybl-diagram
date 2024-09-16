@@ -177,13 +177,13 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-overload sld-vl300to500-0" id="idBUSCO_95_Bus1_95_Transformer_95_ONE" transform="translate(61.0,248.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500-0 sld-overload" id="idBUSCO_95_Bus1_95_Transformer_95_ONE" transform="translate(61.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_Transformer_95_ONE_45_Transformer_95_ONE" transform="translate(61.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-overload sld-vl300to500-0" id="idINTERNAL_95_VoltageLevel1_95_Transformer_95_ONE" transform="translate(61.0,138.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0 sld-overload" id="idINTERNAL_95_VoltageLevel1_95_Transformer_95_ONE" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder sld-overload" id="idTransformer_95_ONE" transform="translate(60.0,72.5)">

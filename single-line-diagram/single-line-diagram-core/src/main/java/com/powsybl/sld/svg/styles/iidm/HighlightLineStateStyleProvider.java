@@ -52,7 +52,8 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
         }
 
-        if (node instanceof EquipmentNode equipmentNode && equipmentNode.isOverloaded()) {
+//        if (node instanceof EquipmentNode equipmentNode && equipmentNode.isOverloaded()) {
+        if (node.isOverloaded()) {
             return List.of(StyleClassConstants.OVERLOAD_STYLE_CLASS);
         }
         return Collections.emptyList();

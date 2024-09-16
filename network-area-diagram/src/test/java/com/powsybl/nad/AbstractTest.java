@@ -32,7 +32,7 @@ import java.util.stream.*;
  */
 public abstract class AbstractTest {
 
-    protected boolean debugSvg = false;
+    protected boolean debugSvg = true;
     protected boolean overrideTestReferences = false;
 
     private SvgParameters svgParameters;

@@ -45,5 +45,5 @@
 }
 
 .sld-overload {
-  animation: sld-overload-blink 3s infinite;
+  animation: sld-overload-blink-animation 3s infinite;
 }
