@@ -156,12 +156,12 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     @Override
-    public List<NodeInfo> getNodesInfos(VoltageLevelGraph graph) {
+    public List<BusLegendInfo> getNodesInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
         return vl.getBusView().getBusStream()
-                .map(b -> new NodeInfo(b.getId(), List.of(
-                    new NodeInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
-                    new NodeInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
+                .map(b -> new BusLegendInfo(b.getId(), List.of(
+                    new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
+                    new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
                 )))
                 .collect(Collectors.toList());
     }

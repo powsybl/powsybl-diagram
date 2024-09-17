@@ -1175,7 +1175,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel nodes infos
      */
-    private void drawNodeInfos(NodeInfo nodeInfo, double xShift, double yShift,
+    private void drawNodeInfos(BusLegendInfo busLegendInfo, double xShift, double yShift,
                                Element g, String idNode, List<String> styles) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
@@ -1190,7 +1190,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // legend nodes
         double padding = 2.5;
-        for (NodeInfo.Caption caption : nodeInfo.captions()) {
+        for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
             label.setAttribute("id", idNode + "_" + caption.type());
 
@@ -1216,22 +1216,17 @@ public class DefaultSVGWriter implements SVGWriter {
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         double xShift = graph.getX() + xInitPos;
-        for (NodeInfo nodeInfo : labelProvider.getNodesInfos(graph)) {
-            String userDefinedId = nodeInfo.captions().stream()
-                .filter(c -> c.type().equals("userDefinedId"))
-                .findFirst()
-                .map(NodeInfo.Caption::label)
-                .orElse(null);
-            String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + nodeInfo.busId();
+        for (BusLegendInfo busLegendInfo : labelProvider.getNodesInfos(graph)) {
+            String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
             Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
-            List<String> styles = styleProvider.getBusStyles(nodeInfo.busId(), graph);
-            drawNodeInfos(nodeInfo, xShift, yPos, gNode, idNode, styles);
+            List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
+            drawNodeInfos(busLegendInfo, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 
-            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, userDefinedId));
+            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode));
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }

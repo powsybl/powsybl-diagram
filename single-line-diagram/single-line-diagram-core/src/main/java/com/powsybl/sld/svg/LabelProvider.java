@@ -88,7 +88,7 @@ public interface LabelProvider {
 
     List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
 
-    List<NodeInfo> getNodesInfos(VoltageLevelGraph graph);
+    List<BusLegendInfo> getNodesInfos(VoltageLevelGraph graph);
 
     Optional<BusInfo> getBusInfo(BusNode node);
 

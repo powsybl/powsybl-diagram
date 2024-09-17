@@ -13,6 +13,6 @@ import java.util.List;
 /**
  * @author Kevin Le Saulnier {@literal <kevin.lesaulnier at rte-france.com>}
  */
-public record NodeInfo(String busId, List<Caption> captions) {
+public record BusLegendInfo(String busId, List<Caption> captions) {
     public record Caption(String label, String type) { }
 }

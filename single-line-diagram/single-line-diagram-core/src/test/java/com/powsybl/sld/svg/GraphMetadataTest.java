@@ -66,7 +66,7 @@ class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "COMPONENT_TYPE", "user_id"));
-        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
+        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1"));
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata("id6", "busNodeId1", "user_id"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
@@ -108,7 +108,6 @@ class GraphMetadataTest {
         assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").getComponentType());
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
-        assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
 
         assertNotNull(metadata2.getBusInfoMetadata("id6"));
         assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").getBusNodeId());

@@ -326,20 +326,13 @@ public class GraphMetadata {
 
         private final String id;
 
-        private final String userDefinedId;
-
         @JsonCreator
-        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id, @JsonProperty("userDefinedId") String userDefinedId) {
+        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id) {
             this.id = Objects.requireNonNull(id);
-            this.userDefinedId = userDefinedId;
         }
 
         public String getId() {
             return id;
-        }
-
-        public String getUserDefinedId() {
-            return userDefinedId;
         }
     }
 
