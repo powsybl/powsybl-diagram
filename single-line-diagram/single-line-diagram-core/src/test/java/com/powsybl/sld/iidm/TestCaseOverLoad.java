@@ -25,6 +25,11 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
         // initialization of networks and graph builder done in each test
     }
 
+    @Override
+    public StyleProvider getDefaultDiagramStyleProvider() {
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
+    }
+
     @Test
     void testLineOverLoad() {
         network = Networks.createNetworkWithLine();
