@@ -334,8 +334,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
 
         if (equipmentNodeOverLoaded(nodeA) || equipmentNodeOverLoaded(nodeB)) {
-//            nodeToInsert.setOverload(true);
-            System.out.println("Overload detected");
+            if (nodeToInsert instanceof EquipmentNode equipmentNode){
+                equipmentNode.setOverload(true);
+            }
         }
     }
 

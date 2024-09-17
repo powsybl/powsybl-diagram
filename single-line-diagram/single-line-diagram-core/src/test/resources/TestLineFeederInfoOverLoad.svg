@@ -92,6 +92,55 @@
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
 .sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
+/* File : animations.css ------------------------------------------------- */
+/* feeder info  */
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,-10 0,10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,10 0,-10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,10 0,-10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,-10 0,10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+@keyframes move {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* Set arrows animation speeds */
+.sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
+.sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+
+@keyframes sld-overload-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ffeb3b;
+    stroke-width: 2;
+  }
+}
+
+.sld-overload {
+  animation: sld-overload-blink-animation 3s infinite;
+}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -167,12 +216,12 @@
             <g class="sld-wire sld-vl300to500-0 sld-overload" id="_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_Line_95_ONE_95_Line_95_ONE">
                 <polyline points="65.0,142.0,65.0,80.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idLine_95_ONE_ARROW_ACTIVE" transform="translate(60.0,95.0)">
+            <g class="sld-active-power sld-feeder-info sld-out sld-arrow-animation-low-speed" id="idLine_95_ONE_ARROW_ACTIVE" transform="translate(60.0,95.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">101</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-out" id="idLine_95_ONE_ARROW_REACTIVE" transform="translate(60.0,115.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-out sld-arrow-animation-low-speed" id="idLine_95_ONE_ARROW_REACTIVE" transform="translate(60.0,115.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">150</text>
