@@ -44,7 +44,13 @@ public class Edge {
     }
 
     public boolean isOverloaded() {
-        return getNode1().isOverloaded() || getNode2().isOverloaded();
+        if (getNode1() instanceof EquipmentNode equipmentNode && equipmentNode.isOverloaded()) {
+            return true;
+        }
+        if (getNode2() instanceof EquipmentNode equipmentNode && equipmentNode.isOverloaded()) {
+            return true;
+        }
+        return false;
     }
 
     public void writeJson(JsonGenerator generator) throws IOException {

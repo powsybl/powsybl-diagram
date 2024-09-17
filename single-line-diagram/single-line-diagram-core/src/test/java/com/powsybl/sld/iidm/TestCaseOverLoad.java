@@ -11,6 +11,11 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

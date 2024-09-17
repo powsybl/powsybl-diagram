@@ -333,9 +333,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             addEdge(nodeToInsert, nodeA);
         }
 
-        if (nodeA.isOverloaded() || nodeB.isOverloaded()) {
-            nodeToInsert.setOverload(true);
+        if (equipmentNodeOverLoaded(nodeA) || equipmentNodeOverLoaded(nodeB)) {
+//            nodeToInsert.setOverload(true);
+            System.out.println("Overload detected");
         }
+    }
+
+    private boolean equipmentNodeOverLoaded(Node node) {
+        return node instanceof EquipmentNode equipmentNode && equipmentNode.isOverloaded();
     }
 
     public void insertHookNodesAtBuses() {

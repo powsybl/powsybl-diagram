@@ -19,6 +19,8 @@ public class EquipmentNode extends AbstractNode {
 
     private final String equipmentId;
 
+    private boolean isOverload;
+
     public EquipmentNode(NodeType type, String id, String name, String equipmentId, String componentTypeName, boolean fictitious) {
         super(type, id, componentTypeName, fictitious);
         this.name = name;
@@ -42,6 +44,14 @@ public class EquipmentNode extends AbstractNode {
 
     public String getEquipmentId() {
         return equipmentId;
+    }
+
+    public boolean isOverloaded() {
+        return isOverload;
+    }
+
+    public void setOverload(boolean isOverload) {
+        this.isOverload = isOverload;
     }
 
     @Override
