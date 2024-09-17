@@ -76,9 +76,9 @@ public interface Node {
 
     Direction getDirection();
 
-    boolean isOverloaded();
+    boolean isLimitExceeded();
 
-    void setOverload(boolean isOverloaded);
+    void setLimitExceeded(boolean isLimitExceeded);
 
     void setDirection(Direction direction);
 

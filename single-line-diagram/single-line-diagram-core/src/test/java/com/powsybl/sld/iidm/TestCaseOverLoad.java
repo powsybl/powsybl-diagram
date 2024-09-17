@@ -11,6 +11,11 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +28,11 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
     @Override
     public void setUp() {
         // initialization of networks and graph builder done in each test
+    }
+
+    @Override
+    public StyleProvider getDefaultDiagramStyleProvider() {
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
     }
 
     @Test
@@ -65,6 +75,19 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/Test3WTFeederInfoOverLoad.svg"), toSVG(g, "/Test3WTFeederInfoOverLoad.svg"));
+    }
+
+    @Test
+    void testBusLimitViolation() {
+        network = Networks.createComplexExternCellOnFourSections();
+        network.getBusbarSection("bbs3").getTerminal().getBusView().getBus().setV(390);
+        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(1);
+        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(0);
+
+        graphBuilder = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
+        voltageLevelGraphLayout(g);
+        assertEquals(toString("/TestBusBarHightlight.svg"), toSVG(g, "/TestBusBarHightlight.svg"));
     }
 
 }
