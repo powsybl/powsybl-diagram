@@ -26,9 +26,6 @@ public final class LimitViolationUtil {
         if (!Double.isNaN(highVoltageLimit) && busV > highVoltageLimit) {
             return true;
         }
-        if (!Double.isNaN(lowVoltageLimit) && busV < lowVoltageLimit) {
-            return true;
-        }
-        return false;
+        return !Double.isNaN(lowVoltageLimit) && busV < lowVoltageLimit;
     }
 }
