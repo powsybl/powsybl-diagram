@@ -29,8 +29,8 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(GeographicalLayoutFactory.class);
 
-    private static final int SCALING_FACTOR = 150000;
-    private static final double RADIUS_FACTOR = 150;
+    private static final int SCALING_FACTOR = 450000;
+    private static final double RADIUS_FACTOR = 300;
 
     public GeographicalLayoutFactory(Network network) {
         this(network, SCALING_FACTOR, RADIUS_FACTOR, () -> new BasicForceLayout(false, false));
@@ -73,7 +73,7 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
                 double angle = 2 * Math.PI / voltageLevelListSize;
                 int i = 0;
                 for (VoltageLevel voltageLevel : voltageLevelList) {
-                    double angleVoltageLevel = angle * i;
+                    double angleVoltageLevel = angle * i + 45.0; // We add 45° to help readability when the voltage levels have their labels
                     fixedNodePositionMap.put(voltageLevel.getId(), new Point(scalingFactor * mercatorCoordinates.getFirst() + radiusFactor * Math.cos(angleVoltageLevel), scalingFactor * mercatorCoordinates.getSecond() + radiusFactor * Math.sin(angleVoltageLevel)));
                     i++;
                 }
