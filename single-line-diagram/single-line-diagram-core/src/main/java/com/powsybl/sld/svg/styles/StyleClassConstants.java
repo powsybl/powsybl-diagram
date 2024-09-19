@@ -25,7 +25,8 @@ public final class StyleClassConstants {
     public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
     public static final String EXTERN_CELL = STYLE_PREFIX + "extern-cell";
     public static final String FICTITIOUS_NODE_STYLE_CLASS = STYLE_PREFIX + "fictitious";
-    public static final String OVERLOAD_STYLE_CLASS = STYLE_PREFIX + "overload";
+    public static final String EQUIPEMENT_STYLE_CLASS = STYLE_PREFIX + "eq-limit-exceeded";
+    public static final String BUSBAR_SECTION_LIMIT_EXCEEDED = STYLE_PREFIX + "bus-limit-exceeded";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";

@@ -84,10 +84,13 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
         network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(1);
         network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(0);
 
+        network.getBusbarSection("bbs4").getTerminal().getBusView().getBus().setV(390);
+        network.getBusbarSection("bbs4").getTerminal().getVoltageLevel().setHighVoltageLimit(1);
+        network.getBusbarSection("bbs4").getTerminal().getVoltageLevel().setHighVoltageLimit(0);
+
         graphBuilder = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestBusBarHightlight.svg"), toSVG(g, "/TestBusBarHightlight.svg"));
     }
-
 }

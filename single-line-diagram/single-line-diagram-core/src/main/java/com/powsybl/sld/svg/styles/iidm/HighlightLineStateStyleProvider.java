@@ -43,7 +43,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     }
 
     private Optional<String> getOverloadStyle(Edge edge) {
-        return edge.isOverloaded() ? Optional.of(StyleClassConstants.OVERLOAD_STYLE_CLASS) : Optional.empty();
+        return edge.isOverloaded() ? Optional.of(StyleClassConstants.EQUIPEMENT_STYLE_CLASS) : Optional.empty();
     }
 
     @Override
@@ -52,8 +52,12 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
         }
 
+        if (node instanceof BusNode busNode && busNode.isLimitExceeded()) {
+            return List.of(StyleClassConstants.BUSBAR_SECTION_LIMIT_EXCEEDED);
+        }
+
         if (node.isLimitExceeded()) {
-            return List.of(StyleClassConstants.OVERLOAD_STYLE_CLASS);
+            return List.of(StyleClassConstants.EQUIPEMENT_STYLE_CLASS);
         }
         return Collections.emptyList();
     }

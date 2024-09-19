@@ -333,9 +333,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             addEdge(nodeToInsert, nodeA);
         }
 
-        if (nodeA.isLimitExceeded() || nodeB.isLimitExceeded()) {
+        if (nodeA instanceof BusNode || nodeB instanceof BusNode) {
+            return;
+        }
+
+        if (nodeA.isLimitExceeded() || nodeB.isLimitExceeded() && nodeToInsert.getType() != NodeType.BUS) {
             nodeToInsert.setLimitExceeded(true);
         }
+
     }
 
     public void insertHookNodesAtBuses() {

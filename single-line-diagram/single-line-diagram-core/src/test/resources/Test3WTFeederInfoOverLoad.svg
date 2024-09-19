@@ -125,7 +125,7 @@
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
 
-@keyframes sld-overload-blink-animation {
+@keyframes sld-eq-limit-exceeded-blink-animation {
   0%,
   80%,
   100% {
@@ -137,10 +137,24 @@
   }
 }
 
-.sld-overload {
-  animation: sld-overload-blink-animation 3s infinite;
+.sld-eq-limit-exceeded {
+  animation: sld-eq-limit-exceeded-blink-animation 3s infinite;
 }
-/* ----------------------------------------------------------------------- */
+
+@keyframes sld-bus-limit-exceeded-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ff3bf5;
+    stroke-width: 2;
+  }
+}
+.sld-bus-limit-exceeded {
+  animation: sld-bus-limit-exceeded-blink-animation 3s infinite;
+}/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -243,13 +257,13 @@
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
-            <g class="sld-wire sld-vl120to180-0 sld-overload" id="_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT">
+            <g class="sld-wire sld-vl120to180-0 sld-eq-limit-exceeded" id="_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT">
                 <polyline points="140.0,252.0,140.0,222.0"/>
             </g>
-            <g class="sld-wire sld-vl120to180-0 sld-overload" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_3WT">
+            <g class="sld-wire sld-vl120to180-0 sld-eq-limit-exceeded" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_3WT">
                 <polyline points="140.0,222.0,140.0,154.0"/>
             </g>
-            <g class="sld-wire sld-vl30to50-0 sld-overload" id="_95_VL_95_132_95_3WT_95_TWO_95_3WT">
+            <g class="sld-wire sld-vl30to50-0 sld-eq-limit-exceeded" id="_95_VL_95_132_95_3WT_95_TWO_95_3WT">
                 <polyline points="115.0,80.0,115.0,142.0,133.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in sld-arrow-animation-high-speed" id="id3WT_95_TWO_ARROW_ACTIVE" transform="translate(110.0,95.0)">
@@ -262,7 +276,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-400</text>
             </g>
-            <g class="sld-wire sld-vl0to30-0 sld-overload" id="_95_VL_95_132_95_3WT_95_THREE_95_3WT">
+            <g class="sld-wire sld-vl0to30-0 sld-eq-limit-exceeded" id="_95_VL_95_132_95_3WT_95_THREE_95_3WT">
                 <polyline points="165.0,80.0,165.0,142.0,147.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in sld-arrow-animation-high-speed" id="id3WT_95_THREE_ARROW_ACTIVE" transform="translate(160.0,95.0)">
@@ -275,21 +289,21 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-400</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl120to180-0 sld-overload" id="idBUSCO_95_BUS_95_132_95_3WT" transform="translate(136.0,248.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl120to180-0" id="idBUSCO_95_BUS_95_132_95_3WT" transform="translate(136.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180-0 sld-overload" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT" transform="translate(136.0,218.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180-0 sld-eq-limit-exceeded" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT" transform="translate(136.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-three-wt sld-fictitious sld-overload" id="id3WT" transform="translate(132.0,130.0)">
+            <g class="sld-three-wt sld-fictitious sld-eq-limit-exceeded" id="id3WT" transform="translate(132.0,130.0)">
                 <circle class="sld-vl30to50-0 sld-winding" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl0to30-0 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl120to180-0 sld-winding" cx="8" cy="19" r="5"/>
             </g>
-            <g class="sld-top-feeder sld-vl120to180-0 sld-overload" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
+            <g class="sld-top-feeder sld-vl120to180-0 sld-eq-limit-exceeded" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
                 <text class="sld-label" id="3WT_TWO_N_LABEL" x="-5.0" y="-5.0">3WT</text>
             </g>
-            <g class="sld-top-feeder sld-vl120to180-0 sld-overload" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
+            <g class="sld-top-feeder sld-vl120to180-0 sld-eq-limit-exceeded" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
                 <text class="sld-label" id="3WT_THREE_N_LABEL" x="-5.0" y="-5.0">3WT</text>
             </g>
         </g>
