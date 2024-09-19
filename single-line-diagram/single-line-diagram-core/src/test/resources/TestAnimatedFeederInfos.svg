@@ -120,7 +120,7 @@
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
 
-@keyframes sld-eq-limit-exceeded-blink-animation {
+@keyframes sld-overload-blink-animation {
   0%,
   80%,
   100% {
@@ -132,24 +132,10 @@
   }
 }
 
-.sld-eq-limit-exceeded {
-  animation: sld-eq-limit-exceeded-blink-animation 3s infinite;
+.sld-overload {
+  animation: sld-overload-blink-animation 3s infinite;
 }
-
-@keyframes sld-bus-limit-exceeded-blink-animation {
-  0%,
-  80%,
-  100% {
-    stroke-width: 1;
-  }
-  40% {
-    stroke: #ff3bf5;
-    stroke-width: 2;
-  }
-}
-.sld-bus-limit-exceeded {
-  animation: sld-bus-limit-exceeded-blink-animation 3s infinite;
-}/* ----------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
