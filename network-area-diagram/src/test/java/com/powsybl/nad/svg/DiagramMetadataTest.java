@@ -9,10 +9,14 @@ package com.powsybl.nad.svg;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
-import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
@@ -21,8 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
@@ -34,11 +36,6 @@ import java.util.Objects;
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 class DiagramMetadataTest extends AbstractTest {
-
-    private static final String INDENT = "    ";
-    private static final String METADATA = "metadata";
-    private static final String METADATA_START_TOKEN = "<" + METADATA + ">";
-    private static final String METADATA_END_TOKEN = "</" + METADATA + ">";
 
     private FileSystem fileSystem;
     private Path tmpDir;
@@ -70,91 +67,47 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
-    void test() throws XMLStreamException {
-        // Referenced svg file
-        String reference = "/hvdc.svg";
+    void test() {
+        // Referenced json file
+        String reference = "/hvdc_metadata.json";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
-        // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
-        // Write Metadata as temporary xml file
-        Path outPath = tmpDir.resolve("metadata.xml");
+        // Create Metadata from json file
+        DiagramMetadata metadata = DiagramMetadata.parseJson(in);
+        // Write Metadata as temporary json file
+        Path outPath = tmpDir.resolve("metadata.json");
         writeMetadata(metadata, outPath);
-        // Read xml file
-        String actual = toString(outPath);
-        // remove xml header (first line)
-        actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
-        // Keep only metadata from svg file
+        // Read generated json file
+        String actual = getContentFile(outPath);
+        // Read reference json file
         String expected = toString(reference);
-        expected = expected.substring(expected.indexOf(METADATA_START_TOKEN), expected.indexOf(METADATA_END_TOKEN) + METADATA_END_TOKEN.length());
         // Checking
-        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
-    void testInvalid() throws XMLStreamException {
-        // Referenced svg file
-        String reference = """
-                <svg>
-                    <metadata>
-                        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-                            <nad:nodes>
-                                <nad:edge diagramId="10" equipmentId="TWT"/>
-                            </nad:nodes>
-                            <nad:edges>
-                                <nad:node diagramId="0" equipmentId="S1VL1"/>
-                            </nad:edges>
-                        </nad:nad>
-                    </metadata>
-                </svg>""";
-        InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
-        // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
-        // Write Metadata as temporary xml file
-        Path outPath = tmpDir.resolve("metadataInvalid.xml");
-        writeMetadata(metadata, outPath);
-        // Read xml file
-        String actual = toString(outPath);
-        // remove xml header (first line)
-        actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
-        // Keep only metadata from svg file
-        String expected = """
-                <metadata>
-                    <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-                        <nad:busNodes/>
-                        <nad:nodes/>
-                        <nad:edges/>
-                        <nad:textNodes/>
-                        <nad:svgParameters/>
-                        <nad:layoutParameters/>
-                    </nad:nad>
-                </metadata>""";
+    void test3wt() {
+        // Referenced json file
+        String reference = "/3wt_metadata.json";
+        // Write Metadata as temporary json file
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        new BasicForceLayout().run(graph, getLayoutParameters());
+        Path outPath = tmpDir.resolve("metadata.json");
+        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outPath);
+        // Read generated json file
+        String actual = getContentFile(outPath);
+        // Read reference json file
+        String expected = toString(reference);
         // Checking
-        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
+        assertEquals(expected, actual);
     }
 
-    private void writeMetadata(DiagramMetadata metadata, Path outPath) throws XMLStreamException {
-        try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(outPath))) {
-            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, os);
-            writer.writeStartElement(METADATA);
-            metadata.writeXml(writer);
-            writer.writeEndElement();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private String toString(Path outPath) {
-        String content;
+    private void writeMetadata(DiagramMetadata metadata, Path outPath) {
         try {
-            byte[] encoded = Files.readAllBytes(outPath);
-            content = new String(encoded, StandardCharsets.UTF_8);
+            Writer writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8);
+            metadata.writeJson(writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-        return content;
-    }
-
-    private String removeWhiteSpaces(String input) {
-        return input.replaceAll("\\s+", "");
     }
 }

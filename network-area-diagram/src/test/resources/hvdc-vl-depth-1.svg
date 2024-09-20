@@ -44,27 +44,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata>
-        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-            <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="VL1_0" nbNeighbours="0" index="0" vlNode="0"/>
-                <nad:busNode svgId="3" equipmentId="VL2_0" nbNeighbours="0" index="0" vlNode="2"/>
-            </nad:busNodes>
-            <nad:nodes>
-                <nad:node svgId="0" equipmentId="VL1" x="58.02" y="-185.43"/>
-                <nad:node svgId="2" equipmentId="VL2" x="-192.84" y="77.98"/>
-            </nad:nodes>
-            <nad:edges>
-                <nad:edge svgId="4" equipmentId="L" node1="0" node2="2" busNode1="1" busNode2="3" type="HvdcLineEdge"/>
-            </nad:edges>
-            <nad:textNodes>
-                <nad:textNode svgId="0-textnode" equipmentId="VL1" vlNode="0" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="2-textnode" equipmentId="VL2" vlNode="2" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-            </nad:textNodes>
-            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_HEIGHT" fixedWidth="-1" fixedHeight="600" fixedScale="0.2" arrowShift="30.0" arrowLabelShift="19.0" converterStationWidth="70.0" voltageLevelCircleRadius="30.0" fictitiousVoltageLevelCircleRadius="15.0" transformerCircleRadius="20.0" nodeHollowWidth="15.0" edgesForkLength="80.0" edgesForkAperture="1.0471975511965976" edgeStartShift="0.0" unknownBusNodeExtraRadius="10.0" loopDistance="120.0" loopEdgesAperture="1.0471975511965976" loopControlDistance="40.0" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.0" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.0" busLegend="true" voltageLevelDetails="false" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.0" undefinedValueSymbol=""/>
-            <nad:layoutParameters textNodesForceLayout="false" springRepulsionFactorForceLayout="0.0" textNodeFixedShiftX="100.0" textNodeFixedShiftY="-40.0" maxSteps="1000" textNodeEdgeConnectionYShift="25.0"/>
-        </nad:nad>
-    </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(58.02,-185.43)" id="0" class="nad-vl300to500">
             <desc>VL1</desc>

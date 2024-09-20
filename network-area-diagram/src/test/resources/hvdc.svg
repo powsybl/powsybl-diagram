@@ -44,40 +44,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata>
-        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-            <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="S1VL1_0" nbNeighbours="0" index="0" vlNode="0"/>
-                <nad:busNode svgId="3" equipmentId="S1VL2_0" nbNeighbours="0" index="0" vlNode="2"/>
-                <nad:busNode svgId="5" equipmentId="S2VL1_0" nbNeighbours="0" index="0" vlNode="4"/>
-                <nad:busNode svgId="7" equipmentId="S3VL1_0" nbNeighbours="0" index="0" vlNode="6"/>
-                <nad:busNode svgId="9" equipmentId="S4VL1_0" nbNeighbours="0" index="0" vlNode="8"/>
-            </nad:busNodes>
-            <nad:nodes>
-                <nad:node svgId="0" equipmentId="S1VL1" x="-220.40" y="-515.14"/>
-                <nad:node svgId="2" equipmentId="S1VL2" x="-152.34" y="-133.80"/>
-                <nad:node svgId="4" equipmentId="S2VL1" x="-162.93" y="231.51"/>
-                <nad:node svgId="6" equipmentId="S3VL1" x="171.13" y="91.69"/>
-                <nad:node svgId="8" equipmentId="S4VL1" x="497.34" y="302.31"/>
-            </nad:nodes>
-            <nad:edges>
-                <nad:edge svgId="10" equipmentId="TWT" node1="0" node2="2" busNode1="1" busNode2="3" type="PstEdge"/>
-                <nad:edge svgId="11" equipmentId="HVDC1" node1="2" node2="4" busNode1="3" busNode2="5" type="HvdcLineEdge"/>
-                <nad:edge svgId="12" equipmentId="HVDC2" node1="2" node2="6" busNode1="3" busNode2="7" type="HvdcLineEdge"/>
-                <nad:edge svgId="13" equipmentId="LINE_S2S3" node1="4" node2="6" busNode1="5" busNode2="7" type="LineEdge"/>
-                <nad:edge svgId="14" equipmentId="LINE_S3S4" node1="6" node2="8" busNode1="7" busNode2="9" type="LineEdge"/>
-            </nad:edges>
-            <nad:textNodes>
-                <nad:textNode svgId="0-textnode" equipmentId="S1VL1" vlNode="0" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="2-textnode" equipmentId="S1VL2" vlNode="2" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="4-textnode" equipmentId="S2VL1" vlNode="4" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="6-textnode" equipmentId="S3VL1" vlNode="6" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="8-textnode" equipmentId="S4VL1" vlNode="8" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-            </nad:textNodes>
-            <nad:svgParameters insertNameDesc="true" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_WIDTH" fixedWidth="800" fixedHeight="-1" fixedScale="0.2" arrowShift="30.0" arrowLabelShift="19.0" converterStationWidth="70.0" voltageLevelCircleRadius="30.0" fictitiousVoltageLevelCircleRadius="15.0" transformerCircleRadius="20.0" nodeHollowWidth="15.0" edgesForkLength="80.0" edgesForkAperture="1.0471975511965976" edgeStartShift="2.0" unknownBusNodeExtraRadius="10.0" loopDistance="120.0" loopEdgesAperture="1.0471975511965976" loopControlDistance="40.0" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.0" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.0" busLegend="true" voltageLevelDetails="false" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.0" undefinedValueSymbol=""/>
-            <nad:layoutParameters textNodesForceLayout="false" springRepulsionFactorForceLayout="0.0" textNodeFixedShiftX="100.0" textNodeFixedShiftY="-40.0" maxSteps="1000" textNodeEdgeConnectionYShift="25.0"/>
-        </nad:nad>
-    </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-220.40,-515.14)" id="0" class="nad-vl180to300">
             <desc>S1VL1</desc>
