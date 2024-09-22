@@ -15,7 +15,6 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
-import com.powsybl.sld.util.LimitViolationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -222,9 +221,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
             FeederNode feederNode = createFeederBranchNode(graph, line, side, LINE);
-            if (line.isOverloaded()) {
-                feederNode.setLimitExceeded(true);
-            }
             return feederNode;
         }
 
@@ -286,9 +282,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 }
             }
 
-            if (branch.isOverloaded()) {
-                transformerNode.setLimitExceeded(true);
-            }
             return transformerNode;
         }
 
@@ -346,20 +339,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         voltageLevelInfosBySide.get(NodeSide.TWO),
                         voltageLevelInfosBySide.get(NodeSide.THREE));
 
-                if (transformer.isOverloaded()) {
-                    middleNode.setLimitExceeded(true);
-                    firstOtherLegNode.setLimitExceeded(true);
-                    secondOtherLegNode.setLimitExceeded(true);
-                }
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
                 // in substation diagram, we only represent the leg node within the voltage level (3wt node will be on the snake line)
                 String id = transformer.getId() + "_" + side.name();
                 FeederNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         NodeSide.valueOf(side.name()));
-                if (transformer.isOverloaded()) {
-                    legNode.setLimitExceeded(true);
-                }
+
                 addTerminalNode(legNode, transformer.getTerminal(side));
             }
         }
@@ -522,9 +508,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         public void visitBusbarSection(BusbarSection busbarSection) {
             BusbarSectionPosition extension = busbarSection.getExtension(BusbarSectionPosition.class);
             //check if we have a constraint on the busbar section
-            boolean isConstrained = LimitViolationUtil.detectBusViolations(busbarSection);
             BusNode node = NodeFactory.createBusNode(graph, busbarSection.getId(), busbarSection.getNameOrId());
-            node.setLimitExceeded(isConstrained);
             if (extension != null) {
                 node.setBusBarIndexSectionIndex(extension.getBusbarIndex(), extension.getSectionIndex());
             }

@@ -76,10 +76,6 @@ public interface Node {
 
     Direction getDirection();
 
-    boolean isLimitExceeded();
-
-    void setLimitExceeded(boolean isLimitExceeded);
-
     void setDirection(Direction direction);
 
     Orientation getOrientation();

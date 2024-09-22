@@ -47,3 +47,12 @@
 .sld-overload {
   animation: sld-overload-blink-animation 3s infinite;
 }
+
+
+.sld-vl-overvoltage {
+  animation: sld-overload-blink-animation 3s infinite;
+}
+
+.sld-vl-undervoltage {
+  animation: sld-overload-blink-animation 3s infinite;
+}

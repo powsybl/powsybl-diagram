@@ -43,10 +43,6 @@ public class Edge {
         return nodes;
     }
 
-    public boolean isOverloaded() {
-        return getNode1().isLimitExceeded() || getNode2().isLimitExceeded();
-    }
-
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         for (int i = 1; i <= nodes.size(); ++i) {

@@ -26,6 +26,8 @@ public final class StyleClassConstants {
     public static final String EXTERN_CELL = STYLE_PREFIX + "extern-cell";
     public static final String FICTITIOUS_NODE_STYLE_CLASS = STYLE_PREFIX + "fictitious";
     public static final String OVERLOAD_STYLE_CLASS = STYLE_PREFIX + "overload";
+    public static final String VL_OVERVOLTAGE_CLASS = STYLE_PREFIX + "vl-overvoltage";
+    public static final String VL_UNDERVOLTAGE_CLASS = STYLE_PREFIX + "vl-undervoltage";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";

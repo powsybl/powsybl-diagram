@@ -35,25 +35,16 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
         Optional<String> stateStyle = getHighlightLineStateStyle(graph, edge);
-        Optional<String> overloadStyle = getOverloadStyle(edge);
-        return Stream.of(stateStyle, overloadStyle)
+        return Stream.of(stateStyle)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .toList();
-    }
-
-    private Optional<String> getOverloadStyle(Edge edge) {
-        return edge.isOverloaded() ? Optional.of(StyleClassConstants.OVERLOAD_STYLE_CLASS) : Optional.empty();
     }
 
     @Override
     public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode.getEquipmentId())) {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
-        }
-
-        if (node.isLimitExceeded()) {
-            return List.of(StyleClassConstants.OVERLOAD_STYLE_CLASS);
         }
         return Collections.emptyList();
     }

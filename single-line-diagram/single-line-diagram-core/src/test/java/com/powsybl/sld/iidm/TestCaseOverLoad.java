@@ -14,7 +14,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
-import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.LimitHighlightStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
 
     @Override
     public StyleProvider getDefaultDiagramStyleProvider() {
-        return new StyleProvidersList(new TopologicalStyleProvider(network), new HighlightLineStateStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new LimitHighlightStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
     }
 
     @Test
@@ -80,6 +80,7 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
     @Test
     void testBusLimitViolation() {
         network = Networks.createComplexExternCellOnFourSections();
+
         network.getBusbarSection("bbs3").getTerminal().getBusView().getBus().setV(390);
         network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(1);
         network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(0);

@@ -56,7 +56,6 @@ public abstract class AbstractNode implements Node {
         this.id = Objects.requireNonNull(id);
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
-        this.isLimitExceeded = false;
         setOrientation(defaultOrientation());
     }
 
@@ -193,16 +192,6 @@ public abstract class AbstractNode implements Node {
     @Override
     public void setOrientation(Orientation orientation) {
         this.orientation = Objects.requireNonNullElse(orientation, defaultOrientation());
-    }
-
-    @Override
-    public boolean isLimitExceeded() {
-        return isLimitExceeded;
-    }
-
-    @Override
-    public void setLimitExceeded(boolean isLimitExceeded) {
-        this.isLimitExceeded = isLimitExceeded;
     }
 
     @Override
