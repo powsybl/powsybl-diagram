@@ -46,8 +46,6 @@ public abstract class AbstractNode implements Node {
 
     private Orientation orientation;
 
-    private boolean isLimitExceeded;
-
     /**
      * Constructor
      */

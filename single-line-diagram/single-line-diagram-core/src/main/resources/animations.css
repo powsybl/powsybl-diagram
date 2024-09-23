@@ -32,6 +32,12 @@
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
 
+:root {
+  --sld-overload-color: #ffeb3b; /* Yellow for overload */
+  --sld-overvoltage-color: #5a0101; /* Red for overvoltage */
+  --sld-undervoltage-color: #0000ff; /* Blue for undervoltage */
+}
+
 @keyframes sld-overload-blink-animation {
   0%,
   80%,
@@ -39,7 +45,31 @@
     stroke-width: 1;
   }
   40% {
-    stroke: #ffeb3b;
+    stroke: var(--sld-overload-color);
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-overvoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: var(--sld-overvoltage-color);
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-undervoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: var(--sld-undervoltage-color);
     stroke-width: 2;
   }
 }
@@ -48,11 +78,10 @@
   animation: sld-overload-blink-animation 3s infinite;
 }
 
-
 .sld-vl-overvoltage {
-  animation: sld-overload-blink-animation 3s infinite;
+  animation: sld-overvoltage-blink-animation 3s infinite;
 }
 
 .sld-vl-undervoltage {
-  animation: sld-overload-blink-animation 3s infinite;
+  animation: sld-undervoltage-blink-animation 3s infinite;
 }

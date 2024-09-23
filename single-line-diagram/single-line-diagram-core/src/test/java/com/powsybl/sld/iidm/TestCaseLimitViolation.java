@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Jamal KHEYYAD {@literal <jamal.kheyyad at rte-international.com>}
  */
-class TestCaseOverLoad extends AbstractTestCaseIidm {
+class TestCaseLimitViolation extends AbstractTestCaseIidm {
 
     @Override
     public void setUp() {
@@ -78,17 +78,31 @@ class TestCaseOverLoad extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testBusLimitViolation() {
+    void testBusOverVoltageLimitViolation() {
         network = Networks.createComplexExternCellOnFourSections();
 
         network.getBusbarSection("bbs3").getTerminal().getBusView().getBus().setV(390);
         network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(1);
-        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(0);
+        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setLowVoltageLimit(0);
 
         graphBuilder = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestBusBarHightlight.svg"), toSVG(g, "/TestBusBarHightlight.svg"));
+        assertEquals(toString("/TestBusBarOverVoltageLimitHightlight.svg"), toSVG(g, "/TestBusBarOverVoltageLimitHightlight.svg"));
+    }
+
+    @Test
+    void testBusUnderVoltageLimitViolation() {
+        network = Networks.createComplexExternCellOnFourSections();
+
+        network.getBusbarSection("bbs3").getTerminal().getBusView().getBus().setV(200);
+        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setHighVoltageLimit(400);
+        network.getBusbarSection("bbs3").getTerminal().getVoltageLevel().setLowVoltageLimit(390);
+
+        graphBuilder = new NetworkGraphBuilder(network);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl");
+        voltageLevelGraphLayout(g);
+        assertEquals(toString("/TestBusBarUnderVoltageLimitHightlight.svg"), toSVG(g, "/TestBusBarUnderVoltageLimitHightlight.svg"));
     }
 
 }
