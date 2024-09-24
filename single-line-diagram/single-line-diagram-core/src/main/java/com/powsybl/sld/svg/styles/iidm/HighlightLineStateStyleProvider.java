@@ -18,7 +18,6 @@ import com.powsybl.sld.svg.styles.EmptyStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -34,11 +33,9 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
-        Optional<String> stateStyle = getHighlightLineStateStyle(graph, edge);
-        return Stream.of(stateStyle)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toList();
+        return getHighlightLineStateStyle(graph, edge)
+                .map(List::of)
+                .orElse(Collections.emptyList());
     }
 
     @Override

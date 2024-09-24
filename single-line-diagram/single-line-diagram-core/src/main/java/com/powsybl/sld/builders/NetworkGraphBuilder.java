@@ -220,8 +220,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
-            FeederNode feederNode = createFeederBranchNode(graph, line, side, LINE);
-            return feederNode;
+            return createFeederBranchNode(graph, line, side, LINE);
         }
 
         private FeederNode createFeederTieLineNode(VoltageLevelGraph graph, TieLine tieLine, TwoSides side) {
@@ -267,22 +266,20 @@ public class NetworkGraphBuilder implements GraphBuilder {
             TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
-            FeederNode transformerNode;
+
             if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
                 if (!branch.hasPhaseTapChanger()) {
-                    transformerNode = NodeFactory.createFeeder2WTNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return NodeFactory.createFeeder2WTNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
-                    transformerNode = NodeFactory.createFeeder2WTNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return NodeFactory.createFeeder2WTNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
                 if (!branch.hasPhaseTapChanger()) {
-                    transformerNode = NodeFactory.createFeeder2WTLegNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
+                    return NodeFactory.createFeeder2WTLegNode(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
                 } else {
-                    transformerNode = NodeFactory.createFeeder2WTLegNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
+                    return NodeFactory.createFeeder2WTLegNodeWithPhaseShifter(graph, id, name, equipmentId, NodeSide.valueOf(side.name()));
                 }
             }
-
-            return transformerNode;
         }
 
         private void addFeeder3wtNode(VoltageLevelGraph graph,
@@ -406,14 +403,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
-            FeederNode transformerNode = createFeeder2wtNode(graph, transformer, side);
+            Node transformerNode = createFeeder2wtNode(graph, transformer, side);
             addTerminalNode(transformerNode, transformer.getTerminal(side));
         }
 
         @Override
         public void visitLine(Line line, TwoSides side) {
-            FeederNode feederNode = createFeederLineNode(graph, line, side);
-            addTerminalNode(feederNode, line.getTerminal(side));
+            addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
@@ -507,7 +503,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitBusbarSection(BusbarSection busbarSection) {
             BusbarSectionPosition extension = busbarSection.getExtension(BusbarSectionPosition.class);
-            //check if we have a constraint on the busbar section
             BusNode node = NodeFactory.createBusNode(graph, busbarSection.getId(), busbarSection.getNameOrId());
             if (extension != null) {
                 node.setBusBarIndexSectionIndex(extension.getBusbarIndex(), extension.getSectionIndex());
