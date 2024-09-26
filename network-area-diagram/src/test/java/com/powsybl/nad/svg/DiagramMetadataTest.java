@@ -69,17 +69,17 @@ class DiagramMetadataTest extends AbstractTest {
     @Test
     void test() {
         // Referenced json file
-        String reference = "/hvdc_metadata.json";
-        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
+        String referenceMetadata = "/hvdc_metadata.json";
+        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(referenceMetadata));
         // Create Metadata from json file
         DiagramMetadata metadata = DiagramMetadata.parseJson(in);
         // Write Metadata as temporary json file
-        Path outPath = tmpDir.resolve("metadata.json");
-        writeMetadata(metadata, outPath);
+        Path outMetadataPath = tmpDir.resolve("metadata.json");
+        writeMetadata(metadata, outMetadataPath);
         // Read generated json file
-        String actual = getContentFile(outPath);
+        String actual = getContentFile(outMetadataPath);
         // Read reference json file
-        String expected = toString(reference);
+        String expected = toString(referenceMetadata);
         // Checking
         assertEquals(expected, actual);
     }
@@ -87,19 +87,25 @@ class DiagramMetadataTest extends AbstractTest {
     @Test
     void test3wt() {
         // Referenced json file
-        String reference = "/3wt_metadata.json";
+        String referenceMetadata = "/3wt_metadata.json";
         // Write Metadata as temporary json file
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
-        Path outPath = tmpDir.resolve("metadata.json");
-        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outPath);
+        Path outMetadataPath = tmpDir.resolve("metadata.json");
+        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
         // Read generated json file
-        String actual = getContentFile(outPath);
+        String actual = getContentFile(outMetadataPath);
         // Read reference json file
-        String expected = toString(reference);
+        String expected = toString(referenceMetadata);
         // Checking
         assertEquals(expected, actual);
+        // Read metadata from file
+        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(outMetadataPath);
+        assertEquals(3, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(4, diagramMetadata.getNodesMetadata().size());
+        assertEquals(3, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(3, diagramMetadata.getTextNodesMetadata().size());
     }
 
     private void writeMetadata(DiagramMetadata metadata, Path outPath) {

@@ -96,7 +96,7 @@ public abstract class AbstractTest {
         }
     }
 
-    private static String normalizeLineSeparator(String str) {
+    protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
     }

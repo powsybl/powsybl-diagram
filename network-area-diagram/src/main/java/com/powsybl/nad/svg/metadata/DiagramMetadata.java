@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.UncheckedIOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.SvgParameters;
@@ -30,7 +29,7 @@ import com.powsybl.nad.svg.SvgParameters;
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
-public class DiagramMetadata {
+public class DiagramMetadata extends AbstractMetadata {
 
     private final LayoutParameters layoutParameters;
     private final SvgParameters svgParameters;
@@ -167,26 +166,6 @@ public class DiagramMetadata {
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         try {
             return objectMapper.readValue(reader, DiagramMetadata.class);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void writeJson(Path file) {
-        Objects.requireNonNull(file);
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        ObjectMapper objectMapper = JsonUtil.createObjectMapper();
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(writer, this);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import org.apache.commons.io.output.NullWriter;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -62,7 +64,7 @@ public final class NetworkAreaDiagram {
         draw(network, svgFile, new NadParameters(), VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
     }
 
-    public void draw(Network network, Writer writer, Writer metadataWriter, Predicate<VoltageLevel> voltageLevelFilter) {
+    public static void draw(Network network, Writer writer, Writer metadataWriter, Predicate<VoltageLevel> voltageLevelFilter) {
         draw(network, writer, metadataWriter, new NadParameters(), voltageLevelFilter);
     }
 
@@ -110,10 +112,10 @@ public final class NetworkAreaDiagram {
         }
     }
 
-    public String drawToString(Network network, SvgParameters svgParameters) {
-        try (StringWriter writer = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+    public static String drawToString(Network network, SvgParameters svgParameters) {
+        try (StringWriter writer = new StringWriter()) {
             NadParameters nadParameters = new NadParameters().setSvgParameters(svgParameters);
-            draw(network, writer, metadataWriter, nadParameters, VoltageLevelFilter.NO_FILTER);
+            draw(network, writer, NullWriter.INSTANCE, nadParameters, VoltageLevelFilter.NO_FILTER);
             return writer.toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);

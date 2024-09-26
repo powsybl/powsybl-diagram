@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.coordinate.Direction;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -29,7 +29,7 @@ import java.util.*;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class GraphMetadata {
+public class GraphMetadata extends AbstractMetadata {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
@@ -422,26 +422,6 @@ public class GraphMetadata {
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         try {
             return objectMapper.readValue(reader, GraphMetadata.class);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void writeJson(Path file) {
-        Objects.requireNonNull(file);
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        ObjectMapper objectMapper = JsonUtil.createObjectMapper();
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(writer, this);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
