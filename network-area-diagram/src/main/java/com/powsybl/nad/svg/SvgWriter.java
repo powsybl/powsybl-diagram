@@ -8,7 +8,6 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.jgrapht.alg.util.Pair;
@@ -63,15 +62,12 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
-    private final LayoutParameters layoutParameters;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider,
-                     LayoutParameters layoutParameters) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
         this.edgeRendering = new DefaultEdgeRendering();
-        this.layoutParameters = layoutParameters;
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
