@@ -52,7 +52,7 @@
 .sld-unknown {stroke: none; fill: black}
 /* Fonts */
 .sld-label {stroke: none; fill: black; font: 8px serif}
-.sld-node-legend {font: 10px serif}
+.sld-bus-legend-info {font: 10px serif}
 .sld-graph-label {font: 12px serif}
 /* Specific */
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}

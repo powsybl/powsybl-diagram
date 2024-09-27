@@ -264,7 +264,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(root, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && svgParameters.isAddNodesInfos()) {
-            drawNodesInfos(root, graph, metadata, initProvider, styleProvider);
+            drawBusesLegend(root, graph, metadata, initProvider, styleProvider);
         }
     }
 
@@ -1175,8 +1175,8 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel nodes infos
      */
-    private void drawNodeInfos(BusLegendInfo busLegendInfo, double xShift, double yShift,
-                               Element g, String idNode, List<String> styles) {
+    private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,
+                                   Element g, String idNode, List<String> styles) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         // colored circle
@@ -1196,7 +1196,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
             label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-            label.setAttribute(CLASS, StyleClassConstants.NODE_LEGEND);
+            label.setAttribute(CLASS, StyleClassConstants.BUS_LEGEND_INFO);
             Text textNode = g.getOwnerDocument().createTextNode(caption.label());
             label.appendChild(textNode);
             g.appendChild(label);
@@ -1205,8 +1205,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawNodesInfos(Element root, VoltageLevelGraph graph,
-                                GraphMetadata metadata, LabelProvider labelProvider, StyleProvider styleProvider) {
+    private void drawBusesLegend(Element root, VoltageLevelGraph graph,
+                                 GraphMetadata metadata, LabelProvider labelProvider, StyleProvider styleProvider) {
 
         Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
         root.appendChild(nodesInfosNode);
@@ -1216,17 +1216,17 @@ public class DefaultSVGWriter implements SVGWriter {
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         double xShift = graph.getX() + xInitPos;
-        for (BusLegendInfo busLegendInfo : labelProvider.getNodesInfos(graph)) {
+        for (BusLegendInfo busLegendInfo : labelProvider.getBusLegendInfos(graph)) {
             String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
             Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
             List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
-            drawNodeInfos(busLegendInfo, xShift, yPos, gNode, idNode, styles);
+            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 
-            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode));
+            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(idNode));
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }

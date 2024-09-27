@@ -156,7 +156,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     @Override
-    public List<BusLegendInfo> getNodesInfos(VoltageLevelGraph graph) {
+    public List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
         return vl.getBusView().getBusStream()
                 .map(b -> new BusLegendInfo(b.getId(), List.of(
