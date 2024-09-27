@@ -1444,7 +1444,7 @@
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   } ],
-  "electricalNodeInfos" : [ {
+  "busLegendInfos" : [ {
     "id" : "NODE_vl1_0"
   }, {
     "id" : "NODE_vl1_2"

@@ -263,7 +263,7 @@
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   } ],
-  "electricalNodeInfos" : [ ],
+  "busLegendInfos" : [ ],
   "busInfos" : [ ],
   "layoutParams" : {
     "verticalSpaceBus" : 25.0,

@@ -363,7 +363,7 @@ public class GraphMetadata {
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
-                         @JsonProperty("electricalNodeInfos") List<BusLegendInfoMetadata> busLegendInfoMetadataList,
+                         @JsonProperty("busLegendInfos") List<BusLegendInfoMetadata> busLegendInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
                          @JsonProperty("svgParams") SvgParameters svgParams) {
@@ -545,7 +545,7 @@ public class GraphMetadata {
         return electricalNodeInfoMetadataMap.get(id);
     }
 
-    @JsonProperty("electricalNodeInfos")
+    @JsonProperty("busLegendInfos")
     public List<BusLegendInfoMetadata> getElectricalNodeInfoMetadata() {
         return ImmutableList.copyOf(electricalNodeInfoMetadataMap.values());
     }
