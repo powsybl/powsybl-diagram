@@ -22,8 +22,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Direction.TOP;
-import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -476,8 +474,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (feeder != null) {
                 feeder.getOrder().ifPresent(node::setOrder);
                 feeder.getName().ifPresent(node::setLabel);
-                Direction dir = Direction.valueOf(feeder.getDirection().toString());
-                node.setDirection(dir == UNDEFINED ? TOP : dir);
+                ConnectablePosition.Direction feederDirection = feeder.getDirection();
+                node.setDirection((feederDirection == null || feederDirection == ConnectablePosition.Direction.UNDEFINED)
+                        ? Direction.TOP
+                        : Direction.valueOf(feederDirection.name()));
             }
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), node);
         }
