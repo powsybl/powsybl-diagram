@@ -37,7 +37,7 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        svgParameters.setAddNodesInfos(true);
+        svgParameters.setBusesLegendAdded(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph("vl1");

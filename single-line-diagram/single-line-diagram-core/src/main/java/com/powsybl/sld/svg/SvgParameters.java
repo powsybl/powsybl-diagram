@@ -32,7 +32,7 @@ public class SvgParameters {
     private double feederInfosIntraMargin = 10;
     private double feederInfosOuterMargin = 20;
     private boolean feederInfoSymmetry = false;
-    private boolean addNodesInfos = false;
+    private boolean busesLegendAdded = false;
     private boolean useName = false;
     private double angleLabelShift = 15.;
     private boolean labelCentered = false;
@@ -73,7 +73,7 @@ public class SvgParameters {
         this.feederInfosIntraMargin = other.feederInfosIntraMargin;
         this.feederInfosOuterMargin = other.feederInfosOuterMargin;
         this.feederInfoSymmetry = other.feederInfoSymmetry;
-        this.addNodesInfos = other.addNodesInfos;
+        this.busesLegendAdded = other.busesLegendAdded;
         this.useName = other.useName;
         this.angleLabelShift = other.angleLabelShift;
         this.labelCentered = other.labelCentered;
@@ -229,12 +229,12 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isAddNodesInfos() {
-        return addNodesInfos;
+    public boolean isBusesLegendAdded() {
+        return busesLegendAdded;
     }
 
-    public SvgParameters setAddNodesInfos(boolean addNodesInfos) {
-        this.addNodesInfos = addNodesInfos;
+    public SvgParameters setBusesLegendAdded(boolean busesLegendAdded) {
+        this.busesLegendAdded = busesLegendAdded;
         return this;
     }
 

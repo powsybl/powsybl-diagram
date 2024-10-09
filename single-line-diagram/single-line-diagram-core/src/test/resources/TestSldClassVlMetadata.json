@@ -292,7 +292,7 @@
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   } ],
-  "electricalNodeInfos" : [ ],
+  "busLegendInfos" : [ ],
   "busInfos" : [ ],
   "layoutParams" : {
     "verticalSpaceBus" : 25.0,
@@ -343,7 +343,7 @@
     "feederInfosIntraMargin" : 10.0,
     "feederInfosOuterMargin" : 20.0,
     "feederInfoSymmetry" : false,
-    "addNodesInfos" : false,
+    "busesLegendAdded" : false,
     "useName" : false,
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
