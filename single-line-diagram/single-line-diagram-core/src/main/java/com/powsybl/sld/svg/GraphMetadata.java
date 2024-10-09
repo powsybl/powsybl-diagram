@@ -349,7 +349,7 @@ public class GraphMetadata {
 
     private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
-    private final Map<String, BusLegendInfoMetadata> electricalNodeInfoMetadataMap = new HashMap<>();
+    private final Map<String, BusLegendInfoMetadata> busLegendInfoMetadataMap = new HashMap<>();
 
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
@@ -537,17 +537,17 @@ public class GraphMetadata {
 
     public void addBusLegendInfoMetadata(BusLegendInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
-        electricalNodeInfoMetadataMap.put(metadata.getId(), metadata);
+        busLegendInfoMetadataMap.put(metadata.getId(), metadata);
     }
 
-    public BusLegendInfoMetadata getElectricalNodeInfoMetadata(String id) {
+    public BusLegendInfoMetadata getBusLegendInfoMetadata(String id) {
         Objects.requireNonNull(id);
-        return electricalNodeInfoMetadataMap.get(id);
+        return busLegendInfoMetadataMap.get(id);
     }
 
     @JsonProperty("busLegendInfos")
-    public List<BusLegendInfoMetadata> getElectricalNodeInfoMetadata() {
-        return ImmutableList.copyOf(electricalNodeInfoMetadataMap.values());
+    public List<BusLegendInfoMetadata> getBusLegendInfoMetadata() {
+        return ImmutableList.copyOf(busLegendInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

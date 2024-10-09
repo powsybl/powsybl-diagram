@@ -107,7 +107,7 @@ class GraphMetadataTest {
         assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
         assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").getComponentType());
 
-        assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
+        assertNotNull(metadata2.getBusLegendInfoMetadata("id1"));
 
         assertNotNull(metadata2.getBusInfoMetadata("id6"));
         assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").getBusNodeId());

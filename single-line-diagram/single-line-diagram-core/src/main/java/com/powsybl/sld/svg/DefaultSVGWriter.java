@@ -132,7 +132,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
         double height = graph.getHeight() + layoutParameters.getDiagramPadding().getTop() + layoutParameters.getDiagramPadding().getBottom();
-        if (graph instanceof VoltageLevelGraph && svgParameters.isAddNodesInfos()) {
+        if (graph instanceof VoltageLevelGraph && svgParameters.isBusesLegendAdded()) {
             height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
         }
         return height;
@@ -263,7 +263,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawNodes(root, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
-        if (graph.isForVoltageLevelDiagram() && svgParameters.isAddNodesInfos()) {
+        if (graph.isForVoltageLevelDiagram() && svgParameters.isBusesLegendAdded()) {
             drawBusesLegend(root, graph, metadata, initProvider, styleProvider);
         }
     }

@@ -1499,7 +1499,7 @@
     "feederInfosIntraMargin" : 10.0,
     "feederInfosOuterMargin" : 20.0,
     "feederInfoSymmetry" : false,
-    "addNodesInfos" : true,
+    "busesLegendAdded" : true,
     "useName" : true,
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
