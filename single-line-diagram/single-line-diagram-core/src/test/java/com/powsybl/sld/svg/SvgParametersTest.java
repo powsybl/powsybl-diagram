@@ -33,7 +33,7 @@ class SvgParametersTest {
                 .setFeederInfosIntraMargin(21)
                 .setFeederInfosOuterMargin(25)
                 .setFeederInfoSymmetry(true)
-                .setAddNodesInfos(true)
+                .setBusesLegendAdded(true)
                 .setUseName(true)
                 .setAngleLabelShift(42)
                 .setLabelCentered(true)
@@ -66,7 +66,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getFeederInfosIntraMargin(), svgParameters1.getFeederInfosIntraMargin(), 0);
         assertEquals(svgParameters0.getFeederInfosOuterMargin(), svgParameters1.getFeederInfosOuterMargin(), 0);
         assertEquals(svgParameters0.isFeederInfoSymmetry(), svgParameters1.isFeederInfoSymmetry());
-        assertEquals(svgParameters0.isAddNodesInfos(), svgParameters1.isAddNodesInfos());
+        assertEquals(svgParameters0.isBusesLegendAdded(), svgParameters1.isBusesLegendAdded());
         assertEquals(svgParameters0.isUseName(), svgParameters1.isUseName());
         assertEquals(svgParameters0.getAngleLabelShift(), svgParameters1.getAngleLabelShift(), 0);
         assertEquals(svgParameters0.isLabelCentered(), svgParameters1.isLabelCentered());
