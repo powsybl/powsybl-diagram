@@ -20,10 +20,10 @@ import static com.powsybl.sld.svg.styles.StyleClassConstants.*;
 /**
  * @author Jamal KHEYYAD {@literal <jamal.kheyyad at rte-international.com>}
  */
-public class OverloadHighlightStyleProvider extends EmptyStyleProvider {
+public class LimitHighlightStyleProvider extends EmptyStyleProvider {
     private final Network network;
 
-    public OverloadHighlightStyleProvider(Network network) {
+    public LimitHighlightStyleProvider(Network network) {
         this.network = network;
     }
 

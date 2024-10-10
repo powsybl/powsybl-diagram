@@ -14,7 +14,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.styles.AnimatedFeederInfoStyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
-import com.powsybl.sld.svg.styles.iidm.OverloadHighlightStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.LimitHighlightStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ class TestCaseLimitViolation extends AbstractTestCaseIidm {
 
     @Override
     public StyleProvider getDefaultDiagramStyleProvider() {
-        return new StyleProvidersList(new TopologicalStyleProvider(network), new OverloadHighlightStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
+        return new StyleProvidersList(new TopologicalStyleProvider(network), new LimitHighlightStyleProvider(network), new AnimatedFeederInfoStyleProvider(500, 1000));
     }
 
     @Test
