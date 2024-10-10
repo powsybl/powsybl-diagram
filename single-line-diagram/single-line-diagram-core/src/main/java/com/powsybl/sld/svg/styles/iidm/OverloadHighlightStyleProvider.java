@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2024, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.iidm.network.*;
@@ -14,10 +20,10 @@ import static com.powsybl.sld.svg.styles.StyleClassConstants.*;
 /**
  * @author Jamal KHEYYAD {@literal <jamal.kheyyad at rte-international.com>}
  */
-public class LimitHighlightStyleProvider extends EmptyStyleProvider {
-    Network network;
+public class OverloadHighlightStyleProvider extends EmptyStyleProvider {
+    private final Network network;
 
-    public LimitHighlightStyleProvider(Network network) {
+    public OverloadHighlightStyleProvider(Network network) {
         this.network = network;
     }
 
@@ -31,7 +37,7 @@ public class LimitHighlightStyleProvider extends EmptyStyleProvider {
         List<Node> nodes = edge.getNodes();
         for (Node node : nodes) {
             if (node instanceof FeederNode feederNode) {
-                return getHighlightFeederStateStyle(feederNode);
+                return isOverloaded(feederNode) ? Optional.of(OVERLOAD_STYLE_CLASS) : Optional.empty();
             } else if (node instanceof ConnectivityNode connectivityNode && hasOverloadedAdjacentNode(connectivityNode)) {
                 return Optional.of(OVERLOAD_STYLE_CLASS);
             }
@@ -40,30 +46,21 @@ public class LimitHighlightStyleProvider extends EmptyStyleProvider {
     }
 
     boolean hasOverloadedAdjacentNode(ConnectivityNode connectivityNode) {
-        return connectivityNode.getAdjacentNodes().stream().anyMatch(node -> {
-            if (node instanceof FeederNode feederNode) {
-                return isOverloaded(feederNode);
-            }
-            return false;
-        });
-    }
-
-    protected Optional<String> getHighlightFeederStateStyle(FeederNode n) {
-        if (isOverloaded(n)) {
-            return Optional.of(OVERLOAD_STYLE_CLASS);
-        }
-        return Optional.empty();
+        return connectivityNode.getAdjacentNodes().stream()
+                .filter(FeederNode.class::isInstance)
+                .anyMatch(feederNode -> isOverloaded((FeederNode) feederNode));
     }
 
     private boolean isOverloaded(FeederNode n) {
         if (!(n.getFeeder() instanceof FeederWithSides)) {
             return false;
         }
-        Connectable<?> connectable = network.getConnectable(n.getEquipmentId());
-        if (connectable instanceof Branch<?> branch && branch.isOverloaded()) {
+        Branch<?> branch = network.getBranch(n.getEquipmentId());
+        if (branch != null && branch.isOverloaded()) {
             return true;
         } else {
-            return connectable instanceof ThreeWindingsTransformer transformer && transformer.isOverloaded();
+            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
+            return transformer != null && transformer.isOverloaded();
         }
     }
 
@@ -72,18 +69,15 @@ public class LimitHighlightStyleProvider extends EmptyStyleProvider {
         if (!(node instanceof BusNode busNode)) {
             return Collections.emptyList();
         }
-        List<String> styles = new ArrayList<>();
         BusbarSection busbarSection = this.network.getBusbarSection(busNode.getEquipmentId());
         if (busbarSection != null) {
-
             if (busbarSection.getV() > busbarSection.getTerminal().getVoltageLevel().getHighVoltageLimit()) {
-                styles.add(VL_OVERVOLTAGE_CLASS);
+                return List.of(VL_OVERVOLTAGE_CLASS);
             } else if (busbarSection.getV() < busbarSection.getTerminal().getVoltageLevel().getLowVoltageLimit()) {
-                styles.add(VL_UNDERVOLTAGE_CLASS);
+                return List.of(VL_UNDERVOLTAGE_CLASS);
             }
         }
-        return styles;
-
+        return List.of();
     }
 
 }

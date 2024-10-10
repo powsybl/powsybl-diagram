@@ -45,7 +45,7 @@
     stroke-width: 1;
   }
   40% {
-    stroke: var(--sld-overload-color);
+    stroke: #ffeb3b; /* Yellow for overload */
     stroke-width: 2;
   }
 }
@@ -57,7 +57,7 @@
     stroke-width: 1;
   }
   40% {
-    stroke: var(--sld-overvoltage-color);
+    stroke: #ff5722;
     stroke-width: 2;
   }
 }
@@ -69,7 +69,7 @@
     stroke-width: 1;
   }
   40% {
-    stroke: var(--sld-undervoltage-color);
+    stroke: #00BCD4; /* Blue for undervoltage */
     stroke-width: 2;
   }
 }
