@@ -8,7 +8,6 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
