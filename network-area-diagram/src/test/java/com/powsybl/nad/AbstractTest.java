@@ -51,7 +51,7 @@ public abstract class AbstractTest {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network), getLayoutParameters()).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
         String svgString = writer.toString();
         if (debugSvg) {
             writeToHomeDir(refFilename, svgString);
@@ -96,7 +96,7 @@ public abstract class AbstractTest {
         }
     }
 
-    private static String normalizeLineSeparator(String str) {
+    protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
     }

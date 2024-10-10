@@ -7,33 +7,28 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
-import com.powsybl.commons.xml.XmlUtil;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
  */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TextNodeMetadata extends AbstractMetadataItem {
-    private static final String ELEMENT_NAME = "textNode";
-    private static final String VL_NODE_ATTRIBUTE = "vlNode";
-    private static final String POSITION_SHIFT_X_ATTRIBUTE = "shiftX";
-    private static final String POSITION_SHIFT_Y_ATTRIBUTE = "shiftY";
-    private static final String CONNECTION_SHIFT_X_ATTRIBUTE = "connectionShiftX";
-    private static final String CONNECTION_SHIFT_Y_ATTRIBUTE = "connectionShiftY";
 
     private final String vlNodeId;
-    private final String positionShiftX;
-    private final String positionShiftY;
-    private final String connectionShiftX;
-    private final String connectionShiftY;
+    private final double positionShiftX;
+    private final double positionShiftY;
+    private final double connectionShiftX;
+    private final double connectionShiftY;
 
-    public TextNodeMetadata(String svgId, String equipmentId, String vlNodeId, String positionShiftX, String positionShiftY,
-                            String connectionShiftX, String connectionShiftY) {
+    public TextNodeMetadata(@JsonProperty("svgId") String svgId,
+                            @JsonProperty("equipmentId") String equipmentId,
+                            @JsonProperty("vlNode") String vlNodeId,
+                            @JsonProperty("shiftX") double positionShiftX,
+                            @JsonProperty("shiftY") double positionShiftY,
+                            @JsonProperty("connectionShiftX") double connectionShiftX,
+                            @JsonProperty("connectionShiftY") double connectionShiftY) {
         super(svgId, equipmentId);
         this.vlNodeId = vlNodeId;
         this.positionShiftX = positionShiftX;
@@ -42,41 +37,28 @@ public class TextNodeMetadata extends AbstractMetadataItem {
         this.connectionShiftY = connectionShiftY;
     }
 
-    @Override
-    String getElementName() {
-        return ELEMENT_NAME;
+    @JsonProperty("vlNode")
+    public String getVlNodeId() {
+        return vlNodeId;
     }
 
-    @Override
-    void write(XMLStreamWriter writer) throws XMLStreamException {
-        super.write(writer);
-        writer.writeAttribute(VL_NODE_ATTRIBUTE, vlNodeId);
-        writer.writeAttribute(POSITION_SHIFT_X_ATTRIBUTE, positionShiftX);
-        writer.writeAttribute(POSITION_SHIFT_Y_ATTRIBUTE, positionShiftY);
-        writer.writeAttribute(CONNECTION_SHIFT_X_ATTRIBUTE, connectionShiftX);
-        writer.writeAttribute(CONNECTION_SHIFT_Y_ATTRIBUTE, connectionShiftY);
+    @JsonProperty("shiftX")
+    public double getPositionShiftX() {
+        return positionShiftX;
     }
 
-    static class Reader implements AbstractMetadataItem.MetadataItemReader<TextNodeMetadata> {
-        @Override
-        public String getElementName() {
-            return ELEMENT_NAME;
-        }
+    @JsonProperty("shiftY")
+    public double getPositionShiftY() {
+        return positionShiftY;
+    }
 
-        public TextNodeMetadata read(XMLStreamReader reader) {
-            try {
-                String diagramId = readDiagramId(reader);
-                String equipmentId = readEquipmentId(reader);
-                String vlNodeId = reader.getAttributeValue(null, VL_NODE_ATTRIBUTE);
-                String positionShiftX = reader.getAttributeValue(null, POSITION_SHIFT_X_ATTRIBUTE);
-                String positionShiftY = reader.getAttributeValue(null, POSITION_SHIFT_Y_ATTRIBUTE);
-                String connectionShiftX = reader.getAttributeValue(null, CONNECTION_SHIFT_X_ATTRIBUTE);
-                String connectionShiftY = reader.getAttributeValue(null, CONNECTION_SHIFT_Y_ATTRIBUTE);
-                XmlUtil.readEndElementOrThrow(reader);
-                return new TextNodeMetadata(diagramId, equipmentId, vlNodeId, positionShiftX, positionShiftY, connectionShiftX, connectionShiftY);
-            } catch (XMLStreamException e) {
-                throw new UncheckedXmlStreamException(e);
-            }
-        }
+    @JsonProperty("connectionShiftX")
+    public double getConnectionShiftX() {
+        return connectionShiftX;
+    }
+
+    @JsonProperty("connectionShiftY")
+    public double getConnectionShiftY() {
+        return connectionShiftY;
     }
 }

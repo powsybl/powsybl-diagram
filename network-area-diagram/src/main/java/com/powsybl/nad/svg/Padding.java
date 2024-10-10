@@ -6,6 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -16,7 +19,8 @@ public class Padding {
     private double right;
     private double bottom;
 
-    public Padding(double left, double top, double right, double bottom) {
+    @JsonCreator
+    public Padding(@JsonProperty("left") double left, @JsonProperty("top") double top, @JsonProperty("right") double right, @JsonProperty("bottom") double bottom) {
         this.left = left;
         this.top = top;
         this.right = right;

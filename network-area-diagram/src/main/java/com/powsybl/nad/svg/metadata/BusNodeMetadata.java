@@ -1,71 +1,48 @@
-package com.powsybl.nad.svg.metadata;
-
 /**
  * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
-import com.powsybl.commons.xml.XmlUtil;
+package com.powsybl.nad.svg.metadata;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusNodeMetadata extends AbstractMetadataItem {
-    private static final String ELEMENT_NAME = "busNode";
-    private static final String NB_NEIGHBOURS_ATTRIBUTE = "nbNeighbours";
-    private static final String INDEX_ATTRIBUTE = "index";
-    private static final String VL_NODE_ATTRIBUTE = "vlNode";
 
-    private final String nbNeighbours;
-    private final String index;
+    private final int nbNeighbours;
+    private final int index;
     private final String vlNodeId;
 
-    public BusNodeMetadata(String svgId, String equipmentId, String nbNeighbours, String index, String vlNodeId) {
+    public BusNodeMetadata(@JsonProperty("svgId") String svgId,
+                           @JsonProperty("equipmentId") String equipmentId,
+                           @JsonProperty("nbNeighbours") int nbNeighbours,
+                           @JsonProperty("index") int index,
+                           @JsonProperty("vlNode") String vlNodeId) {
         super(svgId, equipmentId);
         this.nbNeighbours = nbNeighbours;
         this.index = index;
         this.vlNodeId = vlNodeId;
     }
 
-    @Override
-    String getElementName() {
-        return ELEMENT_NAME;
+    @JsonProperty("nbNeighbours")
+    public int getNbNeighbours() {
+        return nbNeighbours;
     }
 
-    @Override
-    void write(XMLStreamWriter writer) throws XMLStreamException {
-        super.write(writer);
-        writer.writeAttribute(NB_NEIGHBOURS_ATTRIBUTE, nbNeighbours);
-        writer.writeAttribute(INDEX_ATTRIBUTE, index);
-        writer.writeAttribute(VL_NODE_ATTRIBUTE, vlNodeId);
+    @JsonProperty("index")
+    public int getIndex() {
+        return index;
     }
 
-    static class Reader implements AbstractMetadataItem.MetadataItemReader<BusNodeMetadata> {
-        @Override
-        public String getElementName() {
-            return ELEMENT_NAME;
-        }
-
-        public BusNodeMetadata read(XMLStreamReader reader) {
-            try {
-                String diagramId = readDiagramId(reader);
-                String equipmentId = readEquipmentId(reader);
-                String nbNeighbours = reader.getAttributeValue(null, NB_NEIGHBOURS_ATTRIBUTE);
-                String index = reader.getAttributeValue(null, INDEX_ATTRIBUTE);
-                String vlNodeId = reader.getAttributeValue(null, VL_NODE_ATTRIBUTE);
-                XmlUtil.readEndElementOrThrow(reader);
-                return new BusNodeMetadata(diagramId, equipmentId, nbNeighbours, index, vlNodeId);
-            } catch (XMLStreamException e) {
-                throw new UncheckedXmlStreamException(e);
-            }
-        }
+    @JsonProperty("vlNode")
+    public String getVlNodeId() {
+        return vlNodeId;
     }
 }

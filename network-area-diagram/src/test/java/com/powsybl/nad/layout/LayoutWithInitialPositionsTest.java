@@ -157,7 +157,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 nodesWithFixedPositions,
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
-        NetworkAreaDiagram.draw(network, writer,
+        StringWriter metadataWriter = new StringWriter();
+        NetworkAreaDiagram.draw(network, writer, metadataWriter,
                 new NadParameters()
                         .setSvgParameters(getSvgParameters())
                         .setLayoutParameters(getLayoutParameters())

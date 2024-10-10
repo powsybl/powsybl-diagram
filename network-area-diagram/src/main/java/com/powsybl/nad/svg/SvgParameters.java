@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.powsybl.diagram.util.ValueFormatter;
 
 import java.util.Locale;
@@ -33,10 +34,12 @@ public class SvgParameters {
     private double nodeHollowWidth = 15;
     private double edgesForkLength = 80;
     private double edgesForkAperture = Math.toRadians(60);
+    private double edgesForkApertureDegrees = 60;
     private double edgeStartShift = 0;
     private double unknownBusNodeExtraRadius = 10;
     private double loopDistance = 120;
     private double loopEdgesAperture = Math.toRadians(60);
+    private double loopEdgesApertureDegrees = 60;
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
     private boolean edgeNameDisplayed = false;
@@ -86,10 +89,12 @@ public class SvgParameters {
         this.nodeHollowWidth = other.nodeHollowWidth;
         this.edgesForkLength = other.edgesForkLength;
         this.edgesForkAperture = other.edgesForkAperture;
+        this.edgesForkApertureDegrees = other.edgesForkApertureDegrees;
         this.edgeStartShift = other.edgeStartShift;
         this.unknownBusNodeExtraRadius = other.unknownBusNodeExtraRadius;
         this.loopDistance = other.loopDistance;
         this.loopEdgesAperture = other.loopEdgesAperture;
+        this.loopEdgesApertureDegrees = other.loopEdgesApertureDegrees;
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.edgeNameDisplayed = other.edgeNameDisplayed;
@@ -245,7 +250,13 @@ public class SvgParameters {
 
     public SvgParameters setEdgesForkAperture(double edgesForkApertureDegrees) {
         this.edgesForkAperture = Math.toRadians(edgesForkApertureDegrees);
+        this.edgesForkApertureDegrees = edgesForkApertureDegrees;
         return this;
+    }
+
+    @JsonGetter("edgesForkAperture")
+    public double getEdgesForkApertureDegrees() {
+        return edgesForkApertureDegrees;
     }
 
     public double getLoopEdgesAperture() {
@@ -254,7 +265,13 @@ public class SvgParameters {
 
     public SvgParameters setLoopEdgesAperture(double loopEdgesApertureDegrees) {
         this.loopEdgesAperture = Math.toRadians(loopEdgesApertureDegrees);
+        this.loopEdgesApertureDegrees = loopEdgesApertureDegrees;
         return this;
+    }
+
+    @JsonGetter("loopEdgesAperture")
+    public double getLoopEdgesApertureDegrees() {
+        return loopEdgesApertureDegrees;
     }
 
     public double getEdgesForkLength() {

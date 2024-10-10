@@ -44,32 +44,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata>
-        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-            <nad:busNodes>
-                <nad:busNode svgId="1" equipmentId="vl1_0" nbNeighbours="1" index="0" vlNode="0"/>
-                <nad:busNode svgId="2" equipmentId="vl1_1" nbNeighbours="1" index="1" vlNode="0"/>
-                <nad:busNode svgId="4" equipmentId="vl2_0" nbNeighbours="0" index="0" vlNode="3"/>
-                <nad:busNode svgId="8" equipmentId="dl1" nbNeighbours="0" index="0" vlNode="7"/>
-            </nad:busNodes>
-            <nad:nodes>
-                <nad:node svgId="0" equipmentId="vl1" x="-56.06" y="-318.70"/>
-                <nad:node svgId="3" equipmentId="vl2" x="-230.42" y="1.18"/>
-                <nad:node svgId="7" equipmentId="dl1" x="-49.12" y="317.14"/>
-            </nad:nodes>
-            <nad:edges>
-                <nad:edge svgId="5" equipmentId="tr1" node1="0" node2="3" busNode1="1" busNode2="4" type="TwoWtEdge"/>
-                <nad:edge svgId="6" equipmentId="tr2" node1="0" node2="3" busNode1="2" busNode2="4" type="TwoWtEdge"/>
-                <nad:edge svgId="9" equipmentId="dl1" node1="3" node2="7" busNode1="4" busNode2="8" type="DanglingLineEdge"/>
-            </nad:edges>
-            <nad:textNodes>
-                <nad:textNode svgId="0-textnode" equipmentId="vl1" vlNode="0" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-                <nad:textNode svgId="3-textnode" equipmentId="vl2" vlNode="3" shiftX="100.00" shiftY="-40.00" connectionShiftX="100.00" connectionShiftY="-15.00"/>
-            </nad:textNodes>
-            <nad:svgParameters insertNameDesc="false" svgWidthAndHeightAdded="true" cssLocation="INSERTED_IN_SVG" sizeConstraint="FIXED_SCALE" fixedWidth="-1" fixedHeight="-1" fixedScale="0.5" arrowShift="30.0" arrowLabelShift="19.0" converterStationWidth="70.0" voltageLevelCircleRadius="30.0" fictitiousVoltageLevelCircleRadius="15.0" transformerCircleRadius="20.0" nodeHollowWidth="15.0" edgesForkLength="80.0" edgesForkAperture="1.0471975511965976" edgeStartShift="0.0" unknownBusNodeExtraRadius="10.0" loopDistance="120.0" loopEdgesAperture="1.0471975511965976" loopControlDistance="40.0" edgeInfoAlongEdge="true" edgeNameDisplayed="false" interAnnulusSpace="5.0" svgPrefix="" idDisplayed="false" substationDescriptionDisplayed="false" arrowHeight="10.0" busLegend="true" voltageLevelDetails="false" languageTag="en" voltageValuePrecision="1" powerValuePrecision="0" angleValuePrecision="1" currentValuePrecision="0" edgeInfoDisplayed="ACTIVE_POWER" pstArrowHeadSize="8.0" undefinedValueSymbol=""/>
-            <nad:layoutParameters textNodesForceLayout="false" springRepulsionFactorForceLayout="0.0" textNodeFixedShiftX="100.0" textNodeFixedShiftY="-40.0" maxSteps="1000" textNodeEdgeConnectionYShift="25.0"/>
-        </nad:nad>
-    </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-56.06,-318.70)" id="0" class="nad-vl300to500">
             <circle r="27.50" id="1" class="nad-busnode"/>
