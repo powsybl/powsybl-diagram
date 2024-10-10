@@ -31,3 +31,51 @@
 .sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+
+@keyframes sld-overload-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ffeb3b; /* Yellow for overload */
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-overvoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ff5722;
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-undervoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #00BCD4; /* Blue for undervoltage */
+    stroke-width: 2;
+  }
+}
+
+.sld-overload {
+  animation: sld-overload-blink-animation 3s infinite;
+}
+
+.sld-vl-overvoltage {
+  animation: sld-overvoltage-blink-animation 3s infinite;
+}
+
+.sld-vl-undervoltage {
+  animation: sld-undervoltage-blink-animation 3s infinite;
+}
