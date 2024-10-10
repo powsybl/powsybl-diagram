@@ -9,6 +9,7 @@
 package com.powsybl.sld.svg.styles;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.svg.SvgParameters;
 
 /**
  *
@@ -17,7 +18,7 @@ import com.powsybl.iidm.network.Network;
 
 public class NominalVoltageStyleProviderFactory implements StyleProviderFactory {
     @Override
-    public StyleProvider create(Network network) {
+    public StyleProvider create(Network network, SvgParameters svgParameters) {
         return new NominalVoltageStyleProvider();
     }
 }
