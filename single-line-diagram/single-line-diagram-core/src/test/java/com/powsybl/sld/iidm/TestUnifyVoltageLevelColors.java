@@ -28,16 +28,17 @@ class TestUnifyVoltageLevelColors extends AbstractTestCaseIidm {
 
     @Override
     public void setUp() throws IOException {
+        network = Networks.createNetworkWithTieLineInSubstation();
+        graphBuilder = new NetworkGraphBuilder(network);
+        substation = network.getSubstation("S1");
     }
 
     @Test
     void testSubstationRegularVoltageLevelColors() {
         svgParameters.setUnifyVoltageLevelColors(false);
 
-        Network network = Networks.createNetworkWithTieLineInSubstation();
-        graphBuilder = new NetworkGraphBuilder(network);
         // build graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph("S1");
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run layout
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
@@ -50,10 +51,8 @@ class TestUnifyVoltageLevelColors extends AbstractTestCaseIidm {
     void testSubstationUnifiedVoltageLevelColors() {
         svgParameters.setUnifyVoltageLevelColors(true);
 
-        Network network = Networks.createNetworkWithTieLineInSubstation();
-        graphBuilder = new NetworkGraphBuilder(network);
         // build graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph("S1");
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run layout
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
