@@ -18,7 +18,6 @@ import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.LabelProviderFactory;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
-import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
 import java.util.Objects;
@@ -74,10 +73,6 @@ public class SldParameters {
     public SldParameters setLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
         this.labelProviderFactory = Objects.requireNonNull(labelProviderFactory);
         return this;
-    }
-
-    public StyleProvider createStyleProvider(Network network) {
-        return styleProviderFactory.create(network, svgParameters);
     }
 
     public StyleProviderFactory getStyleProviderFactory() {
