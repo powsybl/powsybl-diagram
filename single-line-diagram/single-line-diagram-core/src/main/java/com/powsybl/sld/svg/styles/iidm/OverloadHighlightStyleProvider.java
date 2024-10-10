@@ -38,17 +38,9 @@ public class OverloadHighlightStyleProvider extends EmptyStyleProvider {
         for (Node node : nodes) {
             if (node instanceof FeederNode feederNode) {
                 return isOverloaded(feederNode) ? Optional.of(OVERLOAD_STYLE_CLASS) : Optional.empty();
-            } else if (node instanceof ConnectivityNode connectivityNode && hasOverloadedAdjacentNode(connectivityNode)) {
-                return Optional.of(OVERLOAD_STYLE_CLASS);
             }
         }
         return Optional.empty();
-    }
-
-    boolean hasOverloadedAdjacentNode(ConnectivityNode connectivityNode) {
-        return connectivityNode.getAdjacentNodes().stream()
-                .filter(FeederNode.class::isInstance)
-                .anyMatch(feederNode -> isOverloaded((FeederNode) feederNode));
     }
 
     private boolean isOverloaded(FeederNode n) {
