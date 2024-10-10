@@ -120,12 +120,6 @@
 .sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
 .sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
 
-:root {
-  --sld-overload-color: #ffeb3b; /* Yellow for overload */
-  --sld-overvoltage-color: #5a0101; /* Red for overvoltage */
-  --sld-undervoltage-color: #0000ff; /* Blue for undervoltage */
-}
-
 @keyframes sld-overload-blink-animation {
   0%,
   80%,

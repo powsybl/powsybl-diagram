@@ -48,8 +48,8 @@ public class OverloadHighlightStyleProvider extends EmptyStyleProvider {
             return false;
         }
         Branch<?> branch = network.getBranch(n.getEquipmentId());
-        if (branch != null && branch.isOverloaded()) {
-            return true;
+        if (branch != null) {
+            return branch.isOverloaded();
         } else {
             ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
             return transformer != null && transformer.isOverloaded();
