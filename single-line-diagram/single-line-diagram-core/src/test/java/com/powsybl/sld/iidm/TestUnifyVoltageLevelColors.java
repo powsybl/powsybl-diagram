@@ -14,6 +14,7 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestUnifyVoltageLevelColors extends AbstractTestCaseIidm {
 
+    @BeforeEach
     @Override
     public void setUp() throws IOException {
         network = Networks.createNetworkWithTieLineInSubstation();
