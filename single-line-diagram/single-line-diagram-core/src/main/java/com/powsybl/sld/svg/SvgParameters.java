@@ -48,6 +48,7 @@ public class SvgParameters {
     private boolean displayCurrentFeederInfo = false;
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
+    private boolean unifyVoltageLevelColors = false;
 
     public SvgParameters() {
     }
@@ -88,6 +89,7 @@ public class SvgParameters {
         this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
+        this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
     }
 
     public ValueFormatter createValueFormatter() {
@@ -369,6 +371,15 @@ public class SvgParameters {
 
     public SvgParameters setDisplayConnectivityNodesId(boolean displayConnectivityNodesId) {
         this.displayConnectivityNodesId = displayConnectivityNodesId;
+        return this;
+    }
+
+    public boolean isUnifyVoltageLevelColors() {
+        return this.unifyVoltageLevelColors;
+    }
+
+    public SvgParameters setUnifyVoltageLevelColors(boolean unifyVoltageLevelColors) {
+        this.unifyVoltageLevelColors = unifyVoltageLevelColors;
         return this;
     }
 }
