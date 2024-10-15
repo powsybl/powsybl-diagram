@@ -9,6 +9,7 @@
 package com.powsybl.sld.svg.styles;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.svg.SvgParameters;
 
 /**
  *
@@ -17,5 +18,5 @@ import com.powsybl.iidm.network.Network;
 
 @FunctionalInterface
 public interface StyleProviderFactory {
-    StyleProvider create(Network network);
+    StyleProvider create(Network network, SvgParameters svgParameters);
 }

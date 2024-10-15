@@ -33,7 +33,7 @@ class SvgParametersTest {
                 .setFeederInfosIntraMargin(21)
                 .setFeederInfosOuterMargin(25)
                 .setFeederInfoSymmetry(true)
-                .setAddNodesInfos(true)
+                .setBusesLegendAdded(true)
                 .setUseName(true)
                 .setAngleLabelShift(42)
                 .setLabelCentered(true)
@@ -48,7 +48,8 @@ class SvgParametersTest {
                 .setShowInternalNodes(true)
                 .setDisplayCurrentFeederInfo(true)
                 .setDisplayEquipmentNodesLabel(true)
-                .setDisplayConnectivityNodesId(true);
+                .setDisplayConnectivityNodesId(true)
+                .setUnifyVoltageLevelColors(true);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -66,7 +67,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getFeederInfosIntraMargin(), svgParameters1.getFeederInfosIntraMargin(), 0);
         assertEquals(svgParameters0.getFeederInfosOuterMargin(), svgParameters1.getFeederInfosOuterMargin(), 0);
         assertEquals(svgParameters0.isFeederInfoSymmetry(), svgParameters1.isFeederInfoSymmetry());
-        assertEquals(svgParameters0.isAddNodesInfos(), svgParameters1.isAddNodesInfos());
+        assertEquals(svgParameters0.isBusesLegendAdded(), svgParameters1.isBusesLegendAdded());
         assertEquals(svgParameters0.isUseName(), svgParameters1.isUseName());
         assertEquals(svgParameters0.getAngleLabelShift(), svgParameters1.getAngleLabelShift(), 0);
         assertEquals(svgParameters0.isLabelCentered(), svgParameters1.isLabelCentered());
@@ -82,5 +83,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
         assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
         assertEquals(svgParameters0.isDisplayConnectivityNodesId(), svgParameters1.isDisplayConnectivityNodesId());
+        assertEquals(svgParameters0.isUnifyVoltageLevelColors(), svgParameters1.isUnifyVoltageLevelColors());
     }
 }
