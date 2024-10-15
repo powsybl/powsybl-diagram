@@ -86,7 +86,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         double angle = Math.atan2(dy, dx);
 
         int nbForks = edges.size();
-        double forkAperture = svgParameters.getEdgesForkAperture();
+        double forkAperture = Math.toRadians(svgParameters.getEdgesForkAperture());
         double forkLength = svgParameters.getEdgesForkLength();
         double angleStep = forkAperture / (nbForks - 1);
 
@@ -135,7 +135,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                                      BranchEdge edge, BranchEdge.Side side, double angle, Point middle) {
 
         int sideSign = side == BranchEdge.Side.ONE ? -1 : 1;
-        double startAngle = angle + sideSign * svgParameters.getLoopEdgesAperture() / 2;
+        double startAngle = angle + sideSign * Math.toRadians(svgParameters.getLoopEdgesAperture() / 2);
         double radius = svgParameters.getTransformerCircleRadius();
         double controlsDist = svgParameters.getLoopControlDistance();
         boolean isTransformer = edge.isTransformerEdge();
@@ -161,7 +161,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         List<Double> loopAngles = new ArrayList<>();
         if (!anglesOtherEdges.isEmpty()) {
             anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
-            double apertureWithMargin = svgParameters.getLoopEdgesAperture() * 1.2;
+            double apertureWithMargin = Math.toRadians(svgParameters.getLoopEdgesAperture() * 1.2);
 
             double[] deltaAngles = new double[anglesOtherEdges.size() - 1];
             int nbSeparatedSlots = 0;
@@ -218,7 +218,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 break;
             }
             int nbLoopsInDelta = Math.min(nbAvailableSlots, nbExcessiveRemaining + 1);
-            double extraSpace = deltaAngles[iSorted] - svgParameters.getLoopEdgesAperture() * nbLoopsInDelta; // extra space without margins
+            double extraSpace = deltaAngles[iSorted] - Math.toRadians(svgParameters.getLoopEdgesAperture()) * nbLoopsInDelta; // extra space without margins
             double intraSpace = extraSpace / (nbLoopsInDelta + 1); // space between two loops and between non-loop edges and first/last loop
             double angleStep = (anglesOtherEdges.get(iSorted + 1) - anglesOtherEdges.get(iSorted) - intraSpace) / nbLoopsInDelta;
             double startAngle = anglesOtherEdges.get(iSorted) + intraSpace / 2 + angleStep / 2;
