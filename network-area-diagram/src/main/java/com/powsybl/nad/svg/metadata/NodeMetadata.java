@@ -16,25 +16,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NodeMetadata extends AbstractMetadataItem {
 
-    private final double positionX;
-    private final double positionY;
+    private final double x;
+    private final double y;
 
     public NodeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
-                        @JsonProperty("x") double positionX,
-                        @JsonProperty("y") double positionY) {
+                        @JsonProperty("x") double x,
+                        @JsonProperty("y") double y) {
         super(svgId, equipmentId);
-        this.positionX = positionX;
-        this.positionY = positionY;
+        this.x = x;
+        this.y = y;
     }
 
-    @JsonProperty("x")
-    public double getPositionX() {
-        return positionX;
+    public double getX() {
+        return x;
     }
 
-    @JsonProperty("y")
-    public double getPositionY() {
-        return positionY;
+    public double getY() {
+        return y;
     }
 }

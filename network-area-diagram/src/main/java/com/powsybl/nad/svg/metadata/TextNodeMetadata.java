@@ -17,22 +17,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TextNodeMetadata extends AbstractMetadataItem {
 
     private final String vlNodeId;
-    private final double positionShiftX;
-    private final double positionShiftY;
+    private final double shiftX;
+    private final double shiftY;
     private final double connectionShiftX;
     private final double connectionShiftY;
 
     public TextNodeMetadata(@JsonProperty("svgId") String svgId,
                             @JsonProperty("equipmentId") String equipmentId,
                             @JsonProperty("vlNode") String vlNodeId,
-                            @JsonProperty("shiftX") double positionShiftX,
-                            @JsonProperty("shiftY") double positionShiftY,
+                            @JsonProperty("shiftX") double shiftX,
+                            @JsonProperty("shiftY") double shiftY,
                             @JsonProperty("connectionShiftX") double connectionShiftX,
                             @JsonProperty("connectionShiftY") double connectionShiftY) {
         super(svgId, equipmentId);
         this.vlNodeId = vlNodeId;
-        this.positionShiftX = positionShiftX;
-        this.positionShiftY = positionShiftY;
+        this.shiftX = shiftX;
+        this.shiftY = shiftY;
         this.connectionShiftX = connectionShiftX;
         this.connectionShiftY = connectionShiftY;
     }
@@ -43,13 +43,13 @@ public class TextNodeMetadata extends AbstractMetadataItem {
     }
 
     @JsonProperty("shiftX")
-    public double getPositionShiftX() {
-        return positionShiftX;
+    public double getShiftX() {
+        return shiftX;
     }
 
     @JsonProperty("shiftY")
-    public double getPositionShiftY() {
-        return positionShiftY;
+    public double getShiftY() {
+        return shiftY;
     }
 
     @JsonProperty("connectionShiftX")
