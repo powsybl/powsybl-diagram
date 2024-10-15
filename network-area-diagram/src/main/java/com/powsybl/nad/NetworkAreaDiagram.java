@@ -7,7 +7,7 @@
  */
 package com.powsybl.nad;
 
-import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
@@ -16,6 +16,7 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
+import org.apache.commons.io.output.NullWriter;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -25,8 +26,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-
-import org.apache.commons.io.output.NullWriter;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -69,46 +68,48 @@ public final class NetworkAreaDiagram {
     }
 
     public static void draw(Network network, Path svgFile, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
+        Objects.requireNonNull(network);
         Objects.requireNonNull(svgFile);
-        Path dir = svgFile.toAbsolutePath().getParent();
-        String svgFileName = svgFile.getFileName().toString();
-        if (!svgFileName.endsWith(".svg")) {
-            svgFileName = svgFileName + ".svg";
-        }
-        Path metadataFile = dir.resolve(svgFileName.replace(".svg", "_metadata.json"));
-        genericDraw(network, svgFile, metadataFile, param, voltageLevelFilter);
+        Objects.requireNonNull(param);
+
+        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
+        createSvgWriter(network, param).writeSvg(graph, svgFile);
+        createMetadata(graph, param).writeJson(getMetadataPath(svgFile));
     }
 
     public static void draw(Network network, Writer writer, Writer metadataWriter, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
-        genericDraw(network, writer, metadataWriter, param, voltageLevelFilter);
+        Objects.requireNonNull(network);
+        Objects.requireNonNull(writer);
+        Objects.requireNonNull(metadataWriter);
+        Objects.requireNonNull(param);
+
+        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
+        createSvgWriter(network, param).writeSvg(graph, writer);
+        createMetadata(graph, param).writeJson(metadataWriter);
     }
 
-    private static void genericDraw(Network network, Object svgObject, Object metadataObject, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
-        Objects.requireNonNull(network);
-        Objects.requireNonNull(svgObject);
-        Objects.requireNonNull(metadataObject);
-        Objects.requireNonNull(param);
-        Objects.requireNonNull(voltageLevelFilter);
+    private static AbstractMetadata createMetadata(Graph graph, NadParameters param) {
+        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).addMetadata(graph);
+    }
 
+    private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
+        Objects.requireNonNull(voltageLevelFilter);
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create()).buildGraph();
         param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
-        SvgWriter svgWriter = new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network), param.createLabelProvider(network));
-        DiagramMetadata metadata = new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters());
+        return graph;
+    }
 
-        if (svgObject instanceof Path svgFile) {
-            svgWriter.writeSvg(graph, svgFile);
-        } else if (svgObject instanceof Writer writer) {
-            svgWriter.writeSvg(graph, writer);
-        } else {
-            throw new PowsyblException("Second argument is an instance of an unexpected class");
+    private static SvgWriter createSvgWriter(Network network, NadParameters param) {
+        return new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network), param.createLabelProvider(network));
+    }
+
+    private static Path getMetadataPath(Path svgPath) {
+        Path dir = svgPath.toAbsolutePath().getParent();
+        String svgFileName = svgPath.getFileName().toString();
+        if (!svgFileName.endsWith(".svg")) {
+            svgFileName = svgFileName + ".svg";
         }
-        if (metadataObject instanceof Path metadataFile) {
-            metadata.addMetadata(graph).writeJson(metadataFile);
-        } else if (metadataObject instanceof Writer metadataWriter) {
-            metadata.addMetadata(graph).writeJson(metadataWriter);
-        } else {
-            throw new PowsyblException("Third argument is an instance of an unexpected class");
-        }
+        return dir.resolve(svgFileName.replace(".svg", "_metadata.json"));
     }
 
     public static String drawToString(Network network, SvgParameters svgParameters) {
