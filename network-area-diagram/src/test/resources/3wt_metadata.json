@@ -1,0 +1,148 @@
+{
+  "layoutParameters" : {
+    "textNodesForceLayout" : false,
+    "springRepulsionFactorForceLayout" : 0.0,
+    "textNodeFixedShift" : {
+      "x" : 100.0,
+      "y" : -40.0
+    },
+    "maxSteps" : 1000,
+    "textNodeEdgeConnectionYShift" : 25.0
+  },
+  "svgParameters" : {
+    "diagramPadding" : {
+      "left" : 200.0,
+      "top" : 200.0,
+      "right" : 200.0,
+      "bottom" : 200.0
+    },
+    "insertNameDesc" : true,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "sizeConstraint" : "FIXED_WIDTH",
+    "fixedWidth" : 800,
+    "fixedHeight" : -1,
+    "fixedScale" : 0.2,
+    "arrowShift" : 30.0,
+    "arrowLabelShift" : 19.0,
+    "converterStationWidth" : 70.0,
+    "voltageLevelCircleRadius" : 30.0,
+    "fictitiousVoltageLevelCircleRadius" : 15.0,
+    "transformerCircleRadius" : 20.0,
+    "nodeHollowWidth" : 15.0,
+    "edgesForkLength" : 80.0,
+    "edgesForkAperture" : 60.0,
+    "edgeStartShift" : 0.0,
+    "unknownBusNodeExtraRadius" : 10.0,
+    "loopDistance" : 120.0,
+    "loopEdgesAperture" : 60.0,
+    "loopControlDistance" : 40.0,
+    "edgeInfoAlongEdge" : true,
+    "edgeNameDisplayed" : false,
+    "interAnnulusSpace" : 5.0,
+    "svgPrefix" : "",
+    "idDisplayed" : false,
+    "substationDescriptionDisplayed" : false,
+    "arrowHeight" : 10.0,
+    "busLegend" : true,
+    "voltageLevelDetails" : false,
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "edgeInfoDisplayed" : "ACTIVE_POWER",
+    "pstArrowHeadSize" : 8.0,
+    "undefinedValueSymbol" : ""
+  },
+  "busNodes" : [ {
+    "svgId" : "1",
+    "equipmentId" : "VL_11_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "0"
+  }, {
+    "svgId" : "3",
+    "equipmentId" : "VL_132_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "2"
+  }, {
+    "svgId" : "5",
+    "equipmentId" : "VL_33_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "4"
+  } ],
+  "nodes" : [ {
+    "svgId" : "0",
+    "equipmentId" : "VL_11",
+    "x" : 75.04,
+    "y" : -513.76
+  }, {
+    "svgId" : "2",
+    "equipmentId" : "VL_132",
+    "x" : -371.52,
+    "y" : 47.69
+  }, {
+    "svgId" : "4",
+    "equipmentId" : "VL_33",
+    "x" : 180.23,
+    "y" : 204.68
+  }, {
+    "svgId" : "6",
+    "equipmentId" : "3WT",
+    "x" : -22.79,
+    "y" : -128.62
+  } ],
+  "edges" : [ {
+    "svgId" : "7",
+    "equipmentId" : "3WT",
+    "node1" : "0",
+    "node2" : "6",
+    "busNode1" : "1",
+    "busNode2" : "6",
+    "type" : "ThreeWtEdge"
+  }, {
+    "svgId" : "8",
+    "equipmentId" : "3WT",
+    "node1" : "2",
+    "node2" : "6",
+    "busNode1" : "3",
+    "busNode2" : "6",
+    "type" : "ThreeWtEdge"
+  }, {
+    "svgId" : "9",
+    "equipmentId" : "3WT",
+    "node1" : "4",
+    "node2" : "6",
+    "busNode1" : "5",
+    "busNode2" : "6",
+    "type" : "ThreeWtEdge"
+  } ],
+  "textNodes" : [ {
+    "svgId" : "0-textnode",
+    "equipmentId" : "VL_11",
+    "vlNode" : "0",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "2-textnode",
+    "equipmentId" : "VL_132",
+    "vlNode" : "2",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "4-textnode",
+    "equipmentId" : "VL_33",
+    "vlNode" : "4",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  } ]
+}

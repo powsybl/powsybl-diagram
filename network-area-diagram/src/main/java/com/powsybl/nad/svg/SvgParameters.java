@@ -32,11 +32,11 @@ public class SvgParameters {
     private double transformerCircleRadius = 20;
     private double nodeHollowWidth = 15;
     private double edgesForkLength = 80;
-    private double edgesForkAperture = Math.toRadians(60);
+    private double edgesForkAperture = 60;
     private double edgeStartShift = 0;
     private double unknownBusNodeExtraRadius = 10;
     private double loopDistance = 120;
-    private double loopEdgesAperture = Math.toRadians(60);
+    private double loopEdgesAperture = 60;
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
     private boolean edgeNameDisplayed = false;
@@ -239,22 +239,36 @@ public class SvgParameters {
         return this;
     }
 
+    /**
+     * Set the aperture of the forks corresponding to parallel edges
+     * @param edgesForkApertureDegrees the aperture in degrees
+     */
+    public SvgParameters setEdgesForkAperture(double edgesForkApertureDegrees) {
+        this.edgesForkAperture = edgesForkApertureDegrees;
+        return this;
+    }
+
+    /**
+     * Return the aperture of the forks corresponding to parallel edges, in degrees.
+     */
     public double getEdgesForkAperture() {
         return edgesForkAperture;
     }
 
-    public SvgParameters setEdgesForkAperture(double edgesForkApertureDegrees) {
-        this.edgesForkAperture = Math.toRadians(edgesForkApertureDegrees);
+    /**
+     * Set the aperture of the loop edges
+     * @param loopEdgesApertureDegrees the aperture in degrees
+     */
+    public SvgParameters setLoopEdgesAperture(double loopEdgesApertureDegrees) {
+        this.loopEdgesAperture = loopEdgesApertureDegrees;
         return this;
     }
 
+    /**
+     * Return the aperture of the loop edges, in degrees.
+     */
     public double getLoopEdgesAperture() {
         return loopEdgesAperture;
-    }
-
-    public SvgParameters setLoopEdgesAperture(double loopEdgesApertureDegrees) {
-        this.loopEdgesAperture = Math.toRadians(loopEdgesApertureDegrees);
-        return this;
     }
 
     public double getEdgesForkLength() {
