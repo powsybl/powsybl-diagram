@@ -18,6 +18,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
 
+/**
+ * @author Massimo Ferraro {@literal <massimo.ferraro@soft.it>}
+ */
 public abstract class AbstractMetadata {
 
     public void writeJson(Path file) {
