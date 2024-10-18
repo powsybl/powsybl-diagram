@@ -40,13 +40,17 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
 
     @Override
     public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
-        if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode.getEquipmentId())) {
+        if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode)) {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
         }
         return Collections.emptyList();
     }
 
-    private boolean isBusOrBbsConnected(String equipmentId) {
+    private boolean isBusOrBbsConnected(BusNode busNode) {
+        if (busNode.isFictitious()) {
+            return true; // always displayed like a connected bbs
+        }
+        String equipmentId = busNode.getEquipmentId();
         BusbarSection busbarSection = network.getBusbarSection(equipmentId);
         if (busbarSection != null) {
             return busbarSection.getTerminal().isConnected();
@@ -55,7 +59,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
             if (bus != null) {
                 return bus.getConnectedTerminalStream().anyMatch(Terminal::isConnected);
             }
-            return false;
+            return true; // should not happen
         }
     }
 
