@@ -153,7 +153,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-fictitious sld-vl50to70-0 sld-bus-disconnected" id="idINTERNAL_95_vl_95_0_95_FictitiousBus" transform="translate(65.0,252.0)">
+        <g class="sld-busbar-section sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl_95_0_95_FictitiousBus" transform="translate(65.0,252.0)">
             <line x1="0" x2="100.0" y1="0" y2="0"/>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
