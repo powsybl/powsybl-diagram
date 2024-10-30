@@ -42,7 +42,7 @@ class FixedLayoutTest {
                 "dl1", new Point(0, 0),
                 "vl1", new Point(1, 0),
                 "vl2", new Point(2, 1));
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
         Layout fixedLayout = new FixedLayoutFactory(expected).create();
         fixedLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();
@@ -67,7 +67,7 @@ class FixedLayoutTest {
         initialPositions.put("VL5", new Point(500, 500));
         initialPositions.put("VL6", new Point(700, 700));
 
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
         Layout forceLayout = new FixedLayoutFactory(initialPositions, new BasicForceLayoutFactory()).create();
         forceLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();
@@ -88,7 +88,7 @@ class FixedLayoutTest {
     void testBasicFixedLayoutFallback() {
         Network network = IeeeCdfNetworkFactory.create9();
         Map<String, Point> initialPositions = new HashMap<>();
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
         Layout forceLayout = new FixedLayoutFactory(initialPositions).create();
         forceLayout.run(graph, new LayoutParameters());
         Map<String, Point> actual = graph.getNodePositions();

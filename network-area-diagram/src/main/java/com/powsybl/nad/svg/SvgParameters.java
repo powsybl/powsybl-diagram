@@ -56,6 +56,8 @@ public class SvgParameters {
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
+    private boolean injectionsAdded = false;
+    private double injectionAperture = 10;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -108,6 +110,8 @@ public class SvgParameters {
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.injectionsAdded = other.injectionsAdded;
+        this.injectionAperture = other.injectionAperture;
     }
 
     public Padding getDiagramPadding() {
@@ -498,6 +502,24 @@ public class SvgParameters {
 
     public SvgParameters setHighlightGraph(boolean highlightGraph) {
         this.highlightGraph = highlightGraph;
+        return this;
+    }
+
+    public boolean isInjectionsAdded() {
+        return injectionsAdded;
+    }
+
+    public SvgParameters setInjectionsAdded(boolean injectionsAdded) {
+        this.injectionsAdded = injectionsAdded;
+        return this;
+    }
+
+    public double getInjectionAperture() {
+        return injectionAperture;
+    }
+
+    public SvgParameters setInjectionAperture(double injectionAperture) {
+        this.injectionAperture = injectionAperture;
         return this;
     }
 }
