@@ -25,6 +25,9 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
+        if (svgParameters.isInjectionsAdded()) {
+            graph.getVoltageLevelNodesStream().forEach(vln -> injectionEdgesLayout(graph, vln, svgParameters));
+        }
     }
 
     private void computeTextEdgeLayoutCoordinates(Node node1, TextNode node2, TextEdge edge) {
@@ -131,6 +134,16 @@ public class DefaultEdgeRendering implements EdgeRendering {
         }
     }
 
+    private void injectionEdgesLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters) {
+        List<Double> angles = computeInjectionAngles(graph, node, svgParameters);
+        int i = 0;
+        for (BusNode busNode : node.getBusNodes()) {
+            for (Injection injection : busNode.getInjections()) {
+                injection.setAngle(angles.get(i++));
+            }
+        }
+    }
+
     private void loopEdgesHalfLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters,
                                      BranchEdge edge, BranchEdge.Side side, double angle, Point middle) {
 
@@ -156,6 +169,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 .mapToDouble(e -> getAngle(e, graph, node))
                 .sorted().boxed().collect(Collectors.toList());
         return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture());
+    }
+
+    private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
+        List<Double> anglesOtherEdges = graph.getBranchEdgeStream(vlNode)
+                .mapToDouble(e -> getAngle(e, graph, vlNode))
+                .sorted().boxed().collect(Collectors.toList());
+        int nbInjections = vlNode.getBusNodeStream().mapToInt(BusNode::getInjectionCount).sum();
+        return findAvailableAngles(anglesOtherEdges, nbInjections, svgParameters.getInjectionAperture());
     }
 
     private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double edgeAperture) {

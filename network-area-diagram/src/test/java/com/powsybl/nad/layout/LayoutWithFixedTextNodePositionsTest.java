@@ -42,7 +42,7 @@ class LayoutWithFixedTextNodePositionsTest {
 
     @Test
     void testTextNodePositions() {
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
         basicForceLayout.run(graph, layoutParameters);
         graph.getVoltageLevelTextPairs().forEach(textPair -> {
             checkShift(textPair.getFirst().getPosition(), textPair.getSecond().getPosition(),
@@ -60,7 +60,7 @@ class LayoutWithFixedTextNodePositionsTest {
         Point topLeftPosition = new Point(100, -50);
         Point edgeConnection = new Point(90, -25);
         basicForceLayout.setTextNodeFixedPosition(voltageLevelId, topLeftPosition, edgeConnection);
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
         basicForceLayout.run(graph, layoutParameters);
         graph.getVoltageLevelTextPairs().forEach(textPair -> {
             boolean fixedPosition = voltageLevelId.equals(textPair.getFirst().getEquipmentId());

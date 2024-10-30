@@ -11,12 +11,10 @@ import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -43,15 +41,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     @Override
-    public Graph buildGraph() {
+    public Graph buildGraph(boolean injectionsAdded) {
         Graph graph = new Graph();
         List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
         List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
                 .stream()
                 .sorted(Comparator.comparing(VoltageLevel::getId))
                 .toList();
-        voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true));
-        voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false));
+        voltageLevelsVisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, true, injectionsAdded));
+        voltageLevelsInvisible.forEach(vl -> addVoltageLevelGraphNode(vl, graph, false, false));
         voltageLevelsVisible.forEach(vl -> addGraphEdges(vl, graph));
         return graph;
     }
@@ -63,16 +61,39 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .toList();
     }
 
-    private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
+    private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible, boolean injectionsAdded) {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         vl.getBusView().getBusStream()
-                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
+                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId(), injectionsAdded ? getInjections(bus) : Collections.emptyList()))
                 .forEach(vlNode::addBusNode);
         graph.addNode(vlNode);
         if (visible) {
             graph.addTextNode(vlNode);
         }
         return vlNode;
+    }
+
+    private List<Injection> getInjections(Bus bus) {
+        return bus.getConnectedTerminalStream()
+                .map(Terminal::getConnectable)
+                .filter(com.powsybl.iidm.network.Injection.class::isInstance)
+                .map(com.powsybl.iidm.network.Injection.class::cast)
+                .map(inj -> new Injection(getInjectionType(inj), inj.getTerminal().getP(), inj.getTerminal().getQ()))
+                .toList();
+    }
+
+    private Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
+        return switch (inj.getType()) {
+            case GENERATOR -> Injection.Type.GENERATOR;
+            case BATTERY -> Injection.Type.BATTERY;
+            case LOAD -> Injection.Type.LOAD;
+            case SHUNT_COMPENSATOR -> Injection.Type.SHUNT_COMPENSATOR;
+            case DANGLING_LINE -> Injection.Type.DANGLING_LINE;
+            case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
+            case HVDC_CONVERTER_STATION -> Injection.Type.HVDC_CONVERTER_STATION;
+            case GROUND -> Injection.Type.GROUND;
+            default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
+        };
     }
 
     private void addGraphEdges(VoltageLevel vl, Graph graph) {

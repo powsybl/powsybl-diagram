@@ -57,7 +57,7 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph(false);
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);

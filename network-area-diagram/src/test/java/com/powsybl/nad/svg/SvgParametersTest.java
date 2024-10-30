@@ -55,7 +55,8 @@ class SvgParametersTest {
                 .setCurrentValuePrecision(1)
                 .setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER)
                 .setPstArrowHeadSize(20)
-                .setUndefinedValueSymbol("\u002A");
+                .setUndefinedValueSymbol("\u002A")
+                .setInjectionsAdded(true);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -101,5 +102,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getEdgeInfoDisplayed(), svgParameters1.getEdgeInfoDisplayed());
         assertEquals(svgParameters0.getPstArrowHeadSize(), svgParameters1.getPstArrowHeadSize(), 0);
         assertEquals(svgParameters0.getUndefinedValueSymbol(), svgParameters1.getUndefinedValueSymbol());
+        assertEquals(svgParameters0.isInjectionsAdded(), svgParameters1.isInjectionsAdded());
+        assertEquals(svgParameters0.getInjectionAperture(), svgParameters1.getInjectionAperture());
     }
 }

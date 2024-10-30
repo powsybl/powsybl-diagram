@@ -94,7 +94,8 @@ public final class NetworkAreaDiagram {
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
         Objects.requireNonNull(voltageLevelFilter);
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create()).buildGraph();
+        var networkGraphBuilder = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create());
+        var graph = networkGraphBuilder.buildGraph(param.getSvgParameters().isInjectionsAdded());
         param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
         return graph;
     }
