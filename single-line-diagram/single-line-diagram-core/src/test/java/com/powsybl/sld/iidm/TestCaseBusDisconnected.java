@@ -60,7 +60,7 @@ class TestCaseBusDisconnected extends AbstractTestCaseIidm {
                 .add();
     }
 
-    @ParameterizedTest(name = "{1}")
+    @ParameterizedTest(name = "{0}")
     @MethodSource("provideTestData")
     void test(String testName, String vlId, String svgResourceName) {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vlId);
@@ -70,8 +70,8 @@ class TestCaseBusDisconnected extends AbstractTestCaseIidm {
 
     private static List<Arguments> provideTestData() {
         return List.of(
-                Arguments.of("Test bus connected/disconnected in bus breaker topology", "vlBb", "/TestCaseBusBreakerBusConnected.svg"),
-                Arguments.of("Test bus connected/disconnected in node breaker topology", "vlNb", "/TestCaseNodeBreakerBbsConnected.svg")
+                Arguments.of("Test bus connected/disconnected", "vlBb", "/TestCaseBusBreakerBusConnected.svg"),
+                Arguments.of("Test busbarSection connected/disconnected", "vlNb", "/TestCaseNodeBreakerBbsConnected.svg")
         );
     }
 }

@@ -153,7 +153,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-vl180to300-0 sld-bus-disconnected" id="idb1" transform="translate(52.5,252.0)">
+        <g class="sld-busbar-section sld-vl180to300-0" id="idb1" transform="translate(52.5,252.0)">
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="b1_NW_LABEL" x="-5.0" y="-5.0">b1</text>
         </g>
