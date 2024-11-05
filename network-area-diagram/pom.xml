@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-diagram</artifactId>
-        <version>4.6.2-SNAPSHOT</version>
+        <version>4.6.2</version>
     </parent>
 
     <artifactId>powsybl-network-area-diagram</artifactId>
