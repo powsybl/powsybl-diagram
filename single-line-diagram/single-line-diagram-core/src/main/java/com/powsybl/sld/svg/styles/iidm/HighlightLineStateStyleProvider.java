@@ -57,7 +57,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
         } else {
             Bus bus = network.getBusBreakerView().getBus(equipmentId);
             if (bus != null) {
-                return bus.getConnectedTerminalStream().anyMatch(Terminal::isConnected);
+                return bus.getVoltageLevel().getBusView().getMergedBus(bus.getId()) != null;
             }
             return true; // should not happen
         }
