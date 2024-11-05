@@ -10,11 +10,8 @@ package com.powsybl.sld.iidm;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.library.FlatDesignLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 class TestCaseBusDisconnected extends AbstractTestCaseIidm {
-
 
     @BeforeEach
     @Override
