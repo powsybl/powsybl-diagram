@@ -100,7 +100,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         List<Point> snakeLine = edge.getSnakeLine();
         lineDiagramData.getPoints(diagramName).forEach(point -> {
             snakeLine.add(new Point(point.getX(), point.getY()));
-            setMin(point.getX(), point.getY());
+            setMinMax(point.getX(), point.getY());
         });
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {

@@ -684,22 +684,12 @@ public class DefaultSVGWriter implements SVGWriter {
         SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
         if (transformation != null) {
             switch (transformation) {
-                case ROTATION: {
-                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-                    break;
-                }
-                case FLIP: {
-                    if (nodeOrientation.isVertical()) {
-                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.getHeight() + ")");
-                    } else {
-                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.getWidth() + ", 0)");
-                    }
-                    break;
-                }
-                case NONE:
-                default: {
-                    // No transformation
-                }
+                case ROTATION -> elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                case FLIP -> elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " "
+                        + TRANSLATE + "(0, " + -size.getHeight() + ")");
+                case FLIP_AND_ROTATION -> elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " "
+                        + TRANSLATE + "(0, " + -size.getHeight() + ") "
+                        + ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
             }
         }
 

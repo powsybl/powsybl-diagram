@@ -45,5 +45,18 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
         if (layoutParam.getCgmesScaleFactor() != 1) {
             graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
         }
+
+        setGraphSize(layoutParam);
+    }
+
+    private void setGraphSize(LayoutParameters layoutParam) {
+        double widthWithoutPadding = maxX - minX;
+        double heightWithoutPadding = maxY - minY;
+
+        LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
+        double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
+        double height = heightWithoutPadding + padding.getTop() + padding.getBottom();
+
+        graph.setSize(width, height);
     }
 }

@@ -105,31 +105,39 @@
         }
       ],
       "styleClass": "sld-load-break-switch"
-    }, {
-      "type" : "GROUND_DISCONNECTION",
-      "anchorPoints" : [ {
-        "x" : 0.0,
-        "y" : -5.0,
-        "orientation" : "VERTICAL"
-      } ],
-      "size" : {
-        "width" : 56.0,
-        "height" : 20.0
+    },
+    {
+      "type": "GROUND_DISCONNECTION",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -5.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 56.0,
+        "height": 20.0
       },
-      "subComponents" : [ {
-        "name" : "ATTACH",
-        "fileName" : "ground-disconnection-attach.svg",
-        "styleClass" : "sld-ground-disconnection-attach"
-      }, {
-        "name" : "GROUND",
-        "fileName" : "ground-disconnection-ground.svg",
-        "styleClass" : "sld-ground-disconnection-ground"
-      }, {
-        "name" : "GROUND_DISCONNECTOR",
-        "fileName" : "ground-disconnector.svg"
-      } ],
-      "styleClass" : "sld-ground-disconnection"
-    }, {
+      "subComponents": [
+        {
+          "name": "ATTACH",
+          "fileName": "ground-disconnection-attach.svg",
+          "styleClass": "sld-ground-disconnection-attach"
+        },
+        {
+          "name": "GROUND",
+          "fileName": "ground-disconnection-ground.svg",
+          "styleClass": "sld-ground-disconnection-ground"
+        },
+        {
+          "name": "GROUND_DISCONNECTOR",
+          "fileName": "ground-disconnector.svg"
+        }
+      ],
+      "styleClass": "sld-ground-disconnection"
+    },
+    {
       "type": "LOAD",
       "anchorPoints": [
         {
@@ -143,7 +151,9 @@
         "height": 16.0
       },
       "transformations": {
-        "DOWN": "FLIP"
+        "DOWN": "FLIP",
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -171,6 +181,10 @@
         "width": 16.0,
         "height": 12.0
       },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
       "subComponents": [
         {
           "name": "BATTERY",
@@ -196,6 +210,10 @@
       "size": {
         "width": 16.0,
         "height": 16.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -223,6 +241,10 @@
         "width": 16.0,
         "height": 16.0
       },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
       "subComponents": [
         {
           "name": "CAPACITOR",
@@ -248,6 +270,10 @@
       "size": {
         "width": 16.0,
         "height": 16.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -725,6 +751,10 @@
         "width": 16.0,
         "height": 16.0
       },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
       "subComponents": [
         {
           "name": "STATIC_VAR_COMPENSATOR",
@@ -750,6 +780,10 @@
       "size": {
         "width": 16.0,
         "height": 16.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -777,6 +811,10 @@
         "width": 16.0,
         "height": 16.0
       },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
       "subComponents": [
         {
           "name": "LCC_CONVERTER_STATION",
@@ -784,7 +822,8 @@
           "styleClass": "sld-lcc"
         }
       ]
-    }, {
+    },
+    {
       "type": "GROUND",
       "anchorPoints": [
         {
@@ -798,7 +837,9 @@
         "height": 20.0
       },
       "transformations": {
-        "DOWN": "ROTATION"
+        "DOWN": "ROTATION",
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -806,7 +847,7 @@
           "fileName": "ground.svg"
         }
       ],
-      "styleClass" : "sld-ground"
+      "styleClass": "sld-ground"
     },
     {
       "type": "BUSBAR_SECTION",
@@ -855,34 +896,41 @@
       "styleClass": "sld-node"
     },
     {
-      "type" : "UNKNOWN_COMPONENT",
-      "anchorPoints" : [ {
-        "x" : 0.0,
-        "y" : -5.5,
-        "orientation" : "VERTICAL"
-      }, {
-        "x" : 0.0,
-        "y" : 5.5,
-        "orientation" : "VERTICAL"
-      }, {
-        "x" : -9.5,
-        "y" : 0.0,
-        "orientation" : "HORIZONTAL"
-      }, {
-        "x" : 9.5,
-        "y" : 0.0,
-        "orientation" : "HORIZONTAL"
-      } ],
-      "size" : {
-        "width" : 20.0,
-        "height" : 20.0
+      "type": "UNKNOWN_COMPONENT",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -5.5,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 5.5,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": -9.5,
+          "y": 0.0,
+          "orientation": "HORIZONTAL"
+        },
+        {
+          "x": 9.5,
+          "y": 0.0,
+          "orientation": "HORIZONTAL"
+        }
+      ],
+      "size": {
+        "width": 20.0,
+        "height": 20.0
       },
-      "transformations" : {},
-      "subComponents" : [ {
-        "name" : "UNKNOWN_COMPONENT",
-        "fileName" : "unknown-component.svg"
-      } ],
-      "styleClass" : "sld-unknown"
+      "transformations": {},
+      "subComponents": [
+        {
+          "name": "UNKNOWN_COMPONENT",
+          "fileName": "unknown-component.svg"
+        }
+      ],
+      "styleClass": "sld-unknown"
     },
     {
       "type": "ARROW_ACTIVE",
@@ -923,7 +971,8 @@
         }
       ],
       "styleClass": "sld-reactive-power"
-    }, {
+    },
+    {
       "type": "ARROW_CURRENT",
       "size": {
         "width": 10.0,
