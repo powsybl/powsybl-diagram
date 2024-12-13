@@ -109,7 +109,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 node.getEquipmentId(),
                 round(node.getX()),
                 round(node.getY()),
-                node instanceof VoltageLevelNode ? ((VoltageLevelNode) node).isFictitious() : false)));
+                node instanceof VoltageLevelNode vlNode && vlNode.isFictitious())));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
