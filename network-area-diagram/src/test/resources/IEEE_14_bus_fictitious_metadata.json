@@ -16,11 +16,11 @@
       "right" : 200.0,
       "bottom" : 200.0
     },
-    "insertNameDesc" : false,
-    "svgWidthAndHeightAdded" : false,
+    "insertNameDesc" : true,
+    "svgWidthAndHeightAdded" : true,
     "cssLocation" : "INSERTED_IN_SVG",
-    "sizeConstraint" : "FIXED_SCALE",
-    "fixedWidth" : -1,
+    "sizeConstraint" : "FIXED_WIDTH",
+    "fixedWidth" : 800,
     "fixedHeight" : -1,
     "fixedScale" : 0.2,
     "arrowShift" : 30.0,
@@ -163,7 +163,7 @@
     "equipmentId" : "VL12",
     "x" : -156.95,
     "y" : -227.74,
-    "fictitious" : false
+    "fictitious" : true
   }, {
     "svgId" : "8",
     "equipmentId" : "VL13",
@@ -175,7 +175,7 @@
     "equipmentId" : "VL14",
     "x" : -202.47,
     "y" : 556.41,
-    "fictitious" : false
+    "fictitious" : true
   }, {
     "svgId" : "12",
     "equipmentId" : "VL2",

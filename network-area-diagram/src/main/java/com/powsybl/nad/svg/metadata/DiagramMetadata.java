@@ -24,6 +24,7 @@ import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.SvgParameters;
 
 /**
@@ -107,7 +108,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(node.getDiagramId()),
                 node.getEquipmentId(),
                 round(node.getX()),
-                round(node.getY()))));
+                round(node.getY()),
+                node instanceof VoltageLevelNode ? ((VoltageLevelNode) node).isFictitious() : false)));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
