@@ -18,13 +18,23 @@ public class FixedLayoutFactory implements LayoutFactory {
 
     private final Map<String, Point> fixedPositions;
     private final LayoutFactory layoutFactory;
+    private final Map<String, TextPosition> textNodesWithFixedPosition;
 
     public FixedLayoutFactory(Map<String, Point> fixedPositions) {
         this(fixedPositions, BasicFixedLayout::new);
     }
 
     public FixedLayoutFactory(Map<String, Point> fixedPositions, LayoutFactory layoutFactory) {
+        this(fixedPositions, Map.of(), layoutFactory);
+    }
+
+    public FixedLayoutFactory(Map<String, Point> fixedPositions, Map<String, TextPosition> textNodesWithFixedPosition) {
+        this(fixedPositions, textNodesWithFixedPosition, BasicFixedLayout::new);
+    }
+
+    public FixedLayoutFactory(Map<String, Point> fixedPositions, Map<String, TextPosition> textNodesWithFixedPosition, LayoutFactory layoutFactory) {
         this.fixedPositions = Objects.requireNonNull(fixedPositions);
+        this.textNodesWithFixedPosition = Objects.requireNonNull(textNodesWithFixedPosition);
         this.layoutFactory = Objects.requireNonNull(layoutFactory);
     }
 
@@ -33,6 +43,7 @@ public class FixedLayoutFactory implements LayoutFactory {
         Layout layout = layoutFactory.create();
         layout.setInitialNodePositions(fixedPositions);
         layout.setNodesWithFixedPosition(fixedPositions.keySet());
+        textNodesWithFixedPosition.forEach((k, v) -> layout.setTextNodeFixedPosition(k, v.topLeftPosition(), v.edgeConnection()));
         return layout;
     }
 }
