@@ -13,17 +13,18 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.layout.TextPosition;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.SvgParameters;
 
 /**
@@ -170,5 +171,21 @@ public class DiagramMetadata extends AbstractMetadata {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    @JsonIgnore
+    public Map<String, Point> getFixedPositions() {
+        Map<String, Point> fixedPositions = new HashMap<>();
+        nodesMetadata.forEach(node -> fixedPositions.put(node.getEquipmentId(), new Point(node.getX(), node.getY())));
+        return fixedPositions;
+    }
+
+    @JsonIgnore
+    public Map<String, TextPosition> getFixedTextPositions() {
+        Map<String, TextPosition> fixedTextPosition = new HashMap<>();
+        textNodesMetadata.forEach(textNode -> fixedTextPosition.put(textNode.getEquipmentId(),
+                        new TextPosition(new Point(textNode.getShiftX(), textNode.getShiftY()),
+                                new Point(textNode.getConnectionShiftX(), textNode.getConnectionShiftY()))));
+        return fixedTextPosition;
     }
 }
