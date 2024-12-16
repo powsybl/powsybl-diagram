@@ -144,86 +144,72 @@
     "svgId" : "0",
     "equipmentId" : "VL1",
     "x" : 948.69,
-    "y" : -322.21,
-    "fictitious" : false
+    "y" : -322.21
   }, {
     "svgId" : "2",
     "equipmentId" : "VL10",
     "x" : -358.9,
-    "y" : 525.37,
-    "fictitious" : false
+    "y" : 525.37
   }, {
     "svgId" : "4",
     "equipmentId" : "VL14",
     "x" : -359.39,
-    "y" : -476.71,
-    "fictitious" : false
+    "y" : -476.71
   }, {
     "svgId" : "6",
     "equipmentId" : "VL2",
     "x" : 590.54,
-    "y" : -374.08,
-    "fictitious" : false
+    "y" : -374.08
   }, {
     "svgId" : "8",
     "equipmentId" : "VL3",
     "x" : 314.39,
-    "y" : -324.77,
-    "fictitious" : false
+    "y" : -324.77
   }, {
     "svgId" : "10",
     "equipmentId" : "VL4",
     "x" : 56.2,
-    "y" : -94.68,
-    "fictitious" : false
+    "y" : -94.68
   }, {
     "svgId" : "12",
     "equipmentId" : "VL5",
     "x" : 608.23,
-    "y" : -31.45,
-    "fictitious" : false
+    "y" : -31.45
   }, {
     "svgId" : "14",
     "equipmentId" : "VL6",
     "x" : 351.34,
-    "y" : 284.99,
-    "fictitious" : false
+    "y" : 284.99
   }, {
     "svgId" : "16",
     "equipmentId" : "VL7",
     "x" : -630.2,
-    "y" : -157.55,
-    "fictitious" : false
+    "y" : -157.55
   }, {
     "svgId" : "18",
     "equipmentId" : "VL8",
     "x" : -1033.21,
-    "y" : -350.22,
-    "fictitious" : false
+    "y" : -350.22
   }, {
     "svgId" : "20",
     "equipmentId" : "VL9",
     "x" : -365.55,
-    "y" : 38.7,
-    "fictitious" : false
+    "y" : 38.7
   }, {
     "svgId" : "22",
     "equipmentId" : "VL11",
     "x" : 32.17,
-    "y" : 653.29,
-    "fictitious" : false
+    "y" : 653.29
   }, {
     "svgId" : "24",
     "equipmentId" : "VL12",
     "x" : 692.44,
-    "y" : 630.83,
-    "fictitious" : false
+    "y" : 630.83
   }, {
     "svgId" : "26",
     "equipmentId" : "VL13",
     "x" : -5.18,
-    "y" : -428.32,
-    "fictitious" : false
+    "y" : -428.32
   } ],
   "edges" : [ {
     "svgId" : "28",

@@ -39,6 +39,7 @@ public class NodeMetadata extends AbstractMetadataItem {
         return y;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public boolean isFictitious() {
         return fictitious;
     }

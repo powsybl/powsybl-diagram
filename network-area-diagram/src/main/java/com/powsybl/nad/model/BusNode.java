@@ -18,7 +18,7 @@ public class BusNode extends AbstractNode {
     private int nbNeighbouringBusNodes;
 
     public BusNode(String diagramId, String id) {
-        super(diagramId, id, null);
+        super(diagramId, id, null, false);
     }
 
     public void setRingIndex(int ringIndex) {

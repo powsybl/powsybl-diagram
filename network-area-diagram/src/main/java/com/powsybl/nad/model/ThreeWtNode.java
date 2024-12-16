@@ -12,7 +12,7 @@ package com.powsybl.nad.model;
 public class ThreeWtNode extends AbstractNode {
 
     public ThreeWtNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId);
+        super(diagramId, equipmentId, nameOrId, false);
     }
 
 }

@@ -78,26 +78,22 @@
     "svgId" : "0",
     "equipmentId" : "VL_11",
     "x" : 75.04,
-    "y" : -513.76,
-    "fictitious" : false
+    "y" : -513.76
   }, {
     "svgId" : "2",
     "equipmentId" : "VL_132",
     "x" : -371.52,
-    "y" : 47.69,
-    "fictitious" : false
+    "y" : 47.69
   }, {
     "svgId" : "4",
     "equipmentId" : "VL_33",
     "x" : 180.23,
-    "y" : 204.68,
-    "fictitious" : false
+    "y" : 204.68
   }, {
     "svgId" : "6",
     "equipmentId" : "3WT",
     "x" : -22.79,
-    "y" : -128.62,
-    "fictitious" : false
+    "y" : -128.62
   } ],
   "edges" : [ {
     "svgId" : "7",
