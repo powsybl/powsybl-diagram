@@ -115,26 +115,26 @@ class FixedLayoutTest {
         Layout layout = new FixedLayoutFactory(new HashMap<>()).create();
         testEmptyLayout(layout, network);
 
-        layout = FixedLayoutFactoryUtils.create(metadataFile).create();
+        layout = LayoutFactoryUtils.create(metadataFile).create();
         testMetadataLayout(layout, network);
-        layout = FixedLayoutFactoryUtils.create(metadataFile, BasicFixedLayout::new).create();
+        layout = LayoutFactoryUtils.create(metadataFile, BasicFixedLayout::new).create();
         testMetadataLayout(layout, network);
 
         try (InputStream metadataIS = Files.newInputStream(metadataFile)) {
-            layout = FixedLayoutFactoryUtils.create(metadataIS).create();
+            layout = LayoutFactoryUtils.create(metadataIS).create();
             testMetadataLayout(layout, network);
         }
         try (InputStream metadataIS = Files.newInputStream(metadataFile)) {
-            layout = FixedLayoutFactoryUtils.create(metadataIS, BasicFixedLayout::new).create();
+            layout = LayoutFactoryUtils.create(metadataIS, BasicFixedLayout::new).create();
             testMetadataLayout(layout, network);
         }
 
         try (Reader metadataReader = Files.newBufferedReader(metadataFile)) {
-            layout = FixedLayoutFactoryUtils.create(metadataReader).create();
+            layout = LayoutFactoryUtils.create(metadataReader).create();
             testMetadataLayout(layout, network);
         }
         try (Reader metadataReader = Files.newBufferedReader(metadataFile)) {
-            layout = FixedLayoutFactoryUtils.create(metadataReader, BasicFixedLayout::new).create();
+            layout = LayoutFactoryUtils.create(metadataReader, BasicFixedLayout::new).create();
             testMetadataLayout(layout, network);
         }
     }

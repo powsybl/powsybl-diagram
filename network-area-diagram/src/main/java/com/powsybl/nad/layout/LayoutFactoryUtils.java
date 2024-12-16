@@ -16,40 +16,40 @@ import java.nio.file.Path;
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
  */
-public final class FixedLayoutFactoryUtils {
+public final class LayoutFactoryUtils {
 
-    private FixedLayoutFactoryUtils() {
+    private LayoutFactoryUtils() {
     }
 
-    private static FixedLayoutFactory createFixedLayoutFactory(LayoutFactory layoutFactory, DiagramMetadata diagramMetadata) {
+    private static FixedLayoutFactory createLayoutFactory(LayoutFactory layoutFactory, DiagramMetadata diagramMetadata) {
         return new FixedLayoutFactory(diagramMetadata.getFixedPositions(), diagramMetadata.getFixedTextPositions(), layoutFactory);
     }
 
-    private static FixedLayoutFactory createFixedLayoutFactory(DiagramMetadata diagramMetadata) {
+    private static FixedLayoutFactory createLayoutFactory(DiagramMetadata diagramMetadata) {
         return new FixedLayoutFactory(diagramMetadata.getFixedPositions(), diagramMetadata.getFixedTextPositions());
     }
 
     public static FixedLayoutFactory create(InputStream metadataIs, LayoutFactory layoutFactory) {
-        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataIs));
+        return createLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataIs));
     }
 
     public static FixedLayoutFactory create(InputStream metadataIs) {
-        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataIs));
+        return createLayoutFactory(DiagramMetadata.parseJson(metadataIs));
     }
 
     public static FixedLayoutFactory create(Path metadataFile, LayoutFactory layoutFactory) {
-        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataFile));
+        return createLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataFile));
     }
 
     public static FixedLayoutFactory create(Path metadataFile) {
-        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataFile));
+        return createLayoutFactory(DiagramMetadata.parseJson(metadataFile));
     }
 
     public static FixedLayoutFactory create(Reader metadataReader, LayoutFactory layoutFactory) {
-        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataReader));
+        return createLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataReader));
     }
 
     public static FixedLayoutFactory create(Reader metadataReader) {
-        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataReader));
+        return createLayoutFactory(DiagramMetadata.parseJson(metadataReader));
     }
 }
