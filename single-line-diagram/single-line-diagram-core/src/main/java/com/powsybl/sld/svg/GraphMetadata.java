@@ -10,6 +10,7 @@ package com.powsybl.sld.svg;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
@@ -32,6 +33,11 @@ import java.util.*;
 public class GraphMetadata extends AbstractMetadata {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes
+    // and "unescapedId" is put in last place. But on other systems, the export order is determined by the getters' order
+    // and "unescapedId" is put in 1st place, which leads to comparison errors in the unit tests.
+    // To prevent this discrepancy, the order is manually fixed.
+    @JsonPropertyOrder(value = {"unescapedId", "id", "vid", "nextVId", "componentType", "open", "direction", "vlabel", "equipmentId", "labels"})
     public static class NodeMetadata {
 
         private final String unescapedId;

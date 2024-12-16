@@ -123,6 +123,7 @@
       "positionName" : "NW_LABEL"
     } ]
   }, {
+    "unescapedId" : "LCC_1",
     "id" : "idLCC_95_1",
     "vid" : "VoltageLevel1",
     "nextVId" : "VoltageLevel2",
@@ -134,8 +135,7 @@
     "labels" : [ {
       "id" : "LCC_1_S_LABEL",
       "positionName" : "S_LABEL"
-    } ],
-    "unescapedId" : "LCC_1"
+    } ]
   }, {
     "id" : "LABEL_VL_VoltageLevel1",
     "vid" : "VoltageLevel1",
@@ -164,6 +164,7 @@
     "vlabel" : false,
     "labels" : [ ]
   }, {
+    "unescapedId" : "VSC_1",
     "id" : "idVSC_95_1",
     "vid" : "VoltageLevel1",
     "nextVId" : "VoltageLevel2",
@@ -175,8 +176,7 @@
     "labels" : [ {
       "id" : "VSC_1_N_LABEL",
       "positionName" : "N_LABEL"
-    } ],
-    "unescapedId" : "VSC_1"
+    } ]
   }, {
     "id" : "idBUSCO_95_Bus1_95_VSC_95_1",
     "vid" : "VoltageLevel1",
