@@ -7,8 +7,10 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.nad.model.Point;
 
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
@@ -42,5 +44,10 @@ public class NodeMetadata extends AbstractMetadataItem {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public boolean isFictitious() {
         return fictitious;
+    }
+
+    @JsonIgnore
+    public Point getPosition() {
+        return new Point(x, y);
     }
 }

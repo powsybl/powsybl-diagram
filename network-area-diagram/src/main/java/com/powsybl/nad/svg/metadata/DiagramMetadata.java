@@ -7,6 +7,18 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.diagram.metadata.AbstractMetadata;
+import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.layout.TextPosition;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.SvgParameters;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -15,16 +27,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.powsybl.commons.json.JsonUtil;
-import com.powsybl.diagram.metadata.AbstractMetadata;
-import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.svg.SvgParameters;
+import java.util.stream.Collectors;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -145,6 +150,7 @@ public class DiagramMetadata extends AbstractMetadata {
     }
 
     public static DiagramMetadata parseJson(Path file) {
+        Objects.requireNonNull(file);
         try (Reader reader = Files.newBufferedReader(file)) {
             return parseJson(reader);
         } catch (IOException e) {
@@ -170,5 +176,15 @@ public class DiagramMetadata extends AbstractMetadata {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    @JsonIgnore
+    public Map<String, Point> getFixedPositions() {
+        return nodesMetadata.stream().collect(Collectors.toMap(NodeMetadata::getEquipmentId, NodeMetadata::getPosition));
+    }
+
+    @JsonIgnore
+    public Map<String, TextPosition> getFixedTextPositions() {
+        return textNodesMetadata.stream().collect(Collectors.toMap(TextNodeMetadata::getEquipmentId, TextNodeMetadata::getTextPosition));
     }
 }
