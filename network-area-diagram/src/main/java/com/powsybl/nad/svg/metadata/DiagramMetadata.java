@@ -107,7 +107,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(node.getDiagramId()),
                 node.getEquipmentId(),
                 round(node.getX()),
-                round(node.getY()))));
+                round(node.getY()),
+                node.isFictitious())));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
