@@ -14,6 +14,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,6 +25,7 @@ import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.SvgParameters;
 
@@ -175,17 +177,14 @@ public class DiagramMetadata extends AbstractMetadata {
 
     @JsonIgnore
     public Map<String, Point> getFixedPositions() {
-        Map<String, Point> fixedPositions = new HashMap<>();
-        nodesMetadata.forEach(node -> fixedPositions.put(node.getEquipmentId(), new Point(node.getX(), node.getY())));
-        return fixedPositions;
+        return nodesMetadata.stream().collect(
+                Collectors.toMap(NodeMetadata::getEquipmentId, nm -> new Point(nm.getX(), nm.getY())));
     }
 
     @JsonIgnore
     public Map<String, TextPosition> getFixedTextPositions() {
-        Map<String, TextPosition> fixedTextPosition = new HashMap<>();
-        textNodesMetadata.forEach(textNode -> fixedTextPosition.put(textNode.getEquipmentId(),
-                        new TextPosition(new Point(textNode.getShiftX(), textNode.getShiftY()),
-                                new Point(textNode.getConnectionShiftX(), textNode.getConnectionShiftY()))));
-        return fixedTextPosition;
+        return textNodesMetadata.stream().collect(
+                Collectors.toMap(TextNodeMetadata::getEquipmentId, tnm ->
+                        new TextPosition(new Point(tnm.getShiftX(), tnm.getShiftY()), new Point(tnm.getConnectionShiftX(), tnm.getConnectionShiftY()))));
     }
 }
