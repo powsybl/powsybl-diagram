@@ -11,7 +11,6 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
-import com.powsybl.nad.layout.AbstractLayout.TextPosition;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 

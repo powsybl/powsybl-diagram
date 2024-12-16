@@ -6,7 +6,6 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.nad.layout.AbstractLayout.TextPosition;
 import com.powsybl.nad.model.Point;
 
 import java.util.Map;

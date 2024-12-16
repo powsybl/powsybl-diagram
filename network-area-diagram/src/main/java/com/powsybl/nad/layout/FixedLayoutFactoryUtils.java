@@ -7,16 +7,15 @@
  */
 package com.powsybl.nad.layout;
 
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.metadata.DiagramMetadata;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import com.powsybl.nad.layout.AbstractLayout.TextPosition;
-import com.powsybl.nad.model.Point;
-import com.powsybl.nad.svg.metadata.DiagramMetadata;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
