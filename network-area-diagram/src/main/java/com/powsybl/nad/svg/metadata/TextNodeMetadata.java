@@ -7,8 +7,11 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.nad.layout.TextPosition;
+import com.powsybl.nad.model.Point;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
@@ -60,5 +63,10 @@ public class TextNodeMetadata extends AbstractMetadataItem {
     @JsonProperty("connectionShiftY")
     public double getConnectionShiftY() {
         return connectionShiftY;
+    }
+
+    @JsonIgnore
+    public TextPosition getTextPosition() {
+        return new TextPosition(new Point(shiftX, shiftY), new Point(connectionShiftX, connectionShiftY));
     }
 }
