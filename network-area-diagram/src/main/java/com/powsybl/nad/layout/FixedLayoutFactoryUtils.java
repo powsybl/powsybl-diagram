@@ -15,7 +15,6 @@ import java.io.Reader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro at soft.it>}
@@ -28,56 +27,48 @@ public final class FixedLayoutFactoryUtils {
     private static Map<String, Point> getFixedPositions(DiagramMetadata diagramMetadata) {
         Map<String, Point> fixedPositions = new HashMap<>();
         diagramMetadata.getNodesMetadata()
-                       .forEach(node -> fixedPositions.put(node.getEquipmentId(),
-                                                           new Point(node.getX(),
-                                                                     node.getY())));
+                .forEach(node -> fixedPositions.put(node.getEquipmentId(), new Point(node.getX(), node.getY())));
         return fixedPositions;
     }
 
     private static Map<String, TextPosition> getTextNodesWithFixedPosition(DiagramMetadata diagramMetadata) {
         Map<String, TextPosition> textNodesWithFixedPosition = new HashMap<>();
         diagramMetadata.getTextNodesMetadata()
-                       .forEach(textNode -> textNodesWithFixedPosition.put(textNode.getEquipmentId(),
-                                                                           new TextPosition(new Point(textNode.getShiftX(),
-                                                                                                      textNode.getShiftY()),
-                                                                                            new Point(textNode.getConnectionShiftX(),
-                                                                                                      textNode.getConnectionShiftY()))));
+                .forEach(textNode -> textNodesWithFixedPosition.put(textNode.getEquipmentId(),
+                        new TextPosition(new Point(textNode.getShiftX(), textNode.getShiftY()),
+                                new Point(textNode.getConnectionShiftX(), textNode.getConnectionShiftY()))));
         return textNodesWithFixedPosition;
     }
 
-    public static FixedLayoutFactory create(InputStream metadataIS, LayoutFactory layoutFactory) {
-        Objects.requireNonNull(metadataIS);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataIS);
+    private static FixedLayoutFactory createFixedLayoutFactory(LayoutFactory layoutFactory, DiagramMetadata diagramMetadata) {
         return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata), layoutFactory);
     }
 
-    public static FixedLayoutFactory create(InputStream metadataIS) {
-        Objects.requireNonNull(metadataIS);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataIS);
+    private static FixedLayoutFactory createFixedLayoutFactory(DiagramMetadata diagramMetadata) {
         return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata));
+    }
+
+    public static FixedLayoutFactory create(InputStream metadataIs, LayoutFactory layoutFactory) {
+        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataIs));
+    }
+
+    public static FixedLayoutFactory create(InputStream metadataIs) {
+        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataIs));
     }
 
     public static FixedLayoutFactory create(Path metadataFile, LayoutFactory layoutFactory) {
-        Objects.requireNonNull(metadataFile);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataFile);
-        return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata), layoutFactory);
+        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataFile));
     }
 
     public static FixedLayoutFactory create(Path metadataFile) {
-        Objects.requireNonNull(metadataFile);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataFile);
-        return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata));
+        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataFile));
     }
 
     public static FixedLayoutFactory create(Reader metadataReader, LayoutFactory layoutFactory) {
-        Objects.requireNonNull(metadataReader);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataReader);
-        return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata), layoutFactory);
+        return createFixedLayoutFactory(layoutFactory, DiagramMetadata.parseJson(metadataReader));
     }
 
     public static FixedLayoutFactory create(Reader metadataReader) {
-        Objects.requireNonNull(metadataReader);
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(metadataReader);
-        return new FixedLayoutFactory(getFixedPositions(diagramMetadata), getTextNodesWithFixedPosition(diagramMetadata));
+        return createFixedLayoutFactory(DiagramMetadata.parseJson(metadataReader));
     }
 }

@@ -144,6 +144,7 @@ public class DiagramMetadata extends AbstractMetadata {
     }
 
     public static DiagramMetadata parseJson(Path file) {
+        Objects.requireNonNull(file);
         try (Reader reader = Files.newBufferedReader(file)) {
             return parseJson(reader);
         } catch (IOException e) {
