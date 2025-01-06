@@ -25,8 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -44,6 +44,14 @@ public abstract class AbstractTest {
 
     protected abstract LabelProvider getLabelProvider(Network network);
 
+    protected void assertFileEquals(String resourceNameExpected, Path generatedFile) {
+        try {
+            assertStringEquals(resourceNameExpected, Files.readString(generatedFile));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
     protected void assertSvgEquals(String resourceName, Network network) {
         assertSvgEquals(resourceName, network, VoltageLevelFilter.NO_FILTER);
     }
@@ -53,14 +61,17 @@ public abstract class AbstractTest {
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
-        String svgString = writer.toString();
+        assertStringEquals(resourceName, writer.toString());
+    }
+
+    protected void assertStringEquals(String resourceNameExpected, String generated) {
         if (debugSvg) {
-            writeToHomeDir(resourceName, svgString);
+            writeToHomeDir(resourceNameExpected, generated);
         }
         if (overrideTestReferences) {
-            overrideTestReference(resourceName, svgString);
+            overrideTestReference(resourceNameExpected, generated);
         }
-        assertEquals(toString(resourceName), generateSvgString(network, voltageLevelFilter, resourceName));
+        assertEquals(toString(resourceNameExpected), generated);
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {
@@ -100,14 +111,6 @@ public abstract class AbstractTest {
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
-    }
-
-    protected static String getContentFile(Path svgFile) {
-        try (Stream<String> lines = Files.lines(svgFile)) {
-            return lines.collect(Collectors.joining("\n")) + "\n";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     protected LayoutParameters getLayoutParameters() {
