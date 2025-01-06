@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
@@ -53,13 +51,13 @@ class TieLineTest extends AbstractTest {
     @Test
     void testTieLine() {
         Network network = EurostagTutorialExample1Factory.createWithTieLine();
-        assertEquals(toString("/tie_line.svg"), generateSvgString(network, "/tie_line.svg"));
+        assertSvgEquals("/tie_line.svg", network);
     }
 
     @Test
     void testDanglingLinePaired() {
         Network network = EurostagTutorialExample1Factory.createWithTieLine();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Collections.singletonList("VLHV1"), 1);
-        assertEquals(toString("/tie_line_filtered.svg"), generateSvgString(network, filter, "/tie_line_filtered.svg"));
+        assertSvgEquals("/tie_line_filtered.svg", network, filter);
     }
 }

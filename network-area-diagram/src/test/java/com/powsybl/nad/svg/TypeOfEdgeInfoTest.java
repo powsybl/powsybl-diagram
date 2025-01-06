@@ -16,8 +16,6 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
@@ -55,13 +53,13 @@ class TypeOfEdgeInfoTest extends AbstractTest {
     @Test
     void testReactivePowerInfoLabel() {
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER);
-        assertEquals(toString("/edge_info_reactive_power.svg"), generateSvgString(network, "/edge_info_reactive_power.svg"));
+        assertSvgEquals("/edge_info_reactive_power.svg", network);
     }
 
     @Test
     void testCurrentInfoLabel() {
         getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
-        assertEquals(toString("/edge_info_current.svg"), generateSvgString(network, "/edge_info_current.svg"));
+        assertSvgEquals("/edge_info_current.svg", network);
     }
 
 }

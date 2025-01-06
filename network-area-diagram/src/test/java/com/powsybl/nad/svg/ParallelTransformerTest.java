@@ -14,7 +14,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -42,6 +41,6 @@ class ParallelTransformerTest extends AbstractTest {
     @Test
     void test() {
         Network network = Networks.createTwoVoltageLevelsTwoTransformers();
-        assertEquals(toString("/parallel_transformers.svg"), generateSvgString(network, "/parallel_transformers.svg"));
+        assertSvgEquals("/parallel_transformers.svg", network);
     }
 }

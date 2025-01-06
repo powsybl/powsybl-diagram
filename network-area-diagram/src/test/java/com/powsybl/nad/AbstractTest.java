@@ -25,7 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -43,23 +44,23 @@ public abstract class AbstractTest {
 
     protected abstract LabelProvider getLabelProvider(Network network);
 
-    protected String generateSvgString(Network network, String refFilename) {
-        return generateSvgString(network, VoltageLevelFilter.NO_FILTER, refFilename);
+    protected void assertSvgEquals(String resourceName, Network network) {
+        assertSvgEquals(resourceName, network, VoltageLevelFilter.NO_FILTER);
     }
 
-    protected String generateSvgString(Network network, Predicate<VoltageLevel> voltageLevelFilter, String refFilename) {
+    protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
         String svgString = writer.toString();
         if (debugSvg) {
-            writeToHomeDir(refFilename, svgString);
+            writeToHomeDir(resourceName, svgString);
         }
         if (overrideTestReferences) {
-            overrideTestReference(refFilename, svgString);
+            overrideTestReference(resourceName, svgString);
         }
-        return svgString;
+        assertEquals(toString(resourceName), generateSvgString(network, voltageLevelFilter, resourceName));
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {

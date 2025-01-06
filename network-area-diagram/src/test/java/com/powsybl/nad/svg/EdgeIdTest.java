@@ -14,7 +14,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -44,13 +43,13 @@ class EdgeIdTest extends AbstractTest {
     void testNameOnEdgeDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(true);
-        assertEquals(toString("/edge_with_id.svg"), generateSvgString(network, "/edge_with_id.svg"));
+        assertSvgEquals("/edge_with_id.svg", network);
     }
 
     @Test
     void testNameOnEdgeNotDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setEdgeNameDisplayed(false);
-        assertEquals(toString("/edge_without_id.svg"), generateSvgString(network, "/edge_without_id.svg"));
+        assertSvgEquals("/edge_without_id.svg", network);
     }
 }
