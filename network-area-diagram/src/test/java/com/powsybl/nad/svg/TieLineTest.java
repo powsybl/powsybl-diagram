@@ -7,10 +7,11 @@
  */
 package com.powsybl.nad.svg;
 
-import com.google.common.jimfs.*;
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
-import com.powsybl.nad.*;
+import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
@@ -18,7 +19,6 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.*;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,12 +59,7 @@ class TieLineTest extends AbstractTest {
     @Test
     void testDanglingLinePaired() {
         Network network = EurostagTutorialExample1Factory.createWithTieLine();
-        Path svgFile = fileSystem.getPath("tie_line_filtered.svg");
-        NadParameters nadParameters = new NadParameters()
-                .setSvgParameters(getSvgParameters())
-                .setLayoutParameters(getLayoutParameters())
-                .setStyleProviderFactory(NominalVoltageStyleProvider::new);
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Collections.singletonList("VLHV1"), 1));
-        assertEquals(toString("/tie_line_filtered.svg"), getContentFile(svgFile));
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Collections.singletonList("VLHV1"), 1);
+        assertEquals(toString("/tie_line_filtered.svg"), generateSvgString(network, filter, "/tie_line_filtered.svg"));
     }
 }
