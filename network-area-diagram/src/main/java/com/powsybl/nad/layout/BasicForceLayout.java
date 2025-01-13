@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -12,6 +12,7 @@ import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.PowerNode;
 import com.powsybl.nad.model.TextNode;
 
 import java.util.Map;
@@ -40,7 +41,7 @@ public class BasicForceLayout extends AbstractLayout {
 
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
-        org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
+        org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout(), layoutParameters.isPowerNodesForceLayout());
         ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
                 .setAttractToCenterForce(attractToCenterForce)
                 .setRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
@@ -58,7 +59,10 @@ public class BasicForceLayout extends AbstractLayout {
 
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector p = forceLayout.getStablePosition(node);
-            if (node instanceof TextNode texNode) {
+            if (node instanceof PowerNode powerNode) {
+                powerNode.setPosition(SCALE * p.getX(), SCALE * p.getY());
+                powerNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
+            } else if (node instanceof TextNode texNode) {
                 texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
                 texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
             } else {
@@ -68,6 +72,13 @@ public class BasicForceLayout extends AbstractLayout {
 
         if (!layoutParameters.isTextNodesForceLayout()) {
             graph.getTextEdgesMap().values().forEach(nodePair -> fixedTextNodeLayout(nodePair, layoutParameters));
+        }
+        if (!layoutParameters.isPowerNodesForceLayout()) {
+            graph.getProductionEdgesMap().values().forEach(nodePair -> fixedProductionNodeLayout(nodePair, layoutParameters));
+            graph.getConsumptionEdgesMap().values().forEach(nodePair -> fixedConsumptionNodeLayout(nodePair, layoutParameters));
+        } else {
+            graph.getProductionEdgesMap().values().forEach(nodePair -> adjustProductionNodeForceLayout(nodePair, layoutParameters));
+            graph.getConsumptionEdgesMap().values().forEach(nodePair -> adjustConsumptionNodeForceLayout(nodePair, layoutParameters));
         }
     }
 
@@ -83,4 +94,5 @@ public class BasicForceLayout extends AbstractLayout {
                 ));
         forceLayout.setInitialPoints(initialPoints);
     }
+
 }

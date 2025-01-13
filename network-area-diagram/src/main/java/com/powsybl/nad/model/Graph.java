@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -30,9 +30,15 @@ public class Graph {
     private final org.jgrapht.Graph<Node, Edge> voltageLevelGraph = new WeightedPseudograph<>(Edge.class);
     private final org.jgrapht.Graph<Node, Edge> busGraph = new Pseudograph<>(Edge.class);
     private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
+    private final Map<ProductionEdge, Pair<VoltageLevelNode, ProductionNode>> productionEdges = new LinkedHashMap<>();
+    private final Map<ConsumptionEdge, Pair<VoltageLevelNode, ConsumptionNode>> consumptionEdges = new LinkedHashMap<>();
 
     private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE = "-textnode";
     private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE = "-textedge";
+    private static final String DIAGRAM_ID_SUFFIX_FOR_PROD_NODE = "-prodnode";
+    private static final String DIAGRAM_ID_SUFFIX_FOR_PROD_EDGE = "-prodedge";
+    private static final String DIAGRAM_ID_SUFFIX_FOR_CONSUMPTION_NODE = "-consumptionnode";
+    private static final String DIAGRAM_ID_SUFFIX_FOR_CONSUMPTION_EDGE = "-consumptionedge";
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
@@ -56,6 +62,20 @@ public class Graph {
                 new TextEdge(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE));
     }
 
+    public void addProductionNode(VoltageLevelNode vlNode) {
+        Objects.requireNonNull(vlNode);
+        addEdge(vlNode,
+                new ProductionNode(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_PROD_NODE),
+                new ProductionEdge(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_PROD_EDGE));
+    }
+
+    public void addConsumptionNode(VoltageLevelNode vlNode) {
+        Objects.requireNonNull(vlNode);
+        addEdge(vlNode,
+                new ConsumptionNode(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_CONSUMPTION_NODE),
+                new ConsumptionEdge(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_CONSUMPTION_EDGE));
+    }
+
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,
                         VoltageLevelNode node2, BusNode busNode2, BranchEdge edge) {
         branchEdges.put(edge.getEquipmentId(), edge);
@@ -73,6 +93,20 @@ public class Graph {
         Objects.requireNonNull(textNode);
         Objects.requireNonNull(edge);
         textEdges.put(edge, Pair.of(vlNode, textNode));
+    }
+
+    public void addEdge(VoltageLevelNode vlNode, ProductionNode prodNode, ProductionEdge edge) {
+        Objects.requireNonNull(vlNode);
+        Objects.requireNonNull(prodNode);
+        Objects.requireNonNull(edge);
+        productionEdges.put(edge, Pair.of(vlNode, prodNode));
+    }
+
+    public void addEdge(VoltageLevelNode vlNode, ConsumptionNode prodNode, ConsumptionEdge edge) {
+        Objects.requireNonNull(vlNode);
+        Objects.requireNonNull(prodNode);
+        Objects.requireNonNull(edge);
+        consumptionEdges.put(edge, Pair.of(vlNode, prodNode));
     }
 
     private void addVoltageLevelsEdge(Node node1, Node node2, Edge edge) {
@@ -112,8 +146,24 @@ public class Graph {
         return textEdges.values().stream().map(Pair::getSecond);
     }
 
+    public Stream<ProductionNode> getProductionNodesStream() {
+        return productionEdges.values().stream().map(Pair::getSecond);
+    }
+
+    public Stream<ConsumptionNode> getConsumptionNodesStream() {
+        return consumptionEdges.values().stream().map(Pair::getSecond);
+    }
+
     public Collection<Pair<VoltageLevelNode, TextNode>> getVoltageLevelTextPairs() {
         return Collections.unmodifiableCollection(textEdges.values());
+    }
+
+    public Collection<Pair<VoltageLevelNode, ProductionNode>> getVoltageLevelProductionPairs() {
+        return Collections.unmodifiableCollection(productionEdges.values());
+    }
+
+    public Collection<Pair<VoltageLevelNode, ConsumptionNode>> getVoltageLevelConsumptionPairs() {
+        return Collections.unmodifiableCollection(consumptionEdges.values());
     }
 
     public Stream<BranchEdge> getBranchEdgeStream() {
@@ -156,6 +206,30 @@ public class Graph {
 
     public Map<TextEdge, Pair<VoltageLevelNode, TextNode>> getTextEdgesMap() {
         return Collections.unmodifiableMap(textEdges);
+    }
+
+    public Stream<ProductionEdge> getProductionEdgesStream() {
+        return productionEdges.keySet().stream();
+    }
+
+    public List<ProductionEdge> getProductionEdges() {
+        return getProductionEdgesStream().collect(Collectors.toList());
+    }
+
+    public Map<ProductionEdge, Pair<VoltageLevelNode, ProductionNode>> getProductionEdgesMap() {
+        return Collections.unmodifiableMap(productionEdges);
+    }
+
+    public Stream<ConsumptionEdge> getConsumptionEdgesStream() {
+        return consumptionEdges.keySet().stream();
+    }
+
+    public List<ConsumptionEdge> getConsumptionEdges() {
+        return getConsumptionEdgesStream().collect(Collectors.toList());
+    }
+
+    public Map<ConsumptionEdge, Pair<VoltageLevelNode, ConsumptionNode>> getConsumptionEdgesMap() {
+        return Collections.unmodifiableMap(consumptionEdges);
     }
 
     public Stream<BranchEdge> getNonMultiBranchEdgesStream() {
@@ -206,20 +280,43 @@ public class Graph {
         return textEdges.get(textEdge).getFirst();
     }
 
+    public VoltageLevelNode getVoltageLevelNode(ProductionEdge productionEdge) {
+        return productionEdges.get(productionEdge).getFirst();
+    }
+
+    public VoltageLevelNode getVoltageLevelNode(ConsumptionEdge consumptionEdge) {
+        return consumptionEdges.get(consumptionEdge).getFirst();
+    }
+
     public BusNode getBusNode(String busId) {
         return busNodes.get(busId);
     }
 
-    public org.jgrapht.Graph<Node, Edge> getJgraphtGraph(boolean includeTextNodes) {
-        if (includeTextNodes) {
+    public org.jgrapht.Graph<Node, Edge> getJgraphtGraph(boolean includeTextNodes, boolean includePowerNodes) {
+        if (includeTextNodes || includePowerNodes) {
             org.jgrapht.Graph<Node, Edge> graphWithTextNodes = new WeightedPseudograph<>(Edge.class);
+
             voltageLevelGraph.vertexSet().forEach(graphWithTextNodes::addVertex);
             voltageLevelGraph.edgeSet().forEach(e -> graphWithTextNodes.addEdge(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e), e));
-            textEdges.values().forEach(nodePair -> graphWithTextNodes.addVertex(nodePair.getSecond()));
-            textEdges.forEach((edge, nodePair) -> {
-                graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
-                graphWithTextNodes.setEdgeWeight(edge, 1);
-            });
+            if (includeTextNodes) {
+                textEdges.values().forEach(nodePair -> graphWithTextNodes.addVertex(nodePair.getSecond()));
+                textEdges.forEach((edge, nodePair) -> {
+                    graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
+                    graphWithTextNodes.setEdgeWeight(edge, 1);
+                });
+            }
+            if (includePowerNodes) {
+                productionEdges.values().forEach(nodePair -> graphWithTextNodes.addVertex(nodePair.getSecond()));
+                productionEdges.forEach((edge, nodePair) -> {
+                    graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
+                    graphWithTextNodes.setEdgeWeight(edge, 1);
+                });
+                consumptionEdges.values().forEach(nodePair -> graphWithTextNodes.addVertex(nodePair.getSecond()));
+                consumptionEdges.forEach((edge, nodePair) -> {
+                    graphWithTextNodes.addEdge(nodePair.getFirst(), nodePair.getSecond(), edge);
+                    graphWithTextNodes.setEdgeWeight(edge, 1);
+                });
+            }
             return graphWithTextNodes;
         } else {
             return voltageLevelGraph;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -17,6 +17,10 @@ public class LayoutParameters {
     private Point textNodeFixedShift = new Point(100, -40);
     private int maxSteps = 1000;
     private double textNodeEdgeConnectionYShift = 25;
+    private Point productionNodeFixedShift = new Point(-100, -50);
+    private Point consumptionNodeFixedShift = new Point(-100, +50);
+    private boolean powerNodesForceLayout = false;
+    private double powerNodeRadius = 15;
 
     public LayoutParameters() {
     }
@@ -56,6 +60,15 @@ public class LayoutParameters {
         return this;
     }
 
+    public Point getProductionNodeFixedShift() {
+        return productionNodeFixedShift;
+    }
+
+    public LayoutParameters setProductiontNodeFixedShift(double productionNodeFixedShiftX, double productionNodeFixedShiftY) {
+        this.productionNodeFixedShift = new Point(productionNodeFixedShiftX, productionNodeFixedShiftY);
+        return this;
+    }
+
     public int getMaxSteps() {
         return maxSteps;
     }
@@ -73,4 +86,29 @@ public class LayoutParameters {
         this.textNodeEdgeConnectionYShift = textNodeEdgeConnectionYShift;
         return this;
     }
+
+    public double getPowerNodeRadius() {
+        return powerNodeRadius;
+    }
+
+    public void setPowerNodeRadius(double powerNodeRadius) {
+        this.powerNodeRadius = powerNodeRadius;
+    }
+
+    public Point getConsumptionNodeFixedShift() {
+        return consumptionNodeFixedShift;
+    }
+
+    public void setConsumptionNodeFixedShift(Point consumptionNodeFixedShift) {
+        this.consumptionNodeFixedShift = consumptionNodeFixedShift;
+    }
+
+    public boolean isPowerNodesForceLayout() {
+        return powerNodesForceLayout;
+    }
+
+    public void setPowerNodesForceLayout(boolean powerNodesForceLayout) {
+        this.powerNodesForceLayout = powerNodesForceLayout;
+    }
+
 }

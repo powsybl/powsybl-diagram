@@ -7,7 +7,17 @@
       "y" : -40.0
     },
     "maxSteps" : 1000,
-    "textNodeEdgeConnectionYShift" : 25.0
+    "textNodeEdgeConnectionYShift" : 25.0,
+    "productionNodeFixedShift" : {
+      "x" : -100.0,
+      "y" : -50.0
+    },
+    "consumptionNodeFixedShift" : {
+      "x" : -100.0,
+      "y" : 50.0
+    },
+    "powerNodesForceLayout" : false,
+    "powerNodeRadius" : 15.0
   },
   "svgParameters" : {
     "diagramPadding" : {
@@ -53,7 +63,8 @@
     "currentValuePrecision" : 0,
     "edgeInfoDisplayed" : "ACTIVE_POWER",
     "pstArrowHeadSize" : 8.0,
-    "undefinedValueSymbol" : ""
+    "undefinedValueSymbol" : "",
+    "voltageLevelPowerDetails" : false
   },
   "busNodes" : [ {
     "svgId" : "1",
