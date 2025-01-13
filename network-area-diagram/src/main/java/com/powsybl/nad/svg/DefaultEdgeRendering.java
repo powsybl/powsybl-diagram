@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,9 +25,19 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
+        graph.getProductionEdgesMap().forEach((edge, nodes) -> computeProductionEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
+        graph.getConsumptionEdgesMap().forEach((edge, nodes) -> computeConsumptionEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
     private void computeTextEdgeLayoutCoordinates(Node node1, TextNode node2, TextEdge edge) {
+        edge.setPoints(node1.getPosition(), node2.getEdgeConnection());
+    }
+
+    private void computeProductionEdgeLayoutCoordinates(Node node1, ProductionNode node2, ProductionEdge edge) {
+        edge.setPoints(node1.getPosition(), node2.getEdgeConnection());
+    }
+
+    private void computeConsumptionEdgeLayoutCoordinates(Node node1, ConsumptionNode node2, ConsumptionEdge edge) {
         edge.setPoints(node1.getPosition(), node2.getEdgeConnection());
     }
 

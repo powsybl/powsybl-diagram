@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -114,6 +114,41 @@ public class DefaultLabelProvider implements LabelProvider {
 
         if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
             voltageLevelDetails.add(String.format("⌂ %s / %s", activeConsumption, reactiveConsumption));
+        }
+
+        return voltageLevelDetails;
+    }
+
+    @Override
+    public List<String> getVoltageProductionDetails(VoltageLevelNode vlNode) {
+        List<String> voltageLevelDetails = new ArrayList<>();
+        VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
+
+        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+        String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
+
+        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+        String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
+
+        if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
+            voltageLevelDetails.add(String.format("%s / %s", activeProduction, reactiveProduction));
+        }
+        return voltageLevelDetails;
+    }
+
+    @Override
+    public List<String> getVoltageConsumptionDetails(VoltageLevelNode vlNode) {
+        List<String> voltageLevelDetails = new ArrayList<>();
+        VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
+
+        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+        String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
+
+        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+        String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
+
+        if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
+            voltageLevelDetails.add(String.format("%s / %s", activeConsumption, reactiveConsumption));
         }
 
         return voltageLevelDetails;

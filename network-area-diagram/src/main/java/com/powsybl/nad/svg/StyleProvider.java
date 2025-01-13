@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,6 +27,7 @@ public interface StyleProvider {
     String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
     String TIE_LINE_EDGE_CLASS = CLASSES_PREFIX + "tie-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
+    String POWER_EDGES_CLASS = CLASSES_PREFIX + "power-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String EDGE_LABEL_CLASS = CLASSES_PREFIX + "edge-label";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
@@ -40,6 +41,8 @@ public interface StyleProvider {
     String WINDING_CLASS = CLASSES_PREFIX + "winding";
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
+    String POWER_LABEL_CLASS = CLASSES_PREFIX + "power-label";
+    String POWER_ICON_CLASS = CLASSES_PREFIX + "power-icon";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
     String STRETCHABLE_CLASS = CLASSES_PREFIX + "stretchable";

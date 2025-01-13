@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -109,6 +109,10 @@ public class SvgWriter {
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
+            drawProductionEdges(graph, writer);
+            drawProductionNodes(graph, writer);
+            drawConsumptionEdges(graph, writer);
+            drawConsumptionNodes(graph, writer);
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
@@ -534,6 +538,28 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void drawProductionNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if (svgParameters.isVoltageLevelPowerDetails()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
+            for (Pair<VoltageLevelNode, ProductionNode> nodePair : graph.getVoltageLevelProductionPairs()) {
+                writeProductionNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+            }
+            writer.writeEndElement();
+        }
+    }
+
+    private void drawConsumptionNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if (svgParameters.isVoltageLevelPowerDetails()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
+            for (Pair<VoltageLevelNode, ConsumptionNode> nodePair : graph.getVoltageLevelConsumptionPairs()) {
+                writeConsumptionNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+            }
+            writer.writeEndElement();
+        }
+    }
+
     private String getTranslateString(Node node) {
         return getTranslateString(node.getPosition());
     }
@@ -588,12 +614,95 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void writeProductionNode(XMLStreamWriter writer, ProductionNode node, VoltageLevelNode vlNode, LabelProvider labelProvider) throws XMLStreamException {
+        if (node != null && !labelProvider.getVoltageProductionDetails(vlNode).isEmpty()) {
+            writeProductionNode(writer, node, vlNode);
+        }
+    }
+
+    private void writeProductionNode(XMLStreamWriter writer, ProductionNode prodNode, VoltageLevelNode vlNode) throws XMLStreamException {
+        double radius = computePowerNodeRadius(prodNode);
+        writeProductionIcon(writer, prodNode, radius);
+        writePowerNodeLabel(writer, prodNode, vlNode, radius, labelProvider.getVoltageProductionDetails(vlNode));
+    }
+
+    private void writeProductionIcon(XMLStreamWriter writer, ProductionNode node, double radius) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.POWER_ICON_CLASS);
+        writer.writeAttribute("cx", getFormattedValue(node.getX()));
+        writer.writeAttribute("cy", getFormattedValue(node.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
+    }
+
+    private void writeConsumptionNode(XMLStreamWriter writer, ConsumptionNode node, VoltageLevelNode vlNode, LabelProvider labelProvider) throws XMLStreamException {
+        if (node != null && !labelProvider.getVoltageConsumptionDetails(vlNode).isEmpty()) {
+            writeConsumptionNode(writer, node, vlNode);
+        }
+    }
+
+    private void writeConsumptionNode(XMLStreamWriter writer, ConsumptionNode consumptionNode, VoltageLevelNode vlNode) throws XMLStreamException {
+        double radius = computePowerNodeRadius(consumptionNode);
+        writeConsumptionIcon(writer, consumptionNode, radius);
+        writePowerNodeLabel(writer, consumptionNode, vlNode, radius, labelProvider.getVoltageConsumptionDetails(vlNode));
+    }
+
+    private void writeConsumptionIcon(XMLStreamWriter writer, ConsumptionNode node, double radius) throws XMLStreamException {
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.POWER_ICON_CLASS);
+
+        writer.writeAttribute("cx", getFormattedValue(node.getX()));
+        writer.writeAttribute("cy", getFormattedValue(node.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
+    }
+
+    private void writePowerNodeLabel(XMLStreamWriter writer, PowerNode powerNode, VoltageLevelNode vlNode, double verticalShift, List<String> details) throws XMLStreamException {
+        writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
+        writeId(writer, powerNode);
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(powerNode.getY() - verticalShift));
+        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(powerNode.getX() - getDetailsLabelSize(details)));
+
+        // width and height cannot be set to auto, and object is of width and height 0 if not specified
+        // using a fixed size of 1x1 and CSS {overflow: visible} to display it
+        writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
+        writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
+
+        writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
+        writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.POWER_LABEL_CLASS);
+
+        if (svgParameters.isVoltageLevelPowerDetails()) {
+            writeLines(details, writer);
+        }
+
+        writer.writeEndElement();
+        writer.writeEndElement();
+    }
+
+    private double computePowerNodeRadius(PowerNode node) {
+        return 15;
+        /*
+        if (node.getEdgeConnection().getX() != node.getX())
+            return Math.abs((node.getEdgeConnection().getX() - node.getX()) / Math.cos(node.getEdgeConnection().getAngle(node.getPosition())));
+        else {
+            return Math.abs(node.getEdgeConnection().getY() - node.getY());
+        }
+        */
+    }
+
     private void writeLines(List<String> lines, XMLStreamWriter writer) throws XMLStreamException {
         for (String line : lines) {
             writer.writeStartElement(DIV_ELEMENT_NAME);
             writer.writeCharacters(line);
             writer.writeEndElement();
         }
+    }
+
+    private int getDetailsLabelSize(List<String> lines) {
+        return 15 * getMaxLinesLength(lines);
+    }
+
+    private int getMaxLinesLength(List<String> lines) {
+        return lines.stream().mapToInt(String::length).max().orElse(0);
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
@@ -789,6 +898,52 @@ public class SvgWriter {
     }
 
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeId(writer, edge);
+        writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
+        List<Point> points = edge.getPoints();
+        shiftEdgeStart(points, vlNode);
+        String lineFormatted1 = points.stream()
+                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .collect(Collectors.joining(" "));
+        writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted1);
+    }
+
+    private void drawProductionEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if (svgParameters.isVoltageLevelPowerDetails()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.POWER_EDGES_CLASS);
+            for (ProductionEdge edge : graph.getProductionEdges()) {
+                drawProductionEdge(writer, edge, graph.getVoltageLevelNode(edge));
+            }
+            writer.writeEndElement();
+        }
+    }
+
+    private void drawProductionEdge(XMLStreamWriter writer, ProductionEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
+        if (!labelProvider.getVoltageProductionDetails(vlNode).isEmpty()) {
+            drawPowerEdge(writer, edge, vlNode);
+        }
+    }
+
+    private void drawConsumptionEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        if (svgParameters.isVoltageLevelPowerDetails()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.POWER_EDGES_CLASS);
+            for (ConsumptionEdge edge : graph.getConsumptionEdges()) {
+                drawConsumptionEdge(writer, edge, graph.getVoltageLevelNode(edge));
+            }
+            writer.writeEndElement();
+        }
+    }
+
+    private void drawConsumptionEdge(XMLStreamWriter writer, ConsumptionEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
+        if (!labelProvider.getVoltageConsumptionDetails(vlNode).isEmpty()) {
+            drawPowerEdge(writer, edge, vlNode);
+        }
+    }
+
+    private void drawPowerEdge(XMLStreamWriter writer, PowerEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeId(writer, edge);
         writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
