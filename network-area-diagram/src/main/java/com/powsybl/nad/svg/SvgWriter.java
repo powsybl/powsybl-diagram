@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -44,6 +44,7 @@ public class SvgWriter {
     private static final String TABLE_ELEMENT_NAME = "table";
     private static final String TABLE_ROW_ELEMENT_NAME = "tr";
     private static final String TABLE_DATA_ELEMENT_NAME = "td";
+    private static final String USE_ELEMENT_NAME = "use";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
@@ -57,11 +58,13 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
+    private static final String HREF_ATTRIBUTE = "href";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
+    private final HashMap<String, String> subnetworksHighlightMap = new HashMap<>();
 
     public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
@@ -103,19 +106,30 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            drawVoltageLevelNodes(graph, writer);
-            drawBranchEdges(graph, writer);
-            drawThreeWtEdges(graph, writer);
+            buildSubnetworksHighlightMap(graph);
+            boolean higlightSubnetworks = subnetworksHighlightMap.size() > 1;
+            drawVoltageLevelNodes(graph, writer, higlightSubnetworks);
+            drawBranchEdges(graph, writer, higlightSubnetworks);
+            drawThreeWtEdges(graph, writer, higlightSubnetworks);
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
+
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
         }
     }
 
-    private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void buildSubnetworksHighlightMap(Graph graph) {
+        graph.getVoltageLevelNodesStream().forEach(vlNode -> subnetworksHighlightMap.computeIfAbsent(vlNode.getParentNetworkId(), k -> getHighlightClass(subnetworksHighlightMap.size())));
+    }
+
+    private String getHighlightClass(int index) {
+        return StyleProvider.HIGHLIGHT_CLASS + "-" + index % 5;
+    }
+
+    private void drawBranchEdges(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
@@ -124,8 +138,8 @@ public class SvgWriter {
             writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
 
-            drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
-            drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE, highlight);
+            drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO, highlight);
 
             drawEdgeCenter(writer, edge);
 
@@ -229,7 +243,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HVDC_CLASS);
     }
 
-    private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawThreeWtEdges(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
         List<ThreeWtEdge> threeWtEdges = graph.getThreeWtEdges();
         if (threeWtEdges.isEmpty()) {
             return;
@@ -238,12 +252,12 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
         for (ThreeWtEdge edge : threeWtEdges) {
-            drawThreeWtEdge(graph, writer, edge);
+            drawThreeWtEdge(graph, writer, edge, highlight);
         }
         writer.writeEndElement();
     }
 
-    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, boolean highlight) throws XMLStreamException {
         // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
         if (!edge.isVisible(side) && !(edge.isTransformerEdge())) {
             return;
@@ -254,6 +268,12 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
+                if (highlight) {
+                    writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+                    String parentNetworkId = side.equals(BranchEdge.Side.ONE) ? edge.getParentNetworkId1() : edge.getParentNetworkId2();
+                    writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+                    writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+                }
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
                 writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
@@ -291,7 +311,7 @@ public class SvgWriter {
         return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f", points);
     }
 
-    private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+    private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, boolean highlight) throws XMLStreamException {
         if (!edge.isVisible()) {
             return;
         }
@@ -299,6 +319,13 @@ public class SvgWriter {
         writeId(writer, edge);
         writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
+
+        if (highlight) {
+            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            String parentNetworkId = edge.getParentNetworkId();
+            writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS);
+            writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
+        }
 
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
@@ -513,15 +540,25 @@ public class SvgWriter {
         return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
-    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
+            if (highlight) {
+                drawHighlightedNode(writer, vlNode);
+            }
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
             drawNode(graph, writer, vlNode);
             writer.writeEndElement();
         }
+        writer.writeEndElement();
+    }
+
+    private void drawHighlightedNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
+        writer.writeStartElement(USE_ELEMENT_NAME);
+        writer.writeAttribute(HREF_ATTRIBUTE, "#" + getPrefixedId(vlNode.getDiagramId()));
+        writer.writeAttribute(CLASS_ATTRIBUTE, subnetworksHighlightMap.get(vlNode.getParentNetworkId()));
         writer.writeEndElement();
     }
 

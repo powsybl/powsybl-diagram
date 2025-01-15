@@ -12,8 +12,8 @@ package com.powsybl.nad.model;
  */
 public class BoundaryNode extends VoltageLevelNode {
 
-    public BoundaryNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId, false);
+    public BoundaryNode(String parentNetworkId, String diagramId, String equipmentId, String nameOrId) {
+        super(parentNetworkId, diagramId, equipmentId, nameOrId, false);
     }
 
 }
