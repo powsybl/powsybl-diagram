@@ -268,28 +268,36 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
-                if (highlight) {
-                    writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-                    String parentNetworkId = side.equals(BranchEdge.Side.ONE) ? edge.getParentNetworkId1() : edge.getParentNetworkId2();
-                    writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
-                    writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-                }
-                writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
-                writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-                if (edgeInfo.isPresent()) {
-                    drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
-                }
+                drawHalfEdge(graph, writer, edge, side, edgeInfo, highlight);
             } else {
-                writer.writeEmptyElement(PATH_ELEMENT_NAME);
-                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
-                writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
-                if (edgeInfo.isPresent()) {
-                    drawLoopEdgeInfo(writer, edge, side, edgeInfo.get());
-                }
+                drawLoopEdge(graph, writer, edge, side, edgeInfo);
             }
         }
         writer.writeEndElement();
+    }
+
+    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo, boolean highlight) throws XMLStreamException {
+        if (highlight) {
+            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            String parentNetworkId = side.equals(BranchEdge.Side.ONE) ? edge.getParentNetworkId1() : edge.getParentNetworkId2();
+            writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+            writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+        }
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+        if (edgeInfo.isPresent()) {
+            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
+        }
+    }
+
+    private void drawLoopEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo) throws XMLStreamException {
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
+        if (edgeInfo.isPresent()) {
+            drawLoopEdgeInfo(writer, edge, side, edgeInfo.get());
+        }
     }
 
     private String getPolylinePointsString(BranchEdge edge, BranchEdge.Side side) {

@@ -16,7 +16,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.NetworkFactory;
 import com.powsybl.iidm.network.RatioTapChanger;
 import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -27,7 +26,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.FileNotFoundException;
 import java.time.ZonedDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -56,7 +54,7 @@ class SubnetworkHighlightTest extends AbstractTest {
     }
 
     @Test
-    void testSubnetworkHighlight() throws FileNotFoundException {
+    void testSubnetworkHighlight() {
         Network network = createWithTieLines();
         assertEquals(toString("/subnetwork_highlight.svg"), generateSvgString(network, "/subnetwork_highlight.svg"));
     }
@@ -421,7 +419,7 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setMaxQ(9999.99)
                 .add();
 
-        ThreeWindingsTransformer twt = p3.newThreeWindingsTransformer()
+        p3.newThreeWindingsTransformer()
                 .setId("3WT")
                 .setRatedU0(132.0)
                 .newLeg1()
