@@ -270,7 +270,7 @@ public class SvgWriter {
             if (!graph.isLoop(edge)) {
                 drawHalfEdge(graph, writer, edge, side, edgeInfo, highlight);
             } else {
-                drawLoopEdge(graph, writer, edge, side, edgeInfo);
+                drawLoopEdge(writer, edge, side, edgeInfo);
             }
         }
         writer.writeEndElement();
@@ -291,7 +291,7 @@ public class SvgWriter {
         }
     }
 
-    private void drawLoopEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo) throws XMLStreamException {
+    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
