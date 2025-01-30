@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -11,7 +11,11 @@ import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge.Side;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
@@ -24,14 +28,18 @@ import java.util.*;
 public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider {
 
     protected final Network network;
+    private final HashMap<String, String> subnetworksHighlightMap = new HashMap<>();
+    private final HashMap<String, String> subnetworkEquipmentMap = new HashMap<>();
 
     protected AbstractVoltageStyleProvider(Network network) {
         this.network = network;
+        buildSubnetworkMaps();
     }
 
     protected AbstractVoltageStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle) {
         super(baseVoltageStyle);
         this.network = network;
+        buildSubnetworkMaps();
     }
 
     @Override
@@ -117,4 +125,74 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     protected abstract Optional<String> getBaseVoltageStyle(Terminal terminal);
+
+    @Override
+    public List<String> getHighlightNodeStyleClasses(Node node) {
+        String subnetworkId = subnetworkEquipmentMap.get(node.getEquipmentId());
+        return List.of(subnetworksHighlightMap.get(subnetworkId));
+    }
+
+    @Override
+    public List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
+        String subnetworkId = getSubnetworkId(edge, side);
+        return List.of(subnetworksHighlightMap.get(subnetworkId));
+    }
+
+    @Override
+    public List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge) {
+        String subnetworkId = getSubnetworkId(edge.getEquipmentId(), edge.getSide());
+        return List.of(subnetworksHighlightMap.get(subnetworkId));
+    }
+
+    private String getSubnetworkId(BranchEdge edge, Side side) {
+        String subnetworId = null;
+        switch (edge.getType()) {
+            case BranchEdge.LINE_EDGE:
+                TwoSides lineSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
+                subnetworId = network.getLine(edge.getEquipmentId()).getTerminal(lineSide).getVoltageLevel().getParentNetwork().getId();
+                break;
+            case BranchEdge.TWO_WT_EDGE:
+            case BranchEdge.PST_EDGE:
+                TwoSides twSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
+                subnetworId = network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(twSide).getVoltageLevel().getParentNetwork().getId();
+                break;
+            case BranchEdge.DANGLING_LINE_EDGE:
+                subnetworId = network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getParentNetwork().getId();
+                break;
+            case BranchEdge.TIE_LINE_EDGE:
+                subnetworId = network.getTieLine(edge.getEquipmentId()).getTerminal(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getVoltageLevel().getParentNetwork().getId();
+                break;
+            case BranchEdge.HVDC_LINE_EDGE:
+                subnetworId = network.getHvdcLine(edge.getEquipmentId()).getConverterStation(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getTerminal().getVoltageLevel().getParentNetwork().getId();
+                break;
+            default:
+                break;
+        }
+        return subnetworId;
+    }
+
+    private String getSubnetworkId(String id, ThreeWtEdge.Side side) {
+        return network.getThreeWindingsTransformer(id).getLeg(ThreeSides.valueOf(side.name())).getTerminal().getVoltageLevel().getParentNetwork().getId();
+    }
+
+    private void buildSubnetworkMaps() {
+        List<VoltageLevel> voltageLevels = getVoltageLevels();
+        voltageLevels.forEach(vl -> addNode(vl.getId(), vl.getParentNetwork().getId()));
+        network.getDanglingLineStream().forEach(dl -> addNode(dl.getId(), dl.getTerminal().getVoltageLevel().getParentNetwork().getId()));
+    }
+
+    private void addNode(String id, String subnetworkId) {
+        subnetworkEquipmentMap.put(id, subnetworkId);
+        subnetworksHighlightMap.computeIfAbsent(subnetworkId, k -> getHighlightClass(subnetworksHighlightMap.size()));
+    }
+
+    private String getHighlightClass(int index) {
+        return StyleProvider.HIGHLIGHT_CLASS + "-" + index % 5;
+    }
+
+    private List<VoltageLevel> getVoltageLevels() {
+        return network.getVoltageLevelStream()
+                .sorted(Comparator.comparing(VoltageLevel::getId))
+                .toList();
+    }
 }

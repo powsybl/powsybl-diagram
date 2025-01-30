@@ -39,7 +39,8 @@ class SubnetworkHighlightTest extends AbstractTest {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedWidth(800)
+                .setHighlightSubnetwors(true));
     }
 
     @Override

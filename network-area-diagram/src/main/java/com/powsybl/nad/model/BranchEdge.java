@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -38,21 +38,9 @@ public class BranchEdge extends AbstractEdge {
     private List<Point> points1 = Collections.emptyList();
     private List<Point> points2 = Collections.emptyList();
     private final boolean[] visible = new boolean[] {true, true};
-    private String parentNetworkId1;
-    private String parentNetworkId2;
 
-    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type, String parentNetworkId1, String parentNetworkId2) {
+    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
         super(diagramId, equipmentId, nameOrId, type);
-        this.parentNetworkId1 = parentNetworkId1;
-        this.parentNetworkId2 = parentNetworkId2;
-    }
-
-    public String getParentNetworkId1() {
-        return parentNetworkId1;
-    }
-
-    public String getParentNetworkId2() {
-        return parentNetworkId2;
     }
 
     public boolean isTransformerEdge() {

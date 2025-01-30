@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,13 +27,10 @@ public class ThreeWtEdge extends AbstractEdge {
 
     private final boolean visible;
 
-    private String parentNetworkId;
-
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, boolean visible, String parentNetworkId) {
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, boolean visible) {
         super(diagramId, equipmentId, transformerName, THREE_WT_EDGE);
         this.side = side;
         this.visible = visible;
-        this.parentNetworkId = parentNetworkId;
     }
 
     public void setPoints(Point point1, Point point2) {
@@ -55,9 +52,4 @@ public class ThreeWtEdge extends AbstractEdge {
     public double getEdgeAngle() {
         return points.get(0).getAngle(points.get(1));
     }
-
-    public String getParentNetworkId() {
-        return parentNetworkId;
-    }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -64,7 +64,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible) {
-        VoltageLevelNode vlNode = new VoltageLevelNode(vl.getParentNetwork().getId(), idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
+        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         vl.getBusView().getBusStream()
                 .map(bus -> new BusNode(idProvider.createId(bus), bus.getId()))
                 .forEach(vlNode::addBusNode);
@@ -112,7 +112,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
         if (!dl.isPaired()) {
-            BoundaryNode boundaryNode = new BoundaryNode(dl.getParentNetwork().getId(), idProvider.createId(dl), dl.getId(), dl.getNameOrId());
+            BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
             BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
             boundaryNode.addBusNode(boundaryBusNode);
             graph.addNode(boundaryNode);
@@ -162,11 +162,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         BusNode busNodeA = getBusNode(graph, terminalA);
         BusNode busNodeB = getBusNode(graph, terminalB);
 
+        BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
         if (!terminalsInReversedOrder) {
-            BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType, vlNodeA.getParentNetworkId(), vlNodeB.getParentNetworkId());
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {
-            BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType, vlNodeB.getParentNetworkId(), vlNodeA.getParentNetworkId());
             graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge);
         }
     }
@@ -175,7 +174,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminal = twt.getTerminal(side);
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
-                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible(), vlNode.getParentNetworkId());
+                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
     }
 
@@ -183,7 +182,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminal = dl.getTerminal();
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         BranchEdge edge = new BranchEdge(idProvider.createId(dl),
-                dl.getId(), dl.getNameOrId(), BranchEdge.DANGLING_LINE_EDGE, vlNode.getParentNetworkId(), vlNode.getParentNetworkId());
+                dl.getId(), dl.getNameOrId(), BranchEdge.DANGLING_LINE_EDGE);
         graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
     }
 

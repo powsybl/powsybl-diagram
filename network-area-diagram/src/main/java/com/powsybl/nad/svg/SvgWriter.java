@@ -64,7 +64,6 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
-    private final HashMap<String, String> subnetworksHighlightMap = new HashMap<>();
 
     public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
@@ -106,8 +105,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            buildSubnetworksHighlightMap(graph);
-            boolean higlightSubnetworks = subnetworksHighlightMap.size() > 1;
+            boolean higlightSubnetworks = this.svgParameters.isHighlightSubnetwors();
             drawVoltageLevelNodes(graph, writer, higlightSubnetworks);
             drawBranchEdges(graph, writer, higlightSubnetworks);
             drawThreeWtEdges(graph, writer, higlightSubnetworks);
@@ -119,14 +117,6 @@ public class SvgWriter {
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
         }
-    }
-
-    private void buildSubnetworksHighlightMap(Graph graph) {
-        graph.getVoltageLevelNodesStream().forEach(vlNode -> subnetworksHighlightMap.computeIfAbsent(vlNode.getParentNetworkId(), k -> getHighlightClass(subnetworksHighlightMap.size())));
-    }
-
-    private String getHighlightClass(int index) {
-        return StyleProvider.HIGHLIGHT_CLASS + "-" + index % 5;
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
@@ -279,8 +269,7 @@ public class SvgWriter {
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo, boolean highlight) throws XMLStreamException {
         if (highlight) {
             writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-            String parentNetworkId = side.equals(BranchEdge.Side.ONE) ? edge.getParentNetworkId1() : edge.getParentNetworkId2();
-            writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+            writeStyleClasses(writer, styleProvider.getHighlightSideEdgeStyleClasses(edge, side), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
             writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
         }
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
@@ -330,8 +319,7 @@ public class SvgWriter {
 
         if (highlight) {
             writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-            String parentNetworkId = edge.getParentNetworkId();
-            writeStyleClasses(writer, subnetworksHighlightMap.get(parentNetworkId), StyleProvider.STRETCHABLE_CLASS);
+            writeStyleClasses(writer, styleProvider.getHighlightThreeWtEdgStyleClasses(edge), StyleProvider.STRETCHABLE_CLASS);
             writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
         }
 
@@ -566,7 +554,7 @@ public class SvgWriter {
     private void drawHighlightedNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement(USE_ELEMENT_NAME);
         writer.writeAttribute(HREF_ATTRIBUTE, "#" + getPrefixedId(vlNode.getDiagramId()));
-        writer.writeAttribute(CLASS_ATTRIBUTE, subnetworksHighlightMap.get(vlNode.getParentNetworkId()));
+        writeStyleClasses(writer, styleProvider.getHighlightNodeStyleClasses(vlNode));
         writer.writeEndElement();
     }
 

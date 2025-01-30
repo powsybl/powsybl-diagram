@@ -53,13 +53,19 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
+    List<String> getHighlightNodeStyleClasses(Node node);
+
     List<String> getNodeStyleClasses(BusNode busNode);
 
     List<String> getEdgeStyleClasses(Edge edge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
+    List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
+
     List<String> getEdgeInfoStyles(EdgeInfo info);
 
     List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+
+    List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
 }

@@ -17,20 +17,14 @@ public class VoltageLevelNode extends AbstractNode {
     private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
     private boolean hasUnknownBusNode = false;
-    private String parentNetworkId;
 
-    public VoltageLevelNode(String parentNetworkId, String diagramId, String equipmentId, String nameOrId, boolean fictitious) {
-        this(parentNetworkId, diagramId, equipmentId, nameOrId, fictitious, true);
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious) {
+        this(diagramId, equipmentId, nameOrId, fictitious, true);
     }
 
-    public VoltageLevelNode(String parentNetworkId, String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible) {
         super(diagramId, equipmentId, nameOrId, fictitious);
         this.visible = visible;
-        this.parentNetworkId = parentNetworkId;
-    }
-
-    public String getParentNetworkId() {
-        return parentNetworkId;
     }
 
     public void addBusNode(BusNode busNode) {
