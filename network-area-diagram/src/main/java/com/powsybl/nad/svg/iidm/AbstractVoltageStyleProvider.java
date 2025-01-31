@@ -151,8 +151,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 TwoSides lineSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
                 subnetworId = network.getLine(edge.getEquipmentId()).getTerminal(lineSide).getVoltageLevel().getParentNetwork().getId();
                 break;
-            case BranchEdge.TWO_WT_EDGE:
-            case BranchEdge.PST_EDGE:
+            case BranchEdge.TWO_WT_EDGE, BranchEdge.PST_EDGE:
                 TwoSides twSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
                 subnetworId = network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(twSide).getVoltageLevel().getParentNetwork().getId();
                 break;
