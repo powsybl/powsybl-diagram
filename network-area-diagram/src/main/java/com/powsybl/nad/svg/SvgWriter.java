@@ -278,7 +278,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
         for (ThreeWtEdge edge : threeWtEdges) {
-            drawHighlightThreeWtEdge(graph, writer, edge);
+            drawHighlightThreeWtEdge(writer, edge);
         }
         writer.writeEndElement();
     }
@@ -312,21 +312,18 @@ public class SvgWriter {
     }
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
-        // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
         if (!edge.isVisible(side) && !(edge.isTransformerEdge())) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
-        if (edge.isVisible(side)) {
-            if (!graph.isLoop(edge)) {
-                drawHighlighHalfEdge(graph, writer, edge, side);
-            }
+        if (edge.isVisible(side) && !graph.isLoop(edge)) {
+            drawHighlighHalfEdge(writer, edge, side);
         }
         writer.writeEndElement();
     }
 
-    private void drawHighlighHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+    private void drawHighlighHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getHighlightSideEdgeStyleClasses(edge, side), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
@@ -379,7 +376,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawHighlightThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+    private void drawHighlightThreeWtEdge(XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
         if (!edge.isVisible()) {
             return;
         }
