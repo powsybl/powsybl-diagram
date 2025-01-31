@@ -106,9 +106,12 @@ public class SvgWriter {
             addSvgRoot(graph, writer);
             addStyle(writer);
             boolean higlightSubnetworks = this.svgParameters.isHighlightSubnetwors();
-            drawVoltageLevelNodes(graph, writer, higlightSubnetworks);
-            drawBranchEdges(graph, writer, higlightSubnetworks);
-            drawThreeWtEdges(graph, writer, higlightSubnetworks);
+            if (higlightSubnetworks) {
+                drawHighlightedSection(graph, writer);
+            }
+            drawVoltageLevelNodes(graph, writer);
+            drawBranchEdges(graph, writer, false);
+            drawThreeWtEdges(graph, writer, false);
             drawThreeWtNodes(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
@@ -117,6 +120,15 @@ public class SvgWriter {
         } catch (XMLStreamException e) {
             throw new UncheckedXmlStreamException(e);
         }
+    }
+
+    private void drawHighlightedSection(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HIGHLIGHT_CLASS);
+        drawHighlighVoltageLevelNodes(graph, writer);
+        drawBranchEdges(graph, writer, true);
+        drawThreeWtEdges(graph, writer, true);
+        writer.writeEndElement();
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
@@ -131,8 +143,9 @@ public class SvgWriter {
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE, highlight);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO, highlight);
 
-            drawEdgeCenter(writer, edge);
-
+            if (!highlight) {
+                drawEdgeCenter(writer, edge);
+            }
             writer.writeEndElement();
         }
         writer.writeEndElement();
@@ -271,12 +284,13 @@ public class SvgWriter {
             writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
             writeStyleClasses(writer, styleProvider.getHighlightSideEdgeStyleClasses(edge, side), StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
             writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        }
-        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
-        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        if (edgeInfo.isPresent()) {
-            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
+        } else {
+            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+            writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+            if (edgeInfo.isPresent()) {
+                drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
+            }
         }
     }
 
@@ -315,23 +329,22 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writeId(writer, edge);
         writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
-        insertName(writer, edge::getName);
 
         if (highlight) {
             writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
             writeStyleClasses(writer, styleProvider.getHighlightThreeWtEdgStyleClasses(edge), StyleProvider.STRETCHABLE_CLASS);
             writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
+        } else {
+            insertName(writer, edge::getName);
+            writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+            writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
+            writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
+
+            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
+            if (edgeInfo.isPresent()) {
+                drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo.get());
+            }
         }
-
-        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
-        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
-
-        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
-        if (edgeInfo.isPresent()) {
-            drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo.get());
-        }
-
         writer.writeEndElement();
     }
 
@@ -536,17 +549,23 @@ public class SvgWriter {
         return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
-    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer, boolean highlight) throws XMLStreamException {
+    private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
-            if (highlight) {
-                drawHighlightedNode(writer, vlNode);
-            }
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
             drawNode(graph, writer, vlNode);
             writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void drawHighlighVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
+            drawHighlightedNode(writer, vlNode);
         }
         writer.writeEndElement();
     }
