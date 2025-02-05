@@ -105,7 +105,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            boolean higlightSubnetworks = this.svgParameters.isHighlightSubnetwors();
+            boolean higlightSubnetworks = this.svgParameters.isHighlightSubnetworks();
             if (higlightSubnetworks) {
                 drawHighlightedSection(graph, writer);
             }

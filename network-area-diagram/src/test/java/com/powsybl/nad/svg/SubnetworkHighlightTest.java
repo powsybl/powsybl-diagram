@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.NetworkFactory;
 import com.powsybl.iidm.network.RatioTapChanger;
@@ -19,6 +20,7 @@ import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.VscConverterStation;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.*;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -40,7 +42,7 @@ class SubnetworkHighlightTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800)
-                .setHighlightSubnetwors(true));
+                .setHighlightSubnetworks(true));
     }
 
     @Override
@@ -94,7 +96,7 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setDanglingLine1(nhv1xnode1.getId())
                 .setDanglingLine2(xnode1nhv2.getId())
                 .add();
-        DanglingLine nhv1xnode2 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV1)
+        network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV1)
                 .newDanglingLine()
                 .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE2_1)
                 .setP0(0.0)
@@ -106,7 +108,7 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setBus(EurostagTutorialExample1Factory.NHV1)
                 .setPairingKey("XNODE2")
                 .add();
-        DanglingLine xnode2nhv2 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV2)
+        network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV2)
                 .newDanglingLine()
                 .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE2_2)
                 .setP0(0.0)
@@ -118,23 +120,14 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setBus("NHV2")
                 .setPairingKey("XNODE2")
                 .add();
-        network.newTieLine()
-                .setId(EurostagTutorialExample1Factory.NHV1_NHV2_2)
-                .setDanglingLine1(nhv1xnode2.getId())
-                .setDanglingLine2(xnode2nhv2.getId())
-                .add();
+
         network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getDanglingLine1().getTerminal()
                 .setP(302.4440612792969)
                 .setQ(98.74027252197266);
+
         network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getDanglingLine2().getTerminal()
                 .setP(-300.43389892578125)
                 .setQ(-137.18849182128906);
-        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_2).getDanglingLine1().getTerminal()
-                .setP(302.4440612792969)
-                .setQ(98.74027252197266);
-        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_2).getDanglingLine2().getTerminal()
-                .setP(-300.43389892578125)
-                .setQ(-137.188491821289060);
 
         return network;
     }
@@ -451,6 +444,56 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setBus(bus4.getId())
                 .add()
                 .add();
+
+        VscConverterStation cs1 = vlhv3.newVscConverterStation()
+                .setId("C1")
+                .setName("Converter1")
+                .setConnectableBus("BUS_3")
+                .setBus("BUS_3")
+                .setLossFactor(1.1f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+        cs1.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        cs1.newReactiveCapabilityCurve()
+                .beginPoint()
+                .setP(5.0)
+                .setMinQ(0.0)
+                .setMaxQ(10.0)
+                .endPoint()
+                .beginPoint()
+                .setP(10.0)
+                .setMinQ(0.0)
+                .setMaxQ(10.0)
+                .endPoint()
+                .add();
+        VscConverterStation cs2 = vlload.newVscConverterStation()
+                .setId("C2")
+                .setName("Converter2")
+                .setBus(nload.getId())
+                .setLossFactor(1.1f)
+                .setReactivePowerSetpoint(123)
+                .setVoltageRegulatorOn(false)
+                .setRegulatingTerminal(cs1.getTerminal())
+                .add();
+        cs2.newMinMaxReactiveLimits()
+                .setMinQ(0.0)
+                .setMaxQ(10.0)
+                .add();
+
+        network0.newHvdcLine()
+            .setId("L")
+            .setName("HVDC")
+            .setConverterStationId1("C1")
+            .setConverterStationId2("C2")
+            .setR(1)
+            .setNominalV(400)
+            .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+            .setMaxP(300.0)
+            .setActivePowerSetpoint(280)
+            .add();
         return network0;
     }
 }
