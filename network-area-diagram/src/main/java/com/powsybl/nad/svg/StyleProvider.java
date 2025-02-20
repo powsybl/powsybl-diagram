@@ -58,7 +58,27 @@ public interface StyleProvider {
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getEdgeInfoStyles(EdgeInfo info);
+    List<String> getEdgeInfoStyleClasses(EdgeInfo info);
 
-    List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+    List<String> getThreeWtEdgeStyleClasses(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+
+    default String getNodeStyle(Node node) {
+        return null;
+    }
+
+    default String getNodeStyle(BusNode busNode) {
+        return null;
+    }
+
+    default String getSideEdgeStyle(BranchEdge edge, BranchEdge.Side side) {
+        return null;
+    }
+
+    default String getEdgeInfoStyle(EdgeInfo info) {
+        return null;
+    }
+
+    default String getThreeWtEdgeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one) {
+        return null;
+    }
 }

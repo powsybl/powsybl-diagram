@@ -100,7 +100,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getEdgeInfoStyles(EdgeInfo info) {
+    public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
         String infoType = info.getInfoType();
         switch (infoType) {
@@ -124,7 +124,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
+    public List<String> getThreeWtEdgeStyleClasses(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
         Objects.requireNonNull(side);
         List<String> result = new ArrayList<>();
         if (isDisconnected(threeWtNode, side)) {
