@@ -64,9 +64,9 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
-                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));
+    protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
+        Terminal terminal = network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
+                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
         return getBaseVoltageStyle(terminal);
     }
 

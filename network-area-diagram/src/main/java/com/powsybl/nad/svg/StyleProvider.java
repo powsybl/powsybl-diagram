@@ -60,11 +60,7 @@ public interface StyleProvider {
 
     List<String> getEdgeInfoStyleClasses(EdgeInfo info);
 
-    List<String> getThreeWtEdgeStyleClasses(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
-
-    default String getNodeStyle(Node node) {
-        return null;
-    }
+    List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
     default String getNodeStyle(BusNode busNode) {
         return null;
@@ -74,11 +70,7 @@ public interface StyleProvider {
         return null;
     }
 
-    default String getEdgeInfoStyle(EdgeInfo info) {
-        return null;
-    }
-
-    default String getThreeWtEdgeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one) {
+    default String getThreeWtEdgeStyle(ThreeWtEdge threeWtedge) {
         return null;
     }
 }

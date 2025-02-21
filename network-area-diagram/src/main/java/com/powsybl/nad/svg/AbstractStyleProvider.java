@@ -124,13 +124,12 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getThreeWtEdgeStyleClasses(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Objects.requireNonNull(side);
+    public List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(threeWtNode, side)) {
+        if (isDisconnected(threeWtEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBaseVoltageStyle(threeWtNode, side).ifPresent(result::add);
+        getBaseVoltageStyle(threeWtEdge).ifPresent(result::add);
         return result;
     }
 
@@ -144,7 +143,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
-    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
+    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())
