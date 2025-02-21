@@ -42,7 +42,7 @@ class OverridingStyleTest extends AbstractTest {
         return new TopologicalStyleProvider(network) {
 
             @Override
-            public String getNodeStyle(BusNode busNode) {
+            public String getBusNodeStyle(BusNode busNode) {
                 String equipmentId = busNode.getEquipmentId();
                 if (equipmentId.startsWith("FFR")) {
                     return busNode.getRingIndex() == 0 ? "fill:blue; background:blue" : "fill:lightblue; background:lightblue";

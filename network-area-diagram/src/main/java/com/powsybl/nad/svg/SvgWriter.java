@@ -608,8 +608,8 @@ public class SvgWriter {
             writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
             writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
             writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-            writeStyleAttribute(writer, styleProvider.getNodeStyle(busNode));
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
             writer.writeEndElement();
             writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
             writer.writeCharacters(labelProvider.getBusDescription(busNode));
@@ -650,8 +650,8 @@ public class SvgWriter {
 
         if (vlNode.hasUnknownBusNode()) {
             writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
-            writeStyleAttribute(writer, styleProvider.getNodeStyle(BusNode.UNKNOWN));
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(BusNode.UNKNOWN));
+            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(BusNode.UNKNOWN));
             writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
         }
 
@@ -674,8 +674,8 @@ public class SvgWriter {
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writeId(writer, busNode);
-            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.BUSNODE_CLASS);
-            writeStyleAttribute(writer, styleProvider.getNodeStyle(busNode));
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.BUSNODE_CLASS);
+            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }

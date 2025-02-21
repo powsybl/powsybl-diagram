@@ -52,7 +52,7 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
-    List<String> getNodeStyleClasses(BusNode busNode);
+    List<String> getBusNodeStyleClasses(BusNode busNode);
 
     List<String> getEdgeStyleClasses(Edge edge);
 
@@ -62,7 +62,7 @@ public interface StyleProvider {
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
-    default String getNodeStyle(BusNode busNode) {
+    default String getBusNodeStyle(BusNode busNode) {
         return null;
     }
 

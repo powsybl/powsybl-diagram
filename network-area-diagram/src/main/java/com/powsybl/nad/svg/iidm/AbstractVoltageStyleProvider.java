@@ -35,7 +35,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusNode busNode) {
+    public List<String> getBusNodeStyleClasses(BusNode busNode) {
         if (busNode == BusNode.UNKNOWN) {
             return List.of(UNKNOWN_BUSNODE_CLASS);
         }
