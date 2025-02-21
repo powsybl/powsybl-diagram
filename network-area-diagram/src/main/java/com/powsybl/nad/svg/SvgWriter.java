@@ -123,7 +123,7 @@ public class SvgWriter {
         for (BranchEdge edge : graph.getBranchEdges()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, edge);
-            writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
+            writeStyleClasses(writer, styleProvider.getBranchEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
 
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
@@ -301,11 +301,11 @@ public class SvgWriter {
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writeId(writer, edge);
-        writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
+        writeStyleClasses(writer, styleProvider.getThreeWtEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
 
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writeStyleClasses(writer, styleProvider.getThreeWtEdgeStyleClasses(edge), StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
+        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
 
@@ -799,7 +799,6 @@ public class SvgWriter {
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeId(writer, edge);
-        writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         List<Point> points = edge.getPoints();
         shiftEdgeStart(points, vlNode);
         String lineFormatted1 = points.stream()

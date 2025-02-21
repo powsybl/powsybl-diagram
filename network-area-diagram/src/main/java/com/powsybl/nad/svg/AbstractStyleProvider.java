@@ -68,13 +68,13 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getEdgeStyleClasses(Edge edge) {
+    public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(edge)) {
+        if (isDisconnected(branchEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBranchTypeStyle(edge).ifPresent(result::add);
-        getBaseVoltageStyle(edge).ifPresent(result::add);
+        getBranchTypeStyle(branchEdge).ifPresent(result::add);
+        getBaseVoltageStyle(branchEdge).ifPresent(result::add);
         return result;
     }
 
@@ -133,11 +133,11 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         return result;
     }
 
-    protected abstract boolean isDisconnected(Edge edge);
+    protected abstract boolean isDisconnected(ThreeWtEdge threeWtEdge);
+
+    protected abstract boolean isDisconnected(BranchEdge branchEdge);
 
     protected abstract boolean isDisconnected(BranchEdge edge, BranchEdge.Side side);
-
-    protected abstract boolean isDisconnected(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(Edge edge);
 

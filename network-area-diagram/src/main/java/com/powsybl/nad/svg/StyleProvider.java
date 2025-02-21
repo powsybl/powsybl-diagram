@@ -54,7 +54,7 @@ public interface StyleProvider {
 
     List<String> getBusNodeStyleClasses(BusNode busNode);
 
-    List<String> getEdgeStyleClasses(Edge edge);
+    List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
