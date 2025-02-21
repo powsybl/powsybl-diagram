@@ -71,7 +71,7 @@ public abstract class AbstractTest {
         if (overrideTestReferences) {
             overrideTestReference(resourceNameExpected, generated);
         }
-        assertEquals(toString(resourceNameExpected), generated);
+        assertEquals(toString(resourceNameExpected), normalizeLineSeparator(generated));
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {
