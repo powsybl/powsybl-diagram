@@ -123,8 +123,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-branch-edges">
         <g id="4">
             <g id="4.1" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-69.22,-294.55 -143.24,-158.76"/>
-                <g class="nad-glued-1 nad-edge-infos" transform="translate(-84.78,-266.02)">
+                <polyline class="nad-edge-path" points="-69.22,-294.55 -143.24,-158.76"/>
+                <g class="nad-edge-infos" transform="translate(-84.78,-266.02)">
                     <g class="nad-active">
                         <g transform="rotate(-151.41)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -135,8 +135,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="4.2" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-217.26,-22.97 -143.24,-158.76"/>
-                <g class="nad-glued-2 nad-edge-infos" transform="translate(-201.70,-51.50)">
+                <polyline class="nad-edge-path" points="-217.26,-22.97 -143.24,-158.76"/>
+                <g class="nad-edge-infos" transform="translate(-201.70,-51.50)">
                     <g class="nad-active">
                         <g transform="rotate(28.59)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -149,8 +149,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="7" class="nad-dangling-line-edge">
             <g id="7.1" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-216.73,25.03 -139.77,159.16"/>
-                <g class="nad-glued-1 nad-edge-infos" transform="translate(-200.56,53.22)">
+                <polyline class="nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
+                <g class="nad-edge-infos" transform="translate(-200.56,53.22)">
                     <g class="nad-active">
                         <g transform="rotate(150.15)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -161,7 +161,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="7.2" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-62.80,293.29 -139.77,159.16"/>
+                <polyline class="nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
             </g>
         </g>
     </g>

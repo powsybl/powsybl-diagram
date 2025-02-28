@@ -58,8 +58,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <g id="4" class="nad-hvdc-edge">
             <desc>HVDC</desc>
             <g id="4.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="39.05,-165.52 -67.41,-53.73"/>
-                <g class="nad-glued-1 nad-edge-infos" transform="translate(16.64,-141.99)">
+                <polyline class="nad-edge-path" points="39.05,-165.52 -67.41,-53.73"/>
+                <g class="nad-edge-infos" transform="translate(16.64,-141.99)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -70,8 +70,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="4.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-173.88,58.06 -67.41,-53.73"/>
-                <g class="nad-glued-2 nad-edge-infos" transform="translate(-151.46,34.53)">
+                <polyline class="nad-edge-path" points="-173.88,58.06 -67.41,-53.73"/>
+                <g class="nad-edge-infos" transform="translate(-151.46,34.53)">
                     <g class="nad-active">
                         <g transform="rotate(43.60)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -81,7 +81,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g class="nad-glued-center">
+            <g>
                 <polyline points="-43.28,-79.07 -91.55,-28.38" class="nad-hvdc"/>
             </g>
         </g>

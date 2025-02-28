@@ -42,9 +42,6 @@ public interface StyleProvider {
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
-    String STRETCHABLE_CLASS = CLASSES_PREFIX + "stretchable";
-    String GLUED_CLASS = CLASSES_PREFIX + "glued";
-    String GLUED_CENTER_CLASS = CLASSES_PREFIX + "glued-center";
 
     List<String> getCssFilenames();
 

@@ -182,7 +182,6 @@ public class SvgWriter {
         }
         if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || svgParameters.isEdgeNameDisplayed()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.GLUED_CENTER_CLASS);
             switch (edge.getType()) {
                 case BranchEdge.PST_EDGE:
                 case BranchEdge.TWO_WT_EDGE:
@@ -255,7 +254,7 @@ public class SvgWriter {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
+                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
                 if (edgeInfo.isPresent()) {
                     drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
@@ -301,7 +300,7 @@ public class SvgWriter {
         insertName(writer, edge::getName);
 
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
+        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
 
         Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
@@ -351,15 +350,13 @@ public class SvgWriter {
     private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
         BusNode busNode = graph.getBusGraphNode(edge, side);
-        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-" + side.getNum());
-        drawEdgeInfo(writer, additionalStyles, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
+        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
     }
 
     private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, EdgeInfo edgeInfo) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
-        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-1");
-        drawEdgeInfo(writer, additionalStyles, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
