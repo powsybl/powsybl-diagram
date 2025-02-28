@@ -19,8 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -64,35 +62,35 @@ class TextNodeTest extends AbstractTest {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setIdDisplayed(true).setBusLegend(false);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        assertEquals(toString("/vl_description_id.svg"), generateSvgString(network, "/vl_description_id.svg"));
+        assertSvgEquals("/vl_description_id.svg", network);
     }
 
     @Test
     void testSubstationDescription() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
-        assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
+        assertSvgEquals("/vl_description_substation.svg", network);
     }
 
     @Test
     void testSubstationId() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setIdDisplayed(true).setBusLegend(false);
-        assertEquals(toString("/vl_description_substation_id.svg"), generateSvgString(network, "/vl_description_substation_id.svg"));
+        assertSvgEquals("/vl_description_substation_id.svg", network);
     }
 
     @Test
     void testDetailedTextNodeNoBusLegend() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
-        assertEquals(toString("/detailed_text_node_no_legend.svg"), generateSvgString(network, "/detailed_text_node_no_legend.svg"));
+        assertSvgEquals("/detailed_text_node_no_legend.svg", network);
     }
 
     @Test
     void testDetailedTextNode() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setVoltageLevelDetails(true).setSubstationDescriptionDisplayed(true);
-        assertEquals(toString("/detailed_text_node.svg"), generateSvgString(network, "/detailed_text_node.svg"));
+        assertSvgEquals("/detailed_text_node.svg", network);
     }
 
     @Test
@@ -101,7 +99,7 @@ class TextNodeTest extends AbstractTest {
 
         getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        assertEquals(toString("/production_consumption_text_node.svg"), generateSvgString(network, "/production_consumption_text_node.svg"));
+        assertSvgEquals("/production_consumption_text_node.svg", network);
     }
 
     @Test
@@ -110,6 +108,6 @@ class TextNodeTest extends AbstractTest {
 
         getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        assertEquals(toString("/production_consumption_text_node_nan.svg"), generateSvgString(network, "/production_consumption_text_node_nan.svg"));
+        assertSvgEquals("/production_consumption_text_node_nan.svg", network);
     }
 }

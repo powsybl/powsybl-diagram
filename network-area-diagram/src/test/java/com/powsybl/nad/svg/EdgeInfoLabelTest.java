@@ -16,9 +16,8 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
@@ -31,7 +30,7 @@ class EdgeInfoLabelTest extends AbstractTest {
     private String externalLabel;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
@@ -72,7 +71,7 @@ class EdgeInfoLabelTest extends AbstractTest {
     void testMissingLabels() {
         Network network = Networks.createTwoVoltageLevels();
         getSvgParameters().setArrowShift(10);
-        assertEquals(toString("/edge_info_missing_label.svg"), generateSvgString(network, "/edge_info_missing_label.svg"));
+        assertSvgEquals("/edge_info_missing_label.svg", network);
     }
 
     @Test
@@ -83,7 +82,7 @@ class EdgeInfoLabelTest extends AbstractTest {
         getSvgParameters().setEdgeInfoAlongEdge(false)
                 .setArrowShift(50)
                 .setArrowLabelShift(25);
-        assertEquals(toString("/edge_info_perpendicular_label.svg"), generateSvgString(network, "/edge_info_perpendicular_label.svg"));
+        assertSvgEquals("/edge_info_perpendicular_label.svg", network);
     }
 
     @Test
@@ -93,6 +92,6 @@ class EdgeInfoLabelTest extends AbstractTest {
         externalLabel = "145";
         getSvgParameters().setArrowShift(60)
                 .setArrowLabelShift(20);
-        assertEquals(toString("/edge_info_double_labels.svg"), generateSvgString(network, "/edge_info_double_labels.svg"));
+        assertSvgEquals("/edge_info_double_labels.svg", network);
     }
 }
