@@ -24,7 +24,7 @@ class TypeOfEdgeInfoTest extends AbstractTest {
     Network network;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)

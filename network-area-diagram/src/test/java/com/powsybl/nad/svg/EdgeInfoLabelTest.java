@@ -30,7 +30,7 @@ class EdgeInfoLabelTest extends AbstractTest {
     private String externalLabel;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 class ParallelTransformerTest extends AbstractTest {
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
