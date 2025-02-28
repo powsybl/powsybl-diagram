@@ -20,10 +20,7 @@ public abstract class AbstractLayout implements Layout {
 
     private Map<String, Point> initialNodePositions = Collections.emptyMap();
     private Set<String> nodesWithFixedPosition = Collections.emptySet();
-    private Map<String, TextPosition> textNodesWithFixedPosition = new HashMap<>();
-
-    record TextPosition(Point topLeftPosition, Point edgeConnection) {
-    }
+    private final Map<String, TextPosition> textNodesWithFixedPosition = new HashMap<>();
 
     @Override
     public void run(Graph graph, LayoutParameters layoutParameters) {

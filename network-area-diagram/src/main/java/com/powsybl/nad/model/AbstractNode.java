@@ -14,12 +14,14 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     private int width;
     private int height;
     private Point position;
+    private final boolean fictitious;
 
-    protected AbstractNode(String diagramId, String equipmentId, String name) {
+    protected AbstractNode(String diagramId, String equipmentId, String name, boolean fictitious) {
         super(diagramId, equipmentId, name);
         position = new Point();
         width = 0;
         height = 0;
+        this.fictitious = fictitious;
     }
 
     @Override
@@ -45,6 +47,11 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     @Override
     public double getY() {
         return position.getY();
+    }
+
+    @Override
+    public boolean isFictitious() {
+        return fictitious;
     }
 
     public int getWidth() {

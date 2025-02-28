@@ -16,11 +16,11 @@
       "right" : 200.0,
       "bottom" : 200.0
     },
-    "insertNameDesc" : true,
-    "svgWidthAndHeightAdded" : true,
+    "insertNameDesc" : false,
+    "svgWidthAndHeightAdded" : false,
     "cssLocation" : "INSERTED_IN_SVG",
-    "sizeConstraint" : "FIXED_WIDTH",
-    "fixedWidth" : 800,
+    "sizeConstraint" : "FIXED_SCALE",
+    "fixedWidth" : -1,
     "fixedHeight" : -1,
     "fixedScale" : 0.2,
     "arrowShift" : 30.0,
@@ -57,92 +57,71 @@
   },
   "busNodes" : [ {
     "svgId" : "1",
-    "equipmentId" : "VL_11_0",
+    "equipmentId" : "vl1_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0"
   }, {
     "svgId" : "3",
-    "equipmentId" : "VL_132_0",
+    "equipmentId" : "vl2_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "2"
   }, {
-    "svgId" : "5",
-    "equipmentId" : "VL_33_0",
+    "svgId" : "6",
+    "equipmentId" : "dl1",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "4"
+    "vlNode" : "5"
   } ],
   "nodes" : [ {
     "svgId" : "0",
-    "equipmentId" : "VL_11",
-    "x" : 75.04,
-    "y" : -513.76
+    "equipmentId" : "vl1",
+    "x" : -56.06,
+    "y" : -318.7
   }, {
     "svgId" : "2",
-    "equipmentId" : "VL_132",
-    "x" : -371.52,
-    "y" : 47.69
+    "equipmentId" : "vl2",
+    "x" : -230.42,
+    "y" : 1.18
   }, {
-    "svgId" : "4",
-    "equipmentId" : "VL_33",
-    "x" : 180.23,
-    "y" : 204.68
-  }, {
-    "svgId" : "6",
-    "equipmentId" : "3WT",
-    "x" : -22.79,
-    "y" : -128.62
+    "svgId" : "5",
+    "equipmentId" : "dl1",
+    "x" : -49.12,
+    "y" : 317.14
   } ],
   "edges" : [ {
-    "svgId" : "7",
-    "equipmentId" : "3WT",
+    "svgId" : "4",
+    "equipmentId" : "l1",
     "node1" : "0",
-    "node2" : "6",
+    "node2" : "2",
     "busNode1" : "1",
-    "busNode2" : "6",
-    "type" : "ThreeWtEdge"
+    "busNode2" : "3",
+    "type" : "LineEdge"
   }, {
-    "svgId" : "8",
-    "equipmentId" : "3WT",
+    "svgId" : "7",
+    "equipmentId" : "dl1",
     "node1" : "2",
-    "node2" : "6",
+    "node2" : "5",
     "busNode1" : "3",
     "busNode2" : "6",
-    "type" : "ThreeWtEdge"
-  }, {
-    "svgId" : "9",
-    "equipmentId" : "3WT",
-    "node1" : "4",
-    "node2" : "6",
-    "busNode1" : "5",
-    "busNode2" : "6",
-    "type" : "ThreeWtEdge"
+    "type" : "DanglingLineEdge"
   } ],
   "textNodes" : [ {
     "svgId" : "0-textnode",
-    "equipmentId" : "VL_11",
+    "equipmentId" : "vl1",
     "vlNode" : "0",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
+    "shiftX" : 80.0,
+    "shiftY" : -30.0,
+    "connectionShiftX" : 80.0,
+    "connectionShiftY" : -5.0
   }, {
     "svgId" : "2-textnode",
-    "equipmentId" : "VL_132",
+    "equipmentId" : "vl2",
     "vlNode" : "2",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "4-textnode",
-    "equipmentId" : "VL_33",
-    "vlNode" : "4",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
+    "shiftX" : 80.0,
+    "shiftY" : -30.0,
+    "connectionShiftX" : 80.0,
+    "connectionShiftY" : -5.0
   } ]
 }

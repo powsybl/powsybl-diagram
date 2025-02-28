@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
@@ -67,7 +68,7 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
-    void test() {
+    void test() throws IOException {
         // Referenced json file
         String referenceMetadata = "/hvdc_metadata.json";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(referenceMetadata));
@@ -75,45 +76,41 @@ class DiagramMetadataTest extends AbstractTest {
         DiagramMetadata metadata = DiagramMetadata.parseJson(in);
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        writeMetadata(metadata, outMetadataPath);
-        // Read generated json file
-        String actual = getContentFile(outMetadataPath);
-        // Read reference json file
-        String expected = toString(referenceMetadata);
+        try (Writer writer = Files.newBufferedWriter(outMetadataPath, StandardCharsets.UTF_8)) {
+            metadata.writeJson(writer);
+        }
         // Checking
-        assertEquals(expected, actual);
+        assertFileEquals(referenceMetadata, outMetadataPath);
     }
 
     @Test
     void test3wt() {
-        // Referenced json file
-        String referenceMetadata = "/3wt_metadata.json";
-        // Write Metadata as temporary json file
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
-        new BasicForceLayout().run(graph, getLayoutParameters());
-        Path outMetadataPath = tmpDir.resolve("metadata.json");
-        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
-        // Read generated json file
-        String actual = getContentFile(outMetadataPath);
-        // Read reference json file
-        String expected = toString(referenceMetadata);
-        // Checking
-        assertEquals(expected, actual);
-        // Read metadata from file
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(outMetadataPath);
-        assertEquals(3, diagramMetadata.getBusNodesMetadata().size());
-        assertEquals(4, diagramMetadata.getNodesMetadata().size());
-        assertEquals(3, diagramMetadata.getEdgesMetadata().size());
-        assertEquals(3, diagramMetadata.getTextNodesMetadata().size());
+        testMetadata(network, "/3wt_metadata.json", 3, 4, 3, 3);
     }
 
-    private void writeMetadata(DiagramMetadata metadata, Path outPath) {
-        try {
-            Writer writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8);
-            metadata.writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+    @Test
+    void testFictitious() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        network.getVoltageLevel("VL12").setFictitious(true);
+        network.getVoltageLevel("VL14").setFictitious(true);
+        testMetadata(network, "/IEEE_14_bus_fictitious_metadata.json", 14, 14, 20, 14);
+    }
+
+    private void testMetadata(Network network, String referenceMetadata, int busNodesNumber, int nodesNumber, int edgesNumber, int textNodesNumber) {
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        new BasicForceLayout().run(graph, getLayoutParameters());
+        // Write Metadata as temporary json file
+        Path outMetadataPath = tmpDir.resolve("metadata.json");
+        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        // Checking
+        assertFileEquals(referenceMetadata, outMetadataPath);
+        // Read metadata from file
+        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(outMetadataPath);
+        // Check read metadata
+        assertEquals(busNodesNumber, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(nodesNumber, diagramMetadata.getNodesMetadata().size());
+        assertEquals(edgesNumber, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(textNodesNumber, diagramMetadata.getTextNodesMetadata().size());
     }
 }

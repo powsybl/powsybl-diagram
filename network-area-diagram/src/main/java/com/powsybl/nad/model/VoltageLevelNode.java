@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 public class VoltageLevelNode extends AbstractNode {
 
     private final List<BusNode> busNodes = new ArrayList<>();
-    private final boolean fictitious;
     private final boolean visible;
     private boolean hasUnknownBusNode = false;
 
@@ -24,8 +23,7 @@ public class VoltageLevelNode extends AbstractNode {
     }
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible) {
-        super(diagramId, equipmentId, nameOrId);
-        this.fictitious = fictitious;
+        super(diagramId, equipmentId, nameOrId, fictitious);
         this.visible = visible;
     }
 
@@ -56,9 +54,5 @@ public class VoltageLevelNode extends AbstractNode {
 
     public boolean hasUnknownBusNode() {
         return hasUnknownBusNode;
-    }
-
-    public boolean isFictitious() {
-        return fictitious;
     }
 }

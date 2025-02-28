@@ -12,10 +12,8 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -44,6 +42,6 @@ class EdgeInfoShiftTest extends AbstractTest {
     void testArrowShift() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setArrowShift(20);
-        assertEquals(toString("/edge_info_shift.svg"), generateSvgString(network, "/edge_info_shift.svg"));
+        assertSvgEquals("/edge_info_shift.svg", network);
     }
 }
