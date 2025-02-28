@@ -68,7 +68,7 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
-    void test() {
+    void test() throws IOException {
         // Referenced json file
         String referenceMetadata = "/hvdc_metadata.json";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(referenceMetadata));
@@ -76,13 +76,11 @@ class DiagramMetadataTest extends AbstractTest {
         DiagramMetadata metadata = DiagramMetadata.parseJson(in);
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        writeMetadata(metadata, outMetadataPath);
-        // Read generated json file
-        String actual = getContentFile(outMetadataPath);
-        // Read reference json file
-        String expected = toString(referenceMetadata);
+        try (Writer writer = Files.newBufferedWriter(outMetadataPath, StandardCharsets.UTF_8)) {
+            metadata.writeJson(writer);
+        }
         // Checking
-        assertEquals(expected, actual);
+        assertFileEquals(referenceMetadata, outMetadataPath);
     }
 
     @Test
@@ -105,12 +103,8 @@ class DiagramMetadataTest extends AbstractTest {
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
-        // Read generated json file
-        String actual = getContentFile(outMetadataPath);
-        // Read reference json file
-        String expected = toString(referenceMetadata);
         // Checking
-        assertEquals(expected, actual);
+        assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file
         DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(outMetadataPath);
         // Check read metadata
@@ -118,14 +112,5 @@ class DiagramMetadataTest extends AbstractTest {
         assertEquals(nodesNumber, diagramMetadata.getNodesMetadata().size());
         assertEquals(edgesNumber, diagramMetadata.getEdgesMetadata().size());
         assertEquals(textNodesNumber, diagramMetadata.getTextNodesMetadata().size());
-    }
-
-    private void writeMetadata(DiagramMetadata metadata, Path outPath) {
-        try {
-            Writer writer = Files.newBufferedWriter(outPath, StandardCharsets.UTF_8);
-            metadata.writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 }
