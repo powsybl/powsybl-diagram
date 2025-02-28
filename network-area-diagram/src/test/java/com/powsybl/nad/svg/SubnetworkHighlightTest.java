@@ -7,29 +7,18 @@
  */
 package com.powsybl.nad.svg;
 
-import com.google.common.jimfs.*;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.NetworkFactory;
-import com.powsybl.iidm.network.RatioTapChanger;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.iidm.network.VscConverterStation;
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
-import com.powsybl.nad.*;
+import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.ZonedDateTime;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SubnetworkHighlightTest extends AbstractTest {
 
@@ -59,7 +48,7 @@ class SubnetworkHighlightTest extends AbstractTest {
     @Test
     void testSubnetworkHighlight() {
         Network network = createWithTieLines();
-        assertEquals(toString("/subnetwork_highlight.svg"), generateSvgString(network, "/subnetwork_highlight.svg"));
+        assertSvgEquals("/subnetwork_highlight.svg", network);
     }
 
     public static Network createWithTieLines() {
