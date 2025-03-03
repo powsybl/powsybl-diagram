@@ -35,7 +35,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusNode busNode) {
+    public List<String> getBusNodeStyleClasses(BusNode busNode) {
         if (busNode == BusNode.UNKNOWN) {
             return List.of(UNKNOWN_BUSNODE_CLASS);
         }
@@ -52,10 +52,10 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getEdgeStyleClasses(Edge edge) {
-        List<String> styleClasses = new ArrayList<>(super.getEdgeStyleClasses(edge));
-        if (IidmUtils.isIidmBranch(edge)) {
-            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+    public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
+        List<String> styleClasses = new ArrayList<>(super.getBranchEdgeStyleClasses(branchEdge));
+        if (IidmUtils.isIidmBranch(branchEdge)) {
+            Branch<?> branch = network.getBranch(branchEdge.getEquipmentId());
             if (branch.isOverloaded()) {
                 styleClasses.add(StyleProvider.LINE_OVERLOADED_CLASS);
             }
@@ -64,36 +64,27 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    protected Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
-                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));
+    protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
+        Terminal terminal = network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
+                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
         return getBaseVoltageStyle(terminal);
     }
 
     @Override
-    protected boolean isDisconnected(Edge edge) {
-        if (edge instanceof ThreeWtEdge) {
-            ThreeWtEdge twtEdge = (ThreeWtEdge) edge;
-            Terminal terminal = network.getThreeWindingsTransformer(twtEdge.getEquipmentId())
-                    .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(twtEdge.getSide()));
-            return terminal == null || !terminal.isConnected();
-        }
-        if (edge instanceof BranchEdge) {
-            return isDisconnected((BranchEdge) edge, BranchEdge.Side.ONE) && isDisconnected((BranchEdge) edge, BranchEdge.Side.TWO);
-        }
-        return false;
+    protected boolean isDisconnected(BranchEdge branchEdge) {
+        return isDisconnected(branchEdge, BranchEdge.Side.ONE) && isDisconnected(branchEdge, BranchEdge.Side.TWO);
+    }
+
+    @Override
+    protected boolean isDisconnected(ThreeWtEdge threeWtEdge) {
+        Terminal terminal = network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
+                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
+        return terminal == null || !terminal.isConnected();
     }
 
     @Override
     protected boolean isDisconnected(BranchEdge edge, BranchEdge.Side side) {
         return IidmUtils.isDisconnected(network, edge, side);
-    }
-
-    @Override
-    protected boolean isDisconnected(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Terminal terminal = network.getThreeWindingsTransformer(threeWtNode.getEquipmentId())
-                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));
-        return terminal == null || !terminal.isConnected();
     }
 
     @Override

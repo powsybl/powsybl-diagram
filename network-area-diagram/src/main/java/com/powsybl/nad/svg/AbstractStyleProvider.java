@@ -63,18 +63,18 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusNode busNode) {
+    public List<String> getBusNodeStyleClasses(BusNode busNode) {
         return busNode == BusNode.UNKNOWN ? Collections.singletonList(UNKNOWN_BUSNODE_CLASS) : Collections.emptyList();
     }
 
     @Override
-    public List<String> getEdgeStyleClasses(Edge edge) {
+    public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(edge)) {
+        if (isDisconnected(branchEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBranchTypeStyle(edge).ifPresent(result::add);
-        getBaseVoltageStyle(edge).ifPresent(result::add);
+        getBranchTypeStyle(branchEdge).ifPresent(result::add);
+        getBaseVoltageStyle(branchEdge).ifPresent(result::add);
         return result;
     }
 
@@ -100,7 +100,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getEdgeInfoStyles(EdgeInfo info) {
+    public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
         String infoType = info.getInfoType();
         switch (infoType) {
@@ -124,27 +124,26 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Objects.requireNonNull(side);
+    public List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(threeWtNode, side)) {
+        if (isDisconnected(threeWtEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBaseVoltageStyle(threeWtNode, side).ifPresent(result::add);
+        getBaseVoltageStyle(threeWtEdge).ifPresent(result::add);
         return result;
     }
 
-    protected abstract boolean isDisconnected(Edge edge);
+    protected abstract boolean isDisconnected(ThreeWtEdge threeWtEdge);
+
+    protected abstract boolean isDisconnected(BranchEdge branchEdge);
 
     protected abstract boolean isDisconnected(BranchEdge edge, BranchEdge.Side side);
-
-    protected abstract boolean isDisconnected(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(Edge edge);
 
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
-    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
+    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())
