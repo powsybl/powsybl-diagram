@@ -18,12 +18,14 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.GeographicalLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -68,11 +70,13 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
     @Test
     void testDrawSvg() {
-        Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        Path svgFile = fileSystem.getPath("nad-test.svg");
+        Network network = Network.read(Path.of("/home/dupuyflo/Data/pf_with_substation_positions.xiidm"));
+        Path svgFile = Path.of("/home/dupuyflo/france_init4.svg");
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
-                .setStyleProviderFactory(this::getStyleProvider);
+//                .setLayoutParameters(new LayoutParameters().setMaxSteps(3))
+                .setStyleProviderFactory(TopologicalStyleProvider::new)
+                .setLayoutFactory(new GeographicalLayoutFactory(network));
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
         assertFileEquals("/dangling_line_connected.svg", svgFile);
     }

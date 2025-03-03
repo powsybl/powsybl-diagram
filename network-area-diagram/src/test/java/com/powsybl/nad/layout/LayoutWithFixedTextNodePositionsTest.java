@@ -32,7 +32,7 @@ class LayoutWithFixedTextNodePositionsTest {
     void setup() {
         network = Networks.createTwoVoltageLevels();
         layoutParameters = new LayoutParameters();
-        basicForceLayout = new BasicForceLayoutFactory().create();
+        basicForceLayout = new ForceLayoutFactory().create();
     }
 
     private void checkShift(Point point1, Point point2, double shiftX, double shiftY) {

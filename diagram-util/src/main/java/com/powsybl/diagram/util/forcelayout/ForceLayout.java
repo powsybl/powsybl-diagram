@@ -174,7 +174,7 @@ public class ForceLayout<V, E> {
         setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
-            if (fixedNodes.contains(vertex)) {
+            if (fixedNodes.contains(vertex) && initialPoints.containsKey(vertex)) {
                 fixedPoints.put(vertex, initialPoints.get(vertex));
             } else {
                 Point initialPoint = initialPoints.get(vertex);
