@@ -19,8 +19,6 @@ import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -82,12 +80,12 @@ class OverridingStyleTest extends AbstractTest {
     @Test
     void testEurope() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        assertEquals(toString("/simple-eu_overridden_styles.svg"), generateSvgString(network, "/simple-eu_overridden_styles.svg"));
+        assertSvgEquals("/simple-eu_overridden_styles.svg", network);
     }
 
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        assertEquals(toString("/3wt_overridden_styles.svg"), generateSvgString(network, "/3wt_overridden_styles.svg"));
+        assertSvgEquals("/3wt_overridden_styles.svg", network);
     }
 }
