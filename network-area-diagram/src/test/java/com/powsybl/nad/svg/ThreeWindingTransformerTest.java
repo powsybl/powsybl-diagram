@@ -17,7 +17,6 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 
@@ -50,7 +49,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
+        assertSvgEquals("/3wt.svg", network);
     }
 
     @Test
@@ -58,7 +57,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
-        assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
+        assertSvgEquals("/3wt_disconnected.svg", network);
     }
 
     @Test
@@ -67,13 +66,13 @@ class ThreeWindingTransformerTest extends AbstractTest {
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
         styleProvider = new TopologicalStyleProvider(network);
-        assertEquals(toString("/3wt_disconnected_topological.svg"), generateSvgString(network, "/3wt_disconnected_topological.svg"));
+        assertSvgEquals("/3wt_disconnected_topological.svg", network);
     }
 
     @Test
     void testPartial3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
-        assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
+        assertSvgEquals("/3wt_partial.svg", network, filter);
     }
 }
