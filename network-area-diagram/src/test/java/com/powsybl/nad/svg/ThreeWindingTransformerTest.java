@@ -7,7 +7,9 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.PhaseTapChanger;
 import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -75,4 +77,106 @@ class ThreeWindingTransformerTest extends AbstractTest {
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
         assertSvgEquals("/3wt_partial.svg", network, filter);
     }
+
+    @Test
+    void test3wtPhaseShift() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network,
+                Collections.singletonList("VL_11"));
+
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+
+        twt.getLeg1().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg1().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        twt.getLeg2().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg2().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        twt.getLeg3().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg3().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        assertSvgEquals("/3wt_pst.svg", network, filter);
+    }
+
 }
