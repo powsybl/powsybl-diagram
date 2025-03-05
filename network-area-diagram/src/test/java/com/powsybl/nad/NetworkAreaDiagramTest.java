@@ -19,11 +19,9 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.iidm.CustomLabelProvider;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +34,7 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
@@ -261,26 +257,5 @@ class NetworkAreaDiagramTest extends AbstractTest {
         assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataFile);
-    }
-
-    @Test
-    void testCustomLabelProvider() {
-        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
-        Map<String, CustomLabelProvider.CustomBranchLabels> branchLabels = new HashMap<>();
-        branchLabels.put("L12", new CustomLabelProvider.CustomBranchLabels("L1_1", "L1", "L1_2", EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T12", new CustomLabelProvider.CustomBranchLabels("TWT1_1", "TWT1", "TWT1_2", null, null));
-        branchLabels.put("L11", new CustomLabelProvider.CustomBranchLabels(null, "L2", null, EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T11", new CustomLabelProvider.CustomBranchLabels(null, "TWT2", "TWT2_2", null, EdgeInfo.Direction.OUT));
-        Path svgFile = fileSystem.getPath("nad-custom-label-provider-test.svg");
-        SvgParameters svgPars = getSvgParameters();
-        svgPars.setEdgeNameDisplayed(true);
-        svgPars.setVoltageLevelDetails(false);
-        svgPars.setBusLegend(false);
-        NadParameters nadParameters = new NadParameters()
-                .setLabelProviderFactory((n, svgParameters) -> new CustomLabelProvider(n, svgParameters, branchLabels))
-                .setSvgParameters(svgPars)
-                .setStyleProviderFactory(this::getStyleProvider);
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
-        assertEquals(toString("/custom_label_provider.svg"), getContentFile(svgFile));
     }
 }
