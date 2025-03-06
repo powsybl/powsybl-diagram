@@ -69,11 +69,11 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-3wt-nodes">
         <g id="6" transform="translate(-22.79,-128.62)">
             <circle class="nad-vl0to30 nad-winding" cx="2.95" cy="-11.63" r="20.00"/>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.25,0.97,-0.97,-0.25,39.42,-33.32)" class="nad-vl0to30 nad-winding"/>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.25,-0.97,0.97,0.25,-33.51,10.06)" class="nad-vl0to30 nad-winding"/>
             <circle class="nad-vl120to180 nad-winding" cx="-11.55" cy="3.26" r="20.00"/>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-52.10,-9.23)" class="nad-vl120to180 nad-winding"/>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.47,-0.88,0.88,-0.47,-24.04,43.80)" class="nad-vl120to180 nad-winding"/>
             <circle class="nad-vl30to50 nad-winding" cx="8.60" cy="8.37" r="20.00"/>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.50,-0.87,0.87,-0.50,-2.41,49.35)" class="nad-vl30to50 nad-winding"/>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.97,0.26,-0.26,0.97,-12.60,-28.38)" class="nad-vl30to50 nad-winding"/>
         </g>
     </g>
     <g class="nad-text-edges">
