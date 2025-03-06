@@ -20,6 +20,7 @@ public class ThreeWtEdge extends AbstractEdge {
     }
 
     public static final String THREE_WT_EDGE = "ThreeWtEdge";
+    public static final String PST_EDGE = "PstEdge";
 
     private Side side;
 
@@ -27,8 +28,8 @@ public class ThreeWtEdge extends AbstractEdge {
 
     private final boolean visible;
 
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, boolean visible) {
-        super(diagramId, equipmentId, transformerName, THREE_WT_EDGE);
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, String type, boolean visible) {
+        super(diagramId, equipmentId, transformerName, type);
         this.side = side;
         this.visible = visible;
     }
