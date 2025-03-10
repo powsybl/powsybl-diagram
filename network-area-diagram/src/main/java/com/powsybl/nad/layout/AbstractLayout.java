@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -31,7 +31,7 @@ public abstract class AbstractLayout implements Layout {
         busNodesLayout(graph);
         edgesLayout(graph, layoutParameters);
 
-        computeSize(graph);
+        computeSize(graph, layoutParameters);
     }
 
     @Override
@@ -101,6 +101,39 @@ public abstract class AbstractLayout implements Layout {
         nodes.getSecond().setEdgeConnection(edgeConnection);
     }
 
+    protected void fixedProductionNodeLayout(Pair<VoltageLevelNode, ProductionNode> nodes, LayoutParameters layoutParameters) {
+        Point nodeShift = layoutParameters.getProductionNodeFixedShift();
+        double radius = layoutParameters.getPowerNodeRadius();
+        fixedPowerNodeLayout(nodes.getFirst().getPosition(), nodes.getSecond(), nodeShift, radius);
+    }
+
+    protected void fixedConsumptionNodeLayout(Pair<VoltageLevelNode, ConsumptionNode> nodes, LayoutParameters layoutParameters) {
+        Point nodeShift = layoutParameters.getConsumptionNodeFixedShift();
+        double radius = layoutParameters.getPowerNodeRadius();
+        fixedPowerNodeLayout(nodes.getFirst().getPosition(), nodes.getSecond(), nodeShift, radius);
+    }
+
+    protected void adjustProductionNodeForceLayout(Pair<VoltageLevelNode, ProductionNode> nodes, LayoutParameters layoutParameters) {
+        Point nodeShift = new Point(nodes.getFirst().getX() - nodes.getSecond().getX(), nodes.getSecond().getY() - nodes.getFirst().getY());
+        double radius = layoutParameters.getPowerNodeRadius();
+        fixedPowerNodeLayout(nodes.getFirst().getPosition(), nodes.getSecond(), nodeShift, radius);
+    }
+
+    protected void adjustConsumptionNodeForceLayout(Pair<VoltageLevelNode, ConsumptionNode> nodes, LayoutParameters layoutParameters) {
+        Point nodeShift = new Point(nodes.getFirst().getX() - nodes.getSecond().getX(), nodes.getSecond().getY() - nodes.getFirst().getY());
+        double radius = layoutParameters.getPowerNodeRadius();
+        fixedPowerNodeLayout(nodes.getFirst().getPosition(), nodes.getSecond(), nodeShift, radius);
+    }
+
+    protected void fixedPowerNodeLayout(Point vlNodePosition, PowerNode powerNode, Point shift, double radius) {
+        Point position = vlNodePosition.shift(shift.getX(), shift.getY());
+        double angle = position.getAngle(vlNodePosition);
+        Point connectionShift = new Point(shift.getX() + radius * Math.cos(angle), shift.getY() + radius * Math.sin(angle));
+        Point edgeConnection = vlNodePosition.shift(connectionShift.getX(), connectionShift.getY());
+        powerNode.setPosition(position);
+        powerNode.setEdgeConnection(edgeConnection);
+    }
+
     protected void edgesLayout(Graph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(layoutParameters);
@@ -116,14 +149,25 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private void computeSize(Graph graph) {
+    private void computeSize(Graph graph, LayoutParameters layoutParameters) {
         double[] dims = new double[] {Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE};
-        Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
-            dims[0] = Math.min(dims[0], node.getX());
-            dims[1] = Math.max(dims[1], node.getX());
-            dims[2] = Math.min(dims[2], node.getY());
-            dims[3] = Math.max(dims[3], node.getY());
-        });
+        if (layoutParameters.isPowerNodesForceLayout()) {
+            Stream.of(graph.getTextNodesStream(), graph.getNodesStream(), graph.getProductionNodesStream(),
+                graph.getConsumptionNodesStream()).flatMap(i -> i).forEach(node -> {
+                    dims[0] = Math.min(dims[0], node.getX());
+                    dims[1] = Math.max(dims[1], node.getX());
+                    dims[2] = Math.min(dims[2], node.getY());
+                    dims[3] = Math.max(dims[3], node.getY());
+                });
+        } else {
+            Stream.concat(graph.getTextNodesStream(), graph.getNodesStream()).forEach(node -> {
+                dims[0] = Math.min(dims[0], node.getX());
+                dims[1] = Math.max(dims[1], node.getX());
+                dims[2] = Math.min(dims[2], node.getY());
+                dims[3] = Math.max(dims[3], node.getY());
+            });
+        }
+
         graph.setDimensions(dims[0], dims[1], dims[2], dims[3]);
     }
 }

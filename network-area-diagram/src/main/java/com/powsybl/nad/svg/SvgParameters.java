@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -55,7 +55,7 @@ public class SvgParameters {
     private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
-
+    private boolean voltageLevelPowerDetails = false;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -108,6 +108,7 @@ public class SvgParameters {
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.voltageLevelPowerDetails = other.voltageLevelPowerDetails;
     }
 
     public Padding getDiagramPadding() {
@@ -491,4 +492,14 @@ public class SvgParameters {
         this.undefinedValueSymbol = undefinedValueSymbol;
         return this;
     }
+
+    public boolean isVoltageLevelPowerDetails() {
+        return voltageLevelPowerDetails;
+    }
+
+    public SvgParameters setVoltageLevelPowerDetails(boolean voltageLevelPowerDetails) {
+        this.voltageLevelPowerDetails = voltageLevelPowerDetails;
+        return this;
+    }
+
 }
