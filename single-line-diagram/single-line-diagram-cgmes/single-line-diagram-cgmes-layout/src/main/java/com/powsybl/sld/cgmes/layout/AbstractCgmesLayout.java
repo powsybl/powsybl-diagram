@@ -204,34 +204,40 @@ public abstract class AbstractCgmesLayout implements Layout {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;
                 Load load = vl.getConnectable(loadNode.getId(), Load.class);
-                InjectionDiagramData<Load> loadDiagramData = load != null ? load.getExtension(InjectionDiagramData.class) : null;
+                InjectionDiagramData<Load> loadDiagramData = load != null
+                        ? load.getExtension(InjectionDiagramData.class)
+                        : null;
                 setInjectionNodeCoordinates(loadNode, loadDiagramData, true, diagramName);
                 break;
             case GENERATOR:
                 FeederNode generatorNode = (FeederNode) node;
                 Generator generator = vl.getConnectable(generatorNode.getId(), Generator.class);
-                InjectionDiagramData<Generator> generatorDiagramData = generator != null ? generator.getExtension(InjectionDiagramData.class) : null;
+                InjectionDiagramData<Generator> generatorDiagramData = generator != null
+                        ? generator.getExtension(InjectionDiagramData.class)
+                        : null;
                 setInjectionNodeCoordinates(generatorNode, generatorDiagramData, false, diagramName);
                 break;
-            case CAPACITOR:
-            case INDUCTOR:
+            case CAPACITOR, INDUCTOR:
                 FeederNode shuntNode = (FeederNode) node;
                 ShuntCompensator shunt = vl.getConnectable(shuntNode.getId(), ShuntCompensator.class);
-                InjectionDiagramData<ShuntCompensator> shuntDiagramData = shunt != null ? shunt.getExtension(InjectionDiagramData.class) : null;
+                InjectionDiagramData<ShuntCompensator> shuntDiagramData = shunt != null
+                        ? shunt.getExtension(InjectionDiagramData.class)
+                        : null;
                 setInjectionNodeCoordinates(shuntNode, shuntDiagramData, true, diagramName);
                 break;
             case STATIC_VAR_COMPENSATOR:
                 FeederNode svcNode = (FeederNode) node;
                 StaticVarCompensator svc = vl.getConnectable(svcNode.getId(), StaticVarCompensator.class);
-                InjectionDiagramData<StaticVarCompensator> svcDiagramData = svc != null ? svc.getExtension(InjectionDiagramData.class) : null;
+                InjectionDiagramData<StaticVarCompensator> svcDiagramData = svc != null
+                        ? svc.getExtension(InjectionDiagramData.class)
+                        : null;
                 setInjectionNodeCoordinates(svcNode, svcDiagramData, true, diagramName);
                 break;
-            case TWO_WINDINGS_TRANSFORMER:
-            case PHASE_SHIFT_TRANSFORMER:
-            case TWO_WINDINGS_TRANSFORMER_LEG:
-            case PHASE_SHIFT_TRANSFORMER_LEG:
+            case TWO_WINDINGS_TRANSFORMER, PHASE_SHIFT_TRANSFORMER, TWO_WINDINGS_TRANSFORMER_LEG,
+                    PHASE_SHIFT_TRANSFORMER_LEG:
                 FeederNode transformerNode = (FeederNode) node;
-                TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(), TwoWindingsTransformer.class);
+                TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(),
+                        TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
@@ -239,8 +245,10 @@ public abstract class AbstractCgmesLayout implements Layout {
                 }
                 setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, false, diagramName);
                 break;
-            case THREE_WINDINGS_TRANSFORMER:
-            case THREE_WINDINGS_TRANSFORMER_LEG:
+            case THREE_WINDINGS_TRANSFORMER, THREE_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_PST_1,
+                    THREE_WINDINGS_TRANSFORMER_PST_2, THREE_WINDINGS_TRANSFORMER_PST_3,
+                    THREE_WINDINGS_TRANSFORMER_PST_1_2, THREE_WINDINGS_TRANSFORMER_PST_1_3,
+                    THREE_WINDINGS_TRANSFORMER_PST_2_3, THREE_WINDINGS_TRANSFORMER_PST_1_2_3:
                 FeederNode transformer3wNode = (FeederNode) node;
                 ThreeWindingsTransformer transformer3w = vl.getConnectable(transformer3wNode.getEquipmentId(), ThreeWindingsTransformer.class);
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
