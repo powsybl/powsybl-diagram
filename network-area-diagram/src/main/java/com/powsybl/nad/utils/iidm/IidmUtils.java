@@ -95,7 +95,7 @@ public final class IidmUtils {
 
     public static boolean isIidmBranch(Edge edge) {
         if (edge instanceof BranchEdge) {
-            String edgeType = ((BranchEdge) edge).getType();
+            String edgeType = edge.getType();
             return !edgeType.equals(BranchEdge.HVDC_LINE_EDGE) &&
                     !edgeType.equals(BranchEdge.DANGLING_LINE_EDGE);
         }
