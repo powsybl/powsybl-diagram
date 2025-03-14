@@ -14,6 +14,7 @@ import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.iidm.IidmUtils;
+import com.powsybl.nad.utils.svg.SvgUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,11 +122,11 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public String getArrowPathDIn() {
-        return "M-1 -1 H1 L0 1z";
+        return SvgUtils.ARROW_PATH_DIN;
     }
 
     @Override
     public String getArrowPathDOut() {
-        return "M-1 1 H1 L0 -1z";
+        return SvgUtils.ARROW_PATH_DOUT;
     }
 }
