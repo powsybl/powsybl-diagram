@@ -198,16 +198,10 @@
                 <polyline points="140.0,252.0,140.0,222.0"/>
             </g>
             <g class="sld-wire sld-vl120to180-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_3WT">
-                <polyline points="140.0,222.0,140.0,194.0"/>
+                <polyline points="140.0,222.0,140.0,154.0"/>
             </g>
-            <g class="sld-wire sld-vl120to180-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_3WT_95_TWO_95_3WT">
-                <polyline points="115.0,142.0,115.0,182.0,133.0,182.0"/>
-            </g>
-            <g class="sld-wire sld-vl120to180-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_3WT_95_THREE_95_3WT">
-                <polyline points="165.0,142.0,165.0,182.0,147.0,182.0"/>
-            </g>
-            <g class="sld-wire sld-vl30to50-0" id="_95_VL_95_132_95_3WT_95_TWO_95_INTERNAL_95_VL_95_132_95_3WT_95_TWO">
-                <polyline points="115.0,80.0,115.0,142.0"/>
+            <g class="sld-wire sld-vl30to50-0" id="_95_VL_95_132_95_3WT_95_TWO_95_3WT">
+                <polyline points="115.0,80.0,115.0,142.0,133.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="id3WT_95_TWO_ARROW_ACTIVE" transform="translate(110.0,95.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
@@ -219,8 +213,8 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-400</text>
             </g>
-            <g class="sld-wire sld-vl0to30-0" id="_95_VL_95_132_95_3WT_95_THREE_95_INTERNAL_95_VL_95_132_95_3WT_95_THREE">
-                <polyline points="165.0,80.0,165.0,142.0"/>
+            <g class="sld-wire sld-vl0to30-0" id="_95_VL_95_132_95_3WT_95_THREE_95_3WT">
+                <polyline points="165.0,80.0,165.0,142.0,147.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="id3WT_95_THREE_ARROW_ACTIVE" transform="translate(160.0,95.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
@@ -238,7 +232,7 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180-0" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT" transform="translate(136.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(132.0,170.0)">
+            <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(132.0,130.0)">
                 <circle class="sld-vl30to50-0 sld-winding" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl0to30-0 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl120to180-0 sld-winding" cx="8" cy="19" r="5"/>
@@ -246,14 +240,8 @@
                 <path class="sld-vl0to30-0 sld-winding" d="M16,9 6,20 M14,9 16,9 16,11"/>
                 <path class="sld-vl120to180-0 sld-winding" d="M2.5,15 13.5,25 M11.5,25 13.5,25 13.5,23"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180-0" id="idINTERNAL_95_VL_95_132_95_3WT_95_TWO" transform="translate(111.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
             <g class="sld-top-feeder sld-vl120to180-0" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
                 <text class="sld-label" id="3WT_TWO_N_LABEL" x="-5.0" y="-5.0">3WT</text>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180-0" id="idINTERNAL_95_VL_95_132_95_3WT_95_THREE" transform="translate(161.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl120to180-0" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
                 <text class="sld-label" id="3WT_THREE_N_LABEL" x="-5.0" y="-5.0">3WT</text>

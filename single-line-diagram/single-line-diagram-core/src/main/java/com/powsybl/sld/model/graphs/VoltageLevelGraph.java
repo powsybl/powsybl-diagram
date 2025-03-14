@@ -376,7 +376,18 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private boolean isInternal3wtFeederNode(FeederNode feederNode) {
         return feederNode.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG
-                && feederNode.getAdjacentNodes().get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
+                && is3wtComponent(feederNode.getAdjacentNodes().get(0).getComponentType());
+    }
+
+    private boolean is3wtComponent(String componentName) {
+        return componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_1)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_2)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_3)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_1_2)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_1_3)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_2_3)
+                || componentName.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_PST_1_2_3);
     }
 
     private void insertFeederHookNode(Node feederNode) {
