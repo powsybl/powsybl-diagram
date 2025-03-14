@@ -5,19 +5,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.nad.svg.iidm;
+package com.powsybl.nad.svg;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.model.*;
-import com.powsybl.nad.svg.EdgeInfo;
-import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.utils.svg.SvgUtils;
 
 import java.util.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
-public class CustomLabelProvider extends DefaultLabelProvider {
+public class CustomLabelProvider implements LabelProvider {
     final Map<String, CustomBranchLabels> branchLabels;
     final Map<String, CustomThreeWtLabels> threeWtLabels;
     final Map<String, String> busDescriptions;
@@ -30,9 +28,8 @@ public class CustomLabelProvider extends DefaultLabelProvider {
     public record CustomThreeWtLabels(String side1, String side2, String side3, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
     }
 
-    public CustomLabelProvider(Network network, SvgParameters svgParameters, Map<String, CustomBranchLabels> branchLabels, Map<String, CustomThreeWtLabels> threeWtLabels,
+    public CustomLabelProvider(Map<String, CustomBranchLabels> branchLabels, Map<String, CustomThreeWtLabels> threeWtLabels,
                                Map<String, String> busDescriptions, Map<String, List<String>> vlDescriptions, Map<String, List<String>> vlDetails) {
-        super(network, svgParameters);
         this.branchLabels = Objects.requireNonNull(branchLabels);
         this.threeWtLabels = Objects.requireNonNull(threeWtLabels);
         this.busDescriptions = Objects.requireNonNull(busDescriptions);
@@ -96,5 +93,15 @@ public class CustomLabelProvider extends DefaultLabelProvider {
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
         return vlDetails.getOrDefault(vlNode.getEquipmentId(), Collections.emptyList());
+    }
+
+    @Override
+    public String getArrowPathDIn() {
+        return SvgUtils.ARROW_PATH_DIN;
+    }
+
+    @Override
+    public String getArrowPathDOut() {
+        return SvgUtils.ARROW_PATH_DOUT;
     }
 }

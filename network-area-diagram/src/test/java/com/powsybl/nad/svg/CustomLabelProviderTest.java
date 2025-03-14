@@ -12,7 +12,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.svg.iidm.CustomLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +30,9 @@ class CustomLabelProviderTest extends AbstractTest {
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters());
+
+        //Note: SvgParameters EdgeNameDisplayed, VoltageLevelDetails, and BusLegend must be true,
+        // for the edge names, the VL descriptions plus VL details, and bus descriptions to be rendered
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800)
@@ -72,7 +74,7 @@ class CustomLabelProviderTest extends AbstractTest {
         Map<String, List<String>> vlDetails = new HashMap<>();
         vlDetails.put("VL2", List.of("VL2 details1", "VL2 details2"));
 
-        labelProvider = new CustomLabelProvider(network, getSvgParameters(), branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
 
         assertSvgEquals("/custom_label_provider.svg", network);
     }
@@ -100,7 +102,7 @@ class CustomLabelProviderTest extends AbstractTest {
         vlDetails.put("VL_33", List.of("VL 33 details1", "VL 33 details2"));
         vlDetails.put("VL_11", List.of("VL 1 details1"));
 
-        labelProvider = new CustomLabelProvider(network, getSvgParameters(), branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
 
         assertSvgEquals("/custom_label_provider_3wt.svg", network);
     }
