@@ -174,7 +174,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminal = twt.getTerminal(side);
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
-                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
+                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side),
+                twt.getLeg(side).hasPhaseTapChanger() ? ThreeWtEdge.PST_EDGE : ThreeWtEdge.THREE_WT_EDGE,
+                vlNode.isVisible());
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
     }
 

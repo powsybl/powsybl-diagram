@@ -35,6 +35,9 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
     private static final String WINDING3 = "WINDING3";
+    private static final String ARROW1 = "ARROW1";
+    private static final String ARROW2 = "ARROW2";
+    private static final String ARROW3 = "ARROW3";
 
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -152,9 +155,9 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
-            case WINDING1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
+            case WINDING1, ARROW1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
             default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
         }
     }
@@ -177,9 +180,9 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
-            case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
+            case WINDING1, ARROW1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
             default: return null; // for decorators
         }
     }

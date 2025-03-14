@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.iidm.network.PhaseTapChanger;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.SubstationGraph;
@@ -38,6 +40,114 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevel.svg"));
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChanger() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+
+        twt.getLeg1()
+                .newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg1().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+
+        twt.getLeg2()
+                .newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg2().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+
+        twt.getLeg3()
+                .newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg3().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        graphBuilder = new NetworkGraphBuilder(network);
+        // Build substation graph and run layout
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
+        voltageLevelGraphLayout(g);
+
+        assertEquals(toString("/Test3WTPhaseTapChangerVoltageLevel.svg"),
+                toSVG(g, "/Test3WTPhaseTapChangerVoltageLevel.svg"));
     }
 
     @Test
