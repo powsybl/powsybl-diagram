@@ -20,16 +20,16 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 ]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-55.80,-196.10)" id="0">
-            <circle r="27.50" id="1" class="nad-busnode" style="background:yellow; fill:yellow;"/>
+            <circle r="27.50" id="1" class="nad-busnode"/>
         </g>
         <g transform="translate(-321.25,57.51)" id="2">
-            <circle r="27.50" id="3" class="nad-busnode" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/>
+            <circle r="27.50" id="3" class="nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
         <g id="4">
             <g id="4.1">
-                <path class="nad-edge-path" d="M-74.80,-215.99 L-111.07,-253.95 C-138.70,-282.87 -123.08,-303.22 -84.21,-312.69" style="stroke:blue; stroke-width:2px;"/>
+                <path class="nad-edge-path" d="M-74.80,-215.99 L-111.07,-253.95 C-138.70,-282.87 -123.08,-303.22 -84.21,-312.69"/>
                 <g class="nad-edge-infos" transform="translate(-111.07,-253.95)">
                     <g>
                         <g transform="rotate(-43.69)">
@@ -41,7 +41,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="4.2">
-                <path class="nad-edge-path" d="M-48.08,-222.50 L-33.34,-272.89 C-22.11,-311.28 -45.35,-322.16 -84.21,-312.69" style="stroke:blue; stroke-width:2px;"/>
+                <path class="nad-edge-path" d="M-48.08,-222.50 L-33.34,-272.89 C-22.11,-311.28 -45.35,-322.16 -84.21,-312.69"/>
                 <g class="nad-edge-infos" transform="translate(-33.34,-272.89)">
                     <g>
                         <g transform="rotate(16.31)">
@@ -60,7 +60,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="5">
             <g id="5.1">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-1" style="stroke:green; stroke-width:4px; stroke-dasharray:8,4;" points="-82.52,-189.59 -133.53,-177.16 -216.16,-98.22"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-82.52,-189.59 -133.53,-177.16 -216.16,-98.22"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-155.22,-156.44)">
                     <g>
                         <g transform="rotate(-133.69)">
@@ -72,7 +72,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="5.2">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-2" style="stroke:green; stroke-width:4px; stroke-dasharray:8,4;" points="-313.53,31.12 -298.79,-19.27 -216.16,-98.22"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-313.53,31.12 -298.79,-19.27 -216.16,-98.22"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-277.10,-39.99)">
                     <g>
                         <g transform="rotate(46.31)">
@@ -91,7 +91,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="6">
             <g id="6.1">
-                <path class="nad-edge-path" d="M-29.09,-202.61 L21.92,-215.04 C60.79,-224.51 70.60,-200.80 67.79,-191.21" style="stroke:red; stroke-width:8px;"/>
+                <path class="nad-edge-path" d="M-29.09,-202.61 L21.92,-215.04 C60.79,-224.51 70.60,-200.80 67.79,-191.21"/>
                 <g class="nad-edge-infos" transform="translate(21.92,-215.04)">
                     <g class="nad-state-out">
                         <g transform="rotate(76.31)">
@@ -103,7 +103,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="6.2">
-                <path class="nad-edge-path" d="M-36.81,-176.22 L-0.54,-138.26 C27.09,-109.34 48.14,-124.02 50.95,-133.62" style="stroke:brown; stroke-width:8px;"/>
+                <path class="nad-edge-path" d="M-36.81,-176.22 L-0.54,-138.26 C27.09,-109.34 48.14,-124.02 50.95,-133.62"/>
                 <g class="nad-edge-infos" transform="translate(-0.54,-138.26)">
                     <g class="nad-state-out">
                         <g transform="rotate(136.31)">
@@ -115,8 +115,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-winding" style="stroke:red; stroke-width:8px;" cx="62.18" cy="-172.01" r="20.00"/>
-                <circle class="nad-winding" style="stroke:brown; stroke-width:8px;" cx="56.56" cy="-152.81" r="20.00"/>
+                <circle class="nad-winding" cx="62.18" cy="-172.01" r="20.00"/>
+                <circle class="nad-winding" cx="56.56" cy="-152.81" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(59.37,-162.41)">
                     <text transform="rotate(-73.69)" x="0.00" style="text-anchor:middle">T11</text>
                 </g>
@@ -124,7 +124,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="7">
             <g id="7.1">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-1" style="stroke:orange;" points="-63.52,-169.71 -78.26,-119.32 -139.20,-61.10"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-63.52,-169.71 -78.26,-119.32 -139.20,-61.10"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-99.96,-98.60)">
                     <g class="nad-state-out">
                         <g transform="rotate(-133.69)">
@@ -136,7 +136,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g id="7.2">
-                <polyline class="nad-edge-path nad-stretchable nad-glued-2" style="stroke:orange;" points="-294.53,51.00 -243.53,38.57 -182.59,-19.65"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-294.53,51.00 -243.53,38.57 -182.59,-19.65"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-221.83,17.85)">
                     <g class="nad-state-out">
                         <g transform="rotate(46.31)">
@@ -148,8 +148,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g class="nad-glued-center">
-                <circle class="nad-winding" style="stroke:orange;" cx="-153.66" cy="-47.28" r="20.00"/>
-                <circle class="nad-winding" style="stroke:orange;" cx="-168.12" cy="-33.47" r="20.00"/>
+                <circle class="nad-winding" cx="-153.66" cy="-47.28" r="20.00"/>
+                <circle class="nad-winding" cx="-168.12" cy="-33.47" r="20.00"/>
                 <g class="nad-edge-label" transform="translate(-160.89,-40.37)">
                     <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">T12</text>
                 </g>
@@ -158,7 +158,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     </g>
     <g class="nad-3wt-edges">
         <g id="9">
-            <polyline class="nad-edge-path nad-stretchable" style="stroke:gray; stroke-width:4px;" points="-50.52,-169.12 31.80,115.04"/>
+            <polyline class="nad-edge-path nad-stretchable" points="-50.52,-169.12 31.80,115.04"/>
             <g class="nad-glued-1 nad-edge-infos" transform="translate(-41.47,-137.90)">
                 <g>
                     <g transform="rotate(163.84)">
@@ -170,7 +170,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             </g>
         </g>
         <g id="10">
-            <polyline class="nad-edge-path nad-stretchable" style="stroke:purple; stroke-width:4px; stroke-dasharray:4,4;" points="-50.52,-169.12 18.67,168.89"/>
+            <polyline class="nad-edge-path nad-stretchable" points="-50.52,-169.12 18.67,168.89"/>
             <g class="nad-glued-1 nad-edge-infos" transform="translate(-44.00,-137.28)">
                 <g>
                     <g transform="rotate(168.43)">
@@ -182,7 +182,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             </g>
         </g>
         <g id="11">
-            <polyline class="nad-edge-path nad-stretchable" style="stroke:pink; stroke-width:6px;" points="-294.53,64.03 -21.40,130.60"/>
+            <polyline class="nad-edge-path nad-stretchable" points="-294.53,64.03 -21.40,130.60"/>
             <g class="nad-glued-1 nad-edge-infos" transform="translate(-262.96,71.72)">
                 <g>
                     <g transform="rotate(103.70)">
@@ -196,9 +196,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     </g>
     <g class="nad-3wt-nodes">
         <g id="8" transform="translate(9.69,138.18)">
-            <circle class="nad-winding" style="stroke:gray; stroke-width:4px;" cx="8.29" cy="-8.68" r="20.00"/>
-            <circle class="nad-winding" style="stroke:purple; stroke-width:4px; stroke-dasharray:4,4;" cx="3.37" cy="11.52" r="20.00"/>
-            <circle class="nad-winding" style="stroke:pink; stroke-width:6px;" cx="-11.66" cy="-2.84" r="20.00"/>
+            <circle class="nad-winding" cx="8.29" cy="-8.68" r="20.00"/>
+            <circle class="nad-winding" cx="3.37" cy="11.52" r="20.00"/>
+            <circle class="nad-winding" cx="-11.66" cy="-2.84" r="20.00"/>
         </g>
     </g>
     <g class="nad-text-edges">
@@ -212,7 +212,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-legend-square" style="background:yellow; fill:yellow;"/>
+                            <div class="nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -225,7 +225,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/>
+                            <div class="nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
