@@ -5,11 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.nad.svg.iidm;
+package com.powsybl.nad.svg;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.util.*;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
-public class CustomStyleProvider extends TopologicalStyleProvider {
+public class CustomStyleProvider extends AbstractStyleProvider {
 
     final Map<String, CustomBusNodeStyles> busNodesStyles;
     final Map<String, CustomEdgeStyles> edgesStyles;
@@ -39,12 +39,16 @@ public class CustomStyleProvider extends TopologicalStyleProvider {
     private record CustomEdgeStyle(String stroke, String strokeWidth, String dash) {
     }
 
-    public CustomStyleProvider(Network network, Map<String, CustomBusNodeStyles> busNodesStyles, Map<String, CustomEdgeStyles> edgesStyles,
+    public CustomStyleProvider(Map<String, CustomBusNodeStyles> busNodesStyles, Map<String, CustomEdgeStyles> edgesStyles,
                                Map<String, CustomThreeWtStyles> threeWtsStyles) {
-        super(network);
         this.busNodesStyles = Objects.requireNonNull(busNodesStyles);
         this.edgesStyles = Objects.requireNonNull(edgesStyles);
         this.threeWtsStyles = Objects.requireNonNull(threeWtsStyles);
+    }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return Collections.singletonList("customStyle.css");
     }
 
     @Override
@@ -104,5 +108,43 @@ public class CustomStyleProvider extends TopologicalStyleProvider {
         return Optional.ofNullable(threeWtsStyles.get(threeWtEdge.getEquipmentId()))
                 .map(styles -> formatEdgeStyle(getThreeWtStyle(styles, side)))
                 .orElse(null);
+    }
+
+    @Override
+    public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
+        List<String> styles = new LinkedList<>();
+        info.getDirection().ifPresent(direction -> styles.add(
+                CLASSES_PREFIX + (direction == EdgeInfo.Direction.OUT ? "state-out" : "state-in")));
+        return styles;
+    }
+
+    @Override
+    protected boolean isDisconnected(ThreeWtEdge threeWtEdge) {
+        return false;
+    }
+
+    @Override
+    protected boolean isDisconnected(BranchEdge branchEdge) {
+        return false;
+    }
+
+    @Override
+    protected boolean isDisconnected(BranchEdge edge, BranchEdge.Side side) {
+        return false;
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(Edge edge) {
+        return Optional.empty();
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
+        return Optional.empty();
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
+        return Optional.empty();
     }
 }
