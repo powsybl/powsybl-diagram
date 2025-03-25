@@ -55,13 +55,13 @@ class CustomLabelProviderTest extends AbstractTest {
     void testCustomLabelProvider() {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
 
-        Map<String, CustomLabelProvider.CustomBranchLabels> branchLabels = new HashMap<>();
-        branchLabels.put("L12", new CustomLabelProvider.CustomBranchLabels("L1_1", "L1", "L1_2", EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T12", new CustomLabelProvider.CustomBranchLabels("TWT1_1", "TWT1", "TWT1_2", null, null));
-        branchLabels.put("L11", new CustomLabelProvider.CustomBranchLabels(null, "L2", null, EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T11", new CustomLabelProvider.CustomBranchLabels(null, "TWT2", "TWT2_2", null, EdgeInfo.Direction.OUT));
+        Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
+        branchLabels.put("L12", new CustomLabelProvider.BranchLabels("L1_1", "L1", "L1_2", EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
+        branchLabels.put("T12", new CustomLabelProvider.BranchLabels("TWT1_1", "TWT1", "TWT1_2", null, null));
+        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, "L2", null, EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
+        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, "TWT2", "TWT2_2", null, EdgeInfo.Direction.OUT));
 
-        Map<String, CustomLabelProvider.CustomThreeWtLabels> threeWtLabels = new HashMap<>();
+        Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
 
         Map<String, String> busDescriptions = new HashMap<>();
         busDescriptions.put("VL1_10", "VL1 10");
@@ -83,9 +83,9 @@ class CustomLabelProviderTest extends AbstractTest {
     void testCustomLabelProvider3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
 
-        Map<String, CustomLabelProvider.CustomBranchLabels> branchLabels = new HashMap<>();
-        Map<String, CustomLabelProvider.CustomThreeWtLabels> threeWtLabels = new HashMap<>();
-        threeWtLabels.put("3WT", new CustomLabelProvider.CustomThreeWtLabels("SIDE1", "SIDE2", "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
+        Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
+        Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
+        threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels("SIDE1", "SIDE2", "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
 
         Map<String, String> busDescriptions = new HashMap<>();
         busDescriptions.put("VL_132_0", "VL1 132");
