@@ -215,12 +215,13 @@ public final class NodeFactory {
 
     public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, NodeSide vlSide,
                                                     FeederNode firstOtherLegNode, FeederNode secondOtherLegNode,
-                                                    VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3) {
+                                                    VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3, boolean hasPhaseTapChanger1, boolean hasPhaseTapChanger2, boolean hasPhaseTapChanger3) {
         if (firstOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
                 || secondOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
-        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, true);
+        String componentType = getComponentType(hasPhaseTapChanger1, hasPhaseTapChanger2, hasPhaseTapChanger3);
+        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, componentType, true);
         m3wn.setWindingOrder(Middle3WTNode.Winding.DOWN, vlSide);
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, ((FeederTwLeg) firstOtherLegNode.getFeeder()).getSide());
         m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, ((FeederTwLeg) secondOtherLegNode.getFeeder()).getSide());
@@ -228,6 +229,25 @@ public final class NodeFactory {
         baseGraph.addEdge(firstOtherLegNode, m3wn);
         baseGraph.addEdge(secondOtherLegNode, m3wn);
         return m3wn;
+    }
+
+    private static String getComponentType(boolean hasPhaseTapChanger1, boolean hasPhaseTapChanger2, boolean hasPhaseTapChanger3) {
+        if (hasPhaseTapChanger1 && hasPhaseTapChanger2 && hasPhaseTapChanger3) {
+            return THREE_WINDINGS_TRANSFORMER_PST_1_2_3;
+        } else if (hasPhaseTapChanger1 && hasPhaseTapChanger2) {
+            return THREE_WINDINGS_TRANSFORMER_PST_1_2;
+        } else if (hasPhaseTapChanger1 && hasPhaseTapChanger3) {
+            return THREE_WINDINGS_TRANSFORMER_PST_1_3;
+        } else if (hasPhaseTapChanger2 && hasPhaseTapChanger3) {
+            return THREE_WINDINGS_TRANSFORMER_PST_2_3;
+        } else if (hasPhaseTapChanger1) {
+            return THREE_WINDINGS_TRANSFORMER_PST_1;
+        } else if (hasPhaseTapChanger2) {
+            return THREE_WINDINGS_TRANSFORMER_PST_2;
+        } else if (hasPhaseTapChanger3) {
+            return THREE_WINDINGS_TRANSFORMER_PST_3;
+        }
+        return THREE_WINDINGS_TRANSFORMER;
     }
 
     public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, FeederNode legNode3) {
@@ -240,6 +260,7 @@ public final class NodeFactory {
                 ((FeederTwLeg) legNode1.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode2.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(),
+                THREE_WINDINGS_TRANSFORMER,
                 false);
         baseGraph.addTwtEdge(legNode1, m3wn);
         baseGraph.addTwtEdge(legNode2, m3wn);
