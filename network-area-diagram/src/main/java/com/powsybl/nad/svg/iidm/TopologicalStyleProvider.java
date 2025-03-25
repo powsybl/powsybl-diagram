@@ -38,8 +38,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusNode busNode) {
-        List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
+    public List<String> getBusNodeStyleClasses(BusNode busNode) {
+        List<String> styles = new ArrayList<>(super.getBusNodeStyleClasses(busNode));
         if (busNode instanceof BoundaryBusNode) {
             String dlId = busNode.getEquipmentId();
             getBaseVoltageStyle(network.getDanglingLine(dlId).getTerminal().getVoltageLevel().getNominalV())
