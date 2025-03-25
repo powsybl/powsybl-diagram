@@ -332,6 +332,9 @@ public class SvgWriter {
             List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
             for (ThreeWtEdge edge : edges) {
                 draw3WtWinding(edge, threeWtNode, writer);
+                if (ThreeWtEdge.PST_EDGE.equals(edge.getType())) {
+                    drawPstArrow(writer, threeWtNode, edge);
+                }
             }
             writer.writeEndElement();
         }
@@ -347,6 +350,29 @@ public class SvgWriter {
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX() - threeWtNode.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY() - threeWtNode.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
+    }
+
+    private void drawPstArrow(XMLStreamWriter writer, ThreeWtNode threeWtNode, ThreeWtEdge edge) throws XMLStreamException {
+        double arrowSize = 3 * svgParameters.getTransformerCircleRadius();
+
+        double delta = switch (edge.getSide()) {
+            case ONE -> 1.5 * Math.PI;
+            case TWO -> 0.75 * Math.PI;
+            case THREE -> Math.PI;
+        };
+
+        double rotationAngle = edge.getEdgeAngle() + delta;
+
+        double radius = svgParameters.getTransformerCircleRadius();
+        Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
+        Point p = new Point(circleCenter.getX() - threeWtNode.getX(), circleCenter.getY() - threeWtNode.getY());
+        double[] matrix = getTransformMatrix(arrowSize, arrowSize, rotationAngle, p);
+
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, getPstArrowPath(arrowSize));
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getMatrixString(matrix));
+        writeStyleClasses(writer, styleProvider.getThreeWtEdgeStyleClasses(edge), StyleProvider.WINDING_CLASS);
+        writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
     }
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {

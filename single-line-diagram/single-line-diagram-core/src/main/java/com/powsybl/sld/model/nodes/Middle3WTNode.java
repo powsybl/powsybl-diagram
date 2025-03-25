@@ -12,8 +12,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
@@ -21,10 +19,10 @@ public class Middle3WTNode extends MiddleTwtNode {
     private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);
     private final boolean embeddedInVlGraph;
 
-    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
+    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, String componentType, boolean embeddedInVLGraph) {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
-            THREE_WINDINGS_TRANSFORMER);
+            componentType);
         this.embeddedInVlGraph = embeddedInVLGraph;
     }
 
