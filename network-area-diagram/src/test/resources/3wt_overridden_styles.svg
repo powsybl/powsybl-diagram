@@ -127,8 +127,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-3wt-edges">
         <g id="7" class="nad-vl0to30-line">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path nad-stretchable" style="stroke: black; stroke-dasharray:12,12" points="68.27,-487.11 -14.91,-159.64"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(60.27,-455.61)">
+            <polyline class="nad-edge-path" style="stroke: black; stroke-dasharray:12,12" points="68.27,-487.11 -14.91,-159.64"/>
+            <g class="nad-edge-infos" transform="translate(60.27,-455.61)">
                 <g class="nad-active">
                     <g transform="rotate(-165.75)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -140,8 +140,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="8" class="nad-vl120to180-line">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path nad-stretchable" style="stroke: lightgray; stroke-dasharray:4,4;" points="-346.98,35.28 -53.59,-119.94"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(-318.25,20.09)">
+            <polyline class="nad-edge-path" style="stroke: lightgray; stroke-dasharray:4,4;" points="-346.98,35.28 -53.59,-119.94"/>
+            <g class="nad-edge-infos" transform="translate(-318.25,20.09)">
                 <g class="nad-active">
                     <g transform="rotate(62.12)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -153,8 +153,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="9" class="nad-vl30to50-line">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path nad-stretchable" style="stroke: gray; stroke-dasharray:8,8" points="165.92,181.19 0.13,-106.29"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(149.68,153.04)">
+            <polyline class="nad-edge-path" style="stroke: gray; stroke-dasharray:8,8" points="165.92,181.19 0.13,-106.29"/>
+            <g class="nad-edge-infos" transform="translate(149.68,153.04)">
                 <g class="nad-active">
                     <g transform="rotate(-29.97)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
