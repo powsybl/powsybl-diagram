@@ -377,7 +377,8 @@ public class SvgWriter {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getPstArrowPath(arrowSize));
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getMatrixString(matrix));
-        writeStyleClasses(writer, styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide()), StyleProvider.WINDING_CLASS);
+        writeStyleClasses(writer, styleProvider.getThreeWtEdgeStyleClasses(edge), StyleProvider.WINDING_CLASS);
+        writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
     }
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
