@@ -14,7 +14,7 @@ public final class SvgUtils {
     private SvgUtils() {
     }
 
-    public static String ARROW_PATH_DIN = "M-1 -1 H1 L0 1z";
+    public static final String ARROW_PATH_DIN = "M-1 -1 H1 L0 1z";
 
-    public static String ARROW_PATH_DOUT = "M-1 1 H1 L0 -1z";
+    public static final String ARROW_PATH_DOUT = "M-1 1 H1 L0 -1z";
 }
