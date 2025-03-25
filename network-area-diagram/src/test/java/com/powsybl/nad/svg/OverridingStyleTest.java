@@ -81,6 +81,7 @@ class OverridingStyleTest extends AbstractTest {
     void testEurope() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         assertSvgEquals("/simple-eu_overridden_styles.svg", network);
+        assertSvgEquals("/simple-eu_overridden_styles.svg", network);
     }
 
     @Test
