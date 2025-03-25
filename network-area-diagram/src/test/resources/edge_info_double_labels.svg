@@ -63,8 +63,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-branch-edges"></g>
     <g class="nad-3wt-edges">
         <g id="7" class="nad-vl0to30">
-            <polyline class="nad-edge-path nad-stretchable" points="68.27,-487.11 -14.91,-159.64"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(52.88,-426.53)">
+            <polyline class="nad-edge-path" points="68.27,-487.11 -14.91,-159.64"/>
+            <g class="nad-edge-infos" transform="translate(52.88,-426.53)">
                 <g class="nad-state-in">
                     <g transform="rotate(-165.75)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
@@ -76,8 +76,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             </g>
         </g>
         <g id="8" class="nad-vl120to180">
-            <polyline class="nad-edge-path nad-stretchable" points="-346.98,35.28 -53.59,-119.94"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(-291.73,6.06)">
+            <polyline class="nad-edge-path" points="-346.98,35.28 -53.59,-119.94"/>
+            <g class="nad-edge-infos" transform="translate(-291.73,6.06)">
                 <g class="nad-state-in">
                     <g transform="rotate(62.12)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
@@ -89,8 +89,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             </g>
         </g>
         <g id="9" class="nad-vl30to50">
-            <polyline class="nad-edge-path nad-stretchable" points="165.92,181.19 0.13,-106.29"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(134.70,127.05)">
+            <polyline class="nad-edge-path" points="165.92,181.19 0.13,-106.29"/>
+            <g class="nad-edge-infos" transform="translate(134.70,127.05)">
                 <g class="nad-state-in">
                     <g transform="rotate(-29.97)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>

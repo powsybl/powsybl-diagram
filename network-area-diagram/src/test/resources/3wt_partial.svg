@@ -59,8 +59,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-3wt-edges">
         <g id="7" class="nad-vl0to30">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path nad-stretchable" points="68.27,-487.11 -14.91,-159.64"/>
-            <g class="nad-glued-1 nad-edge-infos" transform="translate(60.27,-455.61)">
+            <polyline class="nad-edge-path" points="68.27,-487.11 -14.91,-159.64"/>
+            <g class="nad-edge-infos" transform="translate(60.27,-455.61)">
                 <g class="nad-active">
                     <g transform="rotate(-165.75)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>

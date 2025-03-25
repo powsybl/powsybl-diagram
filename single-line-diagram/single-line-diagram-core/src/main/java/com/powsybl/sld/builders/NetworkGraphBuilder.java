@@ -329,12 +329,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
+                boolean hasPhaseTapChanger1 = transformer.getLeg1().hasPhaseTapChanger();
+                boolean hasPhaseTapChanger2 = transformer.getLeg2().hasPhaseTapChanger();
+                boolean hasPhaseTapChanger3 = transformer.getLeg3().hasPhaseTapChanger();
                 // create middle node
                 Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
                         vlLegSide, firstOtherLegNode, secondOtherLegNode,
                         voltageLevelInfosBySide.get(NodeSide.ONE),
                         voltageLevelInfosBySide.get(NodeSide.TWO),
-                        voltageLevelInfosBySide.get(NodeSide.THREE));
+                        voltageLevelInfosBySide.get(NodeSide.THREE),
+                        hasPhaseTapChanger1, hasPhaseTapChanger2, hasPhaseTapChanger3);
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {

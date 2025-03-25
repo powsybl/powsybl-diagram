@@ -42,9 +42,6 @@ public interface StyleProvider {
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
-    String STRETCHABLE_CLASS = CLASSES_PREFIX + "stretchable";
-    String GLUED_CLASS = CLASSES_PREFIX + "glued";
-    String GLUED_CENTER_CLASS = CLASSES_PREFIX + "glued-center";
     String HIGHLIGHT_CLASS = CLASSES_PREFIX + "highlight";
 
     List<String> getCssFilenames();
@@ -55,17 +52,29 @@ public interface StyleProvider {
 
     List<String> getHighlightNodeStyleClasses(Node node);
 
-    List<String> getNodeStyleClasses(BusNode busNode);
+    List<String> getBusNodeStyleClasses(BusNode busNode);
 
-    List<String> getEdgeStyleClasses(Edge edge);
+    List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
     List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getEdgeInfoStyles(EdgeInfo info);
+    List<String> getEdgeInfoStyleClasses(EdgeInfo info);
 
-    List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+    List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
     List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
+
+    default String getBusNodeStyle(BusNode busNode) {
+        return null;
+    }
+
+    default String getSideEdgeStyle(BranchEdge edge, BranchEdge.Side side) {
+        return null;
+    }
+
+    default String getThreeWtEdgeStyle(ThreeWtEdge threeWtedge) {
+        return null;
+    }
 }
