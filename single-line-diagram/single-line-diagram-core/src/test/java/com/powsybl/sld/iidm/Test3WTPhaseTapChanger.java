@@ -33,31 +33,57 @@ class Test3WTPhaseTapChanger extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testVoltageLevelGraph3wtWithPhaseTagChanger() {
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLeg1() {
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
-
         addPhaseTapChanger(twt.getLeg1());
         testSvg("/Test3WTPhaseTapChangerVoltageLevel1Leg.svg");
+    }
 
-        addPhaseTapChanger(twt.getLeg2());
-        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs.svg");
-
-        addPhaseTapChanger(twt.getLeg3());
-        testSvg("/Test3WTPhaseTapChangerVoltageLevel3Legs.svg");
-
-        twt.getLeg1().getPhaseTapChanger().remove();
-        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs23.svg");
-
-        twt.getLeg2().getPhaseTapChanger().remove();
-        testSvg("/Test3WTPhaseTapChangerVoltageLevel1Leg3.svg");
-
-        addPhaseTapChanger(twt.getLeg1());
-        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs13.svg");
-
-        twt.getLeg1().getPhaseTapChanger().remove();
-        twt.getLeg3().getPhaseTapChanger().remove();
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLeg2() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
         addPhaseTapChanger(twt.getLeg2());
         testSvg("/Test3WTPhaseTapChangerVoltageLevel1Leg2.svg");
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLeg3() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+        addPhaseTapChanger(twt.getLeg3());
+        testSvg("/Test3WTPhaseTapChangerVoltageLevel1Leg3.svg");
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLegs1and2() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+        addPhaseTapChanger(twt.getLeg1());
+        addPhaseTapChanger(twt.getLeg2());
+        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs.svg");
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLegs2and3() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+        addPhaseTapChanger(twt.getLeg2());
+        addPhaseTapChanger(twt.getLeg3());
+        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs23.svg");
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnLegs1and3() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+        addPhaseTapChanger(twt.getLeg1());
+        addPhaseTapChanger(twt.getLeg3());
+        testSvg("/Test3WTPhaseTapChangerVoltageLevel2Legs13.svg");
+    }
+
+    @Test
+    void testVoltageLevelGraph3wtWithPhaseTagChangerOnAllLegs() {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+        addPhaseTapChanger(twt.getLeg1());
+        addPhaseTapChanger(twt.getLeg2());
+        addPhaseTapChanger(twt.getLeg3());
+        testSvg("/Test3WTPhaseTapChangerVoltageLevel3Legs.svg");
     }
 
     private void addPhaseTapChanger(Leg leg) {

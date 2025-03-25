@@ -354,19 +354,13 @@ public class SvgWriter {
 
     private void drawPstArrow(XMLStreamWriter writer, ThreeWtNode threeWtNode, ThreeWtEdge edge) throws XMLStreamException {
         double arrowSize = 3 * svgParameters.getTransformerCircleRadius();
-        double delta = 0d;
 
-        switch (edge.getSide()) {
-            case ONE:
-                delta = 1.5 * Math.PI;
-                break;
-            case TWO:
-                delta = 0.75 * Math.PI;
-                break;
-            case THREE:
-                delta = Math.PI;
-                break;
-        }
+        double delta = switch (edge.getSide()) {
+            case ONE -> 1.5 * Math.PI;
+            case TWO -> 0.75 * Math.PI;
+            case THREE -> Math.PI;
+        };
+
         double rotationAngle = edge.getEdgeAngle() + delta;
 
         double radius = svgParameters.getTransformerCircleRadius();
