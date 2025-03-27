@@ -123,8 +123,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
-        String subnetworkId = getSubnetworkId(edge, side);
-        return List.of(subnetworksHighlightMap.get(subnetworkId));
+        Optional<String> subnetworkId = getSubnetworkId(edge, side);
+        return subnetworkId.isPresent() ? List.of(subnetworksHighlightMap.get(subnetworkId.get())) : Collections.emptyList();
     }
 
     @Override
@@ -133,30 +133,17 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         return List.of(subnetworksHighlightMap.get(subnetworkId));
     }
 
-    private String getSubnetworkId(BranchEdge edge, Side side) {
-        String subnetworkId = null;
-        switch (edge.getType()) {
-            case BranchEdge.LINE_EDGE:
-                TwoSides lineSide = IidmUtils.getIidmSideFromBranchEdgeSide(side);
-                subnetworkId = network.getLine(edge.getEquipmentId()).getTerminal(lineSide).getVoltageLevel().getParentNetwork().getId();
-                break;
-            case BranchEdge.TWO_WT_EDGE, BranchEdge.PST_EDGE:
-                TwoSides twSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
-                subnetworkId = network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(twSide).getVoltageLevel().getParentNetwork().getId();
-                break;
-            case BranchEdge.DANGLING_LINE_EDGE:
-                subnetworkId = network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getParentNetwork().getId();
-                break;
-            case BranchEdge.TIE_LINE_EDGE:
-                subnetworkId = network.getTieLine(edge.getEquipmentId()).getTerminal(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getVoltageLevel().getParentNetwork().getId();
-                break;
-            case BranchEdge.HVDC_LINE_EDGE:
-                subnetworkId = network.getHvdcLine(edge.getEquipmentId()).getConverterStation(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getTerminal().getVoltageLevel().getParentNetwork().getId();
-                break;
-            default:
-                break;
-        }
-        return subnetworkId;
+    private Optional<String> getSubnetworkId(BranchEdge edge, Side side) {
+        final TwoSides iidmSide = IidmUtils.getIidmSideFromBranchEdgeSide(side);
+        Terminal terminal = switch (edge.getType()) {
+            case BranchEdge.LINE_EDGE -> network.getLine(edge.getEquipmentId()).getTerminal(iidmSide);
+            case BranchEdge.TWO_WT_EDGE, BranchEdge.PST_EDGE -> network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(iidmSide);
+            case BranchEdge.DANGLING_LINE_EDGE -> network.getDanglingLine(edge.getEquipmentId()).getTerminal();
+            case BranchEdge.TIE_LINE_EDGE -> network.getTieLine(edge.getEquipmentId()).getTerminal(iidmSide);
+            case BranchEdge.HVDC_LINE_EDGE -> network.getHvdcLine(edge.getEquipmentId()).getConverterStation(iidmSide).getTerminal();
+            default -> null;
+        };
+        return terminal == null ? Optional.empty() : Optional.of(terminal.getVoltageLevel().getParentNetwork().getId());
     }
 
     private String getSubnetworkId(String id, ThreeWtEdge.Side side) {

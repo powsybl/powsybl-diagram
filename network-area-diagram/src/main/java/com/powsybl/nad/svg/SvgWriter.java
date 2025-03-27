@@ -107,8 +107,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            boolean higlightSubnetworks = this.svgParameters.isHighlightSubnetworks();
-            if (higlightSubnetworks) {
+            if (this.svgParameters.isHighlightSubnetworks()) {
                 drawHighlightedSection(graph, writer);
             }
             drawVoltageLevelNodes(graph, writer);
@@ -312,11 +311,11 @@ public class SvgWriter {
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         if (edge.isVisible(side) && !graph.isLoop(edge)) {
-            drawHighlighHalfEdge(writer, edge, side);
+            drawHighlightHalfEdge(writer, edge, side);
         }
     }
 
-    private void drawHighlighHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+    private void drawHighlightHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getHighlightSideEdgeStyleClasses(edge, side));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
