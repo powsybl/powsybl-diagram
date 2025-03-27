@@ -62,62 +62,20 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <use href="#21" class="nad-highlight-1"></use>
         </g>
         <g class="nad-branch-edges">
-            <g>
-                <g class="nad-vl0to30">
-                    <polyline class="nad-highlight-0" points="-42.65,-994.15 39.51,-873.89"/>
-                </g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-0" points="155.52,-704.08 73.36,-824.35"/>
-                </g>
-            </g>
-            <g class="nad-tie-line-edge">
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-0" points="164.24,-654.72 111.95,-449.31"/>
-                </g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-1" points="59.66,-243.90 111.95,-449.31"/>
-                </g>
-            </g>
-            <g class="nad-dangling-line-edge">
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-0" points="197.53,-688.73 365.97,-735.46"/>
-                </g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-0" points="534.41,-782.20 365.97,-735.46"/>
-                </g>
-            </g>
-            <g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-1" points="58.34,-190.29 96.93,0.21"/>
-                </g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-2" points="135.51,190.72 96.93,0.21"/>
-                </g>
-            </g>
-            <g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-1" points="76.95,-203.94 204.14,-133.65"/>
-                </g>
-                <g class="nad-vl120to180">
-                    <polyline class="nad-highlight-1" points="383.84,-34.34 256.65,-104.63"/>
-                </g>
-            </g>
-            <g class="nad-dangling-line-edge">
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-1" points="25.66,-221.17 -165.01,-248.65"/>
-                </g>
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-1" points="-355.67,-276.14 -165.01,-248.65"/>
-                </g>
-            </g>
-            <g class="nad-hvdc-edge">
-                <g class="nad-vl300to500">
-                    <polyline class="nad-highlight-2" points="161.47,199.34 274.44,98.31"/>
-                </g>
-                <g class="nad-vl120to180">
-                    <polyline class="nad-highlight-1" points="387.41,-2.71 274.44,98.31"/>
-                </g>
-            </g>
+            <polyline class="nad-highlight-0" points="-42.65,-994.15 39.51,-873.89"/>
+            <polyline class="nad-highlight-0" points="155.52,-704.08 73.36,-824.35"/>
+            <polyline class="nad-highlight-0" points="164.24,-654.72 111.95,-449.31"/>
+            <polyline class="nad-highlight-1" points="59.66,-243.90 111.95,-449.31"/>
+            <polyline class="nad-highlight-0" points="197.53,-688.73 365.97,-735.46"/>
+            <polyline class="nad-highlight-0" points="534.41,-782.20 365.97,-735.46"/>
+            <polyline class="nad-highlight-1" points="58.34,-190.29 96.93,0.21"/>
+            <polyline class="nad-highlight-2" points="135.51,190.72 96.93,0.21"/>
+            <polyline class="nad-highlight-1" points="76.95,-203.94 204.14,-133.65"/>
+            <polyline class="nad-highlight-1" points="383.84,-34.34 256.65,-104.63"/>
+            <polyline class="nad-highlight-1" points="25.66,-221.17 -165.01,-248.65"/>
+            <polyline class="nad-highlight-1" points="-355.67,-276.14 -165.01,-248.65"/>
+            <polyline class="nad-highlight-2" points="161.47,199.34 274.44,98.31"/>
+            <polyline class="nad-highlight-1" points="387.41,-2.71 274.44,98.31"/>
         </g>
         <g class="nad-3wt-edges">
             <g class="nad-vl300to500">

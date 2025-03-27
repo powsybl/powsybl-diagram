@@ -127,7 +127,7 @@ public class SvgWriter {
     private void drawHighlightedSection(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HIGHLIGHT_CLASS);
-        drawHighlighVoltageLevelNodes(graph, writer);
+        drawHighlightVoltageLevelNodes(graph, writer);
         drawHighlightBranchEdges(graph, writer);
         drawHighlightThreeWtEdges(graph, writer);
         writer.writeEndElement();
@@ -153,11 +153,8 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getBranchEdgeStyleClasses(edge));
             drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
-            writer.writeEndElement();
         }
         writer.writeEndElement();
     }
@@ -295,34 +292,28 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
-                drawHalfEdge(graph, writer, edge, side, edgeInfo);
+                drawHalfEdge(graph, writer, edge, side, edgeInfo.orElse(null));
             } else {
-                drawLoopEdge(writer, edge, side, edgeInfo);
+                drawLoopEdge(writer, edge, side, edgeInfo.orElse(null));
             }
         }
         writer.writeEndElement();
     }
 
-    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo) throws XMLStreamException {
+    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        if (edgeInfo.isPresent()) {
-            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo.get());
+        if (edgeInfo != null) {
+            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo);
         }
     }
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
-        if (!edge.isVisible(side) && !(edge.isTransformerEdge())) {
-            return;
-        }
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side) && !graph.isLoop(edge)) {
             drawHighlighHalfEdge(writer, edge, side);
         }
-        writer.writeEndElement();
     }
 
     private void drawHighlighHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
@@ -331,13 +322,13 @@ public class SvgWriter {
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
     }
 
-    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, Optional<EdgeInfo> edgeInfo) throws XMLStreamException {
+    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
-        if (edgeInfo.isPresent()) {
-            drawLoopEdgeInfo(writer, edge, side, edgeInfo.get());
+        if (edgeInfo != null) {
+            drawLoopEdgeInfo(writer, edge, side, edgeInfo);
         }
     }
 
@@ -629,7 +620,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawHighlighVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawHighlightVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
         for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {

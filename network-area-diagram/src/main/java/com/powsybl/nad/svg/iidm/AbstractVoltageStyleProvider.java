@@ -13,7 +13,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.ThreeSides;
 import com.powsybl.iidm.network.TwoSides;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.model.BranchEdge.Side;
 import com.powsybl.nad.svg.AbstractStyleProvider;
@@ -28,8 +27,7 @@ import java.util.*;
 public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider {
 
     protected final Network network;
-    private final HashMap<String, String> subnetworksHighlightMap = new HashMap<>();
-    private final HashMap<String, String> subnetworkEquipmentMap = new HashMap<>();
+    private final Map<String, String> subnetworksHighlightMap = new HashMap<>();
 
     protected AbstractVoltageStyleProvider(Network network) {
         this.network = network;
@@ -119,7 +117,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getHighlightNodeStyleClasses(Node node) {
-        String subnetworkId = subnetworkEquipmentMap.get(node.getEquipmentId());
+        String subnetworkId = network.getIdentifiable(node.getEquipmentId()).getParentNetwork().getId();
         return List.of(subnetworksHighlightMap.get(subnetworkId));
     }
 
@@ -136,29 +134,29 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     private String getSubnetworkId(BranchEdge edge, Side side) {
-        String subnetworId = null;
+        String subnetworkId = null;
         switch (edge.getType()) {
             case BranchEdge.LINE_EDGE:
-                TwoSides lineSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
-                subnetworId = network.getLine(edge.getEquipmentId()).getTerminal(lineSide).getVoltageLevel().getParentNetwork().getId();
+                TwoSides lineSide = IidmUtils.getIidmSideFromBranchEdgeSide(side);
+                subnetworkId = network.getLine(edge.getEquipmentId()).getTerminal(lineSide).getVoltageLevel().getParentNetwork().getId();
                 break;
             case BranchEdge.TWO_WT_EDGE, BranchEdge.PST_EDGE:
                 TwoSides twSide = side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO;
-                subnetworId = network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(twSide).getVoltageLevel().getParentNetwork().getId();
+                subnetworkId = network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(twSide).getVoltageLevel().getParentNetwork().getId();
                 break;
             case BranchEdge.DANGLING_LINE_EDGE:
-                subnetworId = network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getParentNetwork().getId();
+                subnetworkId = network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getParentNetwork().getId();
                 break;
             case BranchEdge.TIE_LINE_EDGE:
-                subnetworId = network.getTieLine(edge.getEquipmentId()).getTerminal(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getVoltageLevel().getParentNetwork().getId();
+                subnetworkId = network.getTieLine(edge.getEquipmentId()).getTerminal(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getVoltageLevel().getParentNetwork().getId();
                 break;
             case BranchEdge.HVDC_LINE_EDGE:
-                subnetworId = network.getHvdcLine(edge.getEquipmentId()).getConverterStation(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getTerminal().getVoltageLevel().getParentNetwork().getId();
+                subnetworkId = network.getHvdcLine(edge.getEquipmentId()).getConverterStation(side.equals(Side.ONE) ? TwoSides.ONE : TwoSides.TWO).getTerminal().getVoltageLevel().getParentNetwork().getId();
                 break;
             default:
                 break;
         }
-        return subnetworId;
+        return subnetworkId;
     }
 
     private String getSubnetworkId(String id, ThreeWtEdge.Side side) {
@@ -166,23 +164,11 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     private void buildSubnetworkMaps() {
-        List<VoltageLevel> voltageLevels = getVoltageLevels();
-        voltageLevels.forEach(vl -> addNode(vl.getId(), vl.getParentNetwork().getId()));
-        network.getDanglingLineStream().forEach(dl -> addNode(dl.getId(), dl.getTerminal().getVoltageLevel().getParentNetwork().getId()));
-    }
-
-    private void addNode(String id, String subnetworkId) {
-        subnetworkEquipmentMap.put(id, subnetworkId);
-        subnetworksHighlightMap.computeIfAbsent(subnetworkId, k -> getHighlightClass(subnetworksHighlightMap.size()));
+        network.getSubnetworks().forEach(n -> subnetworksHighlightMap.put(n.getId(), getHighlightClass(subnetworksHighlightMap.size())));
     }
 
     private String getHighlightClass(int index) {
         return StyleProvider.HIGHLIGHT_CLASS + "-" + index % 5;
     }
 
-    private List<VoltageLevel> getVoltageLevels() {
-        return network.getVoltageLevelStream()
-                .sorted(Comparator.comparing(VoltageLevel::getId))
-                .toList();
-    }
 }
