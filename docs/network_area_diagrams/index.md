@@ -9,6 +9,7 @@ hidden: true
 
 layout/layout.md
 labelProvider/labelProvider.md
+styleProvider/styleProvider.md
 ```
 
 
