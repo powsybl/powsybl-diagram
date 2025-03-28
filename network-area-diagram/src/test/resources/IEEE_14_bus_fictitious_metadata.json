@@ -54,7 +54,7 @@
     "edgeInfoDisplayed" : "ACTIVE_POWER",
     "pstArrowHeadSize" : 8.0,
     "undefinedValueSymbol" : "",
-    "highlightSubnetworks" : false
+    "highlightGraph" : false
   },
   "busNodes" : [ {
     "svgId" : "1",

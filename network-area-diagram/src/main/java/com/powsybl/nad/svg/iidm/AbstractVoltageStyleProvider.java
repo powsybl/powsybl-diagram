@@ -123,8 +123,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
-        Optional<String> subnetworkId = getSubnetworkId(edge, side);
-        return subnetworkId.isPresent() ? List.of(subnetworksHighlightMap.get(subnetworkId.get())) : Collections.emptyList();
+        return getSubnetworkId(edge, side).map(id -> List.of(subnetworksHighlightMap.get(id))).orElse(Collections.emptyList());
     }
 
     @Override
@@ -143,7 +142,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             case BranchEdge.HVDC_LINE_EDGE -> network.getHvdcLine(edge.getEquipmentId()).getConverterStation(iidmSide).getTerminal();
             default -> null;
         };
-        return terminal == null ? Optional.empty() : Optional.of(terminal.getVoltageLevel().getParentNetwork().getId());
+        return Optional.ofNullable(terminal).map(t -> t.getVoltageLevel().getParentNetwork().getId());
     }
 
     private String getSubnetworkId(String id, ThreeWtEdge.Side side) {

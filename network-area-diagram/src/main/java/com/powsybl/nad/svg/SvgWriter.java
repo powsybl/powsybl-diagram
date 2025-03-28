@@ -107,7 +107,7 @@ public class SvgWriter {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
             addSvgRoot(graph, writer);
             addStyle(writer);
-            if (this.svgParameters.isHighlightSubnetworks()) {
+            if (this.svgParameters.isHighlightGraph()) {
                 drawHighlightedSection(graph, writer);
             }
             drawVoltageLevelNodes(graph, writer);

@@ -55,7 +55,7 @@ public class SvgParameters {
     private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
-    private boolean highlightSubnetworks;
+    private boolean highlightGraph;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -492,12 +492,12 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isHighlightSubnetworks() {
-        return highlightSubnetworks;
+    public boolean isHighlightGraph() {
+        return highlightGraph;
     }
 
-    public SvgParameters setHighlightSubnetworks(boolean highlightSubnetworks) {
-        this.highlightSubnetworks = highlightSubnetworks;
+    public SvgParameters setHighlightGraph(boolean highlightGraph) {
+        this.highlightGraph = highlightGraph;
         return this;
     }
 }

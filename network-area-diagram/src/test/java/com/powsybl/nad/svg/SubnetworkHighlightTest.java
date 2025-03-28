@@ -31,7 +31,7 @@ class SubnetworkHighlightTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800)
-                .setHighlightSubnetworks(true));
+                .setHighlightGraph(true));
     }
 
     @Override
