@@ -20,10 +20,12 @@ If default CSS is used, this leads to the corresponding ring stroke blinking in 
 Branches which are overloaded are marked with class `nad-overload`. If default CSS is used, this leads to a branch yellow-blinking.
 
 ### Subnetworks
-If the SvgParameters attribute `highlightGraph` is set to `true`, a simplified duplicate of the graph is displayed, containing only branches and voltage level nodes.
-The classes added by the style provider for this duplicate are based on the subnetwork corresponding to each element.
-With default CSS used, this leads to subnetworks being highlighted:
+The classes added by the style provider for the "highlight" graph duplicate are based on the subnetwork corresponding to each element.
+With default CSS used, this leads to subnetworks being highlighted.
+> Note: the `SvgParameters` attribute highlightGraph` needs to be set to `true`, so that the SvgWriter adds that simplified "highlight" graph duplicate, which contains only branches and voltage level nodes.
+
 ![subnetworks](/_static/img/subnetworks.png)
+
 
 ## NominalStyleProvider feature
 The voltage level nodes are marked with a class depending on their nominal voltage, leading to one colour for each range of nominal voltages defined by the BaseVoltagesConfig. 
