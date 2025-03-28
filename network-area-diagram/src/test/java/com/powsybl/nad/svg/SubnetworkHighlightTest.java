@@ -12,6 +12,7 @@ import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
@@ -49,6 +50,12 @@ class SubnetworkHighlightTest extends AbstractTest {
     void testSubnetworkHighlight() {
         Network network = createWithTieLines();
         assertSvgEquals("/subnetwork_highlight.svg", network);
+    }
+
+    @Test
+    void testPartialGraphSubnetworkHighlight() {
+        Network network = createWithTieLines();
+        assertSvgEquals("/partial_graph_subnetwork_highlight.svg", network, VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VLHV2", 1));
     }
 
     public static Network createWithTieLines() {
