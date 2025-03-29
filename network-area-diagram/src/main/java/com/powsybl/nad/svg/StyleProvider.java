@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -42,6 +42,7 @@ public interface StyleProvider {
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
+    String HIGHLIGHT_CLASS = CLASSES_PREFIX + "highlight";
 
     List<String> getCssFilenames();
 
@@ -49,15 +50,21 @@ public interface StyleProvider {
 
     List<String> getNodeStyleClasses(Node node);
 
+    List<String> getHighlightNodeStyleClasses(Node node);
+
     List<String> getBusNodeStyleClasses(BusNode busNode);
 
     List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
+    List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
+
     List<String> getEdgeInfoStyleClasses(EdgeInfo info);
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
+
+    List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
 
     default String getBusNodeStyle(BusNode busNode) {
         return null;

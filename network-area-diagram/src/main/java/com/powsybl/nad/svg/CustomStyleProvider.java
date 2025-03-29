@@ -7,10 +7,7 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -140,6 +137,21 @@ public class CustomStyleProvider extends AbstractStyleProvider {
         info.getDirection().ifPresent(direction -> styles.add(
                 CLASSES_PREFIX + (direction == EdgeInfo.Direction.OUT ? "state-out" : "state-in")));
         return styles;
+    }
+
+    @Override
+    public List<String> getHighlightNodeStyleClasses(Node node) {
+        return List.of();
+    }
+
+    @Override
+    public List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side) {
+        return List.of();
+    }
+
+    @Override
+    public List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge) {
+        return List.of();
     }
 
     @Override
