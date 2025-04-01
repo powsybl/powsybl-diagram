@@ -14,6 +14,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -47,20 +48,25 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
+    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
         return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
-                .map(bvName -> StyleClassConstants.STYLE_PREFIX + bvName);
+                .map(bvName -> List.of(StyleClassConstants.STYLE_PREFIX + bvName))
+                .orElse(Collections.emptyList());
     }
 
     @Override
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
         return getVoltageLevelNodeStyle(vlInfo, node);
     }
 
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        return getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), null)
-                .map(vlStyle -> List.of(vlStyle, NODE_INFOS))
+        return Optional.ofNullable(getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), null))
+                .map(busStyles -> {
+                    List<String> styles = new ArrayList<>(busStyles);
+                    styles.add(NODE_INFOS);
+                    return styles;
+                })
                 .orElse(List.of(NODE_INFOS));
     }
 
