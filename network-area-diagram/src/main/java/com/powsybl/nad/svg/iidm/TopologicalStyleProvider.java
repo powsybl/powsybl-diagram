@@ -43,14 +43,18 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         if (busNode instanceof BoundaryBusNode) {
             String dlId = busNode.getEquipmentId();
             getBaseVoltageStyle(network.getDanglingLine(dlId).getTerminal().getVoltageLevel().getNominalV())
-                    .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getBusIndex())
-                    .ifPresent(styles::add);
+                    .ifPresent(baseVoltageStyle -> {
+                        styles.add(baseVoltageStyle);
+                        styles.add(baseVoltageStyle + "-bus-" + busNode.getBusIndex());
+                    });
         } else {
             Bus b = network.getBusView().getBus(busNode.getEquipmentId());
             if (b != null) {
                 getBaseVoltageStyle(b.getVoltageLevel().getNominalV())
-                        .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getBusIndex())
-                        .ifPresent(styles::add);
+                        .ifPresent(baseVoltageStyle -> {
+                            styles.add(baseVoltageStyle);
+                            styles.add(baseVoltageStyle + "-bus-" + busNode.getBusIndex());
+                        });
             }
         }
         return styles;

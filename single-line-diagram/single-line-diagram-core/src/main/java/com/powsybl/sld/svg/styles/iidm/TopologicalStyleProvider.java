@@ -51,7 +51,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
+    protected List<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
@@ -63,8 +63,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         return super.getVoltageLevelEdgeStyle(graph, edge);
     }
 
-    private Optional<String> getSwitchEdgeStyle(Graph graph, Node node) {
-        return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : Optional.empty();
+    private List<String> getSwitchEdgeStyle(Graph graph, Node node) {
+        return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : List.of();
     }
 
     @Override
@@ -112,14 +112,19 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         return busIdStyleMap;
     }
 
-    private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, String vlId, Node node) {
-        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageLevelStyle, vlId));
+    private List<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, String vlId, Node node) {
+        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageLevelStyle + "-bus", vlId));
         Map<String, String> nodeIdStyleMap = vlNodeIdStyleMap.computeIfAbsent(vlId, k -> new HashMap<>());
         String nodeTopologicalStyle = nodeIdStyleMap.get(node.getId());
+        List<String> styles = new ArrayList<>();
+        styles.add(baseVoltageLevelStyle);
         if (nodeTopologicalStyle == null) {
             nodeTopologicalStyle = findConnectedStyle(vlId, busIdStyleMap, nodeIdStyleMap, node);
         }
-        return Optional.ofNullable(nodeTopologicalStyle);
+        if (nodeTopologicalStyle != null) {
+            styles.add(nodeTopologicalStyle);
+        }
+        return List.copyOf(styles);
     }
 
     private String findConnectedStyle(String vlId, Map<String, String> busIdStyleMap, Map<String, String> nodeIdStyleMap, Node node) {
@@ -176,19 +181,18 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
+    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
         if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
-            return Optional.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
+            return List.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
         }
-        String style = Optional.ofNullable(voltageLevelInfos)
+        return Optional.ofNullable(voltageLevelInfos)
                 .flatMap(vli -> baseVoltagesConfig.getBaseVoltageName(vli.getNominalVoltage(), BASE_VOLTAGE_PROFILE))
-                .flatMap(baseVoltageName -> getNodeTopologicalStyle(StyleClassConstants.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
-                .orElse(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
-        return Optional.of(style);
+                .map(baseVoltageName -> getNodeTopologicalStyle(StyleClassConstants.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
+                .orElse(List.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
     }
 
     @Override
-    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
         return getVoltageLevelNodeStyle(vlInfo, node.getAdjacentNodes().get(side.getIntValue() - 1));
     }
 
