@@ -20,6 +20,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-table {display: table}
+.nad-row {display: table-row}
+.nad-cell {display: table-cell; padding: 2px;}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
 .nad-vl30to50 {--nad-vl-color: #EF9A9A}
 .nad-vl50to70 {--nad-vl-color: #9C27B0}
@@ -118,27 +121,23 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <foreignObject id="0-textnode" y="-358.70" x="43.94" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>380.0 kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-cell nad-legend-square"/>
+                        <div class="nad-cell">380.0 kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-38.82" x="-130.42" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>379.0 kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-cell nad-legend-square"/>
+                        <div class="nad-cell">379.0 kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
     </g>
