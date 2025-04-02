@@ -17,7 +17,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, lightgrey);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
-]]></style>
+.nad-table {display: table}
+.nad-row {display: table-row}
+.nad-cell {display: table-cell; padding: 2px;}]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-55.80,-196.10)" id="0">
             <circle r="27.50" id="1" class="nad-busnode" style="background:yellow; fill:yellow;"/>
@@ -209,27 +211,23 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <foreignObject id="0-textnode" y="-236.10" x="44.20" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square" style="background:yellow; fill:yellow;"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-cell nad-legend-square" style="background:yellow; fill:yellow;"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="17.51" x="-221.25" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-cell nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
     </g>

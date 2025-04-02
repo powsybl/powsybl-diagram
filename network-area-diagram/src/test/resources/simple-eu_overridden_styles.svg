@@ -21,6 +21,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-table {display: table}
+.nad-row {display: table-row}
+.nad-cell {display: table-cell; padding: 2px;}
 .nad-disconnected {--nad-vl-color: #808080}
 .nad-vl0to30-line {--nad-vl-color: #afb42b}
 .nad-vl0to30-0 {--nad-vl-color: #827717}
@@ -672,143 +675,119 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <foreignObject id="0-textnode" y="-503.12" x="-216.25" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>BBE1AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:yellow; background:yellow"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-1 nad-legend-square" style="fill:deeppink; background:deeppink"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:yellow; background:yellow"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-1 nad-cell nad-legend-square" style="fill:deeppink; background:deeppink"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="3-textnode" y="-85.33" x="-397.96" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>BBE2AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:yellow; background:yellow"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:yellow; background:yellow"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="5-textnode" y="180.77" x="363.13" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>DDE1AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="7-textnode" y="22.87" x="642.01" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>DDE2AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="9-textnode" y="479.63" x="455.19" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>DDE3AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="11-textnode" y="647.69" x="31.14" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>FFR1AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:blue; background:blue"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-1 nad-legend-square" style="fill:lightblue; background:lightblue"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:blue; background:blue"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-1 nad-cell nad-legend-square" style="fill:lightblue; background:lightblue"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="14-textnode" y="366.22" x="-316.35" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>FFR3AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:blue; background:blue"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:blue; background:blue"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="16-textnode" y="-836.86" x="560.81" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>NNL1AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:orange; background:orange"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:orange; background:orange"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="18-textnode" y="-691.00" x="207.41" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>NNL2AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:orange; background:orange"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:orange; background:orange"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="20-textnode" y="-459.36" x="563.53" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>NNL3AA1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square" style="fill:orange; background:orange"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square" style="fill:orange; background:orange"/>
+                        <div class="nad-cell"> kV / °</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
     </g>

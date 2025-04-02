@@ -42,9 +42,6 @@ public class SvgWriter {
     private static final String TSPAN_ELEMENT_NAME = "tspan";
     private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
     private static final String DIV_ELEMENT_NAME = "div";
-    private static final String TABLE_ELEMENT_NAME = "table";
-    private static final String TABLE_ROW_ELEMENT_NAME = "tr";
-    private static final String TABLE_DATA_ELEMENT_NAME = "td";
     private static final String USE_ELEMENT_NAME = "use";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
@@ -707,16 +704,17 @@ public class SvgWriter {
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeStartElement(TABLE_ELEMENT_NAME);
+        writer.writeStartElement(DIV_ELEMENT_NAME);
+        writeStyleClasses(writer, StyleProvider.TABLE_CLASS);
 
         for (BusNode busNode : vlNode.getBusNodes()) {
-            writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+            writer.writeStartElement(DIV_ELEMENT_NAME);
+            writeStyleClasses(writer, StyleProvider.ROW_CLASS);
             writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.CELL_CLASS, StyleProvider.LEGEND_SQUARE_CLASS);
             writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-            writer.writeEndElement();
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+            writer.writeStartElement(DIV_ELEMENT_NAME);
+            writeStyleClasses(writer, StyleProvider.CELL_CLASS);
             writer.writeCharacters(labelProvider.getBusDescription(busNode));
             writer.writeEndElement();
             writer.writeEndElement();

@@ -21,6 +21,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-table {display: table}
+.nad-row {display: table-row}
+.nad-cell {display: table-cell; padding: 2px;}
 .nad-disconnected {--nad-vl-color: #808080}
 .nad-vl0to30-line {--nad-vl-color: #afb42b}
 .nad-vl0to30-0 {--nad-vl-color: #827717}
@@ -300,27 +303,23 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1 description1</div>
                 <div>VL1 description2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square"/>
-                        </td>
-                        <td>VL1 10</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square"/>
+                        <div class="nad-cell">VL1 10</div>
+                    </div>
+                </div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="17.51" x="-221.25" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2 description1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-vl300to500-0 nad-legend-square"/>
-                        </td>
-                        <td>VL2 30</td>
-                    </tr>
-                </table>
+                <div class="nad-table">
+                    <div class="nad-row">
+                        <div class="nad-vl300to500-0 nad-cell nad-legend-square"/>
+                        <div class="nad-cell">VL2 30</div>
+                    </div>
+                </div>
                 <div>VL2 details1</div>
                 <div>VL2 details2</div>
             </div>
