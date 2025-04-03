@@ -184,7 +184,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     </g>
     <g class="nad-text-nodes">
         <foreignObject id="0-textnode" y="-553.76" x="175.04" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 0px; left: 0px" id="0-textnode">
                 <div>VL_11</div>
                 <table>
                     <tr>
@@ -195,9 +195,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-        <foreignObject id="2-textnode" y="7.69" x="-271.52" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 561px; left: -447px" id="2-textnode">
                 <div>VL_132</div>
                 <table>
                     <tr>
@@ -208,9 +206,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-        <foreignObject id="4-textnode" y="164.68" x="280.23" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 718px; left: 105px" id="4-textnode">
                 <div>VL_33</div>
                 <table>
                     <tr>

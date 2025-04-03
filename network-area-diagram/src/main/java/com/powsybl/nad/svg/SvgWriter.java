@@ -638,8 +638,27 @@ public class SvgWriter {
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
-        for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
-            writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+        List<Pair<VoltageLevelNode, TextNode>> simpleTextNodes = new ArrayList<>();
+        List<Pair<VoltageLevelNode, TextNode>> detailedTextNodes = new ArrayList<>();
+        graph.getVoltageLevelTextPairs().stream()
+                .filter(nodePair -> nodePair.getSecond() != null)
+                .forEach(nodePair -> {
+                    if (isDetailedTextNode(labelProvider.getVoltageLevelDescription(nodePair.getFirst()))) {
+                        detailedTextNodes.add(nodePair);
+                    } else {
+                        simpleTextNodes.add(nodePair);
+                    }
+                });
+        for (Pair<VoltageLevelNode, TextNode> nodePair : simpleTextNodes) {
+            writeSimpleTextNode(writer, nodePair.getSecond(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
+        }
+        if (!detailedTextNodes.isEmpty()) {
+            TextNode firstNode = detailedTextNodes.get(0).getSecond();
+            writeForeignObject(writer, firstNode);
+            for (Pair<VoltageLevelNode, TextNode> nodePair : detailedTextNodes) {
+                writeDetailedTextNode(writer, firstNode, nodePair.getSecond(), nodePair.getFirst(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
+            }
+            writer.writeEndElement();
         }
         writer.writeEndElement();
     }
@@ -656,34 +675,27 @@ public class SvgWriter {
         return "translate(" + getFormattedValue(x) + "," + getFormattedValue(y) + ")";
     }
 
-    private void writeTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, LabelProvider labelProvider) throws XMLStreamException {
-        if (textNode == null) {
-            return;
-        }
-
-        List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails()) {
-            writeDetailedTextNode(writer, textNode, vlNode, content);
-        } else {
-            writeSimpleTextNode(writer, textNode, content);
-        }
+    private boolean isDetailedTextNode(List<String> content) {
+        return content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails();
     }
 
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+    private void writeForeignObject(XMLStreamWriter writer, TextNode textNode) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
-
-        // width and height cannot be set to auto, and object is of width and height 0 if not specified
-        // using a fixed size of 1x1 and CSS {overflow: visible} to display it
         writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
         writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
+    }
 
+    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode firstNode, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
         writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
-
+        long top = Math.round(textNode.getY() - firstNode.getY());
+        long left = Math.round(textNode.getX() - firstNode.getX());
+        writeStyleAttribute(writer, String.format("position: absolute; top: %spx; left: %spx", top, left));
+        writeId(writer, textNode);
         writeLines(content, writer);
 
         if (svgParameters.isBusLegend()) {
@@ -694,7 +706,6 @@ public class SvgWriter {
             writeLines(labelProvider.getVoltageLevelDetails(vlNode), writer);
         }
 
-        writer.writeEndElement();
         writer.writeEndElement();
     }
 

@@ -295,7 +295,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     </g>
     <g class="nad-text-nodes">
         <foreignObject id="0-textnode" y="-301.56" x="568.69" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 0px; left: 0px" id="0-textnode">
                 <div>VLHV1</div>
                 <table>
                     <tr>
@@ -306,9 +306,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-        <foreignObject id="2-textnode" y="-413.94" x="-48.87" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: -112px; left: -618px" id="2-textnode">
                 <div>VLHV2</div>
                 <table>
                     <tr>
@@ -319,9 +317,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-        <foreignObject id="4-textnode" y="-75.71" x="-40.47" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 226px; left: -609px" id="4-textnode">
                 <div>VLHV3</div>
                 <table>
                     <tr>
@@ -332,9 +328,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-        <foreignObject id="6-textnode" y="-550.74" x="176.16" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: -249px; left: -393px" id="6-textnode">
                 <div>VLLOAD</div>
                 <table>
                     <tr>
