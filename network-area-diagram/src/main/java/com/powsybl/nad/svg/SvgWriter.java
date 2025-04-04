@@ -158,9 +158,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-
-        String edgeLabel = labelProvider.getLabel(edge);
+    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge, String edgeLabel) throws XMLStreamException {
 
         if (edgeLabel == null || edgeLabel.isEmpty()) {
             return;
@@ -204,7 +202,8 @@ public class SvgWriter {
         if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
-        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || svgParameters.isEdgeNameDisplayed()) {
+        String edgeLabel = labelProvider.getLabel(edge);
+        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || !StringUtils.isEmpty(edgeLabel)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             switch (edge.getType()) {
                 case BranchEdge.PST_EDGE:
@@ -217,9 +216,7 @@ public class SvgWriter {
                 default:
                     break;
             }
-            if (svgParameters.isEdgeNameDisplayed()) {
-                drawEdgeLabel(writer, edge);
-            }
+            drawEdgeLabel(writer, edge, edgeLabel);
             writer.writeEndElement();
         }
     }
@@ -662,14 +659,19 @@ public class SvgWriter {
         }
 
         List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails()) {
-            writeDetailedTextNode(writer, textNode, vlNode, content);
+        List<String> vlDetails = labelProvider.getVoltageLevelDetails(vlNode);
+        boolean isBusLegend = vlNode.getBusNodeStream().anyMatch(bus -> StringUtils.isNotEmpty(labelProvider.getBusDescription(bus))) || svgParameters.isBusLegend();
+        boolean isVldetails = !vlDetails.isEmpty() || svgParameters.isVoltageLevelDetails();
+
+        if (content.size() > 1 || isBusLegend || isVldetails) {
+            writeDetailedTextNode(writer, textNode, vlNode, content, vlDetails, isBusLegend);
         } else {
             writeSimpleTextNode(writer, textNode, content);
         }
+
     }
 
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content, List<String> vlDetails, boolean isBusLegend) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
@@ -686,13 +688,11 @@ public class SvgWriter {
 
         writeLines(content, writer);
 
-        if (svgParameters.isBusLegend()) {
+        if (isBusLegend) {
             writeBusNodeLegend(writer, vlNode);
         }
 
-        if (svgParameters.isVoltageLevelDetails()) {
-            writeLines(labelProvider.getVoltageLevelDetails(vlNode), writer);
-        }
+        writeLines(vlDetails, writer);
 
         writer.writeEndElement();
         writer.writeEndElement();
@@ -710,16 +710,19 @@ public class SvgWriter {
         writer.writeStartElement(TABLE_ELEMENT_NAME);
 
         for (BusNode busNode : vlNode.getBusNodes()) {
-            writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-            writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-            writer.writeEndElement();
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-            writer.writeCharacters(labelProvider.getBusDescription(busNode));
-            writer.writeEndElement();
-            writer.writeEndElement();
+            String busNodeLegend = labelProvider.getBusDescription(busNode);
+            if (!StringUtils.isEmpty(busNodeLegend)) {
+                writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeEmptyElement(DIV_ELEMENT_NAME);
+                writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+                writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
+                writer.writeEndElement();
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeCharacters(busNodeLegend);
+                writer.writeEndElement();
+                writer.writeEndElement();
+            }
         }
         writer.writeEndElement();
     }

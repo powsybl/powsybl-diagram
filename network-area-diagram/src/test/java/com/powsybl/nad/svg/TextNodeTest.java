@@ -17,6 +17,7 @@ import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,12 +48,16 @@ class TextNodeTest extends AbstractTest {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
             public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-                VoltageLevel vl = network.getVoltageLevel(vlNode.getEquipmentId());
-                return List.of(
-                        vl.getLoadCount() + " loads",
-                        vl.getGeneratorCount() + " generators",
-                        vl.getBatteryCount() + " batteries",
-                        vl.getDanglingLineCount() + " dangling lines");
+                if (getSvgParameters().isVoltageLevelDetails()) {
+                    VoltageLevel vl = network.getVoltageLevel(vlNode.getEquipmentId());
+                    return List.of(
+                            vl.getLoadCount() + " loads",
+                            vl.getGeneratorCount() + " generators",
+                            vl.getBatteryCount() + " batteries",
+                            vl.getDanglingLineCount() + " dangling lines");
+                } else {
+                    return Collections.emptyList();
+                }
             }
         };
     }

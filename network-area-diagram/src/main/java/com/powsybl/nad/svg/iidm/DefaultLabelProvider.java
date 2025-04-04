@@ -52,7 +52,7 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public String getLabel(Edge edge) {
-        return edge.getEquipmentId();
+        return svgParameters.isEdgeNameDisplayed() ? edge.getEquipmentId() : null;
     }
 
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
@@ -86,35 +86,41 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public String getBusDescription(BusNode busNode) {
-        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
-        String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
-        String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
-        return voltage + " / " + angle;
+        if (svgParameters.isBusLegend()) {
+            Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+            String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
+            String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
+            return voltage + " / " + angle;
+        }
+        return null;
     }
 
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
         List<String> voltageLevelDetails = new ArrayList<>();
-        VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
 
-        double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
-        String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
+        if (svgParameters.isVoltageLevelDetails()) {
+            VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
 
-        double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
-        String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
+            double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+            String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
 
-        double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
-        String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
+            double reactiveProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+            String reactiveProduction = reactiveProductionValue == 0 ? "" : valueFormatter.formatPower(reactiveProductionValue, "MVAR");
 
-        double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
-        String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
+            double activeConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
+            String activeConsumption = activeConsumptionValue == 0 ? "" : valueFormatter.formatPower(activeConsumptionValue, "MW");
 
-        if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
-            voltageLevelDetails.add(String.format("~ %s / %s", activeProduction, reactiveProduction));
-        }
+            double reactiveConsumptionValue = voltageLevel.getLoadStream().mapToDouble(load -> load.getTerminal().getQ()).filter(q -> !Double.isNaN(q)).sum();
+            String reactiveConsumption = reactiveConsumptionValue == 0 ? "" : valueFormatter.formatPower(reactiveConsumptionValue, "MVAR");
 
-        if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
-            voltageLevelDetails.add(String.format("⌂ %s / %s", activeConsumption, reactiveConsumption));
+            if (!activeProduction.isEmpty() || !reactiveProduction.isEmpty()) {
+                voltageLevelDetails.add(String.format("~ %s / %s", activeProduction, reactiveProduction));
+            }
+
+            if (!activeConsumption.isEmpty() || !reactiveConsumption.isEmpty()) {
+                voltageLevelDetails.add(String.format("⌂ %s / %s", activeConsumption, reactiveConsumption));
+            }
         }
 
         return voltageLevelDetails;
