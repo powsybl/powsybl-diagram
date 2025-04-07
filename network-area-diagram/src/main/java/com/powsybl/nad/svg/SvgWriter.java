@@ -39,7 +39,6 @@ public class SvgWriter {
     private static final String PATH_ELEMENT_NAME = "path";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
     private static final String TEXT_ELEMENT_NAME = "text";
-    private static final String TSPAN_ELEMENT_NAME = "tspan";
     private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
     private static final String DIV_ELEMENT_NAME = "div";
     private static final String TABLE_ELEMENT_NAME = "table";
@@ -58,7 +57,6 @@ public class SvgWriter {
     private static final String PATH_D_ATTRIBUTE = "d";
     private static final String X_ATTRIBUTE = "x";
     private static final String Y_ATTRIBUTE = "y";
-    private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
     private static final String HREF_ATTRIBUTE = "href";
 
@@ -206,8 +204,7 @@ public class SvgWriter {
         if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || !StringUtils.isEmpty(edgeLabel)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             switch (edge.getType()) {
-                case BranchEdge.PST_EDGE:
-                case BranchEdge.TWO_WT_EDGE:
+                case BranchEdge.PST_EDGE, BranchEdge.TWO_WT_EDGE:
                     draw2Wt(writer, edge);
                     break;
                 case BranchEdge.HVDC_LINE_EDGE:
