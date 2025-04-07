@@ -658,20 +658,6 @@ public class SvgWriter {
             return;
         }
 
-        List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        List<String> vlDetails = labelProvider.getVoltageLevelDetails(vlNode);
-        boolean isBusLegend = vlNode.getBusNodeStream().anyMatch(bus -> StringUtils.isNotEmpty(labelProvider.getBusDescription(bus))) || svgParameters.isBusLegend();
-        boolean isVldetails = !vlDetails.isEmpty() || svgParameters.isVoltageLevelDetails();
-
-        if (content.size() > 1 || isBusLegend || isVldetails) {
-            writeDetailedTextNode(writer, textNode, vlNode, content, vlDetails, isBusLegend);
-        } else {
-            writeSimpleTextNode(writer, textNode, content);
-        }
-
-    }
-
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content, List<String> vlDetails, boolean isBusLegend) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
@@ -686,12 +672,12 @@ public class SvgWriter {
         writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
 
-        writeLines(content, writer);
+        List<String> vlDescription = labelProvider.getVoltageLevelDescription(vlNode);
+        writeLines(vlDescription, writer);
 
-        if (isBusLegend) {
-            writeBusNodeLegend(writer, vlNode);
-        }
+        writeBusNodeLegend(writer, vlNode);
 
+        List<String> vlDetails = labelProvider.getVoltageLevelDetails(vlNode);
         writeLines(vlDetails, writer);
 
         writer.writeEndElement();
@@ -707,46 +693,27 @@ public class SvgWriter {
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeStartElement(TABLE_ELEMENT_NAME);
+        boolean isBusLegend = vlNode.getBusNodeStream().anyMatch(bus -> StringUtils.isNotEmpty(labelProvider.getBusDescription(bus)));
+        if (isBusLegend) {
+            writer.writeStartElement(TABLE_ELEMENT_NAME);
 
-        for (BusNode busNode : vlNode.getBusNodes()) {
-            String busNodeLegend = labelProvider.getBusDescription(busNode);
-            if (!StringUtils.isEmpty(busNodeLegend)) {
-                writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                writer.writeEmptyElement(DIV_ELEMENT_NAME);
-                writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-                writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-                writer.writeEndElement();
-                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                writer.writeCharacters(busNodeLegend);
-                writer.writeEndElement();
-                writer.writeEndElement();
-            }
-        }
-        writer.writeEndElement();
-    }
-
-    private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
-        writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getY()));
-        if (content.size() == 1) {
-            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
-            writer.writeCharacters(content.get(0));
-        } else {
-            for (int i = 0; i < content.size(); i++) {
-                String line = content.get(i);
-                writer.writeStartElement(TSPAN_ELEMENT_NAME);
-                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
-                if (i > 0) {
-                    writer.writeAttribute(DY_ATTRIBUTE, "1.1em");
+            for (BusNode busNode : vlNode.getBusNodes()) {
+                String busNodeLegend = labelProvider.getBusDescription(busNode);
+                if (!StringUtils.isEmpty(busNodeLegend)) {
+                    writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
+                    writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                    writer.writeEmptyElement(DIV_ELEMENT_NAME);
+                    writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+                    writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
+                    writer.writeEndElement();
+                    writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                    writer.writeCharacters(busNodeLegend);
+                    writer.writeEndElement();
+                    writer.writeEndElement();
                 }
-                writer.writeCharacters(line);
-                writer.writeEndElement();
             }
+            writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {

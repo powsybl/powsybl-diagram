@@ -734,7 +734,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <foreignObject id="10-textnode" y="379.24" x="212.11" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL14</div>
-                <table></table>
             </div>
         </foreignObject>
         <foreignObject id="11-textnode" y="-424.58" x="162.40" height="1" width="1">
