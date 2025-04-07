@@ -690,24 +690,23 @@ public class SvgWriter {
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        boolean isBusLegend = vlNode.getBusNodeStream().anyMatch(bus -> StringUtils.isNotEmpty(labelProvider.getBusDescription(bus)));
-        if (isBusLegend) {
-            writer.writeStartElement(TABLE_ELEMENT_NAME);
+        List<BusNode> notEmptyDescrBusNodes = vlNode.getBusNodeStream()
+                .filter(busNode -> StringUtils.isNotEmpty(labelProvider.getBusDescription(busNode)))
+                .toList();
 
-            for (BusNode busNode : vlNode.getBusNodes()) {
-                String busNodeLegend = labelProvider.getBusDescription(busNode);
-                if (!StringUtils.isEmpty(busNodeLegend)) {
-                    writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-                    writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                    writer.writeEmptyElement(DIV_ELEMENT_NAME);
-                    writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-                    writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-                    writer.writeEndElement();
-                    writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                    writer.writeCharacters(busNodeLegend);
-                    writer.writeEndElement();
-                    writer.writeEndElement();
-                }
+        if (!notEmptyDescrBusNodes.isEmpty()) {
+            writer.writeStartElement(TABLE_ELEMENT_NAME);
+            for (BusNode busNode : notEmptyDescrBusNodes) {
+                writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeEmptyElement(DIV_ELEMENT_NAME);
+                writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+                writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
+                writer.writeEndElement();
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeCharacters(labelProvider.getBusDescription(busNode));
+                writer.writeEndElement();
+                writer.writeEndElement();
             }
             writer.writeEndElement();
         }
