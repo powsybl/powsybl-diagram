@@ -636,8 +636,6 @@ public class SvgWriter {
     }
 
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
         List<Pair<VoltageLevelNode, TextNode>> simpleTextNodes = new ArrayList<>();
         List<Pair<VoltageLevelNode, TextNode>> detailedTextNodes = new ArrayList<>();
         graph.getVoltageLevelTextPairs().stream()
@@ -653,14 +651,15 @@ public class SvgWriter {
             writeSimpleTextNode(writer, nodePair.getSecond(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
         }
         if (!detailedTextNodes.isEmpty()) {
-            TextNode firstNode = detailedTextNodes.get(0).getSecond();
-            writeForeignObject(writer, firstNode);
+            writeForeignObject(writer);
+            writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
+            writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
             for (Pair<VoltageLevelNode, TextNode> nodePair : detailedTextNodes) {
-                writeDetailedTextNode(writer, firstNode, nodePair.getSecond(), nodePair.getFirst(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
+                writeDetailedTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
             }
             writer.writeEndElement();
+            writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     private String getTranslateString(Node node) {
@@ -679,21 +678,18 @@ public class SvgWriter {
         return content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails();
     }
 
-    private void writeForeignObject(XMLStreamWriter writer, TextNode textNode) throws XMLStreamException {
+    private void writeForeignObject(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
-        writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
-        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
         writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
         writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
+        writeStyleClasses(writer, StyleProvider.TEXT_NODES_CLASS);
     }
 
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode firstNode, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
-        writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
-        long top = Math.round(textNode.getY() - firstNode.getY());
-        long left = Math.round(textNode.getX() - firstNode.getX());
+        long top = Math.round(textNode.getY());
+        long left = Math.round(textNode.getX());
         writeStyleAttribute(writer, String.format("position: absolute; top: %spx; left: %spx", top, left));
         writeId(writer, textNode);
         writeLines(content, writer);

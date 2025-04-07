@@ -17,7 +17,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-.nad-text-nodes foreignObject {overflow: visible; color: black}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
@@ -378,9 +378,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <polyline id="8-textedge" points="-122.00,727.49 -51.67,716.94"/>
         <polyline id="10-textedge" points="198.93,-2.43 269.27,-12.98"/>
     </g>
-    <g class="nad-text-nodes">
-        <foreignObject id="0-textnode" y="159.31" x="725.23" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 0px; left: 0px" id="0-textnode">
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: 159px; left: 725px" id="0-textnode">
                 <div>VL10</div>
                 <table>
                     <tr>
@@ -391,7 +391,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: -599px; left: -203px" id="2-textnode">
+            <div class="nad-label-box" style="position: absolute; top: -440px; left: 522px" id="2-textnode">
                 <div>VL14</div>
                 <table>
                     <tr>
@@ -402,7 +402,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: -302px; left: -979px" id="4-textnode">
+            <div class="nad-label-box" style="position: absolute; top: -143px; left: -254px" id="4-textnode">
                 <div>VL4</div>
                 <table>
                     <tr>
@@ -413,7 +413,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 102px; left: -759px" id="6-textnode">
+            <div class="nad-label-box" style="position: absolute; top: 261px; left: -34px" id="6-textnode">
                 <div>VL7</div>
                 <table>
                     <tr>
@@ -424,7 +424,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: 533px; left: -777px" id="8-textnode">
+            <div class="nad-label-box" style="position: absolute; top: 692px; left: -52px" id="8-textnode">
                 <div>VL8</div>
                 <table>
                     <tr>
@@ -435,7 +435,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box" style="position: absolute; top: -197px; left: -456px" id="10-textnode">
+            <div class="nad-label-box" style="position: absolute; top: -38px; left: 269px" id="10-textnode">
                 <div>VL9</div>
                 <table>
                     <tr>
@@ -446,6 +446,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </tr>
                 </table>
             </div>
-        </foreignObject>
-    </g>
+        </div>
+    </foreignObject>
 </svg>
