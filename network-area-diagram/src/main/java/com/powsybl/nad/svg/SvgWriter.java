@@ -39,7 +39,6 @@ public class SvgWriter {
     private static final String PATH_ELEMENT_NAME = "path";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
     private static final String TEXT_ELEMENT_NAME = "text";
-    private static final String TSPAN_ELEMENT_NAME = "tspan";
     private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
     private static final String DIV_ELEMENT_NAME = "div";
     private static final String TABLE_ELEMENT_NAME = "table";
@@ -58,7 +57,6 @@ public class SvgWriter {
     private static final String PATH_D_ATTRIBUTE = "d";
     private static final String X_ATTRIBUTE = "x";
     private static final String Y_ATTRIBUTE = "y";
-    private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
     private static final String HREF_ATTRIBUTE = "href";
 
@@ -158,9 +156,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-
-        String edgeLabel = labelProvider.getLabel(edge);
+    private void drawEdgeLabel(XMLStreamWriter writer, BranchEdge edge, String edgeLabel) throws XMLStreamException {
 
         if (edgeLabel == null || edgeLabel.isEmpty()) {
             return;
@@ -204,11 +200,11 @@ public class SvgWriter {
         if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
-        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || svgParameters.isEdgeNameDisplayed()) {
+        String edgeLabel = labelProvider.getLabel(edge);
+        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || !StringUtils.isEmpty(edgeLabel)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             switch (edge.getType()) {
-                case BranchEdge.PST_EDGE:
-                case BranchEdge.TWO_WT_EDGE:
+                case BranchEdge.PST_EDGE, BranchEdge.TWO_WT_EDGE:
                     draw2Wt(writer, edge);
                     break;
                 case BranchEdge.HVDC_LINE_EDGE:
@@ -217,9 +213,7 @@ public class SvgWriter {
                 default:
                     break;
             }
-            if (svgParameters.isEdgeNameDisplayed()) {
-                drawEdgeLabel(writer, edge);
-            }
+            drawEdgeLabel(writer, edge, edgeLabel);
             writer.writeEndElement();
         }
     }
@@ -661,15 +655,6 @@ public class SvgWriter {
             return;
         }
 
-        List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails()) {
-            writeDetailedTextNode(writer, textNode, vlNode, content);
-        } else {
-            writeSimpleTextNode(writer, textNode, content);
-        }
-    }
-
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
@@ -684,15 +669,13 @@ public class SvgWriter {
         writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
 
-        writeLines(content, writer);
+        List<String> vlDescription = labelProvider.getVoltageLevelDescription(vlNode);
+        writeLines(vlDescription, writer);
 
-        if (svgParameters.isBusLegend()) {
-            writeBusNodeLegend(writer, vlNode);
-        }
+        writeBusNodeLegend(writer, vlNode);
 
-        if (svgParameters.isVoltageLevelDetails()) {
-            writeLines(labelProvider.getVoltageLevelDetails(vlNode), writer);
-        }
+        List<String> vlDetails = labelProvider.getVoltageLevelDetails(vlNode);
+        writeLines(vlDetails, writer);
 
         writer.writeEndElement();
         writer.writeEndElement();
@@ -707,43 +690,26 @@ public class SvgWriter {
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeStartElement(TABLE_ELEMENT_NAME);
+        List<BusNode> notEmptyDescrBusNodes = vlNode.getBusNodeStream()
+                .filter(busNode -> StringUtils.isNotEmpty(labelProvider.getBusDescription(busNode)))
+                .toList();
 
-        for (BusNode busNode : vlNode.getBusNodes()) {
-            writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-            writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-            writer.writeEndElement();
-            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-            writer.writeCharacters(labelProvider.getBusDescription(busNode));
-            writer.writeEndElement();
-            writer.writeEndElement();
-        }
-        writer.writeEndElement();
-    }
-
-    private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
-        writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getY()));
-        if (content.size() == 1) {
-            writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
-            writer.writeCharacters(content.get(0));
-        } else {
-            for (int i = 0; i < content.size(); i++) {
-                String line = content.get(i);
-                writer.writeStartElement(TSPAN_ELEMENT_NAME);
-                writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getEdgeConnection().getX()));
-                if (i > 0) {
-                    writer.writeAttribute(DY_ATTRIBUTE, "1.1em");
-                }
-                writer.writeCharacters(line);
+        if (!notEmptyDescrBusNodes.isEmpty()) {
+            writer.writeStartElement(TABLE_ELEMENT_NAME);
+            for (BusNode busNode : notEmptyDescrBusNodes) {
+                writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeEmptyElement(DIV_ELEMENT_NAME);
+                writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+                writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
+                writer.writeEndElement();
+                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+                writer.writeCharacters(labelProvider.getBusDescription(busNode));
+                writer.writeEndElement();
                 writer.writeEndElement();
             }
+            writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {

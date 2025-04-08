@@ -31,14 +31,14 @@ class CustomLabelProviderTest extends AbstractTest {
     void setup() {
         setLayoutParameters(new LayoutParameters());
 
-        //Note: SvgParameters EdgeNameDisplayed, VoltageLevelDetails, and BusLegend must be true,
-        // for the edge names, the VL descriptions plus VL details, and bus descriptions to be rendered
+        //Note: sets SvgParameters EdgeNameDisplayed, VoltageLevelDetails, and BusLegend explicitly to false, to demonstrate that
+        // the custom label provider ignores them when rendering edge names, the VL descriptions, and VL details.
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800)
-                .setEdgeNameDisplayed(true)
-                .setVoltageLevelDetails(true)
-                .setBusLegend(true));
+                .setEdgeNameDisplayed(false)
+                .setVoltageLevelDetails(false)
+                .setBusLegend(false));
     }
 
     @Override
