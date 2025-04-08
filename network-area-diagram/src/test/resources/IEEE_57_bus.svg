@@ -19,11 +19,8 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
+.nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
-.nad-table {display: table}
-.nad-row {display: table-row}
-.nad-cell {display: table-cell; padding: 2px;}
 .nad-disconnected {--nad-vl-color: #808080}
 .nad-vl0to30-line {--nad-vl-color: #afb42b}
 .nad-vl0to30-0 {--nad-vl-color: #827717}
@@ -2580,522 +2577,408 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <foreignObject id="0-textnode" y="-829.09" x="-57.01" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / 0.0°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / 0.0°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-420.73" x="976.10" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL10</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.1 kV / -12.5°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.4°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.1 kV / -12.5°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -11.4°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="5-textnode" y="-34.51" x="1382.46" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL11</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-2 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.3°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -10.2°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -14.1°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-2 nad-legend-square"/>1.0 kV / -11.3°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -10.2°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -14.1°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="9-textnode" y="-649.05" x="657.90" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL12</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -10.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -10.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="11-textnode" y="-66.34" x="666.82" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL13</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.9°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -9.8°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -9.8°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="14-textnode" y="234.95" x="292.93" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL14</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.1 kV / -11.9°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -9.3°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.1 kV / -11.9°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -9.3°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="17-textnode" y="-277.07" x="13.12" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL15</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -9.2°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -7.2°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -9.2°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -7.2°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="20-textnode" y="-1149.31" x="322.61" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL16</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -8.8°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -8.8°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="22-textnode" y="-847.05" x="309.17" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL17</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -5.4°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -5.4°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="24-textnode" y="1172.93" x="-969.43" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL19</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.2°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.2°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="26-textnode" y="-679.91" x="-480.08" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -1.2°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -1.2°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="28-textnode" y="1366.78" x="-571.36" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL20</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.4°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.9°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.4°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -12.9°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="31-textnode" y="961.62" x="-233.15" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL22</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.8°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.8°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="33-textnode" y="780.36" x="-866.24" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL23</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.9°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.9°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="35-textnode" y="25.67" x="-1300.93" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL24</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-2 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.9°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -18.1°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.2°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-2 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -18.1°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.2°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="39-textnode" y="-239.20" x="-1404.60" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL27</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -11.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="41-textnode" y="60.14" x="-911.31" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL28</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -10.4°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -10.4°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="43-textnode" y="-201.39" x="-541.75" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL3</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -6.0°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -6.0°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="45-textnode" y="-759.08" x="-1195.98" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL30</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -18.7°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -18.7°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="47-textnode" y="-1312.59" x="-791.70" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL31</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">0.9 kV / -19.3°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>0.9 kV / -19.3°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="49-textnode" y="-1648.02" x="-145.32" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL32</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -14.1°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">0.9 kV / -18.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -14.1°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>0.9 kV / -18.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="52-textnode" y="-2000.12" x="-362.55" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL33</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">0.9 kV / -18.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>0.9 kV / -18.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="54-textnode" y="-1535.01" x="673.47" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL35</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.9°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.9°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="56-textnode" y="-1027.49" x="1300.68" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL36</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.6°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.6°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="58-textnode" y="-565.52" x="1320.39" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL37</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.4°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.4°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="60-textnode" y="231.75" x="583.26" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL38</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.7°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.7°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="62-textnode" y="-745.39" x="1819.99" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL39</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.5°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -16.6°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.5°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -16.6°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="65-textnode" y="469.19" x="-955.97" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL4</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.7°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -7.3°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -11.7°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -7.3°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="68-textnode" y="-433.12" x="1702.38" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL40</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.6°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -16.0°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.6°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -16.0°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="71-textnode" y="-29.41" x="1843.63" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL42</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -15.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -15.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="73-textnode" y="-76.82" x="218.48" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL44</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.9°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -11.9°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="75-textnode" y="693.26" x="546.66" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL47</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="77-textnode" y="462.78" x="832.54" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL48</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.6°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.6°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="79-textnode" y="638.57" x="-1247.66" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL5</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -8.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -8.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="81-textnode" y="-370.65" x="684.19" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL50</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -13.4°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -13.4°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="83-textnode" y="1171.82" x="244.26" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL52</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -11.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="85-textnode" y="1255.47" x="788.34" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL53</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -12.2°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -12.2°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="87-textnode" y="831.83" x="1115.21" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL54</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -11.7°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -11.7°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="89-textnode" y="505.34" x="-628.11" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL6</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -8.7°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -8.7°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="91-textnode" y="598.06" x="-317.45" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL7</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -7.6°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -9.8°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -7.6°</div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -9.8°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="94-textnode" y="431.73" x="-6.75" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL8</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -4.5°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -4.5°</div>
                 </div>
             </div>
         </foreignObject>
         <foreignObject id="96-textnode" y="68.50" x="928.33" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL9</div>
-                <div class="nad-table">
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-1 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -10.8°</div>
-                    </div>
-                    <div class="nad-row">
-                        <div class="nad-vl0to30-0 nad-cell nad-legend-square"/>
-                        <div class="nad-cell">1.0 kV / -9.6°</div>
-                    </div>
+                <div>
+                    <div>
+                        <span class="nad-vl0to30-1 nad-legend-square"/>1.0 kV / -10.8°</div>
+                    <div>
+                        <span class="nad-vl0to30-0 nad-legend-square"/>1.0 kV / -9.6°</div>
                 </div>
             </div>
         </foreignObject>

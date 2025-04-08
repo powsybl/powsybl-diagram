@@ -43,9 +43,6 @@ public interface StyleProvider {
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
     String HIGHLIGHT_CLASS = CLASSES_PREFIX + "highlight";
-    String TABLE_CLASS = CLASSES_PREFIX + "table";
-    String ROW_CLASS = CLASSES_PREFIX + "row";
-    String CELL_CLASS = CLASSES_PREFIX + "cell";
 
     List<String> getCssFilenames();
 

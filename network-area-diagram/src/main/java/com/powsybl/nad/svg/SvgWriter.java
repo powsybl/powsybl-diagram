@@ -42,6 +42,7 @@ public class SvgWriter {
     private static final String TSPAN_ELEMENT_NAME = "tspan";
     private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
     private static final String DIV_ELEMENT_NAME = "div";
+    private static final String SPAN_ELEMENT_NAME = "span";
     private static final String USE_ELEMENT_NAME = "use";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
@@ -705,18 +706,13 @@ public class SvgWriter {
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement(DIV_ELEMENT_NAME);
-        writeStyleClasses(writer, StyleProvider.TABLE_CLASS);
 
         for (BusNode busNode : vlNode.getBusNodes()) {
             writer.writeStartElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, StyleProvider.ROW_CLASS);
-            writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.CELL_CLASS, StyleProvider.LEGEND_SQUARE_CLASS);
+            writer.writeEmptyElement(SPAN_ELEMENT_NAME);
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
             writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-            writer.writeStartElement(DIV_ELEMENT_NAME);
-            writeStyleClasses(writer, StyleProvider.CELL_CLASS);
             writer.writeCharacters(labelProvider.getBusDescription(busNode));
-            writer.writeEndElement();
             writer.writeEndElement();
         }
         writer.writeEndElement();
