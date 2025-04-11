@@ -181,9 +181,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL 11 description1</div>
                 <div>
-                    <div>
-                        <span class="nad-vl0to30-0 nad-legend-square"/>VL2 11</div>
-                </div>
+                    <span class="nad-vl0to30-0 nad-legend-square"/>VL2 11</div>
                 <div>VL 1 details1</div>
             </div>
         </foreignObject>
@@ -192,9 +190,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <div>VL 132 description1</div>
                 <div>VL1 132 description2</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>VL1 132</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>VL1 132</div>
                 <div>VL 132 details1</div>
             </div>
         </foreignObject>
@@ -202,9 +198,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL 33 description1</div>
                 <div>
-                    <div>
-                        <span class="nad-vl30to50-0 nad-legend-square"/>VL2 33</div>
-                </div>
+                    <span class="nad-vl30to50-0 nad-legend-square"/>VL2 33</div>
                 <div>VL 33 details1</div>
                 <div>VL 33 details2</div>
             </div>

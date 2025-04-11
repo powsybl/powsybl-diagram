@@ -301,18 +301,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <div>VL1 description1</div>
                 <div>VL1 description2</div>
                 <div>
-                    <div>
-                        <span class="nad-vl300to500-0 nad-legend-square"/>VL1 10</div>
-                </div>
+                    <span class="nad-vl300to500-0 nad-legend-square"/>VL1 10</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="17.51" x="-221.25" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2 description1</div>
                 <div>
-                    <div>
-                        <span class="nad-vl300to500-0 nad-legend-square"/>VL2 30</div>
-                </div>
+                    <span class="nad-vl300to500-0 nad-legend-square"/>VL2 30</div>
                 <div>VL2 details1</div>
                 <div>VL2 details2</div>
             </div>

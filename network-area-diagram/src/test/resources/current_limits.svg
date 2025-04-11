@@ -114,18 +114,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 1</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>390.0 kV / °</div>
-                </div>
+                    <span class="nad-legend-square"/>390.0 kV / °</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-38.82" x="-130.42" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>Voltage level 2</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/> kV / °</div>
-                </div>
+                    <span class="nad-legend-square"/> kV / °</div>
             </div>
         </foreignObject>
     </g>

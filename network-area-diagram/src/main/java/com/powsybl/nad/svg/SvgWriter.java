@@ -705,8 +705,6 @@ public class SvgWriter {
     }
 
     private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeStartElement(DIV_ELEMENT_NAME);
-
         for (BusNode busNode : vlNode.getBusNodes()) {
             writer.writeStartElement(DIV_ELEMENT_NAME);
             writer.writeEmptyElement(SPAN_ELEMENT_NAME);
@@ -715,7 +713,6 @@ public class SvgWriter {
             writer.writeCharacters(labelProvider.getBusDescription(busNode));
             writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {

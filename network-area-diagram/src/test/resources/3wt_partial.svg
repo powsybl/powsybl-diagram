@@ -86,9 +86,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL_11</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>11.8 kV / -15.2°</div>
-                </div>
+                    <span class="nad-legend-square"/>11.8 kV / -15.2°</div>
             </div>
         </foreignObject>
     </g>

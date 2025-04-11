@@ -384,45 +384,35 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>143.1 kV / 0.0°</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>143.1 kV / 0.0°</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-9.74" x="-35.62" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>141.1 kV / -5.0°</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>141.1 kV / -5.0°</div>
             </div>
         </foreignObject>
         <foreignObject id="4-textnode" y="-258.37" x="-231.07" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL3</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>136.3 kV / -12.7°</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>136.3 kV / -12.7°</div>
             </div>
         </foreignObject>
         <foreignObject id="6-textnode" y="-94.08" x="368.14" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL4</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>137.6 kV / -10.3°</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>137.6 kV / -10.3°</div>
             </div>
         </foreignObject>
         <foreignObject id="8-textnode" y="233.29" x="142.52" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL5</div>
                 <div>
-                    <div>
-                        <span class="nad-vl120to180-0 nad-legend-square"/>137.7 kV / -8.8°</div>
-                </div>
+                    <span class="nad-vl120to180-0 nad-legend-square"/>137.7 kV / -8.8°</div>
             </div>
         </foreignObject>
     </g>

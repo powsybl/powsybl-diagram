@@ -209,18 +209,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square" style="background:yellow; fill:yellow;"/> kV / °</div>
-                </div>
+                    <span class="nad-legend-square" style="background:yellow; fill:yellow;"/> kV / °</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="17.51" x="-221.25" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/> kV / °</div>
-                </div>
+                    <span class="nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"/> kV / °</div>
             </div>
         </foreignObject>
     </g>

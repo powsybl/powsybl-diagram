@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public abstract class AbstractTest {
 
     protected boolean debugSvg = false;
-    protected boolean overrideTestReferences = true;
+    protected boolean overrideTestReferences = false;
 
     private SvgParameters svgParameters;
 

@@ -298,36 +298,28 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VLHV1</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
-                </div>
+                    <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
         </foreignObject>
         <foreignObject id="2-textnode" y="-413.94" x="-48.87" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VLHV2</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
-                </div>
+                    <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
             </div>
         </foreignObject>
         <foreignObject id="4-textnode" y="-75.71" x="-40.47" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VLHV3</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
-                </div>
+                    <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
             </div>
         </foreignObject>
         <foreignObject id="6-textnode" y="-550.74" x="176.16" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VLLOAD</div>
                 <div>
-                    <div>
-                        <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
-                </div>
+                    <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
             </div>
         </foreignObject>
     </g>
