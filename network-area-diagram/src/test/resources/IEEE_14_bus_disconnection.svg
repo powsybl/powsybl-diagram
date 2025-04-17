@@ -724,7 +724,6 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             </div>
             <div class="nad-label-box" style="position: absolute; top: 379px; left: 212px" id="10-textnode">
                 <div>VL14</div>
-                <table></table>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -425px; left: 162px" id="11-textnode">
                 <div>VL2</div>
