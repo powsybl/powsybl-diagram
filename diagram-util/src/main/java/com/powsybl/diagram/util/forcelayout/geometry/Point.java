@@ -85,4 +85,11 @@ public class Point {
 
         printWriter.println("</g>");
     }
+
+    public double distanceTo(Point other) {
+        // we could do this.position.subtract(other.getPosition()).magnitude(); but that involves creating a new position, maybe not great for the GC
+        double deltaX = this.position.x() - other.getPosition().x();
+        double deltaY = this.position.y() - other.getPosition().y();
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
 }
