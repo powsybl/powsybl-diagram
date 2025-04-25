@@ -1,10 +1,13 @@
-/**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+/*
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout;
+package com.powsybl.diagram.util.forcelayout.geometry;
+
+import com.powsybl.diagram.util.forcelayout.Canvas;
 
 import java.io.PrintWriter;
 import java.util.Locale;
@@ -17,6 +20,8 @@ public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
     private Vector2D position;
+    //TODO remove this, it is not needed
+    // or maybe it is to calculate the Barnes Hut Dynamic schedule ?
     private Vector2D velocity;
     private Vector2D forces;
     private final double mass;

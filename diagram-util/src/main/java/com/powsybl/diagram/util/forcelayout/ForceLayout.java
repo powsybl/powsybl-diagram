@@ -28,6 +28,9 @@
 
 package com.powsybl.diagram.util.forcelayout;
 
+import com.powsybl.diagram.util.forcelayout.geometry.BoundingBox;
+import com.powsybl.diagram.util.forcelayout.geometry.Point;
+import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,10 +1,11 @@
-/**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+/*
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout;
+package com.powsybl.diagram.util.forcelayout.geometry;
 
 import java.util.Collection;
 
@@ -29,10 +30,11 @@ public final class BoundingBox {
     }
 
     public static BoundingBox computeBoundingBox(Collection<Point> points) {
-        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(-2);
-        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(-2);
-        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(2);
-        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(2);
+        // using Double.MAX_VALUE this way the box for no points is the identity element for box fusion
+        double left = points.stream().mapToDouble(p -> p.getPosition().x()).min().orElse(-Double.MAX_VALUE);
+        double top = points.stream().mapToDouble(p -> p.getPosition().y()).min().orElse(-Double.MAX_VALUE);
+        double right = points.stream().mapToDouble(p -> p.getPosition().x()).max().orElse(Double.MAX_VALUE);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().y()).max().orElse(Double.MAX_VALUE);
         return new BoundingBox(left, top, right, bottom);
     }
 
@@ -50,5 +52,13 @@ public final class BoundingBox {
 
     public double getTop() {
         return top;
+    }
+
+    public double getBottom() {
+        return bottom;
+    }
+
+    public double getRight() {
+        return right;
     }
 }

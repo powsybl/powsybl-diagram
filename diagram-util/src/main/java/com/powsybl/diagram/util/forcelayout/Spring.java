@@ -6,6 +6,9 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
+import com.powsybl.diagram.util.forcelayout.geometry.Point;
+import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+
 import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.Objects;

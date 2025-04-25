@@ -6,6 +6,9 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
+import com.powsybl.diagram.util.forcelayout.geometry.BoundingBox;
+import com.powsybl.diagram.util.forcelayout.geometry.Point;
+import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
