@@ -16,9 +16,9 @@ import java.util.function.Function;
 public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
-    private Vector position;
-    private Vector velocity;
-    private Vector forces;
+    private Vector2D position;
+    private Vector2D velocity;
+    private Vector2D forces;
     private final double mass;
 
     public Point(double x, double y) {
@@ -26,33 +26,33 @@ public class Point {
     }
 
     public Point(double x, double y, double mass) {
-        this.position = new Vector(x, y);
-        this.velocity = new Vector(0, 0);
-        this.forces = new Vector(0, 0);
+        this.position = new Vector2D(x, y);
+        this.velocity = new Vector2D(0, 0);
+        this.forces = new Vector2D(0, 0);
         this.mass = mass;
     }
 
-    public void applyForce(Vector force) {
+    public void applyForce(Vector2D force) {
         forces = forces.add(force);
     }
 
-    public Vector getPosition() {
+    public Vector2D getPosition() {
         return position;
     }
 
-    public Vector getVelocity() {
+    public Vector2D getVelocity() {
         return velocity;
     }
 
-    public Vector getForces() {
+    public Vector2D getForces() {
         return forces;
     }
 
-    public void setPosition(Vector position) {
+    public void setPosition(Vector2D position) {
         this.position = position;
     }
 
-    public void setVelocity(Vector velocity) {
+    public void setVelocity(Vector2D velocity) {
         this.velocity = velocity;
     }
 
@@ -65,7 +65,7 @@ public class Point {
     }
 
     public void resetForces() {
-        this.forces = new Vector(0, 0);
+        this.forces = new Vector2D(0, 0);
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {
@@ -73,9 +73,9 @@ public class Point {
 
         printWriter.printf("<title>%s</title>%n", tooltip.apply(vertex));
 
-        Vector screenPosition = canvas.toScreen(getPosition());
+        Vector2D screenPosition = canvas.toScreen(getPosition());
         printWriter.printf(Locale.US, "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"10\"/>%n",
-            screenPosition.getX(), screenPosition.getY()
+            screenPosition.x(), screenPosition.y()
         );
 
         printWriter.println("</g>");

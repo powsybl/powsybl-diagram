@@ -31,9 +31,9 @@ class CanvasTest {
         assertEquals(16.0, canvas.getWidth(), 0.0);
         assertEquals(16.0, canvas.getHeight(), 0.0);
 
-        Vector vector = new Vector(1.0, 2.0);
+        Vector2D vector = new Vector2D(1.0, 2.0);
         vector = canvas.toScreen(vector);
-        assertEquals(64.0, vector.getX(), 0.0);
-        assertEquals(64.0, vector.getY(), 0.0);
+        assertEquals(64.0, vector.x(), 0.0);
+        assertEquals(64.0, vector.y(), 0.0);
     }
 }

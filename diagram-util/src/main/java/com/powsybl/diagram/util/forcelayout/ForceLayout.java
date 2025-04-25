@@ -81,7 +81,7 @@ public class ForceLayout<V, E> {
     private final Set<Spring> springs = new LinkedHashSet<>();
 
     private boolean hasBeenExecuted = false;
-    private Vector center = new Vector(0, 0);
+    private Vector2D center = new Vector2D(0, 0);
 
     private boolean repulsionForceFromFixedPoints = true;
     private boolean attractToCenterForce = true;
@@ -159,11 +159,11 @@ public class ForceLayout<V, E> {
         // Apply a scale depending on the number of unknown positions to have an expected mean distance remain around the same value.
         // The positions are around the center of given initial positions.
         double scale = Math.sqrt(nbUnknownPositions) * 5;
-        Optional<Vector> initialPointsCenter = initialPoints.values().stream()
+        Optional<Vector2D> initialPointsCenter = initialPoints.values().stream()
                 .map(Point::getPosition)
-                .reduce(Vector::add)
+                .reduce(Vector2D::add)
                 .map(sum -> sum.divide(initialPoints.size()));
-        setCenter(initialPointsCenter.orElse(new Vector(0, 0)));
+        setCenter(initialPointsCenter.orElse(new Vector2D(0, 0)));
 
         for (V vertex : graph.vertexSet()) {
             if (fixedNodes.contains(vertex)) {
@@ -171,8 +171,8 @@ public class ForceLayout<V, E> {
             } else {
                 Point initialPoint = initialPoints.get(vertex);
                 points.put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        center.getX() + scale * (random.nextDouble() - 0.5),
-                        center.getY() + scale * (random.nextDouble() - 0.5)
+                        center.x() + scale * (random.nextDouble() - 0.5),
+                        center.y() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }
@@ -222,15 +222,15 @@ public class ForceLayout<V, E> {
         LOGGER.info("Elapsed time: {}", elapsedTime / 1e9);
     }
 
-    private Vector coulombsForce(Vector p1, Vector p2, double repulsion) {
-        Vector distance = p1.subtract(p2);
-        Vector direction = distance.normalize();
+    private Vector2D coulombsForce(Vector2D p1, Vector2D p2, double repulsion) {
+        Vector2D distance = p1.subtract(p2);
+        Vector2D direction = distance.normalize();
         return direction.multiply(repulsion).divide(distance.magnitudeSquare() * 0.5 + 0.1);
     }
 
     private void applyCoulombsLawToPoints() {
         for (Point point : points.values()) {
-            Vector p = point.getPosition();
+            Vector2D p = point.getPosition();
             for (Point otherPoint : points.values()) {
                 if (!point.equals(otherPoint)) {
                     point.applyForce(coulombsForce(p, otherPoint.getPosition(), repulsion));
@@ -249,11 +249,11 @@ public class ForceLayout<V, E> {
             Point point1 = spring.getNode1();
             Point point2 = spring.getNode2();
 
-            Vector distance = point2.getPosition().subtract(point1.getPosition());
+            Vector2D distance = point2.getPosition().subtract(point1.getPosition());
             double displacement = spring.getLength() - distance.magnitude();
-            Vector direction = distance.normalize();
+            Vector2D direction = distance.normalize();
 
-            Vector force = direction.multiply(spring.getStiffness() * displacement * 0.5);
+            Vector2D force = direction.multiply(spring.getStiffness() * displacement * 0.5);
             point1.applyForce(force.multiply(-1));
             point2.applyForce(force);
         }
@@ -261,18 +261,18 @@ public class ForceLayout<V, E> {
 
     private void attractToCenter() {
         for (Point point : points.values()) {
-            Vector direction = point.getPosition().multiply(-1).add(center);
+            Vector2D direction = point.getPosition().multiply(-1).add(center);
             point.applyForce(direction.multiply(repulsion / 200.0));
         }
     }
 
     private void updateVelocity() {
         for (Point point : points.values()) {
-            Vector newVelocity = point.getForces().multiply((1 - Math.exp(-deltaTime * friction / point.getMass())) / friction);
+            Vector2D newVelocity = point.getForces().multiply((1 - Math.exp(-deltaTime * friction / point.getMass())) / friction);
             point.setVelocity(newVelocity);
 
             if (point.getVelocity().magnitude() > maxSpeed) {
-                Vector velocity = point.getVelocity().normalize().multiply(maxSpeed);
+                Vector2D velocity = point.getVelocity().normalize().multiply(maxSpeed);
                 point.setVelocity(velocity);
             }
 
@@ -283,7 +283,7 @@ public class ForceLayout<V, E> {
     private void updatePosition() {
         // Here we only update the position for the nodes that do not have fixed positions
         for (Point point : points.values()) {
-            Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
+            Vector2D position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
     }
@@ -292,7 +292,7 @@ public class ForceLayout<V, E> {
         return points.values().stream().allMatch(p -> p.getEnergy() < minEnergyThreshold);
     }
 
-    public Vector getStablePosition(V vertex) {
+    public Vector2D getStablePosition(V vertex) {
         Point fixedPoint = fixedPoints.get(vertex);
         if (fixedPoint != null) {
             return fixedPoint.getPosition();
@@ -345,11 +345,11 @@ public class ForceLayout<V, E> {
         printWriter.close();
     }
 
-    public void setCenter(Vector center) {
+    public void setCenter(Vector2D center) {
         this.center = center;
     }
 
-    public Vector getCenter() {
+    public Vector2D getCenter() {
         return center;
     }
 }

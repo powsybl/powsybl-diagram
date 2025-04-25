@@ -26,10 +26,10 @@ public class Canvas {
         this.margin = margin;
     }
 
-    public Vector toScreen(Vector position) {
-        double screenX = (position.getX() - boundingBox.getLeft()) * scale + margin;
-        double screenY = (position.getY() - boundingBox.getTop()) * scale + margin;
-        return new Vector(screenX, screenY);
+    public Vector2D toScreen(Vector2D position) {
+        double screenX = (position.x() - boundingBox.getLeft()) * scale + margin;
+        double screenY = (position.y() - boundingBox.getTop()) * scale + margin;
+        return new Vector2D(screenX, screenY);
     }
 
     public double getWidth() {

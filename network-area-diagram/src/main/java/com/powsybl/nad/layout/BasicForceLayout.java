@@ -8,7 +8,7 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.forcelayout.ForceLayout;
-import com.powsybl.diagram.util.forcelayout.Vector;
+import com.powsybl.diagram.util.forcelayout.Vector2D;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -57,12 +57,12 @@ public class BasicForceLayout extends AbstractLayout {
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {
-            Vector p = forceLayout.getStablePosition(node);
+            Vector2D p = forceLayout.getStablePosition(node);
             if (node instanceof TextNode texNode) {
-                texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
-                texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
+                texNode.setPosition(SCALE * p.x(), SCALE * p.y() - layoutParameters.getTextNodeEdgeConnectionYShift());
+                texNode.setEdgeConnection(new Point(SCALE * p.x(), SCALE * p.y()));
             } else {
-                node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+                node.setPosition(SCALE * p.x(), SCALE * p.y());
             }
         });
 

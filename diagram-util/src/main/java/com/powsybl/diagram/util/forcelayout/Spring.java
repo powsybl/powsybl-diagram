@@ -54,10 +54,10 @@ public class Spring {
     }
 
     public void toSVG(PrintWriter printWriter, Canvas canvas) {
-        Vector screenPosition1 = canvas.toScreen(point2.getPosition());
-        Vector screenPosition2 = canvas.toScreen(point1.getPosition());
+        Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
+        Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
         printWriter.printf(Locale.US, "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
-            screenPosition1.getX(), screenPosition1.getY(), screenPosition2.getX(), screenPosition2.getY());
+            screenPosition1.x(), screenPosition1.y(), screenPosition2.x(), screenPosition2.y());
     }
 
     @Override
