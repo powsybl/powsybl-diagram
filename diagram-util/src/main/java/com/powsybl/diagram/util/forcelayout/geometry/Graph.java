@@ -17,9 +17,10 @@ public class Graph {
     private final HashMap<Point, Edge[]> points;
     private final Edge[] edges;
 
-    Graph(Collection<Edge> edges) {
-        this.edges = edges.toArray(new Edge[0]);
+    public Graph(Collection<Edge> edges) {
         HashMap<Point, List<Edge>> tempPoints = new HashMap<>();
+        this.edges = new HashSet<>(edges).toArray(new Edge[0]);
+
         for (Edge edge : this.edges) {
             tempPoints.computeIfAbsent(edge.first(), p -> new ArrayList<>()).add(edge);
             tempPoints.computeIfAbsent(edge.second(), p -> new ArrayList<>()).add(edge);
@@ -29,5 +30,13 @@ public class Graph {
         for (Map.Entry<Point, List<Edge>> entry : tempPoints.entrySet()) {
             this.points.put(entry.getKey(), entry.getValue().toArray(new Edge[0]));
         }
+    }
+
+    public Map<Point, Edge[]> getPoints() {
+        return points;
+    }
+
+    public Edge[] getEdges() {
+        return edges;
     }
 }

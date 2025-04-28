@@ -47,4 +47,14 @@ class Vector2DTest {
         assertEquals(0.89, vector.x(), 0.01);
         assertEquals(1.78, vector.y(), 0.01);
     }
+    @Test
+    void testSubtract() {
+        Vector2D v1 = new Vector2D(23, -13.5);
+        Vector2D v2 = new Vector2D(-2.3, -5.7);
+        Vector2D expected = new Vector2D(25.3, -7.8);
+        Vector2D got = v1.subtract(v2);
+        double delta = 0.01;
+        assertEquals(expected.x(), got.x(), delta);
+        assertEquals(expected.y(), got.y(), delta);
+    }
 }

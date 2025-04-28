@@ -8,11 +8,31 @@
 
 package com.powsybl.diagram.util.forcelayout.geometry;
 
+import java.util.Objects;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public record Edge(Point first, Point second) {
     public double length() {
         return first.distanceTo(second);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Edge e)) {
+            return false;
+        }
+        return this.first.equals(e.first()) && this.second.equals(e.second()) || this.first.equals(e.second()) && this.second.equals(e.first());
+    }
+
+    @Override
+    public int hashCode() {
+        // using min will concentrate the values in a hash towards lower values which might not be good for spreading evenly the key, value pairs,
+        // but we want to ensure two edges that just have their first and second reversed still have the same hash, to do the same as equals
+        return Math.min(Objects.hash(first, second), Objects.hash(second, first));
     }
 }
