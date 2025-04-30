@@ -630,12 +630,20 @@ public class SvgWriter {
     }
 
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
-        for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
-            writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
+        List<Pair<VoltageLevelNode, TextNode>> textNodes = graph.getVoltageLevelTextPairs().stream()
+                .filter(nodePair -> nodePair.getSecond() != null)
+                .toList();
+
+        if (!textNodes.isEmpty()) {
+            writeForeignObject(writer);
+            writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
+            writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
+            for (Pair<VoltageLevelNode, TextNode> nodePair : textNodes) {
+                writeDetailedTextNode(writer, nodePair.getSecond(), nodePair.getFirst());
+            }
+            writer.writeEndElement();
+            writer.writeEndElement();
         }
-        writer.writeEndElement();
     }
 
     private String getTranslateString(Node node) {
@@ -650,24 +658,22 @@ public class SvgWriter {
         return "translate(" + getFormattedValue(x) + "," + getFormattedValue(y) + ")";
     }
 
-    private void writeTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, LabelProvider labelProvider) throws XMLStreamException {
-        if (textNode == null) {
-            return;
-        }
-
+    private void writeForeignObject(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
-        writeId(writer, textNode);
-        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
-        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
-
-        // width and height cannot be set to auto, and object is of width and height 0 if not specified
+        // width and height can be set neither to auto nor 0, due to firefox not displaying it in those cases
         // using a fixed size of 1x1 and CSS {overflow: visible} to display it
         writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
         writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
+        writeStyleClasses(writer, StyleProvider.TEXT_NODES_CLASS);
+    }
 
+    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
-        writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
+        long top = Math.round(textNode.getY());
+        long left = Math.round(textNode.getX());
+        writeStyleAttribute(writer, String.format("position: absolute; top: %spx; left: %spx", top, left));
+        writeId(writer, textNode);
 
         List<String> vlDescription = labelProvider.getVoltageLevelDescription(vlNode);
         writeLines(vlDescription, writer);
@@ -677,7 +683,6 @@ public class SvgWriter {
         List<String> vlDetails = labelProvider.getVoltageLevelDetails(vlNode);
         writeLines(vlDetails, writer);
 
-        writer.writeEndElement();
         writer.writeEndElement();
     }
 
