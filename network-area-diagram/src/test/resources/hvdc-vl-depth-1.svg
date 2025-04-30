@@ -17,7 +17,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-.nad-text-nodes foreignObject {overflow: visible; color: black}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -95,20 +95,18 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <polyline id="0-textedge" points="87.68,-189.89 158.02,-200.43"/>
         <polyline id="2-textedge" points="-163.18,73.53 -92.84,62.98"/>
     </g>
-    <g class="nad-text-nodes">
-        <foreignObject id="0-textnode" y="-225.43" x="158.02" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: -225px; left: 158px" id="0-textnode">
                 <div>VL1</div>
                 <div>
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-        </foreignObject>
-        <foreignObject id="2-textnode" y="37.98" x="-92.84" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 38px; left: -93px" id="2-textnode">
                 <div>VL2</div>
                 <div>
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-        </foreignObject>
-    </g>
+        </div>
+    </foreignObject>
 </svg>

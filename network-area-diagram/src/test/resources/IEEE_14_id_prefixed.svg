@@ -17,7 +17,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-.nad-text-nodes foreignObject {overflow: visible; color: black}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -677,104 +677,78 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <polyline id="test_24-textedge" points="836.69,687.85 907.02,677.30"/>
         <polyline id="test_26-textedge" points="117.75,335.60 188.08,325.05"/>
     </g>
-    <g class="nad-text-nodes">
-        <foreignObject id="test_0-textnode" y="-937.76" x="479.50" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: -938px; left: 480px" id="test_0-textnode">
                 <div>VL1</div>
                 <div>
                     <span class="nad-legend-square"/>143.1 kV / 0.0°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_2-textnode" y="285.09" x="-486.21" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 285px; left: -486px" id="test_2-textnode">
                 <div>VL10</div>
                 <div>
                     <span class="nad-legend-square"/>12.6 kV / -15.1°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_4-textnode" y="-132.63" x="-681.48" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -133px; left: -681px" id="test_4-textnode">
                 <div>VL11</div>
                 <div>
                     <span class="nad-legend-square"/>12.7 kV / -14.8°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_6-textnode" y="-267.74" x="-56.95" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -268px; left: -57px" id="test_6-textnode">
                 <div>VL12</div>
                 <div>
                     <span class="nad-legend-square"/>12.7 kV / -15.1°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_8-textnode" y="33.32" x="-199.94" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 33px; left: -200px" id="test_8-textnode">
                 <div>VL13</div>
                 <div>
                     <span class="nad-legend-square"/>12.6 kV / -15.2°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_10-textnode" y="516.41" x="-102.47" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 516px; left: -102px" id="test_10-textnode">
                 <div>VL14</div>
                 <div>
                     <span class="nad-legend-square"/>12.4 kV / -16.0°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_12-textnode" y="-581.57" x="656.21" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -582px; left: 656px" id="test_12-textnode">
                 <div>VL2</div>
                 <div>
                     <span class="nad-legend-square"/>141.1 kV / -5.0°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_14-textnode" y="-345.76" x="944.80" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -346px; left: 945px" id="test_14-textnode">
                 <div>VL3</div>
                 <div>
                     <span class="nad-legend-square"/>136.3 kV / -12.7°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_16-textnode" y="-141.51" x="559.93" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -142px; left: 560px" id="test_16-textnode">
                 <div>VL4</div>
                 <div>
                     <span class="nad-legend-square"/>137.6 kV / -10.3°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_18-textnode" y="-582.18" x="275.68" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -582px; left: 276px" id="test_18-textnode">
                 <div>VL5</div>
                 <div>
                     <span class="nad-legend-square"/>137.7 kV / -8.8°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_20-textnode" y="-408.04" x="-304.28" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -408px; left: -304px" id="test_20-textnode">
                 <div>VL6</div>
                 <div>
                     <span class="nad-legend-square"/>12.8 kV / -14.2°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_22-textnode" y="336.56" x="626.92" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 337px; left: 627px" id="test_22-textnode">
                 <div>VL7</div>
                 <div>
                     <span class="nad-legend-square"/>14.9 kV / -13.4°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_24-textnode" y="652.30" x="907.02" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 652px; left: 907px" id="test_24-textnode">
                 <div>VL8</div>
                 <div>
                     <span class="nad-legend-square"/>21.8 kV / -13.4°</div>
             </div>
-        </foreignObject>
-        <foreignObject id="test_26-textnode" y="300.05" x="188.08" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: 300px; left: 188px" id="test_26-textnode">
                 <div>VL9</div>
                 <div>
                     <span class="nad-legend-square"/>12.7 kV / -14.9°</div>
             </div>
-        </foreignObject>
-    </g>
+        </div>
+    </foreignObject>
 </svg>

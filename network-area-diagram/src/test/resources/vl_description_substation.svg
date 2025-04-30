@@ -17,7 +17,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-.nad-text-nodes foreignObject {overflow: visible; color: black}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
@@ -174,9 +174,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <polyline id="0-textedge" points="-26.39,-323.15 43.94,-333.70"/>
         <polyline id="2-textedge" points="-200.75,-3.27 -130.42,-13.82"/>
     </g>
-    <g class="nad-text-nodes">
-        <foreignObject id="0-textnode" y="-358.70" x="43.94" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: -359px; left: 44px" id="0-textnode">
                 <div>Voltage level 1</div>
                 <div>Substation 1</div>
                 <div>0 loads</div>
@@ -184,9 +184,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <div>0 batteries</div>
                 <div>0 dangling lines</div>
             </div>
-        </foreignObject>
-        <foreignObject id="2-textnode" y="-38.82" x="-130.42" height="1" width="1">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+            <div class="nad-label-box" style="position: absolute; top: -39px; left: -130px" id="2-textnode">
                 <div>Voltage level 2</div>
                 <div>Substation 1</div>
                 <div>0 loads</div>
@@ -194,6 +192,6 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <div>0 batteries</div>
                 <div>1 dangling lines</div>
             </div>
-        </foreignObject>
-    </g>
+        </div>
+    </foreignObject>
 </svg>
