@@ -660,6 +660,8 @@ public class SvgWriter {
 
     private void writeForeignObject(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
+        // width and height can be set neither to auto nor 0, due to firefox not displaying it in those cases
+        // using a fixed size of 1x1 and CSS {overflow: visible} to display it
         writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
         writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
         writeStyleClasses(writer, StyleProvider.TEXT_NODES_CLASS);
