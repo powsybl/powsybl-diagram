@@ -24,6 +24,12 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
+/*
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.diagram.util.forcelayout;
 
@@ -62,8 +68,6 @@ public class ForceLayout<V, E> {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-    /** Spring repulsion is disabled by default */
-    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -71,7 +75,6 @@ public class ForceLayout<V, E> {
     private double repulsion;
     private double friction;
     private double maxSpeed;
-    private double springRepulsionFactor;
     /** Initial location for some nodes */
     private Map<V, Point> initialPoints = Collections.emptyMap();
     /** The location of these nodes should not be modified by the layout */
@@ -95,7 +98,6 @@ public class ForceLayout<V, E> {
         this.repulsion = DEFAULT_REPULSION;
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
-        this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
         this.graph = Objects.requireNonNull(graph);
     }
 
@@ -136,11 +138,6 @@ public class ForceLayout<V, E> {
 
     public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
-        return this;
-    }
-
-    public ForceLayout<V, E> setSpringRepulsionFactor(double springRepulsionFactor) {
-        this.springRepulsionFactor = springRepulsionFactor;
         return this;
     }
 
@@ -210,9 +207,6 @@ public class ForceLayout<V, E> {
         int i;
         for (i = 0; i < maxSteps; i++) {
             applyCoulombsLawToPoints();
-            if (springRepulsionFactor != 0.0) {
-                applyCoulombsLawToSprings();
-            }
             applyHookesLaw();
             if (attractToCenterForce) {
                 attractToCenter();
@@ -250,45 +244,6 @@ public class ForceLayout<V, E> {
             if (repulsionForceFromFixedPoints) {
                 for (Point fixedPoint : fixedPoints.values()) {
                     point.applyForce(coulombsForce(p, fixedPoint.getPosition(), repulsion));
-                }
-            }
-        }
-    }
-
-    private void applyCoulombsLawToSprings() {
-        for (Point point : points.values()) {
-            Vector p = point.getPosition();
-            for (Spring spring : springs) {
-                Point n1 = spring.getNode1();
-                Point n2 = spring.getNode2();
-                if (!n1.equals(point) && !n2.equals(point)) {
-                    Vector q1 = spring.getNode1().getPosition();
-                    Vector q2 = spring.getNode2().getPosition();
-                    Vector newCenter = q1.add(q2.subtract(q1).multiply(0.5));
-                    Vector force = coulombsForce(p, newCenter, repulsion * springRepulsionFactor);
-                    point.applyForce(force);
-                    n1.applyForce(force.multiply(-0.5));
-                    n2.applyForce(force.multiply(-0.5));
-                }
-            }
-        }
-        for (Spring spring : springs) {
-            Point n1 = spring.getNode1();
-            Point n2 = spring.getNode2();
-            Vector p1 = spring.getNode1().getPosition();
-            Vector p2 = spring.getNode2().getPosition();
-            Vector newCenter = p1.add(p2.subtract(p1).multiply(0.5));
-            for (Spring otherSpring : springs) {
-                if (!spring.equals(otherSpring)) {
-                    // Compute the repulsion force between centers of the springs
-                    Vector op1 = otherSpring.getNode1().getPosition();
-                    Vector op2 = otherSpring.getNode2().getPosition();
-                    Vector otherCenter = op1.add(op2.subtract(op1).multiply(0.5));
-                    Vector force = coulombsForce(newCenter, otherCenter, repulsion * springRepulsionFactor);
-
-                    // And apply it to both points of the spring
-                    n1.applyForce(force);
-                    n2.applyForce(force);
                 }
             }
         }
