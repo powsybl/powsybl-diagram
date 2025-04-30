@@ -41,9 +41,7 @@ public class SvgWriter {
     private static final String TEXT_ELEMENT_NAME = "text";
     private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
     private static final String DIV_ELEMENT_NAME = "div";
-    private static final String TABLE_ELEMENT_NAME = "table";
-    private static final String TABLE_ROW_ELEMENT_NAME = "tr";
-    private static final String TABLE_DATA_ELEMENT_NAME = "td";
+    private static final String SPAN_ELEMENT_NAME = "span";
     private static final String USE_ELEMENT_NAME = "use";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
@@ -698,21 +696,12 @@ public class SvgWriter {
         List<BusNode> notEmptyDescrBusNodes = vlNode.getBusNodeStream()
                 .filter(busNode -> StringUtils.isNotEmpty(labelProvider.getBusDescription(busNode)))
                 .toList();
-
-        if (!notEmptyDescrBusNodes.isEmpty()) {
-            writer.writeStartElement(TABLE_ELEMENT_NAME);
-            for (BusNode busNode : notEmptyDescrBusNodes) {
-                writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
-                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                writer.writeEmptyElement(DIV_ELEMENT_NAME);
-                writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
-                writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
-                writer.writeEndElement();
-                writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
-                writer.writeCharacters(labelProvider.getBusDescription(busNode));
-                writer.writeEndElement();
-                writer.writeEndElement();
-            }
+        for (BusNode busNode : notEmptyDescrBusNodes) {
+            writer.writeStartElement(DIV_ELEMENT_NAME);
+            writer.writeEmptyElement(SPAN_ELEMENT_NAME);
+            writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
+            writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
+            writer.writeCharacters(labelProvider.getBusDescription(busNode));
             writer.writeEndElement();
         }
     }

@@ -99,25 +99,13 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -225px; left: 158px" id="0-textnode">
                 <div>VL1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 38px; left: -93px" id="2-textnode">
                 <div>VL2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/> kV / °</div>
             </div>
         </div>
     </foreignObject>

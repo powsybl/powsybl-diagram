@@ -681,157 +681,73 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -938px; left: 480px" id="0-textnode">
                 <div>VL1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>143.1 kV / 0.0°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>143.1 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 285px; left: -486px" id="2-textnode">
                 <div>VL10</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.6 kV / -15.1°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.6 kV / -15.1°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -133px; left: -681px" id="4-textnode">
                 <div>VL11</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.7 kV / -14.8°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.7 kV / -14.8°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -268px; left: -57px" id="6-textnode">
                 <div>VL12</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.7 kV / -15.1°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.7 kV / -15.1°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 33px; left: -200px" id="8-textnode">
                 <div>VL13</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.6 kV / -15.2°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.6 kV / -15.2°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 516px; left: -102px" id="10-textnode">
                 <div>VL14</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.4 kV / -16.0°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.4 kV / -16.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -582px; left: 656px" id="12-textnode">
                 <div>VL2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>141.1 kV / -5.0°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>141.1 kV / -5.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -346px; left: 945px" id="14-textnode">
                 <div>VL3</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>136.3 kV / -12.7°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>136.3 kV / -12.7°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -142px; left: 560px" id="16-textnode">
                 <div>VL4</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>137.6 kV / -10.3°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>137.6 kV / -10.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -582px; left: 276px" id="18-textnode">
                 <div>VL5</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>137.7 kV / -8.8°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>137.7 kV / -8.8°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -408px; left: -304px" id="20-textnode">
                 <div>VL6</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.8 kV / -14.2°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.8 kV / -14.2°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 337px; left: 627px" id="22-textnode">
                 <div>VL7</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>14.9 kV / -13.4°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>14.9 kV / -13.4°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 652px; left: 907px" id="24-textnode">
                 <div>VL8</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>21.8 kV / -13.4°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>21.8 kV / -13.4°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 300px; left: 188px" id="26-textnode">
                 <div>VL9</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>12.7 kV / -14.9°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>12.7 kV / -14.9°</div>
             </div>
         </div>
     </foreignObject>

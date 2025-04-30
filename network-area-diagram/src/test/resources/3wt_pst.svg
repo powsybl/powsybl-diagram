@@ -88,14 +88,8 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -554px; left: 175px" id="0-textnode">
                 <div>VL_11</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>11.8 kV / -15.2°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>11.8 kV / -15.2°</div>
             </div>
         </div>
     </foreignObject>

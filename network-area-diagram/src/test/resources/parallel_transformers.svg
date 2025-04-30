@@ -148,31 +148,15 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -359px; left: 44px" id="0-textnode">
                 <div>vl1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/> kV / °</div>
+                <div>
+                    <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -39px; left: -130px" id="3-textnode">
                 <div>vl2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td> kV / °</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/> kV / °</div>
             </div>
         </div>
     </foreignObject>

@@ -189,47 +189,23 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -314px; left: -353px" id="0-textnode">
                 <div>VLGEN</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>24.5 kV / 2.3°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>24.5 kV / 2.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -6px; left: -145px" id="2-textnode">
                 <div>VLHV1</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>402.1 kV / 0.0°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 19px; left: 240px" id="4-textnode">
                 <div>VLHV2</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>390.0 kV / -3.5°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -214px; left: 531px" id="6-textnode">
                 <div>VLLOAD</div>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="nad-legend-square"/>
-                        </td>
-                        <td>147.6 kV / -9.6°</td>
-                    </tr>
-                </table>
+                <div>
+                    <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
             </div>
         </div>
     </foreignObject>
