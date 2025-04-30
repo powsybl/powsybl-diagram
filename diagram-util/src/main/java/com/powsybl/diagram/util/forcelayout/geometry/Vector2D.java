@@ -40,4 +40,10 @@ public record Vector2D(double x, double y) {
         return this.divide(this.magnitude());
     }
 
+    /// Calculate the unit vector that goes from This point, pointing in the direction of towards
+    public static Vector2D calculateUnitVector(Point from, Point towards) {
+        Vector2D deltaVector = towards.getPosition().subtract(from.getPosition());
+        return deltaVector.normalize();
+    }
+
 }
