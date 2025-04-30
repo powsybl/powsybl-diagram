@@ -47,6 +47,7 @@ class Vector2DTest {
         assertEquals(0.89, vector.x(), 0.01);
         assertEquals(1.78, vector.y(), 0.01);
     }
+
     @Test
     void testSubtract() {
         Vector2D v1 = new Vector2D(23, -13.5);
@@ -56,5 +57,32 @@ class Vector2DTest {
         double delta = 0.01;
         assertEquals(expected.x(), got.x(), delta);
         assertEquals(expected.y(), got.y(), delta);
+    }
+
+    @Test
+    void testUnitVector() {
+        double delta = 0.0001;
+        Point point1 = new Point(2.3, 4.5);
+        Point point2 = new Point(7.2, -3.14);
+        Point point3 = new Point(-97.87, -53.6);
+        Point point4 = new Point(-0.13, 5.95);
+        Vector2D[] resultVectors = {
+                Vector2D.calculateUnitVector(point1, point2),
+                Vector2D.calculateUnitVector(point2, point3),
+                Vector2D.calculateUnitVector(point3, point4),
+                Vector2D.calculateUnitVector(point4, point1),
+        };
+        Vector2D[] expectedVectors = {
+            new Vector2D(0.53987, -0.84175),
+            new Vector2D(-0.90143, -0.43292),
+            new Vector2D(0.85398, 0.5203),
+            new Vector2D(0.85874, -0.51242),
+        };
+        for (int i = 0; i < resultVectors.length; i++) {
+            // there is an equal Vector2D but there is no way to put a delta for this, check x and y separately
+            assertEquals(expectedVectors[i].x(), resultVectors[i].x(), delta);
+            assertEquals(expectedVectors[i].y(), resultVectors[i].y(), delta);
+        }
+
     }
 }
