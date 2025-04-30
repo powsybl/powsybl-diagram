@@ -41,7 +41,7 @@ class ForceLayoutTest extends AbstractTest {
     }
 
     @Test
-    void testDiamondNoSpringRepulsionFactor() {
-        assertSvgEquals("/diamond-spring-repulsion-factor-0.0.svg", LayoutNetworkFactory.createDiamond());
+    void testDiamond() {
+        assertSvgEquals("/diamond-network.svg", LayoutNetworkFactory.createDiamond());
     }
 }
