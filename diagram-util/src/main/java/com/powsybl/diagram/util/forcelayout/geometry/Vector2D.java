@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -40,10 +40,13 @@ public record Vector2D(double x, double y) {
         return this.divide(this.magnitude());
     }
 
+    public static Vector2D calculateVectorBetweenPoints(Point from, Point towards) {
+        return towards.getPosition().subtract(from.getPosition());
+    }
+
     /// Calculate the unit vector that goes from This point, pointing in the direction of towards
     public static Vector2D calculateUnitVector(Point from, Point towards) {
-        Vector2D deltaVector = towards.getPosition().subtract(from.getPosition());
-        return deltaVector.normalize();
+        return calculateVectorBetweenPoints(from, towards).normalize();
     }
 
 }

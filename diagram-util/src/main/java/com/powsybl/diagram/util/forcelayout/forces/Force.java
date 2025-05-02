@@ -8,17 +8,18 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
+import com.powsybl.diagram.util.forcelayout.forces.forceparameter.ForceParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.optimizationsArtifacts.OptimizationArtifactsContainer;
+import com.powsybl.diagram.util.forcelayout.optimizationsartifacts.OptimizationArtifactsContainer;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public interface Force<V, E> {
-    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, Double forceIntensity);
+public interface Force<V, E, P extends ForceParameter> {
+    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, P forceParameter);
 
-    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, Double forceIntensity, OptimizationArtifactsContainer optimizationArtifacts);
+    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, P forceParameter, OptimizationArtifactsContainer optimizationArtifacts);
 
 }
