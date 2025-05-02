@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.forces.forceparameter.SpringParamete
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.optimizationsartifacts.OptimizationArtifactsContainer;
 import org.jgrapht.Graphs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,14 +42,9 @@ public class SpringForce<V, E> implements Force<V, E, SpringParameter> {
             // multiply by 0.5 because each vertex will move half of the distance, assuming both are free
             // should this be different if the other point is not moving ?
             Vector2D force = unitDirection.multiply(forceParameter.getStiffness() * displacement * 0.5);
-            resultingForce.add(force);
+            // might be good to have a method to do this in place instead of creating new Vector2D each time
+            resultingForce = resultingForce.add(force);
         }
         return resultingForce;
-    }
-
-    @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, SpringParameter forceParameter, OptimizationArtifactsContainer optimizationArtifacts) {
-        LOGGER.warn("There is no optimized version for the spring force, directly call the unoptimized version instead to avoid unnecessary redirection calls");
-        return calculateForce(forThisVertex, correspondingPoint, forceGraph, forceParameter);
     }
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,14 +12,10 @@ import com.powsybl.diagram.util.forcelayout.forces.forceparameter.ForceParameter
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.optimizationsartifacts.OptimizationArtifactsContainer;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E, P extends ForceParameter> {
     Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, P forceParameter);
-
-    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, P forceParameter, OptimizationArtifactsContainer optimizationArtifacts);
-
 }
