@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,8 +18,9 @@ import java.util.*;
 public class ForceGraph<V, E> {
     public static final Point ORIGIN = new Point(0, 0);
 
+    // suppress SonarQube warning about PRNG being insecure, as we use this for simulation and not cryptography purpose
+    @java.lang.SuppressWarnings("java:S2245")
     private final Random random = new Random(3L);
-    private Vector2D center = new Vector2D(0, 0);
 
     private final Graph<V, E> graph;
 
@@ -53,8 +54,8 @@ public class ForceGraph<V, E> {
         return fixedNodes;
     }
 
-    public void setCenter(Vector2D center) {
-        this.center = center;
+    public static void setCenter(Vector2D center) {
+        ORIGIN.setPosition(center);
     }
 
     public ForceGraph<V, E> setInitialPoints(Map<V, Point> initialPoints) {
@@ -92,8 +93,8 @@ public class ForceGraph<V, E> {
             } else {
                 Point initialPoint = initialPoints.get(vertex);
                 movingPoints.put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        center.x() + scale * (random.nextDouble() - 0.5),
-                        center.y() + scale * (random.nextDouble() - 0.5)
+                        ORIGIN.getPosition().x() + scale * (random.nextDouble() - 0.5),
+                        ORIGIN.getPosition().y() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }

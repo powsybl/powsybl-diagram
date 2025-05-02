@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
