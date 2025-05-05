@@ -18,9 +18,14 @@ import static com.powsybl.diagram.util.forcelayout.geometry.ForceGraph.ORIGIN;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class GravityForceSimple<V, E> implements Force<V, E, IntensityParameter> {
+public class GravityForceSimple<V, E> extends AbstractForce<V, E, IntensityParameter> {
+
+    public GravityForceSimple(IntensityParameter forceParameter) {
+        super(forceParameter);
+    }
+
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, IntensityParameter forceParameter) {
+    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         return Vector2D.calculateUnitVector(correspondingPoint, ORIGIN).multiply(forceParameter.getForceIntensity());
     }
 }

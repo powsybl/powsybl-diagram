@@ -17,9 +17,14 @@ import org.jgrapht.Graphs;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class CoulombForce<V, E> implements Force<V, E, IntensityEffectFromFixedNodesParameters> {
+public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromFixedNodesParameters> {
+
+    public CoulombForce(IntensityEffectFromFixedNodesParameters forceParameter) {
+        super(forceParameter);
+    }
+
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, IntensityEffectFromFixedNodesParameters forceParameter) {
+    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (V otherVertex : Graphs.neighborSetOf(forceGraph.getGraph(), forThisVertex)) {
             // it would be good to have a way of knowing directly from the graph if a vertex will be moving or not

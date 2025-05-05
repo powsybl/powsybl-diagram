@@ -16,6 +16,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public interface Force<V, E, P extends ForceParameter> {
-    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, P forceParameter);
+public abstract class AbstractForce<V, E, P extends ForceParameter> {
+    P forceParameter;
+
+    AbstractForce(P forceParameter) {
+        this.forceParameter = forceParameter;
+    }
+
+    public abstract Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
 }

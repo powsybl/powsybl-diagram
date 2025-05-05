@@ -18,9 +18,14 @@ import static com.powsybl.diagram.util.forcelayout.geometry.ForceGraph.ORIGIN;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class GravityForceByEdgeNumber<V, E> implements Force<V, E, IntensityParameter> {
+public class GravityForceByEdgeNumber<V, E> extends AbstractForce<V, E, IntensityParameter> {
+
+    public GravityForceByEdgeNumber(IntensityParameter forceParameter) {
+        super(forceParameter);
+    }
+
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, IntensityParameter forceParameter) {
+    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         // magnitude = k * (deg (point) + 1)
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph

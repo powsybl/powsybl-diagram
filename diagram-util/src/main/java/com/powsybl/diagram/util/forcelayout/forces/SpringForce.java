@@ -18,10 +18,15 @@ import org.jgrapht.Graphs;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringForce<V, E> implements Force<V, E, SpringContainer<E>> {
+public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<E>> {
+
+    public SpringForce(SpringContainer<E> forceParameter) {
+        super(forceParameter);
+    }
+
     /// This is Hooke's Law
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph, SpringContainer<E> forceParameter) {
+    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (E edge : forceGraph.getGraph().edgesOf(forThisVertex)) {
             // this is basically what is done in Graphs.neighborSet but we need the edge to get the corresponding spring
