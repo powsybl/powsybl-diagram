@@ -6,15 +6,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters;
+package com.powsybl.diagram.util.forcelayout.setup;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public abstract class AbstractLayoutParameters {
-    protected LayoutEnum parameterType;
-
-    public LayoutEnum getParameterType() {
-        return parameterType;
-    }
+public enum SetupEnum {
+    SPRINGY,
 }
