@@ -45,7 +45,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
             getBaseVoltageStyle(network.getDanglingLine(dlId).getTerminal().getVoltageLevel().getNominalV())
                     .ifPresent(baseVoltageStyle -> {
                         styles.add(baseVoltageStyle);
-                        styles.add(baseVoltageStyle + "-bus-" + busNode.getBusIndex());
+                        styles.add(CLASSES_PREFIX + "bus-" + busNode.getBusIndex());
                     });
         } else {
             Bus b = network.getBusView().getBus(busNode.getEquipmentId());
@@ -53,7 +53,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
                 getBaseVoltageStyle(b.getVoltageLevel().getNominalV())
                         .ifPresent(baseVoltageStyle -> {
                             styles.add(baseVoltageStyle);
-                            styles.add(baseVoltageStyle + "-bus-" + busNode.getBusIndex());
+                            styles.add(CLASSES_PREFIX + "bus-" + busNode.getBusIndex());
                         });
             }
         }

@@ -23,75 +23,75 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-disconnected {--nad-vl-color: #808080}
 .nad-vl0to30-line {--nad-vl-color: #afb42b}
-.nad-vl0to30-bus-0 {--nad-vl-color: #827717}
-.nad-vl0to30-bus-1 {--nad-vl-color: #d4e157}
-.nad-vl0to30-bus-2 {--nad-vl-color: #e6ee9c}
-.nad-vl0to30-bus-3 {--nad-vl-color: #c0ca33}
-.nad-vl0to30-bus-4 {--nad-vl-color: #f0fc83}
-.nad-vl0to30-bus-5 {--nad-vl-color: #9e9d24}
-.nad-vl0to30-bus-6 {--nad-vl-color: #cddc39}
-.nad-vl0to30-bus-7 {--nad-vl-color: #dce775}
-.nad-vl0to30-bus-8 {--nad-vl-color: #ddfc88}
+.nad-vl0to30.nad-bus-0 {--nad-vl-color: #827717}
+.nad-vl0to30.nad-bus-1 {--nad-vl-color: #d4e157}
+.nad-vl0to30.nad-bus-2 {--nad-vl-color: #e6ee9c}
+.nad-vl0to30.nad-bus-3 {--nad-vl-color: #c0ca33}
+.nad-vl0to30.nad-bus-4 {--nad-vl-color: #f0fc83}
+.nad-vl0to30.nad-bus-5 {--nad-vl-color: #9e9d24}
+.nad-vl0to30.nad-bus-6 {--nad-vl-color: #cddc39}
+.nad-vl0to30.nad-bus-7 {--nad-vl-color: #dce775}
+.nad-vl0to30.nad-bus-8 {--nad-vl-color: #ddfc88}
 .nad-vl30to50-line {--nad-vl-color: #ef9a9a}
-.nad-vl30to50-bus-0 {--nad-vl-color: #c2185b}
-.nad-vl30to50-bus-1 {--nad-vl-color: #f06292}
-.nad-vl30to50-bus-2 {--nad-vl-color: #d81b60}
-.nad-vl30to50-bus-3 {--nad-vl-color: #ec407a}
-.nad-vl30to50-bus-4 {--nad-vl-color: #880e4f}
-.nad-vl30to50-bus-5 {--nad-vl-color: #ad1457}
-.nad-vl30to50-bus-6 {--nad-vl-color: #e91e63}
-.nad-vl30to50-bus-7 {--nad-vl-color: #f48fb1}
-.nad-vl30to50-bus-8 {--nad-vl-color: #f8bbd0}
+.nad-vl30to50.nad-bus-0 {--nad-vl-color: #c2185b}
+.nad-vl30to50.nad-bus-1 {--nad-vl-color: #f06292}
+.nad-vl30to50.nad-bus-2 {--nad-vl-color: #d81b60}
+.nad-vl30to50.nad-bus-3 {--nad-vl-color: #ec407a}
+.nad-vl30to50.nad-bus-4 {--nad-vl-color: #880e4f}
+.nad-vl30to50.nad-bus-5 {--nad-vl-color: #ad1457}
+.nad-vl30to50.nad-bus-6 {--nad-vl-color: #e91e63}
+.nad-vl30to50.nad-bus-7 {--nad-vl-color: #f48fb1}
+.nad-vl30to50.nad-bus-8 {--nad-vl-color: #f8bbd0}
 .nad-vl50to70-line {--nad-vl-color: #9c27b0}
-.nad-vl50to70-bus-0 {--nad-vl-color: #7b1fa2}
-.nad-vl50to70-bus-1 {--nad-vl-color: #ba68c8}
-.nad-vl50to70-bus-2 {--nad-vl-color: #512da8}
-.nad-vl50to70-bus-3 {--nad-vl-color: #ab47bc}
-.nad-vl50to70-bus-4 {--nad-vl-color: #e1bee7}
-.nad-vl50to70-bus-5 {--nad-vl-color: #6a1b9a}
-.nad-vl50to70-bus-6 {--nad-vl-color: #4a148c}
-.nad-vl50to70-bus-7 {--nad-vl-color: #ce93d8}
-.nad-vl50to70-bus-8 {--nad-vl-color: #9575cd}
+.nad-vl50to70.nad-bus-0 {--nad-vl-color: #7b1fa2}
+.nad-vl50to70.nad-bus-1 {--nad-vl-color: #ba68c8}
+.nad-vl50to70.nad-bus-2 {--nad-vl-color: #512da8}
+.nad-vl50to70.nad-bus-3 {--nad-vl-color: #ab47bc}
+.nad-vl50to70.nad-bus-4 {--nad-vl-color: #e1bee7}
+.nad-vl50to70.nad-bus-5 {--nad-vl-color: #6a1b9a}
+.nad-vl50to70.nad-bus-6 {--nad-vl-color: #4a148c}
+.nad-vl50to70.nad-bus-7 {--nad-vl-color: #ce93d8}
+.nad-vl50to70.nad-bus-8 {--nad-vl-color: #9575cd}
 .nad-vl70to120-line {--nad-vl-color: #e65100}
-.nad-vl70to120-bus-0 {--nad-vl-color: #fb8c00}
-.nad-vl70to120-bus-1 {--nad-vl-color: #ffb74d}
-.nad-vl70to120-bus-2 {--nad-vl-color: #f57c00}
-.nad-vl70to120-bus-3 {--nad-vl-color: #ffa726}
-.nad-vl70to120-bus-4 {--nad-vl-color: #ffe0b2}
-.nad-vl70to120-bus-5 {--nad-vl-color: #ef6c00}
-.nad-vl70to120-bus-6 {--nad-vl-color: #ff9800}
-.nad-vl70to120-bus-7 {--nad-vl-color: #ffcc80}
-.nad-vl70to120-bus-8 {--nad-vl-color: #fff3e0}
+.nad-vl70to120.nad-bus-0 {--nad-vl-color: #fb8c00}
+.nad-vl70to120.nad-bus-1 {--nad-vl-color: #ffb74d}
+.nad-vl70to120.nad-bus-2 {--nad-vl-color: #f57c00}
+.nad-vl70to120.nad-bus-3 {--nad-vl-color: #ffa726}
+.nad-vl70to120.nad-bus-4 {--nad-vl-color: #ffe0b2}
+.nad-vl70to120.nad-bus-5 {--nad-vl-color: #ef6c00}
+.nad-vl70to120.nad-bus-6 {--nad-vl-color: #ff9800}
+.nad-vl70to120.nad-bus-7 {--nad-vl-color: #ffcc80}
+.nad-vl70to120.nad-bus-8 {--nad-vl-color: #fff3e0}
 .nad-vl120to180-line {--nad-vl-color: #00ACC1}
-.nad-vl120to180-bus-0 {--nad-vl-color: #4fc3f7}
-.nad-vl120to180-bus-1 {--nad-vl-color: #01579b}
-.nad-vl120to180-bus-2 {--nad-vl-color: #b3e5fc}
-.nad-vl120to180-bus-3 {--nad-vl-color: #039be5}
-.nad-vl120to180-bus-4 {--nad-vl-color: #81d4fa}
-.nad-vl120to180-bus-5 {--nad-vl-color: #0288d1}
-.nad-vl120to180-bus-6 {--nad-vl-color: #29b6f6}
-.nad-vl120to180-bus-7 {--nad-vl-color: #0277bd}
-.nad-vl120to180-bus-8 {--nad-vl-color: #03a9f4}
+.nad-vl120to180.nad-bus-0 {--nad-vl-color: #4fc3f7}
+.nad-vl120to180.nad-bus-1 {--nad-vl-color: #01579b}
+.nad-vl120to180.nad-bus-2 {--nad-vl-color: #b3e5fc}
+.nad-vl120to180.nad-bus-3 {--nad-vl-color: #039be5}
+.nad-vl120to180.nad-bus-4 {--nad-vl-color: #81d4fa}
+.nad-vl120to180.nad-bus-5 {--nad-vl-color: #0288d1}
+.nad-vl120to180.nad-bus-6 {--nad-vl-color: #29b6f6}
+.nad-vl120to180.nad-bus-7 {--nad-vl-color: #0277bd}
+.nad-vl120to180.nad-bus-8 {--nad-vl-color: #03a9f4}
 .nad-vl180to300-line {--nad-vl-color: #2e7d32}
-.nad-vl180to300-bus-0 {--nad-vl-color: #81c784}
-.nad-vl180to300-bus-1 {--nad-vl-color: #558b2f}
-.nad-vl180to300-bus-2 {--nad-vl-color: #c8e6c9}
-.nad-vl180to300-bus-3 {--nad-vl-color: #43a047}
-.nad-vl180to300-bus-4 {--nad-vl-color: #a5d6a7}
-.nad-vl180to300-bus-5 {--nad-vl-color: #388e3c}
-.nad-vl180to300-bus-6 {--nad-vl-color: #66bb6a}
-.nad-vl180to300-bus-7 {--nad-vl-color: #1b5e20}
-.nad-vl180to300-bus-8 {--nad-vl-color: #4caf50}
+.nad-vl180to300.nad-bus-0 {--nad-vl-color: #81c784}
+.nad-vl180to300.nad-bus-1 {--nad-vl-color: #558b2f}
+.nad-vl180to300.nad-bus-2 {--nad-vl-color: #c8e6c9}
+.nad-vl180to300.nad-bus-3 {--nad-vl-color: #43a047}
+.nad-vl180to300.nad-bus-4 {--nad-vl-color: #a5d6a7}
+.nad-vl180to300.nad-bus-5 {--nad-vl-color: #388e3c}
+.nad-vl180to300.nad-bus-6 {--nad-vl-color: #66bb6a}
+.nad-vl180to300.nad-bus-7 {--nad-vl-color: #1b5e20}
+.nad-vl180to300.nad-bus-8 {--nad-vl-color: #4caf50}
 .nad-vl300to500-line {--nad-vl-color: #d32f2f}
-.nad-vl300to500-bus-0 {--nad-vl-color: #ef5350}
-.nad-vl300to500-bus-1 {--nad-vl-color: #ef9a9a}
-.nad-vl300to500-bus-2 {--nad-vl-color: #b71c1c}
-.nad-vl300to500-bus-3 {--nad-vl-color: #e57373}
-.nad-vl300to500-bus-4 {--nad-vl-color: #e53935}
-.nad-vl300to500-bus-5 {--nad-vl-color: #ff8a80}
-.nad-vl300to500-bus-6 {--nad-vl-color: #f44336}
-.nad-vl300to500-bus-7 {--nad-vl-color: #ffcdd2}
-.nad-vl300to500-bus-8 {--nad-vl-color: #c62828}
+.nad-vl300to500.nad-bus-0 {--nad-vl-color: #ef5350}
+.nad-vl300to500.nad-bus-1 {--nad-vl-color: #ef9a9a}
+.nad-vl300to500.nad-bus-2 {--nad-vl-color: #b71c1c}
+.nad-vl300to500.nad-bus-3 {--nad-vl-color: #e57373}
+.nad-vl300to500.nad-bus-4 {--nad-vl-color: #e53935}
+.nad-vl300to500.nad-bus-5 {--nad-vl-color: #ff8a80}
+.nad-vl300to500.nad-bus-6 {--nad-vl-color: #f44336}
+.nad-vl300to500.nad-bus-7 {--nad-vl-color: #ffcdd2}
+.nad-vl300to500.nad-bus-8 {--nad-vl-color: #c62828}
 .nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
@@ -117,45 +117,45 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-vl-nodes">
         <g transform="translate(-316.25,-463.12)" id="0">
             <desc>BBE1AA1</desc>
-            <circle r="27.50" id="1" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
-            <path d="M7.275,-57.038 A57.500,57.500 75.053 0 1 56.984,-7.682 L31.612,-7.547 A32.500,32.500 -63.556 0 0 7.320,-31.665 Z M57.038,7.275 A57.500,57.500 128.764 0 1 -41.385,39.919 L-21.014,24.793 A32.500,32.500 -117.267 0 0 31.665,7.320 Z M-50.281,27.895 A57.500,57.500 111.343 0 1 -7.682,-56.984 L-7.547,-31.612 A32.500,32.500 -99.845 0 0 -29.856,12.841 Z " id="2" class="nad-vl300to500 nad-vl300to500-bus-1 nad-busnode"/>
+            <circle r="27.50" id="1" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+            <path d="M7.275,-57.038 A57.500,57.500 75.053 0 1 56.984,-7.682 L31.612,-7.547 A32.500,32.500 -63.556 0 0 7.320,-31.665 Z M57.038,7.275 A57.500,57.500 128.764 0 1 -41.385,39.919 L-21.014,24.793 A32.500,32.500 -117.267 0 0 31.665,7.320 Z M-50.281,27.895 A57.500,57.500 111.343 0 1 -7.682,-56.984 L-7.547,-31.612 A32.500,32.500 -99.845 0 0 -29.856,12.841 Z " id="2" class="nad-vl300to500 nad-bus-1 nad-busnode"/>
         </g>
         <g transform="translate(-497.96,-45.33)" id="3">
             <desc>BBE2AA1</desc>
-            <circle r="27.50" id="4" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="4" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(263.13,220.77)" id="5">
             <desc>DDE1AA1</desc>
-            <circle r="27.50" id="6" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="6" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(542.01,62.87)" id="7">
             <desc>DDE2AA1</desc>
-            <circle r="27.50" id="8" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="8" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(355.19,519.63)" id="9">
             <desc>DDE3AA1</desc>
-            <circle r="27.50" id="10" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="10" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(-68.86,687.69)" id="11">
             <desc>FFR1AA1</desc>
-            <circle r="27.50" id="12" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
-            <path d="M1.172,-57.488 A57.500,57.500 195.053 1 1 -16.062,55.211 L-5.907,31.959 A32.500,32.500 -183.556 1 0 3.914,-32.264 Z M-29.759,49.200 A57.500,57.500 120.367 0 1 -27.406,-50.548 L-18.274,-26.876 A32.500,32.500 -108.869 0 0 -19.521,25.984 Z " id="13" class="nad-vl300to500 nad-vl300to500-bus-1 nad-busnode"/>
+            <circle r="27.50" id="12" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+            <path d="M1.172,-57.488 A57.500,57.500 195.053 1 1 -16.062,55.211 L-5.907,31.959 A32.500,32.500 -183.556 1 0 3.914,-32.264 Z M-29.759,49.200 A57.500,57.500 120.367 0 1 -27.406,-50.548 L-18.274,-26.876 A32.500,32.500 -108.869 0 0 -19.521,25.984 Z " id="13" class="nad-vl300to500 nad-bus-1 nad-busnode"/>
         </g>
         <g transform="translate(-416.35,406.22)" id="14">
             <desc>FFR3AA1</desc>
-            <circle r="27.50" id="15" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="15" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(460.81,-796.86)" id="16">
             <desc>NNL1AA1</desc>
-            <circle r="27.50" id="17" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="17" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(107.41,-651.00)" id="18">
             <desc>NNL2AA1</desc>
-            <circle r="27.50" id="19" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="19" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(463.53,-419.36)" id="20">
             <desc>NNL3AA1</desc>
-            <circle r="27.50" id="21" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="21" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -675,13 +675,13 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-1 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-1 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -694,7 +694,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -707,7 +707,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -720,7 +720,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -733,7 +733,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -746,13 +746,13 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-1 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-1 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -765,7 +765,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -778,7 +778,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -791,7 +791,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>
@@ -804,7 +804,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 <table>
                     <tr>
                         <td>
-                            <div class="nad-vl300to500 nad-vl300to500-bus-0 nad-legend-square"/>
+                            <div class="nad-vl300to500 nad-bus-0 nad-legend-square"/>
                         </td>
                         <td> kV / °</td>
                     </tr>

@@ -23,75 +23,75 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-disconnected {--nad-vl-color: #808080}
 .nad-vl0to30-line {--nad-vl-color: #afb42b}
-.nad-vl0to30-bus-0 {--nad-vl-color: #827717}
-.nad-vl0to30-bus-1 {--nad-vl-color: #d4e157}
-.nad-vl0to30-bus-2 {--nad-vl-color: #e6ee9c}
-.nad-vl0to30-bus-3 {--nad-vl-color: #c0ca33}
-.nad-vl0to30-bus-4 {--nad-vl-color: #f0fc83}
-.nad-vl0to30-bus-5 {--nad-vl-color: #9e9d24}
-.nad-vl0to30-bus-6 {--nad-vl-color: #cddc39}
-.nad-vl0to30-bus-7 {--nad-vl-color: #dce775}
-.nad-vl0to30-bus-8 {--nad-vl-color: #ddfc88}
+.nad-vl0to30.nad-bus-0 {--nad-vl-color: #827717}
+.nad-vl0to30.nad-bus-1 {--nad-vl-color: #d4e157}
+.nad-vl0to30.nad-bus-2 {--nad-vl-color: #e6ee9c}
+.nad-vl0to30.nad-bus-3 {--nad-vl-color: #c0ca33}
+.nad-vl0to30.nad-bus-4 {--nad-vl-color: #f0fc83}
+.nad-vl0to30.nad-bus-5 {--nad-vl-color: #9e9d24}
+.nad-vl0to30.nad-bus-6 {--nad-vl-color: #cddc39}
+.nad-vl0to30.nad-bus-7 {--nad-vl-color: #dce775}
+.nad-vl0to30.nad-bus-8 {--nad-vl-color: #ddfc88}
 .nad-vl30to50-line {--nad-vl-color: #ef9a9a}
-.nad-vl30to50-bus-0 {--nad-vl-color: #c2185b}
-.nad-vl30to50-bus-1 {--nad-vl-color: #f06292}
-.nad-vl30to50-bus-2 {--nad-vl-color: #d81b60}
-.nad-vl30to50-bus-3 {--nad-vl-color: #ec407a}
-.nad-vl30to50-bus-4 {--nad-vl-color: #880e4f}
-.nad-vl30to50-bus-5 {--nad-vl-color: #ad1457}
-.nad-vl30to50-bus-6 {--nad-vl-color: #e91e63}
-.nad-vl30to50-bus-7 {--nad-vl-color: #f48fb1}
-.nad-vl30to50-bus-8 {--nad-vl-color: #f8bbd0}
+.nad-vl30to50.nad-bus-0 {--nad-vl-color: #c2185b}
+.nad-vl30to50.nad-bus-1 {--nad-vl-color: #f06292}
+.nad-vl30to50.nad-bus-2 {--nad-vl-color: #d81b60}
+.nad-vl30to50.nad-bus-3 {--nad-vl-color: #ec407a}
+.nad-vl30to50.nad-bus-4 {--nad-vl-color: #880e4f}
+.nad-vl30to50.nad-bus-5 {--nad-vl-color: #ad1457}
+.nad-vl30to50.nad-bus-6 {--nad-vl-color: #e91e63}
+.nad-vl30to50.nad-bus-7 {--nad-vl-color: #f48fb1}
+.nad-vl30to50.nad-bus-8 {--nad-vl-color: #f8bbd0}
 .nad-vl50to70-line {--nad-vl-color: #9c27b0}
-.nad-vl50to70-bus-0 {--nad-vl-color: #7b1fa2}
-.nad-vl50to70-bus-1 {--nad-vl-color: #ba68c8}
-.nad-vl50to70-bus-2 {--nad-vl-color: #512da8}
-.nad-vl50to70-bus-3 {--nad-vl-color: #ab47bc}
-.nad-vl50to70-bus-4 {--nad-vl-color: #e1bee7}
-.nad-vl50to70-bus-5 {--nad-vl-color: #6a1b9a}
-.nad-vl50to70-bus-6 {--nad-vl-color: #4a148c}
-.nad-vl50to70-bus-7 {--nad-vl-color: #ce93d8}
-.nad-vl50to70-bus-8 {--nad-vl-color: #9575cd}
+.nad-vl50to70.nad-bus-0 {--nad-vl-color: #7b1fa2}
+.nad-vl50to70.nad-bus-1 {--nad-vl-color: #ba68c8}
+.nad-vl50to70.nad-bus-2 {--nad-vl-color: #512da8}
+.nad-vl50to70.nad-bus-3 {--nad-vl-color: #ab47bc}
+.nad-vl50to70.nad-bus-4 {--nad-vl-color: #e1bee7}
+.nad-vl50to70.nad-bus-5 {--nad-vl-color: #6a1b9a}
+.nad-vl50to70.nad-bus-6 {--nad-vl-color: #4a148c}
+.nad-vl50to70.nad-bus-7 {--nad-vl-color: #ce93d8}
+.nad-vl50to70.nad-bus-8 {--nad-vl-color: #9575cd}
 .nad-vl70to120-line {--nad-vl-color: #e65100}
-.nad-vl70to120-bus-0 {--nad-vl-color: #fb8c00}
-.nad-vl70to120-bus-1 {--nad-vl-color: #ffb74d}
-.nad-vl70to120-bus-2 {--nad-vl-color: #f57c00}
-.nad-vl70to120-bus-3 {--nad-vl-color: #ffa726}
-.nad-vl70to120-bus-4 {--nad-vl-color: #ffe0b2}
-.nad-vl70to120-bus-5 {--nad-vl-color: #ef6c00}
-.nad-vl70to120-bus-6 {--nad-vl-color: #ff9800}
-.nad-vl70to120-bus-7 {--nad-vl-color: #ffcc80}
-.nad-vl70to120-bus-8 {--nad-vl-color: #fff3e0}
+.nad-vl70to120.nad-bus-0 {--nad-vl-color: #fb8c00}
+.nad-vl70to120.nad-bus-1 {--nad-vl-color: #ffb74d}
+.nad-vl70to120.nad-bus-2 {--nad-vl-color: #f57c00}
+.nad-vl70to120.nad-bus-3 {--nad-vl-color: #ffa726}
+.nad-vl70to120.nad-bus-4 {--nad-vl-color: #ffe0b2}
+.nad-vl70to120.nad-bus-5 {--nad-vl-color: #ef6c00}
+.nad-vl70to120.nad-bus-6 {--nad-vl-color: #ff9800}
+.nad-vl70to120.nad-bus-7 {--nad-vl-color: #ffcc80}
+.nad-vl70to120.nad-bus-8 {--nad-vl-color: #fff3e0}
 .nad-vl120to180-line {--nad-vl-color: #00ACC1}
-.nad-vl120to180-bus-0 {--nad-vl-color: #4fc3f7}
-.nad-vl120to180-bus-1 {--nad-vl-color: #01579b}
-.nad-vl120to180-bus-2 {--nad-vl-color: #b3e5fc}
-.nad-vl120to180-bus-3 {--nad-vl-color: #039be5}
-.nad-vl120to180-bus-4 {--nad-vl-color: #81d4fa}
-.nad-vl120to180-bus-5 {--nad-vl-color: #0288d1}
-.nad-vl120to180-bus-6 {--nad-vl-color: #29b6f6}
-.nad-vl120to180-bus-7 {--nad-vl-color: #0277bd}
-.nad-vl120to180-bus-8 {--nad-vl-color: #03a9f4}
+.nad-vl120to180.nad-bus-0 {--nad-vl-color: #4fc3f7}
+.nad-vl120to180.nad-bus-1 {--nad-vl-color: #01579b}
+.nad-vl120to180.nad-bus-2 {--nad-vl-color: #b3e5fc}
+.nad-vl120to180.nad-bus-3 {--nad-vl-color: #039be5}
+.nad-vl120to180.nad-bus-4 {--nad-vl-color: #81d4fa}
+.nad-vl120to180.nad-bus-5 {--nad-vl-color: #0288d1}
+.nad-vl120to180.nad-bus-6 {--nad-vl-color: #29b6f6}
+.nad-vl120to180.nad-bus-7 {--nad-vl-color: #0277bd}
+.nad-vl120to180.nad-bus-8 {--nad-vl-color: #03a9f4}
 .nad-vl180to300-line {--nad-vl-color: #2e7d32}
-.nad-vl180to300-bus-0 {--nad-vl-color: #81c784}
-.nad-vl180to300-bus-1 {--nad-vl-color: #558b2f}
-.nad-vl180to300-bus-2 {--nad-vl-color: #c8e6c9}
-.nad-vl180to300-bus-3 {--nad-vl-color: #43a047}
-.nad-vl180to300-bus-4 {--nad-vl-color: #a5d6a7}
-.nad-vl180to300-bus-5 {--nad-vl-color: #388e3c}
-.nad-vl180to300-bus-6 {--nad-vl-color: #66bb6a}
-.nad-vl180to300-bus-7 {--nad-vl-color: #1b5e20}
-.nad-vl180to300-bus-8 {--nad-vl-color: #4caf50}
+.nad-vl180to300.nad-bus-0 {--nad-vl-color: #81c784}
+.nad-vl180to300.nad-bus-1 {--nad-vl-color: #558b2f}
+.nad-vl180to300.nad-bus-2 {--nad-vl-color: #c8e6c9}
+.nad-vl180to300.nad-bus-3 {--nad-vl-color: #43a047}
+.nad-vl180to300.nad-bus-4 {--nad-vl-color: #a5d6a7}
+.nad-vl180to300.nad-bus-5 {--nad-vl-color: #388e3c}
+.nad-vl180to300.nad-bus-6 {--nad-vl-color: #66bb6a}
+.nad-vl180to300.nad-bus-7 {--nad-vl-color: #1b5e20}
+.nad-vl180to300.nad-bus-8 {--nad-vl-color: #4caf50}
 .nad-vl300to500-line {--nad-vl-color: #d32f2f}
-.nad-vl300to500-bus-0 {--nad-vl-color: #ef5350}
-.nad-vl300to500-bus-1 {--nad-vl-color: #ef9a9a}
-.nad-vl300to500-bus-2 {--nad-vl-color: #b71c1c}
-.nad-vl300to500-bus-3 {--nad-vl-color: #e57373}
-.nad-vl300to500-bus-4 {--nad-vl-color: #e53935}
-.nad-vl300to500-bus-5 {--nad-vl-color: #ff8a80}
-.nad-vl300to500-bus-6 {--nad-vl-color: #f44336}
-.nad-vl300to500-bus-7 {--nad-vl-color: #ffcdd2}
-.nad-vl300to500-bus-8 {--nad-vl-color: #c62828}
+.nad-vl300to500.nad-bus-0 {--nad-vl-color: #ef5350}
+.nad-vl300to500.nad-bus-1 {--nad-vl-color: #ef9a9a}
+.nad-vl300to500.nad-bus-2 {--nad-vl-color: #b71c1c}
+.nad-vl300to500.nad-bus-3 {--nad-vl-color: #e57373}
+.nad-vl300to500.nad-bus-4 {--nad-vl-color: #e53935}
+.nad-vl300to500.nad-bus-5 {--nad-vl-color: #ff8a80}
+.nad-vl300to500.nad-bus-6 {--nad-vl-color: #f44336}
+.nad-vl300to500.nad-bus-7 {--nad-vl-color: #ffcdd2}
+.nad-vl300to500.nad-bus-8 {--nad-vl-color: #c62828}
 .nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
@@ -116,13 +116,13 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 ]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-56.06,-318.70)" id="0">
-            <circle r="27.50" id="1" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="1" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(-230.42,1.18)" id="2">
-            <circle r="27.50" id="3" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <circle r="27.50" id="3" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
         <g transform="translate(-49.12,317.14)" id="5" class="nad-boundary-node">
-            <path d="M-23.852,13.687 A27.500,27.500 180.000 0 1 23.852,-13.687" id="6" class="nad-vl300to500 nad-vl300to500-bus-0 nad-busnode"/>
+            <path d="M-23.852,13.687 A27.500,27.500 180.000 0 1 23.852,-13.687" id="6" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
