@@ -22,7 +22,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-disconnected {--nad-vl-color: #808080}
-.nad-vl0to30-line {--nad-vl-color: #afb42b}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v0to30 {--nad-vl-color: #afb42b}
 .nad-vl0to30.nad-bus-0 {--nad-vl-color: #827717}
 .nad-vl0to30.nad-bus-1 {--nad-vl-color: #d4e157}
 .nad-vl0to30.nad-bus-2 {--nad-vl-color: #e6ee9c}
@@ -32,7 +32,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl0to30.nad-bus-6 {--nad-vl-color: #cddc39}
 .nad-vl0to30.nad-bus-7 {--nad-vl-color: #dce775}
 .nad-vl0to30.nad-bus-8 {--nad-vl-color: #ddfc88}
-.nad-vl30to50-line {--nad-vl-color: #ef9a9a}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v30to50 {--nad-vl-color: #ef9a9a}
 .nad-vl30to50.nad-bus-0 {--nad-vl-color: #c2185b}
 .nad-vl30to50.nad-bus-1 {--nad-vl-color: #f06292}
 .nad-vl30to50.nad-bus-2 {--nad-vl-color: #d81b60}
@@ -42,7 +42,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl30to50.nad-bus-6 {--nad-vl-color: #e91e63}
 .nad-vl30to50.nad-bus-7 {--nad-vl-color: #f48fb1}
 .nad-vl30to50.nad-bus-8 {--nad-vl-color: #f8bbd0}
-.nad-vl50to70-line {--nad-vl-color: #9c27b0}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v50to70 {--nad-vl-color: #9c27b0}
 .nad-vl50to70.nad-bus-0 {--nad-vl-color: #7b1fa2}
 .nad-vl50to70.nad-bus-1 {--nad-vl-color: #ba68c8}
 .nad-vl50to70.nad-bus-2 {--nad-vl-color: #512da8}
@@ -52,7 +52,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl50to70.nad-bus-6 {--nad-vl-color: #4a148c}
 .nad-vl50to70.nad-bus-7 {--nad-vl-color: #ce93d8}
 .nad-vl50to70.nad-bus-8 {--nad-vl-color: #9575cd}
-.nad-vl70to120-line {--nad-vl-color: #e65100}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v70to120 {--nad-vl-color: #e65100}
 .nad-vl70to120.nad-bus-0 {--nad-vl-color: #fb8c00}
 .nad-vl70to120.nad-bus-1 {--nad-vl-color: #ffb74d}
 .nad-vl70to120.nad-bus-2 {--nad-vl-color: #f57c00}
@@ -62,7 +62,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl70to120.nad-bus-6 {--nad-vl-color: #ff9800}
 .nad-vl70to120.nad-bus-7 {--nad-vl-color: #ffcc80}
 .nad-vl70to120.nad-bus-8 {--nad-vl-color: #fff3e0}
-.nad-vl120to180-line {--nad-vl-color: #00ACC1}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v120to180 {--nad-vl-color: #00ACC1}
 .nad-vl120to180.nad-bus-0 {--nad-vl-color: #4fc3f7}
 .nad-vl120to180.nad-bus-1 {--nad-vl-color: #01579b}
 .nad-vl120to180.nad-bus-2 {--nad-vl-color: #b3e5fc}
@@ -72,7 +72,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl120to180.nad-bus-6 {--nad-vl-color: #29b6f6}
 .nad-vl120to180.nad-bus-7 {--nad-vl-color: #0277bd}
 .nad-vl120to180.nad-bus-8 {--nad-vl-color: #03a9f4}
-.nad-vl180to300-line {--nad-vl-color: #2e7d32}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v180to300 {--nad-vl-color: #2e7d32}
 .nad-vl180to300.nad-bus-0 {--nad-vl-color: #81c784}
 .nad-vl180to300.nad-bus-1 {--nad-vl-color: #558b2f}
 .nad-vl180to300.nad-bus-2 {--nad-vl-color: #c8e6c9}
@@ -82,7 +82,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-vl180to300.nad-bus-6 {--nad-vl-color: #66bb6a}
 .nad-vl180to300.nad-bus-7 {--nad-vl-color: #1b5e20}
 .nad-vl180to300.nad-bus-8 {--nad-vl-color: #4caf50}
-.nad-vl300to500-line {--nad-vl-color: #d32f2f}
+:is(.nad-branch-edges .nad-3wt-edges) .nad-v300to500 {--nad-vl-color: #d32f2f}
 .nad-vl300to500.nad-bus-0 {--nad-vl-color: #ef5350}
 .nad-vl300to500.nad-bus-1 {--nad-vl-color: #ef9a9a}
 .nad-vl300to500.nad-bus-2 {--nad-vl-color: #b71c1c}
@@ -161,7 +161,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
     <g class="nad-branch-edges">
         <g id="22">
             <desc>BBE1AA1  BBE2AA1  1</desc>
-            <g id="22.1" class="nad-vl300to500-line">
+            <g id="22.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-338.35,-446.77 -380.56,-415.55 -443.79,-270.18"/>
                 <g class="nad-edge-infos" transform="translate(-392.53,-388.04)">
                     <g class="nad-active">
@@ -173,7 +173,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="22.2" class="nad-vl300to500-line">
+            <g id="22.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-501.07,-72.65 -507.01,-124.81 -443.79,-270.18"/>
                 <g class="nad-edge-infos" transform="translate(-495.05,-152.32)">
                     <g class="nad-active">
@@ -188,7 +188,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="23">
             <desc>BBE1AA1  BBE3AA1  1</desc>
-            <g id="23.1" class="nad-vl300to500-line">
+            <g id="23.1" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-288.75,-463.22 L-236.25,-463.41 C-196.25,-463.55 -192.23,-438.21 -212.11,-403.50"/>
                 <g class="nad-edge-infos" transform="translate(-236.25,-463.41)">
                     <g class="nad-active">
@@ -200,7 +200,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="23.2" class="nad-vl300to500-line">
+            <g id="23.2" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-287.32,-413.43 L-276.00,-393.99 C-255.88,-359.42 -231.99,-368.78 -212.11,-403.50"/>
                 <g class="nad-edge-infos" transform="translate(-276.00,-393.99)">
                     <g class="nad-active">
@@ -215,7 +215,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="24">
             <desc>BBE2AA1  BBE3AA1  1</desc>
-            <g id="24.1" class="nad-vl300to500-line">
+            <g id="24.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-475.85,-61.68 -433.65,-92.90 -370.42,-238.27"/>
                 <g class="nad-edge-infos" transform="translate(-421.68,-120.41)">
                     <g class="nad-active">
@@ -227,7 +227,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="24.2" class="nad-vl300to500-line">
+            <g id="24.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-309.74,-405.99 -307.20,-383.64 -370.42,-238.27"/>
                 <g class="nad-edge-infos" transform="translate(-319.16,-356.13)">
                     <g class="nad-active">
@@ -242,7 +242,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="25">
             <desc>NNL2AA1  BBE3AA1  1</desc>
-            <g id="25.1" class="nad-vl300to500-line">
+            <g id="25.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="82.27,-639.85 -90.71,-563.14"/>
                 <g class="nad-edge-infos" transform="translate(52.56,-626.68)">
                     <g class="nad-active">
@@ -254,7 +254,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="25.2" class="nad-vl300to500-line">
+            <g id="25.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="-263.68,-486.43 -90.71,-563.14"/>
                 <g class="nad-edge-infos" transform="translate(-233.97,-499.61)">
                     <g class="nad-active">
@@ -269,7 +269,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="26">
             <desc>BBE1AA1  BBE3AA1  2</desc>
-            <g id="26.1" class="nad-vl300to500-line">
+            <g id="26.1" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-366.15,-491.70 L-385.67,-502.88 C-420.38,-522.75 -411.19,-546.71 -402.54,-551.74"/>
                 <g class="nad-edge-infos" transform="translate(-385.67,-502.88)">
                     <g class="nad-active">
@@ -281,7 +281,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="26.2" class="nad-vl300to500-line">
+            <g id="26.2" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-316.34,-490.62 L-316.53,-543.12 C-316.68,-583.12 -342.05,-586.96 -350.69,-581.93"/>
                 <g class="nad-edge-infos" transform="translate(-316.53,-543.12)">
                     <g class="nad-active">
@@ -294,14 +294,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g>
-                <circle class="nad-vl300to500-line nad-winding" cx="-385.26" cy="-561.80" r="20.00"/>
-                <circle class="nad-vl300to500-line nad-winding" cx="-367.97" cy="-571.86" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-385.26" cy="-561.80" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-367.97" cy="-571.86" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.86,-0.50,0.50,0.86,-417.64,-577.67)" class="nad-pst-arrow"/>
             </g>
         </g>
         <g id="27">
             <desc>BBE2AA1  FFR3AA1  1</desc>
-            <g id="27.1" class="nad-vl300to500-line">
+            <g id="27.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="-493.07,-18.26 -457.16,180.45"/>
                 <g class="nad-edge-infos" transform="translate(-487.29,13.72)">
                     <g class="nad-active">
@@ -313,7 +313,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="27.2" class="nad-vl300to500-line">
+            <g id="27.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="-421.24,379.16 -457.16,180.45"/>
                 <g class="nad-edge-infos" transform="translate(-427.02,347.17)">
                     <g class="nad-active">
@@ -328,7 +328,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="28">
             <desc>DDE1AA1  DDE2AA1  1</desc>
-            <g id="28.1" class="nad-vl300to500-line">
+            <g id="28.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="287.06,207.22 402.57,141.82"/>
                 <g class="nad-edge-infos" transform="translate(315.34,191.21)">
                     <g class="nad-active">
@@ -340,7 +340,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="28.2" class="nad-vl300to500-line">
+            <g id="28.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="518.08,76.42 402.57,141.82"/>
                 <g class="nad-edge-infos" transform="translate(489.80,92.43)">
                     <g class="nad-active">
@@ -355,7 +355,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="29">
             <desc>DDE1AA1  DDE3AA1  1</desc>
-            <g id="29.1" class="nad-vl300to500-line">
+            <g id="29.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="271.22,247.05 309.16,370.20"/>
                 <g class="nad-edge-infos" transform="translate(280.79,278.11)">
                     <g class="nad-active">
@@ -367,7 +367,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="29.2" class="nad-vl300to500-line">
+            <g id="29.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="347.10,493.35 309.16,370.20"/>
                 <g class="nad-edge-infos" transform="translate(337.53,462.29)">
                     <g class="nad-active">
@@ -382,7 +382,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="30">
             <desc>DDE2AA1  DDE3AA1  1</desc>
-            <g id="30.1" class="nad-vl300to500-line">
+            <g id="30.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="531.60,88.32 448.60,291.25"/>
                 <g class="nad-edge-infos" transform="translate(519.29,118.40)">
                     <g class="nad-active">
@@ -394,7 +394,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="30.2" class="nad-vl300to500-line">
+            <g id="30.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="365.60,494.18 448.60,291.25"/>
                 <g class="nad-edge-infos" transform="translate(377.90,464.10)">
                     <g class="nad-active">
@@ -409,7 +409,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="31">
             <desc>DDE2AA1  NNL3AA1  1</desc>
-            <g id="31.1" class="nad-vl300to500-line">
+            <g id="31.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="537.59,35.72 502.77,-178.25"/>
                 <g class="nad-edge-infos" transform="translate(532.37,3.65)">
                     <g class="nad-active">
@@ -421,7 +421,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="31.2" class="nad-vl300to500-line">
+            <g id="31.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="467.94,-392.22 502.77,-178.25"/>
                 <g class="nad-edge-infos" transform="translate(473.16,-360.14)">
                     <g class="nad-active">
@@ -436,7 +436,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="32">
             <desc>FFR2AA1  DDE3AA1  1</desc>
-            <g id="32.1" class="nad-vl300to500-line">
+            <g id="32.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="-15.40,666.51 157.11,598.14"/>
                 <g class="nad-edge-infos" transform="translate(14.81,654.53)">
                     <g class="nad-active">
@@ -448,7 +448,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="32.2" class="nad-vl300to500-line">
+            <g id="32.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" style="stroke-dasharray:15,9;stroke-width:10px;stroke:black" points="329.63,529.77 157.11,598.14"/>
                 <g class="nad-edge-infos" transform="translate(299.41,541.74)">
                     <g class="nad-active">
@@ -463,7 +463,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="33">
             <desc>FFR1AA1  FFR2AA1  1</desc>
-            <g id="33.1" class="nad-vl300to500-line">
+            <g id="33.1" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-71.88,660.36 L-77.64,608.18 C-82.04,568.42 -57.26,561.73 -20.63,577.81"/>
                 <g class="nad-edge-infos" transform="translate(-77.64,608.18)">
                     <g class="nad-active">
@@ -475,7 +475,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="33.2" class="nad-vl300to500-line">
+            <g id="33.2" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-22.52,653.65 L-4.39,640.33 C27.85,616.64 16.00,593.88 -20.63,577.81"/>
                 <g class="nad-edge-infos" transform="translate(-4.39,640.33)">
                     <g class="nad-active">
@@ -490,7 +490,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="34">
             <desc>FFR1AA1  FFR3AA1  1</desc>
-            <g id="34.1" class="nad-vl300to500-line">
+            <g id="34.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-78.71,662.02 -97.51,613.00 -217.43,515.87"/>
                 <g class="nad-edge-infos" transform="translate(-120.83,594.12)">
                     <g class="nad-active">
@@ -502,7 +502,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="34.2" class="nad-vl300to500-line">
+            <g id="34.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-389.19,410.52 -337.34,418.74 -217.43,515.87"/>
                 <g class="nad-edge-infos" transform="translate(-314.03,437.63)">
                     <g class="nad-active">
@@ -517,7 +517,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="35">
             <desc>FFR2AA1  FFR3AA1  1</desc>
-            <g id="35.1" class="nad-vl300to500-line">
+            <g id="35.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-125.65,678.69 -147.87,675.17 -267.78,578.04"/>
                 <g class="nad-edge-infos" transform="translate(-171.18,656.28)">
                     <g class="nad-active">
@@ -529,7 +529,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="35.2" class="nad-vl300to500-line">
+            <g id="35.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-406.50,431.89 -387.69,480.91 -267.78,578.04"/>
                 <g class="nad-edge-infos" transform="translate(-364.38,499.79)">
                     <g class="nad-active">
@@ -544,7 +544,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="36">
             <desc>FFR1AA1  FFR2AA1  2</desc>
-            <g id="36.1" class="nad-vl300to500-line">
+            <g id="36.1" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-34.81,734.03 L-21.49,752.16 C2.20,784.40 -15.92,802.57 -25.86,803.67"/>
                 <g class="nad-edge-infos" transform="translate(-21.49,752.16)">
                     <g class="nad-active">
@@ -556,7 +556,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="36.2" class="nad-vl300to500-line">
+            <g id="36.2" class="nad-vl300to500">
                 <path class="nad-edge-path" d="M-79.91,712.87 L-101.00,760.95 C-117.08,797.58 -95.43,811.36 -85.49,810.26"/>
                 <g class="nad-edge-infos" transform="translate(-101.00,760.95)">
                     <g class="nad-active">
@@ -569,14 +569,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                 </g>
             </g>
             <g>
-                <circle class="nad-vl300to500-line nad-winding" cx="-45.74" cy="805.87" r="20.00"/>
-                <circle class="nad-vl300to500-line nad-winding" cx="-65.61" cy="808.07" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-45.74" cy="805.87" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-65.61" cy="808.07" r="20.00"/>
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.99,0.11,-0.11,-0.99,-22.56,833.49)" class="nad-pst-arrow"/>
             </g>
         </g>
         <g id="37">
             <desc>NNL1AA1  NNL2AA1  1</desc>
-            <g id="37.1" class="nad-vl300to500-line">
+            <g id="37.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="435.39,-786.36 284.11,-723.93"/>
                 <g class="nad-edge-infos" transform="translate(405.34,-773.97)">
                     <g class="nad-active">
@@ -588,7 +588,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="37.2" class="nad-vl300to500-line">
+            <g id="37.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="132.83,-661.49 284.11,-723.93"/>
                 <g class="nad-edge-infos" transform="translate(162.87,-673.89)">
                     <g class="nad-active">
@@ -603,7 +603,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="38">
             <desc>NNL1AA1  NNL3AA1  1</desc>
-            <g id="38.1" class="nad-vl300to500-line">
+            <g id="38.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="461.00,-769.36 462.17,-608.11"/>
                 <g class="nad-edge-infos" transform="translate(461.24,-736.86)">
                     <g class="nad-active">
@@ -615,7 +615,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="38.2" class="nad-vl300to500-line">
+            <g id="38.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="463.33,-446.86 462.17,-608.11"/>
                 <g class="nad-edge-infos" transform="translate(463.09,-479.36)">
                     <g class="nad-active">
@@ -630,7 +630,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         </g>
         <g id="39">
             <desc>NNL2AA1  NNL3AA1  1</desc>
-            <g id="39.1" class="nad-vl300to500-line">
+            <g id="39.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="130.46,-636.01 285.47,-535.18"/>
                 <g class="nad-edge-infos" transform="translate(157.71,-618.29)">
                     <g class="nad-active">
@@ -642,7 +642,7 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
                     </g>
                 </g>
             </g>
-            <g id="39.2" class="nad-vl300to500-line">
+            <g id="39.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="440.47,-434.36 285.47,-535.18"/>
                 <g class="nad-edge-infos" transform="translate(413.23,-452.08)">
                     <g class="nad-active">
