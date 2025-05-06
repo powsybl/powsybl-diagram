@@ -17,9 +17,9 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-.nad-text-nodes foreignObject {overflow: visible; color: black}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
+.nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-disconnected {--nad-vl-color: #808080}
 :is(.nad-branch-edges .nad-3wt-edges) .nad-v0to30 {--nad-vl-color: #afb42b}
@@ -174,8 +174,14 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
         <polyline id="0-textedge" points="-26.39,-323.15 43.94,-333.70"/>
         <polyline id="2-textedge" points="-200.75,-3.27 -130.42,-13.82"/>
     </g>
-    <g class="nad-text-nodes">
-        <text id="0-textnode" y="-333.70" x="43.94">vl1</text>
-        <text id="2-textnode" y="-13.82" x="-130.42">vl2</text>
-    </g>
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: -359px; left: 44px" id="0-textnode">
+                <div>vl1</div>
+            </div>
+            <div class="nad-label-box" style="position: absolute; top: -39px; left: -130px" id="2-textnode">
+                <div>vl2</div>
+            </div>
+        </div>
+    </foreignObject>
 </svg>
