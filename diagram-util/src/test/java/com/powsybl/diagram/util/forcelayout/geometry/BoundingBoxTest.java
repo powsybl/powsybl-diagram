@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2020-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,6 +30,6 @@ class BoundingBoxTest {
         assertEquals(4.0, bbox.getWidth(), 0.0);
         assertEquals(4.0, bbox.getHeight(), 0.0);
         assertEquals(1.0, bbox.getLeft(), 0.0);
-        assertEquals(2.0, bbox.getTop(), 0.0);
+        assertEquals(6.0, bbox.getTop(), 0.0);
     }
 }

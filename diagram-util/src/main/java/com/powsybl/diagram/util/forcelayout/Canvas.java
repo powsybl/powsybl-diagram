@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.diagram.util.forcelayout;
 
@@ -31,7 +32,7 @@ public class Canvas {
 
     public Vector2D toScreen(Vector2D position) {
         double screenX = (position.x() - boundingBox.getLeft()) * scale + margin;
-        double screenY = (position.y() - boundingBox.getTop()) * scale + margin;
+        double screenY = (position.y() - boundingBox.getBottom()) * scale + margin;
         return new Vector2D(screenX, screenY);
     }
 

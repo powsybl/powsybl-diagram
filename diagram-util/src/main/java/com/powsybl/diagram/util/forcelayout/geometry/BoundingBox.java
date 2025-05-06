@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -24,7 +24,7 @@ public final class BoundingBox {
         this.top = top;
         this.right = right;
         this.bottom = bottom;
-        if (left > right || bottom < top) {
+        if (left > right || bottom > top) {
             throw new IllegalStateException("Bounding box with negative width or height");
         }
     }
@@ -32,14 +32,14 @@ public final class BoundingBox {
     public static BoundingBox computeBoundingBox(Collection<Point> points) {
         // using Double.MAX_VALUE this way the box for no points is the identity element for box fusion
         double left = points.stream().mapToDouble(p -> p.getPosition().x()).min().orElse(-Double.MAX_VALUE);
-        double top = points.stream().mapToDouble(p -> p.getPosition().y()).min().orElse(-Double.MAX_VALUE);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().y()).min().orElse(-Double.MAX_VALUE);
         double right = points.stream().mapToDouble(p -> p.getPosition().x()).max().orElse(Double.MAX_VALUE);
-        double bottom = points.stream().mapToDouble(p -> p.getPosition().y()).max().orElse(Double.MAX_VALUE);
+        double top = points.stream().mapToDouble(p -> p.getPosition().y()).max().orElse(Double.MAX_VALUE);
         return new BoundingBox(left, top, right, bottom);
     }
 
     public double getHeight() {
-        return bottom - top;
+        return top - bottom;
     }
 
     public double getWidth() {

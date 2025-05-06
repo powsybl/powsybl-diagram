@@ -91,7 +91,7 @@ public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
     }
 
     @Override
-    AbstractLayoutAlgorithm<V, E> createLayout() {
+    public AbstractLayoutAlgorithm<V, E> createLayout() {
         return new SpringyLayout<>(this);
     }
 }
