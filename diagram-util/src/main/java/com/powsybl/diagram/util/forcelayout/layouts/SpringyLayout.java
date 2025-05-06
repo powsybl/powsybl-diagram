@@ -30,10 +30,10 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
     private static final double DEFAULT_STIFFNESS = 100.0;
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
 
-    private final SpringyParameters layoutParameters;
+    private final SpringyParameters<V, E> layoutParameters;
     private SpringContainer<E> springContainer;
 
-    public SpringyLayout(SpringyParameters layoutParameters) {
+    public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
         super();
         this.forces.add(new GravityForceSimple<>(new IntensityParameter(layoutParameters.getRepulsion() / 200)));
         this.springContainer = new SpringContainer<>();

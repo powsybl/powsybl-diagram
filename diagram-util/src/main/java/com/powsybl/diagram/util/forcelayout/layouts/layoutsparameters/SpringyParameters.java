@@ -8,10 +8,14 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters;
 
+import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
+import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringyParameters extends AbstractLayoutParameters {
+public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
     private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
@@ -84,5 +88,10 @@ public class SpringyParameters extends AbstractLayoutParameters {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    @Override
+    AbstractLayoutAlgorithm<V, E> createLayout() {
+        return new SpringyLayout<>(this);
     }
 }

@@ -8,13 +8,19 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters;
 
+import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public abstract class AbstractLayoutParameters {
+public abstract class AbstractLayoutParameters<V, E> {
+
     protected LayoutEnum parameterType;
 
     public LayoutEnum getParameterType() {
         return parameterType;
     }
+
+    public abstract AbstractLayoutAlgorithm<V, E> createLayout();
 }
