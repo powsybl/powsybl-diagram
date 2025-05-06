@@ -18,8 +18,6 @@ public class SpringyParameters extends AbstractLayoutParameters {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-    /** Spring repulsion is disabled by default */
-    private static final double DEFAULT_SPRING_REPULSION_FACTOR = 0.0;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -27,7 +25,6 @@ public class SpringyParameters extends AbstractLayoutParameters {
     private double repulsion;
     private double friction;
     private double maxSpeed;
-    private double springRepulsionFactor;
 
     public SpringyParameters() {
         super();
@@ -39,7 +36,6 @@ public class SpringyParameters extends AbstractLayoutParameters {
         this.repulsion = DEFAULT_REPULSION;
         this.friction = DEFAULT_FRICTION;
         this.maxSpeed = DEFAULT_MAX_SPEED;
-        this.springRepulsionFactor = DEFAULT_SPRING_REPULSION_FACTOR;
     }
 
     public int getMaxSteps() {
@@ -88,13 +84,5 @@ public class SpringyParameters extends AbstractLayoutParameters {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
-    }
-
-    public double getSpringRepulsionFactor() {
-        return springRepulsionFactor;
-    }
-
-    public void setSpringRepulsionFactor(double springRepulsionFactor) {
-        this.springRepulsionFactor = springRepulsionFactor;
     }
 }
