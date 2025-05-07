@@ -8,15 +8,25 @@
 
 package com.powsybl.diagram.util.forcelayout.geometry;
 
+import com.powsybl.diagram.util.forcelayout.Canvas;
+import com.powsybl.diagram.util.forcelayout.Spring;
 import org.jgrapht.Graph;
+import org.jgrapht.Graphs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceGraph<V, E> {
     private static final Point ORIGIN = new Point(0, 0);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForceGraph.class);
 
     private final Graph<V, E> graph;
 
@@ -73,5 +83,70 @@ public class ForceGraph<V, E> {
         this.initialPoints = Objects.requireNonNull(fixedPoints);
         setFixedNodes(fixedPoints.keySet());
         return this;
+    }
+
+    public void toSVG(Function<V, String> tooltip, Writer writer) {
+        BoundingBox boundingBoxMovingPoints = BoundingBox.computeBoundingBox(movingPoints.values());
+        BoundingBox boundingBoxFixedPoints = BoundingBox.computeBoundingBox(fixedPoints.values());
+        BoundingBox boundingBox = BoundingBox.addBoundingBoxes(boundingBoxMovingPoints, boundingBoxFixedPoints);
+        Canvas canvas = new Canvas(boundingBox, 600, 10);
+
+        PrintWriter printWriter = new PrintWriter(writer);
+
+        printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+        printWriter.printf(Locale.US, "<svg width=\"%.2f\" height=\"%.2f\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
+        printWriter.println("<style>");
+        printWriter.println("<![CDATA[");
+        printWriter.printf("circle {fill: %s;}%n", "purple");
+        printWriter.printf("line {stroke: %s; stroke-width: 2}%n", "purple");
+        printWriter.println("]]>");
+        printWriter.println("</style>");
+
+        Stream.concat(
+                movingPoints.entrySet().stream(),
+                fixedPoints.entrySet().stream()
+        ).forEach(entry -> entry.getValue().toSVG(printWriter, canvas, tooltip, entry.getKey()));
+
+        for (E edge : graph.edgeSet()) {
+            V firstVertex = graph.getEdgeSource(edge);
+            V secondVertex = graph.getEdgeTarget(edge);
+            Point point1;
+            Point point2;
+            try {
+                point1 = getPointWithVertex(firstVertex);
+                point2 = getPointWithVertex(secondVertex);
+            } catch (NoSuchElementException e) {
+                LOGGER.error("No vertex found, trying to continue with other vertex: %s", e);
+                continue;
+            }
+            Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
+            Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
+            printWriter.printf(
+                    Locale.US,
+                    "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
+                    screenPosition1.x(),
+                    screenPosition1.y(),
+                    screenPosition2.x(),
+                    screenPosition2.y()
+            );
+        }
+
+        printWriter.println("</svg>");
+
+        printWriter.close();
+    }
+
+    private Point getPointWithVertex(V vertex) throws NoSuchElementException {
+        Point point = movingPoints.get(vertex);
+        if (point != null) {
+            return point;
+        } else {
+            point = fixedPoints.get(vertex);
+            if (point != null) {
+                return point;
+            } else {
+                throw new NoSuchElementException("There is no point corresponding to this vertex");
+            }
+        }
     }
 }

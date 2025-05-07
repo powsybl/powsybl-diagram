@@ -38,6 +38,14 @@ public final class BoundingBox {
         return new BoundingBox(left, top, right, bottom);
     }
 
+    public static BoundingBox addBoundingBoxes(BoundingBox first, BoundingBox second) {
+        double left = Math.min(first.left, second.left);
+        double bottom = Math.min(first.bottom, second.bottom);
+        double right = Math.max(first.right, second.right);
+        double top = Math.max(first.top, second.top);
+        return new BoundingBox(left, top, right, bottom);
+    }
+
     public double getHeight() {
         return top - bottom;
     }
