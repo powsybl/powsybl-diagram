@@ -24,10 +24,11 @@ class CoulombForceTest {
 
     @Test
     void calculateForce() {
+        double delta = 0.001;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         CoulombForce<String, DefaultEdge> force = new CoulombForce<>(new IntensityEffectFromFixedNodesParameters(2, true));
         Vector2D resultingVector = force.calculateForce("0", forceGraph.getMovingPoints().get("0"), forceGraph);
-        assertEquals(-3.9493, resultingVector.x(), 0.001);
-        assertEquals(3.8805, resultingVector.y(), 0.001);
+        assertEquals(-3.9493, resultingVector.x(), delta);
+        assertEquals(3.8805, resultingVector.y(), delta);
     }
 }
