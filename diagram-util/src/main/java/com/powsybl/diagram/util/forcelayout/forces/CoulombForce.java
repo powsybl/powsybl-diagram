@@ -26,7 +26,10 @@ public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromF
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (V otherVertex : Graphs.neighborSetOf(forceGraph.getGraph(), forThisVertex)) {
+        for (V otherVertex : forceGraph.getGraph().vertexSet()) {
+            if (otherVertex == forThisVertex) {
+                continue;
+            }
             // it would be good to have a way of knowing directly from the graph if a vertex will be moving or not
             Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {

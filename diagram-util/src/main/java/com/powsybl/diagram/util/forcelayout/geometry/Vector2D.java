@@ -46,7 +46,11 @@ public record Vector2D(double x, double y) {
 
     /// Calculate the unit vector that goes from This point, pointing in the direction of towards
     public static Vector2D calculateUnitVector(Point from, Point towards) {
-        return calculateVectorBetweenPoints(from, towards).normalize();
-    }
+        if (from != towards) {
+            return calculateVectorBetweenPoints(from, towards).normalize();
+        } else {
+            return new Vector2D(0, 0);
+        }
 
+    }
 }
