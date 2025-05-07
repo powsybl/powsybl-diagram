@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringyAbstractSetup<V, E> extends AbstractSetup<V, E> {
+public class SpringySetup<V, E> extends AbstractSetup<V, E> {
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph) {

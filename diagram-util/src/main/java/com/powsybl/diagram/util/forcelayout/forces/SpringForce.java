@@ -29,7 +29,7 @@ public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<E>> {
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (E edge : forceGraph.getGraph().edgesOf(forThisVertex)) {
-            // this is basically what is done in Graphs.neighborSet but we need the edge to get the corresponding spring
+            // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring
             V otherVertex = Graphs.getOppositeVertex(forceGraph.getGraph(), edge, forThisVertex);
             Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {

@@ -42,7 +42,7 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
-    private void initializeSprings(ForceGraph<V, E> forceGraph) {
+    public static <V, E> SpringContainer<E> initializeSprings(ForceGraph<V, E> forceGraph) {
         Map<E, SpringParameter> springs = new HashMap<>();
         Graph<V, E> graph = forceGraph.getGraph();
         for (E edge : forceGraph.getGraph().edgeSet()) {
@@ -57,12 +57,12 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
                 springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, graph.getEdgeWeight(edge)));
             }
         }
-        this.springContainer = new SpringContainer<>(springs);
+        return new SpringContainer<>(springs);
     }
 
     @Override
     public void calculateLayout(ForceGraph<V, E> forceGraph) {
-        initializeSprings(forceGraph);
+        this.springContainer = initializeSprings(forceGraph);
         // do the loop on the nodes and forces
         int i;
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
