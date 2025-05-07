@@ -24,16 +24,30 @@ class GravityForceSimpleTest {
 
     @Test
     void calculateForce() {
-        double delta = 0.00001;
+        double delta = 1e-5;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        GravityForceSimple<String, DefaultEdge> gravityForceSimple = new GravityForceSimple<>(new IntensityParameter(0.01));
-        Vector2D onPoint1 = gravityForceSimple.calculateForce("1", forceGraph.getFixedPoints().get("1"), forceGraph);
+        GravityForceSimple<String, DefaultEdge> gravityForceSimple = new GravityForceSimple<>(
+                new IntensityParameter(0.01)
+        );
+        Vector2D onPoint1 = gravityForceSimple.calculateForce(
+                "1",
+                forceGraph.getFixedPoints().get("1"),
+                forceGraph
+        );
         assertEquals(0.007487, onPoint1.x(), delta);
         assertEquals(-0.006629, onPoint1.y(), delta);
-        Vector2D onPoint2 = gravityForceSimple.calculateForce("2", forceGraph.getMovingPoints().get("2"), forceGraph);
+        Vector2D onPoint2 = gravityForceSimple.calculateForce(
+                "2",
+                forceGraph.getMovingPoints().get("2"),
+                forceGraph
+        );
         assertEquals(-0.000939, onPoint2.x(), delta);
         assertEquals(-0.009956, onPoint2.y(), delta);
-        Vector2D onPoint4 = gravityForceSimple.calculateForce("4", forceGraph.getMovingPoints().get("4"), forceGraph);
+        Vector2D onPoint4 = gravityForceSimple.calculateForce(
+                "4",
+                forceGraph.getMovingPoints().get("4"),
+                forceGraph
+        );
         assertEquals(-0.007071, onPoint4.x(), delta);
         assertEquals(-0.007071, onPoint4.y(), delta);
     }
