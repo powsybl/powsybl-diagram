@@ -13,8 +13,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
-import static com.powsybl.diagram.util.forcelayout.geometry.ForceGraph.ORIGIN;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -26,6 +24,6 @@ public class GravityForceSimple<V, E> extends AbstractForce<V, E, IntensityParam
 
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
-        return Vector2D.calculateUnitVector(correspondingPoint, ORIGIN).multiply(forceParameter.getForceIntensity());
+        return Vector2D.calculateUnitVector(correspondingPoint, ForceGraph.getOrigin()).multiply(forceParameter.getForceIntensity());
     }
 }

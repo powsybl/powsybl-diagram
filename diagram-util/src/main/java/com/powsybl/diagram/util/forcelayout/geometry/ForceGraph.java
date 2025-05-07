@@ -16,11 +16,12 @@ import java.util.*;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceGraph<V, E> {
-    public static final Point ORIGIN = new Point(0, 0);
+    private static final Point ORIGIN = new Point(0, 0);
 
     private final Graph<V, E> graph;
 
     private final Map<V, Point> movingPoints = new LinkedHashMap<>();
+    // this will be filled by the Setup function using fixedNodes and initialPoints
     private final Map<V, Point> fixedPoints = new LinkedHashMap<>();
 
     private Map<V, Point> initialPoints = Collections.emptyMap();
@@ -52,6 +53,10 @@ public class ForceGraph<V, E> {
 
     public static void setCenter(Vector2D center) {
         ORIGIN.setPosition(center);
+    }
+
+    public static Point getOrigin() {
+        return ORIGIN;
     }
 
     public ForceGraph<V, E> setInitialPoints(Map<V, Point> initialPoints) {
