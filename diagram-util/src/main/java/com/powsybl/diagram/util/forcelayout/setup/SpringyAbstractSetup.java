@@ -14,18 +14,11 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
-
-import static com.powsybl.diagram.util.forcelayout.geometry.ForceGraph.ORIGIN;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringySetup<V, E> implements Setup<V, E> {
-
-    // Suppress the warning about possible unsafe Random, because we use this for simulation and not cryptography
-    @java.lang.SuppressWarnings("java:S2245")
-    private final Random random = new Random(3L);
+public class SpringyAbstractSetup<V, E> extends AbstractSetup<V, E> {
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph) {
@@ -47,8 +40,8 @@ public class SpringySetup<V, E> implements Setup<V, E> {
             } else {
                 Point initialPoint = forceGraph.getInitialPoints().get(vertex);
                 forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        ORIGIN.getPosition().x() + scale * (random.nextDouble() - 0.5),
-                        ORIGIN.getPosition().y() + scale * (random.nextDouble() - 0.5)
+                        ForceGraph.getOrigin().getPosition().x() + scale * (random.nextDouble() - 0.5),
+                        ForceGraph.getOrigin().getPosition().y() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }

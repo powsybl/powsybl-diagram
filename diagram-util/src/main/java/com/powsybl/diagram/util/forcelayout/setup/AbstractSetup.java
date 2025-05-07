@@ -10,9 +10,15 @@ package com.powsybl.diagram.util.forcelayout.setup;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 
+import java.util.Random;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public interface Setup<V, E> {
-    public void setup(ForceGraph<V, E> forceGraph);
+public abstract class AbstractSetup<V, E> {
+    // Suppress the warning about possible unsafe Random, because we use this for simulation and not cryptography
+    @java.lang.SuppressWarnings("java:S2245")
+    protected final Random random = new Random(3L);
+
+    public abstract void setup(ForceGraph<V, E> forceGraph);
 }

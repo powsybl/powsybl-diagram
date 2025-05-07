@@ -10,8 +10,7 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.setup.Setup;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
@@ -68,7 +67,7 @@ public final class GraphTestData {
         Set<String> fixedNodes = new HashSet<>();
         fixedNodes.add("1");
         forceGraph.setFixedNodes(fixedNodes);
-        Setup<String, DefaultEdge> setup = new SpringySetup<>();
+        SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>();
         setup.setup(forceGraph);
     }
 }

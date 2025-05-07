@@ -11,15 +11,15 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.AbstractLayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.Setup;
+import com.powsybl.diagram.util.forcelayout.setup.AbstractSetup;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.setup.SpringyAbstractSetup;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class LayoutAlgorithmRunner<V, E> {
-    private Setup<V, E> setup;
+    private AbstractSetup<V, E> abstractSetup;
     private AbstractLayoutAlgorithm<V, E> layoutAlgorithm;
 
     LayoutAlgorithmRunner(SetupEnum setupChoice, AbstractLayoutParameters<V, E> layoutParameters) {
@@ -28,8 +28,8 @@ public class LayoutAlgorithmRunner<V, E> {
     }
 
     private void chooseSetup(SetupEnum setupChoice) {
-        this.setup = switch (setupChoice) {
-            case SPRINGY -> new SpringySetup<>();
+        this.abstractSetup = switch (setupChoice) {
+            case SPRINGY -> new SpringyAbstractSetup<>();
         };
     }
 
@@ -38,7 +38,7 @@ public class LayoutAlgorithmRunner<V, E> {
     }
 
     public void run(ForceGraph<V, E> forceGraph) {
-        setup.setup(forceGraph);
+        abstractSetup.setup(forceGraph);
         layoutAlgorithm.calculateLayout(forceGraph);
     }
 }
