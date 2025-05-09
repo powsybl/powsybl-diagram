@@ -9,9 +9,7 @@
 package com.powsybl.diagram.util.forcelayout.geometry;
 
 import com.powsybl.diagram.util.forcelayout.Canvas;
-import com.powsybl.diagram.util.forcelayout.Spring;
 import org.jgrapht.Graph;
-import org.jgrapht.Graphs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,6 +117,7 @@ public class ForceGraph<V, E> {
                 LOGGER.error("No vertex found, trying to continue with other vertex: %s", e);
                 continue;
             }
+            // this seems incorrect (reversed point1 and point2), but this is a refactor, so I just copied what was in the Spring class
             Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
             Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
             printWriter.printf(

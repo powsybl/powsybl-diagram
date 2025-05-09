@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -82,7 +82,7 @@ public class Point {
 
         Vector2D screenPosition = canvas.toScreen(getPosition());
         printWriter.printf(Locale.US, "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"10\"/>%n",
-            screenPosition.x(), screenPosition.y()
+                screenPosition.x(), screenPosition.y()
         );
 
         printWriter.println("</g>");

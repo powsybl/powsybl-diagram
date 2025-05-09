@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffec
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import org.jgrapht.Graphs;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
