@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceGraph<V, E> {
-    private static final Point ORIGIN = new Point(0, 0);
+    private final Point origin = new Point(0, 0);
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceGraph.class);
 
     private final Graph<V, E> graph;
@@ -59,12 +59,12 @@ public class ForceGraph<V, E> {
         return fixedNodes;
     }
 
-    public static void setCenter(Vector2D center) {
-        ORIGIN.setPosition(center);
+    public void setCenter(Vector2D center) {
+        origin.setPosition(center);
     }
 
-    public static Point getOrigin() {
-        return ORIGIN;
+    public Point getOrigin() {
+        return origin;
     }
 
     public ForceGraph<V, E> setInitialPoints(Map<V, Point> initialPoints) {
@@ -146,6 +146,18 @@ public class ForceGraph<V, E> {
             } else {
                 throw new NoSuchElementException("There is no point corresponding to this vertex");
             }
+        }
+    }
+
+    public Vector2D getStablePosition(V vertex, boolean hasBeenExecuted) {
+        Point fixedPoint = fixedPoints.get(vertex);
+        if (fixedPoint != null) {
+            return fixedPoint.getPosition();
+        } else {
+            if (!hasBeenExecuted) {
+                LOGGER.warn("Vertex {} position was not fixed and force layout has not been executed yet", vertex);
+            }
+            return movingPoints.getOrDefault(vertex, new Point(-1, -1)).getPosition();
         }
     }
 }

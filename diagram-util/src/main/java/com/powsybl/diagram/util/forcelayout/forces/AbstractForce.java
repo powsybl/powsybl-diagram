@@ -23,5 +23,9 @@ public abstract class AbstractForce<V, E, P extends ForceParameter> {
         this.forceParameter = forceParameter;
     }
 
+    public void setForceParameter(P forceParameter) {
+        this.forceParameter = forceParameter;
+    }
+
     public abstract Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
 }

@@ -31,14 +31,22 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
 
     private final SpringyParameters<V, E> layoutParameters;
-    private SpringContainer<E> springContainer;
 
     public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
         super();
-        this.forces.add(new GravityForceSimple<>(new IntensityParameter(layoutParameters.getRepulsion() / 200)));
-        this.springContainer = new SpringContainer<>();
-        this.forces.add(new SpringForce<>(this.springContainer));
-        this.forces.add(new CoulombForce<>(new IntensityEffectFromFixedNodesParameters(layoutParameters.getRepulsion(), true)));
+        if (layoutParameters.isAttractToCenterForce()) {
+            this.forces.add(new GravityForceSimple<>(
+                    new IntensityParameter(
+                            layoutParameters.getRepulsion() / 200
+                    )
+            ));
+        }
+        this.forces.add(new CoulombForce<>(
+                new IntensityEffectFromFixedNodesParameters(
+                        layoutParameters.getRepulsion(),
+                        layoutParameters.isRepulsionForceFromFixedPoints()
+                )
+        ));
         this.layoutParameters = layoutParameters;
     }
 
@@ -62,7 +70,9 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
 
     @Override
     public void calculateLayout(ForceGraph<V, E> forceGraph) {
-        this.springContainer = initializeSprings(forceGraph);
+        // it would be better if this was created with all the other forces but we need the graph to init the springs
+        // TODO that could cause an issue if we launch the runner on multiple different graph, we would keep adding spring force
+        this.forces.add(new SpringForce<>(initializeSprings(forceGraph)));
         // do the loop on the nodes and forces
         int i;
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {

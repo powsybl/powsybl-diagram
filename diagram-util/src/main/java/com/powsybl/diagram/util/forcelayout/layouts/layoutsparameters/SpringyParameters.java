@@ -29,6 +29,8 @@ public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
     private double repulsion;
     private double friction;
     private double maxSpeed;
+    private boolean repulsionForceFromFixedPoints = true;
+    private boolean attractToCenterForce = true;
 
     public SpringyParameters() {
         super();
@@ -88,6 +90,22 @@ public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    public boolean isRepulsionForceFromFixedPoints() {
+        return repulsionForceFromFixedPoints;
+    }
+
+    public void setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
+        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+    }
+
+    public boolean isAttractToCenterForce() {
+        return attractToCenterForce;
+    }
+
+    public void setAttractToCenterForce(boolean attractToCenterForce) {
+        this.attractToCenterForce = attractToCenterForce;
     }
 
     @Override

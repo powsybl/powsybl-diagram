@@ -31,7 +31,7 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
                 .map(Point::getPosition)
                 .reduce(Vector2D::add)
                 .map(sum -> sum.divide(forceGraph.getInitialPoints().size()));
-        ForceGraph.setCenter(initialPointsCenter.orElse(new Vector2D(0, 0)));
+        forceGraph.setCenter(initialPointsCenter.orElse(new Vector2D(0, 0)));
 
         for (V vertex : forceGraph.getGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
@@ -39,8 +39,8 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
             } else {
                 Point initialPoint = forceGraph.getInitialPoints().get(vertex);
                 forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        ForceGraph.getOrigin().getPosition().x() + scale * (random.nextDouble() - 0.5),
-                        ForceGraph.getOrigin().getPosition().y() + scale * (random.nextDouble() - 0.5)
+                        forceGraph.getOrigin().getPosition().x() + scale * (random.nextDouble() - 0.5),
+                        forceGraph.getOrigin().getPosition().y() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }

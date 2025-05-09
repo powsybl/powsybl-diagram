@@ -8,6 +8,7 @@
 package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.AbstractLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.AbstractSetup;
@@ -51,8 +52,12 @@ public class LayoutAlgorithmRunner<V, E> {
 
     public void run(ForceGraph<V, E> forceGraph) {
         this.forceGraph = forceGraph;
+        long start = System.nanoTime();
         setup.setup(forceGraph);
+        long setupEnd = System.nanoTime();
+        LOGGER.info("Setup took {}", (setupEnd - start) / 1e9);
         layoutAlgorithm.calculateLayout(forceGraph);
+        LOGGER.info("Layout calculations took {}", (System.nanoTime() - setupEnd) / 1e9);
         hasBeenExecuted = true;
     }
 
@@ -68,5 +73,17 @@ public class LayoutAlgorithmRunner<V, E> {
             return;
         }
         forceGraph.toSVG(tooltip, writer);
+    }
+
+    public Vector2D getStablePosition(V vertex) {
+        return forceGraph.getStablePosition(vertex, hasBeenExecuted);
+    }
+
+    public void setCenter(Vector2D center) {
+        this.forceGraph.setCenter(center);
+    }
+
+    public Vector2D getCenter() {
+        return this.forceGraph.getOrigin().getPosition();
     }
 }

@@ -21,7 +21,7 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
     public void setup(ForceGraph<V, E> forceGraph) {
-        ForceGraph.setCenter(new Vector2D(0, 0));
+        forceGraph.setCenter(new Vector2D(0, 0));
 
         for (V vertex : forceGraph.getGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
@@ -29,8 +29,8 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
             } else {
                 Point initialPoint = forceGraph.getInitialPoints().get(vertex);
                 forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        ForceGraph.getOrigin().getPosition().x() + (random.nextDouble() - 0.5),
-                        ForceGraph.getOrigin().getPosition().y() + (random.nextDouble() - 0.5)
+                        forceGraph.getOrigin().getPosition().x() + (random.nextDouble() - 0.5),
+                        forceGraph.getOrigin().getPosition().y() + (random.nextDouble() - 0.5)
                 )));
             }
         }
