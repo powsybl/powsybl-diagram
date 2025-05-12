@@ -10,14 +10,13 @@ package com.powsybl.diagram.util.forcelayout.layouts;
 
 import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
 import com.powsybl.diagram.util.forcelayout.forces.CoulombForce;
-import com.powsybl.diagram.util.forcelayout.forces.GravityForceSimple;
+import com.powsybl.diagram.util.forcelayout.forces.GravityForceLinear;
 import com.powsybl.diagram.util.forcelayout.forces.SpringForce;
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.*;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyParameters;
-import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
@@ -36,19 +35,19 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
 
     public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
         super();
-        if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new GravityForceSimple<>(
-                    new IntensityParameter(
-                            layoutParameters.getRepulsion() / 200
-                    )
-            ));
-        }
         this.forces.add(new CoulombForce<>(
                 new IntensityEffectFromFixedNodesParameters(
                         layoutParameters.getRepulsion(),
                         layoutParameters.isRepulsionForceFromFixedPoints()
                 )
         ));
+        if (layoutParameters.isAttractToCenterForce()) {
+            this.forces.add(new GravityForceLinear<>(
+                    new IntensityParameter(
+                            layoutParameters.getRepulsion() / 200
+                    )
+            ));
+        }
         this.layoutParameters = layoutParameters;
     }
 

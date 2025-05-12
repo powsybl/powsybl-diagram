@@ -55,9 +55,9 @@ public class LayoutAlgorithmRunner<V, E> {
         long start = System.nanoTime();
         setup.setup(forceGraph);
         long setupEnd = System.nanoTime();
-        LOGGER.info("Setup took {}", (setupEnd - start) / 1e9);
+        LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
         layoutAlgorithm.calculateLayout(forceGraph);
-        LOGGER.info("Layout calculations took {}", (System.nanoTime() - setupEnd) / 1e9);
+        LOGGER.info("Layout calculations took {} s", (System.nanoTime() - setupEnd) / 1e9);
         hasBeenExecuted = true;
     }
 
