@@ -44,7 +44,11 @@ public class ForceGraph<V, E> {
             locSimpleGraph.addVertex(vertex);
         }
         for (E edge : graph.edgeSet()) {
-            locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+            V source = graph.getEdgeSource(edge);
+            V target = graph.getEdgeTarget(edge);
+            if (source != target) {
+                locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+            }
         }
         this.simpleGraph = locSimpleGraph;
         this.graph = graph;
