@@ -18,6 +18,8 @@ import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyParameters;
 import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,19 +52,19 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
-    public static <V, E> SpringContainer<E> initializeSprings(ForceGraph<V, E> forceGraph) {
-        Map<E, SpringParameter> springs = new HashMap<>();
-        Graph<V, E> graph = forceGraph.getGraph();
-        for (E edge : forceGraph.getGraph().edgeSet()) {
-            V edgeSource = graph.getEdgeSource(edge);
-            V edgeTarget = graph.getEdgeTarget(edge);
+    public static <V, E> SpringContainer<DefaultEdge> initializeSprings(ForceGraph<V, E> forceGraph) {
+        Map<DefaultEdge, SpringParameter> springs = new HashMap<>();
+        SimpleGraph<V, DefaultEdge> simpleGraph = forceGraph.getSimpleGraph();
+        for (DefaultEdge edge : simpleGraph.edgeSet()) {
+            V edgeSource = simpleGraph.getEdgeSource(edge);
+            V edgeTarget = simpleGraph.getEdgeTarget(edge);
             if (forceGraph.getFixedPoints().containsKey(edgeSource) && forceGraph.getFixedPoints().containsKey(edgeTarget)) {
                 continue;
             }
             Point pointSource = Objects.requireNonNullElseGet(forceGraph.getMovingPoints().get(edgeSource), () -> forceGraph.getInitialPoints().get(edgeSource));
             Point pointTarget = Objects.requireNonNullElseGet(forceGraph.getMovingPoints().get(edgeTarget), () -> forceGraph.getInitialPoints().get(edgeTarget));
             if (pointSource != pointTarget) { // no use in force layout to add loops
-                springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, graph.getEdgeWeight(edge)));
+                springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, simpleGraph.getEdgeWeight(edge)));
             }
         }
         return new SpringContainer<>(springs);

@@ -21,8 +21,8 @@ class ForceGraphTest {
     @Test
     void graphCreation() {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        assertEquals(5, forceGraph.getGraph().vertexSet().size());
-        assertEquals(4, forceGraph.getGraph().edgeSet().size());
+        assertEquals(5, forceGraph.getSimpleGraph().vertexSet().size());
+        assertEquals(4, forceGraph.getSimpleGraph().edgeSet().size());
         assertEquals(1, forceGraph.getFixedPoints().size());
         assertEquals(1, forceGraph.getFixedNodes().size());
         assertEquals(5, forceGraph.getInitialPoints().size());

@@ -10,6 +10,8 @@ package com.powsybl.diagram.util.forcelayout.geometry;
 
 import com.powsybl.diagram.util.forcelayout.Canvas;
 import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +29,7 @@ public class ForceGraph<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceGraph.class);
 
     private final Graph<V, E> graph;
+    private final SimpleGraph<V, DefaultEdge> simpleGraph;
 
     private final Map<V, Point> movingPoints = new LinkedHashMap<>();
     // this will be filled by the Setup function using fixedNodes and initialPoints
@@ -36,11 +39,23 @@ public class ForceGraph<V, E> {
     private Set<V> fixedNodes = Collections.emptySet();
 
     public ForceGraph(Graph<V, E> graph) {
+        SimpleGraph<V, DefaultEdge> locSimpleGraph = new SimpleGraph<>(DefaultEdge.class);
+        for (V vertex : graph.vertexSet()) {
+            locSimpleGraph.addVertex(vertex);
+        }
+        for (E edge : graph.edgeSet()) {
+            locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+        }
+        this.simpleGraph = locSimpleGraph;
         this.graph = graph;
     }
 
     public Graph<V, E> getGraph() {
         return graph;
+    }
+
+    public SimpleGraph<V, DefaultEdge> getSimpleGraph() {
+        return simpleGraph;
     }
 
     public Map<V, Point> getMovingPoints() {
@@ -105,6 +120,7 @@ public class ForceGraph<V, E> {
                 fixedPoints.entrySet().stream()
         ).forEach(entry -> entry.getValue().toSVG(printWriter, canvas, tooltip, entry.getKey()));
 
+        // use graph and not simple graph, because we want to represent multiple edges, in case of multiple lines between stations
         for (E edge : graph.edgeSet()) {
             V firstVertex = graph.getEdgeSource(edge);
             V secondVertex = graph.getEdgeTarget(edge);

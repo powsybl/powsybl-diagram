@@ -14,13 +14,14 @@ import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.Graphs;
+import org.jgrapht.graph.DefaultEdge;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<E>> {
+public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<DefaultEdge>> {
 
-    public SpringForce(SpringContainer<E> forceParameter) {
+    public SpringForce(SpringContainer<DefaultEdge> forceParameter) {
         super(forceParameter);
     }
 
@@ -28,9 +29,9 @@ public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<E>> {
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (E edge : forceGraph.getGraph().edgesOf(forThisVertex)) {
+        for (DefaultEdge edge : forceGraph.getSimpleGraph().edgesOf(forThisVertex)) {
             // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring
-            V otherVertex = Graphs.getOppositeVertex(forceGraph.getGraph(), edge, forThisVertex);
+            V otherVertex = Graphs.getOppositeVertex(forceGraph.getSimpleGraph(), edge, forThisVertex);
             Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {
                 otherPoint = forceGraph.getFixedPoints().get(otherVertex);

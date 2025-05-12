@@ -21,7 +21,7 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph) {
-        int nbUnknownPositions = forceGraph.getGraph().vertexSet().size() - forceGraph.getInitialPoints().size();
+        int nbUnknownPositions = forceGraph.getSimpleGraph().vertexSet().size() - forceGraph.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.
         // Apply a scale depending on the number of unknown positions to have an expected mean distance remain around the same value.
@@ -33,7 +33,7 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
                 .map(sum -> sum.divide(forceGraph.getInitialPoints().size()));
         forceGraph.setCenter(initialPointsCenter.orElse(new Vector2D(0, 0)));
 
-        for (V vertex : forceGraph.getGraph().vertexSet()) {
+        for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
                 forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));
             } else {

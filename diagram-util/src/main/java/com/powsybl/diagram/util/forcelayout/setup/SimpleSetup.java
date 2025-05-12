@@ -23,7 +23,7 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
     public void setup(ForceGraph<V, E> forceGraph) {
         forceGraph.setCenter(new Vector2D(0, 0));
 
-        for (V vertex : forceGraph.getGraph().vertexSet()) {
+        for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
                 forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));
             } else {

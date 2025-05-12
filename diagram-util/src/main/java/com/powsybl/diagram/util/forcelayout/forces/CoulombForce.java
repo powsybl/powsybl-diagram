@@ -25,7 +25,7 @@ public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromF
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (V otherVertex : forceGraph.getGraph().vertexSet()) {
+        for (V otherVertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (otherVertex == forThisVertex) {
                 continue;
             }

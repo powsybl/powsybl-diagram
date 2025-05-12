@@ -27,7 +27,7 @@ public class GravityForceByEdgeNumber<V, E> extends AbstractForce<V, E, Intensit
         // magnitude = k * (deg (point) + 1)
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph
-        double magnitude = forceParameter.getForceIntensity() * (forceGraph.getGraph().degreeOf(forThisVertex) + 1);
+        double magnitude = forceParameter.getForceIntensity() * (forceGraph.getSimpleGraph().degreeOf(forThisVertex) + 1);
         return Vector2D.calculateUnitVector(correspondingPoint, forceGraph.getOrigin()).multiply(magnitude);
     }
 }
