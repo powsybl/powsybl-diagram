@@ -56,54 +56,50 @@ public class ForceLayout<V, E> {
     private final Set<Spring> springs = new LinkedHashSet<>();
 
     private final ForceGraph<V, E> forceGraph;
-    private final SpringyParameters<V, E> springyParameters = new SpringyParameters<>();
-    private final LayoutAlgorithmRunner<V, E> algorithmRunner;
+    private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
+    private LayoutAlgorithmRunner<V, E> algorithmRunner;
 
     public ForceLayout(Graph<V, E> graph) {
         this.forceGraph = new ForceGraph<>(Objects.requireNonNull(graph));
-        this.algorithmRunner = new LayoutAlgorithmRunner<>(
-                SetupEnum.SPRINGY,
-                this.springyParameters
-        );
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
-        this.springyParameters.setAttractToCenterForce(attractToCenterForce);
+        this.springyParametersBuilder.withAttractToCenterForce(attractToCenterForce);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-        this.springyParameters.setRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
+        this.springyParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
-        this.springyParameters.setMaxSteps(maxSteps);
+        this.springyParametersBuilder.withMaxSteps(maxSteps);
         return this;
     }
 
     public ForceLayout<V, E> setMinEnergyThreshold(double minEnergyThreshold) {
-        this.springyParameters.setMinEnergyThreshold(minEnergyThreshold);
+        this.springyParametersBuilder.withMinEnergyThreshold(minEnergyThreshold);
         return this;
     }
 
     public ForceLayout<V, E> setDeltaTime(double deltaTime) {
-        this.springyParameters.setDeltaTime(deltaTime);
+        this.springyParametersBuilder.withDeltaTime(deltaTime);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsion(double repulsion) {
-        this.springyParameters.setRepulsion(repulsion);
+        this.springyParametersBuilder.withRepulsion(repulsion);
         return this;
     }
 
     public ForceLayout<V, E> setFriction(double friction) {
-        this.springyParameters.setFriction(friction);
+        this.springyParametersBuilder.withFriction(friction);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
-        this.springyParameters.setMaxSpeed(maxSpeed);
+        this.springyParametersBuilder.withMaxSpeed(maxSpeed);
         return this;
     }
 
@@ -123,6 +119,10 @@ public class ForceLayout<V, E> {
     }
 
     public void execute() {
+        this.algorithmRunner = new LayoutAlgorithmRunner<>(
+                SetupEnum.SPRINGY,
+                this.springyParametersBuilder.build()
+        );
         algorithmRunner.run(forceGraph);
     }
 

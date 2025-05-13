@@ -15,7 +15,7 @@ import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
+public final class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
     private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
@@ -23,89 +23,132 @@ public class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E> {
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
 
-    private int maxSteps;
-    private double minEnergyThreshold;
-    private double deltaTime;
-    private double repulsion;
-    private double friction;
-    private double maxSpeed;
-    private boolean repulsionForceFromFixedPoints = true;
-    private boolean attractToCenterForce = true;
+    private final int maxSteps;
+    private final double minEnergyThreshold;
+    private final double deltaTime;
+    private final double repulsion;
+    private final double friction;
+    private final double maxSpeed;
+    private final boolean repulsionForceFromFixedPoints;
+    private final boolean attractToCenterForce;
 
-    public SpringyParameters() {
+    private SpringyParameters(
+            int maxSteps,
+            double minEnergyThreshold,
+            double deltaTime,
+            double repulsion,
+            double friction,
+            double maxSpeed,
+            boolean repulsionForceFromFixedPoints,
+            boolean attractToCenterForce
+    ) {
         super();
         this.parameterType = LayoutEnum.SPRINGY;
 
-        this.maxSteps = DEFAULT_MAX_STEPS;
-        this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
-        this.deltaTime = DEFAULT_DELTA_TIME;
-        this.repulsion = DEFAULT_REPULSION;
-        this.friction = DEFAULT_FRICTION;
-        this.maxSpeed = DEFAULT_MAX_SPEED;
+        this.maxSteps = maxSteps;
+        this.minEnergyThreshold = minEnergyThreshold;
+        this.deltaTime = deltaTime;
+        this.repulsion = repulsion;
+        this.friction = friction;
+        this.maxSpeed = maxSpeed;
+        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        this.attractToCenterForce = attractToCenterForce;
+    }
+
+    public static class Builder {
+        private int maxSteps = DEFAULT_MAX_STEPS;
+        private double minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
+        private double deltaTime = DEFAULT_DELTA_TIME;
+        private double repulsion = DEFAULT_REPULSION;
+        private double friction = DEFAULT_FRICTION;
+        private double maxSpeed = DEFAULT_MAX_SPEED;
+        private boolean repulsionForceFromFixedPoints = true;
+        private boolean attractToCenterForce = true;
+
+        public Builder withMaxSteps(int maxSteps) {
+            this.maxSteps = maxSteps;
+            return this;
+        }
+
+        public Builder withMinEnergyThreshold(double minEnergyThreshold) {
+            this.minEnergyThreshold = minEnergyThreshold;
+            return this;
+        }
+
+        public Builder withDeltaTime(double deltaTime) {
+            this.deltaTime = deltaTime;
+            return this;
+        }
+
+        public Builder withRepulsion(double repulsion) {
+            this.repulsion = repulsion;
+            return this;
+        }
+
+        public Builder withFriction(double friction) {
+            this.friction = friction;
+            return this;
+        }
+
+        public Builder withMaxSpeed(double maxSpeed) {
+            this.maxSpeed = maxSpeed;
+            return this;
+        }
+
+        public Builder withRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
+            this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+            return this;
+        }
+
+        public Builder withAttractToCenterForce(boolean attractToCenterForce) {
+            this.attractToCenterForce = attractToCenterForce;
+            return this;
+        }
+
+        public <V, E> SpringyParameters<V, E> build() {
+            return new SpringyParameters<>(
+                    maxSteps,
+                    minEnergyThreshold,
+                    deltaTime,
+                    repulsion,
+                    friction,
+                    maxSpeed,
+                    repulsionForceFromFixedPoints,
+                    attractToCenterForce
+            );
+        }
     }
 
     public int getMaxSteps() {
         return maxSteps;
     }
 
-    public void setMaxSteps(int maxSteps) {
-        this.maxSteps = maxSteps;
-    }
-
     public double getMinEnergyThreshold() {
         return minEnergyThreshold;
-    }
-
-    public void setMinEnergyThreshold(double minEnergyThreshold) {
-        this.minEnergyThreshold = minEnergyThreshold;
     }
 
     public double getDeltaTime() {
         return deltaTime;
     }
 
-    public void setDeltaTime(double deltaTime) {
-        this.deltaTime = deltaTime;
-    }
-
     public double getRepulsion() {
         return repulsion;
-    }
-
-    public void setRepulsion(double repulsion) {
-        this.repulsion = repulsion;
     }
 
     public double getFriction() {
         return friction;
     }
 
-    public void setFriction(double friction) {
-        this.friction = friction;
-    }
-
     public double getMaxSpeed() {
         return maxSpeed;
-    }
-
-    public void setMaxSpeed(double maxSpeed) {
-        this.maxSpeed = maxSpeed;
     }
 
     public boolean isRepulsionForceFromFixedPoints() {
         return repulsionForceFromFixedPoints;
     }
 
-    public void setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
-    }
-
     public boolean isAttractToCenterForce() {
         return attractToCenterForce;
-    }
-
-    public void setAttractToCenterForce(boolean attractToCenterForce) {
-        this.attractToCenterForce = attractToCenterForce;
     }
 
     @Override
