@@ -41,12 +41,10 @@ public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromF
 
     private void coulombBetweenPoints(Vector2D resultingForce, Point correspondingPoint, Point otherPoint) {
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
-        double magnitudeSquare = force.magnitudeSquare();
-        force.normalize();
-        // 0.5 because we assume both points are moving, so each does half of the movement. Add 0.1 to avoid division by 0 errors
-        force.multiply(forceParameter.getForceIntensity());
-        force.divide(magnitudeSquare * 0.5 + 0.1);
-        // might be good to have a method to add to a vector2D in place, but it's not currently possible because Vector2D's fields are final
+        double magnitude = force.magnitude();
+        // 0.5 because we assume both points are moving, so each does half of the movement
+        double intensity = forceParameter.getForceIntensity() / (magnitude * magnitude * magnitude * 0.5 + 0.1 * magnitude);
+        force.multiply(intensity);
         resultingForce.add(force);
     }
 }
