@@ -34,21 +34,21 @@ class GravityForceByEdgeNumberTest {
                 forceGraph.getMovingPoints().get("0"),
                 forceGraph
         );
-        assertEquals(-0.01789, onPoint0.x(), delta);
-        assertEquals(-0.03578, onPoint0.y(), delta);
+        assertEquals(-0.01789, onPoint0.getX(), delta);
+        assertEquals(-0.03578, onPoint0.getY(), delta);
         Vector2D onPoint1 = gravityForceByEdgeNumber.calculateForce(
                 "1",
                 forceGraph.getFixedPoints().get("1"),
                 forceGraph
         );
-        assertEquals(0.022461, onPoint1.x(), delta);
-        assertEquals(-0.019887, onPoint1.y(), delta);
+        assertEquals(0.022461, onPoint1.getX(), delta);
+        assertEquals(-0.019887, onPoint1.getY(), delta);
         Vector2D onPoint4 = gravityForceByEdgeNumber.calculateForce(
                 "4",
                 forceGraph.getMovingPoints().get("4"),
                 forceGraph
         );
-        assertEquals(-0.007071, onPoint4.x(), delta);
-        assertEquals(-0.007071, onPoint4.y(), delta);
+        assertEquals(-0.007071, onPoint4.getX(), delta);
+        assertEquals(-0.007071, onPoint4.getY(), delta);
     }
 }

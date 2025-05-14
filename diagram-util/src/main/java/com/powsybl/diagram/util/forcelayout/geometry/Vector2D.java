@@ -10,22 +10,50 @@ package com.powsybl.diagram.util.forcelayout.geometry;
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
-public record Vector2D(double x, double y) {
+public class Vector2D {
+    private double x;
+    private double y;
 
-    public Vector2D add(Vector2D otherVector) {
-        return new Vector2D(x + otherVector.x(), y + otherVector.y());
+    public Vector2D(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public Vector2D subtract(Vector2D otherVector2D) {
-        return new Vector2D(x - otherVector2D.x(), y - otherVector2D.y());
+    public Vector2D() {
+        new Vector2D(0, 0);
     }
 
-    public Vector2D multiply(double scalar) {
-        return new Vector2D(x * scalar, y * scalar);
+    public Vector2D(Vector2D otherVector) {
+        this.x = otherVector.x;
+        this.y = otherVector.y;
     }
 
-    public Vector2D divide(double scalar) {
-        return new Vector2D(x / scalar, y / scalar);
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void add(Vector2D otherVector) {
+        this.x += otherVector.x;
+        this.y += otherVector.y;
+    }
+
+    public void subtract(Vector2D otherVector) {
+        this.x -= otherVector.x;
+        this.y -= otherVector.y;
+    }
+
+    public void multiply(double scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+    }
+
+    public void divide(double scalar) {
+        this.x /= scalar;
+        this.y /= scalar;
     }
 
     public double magnitude() {
@@ -36,18 +64,22 @@ public record Vector2D(double x, double y) {
         return x * x + y * y;
     }
 
-    public Vector2D normalize() {
-        return this.divide(this.magnitude());
+    public void normalize() {
+        this.divide(this.magnitude());
     }
 
     public static Vector2D calculateVectorBetweenPoints(Point from, Point towards) {
-        return towards.getPosition().subtract(from.getPosition());
+        Vector2D direction = new Vector2D(towards.getPosition());
+        direction.subtract(from.getPosition());
+        return direction;
     }
 
     /// Calculate the unit vector that goes from This point, pointing in the direction of towards
     public static Vector2D calculateUnitVector(Point from, Point towards) {
         if (from != towards) {
-            return calculateVectorBetweenPoints(from, towards).normalize();
+            Vector2D normalizedVector = calculateVectorBetweenPoints(from, towards);
+            normalizedVector.normalize();
+            return normalizedVector;
         } else {
             return new Vector2D(0, 0);
         }

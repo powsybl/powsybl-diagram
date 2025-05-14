@@ -74,6 +74,7 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         // it would be better if this was created with all the other forces but we need the graph to init the springs
         // TODO that could cause an issue if we launch the runner on multiple different graph, we would keep adding spring force
         this.forces.add(new SpringForce<>(initializeSprings(forceGraph)));
+
         // do the loop on the nodes and forces
         int i;
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
@@ -96,12 +97,13 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
 
     private void updateVelocity(ForceGraph<V, E> forceGraph) {
         for (Point point : forceGraph.getMovingPoints().values()) {
-            Vector2D newVelocity = point.getForces().multiply((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
+            Vector2D newVelocity = new Vector2D(point.getForces());
+            newVelocity.multiply((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
             point.setVelocity(newVelocity);
 
-            if (point.getVelocity().magnitude() > layoutParameters.getMaxSpeed()) {
-                Vector2D velocity = point.getVelocity().normalize().multiply(layoutParameters.getMaxSpeed());
-                point.setVelocity(velocity);
+            if (newVelocity.magnitude() > layoutParameters.getMaxSpeed()) {
+                newVelocity.normalize();
+                newVelocity.multiply(layoutParameters.getMaxSpeed());
             }
 
             point.resetForces();
@@ -111,8 +113,9 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
     private void updatePosition(ForceGraph<V, E> forceGraph) {
         // Here we only update the position for the nodes that do not have fixed positions
         for (Point point : forceGraph.getMovingPoints().values()) {
-            Vector2D position = point.getPosition().add(point.getVelocity().multiply(layoutParameters.getDeltaTime()));
-            point.setPosition(position);
+            Vector2D speed = new Vector2D(point.getVelocity());
+            speed.multiply(layoutParameters.getDeltaTime());
+            point.getPosition().add(speed);
         }
     }
 

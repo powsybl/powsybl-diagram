@@ -40,7 +40,7 @@ public class Point {
     }
 
     public void applyForce(Vector2D force) {
-        forces = forces.add(force);
+        forces.add(force);
     }
 
     public Vector2D getPosition() {
@@ -82,7 +82,7 @@ public class Point {
 
         Vector2D screenPosition = canvas.toScreen(getPosition());
         printWriter.printf(Locale.US, "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"10\"/>%n",
-                screenPosition.x(), screenPosition.y()
+                screenPosition.getX(), screenPosition.getY()
         );
 
         printWriter.println("</g>");
@@ -90,8 +90,8 @@ public class Point {
 
     public double distanceTo(Point other) {
         // we could do this.position.subtract(other.getPosition()).magnitude(); but that involves creating a new position, maybe not great for the GC
-        double deltaX = this.position.x() - other.getPosition().x();
-        double deltaY = this.position.y() - other.getPosition().y();
+        double deltaX = this.position.getX() - other.getPosition().getX();
+        double deltaY = this.position.getY() - other.getPosition().getY();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 

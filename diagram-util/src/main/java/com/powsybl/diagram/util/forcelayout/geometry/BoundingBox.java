@@ -31,10 +31,10 @@ public final class BoundingBox {
 
     public static BoundingBox computeBoundingBox(Collection<Point> points) {
         // using Double.MAX_VALUE this way the box for no points is the identity element for box fusion
-        double left = points.stream().mapToDouble(p -> p.getPosition().x()).min().orElse(-Double.MAX_VALUE);
-        double bottom = points.stream().mapToDouble(p -> p.getPosition().y()).min().orElse(-Double.MAX_VALUE);
-        double right = points.stream().mapToDouble(p -> p.getPosition().x()).max().orElse(Double.MAX_VALUE);
-        double top = points.stream().mapToDouble(p -> p.getPosition().y()).max().orElse(Double.MAX_VALUE);
+        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(-Double.MAX_VALUE);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(-Double.MAX_VALUE);
+        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(Double.MAX_VALUE);
+        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(Double.MAX_VALUE);
         return new BoundingBox(left, top, right, bottom);
     }
 

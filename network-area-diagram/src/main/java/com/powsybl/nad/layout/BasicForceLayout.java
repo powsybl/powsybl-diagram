@@ -59,10 +59,10 @@ public class BasicForceLayout extends AbstractLayout {
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector2D p = forceLayout.getStablePosition(node);
             if (node instanceof TextNode texNode) {
-                texNode.setPosition(SCALE * p.x(), SCALE * p.y() - layoutParameters.getTextNodeEdgeConnectionYShift());
-                texNode.setEdgeConnection(new Point(SCALE * p.x(), SCALE * p.y()));
+                texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
+                texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
             } else {
-                node.setPosition(SCALE * p.x(), SCALE * p.y());
+                node.setPosition(SCALE * p.getX(), SCALE * p.getY());
             }
         });
 

@@ -34,22 +34,22 @@ class SpringForceTest {
                 forceGraph.getMovingPoints().get("3"),
                 forceGraph
         );
-        assertEquals(10.355339, onPoint3.x(), delta);
-        assertEquals(-10.355339, onPoint3.y(), delta);
+        assertEquals(10.355339, onPoint3.getX(), delta);
+        assertEquals(-10.355339, onPoint3.getY(), delta);
         Vector2D onPoint1 = springForce.calculateForce(
                 "1",
                 forceGraph.getFixedPoints().get("1"),
                 forceGraph
         );
-        assertEquals(368.104, onPoint1.x(), delta);
-        assertEquals(534.405, onPoint1.y(), delta);
+        assertEquals(368.104, onPoint1.getX(), delta);
+        assertEquals(534.405, onPoint1.getY(), delta);
         Vector2D onPoint4 = springForce.calculateForce(
                 "4",
                 forceGraph.getMovingPoints().get("4"),
                 forceGraph
         );
-        assertEquals(0, onPoint4.x(), delta);
-        assertEquals(0, onPoint4.y(), delta);
+        assertEquals(0, onPoint4.getX(), delta);
+        assertEquals(0, onPoint4.getY(), delta);
 
     }
 }

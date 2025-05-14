@@ -29,8 +29,8 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
             } else {
                 Point initialPoint = forceGraph.getInitialPoints().get(vertex);
                 forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        forceGraph.getOrigin().getPosition().x() + (random.nextDouble() - 0.5),
-                        forceGraph.getOrigin().getPosition().y() + (random.nextDouble() - 0.5)
+                        forceGraph.getOrigin().getPosition().getX() + (random.nextDouble() - 0.5),
+                        forceGraph.getOrigin().getPosition().getY() + (random.nextDouble() - 0.5)
                 )));
             }
         }

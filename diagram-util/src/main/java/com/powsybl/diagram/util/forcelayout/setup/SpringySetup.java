@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -27,11 +26,14 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
         // Apply a scale depending on the number of unknown positions to have an expected mean distance remain around the same value.
         // The positions are around the center of given initial positions.
         double scale = Math.sqrt(nbUnknownPositions) * 5;
-        Optional<Vector2D> initialPointsCenter = forceGraph.getInitialPoints().values().stream()
-                .map(Point::getPosition)
-                .reduce(Vector2D::add)
-                .map(sum -> sum.divide(forceGraph.getInitialPoints().size()));
-        forceGraph.setCenter(initialPointsCenter.orElse(new Vector2D(0, 0)));
+        Vector2D initialPointsCenter = new Vector2D();
+        if (!forceGraph.getInitialPoints().isEmpty()) {
+            forceGraph.getInitialPoints().values().stream()
+                    .map(Point::getPosition)
+                    .forEach(initialPointsCenter::add);
+            initialPointsCenter.divide(forceGraph.getInitialPoints().size());
+        }
+        forceGraph.setCenter(initialPointsCenter);
 
         for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
@@ -39,8 +41,8 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
             } else {
                 Point initialPoint = forceGraph.getInitialPoints().get(vertex);
                 forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        forceGraph.getOrigin().getPosition().x() + scale * (random.nextDouble() - 0.5),
-                        forceGraph.getOrigin().getPosition().y() + scale * (random.nextDouble() - 0.5)
+                        forceGraph.getOrigin().getPosition().getX() + scale * (random.nextDouble() - 0.5),
+                        forceGraph.getOrigin().getPosition().getY() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }

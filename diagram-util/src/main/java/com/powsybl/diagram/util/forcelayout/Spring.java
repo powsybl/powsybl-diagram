@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.diagram.util.forcelayout;
 
@@ -60,7 +61,7 @@ public class Spring {
         Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
         Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
         printWriter.printf(Locale.US, "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
-            screenPosition1.x(), screenPosition1.y(), screenPosition2.x(), screenPosition2.y());
+            screenPosition1.getX(), screenPosition1.getY(), screenPosition2.getX(), screenPosition2.getY());
     }
 
     @Override

@@ -27,6 +27,8 @@ public class GravityForceLinear<V, E> extends AbstractForce<V, E, IntensityParam
         // we don't use a unit vector to follow the previous convention, even though this is a bit strange
         // it means that nodes will generally not get further than a certain distance from the center, instead of leaving room to other nodes for expanding
         // that makes graphs more compact, but it could also cause issues with big graphs, where it would be too compact
-        return Vector2D.calculateVectorBetweenPoints(correspondingPoint, forceGraph.getOrigin()).multiply(forceParameter.getForceIntensity());
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, forceGraph.getOrigin());
+        force.multiply(forceParameter.getForceIntensity());
+        return force;
     }
 }

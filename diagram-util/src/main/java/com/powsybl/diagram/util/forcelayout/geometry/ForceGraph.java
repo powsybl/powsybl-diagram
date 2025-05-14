@@ -143,10 +143,10 @@ public class ForceGraph<V, E> {
             printWriter.printf(
                     Locale.US,
                     "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
-                    screenPosition1.x(),
-                    screenPosition1.y(),
-                    screenPosition2.x(),
-                    screenPosition2.y()
+                    screenPosition1.getX(),
+                    screenPosition1.getY(),
+                    screenPosition2.getX(),
+                    screenPosition2.getY()
             );
         }
 

@@ -42,15 +42,15 @@ public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<Defau
 
             SpringParameter spring = forceParameter.getSprings().get(edge);
 
-            Vector2D direction = Vector2D.calculateVectorBetweenPoints(correspondingPoint, otherPoint);
-            double displacement = direction.magnitude() - spring.getLength();
-            Vector2D unitDirection = direction.normalize();
+            Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, otherPoint);
+            double displacement = force.magnitude() - spring.getLength();
+            force.normalize();
 
             // multiply by 0.5 because each vertex will move half of the distance, assuming both are free
             // should this be different if the other point is not moving ?
-            Vector2D force = unitDirection.multiply(spring.getStiffness() * displacement * 0.5);
+            force.multiply(spring.getStiffness() * displacement * 0.5);
             // might be good to have a method to do this in place instead of creating new Vector2D each time
-            resultingForce = resultingForce.add(force);
+            resultingForce.add(force);
         }
         return resultingForce;
     }
