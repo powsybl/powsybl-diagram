@@ -25,35 +25,28 @@ public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromF
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (V otherVertex : forceGraph.getSimpleGraph().vertexSet()) {
-            if (otherVertex == forThisVertex) {
+        for (Point otherMovingPoint : forceGraph.getMovingPoints().values()) {
+            if (otherMovingPoint == correspondingPoint) {
                 continue;
             }
-            // it would be good to have a way of knowing directly from the graph if a vertex will be moving or not
-            Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
-            if (otherPoint == null) {
-                // it might be a fixed point, only check if it exists in the fixed point if we actually care what the effect of fixed nodes is
-                if (forceParameter.isEffectFromFixedNodes()) {
-                    otherPoint = forceGraph.getFixedPoints().get(otherVertex);
-                    if (otherPoint == null) {
-                        throw new NullPointerException(String.format("The other vertex does not have a corresponding point in either the moving or non moving points : Vertex %s", otherVertex));
-                    }
-                } else {
-                    // if we don't care, just go to the next vertex
-                    continue;
-                }
+            coulombBetweenPoints(resultingForce, correspondingPoint, otherMovingPoint);
+        }
+        if (forceParameter.isEffectFromFixedNodes()) {
+            for (Point otherFixedPoint : forceGraph.getFixedPoints().values()) {
+                coulombBetweenPoints(resultingForce, correspondingPoint, otherFixedPoint);
             }
-
-            // direction of the force is from the other point, to the point we are considering (it's repulsion, so it goes away from the other point)
-            Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
-            double magnitudeSquare = force.magnitudeSquare();
-            force.normalize();
-            // 0.5 because we assume both points are moving, so each does half of the movement. Add 0.1 to avoid division by 0 errors
-            force.multiply(forceParameter.getForceIntensity());
-            force.divide(magnitudeSquare * 0.5 + 0.1);
-            // might be good to have a method to add to a vector2D in place, but it's not currently possible because Vector2D's fields are final
-            resultingForce.add(force);
         }
         return resultingForce;
+    }
+
+    private void coulombBetweenPoints(Vector2D resultingForce, Point correspondingPoint, Point otherPoint) {
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
+        double magnitudeSquare = force.magnitudeSquare();
+        force.normalize();
+        // 0.5 because we assume both points are moving, so each does half of the movement. Add 0.1 to avoid division by 0 errors
+        force.multiply(forceParameter.getForceIntensity());
+        force.divide(magnitudeSquare * 0.5 + 0.1);
+        // might be good to have a method to add to a vector2D in place, but it's not currently possible because Vector2D's fields are final
+        resultingForce.add(force);
     }
 }
