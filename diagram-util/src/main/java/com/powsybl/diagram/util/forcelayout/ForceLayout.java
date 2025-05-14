@@ -130,6 +130,7 @@ public class ForceLayout<V, E> {
         return algorithmRunner.getStablePosition(vertex);
     }
 
+    //TODO we could remove this since there are no use for it in the code, but its public so someone else might be using it.
     public Set<Spring> getSprings() {
         return springs;
     }

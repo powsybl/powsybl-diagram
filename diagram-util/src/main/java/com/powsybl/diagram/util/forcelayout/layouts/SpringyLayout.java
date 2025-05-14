@@ -71,8 +71,7 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
 
     @Override
     public void calculateLayout(ForceGraph<V, E> forceGraph) {
-        // it would be better if this was created with all the other forces but we need the graph to init the springs
-        // TODO that could cause an issue if we launch the runner on multiple different graph, we would keep adding spring force
+        // it would be better if this was created with all the other forces, but we need the graph to init the springs
         this.forces.add(new SpringForce<>(initializeSprings(forceGraph)));
 
         // do the loop on the nodes and forces
@@ -93,6 +92,12 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
             }
         }
         LOGGER.info("Calculating the layout took {} steps", i);
+        try {
+            this.forces.remove(2);
+        } catch (Exception e) {
+            LOGGER.error("Tried to remove the Spring force from the Graph but did not succeed", new Exception(e));
+        }
+
     }
 
     private void updateVelocity(ForceGraph<V, E> forceGraph) {

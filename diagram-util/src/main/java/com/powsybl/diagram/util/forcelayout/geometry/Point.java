@@ -21,10 +21,7 @@ public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
     private Vector2D position;
-    //TODO remove this, it is not needed
-    // or maybe it is to calculate the Barnes Hut Dynamic schedule ?
     private Vector2D velocity;
-    //TODO remove this, forces are not kept at the point level anymore
     private Vector2D forces;
     private final double mass;
 
