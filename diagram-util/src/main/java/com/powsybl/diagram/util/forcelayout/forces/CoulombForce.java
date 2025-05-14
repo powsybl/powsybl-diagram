@@ -44,7 +44,7 @@ public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromF
         double magnitude = force.magnitude();
         // 0.5 because we assume both points are moving, so each does half of the movement
         double intensity = forceParameter.getForceIntensity() / (magnitude * magnitude * magnitude * 0.5 + 0.1 * magnitude);
-        force.multiply(intensity);
+        force.multiplyBy(intensity);
         resultingForce.add(force);
     }
 }

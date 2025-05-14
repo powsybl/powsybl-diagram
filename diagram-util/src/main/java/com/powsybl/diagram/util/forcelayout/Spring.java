@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.Objects;
 
+// TODO if we remove the getSprings inside ForceLayout, we can remove this class
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */

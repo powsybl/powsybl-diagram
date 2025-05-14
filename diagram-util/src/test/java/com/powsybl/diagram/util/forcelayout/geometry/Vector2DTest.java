@@ -29,13 +29,13 @@ class Vector2DTest {
         assertEquals(0.44, vector.getX(), 0.01);
         assertEquals(0.89, vector.getY(), 0.01);
 
-        vector.divide(2.0);
+        vector.divideBy(2.0);
         assertEquals(0.49, vector.magnitude(), 0.01);
         assertEquals(0.24, vector.magnitudeSquare(), 0.01);
         assertEquals(0.22, vector.getX(), 0.01);
         assertEquals(0.44, vector.getY(), 0.01);
 
-        vector.multiply(2.0);
+        vector.multiplyBy(2.0);
         assertEquals(1.0, vector.magnitude(), 0.1);
         assertEquals(1.0, vector.magnitudeSquare(), 0.1);
         assertEquals(0.44, vector.getX(), 0.01);

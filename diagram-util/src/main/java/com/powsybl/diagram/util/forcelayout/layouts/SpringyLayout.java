@@ -103,12 +103,12 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
     private void updateVelocity(ForceGraph<V, E> forceGraph) {
         for (Point point : forceGraph.getMovingPoints().values()) {
             Vector2D newVelocity = new Vector2D(point.getForces());
-            newVelocity.multiply((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
+            newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
             point.setVelocity(newVelocity);
 
             if (newVelocity.magnitude() > layoutParameters.getMaxSpeed()) {
                 newVelocity.normalize();
-                newVelocity.multiply(layoutParameters.getMaxSpeed());
+                newVelocity.multiplyBy(layoutParameters.getMaxSpeed());
             }
 
             point.resetForces();
@@ -119,7 +119,7 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         // Here we only update the position for the nodes that do not have fixed positions
         for (Point point : forceGraph.getMovingPoints().values()) {
             Vector2D speed = new Vector2D(point.getVelocity());
-            speed.multiply(layoutParameters.getDeltaTime());
+            speed.multiplyBy(layoutParameters.getDeltaTime());
             point.getPosition().add(speed);
         }
     }

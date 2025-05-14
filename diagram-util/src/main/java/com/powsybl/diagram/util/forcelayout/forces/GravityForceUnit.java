@@ -24,7 +24,7 @@ public class GravityForceUnit<V, E> extends AbstractForce<V, E, IntensityParamet
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D force = Vector2D.calculateUnitVector(correspondingPoint, forceGraph.getOrigin());
-        force.multiply(forceParameter.getForceIntensity());
+        force.multiplyBy(forceParameter.getForceIntensity());
         return force;
     }
 }

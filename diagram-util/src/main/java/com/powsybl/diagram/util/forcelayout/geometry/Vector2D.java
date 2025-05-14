@@ -46,12 +46,12 @@ public class Vector2D {
         this.y -= otherVector.y;
     }
 
-    public void multiply(double scalar) {
+    public void multiplyBy(double scalar) {
         this.x *= scalar;
         this.y *= scalar;
     }
 
-    public void divide(double scalar) {
+    public void divideBy(double scalar) {
         this.x /= scalar;
         this.y /= scalar;
     }
@@ -65,7 +65,7 @@ public class Vector2D {
     }
 
     public void normalize() {
-        this.divide(this.magnitude());
+        this.divideBy(this.magnitude());
     }
 
     public static Vector2D calculateVectorBetweenPoints(Point from, Point towards) {

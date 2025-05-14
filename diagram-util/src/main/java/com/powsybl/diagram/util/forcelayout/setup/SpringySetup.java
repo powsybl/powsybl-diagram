@@ -31,7 +31,7 @@ public class SpringySetup<V, E> extends AbstractSetup<V, E> {
             forceGraph.getInitialPoints().values().stream()
                     .map(Point::getPosition)
                     .forEach(initialPointsCenter::add);
-            initialPointsCenter.divide(forceGraph.getInitialPoints().size());
+            initialPointsCenter.divideBy(forceGraph.getInitialPoints().size());
         }
         forceGraph.setCenter(initialPointsCenter);
 
