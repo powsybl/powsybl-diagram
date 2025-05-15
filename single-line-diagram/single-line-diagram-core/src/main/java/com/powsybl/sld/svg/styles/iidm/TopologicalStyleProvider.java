@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.svg.styles.StyleClassConstants.NODE_INFOS;
+import static com.powsybl.sld.svg.styles.StyleClassConstants.STYLE_PREFIX;
 
 /**
  * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
@@ -90,7 +91,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         vlBusIdStyleMap.clear();
     }
 
-    private Map<String, String> createBusIdStyleMap(String baseVoltageLevelStyle, String vlId) {
+    private Map<String, String> createBusIdStyleMap(String baseBusStyle, String vlId) {
         List<Bus> buses = network.getVoltageLevel(vlId)
                 .getBusView().getBusStream().collect(Collectors.toList());
 
@@ -99,12 +100,12 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         if (svgParameters.isUnifyVoltageLevelColors()) {
             for (int i = 0; i < buses.size(); i++) {
                 Bus bus = buses.get(i);
-                busIdStyleMap.put(bus.getId(), baseVoltageLevelStyle + '-' + i);
+                busIdStyleMap.put(bus.getId(), baseBusStyle + '-' + i);
             }
         } else {
             for (Bus b : buses) {
-                int newIndex = stylesIndices.compute(baseVoltageLevelStyle, (s, i) -> i == null ? 0 : i + 1);
-                String style = baseVoltageLevelStyle + '-' + newIndex;
+                int newIndex = stylesIndices.compute(vlId + baseBusStyle, (s, i) -> i == null ? 0 : i + 1);
+                String style = baseBusStyle + '-' + newIndex;
                 busIdStyleMap.put(b.getId(), style);
             }
         }
@@ -113,7 +114,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     private List<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, String vlId, Node node) {
-        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageLevelStyle + "-bus", vlId));
+        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(STYLE_PREFIX + "bus", vlId));
         Map<String, String> nodeIdStyleMap = vlNodeIdStyleMap.computeIfAbsent(vlId, k -> new HashMap<>());
         String nodeTopologicalStyle = nodeIdStyleMap.get(node.getId());
         List<String> styles = new ArrayList<>();
