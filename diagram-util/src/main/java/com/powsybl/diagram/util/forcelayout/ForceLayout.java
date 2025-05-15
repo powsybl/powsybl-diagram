@@ -51,6 +51,7 @@ import java.util.function.Function;
  * The algorithm is taken from: https://github.com/dhotson/springy
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
+ * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceLayout<V, E> {
     private final Set<Spring> springs = new LinkedHashSet<>();

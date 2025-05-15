@@ -9,6 +9,7 @@ package com.powsybl.diagram.util.forcelayout.geometry;
 
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
+ * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Vector2D {
     private double x;
