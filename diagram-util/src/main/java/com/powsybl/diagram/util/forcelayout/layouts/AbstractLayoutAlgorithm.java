@@ -19,11 +19,11 @@ import java.util.List;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public abstract class AbstractLayoutAlgorithm<V, E> {
-    protected List<AbstractForce<V, E, ? extends ForceParameter>> forces;
+    protected List<AbstractForce<V, E>> forces;
 
     public abstract void calculateLayout(ForceGraph<V, E> forceGraph);
 
-    AbstractLayoutAlgorithm(List<AbstractForce<V, E, ? extends ForceParameter>> forces) {
+    AbstractLayoutAlgorithm(List<AbstractForce<V, E>> forces) {
         this.forces = forces;
     }
 

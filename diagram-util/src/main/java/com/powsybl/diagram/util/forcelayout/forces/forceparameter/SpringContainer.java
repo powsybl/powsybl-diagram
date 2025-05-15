@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringContainer<E> implements ForceParameter {
+public class SpringContainer<E> {
     private final Map<E, SpringParameter> springs;
 
     public SpringContainer() {

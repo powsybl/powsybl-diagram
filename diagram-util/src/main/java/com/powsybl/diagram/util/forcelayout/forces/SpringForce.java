@@ -19,10 +19,11 @@ import org.jgrapht.graph.DefaultEdge;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringForce<V, E> extends AbstractForce<V, E, SpringContainer<DefaultEdge>> {
+public class SpringForce<V, E> extends AbstractForce<V, E> {
+    private final SpringContainer<DefaultEdge> forceParameter;
 
     public SpringForce(SpringContainer<DefaultEdge> forceParameter) {
-        super(forceParameter);
+        this.forceParameter = forceParameter;
     }
 
     /// This is Hooke's Law

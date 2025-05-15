@@ -16,10 +16,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class GravityForceByEdgeNumber<V, E> extends AbstractForce<V, E, IntensityParameter> {
+public class GravityForceByEdgeNumber<V, E> extends AbstractForce<V, E> {
+
+    private final IntensityParameter forceParameter;
 
     public GravityForceByEdgeNumber(IntensityParameter forceParameter) {
-        super(forceParameter);
+        this.forceParameter = forceParameter;
     }
 
     @Override

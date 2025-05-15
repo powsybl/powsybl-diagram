@@ -16,10 +16,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class CoulombForce<V, E> extends AbstractForce<V, E, IntensityEffectFromFixedNodesParameters> {
+public class CoulombForce<V, E> extends AbstractForce<V, E> {
+
+    private final IntensityEffectFromFixedNodesParameters forceParameter;
 
     public CoulombForce(IntensityEffectFromFixedNodesParameters forceParameter) {
-        super(forceParameter);
+        this.forceParameter = forceParameter;
     }
 
     @Override

@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.forces.forceparameter;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringParameter implements ForceParameter {
+public class SpringParameter {
     private double stiffness;
     private double length;
 

@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.forces.forceparameter;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class IntensityParameter implements ForceParameter {
+public class IntensityParameter {
     private double forceIntensity;
 
     public IntensityParameter(double forceIntensity) {

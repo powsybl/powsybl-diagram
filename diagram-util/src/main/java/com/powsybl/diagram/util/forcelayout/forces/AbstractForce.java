@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.ForceParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -16,16 +15,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public abstract class AbstractForce<V, E, P extends ForceParameter> {
-    P forceParameter;
-
-    AbstractForce(P forceParameter) {
-        this.forceParameter = forceParameter;
-    }
-
-    public void setForceParameter(P forceParameter) {
-        this.forceParameter = forceParameter;
-    }
-
+public abstract class AbstractForce<V, E> {
     public abstract Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
 }

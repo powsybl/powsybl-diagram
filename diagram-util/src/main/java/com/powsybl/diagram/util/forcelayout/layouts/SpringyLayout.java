@@ -79,7 +79,7 @@ public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
             for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
-                for (AbstractForce<V, E, ? extends ForceParameter> force : forces) {
+                for (AbstractForce<V, E> force : forces) {
                     Vector2D resultingVector = force.calculateForce(entry.getKey(), point, forceGraph);
                     point.applyForce(resultingVector);
                 }

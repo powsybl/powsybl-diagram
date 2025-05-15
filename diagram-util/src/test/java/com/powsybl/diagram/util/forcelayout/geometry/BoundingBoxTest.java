@@ -34,4 +34,32 @@ class BoundingBoxTest {
         assertEquals(5.0, bbox.getRight(), 0.0);
         assertEquals(2.0, bbox.getBottom(), 0.0);
     }
+
+    @Test
+    void addBoundingBox() {
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(1.0, 2.0));
+        points.add(new Point(3.0, 4.0));
+        points.add(new Point(5.0, 6.0));
+        points.add(new Point(1.0, 2.0));
+        BoundingBox bbox = BoundingBox.computeBoundingBox(points);
+
+        List<Point> otherPoints = new ArrayList<>();
+        otherPoints.add(points.get(1));
+        otherPoints.add(new Point(5, 9));
+        otherPoints.add(new Point(0, 0));
+        otherPoints.add(new Point(-4, -1.1));
+        otherPoints.add(new Point(5, 6));
+        otherPoints.add(new Point(4, -2));
+
+        BoundingBox otherBbox = BoundingBox.computeBoundingBox(otherPoints);
+        BoundingBox finalBbox = BoundingBox.addBoundingBoxes(bbox, otherBbox);
+
+        assertEquals(9, finalBbox.getWidth(), 0.0);
+        assertEquals(11, finalBbox.getHeight(), 0.0);
+        assertEquals(-4, finalBbox.getLeft(), 0.0);
+        assertEquals(9, finalBbox.getTop(), 0.0);
+        assertEquals(5.0, finalBbox.getRight(), 0.0);
+        assertEquals(-2, finalBbox.getBottom(), 0.0);
+    }
 }
