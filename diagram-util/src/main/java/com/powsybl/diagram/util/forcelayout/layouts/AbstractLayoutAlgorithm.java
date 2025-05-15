@@ -9,7 +9,6 @@
 package com.powsybl.diagram.util.forcelayout.layouts;
 
 import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.ForceParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 
 import java.util.ArrayList;
