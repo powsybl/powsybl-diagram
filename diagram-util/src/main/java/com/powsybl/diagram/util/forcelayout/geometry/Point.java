@@ -29,11 +29,15 @@ public class Point {
         this(x, y, DEFAULT_MASS);
     }
 
-    public Point(double x, double y, double mass) {
+    public Point(double x, double y, double mass) throws IllegalStateException {
+        if (mass < 0) {
+            throw new IllegalStateException("Point with a negative mass is not allowed");
+        } else {
+            this.mass = mass;
+        }
         this.position = new Vector2D(x, y);
         this.velocity = new Vector2D(0, 0);
         this.forces = new Vector2D(0, 0);
-        this.mass = mass;
     }
 
     public void applyForce(Vector2D force) {
