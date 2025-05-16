@@ -143,7 +143,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
      * Returns the list of styles to apply to the given node
      *
      * @param vlInfo the VoltageLevelInfos related to the given node
-     * @param node   the node on which the style if any is applied to
+     * @param node   the node on which the styles if any are applied to
      * @return the list of node styles
      */
     public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node);
