@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.geometry;
 
-import com.google.common.io.ByteStreams;
 import com.powsybl.diagram.util.forcelayout.ForceLayout;
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.Helpers;
@@ -16,11 +15,8 @@ import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
