@@ -12,6 +12,8 @@ import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.svg.DefaultEdgeRendering;
+import com.powsybl.nad.svg.EdgeRendering;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
@@ -30,6 +32,7 @@ public class NadParameters {
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
+    private EdgeRendering edgeRendering = new DefaultEdgeRendering();
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
@@ -85,4 +88,11 @@ public class NadParameters {
         return this;
     }
 
+    public EdgeRendering getEdgeRendering() {
+        return edgeRendering;
+    }
+
+    public void setEdgeRendering(EdgeRendering edgeRendering) {
+        this.edgeRendering = edgeRendering;
+    }
 }

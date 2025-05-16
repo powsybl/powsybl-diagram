@@ -6,11 +6,17 @@
  */
 package com.powsybl.nad.svg;
 
+import java.util.List;
+import java.util.Map;
+
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface EdgeRendering {
     void run(Graph graph, SvgParameters svgParameters);
+
+    void setBentLinesPoints(Map<String, List<Point>> bentLinesPoints);
 }

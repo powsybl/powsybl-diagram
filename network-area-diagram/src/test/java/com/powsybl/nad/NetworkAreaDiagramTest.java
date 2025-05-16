@@ -19,9 +19,11 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.SvgParameters.SizeConstraint;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +37,7 @@ import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
 import static org.junit.jupiter.api.Assertions.*;
@@ -257,5 +260,28 @@ class NetworkAreaDiagramTest extends AbstractTest {
         assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testBentLines() {
+        Network network = IeeeCdfNetworkFactory.create9zeroimpedance();
+        try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+            NadParameters nadParameters = new NadParameters();
+            nadParameters.getSvgParameters().setInsertNameDesc(true);
+            nadParameters.getSvgParameters().setSvgWidthAndHeightAdded(true);
+            nadParameters.getSvgParameters().setSizeConstraint(SizeConstraint.FIXED_WIDTH);
+            nadParameters.getSvgParameters().setFixedWidth(800);
+            Map<String, List<Point>> bentLinesPoints = Map.of(
+                    "L5-4-0", List.of(new Point(30.44, -229.02)),
+                    "L6-4-0", List.of(new Point(377.05, 187.79), new Point(175.23, -18.42), new Point(396.79, -38.16)),
+                    "L7-5-0", List.of(new Point(-329.33, -248.76), new Point(-125.31, -413.29))
+                    );
+            nadParameters.getEdgeRendering().setBentLinesPoints(bentLinesPoints);
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, nadParameters, VoltageLevelFilter.NO_FILTER);
+            assertStringEquals("/IEEE_9_zeroimpedance.svg", svgWriter.toString());
+            assertStringEquals("/IEEE_9_zeroimpedance_metadata.json", metadataWriter.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }

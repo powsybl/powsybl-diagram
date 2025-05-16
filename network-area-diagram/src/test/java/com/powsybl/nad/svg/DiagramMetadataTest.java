@@ -18,6 +18,7 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
@@ -31,6 +32,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -86,7 +90,7 @@ class DiagramMetadataTest extends AbstractTest {
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        testMetadata(network, "/3wt_metadata.json", 3, 4, 3, 3);
+        testMetadata(network, "/3wt_metadata.json", Collections.emptyMap(), 3, 4, 3, 3);
     }
 
     @Test
@@ -94,12 +98,27 @@ class DiagramMetadataTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getVoltageLevel("VL12").setFictitious(true);
         network.getVoltageLevel("VL14").setFictitious(true);
-        testMetadata(network, "/IEEE_14_bus_fictitious_metadata.json", 14, 14, 20, 14);
+        testMetadata(network, "/IEEE_14_bus_fictitious_metadata.json", Collections.emptyMap(), 14, 14, 20, 14);
     }
 
-    private void testMetadata(Network network, String referenceMetadata, int busNodesNumber, int nodesNumber, int edgesNumber, int textNodesNumber) {
+    @Test
+    void testBentLines() {
+        Network network = IeeeCdfNetworkFactory.create9zeroimpedance();
+        Map<String, List<Point>> bentLinesPoints = Map.of(
+                "L5-4-0", List.of(new Point(30.44, -229.02)),
+                "L6-4-0", List.of(new Point(377.05, 187.79), new Point(175.23, -18.42), new Point(396.79, -38.16)),
+                "L7-5-0", List.of(new Point(-329.33, -248.76), new Point(-125.31, -413.29))
+                );
+        testMetadata(network, "/IEEE_9_zeroimpedance_metadata.json", bentLinesPoints, 9, 5, 9, 5);
+    }
+
+    private void testMetadata(Network network, String referenceMetadata, Map<String, List<Point>> bentLinesPoints,
+                              int busNodesNumber, int nodesNumber, int edgesNumber, int textNodesNumber) {
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
+        EdgeRendering edgeRendering = new DefaultEdgeRendering();
+        edgeRendering.setBentLinesPoints(bentLinesPoints);
+        edgeRendering.run(graph, getSvgParameters());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);

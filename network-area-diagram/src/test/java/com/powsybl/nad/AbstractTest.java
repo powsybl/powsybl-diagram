@@ -14,6 +14,7 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.svg.DefaultEdgeRendering;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -60,7 +61,7 @@ public abstract class AbstractTest {
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network)).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network), new DefaultEdgeRendering()).writeSvg(graph, writer);
         assertStringEquals(resourceName, writer.toString());
     }
 

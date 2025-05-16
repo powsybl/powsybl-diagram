@@ -15,6 +15,7 @@ import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
+import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.SvgParameters;
@@ -121,7 +122,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
+                edge.getType(),
+                getEdgePointsMetadata(edge))));
         graph.getThreeWtEdgesStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
@@ -129,7 +131,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
+                edge.getType(),
+                null)));
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getDiagramId()),
                 textPair.getFirst().getEquipmentId(),
@@ -186,5 +189,19 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonIgnore
     public Map<String, TextPosition> getFixedTextPositions() {
         return textNodesMetadata.stream().collect(Collectors.toMap(TextNodeMetadata::getEquipmentId, TextNodeMetadata::getTextPosition));
+    }
+
+    @JsonIgnore
+    public Map<String, List<Point>> getBentLinesPoints() {
+        return edgesMetadata.stream()
+                            .filter(edge -> edge.getPoints() != null)
+                            .collect(Collectors.toMap(EdgeMetadata::getEquipmentId, EdgeMetadata::getEdgePoints));
+    }
+
+    private List<EdgePointMetadata> getEdgePointsMetadata(BranchEdge edge) {
+        if (BranchEdge.LINE_EDGE.equals(edge.getType()) && edge.isBentLine()) {
+            return edge.getBendingPoints().stream().map(point -> new EdgePointMetadata(point.getX(), point.getY())).collect(Collectors.toList());
+        }
+        return null;
     }
 }

@@ -6,10 +6,13 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -38,6 +41,7 @@ public class BranchEdge extends AbstractEdge {
     private List<Point> points1 = Collections.emptyList();
     private List<Point> points2 = Collections.emptyList();
     private final boolean[] visible = new boolean[] {true, true};
+    private boolean bentLine = false;
 
     public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
         super(diagramId, equipmentId, nameOrId, type);
@@ -97,5 +101,30 @@ public class BranchEdge extends AbstractEdge {
     public double getEdgeEndAngle(Side side) {
         List<Point> points = getPoints(side);
         return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
+    }
+
+    public boolean isBentLine() {
+        return bentLine;
+    }
+
+    public void setBentLine(boolean bentLine) {
+        this.bentLine = bentLine;
+    }
+
+    public List<Point> getBendingPoints() {
+        if (LINE_EDGE.equals(type) && bentLine && (points1.size() > 2 || points2.size() > 2)) {
+            List<Point> bendingPoints = new ArrayList<>();
+            bendingPoints.addAll(removeEnds(points1));
+            bendingPoints.addAll(Lists.reverse(removeEnds(points2)));
+            return bendingPoints;
+        }
+        return null;
+    }
+
+    private List<Point> removeEnds(List<Point> points) {
+        List<Point> filteredPoints = new ArrayList<>(points);
+        filteredPoints.remove(points.size() - 1);
+        filteredPoints.remove(0);
+        return filteredPoints;
     }
 }

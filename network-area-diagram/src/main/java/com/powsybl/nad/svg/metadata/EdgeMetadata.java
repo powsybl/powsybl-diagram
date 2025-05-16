@@ -7,8 +7,13 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.nad.model.Point;
 
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
@@ -21,6 +26,7 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String busNode1SvgId;
     private final String busNode2SvgId;
     private final String edgeType;
+    private final List<EdgePointMetadata> points;
 
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -28,13 +34,15 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("node2") String node2SvgId,
                         @JsonProperty("busNode1") String busNode1SvgId,
                         @JsonProperty("busNode2") String busNode2SvgId,
-                        @JsonProperty("type") String edgeType) {
+                        @JsonProperty("type") String edgeType,
+                        @JsonProperty("points") List<EdgePointMetadata> points) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
         this.busNode1SvgId = busNode1SvgId;
         this.busNode2SvgId = busNode2SvgId;
         this.edgeType = edgeType;
+        this.points = points;
     }
 
     @JsonProperty("node1")
@@ -60,5 +68,16 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("type")
     public String getEdgeType() {
         return edgeType;
+    }
+
+    @JsonProperty("points")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<EdgePointMetadata> getPoints() {
+        return points;
+    }
+
+    @JsonIgnore
+    public List<Point> getEdgePoints() {
+        return points.stream().map(point -> new Point(point.getX(), point.getY())).collect(Collectors.toList());
     }
 }

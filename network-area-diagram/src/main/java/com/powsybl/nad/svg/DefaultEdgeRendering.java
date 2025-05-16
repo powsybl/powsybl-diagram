@@ -18,6 +18,8 @@ import java.util.stream.IntStream;
  */
 public class DefaultEdgeRendering implements EdgeRendering {
 
+    private Map<String, List<Point>> bentLinesPoints = new HashMap<>();
+
     @Override
     public void run(Graph graph, SvgParameters svgParameters) {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge, svgParameters));
@@ -35,20 +37,33 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Node node1 = graph.getBusGraphNode1(edge);
         Node node2 = graph.getBusGraphNode2(edge);
 
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
+        if (BranchEdge.LINE_EDGE.equals(edge.getType()) && bentLinesPoints.containsKey(edge.getEquipmentId())) {
+            Point direction1 = bentLinesPoints.get(edge.getEquipmentId()).get(0);
+            Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
 
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
+            Point direction2 = bentLinesPoints.get(edge.getEquipmentId()).get(bentLinesPoints.get(edge.getEquipmentId()).size() - 1);
+            Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
-        Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
-        if (edge.isTransformerEdge()) {
-            double radius = svgParameters.getTransformerCircleRadius();
-            edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
-            edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
+            EdgePoints edgePoints = EdgeRenderingUtils.getEdgePoints(edgeStart1, edgeStart2, bentLinesPoints.get(edge.getEquipmentId()));
+            edge.setPoints1(edgePoints.points1().toArray(new Point[edgePoints.points1().size()]));
+            edge.setPoints2(edgePoints.points2().toArray(new Point[edgePoints.points2().size()]));
+            edge.setBentLine(true);
         } else {
-            edge.setPoints1(edgeStart1, middle);
-            edge.setPoints2(edgeStart2, middle);
+            Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+            Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
+
+            Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+            Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
+
+            Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
+            if (edge.isTransformerEdge()) {
+                double radius = svgParameters.getTransformerCircleRadius();
+                edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
+                edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
+            } else {
+                edge.setPoints1(edgeStart1, middle);
+                edge.setPoints2(edgeStart2, middle);
+            }
         }
     }
 
@@ -278,5 +293,10 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 .boxed().min(Comparator.comparingDouble(i -> deltaAngles[i]))
                 .orElse(0);
         return ((minDeltaIndex - 1) + 3) % 3;
+    }
+
+    @Override
+    public void setBentLinesPoints(Map<String, List<Point>> bentLinesPoints) {
+        this.bentLinesPoints = bentLinesPoints;
     }
 }

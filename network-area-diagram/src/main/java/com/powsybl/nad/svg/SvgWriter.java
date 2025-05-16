@@ -63,11 +63,11 @@ public class SvgWriter {
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider, EdgeRendering edgeRendering) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
-        this.edgeRendering = new DefaultEdgeRendering();
+        this.edgeRendering = Objects.requireNonNull(edgeRendering);
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
