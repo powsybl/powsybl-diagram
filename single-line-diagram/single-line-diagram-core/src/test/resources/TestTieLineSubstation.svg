@@ -496,18 +496,18 @@
         <g id="LABEL_VL_VL2">
             <text class="sld-graph-label" x="100.0" y="639.0">VL2</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idB21" transform="translate(112.5,831.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-bus-2" id="idB21" transform="translate(112.5,831.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="B21_NW_LABEL" x="-5.0" y="-5.0">B21</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_BUSCO_95_B21_95_LD2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_BUSCO_95_B21_95_LD2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2">
                 <polyline points="125.0,831.0,125.0,801.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2_95_INTERNAL_95_VL2_95_LD2">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2_95_INTERNAL_95_VL2_95_LD2">
                 <polyline points="125.0,801.0,125.0,721.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_LD2_95_LD2">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_LD2_95_LD2">
                 <polyline points="125.0,721.0,125.0,663.5"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idLD2_ARROW_ACTIVE" transform="translate(120.0,678.5)">
@@ -520,16 +520,16 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-0" id="idBUSCO_95_B21_95_LD2" transform="translate(121.0,827.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-2" id="idBUSCO_95_B21_95_LD2" transform="translate(121.0,827.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2" transform="translate(121.0,797.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_LD2_45_LD2" transform="translate(121.0,797.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_LD2" transform="translate(121.0,717.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_LD2" transform="translate(121.0,717.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load sld-top-feeder sld-vl300to500 sld-bus-0" id="idLD2" transform="translate(117.0,654.5)">
+            <g class="sld-load sld-top-feeder sld-vl300to500 sld-bus-2" id="idLD2" transform="translate(117.0,654.5)">
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
@@ -537,13 +537,13 @@
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO">
                 <polyline points="175.0,831.0,175.0,861.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO_95_INTERNAL_95_VL2_95_T12_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO_95_INTERNAL_95_VL2_95_T12_95_TWO">
                 <polyline points="175.0,861.0,175.0,941.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_T12_95_TWO_95_T12_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_T12_95_TWO_95_T12_95_TWO">
                 <polyline points="175.0,941.0,175.0,1003.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idT12_95_TWO_ARROW_REACTIVE" transform="translate(170.0,978.0)">
@@ -556,27 +556,27 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-0" id="idBUSCO_95_B21_95_T12_95_TWO" transform="translate(171.0,827.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-2" id="idBUSCO_95_B21_95_T12_95_TWO" transform="translate(171.0,827.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO" transform="translate(171.0,857.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_T12_95_TWO_45_T12_95_TWO" transform="translate(171.0,857.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_T12_95_TWO" transform="translate(171.0,937.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_T12_95_TWO" transform="translate(171.0,937.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl300to500 sld-bus-0" id="idT12_95_TWO" transform="translate(175.0,1003.0)">
+            <g class="sld-bottom-feeder sld-vl300to500 sld-bus-2" id="idT12_95_TWO" transform="translate(175.0,1003.0)">
                 <text class="sld-label" id="T12_TWO_S_LABEL" x="-5.0" y="5.0">T12</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE">
                 <polyline points="225.0,831.0,225.0,801.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE_95_INTERNAL_95_VL2_95_T3_95_12_95_THREE">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE_95_INTERNAL_95_VL2_95_T3_95_12_95_THREE">
                 <polyline points="225.0,801.0,225.0,721.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_T3_95_12_95_THREE_95_T3_95_12_95_THREE">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_T3_95_12_95_THREE_95_T3_95_12_95_THREE">
                 <polyline points="225.0,721.0,225.0,659.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(220.0,674.0)">
@@ -589,27 +589,27 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-0" id="idBUSCO_95_B21_95_T3_95_12_95_THREE" transform="translate(221.0,827.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-2" id="idBUSCO_95_B21_95_T3_95_12_95_THREE" transform="translate(221.0,827.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE" transform="translate(221.0,797.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_T3_95_12_95_THREE_45_T3_95_12_95_THREE" transform="translate(221.0,797.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_T3_95_12_95_THREE" transform="translate(221.0,717.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_T3_95_12_95_THREE" transform="translate(221.0,717.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idT3_95_12_95_THREE" transform="translate(225.0,659.0)">
+            <g class="sld-top-feeder sld-vl300to500 sld-bus-2" id="idT3_95_12_95_THREE" transform="translate(225.0,659.0)">
                 <text class="sld-label" id="T3_12_THREE_N_LABEL" x="-5.0" y="-5.0">T3_12</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO">
                 <polyline points="275.0,831.0,275.0,861.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2" id="_95_VL2_95_INTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO">
                 <polyline points="275.0,861.0,275.0,941.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0 sld-tie-line" id="_95_VL2_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO_95_B11_95_B21_95_1_95_TWO">
+            <g class="sld-wire sld-vl300to500 sld-bus-2 sld-tie-line" id="_95_VL2_95_INTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO_95_B11_95_B21_95_1_95_TWO">
                 <polyline points="275.0,941.0,275.0,1003.0"/>
             </g>
             <g class="sld-reactive-power sld-feeder-info sld-in" id="idB11_95_B21_95_1_95_TWO_ARROW_REACTIVE" transform="translate(270.0,978.0)">
@@ -622,16 +622,16 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">-300</text>
             </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-0" id="idBUSCO_95_B21_95_B11_95_B21_95_1_95_TWO" transform="translate(271.0,827.0)">
+            <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-bus-2" id="idBUSCO_95_B21_95_B11_95_B21_95_1_95_TWO" transform="translate(271.0,827.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO" transform="translate(271.0,857.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_BUSCO_95_B21_95_B11_95_B21_95_1_95_TWO_45_B11_95_B21_95_1_95_TWO" transform="translate(271.0,857.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO" transform="translate(271.0,937.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-2" id="idINTERNAL_95_VL2_95_B11_95_B21_95_1_95_TWO" transform="translate(271.0,937.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl300to500 sld-bus-0" id="idB11_95_B21_95_1_95_TWO" transform="translate(275.0,1003.0)">
+            <g class="sld-bottom-feeder sld-vl300to500 sld-bus-2" id="idB11_95_B21_95_1_95_TWO" transform="translate(275.0,1003.0)">
                 <text class="sld-label" id="B11_B21_1_TWO_S_LABEL" x="-5.0" y="5.0">B11_B21_1</text>
             </g>
         </g>
@@ -641,7 +641,7 @@
         <g class="sld-wire sld-vl300to500 sld-bus-1" id="idEDGE_95_T12_95_ONE">
             <polyline points="625.0,140.0,625.0,50.0,50.0,50.0,50.0,548.5"/>
         </g>
-        <g class="sld-wire sld-vl300to500 sld-bus-0" id="idEDGE_95_T12_95_TWO">
+        <g class="sld-wire sld-vl300to500 sld-bus-2" id="idEDGE_95_T12_95_TWO">
             <polyline points="175.0,1003.0,175.0,1063.0,50.0,1063.0,50.0,564.5"/>
         </g>
         <g class="sld-wire sld-vl300to500 sld-bus-0" id="idEDGE_95_T3_95_12_95_ONE">
@@ -650,15 +650,15 @@
         <g class="sld-wire sld-vl300to500 sld-bus-1" id="idEDGE_95_T3_95_12_95_TWO">
             <polyline points="675.0,509.0,675.0,587.0"/>
         </g>
-        <g class="sld-wire sld-vl300to500 sld-bus-0" id="idEDGE_95_T3_95_12_95_THREE">
+        <g class="sld-wire sld-vl300to500 sld-bus-2" id="idEDGE_95_T3_95_12_95_THREE">
             <polyline points="225.0,659.0,225.0,599.0,668.0,599.0"/>
         </g>
         <g class="sld-two-wt sld-fictitious" id="idT12" transform="translate(45.0,549.0)">
             <circle class="sld-vl300to500 sld-bus-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-            <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+            <circle class="sld-vl300to500 sld-bus-2 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(667.0,587.0)">
-            <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+            <circle class="sld-vl300to500 sld-bus-2 sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
             <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
             <circle class="sld-vl300to500 sld-bus-1 sld-winding" cx="8" cy="19" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
         </g>

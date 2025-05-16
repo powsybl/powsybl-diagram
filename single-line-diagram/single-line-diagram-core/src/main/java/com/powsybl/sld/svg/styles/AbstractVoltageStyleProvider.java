@@ -49,7 +49,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         edgesStyles.add(WIRE_STYLE_CLASS);
         edgesStyles.addAll(getVoltageLevelEdgeStyle(graph, edge));
         getDanglingLineStyle(edge).ifPresent(edgesStyles::add);
-        return List.copyOf(edgesStyles);
+        return edgesStyles;
     }
 
     private Optional<String> getDanglingLineStyle(Edge edge) {

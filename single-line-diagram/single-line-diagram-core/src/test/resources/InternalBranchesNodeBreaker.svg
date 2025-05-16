@@ -388,7 +388,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500 sld-bus-1" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="565.0,80.0,565.0,142.0,547.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(560.0,95.0)">
@@ -414,7 +414,7 @@
             </g>
             <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(532.0,130.0)">
                 <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="5" cy="15" r="5"/>
-                <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="11" cy="15" r="5"/>
+                <circle class="sld-vl300to500 sld-bus-1 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="8" cy="19" r="5"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_TWO" transform="translate(515.0,80.0)">
@@ -548,7 +548,7 @@
             </g>
             <g class="sld-two-wt sld-top-feeder" id="idT12_95_ONE" transform="translate(710.0,72.5)">
                 <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="10" r="5"/>
-                <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="5" r="5"/>
+                <circle class="sld-vl300to500 sld-bus-1 sld-winding" cx="5" cy="5" r="5"/>
                 <text class="sld-label" id="T12_ONE_N_LABEL" x="-5.0" y="-5.0">T12</text>
             </g>
         </g>
@@ -575,7 +575,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+            <g class="sld-wire sld-vl300to500 sld-bus-1" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
                 <polyline points="815.0,80.0,815.0,142.0,797.0,142.0"/>
             </g>
             <g class="sld-active-power sld-feeder-info sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(810.0,95.0)">
@@ -601,7 +601,7 @@
             </g>
             <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(782.0,130.0)">
                 <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="5" cy="15" r="5"/>
-                <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="11" cy="15" r="5"/>
+                <circle class="sld-vl300to500 sld-bus-1 sld-winding" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="8" cy="19" r="5"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_ONE" transform="translate(765.0,80.0)">

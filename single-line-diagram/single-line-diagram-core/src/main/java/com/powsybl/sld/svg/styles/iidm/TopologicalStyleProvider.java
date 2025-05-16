@@ -91,7 +91,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         vlBusIdStyleMap.clear();
     }
 
-    private Map<String, String> createBusIdStyleMap(String baseBusStyle, String vlId) {
+    private Map<String, String> createBusIdStyleMap(String baseVoltageName, String vlId) {
+        String baseBusStyle = STYLE_PREFIX + "bus";
         List<Bus> buses = network.getVoltageLevel(vlId)
                 .getBusView().getBusStream().collect(Collectors.toList());
 
@@ -104,7 +105,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
             }
         } else {
             for (Bus b : buses) {
-                int newIndex = stylesIndices.compute(vlId + baseBusStyle, (s, i) -> i == null ? 0 : i + 1);
+                int newIndex = stylesIndices.compute(baseVoltageName, (s, i) -> i == null ? 0 : i + 1);
                 String style = baseBusStyle + '-' + newIndex;
                 busIdStyleMap.put(b.getId(), style);
             }
@@ -114,7 +115,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     private List<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, String vlId, Node node) {
-        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(STYLE_PREFIX + "bus", vlId));
+        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageLevelStyle, vlId));
         Map<String, String> nodeIdStyleMap = vlNodeIdStyleMap.computeIfAbsent(vlId, k -> new HashMap<>());
         String nodeTopologicalStyle = nodeIdStyleMap.get(node.getId());
         List<String> styles = new ArrayList<>();
@@ -125,7 +126,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         if (nodeTopologicalStyle != null) {
             styles.add(nodeTopologicalStyle);
         }
-        return List.copyOf(styles);
+        return styles;
     }
 
     private String findConnectedStyle(String vlId, Map<String, String> busIdStyleMap, Map<String, String> nodeIdStyleMap, Node node) {
