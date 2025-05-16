@@ -52,20 +52,20 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    protected List<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
+    protected List<String> getVoltageLevelEdgeStyles(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
-            return getSwitchEdgeStyle(graph, node2);
+            return getSwitchEdgeStyles(graph, node2);
         }
         if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
-            return getSwitchEdgeStyle(graph, node1);
+            return getSwitchEdgeStyles(graph, node1);
         }
-        return super.getVoltageLevelEdgeStyle(graph, edge);
+        return super.getVoltageLevelEdgeStyles(graph, edge);
     }
 
-    private List<String> getSwitchEdgeStyle(Graph graph, Node node) {
-        return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : List.of();
+    private List<String> getSwitchEdgeStyles(Graph graph, Node node) {
+        return graph.getVoltageLevelInfos(node) != null ? getNodeStyles(graph.getVoltageLevelInfos(node), node) : List.of();
     }
 
     @Override
@@ -114,12 +114,12 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         return busIdStyleMap;
     }
 
-    private List<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, String vlId, Node node) {
-        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageLevelStyle, vlId));
+    private List<String> getNodeTopologicalStyles(String baseVoltageName, String vlId, Node node) {
+        Map<String, String> busIdStyleMap = vlBusIdStyleMap.computeIfAbsent(vlId, k -> createBusIdStyleMap(baseVoltageName, vlId));
         Map<String, String> nodeIdStyleMap = vlNodeIdStyleMap.computeIfAbsent(vlId, k -> new HashMap<>());
         String nodeTopologicalStyle = nodeIdStyleMap.get(node.getId());
         List<String> styles = new ArrayList<>();
-        styles.add(baseVoltageLevelStyle);
+        styles.add(StyleClassConstants.STYLE_PREFIX + baseVoltageName);
         if (nodeTopologicalStyle == null) {
             nodeTopologicalStyle = findConnectedStyle(vlId, busIdStyleMap, nodeIdStyleMap, node);
         }
@@ -183,19 +183,19 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
+    public List<String> getNodeStyles(VoltageLevelInfos voltageLevelInfos, Node node) {
         if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return List.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
         }
         return Optional.ofNullable(voltageLevelInfos)
                 .flatMap(vli -> baseVoltagesConfig.getBaseVoltageName(vli.getNominalVoltage(), BASE_VOLTAGE_PROFILE))
-                .map(baseVoltageName -> getNodeTopologicalStyle(StyleClassConstants.STYLE_PREFIX + baseVoltageName, voltageLevelInfos.getId(), node))
+                .map(baseVoltageName -> getNodeTopologicalStyles(baseVoltageName, voltageLevelInfos.getId(), node))
                 .orElse(List.of(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
     }
 
     @Override
-    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
-        return getVoltageLevelNodeStyle(vlInfo, node.getAdjacentNodes().get(side.getIntValue() - 1));
+    public List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+        return getNodeStyles(vlInfo, node.getAdjacentNodes().get(side.getIntValue() - 1));
     }
 
     @Override

@@ -48,20 +48,20 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
+    public List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node) {
         return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
                 .map(bvName -> List.of(StyleClassConstants.STYLE_PREFIX + bvName))
                 .orElse(Collections.emptyList());
     }
 
     @Override
-    public List<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
-        return getVoltageLevelNodeStyle(vlInfo, node);
+    public List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side) {
+        return getNodeStyles(vlInfo, node);
     }
 
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        return Optional.ofNullable(getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), null))
+        return Optional.ofNullable(getNodeStyles(graph.getVoltageLevelInfos(), null))
                 .map(busStyles -> {
                     List<String> styles = new ArrayList<>(busStyles);
                     styles.add(NODE_INFOS);
