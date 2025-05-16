@@ -63,6 +63,10 @@ public class ForceLayout<V, E> {
         this.forceGraph = new ForceGraph<>(Objects.requireNonNull(graph));
     }
 
+    public ForceLayout(ForceGraph<V, E> forceGraph) {
+        this.forceGraph = Objects.requireNonNull(forceGraph);
+    }
+
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
         this.springyParametersBuilder.withAttractToCenterForce(attractToCenterForce);
         return this;

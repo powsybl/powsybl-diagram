@@ -92,13 +92,27 @@ public class ForceGraph<V, E> {
     }
 
     public ForceGraph<V, E> setFixedNodes(Set<V> fixedNodes) {
-        this.fixedNodes = Objects.requireNonNull(fixedNodes);
+        Objects.requireNonNull(fixedNodes);
+        Set<V> intersection = new HashSet<>(fixedNodes);
+        // only put fixed nodes that are actually in the graph
+        // no need to have a fixed vertex if the vertex doesn't even exist in the graph
+        intersection.retainAll(this.simpleGraph.vertexSet());
+        if (!intersection.equals(fixedNodes)) {
+            LOGGER.warn("Some nodes of the given fixedNodes were not nodes of the graph, those nodes have been ignored");
+        }
+        this.fixedNodes = intersection;
         return this;
     }
 
     public ForceGraph<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
-        this.initialPoints = Objects.requireNonNull(fixedPoints);
-        setFixedNodes(fixedPoints.keySet());
+        Objects.requireNonNull(fixedPoints);
+        Map<V, Point> intersection = new HashMap<>(fixedPoints);
+        intersection.keySet().retainAll(this.simpleGraph.vertexSet());
+        if (!intersection.keySet().equals(fixedPoints.keySet())) {
+            LOGGER.warn("Some (vertex, point) of the given fixedPoints were not vertex of the graph, those (vertex, point) have been ignored");
+        }
+        this.initialPoints = intersection;
+        setFixedNodes(intersection.keySet());
         return this;
     }
 
@@ -106,7 +120,7 @@ public class ForceGraph<V, E> {
         BoundingBox boundingBoxMovingPoints = BoundingBox.computeBoundingBox(movingPoints.values());
         BoundingBox boundingBoxFixedPoints = BoundingBox.computeBoundingBox(fixedPoints.values());
         BoundingBox boundingBox = BoundingBox.addBoundingBoxes(boundingBoxMovingPoints, boundingBoxFixedPoints);
-        Canvas canvas = new Canvas(boundingBox, 600, 10);
+        Canvas canvas = new Canvas(boundingBox, 1000, 60);
 
         PrintWriter printWriter = new PrintWriter(writer);
 

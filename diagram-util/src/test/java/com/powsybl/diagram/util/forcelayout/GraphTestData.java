@@ -44,11 +44,9 @@ public final class GraphTestData {
 
     private static Graph<String, DefaultEdge> getGraph() {
         Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
-        graph.addVertex("0");
-        graph.addVertex("1");
-        graph.addVertex("2");
-        graph.addVertex("3");
-        graph.addVertex("4");
+        for (int i = 0; i < getPoints().length; i++) {
+            graph.addVertex(String.valueOf(i));
+        }
         graph.addEdge("0", "1");
         graph.addEdge("1", "2");
         graph.addEdge("2", "0");

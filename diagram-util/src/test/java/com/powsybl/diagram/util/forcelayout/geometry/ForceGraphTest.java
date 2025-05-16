@@ -8,9 +8,20 @@
 
 package com.powsybl.diagram.util.forcelayout.geometry;
 
+import com.google.common.io.ByteStreams;
+import com.powsybl.diagram.util.forcelayout.ForceLayout;
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
+import com.powsybl.diagram.util.forcelayout.Helpers;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,4 +40,26 @@ class ForceGraphTest {
         assertEquals(4, forceGraph.getMovingPoints().size());
     }
 
+    @Test
+    void setFixedPoints() {
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        Map<String, Point> fixedPoints = new HashMap<>();
+        fixedPoints.put("2", new Point(1.414, 15));
+        fixedPoints.put("4", new Point(0, 0));
+        fixedPoints.put("-1", new Point(-2, 6));
+        forceGraph.setFixedPoints(fixedPoints);
+        assertEquals(2, forceGraph.getInitialPoints().size());
+    }
+
+    @Test
+    void toSvg() throws IOException {
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        Function<String, String> tooltip = v -> String.format("Vertex %s", v);
+        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
+        forceLayout.execute();
+        StringWriter sw = new StringWriter();
+        forceLayout.toSVG(tooltip, sw);
+        Helpers helpers = new Helpers();
+        assertEquals(helpers.toString("/springy_5_nodes.svg"), sw.toString());
+    }
 }
