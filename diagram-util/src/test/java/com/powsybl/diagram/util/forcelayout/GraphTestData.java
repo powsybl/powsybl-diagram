@@ -26,16 +26,14 @@ public final class GraphTestData {
         throw new AssertionError("Instantiating utility class");
     }
 
-    private static final Point[] POINTS = {
-        new Point(1, 2),
-        new Point(-3.14, 2.78),
-        new Point(1.414, 15),
-        new Point(1.5, 1.5),
-        new Point(5, 5),
-    };
-
     public static Point[] getPoints() {
-        return POINTS;
+        return new Point[] {
+            new Point(1, 2),
+            new Point(-3.14, 2.78),
+            new Point(1.414, 15),
+            new Point(1.5, 1.5),
+            new Point(5, 5),
+        };
     }
 
     public static ForceGraph<String, DefaultEdge> getForcegraph() {
@@ -60,8 +58,9 @@ public final class GraphTestData {
 
     private static void setup(ForceGraph<String, DefaultEdge> forceGraph) {
         Map<String, Point> initialPoints = new HashMap<>();
-        for (int i = 0; i < POINTS.length; i++) {
-            initialPoints.put(String.valueOf(i), POINTS[i]);
+        Point[] points = getPoints();
+        for (int i = 0; i < points.length; i++) {
+            initialPoints.put(String.valueOf(i), points[i]);
         }
         forceGraph.setInitialPoints(initialPoints);
         Set<String> fixedNodes = new HashSet<>();
