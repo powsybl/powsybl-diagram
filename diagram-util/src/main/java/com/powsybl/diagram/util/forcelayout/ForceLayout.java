@@ -54,6 +54,10 @@ import java.util.function.Function;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceLayout<V, E> {
+    /**
+     * @deprecated This will be removed along the Spring class and the getSprings method
+     */
+    @Deprecated(since = "4.9.0", forRemoval = true)
     private final Set<Spring> springs = new LinkedHashSet<>();
 
     private final ForceGraph<V, E> forceGraph;
@@ -131,7 +135,11 @@ public class ForceLayout<V, E> {
         return algorithmRunner.getStablePosition(vertex);
     }
 
-    //TODO we could remove this since there are no use for it in the code, but its public so someone else might be using it.
+    /**
+     * @deprecated
+     * This method now returns an empty Set until its removal
+     */
+    @Deprecated(since = "4.9.0", forRemoval = true)
     public Set<Spring> getSprings() {
         return springs;
     }
