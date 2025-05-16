@@ -18,8 +18,6 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
@@ -47,12 +45,11 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
-        List<String> list = Stream.of(getVoltageLevelEdgeStyle(graph, edge), getDanglingLineStyle(edge))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
-        list.add(0, WIRE_STYLE_CLASS);
-        return list;
+        List<String> edgesStyles = new ArrayList<>();
+        edgesStyles.add(WIRE_STYLE_CLASS);
+        edgesStyles.addAll(getVoltageLevelEdgeStyles(graph, edge));
+        getDanglingLineStyle(edge).ifPresent(edgesStyles::add);
+        return edgesStyles;
     }
 
     private Optional<String> getDanglingLineStyle(Edge edge) {
@@ -76,7 +73,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         return Optional.empty();
     }
 
-    protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
+    protected List<String> getVoltageLevelEdgeStyles(Graph graph, Edge edge) {
         VoltageLevelInfos vLevelInfos;
         Node nodeForStyle = isNodeSeparatingStyles(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
         if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
@@ -84,7 +81,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         } else {
             vLevelInfos = graph.getVoltageLevelInfos(nodeForStyle);
         }
-        return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
+        return getNodeStyles(vLevelInfos, nodeForStyle);
     }
 
     @Override
@@ -95,7 +92,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             // Some nodes have two styles as they separate voltage levels for instance
             // Then they  have a style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
             // Note that nodes outside a voltageLevel graph (graph==null) are nodes with two styles
-            getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node).ifPresent(styles::add);
+            styles.addAll(getNodeStyles(graph.getVoltageLevelInfos(), node));
         }
 
         return styles;
@@ -116,14 +113,14 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                     Feeder feeder = ((FeederNode) node).getFeeder();
                     if (feeder instanceof FeederWithSides) {
                         VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((FeederWithSides) feeder, subComponentName);
-                        getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                        styles.addAll(getNodeStyles(vlInfo, node));
                     }
                 } else if (node instanceof Middle3WTNode) {
                     VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((Middle3WTNode) node, subComponentName);
-                    getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                    styles.addAll(getNodeStyles(vlInfo, node));
                 } else {
                     VoltageLevelInfos vlInfo = graph.getVoltageLevelInfos(node);
-                    getVoltageLevelNodeStyle(vlInfo, node, getSide(subComponentName)).ifPresent(styles::add);
+                    styles.addAll(getNodeStyles(vlInfo, node, getSide(subComponentName)));
                 }
             }
         } else {
@@ -135,7 +132,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 feederNode = getFeederNode((Middle3WTNode) node, subComponentName);
             }
             if (feederNode != null) {
-                getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(feederNode), feederNode).ifPresent(styles::add);
+                styles.addAll(getNodeStyles(graph.getVoltageLevelInfos(feederNode), feederNode));
             }
         }
 
@@ -143,15 +140,15 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     /**
-     * Returns the voltage level style if any to apply to the given node
+     * Returns the list of styles to apply to the given node
      *
      * @param vlInfo the VoltageLevelInfos related to the given node
-     * @param node   the node on which the style if any is applied to
-     * @return the voltage level style if any
+     * @param node   the node on which the styles if any are applied to
+     * @return the list of node styles
      */
-    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node);
+    public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node);
 
-    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side);
+    public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side);
 
     private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
