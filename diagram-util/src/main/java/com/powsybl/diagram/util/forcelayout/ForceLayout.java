@@ -54,11 +54,6 @@ import java.util.function.Function;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ForceLayout<V, E> {
-    /**
-     * @deprecated This will be removed along the Spring class and the getSprings method
-     */
-    @Deprecated(since = "4.9.0", forRemoval = true)
-    private final Set<Spring> springs = new LinkedHashSet<>();
 
     private final ForceGraph<V, E> forceGraph;
     private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
@@ -141,7 +136,7 @@ public class ForceLayout<V, E> {
      */
     @Deprecated(since = "4.9.0", forRemoval = true)
     public Set<Spring> getSprings() {
-        return springs;
+        return Collections.emptySet();
     }
 
     public void toSVG(Function<V, String> tooltip, Path path) throws IOException {
