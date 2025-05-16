@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.layout;
 
@@ -40,13 +41,7 @@ class ForceLayoutTest extends AbstractTest {
     }
 
     @Test
-    void testDiamondNoSpringRepulsionFactor() {
-        assertSvgEquals("/diamond-spring-repulsion-factor-0.0.svg", LayoutNetworkFactory.createDiamond());
-    }
-
-    @Test
-    void testDiamondSmallSpringRepulsionFactor() {
-        getLayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
-        assertSvgEquals("/diamond-spring-repulsion-factor-0.2.svg", LayoutNetworkFactory.createDiamond());
+    void testDiamond() {
+        assertSvgEquals("/diamond-network.svg", LayoutNetworkFactory.createDiamond());
     }
 }

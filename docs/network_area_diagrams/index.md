@@ -41,7 +41,7 @@ NetworkAreaDiagram.draw(network, Path.of("/tmp/diagram.svg"));
 
 ```java
 SvgParameters svgParameters = new SvgParameters().setFixedHeight(1000);
-LayoutParameters layoutParameters = new LayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
+LayoutParameters layoutParameters = new LayoutParameters().setMaxSteps(300);
 NadParameters nadParameters = new NadParameters().setSvgParameters(svgParameters).setLayoutParameters(layoutParameters);
 NetworkAreaDiagram.draw(network, Path.of("/tmp/diagram2.svg"), nadParameters, VoltageLevelFilter.NO_FILTER);
 ```
