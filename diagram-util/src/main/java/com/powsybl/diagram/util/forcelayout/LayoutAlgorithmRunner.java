@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.AbstractLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.AbstractSetup;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
+import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
 import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public class LayoutAlgorithmRunner<V, E> {
     private AbstractLayoutAlgorithm<V, E> layoutAlgorithm;
     private boolean hasBeenExecuted = false;
     private ForceGraph<V, E> forceGraph;
+    private Vector2D center = new Vector2D(0, 0);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LayoutAlgorithmRunner.class);
 
@@ -43,6 +45,7 @@ public class LayoutAlgorithmRunner<V, E> {
     private void chooseSetup(SetupEnum setupChoice) {
         this.setup = switch (setupChoice) {
             case SPRINGY -> new SpringySetup<>();
+            case SIMPLE -> new SimpleSetup<>();
         };
     }
 
@@ -52,6 +55,7 @@ public class LayoutAlgorithmRunner<V, E> {
 
     public void run(ForceGraph<V, E> forceGraph) {
         this.forceGraph = forceGraph;
+        this.forceGraph.setCenter(center);
         long start = System.nanoTime();
         setup.setup(forceGraph);
         long setupEnd = System.nanoTime();
@@ -80,10 +84,14 @@ public class LayoutAlgorithmRunner<V, E> {
     }
 
     public void setCenter(Vector2D center) {
-        this.forceGraph.setCenter(center);
+        this.center = center;
     }
 
     public Vector2D getCenter() {
-        return this.forceGraph.getOrigin().getPosition();
+        if (forceGraph != null) {
+            return this.forceGraph.getOrigin().getPosition();
+        } else {
+            return this.center;
+        }
     }
 }

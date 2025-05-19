@@ -150,7 +150,9 @@ public class ForceLayout<V, E> {
     }
 
     public void toSVG(Function<V, String> tooltip, Writer writer) {
-        algorithmRunner.toSVG(tooltip, writer);
+        if (algorithmRunner != null) {
+            algorithmRunner.toSVG(tooltip, writer);
+        }
     }
 
     public void setCenter(Vector2D center) {

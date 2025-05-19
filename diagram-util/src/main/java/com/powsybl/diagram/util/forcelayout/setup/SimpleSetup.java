@@ -9,7 +9,6 @@ package com.powsybl.diagram.util.forcelayout.setup;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
 import java.util.Objects;
 
@@ -21,8 +20,6 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
     public void setup(ForceGraph<V, E> forceGraph) {
-        forceGraph.setCenter(new Vector2D(0, 0));
-
         for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
                 forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));

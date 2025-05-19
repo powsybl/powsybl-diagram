@@ -15,6 +15,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -57,5 +58,14 @@ class ForceGraphTest {
         forceLayout.toSVG(tooltip, sw);
         Helpers helpers = new Helpers();
         assertEquals(helpers.toString("/springy_5_nodes.svg"), sw.toString());
+    }
+
+    @Test
+    void notExecuted() {
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        Function<String, String> tooltip = v -> String.format("Vertex %s", v);
+        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
+        String testPath = "/tmp/test.svg";
+        assertDoesNotThrow(() -> forceLayout.toSVG(tooltip, Path.of(testPath)));
     }
 }
