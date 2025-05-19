@@ -11,7 +11,6 @@ import com.powsybl.diagram.util.forcelayout.Canvas;
 
 import java.io.PrintWriter;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -94,21 +93,5 @@ public class Point {
         double deltaX = this.position.getX() - other.getPosition().getX();
         double deltaY = this.position.getY() - other.getPosition().getY();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == this) {
-            return true;
-        }
-        if (!(object instanceof Point point)) {
-            return false;
-        }
-        return Double.compare(mass, point.mass) == 0 && Objects.equals(position, point.position) && Objects.equals(velocity, point.velocity);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(position, velocity, mass);
     }
 }
