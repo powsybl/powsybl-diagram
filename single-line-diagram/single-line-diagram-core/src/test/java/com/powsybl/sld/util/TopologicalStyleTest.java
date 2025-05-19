@@ -94,28 +94,31 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getNodeStyles(graph1, node1, componentLibrary, true);
-        assertEquals(2, nodeStyle1.size());
+        assertEquals(3, nodeStyle1.size());
         assertTrue(nodeStyle1.contains("sld-busbar-section"));
-        assertTrue(nodeStyle1.contains("sld-vl300to500-0"));
+        assertTrue(nodeStyle1.contains("sld-vl300to500"));
+        assertTrue(nodeStyle1.contains("sld-bus-0"));
 
         Node node2 = graph2.getNode("bbs2");
         List<String> nodeStyle2 = styleProvider.getNodeStyles(graph2, node2, componentLibrary, true);
-        assertEquals(2, nodeStyle2.size());
+        assertEquals(3, nodeStyle2.size());
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
         assertTrue(nodeStyle2.contains(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
 
         Node node3 = graph3.getNode("bbs3");
         List<String> nodeStyle3 = styleProvider.getNodeStyles(graph3, node3, componentLibrary, true);
-        assertEquals(2, nodeStyle3.size());
+        assertEquals(3, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
-        assertTrue(nodeStyle3.contains("sld-vl50to70-0"));
+        assertTrue(nodeStyle3.contains("sld-vl50to70"));
+        assertTrue(nodeStyle3.contains("sld-bus-0"));
 
         Edge edge = graph1.getEdges().get(12);
 
         List<String> wireStyles = styleProvider.getEdgeStyles(graph1, edge);
-        assertEquals(2, wireStyles.size());
+        assertEquals(3, wireStyles.size());
         assertTrue(wireStyles.contains(StyleClassConstants.WIRE_STYLE_CLASS));
-        assertTrue(wireStyles.contains("sld-vl300to500-0"));
+        assertTrue(wireStyles.contains("sld-vl300to500"));
+        assertTrue(wireStyles.contains("sld-bus-0"));
 
         Node fict3WTNode = graph1.getNode("3WT");
         List<String> node3WTStyle = styleProvider.getNodeStyles(graph1, fict3WTNode, componentLibrary, true);
@@ -132,8 +135,9 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         styleProvider.reset();
 
         nodeStyle3 = styleProvider.getNodeStyles(graph3, node3, componentLibrary, true);
-        assertEquals(2, nodeStyle3.size());
+        assertEquals(3, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
+        assertTrue(nodeStyle3.contains("sld-vl50to70"));
         assertTrue(nodeStyle3.contains(StyleClassConstants.DISCONNECTED_STYLE_CLASS));
     }
 

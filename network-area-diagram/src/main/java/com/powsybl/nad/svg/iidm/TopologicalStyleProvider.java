@@ -22,8 +22,6 @@ import java.util.Optional;
  */
 public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
-    public static final String LINE_STYLE_SUFFIX = "-line";
-
     public TopologicalStyleProvider(Network network) {
         super(network);
     }
@@ -43,14 +41,18 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         if (busNode instanceof BoundaryBusNode) {
             String dlId = busNode.getEquipmentId();
             getBaseVoltageStyle(network.getDanglingLine(dlId).getTerminal().getVoltageLevel().getNominalV())
-                    .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getBusIndex())
-                    .ifPresent(styles::add);
+                    .ifPresent(baseVoltageStyle -> {
+                        styles.add(baseVoltageStyle);
+                        styles.add(CLASSES_PREFIX + "bus-" + busNode.getBusIndex());
+                    });
         } else {
             Bus b = network.getBusView().getBus(busNode.getEquipmentId());
             if (b != null) {
                 getBaseVoltageStyle(b.getVoltageLevel().getNominalV())
-                        .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getBusIndex())
-                        .ifPresent(styles::add);
+                        .ifPresent(baseVoltageStyle -> {
+                            styles.add(baseVoltageStyle);
+                            styles.add(CLASSES_PREFIX + "bus-" + busNode.getBusIndex());
+                        });
             }
         }
         return styles;
@@ -60,8 +62,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
         String branchType = edge.getType();
         if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
-            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV())
-                .map(baseVoltageStyle -> baseVoltageStyle + LINE_STYLE_SUFFIX);
+            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV());
         } else {
             return super.getBaseVoltageStyle(edge, side);
         }
@@ -72,7 +73,6 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         if (terminal == null) {
             return Optional.empty();
         }
-        return getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
-                .map(baseVoltageStyle -> baseVoltageStyle + LINE_STYLE_SUFFIX);
+        return getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV());
     }
 }
