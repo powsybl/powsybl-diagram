@@ -7,8 +7,12 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.diagram.util.forcelayout.ForceLayout;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.Layout;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -42,22 +46,29 @@ public class BasicForceLayout extends AbstractLayout {
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
-        ForceLayout<Node, Edge> forceLayout = new ForceLayout<>(jgraphtGraph)
-                .setAttractToCenterForce(attractToCenterForce)
-                .setRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
-        forceLayout.setMaxSteps(layoutParameters.getMaxSteps());
+        Layout<Node, Edge> layout = new Layout<>(
+                new SquareRandomBarycenterSetup<>(),
+                new BasicForceLayoutAlgorithm<>(
+                        new BasicForceLayoutParameters.Builder()
+                                .withAttractToCenterForce(attractToCenterForce)
+                                .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
+                                .withMaxSteps(layoutParameters.getMaxSteps())
+                                .build()
+                ));
 
-        setInitialPositions(forceLayout, graph);
+        LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
+
+        setInitialPositions(layoutContext, graph);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
                 .collect(Collectors.toSet());
-        forceLayout.setFixedNodes(fixedNodes);
+        layoutContext.setFixedNodes(fixedNodes);
 
-        forceLayout.execute();
+        layout.run(layoutContext);
 
         jgraphtGraph.vertexSet().forEach(node -> {
-            Vector2D p = forceLayout.getStablePosition(node);
+            Vector2D p = layoutContext.getStablePosition(node);
             if (node instanceof TextNode texNode) {
                 texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
                 texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
@@ -71,16 +82,16 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    private void setInitialPositions(ForceLayout<Node, Edge> forceLayout, Graph graph) {
-        Map<Node, com.powsybl.diagram.util.forcelayout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
+    private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph) {
+        Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
-                    nodePosition -> new com.powsybl.diagram.util.forcelayout.geometry.Point(
+                    nodePosition -> new com.powsybl.diagram.util.layout.geometry.Point(
                             nodePosition.getValue().getX() / SCALE,
                             nodePosition.getValue().getY() / SCALE)
                 ));
-        forceLayout.setInitialPoints(initialPoints);
+        layoutContext.setInitialPoints(initialPoints);
     }
 }

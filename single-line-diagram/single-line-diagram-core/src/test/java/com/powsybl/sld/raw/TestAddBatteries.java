@@ -9,7 +9,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -45,7 +45,7 @@ class TestAddBatteries extends AbstractTestCaseRaw {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
         return new FlatDesignLibrary();
     }
 

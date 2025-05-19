@@ -56,6 +56,9 @@ public class SvgParameters {
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
+    private double injectionAperture = 10;
+    private double injectionEdgeLength = 145;
+    private double injectionCircleRadius = 25;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -108,6 +111,9 @@ public class SvgParameters {
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.injectionAperture = other.injectionAperture;
+        this.injectionEdgeLength = other.injectionEdgeLength;
+        this.injectionCircleRadius = other.injectionCircleRadius;
     }
 
     public Padding getDiagramPadding() {
@@ -498,6 +504,33 @@ public class SvgParameters {
 
     public SvgParameters setHighlightGraph(boolean highlightGraph) {
         this.highlightGraph = highlightGraph;
+        return this;
+    }
+
+    public double getInjectionAperture() {
+        return injectionAperture;
+    }
+
+    public SvgParameters setInjectionAperture(double injectionAperture) {
+        this.injectionAperture = injectionAperture;
+        return this;
+    }
+
+    public double getInjectionEdgeLength() {
+        return injectionEdgeLength;
+    }
+
+    public SvgParameters setInjectionEdgeLength(double injectionEdgeLength) {
+        this.injectionEdgeLength = injectionEdgeLength;
+        return this;
+    }
+
+    public double getInjectionCircleRadius() {
+        return injectionCircleRadius;
+    }
+
+    public SvgParameters setInjectionCircleRadius(double injectionCircleRadius) {
+        this.injectionCircleRadius = injectionCircleRadius;
         return this;
     }
 }

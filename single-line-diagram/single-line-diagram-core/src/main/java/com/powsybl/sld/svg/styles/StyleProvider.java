@@ -7,7 +7,7 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
 
@@ -30,11 +31,11 @@ public interface StyleProvider {
 
     List<String> getEdgeStyles(Graph graph, Edge edge);
 
-    List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
+    List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes);
 
-    List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
+    List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary);
 
-    List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary);
+    List<String> getBranchEdgeStyles(BranchEdge edge, SldComponentLibrary componentLibrary);
 
     List<String> getNodeSubcomponentStyles(Graph graph, Node node, String subComponentName);
 
@@ -51,6 +52,8 @@ public interface StyleProvider {
     List<String> getBusStyles(String busId, VoltageLevelGraph graph);
 
     List<String> getBusInfoStyle(BusInfo info);
+
+    List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption);
 
     List<String> getFeederInfoStyles(FeederInfo info);
 

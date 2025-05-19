@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="720.0" viewBox="0 0 1130.0 720.0" width="1130.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -16,82 +15,83 @@
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
-.sld-vl300to500-0 {--sld-vl-color: #FF0000}
-.sld-vl300to500-1 {--sld-vl-color: #7F6C00}
-.sld-vl300to500-2 {--sld-vl-color: #F6B2FF}
-.sld-vl300to500-3 {--sld-vl-color: #996700}
-.sld-vl300to500-4 {--sld-vl-color: #FF85EB}
-.sld-vl300to500-5 {--sld-vl-color: #B25B00}
-.sld-vl300to500-6 {--sld-vl-color: #FF59B5}
-.sld-vl300to500-7 {--sld-vl-color: #CC4400}
-.sld-vl300to500-8 {--sld-vl-color: #FF2C67}
-.sld-vl300to500-9 {--sld-vl-color: #E52600}
-.sld-vl180to300-0 {--sld-vl-color: #218B21}
-.sld-vl180to300-1 {--sld-vl-color: #0D4940}
-.sld-vl180to300-2 {--sld-vl-color: #DFDAB9}
-.sld-vl180to300-3 {--sld-vl-color: #105640}
-.sld-vl180to300-4 {--sld-vl-color: #C2CB92}
-.sld-vl180to300-5 {--sld-vl-color: #14643C}
-.sld-vl180to300-6 {--sld-vl-color: #95B66B}
-.sld-vl180to300-7 {--sld-vl-color: #187036}
-.sld-vl180to300-8 {--sld-vl-color: #5FA046}
-.sld-vl180to300-9 {--sld-vl-color: #1C7E2D}
-.sld-vl120to180-0 {--sld-vl-color: #00AFAE}
-.sld-vl120to180-1 {--sld-vl-color: #000D58}
-.sld-vl120to180-2 {--sld-vl-color: #B8E7B2}
-.sld-vl120to180-3 {--sld-vl-color: #002169}
-.sld-vl120to180-4 {--sld-vl-color: #85D993}
-.sld-vl120to180-5 {--sld-vl-color: #003C7B}
-.sld-vl120to180-6 {--sld-vl-color: #59CB8B}
-.sld-vl120to180-7 {--sld-vl-color: #005C8C}
-.sld-vl120to180-8 {--sld-vl-color: #2CBD94}
-.sld-vl120to180-9 {--sld-vl-color: #00839E}
-.sld-vl70to120-0 {--sld-vl-color: #CC5500}
-.sld-vl70to120-1 {--sld-vl-color: #4A6600}
-.sld-vl70to120-2 {--sld-vl-color: #EFB2DD}
-.sld-vl70to120-3 {--sld-vl-color: #6E7A00}
-.sld-vl70to120-4 {--sld-vl-color: #E685AE}
-.sld-vl70to120-5 {--sld-vl-color: #8E8400}
-.sld-vl70to120-6 {--sld-vl-color: #DD596B}
-.sld-vl70to120-7 {--sld-vl-color: #A37B00}
-.sld-vl70to120-8 {--sld-vl-color: #D4432C}
-.sld-vl70to120-9 {--sld-vl-color: #B76B00}
-.sld-vl50to70-0 {--sld-vl-color: #A020EF}
-.sld-vl50to70-1 {--sld-vl-color: #7F0848}
-.sld-vl50to70-2 {--sld-vl-color: #B7DBFE}
-.sld-vl50to70-3 {--sld-vl-color: #960C6D}
-.sld-vl50to70-4 {--sld-vl-color: #8DA6FE}
-.sld-vl50to70-5 {--sld-vl-color: #AD109A}
-.sld-vl50to70-6 {--sld-vl-color: #6F66FB}
-.sld-vl50to70-7 {--sld-vl-color: #BC14C4}
-.sld-vl50to70-8 {--sld-vl-color: #7F42F6}
-.sld-vl50to70-9 {--sld-vl-color: #B11AD9}
-.sld-vl30to50-0 {--sld-vl-color: #FF8290}
-.sld-vl30to50-1 {--sld-vl-color: #7F6F41}
-.sld-vl30to50-2 {--sld-vl-color: #F6D9FF}
-.sld-vl30to50-3 {--sld-vl-color: #99784E}
-.sld-vl30to50-4 {--sld-vl-color: #FFC3FB}
-.sld-vl30to50-5 {--sld-vl-color: #B27D5B}
-.sld-vl30to50-6 {--sld-vl-color: #FFADE3}
-.sld-vl30to50-7 {--sld-vl-color: #CC7E68}
-.sld-vl30to50-8 {--sld-vl-color: #FF97BF}
-.sld-vl30to50-9 {--sld-vl-color: #E57B75}
-.sld-vl0to30-0 {--sld-vl-color: #AAAE27}
-.sld-vl0to30-1 {--sld-vl-color: #195B0F}
-.sld-vl0to30-2 {--sld-vl-color: #EABABE}
-.sld-vl0to30-3 {--sld-vl-color: #2D6C13}
-.sld-vl0to30-4 {--sld-vl-color: #DDA193}
-.sld-vl0to30-5 {--sld-vl-color: #477D17}
-.sld-vl0to30-6 {--sld-vl-color: #CE9A6E}
-.sld-vl0to30-7 {--sld-vl-color: #648D1C}
-.sld-vl0to30-8 {--sld-vl-color: #BEA04A}
-.sld-vl0to30-9 {--sld-vl-color: #869D22}
+.sld-vl300to500.sld-bus-0 {--sld-vl-color: #FF0000}
+.sld-vl300to500.sld-bus-1 {--sld-vl-color: #7F6C00}
+.sld-vl300to500.sld-bus-2 {--sld-vl-color: #F6B2FF}
+.sld-vl300to500.sld-bus-3 {--sld-vl-color: #996700}
+.sld-vl300to500.sld-bus-4 {--sld-vl-color: #FF85EB}
+.sld-vl300to500.sld-bus-5 {--sld-vl-color: #B25B00}
+.sld-vl300to500.sld-bus-6 {--sld-vl-color: #FF59B5}
+.sld-vl300to500.sld-bus-7 {--sld-vl-color: #CC4400}
+.sld-vl300to500.sld-bus-8 {--sld-vl-color: #FF2C67}
+.sld-vl300to500.sld-bus-9 {--sld-vl-color: #E52600}
+.sld-vl180to300.sld-bus-0 {--sld-vl-color: #218B21}
+.sld-vl180to300.sld-bus-1 {--sld-vl-color: #0D4940}
+.sld-vl180to300.sld-bus-2 {--sld-vl-color: #DFDAB9}
+.sld-vl180to300.sld-bus-3 {--sld-vl-color: #105640}
+.sld-vl180to300.sld-bus-4 {--sld-vl-color: #C2CB92}
+.sld-vl180to300.sld-bus-5 {--sld-vl-color: #14643C}
+.sld-vl180to300.sld-bus-6 {--sld-vl-color: #95B66B}
+.sld-vl180to300.sld-bus-7 {--sld-vl-color: #187036}
+.sld-vl180to300.sld-bus-8 {--sld-vl-color: #5FA046}
+.sld-vl180to300.sld-bus-9 {--sld-vl-color: #1C7E2D}
+.sld-vl120to180.sld-bus-0 {--sld-vl-color: #00AFAE}
+.sld-vl120to180.sld-bus-1 {--sld-vl-color: #000D58}
+.sld-vl120to180.sld-bus-2 {--sld-vl-color: #B8E7B2}
+.sld-vl120to180.sld-bus-3 {--sld-vl-color: #002169}
+.sld-vl120to180.sld-bus-4 {--sld-vl-color: #85D993}
+.sld-vl120to180.sld-bus-5 {--sld-vl-color: #003C7B}
+.sld-vl120to180.sld-bus-6 {--sld-vl-color: #59CB8B}
+.sld-vl120to180.sld-bus-7 {--sld-vl-color: #005C8C}
+.sld-vl120to180.sld-bus-8 {--sld-vl-color: #2CBD94}
+.sld-vl120to180.sld-bus-9 {--sld-vl-color: #00839E}
+.sld-vl70to120.sld-bus-0 {--sld-vl-color: #CC5500}
+.sld-vl70to120.sld-bus-1 {--sld-vl-color: #4A6600}
+.sld-vl70to120.sld-bus-2 {--sld-vl-color: #EFB2DD}
+.sld-vl70to120.sld-bus-3 {--sld-vl-color: #6E7A00}
+.sld-vl70to120.sld-bus-4 {--sld-vl-color: #E685AE}
+.sld-vl70to120.sld-bus-5 {--sld-vl-color: #8E8400}
+.sld-vl70to120.sld-bus-6 {--sld-vl-color: #DD596B}
+.sld-vl70to120.sld-bus-7 {--sld-vl-color: #A37B00}
+.sld-vl70to120.sld-bus-8 {--sld-vl-color: #D4432C}
+.sld-vl70to120.sld-bus-9 {--sld-vl-color: #B76B00}
+.sld-vl50to70.sld-bus-0 {--sld-vl-color: #A020EF}
+.sld-vl50to70.sld-bus-1 {--sld-vl-color: #7F0848}
+.sld-vl50to70.sld-bus-2 {--sld-vl-color: #B7DBFE}
+.sld-vl50to70.sld-bus-3 {--sld-vl-color: #960C6D}
+.sld-vl50to70.sld-bus-4 {--sld-vl-color: #8DA6FE}
+.sld-vl50to70.sld-bus-5 {--sld-vl-color: #AD109A}
+.sld-vl50to70.sld-bus-6 {--sld-vl-color: #6F66FB}
+.sld-vl50to70.sld-bus-7 {--sld-vl-color: #BC14C4}
+.sld-vl50to70.sld-bus-8 {--sld-vl-color: #7F42F6}
+.sld-vl50to70.sld-bus-9 {--sld-vl-color: #B11AD9}
+.sld-vl30to50.sld-bus-0 {--sld-vl-color: #FF8290}
+.sld-vl30to50.sld-bus-1 {--sld-vl-color: #7F6F41}
+.sld-vl30to50.sld-bus-2 {--sld-vl-color: #F6D9FF}
+.sld-vl30to50.sld-bus-3 {--sld-vl-color: #99784E}
+.sld-vl30to50.sld-bus-4 {--sld-vl-color: #FFC3FB}
+.sld-vl30to50.sld-bus-5 {--sld-vl-color: #B27D5B}
+.sld-vl30to50.sld-bus-6 {--sld-vl-color: #FFADE3}
+.sld-vl30to50.sld-bus-7 {--sld-vl-color: #CC7E68}
+.sld-vl30to50.sld-bus-8 {--sld-vl-color: #FF97BF}
+.sld-vl30to50.sld-bus-9 {--sld-vl-color: #E57B75}
+.sld-vl0to30.sld-bus-0 {--sld-vl-color: #AAAE27}
+.sld-vl0to30.sld-bus-1 {--sld-vl-color: #195B0F}
+.sld-vl0to30.sld-bus-2 {--sld-vl-color: #EABABE}
+.sld-vl0to30.sld-bus-3 {--sld-vl-color: #2D6C13}
+.sld-vl0to30.sld-bus-4 {--sld-vl-color: #DDA193}
+.sld-vl0to30.sld-bus-5 {--sld-vl-color: #477D17}
+.sld-vl0to30.sld-bus-6 {--sld-vl-color: #CE9A6E}
+.sld-vl0to30.sld-bus-7 {--sld-vl-color: #648D1C}
+.sld-vl0to30.sld-bus-8 {--sld-vl-color: #BEA04A}
+.sld-vl0to30.sld-bus-9 {--sld-vl-color: #869D22}
 /* ----------------------------------------------------------------------- */
 /* File : highlightLineStates.css ---------------------------------------- */
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -149,987 +149,988 @@
 .sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
 .sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
-
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-vl70to120-0" id="idAV" transform="translate(802.5,253.0)">
-            <line x1="0" x2="275.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AV_NW" text-anchor="middle" x="4.0" y="-1.0">AV</text>
-        </g>
-        <g class="sld-busbar-section sld-vl70to120-1" id="idAX" transform="translate(202.5,253.0)">
-            <line x1="0" x2="375.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AX_NW" text-anchor="middle" x="4.0" y="-1.0">AX</text>
-        </g>
-        <g class="sld-busbar-section sld-vl70to120-1" id="idAZ" transform="translate(202.5,278.0)">
-            <line x1="0" x2="375.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AZ_NW" text-anchor="middle" x="4.0" y="-1.0">AZ</text>
-        </g>
-        <g class="sld-busbar-section sld-vl70to120-0" id="idBB" transform="translate(802.5,278.0)">
-            <line x1="0" x2="275.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BB_NW" text-anchor="middle" x="4.0" y="-1.0">BB</text>
-        </g>
-        <g class="sld-busbar-section sld-vl70to120-1" id="idBD" transform="translate(52.5,253.0)">
-            <line x1="0" x2="125.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BD_NW" text-anchor="middle" x="4.0" y="-1.0">BD</text>
-        </g>
-        <g class="sld-busbar-section sld-vl70to120-0" id="idBF" transform="translate(602.5,253.0)">
-            <line x1="0" x2="175.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BF_NW" text-anchor="middle" x="4.0" y="-1.0">BF</text>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_0">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
-                <polyline points="915.0,375.85714285714283,915.0,423.71428571428567,940.0,423.71428571428567"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BN_95_INTERNAL_95_AU_95_19">
-                <polyline points="940.0,452.2857142857142,940.0,423.71428571428567"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EH_95_INTERNAL_95_AU_95_19">
-                <polyline points="965.0,395.1428571428571,965.0,423.71428571428567,940.0,423.71428571428567"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL_95_BL">
-                <polyline points="915.0,308.0,915.0,355.85714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_AV_95_BL_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL">
-                <polyline points="915.0,253.0,915.0,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BN_95_ER">
-                <polyline points="940.0,472.2857142857142,940.0,490.8571428571428"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BP_95_ER">
-                <polyline points="940.0,529.4285714285713,940.0,510.8571428571428"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10_95_BP">
-                <polyline points="940.0,578.0,940.0,549.4285714285713"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_10_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10">
-                <polyline points="940.0,640.0,940.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EH_95_EJ">
-                <polyline points="965.0,375.1428571428571,965.0,356.57142857142856"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ_95_EJ">
-                <polyline points="965.0,308.0,965.0,336.57142857142856"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_BB_95_EJ_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ">
-                <polyline points="965.0,278.0,965.0,308.0"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_19_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBL" transform="translate(905.0,355.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BL_NW" text-anchor="middle" x="4.0" y="-1.0">BL</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL" transform="translate(911.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_AV_95_BL" transform="translate(911.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBN" transform="translate(930.0,452.2857142857142)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BN_NW" text-anchor="middle" x="4.0" y="-1.0">BN</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idER" transform="translate(930.0,490.8571428571428)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ER_NW" text-anchor="middle" x="4.0" y="-1.0">ER</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBP" transform="translate(930.0,529.4285714285713)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BP_NW" text-anchor="middle" x="4.0" y="-1.0">BP</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_10" transform="translate(936.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_10" transform="translate(936.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_10_NW" text-anchor="middle" x="4.0" y="-1.0">10</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEH" transform="translate(955.0,375.1428571428571)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EH_NW" text-anchor="middle" x="4.0" y="-1.0">EH</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEJ" transform="translate(955.0,336.57142857142856)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EJ_NW" text-anchor="middle" x="4.0" y="-1.0">EJ</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ" transform="translate(961.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_BB_95_EJ" transform="translate(961.0,274.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-        </g>
-        <g class="sld-shunt-cell" id="idSHUNT_32_1">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_2_95_INTERNAL_95_AU_95_5">
-                <polyline points="740.0,433.35714285714283,740.0,443.0,690.0,443.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BX_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
-                <polyline points="755.0,433.35714285714283,740.0,433.35714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BX_95_DF">
-                <polyline points="775.0,433.35714285714283,805.0,433.35714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BR_95_DF">
-                <polyline points="855.0,433.35714285714283,825.0,433.35714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BR_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
-                <polyline points="875.0,433.35714285714283,890.0,433.35714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_1_95_INTERNAL_95_AU_95_19">
-                <polyline points="890.0,433.35714285714283,890.0,423.71428571428567,940.0,423.71428571428567"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_5_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_Shunt_32_1_46_2" transform="translate(736.0,429.35714285714283)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBX" transform="translate(755.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="BX_NW" text-anchor="middle" x="4.0" y="-1.0">BX</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDF" transform="translate(805.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DF_NW" text-anchor="middle" x="4.0" y="-1.0">DF</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBR" transform="translate(855.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="BR_NW" text-anchor="middle" x="4.0" y="-1.0">BR</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_Shunt_32_1_46_1" transform="translate(886.0,429.35714285714283)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_19_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
-            </g>
-        </g>
-        <g class="sld-shunt-cell" id="idSHUNT_32_2">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_2_95_INTERNAL_95_AU_95_43">
-                <polyline points="190.0,410.85714285714283,190.0,398.0,140.0,398.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FN_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
-                <polyline points="296.6666666666667,410.85714285714283,190.0,410.85714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DJ_95_FN">
-                <polyline points="530.0,410.85714285714283,316.6666666666667,410.85714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DJ_95_FL">
-                <polyline points="550.0,410.85714285714283,763.3333333333334,410.85714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FL_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
-                <polyline points="783.3333333333334,410.85714285714283,890.0,410.85714285714283"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_1_95_INTERNAL_95_AU_95_19">
-                <polyline points="890.0,410.85714285714283,890.0,423.71428571428567,940.0,423.71428571428567"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_43_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_2_46_2" transform="translate(186.0,406.85714285714283)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFN" transform="translate(296.6666666666667,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FN_NW" text-anchor="middle" x="4.0" y="-1.0">FN</text>
-            </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idDJ" transform="translate(530.0,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DJ_NW" text-anchor="middle" x="4.0" y="-1.0">DJ</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFL" transform="translate(763.3333333333334,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FL_NW" text-anchor="middle" x="4.0" y="-1.0">FL</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_Shunt_32_2_46_1" transform="translate(886.0,406.85714285714283)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_19_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CT_95_INTERNAL_95_AU_95_5">
-                <polyline points="690.0,419.25,690.0,443.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DZ_95_INTERNAL_95_AU_95_5">
-                <polyline points="665.0,466.75,665.0,443.0,690.0,443.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FH_95_INTERNAL_95_AU_95_5">
-                <polyline points="715.0,466.75,715.0,443.0,690.0,443.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BJ_95_CT">
-                <polyline points="690.0,385.5,690.0,399.25"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BJ_95_CX">
-                <polyline points="690.0,365.5,690.0,351.75"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX_95_CX">
-                <polyline points="690.0,308.0,690.0,331.75"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_BF_95_CX_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX">
-                <polyline points="690.0,253.0,690.0,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DZ_95_EN">
-                <polyline points="665.0,486.75,665.0,500.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EB_95_EN">
-                <polyline points="665.0,534.25,665.0,520.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14_95_EB">
-                <polyline points="665.0,578.0,665.0,554.25"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_14_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14">
-                <polyline points="665.0,640.0,665.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DX_95_FH">
-                <polyline points="715.0,500.5,715.0,486.75"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DX_95_FJ">
-                <polyline points="715.0,520.5,715.0,534.25"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6_95_FJ">
-                <polyline points="715.0,578.0,715.0,554.25"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_6_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6">
-                <polyline points="715.0,640.0,715.0,578.0"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_5_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCT" transform="translate(680.0,399.25)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CT_NW" text-anchor="middle" x="4.0" y="-1.0">CT</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBJ" transform="translate(680.0,365.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BJ_NW" text-anchor="middle" x="4.0" y="-1.0">BJ</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCX" transform="translate(680.0,331.75)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CX_NW" text-anchor="middle" x="4.0" y="-1.0">CX</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX" transform="translate(686.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_BF_95_CX" transform="translate(686.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDZ" transform="translate(655.0,466.75)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DZ_NW" text-anchor="middle" x="4.0" y="-1.0">DZ</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEN" transform="translate(655.0,500.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EN_NW" text-anchor="middle" x="4.0" y="-1.0">EN</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEB" transform="translate(655.0,534.25)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EB_NW" text-anchor="middle" x="4.0" y="-1.0">EB</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_14" transform="translate(661.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_14" transform="translate(661.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_14_NW" text-anchor="middle" x="4.0" y="-1.0">14</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFH" transform="translate(705.0,466.75)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FH_NW" text-anchor="middle" x="4.0" y="-1.0">FH</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDX" transform="translate(705.0,500.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DX_NW" text-anchor="middle" x="4.0" y="-1.0">DX</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFJ" transform="translate(705.0,534.25)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FJ_NW" text-anchor="middle" x="4.0" y="-1.0">FJ</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_6" transform="translate(711.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_6" transform="translate(711.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_6_NW" text-anchor="middle" x="4.0" y="-1.0">6</text>
-            </g>
-        </g>
-        <g class="sld-shunt-cell" id="idSHUNT_32_4">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_2_95_INTERNAL_95_AU_95_50">
-                <polyline points="490.0,402.5,490.0,362.0,377.5,362.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CL_95_INTERNAL_95_AU_95_Shunt_32_4_46_2">
-                <polyline points="505.0,402.5,490.0,402.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CL_95_DH">
-                <polyline points="525.0,402.5,555.0,402.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CH_95_DH">
-                <polyline points="605.0,402.5,575.0,402.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CH_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
-                <polyline points="625.0,402.5,640.0,402.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_1_95_INTERNAL_95_AU_95_5">
-                <polyline points="640.0,402.5,640.0,443.0,690.0,443.0"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_50" transform="translate(373.5,358.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_50_NW" text-anchor="middle" x="4.0" y="-1.0">50</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_4_46_2" transform="translate(486.0,398.5)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCL" transform="translate(505.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="CL_NW" text-anchor="middle" x="4.0" y="-1.0">CL</text>
-            </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idDH" transform="translate(555.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DH_NW" text-anchor="middle" x="4.0" y="-1.0">DH</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCH" transform="translate(605.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="CH_NW" text-anchor="middle" x="4.0" y="-1.0">CH</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_Shunt_32_4_46_1" transform="translate(636.0,398.5)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_5_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DP_95_INTERNAL_95_AU_95_43">
-                <polyline points="115.0,433.0,115.0,398.0,140.0,398.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EX_95_INTERNAL_95_AU_95_43">
-                <polyline points="140.0,363.0,140.0,398.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FF_95_INTERNAL_95_AU_95_43">
-                <polyline points="165.0,433.0,165.0,398.0,140.0,398.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DP_95_ET">
-                <polyline points="115.0,453.0,115.0,478.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DR_95_ET">
-                <polyline points="115.0,523.0,115.0,498.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41_95_DR">
-                <polyline points="115.0,578.0,115.0,543.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_41_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41">
-                <polyline points="115.0,640.0,115.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX_95_EX">
-                <polyline points="140.0,308.0,140.0,343.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_BD_95_EX_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX">
-                <polyline points="140.0,253.0,140.0,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CZ_95_FF">
-                <polyline points="165.0,478.0,165.0,453.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CZ_95_EZ">
-                <polyline points="165.0,498.0,165.0,523.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_EZ">
-                <polyline points="165.0,578.0,165.0,543.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_FT_95_ONE_95_INTERNAL_95_AU_95_FT_95_ONE">
-                <polyline points="165.0,632.0,165.0,578.0"/>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_REACTIVE" transform="translate(160.0,607.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_ACTIVE" transform="translate(160.0,587.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_43_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDP" transform="translate(105.0,433.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DP_NW" text-anchor="middle" x="4.0" y="-1.0">DP</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idET" transform="translate(105.0,478.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ET_NW" text-anchor="middle" x="4.0" y="-1.0">ET</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDR" transform="translate(105.0,523.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DR_NW" text-anchor="middle" x="4.0" y="-1.0">DR</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_41" transform="translate(111.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_41" transform="translate(111.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_41_NW" text-anchor="middle" x="4.0" y="-1.0">41</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEX" transform="translate(130.0,343.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EX_NW" text-anchor="middle" x="4.0" y="-1.0">EX</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX" transform="translate(136.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_BD_95_EX" transform="translate(136.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFF" transform="translate(155.0,433.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FF_NW" text-anchor="middle" x="4.0" y="-1.0">FF</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCZ" transform="translate(155.0,478.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CZ_NW" text-anchor="middle" x="4.0" y="-1.0">CZ</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEZ" transform="translate(155.0,523.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EZ_NW" text-anchor="middle" x="4.0" y="-1.0">EZ</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FT_95_ONE" transform="translate(161.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-two-wt sld-bottom-feeder" id="idFT_95_ONE" transform="translate(160.0,632.5)">
-                <circle class="sld-vl70to120-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="FT_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FT_ONE</text>
-            </g>
-        </g>
-        <g class="sld-shunt-cell" id="idSHUNT_32_6">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_1_95_INTERNAL_95_AU_95_43">
-                <polyline points="190.0,434.0,190.0,398.0,140.0,398.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EV_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
-                <polyline points="205.0,434.0,190.0,434.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DD_95_EV">
-                <polyline points="255.0,434.0,225.0,434.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DD_95_FB">
-                <polyline points="275.0,434.0,305.0,434.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FB_95_INTERNAL_95_AU_95_Shunt_32_6_46_2">
-                <polyline points="325.0,434.0,340.0,434.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_2_95_INTERNAL_95_AU_95_45">
-                <polyline points="340.0,434.0,340.0,470.0,415.0,470.0"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_43_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_6_46_1" transform="translate(186.0,430.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEV" transform="translate(205.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="EV_NW" text-anchor="middle" x="4.0" y="-1.0">EV</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDD" transform="translate(255.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DD_NW" text-anchor="middle" x="4.0" y="-1.0">DD</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFB" transform="translate(305.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FB_NW" text-anchor="middle" x="4.0" y="-1.0">FB</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_6_46_2" transform="translate(336.0,430.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_45" transform="translate(411.0,466.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_45_NW" text-anchor="middle" x="4.0" y="-1.0">45</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BZ_95_INTERNAL_95_AU_95_50">
-                <polyline points="377.5,345.0,377.5,362.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DL_95_INTERNAL_95_AU_95_50">
-                <polyline points="377.5,379.0,377.5,362.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ_95_BZ">
-                <polyline points="377.5,308.0,377.5,325.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_AX_95_BZ_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ">
-                <polyline points="377.5,253.0,377.5,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DB_95_DL">
-                <polyline points="377.5,406.0,377.5,399.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DB_95_DN">
-                <polyline points="377.5,426.0,377.5,433.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DN_95_INTERNAL_95_AU_95_45">
-                <polyline points="377.5,453.0,377.5,470.0,415.0,470.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BT_95_INTERNAL_95_AU_95_45">
-                <polyline points="365.0,487.0,365.0,470.0,415.0,470.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CB_95_INTERNAL_95_AU_95_45">
-                <polyline points="415.0,487.0,415.0,470.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CN_95_INTERNAL_95_AU_95_45">
-                <polyline points="452.5,439.5,452.5,470.0,415.0,470.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CR_95_INTERNAL_95_AU_95_45">
-                <polyline points="465.0,487.0,465.0,470.0,415.0,470.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BT_95_ED">
-                <polyline points="365.0,507.0,365.0,514.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BV_95_ED">
-                <polyline points="365.0,541.0,365.0,534.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48_95_BV">
-                <polyline points="365.0,578.0,365.0,561.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_48_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48">
-                <polyline points="365.0,640.0,365.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CB_95_DV">
-                <polyline points="415.0,507.0,415.0,514.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CD_95_DV">
-                <polyline points="415.0,541.0,415.0,534.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36_95_CD">
-                <polyline points="415.0,578.0,415.0,561.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_36_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36">
-                <polyline points="415.0,640.0,415.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BH_95_CN">
-                <polyline points="452.5,399.0,452.5,419.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BH_95_CV">
-                <polyline points="452.5,379.0,452.5,358.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV_95_CV">
-                <polyline points="452.5,308.0,452.5,338.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_AZ_95_CV_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV">
-                <polyline points="452.5,278.0,452.5,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CR_95_EL">
-                <polyline points="465.0,507.0,465.0,514.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CF_95_EL">
-                <polyline points="465.0,541.0,465.0,534.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29_95_CF">
-                <polyline points="465.0,578.0,465.0,561.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_29_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29">
-                <polyline points="465.0,640.0,465.0,578.0"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_50" transform="translate(373.5,358.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_50_NW" text-anchor="middle" x="4.0" y="-1.0">50</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBZ" transform="translate(367.5,325.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BZ_NW" text-anchor="middle" x="4.0" y="-1.0">BZ</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ" transform="translate(373.5,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_AX_95_BZ" transform="translate(373.5,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDL" transform="translate(367.5,379.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DL_NW" text-anchor="middle" x="4.0" y="-1.0">DL</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDB" transform="translate(367.5,406.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DB_NW" text-anchor="middle" x="4.0" y="-1.0">DB</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDN" transform="translate(367.5,433.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DN_NW" text-anchor="middle" x="4.0" y="-1.0">DN</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_45" transform="translate(411.0,466.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_45_NW" text-anchor="middle" x="4.0" y="-1.0">45</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBT" transform="translate(355.0,487.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BT_NW" text-anchor="middle" x="4.0" y="-1.0">BT</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idED" transform="translate(355.0,514.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ED_NW" text-anchor="middle" x="4.0" y="-1.0">ED</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBV" transform="translate(355.0,541.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BV_NW" text-anchor="middle" x="4.0" y="-1.0">BV</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_48" transform="translate(361.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_48" transform="translate(361.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_48_NW" text-anchor="middle" x="4.0" y="-1.0">48</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCB" transform="translate(405.0,487.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CB_NW" text-anchor="middle" x="4.0" y="-1.0">CB</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDV" transform="translate(405.0,514.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DV_NW" text-anchor="middle" x="4.0" y="-1.0">DV</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCD" transform="translate(405.0,541.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CD_NW" text-anchor="middle" x="4.0" y="-1.0">CD</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_36" transform="translate(411.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_36" transform="translate(411.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_36_NW" text-anchor="middle" x="4.0" y="-1.0">36</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCN" transform="translate(442.5,419.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CN_NW" text-anchor="middle" x="4.0" y="-1.0">CN</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBH" transform="translate(442.5,379.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BH_NW" text-anchor="middle" x="4.0" y="-1.0">BH</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCV" transform="translate(442.5,338.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CV_NW" text-anchor="middle" x="4.0" y="-1.0">CV</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV" transform="translate(448.5,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_AZ_95_CV" transform="translate(448.5,274.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCR" transform="translate(455.0,487.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CR_NW" text-anchor="middle" x="4.0" y="-1.0">CR</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEL" transform="translate(455.0,514.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EL_NW" text-anchor="middle" x="4.0" y="-1.0">EL</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCF" transform="translate(455.0,541.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CF_NW" text-anchor="middle" x="4.0" y="-1.0">CF</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_29" transform="translate(461.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_29" transform="translate(461.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_29_NW" text-anchor="middle" x="4.0" y="-1.0">29</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_8">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT_95_BUSCO_95_AV_95_DT">
-                <polyline points="1015.0,308.0,1015.0,253.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DT_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT">
-                <polyline points="1015.0,388.0,1015.0,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CP_95_DT">
-                <polyline points="1015.0,478.0,1015.0,408.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2_95_CP">
-                <polyline points="1015.0,578.0,1015.0,498.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_2_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2">
-                <polyline points="1015.0,640.0,1015.0,578.0"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_AV_95_DT" transform="translate(1011.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT" transform="translate(1011.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDT" transform="translate(1005.0,388.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DT_NW" text-anchor="middle" x="4.0" y="-1.0">DT</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCP" transform="translate(1005.0,478.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CP_NW" text-anchor="middle" x="4.0" y="-1.0">CP</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_2" transform="translate(1011.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_2" transform="translate(1011.0,636.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_2_NW" text-anchor="middle" x="4.0" y="-1.0">2</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_9">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ_95_BUSCO_95_AX_95_CJ">
-                <polyline points="515.0,223.0,515.0,253.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CJ_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ">
-                <polyline points="515.0,192.5,515.0,223.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FP_95_CJ">
-                <polyline points="515.0,142.0,515.0,172.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FP_95_INTERNAL_95_AU_95_FP">
-                <polyline points="515.0,84.5,515.0,142.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idFP_ARROW_ACTIVE" transform="translate(510.0,99.5)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFP_ARROW_REACTIVE" transform="translate(510.0,119.5)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_AX_95_CJ" transform="translate(511.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ" transform="translate(511.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCJ" transform="translate(505.0,172.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CJ_NW" text-anchor="middle" x="4.0" y="-1.0">CJ</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FP" transform="translate(511.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-load sld-top-feeder sld-vl70to120-1" id="idFP" transform="translate(507.0,75.5)">
-                <rect height="9" width="16"/>
-                <line x1="0" x2="16" y1="0" y2="9"/>
-                <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="FP_NW" text-anchor="middle" x="4.0" y="-1.0">FP</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE">
-                <polyline points="565.0,278.0,565.0,308.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
-                <polyline points="565.0,308.0,565.0,578.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_FX_95_ONE">
-                <polyline points="565.0,578.0,565.0,632.0"/>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(560.0,607.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_ACTIVE" transform="translate(560.0,587.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_AZ_95_FX_95_ONE" transform="translate(561.0,274.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE" transform="translate(561.0,304.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(561.0,574.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-two-wt sld-bottom-feeder" id="idFX_95_ONE" transform="translate(560.0,632.5)">
-                <circle class="sld-vl70to120-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="FX_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FX_ONE</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_11">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF_95_BUSCO_95_BB_95_EF">
-                <polyline points="1065.0,223.0,1065.0,278.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EF_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF">
-                <polyline points="1065.0,192.5,1065.0,223.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_EF">
-                <polyline points="1065.0,142.0,1065.0,172.5"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_FV_95_ONE_95_INTERNAL_95_AU_95_FV_95_ONE">
-                <polyline points="1065.0,88.0,1065.0,142.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(1060.0,103.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-0</text>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_REACTIVE" transform="translate(1060.0,123.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_BB_95_EF" transform="translate(1061.0,274.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF" transform="translate(1061.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEF" transform="translate(1055.0,172.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EF_NW" text-anchor="middle" x="4.0" y="-1.0">EF</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FV_95_ONE" transform="translate(1061.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-two-wt sld-top-feeder" id="idFV_95_ONE" transform="translate(1060.0,72.5)">
-                <circle class="sld-vl70to120-0 sld-winding" cx="5" cy="10" r="5"/>
-                <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="FV_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FV_ONE</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_12">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP_95_BUSCO_95_BD_95_EP">
-                <polyline points="65.0,223.0,65.0,253.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EP_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP">
-                <polyline points="65.0,206.0,65.0,223.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EP_95_FD">
-                <polyline points="65.0,186.0,65.0,179.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37_95_FD">
-                <polyline points="65.0,142.0,65.0,159.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_37_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37">
-                <polyline points="65.0,80.0,65.0,142.0"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_BD_95_EP" transform="translate(61.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP" transform="translate(61.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEP" transform="translate(55.0,186.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EP_NW" text-anchor="middle" x="4.0" y="-1.0">EP</text>
-            </g>
-            <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFD" transform="translate(55.0,159.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FD_NW" text-anchor="middle" x="4.0" y="-1.0">FD</text>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_37" transform="translate(61.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-top-feeder sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_37" transform="translate(61.0,76.0)">
-                <circle cx="4" cy="4" r="4"/>
-                <text class="sld-label" id="INTERNAL_AU_37_NW" text-anchor="middle" x="4.0" y="-1.0">37</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_13">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE">
-                <polyline points="765.0,253.0,765.0,223.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
-                <polyline points="765.0,223.0,765.0,142.0"/>
-            </g>
-            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_FR_95_ONE">
-                <polyline points="765.0,142.0,765.0,88.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(760.0,103.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-0</text>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_REACTIVE" transform="translate(760.0,123.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">—</text>
-            </g>
-            <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_BF_95_FR_95_ONE" transform="translate(761.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE" transform="translate(761.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(761.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-two-wt sld-top-feeder" id="idFR_95_ONE" transform="translate(760.0,72.5)">
-                <circle class="sld-vl70to120-0 sld-winding" cx="5" cy="10" r="5"/>
-                <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="FR_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FR_ONE</text>
+        <g class="sld-voltage-level" id="idAU">
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-0" id="idAV" transform="translate(802.5,253.0)">
+                <line x1="0" x2="275.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idAV_95_NW" text-anchor="middle" x="4.0" y="-1.0">AV</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-1" id="idAX" transform="translate(202.5,253.0)">
+                <line x1="0" x2="375.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idAX_95_NW" text-anchor="middle" x="4.0" y="-1.0">AX</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-1" id="idAZ" transform="translate(202.5,278.0)">
+                <line x1="0" x2="375.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idAZ_95_NW" text-anchor="middle" x="4.0" y="-1.0">AZ</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-0" id="idBB" transform="translate(802.5,278.0)">
+                <line x1="0" x2="275.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idBB_95_NW" text-anchor="middle" x="4.0" y="-1.0">BB</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-1" id="idBD" transform="translate(52.5,253.0)">
+                <line x1="0" x2="125.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idBD_95_NW" text-anchor="middle" x="4.0" y="-1.0">BD</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-0" id="idBF" transform="translate(602.5,253.0)">
+                <line x1="0" x2="175.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idBF_95_NW" text-anchor="middle" x="4.0" y="-1.0">BF</text>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_0">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
+                    <polyline points="915.0,375.85714285714283,915.0,423.71428571428567,940.0,423.71428571428567"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BN_95_INTERNAL_95_AU_95_19">
+                    <polyline points="940.0,452.2857142857142,940.0,423.71428571428567"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_EH_95_INTERNAL_95_AU_95_19">
+                    <polyline points="965.0,395.1428571428571,965.0,423.71428571428567,940.0,423.71428571428567"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL_95_BL">
+                    <polyline points="915.0,308.0,915.0,355.85714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BUSCO_95_AV_95_BL_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL">
+                    <polyline points="915.0,253.0,915.0,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BN_95_ER">
+                    <polyline points="940.0,472.2857142857142,940.0,490.8571428571428"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BP_95_ER">
+                    <polyline points="940.0,529.4285714285713,940.0,510.8571428571428"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10_95_BP">
+                    <polyline points="940.0,578.0,940.0,549.4285714285713"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_10_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10">
+                    <polyline points="940.0,640.0,940.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_EH_95_EJ">
+                    <polyline points="965.0,375.1428571428571,965.0,356.57142857142856"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ_95_EJ">
+                    <polyline points="965.0,308.0,965.0,336.57142857142856"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BUSCO_95_BB_95_EJ_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ">
+                    <polyline points="965.0,278.0,965.0,308.0"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_19_95_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBL" transform="translate(905.0,355.85714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBL_95_NW" text-anchor="middle" x="4.0" y="-1.0">BL</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_AV_95_BL_45_BL" transform="translate(911.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_AV_95_BL" transform="translate(911.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBN" transform="translate(930.0,452.2857142857142)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBN_95_NW" text-anchor="middle" x="4.0" y="-1.0">BN</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idER" transform="translate(930.0,490.8571428571428)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idER_95_NW" text-anchor="middle" x="4.0" y="-1.0">ER</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBP" transform="translate(930.0,529.4285714285713)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBP_95_NW" text-anchor="middle" x="4.0" y="-1.0">BP</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_10" transform="translate(936.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_10" transform="translate(936.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_10_95_NW" text-anchor="middle" x="4.0" y="-1.0">10</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idEH" transform="translate(955.0,375.1428571428571)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEH_95_NW" text-anchor="middle" x="4.0" y="-1.0">EH</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idEJ" transform="translate(955.0,336.57142857142856)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">EJ</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_BB_95_EJ_45_EJ" transform="translate(961.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_BB_95_EJ" transform="translate(961.0,274.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+            </g>
+            <g class="sld-shunt-cell" id="idSHUNT_32_1">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_2_95_INTERNAL_95_AU_95_5">
+                    <polyline points="740.0,433.35714285714283,740.0,443.0,690.0,443.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BX_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
+                    <polyline points="755.0,433.35714285714283,740.0,433.35714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BX_95_DF">
+                    <polyline points="775.0,433.35714285714283,805.0,433.35714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BR_95_DF">
+                    <polyline points="855.0,433.35714285714283,825.0,433.35714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BR_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
+                    <polyline points="875.0,433.35714285714283,890.0,433.35714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_1_95_INTERNAL_95_AU_95_19">
+                    <polyline points="890.0,433.35714285714283,890.0,423.71428571428567,940.0,423.71428571428567"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_5_95_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_Shunt_32_1_46_2" transform="translate(736.0,429.35714285714283)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBX" transform="translate(755.0,423.35714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idBX_95_NW" text-anchor="middle" x="4.0" y="-1.0">BX</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idDF" transform="translate(805.0,423.35714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idDF_95_NW" text-anchor="middle" x="4.0" y="-1.0">DF</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBR" transform="translate(855.0,423.35714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idBR_95_NW" text-anchor="middle" x="4.0" y="-1.0">BR</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_Shunt_32_1_46_1" transform="translate(886.0,429.35714285714283)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_19_95_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
+                </g>
+            </g>
+            <g class="sld-shunt-cell" id="idSHUNT_32_2">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_2_95_INTERNAL_95_AU_95_43">
+                    <polyline points="190.0,410.85714285714283,190.0,398.0,140.0,398.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_FN_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
+                    <polyline points="296.6666666666667,410.85714285714283,190.0,410.85714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DJ_95_FN">
+                    <polyline points="530.0,410.85714285714283,316.6666666666667,410.85714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DJ_95_FL">
+                    <polyline points="550.0,410.85714285714283,763.3333333333334,410.85714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_FL_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
+                    <polyline points="783.3333333333334,410.85714285714283,890.0,410.85714285714283"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_1_95_INTERNAL_95_AU_95_19">
+                    <polyline points="890.0,410.85714285714283,890.0,423.71428571428567,940.0,423.71428571428567"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_43_95_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_Shunt_32_2_46_2" transform="translate(186.0,406.85714285714283)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idFN" transform="translate(296.6666666666667,400.85714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idFN_95_NW" text-anchor="middle" x="4.0" y="-1.0">FN</text>
+                </g>
+                <g class="sld-breaker sld-open sld-vl70to120 sld-disconnected" id="idDJ" transform="translate(530.0,400.85714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idDJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">DJ</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idFL" transform="translate(763.3333333333334,400.85714285714283)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idFL_95_NW" text-anchor="middle" x="4.0" y="-1.0">FL</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_Shunt_32_2_46_1" transform="translate(886.0,406.85714285714283)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_19" transform="translate(936.0,419.71428571428567)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_19_95_NW" text-anchor="middle" x="4.0" y="-1.0">19</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_CT_95_INTERNAL_95_AU_95_5">
+                    <polyline points="690.0,419.25,690.0,443.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DZ_95_INTERNAL_95_AU_95_5">
+                    <polyline points="665.0,466.75,665.0,443.0,690.0,443.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_FH_95_INTERNAL_95_AU_95_5">
+                    <polyline points="715.0,466.75,715.0,443.0,690.0,443.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BJ_95_CT">
+                    <polyline points="690.0,385.5,690.0,399.25"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BJ_95_CX">
+                    <polyline points="690.0,365.5,690.0,351.75"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX_95_CX">
+                    <polyline points="690.0,308.0,690.0,331.75"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BUSCO_95_BF_95_CX_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX">
+                    <polyline points="690.0,253.0,690.0,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DZ_95_EN">
+                    <polyline points="665.0,486.75,665.0,500.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_EB_95_EN">
+                    <polyline points="665.0,534.25,665.0,520.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14_95_EB">
+                    <polyline points="665.0,578.0,665.0,554.25"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_14_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14">
+                    <polyline points="665.0,640.0,665.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DX_95_FH">
+                    <polyline points="715.0,500.5,715.0,486.75"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DX_95_FJ">
+                    <polyline points="715.0,520.5,715.0,534.25"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6_95_FJ">
+                    <polyline points="715.0,578.0,715.0,554.25"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_6_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6">
+                    <polyline points="715.0,640.0,715.0,578.0"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_5_95_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idCT" transform="translate(680.0,399.25)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCT_95_NW" text-anchor="middle" x="4.0" y="-1.0">CT</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idBJ" transform="translate(680.0,365.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">BJ</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idCX" transform="translate(680.0,331.75)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCX_95_NW" text-anchor="middle" x="4.0" y="-1.0">CX</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_BF_95_CX_45_CX" transform="translate(686.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_BF_95_CX" transform="translate(686.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idDZ" transform="translate(655.0,466.75)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDZ_95_NW" text-anchor="middle" x="4.0" y="-1.0">DZ</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idEN" transform="translate(655.0,500.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEN_95_NW" text-anchor="middle" x="4.0" y="-1.0">EN</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idEB" transform="translate(655.0,534.25)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEB_95_NW" text-anchor="middle" x="4.0" y="-1.0">EB</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_14" transform="translate(661.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_14" transform="translate(661.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_14_95_NW" text-anchor="middle" x="4.0" y="-1.0">14</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idFH" transform="translate(705.0,466.75)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idFH_95_NW" text-anchor="middle" x="4.0" y="-1.0">FH</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idDX" transform="translate(705.0,500.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDX_95_NW" text-anchor="middle" x="4.0" y="-1.0">DX</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idFJ" transform="translate(705.0,534.25)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idFJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">FJ</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_6" transform="translate(711.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_6" transform="translate(711.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_6_95_NW" text-anchor="middle" x="4.0" y="-1.0">6</text>
+                </g>
+            </g>
+            <g class="sld-shunt-cell" id="idSHUNT_32_4">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_2_95_INTERNAL_95_AU_95_50">
+                    <polyline points="490.0,402.5,490.0,362.0,377.5,362.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CL_95_INTERNAL_95_AU_95_Shunt_32_4_46_2">
+                    <polyline points="505.0,402.5,490.0,402.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CL_95_DH">
+                    <polyline points="525.0,402.5,555.0,402.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_CH_95_DH">
+                    <polyline points="605.0,402.5,575.0,402.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_CH_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
+                    <polyline points="625.0,402.5,640.0,402.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_1_95_INTERNAL_95_AU_95_5">
+                    <polyline points="640.0,402.5,640.0,443.0,690.0,443.0"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_50" transform="translate(373.5,358.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_50_95_NW" text-anchor="middle" x="4.0" y="-1.0">50</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_Shunt_32_4_46_2" transform="translate(486.0,398.5)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCL" transform="translate(505.0,392.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idCL_95_NW" text-anchor="middle" x="4.0" y="-1.0">CL</text>
+                </g>
+                <g class="sld-breaker sld-open sld-vl70to120 sld-disconnected" id="idDH" transform="translate(555.0,392.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idDH_95_NW" text-anchor="middle" x="4.0" y="-1.0">DH</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idCH" transform="translate(605.0,392.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idCH_95_NW" text-anchor="middle" x="4.0" y="-1.0">CH</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_Shunt_32_4_46_1" transform="translate(636.0,398.5)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_5" transform="translate(686.0,439.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_5_95_NW" text-anchor="middle" x="4.0" y="-1.0">5</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DP_95_INTERNAL_95_AU_95_43">
+                    <polyline points="115.0,433.0,115.0,398.0,140.0,398.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_EX_95_INTERNAL_95_AU_95_43">
+                    <polyline points="140.0,363.0,140.0,398.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_FF_95_INTERNAL_95_AU_95_43">
+                    <polyline points="165.0,433.0,165.0,398.0,140.0,398.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DP_95_ET">
+                    <polyline points="115.0,453.0,115.0,478.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DR_95_ET">
+                    <polyline points="115.0,523.0,115.0,498.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41_95_DR">
+                    <polyline points="115.0,578.0,115.0,543.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_41_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41">
+                    <polyline points="115.0,640.0,115.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX_95_EX">
+                    <polyline points="140.0,308.0,140.0,343.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BUSCO_95_BD_95_EX_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX">
+                    <polyline points="140.0,253.0,140.0,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CZ_95_FF">
+                    <polyline points="165.0,478.0,165.0,453.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CZ_95_EZ">
+                    <polyline points="165.0,498.0,165.0,523.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_EZ">
+                    <polyline points="165.0,578.0,165.0,543.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1 sld-feeder-connected-disconnected" id="_95_AU_95_FT_95_ONE_95_INTERNAL_95_AU_95_FT_95_ONE">
+                    <polyline points="165.0,632.0,165.0,578.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idFT_95_ONE_95_ARROW_95_REACTIVE" transform="translate(160.0,607.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <text class="sld-label" x="15.0" y="5.0">—</text>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="idFT_95_ONE_95_ARROW_95_ACTIVE" transform="translate(160.0,587.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <text class="sld-label" x="15.0" y="5.0">0</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_43_95_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDP" transform="translate(105.0,433.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDP_95_NW" text-anchor="middle" x="4.0" y="-1.0">DP</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idET" transform="translate(105.0,478.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idET_95_NW" text-anchor="middle" x="4.0" y="-1.0">ET</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDR" transform="translate(105.0,523.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDR_95_NW" text-anchor="middle" x="4.0" y="-1.0">DR</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_41" transform="translate(111.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_41" transform="translate(111.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_41_95_NW" text-anchor="middle" x="4.0" y="-1.0">41</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idEX" transform="translate(130.0,343.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEX_95_NW" text-anchor="middle" x="4.0" y="-1.0">EX</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_BD_95_EX_45_EX" transform="translate(136.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_BD_95_EX" transform="translate(136.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idFF" transform="translate(155.0,433.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idFF_95_NW" text-anchor="middle" x="4.0" y="-1.0">FF</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCZ" transform="translate(155.0,478.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCZ_95_NW" text-anchor="middle" x="4.0" y="-1.0">CZ</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idEZ" transform="translate(155.0,523.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEZ_95_NW" text-anchor="middle" x="4.0" y="-1.0">EZ</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_FT_95_ONE" transform="translate(161.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-two-wt sld-bottom-feeder" id="idFT_95_ONE" transform="translate(160.0,632.5)">
+                    <circle class="sld-vl70to120 sld-bus-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                    <circle class="sld-vl70to120 sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                    <text class="sld-label" id="idFT_95_ONE_95_NW" text-anchor="middle" x="4.0" y="-1.0">FT_ONE</text>
+                </g>
+            </g>
+            <g class="sld-shunt-cell" id="idSHUNT_32_6">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_1_95_INTERNAL_95_AU_95_43">
+                    <polyline points="190.0,434.0,190.0,398.0,140.0,398.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_EV_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
+                    <polyline points="205.0,434.0,190.0,434.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DD_95_EV">
+                    <polyline points="255.0,434.0,225.0,434.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DD_95_FB">
+                    <polyline points="275.0,434.0,305.0,434.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_FB_95_INTERNAL_95_AU_95_Shunt_32_6_46_2">
+                    <polyline points="325.0,434.0,340.0,434.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_2_95_INTERNAL_95_AU_95_45">
+                    <polyline points="340.0,434.0,340.0,470.0,415.0,470.0"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_43_95_NW" text-anchor="middle" x="4.0" y="-1.0">43</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_Shunt_32_6_46_1" transform="translate(186.0,430.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idEV" transform="translate(205.0,424.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idEV_95_NW" text-anchor="middle" x="4.0" y="-1.0">EV</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDD" transform="translate(255.0,424.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idDD_95_NW" text-anchor="middle" x="4.0" y="-1.0">DD</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idFB" transform="translate(305.0,424.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                    <text class="sld-label" id="idFB_95_NW" text-anchor="middle" x="4.0" y="-1.0">FB</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_Shunt_32_6_46_2" transform="translate(336.0,430.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_45" transform="translate(411.0,466.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_45_95_NW" text-anchor="middle" x="4.0" y="-1.0">45</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BZ_95_INTERNAL_95_AU_95_50">
+                    <polyline points="377.5,345.0,377.5,362.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DL_95_INTERNAL_95_AU_95_50">
+                    <polyline points="377.5,379.0,377.5,362.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ_95_BZ">
+                    <polyline points="377.5,308.0,377.5,325.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BUSCO_95_AX_95_BZ_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ">
+                    <polyline points="377.5,253.0,377.5,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DB_95_DL">
+                    <polyline points="377.5,406.0,377.5,399.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DB_95_DN">
+                    <polyline points="377.5,426.0,377.5,433.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_DN_95_INTERNAL_95_AU_95_45">
+                    <polyline points="377.5,453.0,377.5,470.0,415.0,470.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BT_95_INTERNAL_95_AU_95_45">
+                    <polyline points="365.0,487.0,365.0,470.0,415.0,470.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CB_95_INTERNAL_95_AU_95_45">
+                    <polyline points="415.0,487.0,415.0,470.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CN_95_INTERNAL_95_AU_95_45">
+                    <polyline points="452.5,439.5,452.5,470.0,415.0,470.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CR_95_INTERNAL_95_AU_95_45">
+                    <polyline points="465.0,487.0,465.0,470.0,415.0,470.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BT_95_ED">
+                    <polyline points="365.0,507.0,365.0,514.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BV_95_ED">
+                    <polyline points="365.0,541.0,365.0,534.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48_95_BV">
+                    <polyline points="365.0,578.0,365.0,561.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_48_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48">
+                    <polyline points="365.0,640.0,365.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CB_95_DV">
+                    <polyline points="415.0,507.0,415.0,514.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CD_95_DV">
+                    <polyline points="415.0,541.0,415.0,534.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36_95_CD">
+                    <polyline points="415.0,578.0,415.0,561.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_36_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36">
+                    <polyline points="415.0,640.0,415.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BH_95_CN">
+                    <polyline points="452.5,399.0,452.5,419.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BH_95_CV">
+                    <polyline points="452.5,379.0,452.5,358.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV_95_CV">
+                    <polyline points="452.5,308.0,452.5,338.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BUSCO_95_AZ_95_CV_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV">
+                    <polyline points="452.5,278.0,452.5,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CR_95_EL">
+                    <polyline points="465.0,507.0,465.0,514.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CF_95_EL">
+                    <polyline points="465.0,541.0,465.0,534.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29_95_CF">
+                    <polyline points="465.0,578.0,465.0,561.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_29_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29">
+                    <polyline points="465.0,640.0,465.0,578.0"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_50" transform="translate(373.5,358.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_50_95_NW" text-anchor="middle" x="4.0" y="-1.0">50</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idBZ" transform="translate(367.5,325.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBZ_95_NW" text-anchor="middle" x="4.0" y="-1.0">BZ</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_AX_95_BZ_45_BZ" transform="translate(373.5,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_AX_95_BZ" transform="translate(373.5,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDL" transform="translate(367.5,379.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDL_95_NW" text-anchor="middle" x="4.0" y="-1.0">DL</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDB" transform="translate(367.5,406.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDB_95_NW" text-anchor="middle" x="4.0" y="-1.0">DB</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDN" transform="translate(367.5,433.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDN_95_NW" text-anchor="middle" x="4.0" y="-1.0">DN</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_45" transform="translate(411.0,466.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_45_95_NW" text-anchor="middle" x="4.0" y="-1.0">45</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idBT" transform="translate(355.0,487.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBT_95_NW" text-anchor="middle" x="4.0" y="-1.0">BT</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idED" transform="translate(355.0,514.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idED_95_NW" text-anchor="middle" x="4.0" y="-1.0">ED</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idBV" transform="translate(355.0,541.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBV_95_NW" text-anchor="middle" x="4.0" y="-1.0">BV</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_48" transform="translate(361.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_48" transform="translate(361.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_48_95_NW" text-anchor="middle" x="4.0" y="-1.0">48</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCB" transform="translate(405.0,487.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCB_95_NW" text-anchor="middle" x="4.0" y="-1.0">CB</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idDV" transform="translate(405.0,514.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDV_95_NW" text-anchor="middle" x="4.0" y="-1.0">DV</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCD" transform="translate(405.0,541.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCD_95_NW" text-anchor="middle" x="4.0" y="-1.0">CD</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_36" transform="translate(411.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_36" transform="translate(411.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_36_95_NW" text-anchor="middle" x="4.0" y="-1.0">36</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCN" transform="translate(442.5,419.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCN_95_NW" text-anchor="middle" x="4.0" y="-1.0">CN</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idBH" transform="translate(442.5,379.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idBH_95_NW" text-anchor="middle" x="4.0" y="-1.0">BH</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCV" transform="translate(442.5,338.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCV_95_NW" text-anchor="middle" x="4.0" y="-1.0">CV</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_AZ_95_CV_45_CV" transform="translate(448.5,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_AZ_95_CV" transform="translate(448.5,274.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCR" transform="translate(455.0,487.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCR_95_NW" text-anchor="middle" x="4.0" y="-1.0">CR</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idEL" transform="translate(455.0,514.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEL_95_NW" text-anchor="middle" x="4.0" y="-1.0">EL</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCF" transform="translate(455.0,541.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCF_95_NW" text-anchor="middle" x="4.0" y="-1.0">CF</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_29" transform="translate(461.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_29" transform="translate(461.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_29_95_NW" text-anchor="middle" x="4.0" y="-1.0">29</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_8">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT_95_BUSCO_95_AV_95_DT">
+                    <polyline points="1015.0,308.0,1015.0,253.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_DT_95_INTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT">
+                    <polyline points="1015.0,388.0,1015.0,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_CP_95_DT">
+                    <polyline points="1015.0,478.0,1015.0,408.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2_95_CP">
+                    <polyline points="1015.0,578.0,1015.0,498.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_2_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2">
+                    <polyline points="1015.0,640.0,1015.0,578.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_AV_95_DT" transform="translate(1011.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_AV_95_DT_45_DT" transform="translate(1011.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idDT" transform="translate(1005.0,388.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idDT_95_NW" text-anchor="middle" x="4.0" y="-1.0">DT</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idCP" transform="translate(1005.0,478.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCP_95_NW" text-anchor="middle" x="4.0" y="-1.0">CP</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_2" transform="translate(1011.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-bottom-feeder sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_2" transform="translate(1011.0,636.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_2_95_NW" text-anchor="middle" x="4.0" y="-1.0">2</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_9">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ_95_BUSCO_95_AX_95_CJ">
+                    <polyline points="515.0,223.0,515.0,253.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_CJ_95_INTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ">
+                    <polyline points="515.0,192.5,515.0,223.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_FP_95_CJ">
+                    <polyline points="515.0,142.0,515.0,172.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_FP_95_INTERNAL_95_AU_95_FP">
+                    <polyline points="515.0,84.5,515.0,142.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="idFP_95_ARROW_95_ACTIVE" transform="translate(510.0,99.5)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">0</text>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idFP_95_ARROW_95_REACTIVE" transform="translate(510.0,119.5)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">0</text>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_AX_95_CJ" transform="translate(511.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_AX_95_CJ_45_CJ" transform="translate(511.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idCJ" transform="translate(505.0,172.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idCJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">CJ</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_FP" transform="translate(511.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-load sld-top-feeder sld-vl70to120 sld-bus-1" id="idFP" transform="translate(507.0,75.5)">
+                    <rect height="9" width="16"/>
+                    <line x1="0" x2="16" y1="0" y2="9"/>
+                    <line x1="16" x2="0" y1="0" y2="9"/>
+                    <text class="sld-label" id="idFP_95_NW" text-anchor="middle" x="4.0" y="-1.0">FP</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE">
+                    <polyline points="565.0,278.0,565.0,308.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
+                    <polyline points="565.0,308.0,565.0,578.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_FX_95_ONE">
+                    <polyline points="565.0,578.0,565.0,632.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idFX_95_ONE_95_ARROW_95_REACTIVE" transform="translate(560.0,607.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <text class="sld-label" x="15.0" y="5.0">—</text>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="idFX_95_ONE_95_ARROW_95_ACTIVE" transform="translate(560.0,587.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                    <text class="sld-label" x="15.0" y="5.0">0</text>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_AZ_95_FX_95_ONE" transform="translate(561.0,274.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_AZ_95_FX_95_ONE_45_FX_95_ONE" transform="translate(561.0,304.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(561.0,574.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-two-wt sld-bottom-feeder" id="idFX_95_ONE" transform="translate(560.0,632.5)">
+                    <circle class="sld-vl70to120 sld-bus-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                    <circle class="sld-vl70to120 sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                    <text class="sld-label" id="idFX_95_ONE_95_NW" text-anchor="middle" x="4.0" y="-1.0">FX_ONE</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_11">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF_95_BUSCO_95_BB_95_EF">
+                    <polyline points="1065.0,223.0,1065.0,278.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_EF_95_INTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF">
+                    <polyline points="1065.0,192.5,1065.0,223.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_EF">
+                    <polyline points="1065.0,142.0,1065.0,172.5"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0 sld-feeder-connected-disconnected" id="_95_AU_95_FV_95_ONE_95_INTERNAL_95_AU_95_FV_95_ONE">
+                    <polyline points="1065.0,88.0,1065.0,142.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="idFV_95_ONE_95_ARROW_95_ACTIVE" transform="translate(1060.0,103.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">-0</text>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idFV_95_ONE_95_ARROW_95_REACTIVE" transform="translate(1060.0,123.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">—</text>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_BB_95_EF" transform="translate(1061.0,274.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_BB_95_EF_45_EF" transform="translate(1061.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idEF" transform="translate(1055.0,172.5)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEF_95_NW" text-anchor="middle" x="4.0" y="-1.0">EF</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_FV_95_ONE" transform="translate(1061.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-two-wt sld-top-feeder" id="idFV_95_ONE" transform="translate(1060.0,72.5)">
+                    <circle class="sld-vl70to120 sld-bus-0 sld-winding" cx="5" cy="10" r="5"/>
+                    <circle class="sld-vl70to120 sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
+                    <text class="sld-label" id="idFV_95_ONE_95_NW" text-anchor="middle" x="4.0" y="-1.0">FV_ONE</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_12">
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP_95_BUSCO_95_BD_95_EP">
+                    <polyline points="65.0,223.0,65.0,253.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_EP_95_INTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP">
+                    <polyline points="65.0,206.0,65.0,223.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_EP_95_FD">
+                    <polyline points="65.0,186.0,65.0,179.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37_95_FD">
+                    <polyline points="65.0,142.0,65.0,159.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-1" id="_95_AU_95_INTERNAL_95_AU_95_37_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37">
+                    <polyline points="65.0,80.0,65.0,142.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-1" id="idBUSCO_95_BD_95_EP" transform="translate(61.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_BUSCO_95_BD_95_EP_45_EP" transform="translate(61.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idEP" transform="translate(55.0,186.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idEP_95_NW" text-anchor="middle" x="4.0" y="-1.0">EP</text>
+                </g>
+                <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-1" id="idFD" transform="translate(55.0,159.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                    <text class="sld-label" id="idFD_95_NW" text-anchor="middle" x="4.0" y="-1.0">FD</text>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_37" transform="translate(61.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-top-feeder sld-fictitious sld-vl70to120 sld-bus-1" id="idINTERNAL_95_AU_95_37" transform="translate(61.0,76.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                    <text class="sld-label" id="idINTERNAL_95_AU_95_37_95_NW" text-anchor="middle" x="4.0" y="-1.0">37</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_13">
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE">
+                    <polyline points="765.0,253.0,765.0,223.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_AU_95_INTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
+                    <polyline points="765.0,223.0,765.0,142.0"/>
+                </g>
+                <g class="sld-wire sld-vl70to120 sld-bus-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_FR_95_ONE">
+                    <polyline points="765.0,142.0,765.0,88.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="idFR_95_ONE_95_ARROW_95_ACTIVE" transform="translate(760.0,103.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">-0</text>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idFR_95_ONE_95_ARROW_95_REACTIVE" transform="translate(760.0,123.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">—</text>
+                </g>
+                <g class="sld-bus-connection sld-fictitious sld-vl70to120 sld-bus-0" id="idBUSCO_95_BF_95_FR_95_ONE" transform="translate(761.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_BUSCO_95_BF_95_FR_95_ONE_45_FR_95_ONE" transform="translate(761.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-fictitious sld-vl70to120 sld-bus-0" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(761.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-two-wt sld-top-feeder" id="idFR_95_ONE" transform="translate(760.0,72.5)">
+                    <circle class="sld-vl70to120 sld-bus-0 sld-winding" cx="5" cy="10" r="5"/>
+                    <circle class="sld-vl70to120 sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
+                    <text class="sld-label" id="idFR_95_ONE_95_NW" text-anchor="middle" x="4.0" y="-1.0">FR_ONE</text>
+                </g>
             </g>
         </g>
     </g>

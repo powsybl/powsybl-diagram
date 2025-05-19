@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="800.00" height="1415.54" viewBox="-582.89 -1256.86 1343.80 2377.76" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+    <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
+.nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-injections circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
@@ -48,6 +50,19 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
   0%, 80%, 100% {stroke: white; stroke-width: 0}
   40% {stroke: #00BCD4; stroke-width: 15}
 }
+.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
+.nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-disconnected .nad-load {stroke: lightgrey}
+.nad-disconnected .nad-battery {stroke: lightgrey}
+.nad-disconnected .nad-generator {stroke: lightgrey}
+.nad-disconnected .nad-capacitor {stroke: lightgrey}
+.nad-disconnected .nad-inductor {stroke: lightgrey}
+.nad-disconnected .nad-svc {stroke: lightgrey}
+.nad-unknown {stroke: none; fill: black}
 ]]></style>
     <g class="nad-highlight">
         <g class="nad-vl-nodes">
@@ -354,37 +369,37 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -1057px; left: 42px" id="0-textnode">
                 <div>VLGEN</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>24.5 kV / 2.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -721px; left: 271px" id="2-textnode">
                 <div>VLHV1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -257px; left: 153px" id="4-textnode">
                 <div>VLHV2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 178px; left: 241px" id="6-textnode">
                 <div>VLHV3</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 881px; left: 421px" id="8-textnode">
                 <div>VLHV4</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 711px; left: -270px" id="10-textnode">
                 <div>VLHV5</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -61px; left: 508px" id="12-textnode">
                 <div>VLLOAD</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
             </div>
         </div>

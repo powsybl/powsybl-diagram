@@ -27,11 +27,13 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
+import com.powsybl.diagram.util.layout.Layout;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import org.jgrapht.Graph;
 
 import java.io.IOException;
@@ -48,90 +50,99 @@ import java.util.function.Function;
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
  *
- * The algorithm is taken from: https://github.com/dhotson/springy
+ * The algorithm is inspired from: https://github.com/dhotson/springy
+ * @deprecated Use {@link Layout} instead <br>
+ * The equivalent of: <br>
+ * {@code new ForceLayout(graph).execute();}<br>
+ * would be <br>
+ * {@code Layout.createBasicForceLayout().run(new LayoutContext<>(graph));}
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
+@Deprecated(since = "4.10.0", forRemoval = true)
 public class ForceLayout<V, E> {
 
-    private final ForceGraph<V, E> forceGraph;
-    private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
-    private LayoutAlgorithmRunner<V, E> algorithmRunner;
+    private final LayoutContext<V, E> layoutContext;
+    private final BasicForceLayoutParameters.Builder basicParametersBuilder = new BasicForceLayoutParameters.Builder();
+    @java.lang.SuppressWarnings("java:S2245")
+    private final Random random = new Random();
 
     public ForceLayout(Graph<V, E> graph) {
-        this.forceGraph = new ForceGraph<>(Objects.requireNonNull(graph));
+        this.layoutContext = new LayoutContext<>(Objects.requireNonNull(graph));
+        this.random.setSeed(3L);
     }
 
-    public ForceLayout(ForceGraph<V, E> forceGraph) {
-        this.forceGraph = Objects.requireNonNull(forceGraph);
+    public ForceLayout(LayoutContext<V, E> layoutContext) {
+        this.layoutContext = Objects.requireNonNull(layoutContext);
+        this.random.setSeed(3L);
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
-        this.springyParametersBuilder.withAttractToCenterForce(attractToCenterForce);
+        this.basicParametersBuilder.withAttractToCenterForce(attractToCenterForce);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-        this.springyParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
+        this.basicParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
-        this.springyParametersBuilder.withMaxSteps(maxSteps);
+        this.basicParametersBuilder.withMaxSteps(maxSteps);
         return this;
     }
 
     public ForceLayout<V, E> setMinEnergyThreshold(double minEnergyThreshold) {
-        this.springyParametersBuilder.withMinEnergyThreshold(minEnergyThreshold);
+        this.basicParametersBuilder.withMinEnergyThreshold(minEnergyThreshold);
         return this;
     }
 
     public ForceLayout<V, E> setDeltaTime(double deltaTime) {
-        this.springyParametersBuilder.withDeltaTime(deltaTime);
+        this.basicParametersBuilder.withDeltaTime(deltaTime);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsion(double repulsion) {
-        this.springyParametersBuilder.withRepulsion(repulsion);
+        this.basicParametersBuilder.withRepulsion(repulsion);
         return this;
     }
 
     public ForceLayout<V, E> setFriction(double friction) {
-        this.springyParametersBuilder.withFriction(friction);
+        this.basicParametersBuilder.withFriction(friction);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
-        this.springyParametersBuilder.withMaxSpeed(maxSpeed);
+        this.basicParametersBuilder.withMaxSpeed(maxSpeed);
         return this;
     }
 
     public ForceLayout<V, E> setInitialPoints(Map<V, Point> initialPoints) {
-        this.forceGraph.setInitialPoints(initialPoints);
+        this.layoutContext.setInitialPoints(initialPoints);
         return this;
     }
 
     public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
-        this.forceGraph.setFixedPoints(fixedPoints);
+        this.layoutContext.setFixedPoints(fixedPoints);
         return this;
     }
 
     public ForceLayout<V, E> setFixedNodes(Set<V> fixedNodes) {
-        this.forceGraph.setFixedNodes(fixedNodes);
+        this.layoutContext.setFixedNodes(fixedNodes);
         return this;
     }
 
     public void execute() {
-        this.algorithmRunner = new LayoutAlgorithmRunner<>(
-                SetupEnum.SPRINGY,
-                this.springyParametersBuilder.build()
+        Layout<V, E> algorithmRunner = new Layout<>(
+                new SquareRandomBarycenterSetup<>(random),
+                new BasicForceLayoutAlgorithm<>(basicParametersBuilder.build())
         );
-        algorithmRunner.run(forceGraph);
+        algorithmRunner.run(layoutContext);
     }
 
     public Vector2D getStablePosition(V vertex) {
-        return algorithmRunner.getStablePosition(vertex);
+        return layoutContext.getStablePosition(vertex);
     }
 
     /**
@@ -150,16 +161,16 @@ public class ForceLayout<V, E> {
     }
 
     public void toSVG(Function<V, String> tooltip, Writer writer) {
-        if (algorithmRunner != null) {
-            algorithmRunner.toSVG(tooltip, writer);
+        if (layoutContext != null) {
+            layoutContext.toSVG(tooltip, writer);
         }
     }
 
     public void setCenter(Vector2D center) {
-        algorithmRunner.setCenter(center);
+        layoutContext.setCenter(center);
     }
 
     public Vector2D getCenter() {
-        return algorithmRunner.getCenter();
+        return layoutContext.getCenter();
     }
 }

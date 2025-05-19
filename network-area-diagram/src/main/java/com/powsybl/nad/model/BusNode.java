@@ -6,19 +6,26 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class BusNode extends AbstractNode {
 
-    public static final BusNode UNKNOWN = new BusNode("", "");
+    public static final BusNode UNKNOWN = new BusNode("", "", Collections.emptyList());
 
     private int ringIndex;
     private int busIndex;
     private int nbNeighbouringBusNodes;
+    private final List<Injection> injections = new ArrayList<>();
 
-    public BusNode(String diagramId, String id) {
+    public BusNode(String diagramId, String id, List<Injection> injections) {
         super(diagramId, id, null, false);
+        this.injections.addAll(Objects.requireNonNull(injections));
     }
 
     public void setRingIndex(int ringIndex) {
@@ -43,6 +50,14 @@ public class BusNode extends AbstractNode {
 
     public int getNbNeighbouringBusNodes() {
         return nbNeighbouringBusNodes;
+    }
+
+    public int getInjectionCount() {
+        return injections.size();
+    }
+
+    public List<Injection> getInjections() {
+        return Collections.unmodifiableList(injections);
     }
 }
 

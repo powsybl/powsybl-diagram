@@ -274,23 +274,23 @@
   } ],
   "lines" : [ ],
   "feederInfos" : [ {
-    "id" : "idl_ARROW_ACTIVE",
-    "equipmentId" : "l",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idl_ARROW_REACTIVE",
+    "id" : "idl_95_ARROW_95_REACTIVE",
     "equipmentId" : "l",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf_95_ONE_ARROW_ACTIVE",
+    "id" : "idtrf_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idtrf_95_ONE_95_ARROW_95_ACTIVE",
     "equipmentId" : "trf",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
-    "id" : "idtrf_95_ONE_ARROW_REACTIVE",
-    "equipmentId" : "trf",
-    "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
+    "id" : "idl_95_ARROW_95_ACTIVE",
+    "equipmentId" : "l",
+    "componentType" : "ARROW_ACTIVE"
   } ],
   "busLegendInfos" : [ ],
   "busInfos" : [ ],

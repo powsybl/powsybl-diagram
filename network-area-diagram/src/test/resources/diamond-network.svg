@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="-1239.82 -1212.79 2668.59 2291.22" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+    <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
+.nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-injections circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
@@ -48,6 +50,19 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
   0%, 80%, 100% {stroke: white; stroke-width: 0}
   40% {stroke: #00BCD4; stroke-width: 15}
 }
+.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
+.nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-disconnected .nad-load {stroke: lightgrey}
+.nad-disconnected .nad-battery {stroke: lightgrey}
+.nad-disconnected .nad-generator {stroke: lightgrey}
+.nad-disconnected .nad-capacitor {stroke: lightgrey}
+.nad-disconnected .nad-inductor {stroke: lightgrey}
+.nad-disconnected .nad-svc {stroke: lightgrey}
+.nad-unknown {stroke: none; fill: black}
 ]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-672.66,784.63)" id="0" class="nad-vl180to300">
@@ -551,77 +566,77 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: 745px; left: -573px" id="0-textnode">
                 <div>A 230</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 574px; left: -940px" id="2-textnode">
                 <div>A 400</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 838px; left: -121px" id="4-textnode">
                 <div>B 230</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 557px; left: 1229px" id="6-textnode">
                 <div>C 20</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 776px; left: 368px" id="8-textnode">
                 <div>C 230</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 504px; left: 815px" id="10-textnode">
                 <div>C 66</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -391px; left: 457px" id="12-textnode">
                 <div>D 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 15px; left: 816px" id="14-textnode">
                 <div>D 66</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -860px; left: 530px" id="16-textnode">
                 <div>E 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -1013px; left: 124px" id="18-textnode">
                 <div>F 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -981px; left: -305px" id="20-textnode">
                 <div>G 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -589px; left: -224px" id="22-textnode">
                 <div>H 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -610px; left: 101px" id="24-textnode">
                 <div>I 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -168px; left: -34px" id="26-textnode">
                 <div>J 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -38px; left: 293px" id="28-textnode">
                 <div>K 10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
         </div>

@@ -7,7 +7,7 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -44,17 +45,17 @@ public class StyleProvidersList implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         return concatenateLists(sp -> sp.getNodeStyles(graph, node, componentLibrary, showInternalNodes));
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary) {
         return concatenateLists(sp -> sp.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary));
     }
 
     @Override
-    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+    public List<String> getBranchEdgeStyles(BranchEdge edge, SldComponentLibrary componentLibrary) {
         return concatenateLists(sp -> sp.getBranchEdgeStyles(edge, componentLibrary));
     }
 
@@ -91,6 +92,11 @@ public class StyleProvidersList implements StyleProvider {
     @Override
     public List<String> getBusInfoStyle(BusInfo info) {
         return concatenateLists(sp -> sp.getBusInfoStyle(info));
+    }
+
+    @Override
+    public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
+        return concatenateLists(sp -> sp.getBusLegendCaptionStyles(caption));
     }
 
     @Override
