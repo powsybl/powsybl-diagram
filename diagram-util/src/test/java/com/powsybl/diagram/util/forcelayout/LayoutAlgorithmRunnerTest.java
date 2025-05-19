@@ -34,7 +34,7 @@ class LayoutAlgorithmRunnerTest {
                 new SpringyParameters.Builder().build()
         );
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        assertDoesNotThrow(() -> runner.toSVG(tooltip, tempDirectory.toPath().resolve("/tmp/test.svg")));
+        assertDoesNotThrow(() -> runner.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
     }
 
     @Test
