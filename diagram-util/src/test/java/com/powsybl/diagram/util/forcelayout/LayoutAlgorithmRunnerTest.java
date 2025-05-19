@@ -13,8 +13,9 @@ import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyPar
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.nio.file.Path;
+import java.io.File;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 class LayoutAlgorithmRunnerTest {
+    @TempDir
+    File tempDirectory;
+
     @Test
     void svgNotExecuted() {
         LayoutAlgorithmRunner<String, DefaultEdge> runner = new LayoutAlgorithmRunner<>(
@@ -30,7 +34,7 @@ class LayoutAlgorithmRunnerTest {
                 new SpringyParameters.Builder().build()
         );
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        assertDoesNotThrow(() -> runner.toSVG(tooltip, Path.of("/tmp/test.svg")));
+        assertDoesNotThrow(() -> runner.toSVG(tooltip, tempDirectory.toPath().resolve("/tmp/test.svg")));
     }
 
     @Test

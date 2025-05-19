@@ -13,9 +13,9 @@ import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.Helpers;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -26,6 +26,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 class ForceGraphTest {
+    @TempDir
+    File tempDirectory;
+
     @Test
     void graphCreation() {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
@@ -65,7 +68,6 @@ class ForceGraphTest {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
-        String testPath = "/tmp/test.svg";
-        assertDoesNotThrow(() -> forceLayout.toSVG(tooltip, Path.of(testPath)));
+        assertDoesNotThrow(() -> forceLayout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
     }
 }
