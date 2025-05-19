@@ -48,7 +48,7 @@ class ForceGraphTest {
     }
 
     @Test
-    void toSvg() throws IOException {
+    void toSvg() {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
