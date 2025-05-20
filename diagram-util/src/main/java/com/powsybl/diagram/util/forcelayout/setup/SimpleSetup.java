@@ -31,5 +31,7 @@ public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
                 )));
             }
         }
+        forceGraph.getAllPoints().putAll(forceGraph.getMovingPoints());
+        forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
     }
 }
