@@ -13,4 +13,5 @@ package com.powsybl.diagram.util.forcelayout.layouts;
  */
 public enum LayoutEnum {
     SPRINGY,
+    ATLAS2,
 }
