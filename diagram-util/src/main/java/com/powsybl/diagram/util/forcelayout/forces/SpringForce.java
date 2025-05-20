@@ -33,6 +33,7 @@ public class SpringForce<V, E> implements Force<V, E> {
         for (DefaultEdge edge : forceGraph.getSimpleGraph().edgesOf(forThisVertex)) {
             // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring
             V otherVertex = Graphs.getOppositeVertex(forceGraph.getSimpleGraph(), edge, forThisVertex);
+            // TODO change this with forceGraph.getAllPoints.get(otherVertex) once refactor is merged
             Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {
                 otherPoint = forceGraph.getFixedPoints().get(otherVertex);

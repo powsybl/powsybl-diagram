@@ -47,5 +47,9 @@ public class SpringySetup<V, E> implements Setup<V, E> {
                 )));
             }
         }
+        // this is the same as SimpleSetup, could probably put a function that does that in abstract setup
+        // TODO wait for refactor merge to avoid too many conflicts
+        forceGraph.getAllPoints().putAll(forceGraph.getMovingPoints());
+        forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
     }
 }

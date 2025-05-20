@@ -32,5 +32,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
                 )));
             }
         }
+        forceGraph.getAllPoints().putAll(forceGraph.getMovingPoints());
+        forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
     }
 }
