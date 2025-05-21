@@ -17,11 +17,11 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class LinearRepulsionForce<V, E> extends AbstractForce<V, E> {
+public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
 
     private final IntensityEffectFromFixedNodesParameters forceParameter;
 
-    public LinearRepulsionForce(IntensityEffectFromFixedNodesParameters forceParameter) {
+    public LinearRepulsionForceByDegree(IntensityEffectFromFixedNodesParameters forceParameter) {
         this.forceParameter = forceParameter;
     }
 

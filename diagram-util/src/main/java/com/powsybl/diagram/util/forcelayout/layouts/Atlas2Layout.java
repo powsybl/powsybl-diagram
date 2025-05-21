@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.layouts;
 import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
 import com.powsybl.diagram.util.forcelayout.forces.GravityForceByEdgeNumber;
 import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
-import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForce;
+import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
@@ -34,7 +34,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
                                 layoutParameters.getAttraction()
                         )
         ));
-        this.forces.add(new LinearRepulsionForce<>(
+        this.forces.add(new LinearRepulsionForceByDegree<>(
                 new IntensityEffectFromFixedNodesParameters(
                         layoutParameters.getRepulsion(),
                         layoutParameters.isRepulsionForceFromFixedPoints()
