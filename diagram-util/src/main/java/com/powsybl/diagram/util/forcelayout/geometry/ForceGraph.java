@@ -15,8 +15,12 @@ import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -113,6 +117,12 @@ public class ForceGraph<V, E> {
         this.initialPoints = intersection;
         setFixedNodes(intersection.keySet());
         return this;
+    }
+
+    public void toSVG(Function<V, String> tooltip, Path path) throws IOException {
+        try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            toSVG(tooltip, writer);
+        }
     }
 
     public void toSVG(Function<V, String> tooltip, Writer writer) {
