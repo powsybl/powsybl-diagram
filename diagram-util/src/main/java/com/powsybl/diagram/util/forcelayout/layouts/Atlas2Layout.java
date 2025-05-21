@@ -8,7 +8,7 @@
 package com.powsybl.diagram.util.forcelayout.layouts;
 
 import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
-import com.powsybl.diagram.util.forcelayout.forces.GravityForceByEdgeNumber;
+import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
 import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
@@ -41,7 +41,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
                 )
         ));
         if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new GravityForceByEdgeNumber<>(
+            this.forces.add(new GravityForceByDegree<>(
                     new IntensityParameter(
                             layoutParameters.getGravity()
                     )

@@ -18,13 +18,13 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class GravityForceByEdgeNumberTest {
+class GravityForceByDegreeTest {
 
     @Test
     void calculateForce() {
         double delta = 1e-5;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(
+        GravityForceByDegree<String, DefaultEdge> gravityForceByDegree = new GravityForceByDegree<>(
                 new IntensityParameter(0.01)
         );
         String[] vertexToTest = {
@@ -38,6 +38,6 @@ class GravityForceByEdgeNumberTest {
             new Vector2D(-0.007071, -0.007071)
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, gravityForceByEdgeNumber, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, gravityForceByDegree, vertexToTest, resultVector, delta);
     }
 }
