@@ -14,8 +14,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -28,26 +26,16 @@ class GravityForceLinearTest {
         GravityForceLinear<String, DefaultEdge> gravityForceLinear = new GravityForceLinear<>(
                 new IntensityParameter(0.01)
         );
-        Vector2D onPoint1 = gravityForceLinear.calculateForce(
-                "1",
-                forceGraph.getFixedPoints().get("1"),
-                forceGraph
-        );
-        assertEquals(0.0314, onPoint1.getX(), delta);
-        assertEquals(-0.0278, onPoint1.getY(), delta);
-        Vector2D onPoint2 = gravityForceLinear.calculateForce(
-                "2",
-                forceGraph.getMovingPoints().get("2"),
-                forceGraph
-        );
-        assertEquals(-0.01414, onPoint2.getX(), delta);
-        assertEquals(-0.15, onPoint2.getY(), delta);
-        Vector2D onPoint4 = gravityForceLinear.calculateForce(
-                "4",
-                forceGraph.getMovingPoints().get("4"),
-                forceGraph
-        );
-        assertEquals(-0.05, onPoint4.getX(), delta);
-        assertEquals(-0.05, onPoint4.getY(), delta);
+        String[] vertexToTest = {
+            "1",
+            "2",
+            "4"
+        };
+        Vector2D[] resultVector = {
+            new Vector2D(0.0314, -0.0278),
+            new Vector2D(-0.01414, -0.15),
+            new Vector2D(-0.05, -0.05)
+        };
+        ForceTestUtil.testForceCalculation(forceGraph, gravityForceLinear, vertexToTest, resultVector, delta);
     }
 }
