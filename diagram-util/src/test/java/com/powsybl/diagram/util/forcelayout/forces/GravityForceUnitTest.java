@@ -32,11 +32,6 @@ class GravityForceUnitTest {
             "2",
             "4"
         };
-        Vector2D onPoint1 = gravityForceUnit.calculateForce(
-                "1",
-                forceGraph.getFixedPoints().get("1"),
-                forceGraph
-        );
         Vector2D[] resultVector = {
             new Vector2D(0.007487, -0.006629),
             new Vector2D(-0.000939, -0.009956),
