@@ -50,6 +50,11 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
+    /// Use Atlas2 layout with default parameters
+    public Atlas2Layout() {
+        this(new Atlas2Parameters.Builder().build());
+    }
+
     ///  Note : the mass of the points doesn't have an impact on the graph as it doesn't appear in Atlas2
     /// We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
