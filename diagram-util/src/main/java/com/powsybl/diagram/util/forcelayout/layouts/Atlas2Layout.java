@@ -62,6 +62,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
         double previousGraphSpeed = 0.;
+        int graphSize = forceGraph.getSimpleGraph().vertexSet().size();
         for (Point point : forceGraph.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
             swingMap.put(point, 0.);
@@ -105,7 +106,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
             updatePosition(forceGraph, newGraphSpeed, swingMap, previousForces);
-            if (isStable(previousGraphSpeed, newGraphSpeed)) {
+            if (isStable(previousGraphSpeed, newGraphSpeed, graphSize)) {
                 break;
             }
             previousGraphSpeed = newGraphSpeed;
@@ -143,16 +144,22 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
         }
     }
 
-    private boolean isStable(double previousGraphSpeed, double newGraphSpeed) {
+    private boolean isStable(double previousGraphSpeed, double newGraphSpeed, int graphSize) {
         // this stability condition is handmade and not mentioned in Atlas2's paper
         // a stop condition is given in that paper, but it involves calculating the distance of all the edges and vertex of the graph
         // which is expensive to do for big graphs (quadratic complexity with the number of vertex)
         if (newGraphSpeed == 0) {
             return true;
         } else {
+            // divide by the size of the graph to keep it consistent between different size of graph
+            // because much bigger graphs would have more trouble stopping than small graphs, since we sum the movement of the vertex
+            double normalizedGraphSpeed = newGraphSpeed / graphSize;
             // check the graph speed is low, and check that the graph speed doesn't change much between steps
             // the limit values could be chosen by the user, but for now we keep it like that
-            return newGraphSpeed < 0.1 && Math.abs(1 - previousGraphSpeed / newGraphSpeed) < 0.2;
+            // TODO add the stopping values as parameters of the layout
+            // also have the second check be graph size dependant, as smaller graph will have variations that are comparatively bigger
+            // since the vertex are less, the graphSpeed is lower, meaning that a small speed for a vertex could double the graphSpeed for example
+            return normalizedGraphSpeed < 0.05 && Math.abs(1 - previousGraphSpeed / newGraphSpeed) < 2. / graphSize;
         }
     }
 }
