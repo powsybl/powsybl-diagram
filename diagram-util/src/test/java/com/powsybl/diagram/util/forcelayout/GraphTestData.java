@@ -23,7 +23,7 @@ import java.util.*;
 public final class GraphTestData {
 
     private GraphTestData() {
-        throw new AssertionError("Instantiating utility class");
+        throw new AssertionError("Instantiating utility class GraphTestData");
     }
 
     public static Point[] getPoints() {
