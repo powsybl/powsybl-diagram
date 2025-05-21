@@ -15,8 +15,6 @@ import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -29,27 +27,16 @@ class SpringForceTest {
         SpringForce<String, DefaultEdge> springForce = new SpringForce<>(
                 SpringyLayout.initializeSprings(forceGraph)
         );
-        Vector2D onPoint3 = springForce.calculateForce(
-                "3",
-                forceGraph.getMovingPoints().get("3"),
-                forceGraph
-        );
-        assertEquals(10.355339, onPoint3.getX(), delta);
-        assertEquals(-10.355339, onPoint3.getY(), delta);
-        Vector2D onPoint1 = springForce.calculateForce(
-                "1",
-                forceGraph.getFixedPoints().get("1"),
-                forceGraph
-        );
-        assertEquals(368.104, onPoint1.getX(), delta);
-        assertEquals(534.405, onPoint1.getY(), delta);
-        Vector2D onPoint4 = springForce.calculateForce(
-                "4",
-                forceGraph.getMovingPoints().get("4"),
-                forceGraph
-        );
-        assertEquals(0, onPoint4.getX(), delta);
-        assertEquals(0, onPoint4.getY(), delta);
-
+        String[] vertexToTest = {
+            "3",
+            "1",
+            "4"
+        };
+        Vector2D[] resultVector = {
+            new Vector2D(10.355339, -10.355339),
+            new Vector2D(368.104, 534.405),
+            new Vector2D(0, 0)
+        };
+        ForceTestUtil.testForceCalculation(forceGraph, springForce, vertexToTest, resultVector, delta);
     }
 }
