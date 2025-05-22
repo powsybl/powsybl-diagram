@@ -42,7 +42,7 @@ public class LayoutAlgorithmRunner<V, E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LayoutAlgorithmRunner.class);
 
-    LayoutAlgorithmRunner(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
+    public LayoutAlgorithmRunner(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
         chooseSetup(setupChoice);
         chooseLayoutAlgorithm(layoutParameters);
     }
