@@ -33,12 +33,12 @@ public class Atlas2ForceLayout extends AbstractLayout {
     //maybe change the class name to not be confused with NAD LayoutParameters ?
     private final Atlas2Parameters<Node, Edge> atlas2Parameters;
 
-    Atlas2ForceLayout(SetupEnum setupChoice, Atlas2Parameters<Node, Edge> atlas2Parameters) {
+    public Atlas2ForceLayout(SetupEnum setupChoice, Atlas2Parameters<Node, Edge> atlas2Parameters) {
         this.setupChoice = setupChoice;
         this.atlas2Parameters = atlas2Parameters;
     }
 
-    Atlas2ForceLayout() {
+    public Atlas2ForceLayout() {
         this (SetupEnum.SIMPLE, new Atlas2Parameters.Builder().build());
     }
 
