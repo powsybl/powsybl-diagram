@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
+import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesWithVertexDegreeParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -19,27 +19,29 @@ import java.util.Map;
  */
 public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
 
-    private final IntensityEffectFromFixedNodesParameters forceParameter;
+    private final IntensityEffectFromFixedNodesWithVertexDegreeParameters forceParameter;
 
-    public LinearRepulsionForceByDegree(IntensityEffectFromFixedNodesParameters forceParameter) {
+    public LinearRepulsionForceByDegree(IntensityEffectFromFixedNodesWithVertexDegreeParameters forceParameter) {
         this.forceParameter = forceParameter;
     }
 
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D();
+        // TODO we could make this faster if we knew the index of the vertex, maybe store it in the correspondingPoint ?
         int thisVertexDegree = forceGraph.getSimpleGraph().degreeOf(forThisVertex);
+        int otherVertexIndex = 0;
         for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getMovingPoints().entrySet()) {
-            if (otherVertexPoint.getValue() == correspondingPoint) {
-                continue;
+            if (!(otherVertexPoint.getValue() == correspondingPoint)) {
+                linearRepulsionBetweenPoints(
+                        resultingForce,
+                        thisVertexDegree,
+                        correspondingPoint,
+                        otherVertexPoint,
+                        otherVertexIndex
+                );
             }
-            linearRepulsionBetweenPoints(
-                    resultingForce,
-                    thisVertexDegree,
-                    correspondingPoint,
-                    otherVertexPoint,
-                    forceGraph
-            );
+            ++otherVertexIndex;
         }
         if (forceParameter.isEffectFromFixedNodes()) {
             for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getFixedPoints().entrySet()) {
@@ -48,8 +50,9 @@ public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
                         thisVertexDegree,
                         correspondingPoint,
                         otherVertexPoint,
-                        forceGraph
+                        otherVertexIndex
                 );
+                ++otherVertexIndex;
             }
         }
         return resultingForce;
@@ -60,7 +63,7 @@ public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
             int thisVertexDegree,
             Point correspondingPoint,
             Map.Entry<V, Point> otherVertexPoint,
-            ForceGraph<V, E> forceGraph
+            int otherVertexIndex
     ) {
         // The force goes from the otherPoint to the correspondingPoint (repulsion)
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherVertexPoint.getValue(), correspondingPoint);
@@ -72,7 +75,7 @@ public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
         double intensity = forceParameter.getForceIntensity()
                 * (thisVertexDegree + 1)
-                * (forceGraph.getSimpleGraph().degreeOf(otherVertexPoint.getKey()) + 1)
+                * (forceParameter.getDegreeOfVertex()[otherVertexIndex] + 1)
                 / force.magnitudeSquare();
         force.multiplyBy(intensity);
         resultingForce.add(force);

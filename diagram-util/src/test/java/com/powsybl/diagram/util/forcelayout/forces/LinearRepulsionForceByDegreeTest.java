@@ -8,11 +8,16 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
+import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesWithVertexDegreeParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -24,7 +29,8 @@ class LinearRepulsionForceByDegreeTest {
         double delta = 1e-4;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegree = new LinearRepulsionForceByDegree<>(
-                new IntensityEffectFromFixedNodesParameters(
+                buildRepulsionForceParameters(
+                        forceGraph,
                         0.34,
                         true
                 )
@@ -38,7 +44,8 @@ class LinearRepulsionForceByDegreeTest {
         ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegree, vertexToTest, resultVector, delta);
 
         LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegreeNoFixed = new LinearRepulsionForceByDegree<>(
-                new IntensityEffectFromFixedNodesParameters(
+                buildRepulsionForceParameters(
+                        forceGraph,
                         0.34,
                         false
                 )
@@ -50,5 +57,29 @@ class LinearRepulsionForceByDegreeTest {
         };
 
         ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeNoFixed, vertexToTest, resultVectorNoFixed, delta);
+    }
+
+    private IntensityEffectFromFixedNodesWithVertexDegreeParameters buildRepulsionForceParameters(
+            ForceGraph<String, DefaultEdge> forceGraph,
+            double forceIntensity,
+            boolean repulsionFromFixedNodes
+    ) {
+        ArrayList<Integer> degreeOfAllVertex = new ArrayList<>();
+        for (Map.Entry<String, Point> entry : forceGraph.getMovingPoints().entrySet()) {
+            degreeOfAllVertex.add(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+        for (Map.Entry<String, Point> entry : forceGraph.getFixedPoints().entrySet()) {
+            degreeOfAllVertex.add(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+        int[] degreeOfAllVertexArray = new int[degreeOfAllVertex.size()];
+        Iterator<Integer> integerIterator = degreeOfAllVertex.iterator();
+        for (int i = 0; i < degreeOfAllVertexArray.length; ++i) {
+            degreeOfAllVertexArray[i] = integerIterator.next(); // auto-unboxed from Integer to int
+        }
+        return new IntensityEffectFromFixedNodesWithVertexDegreeParameters(
+                forceIntensity,
+                repulsionFromFixedNodes,
+                degreeOfAllVertexArray
+        );
     }
 }
