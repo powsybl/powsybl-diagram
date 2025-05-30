@@ -11,16 +11,14 @@ import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
 import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
 import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesWithVertexDegreeParameters;
+import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.Atlas2Parameters;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -55,7 +53,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
     /// We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
     public void calculateLayout(ForceGraph<V, E> forceGraph) {
-        IntensityEffectFromFixedNodesWithVertexDegreeParameters repulsionForceParameters = buildRepulsionForceParameters(forceGraph);
+        IntensityEffectFromFixedNodesParameters repulsionForceParameters = buildRepulsionForceParameters(forceGraph);
         this.forces.add(new LinearRepulsionForceByDegree<>(
                repulsionForceParameters
         ));
@@ -107,31 +105,24 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
             updatePosition(forceGraph, newGraphSpeed, swingMap, previousForces);
-            if (isStable(previousGraphSpeed, newGraphSpeed, graphSize)) {
-                break;
-            }
+            //if (isStable(previousGraphSpeed, newGraphSpeed, graphSize)) {
+            //    break;
+            //}
             previousGraphSpeed = newGraphSpeed;
         }
         this.forces.remove(2); // remove the LinearRepulsionForce as it depends on the graph
     }
 
-    private IntensityEffectFromFixedNodesWithVertexDegreeParameters buildRepulsionForceParameters(ForceGraph<V, E> forceGraph) {
-        ArrayList<Integer> degreeOfAllVertex = new ArrayList<>();
+    private IntensityEffectFromFixedNodesParameters buildRepulsionForceParameters(ForceGraph<V, E> forceGraph) {
         for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
-            degreeOfAllVertex.add(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
         }
         for (Map.Entry<V, Point> entry : forceGraph.getFixedPoints().entrySet()) {
-            degreeOfAllVertex.add(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
         }
-        int[] degreeOfAllVertexArray = new int[degreeOfAllVertex.size()];
-        Iterator<Integer> integerIterator = degreeOfAllVertex.iterator();
-        for (int i = 0; i < degreeOfAllVertexArray.length; ++i) {
-            degreeOfAllVertexArray[i] = integerIterator.next(); // auto-unboxed from Integer to int
-        }
-        return new IntensityEffectFromFixedNodesWithVertexDegreeParameters(
+        return new IntensityEffectFromFixedNodesParameters(
                 layoutParameters.getRepulsion(),
-                layoutParameters.isRepulsionForceFromFixedPoints(),
-                degreeOfAllVertexArray
+                layoutParameters.isRepulsionForceFromFixedPoints()
         );
     }
 
