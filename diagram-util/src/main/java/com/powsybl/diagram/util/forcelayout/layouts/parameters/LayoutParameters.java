@@ -9,18 +9,10 @@
 package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public abstract class AbstractLayoutParameters<V, E> {
-
-    protected LayoutEnum parameterType;
-
-    public LayoutEnum getParameterType() {
-        return parameterType;
-    }
-
-    public abstract LayoutAlgorithm<V, E> createLayout();
+public interface LayoutParameters<V, E> {
+    LayoutAlgorithm<V, E> createLayout();
 }
