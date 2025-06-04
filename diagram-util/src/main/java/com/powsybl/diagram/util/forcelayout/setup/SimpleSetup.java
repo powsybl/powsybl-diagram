@@ -11,15 +11,16 @@ import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SimpleSetup<V, E> extends AbstractSetup<V, E> {
+public class SimpleSetup<V, E> implements Setup<V, E> {
 
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
-    public void setup(ForceGraph<V, E> forceGraph) {
+    public void setup(ForceGraph<V, E> forceGraph, Random random) {
         for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
             if (forceGraph.getFixedNodes().contains(vertex)) {
                 forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));

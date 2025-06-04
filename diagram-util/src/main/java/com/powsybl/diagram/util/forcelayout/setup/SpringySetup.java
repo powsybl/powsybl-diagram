@@ -12,14 +12,15 @@ import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringySetup<V, E> extends AbstractSetup<V, E> {
+public class SpringySetup<V, E> implements Setup<V, E> {
 
     @Override
-    public void setup(ForceGraph<V, E> forceGraph) {
+    public void setup(ForceGraph<V, E> forceGraph, Random random) {
         int nbUnknownPositions = forceGraph.getSimpleGraph().vertexSet().size() - forceGraph.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.

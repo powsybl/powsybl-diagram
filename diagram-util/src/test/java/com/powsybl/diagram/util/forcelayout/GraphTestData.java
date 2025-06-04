@@ -22,6 +22,8 @@ import java.util.*;
  */
 public final class GraphTestData {
 
+    private static final Random RANDOM = new Random(3L);
+
     private GraphTestData() {
         throw new AssertionError("Instantiating utility class GraphTestData");
     }
@@ -65,6 +67,6 @@ public final class GraphTestData {
         fixedNodes.add("1");
         forceGraph.setFixedNodes(fixedNodes);
         SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>();
-        setup.setup(forceGraph);
+        setup.setup(forceGraph, RANDOM);
     }
 }
