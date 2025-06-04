@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityParameter;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;

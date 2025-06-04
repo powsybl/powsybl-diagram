@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.forcelayout.forces.forceparameter;
+package com.powsybl.diagram.util.forcelayout.forces.parameters;
 
 import java.util.HashMap;
 import java.util.Map;
