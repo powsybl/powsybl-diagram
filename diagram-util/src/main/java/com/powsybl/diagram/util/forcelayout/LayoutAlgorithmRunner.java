@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.AbstractLayoutParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.LayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
@@ -42,7 +42,7 @@ public class LayoutAlgorithmRunner<V, E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LayoutAlgorithmRunner.class);
 
-    LayoutAlgorithmRunner(SetupEnum setupChoice, AbstractLayoutParameters<V, E> layoutParameters) {
+    LayoutAlgorithmRunner(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
         chooseSetup(setupChoice);
         chooseLayoutAlgorithm(layoutParameters);
     }
@@ -54,7 +54,7 @@ public class LayoutAlgorithmRunner<V, E> {
         };
     }
 
-    private void chooseLayoutAlgorithm(AbstractLayoutParameters<V, E> layoutParameters) {
+    private void chooseLayoutAlgorithm(LayoutParameters<V, E> layoutParameters) {
         this.layoutAlgorithm = layoutParameters.createLayout();
     }
 
