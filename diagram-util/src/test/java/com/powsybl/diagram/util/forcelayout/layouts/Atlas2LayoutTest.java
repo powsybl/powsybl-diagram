@@ -30,7 +30,6 @@ class Atlas2LayoutTest {
         StringWriter sw = new StringWriter();
         forceGraph.toSVG(v -> String.format("Vertex %s", v), sw);
         Helpers helper = new Helpers();
-        assertTrue(true);
-        //assertEquals(helper.toString("/atlas2_5_nodes.svg"), sw.toString());
+        assertEquals(helper.toString("/atlas2_5_nodes.svg"), sw.toString());
     }
 }
