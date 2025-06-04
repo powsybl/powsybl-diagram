@@ -8,7 +8,7 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
-import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
 
 /**
@@ -22,5 +22,5 @@ public abstract class AbstractLayoutParameters<V, E> {
         return parameterType;
     }
 
-    public abstract AbstractLayoutAlgorithm<V, E> createLayout();
+    public abstract LayoutAlgorithm<V, E> createLayout();
 }

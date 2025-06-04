@@ -9,7 +9,7 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.AbstractLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.AbstractSetup;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
@@ -30,7 +30,7 @@ import java.util.function.Function;
  */
 public class LayoutAlgorithmRunner<V, E> {
     private AbstractSetup<V, E> setup;
-    private AbstractLayoutAlgorithm<V, E> layoutAlgorithm;
+    private LayoutAlgorithm<V, E> layoutAlgorithm;
     private boolean hasBeenExecuted = false;
     private ForceGraph<V, E> forceGraph;
     private Vector2D center = new Vector2D(0, 0);

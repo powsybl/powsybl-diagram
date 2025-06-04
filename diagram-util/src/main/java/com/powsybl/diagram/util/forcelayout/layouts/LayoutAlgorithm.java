@@ -8,25 +8,11 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts;
 
-import com.powsybl.diagram.util.forcelayout.forces.Force;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public abstract class AbstractLayoutAlgorithm<V, E> {
-    protected List<Force<V, E>> forces;
-
-    public abstract void calculateLayout(ForceGraph<V, E> forceGraph);
-
-    AbstractLayoutAlgorithm(List<Force<V, E>> forces) {
-        this.forces = forces;
-    }
-
-    AbstractLayoutAlgorithm() {
-        this.forces = new ArrayList<>();
-    }
+public interface LayoutAlgorithm<V, E> {
+    void calculateLayout(ForceGraph<V, E> forceGraph);
 }
