@@ -28,7 +28,6 @@ public class ForceGraph<V, E> {
     private final Point origin = new Point(0, 0);
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceGraph.class);
 
-    private final Graph<V, E> graph;
     private final SimpleGraph<V, DefaultEdge> simpleGraph;
 
     private final Map<V, Point> movingPoints = new LinkedHashMap<>();
@@ -51,11 +50,6 @@ public class ForceGraph<V, E> {
             }
         }
         this.simpleGraph = locSimpleGraph;
-        this.graph = graph;
-    }
-
-    public Graph<V, E> getGraph() {
-        return graph;
     }
 
     public SimpleGraph<V, DefaultEdge> getSimpleGraph() {
@@ -139,9 +133,9 @@ public class ForceGraph<V, E> {
         ).forEach(entry -> entry.getValue().toSVG(printWriter, canvas, tooltip, entry.getKey()));
 
         // use graph and not simple graph, because we want to represent multiple edges, in case of multiple lines between stations
-        for (E edge : graph.edgeSet()) {
-            V firstVertex = graph.getEdgeSource(edge);
-            V secondVertex = graph.getEdgeTarget(edge);
+        for (DefaultEdge edge : simpleGraph.edgeSet()) {
+            V firstVertex = simpleGraph.getEdgeSource(edge);
+            V secondVertex = simpleGraph.getEdgeTarget(edge);
             Point point1;
             Point point2;
             try {
