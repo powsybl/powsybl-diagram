@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityParameter;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -16,7 +16,7 @@ import org.jgrapht.Graphs;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class LinearEdgeAttractionForce<V, E> extends AbstractForce<V, E> {
+public class LinearEdgeAttractionForce<V, E> implements Force<V, E> {
     private final IntensityParameter forceParameter;
 
     public LinearEdgeAttractionForce(IntensityParameter forceParameter) {
@@ -26,7 +26,7 @@ public class LinearEdgeAttractionForce<V, E> extends AbstractForce<V, E> {
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D();
-        for (V otherVertex : Graphs.neighborSetOf(forceGraph.getGraph(), forThisVertex)) {
+        for (V otherVertex : Graphs.neighborSetOf(forceGraph.getSimpleGraph(), forThisVertex)) {
             Point otherPoint = forceGraph.getAllPoints().get(otherVertex);
             forceBetweenPoints(resultingForce, correspondingPoint, otherPoint);
         }

@@ -11,7 +11,7 @@ import com.powsybl.diagram.util.forcelayout.LayoutAlgorithmRunner;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.Atlas2Parameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -59,7 +59,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
 
         layoutAlgorithmRunner.run(forceGraph);
 
-        forceGraph.getGraph().vertexSet().forEach(node -> {
+        forceGraph.getSimpleGraph().vertexSet().forEach(node -> {
             Vector2D p = layoutAlgorithmRunner.getStablePosition(node);
             if (node instanceof TextNode texNode) {
                 texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
