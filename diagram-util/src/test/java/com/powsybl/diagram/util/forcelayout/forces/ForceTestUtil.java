@@ -27,7 +27,7 @@ public final class ForceTestUtil {
 
     public static void testForceCalculation(
             ForceGraph<String, DefaultEdge> forceGraph,
-            AbstractForce<String, DefaultEdge> force,
+            Force<String, DefaultEdge> force,
             String[] vertexToTest,
             Vector2D[] resultForces,
             double delta

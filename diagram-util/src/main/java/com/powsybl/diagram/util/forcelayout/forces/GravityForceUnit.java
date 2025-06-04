@@ -15,7 +15,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class GravityForceUnit<V, E> implements AbstractForce<V, E> {
+public class GravityForceUnit<V, E> implements Force<V, E> {
     private final IntensityParameter forceParameter;
 
     public GravityForceUnit(IntensityParameter forceParameter) {
