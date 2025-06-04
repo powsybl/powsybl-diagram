@@ -8,8 +8,8 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.SpringContainer;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.SpringParameter;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringContainer;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
