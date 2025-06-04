@@ -136,15 +136,14 @@ public class ForceGraph<V, E> {
         for (DefaultEdge edge : simpleGraph.edgeSet()) {
             V firstVertex = simpleGraph.getEdgeSource(edge);
             V secondVertex = simpleGraph.getEdgeTarget(edge);
-            Point point1;
-            Point point2;
-            try {
-                point1 = getPointWithVertex(firstVertex);
-                point2 = getPointWithVertex(secondVertex);
-            } catch (NoSuchElementException e) {
-                LOGGER.error("No vertex found, trying to continue with other vertex: %s", e);
+            Optional<Point> point1Opt = getPointWithVertex(firstVertex);
+            Optional<Point> point2Opt = getPointWithVertex(secondVertex);
+            if (point1Opt.isEmpty() || point2Opt.isEmpty()) {
+                LOGGER.error("No point found for edge, trying to continue with other vertex: {}", edge);
                 continue;
             }
+            Point point1 = point1Opt.get();
+            Point point2 = point2Opt.get();
             // this seems incorrect (reversed point1 and point2), but this is a refactor, so I just copied what was in the Spring class
             Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
             Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
@@ -163,17 +162,12 @@ public class ForceGraph<V, E> {
         printWriter.close();
     }
 
-    private Point getPointWithVertex(V vertex) throws NoSuchElementException {
+    private Optional<Point> getPointWithVertex(V vertex) {
         Point point = movingPoints.get(vertex);
         if (point != null) {
-            return point;
+            return Optional.of(point);
         } else {
-            point = fixedPoints.get(vertex);
-            if (point != null) {
-                return point;
-            } else {
-                throw new NoSuchElementException("There is no point corresponding to this vertex");
-            }
+            return Optional.ofNullable(fixedPoints.get(vertex));
         }
     }
 
