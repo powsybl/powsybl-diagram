@@ -9,7 +9,7 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;

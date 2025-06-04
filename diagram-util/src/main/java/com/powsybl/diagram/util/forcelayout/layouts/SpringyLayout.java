@@ -16,7 +16,7 @@ import com.powsybl.diagram.util.forcelayout.forces.parameters.*;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;

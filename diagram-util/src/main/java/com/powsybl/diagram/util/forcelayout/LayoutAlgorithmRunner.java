@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.AbstractLayoutParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.AbstractLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.AbstractSetup;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;

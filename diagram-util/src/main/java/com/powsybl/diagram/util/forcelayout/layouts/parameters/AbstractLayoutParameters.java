@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters;
+package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
 import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
