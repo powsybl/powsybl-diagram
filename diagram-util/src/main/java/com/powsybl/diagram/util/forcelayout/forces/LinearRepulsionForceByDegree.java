@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class LinearRepulsionForceByDegree<V, E> extends AbstractForce<V, E> {
+public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
 
     private final IntensityEffectFromFixedNodesParameters forceParameter;
 

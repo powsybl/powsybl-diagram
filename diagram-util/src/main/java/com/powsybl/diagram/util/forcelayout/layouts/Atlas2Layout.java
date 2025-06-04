@@ -7,28 +7,30 @@
  */
 package com.powsybl.diagram.util.forcelayout.layouts;
 
-import com.powsybl.diagram.util.forcelayout.forces.AbstractForce;
+import com.powsybl.diagram.util.forcelayout.forces.Force;
 import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
 import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.forces.forceparameter.IntensityParameter;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters.Atlas2Parameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
+public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters<V, E> layoutParameters;
+    private final List<Force<V, E>> forces = new ArrayList<>();
 
     public Atlas2Layout(Atlas2Parameters<V, E> layoutParameters) {
-        super();
         this.forces.add(new LinearEdgeAttractionForce<>(
                         new IntensityParameter(
                                 layoutParameters.getAttraction()
@@ -74,7 +76,7 @@ public class Atlas2Layout<V, E> extends AbstractLayoutAlgorithm<V, E> {
             //calculate forces
             for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
-                for (AbstractForce<V, E> force : forces) {
+                for (Force<V, E> force : forces) {
                     Vector2D resultingForce = force.calculateForce(entry.getKey(), point, forceGraph);
                     point.applyForce(resultingForce);
                 }

@@ -5,16 +5,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.layouts.layoutsparameters;
+package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
-import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.Atlas2Layout;
-import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public final class Atlas2Parameters<V, E> extends AbstractLayoutParameters<V, E> {
+public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
     private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_REPULSION = 2;
     private static final double DEFAULT_ATTRACTION = 2;
@@ -49,9 +48,6 @@ public final class Atlas2Parameters<V, E> extends AbstractLayoutParameters<V, E>
             boolean repulsionForceFromFixedPoints,
             boolean attractToCenterForce
     ) {
-        super();
-        this.parameterType = LayoutEnum.ATLAS2;
-
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
         this.attraction = attraction;
@@ -183,7 +179,7 @@ public final class Atlas2Parameters<V, E> extends AbstractLayoutParameters<V, E>
     }
 
     @Override
-    public AbstractLayoutAlgorithm<V, E> createLayout() {
+    public LayoutAlgorithm<V, E> createLayout() {
         return new Atlas2Layout<>(this);
     }
 }
