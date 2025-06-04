@@ -19,7 +19,7 @@ import org.jgrapht.graph.DefaultEdge;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringForce<V, E> extends AbstractForce<V, E> {
+public class SpringForce<V, E> implements AbstractForce<V, E> {
     private final SpringContainer<DefaultEdge> forceParameter;
 
     public SpringForce(SpringContainer<DefaultEdge> forceParameter) {
