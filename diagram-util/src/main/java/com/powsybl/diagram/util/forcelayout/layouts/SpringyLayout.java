@@ -27,14 +27,14 @@ import java.util.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringyLayout<V, E> extends AbstractLayoutAlgorithm<V, E> {
+public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
     private static final double DEFAULT_STIFFNESS = 100.0;
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
 
     private final SpringyParameters<V, E> layoutParameters;
+    private final List<Force<V, E>> forces = new ArrayList<>();
 
     public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
-        super();
         this.forces.add(new CoulombForce<>(
                 new IntensityEffectFromFixedNodesParameters(
                         layoutParameters.getRepulsion(),

@@ -8,7 +8,7 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
-import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
 import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 
@@ -152,7 +152,7 @@ public final class SpringyParameters<V, E> extends AbstractLayoutParameters<V, E
     }
 
     @Override
-    public AbstractLayoutAlgorithm<V, E> createLayout() {
+    public LayoutAlgorithm<V, E> createLayout() {
         return new SpringyLayout<>(this);
     }
 }
