@@ -6,7 +6,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+<<<<<<<< HEAD:diagram-util/src/main/java/com/powsybl/diagram/util/layout/algorithms/parameters/BasicForceLayoutParameters.java
 package com.powsybl.diagram.util.layout.algorithms.parameters;
+========
+package com.powsybl.diagram.util.forcelayout.layouts.parameters;
+
+import com.powsybl.diagram.util.forcelayout.layouts.AbstractLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.LayoutEnum;
+import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
+>>>>>>>> d46ff350 (Rename layouts.layoutsparameters to layouts.parameters):diagram-util/src/main/java/com/powsybl/diagram/util/forcelayout/layouts/parameters/SpringyParameters.java
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
