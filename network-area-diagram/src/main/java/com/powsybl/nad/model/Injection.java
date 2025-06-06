@@ -10,7 +10,7 @@ package com.powsybl.nad.model;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class Injection {
+public class Injection extends AbstractIdentifiable {
 
     public enum Type {
         LOAD,
@@ -28,7 +28,8 @@ public class Injection {
     private final double q;
     private double angle;
 
-    public Injection(Type type, double p, double q) {
+    public Injection(String diagramId, String equipmentId, String nameOrId, Type type, double p, double q) {
+        super(diagramId, equipmentId, nameOrId);
         this.type = type;
         this.p = p;
         this.q = q;

@@ -78,8 +78,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .map(Terminal::getConnectable)
                 .filter(com.powsybl.iidm.network.Injection.class::isInstance)
                 .map(com.powsybl.iidm.network.Injection.class::cast)
-                .map(inj -> new Injection(getInjectionType(inj), inj.getTerminal().getP(), inj.getTerminal().getQ()))
+                .map(this::createInjectionFromIidm)
                 .toList();
+    }
+
+    private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
+        String diagramId = idProvider.createId(inj);
+        Injection.Type injectionType = getInjectionType(inj);
+        Terminal terminal = inj.getTerminal();
+        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType, terminal.getP(), terminal.getQ());
     }
 
     private Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
