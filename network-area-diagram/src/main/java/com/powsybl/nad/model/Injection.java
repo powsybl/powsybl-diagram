@@ -7,6 +7,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -25,6 +27,8 @@ public class Injection extends AbstractIdentifiable {
 
     private final Type type;
     private double angle;
+    private Point injPoint;
+    private Point busNodePoint;
 
     public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
         super(diagramId, equipmentId, nameOrId);
@@ -41,5 +45,14 @@ public class Injection extends AbstractIdentifiable {
 
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    public void setEdge(Point busNodePoint, Point injPoint) {
+        this.busNodePoint = busNodePoint;
+        this.injPoint = injPoint;
+    }
+
+    public List<Point> getEdge() {
+        return List.of(busNodePoint, injPoint);
     }
 }
