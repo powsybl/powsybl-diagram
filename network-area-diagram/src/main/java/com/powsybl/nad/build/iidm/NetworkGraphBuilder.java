@@ -85,8 +85,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
         String diagramId = idProvider.createId(inj);
         Injection.Type injectionType = getInjectionType(inj);
-        Terminal terminal = inj.getTerminal();
-        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType, terminal.getP(), terminal.getQ());
+        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
     }
 
     private Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {

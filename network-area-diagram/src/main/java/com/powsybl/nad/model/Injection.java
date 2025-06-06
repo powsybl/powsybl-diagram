@@ -24,27 +24,15 @@ public class Injection extends AbstractIdentifiable {
     }
 
     private final Type type;
-    private final double p;
-    private final double q;
     private double angle;
 
-    public Injection(String diagramId, String equipmentId, String nameOrId, Type type, double p, double q) {
+    public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
         super(diagramId, equipmentId, nameOrId);
         this.type = type;
-        this.p = p;
-        this.q = q;
     }
 
     public Type getType() {
         return type;
-    }
-
-    public double getP() {
-        return p;
-    }
-
-    public double getQ() {
-        return q;
     }
 
     public double getAngle() {
