@@ -139,7 +139,11 @@ public class DefaultEdgeRendering implements EdgeRendering {
         int i = 0;
         for (BusNode busNode : node.getBusNodes()) {
             for (Injection injection : busNode.getInjections()) {
-                injection.setAngle(angles.get(i++));
+                Double angle = angles.get(i++);
+                injection.setAngle(angle);
+                Point injPoint = node.getPosition().atDistance(svgParameters.getInjectionEdgeLength(), angle);
+                Point busNodePoint = computeEdgeStart(busNode, injPoint, node, svgParameters);
+                injection.setEdge(busNodePoint, injPoint);
             }
         }
     }

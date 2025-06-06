@@ -58,6 +58,7 @@ public class SvgParameters {
     private boolean highlightGraph;
     private boolean injectionsAdded = false;
     private double injectionAperture = 10;
+    private double injectionEdgeLength = 120;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -520,6 +521,15 @@ public class SvgParameters {
 
     public SvgParameters setInjectionAperture(double injectionAperture) {
         this.injectionAperture = injectionAperture;
+        return this;
+    }
+
+    public double getInjectionEdgeLength() {
+        return injectionEdgeLength;
+    }
+
+    public SvgParameters setInjectionEdgeLength(double injectionEdgeLength) {
+        this.injectionEdgeLength = injectionEdgeLength;
         return this;
     }
 }
