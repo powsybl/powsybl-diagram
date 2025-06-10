@@ -99,6 +99,11 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
+        return Optional.empty(); // TODO:
+    }
+
+    @Override
     public String getLabel(Edge edge) {
         BranchLabels bl = branchLabels.get(edge.getEquipmentId());
         return (bl != null) ? bl.middle : null;

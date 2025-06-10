@@ -108,6 +108,9 @@ public class SvgWriter {
                 drawHighlightedSection(graph, writer);
             }
             drawVoltageLevelNodes(graph, writer);
+            if (svgParameters.isInjectionsAdded()) {
+                drawInjections(graph, writer);
+            }
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
@@ -127,6 +130,45 @@ public class SvgWriter {
         drawHighlightBranchEdges(graph, writer);
         drawHighlightThreeWtEdges(graph, writer);
         writer.writeEndElement();
+    }
+
+    private void drawInjections(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.INJECTIONS_CLASS);
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            for (BusNode busNode : vlNode.getBusNodes()) {
+                drawInjections(graph, busNode, vlNode, writer);
+            }
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+        for (Injection injection : busNode.getInjections()) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writeId(writer, injection);
+            writeStyleClasses(writer, styleProvider.getInjectionStyleClasses(injection));
+            insertName(writer, injection::getName);
+            drawInjectionEdge(graph, injection, busNode, vlNode, writer);
+            drawInjection(graph, injection, writer);
+            writer.writeEndElement();
+        }
+    }
+
+    private void drawInjectionEdge(Graph graph, Injection injection, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(injection.getEdge()));
+        if (edgeInfo.isPresent()) {
+            drawInjectionEdgeInfo(graph, writer, injection, vlNode, busNode, edgeInfo.get());
+        }
+    }
+
+    private void drawInjection(Graph graph, Injection injection, XMLStreamWriter writer) {
+
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
@@ -450,6 +492,10 @@ public class SvgWriter {
         drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
+    private void drawInjectionEdgeInfo(Graph graph, XMLStreamWriter writer, Injection injection, VoltageLevelNode vlNode, BusNode busNode, EdgeInfo edgeInfo) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, injection.getEdge()), injection.getAngle());
+    }
+
     private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
         drawEdgeInfo(writer, Collections.emptyList(), edgeInfo, infoCenter, edgeAngle);
     }
@@ -603,7 +649,7 @@ public class SvgWriter {
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(vlNode));
             drawNode(graph, writer, vlNode);
