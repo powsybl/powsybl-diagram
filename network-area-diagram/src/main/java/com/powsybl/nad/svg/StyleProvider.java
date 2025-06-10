@@ -66,6 +66,8 @@ public interface StyleProvider {
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
+    List<String> getInjectionStyleClasses(Injection injection);
+
     List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
 
     default String getBusNodeStyle(BusNode busNode) {
@@ -80,5 +82,7 @@ public interface StyleProvider {
         return null;
     }
 
-    List<String> getInjectionStyleClasses(Injection injection);
+    default String getInjectionStyle(Injection injection) {
+        return null;
+    }
 }

@@ -74,32 +74,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private List<Injection> getInjections(Bus bus) {
-        return bus.getConnectedTerminalStream()
-                .map(Terminal::getConnectable)
-                .filter(com.powsybl.iidm.network.Injection.class::isInstance)
-                .map(com.powsybl.iidm.network.Injection.class::cast)
-                .map(this::createInjectionFromIidm)
-                .toList();
-    }
-
-    private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
-        String diagramId = idProvider.createId(inj);
-        Injection.Type injectionType = getInjectionType(inj);
-        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
-    }
-
-    private Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
-        return switch (inj.getType()) {
-            case GENERATOR -> Injection.Type.GENERATOR;
-            case BATTERY -> Injection.Type.BATTERY;
-            case LOAD -> Injection.Type.LOAD;
-            case SHUNT_COMPENSATOR -> Injection.Type.SHUNT_COMPENSATOR;
-            case DANGLING_LINE -> Injection.Type.DANGLING_LINE;
-            case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
-            case HVDC_CONVERTER_STATION -> Injection.Type.HVDC_CONVERTER_STATION;
-            case GROUND -> Injection.Type.GROUND;
-            default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
-        };
+        var topologyVisitor = new ConnectableInjectionsVisitor(idProvider);
+        bus.visitConnectedOrConnectableEquipments(topologyVisitor);
+        return topologyVisitor.getConnectableInjections();
     }
 
     private void addGraphEdges(VoltageLevel vl, Graph graph) {

@@ -27,7 +27,7 @@ public class Injection extends AbstractIdentifiable {
 
     private final Type type;
     private double angle;
-    private Point injPoint;
+    private Point injectionPoint;
     private Point busNodePoint;
 
     public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
@@ -49,10 +49,18 @@ public class Injection extends AbstractIdentifiable {
 
     public void setEdge(Point busNodePoint, Point injPoint) {
         this.busNodePoint = busNodePoint;
-        this.injPoint = injPoint;
+        this.injectionPoint = injPoint;
     }
 
     public List<Point> getEdge() {
-        return List.of(busNodePoint, injPoint);
+        return List.of(busNodePoint, injectionPoint);
+    }
+
+    public Point getBusNodePoint() {
+        return busNodePoint;
+    }
+
+    public Point getInjectionPoint() {
+        return injectionPoint;
     }
 }

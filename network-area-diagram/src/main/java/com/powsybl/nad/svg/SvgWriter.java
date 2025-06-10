@@ -150,6 +150,7 @@ public class SvgWriter {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, injection);
             writeStyleClasses(writer, styleProvider.getInjectionStyleClasses(injection));
+            writeStyleAttribute(writer, styleProvider.getInjectionStyle(injection));
             insertName(writer, injection::getName);
             drawInjectionEdge(graph, injection, busNode, vlNode, writer);
             drawInjection(graph, injection, writer);
@@ -167,8 +168,17 @@ public class SvgWriter {
         }
     }
 
-    private void drawInjection(Graph graph, Injection injection, XMLStreamWriter writer) {
+    private void drawInjection(Graph graph, Injection injection, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
 
+        writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        double radius = svgParameters.getInjectionCircleRadius();
+        Point circleCenter = injection.getInjectionPoint().atDistance(-radius, injection.getBusNodePoint());
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
+
+        writer.writeEndElement();
     }
 
     private void drawBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
