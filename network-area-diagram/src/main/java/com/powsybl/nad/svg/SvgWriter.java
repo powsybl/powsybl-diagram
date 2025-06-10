@@ -6,16 +6,21 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.diagram.components.ComponentLibrary;
 import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.alg.util.Pair;
+import org.w3c.dom.Element;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -63,11 +68,13 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
+    private final ComponentLibrary componentLibrary;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider, ComponentLibrary componentLibrary) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
+        this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.edgeRendering = new DefaultEdgeRendering();
     }
 
@@ -133,19 +140,27 @@ public class SvgWriter {
     }
 
     private void drawInjections(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.INJECTIONS_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
+        try {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            for (BusNode busNode : vlNode.getBusNodes()) {
-                drawInjections(graph, busNode, vlNode, writer);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.INJECTIONS_CLASS);
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                for (BusNode busNode : vlNode.getBusNodes()) {
+                    drawInjections(graph, busNode, vlNode, transformer, writer);
+                }
+                writer.writeEndElement();
             }
+
             writer.writeEndElement();
+
+        } catch (TransformerConfigurationException e) {
+            throw new PowsyblException(e);
         }
-        writer.writeEndElement();
     }
 
-    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
         for (Injection injection : busNode.getInjections()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, injection);
@@ -153,7 +168,7 @@ public class SvgWriter {
             writeStyleAttribute(writer, styleProvider.getInjectionStyle(injection));
             insertName(writer, injection::getName);
             drawInjectionEdge(graph, injection, busNode, vlNode, writer);
-            drawInjection(graph, injection, writer);
+            drawInjectionIcon(injection, transformer, writer);
             writer.writeEndElement();
         }
     }
@@ -168,7 +183,7 @@ public class SvgWriter {
         }
     }
 
-    private void drawInjection(Graph graph, Injection injection, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjectionIcon(Injection injection, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
 
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
@@ -178,6 +193,32 @@ public class SvgWriter {
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
 
+        insertSvgComponent(injection, transformer, writer);
+
+        writer.writeEndElement();
+    }
+
+    private void insertSvgComponent(Injection injection, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(injection.getIconOrigin(svgParameters.getInjectionCircleRadius())));
+
+        Result result = new SvgStAXResult(writer);
+        String componentType = injection.getComponentType();
+        writeStyleClasses(writer, componentLibrary.getComponentStyleClass(componentType).map(List::of).orElse(List.of()));
+
+        try {
+            Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
+            for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
+                List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
+                        .map(List::of).orElse(List.of());
+                writeStyleClasses(writer, edgeStyleClasses);
+                for (Element element : scEntry.getValue()) {
+                    transformer.transform(new DOMSource(element), result);
+                }
+            }
+        } catch (TransformerException e) {
+            throw new PowsyblException("Cannot insert SVG for injection of type " + injection.getType(), e);
+        }
         writer.writeEndElement();
     }
 
@@ -1016,13 +1057,15 @@ public class SvgWriter {
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
                 writer.writeStartElement(STYLE_ELEMENT_NAME);
-                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls());
+                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls())
+                        + CssUtil.getFilesContent(componentLibrary.getCssUrls());
                 writer.writeCData(cssContent);
                 writer.writeEndElement();
                 break;
             case EXTERNAL_IMPORTED:
                 writer.writeStartElement(STYLE_ELEMENT_NAME);
-                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames());
+                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames())
+                        + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
                 writer.writeCharacters(cssImports);
                 writer.writeEndElement();
                 break;

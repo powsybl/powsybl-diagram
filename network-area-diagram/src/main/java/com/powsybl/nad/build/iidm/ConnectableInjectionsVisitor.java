@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.build.iidm;
 
+import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.Injection;
 
@@ -39,13 +40,17 @@ public class ConnectableInjectionsVisitor implements TopologyVisitor {
             case GENERATOR -> Injection.Type.GENERATOR;
             case BATTERY -> Injection.Type.BATTERY;
             case LOAD -> Injection.Type.LOAD;
-            case SHUNT_COMPENSATOR -> Injection.Type.SHUNT_COMPENSATOR;
+            case SHUNT_COMPENSATOR -> getShuntCompensatorType((ShuntCompensator) inj);
             case DANGLING_LINE -> Injection.Type.DANGLING_LINE;
             case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
             case HVDC_CONVERTER_STATION -> Injection.Type.HVDC_CONVERTER_STATION;
             case GROUND -> Injection.Type.GROUND;
             default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
         };
+    }
+
+    private static Injection.Type getShuntCompensatorType(ShuntCompensator shuntCompensator) {
+        return IidmUtil.isCapacitor(shuntCompensator) ? Injection.Type.SHUNT_COMPENSATOR_CAPACITOR : Injection.Type.SHUNT_COMPENSATOR_INDUCTOR;
     }
 
     @Override
