@@ -1,0 +1,100 @@
+[
+  {
+    "type": "LOAD",
+    "size": {
+      "width": 16.0,
+      "height": 9.0
+    },
+    "subComponents": [
+      {
+        "name": "LOAD",
+        "fileName": "load.svg"
+      }
+    ],
+    "styleClass": "nad-load"
+  },
+  {
+    "type": "BATTERY",
+    "size": {
+      "width": 16.0,
+      "height": 10.0
+    },
+    "subComponents": [
+      {
+        "name": "BATTERY",
+        "fileName": "battery.svg"
+      }
+    ],
+    "styleClass": "nad-battery"
+  },
+  {
+    "type": "GENERATOR",
+    "size": {
+      "width": 12.0,
+      "height": 12.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg"
+      }
+    ],
+    "styleClass": "nad-generator"
+  },
+  {
+    "type": "CAPACITOR",
+    "size": {
+      "width": 12.0,
+      "height": 12.0
+    },
+    "subComponents": [
+      {
+        "name": "CAPACITOR",
+        "fileName": "capacitor.svg"
+      }
+    ],
+    "styleClass": "nad-capacitor"
+  },
+  {
+    "type": "INDUCTOR",
+    "size": {
+      "width": 15.0,
+      "height": 9.0
+    },
+    "subComponents": [
+      {
+        "name": "INDUCTOR",
+        "fileName": "inductor.svg"
+      }
+    ],
+    "styleClass": "nad-inductor"
+  },
+  {
+    "type": "STATIC_VAR_COMPENSATOR",
+    "size": {
+      "width": 12.0,
+      "height": 12.0
+    },
+    "subComponents": [
+      {
+        "name": "STATIC_VAR_COMPENSATOR",
+        "fileName": "svc.svg"
+      }
+    ],
+    "styleClass": "nad-svc"
+  },
+  {
+    "type": "UNKNOWN_COMPONENT",
+    "size": {
+      "width": 20.0,
+      "height": 20.0
+    },
+    "subComponents": [
+      {
+        "name": "UNKNOWN_COMPONENT",
+        "fileName": "unknown-component.svg"
+      }
+    ],
+    "styleClass": "nad-unknown"
+  }
+]

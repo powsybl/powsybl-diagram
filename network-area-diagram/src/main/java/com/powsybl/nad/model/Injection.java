@@ -16,7 +16,8 @@ public class Injection extends AbstractIdentifiable {
 
     public enum Type {
         LOAD,
-        SHUNT_COMPENSATOR,
+        SHUNT_COMPENSATOR_CAPACITOR,
+        SHUNT_COMPENSATOR_INDUCTOR,
         DANGLING_LINE,
         STATIC_VAR_COMPENSATOR,
         HVDC_CONVERTER_STATION,
@@ -37,6 +38,10 @@ public class Injection extends AbstractIdentifiable {
 
     public Type getType() {
         return type;
+    }
+
+    public String getComponentType() {
+        return type.name();
     }
 
     public double getAngle() {
@@ -62,5 +67,11 @@ public class Injection extends AbstractIdentifiable {
 
     public Point getInjectionPoint() {
         return injectionPoint;
+    }
+
+    public Point getIconOrigin(double circleRadius) {
+        double edgeDistance = busNodePoint.distance(injectionPoint);
+        Point circleCenter = busNodePoint.atDistance(edgeDistance + circleRadius, injectionPoint);
+        return circleCenter.shift(-circleRadius, -circleRadius);
     }
 }

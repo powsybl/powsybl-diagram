@@ -12,6 +12,8 @@ import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.library.DefaultComponentLibrary;
+import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
@@ -30,6 +32,7 @@ public class NadParameters {
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
+    private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
@@ -85,4 +88,12 @@ public class NadParameters {
         return this;
     }
 
+    public NadComponentLibrary getComponentLibrary() {
+        return componentLibrary;
+    }
+
+    public NadParameters setComponentLibrary(NadComponentLibrary componentLibrary) {
+        this.componentLibrary = componentLibrary;
+        return this;
+    }
 }
