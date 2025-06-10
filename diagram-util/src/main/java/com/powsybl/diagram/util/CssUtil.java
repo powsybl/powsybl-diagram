@@ -31,9 +31,7 @@ public final class CssUtil {
                 throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
             }
         }
-        return styleSheetBuilder.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
+        return styleSheetBuilder.toString();
     }
 
     public static String getImportCssString(List<String> cssFilenames) {
