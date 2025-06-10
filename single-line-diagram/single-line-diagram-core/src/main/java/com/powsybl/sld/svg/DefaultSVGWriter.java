@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.SldComponent;
@@ -27,21 +28,18 @@ import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
@@ -152,15 +150,17 @@ public class DefaultSVGWriter implements SVGWriter {
         Element style = document.createElement(STYLE);
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
-                List<URL> urls = styleProvider.getCssUrls();
-                urls.addAll(componentLibrary.getCssUrls());
-                style.appendChild(getCdataSection(document, urls));
+                List<URL> cssUrls = Stream.of(styleProvider.getCssUrls(), componentLibrary.getCssUrls())
+                        .flatMap(List::stream).toList();
+                String cssContent = CssUtil.getFilesContent(cssUrls);
+                style.appendChild(document.createCDATASection(cssContent + "\n"));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
             case EXTERNAL_IMPORTED:
-                styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
-                componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames())
+                        + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
+                style.appendChild(document.createTextNode(cssImports));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
@@ -170,26 +170,6 @@ public class DefaultSVGWriter implements SVGWriter {
             default:
                 throw new AssertionError("Unexpected CSS location: " + svgParameters.getCssLocation());
         }
-    }
-
-    private org.w3c.dom.Node addStyleImportTextNode(Document document, Element style, String name) {
-        return style.appendChild(document.createTextNode("@import url(" + name + ");"));
-    }
-
-    private CDATASection getCdataSection(Document document, List<URL> cssUrls) {
-        StringBuilder styleSheetBuilder = new StringBuilder();
-        for (URL cssUrl : cssUrls) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        String graphStyle = "\n" + styleSheetBuilder + "\n";
-        String cssStr = graphStyle
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-        return document.createCDATASection(cssStr);
     }
 
     private void addFrame(Document document) {
