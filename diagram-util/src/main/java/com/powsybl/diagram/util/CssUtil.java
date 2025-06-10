@@ -23,7 +23,7 @@ public final class CssUtil {
 
     public static String getFilesContent(List<URL> cssUrls) {
         Objects.requireNonNull(cssUrls);
-        StringBuilder styleSheetBuilder = new StringBuilder("\n");
+        StringBuilder styleSheetBuilder = new StringBuilder();
         for (URL cssUrl : cssUrls) {
             try {
                 styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));

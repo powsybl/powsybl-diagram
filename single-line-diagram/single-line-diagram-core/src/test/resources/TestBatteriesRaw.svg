@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="333.0" viewBox="0 0 180.0 333.0" width="180.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -59,7 +58,6 @@
 .sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-open.sld-ground-disconnection {stroke: var(--sld-vl-color, black); fill: none}
 .sld-closed.sld-ground-disconnection {fill: var(--sld-vl-color, black)}
-
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>

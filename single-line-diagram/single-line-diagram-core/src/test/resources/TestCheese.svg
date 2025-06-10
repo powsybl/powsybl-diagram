@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="333.0" viewBox="0 0 130.0 333.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -75,7 +74,6 @@
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-cheese {stroke-width: 2; stroke: blue; fill:white}
-
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>

@@ -35,11 +35,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 import java.io.Writer;
-import java.net.URL;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
@@ -150,10 +148,9 @@ public class DefaultSVGWriter implements SVGWriter {
         Element style = document.createElement(STYLE);
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
-                List<URL> cssUrls = Stream.of(styleProvider.getCssUrls(), componentLibrary.getCssUrls())
-                        .flatMap(List::stream).toList();
-                String cssContent = CssUtil.getFilesContent(cssUrls);
-                style.appendChild(document.createCDATASection(cssContent + "\n"));
+                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls())
+                        + CssUtil.getFilesContent(componentLibrary.getCssUrls());
+                style.appendChild(document.createCDATASection(cssContent));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
