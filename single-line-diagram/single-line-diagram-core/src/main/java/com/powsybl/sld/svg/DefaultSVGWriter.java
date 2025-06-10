@@ -9,9 +9,9 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -25,7 +25,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.util.DomUtil;
+import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +43,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 import static com.powsybl.sld.util.IdUtil.escapeClassName;
 import static com.powsybl.sld.util.IdUtil.escapeId;
@@ -78,12 +78,12 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String WIDTH = "width";
     protected static final String HEIGHT = "height";
 
-    protected final ComponentLibrary componentLibrary;
+    protected final SldComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
     protected final SvgParameters svgParameters;
 
-    public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;
@@ -418,7 +418,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(null, nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
                     false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
-                metadata.addComponent(new Component(BUSBAR_SECTION,
+                metadata.addComponent(new SldComponent(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
                         componentLibrary.getTransformations(BUSBAR_SECTION), null));
@@ -687,7 +687,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Checking if svg component is allowed to be transformed (rotate or flip)
         // (ex : disconnector in SVG component library not allowed to rotate)
         Orientation nodeOrientation = node.getOrientation();
-        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
         if (transformation != null) {
             switch (transformation) {
                 case ROTATION: {
@@ -866,7 +866,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
-            metadata.addComponent(new Component(componentType,
+            metadata.addComponent(new SldComponent(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),

@@ -13,7 +13,7 @@ import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.position.clustering.PositionByClustering;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
@@ -275,7 +275,7 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, MiddleTwtNode node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

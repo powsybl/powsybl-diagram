@@ -1,5 +1,4 @@
-{
-  "components" : [ {
+[ {
     "type" : "CHEESE",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -21,4 +20,3 @@
       "fileName" : "cheese.svg"
     } ]
   } ]
-}

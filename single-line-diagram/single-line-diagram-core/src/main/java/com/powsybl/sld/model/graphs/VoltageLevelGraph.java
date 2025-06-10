@@ -8,7 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -380,7 +380,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private boolean is3wtComponent(String componentName) {
-        return ComponentTypeName.THREE_WINDINGS_TRANSFORMER_COMPONENTS.contains(componentName);
+        return SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_COMPONENTS.contains(componentName);
     }
 
     private void insertFeederHookNode(Node feederNode) {
@@ -727,8 +727,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 && otherSideFeederNode.getFeeder() instanceof FeederTwLeg otherSideFeederTwLeg
                 && otherSideFeederTwLeg.getOwnVoltageLevelInfos().getId().equals(voltageLevelInfos.getId())) {
 
-            ConnectivityNode connectivityNodeA = NodeFactory.createConnectivityNode(this, feederNode.getId(), ComponentTypeName.NODE);
-            ConnectivityNode connectivityNodeB = NodeFactory.createConnectivityNode(this, otherSideNode.getId(), ComponentTypeName.NODE);
+            ConnectivityNode connectivityNodeA = NodeFactory.createConnectivityNode(this, feederNode.getId(), SldComponentTypeName.NODE);
+            ConnectivityNode connectivityNodeB = NodeFactory.createConnectivityNode(this, otherSideNode.getId(), SldComponentTypeName.NODE);
 
             // substitute nodes in voltage level
             substituteNode(feederNode, connectivityNodeA);

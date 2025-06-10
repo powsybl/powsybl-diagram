@@ -7,7 +7,7 @@
 package com.powsybl.sld.model.graphs;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
@@ -18,7 +18,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.Objects;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -82,47 +82,47 @@ public final class NodeFactory {
     }
 
     public static FeederNode createGenerator(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.GENERATOR);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.GENERATOR);
     }
 
     public static FeederNode createBattery(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.BATTERY);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.BATTERY);
     }
 
     public static FeederNode createLoad(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.LOAD);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.LOAD);
     }
 
     public static FeederNode createStaticVarCompensator(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.STATIC_VAR_COMPENSATOR);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.STATIC_VAR_COMPENSATOR);
     }
 
     public static FeederNode createInductor(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.INDUCTOR);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.INDUCTOR);
     }
 
     public static FeederNode createCapacitor(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.CAPACITOR);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.CAPACITOR);
     }
 
     public static FeederNode createDanglingLine(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, ComponentTypeName.DANGLING_LINE);
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.DANGLING_LINE);
     }
 
     public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {
-        return createFeederNode(graph, id, name, id, ComponentTypeName.GROUND, false, new BaseFeeder(FeederType.GROUND), null);
+        return createFeederNode(graph, id, name, id, SldComponentTypeName.GROUND, false, new BaseFeeder(FeederType.GROUND), null);
     }
 
     public static Node createGroundDisconnectionNode(VoltageLevelGraph graph, SwitchNode disconnector, FeederNode ground) {
         String name = "Ground disconnection (ground " + ground.getId() + ", disconnector " + disconnector.getId() + ")";
-        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(), ComponentTypeName.GROUND_DISCONNECTION);
+        GroundDisconnectionNode gdNode = new GroundDisconnectionNode(disconnector.getEquipmentId(), name, disconnector.isOpen(), SldComponentTypeName.GROUND_DISCONNECTION);
         graph.addNode(gdNode);
         return gdNode;
     }
 
     public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
-        return createFeederNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, feeder);
+        return createFeederNode(graph, id, name, equipmentId, SldComponentTypeName.VSC_CONVERTER_STATION, feeder);
     }
 
     public static FeederNode createVscConverterStationInjection(VoltageLevelGraph graph, String id, String name) {
@@ -131,7 +131,7 @@ public final class NodeFactory {
 
     public static FeederNode createLccConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
-        return createFeederNode(graph, id, name, equipmentId, ComponentTypeName.LCC_CONVERTER_STATION, feeder);
+        return createFeederNode(graph, id, name, equipmentId, SldComponentTypeName.LCC_CONVERTER_STATION, feeder);
     }
 
     public static FeederNode createLccConverterStationInjection(VoltageLevelGraph graph, String id, String name) {
@@ -159,7 +159,7 @@ public final class NodeFactory {
     }
 
     public static FeederNode createFeederLineNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return createFeederBranchNode(graph, id, name, equipmentId, ComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
+        return createFeederBranchNode(graph, id, name, equipmentId, SldComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
     }
 
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {

@@ -18,6 +18,6 @@ class TestLoadInvalidExternalComponent {
 
     @Test
     void test() {
-        assertThrows(UncheckedSaxException.class, () -> new ResourcesComponentLibrary("invalid", "/ConvergenceLibrary", "/InvalidLibrary"));
+        assertThrows(UncheckedSaxException.class, () -> new SldResourcesComponentLibrary("invalid", "/ConvergenceLibrary", "/InvalidLibrary"));
     }
 }
