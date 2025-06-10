@@ -53,8 +53,8 @@ public class DefaultLabelProvider implements LabelProvider {
 
     @Override
     public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
-        var identifiable = network.getIdentifiable(injection.getEquipmentId());
-        if (!(identifiable instanceof com.powsybl.iidm.network.Injection iidmInjection)) {
+        var connectable = network.getConnectable(injection.getEquipmentId());
+        if (!(connectable instanceof com.powsybl.iidm.network.Injection<?> iidmInjection)) {
             throw new PowsyblException("Unknown injection '" + injection.getEquipmentId() + "'");
         }
         return getEdgeInfo(iidmInjection.getTerminal());

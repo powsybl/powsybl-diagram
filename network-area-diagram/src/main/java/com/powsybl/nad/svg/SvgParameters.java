@@ -58,7 +58,8 @@ public class SvgParameters {
     private boolean highlightGraph;
     private boolean injectionsAdded = false;
     private double injectionAperture = 10;
-    private double injectionEdgeLength = 120;
+    private double injectionEdgeLength = 145;
+    private double injectionCircleRadius = 25;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -530,6 +531,15 @@ public class SvgParameters {
 
     public SvgParameters setInjectionEdgeLength(double injectionEdgeLength) {
         this.injectionEdgeLength = injectionEdgeLength;
+        return this;
+    }
+
+    public double getInjectionCircleRadius() {
+        return injectionCircleRadius;
+    }
+
+    public SvgParameters setInjectionCircleRadius(double injectionCircleRadius) {
+        this.injectionCircleRadius = injectionCircleRadius;
         return this;
     }
 }
