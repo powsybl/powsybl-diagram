@@ -19,6 +19,8 @@ public interface LabelProvider {
 
     Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge);
 
+    Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection);
+
     String getLabel(Edge edge);
 
     String getArrowPathDIn();
