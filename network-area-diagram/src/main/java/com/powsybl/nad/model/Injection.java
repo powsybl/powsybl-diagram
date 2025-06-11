@@ -20,6 +20,11 @@ public class Injection extends AbstractIdentifiable {
         SHUNT_COMPENSATOR_INDUCTOR,
         STATIC_VAR_COMPENSATOR,
         GENERATOR,
+        GENERATOR_HYDRO,
+        GENERATOR_NUCLEAR,
+        GENERATOR_WIND,
+        GENERATOR_THERMAL,
+        GENERATOR_SOLAR,
         BATTERY
     }
 
