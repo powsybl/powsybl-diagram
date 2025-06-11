@@ -148,7 +148,10 @@ public class SvgWriter {
             for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
                 writer.writeStartElement(GROUP_ELEMENT_NAME);
                 for (BusNode busNode : vlNode.getBusNodes()) {
+                    writer.writeStartElement(GROUP_ELEMENT_NAME);
+                    writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode));
                     drawInjections(graph, busNode, vlNode, transformer, writer);
+                    writer.writeEndElement();
                 }
                 writer.writeEndElement();
             }
