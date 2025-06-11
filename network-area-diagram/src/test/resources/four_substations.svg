@@ -229,12 +229,12 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                 <g id="8" class="nad-vl300to500">
                     <polyline class="nad-edge-path" points="-177.17,-145.63 -283.24,-196.17"/>
                     <g class="nad-edge-infos" transform="translate(-233.59,-172.51)">
-                        <g class="nad-active">
+                        <g class="nad-active nad-state-out">
                             <g transform="rotate(-64.53)">
                                 <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                                 <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                             </g>
-                            <text transform="rotate(25.47)" x="-19.00" style="text-anchor:end"></text>
+                            <text transform="rotate(25.47)" x="-19.00" style="text-anchor:end">0</text>
                         </g>
                     </g>
                     <g>
