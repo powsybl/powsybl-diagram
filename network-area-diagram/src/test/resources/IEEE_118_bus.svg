@@ -127,7 +127,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-disconnected .nad-capacitor {stroke: lightgrey}
 .nad-disconnected .nad-inductor {stroke: lightgrey}
 .nad-disconnected .nad-svc {stroke: lightgrey}
-.nad-unknown {stroke: none; stroke-width: 3; fill: black}
+.nad-unknown {stroke: none; fill: black}
 ]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(1010.68,-3023.52)" id="0">
