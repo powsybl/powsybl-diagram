@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1637.03" height="1000.00" xmlns="http://www.w3.org/2000/svg">
+<svg width="1994.30" height="1000.00" xmlns="http://www.w3.org/2000/svg">
 <style>
 <![CDATA[
 circle {fill: purple;}
@@ -8,26 +8,26 @@ line {stroke: purple; stroke-width: 2}
 </style>
 <g>
 <title>Vertex 0</title>
-<circle cx="397.28" cy="358.27" r="10"/>
+<circle cx="530.54" cy="561.54" r="10"/>
 </g>
 <g>
 <title>Vertex 2</title>
-<circle cx="356.62" cy="711.90" r="10"/>
+<circle cx="73.20" cy="940.00" r="10"/>
 </g>
 <g>
 <title>Vertex 3</title>
-<circle cx="573.23" cy="60.00" r="10"/>
+<circle cx="807.38" cy="60.00" r="10"/>
 </g>
 <g>
 <title>Vertex 4</title>
-<circle cx="1577.03" cy="940.00" r="10"/>
+<circle cx="1934.30" cy="803.11" r="10"/>
 </g>
 <g>
 <title>Vertex 1</title>
-<circle cx="60.00" cy="661.32" r="10"/>
+<circle cx="60.00" cy="439.46" r="10"/>
 </g>
-<line x1="60.00" y1="661.32" x2="397.28" y2="358.27"/>
-<line x1="356.62" y1="711.90" x2="60.00" y2="661.32"/>
-<line x1="397.28" y1="358.27" x2="356.62" y2="711.90"/>
-<line x1="573.23" y1="60.00" x2="397.28" y2="358.27"/>
+<line x1="60.00" y1="439.46" x2="530.54" y2="561.54"/>
+<line x1="73.20" y1="940.00" x2="60.00" y2="439.46"/>
+<line x1="530.54" y1="561.54" x2="73.20" y2="940.00"/>
+<line x1="807.38" y1="60.00" x2="530.54" y2="561.54"/>
 </svg>
