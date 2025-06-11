@@ -15,7 +15,20 @@ path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, lightgrey);}
-.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}]]></style>
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
+.nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-disconnected .nad-load {stroke: lightgrey}
+.nad-disconnected .nad-battery {stroke: lightgrey}
+.nad-disconnected .nad-generator {stroke: lightgrey}
+.nad-disconnected .nad-capacitor {stroke: lightgrey}
+.nad-disconnected .nad-inductor {stroke: lightgrey}
+.nad-disconnected .nad-svc {stroke: lightgrey}
+.nad-unknown {stroke: none; stroke-width: 3; fill: black}
+]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-55.80,-196.10)" id="0">
             <circle r="27.50" id="1" class="nad-busnode" style="background:yellow; fill:yellow;"/>
