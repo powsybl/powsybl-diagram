@@ -108,15 +108,15 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
                 break;
             }
             // calculate s(G) the speed of the graph
-            newGraphSpeed = layoutParameters.getSwingTolerance() * graphTraction / graphSwing;
-            if (i != 0) {
-                newGraphSpeed = Math.max(
-                    MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
-                    Math.min(
-                        newGraphSpeed,
-                        layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
-                ));
-            }
+            // the graph speed should not be less than a certain amount of the previous graph speed
+            // the graph speed should not be more than a certain amount of the previous graph speed
+            // calculate given the swing tolerance and check it's being between those bounds
+            newGraphSpeed = Math.max(
+                MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
+                Math.min(
+                    layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
+                    layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
+            ));
             // calculate s(n) the speed of each node n
             // store the forces on each node into the map of forces
             // calculate D(n) the displacement of each node n

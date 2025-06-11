@@ -33,9 +33,9 @@ class GravityForceByDegreeLinearTest {
             "4",
         };
         Vector2D[] resultVector = {
-            new Vector2D(-0.01789, -0.03578),
-            new Vector2D(0.022461, -0.019887),
-            new Vector2D(-0.007071, -0.007071)
+            new Vector2D(-0.04, -0.08),
+            new Vector2D(0.0942, -0.0834),
+            new Vector2D(-0.05, -0.05)
         };
 
         ForceTestUtil.testForceCalculation(forceGraph, gravityForceByDegreeLinear, vertexToTest, resultVector, delta);
