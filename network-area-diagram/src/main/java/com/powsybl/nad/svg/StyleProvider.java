@@ -24,6 +24,7 @@ public interface StyleProvider {
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
     String INJECTIONS_CLASS = CLASSES_PREFIX + "injections";
+    String INJECTION_FRAME_CLASS = CLASSES_PREFIX + "injection-frame";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
     String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
