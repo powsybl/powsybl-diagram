@@ -30,9 +30,10 @@ class LayoutWithGeographicalPositionsTest {
     void layoutWithGeographicalPositionsTest() {
         Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
 
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(7854.0, actual.get("VL1").getX(), 0.1);
@@ -45,9 +46,10 @@ class LayoutWithGeographicalPositionsTest {
     void layoutWithGeographicalPositionsCustomisedParametersTest() {
         Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
 
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network, 200, 50d, BasicForceLayout::new).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(10.5, actual.get("VL1").getX(), 0.1);
@@ -61,9 +63,10 @@ class LayoutWithGeographicalPositionsTest {
         Network network = Networks.createIeee9NetworkWithOneMissingSubstationPosition();
         network.getSubstation("S1").newVoltageLevel().setNominalV(400d).setTopologyKind(TopologyKind.BUS_BREAKER).setId("VL1_1").add();
         network.getSubstation("S1").newVoltageLevel().setNominalV(400d).setTopologyKind(TopologyKind.BUS_BREAKER).setId("VL1_2").add();
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network, 100, 50d, BasicForceLayout::new).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(55.2, actual.get("VL1").getX(), 0.1);
@@ -78,9 +81,10 @@ class LayoutWithGeographicalPositionsTest {
     void layoutWithGeographicalPositionRelativePositionsTest() {
         Network network = Networks.createThreeSubstationsWithSubstationPosition();
 
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new GeographicalLayoutFactory(network).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertTrue(actual.get("vl11").getX() < actual.get("vl21").getX());

@@ -7,11 +7,12 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +24,11 @@ class FourSubstationsNetworkTest extends AbstractTest {
 
     @BeforeEach
     void setup() {
-        setLayoutParameters(new LayoutParameters());
+        setLayoutParameters(new LayoutParameters()
+                .setInjectionsAdded(true));
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedScale(0.5)
-                .setInjectionsAdded(true));
+                .setFixedScale(0.5));
     }
 
     @Override
@@ -44,6 +45,21 @@ class FourSubstationsNetworkTest extends AbstractTest {
     void test() {
         Network network = FourSubstationsNodeBreakerFactory.create();
         network.getSwitch("S1VL2_COUPLER").setOpen(true);
+        network.getShuntCompensator("SHUNT").getTerminal().setP(0.);
+        VoltageLevel s1vl2 = network.getVoltageLevel("S1VL2");
+        s1vl2.getNodeBreakerView().newDisconnector().setId("S1VL2_BBS1_SCC_DISCONNECTOR").setOpen(true).setNode1(0).setNode2(24).add();
+        s1vl2.getNodeBreakerView().newBreaker().setId("S1VL2_BBS1_SCC_BREAKER").setOpen(false).setNode1(24).setNode2(25).add();
+        ShuntCompensator shuntCapacitor = s1vl2.newShuntCompensator()
+                .setId("SHUNT_CAPACITOR")
+                .setNode(25)
+                .setSectionCount(1)
+                .newLinearModel()
+                .setMaximumSectionCount(1)
+                .setBPerSection(0.032)
+                .add()
+                .add();
+        shuntCapacitor.getTerminal().setQ(1920.0).setP(0.);
+
         assertSvgEquals("/four_substations.svg", network);
     }
 }

@@ -98,7 +98,7 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     private void testMetadata(Network network, String referenceMetadata, int busNodesNumber, int nodesNumber, int edgesNumber, int textNodesNumber) {
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph(false);
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLayoutParameters()).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");

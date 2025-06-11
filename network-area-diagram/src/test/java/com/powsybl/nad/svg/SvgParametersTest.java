@@ -56,7 +56,9 @@ class SvgParametersTest {
                 .setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER)
                 .setPstArrowHeadSize(20)
                 .setUndefinedValueSymbol("\u002A")
-                .setInjectionsAdded(true);
+                .setInjectionAperture(0.4)
+                .setInjectionCircleRadius(1.)
+                .setInjectionEdgeLength(5.);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -102,7 +104,8 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getEdgeInfoDisplayed(), svgParameters1.getEdgeInfoDisplayed());
         assertEquals(svgParameters0.getPstArrowHeadSize(), svgParameters1.getPstArrowHeadSize(), 0);
         assertEquals(svgParameters0.getUndefinedValueSymbol(), svgParameters1.getUndefinedValueSymbol());
-        assertEquals(svgParameters0.isInjectionsAdded(), svgParameters1.isInjectionsAdded());
         assertEquals(svgParameters0.getInjectionAperture(), svgParameters1.getInjectionAperture());
+        assertEquals(svgParameters0.getInjectionCircleRadius(), svgParameters1.getInjectionCircleRadius());
+        assertEquals(svgParameters0.getInjectionEdgeLength(), svgParameters1.getInjectionEdgeLength());
     }
 }

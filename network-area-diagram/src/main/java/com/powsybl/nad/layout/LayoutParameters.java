@@ -17,6 +17,7 @@ public class LayoutParameters {
     private Point textNodeFixedShift = new Point(100, -40);
     private int maxSteps = 1000;
     private double textNodeEdgeConnectionYShift = 25;
+    private boolean injectionsAdded = false;
 
     public LayoutParameters() {
     }
@@ -26,6 +27,7 @@ public class LayoutParameters {
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
         this.maxSteps = other.maxSteps;
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
+        this.injectionsAdded = other.injectionsAdded;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -61,6 +63,15 @@ public class LayoutParameters {
 
     public LayoutParameters setTextNodeEdgeConnectionYShift(double textNodeEdgeConnectionYShift) {
         this.textNodeEdgeConnectionYShift = textNodeEdgeConnectionYShift;
+        return this;
+    }
+
+    public boolean isInjectionsAdded() {
+        return injectionsAdded;
+    }
+
+    public LayoutParameters setInjectionsAdded(boolean injectionsAdded) {
+        this.injectionsAdded = injectionsAdded;
         return this;
     }
 }

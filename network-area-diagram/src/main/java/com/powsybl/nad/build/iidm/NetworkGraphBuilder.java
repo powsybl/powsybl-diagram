@@ -10,6 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.build.GraphBuilder;
+import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.utils.iidm.IidmUtils;
@@ -25,23 +26,25 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private final Network network;
     private final IdProvider idProvider;
     private final Predicate<VoltageLevel> voltageLevelFilter;
+    private final boolean injectionsAdded;
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, IdProvider idProvider) {
+    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, LayoutParameters layoutParameters, IdProvider idProvider) {
         this.network = Objects.requireNonNull(network);
         this.voltageLevelFilter = voltageLevelFilter;
         this.idProvider = Objects.requireNonNull(idProvider);
+        this.injectionsAdded = layoutParameters.isInjectionsAdded();
     }
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        this(network, voltageLevelFilter, new IntIdProvider());
+    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, LayoutParameters layoutParameters) {
+        this(network, voltageLevelFilter, layoutParameters, new IntIdProvider());
     }
 
-    public NetworkGraphBuilder(Network network) {
-        this(network, VoltageLevelFilter.NO_FILTER, new IntIdProvider());
+    public NetworkGraphBuilder(Network network, LayoutParameters layoutParameters) {
+        this(network, VoltageLevelFilter.NO_FILTER, layoutParameters, new IntIdProvider());
     }
 
     @Override
-    public Graph buildGraph(boolean injectionsAdded) {
+    public Graph buildGraph() {
         Graph graph = new Graph();
         List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
         List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
