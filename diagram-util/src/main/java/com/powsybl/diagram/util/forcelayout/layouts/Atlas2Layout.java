@@ -25,6 +25,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/// The code in this class is the implementation of the paper:
+/// Jacomy M, Venturini T, Heymann S, Bastian M (2014)
+/// ForceAtlas2, a Continuous Graph Layout Algorithm for Handy Network Visualization Designed for
+/// the Gephi Software. PLoS ONE 9(6): e98679. doi:10.1371/journal.pone.0098679
+/// Some parts of the code do not directly come from the paper and are instead found through experimenting, to try something that works best
+/// The parts that are not inside the original paper are:
+/// - the choice of a starting global speed for the graph
+/// - a maximum decrease ratio in global speed between each step
+/// - a quick to calculate stopping condition
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -33,10 +43,15 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
 
-    // The magic number (found with a regression on the number of steps it takes for a graph to look like it's finished)
-    // totally empirical
+    // The magic number
+    // totally empirical, and not present in the original Atlas2 paper
+    // This was found by launching the algorithm on a lot of graphs and checking after how many steps the graph looked stable
+    // We then check the corresponding global graph speed, and made a regression between the number of nodes and the global graph speed at each step
+    // this gave a curve y = a * x^b with a = NORMALIZED_STOPPING_VALUE and b = NORMALIZATION_POWER
+    // it means that we can know the graph speed at which the graph is stable, no matter the speed of the graph
     private static final double NORMALIZED_STOPPING_VALUE = 1.06944;
     private static final double NORMALIZATION_POWER = -0.107886;
+    // This is not part of Atlas2's paper, used to control the global graph speed decrease and start value
     private static final double STARTING_SPEED_RATIO = 1;
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
@@ -73,9 +88,13 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
         int graphSize = forceGraph.getSimpleGraph().vertexSet().size();
+        // starting speed proportional to the size of the network, not part of Atlas2's paper
         double previousGraphSpeed = STARTING_SPEED_RATIO * graphSize;
 
-        double normalizationFactor = Math.pow(graphSize, NORMALIZATION_POWER);
+        // to know by how much to normalize the global graph speed, used for the stopping condition$
+        // normalization is used so that networks of all size have the same stopping condition
+        // this is not part of Atlas2's paper
+        final double stoppingGlobalGraphSpeed = NORMALIZED_STOPPING_VALUE * Math.pow(graphSize, NORMALIZATION_POWER);
 
         for (Point point : forceGraph.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
@@ -104,11 +123,11 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
                 graphTraction += calculatePointTraction(point, previousPointForce) * vertexDegreePlusOne;
             }
             if (graphSwing == 0) {
-                // that means that all the points are not moving anymore
+                // that means that all the points are not moving anymore, or are diverging very fast
                 break;
             }
-            // calculate s(G) the speed of the graph
-            // the graph speed should not be less than a certain amount of the previous graph speed
+            // calculate s(G) the global speed of the graph
+            // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
             newGraphSpeed = Math.max(
@@ -122,7 +141,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
             updatePosition(forceGraph, newGraphSpeed, swingMap, previousForces);
-            if (isStable(newGraphSpeed, normalizationFactor)) {
+            if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
                 break;
             }
             previousGraphSpeed = newGraphSpeed;
@@ -131,6 +150,8 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         this.forces.remove(2); // remove the LinearRepulsionForce as it depends on the graph
     }
 
+    /// Initialize each point degree, used to optimize the calculation of the repulsion forces
+    /// This prevents having to calculate the degree each time, which speeds up the code by a lot (about 3 times faster)
     private IntensityEffectFromFixedNodesParameters buildRepulsionForceParameters(ForceGraph<V, E> forceGraph) {
         for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
             entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
@@ -175,13 +196,13 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
-    private boolean isStable(double newGraphSpeed, double normalizationFactor) {
+    private boolean isStable(double newGraphSpeed, double stoppingGlobalGraphSpeed) {
         // this stability condition is handmade and not mentioned in Atlas2's paper
         // a stop condition is given in that paper, but it involves calculating the distance of all the edges and vertex of the graph
         // which is expensive to do for big graphs (quadratic complexity with the number of vertex)
         // instead we use the global graph speed, which could be seen as a measurement of how much the graph is moving
         // graphs that become stable have less global energy / a lower graph speed
-        return newGraphSpeed / normalizationFactor <= NORMALIZED_STOPPING_VALUE;
+        return newGraphSpeed <= stoppingGlobalGraphSpeed;
     }
 }
 

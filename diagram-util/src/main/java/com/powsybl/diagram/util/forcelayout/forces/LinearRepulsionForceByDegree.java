@@ -61,12 +61,13 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
     ) {
         // The force goes from the otherPoint to the correspondingPoint (repulsion)
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
-        // divide by magnitude^2 because we multiply the factor with a degree -1 in magnitude by the unit vector
-        // the unit vector is Vector/magnitude, thus the force is something/magnitude * Vector/magnitude, thus something/magnitude^2
+        // divide by magnitude^2 because the force multiplies the unit vector by something/magnitude
+        // the unit vector is Vector/magnitude, thus the force is Vector/magnitude * something/magnitude, thus Vector/magnitude^2
         // if we just use the vector and not the unit vector, points that are further away will have the same influence as points that are close
         // this is easy to explain as the formula is Vector * k * deg(n1) * deg(n2)/distance
         // which would be UnitVector * k * deg(n1) * deg(n2)
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
+        // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
         double intensity = forceParameter.getForceIntensity()
                 * (thisVertexDegree + 1)
                 * (otherPoint.getPointVertexDegree() + 1)
