@@ -18,6 +18,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-generator-type {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; stroke-linecap: round; fill: white}
 .nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
 .nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
