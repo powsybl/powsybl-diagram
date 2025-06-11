@@ -7,8 +7,9 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.network.Identifiable;
+import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
@@ -66,8 +67,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible, boolean injectionsAdded) {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
+        Map<String, List<Injection>> injectionsMap = new HashMap<>();
+        if (injectionsAdded) {
+            fillInjectionsMap(vl, injectionsMap);
+        }
         vl.getBusView().getBusStream()
-                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId(), injectionsAdded ? getInjections(bus) : Collections.emptyList()))
+                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId(), injectionsMap.getOrDefault(bus.getId(), Collections.emptyList())))
                 .forEach(vlNode::addBusNode);
         graph.addNode(vlNode);
         if (visible) {
@@ -76,10 +81,38 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return vlNode;
     }
 
-    private List<Injection> getInjections(Bus bus) {
-        var topologyVisitor = new ConnectableInjectionsVisitor(idProvider);
-        bus.visitConnectedOrConnectableEquipments(topologyVisitor);
-        return topologyVisitor.getConnectableInjections();
+    private void fillInjectionsMap(VoltageLevel vl, Map<String, List<Injection>> injectionsMap) {
+        vl.getGenerators().forEach(g -> addInjection(g, injectionsMap));
+        vl.getLoads().forEach(l -> addInjection(l, injectionsMap));
+        vl.getShuntCompensators().forEach(sc -> addInjection(sc, injectionsMap));
+        vl.getBatteries().forEach(b -> addInjection(b, injectionsMap));
+        vl.getStaticVarCompensators().forEach(svc -> addInjection(svc, injectionsMap));
+    }
+
+    private void addInjection(com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
+        injectionsMap.computeIfAbsent(inj.getTerminal().getBusView().getConnectableBus().getId(), k -> new ArrayList<>())
+                .add(createInjectionFromIidm(inj));
+    }
+
+    private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
+        String diagramId = idProvider.createId(inj);
+        Injection.Type injectionType = getInjectionType(inj);
+        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
+    }
+
+    private static Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
+        return switch (inj.getType()) {
+            case GENERATOR -> Injection.Type.GENERATOR;
+            case BATTERY -> Injection.Type.BATTERY;
+            case LOAD -> Injection.Type.LOAD;
+            case SHUNT_COMPENSATOR -> getShuntCompensatorType((ShuntCompensator) inj);
+            case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
+            default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
+        };
+    }
+
+    private static Injection.Type getShuntCompensatorType(ShuntCompensator shuntCompensator) {
+        return IidmUtil.isCapacitor(shuntCompensator) ? Injection.Type.SHUNT_COMPENSATOR_CAPACITOR : Injection.Type.SHUNT_COMPENSATOR_INDUCTOR;
     }
 
     private void addGraphEdges(VoltageLevel vl, Graph graph) {
