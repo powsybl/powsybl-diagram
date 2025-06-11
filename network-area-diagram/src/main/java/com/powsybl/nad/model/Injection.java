@@ -18,11 +18,8 @@ public class Injection extends AbstractIdentifiable {
         LOAD,
         SHUNT_COMPENSATOR_CAPACITOR,
         SHUNT_COMPENSATOR_INDUCTOR,
-        DANGLING_LINE,
         STATIC_VAR_COMPENSATOR,
-        HVDC_CONVERTER_STATION,
         GENERATOR,
-        GROUND,
         BATTERY
     }
 
