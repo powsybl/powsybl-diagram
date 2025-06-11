@@ -2,8 +2,8 @@
   {
     "type": "LOAD",
     "size": {
-      "width": 16.0,
-      "height": 9.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -16,8 +16,8 @@
   {
     "type": "BATTERY",
     "size": {
-      "width": 16.0,
-      "height": 10.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -30,8 +30,8 @@
   {
     "type": "GENERATOR",
     "size": {
-      "width": 12.0,
-      "height": 12.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -44,8 +44,8 @@
   {
     "type": "SHUNT_COMPENSATOR_CAPACITOR",
     "size": {
-      "width": 12.0,
-      "height": 12.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -58,8 +58,8 @@
   {
     "type": "SHUNT_COMPENSATOR_INDUCTOR",
     "size": {
-      "width": 15.0,
-      "height": 9.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -72,8 +72,8 @@
   {
     "type": "STATIC_VAR_COMPENSATOR",
     "size": {
-      "width": 12.0,
-      "height": 12.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
@@ -86,8 +86,8 @@
   {
     "type": "UNKNOWN_COMPONENT",
     "size": {
-      "width": 20.0,
-      "height": 20.0
+      "width": 50.0,
+      "height": 50.0
     },
     "subComponents": [
       {
