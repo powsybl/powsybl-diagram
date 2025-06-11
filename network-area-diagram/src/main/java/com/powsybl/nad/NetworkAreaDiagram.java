@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
@@ -94,8 +95,8 @@ public final class NetworkAreaDiagram {
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
         Objects.requireNonNull(voltageLevelFilter);
-        var networkGraphBuilder = new NetworkGraphBuilder(network, voltageLevelFilter, param.getIdProviderFactory().create());
-        var graph = networkGraphBuilder.buildGraph(param.getSvgParameters().isInjectionsAdded());
+        var networkGraphBuilder = new NetworkGraphBuilder(network, voltageLevelFilter, param.getLayoutParameters(), param.getIdProviderFactory().create());
+        var graph = networkGraphBuilder.buildGraph();
         param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
         return graph;
     }
@@ -125,7 +126,7 @@ public final class NetworkAreaDiagram {
     }
 
     public static List<String> getDisplayedVoltageLevels(Network network, List<String> voltageLevelIds, int depth) {
-        NetworkGraphBuilder builder = new NetworkGraphBuilder(network, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth));
+        NetworkGraphBuilder builder = new NetworkGraphBuilder(network, VoltageLevelFilter.createVoltageLevelsDepthFilter(network, voltageLevelIds, depth), new LayoutParameters());
         return builder.getVoltageLevels().stream()
                 .map(VoltageLevel::getId)
                 .sorted()

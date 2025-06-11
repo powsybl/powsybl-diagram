@@ -9,8 +9,12 @@ package com.powsybl.nad.library;
 
 import com.powsybl.diagram.components.ComponentLibrary;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface NadComponentLibrary extends ComponentLibrary {
+    Transformer getSvgTransformer() throws TransformerConfigurationException;
 }

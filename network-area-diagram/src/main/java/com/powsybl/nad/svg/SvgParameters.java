@@ -56,7 +56,6 @@ public class SvgParameters {
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
-    private boolean injectionsAdded = false;
     private double injectionAperture = 10;
     private double injectionEdgeLength = 145;
     private double injectionCircleRadius = 25;
@@ -112,8 +111,9 @@ public class SvgParameters {
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
-        this.injectionsAdded = other.injectionsAdded;
         this.injectionAperture = other.injectionAperture;
+        this.injectionEdgeLength = other.injectionEdgeLength;
+        this.injectionCircleRadius = other.injectionCircleRadius;
     }
 
     public Padding getDiagramPadding() {
@@ -504,15 +504,6 @@ public class SvgParameters {
 
     public SvgParameters setHighlightGraph(boolean highlightGraph) {
         this.highlightGraph = highlightGraph;
-        return this;
-    }
-
-    public boolean isInjectionsAdded() {
-        return injectionsAdded;
-    }
-
-    public SvgParameters setInjectionsAdded(boolean injectionsAdded) {
-        this.injectionsAdded = injectionsAdded;
         return this;
     }
 

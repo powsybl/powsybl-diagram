@@ -8,12 +8,9 @@
 package com.powsybl.nad.svg;
 
 import javanet.staxutils.ContentHandlerToXMLStreamWriter;
-import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.Result;
 import javax.xml.transform.sax.SAXResult;
 
 /**

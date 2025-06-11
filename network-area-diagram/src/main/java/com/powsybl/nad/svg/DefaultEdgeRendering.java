@@ -25,9 +25,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
-        if (svgParameters.isInjectionsAdded()) {
-            graph.getVoltageLevelNodesStream().forEach(vln -> injectionEdgesLayout(graph, vln, svgParameters));
-        }
+        graph.getVoltageLevelNodesStream().forEach(vln -> injectionEdgesLayout(graph, vln, svgParameters));
     }
 
     private void computeTextEdgeLayoutCoordinates(Node node1, TextNode node2, TextEdge edge) {
@@ -135,10 +133,13 @@ public class DefaultEdgeRendering implements EdgeRendering {
     }
 
     private void injectionEdgesLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters) {
-        List<Double> angles = computeInjectionAngles(graph, node, svgParameters);
+        List<Double> angles = null;
         int i = 0;
         for (BusNode busNode : node.getBusNodes()) {
             for (Injection injection : busNode.getInjections()) {
+                if (angles == null) { // lazy computed, to avoid computing angles if no injections
+                    angles = computeInjectionAngles(graph, node, svgParameters);
+                }
                 Double angle = angles.get(i++);
                 injection.setAngle(angle);
                 Point injPoint = node.getPosition().atDistance(svgParameters.getInjectionEdgeLength(), angle);

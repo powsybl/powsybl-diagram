@@ -12,9 +12,5 @@ import com.powsybl.nad.model.Graph;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface GraphBuilder {
-    default Graph buildGraph() {
-        return buildGraph(false);
-    }
-
-    Graph buildGraph(boolean injectionsAdded);
+    Graph buildGraph();
 }

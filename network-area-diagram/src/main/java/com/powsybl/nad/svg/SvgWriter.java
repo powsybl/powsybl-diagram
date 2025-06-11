@@ -9,8 +9,8 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.diagram.components.ComponentLibrary;
 import com.powsybl.diagram.util.CssUtil;
+import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +19,9 @@ import org.w3c.dom.Element;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.*;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -68,9 +70,9 @@ public class SvgWriter {
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
     private final EdgeRendering edgeRendering;
-    private final ComponentLibrary componentLibrary;
+    private final NadComponentLibrary componentLibrary;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider, ComponentLibrary componentLibrary) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider, NadComponentLibrary componentLibrary) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
@@ -115,9 +117,7 @@ public class SvgWriter {
                 drawHighlightedSection(graph, writer);
             }
             drawVoltageLevelNodes(graph, writer);
-            if (svgParameters.isInjectionsAdded()) {
-                drawInjections(graph, writer);
-            }
+            drawInjections(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
@@ -140,30 +140,33 @@ public class SvgWriter {
     }
 
     private void drawInjections(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        try {
+        if (graph.getBusNodesStream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.INJECTIONS_CLASS);
-
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
             for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
-                writer.writeStartElement(GROUP_ELEMENT_NAME);
-                for (BusNode busNode : vlNode.getBusNodes()) {
-                    writer.writeStartElement(GROUP_ELEMENT_NAME);
-                    writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode));
-                    drawInjections(graph, busNode, vlNode, transformer, writer);
-                    writer.writeEndElement();
-                }
-                writer.writeEndElement();
+                drawInjections(graph, vlNode, writer);
             }
-
             writer.writeEndElement();
-
-        } catch (TransformerConfigurationException e) {
-            throw new PowsyblException(e);
         }
     }
 
-    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjections(Graph graph, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+        if (vlNode.getBusNodes().stream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            for (BusNode busNode : vlNode.getBusNodes()) {
+                drawInjections(graph, busNode, vlNode, writer);
+            }
+            writer.writeEndElement();
+        }
+    }
+
+    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+        if (busNode.getInjectionCount() == 0) {
+            return;
+        }
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode));
         for (Injection injection : busNode.getInjections()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeId(writer, injection);
@@ -171,9 +174,11 @@ public class SvgWriter {
             writeStyleAttribute(writer, styleProvider.getInjectionStyle(injection));
             insertName(writer, injection::getName);
             drawInjectionEdge(graph, injection, busNode, vlNode, writer);
-            drawInjectionIcon(injection, transformer, writer);
+            drawInjectionIcon(injection, writer);
             writer.writeEndElement();
         }
+        writer.writeEndElement();
+
     }
 
     private void drawInjectionEdge(Graph graph, Injection injection, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
@@ -186,7 +191,7 @@ public class SvgWriter {
         }
     }
 
-    private void drawInjectionIcon(Injection injection, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjectionIcon(Injection injection, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
 
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
@@ -196,12 +201,12 @@ public class SvgWriter {
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
 
-        insertSvgComponent(injection, transformer, writer);
+        insertSvgComponent(injection, writer);
 
         writer.writeEndElement();
     }
 
-    private void insertSvgComponent(Injection injection, Transformer transformer, XMLStreamWriter writer) throws XMLStreamException {
+    private void insertSvgComponent(Injection injection, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(injection.getIconOrigin(svgParameters.getInjectionCircleRadius())));
 
@@ -210,6 +215,7 @@ public class SvgWriter {
         writeStyleClasses(writer, componentLibrary.getComponentStyleClass(componentType).map(List::of).orElse(List.of()));
 
         try {
+            Transformer transformer = componentLibrary.getSvgTransformer();
             Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
             for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
                 List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
@@ -846,9 +852,7 @@ public class SvgWriter {
             writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
 
             traversingEdges.addAll(graph.getBusEdges(busNode));
-            if (svgParameters.isInjectionsAdded()) {
-                traversingInjections.addAll(busNode.getInjections());
-            }
+            traversingInjections.addAll(busNode.getInjections());
         }
     }
 

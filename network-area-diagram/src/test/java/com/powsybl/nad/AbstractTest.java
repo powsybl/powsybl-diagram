@@ -7,7 +7,6 @@
 package com.powsybl.nad;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.diagram.components.ComponentLibrary;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
@@ -15,6 +14,7 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
+import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -46,7 +46,7 @@ public abstract class AbstractTest {
 
     protected abstract LabelProvider getLabelProvider(Network network);
 
-    protected ComponentLibrary getComponentLibrary() {
+    protected NadComponentLibrary getComponentLibrary() {
         return new DefaultComponentLibrary();
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter).buildGraph(true);
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLayoutParameters()).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
         new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network), getComponentLibrary()).writeSvg(graph, writer);
