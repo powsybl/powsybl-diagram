@@ -29,6 +29,10 @@ public class ConnectableInjectionsVisitor implements TopologyVisitor {
         return connectableInjections;
     }
 
+    private void addInjection(com.powsybl.iidm.network.Injection<?> inj) {
+        connectableInjections.add(createInjectionFromIidm(inj));
+    }
+
     private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
         String diagramId = idProvider.createId(inj);
         Injection.Type injectionType = getInjectionType(inj);
@@ -41,10 +45,7 @@ public class ConnectableInjectionsVisitor implements TopologyVisitor {
             case BATTERY -> Injection.Type.BATTERY;
             case LOAD -> Injection.Type.LOAD;
             case SHUNT_COMPENSATOR -> getShuntCompensatorType((ShuntCompensator) inj);
-            case DANGLING_LINE -> Injection.Type.DANGLING_LINE;
             case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
-            case HVDC_CONVERTER_STATION -> Injection.Type.HVDC_CONVERTER_STATION;
-            case GROUND -> Injection.Type.GROUND;
             default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
         };
     }
@@ -76,10 +77,6 @@ public class ConnectableInjectionsVisitor implements TopologyVisitor {
     @Override
     public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
         addInjection(staticVarCompensator);
-    }
-
-    private void addInjection(com.powsybl.iidm.network.Injection<?> inj) {
-        connectableInjections.add(createInjectionFromIidm(inj));
     }
 
     @Override
