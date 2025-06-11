@@ -235,9 +235,9 @@ public class DefaultEdgeRendering implements EdgeRendering {
 
         int totalInsertedAngles = Arrays.stream(nbInsertedAngles).sum();
         if (totalInsertedAngles > nbAngles) {
-            // Too many slots found: remove angles starting from the smallest intervals
+            // Too many slots found: remove slots taken starting from the smallest sliced intervals
             List<Integer> sortedIndices = IntStream.range(0, deltaAngles.length).boxed()
-                    .sorted(Comparator.comparingDouble(i -> deltaAngles[i])).toList();
+                    .sorted(Comparator.comparingDouble(i -> deltaAngles[i] / nbInsertedAngles[i])).toList();
             int nbExcessiveAngles = totalInsertedAngles - nbAngles;
             for (int iSorted : sortedIndices) {
                 nbInsertedAngles[iSorted]--;
