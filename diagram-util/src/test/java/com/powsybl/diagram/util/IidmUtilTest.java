@@ -1,10 +1,11 @@
-/**
+/*
  * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.builders;
+package com.powsybl.diagram.util;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
@@ -16,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-class NetworkGraphBuilderTest {
-
+public class IidmUtilTest {
     @Test
     void isCapacitorTest() {
         Network network = EurostagTutorialExample1Factory.create();
@@ -31,9 +31,9 @@ class NetworkGraphBuilderTest {
                 .add()
                 .setSectionCount(0)
                 .add();
-        assertTrue(NetworkGraphBuilder.isCapacitor(sc));
+        assertTrue(IidmUtil.isCapacitor(sc));
         sc.getModel(ShuntCompensatorLinearModel.class).setBPerSection(-0.03);
-        assertFalse(NetworkGraphBuilder.isCapacitor(sc));
+        assertFalse(IidmUtil.isCapacitor(sc));
         ShuntCompensator sc2 = vlload.newShuntCompensator()
                 .setId("SC2")
                 .setConnectableBus("NLOAD")
@@ -47,8 +47,8 @@ class NetworkGraphBuilderTest {
                 .add()
                 .setSectionCount(0)
                 .add();
-        assertTrue(NetworkGraphBuilder.isCapacitor(sc2));
+        assertTrue(IidmUtil.isCapacitor(sc2));
         sc2.getModel(ShuntCompensatorNonLinearModel.class).getAllSections().get(1).setB(-0.07);
-        assertFalse(NetworkGraphBuilder.isCapacitor(sc2));
+        assertFalse(IidmUtil.isCapacitor(sc2));
     }
 }
