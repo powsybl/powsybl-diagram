@@ -14,11 +14,11 @@ import com.powsybl.diagram.util.forcelayout.layouts.Atlas2Layout;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
-    private static final int DEFAULT_MAX_STEPS = 400;
-    private static final double DEFAULT_REPULSION = 2;
-    private static final double DEFAULT_ATTRACTION = 2;
-    private static final double DEFAULT_GRAVITY = 1;
-    private static final double DEFAULT_SPEED_FACTOR = 0.1;
+    private static final int DEFAULT_MAX_STEPS = 6000;
+    private static final double DEFAULT_REPULSION = 4;
+    private static final double DEFAULT_ATTRACTION = 1;
+    private static final double DEFAULT_GRAVITY = 0.001;
+    private static final double DEFAULT_SPEED_FACTOR = 1;
     private static final double DEFAULT_MAX_SPEED_FACTOR = 10;
     private static final double DEFAULT_SWING_TOLERANCE = 1;
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;

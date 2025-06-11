@@ -8,7 +8,7 @@
 package com.powsybl.diagram.util.forcelayout.layouts;
 
 import com.powsybl.diagram.util.forcelayout.forces.Force;
-import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegree;
+import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegreeLinear;
 import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
 import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
@@ -17,6 +17,8 @@ import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,14 @@ import java.util.Map;
 public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters<V, E> layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
+
+    // The magic number (found with a regression on the number of steps it takes for a graph to look like it's finished)
+    // totally empirical
+    private static final double NORMALIZED_STOPPING_VALUE = 1.06944;
+    private static final double NORMALIZATION_POWER = -0.107886;
+    private static final double STARTING_SPEED_RATIO = 1;
+    private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2Layout(Atlas2Parameters<V, E> layoutParameters) {
         this.forces.add(new LinearEdgeAttractionForce<>(
@@ -37,7 +47,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
                         )
         ));
         if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new GravityForceByDegree<>(
+            this.forces.add(new GravityForceByDegreeLinear<>(
                     new IntensityParameter(
                             layoutParameters.getGravity()
                     )
@@ -62,8 +72,11 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
-        double previousGraphSpeed = 0.;
         int graphSize = forceGraph.getSimpleGraph().vertexSet().size();
+        double previousGraphSpeed = STARTING_SPEED_RATIO * graphSize;
+
+        double normalizationFactor = Math.pow(graphSize, NORMALIZATION_POWER);
+
         for (Point point : forceGraph.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
             swingMap.put(point, 0.);
@@ -97,21 +110,24 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
             // calculate s(G) the speed of the graph
             newGraphSpeed = layoutParameters.getSwingTolerance() * graphTraction / graphSwing;
             if (i != 0) {
-                newGraphSpeed = Math.min(
+                newGraphSpeed = Math.max(
+                    MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
+                    Math.min(
                         newGraphSpeed,
                         layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
-                );
+                ));
             }
             // calculate s(n) the speed of each node n
             // store the forces on each node into the map of forces
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
             updatePosition(forceGraph, newGraphSpeed, swingMap, previousForces);
-            //if (isStable(previousGraphSpeed, newGraphSpeed, graphSize)) {
-            //    break;
-            //}
+            if (isStable(newGraphSpeed, normalizationFactor)) {
+                break;
+            }
             previousGraphSpeed = newGraphSpeed;
         }
+        LOGGER.info("Finished in {} steps", i);
         this.forces.remove(2); // remove the LinearRepulsionForce as it depends on the graph
     }
 
@@ -159,23 +175,13 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
-    private boolean isStable(double previousGraphSpeed, double newGraphSpeed, int graphSize) {
+    private boolean isStable(double newGraphSpeed, double normalizationFactor) {
         // this stability condition is handmade and not mentioned in Atlas2's paper
         // a stop condition is given in that paper, but it involves calculating the distance of all the edges and vertex of the graph
         // which is expensive to do for big graphs (quadratic complexity with the number of vertex)
-        if (newGraphSpeed == 0) {
-            return true;
-        } else {
-            // divide by the size of the graph to keep it consistent between different size of graph
-            // because much bigger graphs would have more trouble stopping than small graphs, since we sum the movement of the vertex
-            double normalizedGraphSpeed = newGraphSpeed / graphSize;
-            // check the graph speed is low, and check that the graph speed doesn't change much between steps
-            // the limit values could be chosen by the user, but for now we keep it like that
-            // TODO add the stopping values as parameters of the layout
-            // also have the second check be graph size dependant, as smaller graph will have variations that are comparatively bigger
-            // since the vertex are less, the graphSpeed is lower, meaning that a small speed for a vertex could double the graphSpeed for example
-            return normalizedGraphSpeed < 0.05 && Math.abs(1 - previousGraphSpeed / newGraphSpeed) < 2. / graphSize;
-        }
+        // instead we use the global graph speed, which could be seen as a measurement of how much the graph is moving
+        // graphs that become stable have less global energy / a lower graph speed
+        return newGraphSpeed / normalizationFactor <= NORMALIZED_STOPPING_VALUE;
     }
 }
 
