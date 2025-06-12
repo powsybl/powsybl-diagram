@@ -220,14 +220,20 @@ public class SvgWriter {
             Transformer transformer = componentLibrary.getSvgTransformer();
             Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
             for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
-                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                List<Element> elements = scEntry.getValue();
                 List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
                         .map(List::of).orElse(List.of());
-                writeStyleClasses(writer, edgeStyleClasses);
-                for (Element element : scEntry.getValue()) {
+                boolean addGroupElement = (elements.size() > 1 || !edgeStyleClasses.isEmpty());
+                if (addGroupElement) {
+                    writer.writeStartElement(GROUP_ELEMENT_NAME);
+                    writeStyleClasses(writer, edgeStyleClasses);
+                }
+                for (Element element : elements) {
                     transformer.transform(new DOMSource(element), result);
                 }
-                writer.writeEndElement();
+                if (addGroupElement) {
+                    writer.writeEndElement();
+                }
             }
         } catch (TransformerException e) {
             throw new PowsyblException("Cannot insert SVG for injection of type " + injection.getType(), e);

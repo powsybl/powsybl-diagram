@@ -147,7 +147,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                 <g id="1" class="nad-vl0to30">
                     <polyline class="nad-edge-path" points="81.81,-540.42 110.74,-654.30"/>
                     <g>
-                        <circle cx="116.90" cy="-678.53" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="116.90" cy="-678.53" r="25.00"/>
                         <g transform="translate(91.90,-703.53)" class="nad-load">
                             <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
@@ -169,7 +169,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                         </g>
                     </g>
                     <g>
-                        <circle cx="-521.79" cy="127.19" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="-521.79" cy="127.19" r="25.00"/>
                         <g transform="translate(-546.79,102.19)" class="nad-generator">
                             <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
                         </g>
@@ -191,7 +191,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                         </g>
                     </g>
                     <g>
-                        <circle cx="265.15" cy="351.95" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="265.15" cy="351.95" r="25.00"/>
                         <g transform="translate(240.15,326.95)" class="nad-load">
                             <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>

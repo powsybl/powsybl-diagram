@@ -189,9 +189,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-250.27" cy="-682.50" r="25.00"/>
                         <g transform="translate(-275.27,-707.50)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -209,9 +207,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-51.91" cy="-537.69" r="25.00"/>
                         <g transform="translate(-76.91,-562.69)" class="nad-battery">
-                            <g>
-                                <path d="m9,17 h32 v18 h-32z M14,17 v-2 h6 v2 M30,17 v-2 h6 v2 M13.5,24 h7 M29.5,24 h7 M33,20.5 v7"></path>
-                            </g>
+                            <path d="m9,17 h32 v18 h-32z M14,17 v-2 h6 v2 M30,17 v-2 h6 v2 M13.5,24 h7 M29.5,24 h7 M33,20.5 v7"></path>
                         </g>
                     </g>
                 </g>
@@ -279,9 +275,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="17.32" cy="-123.04" r="25.00"/>
                         <g transform="translate(-7.68,-148.04)" class="nad-generator">
-                            <g>
-                                <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
-                            </g>
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
                         </g>
                     </g>
                 </g>
@@ -299,9 +293,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-75.88" cy="18.03" r="25.00"/>
                         <g transform="translate(-100.88,-6.97)" class="nad-inductor">
-                            <g>
-                                <path d="M43,28 A 8 20 0 0 0 31,28 A 8 20 0 0 0 19,28 A 8 20 0 0 0 7,28"></path>
-                            </g>
+                            <path d="M43,28 A 8 20 0 0 0 31,28 A 8 20 0 0 0 19,28 A 8 20 0 0 0 7,28"></path>
                         </g>
                     </g>
                 </g>
@@ -319,9 +311,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-243.19" cy="9.89" r="25.00"/>
                         <g transform="translate(-268.19,-15.11)" class="nad-capacitor">
-                            <g>
-                                <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10"></path>
-                            </g>
+                            <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10"></path>
                         </g>
                     </g>
                 </g>
@@ -341,9 +331,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-309.91" cy="-69.98" r="25.00"/>
                         <g transform="translate(-334.91,-94.98)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -361,9 +349,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-317.58" cy="-173.75" r="25.00"/>
                         <g transform="translate(-342.58,-198.75)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -381,9 +367,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="-263.34" cy="-262.56" r="25.00"/>
                         <g transform="translate(-288.34,-287.56)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -456,9 +440,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="156.12" cy="261.02" r="25.00"/>
                         <g transform="translate(131.12,236.02)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -480,9 +462,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="646.29" cy="220.36" r="25.00"/>
                         <g transform="translate(621.29,195.36)" class="nad-load">
-                            <g>
-                                <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
-                            </g>
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
                     </g>
                 </g>
@@ -500,9 +480,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     <g>
                         <circle class="nad-injection-frame" cx="483.96" cy="471.78" r="25.00"/>
                         <g transform="translate(458.96,446.78)" class="nad-svc">
-                            <g>
-                                <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10 M14,36 36,14 M32,14 36,14 36,18z"></path>
-                            </g>
+                            <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10 M14,36 36,14 M32,14 36,14 36,18z"></path>
                         </g>
                     </g>
                 </g>
