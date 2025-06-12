@@ -154,7 +154,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <g transform="translate(-68.86,687.69)" id="11">
             <desc>FFR1AA1</desc>
             <circle r="27.50" id="12" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
-            <path d="M-13.442,-55.907 A57.500,57.500 104.635 0 1 57.489,1.120 L32.394,-2.625 A32.500,32.500 -93.138 0 0 -4.394,-32.202 Z M55.255,15.910 A57.500,57.500 135.262 0 1 -50.448,27.591 L-26.809,18.372 A32.500,32.500 -123.765 0 0 30.173,12.076 Z M-55.857,13.646 A57.500,57.500 75.262 0 1 -27.406,-50.548 L-18.274,-26.876 A32.500,32.500 -63.765 0 0 -32.185,4.511 Z " id="13" class="nad-vl300to500 nad-bus-1 nad-busnode"/>
+            <path d="M-13.442,-55.907 A57.500,57.500 102.635 0 1 57.493,-0.887 L32.282,-3.754 A32.500,32.500 -91.138 0 0 -4.394,-32.202 Z M55.777,13.972 A57.500,57.500 139.262 0 1 -51.380,25.813 L-27.434,17.426 A32.500,32.500 -127.765 0 0 30.576,11.015 Z M-56.300,11.688 A57.500,57.500 73.262 0 1 -27.406,-50.548 L-18.274,-26.876 A32.500,32.500 -61.765 0 0 -32.323,3.385 Z " id="13" class="nad-vl300to500 nad-bus-1 nad-busnode"/>
         </g>
         <g transform="translate(-416.35,406.22)" id="14">
             <desc>FFR3AA1</desc>
@@ -479,26 +479,26 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <g id="33">
             <desc>FFR1AA1  FFR2AA1  1</desc>
             <g id="33.1" class="nad-vl300to500">
-                <path class="nad-edge-path" d="M-41.66,691.80 L10.25,699.64 C49.80,705.62 49.89,731.28 24.94,762.54"/>
-                <g class="nad-edge-infos" transform="translate(10.25,699.64)">
+                <path class="nad-edge-path" d="M-41.54,690.85 L10.62,696.87 C50.35,701.46 51.34,727.11 27.50,759.22"/>
+                <g class="nad-edge-infos" transform="translate(10.62,696.87)">
                     <g class="nad-active">
-                        <g transform="rotate(98.59)">
+                        <g transform="rotate(96.59)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(8.59)" x="19.00"></text>
+                        <text transform="rotate(6.59)" x="19.00"></text>
                     </g>
                 </g>
             </g>
             <g id="33.2" class="nad-vl300to500">
-                <path class="nad-edge-path" d="M-47.87,741.22 L-39.65,762.17 C-25.05,799.41 -0.01,793.81 24.94,762.54"/>
-                <g class="nad-edge-infos" transform="translate(-39.65,762.17)">
+                <path class="nad-edge-path" d="M-46.01,740.46 L-37.07,761.11 C-21.18,797.81 3.65,791.34 27.50,759.22"/>
+                <g class="nad-edge-infos" transform="translate(-37.07,761.11)">
                     <g class="nad-active">
-                        <g transform="rotate(158.59)">
+                        <g transform="rotate(156.59)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(68.59)" x="19.00"></text>
+                        <text transform="rotate(66.59)" x="19.00"></text>
                     </g>
                 </g>
             </g>
@@ -560,33 +560,33 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <g id="36">
             <desc>FFR1AA1  FFR2AA1  2</desc>
             <g id="36.1" class="nad-vl300to500">
-                <path class="nad-edge-path" d="M-77.65,744.52 L-81.09,766.75 C-87.21,806.28 -112.87,806.28 -120.67,800.01"/>
-                <g class="nad-edge-infos" transform="translate(-81.09,766.75)">
+                <path class="nad-edge-path" d="M-79.63,744.17 L-83.84,766.28 C-91.34,805.57 -116.98,804.67 -124.55,798.14"/>
+                <g class="nad-edge-infos" transform="translate(-83.84,766.28)">
                     <g class="nad-active">
-                        <g transform="rotate(-171.20)">
+                        <g transform="rotate(-169.20)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-81.20)" x="-19.00" style="text-anchor:end"></text>
+                        <text transform="rotate(-79.20)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
             <g id="36.2" class="nad-vl300to500">
-                <path class="nad-edge-path" d="M-94.49,697.64 L-143.44,716.62 C-180.73,731.09 -175.22,756.15 -167.43,762.42"/>
-                <g class="nad-edge-infos" transform="translate(-143.44,716.62)">
+                <path class="nad-edge-path" d="M-94.83,696.74 L-144.40,714.00 C-182.18,727.16 -177.54,752.40 -169.97,758.93"/>
+                <g class="nad-edge-infos" transform="translate(-144.40,714.00)">
                     <g class="nad-active">
-                        <g transform="rotate(-111.20)">
+                        <g transform="rotate(-109.20)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-21.20)" x="-19.00" style="text-anchor:end"></text>
+                        <text transform="rotate(-19.20)" x="-19.00" style="text-anchor:end"></text>
                     </g>
                 </g>
             </g>
             <g>
-                <circle class="nad-vl300to500 nad-winding" cx="-136.25" cy="787.48" r="20.00"/>
-                <circle class="nad-vl300to500 nad-winding" cx="-151.84" cy="774.95" r="20.00"/>
-                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.78,-0.63,0.63,-0.78,-139.46,823.39)" class="nad-pst-arrow"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-139.69" cy="785.07" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-154.83" cy="772.00" r="20.00"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.76,-0.65,0.65,-0.76,-144.16,820.85)" class="nad-pst-arrow"/>
             </g>
         </g>
         <g id="37">
