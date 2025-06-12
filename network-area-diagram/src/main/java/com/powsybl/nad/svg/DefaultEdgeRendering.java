@@ -200,7 +200,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 }
             }
 
-            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum() && totalDeltaAvailable >= Math.toRadians(slotAperture)) {
+            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum() && totalDeltaAvailable > 0) {
                 // Insert the angles in the "slots" separated by other edges which are large enough
                 int[] nbInsertedAngles = computeAnglesInsertedNumber(nbAngles, nbAvailableSlots, totalDeltaAvailable, deltaAngles);
                 return calculateInsertedAngles(nbInsertedAngles, deltaAngles, slotAperture, anglesOtherEdges);
