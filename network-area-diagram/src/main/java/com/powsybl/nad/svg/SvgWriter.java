@@ -187,7 +187,7 @@ public class SvgWriter {
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(injection.getEdge()));
         if (edgeInfo.isPresent()) {
-            drawInjectionEdgeInfo(graph, writer, injection, vlNode, busNode, edgeInfo.get());
+            drawInjectionEdgeInfo(writer, injection, vlNode, busNode, edgeInfo.get());
         }
     }
 
@@ -552,7 +552,7 @@ public class SvgWriter {
         drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
-    private void drawInjectionEdgeInfo(Graph graph, XMLStreamWriter writer, Injection injection, VoltageLevelNode vlNode, BusNode busNode, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection, VoltageLevelNode vlNode, BusNode busNode, EdgeInfo edgeInfo) throws XMLStreamException {
         drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, injection.getEdge()), injection.getAngle());
     }
 

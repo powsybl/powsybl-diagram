@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public class IidmUtilTest {
+class IidmUtilTest {
     @Test
     void isCapacitorTest() {
         Network network = EurostagTutorialExample1Factory.create();

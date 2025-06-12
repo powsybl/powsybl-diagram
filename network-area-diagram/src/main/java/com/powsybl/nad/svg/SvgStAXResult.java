@@ -8,7 +8,6 @@
 package com.powsybl.nad.svg;
 
 import javanet.staxutils.ContentHandlerToXMLStreamWriter;
-import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.sax.SAXResult;
@@ -26,11 +25,13 @@ public class SvgStAXResult extends SAXResult {
             super(writer);
         }
 
+        @Override
         public void startDocument() {
             // do nothing
         }
 
-        public void endDocument() throws SAXException {
+        @Override
+        public void endDocument() {
             // do nothing
         }
     }
