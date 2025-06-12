@@ -223,7 +223,7 @@ public class SvgWriter {
                 List<Element> elements = scEntry.getValue();
                 List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
                         .map(List::of).orElse(List.of());
-                boolean addGroupElement = (elements.size() > 1 || !edgeStyleClasses.isEmpty());
+                boolean addGroupElement = elements.size() > 1 || !edgeStyleClasses.isEmpty();
                 if (addGroupElement) {
                     writer.writeStartElement(GROUP_ELEMENT_NAME);
                     writeStyleClasses(writer, edgeStyleClasses);
