@@ -32,7 +32,7 @@ public final class CssUtil {
             }
         }
         return styleSheetBuilder.toString()
-                .replace("\r", "\n");
+                .replace("\r\n", "\n");
     }
 
     public static String getImportCssString(List<String> cssFilenames) {
