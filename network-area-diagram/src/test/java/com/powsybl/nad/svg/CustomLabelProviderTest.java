@@ -74,7 +74,7 @@ class CustomLabelProviderTest extends AbstractTest {
         Map<String, List<String>> vlDetails = new HashMap<>();
         vlDetails.put("VL2", List.of("VL2 details1", "VL2 details2"));
 
-        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, new HashMap<>(), busDescriptions, vlDescriptions, vlDetails);
 
         assertSvgEquals("/custom_label_provider.svg", network);
     }
@@ -86,6 +86,10 @@ class CustomLabelProviderTest extends AbstractTest {
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
         threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels("SIDE1", "SIDE2", "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
+
+        Map<String, CustomLabelProvider.InjectionLabels> injLabels = new HashMap<>();
+        injLabels.put("GEN_132", new CustomLabelProvider.InjectionLabels("G132", EdgeInfo.Direction.IN));
+        injLabels.put("LOAD_33", new CustomLabelProvider.InjectionLabels("L33", EdgeInfo.Direction.OUT));
 
         Map<String, String> busDescriptions = new HashMap<>();
         busDescriptions.put("VL_132_0", "VL1 132");
@@ -102,7 +106,8 @@ class CustomLabelProviderTest extends AbstractTest {
         vlDetails.put("VL_33", List.of("VL 33 details1", "VL 33 details2"));
         vlDetails.put("VL_11", List.of("VL 1 details1"));
 
-        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, busDescriptions, vlDescriptions, vlDetails);
+        labelProvider = new CustomLabelProvider(branchLabels, threeWtLabels, injLabels, busDescriptions, vlDescriptions, vlDetails);
+        getLayoutParameters().setInjectionsAdded(true);
 
         assertSvgEquals("/custom_label_provider_3wt.svg", network);
     }

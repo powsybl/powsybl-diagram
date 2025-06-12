@@ -7,6 +7,8 @@
  */
 package com.powsybl.diagram.components;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +26,10 @@ public class Component {
 
     private final List<SubComponent> subComponents;
 
-    public Component(String type, ComponentSize size, String styleClass, List<SubComponent> subComponents) {
+    public Component(@JsonProperty("type") String type,
+                     @JsonProperty("size") ComponentSize size,
+                     @JsonProperty("style") String styleClass,
+                     @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;

@@ -10,6 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -48,6 +49,15 @@ public class DefaultLabelProvider implements LabelProvider {
         }
         Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
         return getEdgeInfo(terminal);
+    }
+
+    @Override
+    public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
+        var connectable = network.getConnectable(injection.getEquipmentId());
+        if (!(connectable instanceof com.powsybl.iidm.network.Injection<?> iidmInjection)) {
+            throw new PowsyblException("Unknown injection '" + injection.getEquipmentId() + "'");
+        }
+        return getEdgeInfo(iidmInjection.getTerminal());
     }
 
     @Override

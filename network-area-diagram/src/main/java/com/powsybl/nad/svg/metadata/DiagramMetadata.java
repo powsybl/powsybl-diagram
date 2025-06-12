@@ -7,9 +7,7 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
@@ -43,6 +41,10 @@ public class DiagramMetadata extends AbstractMetadata {
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
     private final List<TextNodeMetadata> textNodesMetadata = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) // only serializes it non-empty
+    @JsonSetter(nulls = Nulls.AS_EMPTY) // if missing when deserializing creates an empty array
+    private final List<InjectionMetadata> injectionsMetadata = new ArrayList<>();
+
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
@@ -53,22 +55,16 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("svgParameters") SvgParameters svgParameters,
                            @JsonProperty("busNodes") List<BusNodeMetadata> busNodesMetadata,
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
+                           @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
                            @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
                            @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
-        for (BusNodeMetadata busNodeMetadata : busNodesMetadata) {
-            this.busNodesMetadata.add(busNodeMetadata);
-        }
-        for (NodeMetadata nodeMetadata : nodesMetadata) {
-            this.nodesMetadata.add(nodeMetadata);
-        }
-        for (EdgeMetadata edgeMetadata : edgesMetadata) {
-            this.edgesMetadata.add(edgeMetadata);
-        }
-        for (TextNodeMetadata textNodeMetadata : textNodesMetadata) {
-            this.textNodesMetadata.add(textNodeMetadata);
-        }
+        this.busNodesMetadata.addAll(busNodesMetadata);
+        this.nodesMetadata.addAll(nodesMetadata);
+        this.injectionsMetadata.addAll(injectionsMetadata);
+        this.edgesMetadata.addAll(edgesMetadata);
+        this.textNodesMetadata.addAll(textNodesMetadata);
     }
 
     @JsonProperty("busNodes")
@@ -79,6 +75,11 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonProperty("nodes")
     public List<NodeMetadata> getNodesMetadata() {
         return nodesMetadata;
+    }
+
+    @JsonProperty("injections")
+    public List<InjectionMetadata> getInjectionsMetadata() {
+        return injectionsMetadata;
     }
 
     @JsonProperty("edges")
@@ -114,6 +115,15 @@ public class DiagramMetadata extends AbstractMetadata {
                 round(node.getX()),
                 round(node.getY()),
                 node.isFictitious())));
+        graph.getVoltageLevelNodesStream().forEach(
+                vlNode -> vlNode.getBusNodeStream().forEach(
+                        busNode -> busNode.getInjections().forEach(
+                                injection -> injectionsMetadata.add(new InjectionMetadata(
+                                        injection.getDiagramId(),
+                                        injection.getEquipmentId(),
+                                        injection.getComponentType(),
+                                        busNode.getDiagramId(),
+                                        vlNode.getDiagramId())))));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
