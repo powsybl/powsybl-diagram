@@ -11,6 +11,7 @@ package com.powsybl.diagram.components;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class ComponentTypeName {
+    public static final String GENERATOR = "GENERATOR";
     public static final String BATTERY = "BATTERY";
     public static final String CAPACITOR = "CAPACITOR";
     public static final String INDUCTOR = "INDUCTOR";

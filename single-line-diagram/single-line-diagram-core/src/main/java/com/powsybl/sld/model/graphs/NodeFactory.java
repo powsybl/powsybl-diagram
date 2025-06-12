@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.graphs;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.components.ComponentTypeName;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
@@ -82,27 +83,27 @@ public final class NodeFactory {
     }
 
     public static FeederNode createGenerator(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.GENERATOR);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.GENERATOR);
     }
 
     public static FeederNode createBattery(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.BATTERY);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.BATTERY);
     }
 
     public static FeederNode createLoad(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.LOAD);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.LOAD);
     }
 
     public static FeederNode createStaticVarCompensator(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.STATIC_VAR_COMPENSATOR);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.STATIC_VAR_COMPENSATOR);
     }
 
     public static FeederNode createInductor(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.INDUCTOR);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.INDUCTOR);
     }
 
     public static FeederNode createCapacitor(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.CAPACITOR);
+        return createFeederInjectionNode(graph, id, name, ComponentTypeName.CAPACITOR);
     }
 
     public static FeederNode createDanglingLine(VoltageLevelGraph graph, String id, String name) {

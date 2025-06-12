@@ -80,6 +80,7 @@ class ComponentsTest {
         String componentJSon = String.join(System.lineSeparator(), Arrays.toString(CHAR_SEQUENCES).substring(0, CHAR_SEQUENCES.length - 1));
 
         ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
-        assertThrows(UncheckedIOException.class, () -> new ComponentsLoader<>(SldComponent.class).load(is));
+        ComponentsLoader<SldComponent> loader = new ComponentsLoader<>(SldComponent.class);
+        assertThrows(UncheckedIOException.class, () -> loader.load(is));
     }
 }
