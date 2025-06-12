@@ -86,7 +86,11 @@ class DiagramMetadataTest extends AbstractTest {
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        testMetadata(network, "/3wt_metadata.json", 3, 4, 3, 3);
+        DiagramMetadata diagramMetadata = roundTrip(network, "/3wt_metadata.json", getLayoutParameters());
+        assertEquals(3, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(4, diagramMetadata.getNodesMetadata().size());
+        assertEquals(3, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(3, diagramMetadata.getTextNodesMetadata().size());
     }
 
     @Test
@@ -94,23 +98,28 @@ class DiagramMetadataTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getVoltageLevel("VL12").setFictitious(true);
         network.getVoltageLevel("VL14").setFictitious(true);
-        testMetadata(network, "/IEEE_14_bus_fictitious_metadata.json", 14, 14, 20, 14);
+        DiagramMetadata diagramMetadata = roundTrip(network, "/IEEE_14_bus_fictitious_metadata.json", getLayoutParameters());
+        assertEquals(14, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(14, diagramMetadata.getNodesMetadata().size());
+        assertEquals(20, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(14, diagramMetadata.getTextNodesMetadata().size());
     }
 
-    private void testMetadata(Network network, String referenceMetadata, int busNodesNumber, int nodesNumber, int edgesNumber, int textNodesNumber) {
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLayoutParameters()).buildGraph();
-        new BasicForceLayout().run(graph, getLayoutParameters());
+    @Test
+    void testInjections() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        roundTrip(network, "/IEEE_14_bus_injections_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
+        new BasicForceLayout().run(graph, layoutParameters);
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        new DiagramMetadata(getLayoutParameters(), getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file
-        DiagramMetadata diagramMetadata = DiagramMetadata.parseJson(outMetadataPath);
-        // Check read metadata
-        assertEquals(busNodesNumber, diagramMetadata.getBusNodesMetadata().size());
-        assertEquals(nodesNumber, diagramMetadata.getNodesMetadata().size());
-        assertEquals(edgesNumber, diagramMetadata.getEdgesMetadata().size());
-        assertEquals(textNodesNumber, diagramMetadata.getTextNodesMetadata().size());
+        return DiagramMetadata.parseJson(outMetadataPath);
     }
 }
