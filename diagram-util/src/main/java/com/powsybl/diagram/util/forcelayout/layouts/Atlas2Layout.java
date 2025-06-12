@@ -29,11 +29,12 @@ import java.util.Map;
 /// Jacomy M, Venturini T, Heymann S, Bastian M (2014)
 /// ForceAtlas2, a Continuous Graph Layout Algorithm for Handy Network Visualization Designed for
 /// the Gephi Software. PLoS ONE 9(6): e98679. doi:10.1371/journal.pone.0098679
-/// Some parts of the code do not directly come from the paper and are instead found through experimenting, to try something that works best
+/// The paper requires its usage to credit the original author and the source, DO NOT REMOVE THE ABOVE REFERENCE
+/// Some parts of the code do not directly come from the paper and are instead found through experimenting, to find something that works best
 /// The parts that are not inside the original paper are:
 /// - the choice of a starting global speed for the graph
 /// - a maximum decrease ratio in global speed between each step
-/// - a quick to calculate stopping condition
+/// - a "quick to calculate" stopping condition
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -43,12 +44,15 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
 
-    // The magic number
+    // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
     // This was found by launching the algorithm on a lot of graphs and checking after how many steps the graph looked stable
     // We then check the corresponding global graph speed, and made a regression between the number of nodes and the global graph speed at each step
     // this gave a curve y = a * x^b with a = NORMALIZED_STOPPING_VALUE and b = NORMALIZATION_POWER
     // it means that we can know the graph speed at which the graph is stable, no matter the speed of the graph
+    // The speed is globally decreasing (even though it goes up sometimes). On all the tests that were ran, the global speed
+    // reaches this stopping value for the first time when it is stable (meaning it doesn't become stable when it reaches it for the 2nd, 3rd try)
+    // meaning we can be confident to stop once we reach this value for the first time
     private static final double NORMALIZED_STOPPING_VALUE = 1.06944;
     private static final double NORMALIZATION_POWER = -0.107886;
     // This is not part of Atlas2's paper, used to control the global graph speed decrease and start value
@@ -62,6 +66,8 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
                         )
         ));
         if (layoutParameters.isAttractToCenterForce()) {
+            // Atlas2 talks about both a unit gravity force and a linear gravity force
+            // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
             this.forces.add(new GravityForceByDegreeLinear<>(
                     new IntensityParameter(
                             layoutParameters.getGravity()

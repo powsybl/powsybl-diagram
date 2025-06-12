@@ -28,7 +28,6 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
     @Override
     public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D();
-        // TODO we could make this faster if we knew the index of the vertex, maybe store it in the correspondingPoint ?
         int thisVertexDegree = correspondingPoint.getPointVertexDegree();
         for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getMovingPoints().entrySet()) {
             if (otherVertexPoint.getValue() != correspondingPoint) {
