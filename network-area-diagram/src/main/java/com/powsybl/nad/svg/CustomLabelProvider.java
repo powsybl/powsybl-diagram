@@ -40,6 +40,7 @@ import java.util.*;
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 public class CustomLabelProvider implements LabelProvider {
+    public static final String INFO_TYPE = "Custom";
     final Map<String, BranchLabels> branchLabels;
     final Map<String, ThreeWtLabels> threeWtLabels;
     final Map<String, InjectionLabels> injectionLabels;
@@ -75,7 +76,7 @@ public class CustomLabelProvider implements LabelProvider {
     private EdgeInfo getEdgeInfo(BranchLabels bl, BranchEdge.Side side) {
         String label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
         EdgeInfo.Direction arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
-        return new EdgeInfo("Custom", arrowDirection, null, label);
+        return new EdgeInfo(INFO_TYPE, arrowDirection, null, label);
     }
 
     @Override
@@ -96,13 +97,13 @@ public class CustomLabelProvider implements LabelProvider {
             case TWO -> labels.arrow2;
             case THREE -> labels.arrow3;
         };
-        return new EdgeInfo("Custom", arrowDirection, null, labelSide);
+        return new EdgeInfo(INFO_TYPE, arrowDirection, null, labelSide);
     }
 
     @Override
     public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
         InjectionLabels injectionLabel = injectionLabels.get(injection.getEquipmentId());
-        return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo("Custom", lbl.arrow, null, lbl.label));
+        return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo(INFO_TYPE, lbl.arrow, null, lbl.label));
     }
 
     @Override
