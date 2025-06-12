@@ -174,7 +174,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 .filter(e -> !loopEdges.contains(e))
                 .mapToDouble(e -> getAngle(e, graph, node))
                 .sorted().boxed().collect(Collectors.toList());
-        return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture());
+        return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture() * 1.2);
     }
 
     private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
