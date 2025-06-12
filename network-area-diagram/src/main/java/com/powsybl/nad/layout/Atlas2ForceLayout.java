@@ -27,7 +27,8 @@ import java.util.stream.Collectors;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Atlas2ForceLayout extends AbstractLayout {
-    private static final int SCALE = 100;
+    private static final double SCALE_COEFFICIENT = 190.757;
+    private static final double SCALE_EXPONENT = -0.458;
 
     private final SetupEnum setupChoice;
     //maybe change the class name to not be confused with NAD LayoutParameters ?
@@ -45,12 +46,13 @@ public class Atlas2ForceLayout extends AbstractLayout {
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         ForceGraph<Node, Edge> forceGraph = new ForceGraph<>(graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout()));
+        double scale = SCALE_COEFFICIENT * Math.pow(forceGraph.getSimpleGraph().vertexSet().size(), SCALE_EXPONENT);
         //this is not ideal as there are two places with the maxStep, ie LayoutParameters, and Atlas2Parameters
         LayoutAlgorithmRunner<Node, Edge> layoutAlgorithmRunner = new LayoutAlgorithmRunner<>(
             this.setupChoice,
             this.atlas2Parameters
         );
-        setInitialPositions(graph, forceGraph);
+        setInitialPositions(graph, forceGraph, scale);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
@@ -62,10 +64,10 @@ public class Atlas2ForceLayout extends AbstractLayout {
         forceGraph.getSimpleGraph().vertexSet().forEach(node -> {
             Vector2D p = layoutAlgorithmRunner.getStablePosition(node);
             if (node instanceof TextNode texNode) {
-                texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
-                texNode.setEdgeConnection(new com.powsybl.nad.model.Point(SCALE * p.getX(), SCALE * p.getY()));
+                texNode.setPosition(scale * p.getX(), scale * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
+                texNode.setEdgeConnection(new com.powsybl.nad.model.Point(scale * p.getX(), scale * p.getY()));
             } else {
-                node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+                node.setPosition(scale * p.getX(), scale * p.getY());
             }
         });
 
@@ -76,15 +78,15 @@ public class Atlas2ForceLayout extends AbstractLayout {
 
     /// Taken from BasicForceLayout, could be put in parent class but not exactly the same
     /// This would require to change BasicForceLayout to use LayoutAlgorithmRunner instead of ForceLayout
-    private void setInitialPositions(Graph graph, ForceGraph<Node, Edge> forceGraph) {
+    private void setInitialPositions(Graph graph, ForceGraph<Node, Edge> forceGraph, double scale) {
         Map<Node, Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                         nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
                         nodePosition -> new com.powsybl.diagram.util.forcelayout.geometry.Point(
-                                nodePosition.getValue().getX() / SCALE,
-                                nodePosition.getValue().getY() / SCALE)
+                                nodePosition.getValue().getX() / scale,
+                                nodePosition.getValue().getY() / scale)
                 ));
         forceGraph.setInitialPoints(initialPoints);
     }
