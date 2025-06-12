@@ -342,7 +342,7 @@ public class GraphMetadata extends AbstractMetadata {
         }
     }
 
-    private final Map<String, Component> componentByType = new HashMap<>();
+    private final Map<String, SldComponent> componentByType = new HashMap<>();
 
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
 
@@ -364,7 +364,7 @@ public class GraphMetadata extends AbstractMetadata {
     }
 
     @JsonCreator
-    public GraphMetadata(@JsonProperty("components") List<Component> componentList,
+    public GraphMetadata(@JsonProperty("components") List<SldComponent> componentList,
                          @JsonProperty("nodes") List<NodeMetadata> nodeMetadataList,
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
@@ -373,7 +373,7 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
                          @JsonProperty("svgParams") SvgParameters svgParams) {
-        for (Component component : componentList) {
+        for (SldComponent component : componentList) {
             addComponent(component);
         }
         for (NodeMetadata nodeMetadata : nodeMetadataList) {
@@ -426,23 +426,23 @@ public class GraphMetadata extends AbstractMetadata {
         }
     }
 
-    public void addComponent(Component component) {
+    public void addComponent(SldComponent component) {
         Objects.requireNonNull(component);
         componentByType.put(component.getType(), component);
     }
 
-    public Component getComponentMetadata(String componentType) {
+    public SldComponent getComponentMetadata(String componentType) {
         return componentType != null ? componentByType.get(componentType) : null;
     }
 
     public List<AnchorPoint> getAnchorPoints(String type) {
-        Component component = getComponentMetadata(type);
+        SldComponent component = getComponentMetadata(type);
         return component != null ? component.getAnchorPoints()
                                          : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }
 
     @JsonProperty("components")
-    public List<Component> getComponentMetadata() {
+    public List<SldComponent> getComponentMetadata() {
         return ImmutableList.copyOf(componentByType.values());
     }
 

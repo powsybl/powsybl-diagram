@@ -11,7 +11,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.LabelProvider;
@@ -30,7 +30,7 @@ public class SldParameters {
 
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
-    private ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
+    private SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
@@ -57,11 +57,11 @@ public class SldParameters {
         return this;
     }
 
-    public ComponentLibrary getComponentLibrary() {
+    public SldComponentLibrary getComponentLibrary() {
         return componentLibrary;
     }
 
-    public SldParameters setComponentLibrary(ComponentLibrary componentLibrary) {
+    public SldParameters setComponentLibrary(SldComponentLibrary componentLibrary) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         return this;
     }

@@ -9,7 +9,7 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
@@ -29,12 +29,12 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
 
-    protected final ComponentLibrary componentLibrary;
+    protected final SldComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
     protected final ValueFormatter valueFormatter;
     protected final SvgParameters svgParameters;
 
-    protected AbstractLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    protected AbstractLabelProvider(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;

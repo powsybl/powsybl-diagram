@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="385.0" viewBox="0 0 380.0 385.0" width="380.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -77,8 +76,7 @@
 .sld-voltage-indicator .sld-unpowered {stroke: none; fill: grey}
 .sld-voltage-indicator .sld-powered {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-powered .sld-unpowered {visibility: hidden}
-.sld-unpowered .sld-powered {visibility: hidden}
-]]></style>
+.sld-unpowered .sld-powered {visibility: hidden}]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-busbar-section" id="idbbs1" transform="translate(52.5,280.0)">

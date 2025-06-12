@@ -7,7 +7,7 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -32,17 +32,17 @@ public class EmptyStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary) {
         return Collections.emptyList();
     }
 
     @Override
-    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+    public List<String> getBranchEdgeStyles(BranchEdge edge, SldComponentLibrary componentLibrary) {
         return Collections.emptyList();
     }
 

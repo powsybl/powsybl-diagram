@@ -8,7 +8,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -43,8 +43,8 @@ class TestAddExternalComponent extends AbstractTestCaseRaw {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("cheese", "/ConvergenceLibrary", "/CheeseLibrary");
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new SldResourcesComponentLibrary("cheese", "/ConvergenceLibrary", "/CheeseLibrary");
     }
 
     @Test

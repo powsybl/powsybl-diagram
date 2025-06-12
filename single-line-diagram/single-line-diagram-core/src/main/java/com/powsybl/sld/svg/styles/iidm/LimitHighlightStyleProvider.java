@@ -7,7 +7,7 @@
 package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -57,7 +57,7 @@ public class LimitHighlightStyleProvider extends EmptyStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         if (!(node instanceof BusNode busNode)) {
             return Collections.emptyList();
         }

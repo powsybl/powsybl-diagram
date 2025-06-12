@@ -9,7 +9,7 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 
 /**
  *
@@ -18,5 +18,5 @@ import com.powsybl.sld.library.ComponentLibrary;
 
 @FunctionalInterface
 public interface LabelProviderFactory {
-    LabelProvider create(Network network, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
+    LabelProvider create(Network network, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters);
 }

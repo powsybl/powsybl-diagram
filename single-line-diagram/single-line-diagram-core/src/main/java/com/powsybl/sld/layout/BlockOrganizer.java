@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
+import static com.powsybl.sld.library.SldComponentTypeName.BUS_CONNECTION;
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;

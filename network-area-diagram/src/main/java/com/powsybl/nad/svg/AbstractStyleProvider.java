@@ -8,14 +8,10 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.*;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,21 +33,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public String getStyleDefs() {
-        StringBuilder styleSheetBuilder = new StringBuilder("\n");
-        for (URL cssUrl : getCssUrls()) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        return styleSheetBuilder.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-    }
-
-    protected List<URL> getCssUrls() {
+    public List<URL> getCssUrls() {
         return getCssFilenames().stream()
                 .map(n -> getClass().getResource("/" + n))
                 .collect(Collectors.toList());

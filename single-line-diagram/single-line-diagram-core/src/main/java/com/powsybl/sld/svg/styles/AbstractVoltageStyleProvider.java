@@ -7,8 +7,8 @@
 package com.powsybl.sld.svg.styles;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
@@ -65,8 +65,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     private Optional<String> getDanglingLineStyle(FeederNode n) {
         if (n.getFeeder().getFeederType() == FeederType.BRANCH) {
             return switch (n.getComponentType()) {
-                case ComponentTypeName.TIE_LINE -> Optional.of(StyleClassConstants.TIE_LINE);
-                case ComponentTypeName.DANGLING_LINE -> Optional.of(StyleClassConstants.DANGLING_LINE);
+                case SldComponentTypeName.TIE_LINE -> Optional.of(StyleClassConstants.TIE_LINE);
+                case SldComponentTypeName.DANGLING_LINE -> Optional.of(StyleClassConstants.DANGLING_LINE);
                 default -> Optional.empty();
             };
         }
@@ -85,7 +85,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
         if (graph != null && !isNodeSeparatingStyles(node)) {

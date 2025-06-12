@@ -1,5 +1,4 @@
-{
-  "components": [
+[
     {
       "type": "BREAKER",
       "anchorPoints": [
@@ -949,4 +948,3 @@
       "styleClass": "sld-current"
     }
   ]
-}

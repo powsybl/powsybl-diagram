@@ -11,7 +11,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -112,8 +112,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("VoltageIndicator", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new SldResourcesComponentLibrary("VoltageIndicator", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
     }
 
     @Test

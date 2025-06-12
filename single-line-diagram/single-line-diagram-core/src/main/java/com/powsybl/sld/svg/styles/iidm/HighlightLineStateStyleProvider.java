@@ -8,8 +8,8 @@
 package com.powsybl.sld.svg.styles.iidm;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -39,7 +39,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         if (node instanceof BusNode busNode && !isBusOrBbsConnected(busNode)) {
             return List.of(StyleClassConstants.BUS_DISCONNECTED);
         }
@@ -91,7 +91,7 @@ public class HighlightLineStateStyleProvider extends EmptyStyleProvider {
             if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
                 side = feederWs.getSide();
                 otherSide = getOtherSide(side);
-                if (ComponentTypeName.LINE.equals(n.getComponentType())) {
+                if (SldComponentTypeName.LINE.equals(n.getComponentType())) {
                     side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
                     otherSide = getOtherSide(side);
                 }

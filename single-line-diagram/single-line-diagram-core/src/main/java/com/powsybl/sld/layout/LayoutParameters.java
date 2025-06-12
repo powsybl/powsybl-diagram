@@ -10,8 +10,8 @@ package com.powsybl.sld.layout;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.diagram.components.ComponentSize;
+import com.powsybl.sld.library.SldComponentTypeName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class LayoutParameters {
     private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
     private Padding diagramPadding = new Padding(20);
     private Alignment busbarsAlignment = Alignment.FIRST;
-    private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
+    private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;

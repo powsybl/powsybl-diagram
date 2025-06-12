@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
+import static com.powsybl.sld.library.SldComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.SldComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.SldComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.SldComponentTypeName.GENERATOR;
+import static com.powsybl.sld.library.SldComponentTypeName.LINE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

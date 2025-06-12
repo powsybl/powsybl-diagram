@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

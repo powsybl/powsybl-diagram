@@ -11,7 +11,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
@@ -51,7 +51,7 @@ class TestCase11FlatDesignComponents extends AbstractTestCaseIidm {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
         return new FlatDesignLibrary();
     }
 

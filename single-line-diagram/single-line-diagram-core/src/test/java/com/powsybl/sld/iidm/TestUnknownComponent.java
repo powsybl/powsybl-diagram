@@ -9,7 +9,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,8 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("unknown", "/UnknownLibrary");
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new SldResourcesComponentLibrary("unknown", "/UnknownLibrary");
     }
 
     @Test

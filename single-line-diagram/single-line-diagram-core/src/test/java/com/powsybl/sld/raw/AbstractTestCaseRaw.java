@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_REACTIVE;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

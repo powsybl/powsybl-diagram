@@ -20,9 +20,9 @@ class ComponentLibraryTest {
 
     @Test
     void test() {
-        List<ComponentLibrary> libraries = ComponentLibrary.findAll();
+        List<SldComponentLibrary> libraries = SldComponentLibrary.findAll();
         assertEquals(2, libraries.size());
-        ComponentLibrary cvg = ComponentLibrary.find("Convergence").orElse(null);
+        SldComponentLibrary cvg = SldComponentLibrary.find("Convergence").orElse(null);
         assertNotNull(cvg);
         assertEquals("Convergence", cvg.getName());
         assertEquals(32, cvg.getComponentsSize().size());

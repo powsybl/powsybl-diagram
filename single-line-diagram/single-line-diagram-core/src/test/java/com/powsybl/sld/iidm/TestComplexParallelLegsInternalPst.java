@@ -10,7 +10,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.FlatDesignLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
         return new FlatDesignLibrary();
     }
 
