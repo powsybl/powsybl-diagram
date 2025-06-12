@@ -42,6 +42,7 @@ import java.util.*;
 public class CustomLabelProvider implements LabelProvider {
     final Map<String, BranchLabels> branchLabels;
     final Map<String, ThreeWtLabels> threeWtLabels;
+    final Map<String, InjectionLabels> injectionLabels;
     final Map<String, String> busDescriptions;
     final Map<String, List<String>> vlDescriptions;
     final Map<String, List<String>> vlDetails;
@@ -52,10 +53,14 @@ public class CustomLabelProvider implements LabelProvider {
     public record ThreeWtLabels(String side1, String side2, String side3, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
     }
 
-    public CustomLabelProvider(Map<String, BranchLabels> branchLabels, Map<String, ThreeWtLabels> threeWtLabels,
+    public record InjectionLabels(String label, EdgeInfo.Direction arrow) {
+    }
+
+    public CustomLabelProvider(Map<String, BranchLabels> branchLabels, Map<String, ThreeWtLabels> threeWtLabels, Map<String, InjectionLabels> injectionLabels,
                                Map<String, String> busDescriptions, Map<String, List<String>> vlDescriptions, Map<String, List<String>> vlDetails) {
         this.branchLabels = Objects.requireNonNull(branchLabels);
         this.threeWtLabels = Objects.requireNonNull(threeWtLabels);
+        this.injectionLabels = Objects.requireNonNull(injectionLabels);
         this.busDescriptions = Objects.requireNonNull(busDescriptions);
         this.vlDescriptions = Objects.requireNonNull(vlDescriptions);
         this.vlDetails = Objects.requireNonNull(vlDetails);
@@ -64,43 +69,40 @@ public class CustomLabelProvider implements LabelProvider {
     @Override
     public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
         BranchLabels bl = this.branchLabels.get(edge.getEquipmentId());
-        String label = null;
-        EdgeInfo.Direction arrowDirection = null;
-        if (bl != null) {
-            label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
-            arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
-        }
-        return Optional.of(new EdgeInfo("Custom", arrowDirection, null, label));
+        return Optional.ofNullable(bl).map(bl1 -> getEdgeInfo(bl1, side));
+    }
+
+    private EdgeInfo getEdgeInfo(BranchLabels bl, BranchEdge.Side side) {
+        String label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
+        EdgeInfo.Direction arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
+        return new EdgeInfo("Custom", arrowDirection, null, label);
     }
 
     @Override
     public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
         ThreeWtLabels threeWtLabels1 = threeWtLabels.get(edge.getEquipmentId());
+        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(edge, lbl));
+    }
+
+    private EdgeInfo getEdgeInfo(ThreeWtEdge edge, ThreeWtLabels labels) {
         ThreeWtEdge.Side edgeSide = edge.getSide();
-        String labelSide = null;
-        EdgeInfo.Direction arrowDirection = null;
-        if (threeWtLabels1 != null) {
-            switch (edgeSide) {
-                case ONE -> {
-                    labelSide = threeWtLabels1.side1;
-                    arrowDirection = threeWtLabels1.arrow1;
-                }
-                case TWO -> {
-                    labelSide = threeWtLabels1.side2;
-                    arrowDirection = threeWtLabels1.arrow2;
-                }
-                case THREE -> {
-                    labelSide = threeWtLabels1.side3;
-                    arrowDirection = threeWtLabels1.arrow3;
-                }
-            }
-        }
-        return Optional.of(new EdgeInfo("Custom", arrowDirection, null, labelSide));
+        String labelSide = switch (edgeSide) {
+            case ONE -> labels.side1;
+            case TWO -> labels.side2;
+            case THREE -> labels.side3;
+        };
+        EdgeInfo.Direction arrowDirection = switch (edgeSide) {
+            case ONE -> labels.arrow1;
+            case TWO -> labels.arrow2;
+            case THREE -> labels.arrow3;
+        };
+        return new EdgeInfo("Custom", arrowDirection, null, labelSide);
     }
 
     @Override
     public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
-        return Optional.empty(); // TODO:
+        InjectionLabels injectionLabel = injectionLabels.get(injection.getEquipmentId());
+        return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo("Custom", lbl.arrow, null, lbl.label));
     }
 
     @Override

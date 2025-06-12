@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.nad.model.*;
 
 import java.util.*;
@@ -22,8 +23,8 @@ public class DefaultEdgeRendering implements EdgeRendering {
     public void run(Graph graph, SvgParameters svgParameters) {
         graph.getNonMultiBranchEdgesStream().forEach(edge -> computeSingleBranchEdgeCoordinates(graph, edge, svgParameters));
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges, svgParameters));
-        graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
+        graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
         graph.getVoltageLevelNodesStream().forEach(vln -> injectionEdgesLayout(graph, vln, svgParameters));
     }
@@ -169,7 +170,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
     }
 
     private List<Double> computeLoopAngles(Graph graph, List<BranchEdge> loopEdges, Node node, SvgParameters svgParameters) {
-        List<Double> anglesOtherEdges = graph.getBranchEdgeStream(node)
+        List<Double> anglesOtherEdges = graph.getEdgeStream(node)
                 .filter(e -> !loopEdges.contains(e))
                 .mapToDouble(e -> getAngle(e, graph, node))
                 .sorted().boxed().collect(Collectors.toList());
@@ -177,7 +178,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
     }
 
     private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        List<Double> anglesOtherEdges = graph.getBranchEdgeStream(vlNode)
+        List<Double> anglesOtherEdges = graph.getEdgeStream(vlNode)
                 .mapToDouble(e -> getAngle(e, graph, vlNode))
                 .sorted().boxed().collect(Collectors.toList());
         int nbInjections = vlNode.getBusNodeStream().mapToInt(BusNode::getInjectionCount).sum();
@@ -254,9 +255,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
         }
     }
 
-    private double getAngle(BranchEdge edge, Graph graph, Node node) {
-        BranchEdge.Side side = graph.getNode1(edge) == node ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
-        return edge.getEdgeStartAngle(side);
+    private double getAngle(Edge edge, Graph graph, Node node) {
+        if (edge instanceof BranchEdge branchEdge) {
+            BranchEdge.Side side = graph.getNode1(edge) == node ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+            return branchEdge.getEdgeStartAngle(side);
+        } else if (edge instanceof ThreeWtEdge threeWtEdge) {
+            return threeWtEdge.getEdgeAngle();
+        }
+        throw new PowsyblException("Unexpected edge type: " + edge.getClass().getName());
     }
 
     private void computeThreeWtEdgeCoordinates(Graph graph, ThreeWtNode threeWtNode, SvgParameters svgParameters) {
