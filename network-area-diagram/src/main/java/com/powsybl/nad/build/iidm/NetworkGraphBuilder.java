@@ -102,12 +102,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private static Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
         return switch (inj.getType()) {
-            case GENERATOR -> Injection.Type.GENERATOR;
+            case GENERATOR -> getGeneratorType((Generator) inj);
             case BATTERY -> Injection.Type.BATTERY;
             case LOAD -> Injection.Type.LOAD;
             case SHUNT_COMPENSATOR -> getShuntCompensatorType((ShuntCompensator) inj);
             case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
             default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
+        };
+    }
+
+    private static Injection.Type getGeneratorType(Generator generator) {
+        return switch (generator.getEnergySource()) {
+            case HYDRO -> Injection.Type.GENERATOR_HYDRO;
+            case NUCLEAR -> Injection.Type.GENERATOR_NUCLEAR;
+            case WIND -> Injection.Type.GENERATOR_WIND;
+            case THERMAL -> Injection.Type.GENERATOR_THERMAL;
+            case SOLAR -> Injection.Type.GENERATOR_SOLAR;
+            case OTHER -> Injection.Type.GENERATOR;
         };
     }
 

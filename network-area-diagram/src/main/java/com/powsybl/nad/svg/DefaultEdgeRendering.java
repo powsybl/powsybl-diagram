@@ -189,18 +189,20 @@ public class DefaultEdgeRendering implements EdgeRendering {
         if (!anglesOtherEdges.isEmpty()) {
             anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
 
+            double slotApertureRad = Math.toRadians(slotAperture);
             double[] deltaAngles = new double[anglesOtherEdges.size() - 1];
             int[] nbAvailableSlots = new int[anglesOtherEdges.size() - 1];
             double totalDeltaAvailable = 0.;
             for (int i = 0; i < anglesOtherEdges.size() - 1; i++) {
                 deltaAngles[i] = anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i);
-                nbAvailableSlots[i] = (int) Math.floor(deltaAngles[i] / Math.toRadians(slotAperture));
+                nbAvailableSlots[i] = (int) Math.floor(deltaAngles[i] / slotApertureRad);
                 if (nbAvailableSlots[i] > 0) {
                     totalDeltaAvailable += deltaAngles[i];
                 }
             }
 
-            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum() && totalDeltaAvailable >= Math.toRadians(slotAperture)) {
+            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum()
+                    && totalDeltaAvailable >= Math.abs(slotApertureRad)) { // always true, only added for code smell
                 // Insert the angles in the "slots" separated by other edges which are large enough
                 int[] nbInsertedAngles = computeAnglesInsertedNumber(nbAngles, nbAvailableSlots, totalDeltaAvailable, deltaAngles);
                 return calculateInsertedAngles(nbInsertedAngles, deltaAngles, slotAperture, anglesOtherEdges);
