@@ -185,7 +185,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return findAvailableAngles(anglesOtherEdges, nbInjections, svgParameters.getInjectionAperture());
     }
 
-    private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double edgeAperture) {
+    private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double slotAperture) {
         if (!anglesOtherEdges.isEmpty()) {
             anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
 
@@ -194,16 +194,16 @@ public class DefaultEdgeRendering implements EdgeRendering {
             double totalDeltaAvailable = 0.;
             for (int i = 0; i < anglesOtherEdges.size() - 1; i++) {
                 deltaAngles[i] = anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i);
-                nbAvailableSlots[i] = (int) Math.floor(deltaAngles[i] / Math.toRadians(edgeAperture));
+                nbAvailableSlots[i] = (int) Math.floor(deltaAngles[i] / Math.toRadians(slotAperture));
                 if (nbAvailableSlots[i] > 0) {
                     totalDeltaAvailable += deltaAngles[i];
                 }
             }
 
-            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum()) {
+            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum() && totalDeltaAvailable >= Math.toRadians(slotAperture)) {
                 // Insert the angles in the "slots" separated by other edges which are large enough
                 int[] nbInsertedAngles = computeAnglesInsertedNumber(nbAngles, nbAvailableSlots, totalDeltaAvailable, deltaAngles);
-                return calculateInsertedAngles(nbInsertedAngles, deltaAngles, edgeAperture, anglesOtherEdges);
+                return calculateInsertedAngles(nbInsertedAngles, deltaAngles, slotAperture, anglesOtherEdges);
             } else {
                 // Not enough place in the slots: dividing the circle in nbAngles, starting in the middle of the biggest slot
                 int iMaxDelta = IntStream.range(0, deltaAngles.length).boxed()
@@ -249,14 +249,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return nbInsertedAngles;
     }
 
-    private List<Double> calculateInsertedAngles(int[] nbInsertedAngles, double[] deltaAngles, double edgeAperture, List<Double> anglesOtherEdges) {
+    private List<Double> calculateInsertedAngles(int[] nbInsertedAngles, double[] deltaAngles, double slotAperture, List<Double> anglesOtherEdges) {
         List<Double> insertedAngles = new ArrayList<>();
         for (int i = 0; i < nbInsertedAngles.length; i++) {
             int nbAnglesInDelta = nbInsertedAngles[i];
             if (nbAnglesInDelta == 0) {
                 continue;
             }
-            double extraSpace = deltaAngles[i] - Math.toRadians(edgeAperture) * nbAnglesInDelta;
+            double extraSpace = deltaAngles[i] - Math.toRadians(slotAperture) * nbAnglesInDelta;
             double intraSpace = extraSpace / (nbAnglesInDelta + 1); // space between two added angles and between other edges and first/last angle
             double angleStep = (anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i) - intraSpace) / nbAnglesInDelta;
             double startAngle = anglesOtherEdges.get(i) + intraSpace / 2 + angleStep / 2;
