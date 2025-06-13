@@ -22,7 +22,7 @@ public class Point {
     private Vector2D position;
     private Vector2D velocity;
     private Vector2D forces;
-    private final double mass;
+    private double mass;
     private int pointVertexDegree;
 
     public Point(double x, double y) {
@@ -70,6 +70,10 @@ public class Point {
 
     public double getMass() {
         return this.mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 
     public void resetForces() {
