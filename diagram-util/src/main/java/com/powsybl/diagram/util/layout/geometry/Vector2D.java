@@ -93,6 +93,5 @@ public class Vector2D {
         } else {
             return new Vector2D(0, 0);
         }
-
     }
 }

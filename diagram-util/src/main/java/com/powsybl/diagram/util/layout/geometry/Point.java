@@ -82,6 +82,10 @@ public class Point {
         return this.mass;
     }
 
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
     public void resetForces() {
         this.forces = new Vector2D(0, 0);
     }
