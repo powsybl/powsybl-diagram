@@ -214,8 +214,9 @@ public final class Atlas2Parameters {
                 throw new IllegalArgumentException("iterationNumberIncreasePercent should be strictly positive, as the number of iterations cannot be reduced to less than the stopping criterion");
             }
             this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
-	    return this;
-	}
+            return this;
+        }
+
         public Builder withBarnesHutTheta(double barnesHutTheta) {
             if (barnesHutTheta < 0) {
                 throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
@@ -258,7 +259,7 @@ public final class Atlas2Parameters {
         /// You can do so by using withBarnesHutTheta(0)
         /// This might be interesting to do especially if you need to run Atlas on a lot of small networks
         public Atlas2Parameters build() {
-            return new Atlas2Parameters<>(
+            return new Atlas2Parameters(
                     maxSteps,
                     repulsion,
                     edgeAttraction,
