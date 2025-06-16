@@ -21,14 +21,31 @@ import java.util.function.Predicate;
 public class Quadtree {
     public static class QuadtreeNode {
         // package private
-        short[][] childrenNodeId = new short[2][2];
+        short[][] childrenNodeId = {
+                {NO_CHILDREN, NO_CHILDREN},
+                {NO_CHILDREN, NO_CHILDREN}
+        };
+
+        public short[][] getChildrenNodeId() {
+            return childrenNodeId;
+        }
+
+        public short[] getChildrenNodeIdFlatten() {
+            return new short[] {
+                childrenNodeId[0][0],
+                childrenNodeId[0][1],
+                childrenNodeId[1][0],
+                childrenNodeId[1][1]
+            };
+        }
     }
 
     BoundingBox bb;
-    private short rootIndex;
+    private final short rootIndex;
     private final ArrayList<QuadtreeNode> nodes = new ArrayList<>();
     // contains both position and mass (since Point has mass attribute)
-    private ArrayList<Point> barycenters;
+    private final ArrayList<Point> barycenters = new ArrayList<>();
+    public static final short NO_CHILDREN = -1;
 
     public Quadtree(Collection<Point> points) {
         bb = BoundingBox.computeBoundingBox(points);
@@ -38,7 +55,7 @@ public class Quadtree {
     private short buildQuadtree(Point[] points, BoundingBox boundingBox, short firstIndex, short lastIndex) {
         if (firstIndex == lastIndex) {
             // no children
-            return -1;
+            return NO_CHILDREN;
         }
         short newNodeIndex = (short) nodes.size();
         nodes.add(new QuadtreeNode());
@@ -90,9 +107,9 @@ public class Quadtree {
         short firstFalseIndex = startIndex;
         while (firstFalseIndex < endIndex) {
             if (splitPredicate.test(points[firstFalseIndex].getPosition())) {
-                break;
-            } else {
                 ++firstFalseIndex;
+            } else {
+                break;
             }
         }
         if (firstFalseIndex == endIndex) {
@@ -112,17 +129,12 @@ public class Quadtree {
     }
 
     private void setNodeBarycenter(QuadtreeNode node, Point point) {
-        short[] barycenterIndex = {
-                node.childrenNodeId[0][0],
-                node.childrenNodeId[0][1],
-                node.childrenNodeId[1][0],
-                node.childrenNodeId[1][1]
-        };
+        short[] barycenterIndex = node.getChildrenNodeIdFlatten();
         Vector2D barycenterPosition = new Vector2D();
         double totalBarycenterMass = 0;
         for (short index : barycenterIndex) {
             // index is only -1 in the case of nothing being there
-            if (index != -1) {
+            if (index != NO_CHILDREN) {
                 // get the mass / position of each quadrant and do a weighted sum (quite literally)
                 Point quadrantBarycenter = barycenters.get(index);
                 Vector2D quadrantBarycenterPosition = new Vector2D(quadrantBarycenter.getPosition());
