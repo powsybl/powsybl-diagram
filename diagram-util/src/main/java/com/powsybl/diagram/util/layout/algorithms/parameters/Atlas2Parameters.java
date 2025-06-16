@@ -254,7 +254,7 @@ public final class Atlas2Parameters {
         /// You can do so by using withBarnesHutTheta(0)
         /// This might be interesting to do especially if you need to run Atlas on a lot of small networks
         public Atlas2Parameters build() {
-            return new Atlas2Parameters(
+            return new Atlas2Parameters<>(
                     maxSteps,
                     repulsion,
                     edgeAttraction,
