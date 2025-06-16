@@ -32,6 +32,7 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
         for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getMovingPoints().entrySet()) {
             if (otherVertexPoint.getValue() != correspondingPoint) {
                 linearRepulsionBetweenPoints(
+                        forceParameter.getForceIntensity(),
                         resultingForce,
                         thisVertexDegree,
                         correspondingPoint,
@@ -42,6 +43,7 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
         if (forceParameter.isEffectFromFixedNodes()) {
             for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getFixedPoints().entrySet()) {
                 linearRepulsionBetweenPoints(
+                        forceParameter.getForceIntensity(),
                         resultingForce,
                         thisVertexDegree,
                         correspondingPoint,
@@ -53,6 +55,7 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
     }
 
     private void linearRepulsionBetweenPoints(
+            double forceIntensity,
             Vector2D resultingForce,
             int thisVertexDegree,
             Point correspondingPoint,
@@ -67,7 +70,7 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
         // which would be UnitVector * k * deg(n1) * deg(n2)
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
         // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
-        double intensity = forceParameter.getForceIntensity()
+        double intensity = forceIntensity
                 * (thisVertexDegree + 1)
                 * (otherPoint.getPointVertexDegree() + 1)
                 / force.magnitudeSquare();

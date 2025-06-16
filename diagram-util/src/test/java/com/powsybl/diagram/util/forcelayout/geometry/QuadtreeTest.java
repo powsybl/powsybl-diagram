@@ -32,7 +32,7 @@ class QuadtreeTest {
                 new Point(0.25, 0.34),
                 new Point(0.63, 1.01)
         );
-        Quadtree quadtree = new Quadtree(points);
+        Quadtree quadtree = new Quadtree(points, Point::getMass);
         short rootIndex = quadtree.getRootIndex();
         List<Quadtree.QuadtreeNode> nodes = quadtree.getNodes();
         List<Point> barycenters = quadtree.getBarycenters();

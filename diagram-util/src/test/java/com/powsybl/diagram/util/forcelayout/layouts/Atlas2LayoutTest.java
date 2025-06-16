@@ -10,6 +10,7 @@ package com.powsybl.diagram.util.forcelayout.layouts;
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.Helpers;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,8 @@ class Atlas2LayoutTest {
     @Test
     void calculateLayout() {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>();
+        Atlas2Parameters<String, DefaultEdge> layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(0).build();
+        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>(layoutParameters);
         atlas2.calculateLayout(forceGraph);
         StringWriter sw = new StringWriter();
         forceGraph.toSVG(v -> String.format("Vertex %s", v), sw);
