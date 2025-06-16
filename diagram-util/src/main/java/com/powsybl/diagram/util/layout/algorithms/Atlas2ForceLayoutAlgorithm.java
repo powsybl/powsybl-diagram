@@ -18,10 +18,7 @@ import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /// The code in this class is the implementation of the paper:
 /// Jacomy M, Venturini T, Heymann S, Bastian M (2014)
@@ -161,7 +158,47 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         LOGGER.info("Finished in {} steps", i);
     }
 
-    /**
+    /// Initialize each point degree, used to optimize the calculation of the repulsion forces
+    /// This prevents having to calculate the degree each time, which speeds up the code by a lot (about 3 times faster)
+    private void initPointVertexDegree(ForceGraph<V, E> forceGraph) {
+        for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+        for (Map.Entry<V, Point> entry : forceGraph.getFixedPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+    }
+
+    /// Choose whether to use Barnes-Hut or not
+    private void addRepulsionForce(ForceGraph<V, E> forceGraph) {
+        if (layoutParameters.getBarnesHutTheta() == 0) {
+            IntensityEffectFromFixedNodesParameters repulsionForceParameters = new IntensityEffectFromFixedNodesParameters(
+                    layoutParameters.getRepulsion(),
+                    layoutParameters.isRepulsionForceFromFixedPoints()
+            );
+            this.forces.add(new LinearRepulsionForceByDegree<>(
+                    repulsionForceParameters
+            ));
+        } else {
+            Collection<Point> interactingPoints;
+            if (layoutParameters.isRepulsionForceFromFixedPoints()) {
+                interactingPoints = forceGraph.getAllPoints().values();
+            } else {
+                interactingPoints = forceGraph.getMovingPoints().values();
+            }
+            IntensityEffectFromFIxedNodesBarnesHutParameters repulsionForceParameters = new IntensityEffectFromFIxedNodesBarnesHutParameters(
+                    layoutParameters.getRepulsion(),
+                    layoutParameters.isRepulsionForceFromFixedPoints(),
+                    layoutParameters.getBarnesHutTheta(),
+                    new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1)
+            );
+            this.forces.add(new LinearRepulsionForceByDegreeBarnesHut<>(
+                    repulsionForceParameters
+            ));
+        }
+    }
+
+   /**
      * Calculate the swing of the point, as the magnitude of the difference between the previous and the current force applied to the point
      * @param point the point the force is applied to
      * @param previousForce the force that was previously applied on the point
