@@ -22,6 +22,7 @@ public final class Atlas2Parameters {
     private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
     private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
+    private static final double DEFAULT_BARNES_HUT_THETA = 1.5;
 
     private final int maxSteps;
     private final double repulsion;
@@ -34,6 +35,7 @@ public final class Atlas2Parameters {
     private final boolean activateRepulsionForceFromFixedPoints;
     private final boolean activateAttractToCenterForce;
     private final double iterationNumberIncreasePercent;
+    private final double barnesHutTheta;
 
     private Atlas2Parameters(
             int maxSteps,
@@ -46,7 +48,8 @@ public final class Atlas2Parameters {
             double maxGlobalSpeedIncreaseRatio,
             boolean activateRepulsionForceFromFixedPoints,
             boolean activateAttractToCenterForce,
-            double iterationNumberIncreasePercent
+            double iterationNumberIncreasePercent,
+            double barnesHutTheta
     ) {
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
@@ -59,6 +62,7 @@ public final class Atlas2Parameters {
         this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
         this.activateAttractToCenterForce = activateAttractToCenterForce;
         this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+        this.barnesHutTheta = barnesHutTheta;
     }
 
     public static class Builder {
@@ -73,6 +77,7 @@ public final class Atlas2Parameters {
         private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS;
         private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE;
         private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
+        private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
 
         /**
          * Change the maximum number of iteration the algorithm is allowed to run,
@@ -205,11 +210,18 @@ public final class Atlas2Parameters {
                 throw new IllegalArgumentException("iterationNumberIncreasePercent should be strictly positive, as the number of iterations cannot be reduced to less than the stopping criterion");
             }
             this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+	    return this;
+	}
+        public Builder withBarnesHutTheta(double barnesHutTheta) {
+            if (barnesHutTheta < 0) {
+                throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
+            }
+            this.barnesHutTheta = barnesHutTheta;
             return this;
         }
 
         public Atlas2Parameters build() {
-            return new Atlas2Parameters(
+            return new Atlas2Parameters<>(
                     maxSteps,
                     repulsion,
                     edgeAttraction,
@@ -220,7 +232,8 @@ public final class Atlas2Parameters {
                     maxGlobalSpeedIncreaseRatio,
                     activateRepulsionForceFromFixedPoints,
                     activateAttractToCenterForce,
-                    iterationNumberIncreasePercent
+                    iterationNumberIncreasePercent,
+                    barnesHutTheta
             );
         }
     }
@@ -267,6 +280,10 @@ public final class Atlas2Parameters {
 
     public double getIterationNumberIncreasePercent() {
         return iterationNumberIncreasePercent;
+    }
+
+    public double getBarnesHutTheta() {
+        return barnesHutTheta;
     }
 }
 

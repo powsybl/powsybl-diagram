@@ -35,6 +35,7 @@ public class RepulsionForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumber
         for (Map.Entry<V, Point> otherVertexPoint : layoutContext.getMovingPoints().entrySet()) {
             if (otherVertexPoint.getValue() != point) {
                 linearRepulsionBetweenPoints(
+                        forceParameter.getForceIntensity(),
                         resultingForce,
                         thisVertexDegree,
                         point,
@@ -45,6 +46,7 @@ public class RepulsionForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumber
         if (effectFromFixedNodes) {
             for (Map.Entry<V, Point> otherVertexPoint : layoutContext.getFixedPoints().entrySet()) {
                 linearRepulsionBetweenPoints(
+                        forceParameter.getForceIntensity(),
                         resultingForce,
                         thisVertexDegree,
                         point,
@@ -56,6 +58,7 @@ public class RepulsionForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumber
     }
 
     private void linearRepulsionBetweenPoints(
+            double forceIntensity,
             Vector2D resultingForce,
             int vertexDegree,
             Point point,

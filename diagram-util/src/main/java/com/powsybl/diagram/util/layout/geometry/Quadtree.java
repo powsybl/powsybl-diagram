@@ -10,7 +10,9 @@ package com.powsybl.diagram.util.forcelayout.geometry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.ToDoubleFunction;
 
 /// This quadtree implementation is a Java version of a C++ quadtree presented by Nikita Lisitsa on his lisyarus blog
 /// The article is called ["Building a quadtree in 22 lines of code"](https://lisyarus.github.io/blog/posts/building-a-quadtree.html)
@@ -47,12 +49,18 @@ public class Quadtree {
     private final ArrayList<Point> barycenters = new ArrayList<>();
     public static final short NO_CHILDREN = -1;
 
-    public Quadtree(Collection<Point> points) {
+    public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size());
+        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter);
     }
 
-    private short buildQuadtree(Point[] points, BoundingBox boundingBox, short firstIndex, short lastIndex) {
+    private short buildQuadtree(
+            Point[] points,
+            BoundingBox boundingBox,
+            short firstIndex,
+            short lastIndex,
+            ToDoubleFunction<Point> massGetter
+    ) {
         if (firstIndex == lastIndex) {
             // no children
             return NO_CHILDREN;
@@ -66,7 +74,9 @@ public class Quadtree {
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
             Point leafPoint = points[firstIndex];
             nodeBarycenter.setPosition(leafPoint.getPosition());
-            nodeBarycenter.setMass(leafPoint.getMass());
+            // Springy and Atlas define mass differently for forces
+            // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
+            nodeBarycenter.setMass(massGetter.applyAsDouble(leafPoint));
             return newNodeIndex;
         }
 
@@ -86,10 +96,10 @@ public class Quadtree {
         BoundingBox topLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBox.getTop(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
         BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.getTop(), boundingBox.getRight(), boundingBoxCenter.getY());
 
-        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex);
-        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex);
-        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex);
-        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex);
+        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter);
+        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter);
+        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter);
+        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter);
         setNodeBarycenter(nodes.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
@@ -138,6 +148,7 @@ public class Quadtree {
                 // get the mass / position of each quadrant and do a weighted sum (quite literally)
                 Point quadrantBarycenter = barycenters.get(index);
                 Vector2D quadrantBarycenterPosition = new Vector2D(quadrantBarycenter.getPosition());
+                // do not use the massGetter, that's only for leaf nodes, quadrants contain leaf which already have their correct mass set
                 double quadrantMass = quadrantBarycenter.getMass();
                 quadrantBarycenterPosition.multiplyBy(quadrantMass);
                 barycenterPosition.add(quadrantBarycenterPosition);
@@ -159,6 +170,10 @@ public class Quadtree {
 
     public List<Point> getBarycenters() {
         return barycenters;
+    }
+
+    public BoundingBox getBoundingBox() {
+        return bb;
     }
 }
 
