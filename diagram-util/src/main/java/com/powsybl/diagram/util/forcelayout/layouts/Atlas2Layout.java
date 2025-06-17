@@ -11,10 +11,7 @@ import com.powsybl.diagram.util.forcelayout.forces.*;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFIxedNodesBarnesHutParameters;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Quadtree;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.forcelayout.geometry.*;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +36,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters<V, E> layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
+    private final QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -83,7 +81,9 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     @Override
     public void calculateLayout(ForceGraph<V, E> forceGraph) {
         initPointVertexDegree(forceGraph);
-        addRepulsionForce(forceGraph);
+        // always initialize the vertex degree before adding the repulsion force
+        // the repulsion force will use a quadtree using the pointVertexDegree if the theta parameter is not 0
+        addRepulsionForce();
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
@@ -105,6 +105,10 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
             double graphSwing = 0.;
             double newGraphSpeed;
             double graphTraction = 0.;
+            if (layoutParameters.getBarnesHutTheta() > 0) {
+                Collection<Point> interactingPoints = getInteractingPoints(forceGraph);
+                this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
+            }
             //calculate forces
             for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
@@ -162,7 +166,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     /// Choose whether to use Barnes-Hut or not
-    private void addRepulsionForce(ForceGraph<V, E> forceGraph) {
+    private void addRepulsionForce() {
         if (layoutParameters.getBarnesHutTheta() == 0) {
             IntensityEffectFromFixedNodesParameters repulsionForceParameters = new IntensityEffectFromFixedNodesParameters(
                     layoutParameters.getRepulsion(),
@@ -172,21 +176,23 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
                     repulsionForceParameters
             ));
         } else {
-            Collection<Point> interactingPoints;
-            if (layoutParameters.isRepulsionForceFromFixedPoints()) {
-                interactingPoints = forceGraph.getAllPoints().values();
-            } else {
-                interactingPoints = forceGraph.getMovingPoints().values();
-            }
             IntensityEffectFromFIxedNodesBarnesHutParameters repulsionForceParameters = new IntensityEffectFromFIxedNodesBarnesHutParameters(
                     layoutParameters.getRepulsion(),
                     layoutParameters.isRepulsionForceFromFixedPoints(),
                     layoutParameters.getBarnesHutTheta(),
-                    new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1)
+                    this.quadtreeContainer
             );
             this.forces.add(new LinearRepulsionForceByDegreeBarnesHut<>(
                     repulsionForceParameters
             ));
+        }
+    }
+
+    private Collection<Point> getInteractingPoints(ForceGraph<V, E> forceGraph) {
+        if (layoutParameters.isRepulsionForceFromFixedPoints()) {
+            return forceGraph.getAllPoints().values();
+        } else {
+            return forceGraph.getMovingPoints().values();
         }
     }
 
