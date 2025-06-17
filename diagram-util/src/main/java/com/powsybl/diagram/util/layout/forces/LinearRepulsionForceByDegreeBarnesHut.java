@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -40,7 +39,7 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
                 width
         );
         for (Point otherPoint : pointInteractionList) {
-            if (otherPoint != correspondingPoint) {
+            if (otherPoint.getPosition() != correspondingPoint.getPosition()) {
                 linearRepulsionBetweenPoints(
                         forceParameter.getForceIntensity(),
                         resultingForce,
