@@ -42,7 +42,7 @@ class QuadtreeTest {
                 new Point(-1.075, -0.715, 2),
                 new Point(-1.38, -0.7, 1),
                 new Point(-0.77, -0.73, 1),
-                new Point(0.57, - 0.46, 2),
+                new Point(0.57, -0.46, 2),
                 new Point(1.14, -0.92, 1),
                 new Point(0, 0, 1),
                 new Point(-1.29, 1.18, 1),
