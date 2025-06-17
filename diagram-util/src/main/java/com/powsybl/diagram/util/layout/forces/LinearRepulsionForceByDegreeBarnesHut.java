@@ -39,7 +39,7 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
                 width
         );
         for (Point otherPoint : pointInteractionList) {
-            if (otherPoint.getPosition() != correspondingPoint.getPosition()) {
+            if (!otherPoint.getPosition().equals(correspondingPoint.getPosition())) {
                 linearRepulsionBetweenPoints(
                         forceParameter.getForceIntensity(),
                         resultingForce,
