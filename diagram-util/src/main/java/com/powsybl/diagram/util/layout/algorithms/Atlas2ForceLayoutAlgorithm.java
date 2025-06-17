@@ -38,6 +38,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
+    private final QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -109,6 +110,10 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             double graphSwing = 0.;
             double newGraphSpeed;
             double graphTraction = 0.;
+            if (layoutParameters.getBarnesHutTheta() > 0) {
+                Collection<Point> interactingPoints = getInteractingPoints(forceGraph);
+                this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
+            }
             //calculate forces
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
@@ -170,7 +175,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     /// Choose whether to use Barnes-Hut or not
-    private void addRepulsionForce(ForceGraph<V, E> forceGraph) {
+    private void addRepulsionForce() {
         if (layoutParameters.getBarnesHutTheta() == 0) {
             IntensityEffectFromFixedNodesParameters repulsionForceParameters = new IntensityEffectFromFixedNodesParameters(
                     layoutParameters.getRepulsion(),
@@ -180,17 +185,11 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                     repulsionForceParameters
             ));
         } else {
-            Collection<Point> interactingPoints;
-            if (layoutParameters.isRepulsionForceFromFixedPoints()) {
-                interactingPoints = forceGraph.getAllPoints().values();
-            } else {
-                interactingPoints = forceGraph.getMovingPoints().values();
-            }
             IntensityEffectFromFIxedNodesBarnesHutParameters repulsionForceParameters = new IntensityEffectFromFIxedNodesBarnesHutParameters(
                     layoutParameters.getRepulsion(),
                     layoutParameters.isRepulsionForceFromFixedPoints(),
                     layoutParameters.getBarnesHutTheta(),
-                    new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1)
+                    this.quadtreeContainer
             );
             this.forces.add(new LinearRepulsionForceByDegreeBarnesHut<>(
                     repulsionForceParameters
@@ -198,12 +197,21 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
-   /**
+    private Collection<Point> getInteractingPoints(ForceGraph<V, E> forceGraph) {
+        if (layoutParameters.isRepulsionForceFromFixedPoints()) {
+            return forceGraph.getAllPoints().values();
+        } else {
+            return forceGraph.getMovingPoints().values();
+        }
+    }
+
+  /**
      * Calculate the swing of the point, as the magnitude of the difference between the previous and the current force applied to the point
      * @param point the point the force is applied to
      * @param previousForce the force that was previously applied on the point
      * @return the swing of the point
      */
+
     private double calculatePointSwing(Point point, Vector2D previousForce) {
         Vector2D swingVector = new Vector2D(point.getForces());
         swingVector.subtract(previousForce);

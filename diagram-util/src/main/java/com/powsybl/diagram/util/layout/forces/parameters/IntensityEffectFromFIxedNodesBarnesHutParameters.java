@@ -8,18 +8,19 @@
 package com.powsybl.diagram.util.forcelayout.forces.parameters;
 
 import com.powsybl.diagram.util.forcelayout.geometry.Quadtree;
+import com.powsybl.diagram.util.forcelayout.geometry.QuadtreeContainer;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class IntensityEffectFromFIxedNodesBarnesHutParameters extends IntensityEffectFromFixedNodesParameters {
     private final double barnesHutTheta;
-    private final Quadtree quadtree;
+    private final QuadtreeContainer quadtreeContainer;
 
-    public IntensityEffectFromFIxedNodesBarnesHutParameters(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, Quadtree quadtree) {
+    public IntensityEffectFromFIxedNodesBarnesHutParameters(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, QuadtreeContainer quadtreeContainer) {
         super(forceIntensity, effectFromFixedNodes);
         this.barnesHutTheta = barnesHutTheta;
-        this.quadtree = quadtree;
+        this.quadtreeContainer = quadtreeContainer;
     }
 
     public double getBarnesHutTheta() {
@@ -27,7 +28,7 @@ public class IntensityEffectFromFIxedNodesBarnesHutParameters extends IntensityE
     }
 
     public Quadtree getQuadtree() {
-        return quadtree;
+        return quadtreeContainer.getQuadtree();
     }
 }
 
