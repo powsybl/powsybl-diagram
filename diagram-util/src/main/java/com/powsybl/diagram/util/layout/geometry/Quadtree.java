@@ -50,7 +50,7 @@ public class Quadtree {
 
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter);
+        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter, (short) 0, (short) 0);
     }
 
     private short buildQuadtree(
@@ -58,7 +58,9 @@ public class Quadtree {
             BoundingBox boundingBox,
             short firstIndex,
             short lastIndex,
-            ToDoubleFunction<Point> massGetter
+            ToDoubleFunction<Point> massGetter,
+            short previousFirstIndex,
+            short previousLastIndex
     ) {
         if (firstIndex == lastIndex) {
             // no children
@@ -71,11 +73,14 @@ public class Quadtree {
 
         if (firstIndex + 1 == lastIndex) {
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
-            Point leafPoint = points[firstIndex];
-            nodeBarycenter.setPosition(leafPoint.getPosition());
-            // Springy and Atlas define mass differently for forces
-            // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
-            nodeBarycenter.setMass(massGetter.applyAsDouble(leafPoint));
+            setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
+            return newNodeIndex;
+        }
+
+        // if the size of the points in an area did not diminish, it might be because two or more points are at the same position
+        // use this check to not have to calculate the equality between all points in the range each time
+        if (firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)) {
+            setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
             return newNodeIndex;
         }
 
@@ -87,7 +92,7 @@ public class Quadtree {
         short ySplitIndex = partitionPoints(points, firstIndex, lastIndex, isBottom);
         // [firstIndex, xLowerSplitIndex) is bottom left, [xLowerSplitIndex, ySplitIndex) is bottom right
         short xLowerSplitIndex = partitionPoints(points, firstIndex, ySplitIndex, isLeft);
-        // [ySplitIndex, xUpperSplitIndex) os top left, [xUpperSplitIndex, lastIndex) is top right
+        // [ySplitIndex, xUpperSplitIndex) is top left, [xUpperSplitIndex, lastIndex) is top right
         short xUpperSplitIndex = partitionPoints(points, ySplitIndex, lastIndex, isLeft);
 
         BoundingBox bottomLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBoxCenter.getY(), boundingBoxCenter.getX(), boundingBox.getBottom());
@@ -95,10 +100,10 @@ public class Quadtree {
         BoundingBox topLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBox.getTop(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
         BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.getTop(), boundingBox.getRight(), boundingBoxCenter.getY());
 
-        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter);
-        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter);
-        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter);
-        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter);
+        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex);
+        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex);
+        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex);
+        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex);
         setNodeBarycenter(nodes.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
@@ -137,6 +142,19 @@ public class Quadtree {
         return firstFalseIndex;
     }
 
+    /// This function assumes all points in the range [startIndex, endIndex) have the same position
+    private void setLeafBarycenter(Point[] points, Point nodeBarycenter, short startIndex, short endIndex, ToDoubleFunction<Point> massGetter) {
+        Point leafPoint = points[startIndex];
+        nodeBarycenter.setPosition(leafPoint.getPosition());
+        double totalMass = massGetter.applyAsDouble(leafPoint);
+        for (int i = startIndex + 1; i < endIndex; ++i) {
+            totalMass += massGetter.applyAsDouble(points[i]);
+        }
+        // Springy and Atlas define mass differently for forces
+        // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
+        nodeBarycenter.setMass(totalMass);
+    }
+
     private void setNodeBarycenter(QuadtreeNode node, Point point) {
         short[] barycenterIndex = node.getChildrenNodeIdFlatten();
         Vector2D barycenterPosition = new Vector2D();
@@ -157,6 +175,16 @@ public class Quadtree {
         barycenterPosition.divideBy(totalBarycenterMass);
         point.setPosition(barycenterPosition);
         point.setMass(totalBarycenterMass);
+    }
+
+    private boolean checkPointPositionEquality(Point[] points, short startIndex, short endIndex) {
+        Vector2D firstPosition = points[startIndex].getPosition();
+        for (int i = startIndex + 1; i < endIndex; ++i) {
+            if (!firstPosition.equals(points[i].getPosition())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public short getRootIndex() {
