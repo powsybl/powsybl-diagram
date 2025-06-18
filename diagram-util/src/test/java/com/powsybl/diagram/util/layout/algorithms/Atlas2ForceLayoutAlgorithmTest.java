@@ -25,7 +25,7 @@ class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayoutNoBH() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         Atlas2Parameters<String, DefaultEdge> layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(0).build();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>(layoutParameters);
         atlas2.run(layoutContext);
@@ -45,7 +45,7 @@ class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayoutYesBH() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
         Atlas2Parameters<String, DefaultEdge> layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(1.5).build();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>(layoutParameters);
         atlas2.calculateLayout(forceGraph);
