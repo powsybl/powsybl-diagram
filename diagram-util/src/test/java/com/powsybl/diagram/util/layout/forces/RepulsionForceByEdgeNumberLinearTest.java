@@ -21,7 +21,7 @@ class RepulsionForceByEdgeNumberLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinear = new RepulsionForceByEdgeNumberLinear<>(
                         0.34,
                         true
