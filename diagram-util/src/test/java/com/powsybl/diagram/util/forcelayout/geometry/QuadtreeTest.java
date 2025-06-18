@@ -7,6 +7,8 @@
  */
 package com.powsybl.diagram.util.forcelayout.geometry;
 
+import com.powsybl.diagram.util.forcelayout.GraphTestData;
+import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,19 +22,8 @@ class QuadtreeTest {
 
     @Test
     void checkTreeStructure() {
-        List<Point> points = List.of(
-                new Point(0.5, 0.5),
-                new Point(0, 0),
-                new Point(0.22, 0.22),
-                new Point(-1.29, 1.18),
-                new Point(-0.77, -0.73),
-                new Point(-1.38, -0.7),
-                new Point(1.14, -0.92),
-                new Point(0.87, 0.93),
-                new Point(0.25, 0.34),
-                new Point(0.63, 1.01)
-        );
-        Quadtree quadtree = new Quadtree(points, Point::getMass);
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), Point::getMass);
         short rootIndex = quadtree.getRootIndex();
         List<Quadtree.QuadtreeNode> nodes = quadtree.getNodes();
         List<Point> barycenters = quadtree.getBarycenters();

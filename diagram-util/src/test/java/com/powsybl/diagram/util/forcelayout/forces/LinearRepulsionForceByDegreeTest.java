@@ -26,7 +26,6 @@ class LinearRepulsionForceByDegreeTest {
     void calculateForce() {
         double delta = 1e-4;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
-        setupPoints(forceGraph);
         LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegree = new LinearRepulsionForceByDegree<>(
                 new IntensityEffectFromFixedNodesParameters(
                         0.34,
@@ -54,14 +53,5 @@ class LinearRepulsionForceByDegreeTest {
         };
 
         ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeNoFixed, vertexToTest, resultVectorNoFixed, delta);
-    }
-
-    private void setupPoints(ForceGraph<String, DefaultEdge> forceGraph) {
-        for (Map.Entry<String, Point> entry : forceGraph.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        for (Map.Entry<String, Point> entry : forceGraph.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 }
