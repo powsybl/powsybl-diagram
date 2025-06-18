@@ -47,10 +47,11 @@ public class Quadtree {
     // contains both position and mass (since Point has mass attribute)
     private final ArrayList<Point> barycenters = new ArrayList<>();
     public static final short NO_CHILDREN = -1;
+    private static final int MAX_RECURSION_DEPTH = 64;
 
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter, (short) 0, (short) 0);
+        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter, (short) 0, (short) 0, MAX_RECURSION_DEPTH);
     }
 
     private short buildQuadtree(
@@ -60,7 +61,8 @@ public class Quadtree {
             short lastIndex,
             ToDoubleFunction<Point> massGetter,
             short previousFirstIndex,
-            short previousLastIndex
+            short previousLastIndex,
+            int remainingDepth
     ) {
         if (firstIndex == lastIndex) {
             // no children
@@ -77,9 +79,9 @@ public class Quadtree {
             return newNodeIndex;
         }
 
-        // if the size of the points in an area did not diminish, it might be because two or more points are at the same position
+        // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
         // use this check to not have to calculate the equality between all points in the range each time
-        if (firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)) {
+        if (remainingDepth == 0 || firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)) {
             setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
             return newNodeIndex;
         }
@@ -100,10 +102,10 @@ public class Quadtree {
         BoundingBox topLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBox.getTop(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
         BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.getTop(), boundingBox.getRight(), boundingBoxCenter.getY());
 
-        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex);
-        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex);
-        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex);
-        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex);
+        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
         setNodeBarycenter(nodes.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
