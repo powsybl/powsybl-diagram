@@ -59,6 +59,36 @@ class QuadtreeTest {
         checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
     }
 
+    @Test
+    void checkTreeStructureWithVertexWeight() {
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
+        short rootIndex = quadtree.getRootIndex();
+        List<Quadtree.QuadtreeNode> nodes = quadtree.getNodes();
+        List<Point> barycenters = quadtree.getBarycenters();
+        List<Point> expectedBarycenters = List.of(
+                new Point(-0.151, 0.256, 28),
+                new Point(-1.075, -0.715, 6),
+                new Point(-1.075, -0.715, 6),
+                new Point(-1.38, -0.7, 3),
+                new Point(-0.77, -0.73, 3),
+                new Point(0.285, -0.23, 4),
+                new Point(1.14, -0.92, 1),
+                new Point(0, 0, 3),
+                new Point(-1.29, 1.18, 4),
+                new Point(0.445, 0.548, 14),
+                new Point(0.289, 0.309, 9),
+                new Point(0.229, 0.254, 7),
+                new Point(0.22, 0.22, 5),
+                new Point(0.25, 0.34, 2),
+                new Point(0.5, 0.5, 2),
+                new Point(0.726, 0.978, 5),
+                new Point(0.63, 1.01, 3),
+                new Point(0.87, 0.93, 2)
+        );
+        checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
+    }
+
     private void checkChildBarycenter(
             short parentNodeIndex,
             List<Quadtree.QuadtreeNode> nodes,
