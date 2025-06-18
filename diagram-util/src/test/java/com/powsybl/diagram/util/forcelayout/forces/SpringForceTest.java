@@ -23,7 +23,7 @@ class SpringForceTest {
     @Test
     void calculateForce() {
         double delta = 1e-3;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
         SpringForce<String, DefaultEdge> springForce = new SpringForce<>(
                 SpringyLayout.initializeSprings(forceGraph)
         );
