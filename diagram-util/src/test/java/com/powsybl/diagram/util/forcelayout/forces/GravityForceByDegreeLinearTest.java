@@ -23,7 +23,7 @@ class GravityForceByDegreeLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-5;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         GravityForceByDegreeLinear<String, DefaultEdge> gravityForceByDegreeLinear = new GravityForceByDegreeLinear<>(
                 new IntensityParameter(0.01)
         );

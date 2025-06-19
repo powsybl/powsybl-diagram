@@ -31,7 +31,7 @@ class ForceGraphTest {
 
     @Test
     void graphCreation() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         assertEquals(5, forceGraph.getSimpleGraph().vertexSet().size());
         assertEquals(4, forceGraph.getSimpleGraph().edgeSet().size());
         assertEquals(1, forceGraph.getFixedPoints().size());
@@ -42,7 +42,7 @@ class ForceGraphTest {
 
     @Test
     void setFixedPoints() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         Map<String, Point> fixedPoints = new HashMap<>();
         fixedPoints.put("2", new Point(1.414, 15));
         fixedPoints.put("4", new Point(0, 0));
@@ -53,7 +53,7 @@ class ForceGraphTest {
 
     @Test
     void toSvg() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
         forceLayout.execute();
@@ -65,7 +65,7 @@ class ForceGraphTest {
 
     @Test
     void notExecuted() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(forceGraph);
         assertDoesNotThrow(() -> forceLayout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
