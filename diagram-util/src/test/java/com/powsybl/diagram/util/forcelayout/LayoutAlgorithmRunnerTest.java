@@ -49,7 +49,7 @@ class LayoutAlgorithmRunnerTest {
         assertEquals(newCenter.getY(), runner.getCenter().getY());
         Vector2D otherNewCenter = new Vector2D(3.4, -6.1);
         runner.setCenter(otherNewCenter);
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
         runner.run(forceGraph);
         assertEquals(otherNewCenter.getX(), runner.getCenter().getX());
         assertEquals(otherNewCenter.getY(), runner.getCenter().getY());
