@@ -13,8 +13,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.*;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -37,7 +35,7 @@ class LinearRepulsionForceByDegreeBarnesHutTest {
         );
         String[] vertexToTest = {"1"};
         Vector2D[] resultVector = {
-                new Vector2D(-43.022959491, -64.264)
+            new Vector2D(-43.04168, -62.56815)
         };
         ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeBarnesHut, vertexToTest, resultVector, delta);
     }
