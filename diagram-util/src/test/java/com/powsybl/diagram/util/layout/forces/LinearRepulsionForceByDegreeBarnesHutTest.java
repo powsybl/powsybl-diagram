@@ -33,10 +33,29 @@ class LinearRepulsionForceByDegreeBarnesHutTest {
                 quadtreeContainer
                 )
         );
-        String[] vertexToTest = {"1"};
+        String[] vertexToTest = {
+            "1",
+            "3"
+        };
         Vector2D[] resultVector = {
-            new Vector2D(-43.04168, -62.56815)
+            new Vector2D(-43.04168, -62.56815),
+            new Vector2D(-42.662327, 33.520947)
         };
         ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeBarnesHut, vertexToTest, resultVector, delta);
+
+        LinearRepulsionForceByDegreeBarnesHut<String, DefaultEdge> linearRepulsionForceByDegreeBarnesHut2 = new LinearRepulsionForceByDegreeBarnesHut<>(
+            new IntensityEffectFromFIxedNodesBarnesHutParameters(
+                0.7,
+                true,
+                1.2,
+                quadtreeContainer
+            )
+        );
+        String[] vertexToTest2 = {"1"};
+        Vector2D[] resultVector2 = {
+            new Vector2D(-27.523551875, -40.034076755)
+        };
+
+        ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeBarnesHut2, vertexToTest2, resultVector2, delta);
     }
 }
