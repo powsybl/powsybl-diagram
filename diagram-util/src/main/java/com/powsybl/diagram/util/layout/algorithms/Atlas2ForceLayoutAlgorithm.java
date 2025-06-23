@@ -153,7 +153,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             if (!changedStoppingStep && isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
                 stoppingStep = Math.min(
                         layoutParameters.getMaxSteps(),
-                        (int) (i * (1 + layoutParameters.getIterationNumberIncreasePercent() / 100))
+                        (int) (i * (1 + layoutParameters.getIterationNumberIncreasePercent() / 100) * (1 + layoutParameters.getBarnesHutTheta() / 8))
                 );
                 changedStoppingStep = true;
             }

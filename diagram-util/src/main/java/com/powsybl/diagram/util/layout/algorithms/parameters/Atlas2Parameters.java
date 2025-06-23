@@ -22,7 +22,7 @@ public final class Atlas2Parameters {
     private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
     private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
-    private static final double DEFAULT_BARNES_HUT_THETA = 1.5;
+    private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
 
     private final int maxSteps;
     private final double repulsion;
