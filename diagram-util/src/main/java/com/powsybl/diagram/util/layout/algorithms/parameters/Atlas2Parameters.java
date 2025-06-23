@@ -21,7 +21,7 @@ public final class Atlas2Parameters {
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;
     private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ATTRACT_TO_CENTER = true;
-    private static final double DEFAULT_BARNES_HUT_THETA = 1.5;
+    private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
 
     private final int maxSteps;
     private final double repulsion;
