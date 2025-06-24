@@ -33,10 +33,12 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
         // could also test by using the diagonal width (using square root), might be faster as it will be tighter (but longer to calculate too)
         double width = Math.max(rootBb.getWidth(), rootBb.getHeight());
         // Assume the quadtree is built based on isEffectFromFixedNodes (ie with the fixed points in it or not)
-        List<Point> pointInteractionList = generatePointInteractionList(
-                forceParameter.getQuadtree().getRootIndex(),
-                correspondingPoint,
-                width
+        List<Point> pointInteractionList = new ArrayList<>();
+        generatePointInteractionList(
+            forceParameter.getQuadtree().getRootIndex(),
+            correspondingPoint,
+            width,
+            pointInteractionList
         );
         for (Point otherPoint : pointInteractionList) {
             if (!otherPoint.getPosition().equals(correspondingPoint.getPosition())) {
@@ -76,24 +78,34 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
         resultingForce.add(force);
     }
 
-    private List<Point> generatePointInteractionList(short parentNodeIndex, Point forThisPoint, double nodeWidth) {
-        Point barycenter = forceParameter.getQuadtree().getBarycenters().get(parentNodeIndex);
-        if (nodeWidth / forThisPoint.distanceTo(barycenter) < forceParameter.getBarnesHutTheta()) {
-            return List.of(barycenter);
+    private void generatePointInteractionList(
+            short parentNodeIndex,
+            Point forThisPoint,
+            double nodeWidth,
+            List<Point> pointsToInteractWith
+    ) {
+        Quadtree quadtree = forceParameter.getQuadtree();
+        Point barycenter = quadtree.getBarycenters().get(parentNodeIndex);
+        // Two tests:
+        // Check the theta parameter ie width / distance < theta
+        // If a point is alone in a quadrant, but is not a leaf node, we could continue descending until the leaf node (or until the first condition is met), but this is not useful
+        if (nodeWidth < forceParameter.getBarnesHutTheta() * forThisPoint.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
+            pointsToInteractWith.add(barycenter);
         } else {
-            List<Point> pointsToInteractWith = new ArrayList<>();
-            Quadtree.QuadtreeNode thisNode = forceParameter.getQuadtree().getNodes().get(parentNodeIndex);
+            Quadtree.QuadtreeNode thisNode = quadtree.getNodes().get(parentNodeIndex);
             double childNodeWidth = nodeWidth / 2;
+            int numberOfChild = 0;
             for (short index : thisNode.getChildrenNodeIdFlatten()) {
                 if (index != Quadtree.NO_CHILDREN) {
-                    pointsToInteractWith.addAll(generatePointInteractionList(index, forThisPoint, childNodeWidth));
+                    ++numberOfChild;
+                    generatePointInteractionList(index, forThisPoint, childNodeWidth, pointsToInteractWith);
                 }
             }
             // if the list is empty, it means we are a leaf node, need to add self to the list and return
-            if (pointsToInteractWith.isEmpty()) {
+            // note that this is a safeguard, as barycenter.getMass == Point.DEFAULT_MASS should already cover this case
+            if (numberOfChild == 0) {
                 pointsToInteractWith.add(barycenter);
             }
-            return pointsToInteractWith;
         }
     }
 }

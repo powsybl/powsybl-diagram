@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class Point {
-    private static final double DEFAULT_MASS = 1.0;
+    public static final double DEFAULT_MASS = 1.0;
 
     private Vector2D position;
     private Vector2D velocity;
