@@ -135,6 +135,10 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
             return this;
         }
 
+        /// By default, the Barnes-Hut optimisation is activated with theta = 1.2
+        /// If your network has a small number of nodes (less than 500), Atlas might finish faster by deactivating Barnes-Hut
+        /// You can do so by using withBarnesHutTheta(0)
+        /// This might be interesting to do especially if you need to run Atlas on a lot of small networks
         public <V, E> Atlas2Parameters<V, E> build() {
             return new Atlas2Parameters<>(
                     maxSteps,
