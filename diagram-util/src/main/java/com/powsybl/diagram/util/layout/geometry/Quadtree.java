@@ -43,18 +43,36 @@ public class Quadtree {
 
     BoundingBox bb;
     private final short rootIndex;
-    private final ArrayList<QuadtreeNode> nodes = new ArrayList<>();
+    private final QuadtreeNode[] nodes;
     // contains both position and mass (since Point has mass attribute)
-    private final ArrayList<Point> barycenters = new ArrayList<>();
+    private final Point[] barycenters;
     public static final short NO_CHILDREN = -1;
     private static final int MAX_RECURSION_DEPTH = 64;
 
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        this.rootIndex = buildQuadtree(points.toArray(new Point[0]), bb, (short) 0, (short) points.size(), massGetter, (short) 0, (short) 0, MAX_RECURSION_DEPTH);
+        List<QuadtreeNode> nodesList = new ArrayList<>();
+        List<Point> barycentersList = new ArrayList<>();
+        this.rootIndex = buildQuadtree(
+                nodesList,
+                barycentersList,
+                points.toArray(new Point[0]),
+                bb,
+                (short) 0,
+                (short) points.size(),
+                massGetter,
+                (short) 0,
+                (short) 0,
+                MAX_RECURSION_DEPTH
+        );
+
+        this.nodes = nodesList.toArray(new QuadtreeNode[0]);
+        this.barycenters = barycentersList.toArray(new Point[0]);
     }
 
     private short buildQuadtree(
+            List<QuadtreeNode> nodesList,
+            List<Point> barycentersList,
             Point[] points,
             BoundingBox boundingBox,
             short firstIndex,
@@ -68,10 +86,10 @@ public class Quadtree {
             // no children
             return NO_CHILDREN;
         }
-        short newNodeIndex = (short) nodes.size();
-        nodes.add(new QuadtreeNode());
+        short newNodeIndex = (short) nodesList.size();
+        nodesList.add(new QuadtreeNode());
         Point nodeBarycenter = new Point(0, 0);
-        barycenters.add(nodeBarycenter);
+        barycentersList.add(nodeBarycenter);
 
         if (firstIndex + 1 == lastIndex) {
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
@@ -102,11 +120,11 @@ public class Quadtree {
         BoundingBox topLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBox.getTop(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
         BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.getTop(), boundingBox.getRight(), boundingBoxCenter.getY());
 
-        nodes.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodes.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodes.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodes.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        setNodeBarycenter(nodes.get(newNodeIndex), nodeBarycenter);
+        nodesList.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(nodesList, barycentersList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(nodesList, barycentersList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).childrenNodeId[1][0] = buildQuadtree(nodesList, barycentersList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).childrenNodeId[1][1] = buildQuadtree(nodesList, barycentersList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        setNodeBarycenter(barycentersList, nodesList.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
 
@@ -157,7 +175,7 @@ public class Quadtree {
         nodeBarycenter.setMass(totalMass);
     }
 
-    private void setNodeBarycenter(QuadtreeNode node, Point point) {
+    private void setNodeBarycenter(List<Point> barycentersList, QuadtreeNode node, Point point) {
         short[] barycenterIndex = node.getChildrenNodeIdFlatten();
         Vector2D barycenterPosition = new Vector2D();
         double totalBarycenterMass = 0;
@@ -165,7 +183,7 @@ public class Quadtree {
             // index is only -1 in the case of nothing being there
             if (index != NO_CHILDREN) {
                 // get the mass / position of each quadrant and do a weighted sum (quite literally)
-                Point quadrantBarycenter = barycenters.get(index);
+                Point quadrantBarycenter = barycentersList.get(index);
                 Vector2D quadrantBarycenterPosition = new Vector2D(quadrantBarycenter.getPosition());
                 // do not use the massGetter, that's only for leaf nodes, quadrants contain leaf which already have their correct mass set
                 double quadrantMass = quadrantBarycenter.getMass();
@@ -193,11 +211,11 @@ public class Quadtree {
         return rootIndex;
     }
 
-    public List<QuadtreeNode> getNodes() {
+    public QuadtreeNode[] getNodes() {
         return nodes;
     }
 
-    public List<Point> getBarycenters() {
+    public Point[] getBarycenters() {
         return barycenters;
     }
 

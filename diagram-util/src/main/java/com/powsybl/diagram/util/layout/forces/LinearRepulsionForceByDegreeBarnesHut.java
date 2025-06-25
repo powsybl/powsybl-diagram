@@ -85,14 +85,14 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
             List<Point> pointsToInteractWith
     ) {
         Quadtree quadtree = forceParameter.getQuadtree();
-        Point barycenter = quadtree.getBarycenters().get(parentNodeIndex);
+        Point barycenter = quadtree.getBarycenters()[parentNodeIndex];
         // Two tests:
         // Check the theta parameter ie width / distance < theta
         // If a point is alone in a quadrant, but is not a leaf node, we could continue descending until the leaf node (or until the first condition is met), but this is not useful
         if (nodeWidth < forceParameter.getBarnesHutTheta() * forThisPoint.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
             pointsToInteractWith.add(barycenter);
         } else {
-            Quadtree.QuadtreeNode thisNode = quadtree.getNodes().get(parentNodeIndex);
+            Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[parentNodeIndex];
             double childNodeWidth = nodeWidth / 2;
             int numberOfChild = 0;
             for (short index : thisNode.getChildrenNodeIdFlatten()) {

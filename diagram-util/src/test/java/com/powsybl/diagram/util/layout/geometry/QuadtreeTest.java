@@ -9,8 +9,6 @@ package com.powsybl.diagram.util.forcelayout.geometry;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -34,28 +32,28 @@ class QuadtreeTest {
         );
         Quadtree quadtree = new Quadtree(points, Point::getMass);
         short rootIndex = quadtree.getRootIndex();
-        List<Quadtree.QuadtreeNode> nodes = quadtree.getNodes();
-        List<Point> barycenters = quadtree.getBarycenters();
-        List<Point> expectedBarycenters = List.of(
-                new Point(0.017, 0.183, 10),
-                new Point(-1.075, -0.715, 2),
-                new Point(-1.075, -0.715, 2),
-                new Point(-1.38, -0.7, 1),
-                new Point(-0.77, -0.73, 1),
-                new Point(0.57, -0.46, 2),
-                new Point(1.14, -0.92, 1),
-                new Point(0, 0, 1),
-                new Point(-1.29, 1.18, 1),
-                new Point(0.494, 0.6, 5),
-                new Point(0.323, 0.353, 3),
-                new Point(0.235, 0.28, 2),
-                new Point(0.22, 0.22, 1),
-                new Point(0.25, 0.34, 1),
-                new Point(0.5, 0.5, 1),
-                new Point(0.75, 0.97, 2),
-                new Point(0.63, 1.01, 1),
-                new Point(0.87, 0.93, 1)
-        );
+        Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
+        Point[] barycenters = quadtree.getBarycenters();
+        Point[] expectedBarycenters = {
+            new Point(0.017, 0.183, 10),
+            new Point(-1.075, -0.715, 2),
+            new Point(-1.075, -0.715, 2),
+            new Point(-1.38, -0.7, 1),
+            new Point(-0.77, -0.73, 1),
+            new Point(0.57, -0.46, 2),
+            new Point(1.14, -0.92, 1),
+            new Point(0, 0, 1),
+            new Point(-1.29, 1.18, 1),
+            new Point(0.494, 0.6, 5),
+            new Point(0.323, 0.353, 3),
+            new Point(0.235, 0.28, 2),
+            new Point(0.22, 0.22, 1),
+            new Point(0.25, 0.34, 1),
+            new Point(0.5, 0.5, 1),
+            new Point(0.75, 0.97, 2),
+            new Point(0.63, 1.01, 1),
+            new Point(0.87, 0.93, 1)
+        };
         checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
     }
 
@@ -64,39 +62,39 @@ class QuadtreeTest {
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         short rootIndex = quadtree.getRootIndex();
-        List<Quadtree.QuadtreeNode> nodes = quadtree.getNodes();
-        List<Point> barycenters = quadtree.getBarycenters();
-        List<Point> expectedBarycenters = List.of(
-                new Point(-0.151, 0.256, 28),
-                new Point(-1.075, -0.715, 6),
-                new Point(-1.075, -0.715, 6),
-                new Point(-1.38, -0.7, 3),
-                new Point(-0.77, -0.73, 3),
-                new Point(0.285, -0.23, 4),
-                new Point(1.14, -0.92, 1),
-                new Point(0, 0, 3),
-                new Point(-1.29, 1.18, 4),
-                new Point(0.445, 0.548, 14),
-                new Point(0.289, 0.309, 9),
-                new Point(0.229, 0.254, 7),
-                new Point(0.22, 0.22, 5),
-                new Point(0.25, 0.34, 2),
-                new Point(0.5, 0.5, 2),
-                new Point(0.726, 0.978, 5),
-                new Point(0.63, 1.01, 3),
-                new Point(0.87, 0.93, 2)
-        );
+        Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
+        Point[] barycenters = quadtree.getBarycenters();
+        Point[] expectedBarycenters = {
+            new Point(-0.151, 0.256, 28),
+            new Point(-1.075, -0.715, 6),
+            new Point(-1.075, -0.715, 6),
+            new Point(-1.38, -0.7, 3),
+            new Point(-0.77, -0.73, 3),
+            new Point(0.285, -0.23, 4),
+            new Point(1.14, -0.92, 1),
+            new Point(0, 0, 3),
+            new Point(-1.29, 1.18, 4),
+            new Point(0.445, 0.548, 14),
+            new Point(0.289, 0.309, 9),
+            new Point(0.229, 0.254, 7),
+            new Point(0.22, 0.22, 5),
+            new Point(0.25, 0.34, 2),
+            new Point(0.5, 0.5, 2),
+            new Point(0.726, 0.978, 5),
+            new Point(0.63, 1.01, 3),
+            new Point(0.87, 0.93, 2)
+        };
         checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
     }
 
     private void checkChildBarycenter(
             short parentNodeIndex,
-            List<Quadtree.QuadtreeNode> nodes,
-            List<Point> barycenters,
-            List<Point> expectedBarycenters
+            Quadtree.QuadtreeNode[] nodes,
+            Point[] barycenters,
+            Point[] expectedBarycenters
     ) {
         double delta = 1e-3;
-        Quadtree.QuadtreeNode thisNode = nodes.get(parentNodeIndex);
+        Quadtree.QuadtreeNode thisNode = nodes[parentNodeIndex];
         short[] subAreaIndexList = thisNode.getChildrenNodeIdFlatten();
         // check all child areas
         for (short subAreaIndex : subAreaIndexList) {
@@ -105,8 +103,8 @@ class QuadtreeTest {
             }
         }
         // now check this node
-        Point barycenter = barycenters.get(parentNodeIndex);
-        Point expectedBarycenter = expectedBarycenters.get(parentNodeIndex);
+        Point barycenter = barycenters[parentNodeIndex];
+        Point expectedBarycenter = expectedBarycenters[parentNodeIndex];
 
         assertEquals(expectedBarycenter.getMass(), barycenter.getMass(), delta);
         assertEquals(expectedBarycenter.getPosition().getX(), barycenter.getPosition().getX(), delta);
