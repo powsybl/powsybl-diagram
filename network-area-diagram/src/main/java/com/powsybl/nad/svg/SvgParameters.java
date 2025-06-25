@@ -52,7 +52,7 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
-    private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
+    private EdgeInfoEnum[] edgeInfoDisplayed = {EdgeInfoEnum.ACTIVE_POWER};
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
@@ -465,11 +465,11 @@ public class SvgParameters {
         CURRENT;
     }
 
-    public EdgeInfoEnum getEdgeInfoDisplayed() {
+    public EdgeInfoEnum[] getEdgeInfoDisplayed() {
         return this.edgeInfoDisplayed;
     }
 
-    public SvgParameters setEdgeInfoDisplayed(EdgeInfoEnum edgeInfoDisplayed) {
+    public SvgParameters setEdgeInfoDisplayed(EdgeInfoEnum[] edgeInfoDisplayed) {
         this.edgeInfoDisplayed = edgeInfoDisplayed;
         return this;
     }

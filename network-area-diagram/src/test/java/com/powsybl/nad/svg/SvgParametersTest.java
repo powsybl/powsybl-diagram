@@ -9,6 +9,8 @@ package com.powsybl.nad.svg;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -53,7 +55,7 @@ class SvgParametersTest {
                 .setAngleValuePrecision(2)
                 .setPowerValuePrecision(3)
                 .setCurrentValuePrecision(1)
-                .setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER)
+                .setEdgeInfoDisplayed(List.of(SvgParameters.EdgeInfoEnum.REACTIVE_POWER).toArray(new SvgParameters.EdgeInfoEnum[1]))
                 .setPstArrowHeadSize(20)
                 .setUndefinedValueSymbol("\u002A");
 

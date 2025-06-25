@@ -283,24 +283,22 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
         writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
-            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
+            List<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
-                drawHalfEdge(graph, writer, edge, side, edgeInfo.orElse(null));
+                drawHalfEdge(graph, writer, edge, side, edgeInfo);
             } else {
-                drawLoopEdge(writer, edge, side, edgeInfo.orElse(null));
+                drawLoopEdge(writer, edge, side, edgeInfo);
             }
         }
         writer.writeEndElement();
     }
 
-    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        if (edgeInfo != null) {
-            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo);
-        }
+        drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo);
     }
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
@@ -315,14 +313,12 @@ public class SvgWriter {
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
     }
 
-    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
-        if (edgeInfo != null) {
-            drawLoopEdgeInfo(writer, edge, side, edgeInfo);
-        }
+        drawLoopEdgeInfo(writer, edge, side, edgeInfo);
     }
 
     private String getPolylinePointsString(BranchEdge edge, BranchEdge.Side side) {
@@ -357,10 +353,8 @@ public class SvgWriter {
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
 
-        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
-        if (edgeInfo.isPresent()) {
-            drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo.get());
-        }
+        List<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
+        drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo);
         writer.writeEndElement();
     }
 
@@ -435,72 +429,59 @@ public class SvgWriter {
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
     }
 
-    private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfo) throws XMLStreamException {
         drawEdgeInfo(writer, edgeInfo, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
     }
 
-    private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfo) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
         BusNode busNode = graph.getBusGraphNode(edge, side);
-        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
+        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeStartAngle(side));
     }
 
-    private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfo) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
         drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
         drawEdgeInfo(writer, Collections.emptyList(), edgeInfo, infoCenter, edgeAngle);
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, List<EdgeInfo> edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
 
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writeStyleClasses(writer, additionalStyles, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
 
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo));
-        drawInAndOutArrows(writer, edgeAngle);
-        Optional<String> externalLabel = edgeInfo.getExternalLabel();
-        if (externalLabel.isPresent()) {
-            drawLabel(writer, externalLabel.get(), edgeAngle, true);
-        }
-        Optional<String> internalLabel = edgeInfo.getInternalLabel();
-        if (internalLabel.isPresent()) {
-            drawLabel(writer, internalLabel.get(), edgeAngle, false);
-        }
-        writer.writeEndElement();
+        for (int i = 0; i < edgeInfo.size(); i++) {
+            EdgeInfo info = edgeInfo.get(i);
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(info));
 
+            Optional<String> externalLabel = info.getExternalLabel();
+            if (externalLabel.isPresent()) {
+                drawLabel(writer, i, externalLabel.get(), edgeAngle, true);
+            }
+            Optional<String> internalLabel = info.getInternalLabel();
+            if (internalLabel.isPresent()) {
+                drawLabel(writer, i, internalLabel.get(), edgeAngle, false);
+            }
+            writer.writeEndElement();
+        }
         writer.writeEndElement();
     }
 
-    private void drawInAndOutArrows(XMLStreamWriter writer, double edgeAngle) throws XMLStreamException {
-        double rotationAngle = edgeAngle + (edgeAngle > Math.PI / 2 ? -3 * Math.PI / 2 : Math.PI / 2);
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
-        writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
-        writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn());
-        writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_OUT_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
-        writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDOut());
-        writer.writeEndElement();
-    }
-
-    private void drawLabel(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+    private void drawLabel(XMLStreamWriter writer, int index, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
         if (svgParameters.isEdgeInfoAlongEdge()) {
-            drawLabelAlongEdge(writer, label, edgeAngle, externalLabel);
+            drawLabelAlongEdge(writer, index, label, edgeAngle, externalLabel);
         } else {
-            drawLabelPerpendicularToEdge(writer, label, edgeAngle, externalLabel);
+            drawLabelPerpendicularToEdge(writer, index, label, edgeAngle, externalLabel);
         }
     }
 
-    private void drawLabelAlongEdge(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+    private void drawLabelAlongEdge(XMLStreamWriter writer, int index, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
         boolean textFlipped = Math.cos(edgeAngle) < 0;
         String style = externalLabel == textFlipped ? "text-anchor:end" : null;
         double textAngle = textFlipped ? edgeAngle - Math.PI : edgeAngle;
@@ -508,10 +489,10 @@ public class SvgWriter {
         drawLabel(writer, label, textFlipped ? -shift : shift, style, textAngle, X_ATTRIBUTE);
     }
 
-    private void drawLabelPerpendicularToEdge(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
+    private void drawLabelPerpendicularToEdge(XMLStreamWriter writer, int index, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {
         boolean textFlipped = Math.sin(edgeAngle) > 0;
         double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
-        double shift = svgParameters.getArrowLabelShift();
+        double shift = index * 0.5 * svgParameters.getArrowLabelShift();
         double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift; // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
         drawLabel(writer, label, shiftAdjusted, "text-anchor:middle", textAngle, Y_ATTRIBUTE);
     }

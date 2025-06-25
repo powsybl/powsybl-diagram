@@ -62,7 +62,7 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+    public List<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
         BranchLabels bl = this.branchLabels.get(edge.getEquipmentId());
         String label = null;
         EdgeInfo.Direction arrowDirection = null;
@@ -70,11 +70,11 @@ public class CustomLabelProvider implements LabelProvider {
             label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
             arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
         }
-        return Optional.of(new EdgeInfo("Custom", arrowDirection, null, label));
+        return List.of(new EdgeInfo("Custom", arrowDirection, null, label));
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
+    public List<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
         ThreeWtLabels threeWtLabels1 = threeWtLabels.get(edge.getEquipmentId());
         ThreeWtEdge.Side edgeSide = edge.getSide();
         String labelSide = null;
@@ -95,7 +95,7 @@ public class CustomLabelProvider implements LabelProvider {
                 }
             }
         }
-        return Optional.of(new EdgeInfo("Custom", arrowDirection, null, labelSide));
+        return List.of(new EdgeInfo("Custom", arrowDirection, null, labelSide));
     }
 
     @Override

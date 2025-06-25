@@ -13,6 +13,9 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,13 +55,13 @@ class TypeOfEdgeInfoTest extends AbstractTest {
 
     @Test
     void testReactivePowerInfoLabel() {
-        getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.REACTIVE_POWER);
+        getSvgParameters().setEdgeInfoDisplayed(List.of(SvgParameters.EdgeInfoEnum.REACTIVE_POWER).toArray(new SvgParameters.EdgeInfoEnum[1]));
         assertSvgEquals("/edge_info_reactive_power.svg", network);
     }
 
     @Test
     void testCurrentInfoLabel() {
-        getSvgParameters().setEdgeInfoDisplayed(SvgParameters.EdgeInfoEnum.CURRENT);
+        getSvgParameters().setEdgeInfoDisplayed(List.of(SvgParameters.EdgeInfoEnum.CURRENT).toArray(new SvgParameters.EdgeInfoEnum[1]));
         assertSvgEquals("/edge_info_current.svg", network);
     }
 
