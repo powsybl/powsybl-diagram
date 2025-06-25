@@ -106,11 +106,13 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         int stoppingStep = layoutParameters.getMaxSteps();
         boolean changedStoppingStep = false;
 
+        ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
+
         while (i < stoppingStep) {
             double graphSwing = 0.;
             double newGraphSpeed;
             double graphTraction = 0.;
-            if (layoutParameters.getBarnesHutTheta() > 0) {
+            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
                 Collection<Point> interactingPoints = getInteractingPoints(forceGraph);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
