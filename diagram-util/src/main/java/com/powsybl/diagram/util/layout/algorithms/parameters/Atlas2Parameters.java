@@ -220,14 +220,6 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        public Builder withBarnesHutTheta(double barnesHutTheta) {
-            if (barnesHutTheta < 0) {
-                throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
-            }
-            this.barnesHutTheta = barnesHutTheta;
-            return this;
-        }
-
         /**
          * The theta parameter used in the Barnes-Hut approximation. The bigger the theta, the more aggressive the optimization will be,
          * but that might lead to less visual quality. A bigger value will also generally reduce runtime. Default is {@value DEFAULT_BARNES_HUT_THETA}
