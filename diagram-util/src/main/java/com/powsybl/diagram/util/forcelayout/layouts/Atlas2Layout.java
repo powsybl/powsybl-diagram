@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFro
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.*;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.forcelayout.layouts.quadtreeupdateschedule.ConstantSchedule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,11 +105,13 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         int stoppingStep = layoutParameters.getMaxSteps();
         boolean changedStoppingStep = false;
 
+        ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
+
         while (i < stoppingStep) {
             double graphSwing = 0.;
             double newGraphSpeed;
             double graphTraction = 0.;
-            if (layoutParameters.getBarnesHutTheta() > 0) {
+            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
                 Collection<Point> interactingPoints = getInteractingPoints(forceGraph);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }

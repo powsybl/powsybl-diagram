@@ -25,6 +25,9 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
     private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ATTRACT_TO_CENTER = true;
     private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
+    /// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
+    /// By Robert Gove, Two Six Labs, for an explanation
+    private static final int DEFAULT_QUADTREE_CALCULATION_INCREMENT = 13;
 
     private final int maxSteps;
     private final double repulsion;
@@ -37,6 +40,7 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
     private final boolean repulsionForceFromFixedPoints;
     private final boolean attractToCenterForce;
     private final double barnesHutTheta;
+    private final int quadtreeCalculationIncrement;
 
     private Atlas2Parameters(
             int maxSteps,
@@ -49,7 +53,8 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
             double maxGlobalSpeedIncreaseRatio,
             boolean repulsionForceFromFixedPoints,
             boolean attractToCenterForce,
-            double barnesHutTheta
+            double barnesHutTheta,
+            int quadtreeCalculationIncrement
     ) {
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
@@ -62,6 +67,7 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
         this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
         this.attractToCenterForce = attractToCenterForce;
         this.barnesHutTheta = barnesHutTheta;
+        this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
     }
 
     public static class Builder {
@@ -76,6 +82,7 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
         private boolean repulsionForceFromFixedPoints = DEFAULT_REPULSION_FROM_FIXED_POINTS;
         private boolean attractToCenterForce = DEFAULT_ATTRACT_TO_CENTER;
         private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
+        private int quadtreeCalculationIncrement = DEFAULT_QUADTREE_CALCULATION_INCREMENT;
 
         public Builder withMaxSteps(int maxSteps) {
             this.maxSteps = maxSteps;
@@ -135,6 +142,14 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
             return this;
         }
 
+        public Builder withQuadtreeCalculationIncrement(int quadtreeCalculationIncrement) {
+            if (quadtreeCalculationIncrement <= 0) {
+                throw new IllegalArgumentException("The increment for the constant schedule has to be strictly positive");
+            }
+            this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
+            return this;
+        }
+
         /// By default, the Barnes-Hut optimisation is activated with theta = 1.2
         /// If your network has a small number of nodes (less than 500), Atlas might finish faster by deactivating Barnes-Hut
         /// You can do so by using withBarnesHutTheta(0)
@@ -151,7 +166,8 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
                     maxGlobalSpeedIncreaseRatio,
                     repulsionForceFromFixedPoints,
                     attractToCenterForce,
-                    barnesHutTheta
+                    barnesHutTheta,
+                    quadtreeCalculationIncrement
             );
         }
     }
@@ -198,6 +214,10 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
 
     public double getBarnesHutTheta() {
         return barnesHutTheta;
+    }
+
+    public int getQuadtreeCalculationIncrement() {
+        return quadtreeCalculationIncrement;
     }
 
     @Override
