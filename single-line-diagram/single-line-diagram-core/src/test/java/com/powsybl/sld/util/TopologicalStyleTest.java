@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -157,7 +158,12 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         substationGraphLayout(graph);
         BusesHighlightStyleProviderFactory styleFactory = new BusesHighlightStyleProviderFactory();
         StyleProvider styleProvider = styleFactory.create(network, svgParameters);
+        assertTrue(styleProvider.getCssFilenames().contains("busesHighlight.css"));
         assertEquals(toString("/buses_highlight_style_substation.svg"), toSVG(graph, "/buses_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), styleProvider));
+
+        styleProvider = new TopologicalStyleProvider(network, false);
+        assertFalse(styleProvider.getCssFilenames().contains("busesHighlight.css"));
+
     }
 
 }

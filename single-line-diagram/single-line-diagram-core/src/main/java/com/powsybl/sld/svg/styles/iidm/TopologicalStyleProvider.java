@@ -39,7 +39,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     private boolean busesHighlightOnHover;
 
     public TopologicalStyleProvider(Network network) {
-        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters(), false);
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters());
     }
 
     public TopologicalStyleProvider(Network network, SvgParameters svgParameters) {
