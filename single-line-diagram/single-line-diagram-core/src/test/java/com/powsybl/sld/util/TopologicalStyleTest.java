@@ -16,10 +16,9 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.styles.BusesHighlightStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.svg.styles.StyleProvidersList;
-import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -156,8 +155,9 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
     void testBusesHighlight() {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
-
-        StyleProvider styleProvider = new StyleProvidersList(new TopologicalStyleProvider(network, svgParameters, true), new HighlightLineStateStyleProvider(network));
+        BusesHighlightStyleProviderFactory styleFactory = new BusesHighlightStyleProviderFactory();
+        StyleProvider styleProvider = styleFactory.create(network, svgParameters);
         assertEquals(toString("/buses_highlight_style_substation.svg"), toSVG(graph, "/buses_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), styleProvider));
     }
+
 }
