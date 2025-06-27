@@ -52,7 +52,7 @@ public class LayoutContext<V, E> {
             V source = graph.getEdgeSource(edge);
             V target = graph.getEdgeTarget(edge);
             if (source != target) {
-                locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+                locSimpleGraph.addEdge(source, target);
             }
         }
         this.simpleGraph = locSimpleGraph;
