@@ -34,8 +34,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 class CustomLabelProviderTest extends AbstractTestCaseIidm {
+
+    ComponentLibrary componentLibrary;
+
     @BeforeEach
     public void setUp() {
+        componentLibrary = new ConvergenceComponentLibrary();
     }
 
     @ParameterizedTest(name = "{4}")
@@ -52,7 +56,6 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         assertNotNull(resourceName);
 
         this.network = network;
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
 
         graphBuilder = new NetworkGraphBuilder(network);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
