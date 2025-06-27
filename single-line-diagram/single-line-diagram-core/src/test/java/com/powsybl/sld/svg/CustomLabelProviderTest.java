@@ -198,11 +198,15 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
                 new CustomLabelProvider.SldCustomFeederInfos(ComponentTypeName.ARROW_CURRENT, null, LabelProvider.LabelDirection.IN, "current")
         ));
 
+        //test data 5
+        SvgParameters svgParameters5 = createSvgParameters().setDisplayConnectivityNodesId(true).setFeederInfoSymmetry(false).setShowInternalNodes(true);
+
         return List.of(
                 Arguments.of(network1, vl1, labels1, feederInfosData, svgParameters1, "/CustomLabelProviderTest1.svg"),
                 Arguments.of(network2, vl2, labels2, feederInfosData2, svgParameters1, "/CustomLabelProviderTest2.svg"),
                 Arguments.of(network3, vl3, labels3, feederInfosData3, createSvgParameters(), "/CustomLabelProviderTest3.svg"),
-                Arguments.of(network4, vl4, labels4, feederInfosData4, svgParameters1, "/CustomLabelProviderTest4.svg")
+                Arguments.of(network4, vl4, labels4, feederInfosData4, svgParameters1, "/CustomLabelProviderTest4.svg"),
+                Arguments.of(network3, vl3, labels3, feederInfosData3, svgParameters5, "/CustomLabelProviderTest5.svg")
         );
 
     }
