@@ -83,7 +83,7 @@ public class LayoutContext<V, E> {
             V target = graph.getEdgeTarget(edge);
             // Remove loops
             if (source != target) {
-                locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+                locSimpleGraph.addEdge(source, target);
             }
         }
         this.simpleGraph = locSimpleGraph;
