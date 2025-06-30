@@ -55,7 +55,7 @@ public final class GraphTestData {
 
     public static Graph<String, DefaultEdge> getGraph1() {
         Point[] points = getPoints1();
-        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points.length);
         graph.addEdge("0", "1");
         graph.addEdge("1", "2");
         graph.addEdge("2", "0");
@@ -74,7 +74,7 @@ public final class GraphTestData {
 
     public static Graph<String, DefaultEdge> getGraph2() {
         Point[] points = getPoints2();
-        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points.length);
         graph.addEdge("0", "2");
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
@@ -95,9 +95,9 @@ public final class GraphTestData {
         return layoutContext;
     }
 
-    private static Graph<String, DefaultEdge> buildGraphVertex(Point[] points) {
+    private static Graph<String, DefaultEdge> buildGraphVertex(int numberOfPoints) {
         Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
-        for (int i = 0; i < points.length; ++i) {
+        for (int i = 0; i < numberOfPoints; ++i) {
             graph.addVertex(String.valueOf(i));
         }
         return graph;
