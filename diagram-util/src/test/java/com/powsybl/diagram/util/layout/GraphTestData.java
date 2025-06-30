@@ -22,7 +22,7 @@ import java.util.*;
  */
 public final class GraphTestData {
 
-    private static final Random RANDOM = new Random(3L);
+    public static final Random RANDOM = new Random(3L);
 
     private GraphTestData() {
         throw new AssertionError("Instantiating utility class GraphTestData");
