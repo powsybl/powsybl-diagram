@@ -22,7 +22,7 @@ class LinearRepulsionForceByDegreeTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1SimpleSetup();
         LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegree = new LinearRepulsionForceByDegree<>(
                 new IntensityEffectFromFixedNodesParameters(
                         0.34,

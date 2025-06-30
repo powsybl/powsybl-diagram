@@ -22,7 +22,7 @@ class LinearEdgeAttractionForceTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1SimpleSetup();
         LinearEdgeAttractionForce<String, DefaultEdge> linearEdgeAttractionForce = new LinearEdgeAttractionForce<>(
                 new IntensityParameter(7)
         );

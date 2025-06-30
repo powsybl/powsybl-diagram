@@ -23,7 +23,7 @@ class GravityForceUnitTest {
     @Test
     void calculateForce() {
         double delta = 1e-5;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1SimpleSetup();
         GravityForceUnit<String, DefaultEdge> gravityForceUnit = new GravityForceUnit<>(
                 new IntensityParameter(0.01)
         );

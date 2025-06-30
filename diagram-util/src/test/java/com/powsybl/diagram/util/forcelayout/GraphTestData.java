@@ -53,7 +53,7 @@ public final class GraphTestData {
         };
     }
 
-    public static ForceGraph<String, DefaultEdge> getForceGraph1() {
+    public static ForceGraph<String, DefaultEdge> getForceGraph1SimpleSetup() {
         Point[] points = getPoints1();
         Graph<String, DefaultEdge> graph = buildGraphVertex(points);
         graph.addEdge("0", "1");
@@ -67,7 +67,7 @@ public final class GraphTestData {
         return forceGraph;
     }
 
-    public static ForceGraph<String, DefaultEdge> getForceGraph2() {
+    public static ForceGraph<String, DefaultEdge> getForceGraph2SimpleSetup() {
         Point[] points = getPoints2();
         Graph<String, DefaultEdge> graph = buildGraphVertex(points);
         graph.addEdge("0", "2");

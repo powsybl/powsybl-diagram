@@ -20,7 +20,7 @@ class QuadtreeTest {
 
     @Test
     void checkTreeStructure() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2SimpleSetup();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), Point::getMass);
         short rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
@@ -50,7 +50,7 @@ class QuadtreeTest {
 
     @Test
     void checkTreeStructureWithVertexWeight() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2SimpleSetup();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         short rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
