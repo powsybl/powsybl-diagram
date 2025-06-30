@@ -53,23 +53,28 @@ public final class GraphTestData {
         };
     }
 
-    public static ForceGraph<String, DefaultEdge> getForceGraph1SimpleSetup() {
+    public static ForceGraph<String, DefaultEdge> getForceGraph1NoSetup() {
         Point[] points = getPoints1();
-        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points.length);
         graph.addEdge("0", "1");
         graph.addEdge("1", "2");
         graph.addEdge("2", "0");
         graph.addEdge("0", "3");
-        ForceGraph<String, DefaultEdge> forceGraph = new ForceGraph<>(graph);
+        return new ForceGraph<>(graph);
+    }
+
+    public static ForceGraph<String, DefaultEdge> getForceGraph1SimpleSetup() {
+        ForceGraph<String, DefaultEdge> forceGraph = getForceGraph1NoSetup();
         Set<String> fixedNodes = new HashSet<>();
         fixedNodes.add("1");
+        Point[] points = getPoints1();
         setup(forceGraph, fixedNodes, points);
         return forceGraph;
     }
 
-    public static ForceGraph<String, DefaultEdge> getForceGraph2SimpleSetup() {
+    public static ForceGraph<String, DefaultEdge> getForceGraph2NoSetup() {
         Point[] points = getPoints2();
-        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points.length);
         graph.addEdge("0", "2");
         graph.addEdge("1", "2");
         graph.addEdge("1", "3");
@@ -80,15 +85,20 @@ public final class GraphTestData {
         graph.addEdge("4", "5");
         graph.addEdge("7", "9");
 
-        ForceGraph<String, DefaultEdge> forceGraph = new ForceGraph<>(graph);
+        return new ForceGraph<>(graph);
+    }
+
+    public static ForceGraph<String, DefaultEdge> getForceGraph2SimpleSetup() {
+        ForceGraph<String, DefaultEdge> forceGraph = getForceGraph2NoSetup();
         Set<String> fixedNodes = new HashSet<>();
+        Point[] points = getPoints2();
         setup(forceGraph, fixedNodes, points);
         return forceGraph;
     }
 
-    private static Graph<String, DefaultEdge> buildGraphVertex(Point[] points) {
+    private static Graph<String, DefaultEdge> buildGraphVertex(int numberOfPoints) {
         Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
-        for (int i = 0; i < points.length; ++i) {
+        for (int i = 0; i < numberOfPoints; ++i) {
             graph.addVertex(String.valueOf(i));
         }
         return graph;
