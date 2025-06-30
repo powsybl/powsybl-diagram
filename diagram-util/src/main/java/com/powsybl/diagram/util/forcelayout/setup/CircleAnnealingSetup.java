@@ -182,7 +182,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 double newEnergy = calculateObjectiveFunction(allEdgesPoints, setupTopologyData.pointsWithDistanceTwo);
                 // if the energy is lower, just update the energy value and keep going
                 // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-                if (newEnergy < previousEnergy || random.nextDouble() < Math.exp((newEnergy - previousEnergy) / temperature)) {
+                if (newEnergy < previousEnergy || random.nextDouble() < Math.exp((previousEnergy - newEnergy) / temperature)) {
                     previousEnergy = newEnergy;
                 } else {
                     // swap back
