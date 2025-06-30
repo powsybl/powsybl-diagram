@@ -7,12 +7,15 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
+import com.powsybl.diagram.util.forcelayout.LayoutAlgorithmRunner;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -34,6 +37,8 @@ import java.util.*;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
+
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
         initForceGraph(forceGraph);
@@ -176,6 +181,9 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         double temperature = computeInitialTemperature();
         int neighborNumberTry = 30 * setupTopologyData.movablePoints.length;
         double previousEnergy = calculateObjectiveFunction(allEdgesPoints, setupTopologyData.pointsWithDistanceTwo);
+        double bestEnergy = previousEnergy;
+        LOGGER.debug("Starting energy : {}", bestEnergy);
+
         for (int temperatureIteration = 0; temperatureIteration < 10; ++temperatureIteration) {
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
                 int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
@@ -184,6 +192,9 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
                 if (newEnergy < previousEnergy || random.nextDouble() < Math.exp((previousEnergy - newEnergy) / temperature)) {
                     previousEnergy = newEnergy;
+                    if (newEnergy < bestEnergy) {
+                        bestEnergy = newEnergy;
+                    }
                 } else {
                     // swap back
                     swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
@@ -191,6 +202,8 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
             temperature *= 0.75;
         }
+        LOGGER.debug("Final energy : {} | Best reached energy : {}", previousEnergy, bestEnergy);
+
     }
 
     private double computeInitialTemperature() {
@@ -203,7 +216,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         int secondIndex = firstIndex;
         while (secondIndex == firstIndex) {
             // this could fail in the case of a graph with a single moving point
-            secondIndex = random.nextInt() % points.length;
+            secondIndex = random.nextInt(points.length);
         }
         swapPositions(points, firstIndex, secondIndex);
         return new int[] {firstIndex, secondIndex};
