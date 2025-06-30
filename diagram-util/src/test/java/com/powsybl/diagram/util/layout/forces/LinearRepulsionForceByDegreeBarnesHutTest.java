@@ -23,7 +23,7 @@ class LinearRepulsionForceByDegreeBarnesHutTest {
     @Test
     void calculateForce() {
         double delta = 1e-3;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2SimpleSetup();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
         quadtreeContainer.setQuadtree(quadtree);
