@@ -7,7 +7,6 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
-import com.powsybl.diagram.util.forcelayout.LayoutAlgorithmRunner;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -169,7 +168,12 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         return sum;
     }
 
-    private void annealingProcess(PointPair[] allEdgesPoints, SetupListData setupTopologyData, double circleRadius, Random random) {
+    private void annealingProcess(
+        PointPair[] allEdgesPoints,
+        SetupListData setupTopologyData,
+        double circleRadius,
+        Random random
+    ) {
         // Start by putting all the points on a circle
         double angleSeparation = 2 * Math.PI / setupTopologyData.movablePoints.length;
         for (int i = 0; i < setupTopologyData.movablePoints.length; ++i) {
@@ -178,7 +182,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             setupTopologyData.movablePoints[i].setPosition(position);
         }
         // Then start the process
-        double temperature = computeInitialTemperature();
+        double temperature = computeInitialTemperature(setupTopologyData.movablePoints);
         int neighborNumberTry = 30 * setupTopologyData.movablePoints.length;
         double previousEnergy = calculateObjectiveFunction(allEdgesPoints, setupTopologyData.pointsWithDistanceTwo);
         double bestEnergy = previousEnergy;
@@ -200,15 +204,15 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
                 }
             }
-            temperature *= 0.75;
+            temperature *= 0.8;
         }
         LOGGER.debug("Final energy : {} | Best reached energy : {}", previousEnergy, bestEnergy);
 
     }
 
-    private double computeInitialTemperature() {
+    private double computeInitialTemperature(Point[] movablePoints) {
         // TODO compute using the algorithm described in Walid Ben-Ameur : Computing_the_initial_temperature_of_simulated_annealing
-        return 10d;
+        return 2d;
     }
 
     private int[] goToNeighborState(Point[] points, Random random) {
