@@ -40,6 +40,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     // This should always be between 0 and 1, strictly
     private static final double STARTING_TRANSITION_PROBABILITY = 0.8;
     private static final double STARTING_PRECISION = 1e-3;
+    private static final double TEMPERATURE_DECREASE_RATIO = 0.8;
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
@@ -193,13 +194,24 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
 
-        for (int temperatureIteration = 0; temperatureIteration < 10; ++temperatureIteration) {
+        double averagePositiveTransitionAcceptanceRatio = STARTING_TRANSITION_PROBABILITY;
+
+        while (averagePositiveTransitionAcceptanceRatio > 0.03) {
+            averagePositiveTransitionAcceptanceRatio = 0;
+            int numberOfPositiveTransition = 0;
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
                 int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
                 double newEnergy = calculateObjectiveFunction(setupTopologyData);
+
+                double acceptanceRatio = Math.exp((previousEnergy - newEnergy) / temperature);
+                if (acceptanceRatio < 1 && acceptanceRatio > 0) {
+                    averagePositiveTransitionAcceptanceRatio += acceptanceRatio;
+                    ++numberOfPositiveTransition;
+                }
+
                 // if the energy is lower, just update the energy value and keep going
                 // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-                if (newEnergy < previousEnergy || random.nextDouble() < Math.exp((previousEnergy - newEnergy) / temperature)) {
+                if (newEnergy < previousEnergy || random.nextDouble() < acceptanceRatio) {
                     previousEnergy = newEnergy;
                     if (newEnergy < bestEnergy) {
                         bestEnergy = newEnergy;
@@ -209,7 +221,12 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
                 }
             }
-            temperature *= 0.8;
+            temperature *= TEMPERATURE_DECREASE_RATIO;
+            if (numberOfPositiveTransition == 0) {
+                averagePositiveTransitionAcceptanceRatio = 1;
+            } else {
+                averagePositiveTransitionAcceptanceRatio /= numberOfPositiveTransition;
+            }
         }
         LOGGER.debug("Final energy : {} | Best reached energy : {}", previousEnergy, bestEnergy);
 
@@ -232,7 +249,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         double previousEnergy = calculateObjectiveFunction(setupTopologyData);
         double sumOfAbsolute = 0;
         for (int i = 0; i < numberOfTransitions; ++i) {
-            goToNeighborState(setupTopologyData.movablePoints, random);
+            int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
             double newEnergy = calculateObjectiveFunction(setupTopologyData);
             // We can use the absolute difference to make every transition positive, because transitions are symmetric
             // That means if we have a negative energy transition, we can say we could have done the swap in the other direction, and it is positive that way
@@ -243,6 +260,15 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 positiveEnergyTransitions.add(new Double[]{newEnergy, previousEnergy});
                 sumOfAbsolute += previousEnergy - newEnergy;
             }
+            // if the energy is lower, just update the energy value and keep going
+            // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
+            if (newEnergy < previousEnergy || random.nextDouble() < STARTING_TRANSITION_PROBABILITY) {
+                previousEnergy = newEnergy;
+            } else {
+                // swap back
+                swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
+            }
+            goToNeighborState(setupTopologyData.movablePoints, random);
         }
         // See the paper for explanation
         double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(STARTING_TRANSITION_PROBABILITY));
@@ -266,7 +292,8 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
             double probabilityEstimate = probabilityEstimateNumerator / probabilityEstimateDenominator;
             if (Math.abs(probabilityEstimate - STARTING_TRANSITION_PROBABILITY) < STARTING_PRECISION) {
-                return initialTemperature;
+                // decrease temperature, because we did a round of annealing by searching the start temperature
+                return initialTemperature * TEMPERATURE_DECREASE_RATIO;
             } else {
                 initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(STARTING_TRANSITION_PROBABILITY), power);
             }
