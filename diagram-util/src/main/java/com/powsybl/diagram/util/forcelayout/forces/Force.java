@@ -16,5 +16,5 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E> {
-    Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
+    Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
 }

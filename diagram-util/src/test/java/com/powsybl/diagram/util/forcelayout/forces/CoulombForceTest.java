@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 class CoulombForceTest {
 
     @Test
-    void calculateForce() {
+    void apply() {
         double delta = 1e-4;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         CoulombForce<String, DefaultEdge> force = new CoulombForce<>(new IntensityEffectFromFixedNodesParameters(2, true));

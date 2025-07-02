@@ -25,7 +25,7 @@ public class CoulombForce<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (Point otherMovingPoint : forceGraph.getMovingPoints().values()) {
             if (otherMovingPoint == correspondingPoint) {

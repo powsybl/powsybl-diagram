@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 class GravityForceLinearTest {
 
     @Test
-    void calculateForce() {
+    void apply() {
         double delta = 1e-5;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         GravityForceLinear<String, DefaultEdge> gravityForceLinear = new GravityForceLinear<>(

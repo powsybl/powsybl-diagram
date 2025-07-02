@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 class GravityForceUnitTest {
 
     @Test
-    void calculateForce() {
+    void apply() {
         double delta = 1e-5;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         GravityForceUnit<String, DefaultEdge> gravityForceUnit = new GravityForceUnit<>(

@@ -28,7 +28,7 @@ public class SpringForce<V, E> implements Force<V, E> {
 
     /// This is Hooke's Law
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (DefaultEdge edge : forceGraph.getSimpleGraph().edgesOf(forThisVertex)) {
             // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring

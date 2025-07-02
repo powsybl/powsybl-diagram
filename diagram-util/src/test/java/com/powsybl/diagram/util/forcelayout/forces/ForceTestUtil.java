@@ -36,7 +36,7 @@ public final class ForceTestUtil {
         for (int i = 0; i < vertexToTest.length; ++i) {
             String forThisVertex = vertexToTest[i];
             Point point = getPoint(forceGraph, forThisVertex);
-            Vector2D result = force.calculateForce(
+            Vector2D result = force.apply(
                     forThisVertex,
                     point,
                     forceGraph

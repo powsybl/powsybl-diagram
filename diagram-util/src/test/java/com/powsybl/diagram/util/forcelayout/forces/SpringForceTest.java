@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 class SpringForceTest {
 
     @Test
-    void calculateForce() {
+    void apply() {
         double delta = 1e-3;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         SpringForce<String, DefaultEdge> springForce = new SpringForce<>(

@@ -24,7 +24,7 @@ public class GravityForceLinear<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
         // we don't use a unit vector to follow the previous convention, even though this is a bit strange
         // it means that nodes will generally not get further than a certain distance from the center, instead of leaving room to other nodes for expanding
         // that makes graphs more compact, but it could also cause issues with big graphs, where it would be too compact

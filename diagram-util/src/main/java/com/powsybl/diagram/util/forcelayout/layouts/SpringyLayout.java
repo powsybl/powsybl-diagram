@@ -80,7 +80,7 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
             for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
                 for (Force<V, E> force : forces) {
-                    Vector2D resultingVector = force.calculateForce(entry.getKey(), point, forceGraph);
+                    Vector2D resultingVector = force.apply(entry.getKey(), point, forceGraph);
                     point.applyForce(resultingVector);
                 }
             }
