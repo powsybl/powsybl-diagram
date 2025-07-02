@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class GravityForceByEdgeNumberTest {
     @Test
     void apply() {
         double delta = 1e-5;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
         GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(
                 new IntensityParameter(0.01)
         );
@@ -38,6 +38,6 @@ class GravityForceByEdgeNumberTest {
             new Vector2D(-0.007071, -0.007071)
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, gravityForceByEdgeNumber, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, gravityForceByEdgeNumber, vertexToTest, resultVector, delta);
     }
 }

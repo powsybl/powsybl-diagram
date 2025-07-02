@@ -27,7 +27,7 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
@@ -55,16 +55,16 @@ import java.util.function.Function;
  */
 public class ForceLayout<V, E> {
 
-    private final ForceGraph<V, E> forceGraph;
+    private final LayoutContext<V, E> layoutContext;
     private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
     private LayoutAlgorithmRunner<V, E> algorithmRunner;
 
     public ForceLayout(Graph<V, E> graph) {
-        this.forceGraph = new ForceGraph<>(Objects.requireNonNull(graph));
+        this.layoutContext = new LayoutContext<>(Objects.requireNonNull(graph));
     }
 
-    public ForceLayout(ForceGraph<V, E> forceGraph) {
-        this.forceGraph = Objects.requireNonNull(forceGraph);
+    public ForceLayout(LayoutContext<V, E> layoutContext) {
+        this.layoutContext = Objects.requireNonNull(layoutContext);
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
@@ -108,17 +108,17 @@ public class ForceLayout<V, E> {
     }
 
     public ForceLayout<V, E> setInitialPoints(Map<V, Point> initialPoints) {
-        this.forceGraph.setInitialPoints(initialPoints);
+        this.layoutContext.setInitialPoints(initialPoints);
         return this;
     }
 
     public ForceLayout<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
-        this.forceGraph.setFixedPoints(fixedPoints);
+        this.layoutContext.setFixedPoints(fixedPoints);
         return this;
     }
 
     public ForceLayout<V, E> setFixedNodes(Set<V> fixedNodes) {
-        this.forceGraph.setFixedNodes(fixedNodes);
+        this.layoutContext.setFixedNodes(fixedNodes);
         return this;
     }
 
@@ -127,7 +127,7 @@ public class ForceLayout<V, E> {
                 SetupEnum.SPRINGY,
                 this.springyParametersBuilder.build()
         );
-        algorithmRunner.run(forceGraph);
+        algorithmRunner.run(layoutContext);
     }
 
     public Vector2D getStablePosition(V vertex) {

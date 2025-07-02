@@ -24,9 +24,9 @@ import java.util.stream.Stream;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class ForceGraph<V, E> {
+public class LayoutContext<V, E> {
     private final Point origin = new Point(0, 0);
-    private static final Logger LOGGER = LoggerFactory.getLogger(ForceGraph.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LayoutContext.class);
 
     private final SimpleGraph<V, DefaultEdge> simpleGraph;
 
@@ -37,7 +37,7 @@ public class ForceGraph<V, E> {
     private Map<V, Point> initialPoints = Collections.emptyMap();
     private Set<V> fixedNodes = Collections.emptySet();
 
-    public ForceGraph(Graph<V, E> graph) {
+    public LayoutContext(Graph<V, E> graph) {
         SimpleGraph<V, DefaultEdge> locSimpleGraph = new SimpleGraph<>(DefaultEdge.class);
         for (V vertex : graph.vertexSet()) {
             locSimpleGraph.addVertex(vertex);
@@ -80,12 +80,12 @@ public class ForceGraph<V, E> {
         return origin;
     }
 
-    public ForceGraph<V, E> setInitialPoints(Map<V, Point> initialPoints) {
+    public LayoutContext<V, E> setInitialPoints(Map<V, Point> initialPoints) {
         this.initialPoints = Objects.requireNonNull(initialPoints);
         return this;
     }
 
-    public ForceGraph<V, E> setFixedNodes(Set<V> fixedNodes) {
+    public LayoutContext<V, E> setFixedNodes(Set<V> fixedNodes) {
         Objects.requireNonNull(fixedNodes);
         Set<V> intersection = new HashSet<>(fixedNodes);
         // only put fixed nodes that are actually in the graph
@@ -98,7 +98,7 @@ public class ForceGraph<V, E> {
         return this;
     }
 
-    public ForceGraph<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
+    public LayoutContext<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
         Objects.requireNonNull(fixedPoints);
         Map<V, Point> intersection = new HashMap<>(fixedPoints);
         intersection.keySet().retainAll(this.simpleGraph.vertexSet());

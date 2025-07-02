@@ -9,7 +9,7 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
@@ -24,11 +24,11 @@ public class GravityForceLinear<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         // we don't use a unit vector to follow the previous convention, even though this is a bit strange
         // it means that nodes will generally not get further than a certain distance from the center, instead of leaving room to other nodes for expanding
         // that makes graphs more compact, but it could also cause issues with big graphs, where it would be too compact
-        Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, forceGraph.getOrigin());
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, layoutContext.getOrigin());
         force.multiplyBy(forceParameter.getForceIntensity());
         return force;
     }

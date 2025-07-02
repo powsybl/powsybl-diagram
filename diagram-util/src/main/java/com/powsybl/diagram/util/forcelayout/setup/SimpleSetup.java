@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 
 import java.util.Objects;
@@ -20,15 +20,15 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
 
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
-    public void setup(ForceGraph<V, E> forceGraph, Random random) {
-        for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
-            if (forceGraph.getFixedNodes().contains(vertex)) {
-                forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));
+    public void setup(LayoutContext<V, E> layoutContext, Random random) {
+        for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
+            if (layoutContext.getFixedNodes().contains(vertex)) {
+                layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));
             } else {
-                Point initialPoint = forceGraph.getInitialPoints().get(vertex);
-                forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        forceGraph.getOrigin().getPosition().getX() + (random.nextDouble() - 0.5),
-                        forceGraph.getOrigin().getPosition().getY() + (random.nextDouble() - 0.5)
+                Point initialPoint = layoutContext.getInitialPoints().get(vertex);
+                layoutContext.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
+                        layoutContext.getOrigin().getPosition().getX() + (random.nextDouble() - 0.5),
+                        layoutContext.getOrigin().getPosition().getY() + (random.nextDouble() - 0.5)
                 )));
             }
         }

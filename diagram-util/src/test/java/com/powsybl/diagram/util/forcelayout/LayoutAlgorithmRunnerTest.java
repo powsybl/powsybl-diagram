@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
@@ -49,8 +49,8 @@ class LayoutAlgorithmRunnerTest {
         assertEquals(newCenter.getY(), runner.getCenter().getY());
         Vector2D otherNewCenter = new Vector2D(3.4, -6.1);
         runner.setCenter(otherNewCenter);
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        runner.run(forceGraph);
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        runner.run(layoutContext);
         assertEquals(otherNewCenter.getX(), runner.getCenter().getX());
         assertEquals(otherNewCenter.getY(), runner.getCenter().getY());
     }

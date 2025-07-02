@@ -9,7 +9,7 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
@@ -25,12 +25,12 @@ public class GravityForceByEdgeNumber<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         // magnitude = k * (deg (point) + 1)
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph
-        double magnitude = forceParameter.getForceIntensity() * (forceGraph.getSimpleGraph().degreeOf(forThisVertex) + 1);
-        Vector2D force = Vector2D.calculateUnitVector(correspondingPoint, forceGraph.getOrigin());
+        double magnitude = forceParameter.getForceIntensity() * (layoutContext.getSimpleGraph().degreeOf(forThisVertex) + 1);
+        Vector2D force = Vector2D.calculateUnitVector(correspondingPoint, layoutContext.getOrigin());
         force.multiplyBy(magnitude);
         return force;
     }

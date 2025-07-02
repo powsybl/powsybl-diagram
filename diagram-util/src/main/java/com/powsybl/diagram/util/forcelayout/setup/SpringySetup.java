@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
@@ -20,30 +20,30 @@ import java.util.Random;
 public class SpringySetup<V, E> implements Setup<V, E> {
 
     @Override
-    public void setup(ForceGraph<V, E> forceGraph, Random random) {
-        int nbUnknownPositions = forceGraph.getSimpleGraph().vertexSet().size() - forceGraph.getInitialPoints().size();
+    public void setup(LayoutContext<V, E> layoutContext, Random random) {
+        int nbUnknownPositions = layoutContext.getSimpleGraph().vertexSet().size() - layoutContext.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.
         // Apply a scale depending on the number of unknown positions to have an expected mean distance remain around the same value.
         // The positions are around the center of given initial positions.
         double scale = Math.sqrt(nbUnknownPositions) * 5;
         Vector2D initialPointsCenter = new Vector2D();
-        if (!forceGraph.getInitialPoints().isEmpty()) {
-            forceGraph.getInitialPoints().values().stream()
+        if (!layoutContext.getInitialPoints().isEmpty()) {
+            layoutContext.getInitialPoints().values().stream()
                     .map(Point::getPosition)
                     .forEach(initialPointsCenter::add);
-            initialPointsCenter.divideBy(forceGraph.getInitialPoints().size());
+            initialPointsCenter.divideBy(layoutContext.getInitialPoints().size());
         }
-        forceGraph.setCenter(initialPointsCenter);
+        layoutContext.setCenter(initialPointsCenter);
 
-        for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
-            if (forceGraph.getFixedNodes().contains(vertex)) {
-                forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));
+        for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
+            if (layoutContext.getFixedNodes().contains(vertex)) {
+                layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));
             } else {
-                Point initialPoint = forceGraph.getInitialPoints().get(vertex);
-                forceGraph.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        forceGraph.getOrigin().getPosition().getX() + scale * (random.nextDouble() - 0.5),
-                        forceGraph.getOrigin().getPosition().getY() + scale * (random.nextDouble() - 0.5)
+                Point initialPoint = layoutContext.getInitialPoints().get(vertex);
+                layoutContext.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
+                        layoutContext.getOrigin().getPosition().getX() + scale * (random.nextDouble() - 0.5),
+                        layoutContext.getOrigin().getPosition().getY() + scale * (random.nextDouble() - 0.5)
                 )));
             }
         }

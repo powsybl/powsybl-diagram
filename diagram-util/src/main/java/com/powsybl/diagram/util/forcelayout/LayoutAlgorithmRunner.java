@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.LayoutParameters;
@@ -33,7 +33,7 @@ public class LayoutAlgorithmRunner<V, E> {
     private Setup<V, E> setup;
     private LayoutAlgorithm<V, E> layoutAlgorithm;
     private boolean hasBeenExecuted = false;
-    private ForceGraph<V, E> forceGraph;
+    private LayoutContext<V, E> layoutContext;
     private Vector2D center = new Vector2D(0, 0);
 
     // Suppress the warning about possible unsafe Random, because we use this for simulation and not cryptography
@@ -58,14 +58,14 @@ public class LayoutAlgorithmRunner<V, E> {
         this.layoutAlgorithm = layoutParameters.createLayout();
     }
 
-    public void run(ForceGraph<V, E> forceGraph) {
-        this.forceGraph = forceGraph;
-        this.forceGraph.setCenter(center);
+    public void run(LayoutContext<V, E> layoutContext) {
+        this.layoutContext = layoutContext;
+        this.layoutContext.setCenter(center);
         long start = System.nanoTime();
-        setup.setup(forceGraph, random);
+        setup.setup(layoutContext, random);
         long setupEnd = System.nanoTime();
         LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
-        layoutAlgorithm.calculateLayout(forceGraph);
+        layoutAlgorithm.calculateLayout(layoutContext);
         LOGGER.info("Layout calculations took {} s", (System.nanoTime() - setupEnd) / 1e9);
         hasBeenExecuted = true;
     }
@@ -81,11 +81,11 @@ public class LayoutAlgorithmRunner<V, E> {
             LOGGER.warn("Force layout has not been executed yet");
             return;
         }
-        forceGraph.toSVG(tooltip, writer);
+        layoutContext.toSVG(tooltip, writer);
     }
 
     public Vector2D getStablePosition(V vertex) {
-        return forceGraph.getStablePosition(vertex, hasBeenExecuted);
+        return layoutContext.getStablePosition(vertex, hasBeenExecuted);
     }
 
     public void setCenter(Vector2D center) {
@@ -93,8 +93,8 @@ public class LayoutAlgorithmRunner<V, E> {
     }
 
     public Vector2D getCenter() {
-        if (forceGraph != null) {
-            return this.forceGraph.getOrigin().getPosition();
+        if (layoutContext != null) {
+            return this.layoutContext.getOrigin().getPosition();
         } else {
             return this.center;
         }

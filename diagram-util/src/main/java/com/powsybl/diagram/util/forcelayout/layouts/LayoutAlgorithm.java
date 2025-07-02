@@ -8,11 +8,11 @@
 
 package com.powsybl.diagram.util.forcelayout.layouts;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface LayoutAlgorithm<V, E> {
-    void calculateLayout(ForceGraph<V, E> forceGraph);
+    void calculateLayout(LayoutContext<V, E> layoutContext);
 }

@@ -13,7 +13,7 @@ import com.powsybl.diagram.util.forcelayout.forces.CoulombForce;
 import com.powsybl.diagram.util.forcelayout.forces.GravityForceLinear;
 import com.powsybl.diagram.util.forcelayout.forces.SpringForce;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.*;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
@@ -51,17 +51,17 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
-    public static <V, E> SpringContainer<DefaultEdge> initializeSprings(ForceGraph<V, E> forceGraph) {
+    public static <V, E> SpringContainer<DefaultEdge> initializeSprings(LayoutContext<V, E> layoutContext) {
         Map<DefaultEdge, SpringParameter> springs = new HashMap<>();
-        SimpleGraph<V, DefaultEdge> simpleGraph = forceGraph.getSimpleGraph();
+        SimpleGraph<V, DefaultEdge> simpleGraph = layoutContext.getSimpleGraph();
         for (DefaultEdge edge : simpleGraph.edgeSet()) {
             V edgeSource = simpleGraph.getEdgeSource(edge);
             V edgeTarget = simpleGraph.getEdgeTarget(edge);
-            if (forceGraph.getFixedPoints().containsKey(edgeSource) && forceGraph.getFixedPoints().containsKey(edgeTarget)) {
+            if (layoutContext.getFixedPoints().containsKey(edgeSource) && layoutContext.getFixedPoints().containsKey(edgeTarget)) {
                 continue;
             }
-            Point pointSource = Objects.requireNonNullElseGet(forceGraph.getMovingPoints().get(edgeSource), () -> forceGraph.getInitialPoints().get(edgeSource));
-            Point pointTarget = Objects.requireNonNullElseGet(forceGraph.getMovingPoints().get(edgeTarget), () -> forceGraph.getInitialPoints().get(edgeTarget));
+            Point pointSource = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeSource), () -> layoutContext.getInitialPoints().get(edgeSource));
+            Point pointTarget = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeTarget), () -> layoutContext.getInitialPoints().get(edgeTarget));
             if (pointSource != pointTarget) { // no use in force layout to add loops
                 springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, simpleGraph.getEdgeWeight(edge)));
             }
@@ -70,24 +70,24 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     @Override
-    public void calculateLayout(ForceGraph<V, E> forceGraph) {
+    public void calculateLayout(LayoutContext<V, E> layoutContext) {
         // it would be better if this was created with all the other forces, but we need the graph to init the springs
-        this.forces.add(new SpringForce<>(initializeSprings(forceGraph)));
+        this.forces.add(new SpringForce<>(initializeSprings(layoutContext)));
 
         // do the loop on the nodes and forces
         int i;
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
-            for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
+            for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
                 for (Force<V, E> force : forces) {
-                    Vector2D resultingVector = force.apply(entry.getKey(), point, forceGraph);
+                    Vector2D resultingVector = force.apply(entry.getKey(), point, layoutContext);
                     point.applyForce(resultingVector);
                 }
             }
-            updateVelocity(forceGraph);
-            updatePosition(forceGraph);
+            updateVelocity(layoutContext);
+            updatePosition(layoutContext);
 
-            if (isStable(forceGraph)) {
+            if (isStable(layoutContext)) {
                 break;
             }
         }
@@ -100,8 +100,8 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
 
     }
 
-    private void updateVelocity(ForceGraph<V, E> forceGraph) {
-        for (Point point : forceGraph.getMovingPoints().values()) {
+    private void updateVelocity(LayoutContext<V, E> layoutContext) {
+        for (Point point : layoutContext.getMovingPoints().values()) {
             Vector2D newVelocity = new Vector2D(point.getForces());
             newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
             point.setVelocity(newVelocity);
@@ -115,16 +115,16 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
-    private void updatePosition(ForceGraph<V, E> forceGraph) {
+    private void updatePosition(LayoutContext<V, E> layoutContext) {
         // Here we only update the position for the nodes that do not have fixed positions
-        for (Point point : forceGraph.getMovingPoints().values()) {
+        for (Point point : layoutContext.getMovingPoints().values()) {
             Vector2D speed = new Vector2D(point.getVelocity());
             speed.multiplyBy(layoutParameters.getDeltaTime());
             point.getPosition().add(speed);
         }
     }
 
-    private boolean isStable(ForceGraph<V, E> forceGraph) {
-        return forceGraph.getMovingPoints().values().stream().allMatch(p -> p.getEnergy() < layoutParameters.getMinEnergyThreshold());
+    private boolean isStable(LayoutContext<V, E> layoutContext) {
+        return layoutContext.getMovingPoints().values().stream().allMatch(p -> p.getEnergy() < layoutParameters.getMinEnergyThreshold());
     }
 }

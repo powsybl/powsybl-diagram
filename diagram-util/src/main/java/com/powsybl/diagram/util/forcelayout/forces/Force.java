@@ -8,7 +8,7 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
@@ -16,5 +16,5 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E> {
-    Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph);
+    Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext);
 }

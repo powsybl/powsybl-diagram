@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
@@ -23,12 +23,12 @@ class CoulombForceTest {
     @Test
     void apply() {
         double delta = 1e-4;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
         CoulombForce<String, DefaultEdge> force = new CoulombForce<>(new IntensityEffectFromFixedNodesParameters(2, true));
         String[] vertexToTest = {"0"};
         Vector2D[] resultVector = {
             new Vector2D(-3.9493, 3.8805)
         };
-        ForceTestUtil.testForceCalculation(forceGraph, force, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, force, vertexToTest, resultVector, delta);
     }
 }

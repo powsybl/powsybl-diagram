@@ -8,7 +8,7 @@
 
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
 import org.jgrapht.Graph;
@@ -38,10 +38,10 @@ public final class GraphTestData {
         };
     }
 
-    public static ForceGraph<String, DefaultEdge> getForcegraph() {
-        ForceGraph<String, DefaultEdge> forceGraph = new ForceGraph<>(getGraph());
-        setup(forceGraph);
-        return forceGraph;
+    public static LayoutContext<String, DefaultEdge> getForcegraph() {
+        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(getGraph());
+        setup(layoutContext);
+        return layoutContext;
     }
 
     private static Graph<String, DefaultEdge> getGraph() {
@@ -56,17 +56,17 @@ public final class GraphTestData {
         return graph;
     }
 
-    private static void setup(ForceGraph<String, DefaultEdge> forceGraph) {
+    private static void setup(LayoutContext<String, DefaultEdge> layoutContext) {
         Map<String, Point> initialPoints = new HashMap<>();
         Point[] points = getPoints();
         for (int i = 0; i < points.length; i++) {
             initialPoints.put(String.valueOf(i), points[i]);
         }
-        forceGraph.setInitialPoints(initialPoints);
+        layoutContext.setInitialPoints(initialPoints);
         Set<String> fixedNodes = new HashSet<>();
         fixedNodes.add("1");
-        forceGraph.setFixedNodes(fixedNodes);
+        layoutContext.setFixedNodes(fixedNodes);
         SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>();
-        setup.setup(forceGraph, RANDOM);
+        setup.setup(layoutContext, RANDOM);
     }
 }

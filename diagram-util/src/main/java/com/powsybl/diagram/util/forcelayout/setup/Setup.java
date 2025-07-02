@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 
 import java.util.Random;
 
@@ -15,5 +15,5 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Setup<V, E> {
-    void setup(ForceGraph<V, E> forceGraph, Random random);
+    void setup(LayoutContext<V, E> layoutContext, Random random);
 }

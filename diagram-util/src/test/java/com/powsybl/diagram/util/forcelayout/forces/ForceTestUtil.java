@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
@@ -26,7 +26,7 @@ public final class ForceTestUtil {
     }
 
     public static void testForceCalculation(
-            ForceGraph<String, DefaultEdge> forceGraph,
+            LayoutContext<String, DefaultEdge> layoutContext,
             Force<String, DefaultEdge> force,
             String[] vertexToTest,
             Vector2D[] resultForces,
@@ -35,11 +35,11 @@ public final class ForceTestUtil {
         assertEquals(vertexToTest.length, resultForces.length);
         for (int i = 0; i < vertexToTest.length; ++i) {
             String forThisVertex = vertexToTest[i];
-            Point point = getPoint(forceGraph, forThisVertex);
+            Point point = getPoint(layoutContext, forThisVertex);
             Vector2D result = force.apply(
                     forThisVertex,
                     point,
-                    forceGraph
+                    layoutContext
             );
             Vector2D expected = resultForces[i];
             assertEquals(expected.getX(), result.getX(), delta);
@@ -47,12 +47,12 @@ public final class ForceTestUtil {
         }
     }
 
-    private static Point getPoint(ForceGraph<String, DefaultEdge> forceGraph, String vertex) {
-        Point point = forceGraph.getMovingPoints().get(vertex);
+    private static Point getPoint(LayoutContext<String, DefaultEdge> layoutContext, String vertex) {
+        Point point = layoutContext.getMovingPoints().get(vertex);
         if (point != null) {
             return point;
         } else {
-            point = forceGraph.getFixedPoints().get(vertex);
+            point = layoutContext.getFixedPoints().get(vertex);
             if (point != null) {
                 return point;
             } else {

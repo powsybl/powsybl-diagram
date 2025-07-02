@@ -9,7 +9,7 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
@@ -25,16 +25,16 @@ public class CoulombForce<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (Point otherMovingPoint : forceGraph.getMovingPoints().values()) {
+        for (Point otherMovingPoint : layoutContext.getMovingPoints().values()) {
             if (otherMovingPoint == correspondingPoint) {
                 continue;
             }
             coulombBetweenPoints(resultingForce, correspondingPoint, otherMovingPoint);
         }
         if (forceParameter.isEffectFromFixedNodes()) {
-            for (Point otherFixedPoint : forceGraph.getFixedPoints().values()) {
+            for (Point otherFixedPoint : layoutContext.getFixedPoints().values()) {
                 coulombBetweenPoints(resultingForce, correspondingPoint, otherFixedPoint);
             }
         }

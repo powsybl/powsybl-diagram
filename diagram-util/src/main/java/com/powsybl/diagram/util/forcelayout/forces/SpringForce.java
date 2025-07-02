@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringContainer;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.Graphs;
@@ -28,14 +28,14 @@ public class SpringForce<V, E> implements Force<V, E> {
 
     /// This is Hooke's Law
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (DefaultEdge edge : forceGraph.getSimpleGraph().edgesOf(forThisVertex)) {
+        for (DefaultEdge edge : layoutContext.getSimpleGraph().edgesOf(forThisVertex)) {
             // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring
-            V otherVertex = Graphs.getOppositeVertex(forceGraph.getSimpleGraph(), edge, forThisVertex);
-            Point otherPoint = forceGraph.getMovingPoints().get(otherVertex);
+            V otherVertex = Graphs.getOppositeVertex(layoutContext.getSimpleGraph(), edge, forThisVertex);
+            Point otherPoint = layoutContext.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {
-                otherPoint = forceGraph.getFixedPoints().get(otherVertex);
+                otherPoint = layoutContext.getFixedPoints().get(otherVertex);
             }
             if (otherPoint == null) {
                 throw new NullPointerException(String.format("No such point corresponding to the given vertex in either moving or non-moving points: Vertex %s", otherVertex));
