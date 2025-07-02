@@ -24,6 +24,7 @@ class CircleAnnealingSetupTest {
 
     @Test
     void setup() {
+        System.setProperty(org.slf4j.simple.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "Trace");
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2NoSetup();
         CircleAnnealingSetup<String, DefaultEdge> circleAnnealingSetup = new CircleAnnealingSetup<>();
         circleAnnealingSetup.setup(forceGraph, GraphTestData.RANDOM);
