@@ -37,22 +37,15 @@ import java.util.*;
  */
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
+    // This should always be between 0 and 1, strictly
+    private static final double STARTING_TRANSITION_PROBABILITY = 0.8;
+    private static final double STARTING_PRECISION = 1e-3;
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
         initForceGraph(forceGraph);
-
-        Set<DefaultEdge> allEdges = forceGraph.getSimpleGraph().edgeSet();
-        List<PointPair> allEdgePointsList = new ArrayList<>();
-        for (DefaultEdge edge : allEdges) {
-            allEdgePointsList.add(new PointPair(
-                    getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeSource(edge)),
-                    getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeTarget(edge))
-                )
-            );
-        }
-        PointPair[] allEdgePoints = allEdgePointsList.toArray(new PointPair[0]);
         SetupListData setupTopologyData = getPointsForRun(forceGraph);
+
         int pointNumberOnFirstCircle = forceGraph.getAllPoints().size() - setupTopologyData.pointWithNoEdge.length;
         if (pointNumberOnFirstCircle <= 0) {
             throw new IllegalStateException("There are more vertex with no edge than there are vertex in the graph, or the graph does not contain any edge");
@@ -67,7 +60,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 setupTopologyData.pointWithNoEdge[i].setPosition(position);
             }
 
-            annealingProcess(allEdgePoints, setupTopologyData, firstCircleRadius, random);
+            annealingProcess(setupTopologyData, firstCircleRadius, random);
 
         }
     }
@@ -132,10 +125,21 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         for (V vertex : vertexMovable) {
             pointMovable.add(getPoint(forceGraph, vertex));
         }
+        Set<DefaultEdge> allEdges = forceGraph.getSimpleGraph().edgeSet();
+        List<PointPair> pointsWithDistanceOne = new ArrayList<>();
+        for (DefaultEdge edge : allEdges) {
+            pointsWithDistanceOne.add(new PointPair(
+                            getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeSource(edge)),
+                            getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeTarget(edge))
+                    )
+            );
+        }
+
         return new SetupListData(
                 pointWithNoEdge.toArray(new Point[0]),
                 pointMovable.toArray(new Point[0]),
-                pointsWithDistanceTwo.toArray(new PointPair[0])
+                pointsWithDistanceTwo.toArray(new PointPair[0]),
+                pointsWithDistanceOne.toArray(new PointPair[0])
         );
     }
 
@@ -153,23 +157,23 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
 
     private record SetupListData(
             Point[] pointWithNoEdge, // those points are put on an outer circle and do not move for the duration of the setup
-            Point[] movablePoints, // points that are "movable" have edges and are not fixed
-            PointPair[] pointsWithDistanceTwo // used to calculate the metric on the network
+            Point[] movablePoints, // points that are "movable" have at least one edge and are not fixed
+            PointPair[] pointsWithDistanceTwo, // used to calculate the metric on the network
+            PointPair[] pointsWithDistanceOne // used to calculate the metric on the network
     ) { }
 
-    private double calculateObjectiveFunction(PointPair[] allEdgePoints, PointPair[] pointsWithDistanceTwo) {
+    private double calculateObjectiveFunction(SetupListData setupTopologyData) {
         double sum = 0;
-        for (PointPair edgePoints : allEdgePoints) {
+        for (PointPair edgePoints : setupTopologyData.pointsWithDistanceOne) {
             sum += edgePoints.first.distanceTo(edgePoints.second);
         }
-        for (PointPair twoDistancePoints : pointsWithDistanceTwo) {
+        for (PointPair twoDistancePoints : setupTopologyData.pointsWithDistanceTwo) {
             sum += twoDistancePoints.first.distanceTo(twoDistancePoints.second);
         }
         return sum;
     }
 
     private void annealingProcess(
-        PointPair[] allEdgesPoints,
         SetupListData setupTopologyData,
         double circleRadius,
         Random random
@@ -182,16 +186,17 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             setupTopologyData.movablePoints[i].setPosition(position);
         }
         // Then start the process
-        double temperature = computeInitialTemperature(setupTopologyData.movablePoints);
+        double temperature = computeInitialTemperature(setupTopologyData, random);
+        LOGGER.trace("Initial temperature : {}", temperature);
         int neighborNumberTry = 30 * setupTopologyData.movablePoints.length;
-        double previousEnergy = calculateObjectiveFunction(allEdgesPoints, setupTopologyData.pointsWithDistanceTwo);
+        double previousEnergy = calculateObjectiveFunction(setupTopologyData);
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
 
         for (int temperatureIteration = 0; temperatureIteration < 10; ++temperatureIteration) {
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
                 int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
-                double newEnergy = calculateObjectiveFunction(allEdgesPoints, setupTopologyData.pointsWithDistanceTwo);
+                double newEnergy = calculateObjectiveFunction(setupTopologyData);
                 // if the energy is lower, just update the energy value and keep going
                 // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
                 if (newEnergy < previousEnergy || random.nextDouble() < Math.exp((previousEnergy - newEnergy) / temperature)) {
@@ -210,9 +215,74 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
 
     }
 
-    private double computeInitialTemperature(Point[] movablePoints) {
-        // TODO compute using the algorithm described in Walid Ben-Ameur : Computing_the_initial_temperature_of_simulated_annealing
-        return 2d;
+    private double computeInitialTemperature(
+            SetupListData setupTopologyData,
+            Random random
+    ) {
+        // Computed using the algorithm described in Walid Ben-Ameur : Computing the initial temperature of simulated annealing
+        // Start by estimating the number of transitions needed for a good estimation
+        // The values for the number of transition are based on data taken from "Computing the Initial Temperature of Simulated Annealing"
+        // Estimation : problem size 100 -> 62500 transitions
+        // size 11 -> 2500 transitions
+        // regression was made to fit a curve to that so that it makes sense
+        int numberOfTransitions = getNumberOfTransitions(setupTopologyData.movablePoints);
+        // Make that number of transitions on the points, calculate the corresponding energy level difference
+        // the first energy is always lower than the second energy value
+        List<Double[]> positiveEnergyTransitions = new ArrayList<>();
+        double previousEnergy = calculateObjectiveFunction(setupTopologyData);
+        double sumOfAbsolute = 0;
+        for (int i = 0; i < numberOfTransitions; ++i) {
+            goToNeighborState(setupTopologyData.movablePoints, random);
+            double newEnergy = calculateObjectiveFunction(setupTopologyData);
+            // We can use the absolute difference to make every transition positive, because transitions are symmetric
+            // That means if we have a negative energy transition, we can say we could have done the swap in the other direction, and it is positive that way
+            if (newEnergy > previousEnergy) {
+                positiveEnergyTransitions.add(new Double[]{previousEnergy, newEnergy});
+                sumOfAbsolute += newEnergy - previousEnergy;
+            } else {
+                positiveEnergyTransitions.add(new Double[]{newEnergy, previousEnergy});
+                sumOfAbsolute += previousEnergy - newEnergy;
+            }
+        }
+        // See the paper for explanation
+        double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(STARTING_TRANSITION_PROBABILITY));
+        if (initialTemperature <= 0) {
+            LOGGER.warn("Calculated an initial annealing temperature that was less or equal to zero, returning default value");
+            return 2d;
+        }
+        double power = 1;
+
+        // Finally, use the iterative formula to determine the temperature such that the acceptance probability of a positive transition is equal to the target
+        while (true) {
+            double probabilityEstimateNumerator = 0;
+            double probabilityEstimateDenominator = 0;
+            for (Double[] transition : positiveEnergyTransitions) {
+                probabilityEstimateNumerator += Math.exp(-transition[1] / initialTemperature);
+                probabilityEstimateDenominator += Math.exp(-transition[0] / initialTemperature);
+            }
+            if (probabilityEstimateDenominator == 0) {
+                LOGGER.warn("The denominator of the probability estimator for the initial temperature of the annealing setup was zero, returning default value");
+                return 2d;
+            }
+            double probabilityEstimate = probabilityEstimateNumerator / probabilityEstimateDenominator;
+            if (Math.abs(probabilityEstimate - STARTING_TRANSITION_PROBABILITY) < STARTING_PRECISION) {
+                return initialTemperature;
+            } else {
+                initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(STARTING_TRANSITION_PROBABILITY), power);
+            }
+        }
+    }
+
+    private static int getNumberOfTransitions(Point[] movablePoints) {
+        if (movablePoints.length <= 9) {
+            return 300;
+        } else if (movablePoints.length > 9 && movablePoints.length <= 47) {
+            // use linear estimation for lower values to not make too many test compared to what's needed
+            return 1100 * movablePoints.length - 9600;
+        } else {
+            // use log estimation to not make too many test with higher values
+            return -59165 + (int) (26390 * Math.log(movablePoints.length));
+        }
     }
 
     private int[] goToNeighborState(Point[] points, Random random) {
