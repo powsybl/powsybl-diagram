@@ -8,7 +8,7 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.forcelayout.ForceLayout;
-import com.powsybl.diagram.util.forcelayout.Vector;
+import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -57,7 +57,7 @@ public class BasicForceLayout extends AbstractLayout {
         forceLayout.execute();
 
         jgraphtGraph.vertexSet().forEach(node -> {
-            Vector p = forceLayout.getStablePosition(node);
+            Vector2D p = forceLayout.getStablePosition(node);
             if (node instanceof TextNode texNode) {
                 texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
                 texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
@@ -72,12 +72,12 @@ public class BasicForceLayout extends AbstractLayout {
     }
 
     private void setInitialPositions(ForceLayout<Node, Edge> forceLayout, Graph graph) {
-        Map<Node, com.powsybl.diagram.util.forcelayout.Point> initialPoints = getInitialNodePositions().entrySet().stream()
+        Map<Node, com.powsybl.diagram.util.forcelayout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
-                    nodePosition -> new com.powsybl.diagram.util.forcelayout.Point(
+                    nodePosition -> new com.powsybl.diagram.util.forcelayout.geometry.Point(
                             nodePosition.getValue().getX() / SCALE,
                             nodePosition.getValue().getY() / SCALE)
                 ));
