@@ -16,32 +16,47 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 public class CustomLabelProvider extends AbstractLabelProvider {
 
+    private static final double LABEL2_OFFSET = 6d;
+
+    public record SldCustomLabels(String label, String label2) {
+        public SldCustomLabels(String label) {
+            this(label, null);
+        }
+
+        public boolean hasLabel() {
+            return label != null && !label.isEmpty();
+        }
+
+        public boolean hasLabel2() {
+            return label2 != null && !label2.isEmpty();
+        }
+    }
+
     public record SldCustomFeederInfos(String componentType, NodeSide side, LabelDirection labelDirection, String label) {
     }
 
-    private final Map<String, String> labels;
+    private final Map<String, SldCustomLabels> labels;
     private final Map<String, List<SldCustomFeederInfos>> feederInfosData;
 
-    public CustomLabelProvider(Map<String, String> labels, Map<String, List<SldCustomFeederInfos>> feederInfosData,
+    public CustomLabelProvider(Map<String, SldCustomLabels> labels, Map<String, List<SldCustomFeederInfos>> feederInfosData,
                                ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         super(componentLibrary, layoutParameters, svgParameters);
         this.labels = Objects.requireNonNull(labels);
         this.feederInfosData = Objects.requireNonNull(feederInfosData);
     }
 
-    private Optional<String> getEquipmentLabel(Node node) {
+    private Optional<SldCustomLabels> getEquipmentLabel(Node node) {
         if (node instanceof EquipmentNode eqNode) {
-            String eqLabel = labels.getOrDefault(eqNode.getEquipmentId(), "");
-            return Optional.ofNullable(eqLabel);
+            return Optional.ofNullable(labels.get(eqNode.getEquipmentId()));
         } else {
-            return Optional.of("");
+            return Optional.empty();
         }
     }
 
@@ -91,6 +106,36 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         return feederInfos;
     }
 
+    protected LabelPosition getAdditionalBusLabelPosition() {
+        return new LabelPosition("NW_LABEL2", -LABEL2_OFFSET, 2 * LABEL2_OFFSET, false, 0);
+    }
+
+    protected LabelPosition getAdditionalLabelPosition(Node node, Direction direction) {
+        double yShift = -LABEL2_OFFSET;
+        String positionName = "";
+        double angle = 0;
+        if (direction != UNDEFINED) {
+            yShift = direction == TOP
+                    ? 2 * LABEL2_OFFSET
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) - 2 * LABEL2_OFFSET);
+            positionName = direction == TOP ? "N" : "S";
+            if (svgParameters.isLabelDiagonal()) {
+                angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
+            }
+        }
+        double dx = (int) componentLibrary.getSize(node.getComponentType()).getWidth() + LABEL2_OFFSET;
+        return new LabelPosition(positionName + "_LABEL2", dx, yShift, false, (int) angle);
+    }
+
+    private void addNodeLabels(SldCustomLabels labels, List<NodeLabel> nodeLabels, LabelPosition labelPosition, LabelPosition labelPosition2) {
+        if (labels.hasLabel()) {
+            nodeLabels.add(new NodeLabel(labels.label(), labelPosition, null));
+        }
+        if (labels.hasLabel2()) {
+            nodeLabels.add(new NodeLabel(labels.label2(), labelPosition2, null));
+        }
+    }
+
     @Override
     public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
         Objects.requireNonNull(node);
@@ -98,9 +143,11 @@ public class CustomLabelProvider extends AbstractLabelProvider {
 
         List<NodeLabel> nodeLabels = new ArrayList<>();
         if (node instanceof BusNode) {
-            getEquipmentLabel(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
+            getEquipmentLabel(node).ifPresent(l ->
+                    addNodeLabels(l, nodeLabels, getBusLabelPosition(), getAdditionalBusLabelPosition()));
         } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
-            getEquipmentLabel(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getLabelPosition(node, direction), null)));
+            getEquipmentLabel(node).ifPresent(l ->
+                    addNodeLabels(l, nodeLabels, getLabelPosition(node, direction), getAdditionalLabelPosition(node, direction)));
         } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
             nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }
