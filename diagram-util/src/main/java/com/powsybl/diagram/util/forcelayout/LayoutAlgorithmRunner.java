@@ -11,10 +11,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.LayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.Setup;
-import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
-import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.setup.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +48,7 @@ public class LayoutAlgorithmRunner<V, E> {
         this.setup = switch (setupChoice) {
             case SPRINGY -> new SpringySetup<>();
             case SIMPLE -> new SimpleSetup<>();
+            case ANNEALING -> new CircleAnnealingSetup<>();
         };
     }
 

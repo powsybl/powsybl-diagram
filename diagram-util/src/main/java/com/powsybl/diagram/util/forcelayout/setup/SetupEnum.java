@@ -13,4 +13,5 @@ package com.powsybl.diagram.util.forcelayout.setup;
 public enum SetupEnum {
     SPRINGY,
     SIMPLE,
+    ANNEALING,
 }
