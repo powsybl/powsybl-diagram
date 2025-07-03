@@ -23,8 +23,8 @@ public class GravityForceUnit<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
-        Vector2D force = Vector2D.calculateUnitVector(correspondingPoint, layoutContext.getOrigin());
+    public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
+        Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
         force.multiplyBy(forceParameter.getForceIntensity());
         return force;
     }

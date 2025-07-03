@@ -28,11 +28,11 @@ public class SpringForce<V, E> implements Force<V, E> {
 
     /// This is Hooke's Law
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
+    public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D(0, 0);
-        for (DefaultEdge edge : layoutContext.getSimpleGraph().edgesOf(forThisVertex)) {
+        for (DefaultEdge edge : layoutContext.getSimpleGraph().edgesOf(vertex)) {
             // this is basically what is done in Graphs.neighborSet, but we need the edge to get the corresponding spring
-            V otherVertex = Graphs.getOppositeVertex(layoutContext.getSimpleGraph(), edge, forThisVertex);
+            V otherVertex = Graphs.getOppositeVertex(layoutContext.getSimpleGraph(), edge, vertex);
             Point otherPoint = layoutContext.getMovingPoints().get(otherVertex);
             if (otherPoint == null) {
                 otherPoint = layoutContext.getFixedPoints().get(otherVertex);
@@ -43,7 +43,7 @@ public class SpringForce<V, E> implements Force<V, E> {
 
             SpringParameter spring = forceParameter.getSprings().get(edge);
 
-            Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, otherPoint);
+            Vector2D force = Vector2D.calculateVectorBetweenPoints(point, otherPoint);
             double displacement = force.magnitude() - spring.getLength();
             force.normalize();
 

@@ -16,5 +16,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E> {
-    Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext);
+    /**
+     *
+     * @param vertex : the vertex to consider for the application of the force
+     * @param point : the 2D point corresponding to the vertex parameter
+     * @param layoutContext : information about the context of the layout
+     * @return the calculated force to be applied to the point in the 2D space
+     */
+    Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext);
 }

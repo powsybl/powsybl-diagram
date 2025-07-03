@@ -25,17 +25,17 @@ public class CoulombForce<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
+    public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D(0, 0);
         for (Point otherMovingPoint : layoutContext.getMovingPoints().values()) {
-            if (otherMovingPoint == correspondingPoint) {
+            if (otherMovingPoint == point) {
                 continue;
             }
-            coulombBetweenPoints(resultingForce, correspondingPoint, otherMovingPoint);
+            coulombBetweenPoints(resultingForce, point, otherMovingPoint);
         }
         if (forceParameter.isEffectFromFixedNodes()) {
             for (Point otherFixedPoint : layoutContext.getFixedPoints().values()) {
-                coulombBetweenPoints(resultingForce, correspondingPoint, otherFixedPoint);
+                coulombBetweenPoints(resultingForce, point, otherFixedPoint);
             }
         }
         return resultingForce;
