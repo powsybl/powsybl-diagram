@@ -63,7 +63,7 @@
     <g>
         <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,253.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
+            <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_b1_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1">
@@ -81,13 +81,13 @@
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt1_95_batt1">
                 <polyline points="115.0,142.0,115.0,86.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt1_ARROW_ACTIVE" transform="translate(110.0,101.0)">
+            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt1_95_ARROW_95_ACTIVE" transform="translate(110.0,101.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">tata</text>
                 <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt1_ARROW_REACTIVE" transform="translate(110.0,121.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt1_95_ARROW_95_REACTIVE" transform="translate(110.0,121.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">tutu</text>
@@ -111,7 +111,7 @@
             </g>
             <g class="sld-battery sld-top-feeder" id="idbatt1" transform="translate(107.0,74.0)">
                 <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                <text class="sld-label" id="batt1_N_LABEL" x="-5.0" y="-5.0">batt1</text>
+                <text class="sld-label" id="idbatt1_95_N_95_LABEL" x="-5.0" y="-5.0">batt1</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
@@ -130,13 +130,13 @@
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt2_95_batt2">
                 <polyline points="65.0,142.0,65.0,86.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt2_ARROW_ACTIVE" transform="translate(60.0,101.0)">
+            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt2_95_ARROW_95_ACTIVE" transform="translate(60.0,101.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">tata</text>
                 <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt2_ARROW_REACTIVE" transform="translate(60.0,121.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt2_95_ARROW_95_REACTIVE" transform="translate(60.0,121.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">tutu</text>
@@ -160,7 +160,7 @@
             </g>
             <g class="sld-battery sld-top-feeder" id="idbatt2" transform="translate(57.0,74.0)">
                 <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                <text class="sld-label" id="batt2_N_LABEL" x="-5.0" y="-5.0">batt2</text>
+                <text class="sld-label" id="idbatt2_95_N_95_LABEL" x="-5.0" y="-5.0">batt2</text>
             </g>
         </g>
     </g>

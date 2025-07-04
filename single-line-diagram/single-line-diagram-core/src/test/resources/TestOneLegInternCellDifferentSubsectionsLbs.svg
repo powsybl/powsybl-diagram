@@ -154,15 +154,15 @@
     <g>
         <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="id1_46_1" transform="translate(52.5,252.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="1.1_NW_LABEL" x="-5.0" y="-5.0">1.1</text>
+            <text class="sld-label" id="id1_46_1_95_NW_95_LABEL" x="-5.0" y="-5.0">1.1</text>
         </g>
         <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_2" transform="translate(52.5,277.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="1.2_NW_LABEL" x="-5.0" y="-5.0">1.2</text>
+            <text class="sld-label" id="id1_46_2_95_NW_95_LABEL" x="-5.0" y="-5.0">1.2</text>
         </g>
         <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="id2_46_1" transform="translate(152.5,252.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="2.1_NW_LABEL" x="-5.0" y="-5.0">2.1</text>
+            <text class="sld-label" id="id2_46_1_95_NW_95_LABEL" x="-5.0" y="-5.0">2.1</text>
         </g>
         <g class="sld-intern-cell sld-cell-shape-crossover" id="idINTERN_32_0">
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_d11_95_INTERNAL_95_vl_95_11">
@@ -203,12 +203,12 @@
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_load_95_load">
                 <polyline points="65.0,142.0,65.0,84.5"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idload_ARROW_ACTIVE" transform="translate(60.0,99.5)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idload_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_ARROW_REACTIVE" transform="translate(60.0,119.5)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_95_ARROW_95_REACTIVE" transform="translate(60.0,119.5)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -231,7 +231,7 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="load_N_LABEL" x="-5.0" y="-5.0">load</text>
+                <text class="sld-label" id="idload_95_N_95_LABEL" x="-5.0" y="-5.0">load</text>
             </g>
         </g>
     </g>

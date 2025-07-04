@@ -75,7 +75,7 @@
     <g>
         <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,252.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
+            <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d_45_b">
@@ -90,13 +90,13 @@
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
                 <polyline points="65.0,142.0,65.0,84.5"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,99.5)">
+            <g class="sld-active-power sld-feeder-info sld-out" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">tata</text>
                 <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,119.5)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idl_95_ARROW_95_REACTIVE" transform="translate(60.0,119.5)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">tutu</text>
@@ -120,7 +120,7 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="l_N_LABEL" x="-5.0" y="-5.0">l</text>
+                <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-5.0">l</text>
             </g>
         </g>
     </g>

@@ -90,7 +90,7 @@
     <g>
         <g class="sld-busbar-section sld-vl50to70 sld-bus-disconnected" id="idbbs3" transform="translate(60.0,252.0)">
             <line x1="0" x2="120.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
+            <text class="sld-label" id="idbbs3_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl50to70" id="_95_vl3_95_d3WT_95_3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3">
@@ -125,10 +125,10 @@
                 <circle class="sld-vl50to70 sld-winding" cx="8" cy="19" r="5"/>
             </g>
             <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_ONE" transform="translate(80.0,80.0)">
-                <text class="sld-label" id="3WT_ONE_N_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
             </g>
             <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_TWO" transform="translate(160.0,80.0)">
-                <text class="sld-label" id="3WT_TWO_N_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
             </g>
         </g>
     </g>
