@@ -74,52 +74,52 @@
 
 ]]></style>
     <defs>
-        <g id="ARROW_REACTIVE">
-            <g id="ARROW_REACTIVE-UP">
+        <g id="idARROW_95_REACTIVE">
+            <g id="idARROW_95_REACTIVE_45_UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-            <g id="ARROW_REACTIVE-DOWN">
+            <g id="idARROW_95_REACTIVE_45_DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="ARROW_ACTIVE">
-            <g id="ARROW_ACTIVE-UP">
+        <g id="idARROW_95_ACTIVE">
+            <g id="idARROW_95_ACTIVE_45_UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-            <g id="ARROW_ACTIVE-DOWN">
+            <g id="idARROW_95_ACTIVE_45_DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="CAPACITOR">
+        <g id="idCAPACITOR">
             <line x1="6" x2="6" y1="0" y2="4.5"/>
             <line x1="0" x2="12" y1="4.5" y2="4.5"/>
             <line x1="0" x2="12" y1="7.5" y2="7.5"/>
             <line x1="6" x2="6" y1="7.5" y2="12"/>
         </g>
-        <g id="DISCONNECTOR">
-            <g id="DISCONNECTOR-CLOSED">
+        <g id="idDISCONNECTOR">
+            <g id="idDISCONNECTOR_45_CLOSED">
                 <path d="M0,0 8,8 M8,0 0,8"/>
             </g>
-            <g id="DISCONNECTOR-OPEN">
+            <g id="idDISCONNECTOR_45_OPEN">
                 <path d="M8,0 0,8"/>
             </g>
         </g>
-        <g id="THREE_WINDINGS_TRANSFORMER">
-            <g id="THREE_WINDINGS_TRANSFORMER-WINDING1">
+        <g id="idTHREE_95_WINDINGS_95_TRANSFORMER">
+            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING1">
                 <circle cx="5" cy="15" r="5"/>
             </g>
-            <g id="THREE_WINDINGS_TRANSFORMER-WINDING2">
+            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING2">
                 <circle cx="11" cy="15" r="5"/>
             </g>
-            <g id="THREE_WINDINGS_TRANSFORMER-WINDING3">
+            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING3">
                 <circle cx="8" cy="19" r="5"/>
             </g>
         </g>
-        <g id="BREAKER">
-            <g id="BREAKER-CLOSED">
+        <g id="idBREAKER">
+            <g id="idBREAKER_45_CLOSED">
                 <path d="M1,1 V19 H19 V1z M10,5 V15"/>
             </g>
-            <g id="BREAKER-OPEN">
+            <g id="idBREAKER_45_OPEN">
                 <path d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
@@ -128,17 +128,17 @@
     <g>
         <g class="sld-busbar-section" id="idvl3_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
-            <text class="sld-label" id="vl3_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
+            <text class="sld-label" id="idvl3_95_bbs1_95_NW_95_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
             <polyline points="80.0,106.0,80.0,190.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_capa1_ARROW_ACTIVE" transform="translate(75.0,121.0)">
+        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_capa1_95_ARROW_95_ACTIVE" transform="translate(75.0,121.0)">
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_capa1_ARROW_REACTIVE" transform="translate(75.0,141.0)">
+        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_capa1_95_ARROW_95_REACTIVE" transform="translate(75.0,141.0)">
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -149,12 +149,12 @@
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2">
             <polyline points="150.0,100.0,150.0,160.0,183.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_one_ARROW_ACTIVE" transform="translate(145.0,115.0)">
+        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_one_95_ARROW_95_ACTIVE" transform="translate(145.0,115.0)">
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_one_ARROW_REACTIVE" transform="translate(145.0,135.0)">
+        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_one_95_ARROW_95_REACTIVE" transform="translate(145.0,135.0)">
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -162,12 +162,12 @@
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,197.0,160.0"/>
         </g>
-        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
+        <g class="sld-active-power sld-feeder-info sld-out" id="idvl3_95_trf2_95_two_95_ARROW_95_ACTIVE" transform="translate(225.0,115.0)">
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
+        <g class="sld-reactive-power sld-feeder-info sld-in" id="idvl3_95_trf2_95_two_95_ARROW_95_REACTIVE" transform="translate(225.0,135.0)">
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -180,7 +180,7 @@
         </g>
         <g class="sld-capacitor" id="idvl3_95_capa1" transform="translate(74.0,94.0)">
             <use href="#CAPACITOR"/>
-            <text class="sld-label" id="vl3_capa1__LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
+            <text class="sld-label" id="idvl3_95_capa1_95__95_LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl3_95_bcapa1" transform="translate(70.0,190.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
@@ -191,10 +191,10 @@
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
         <g class="" id="idvl3_95_trf2_95_one" transform="translate(150.0,100.0)">
-            <text class="sld-label" id="vl3_trf2_one__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
+            <text class="sld-label" id="idvl3_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="" id="idvl3_95_trf2_95_two" transform="translate(230.0,100.0)">
-            <text class="sld-label" id="vl3_trf2_two__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
+            <text class="sld-label" id="idvl3_95_trf2_95_two_95__95_LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idvl3_95_trf2" transform="translate(182.0,148.0)">
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>

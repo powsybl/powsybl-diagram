@@ -137,7 +137,8 @@
       "positionName" : "S_LABEL"
     } ]
   }, {
-    "id" : "LABEL_VL_VoltageLevel1",
+    "unescapedId" : "LABEL_VL_VoltageLevel1",
+    "id" : "idLABEL_95_VL_95_VoltageLevel1",
     "vid" : "VoltageLevel1",
     "open" : false,
     "vlabel" : true,
@@ -243,25 +244,25 @@
   } ],
   "lines" : [ ],
   "feederInfos" : [ {
-    "id" : "idVSC_95_1_ARROW_ACTIVE",
-    "equipmentId" : "HvdcLine",
+    "id" : "idLCC_95_1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "HvdcLine2",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
-    "id" : "idVSC_95_1_ARROW_REACTIVE",
-    "equipmentId" : "HvdcLine",
-    "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idLCC_95_1_ARROW_REACTIVE",
+    "id" : "idLCC_95_1_95_ARROW_95_REACTIVE",
     "equipmentId" : "HvdcLine2",
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idLCC_95_1_ARROW_ACTIVE",
-    "equipmentId" : "HvdcLine2",
+    "id" : "idVSC_95_1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "HvdcLine",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idVSC_95_1_95_ARROW_95_REACTIVE",
+    "equipmentId" : "HvdcLine",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   } ],
   "busLegendInfos" : [ ],
   "busInfos" : [ ],
