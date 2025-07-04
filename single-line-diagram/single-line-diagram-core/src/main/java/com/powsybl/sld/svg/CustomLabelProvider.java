@@ -19,6 +19,21 @@ import java.util.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
+ * Enables the configuration of content displayed in the SLD, for labels and feeder infos.
+ * <p>
+ * Customizations are defined in the constructor's map parameters.
+ *
+ * <p>
+ * The labels map defines what will be displayed for the equipments, and it is indexed by the equipment ID.
+ * The custom content is declared through an SldCustomLabels record: the label will be displayed in the diagram at its standard position;
+ * The additional label2will be displayed on the equipment's right.
+ *
+ * <p>
+ * The feederInfosData map defines what will be displayed along the feeder, and it is indexed by the equipment ID.
+ * The custom content is declared via as a list of SldCustomFeederInfos records: the componentType is the info component type name;
+ * side determines at which side the feeder info is placed (for feeders with multiple sides e.g., lines transformers);
+ * labelDirection determines the direction (e.g., IN or OUT for the arrows); label is the string displayed next to the info component.
+ *
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 public class CustomLabelProvider extends AbstractLabelProvider {
