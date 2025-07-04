@@ -890,7 +890,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
+        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
@@ -946,7 +946,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute(CLASS, String.join(" ", styles));
 
         // Identity
-        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        String svgId = escapeId(busNode.getId() + "_" + busInfo.getComponentType());
         g.setAttribute("id", svgId);
 
         // Metadata
@@ -1177,11 +1177,11 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel nodes infos
      */
     private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,
-                                   Element g, String escapedIdNode, List<String> styles) {
+                                   Element g, String idNode, List<String> styles) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         // colored circle
-        circle.setAttribute("id", escapedIdNode + "_circle");
+        circle.setAttribute("id", IdUtil.escapeId(idNode + "_circle"));
         circle.setAttribute("cx", String.valueOf(xShift));
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1193,7 +1193,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double padding = 2.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
-            label.setAttribute("id", escapedIdNode + "_" + caption.type());
+            label.setAttribute("id", IdUtil.escapeId(idNode + "_" + caption.type()));
 
             label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
             label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1224,7 +1224,7 @@ public class DefaultSVGWriter implements SVGWriter {
             gNode.setAttribute("id", escapedIdNode);
 
             List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
-            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, escapedIdNode, styles);
+            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 
