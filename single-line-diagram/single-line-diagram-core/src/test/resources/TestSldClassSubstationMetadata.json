@@ -277,6 +277,13 @@
     "vlabel" : false,
     "labels" : [ ]
   }, {
+    "unescapedId" : "LABEL_VL_vl1",
+    "id" : "idLABEL_95_VL_95_vl1",
+    "vid" : "vl1",
+    "open" : false,
+    "vlabel" : true,
+    "labels" : [ ]
+  }, {
     "id" : "idbbs1",
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
@@ -288,6 +295,13 @@
       "positionName" : "NW_LABEL"
     } ]
   }, {
+    "unescapedId" : "LABEL_VL_vl2",
+    "id" : "idLABEL_95_VL_95_vl2",
+    "vid" : "vl2",
+    "open" : false,
+    "vlabel" : true,
+    "labels" : [ ]
+  }, {
     "id" : "idbbs2",
     "vid" : "vl2",
     "componentType" : "BUSBAR_SECTION",
@@ -298,18 +312,6 @@
       "id" : "bbs2_NW_LABEL",
       "positionName" : "NW_LABEL"
     } ]
-  }, {
-    "id" : "LABEL_VL_vl1",
-    "vid" : "vl1",
-    "open" : false,
-    "vlabel" : true,
-    "labels" : [ ]
-  }, {
-    "id" : "LABEL_VL_vl2",
-    "vid" : "vl2",
-    "open" : false,
-    "vlabel" : true,
-    "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl2_95_d3_45_b3",
     "vid" : "vl2",
@@ -497,41 +499,41 @@
   } ],
   "lines" : [ ],
   "feederInfos" : [ {
-    "id" : "idg_ARROW_ACTIVE",
-    "equipmentId" : "g",
-    "componentType" : "ARROW_ACTIVE"
+    "id" : "idtrf_95_TWO_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf",
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf_95_TWO_ARROW_ACTIVE",
+    "id" : "idl_95_ARROW_95_REACTIVE",
+    "equipmentId" : "l",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idtrf_95_TWO_95_ARROW_95_ACTIVE",
     "equipmentId" : "trf",
     "side" : "TWO",
     "componentType" : "ARROW_ACTIVE"
   }, {
-    "id" : "idl_ARROW_ACTIVE",
-    "equipmentId" : "l",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idl_ARROW_REACTIVE",
-    "equipmentId" : "l",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idg_ARROW_REACTIVE",
+    "id" : "idg_95_ARROW_95_REACTIVE",
     "equipmentId" : "g",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf_95_ONE_ARROW_ACTIVE",
+    "id" : "idtrf_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idg_95_ARROW_95_ACTIVE",
+    "equipmentId" : "g",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idtrf_95_ONE_95_ARROW_95_ACTIVE",
     "equipmentId" : "trf",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
-    "id" : "idtrf_95_ONE_ARROW_REACTIVE",
-    "equipmentId" : "trf",
-    "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idtrf_95_TWO_ARROW_REACTIVE",
-    "equipmentId" : "trf",
-    "side" : "TWO",
-    "componentType" : "ARROW_REACTIVE"
+    "id" : "idl_95_ARROW_95_ACTIVE",
+    "equipmentId" : "l",
+    "componentType" : "ARROW_ACTIVE"
   } ],
   "busLegendInfos" : [ ],
   "busInfos" : [ ],

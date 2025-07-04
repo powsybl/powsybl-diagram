@@ -324,7 +324,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String prefixId = metadata.getSvgParameters().getPrefixId();
 
         String gridId = prefixId + "GRID_" + graph.getVoltageLevelInfos().getId();
-        gridRoot.setAttribute("id", gridId);
+        gridRoot.setAttribute("id", IdUtil.escapeId(gridId));
         gridRoot.setAttribute(CLASS, StyleClassConstants.GRID_STYLE_CLASS);
 
         // vertical lines
@@ -508,7 +508,7 @@ public class DefaultSVGWriter implements SVGWriter {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
             String svgId = getNodeLabelId(prefixId, node, labelPosition);
-            label.setAttribute("id", svgId);
+            label.setAttribute("id", IdUtil.escapeId(svgId));
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
@@ -531,7 +531,8 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawGraphLabel(Element root, VoltageLevelGraph graph, GraphMetadata metadata) {
         // drawing the label of the voltageLevel
-        String idLabelVoltageLevel = metadata.getSvgParameters().getPrefixId() + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
+        String unescapedId = metadata.getSvgParameters().getPrefixId() + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
+        String idLabelVoltageLevel = IdUtil.escapeId(unescapedId);
         Element gLabel = root.getOwnerDocument().createElement(GROUP);
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
@@ -543,7 +544,7 @@ public class DefaultSVGWriter implements SVGWriter {
         gLabel.appendChild(label);
         root.appendChild(gLabel);
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, idLabelVoltageLevel,
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(unescapedId, idLabelVoltageLevel,
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
@@ -889,7 +890,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
+        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
@@ -945,7 +946,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute(CLASS, String.join(" ", styles));
 
         // Identity
-        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        String svgId = escapeId(busNode.getId() + "_" + busInfo.getComponentType());
         g.setAttribute("id", svgId);
 
         // Metadata
@@ -1124,7 +1125,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
                 if (subComponents != null) {
                     Element group = document.createElement(GROUP);
-                    group.setAttribute("id", c);
+                    group.setAttribute("id", IdUtil.escapeId(c));
 
                     insertSVGComponentIntoDefsArea(c, group, subComponents);
 
@@ -1142,7 +1143,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Map.Entry<String, List<Element>> subComponent : subComponents.entrySet()) {
             if (subComponents.size() > 1) {
                 Element subComponentGroup = group.getOwnerDocument().createElement("g");
-                subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
+                subComponentGroup.setAttribute("id", IdUtil.escapeId(getHRefValue(subComponents.size(), componentType, subComponent.getKey())));
                 addSvgSubComponentsToElement(subComponent.getValue(), subComponentGroup);
                 group.getOwnerDocument().adoptNode(subComponentGroup);
                 group.appendChild(subComponentGroup);
@@ -1180,7 +1181,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         // colored circle
-        circle.setAttribute("id", idNode + "_circle");
+        circle.setAttribute("id", IdUtil.escapeId(idNode + "_circle"));
         circle.setAttribute("cx", String.valueOf(xShift));
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1192,7 +1193,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double padding = 2.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
-            label.setAttribute("id", idNode + "_" + caption.type());
+            label.setAttribute("id", IdUtil.escapeId(idNode + "_" + caption.type()));
 
             label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
             label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1218,15 +1219,16 @@ public class DefaultSVGWriter implements SVGWriter {
         double xShift = graph.getX() + xInitPos;
         for (BusLegendInfo busLegendInfo : labelProvider.getBusLegendInfos(graph)) {
             String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
+            String escapedIdNode = IdUtil.escapeId(idNode);
             Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
-            gNode.setAttribute("id", idNode);
+            gNode.setAttribute("id", escapedIdNode);
 
             List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
             drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 
-            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(idNode));
+            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(escapedIdNode));
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }

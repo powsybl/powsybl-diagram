@@ -138,7 +138,7 @@
     <g>
         <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idbbs" transform="translate(52.5,253.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
+            <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_d1_45_b1">
@@ -156,12 +156,12 @@
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
                 <polyline points="115.0,142.0,115.0,80.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idline_95_ONE_ARROW_ACTIVE" transform="translate(110.0,95.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idline_95_ONE_ARROW_REACTIVE" transform="translate(110.0,115.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(110.0,115.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -185,7 +185,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(115.0,80.0)">
-                <text class="sld-label" id="line_ONE_N_LABEL" x="-5.0" y="-5.0">fn1</text>
+                <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">fn1</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -204,12 +204,12 @@
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_load_95_load">
                 <polyline points="165.0,364.0,165.0,418.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_ARROW_REACTIVE" transform="translate(160.0,393.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_95_ARROW_95_REACTIVE" transform="translate(160.0,393.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idload_ARROW_ACTIVE" transform="translate(160.0,373.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idload_95_ARROW_95_ACTIVE" transform="translate(160.0,373.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -234,7 +234,7 @@
             </g>
             <g class="sld-load sld-bottom-feeder sld-vl300to500 sld-bus-0" id="idload" transform="translate(157.0,418.0)">
                 <path d="M 4,0 c-2.4,0 -4,2.1 -4,4 c0,2.1 3.3,12 8,12 c4.7,0 8,-9.9 8,-12 c0,-1.9 -1.6,-4 -4,-4Z M5.8,2.6 l2.2,2.2 2.2,-2.2 2.2,2.2 -2.2,2.2 2.2,2.2 -2.2,2.2 -2.2,-2.2 -2.2,2.2 -2.2,-2.2 2.2,-2.2 -2.2,-2.2Z" transform="scale(1, -1) translate(0, -16.0)"/>
-                <text class="sld-label" id="load_S_LABEL" x="-5.0" y="14.0">load</text>
+                <text class="sld-label" id="idload_95_S_95_LABEL" x="-5.0" y="14.0">load</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -258,7 +258,7 @@
             </g>
             <g class="sld-ground sld-top-feeder sld-vl300to500 sld-disconnected" id="idground" transform="translate(55.0,70.0)">
                 <path d="M10,10 v10 M0,10 h20 M5,5 h10 M8,0 h4"/>
-                <text class="sld-label" id="ground_N_LABEL" x="-5.0" y="-5.0">ground</text>
+                <text class="sld-label" id="idground_95_N_95_LABEL" x="-5.0" y="-5.0">ground</text>
             </g>
         </g>
     </g>
