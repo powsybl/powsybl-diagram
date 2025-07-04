@@ -7,11 +7,12 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -25,25 +26,20 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.util.DomUtil;
+import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.io.Writer;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 import static com.powsybl.sld.util.IdUtil.escapeClassName;
 import static com.powsybl.sld.util.IdUtil.escapeId;
@@ -78,12 +74,12 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String WIDTH = "width";
     protected static final String HEIGHT = "height";
 
-    protected final ComponentLibrary componentLibrary;
+    protected final SldComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
     protected final SvgParameters svgParameters;
 
-    public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;
@@ -152,15 +148,16 @@ public class DefaultSVGWriter implements SVGWriter {
         Element style = document.createElement(STYLE);
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
-                List<URL> urls = styleProvider.getCssUrls();
-                urls.addAll(componentLibrary.getCssUrls());
-                style.appendChild(getCdataSection(document, urls));
+                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls())
+                        + CssUtil.getFilesContent(componentLibrary.getCssUrls());
+                style.appendChild(document.createCDATASection(cssContent));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
             case EXTERNAL_IMPORTED:
-                styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
-                componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames())
+                        + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
+                style.appendChild(document.createTextNode(cssImports));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
@@ -170,26 +167,6 @@ public class DefaultSVGWriter implements SVGWriter {
             default:
                 throw new AssertionError("Unexpected CSS location: " + svgParameters.getCssLocation());
         }
-    }
-
-    private org.w3c.dom.Node addStyleImportTextNode(Document document, Element style, String name) {
-        return style.appendChild(document.createTextNode("@import url(" + name + ");"));
-    }
-
-    private CDATASection getCdataSection(Document document, List<URL> cssUrls) {
-        StringBuilder styleSheetBuilder = new StringBuilder();
-        for (URL cssUrl : cssUrls) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        String graphStyle = "\n" + styleSheetBuilder + "\n";
-        String cssStr = graphStyle
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-        return document.createCDATASection(cssStr);
     }
 
     private void addFrame(Document document) {
@@ -418,7 +395,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(null, nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
                     false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
-                metadata.addComponent(new Component(BUSBAR_SECTION,
+                metadata.addComponent(new SldComponent(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
                         componentLibrary.getTransformations(BUSBAR_SECTION), null));
@@ -688,7 +665,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Checking if svg component is allowed to be transformed (rotate or flip)
         // (ex : disconnector in SVG component library not allowed to rotate)
         Orientation nodeOrientation = node.getOrientation();
-        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
         if (transformation != null) {
             switch (transformation) {
                 case ROTATION: {
@@ -867,7 +844,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
-            metadata.addComponent(new Component(componentType,
+            metadata.addComponent(new SldComponent(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),

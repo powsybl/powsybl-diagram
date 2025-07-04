@@ -1,5 +1,4 @@
-{
-  "components" : [ {
+[ {
     "type" : "BREAKER",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -196,4 +195,3 @@
     } ],
     "styleClass" : "sld-reactive-power"
   } ]
-}

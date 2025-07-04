@@ -4,13 +4,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.library;
+package com.powsybl.diagram.components;
 
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.powsybl.commons.json.JsonUtil;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,19 +20,19 @@ import java.util.Objects;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
-public class Components {
+public class ComponentsLoader<C> {
 
-    private final List<Component> loadedComponents = new ArrayList<>();
+    private final Class<C> componentClass;
 
-    public List<Component> getComponents() {
-        return loadedComponents;
+    public ComponentsLoader(Class<C> componentClass) {
+        this.componentClass = componentClass;
     }
 
-    public static Components load(String directory) {
-        return load(Components.class.getResourceAsStream(directory + "/components.json"));
+    public List<C> load(String directory) {
+        return load(ComponentsLoader.class.getResourceAsStream(directory + "/components.json"));
     }
 
-    public static Components load(InputStream is) {
+    public List<C> load(InputStream is) {
         Objects.requireNonNull(is);
 
         try (Reader reader = new InputStreamReader(is)) {
@@ -42,10 +42,10 @@ public class Components {
         }
     }
 
-    public static Components load(Reader reader) throws IOException {
+    public List<C> load(Reader reader) throws IOException {
         Objects.requireNonNull(reader);
-
-        ObjectReader objectReader = JsonUtil.createObjectMapper().readerFor(Components.class);
-        return objectReader.readValue(reader);
+        ObjectReader objectReader = JsonUtil.createObjectMapper().readerForArrayOf(componentClass);
+        C[] componentArray = objectReader.readValue(reader);
+        return Arrays.asList(componentArray);
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg viewBox="0 0 180.0 504.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -91,7 +90,8 @@
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -149,7 +149,6 @@
 .sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
 .sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
-
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
