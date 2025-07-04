@@ -16,7 +16,9 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.styles.BusesHighlightStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
+import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -148,4 +151,19 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
+
+    @Test
+    void testBusesHighlight() {
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        substationGraphLayout(graph);
+        BusesHighlightStyleProviderFactory styleFactory = new BusesHighlightStyleProviderFactory();
+        StyleProvider styleProvider = styleFactory.create(network, svgParameters);
+        assertTrue(styleProvider.getCssFilenames().contains("busesHighlight.css"));
+        assertEquals(toString("/buses_highlight_style_substation.svg"), toSVG(graph, "/buses_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), styleProvider));
+
+        styleProvider = new TopologicalStyleProvider(network, false);
+        assertFalse(styleProvider.getCssFilenames().contains("busesHighlight.css"));
+
+    }
+
 }

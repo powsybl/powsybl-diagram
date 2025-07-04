@@ -1,0 +1,7 @@
+svg:has(.sld-vl0to30:hover) .sld-vl0to30:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl30to50:hover) .sld-vl30to50:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl50to70:hover) .sld-vl50to70:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl70to120:hover) .sld-vl70to120:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl120to180:hover) .sld-vl120to180:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl180to300:hover) .sld-vl180to300:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+svg:has(.sld-vl300to500:hover) .sld-vl300to500:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
