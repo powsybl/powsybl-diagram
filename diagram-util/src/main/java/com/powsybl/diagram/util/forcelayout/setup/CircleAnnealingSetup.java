@@ -268,7 +268,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 // swap back
                 swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
             }
-            goToNeighborState(setupTopologyData.movablePoints, random);
         }
         // See the paper for explanation
         double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(STARTING_TRANSITION_PROBABILITY));
@@ -276,10 +275,13 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             LOGGER.warn("Calculated an initial annealing temperature that was less or equal to zero, returning default value");
             return 2d;
         }
-        double power = 1;
 
         // Finally, use the iterative formula to determine the temperature such that the acceptance probability of a positive transition is equal to the target
-        while (true) {
+        double power = 1;
+        int powerChangeStep = 10;
+        int maxConvergenceStep = powerChangeStep * powerChangeStep;
+        int iterationStep = 0;
+        while (iterationStep < maxConvergenceStep) {
             double probabilityEstimateNumerator = 0;
             double probabilityEstimateDenominator = 0;
             for (Double[] transition : positiveEnergyTransitions) {
@@ -287,17 +289,25 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 probabilityEstimateDenominator += Math.exp(-transition[0] / initialTemperature);
             }
             if (probabilityEstimateDenominator == 0) {
-                LOGGER.warn("The denominator of the probability estimator for the initial temperature of the annealing setup was zero, returning default value");
-                return 2d;
+                LOGGER.warn("The denominator of the probability estimator for the initial temperature of the annealing setup was zero");
+                return initialTemperature;
             }
+            if (iterationStep == powerChangeStep) {
+                // prevent ping-pong between two or more values or getting stuck on a single value
+                power *= 2;
+                powerChangeStep += 2 * powerChangeStep;
+            }
+
             double probabilityEstimate = probabilityEstimateNumerator / probabilityEstimateDenominator;
             if (Math.abs(probabilityEstimate - STARTING_TRANSITION_PROBABILITY) < STARTING_PRECISION) {
                 // decrease temperature, because we did a round of annealing by searching the start temperature
                 return initialTemperature * TEMPERATURE_DECREASE_RATIO;
             } else {
-                initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(STARTING_TRANSITION_PROBABILITY), power);
+                initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(STARTING_TRANSITION_PROBABILITY), 1 / power);
             }
+            ++iterationStep;
         }
+        return initialTemperature;
     }
 
     private static int getNumberOfTransitions(Point[] movablePoints) {
