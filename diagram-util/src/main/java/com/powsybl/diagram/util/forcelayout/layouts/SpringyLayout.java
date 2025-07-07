@@ -25,6 +25,12 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
+ * The following algorithm is a force layout algorithm.
+ * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no unnecessary crossings.
+ * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
+ * Force calculations are used to place the nodes.
+ * The algorithm is inspired from: https://github.com/dhotson/springy
+ *
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {

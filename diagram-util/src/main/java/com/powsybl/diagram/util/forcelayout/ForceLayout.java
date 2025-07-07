@@ -48,7 +48,7 @@ import java.util.function.Function;
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
  *
- * The algorithm is taken from: https://github.com/dhotson/springy
+ * The algorithm is inspired from: https://github.com/dhotson/springy
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
