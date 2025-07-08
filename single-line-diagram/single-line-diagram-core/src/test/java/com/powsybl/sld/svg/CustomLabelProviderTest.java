@@ -12,9 +12,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.svg.CustomLabelProvider.SldCustomFeederInfos;
@@ -28,16 +27,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 class CustomLabelProviderTest extends AbstractTestCaseIidm {
 
-    ComponentLibrary componentLibrary;
+    SldComponentLibrary componentLibrary;
 
     @BeforeEach
     public void setUp() {
@@ -200,7 +199,7 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         feederInfosData4.put("l", List.of(
                 new SldCustomFeederInfos(ARROW_ACTIVE, null, LabelProvider.LabelDirection.IN, "active"),
                 new SldCustomFeederInfos(ARROW_REACTIVE, null, LabelProvider.LabelDirection.OUT, "reactive"),
-                new SldCustomFeederInfos(ComponentTypeName.ARROW_CURRENT, null, LabelProvider.LabelDirection.IN, "current")
+                new SldCustomFeederInfos(ARROW_CURRENT, null, LabelProvider.LabelDirection.IN, "current")
         ));
 
         //test data 5

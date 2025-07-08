@@ -8,7 +8,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
@@ -61,7 +61,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
     private final Map<String, List<SldCustomFeederInfos>> feederInfosData;
 
     public CustomLabelProvider(Map<String, SldCustomLabels> labels, Map<String, List<SldCustomFeederInfos>> feederInfosData,
-                               ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+                               SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         super(componentLibrary, layoutParameters, svgParameters);
         this.labels = Objects.requireNonNull(labels);
         this.feederInfosData = Objects.requireNonNull(feederInfosData);
