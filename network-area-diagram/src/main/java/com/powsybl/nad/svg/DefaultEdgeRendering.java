@@ -258,8 +258,8 @@ public class DefaultEdgeRendering implements EdgeRendering {
             }
             double extraSpace = deltaAngles[i] - Math.toRadians(slotAperture) * nbAnglesInDelta;
             double intraSpace = extraSpace / (nbAnglesInDelta + 1); // space between two added angles and between other edges and first/last angle
-            double angleStep = (anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i) - intraSpace) / nbAnglesInDelta;
-            double startAngle = anglesOtherEdges.get(i) + intraSpace / 2 + angleStep / 2;
+            double angleStep = intraSpace + Math.toRadians(slotAperture);
+            double startAngle = anglesOtherEdges.get(i) + intraSpace + Math.toRadians(slotAperture) / 2;
             IntStream.range(0, nbAnglesInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(insertedAngles::add);
         }
         return insertedAngles;
