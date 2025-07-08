@@ -15,8 +15,8 @@ import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -57,7 +57,7 @@ class GraphMetadataTest {
     @Test
     void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
-        metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
+        metadata.addComponent(new SldComponent(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));

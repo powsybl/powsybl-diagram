@@ -1,14 +1,14 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.sld.library;
+package com.powsybl.diagram.components;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.util.DomUtil;
+import com.powsybl.diagram.util.DomUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +25,9 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Library of resources components, that is, the SVG image files representing the components, together with the styles
- * associated to each component
- * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
- * @author Nicolas Duchene
- * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
- * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class ResourcesComponentLibrary implements ComponentLibrary {
+public class ResourcesComponentLibrary<C extends Component> implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
 
@@ -40,11 +35,15 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private final Map<String, Map<String, List<Element>>> svgDocuments = new HashMap<>();
 
-    private final Map<String, Component> components = new HashMap<>();
+    private final Map<String, C> components = new HashMap<>();
 
     private final List<String> cssFilenames = new ArrayList<>();
 
     private final List<URL> cssUrls = new ArrayList<>();
+
+    private final Set<String> noComponentTypes = new HashSet<>();
+
+    private final Class<C> componentClass;
 
     /**
      * Constructs a new library containing the components in the given directories
@@ -55,8 +54,9 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
      * @param additionalDirectories directories for additional components (each directory containing SVG files,
      *                              associated components.json and components.css).
      */
-    public ResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {
+    public ResourcesComponentLibrary(String name, Class<C> componentClass, String directory, String... additionalDirectories) {
         this.name = Objects.requireNonNull(name);
+        this.componentClass = componentClass;
         Objects.requireNonNull(directory);
         loadLibrary(directory);
         for (String addDir : additionalDirectories) {
@@ -74,14 +74,14 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
         // preload SVG documents
         DocumentBuilder db = DomUtil.getDocumentBuilder();
-        Components.load(directory).getComponents().forEach(c -> {
+        new ComponentsLoader<>(componentClass).load(directory).forEach(c -> {
             String componentType = c.getType();
             c.getSubComponents().forEach(s -> {
-                String resourceName = directory + "/" + s.getFileName();
+                String resourceName = directory + "/" + s.fileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 try {
                     Document doc = db.parse(getClass().getResourceAsStream(resourceName));
-                    svgDocuments.computeIfAbsent(componentType, k -> new LinkedHashMap<>()).put(s.getName(), getElements(doc));
+                    svgDocuments.computeIfAbsent(componentType, k -> new LinkedHashMap<>()).put(s.name(), getElements(doc));
                 } catch (SAXException e) {
                     throw new UncheckedSaxException(e);
                 } catch (IOException e) {
@@ -115,18 +115,10 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public Map<String, List<Element>> getSvgElements(String type) {
         Objects.requireNonNull(type);
         Map<String, List<Element>> result = svgDocuments.get(type);
-        if (result == null && isDisplayed(type)) {
+        if (result == null && !noComponentTypes.contains(type)) {
             result = svgDocuments.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return result;
-    }
-
-    @Override
-    public List<AnchorPoint> getAnchorPoints(String type) {
-        Objects.requireNonNull(type);
-        Component component = getComponent(type);
-        return component != null ? component.getAnchorPoints()
-                                 : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }
 
     @Override
@@ -166,34 +158,21 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         Objects.requireNonNull(subComponent);
         Component component = getComponent(type);
         if (component != null) {
-            return component.getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
+            return component.getSubComponents().stream().filter(sc -> sc.name().equals(subComponent)).findFirst().map(SubComponent::styleClass);
         }
         return Optional.empty();
     }
 
-    @Override
-    public Map<Orientation, Component.Transformation> getTransformations(String type) {
+    protected C getComponent(String type) {
         Objects.requireNonNull(type);
-        Component component = getComponent(type);
-        return component != null ? component.getTransformations() : Collections.emptyMap();
-    }
-
-    protected Component getComponent(String type) {
-        Objects.requireNonNull(type);
-        Component component = components.get(type);
-        if (component == null && isDisplayed(type)) {
+        C component = components.get(type);
+        if (component == null && !noComponentTypes.contains(type)) {
             component = components.get(ComponentTypeName.UNKNOWN_COMPONENT);
         }
         return component;
     }
 
-    protected boolean isDisplayed(String componentType) {
-        return !(componentType.equals(ComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG) ||
-                 componentType.equals(ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG) ||
-                 componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG) ||
-                 componentType.equals(ComponentTypeName.LINE) ||
-                 componentType.equals(ComponentTypeName.TIE_LINE) ||
-                 componentType.equals(ComponentTypeName.DANGLING_LINE) ||
-                 componentType.equals(ComponentTypeName.BUSBAR_SECTION));
+    protected void addNoComponentType(String type) {
+        noComponentTypes.add(type);
     }
 }

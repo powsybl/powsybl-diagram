@@ -7,8 +7,8 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
@@ -30,7 +30,7 @@ import java.util.List;
 public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
 
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
@@ -58,18 +58,18 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     private static boolean isEquivalentToInternalNode(Node node) {
-        return node.getComponentType().equals(ComponentTypeName.NODE);
+        return node.getComponentType().equals(SldComponentTypeName.NODE);
     }
 
     @Override
-    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+    public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary) {
         return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
                 .map(List::of)
                 .orElse(Collections.emptyList());
     }
 
     @Override
-    public List<String> getBranchEdgeStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
+    public List<String> getBranchEdgeStyles(BranchEdge edge, SldComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.WIRE_STYLE_CLASS);
         return styles;
