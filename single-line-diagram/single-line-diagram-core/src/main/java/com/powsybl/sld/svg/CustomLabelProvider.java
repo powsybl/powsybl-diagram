@@ -11,10 +11,10 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.coordinate.Direction.*;
 
@@ -26,12 +26,12 @@ import static com.powsybl.sld.model.coordinate.Direction.*;
  * <p>
  * The labels map defines what will be displayed for the equipments, and it is indexed by the equipment ID.
  * The custom content is declared through an SldCustomLabels record: the label will be displayed in the diagram at its standard position;
- * The additional label2will be displayed on the equipment's right.
+ * The additionalLabel will be displayed on the equipment's right side.
  *
  * <p>
- * The feederInfosData map defines what will be displayed along the feeder, and it is indexed by the equipment ID.
+ * The feederInfosData map defines what will be displayed along the feeder, and it is indexed by the equipment ID (and a not-null side,
+ * for feeders with sides such as lines and transformers), through the SldFeederContext record;
  * The custom content is declared via as a list of SldCustomFeederInfos records: the componentType is the info component type name;
- * side determines at which side the feeder info is placed (for feeders with multiple sides e.g., lines transformers);
  * labelDirection determines the direction (e.g., IN or OUT for the arrows); label is the string displayed next to the info component.
  *
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
@@ -40,7 +40,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
 
     private static final double LABEL2_OFFSET = 6d;
 
-    public record SldCustomLabels(String label, String label2) {
+    public record SldCustomLabels(String label, String additionalLabel) {
         public SldCustomLabels(String label) {
             this(label, null);
         }
@@ -49,18 +49,25 @@ public class CustomLabelProvider extends AbstractLabelProvider {
             return label != null && !label.isEmpty();
         }
 
-        public boolean hasLabel2() {
-            return label2 != null && !label2.isEmpty();
+        public boolean hasAdditionalLabel() {
+            return additionalLabel != null && !additionalLabel.isEmpty();
         }
     }
 
-    public record SldCustomFeederInfos(String componentType, NodeSide side, LabelDirection labelDirection, String label) {
+    public record SldCustomFeederInfos(String componentType, LabelDirection labelDirection, String label) {
+    }
+
+    public record SldFeederContext(String feederId, NodeSide side) {
+        public SldFeederContext(String feederId) {
+            this(feederId, null);
+        }
     }
 
     private final Map<String, SldCustomLabels> labels;
-    private final Map<String, List<SldCustomFeederInfos>> feederInfosData;
 
-    public CustomLabelProvider(Map<String, SldCustomLabels> labels, Map<String, List<SldCustomFeederInfos>> feederInfosData,
+    private final Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData;
+
+    public CustomLabelProvider(Map<String, SldCustomLabels> labels, Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData,
                                SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         super(componentLibrary, layoutParameters, svgParameters);
         this.labels = Objects.requireNonNull(labels);
@@ -75,46 +82,27 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         }
     }
 
-    private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
-        List<SldCustomFeederInfos> eqFeederList = feederInfosData.getOrDefault(node.getEquipmentId(), List.of());
-        List<FeederInfo> feederInfos = new ArrayList<>();
-        eqFeederList.stream().forEach(eqFeeder ->
-            feederInfos.add(new DirectionalFeederInfo(eqFeeder.componentType(), eqFeeder.labelDirection(), null, eqFeeder.label()))
-        );
-        return feederInfos;
-    }
-
-    private List<FeederInfo> getFeederWithSidesInfos(FeederNode node, FeederWithSides feeder) {
-        List<SldCustomFeederInfos> eqFeederList = feederInfosData.getOrDefault(node.getEquipmentId(), List.of());
-        List<FeederInfo> feederInfos = new ArrayList<>();
-        eqFeederList.stream().forEach(eqFeeder -> {
-            if (eqFeeder.side() == feeder.getSide()) {
-                feederInfos.add(new DirectionalFeederInfo(eqFeeder.componentType(), eqFeeder.labelDirection(), null, eqFeeder.label()));
-            }
-        });
-        return feederInfos;
+    private List<FeederInfo> getCustomFeederInfos(FeederNode node, NodeSide side) {
+        return feederInfosData.getOrDefault(new SldFeederContext(node.getEquipmentId(), side), List.of())
+                .stream()
+                .map(info -> new DirectionalFeederInfo(info.componentType(),
+                        info.labelDirection(),
+                        null,
+                        info.label()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FeederInfo> feederInfos = new ArrayList<>();
         Feeder feeder = node.getFeeder();
+        List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
+            case INJECTION -> getCustomFeederInfos(node, null);
+            case BRANCH, HVDC, TWO_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_LEG -> getCustomFeederInfos(node, ((FeederWithSides) feeder).getSide());
+            default -> List.of();
+        };
 
-        switch (feeder.getFeederType()) {
-            case INJECTION:
-                feederInfos = getInjectionFeederInfos(node);
-                break;
-            case BRANCH, HVDC:
-                feederInfos = getFeederWithSidesInfos(node, (FeederWithSides) feeder);
-                break;
-            case TWO_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = getFeederWithSidesInfos(node, (FeederTwLeg) feeder);
-                break;
-            default:
-                break;
-        }
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
@@ -142,12 +130,12 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         return new LabelPosition(positionName + "_LABEL2", dx, yShift, false, (int) angle);
     }
 
-    private void addNodeLabels(SldCustomLabels labels, List<NodeLabel> nodeLabels, LabelPosition labelPosition, LabelPosition labelPosition2) {
+    private void addNodeLabels(SldCustomLabels labels, List<NodeLabel> nodeLabels, LabelPosition labelPosition, LabelPosition additionalLabelPosition) {
         if (labels.hasLabel()) {
             nodeLabels.add(new NodeLabel(labels.label(), labelPosition, null));
         }
-        if (labels.hasLabel2()) {
-            nodeLabels.add(new NodeLabel(labels.label2(), labelPosition2, null));
+        if (labels.hasAdditionalLabel()) {
+            nodeLabels.add(new NodeLabel(labels.additionalLabel(), additionalLabelPosition, null));
         }
     }
 

@@ -16,6 +16,7 @@ import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.svg.CustomLabelProvider.SldFeederContext;
 import com.powsybl.sld.svg.CustomLabelProvider.SldCustomFeederInfos;
 import com.powsybl.sld.svg.CustomLabelProvider.SldCustomLabels;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,11 +44,11 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         componentLibrary = new ConvergenceComponentLibrary();
     }
 
-    @ParameterizedTest(name = "{4}")
+    @ParameterizedTest(name = "{5}")
     @MethodSource("provideTestData")
     void test(Network network, VoltageLevel vl,
               Map<String, SldCustomLabels> labels,
-              Map<String, List<SldCustomFeederInfos>> feederInfosData,
+              Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData,
               SvgParameters svgParameters,
               String resourceName) {
         assertNotNull(network);
@@ -153,18 +154,21 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         labels2.put("T12", new SldCustomLabels("C_T12"));
         labels2.put("T3_12", new SldCustomLabels("C_T3_12"));
 
-        Map<String, List<SldCustomFeederInfos>> feederInfosData2 = new HashMap<>();
-        feederInfosData2.put("L11", List.of(
-                new SldCustomFeederInfos(ARROW_ACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "active1"),
-                new SldCustomFeederInfos(ARROW_REACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "reactive1"),
-                new SldCustomFeederInfos(ARROW_ACTIVE, NodeSide.TWO, LabelProvider.LabelDirection.OUT, "active2"),
-                new SldCustomFeederInfos(ARROW_REACTIVE, NodeSide.TWO, LabelProvider.LabelDirection.OUT, "ractive2")
+        Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData2 = new HashMap<>();
+        feederInfosData2.put(new SldFeederContext("L11", NodeSide.ONE), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.IN, "active1"),
+                new SldCustomFeederInfos(ARROW_REACTIVE, LabelProvider.LabelDirection.IN, "reactive1")
         ));
-        feederInfosData2.put("T12", List.of(
-                new SldCustomFeederInfos(ARROW_ACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "active1")
+        feederInfosData2.put(new SldFeederContext("L11", NodeSide.TWO), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.OUT, "active2"),
+                new SldCustomFeederInfos(ARROW_REACTIVE, LabelProvider.LabelDirection.OUT, "ractive2")
         ));
-        feederInfosData2.put("T3_12", List.of(
-                new SldCustomFeederInfos(ARROW_ACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "active1")
+
+        feederInfosData2.put(new SldFeederContext("T12", NodeSide.ONE), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.IN, "active1")
+        ));
+        feederInfosData2.put(new SldFeederContext("T3_12", NodeSide.ONE), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.IN, "active1")
         ));
 
         //test data3
@@ -179,10 +183,10 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         labels3.put("C1", new SldCustomLabels("C_C1"));
         labels3.put("dl1", new SldCustomLabels("C_dl1"));
 
-        Map<String, List<SldCustomFeederInfos>> feederInfosData3 = new HashMap<>();
-        feederInfosData3.put("hvdc", List.of(
-                new SldCustomFeederInfos(ARROW_ACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "active1"),
-                new SldCustomFeederInfos(ARROW_REACTIVE, NodeSide.ONE, LabelProvider.LabelDirection.IN, "reactive1")
+        Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData3 = new HashMap<>();
+        feederInfosData3.put(new SldFeederContext("hvdc", NodeSide.ONE), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.IN, "active1"),
+                new SldCustomFeederInfos(ARROW_REACTIVE, LabelProvider.LabelDirection.IN, "reactive1")
         ));
 
         //test data 4
@@ -195,11 +199,11 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         labels4.put("b", new SldCustomLabels("C_breaker"));
         labels4.put("l", new SldCustomLabels("C_load"));
 
-        Map<String, List<SldCustomFeederInfos>> feederInfosData4 = new HashMap<>();
-        feederInfosData4.put("l", List.of(
-                new SldCustomFeederInfos(ARROW_ACTIVE, null, LabelProvider.LabelDirection.IN, "active"),
-                new SldCustomFeederInfos(ARROW_REACTIVE, null, LabelProvider.LabelDirection.OUT, "reactive"),
-                new SldCustomFeederInfos(ARROW_CURRENT, null, LabelProvider.LabelDirection.IN, "current")
+        Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData4 = new HashMap<>();
+        feederInfosData4.put(new SldFeederContext("l"), List.of(
+                new SldCustomFeederInfos(ARROW_ACTIVE, LabelProvider.LabelDirection.IN, "active"),
+                new SldCustomFeederInfos(ARROW_REACTIVE, LabelProvider.LabelDirection.OUT, "reactive"),
+                new SldCustomFeederInfos(ARROW_CURRENT, LabelProvider.LabelDirection.IN, "current")
         ));
 
         //test data 5
