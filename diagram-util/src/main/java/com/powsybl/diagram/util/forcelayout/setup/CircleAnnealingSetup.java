@@ -51,15 +51,25 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         if (pointNumberOnFirstCircle <= 0) {
             throw new IllegalStateException("There are more vertex with no edge than there are vertex in the graph, or the graph does not contain any edge");
         } else {
+
             double firstCircleRadius = Math.max(1, pointNumberOnFirstCircle / 720); // ensure a separation of at least half a degree
+            // Start by putting all the points who have edges on a circle
+            double angleSeparation = 2 * Math.PI / setupTopologyData.movablePoints.length;
+            for (int i = 0; i < setupTopologyData.movablePoints.length; ++i) {
+                Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
+                position.multiplyBy(firstCircleRadius);
+                setupTopologyData.movablePoints[i].setPosition(position);
+            }
+
             double secondCircleRadius = 2 * firstCircleRadius;
-            double angleSeparation = 2 * Math.PI / setupTopologyData.pointWithNoEdge.length;
+            angleSeparation = 2 * Math.PI / setupTopologyData.pointWithNoEdge.length;
             // Setup all the points with no edges, we won't move those for the remaining part of the setup
             for (int i = 0; i < setupTopologyData.pointWithNoEdge.length; ++i) {
                 Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
                 position.multiplyBy(secondCircleRadius);
                 setupTopologyData.pointWithNoEdge[i].setPosition(position);
             }
+            fillDistanceMatrix(setupTopologyData);
 
             annealingProcess(setupTopologyData, firstCircleRadius, random);
 
@@ -78,18 +88,34 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
     }
 
+    private void fillDistanceMatrix(SetupListData setupTopologyData) {
+        for (int i = 0; i < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++i) {
+            for (int k = i + 1; k < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++k) {
+                if (setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] == 1) {
+                    double distance = setupTopologyData.allPoints[i].distanceTo(setupTopologyData.allPoints[k]);
+                    setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = distance;
+                    setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[k][i] = distance;
+                }
+            }
+        }
+    }
+
     private SetupListData getPointsForRun(ForceGraph<V, E> forceGraph) {
         List<Set<V>> neighborSetPerVertex = new ArrayList<>();
         SimpleGraph<V, DefaultEdge> graph = forceGraph.getSimpleGraph();
         List<V> vertexWithNoEdge = new ArrayList<>();
         List<V> vertexMovable = new ArrayList<>();
-        List<VertexPair<V>> vertexWithDistanceTwo = new ArrayList<>();
         @SuppressWarnings("unchecked")
         V[] allVertex = (V[]) graph.vertexSet().toArray();
-        for (V vertex : allVertex) {
-            neighborSetPerVertex.add(Graphs.neighborSetOf(graph, vertex));
+        Point[] allPoints = new Point[allVertex.length];
+        for (int i = 0; i < allVertex.length; ++i) {
+            neighborSetPerVertex.add(Graphs.neighborSetOf(graph, allVertex[i]));
+            allPoints[i] = getPoint(forceGraph, allVertex[i]);
         }
+
+        double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = new double[allPoints.length][allPoints.length];
         for (int i = 0; i < neighborSetPerVertex.size(); ++i) {
+            distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][i] = 0;
             Set<V> setOfNeighbors = neighborSetPerVertex.get(i);
             if (setOfNeighbors.isEmpty()) {
                 vertexWithNoEdge.add(allVertex[i]);
@@ -99,12 +125,14 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     vertexMovable.add(thisVertex);
                 }
                 for (int k = i + 1; k < neighborSetPerVertex.size(); ++k) {
+                    // we fill the matrix if two points are next to each other or at a distance of 2
                     // if two vertex are not next to each other, and they share a common neighbor, it means they are at a distance of 2
-                    if (
-                            !setOfNeighbors.contains(allVertex[k])
-                                    && !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))
-                    ) {
-                        vertexWithDistanceTwo.add(new VertexPair<>(thisVertex, allVertex[k]));
+                    V otherVertex = allVertex[k];
+                    if (setOfNeighbors.contains(otherVertex) || !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))) {
+                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = 1; // use a placeholder for now since we didn't position points in a circle yet
+                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[k][i] = 1; // make symmetric
+                    } else {
+                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = 0;
                     }
                 }
             }
@@ -112,35 +140,19 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         // Now convert from vertex to point and return
         List<Point> pointWithNoEdge = new ArrayList<>();
         List<Point> pointMovable = new ArrayList<>();
-        List<PointPair> pointsWithDistanceTwo = new ArrayList<>();
+
         for (V vertex : vertexWithNoEdge) {
             pointWithNoEdge.add(getPoint(forceGraph, vertex));
         }
-        for (VertexPair<V> vertexPair : vertexWithDistanceTwo) {
-            pointsWithDistanceTwo.add(new PointPair(
-                    getPoint(forceGraph, vertexPair.first),
-                    getPoint(forceGraph, vertexPair.second)
-                )
-            );
-        }
         for (V vertex : vertexMovable) {
             pointMovable.add(getPoint(forceGraph, vertex));
-        }
-        Set<DefaultEdge> allEdges = forceGraph.getSimpleGraph().edgeSet();
-        List<PointPair> pointsWithDistanceOne = new ArrayList<>();
-        for (DefaultEdge edge : allEdges) {
-            pointsWithDistanceOne.add(new PointPair(
-                            getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeSource(edge)),
-                            getPoint(forceGraph, forceGraph.getSimpleGraph().getEdgeTarget(edge))
-                    )
-            );
         }
 
         return new SetupListData(
                 pointWithNoEdge.toArray(new Point[0]),
                 pointMovable.toArray(new Point[0]),
-                pointsWithDistanceTwo.toArray(new PointPair[0]),
-                pointsWithDistanceOne.toArray(new PointPair[0])
+                allPoints,
+                distanceMatrixForPointsWithEdgeDistanceOneOrTwo
         );
     }
 
@@ -159,17 +171,46 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private record SetupListData(
             Point[] pointWithNoEdge, // those points are put on an outer circle and do not move for the duration of the setup
             Point[] movablePoints, // points that are "movable" have at least one edge and are not fixed
-            PointPair[] pointsWithDistanceTwo, // used to calculate the metric on the network
-            PointPair[] pointsWithDistanceOne // used to calculate the metric on the network
+            Point[] allPoints,
+            double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo
     ) { }
 
-    private double calculateObjectiveFunction(SetupListData setupTopologyData) {
-        double sum = 0;
-        for (PointPair edgePoints : setupTopologyData.pointsWithDistanceOne) {
-            sum += edgePoints.first.distanceTo(edgePoints.second);
+    private double calculateObjectiveFunction(SetupListData setupTopologyData, double previousObjectiveValue, int firstChangedIndex, int secondChangedIndex) {
+        double sum = previousObjectiveValue;
+        double actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
+        double[] firstChangedLine = setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[firstChangedIndex];
+        for (int i = 0; i < firstChangedLine.length; ++i) {
+            // ignore if we are at the secondChangedIndex to prevent removing the value twice
+            if (firstChangedLine[i] != 0 && i != secondChangedIndex) {
+                sum -= firstChangedLine[i];
+                double newDistance = setupTopologyData.allPoints[firstChangedIndex].distanceTo(setupTopologyData.allPoints[i]);
+                sum += newDistance;
+                firstChangedLine[i] = newDistance;
+                setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][firstChangedIndex] = newDistance; // matrix is symmetric, this might not actually be useful to update and could be ignored
+            }
         }
-        for (PointPair twoDistancePoints : setupTopologyData.pointsWithDistanceTwo) {
-            sum += twoDistancePoints.first.distanceTo(twoDistancePoints.second);
+        actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
+        double[] secondChangedLine = setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[secondChangedIndex];
+        for (int i = 0; i < secondChangedLine.length; ++i) {
+            if (secondChangedLine[i] != 0) {
+                sum -= secondChangedLine[i];
+                double newDistance = setupTopologyData.allPoints[secondChangedIndex].distanceTo(setupTopologyData.allPoints[i]);
+                sum += newDistance;
+                secondChangedLine[i] = newDistance;
+                setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][secondChangedIndex] = newDistance;
+                actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
+            }
+        }
+        actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
+        return sum;
+    }
+
+    private double calculateStartingObjectiveFunction(SetupListData setupTopologyData) {
+        double sum = 0;
+        for (int i = 0; i < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++i) {
+            for (int k = i + 1; k < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++k) {
+                sum += setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k];
+            }
         }
         return sum;
     }
@@ -179,18 +220,11 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         double circleRadius,
         Random random
     ) {
-        // Start by putting all the points on a circle
-        double angleSeparation = 2 * Math.PI / setupTopologyData.movablePoints.length;
-        for (int i = 0; i < setupTopologyData.movablePoints.length; ++i) {
-            Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
-            position.multiplyBy(circleRadius);
-            setupTopologyData.movablePoints[i].setPosition(position);
-        }
         // Then start the process
         double temperature = computeInitialTemperature(setupTopologyData, random);
         LOGGER.trace("Initial temperature : {}", temperature);
         int neighborNumberTry = 30 * setupTopologyData.movablePoints.length;
-        double previousEnergy = calculateObjectiveFunction(setupTopologyData);
+        double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
 
@@ -201,12 +235,26 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             int numberOfPositiveTransition = 0;
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
                 int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
-                double newEnergy = calculateObjectiveFunction(setupTopologyData);
+                double newEnergy = calculateObjectiveFunction(setupTopologyData, previousEnergy, swapIndex[0], swapIndex[1]);
 
                 double acceptanceRatio = Math.exp((previousEnergy - newEnergy) / temperature);
                 if (acceptanceRatio < 1 && acceptanceRatio > 0) {
                     averagePositiveTransitionAcceptanceRatio += acceptanceRatio;
                     ++numberOfPositiveTransition;
+                }
+
+                // if the energy is lower, just update the energy value and keep going
+                // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
+                if (newEnergy < previousEnergy || random.nextDouble() < acceptanceRatio) {
+                    previousEnergy = newEnergy;
+
+                    if (newEnergy < bestEnergy) {
+                        bestEnergy = newEnergy;
+                    }
+                } else {
+                    // swap back
+                    swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
+                    previousEnergy = calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
                 }
 
                 // if the energy is lower, just update the energy value and keep going
@@ -246,11 +294,11 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         // Make that number of transitions on the points, calculate the corresponding energy level difference
         // the first energy is always lower than the second energy value
         List<Double[]> positiveEnergyTransitions = new ArrayList<>();
-        double previousEnergy = calculateObjectiveFunction(setupTopologyData);
+        double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double sumOfAbsolute = 0;
         for (int i = 0; i < numberOfTransitions; ++i) {
             int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
-            double newEnergy = calculateObjectiveFunction(setupTopologyData);
+            double newEnergy = calculateObjectiveFunction(setupTopologyData, previousEnergy, swapIndex[0], swapIndex[1]);
             // We can use the absolute difference to make every transition positive, because transitions are symmetric
             // That means if we have a negative energy transition, we can say we could have done the swap in the other direction, and it is positive that way
             if (newEnergy > previousEnergy) {
@@ -267,6 +315,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             } else {
                 // swap back
                 swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
+                previousEnergy = calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
             }
         }
         // See the paper for explanation
