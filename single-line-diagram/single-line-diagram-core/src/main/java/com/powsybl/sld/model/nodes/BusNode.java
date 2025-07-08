@@ -12,7 +12,7 @@ import com.powsybl.sld.model.coordinate.Position;
 
 import java.io.IOException;
 
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.SldComponentTypeName.BUSBAR_SECTION;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

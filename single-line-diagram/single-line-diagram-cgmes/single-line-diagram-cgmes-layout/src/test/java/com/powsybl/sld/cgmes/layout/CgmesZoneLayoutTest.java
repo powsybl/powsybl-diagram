@@ -24,7 +24,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

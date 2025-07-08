@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.model.*;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -953,14 +954,14 @@ public class SvgWriter {
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
                 writer.writeStartElement(STYLE_ELEMENT_NAME);
-                writer.writeCData(styleProvider.getStyleDefs());
+                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls());
+                writer.writeCData(cssContent);
                 writer.writeEndElement();
                 break;
             case EXTERNAL_IMPORTED:
                 writer.writeStartElement(STYLE_ELEMENT_NAME);
-                for (String cssFilename : styleProvider.getCssFilenames()) {
-                    writer.writeCharacters("@import url(" + cssFilename + ");");
-                }
+                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames());
+                writer.writeCharacters(cssImports);
                 writer.writeEndElement();
                 break;
             case EXTERNAL_NO_IMPORT:

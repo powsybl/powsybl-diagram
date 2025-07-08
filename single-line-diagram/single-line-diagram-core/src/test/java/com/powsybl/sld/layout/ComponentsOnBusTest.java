@@ -10,7 +10,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
 
     @Test
     void testSwitchesOnBuses() {
-        layoutParameters.setComponentsOnBusbars(List.of(ComponentTypeName.BREAKER, ComponentTypeName.DISCONNECTOR));
+        layoutParameters.setComponentsOnBusbars(List.of(SldComponentTypeName.BREAKER, SldComponentTypeName.DISCONNECTOR));
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
 

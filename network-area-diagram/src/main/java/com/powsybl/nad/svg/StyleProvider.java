@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public interface StyleProvider {
 
     List<String> getCssFilenames();
 
-    String getStyleDefs();
+    List<URL> getCssUrls();
 
     List<String> getNodeStyleClasses(Node node);
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="674.0" viewBox="0 0 980.0 674.0" width="980.0" xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
-/* ----------------------------------------------------------------------- */
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
@@ -91,7 +90,8 @@
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}/* ----------------------------------------------------------------------- */
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -149,16 +149,15 @@
 .sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
 .sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
 .sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
-
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g id="LABEL_VL_B 230">
+        <g id="idLABEL_95_VL_95_B_32_230">
             <text class="sld-graph-label" x="110.0" y="145.0">B 230</text>
         </g>
         <g class="sld-busbar-section sld-vl180to300 sld-bus-0" id="idB_32_230_32_Bus" transform="translate(122.5,337.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
-            <text class="sld-label" id="B 230 Bus_NW_LABEL" x="-5.0" y="-5.0">B 230 Bus</text>
+            <text class="sld-label" id="idB_32_230_32_Bus_95_NW_95_LABEL" x="-5.0" y="-5.0">B 230 Bus</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_B_32_230_95_BUSCO_95_B_32_230_32_Bus_95_A_32__45__32_B_95_TWO_95_INTERNAL_95_B_32_230_95_BUSCO_95_B_32_230_32_Bus_95_A_32__45__32_B_95_TWO_45_A_32__45__32_B_95_TWO">
@@ -170,12 +169,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_A_32__45__32_B_95_TWO_95_A_32__45__32_B_95_TWO">
                 <polyline points="135.0,227.0,135.0,165.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idA_32__45__32_B_95_TWO_ARROW_ACTIVE" transform="translate(130.0,180.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idA_32__45__32_B_95_TWO_95_ARROW_95_ACTIVE" transform="translate(130.0,180.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idA_32__45__32_B_95_TWO_ARROW_REACTIVE" transform="translate(130.0,200.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idA_32__45__32_B_95_TWO_95_ARROW_95_REACTIVE" transform="translate(130.0,200.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -190,7 +189,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idA_32__45__32_B_95_TWO" transform="translate(135.0,165.0)">
-                <text class="sld-label" id="A - B_TWO_N_LABEL" x="-5.0" y="-5.0">A - B</text>
+                <text class="sld-label" id="idA_32__45__32_B_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">A - B</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -203,12 +202,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_B_32__45__32_C_95_ONE_95_B_32__45__32_C_95_ONE">
                 <polyline points="185.0,447.0,185.0,509.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_ONE_ARROW_REACTIVE" transform="translate(180.0,484.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_ONE_95_ARROW_95_REACTIVE" transform="translate(180.0,484.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_ONE_ARROW_ACTIVE" transform="translate(180.0,464.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_ONE_95_ARROW_95_ACTIVE" transform="translate(180.0,464.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -223,7 +222,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder" id="idB_32__45__32_C_95_ONE" transform="translate(185.0,509.0)">
-                <text class="sld-label" id="B - C_ONE_S_LABEL" x="-5.0" y="5.0">B - C</text>
+                <text class="sld-label" id="idB_32__45__32_C_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">B - C</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -236,12 +235,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_Converter2_95_Converter2">
                 <polyline points="235.0,227.0,235.0,171.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idConverter2_ARROW_ACTIVE" transform="translate(230.0,186.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idConverter2_95_ARROW_95_ACTIVE" transform="translate(230.0,186.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idConverter2_ARROW_REACTIVE" transform="translate(230.0,206.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idConverter2_95_ARROW_95_REACTIVE" transform="translate(230.0,206.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -257,7 +256,7 @@
             </g>
             <g class="sld-vsc sld-top-feeder sld-vl180to300 sld-bus-0" id="idConverter2" transform="translate(227.0,161.0)">
                 <text x="-15.5" y="6.6">AC / DC - VSC</text>
-                <text class="sld-label" id="Converter2_N_LABEL" x="-5.0" y="-5.0">Converter2</text>
+                <text class="sld-label" id="idConverter2_95_N_95_LABEL" x="-5.0" y="-5.0">Converter2</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -270,12 +269,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-0 sld-tie-line" id="_95_B_32_230_95_INTERNAL_95_B_32_230_95_A230_95_B230_95_TWO_95_A230_95_B230_95_TWO">
                 <polyline points="285.0,447.0,285.0,509.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idA230_95_B230_95_TWO_ARROW_REACTIVE" transform="translate(280.0,484.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idA230_95_B230_95_TWO_95_ARROW_95_REACTIVE" transform="translate(280.0,484.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idA230_95_B230_95_TWO_ARROW_ACTIVE" transform="translate(280.0,464.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idA230_95_B230_95_TWO_95_ARROW_95_ACTIVE" transform="translate(280.0,464.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -290,15 +289,15 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder sld-vl180to300 sld-bus-0" id="idA230_95_B230_95_TWO" transform="translate(285.0,509.0)">
-                <text class="sld-label" id="A230_B230_TWO_S_LABEL" x="-5.0" y="5.0">A230_B230</text>
+                <text class="sld-label" id="idA230_95_B230_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">A230_B230</text>
             </g>
         </g>
-        <g id="LABEL_VL_C 230">
+        <g id="idLABEL_95_VL_95_C_32_230">
             <text class="sld-graph-label" x="440.0" y="160.0">C 230</text>
         </g>
         <g class="sld-busbar-section sld-vl180to300 sld-bus-1" id="idC_32_230_32_Bus" transform="translate(452.5,352.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="C 230 Bus_NW_LABEL" x="-5.0" y="-5.0">C 230 Bus</text>
+            <text class="sld-label" id="idC_32_230_32_Bus_95_NW_95_LABEL" x="-5.0" y="-5.0">C 230 Bus</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl180to300 sld-bus-1" id="_95_C_32_230_95_BUSCO_95_C_32_230_32_Bus_95_C_32_230_32_66_95_ONE_95_INTERNAL_95_C_32_230_95_BUSCO_95_C_32_230_32_Bus_95_C_32_230_32_66_95_ONE_45_C_32_230_32_66_95_ONE">
@@ -310,12 +309,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-1" id="_95_C_32_230_95_INTERNAL_95_C_32_230_95_C_32_230_32_66_95_ONE_95_C_32_230_32_66_95_ONE">
                 <polyline points="465.0,242.0,465.0,180.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_ONE_ARROW_ACTIVE" transform="translate(460.0,195.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_ONE_95_ARROW_95_ACTIVE" transform="translate(460.0,195.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_ONE_ARROW_REACTIVE" transform="translate(460.0,215.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_ONE_95_ARROW_95_REACTIVE" transform="translate(460.0,215.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -330,7 +329,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl180to300 sld-bus-1" id="idC_32_230_32_66_95_ONE" transform="translate(465.0,180.0)">
-                <text class="sld-label" id="C 230 66_ONE_N_LABEL" x="-5.0" y="-5.0">C 230 66</text>
+                <text class="sld-label" id="idC_32_230_32_66_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">C 230 66</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -343,12 +342,12 @@
             <g class="sld-wire sld-vl180to300 sld-bus-1" id="_95_C_32_230_95_INTERNAL_95_C_32_230_95_B_32__45__32_C_95_TWO_95_B_32__45__32_C_95_TWO">
                 <polyline points="515.0,462.0,515.0,524.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_TWO_ARROW_REACTIVE" transform="translate(510.0,499.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_TWO_95_ARROW_95_REACTIVE" transform="translate(510.0,499.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_TWO_ARROW_ACTIVE" transform="translate(510.0,479.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idB_32__45__32_C_95_TWO_95_ARROW_95_ACTIVE" transform="translate(510.0,479.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -363,15 +362,15 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder" id="idB_32__45__32_C_95_TWO" transform="translate(515.0,524.0)">
-                <text class="sld-label" id="B - C_TWO_S_LABEL" x="-5.0" y="5.0">B - C</text>
+                <text class="sld-label" id="idB_32__45__32_C_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">B - C</text>
             </g>
         </g>
-        <g id="LABEL_VL_C 66">
+        <g id="idLABEL_95_VL_95_C_32_66">
             <text class="sld-graph-label" x="580.0" y="160.0">C 66</text>
         </g>
         <g class="sld-busbar-section sld-vl50to70 sld-bus-0" id="idC_32_66_32_Bus" transform="translate(592.5,352.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
-            <text class="sld-label" id="C 66 Bus_NW_LABEL" x="-5.0" y="-5.0">C 66 Bus</text>
+            <text class="sld-label" id="idC_32_66_32_Bus_95_NW_95_LABEL" x="-5.0" y="-5.0">C 66 Bus</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl50to70 sld-bus-0" id="_95_C_32_66_95_BUSCO_95_C_32_66_32_Bus_95_C_32_230_32_66_95_TWO_95_INTERNAL_95_C_32_66_95_BUSCO_95_C_32_66_32_Bus_95_C_32_230_32_66_95_TWO_45_C_32_230_32_66_95_TWO">
@@ -383,12 +382,12 @@
             <g class="sld-wire sld-vl50to70 sld-bus-0" id="_95_C_32_66_95_INTERNAL_95_C_32_66_95_C_32_230_32_66_95_TWO_95_C_32_230_32_66_95_TWO">
                 <polyline points="605.0,242.0,605.0,180.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_TWO_ARROW_ACTIVE" transform="translate(600.0,195.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_TWO_95_ARROW_95_ACTIVE" transform="translate(600.0,195.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_TWO_ARROW_REACTIVE" transform="translate(600.0,215.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_230_32_66_95_TWO_95_ARROW_95_REACTIVE" transform="translate(600.0,215.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -403,7 +402,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl50to70 sld-bus-0" id="idC_32_230_32_66_95_TWO" transform="translate(605.0,180.0)">
-                <text class="sld-label" id="C 230 66_TWO_N_LABEL" x="-5.0" y="-5.0">C 230 66</text>
+                <text class="sld-label" id="idC_32_230_32_66_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">C 230 66</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -416,12 +415,12 @@
             <g class="sld-wire sld-vl50to70 sld-bus-0" id="_95_C_32_66_95_INTERNAL_95_C_32_66_95_C_32_66_32_20_95_ONE_95_C_32_66_32_20_95_ONE">
                 <polyline points="655.0,462.0,655.0,524.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_ONE_ARROW_REACTIVE" transform="translate(650.0,499.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_ONE_95_ARROW_95_REACTIVE" transform="translate(650.0,499.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_ONE_ARROW_ACTIVE" transform="translate(650.0,479.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_ONE_95_ARROW_95_ACTIVE" transform="translate(650.0,479.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -436,7 +435,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idC_32_66_32_20_95_ONE" transform="translate(655.0,524.0)">
-                <text class="sld-label" id="C 66 20_ONE_S_LABEL" x="-5.0" y="5.0">C 66 20</text>
+                <text class="sld-label" id="idC_32_66_32_20_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">C 66 20</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -449,12 +448,12 @@
             <g class="sld-wire sld-vl50to70 sld-bus-0" id="_95_C_32_66_95_INTERNAL_95_C_32_66_95_C_32__45__32_D_95_ONE_95_C_32__45__32_D_95_ONE">
                 <polyline points="705.0,242.0,705.0,180.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32__45__32_D_95_ONE_ARROW_ACTIVE" transform="translate(700.0,195.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32__45__32_D_95_ONE_95_ARROW_95_ACTIVE" transform="translate(700.0,195.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32__45__32_D_95_ONE_ARROW_REACTIVE" transform="translate(700.0,215.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32__45__32_D_95_ONE_95_ARROW_95_REACTIVE" transform="translate(700.0,215.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -469,7 +468,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idC_32__45__32_D_95_ONE" transform="translate(705.0,180.0)">
-                <text class="sld-label" id="C - D_ONE_N_LABEL" x="-5.0" y="-5.0">C - D</text>
+                <text class="sld-label" id="idC_32__45__32_D_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">C - D</text>
             </g>
         </g>
         <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -482,12 +481,12 @@
             <g class="sld-wire sld-vl50to70 sld-bus-0" id="_95_C_32_66_95_INTERNAL_95_C_32_66_95_C66_32__45__32_D_95_C66_32__45__32_D">
                 <polyline points="755.0,462.0,755.0,524.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC66_32__45__32_D_ARROW_REACTIVE" transform="translate(750.0,499.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC66_32__45__32_D_95_ARROW_95_REACTIVE" transform="translate(750.0,499.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC66_32__45__32_D_ARROW_ACTIVE" transform="translate(750.0,479.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC66_32__45__32_D_95_ARROW_95_ACTIVE" transform="translate(750.0,479.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -502,15 +501,15 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idC66_32__45__32_D" transform="translate(755.0,524.0)">
-                <text class="sld-label" id="C66 - D_S_LABEL" x="-5.0" y="5.0">C66 - D</text>
+                <text class="sld-label" id="idC66_32__45__32_D_95_S_95_LABEL" x="-5.0" y="5.0">C66 - D</text>
             </g>
         </g>
-        <g id="LABEL_VL_C 20">
+        <g id="idLABEL_95_VL_95_C_32_20">
             <text class="sld-graph-label" x="820.0" y="160.0">C 20</text>
         </g>
         <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="idC_32_20_32_Bus" transform="translate(832.5,352.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="C 20 Bus_NW_LABEL" x="-5.0" y="-5.0">C 20 Bus</text>
+            <text class="sld-label" id="idC_32_20_32_Bus_95_NW_95_LABEL" x="-5.0" y="-5.0">C 20 Bus</text>
         </g>
         <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_C_32_20_95_BUSCO_95_C_32_20_32_Bus_95_C_32_66_32_20_95_TWO_95_INTERNAL_95_C_32_20_95_BUSCO_95_C_32_20_32_Bus_95_C_32_66_32_20_95_TWO_45_C_32_66_32_20_95_TWO">
@@ -522,12 +521,12 @@
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_C_32_20_95_INTERNAL_95_C_32_20_95_C_32_66_32_20_95_TWO_95_C_32_66_32_20_95_TWO">
                 <polyline points="845.0,242.0,845.0,180.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_TWO_ARROW_ACTIVE" transform="translate(840.0,195.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_TWO_95_ARROW_95_ACTIVE" transform="translate(840.0,195.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_TWO_ARROW_REACTIVE" transform="translate(840.0,215.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idC_32_66_32_20_95_TWO_95_ARROW_95_REACTIVE" transform="translate(840.0,215.0)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -542,7 +541,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl0to30 sld-bus-0" id="idC_32_66_32_20_95_TWO" transform="translate(845.0,180.0)">
-                <text class="sld-label" id="C 66 20_TWO_N_LABEL" x="-5.0" y="-5.0">C 66 20</text>
+                <text class="sld-label" id="idC_32_66_32_20_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">C 66 20</text>
             </g>
         </g>
         <g class="sld-wire sld-vl180to300 sld-bus-1" id="idEDGE_95_C_32_230_32_66_95_ONE">
