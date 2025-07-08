@@ -4,9 +4,9 @@
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
-.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
+.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected .nad-injection-frame {stroke: lightgrey}
 .nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
-.nad-injections circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-injections .nad-injection-frame {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
@@ -118,6 +118,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-generator-type {stroke: var(--nad-vl-color, lightgrey); stroke-width: 1; stroke-linecap: round; fill: white}
 .nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
 .nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
@@ -146,7 +147,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                 <g id="1" class="nad-vl0to30">
                     <polyline class="nad-edge-path" points="81.81,-540.42 110.74,-654.30"/>
                     <g>
-                        <circle cx="116.90" cy="-678.53" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="116.90" cy="-678.53" r="25.00"/>
                         <g transform="translate(91.90,-703.53)" class="nad-load">
                             <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>
@@ -168,7 +169,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                         </g>
                     </g>
                     <g>
-                        <circle cx="-521.79" cy="127.19" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="-521.79" cy="127.19" r="25.00"/>
                         <g transform="translate(-546.79,102.19)" class="nad-generator">
                             <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
                         </g>
@@ -190,7 +191,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                         </g>
                     </g>
                     <g>
-                        <circle cx="265.15" cy="351.95" r="25.00"/>
+                        <circle class="nad-injection-frame" cx="265.15" cy="351.95" r="25.00"/>
                         <g transform="translate(240.15,326.95)" class="nad-load">
                             <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
                         </g>

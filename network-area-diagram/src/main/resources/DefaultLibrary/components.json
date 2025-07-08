@@ -42,6 +42,101 @@
     "styleClass": "nad-generator"
   },
   {
+    "type": "GENERATOR_HYDRO",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg",
+        "styleClass": "nad-generator"
+      },
+      {
+        "name": "HYDRO",
+        "fileName": "gen_hydro.svg",
+        "styleClass": "nad-generator-type"
+      }
+    ]
+  },
+  {
+    "type": "GENERATOR_NUCLEAR",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg",
+        "styleClass": "nad-generator"
+      },
+      {
+        "name": "NUCLEAR",
+        "fileName": "gen_nuclear.svg",
+        "styleClass": "nad-generator-type"
+      }
+    ]
+  },
+  {
+    "type": "GENERATOR_SOLAR",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg",
+        "styleClass": "nad-generator"
+      },
+      {
+        "name": "SOLAR",
+        "fileName": "gen_solar.svg",
+        "styleClass": "nad-generator-type"
+      }
+    ]
+  },
+  {
+    "type": "GENERATOR_WIND",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg",
+        "styleClass": "nad-generator"
+      },
+      {
+        "name": "WIND",
+        "fileName": "gen_wind.svg",
+        "styleClass": "nad-generator-type"
+      }
+    ]
+  },
+  {
+    "type": "GENERATOR_THERMAL",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "GENERATOR",
+        "fileName": "generator.svg",
+        "styleClass": "nad-generator"
+      },
+      {
+        "name": "THERMAL",
+        "fileName": "gen_thermal.svg",
+        "styleClass": "nad-generator-type"
+      }
+    ]
+  },
+  {
     "type": "SHUNT_COMPENSATOR_CAPACITOR",
     "size": {
       "width": 50.0,

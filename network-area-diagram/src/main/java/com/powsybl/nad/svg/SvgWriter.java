@@ -196,6 +196,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
 
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+        writeStyleClasses(writer, StyleProvider.INJECTION_FRAME_CLASS);
         double radius = svgParameters.getInjectionCircleRadius();
         Point circleCenter = injection.getInjectionPoint().atDistance(-radius, injection.getBusNodePoint());
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
@@ -219,11 +220,19 @@ public class SvgWriter {
             Transformer transformer = componentLibrary.getSvgTransformer();
             Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
             for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
+                List<Element> elements = scEntry.getValue();
                 List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
                         .map(List::of).orElse(List.of());
-                writeStyleClasses(writer, edgeStyleClasses);
-                for (Element element : scEntry.getValue()) {
+                boolean addGroupElement = elements.size() > 1 || !edgeStyleClasses.isEmpty();
+                if (addGroupElement) {
+                    writer.writeStartElement(GROUP_ELEMENT_NAME);
+                    writeStyleClasses(writer, edgeStyleClasses);
+                }
+                for (Element element : elements) {
                     transformer.transform(new DOMSource(element), result);
+                }
+                if (addGroupElement) {
+                    writer.writeEndElement();
                 }
             }
         } catch (TransformerException e) {
