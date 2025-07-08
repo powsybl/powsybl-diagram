@@ -116,13 +116,13 @@ LayoutParameters layoutParameters = new LayoutParameters().setInjectionsAdded(tr
 
 The represented injections are listed in the table below.
 
-| Icon in the DefaultLibrary                                                      | Injection type                                                                                       |
-|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| ![generatorInjection](/_static/img/nad/nad_icons/generator.svg)                 | [Generator](inv:powsyblcore:*:*#grid_model/network_subnetwork#generator)                             |
-| ![batteryInjection](/_static/img/nad/nad_icons/battery.svg)                     | [Battery](inv:powsyblcore:*:*#grid_model/network_subnetwork#battery)                                 |
-| ![loadInjection](/_static/img/nad/nad_icons/load.svg)                           | [Load](inv:powsyblcore:*:*#grid_model/network_subnetwork#load)                                       |
-| ![shuntCompensatorCapacitorInjection](/_static/img/nad/nad_icons/capacitor.svg) | [Shunt compensator (capacitor)](inv:powsyblcore:*:*#grid_model/network_subnetwork#shunt-compensator) |
-| ![shuntCompensatorInductorInjection](/_static/img/nad/nad_icons/inductor.svg)   | [Shunt compensator (inductor)](inv:powsyblcore:*:*#grid_model/network_subnetwork#shunt-compensator)  |
-| ![staticVarCompensatorInjection](/_static/img/nad/nad_icons/svc.svg)            | [Static Var compensator](inv:powsyblcore:*:*#grid_model/network_subnetwork#static-var-compensator)   |
-| ![unknownComponentInjection](/_static/img/nad/nad_icons/unknown-component.svg)  | Unknown component                                                                                    |
+| Icon in the DefaultLibrary                                                      | Injection type                                                         |
+|---------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| ![generatorInjection](/_static/img/nad/nad_icons/generator.svg)                 | [Generator](inv:powsyblcore:*:*#generator)                             |
+| ![batteryInjection](/_static/img/nad/nad_icons/battery.svg)                     | [Battery](inv:powsyblcore:*:*#battery)                                 |
+| ![loadInjection](/_static/img/nad/nad_icons/load.svg)                           | [Load](inv:powsyblcore:*:*#load)                                       |
+| ![shuntCompensatorCapacitorInjection](/_static/img/nad/nad_icons/capacitor.svg) | [Shunt compensator (capacitor)](inv:powsyblcore:*:*#shunt-compensator) |
+| ![shuntCompensatorInductorInjection](/_static/img/nad/nad_icons/inductor.svg)   | [Shunt compensator (inductor)](inv:powsyblcore:*:*#shunt-compensator)  |
+| ![staticVarCompensatorInjection](/_static/img/nad/nad_icons/svc.svg)            | [Static VAR Compensator](inv:powsyblcore:*:*#static-var-compensator)   |
+| ![unknownComponentInjection](/_static/img/nad/nad_icons/unknown-component.svg)  | Unknown component                                                      |
 
