@@ -72,11 +72,13 @@ class LayoutContextTest {
 
     @Test
     void notExecuted() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         Layout<String, DefaultEdge> layout = new Layout<>(
                 new SpringySetup<>(new Random(3L)),
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
+        assertDoesNotThrow(() -> layoutContext.toSVG(tooltip, new StringWriter()));
     }
 }
