@@ -17,8 +17,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,13 +32,13 @@ import java.util.*;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
-    private static final double DEFAULT_STIFFNESS = 100.0;
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
 
     private final SpringyParameters<V, E> layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
 
     public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
+        this.forces.add(new SpringForce<>(new SpringContainer<>()));
         this.forces.add(new CoulombForce<>(
                 new IntensityEffectFromFixedNodesParameters(
                         layoutParameters.getRepulsion(),
@@ -57,28 +55,10 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
-    public static <V, E> SpringContainer<DefaultEdge> initializeSprings(LayoutContext<V, E> layoutContext) {
-        Map<DefaultEdge, SpringParameter> springs = new HashMap<>();
-        SimpleGraph<V, DefaultEdge> simpleGraph = layoutContext.getSimpleGraph();
-        for (DefaultEdge edge : simpleGraph.edgeSet()) {
-            V edgeSource = simpleGraph.getEdgeSource(edge);
-            V edgeTarget = simpleGraph.getEdgeTarget(edge);
-            if (layoutContext.getFixedPoints().containsKey(edgeSource) && layoutContext.getFixedPoints().containsKey(edgeTarget)) {
-                continue;
-            }
-            Point pointSource = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeSource), () -> layoutContext.getInitialPoints().get(edgeSource));
-            Point pointTarget = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeTarget), () -> layoutContext.getInitialPoints().get(edgeTarget));
-            if (pointSource != pointTarget) { // no use in force layout to add loops
-                springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, simpleGraph.getEdgeWeight(edge)));
-            }
-        }
-        return new SpringContainer<>(springs);
-    }
-
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
-        // it would be better if this was created with all the other forces, but we need the graph to init the springs
-        this.forces.add(new SpringForce<>(initializeSprings(layoutContext)));
+        //Initialize Spring force
+        this.forces.get(0).init(layoutContext);
 
         // do the loop on the nodes and forces
         int i;
@@ -98,12 +78,6 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
             }
         }
         LOGGER.info("Calculating the layout took {} steps", i);
-        try {
-            this.forces.remove(2);
-        } catch (Exception e) {
-            LOGGER.error("Tried to remove the Spring force from the Graph but did not succeed", new Exception(e));
-        }
-
     }
 
     private void updateVelocity(LayoutContext<V, E> layoutContext) {

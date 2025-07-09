@@ -15,15 +15,40 @@ import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringForce<V, E> implements Force<V, E> {
     private final SpringContainer<DefaultEdge> forceParameter;
+    private static final double DEFAULT_STIFFNESS = 100.0;
 
     public SpringForce(SpringContainer<DefaultEdge> forceParameter) {
         this.forceParameter = forceParameter;
+    }
+
+    @Override
+    public void init(LayoutContext<V, E> layoutContext) {
+        Map<DefaultEdge, SpringParameter> springs = new HashMap<>();
+        SimpleGraph<V, DefaultEdge> simpleGraph = layoutContext.getSimpleGraph();
+        for (DefaultEdge edge : simpleGraph.edgeSet()) {
+            V edgeSource = simpleGraph.getEdgeSource(edge);
+            V edgeTarget = simpleGraph.getEdgeTarget(edge);
+            if (layoutContext.getFixedPoints().containsKey(edgeSource) && layoutContext.getFixedPoints().containsKey(edgeTarget)) {
+                continue;
+            }
+            Point pointSource = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeSource), () -> layoutContext.getInitialPoints().get(edgeSource));
+            Point pointTarget = Objects.requireNonNullElseGet(layoutContext.getMovingPoints().get(edgeTarget), () -> layoutContext.getInitialPoints().get(edgeTarget));
+            if (pointSource != pointTarget) { // no use in force layout to add loops
+                springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, simpleGraph.getEdgeWeight(edge)));
+            }
+        }
+        forceParameter.setSprings(springs);
     }
 
     /// This is Hooke's Law

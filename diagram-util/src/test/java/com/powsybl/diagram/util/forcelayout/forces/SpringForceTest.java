@@ -9,9 +9,9 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
+import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringContainer;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +24,8 @@ class SpringForceTest {
     void apply() {
         double delta = 1e-3;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
-        SpringForce<String, DefaultEdge> springForce = new SpringForce<>(
-                SpringyLayout.initializeSprings(layoutContext)
-        );
+        SpringForce<String, DefaultEdge> springForce = new SpringForce<>(new SpringContainer<>());
+        springForce.init(layoutContext);
         String[] vertexToTest = {
             "3",
             "1",

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringContainer<E> {
-    private final Map<E, SpringParameter> springs;
+    private Map<E, SpringParameter> springs;
 
     public SpringContainer() {
         this.springs = new HashMap<>();
@@ -27,5 +27,9 @@ public class SpringContainer<E> {
 
     public Map<E, SpringParameter> getSprings() {
         return springs;
+    }
+
+    public void setSprings(Map<E, SpringParameter> springs) {
+        this.springs = springs;
     }
 }

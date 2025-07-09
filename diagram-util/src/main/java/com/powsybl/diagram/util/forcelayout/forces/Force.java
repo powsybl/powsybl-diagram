@@ -16,6 +16,10 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E> {
+    default void init(LayoutContext<V, E> layoutContext) {
+        // most forces do not need anything to init, default is empty
+    }
+
     /**
      *
      * @param vertex : the vertex to consider for the application of the force
