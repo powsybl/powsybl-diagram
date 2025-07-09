@@ -36,10 +36,7 @@ class LayoutTest {
 
     @Test
     void svgNotExecuted() {
-        Layout<String, DefaultEdge> runner = new Layout<>(
-                new SpringySetup<>(random),
-                new SpringyLayout<>(new SpringyParameters.Builder().build())
-        );
+        Layout<String, DefaultEdge> runner = Layout.getSpringyDefaultLayout();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         assertDoesNotThrow(() -> runner.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
     }

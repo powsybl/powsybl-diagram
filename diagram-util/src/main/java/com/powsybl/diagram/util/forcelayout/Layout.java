@@ -10,7 +10,10 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
+import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +39,15 @@ public class Layout<V, E> {
     public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
         this.setup = setup;
         this.layoutAlgorithm = layoutAlgorithm;
+    }
+
+    public static <V, E> Layout<V, E> getSpringyDefaultLayout() {
+        return new Layout<>(
+                new SpringySetup<>(),
+                new SpringyLayout<>(
+                        new SpringyParameters.Builder().build()
+                )
+        );
     }
 
     public void run(LayoutContext<V, E> layoutContext) {

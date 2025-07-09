@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.forcelayout.setup;
 
+import com.powsybl.diagram.util.forcelayout.Layout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -22,6 +23,10 @@ public class SpringySetup<V, E> implements Setup<V, E> {
 
     public SpringySetup(Random random) {
         this.random = random;
+    }
+
+    public SpringySetup() {
+        this.random = new Random(3L);
     }
 
     @Override
