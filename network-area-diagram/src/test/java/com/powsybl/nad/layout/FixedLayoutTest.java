@@ -42,9 +42,10 @@ class FixedLayoutTest {
                 "dl1", new Point(0, 0),
                 "vl1", new Point(1, 0),
                 "vl2", new Point(2, 1));
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout fixedLayout = new FixedLayoutFactory(expected).create();
-        fixedLayout.run(graph, new LayoutParameters());
+        fixedLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(expected.keySet(), actual.keySet());
@@ -67,9 +68,10 @@ class FixedLayoutTest {
         initialPositions.put("VL5", new Point(500, 500));
         initialPositions.put("VL6", new Point(700, 700));
 
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new FixedLayoutFactory(initialPositions, new BasicForceLayoutFactory()).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(initialPositions.get("VL1").getX(), actual.get("VL1").getX());
@@ -88,9 +90,10 @@ class FixedLayoutTest {
     void testBasicFixedLayoutFallback() {
         Network network = IeeeCdfNetworkFactory.create9();
         Map<String, Point> initialPositions = new HashMap<>();
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
         Layout forceLayout = new FixedLayoutFactory(initialPositions).create();
-        forceLayout.run(graph, new LayoutParameters());
+        forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
         assertEquals(0, actual.get("VL1").getX());
@@ -140,8 +143,9 @@ class FixedLayoutTest {
     }
 
     void testEmptyLayout(Layout layout, Network network) {
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
-        layout.run(graph, new LayoutParameters());
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
+        layout.run(graph, layoutParameters);
         Map<String, Point> nodePositions = graph.getNodePositions();
         checkNodePosition(nodePositions.get("dl1"), 0, 0);
         checkNodePosition(nodePositions.get("vl1"), 0, 0);
@@ -154,8 +158,9 @@ class FixedLayoutTest {
     }
 
     void testMetadataLayout(Layout layout, Network network) {
-        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
-        layout.run(graph, new LayoutParameters());
+        LayoutParameters layoutParameters = new LayoutParameters();
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, layoutParameters).buildGraph();
+        layout.run(graph, layoutParameters);
         Map<String, Point> nodePositions = graph.getNodePositions();
         checkNodePosition(nodePositions.get("dl1"), -49.12, 317.14);
         checkNodePosition(nodePositions.get("vl1"), -56.06, -318.7);

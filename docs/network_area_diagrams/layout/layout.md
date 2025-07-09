@@ -1,5 +1,14 @@
 # Layouts
 
+```{toctree}
+---
+maxdepth: 2
+hidden: true
+---
+
+layoutParameters.md
+```
+
 Several layout factory implementations are available.
 
 ## Basic force layout

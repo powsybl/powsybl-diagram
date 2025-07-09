@@ -23,7 +23,7 @@ The powsybl-network-area-diagram artifact provides features to generate concise 
     - Possible use of your own style provider to have a custom style for nodes and edges (default style provider gives the nodes and edges a class corresponding to their voltage level and gives disconnected lines a specific class);
     - Possible use of your custom layout parameters and svg rendering parameters.
 
-![nad-example](/_static/img/nad-example.png)
+![nad-example](/_static/img/nad/nad-example.png)
 
 The powsybl-network-area-diagram artifact belongs to the [powsybl-diagram repository](https://github.com/powsybl/powsybl-diagram). Before the 3.0.0 version, it was stored in an [independent repository](https://github.com/powsybl/powsybl-network-area-diagram) (now archived).
 
