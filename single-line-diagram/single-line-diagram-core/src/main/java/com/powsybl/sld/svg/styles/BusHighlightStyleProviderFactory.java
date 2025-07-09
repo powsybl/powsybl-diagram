@@ -13,7 +13,10 @@ import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 
-public class BusesHighlightStyleProviderFactory implements StyleProviderFactory {
+/**
+ * @author Giovanni Ferrari {@literal <giovanni.ferrari at soft.it>}
+ */
+public class BusHighlightStyleProviderFactory implements StyleProviderFactory {
     @Override
     public StyleProvider create(Network network, SvgParameters svgParameters) {
         return new StyleProvidersList(new TopologicalStyleProvider(network, svgParameters, true), new HighlightLineStateStyleProvider(network));

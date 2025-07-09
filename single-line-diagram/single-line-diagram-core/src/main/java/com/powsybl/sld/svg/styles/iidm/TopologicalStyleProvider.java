@@ -36,7 +36,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     private final Map<String, Integer> stylesIndices = new HashMap<>();
     private final Network network;
     private final SvgParameters svgParameters;
-    private boolean busesHighlightOnHover;
+    private boolean busHighlightOnHover;
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters());
@@ -50,19 +50,19 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         this(baseVoltagesConfig, network, svgParameters, false);
     }
 
-    public TopologicalStyleProvider(Network network, boolean busesHighlightOnHover) {
-        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters(), busesHighlightOnHover);
+    public TopologicalStyleProvider(Network network, boolean busHighlightOnHover) {
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters(), busHighlightOnHover);
     }
 
     public TopologicalStyleProvider(Network network, SvgParameters svgParameters, boolean busesHighlightOnHover) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network, svgParameters, busesHighlightOnHover);
     }
 
-    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network, SvgParameters svgParameters, boolean busesHighlightOnHover) {
+    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network, SvgParameters svgParameters, boolean busHighlightOnHover) {
         super(baseVoltagesConfig);
         this.network = network;
         this.svgParameters = svgParameters;
-        this.busesHighlightOnHover = busesHighlightOnHover;
+        this.busHighlightOnHover = busHighlightOnHover;
     }
 
     @Override
@@ -222,8 +222,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     public List<String> getCssFilenames() {
         List<String> cssFilenames = new ArrayList<>(Arrays.asList("tautologies.css", "topologicalBaseVoltages.css"));
-        if (busesHighlightOnHover) {
-            cssFilenames.add("busesHighlight.css");
+        if (busHighlightOnHover) {
+            cssFilenames.add("busHighlight.css");
         }
         return cssFilenames;
     }
