@@ -57,7 +57,7 @@ public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
     private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
-    private LayoutAlgorithmRunner<V, E> algorithmRunner;
+    private Layout<V, E> algorithmRunner;
 
     public ForceLayout(Graph<V, E> graph) {
         this.layoutContext = new LayoutContext<>(Objects.requireNonNull(graph));
@@ -123,7 +123,7 @@ public class ForceLayout<V, E> {
     }
 
     public void execute() {
-        this.algorithmRunner = new LayoutAlgorithmRunner<>(
+        this.algorithmRunner = new Layout<>(
                 SetupEnum.SPRINGY,
                 this.springyParametersBuilder.build()
         );

@@ -29,7 +29,7 @@ import java.util.function.Function;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class LayoutAlgorithmRunner<V, E> {
+public class Layout<V, E> {
     private Setup<V, E> setup;
     private LayoutAlgorithm<V, E> layoutAlgorithm;
     private boolean hasBeenExecuted = false;
@@ -40,9 +40,9 @@ public class LayoutAlgorithmRunner<V, E> {
     @java.lang.SuppressWarnings("java:S2245")
     private final Random random = new Random(3L);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LayoutAlgorithmRunner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
-    LayoutAlgorithmRunner(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
+    Layout(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
         chooseSetup(setupChoice);
         chooseLayoutAlgorithm(layoutParameters);
     }

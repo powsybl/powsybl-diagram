@@ -23,13 +23,13 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class LayoutAlgorithmRunnerTest {
+class LayoutTest {
     @TempDir
     File tempDirectory;
 
     @Test
     void svgNotExecuted() {
-        LayoutAlgorithmRunner<String, DefaultEdge> runner = new LayoutAlgorithmRunner<>(
+        Layout<String, DefaultEdge> runner = new Layout<>(
                 SetupEnum.SPRINGY,
                 new SpringyParameters.Builder().build()
         );
@@ -39,7 +39,7 @@ class LayoutAlgorithmRunnerTest {
 
     @Test
     void testCenter() {
-        LayoutAlgorithmRunner<String, DefaultEdge> runner = new LayoutAlgorithmRunner<>(
+        Layout<String, DefaultEdge> runner = new Layout<>(
                 SetupEnum.SIMPLE,
                 new SpringyParameters.Builder().build()
         );
