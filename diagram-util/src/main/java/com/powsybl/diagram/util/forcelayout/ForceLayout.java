@@ -65,13 +65,17 @@ public class ForceLayout<V, E> {
     private final LayoutContext<V, E> layoutContext;
     private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
     private Layout<V, E> algorithmRunner;
+    @java.lang.SuppressWarnings("java:S2245")
+    private final Random random;
 
     public ForceLayout(Graph<V, E> graph) {
         this.layoutContext = new LayoutContext<>(Objects.requireNonNull(graph));
+        this.random = new Random(3L);
     }
 
     public ForceLayout(LayoutContext<V, E> layoutContext) {
         this.layoutContext = Objects.requireNonNull(layoutContext);
+        this.random = new Random(3L);
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
@@ -131,7 +135,7 @@ public class ForceLayout<V, E> {
 
     public void execute() {
         this.algorithmRunner = new Layout<>(
-                new SpringySetup<>(new Random(3L)),
+                new SpringySetup<>(random),
                 new SpringyLayout<>(springyParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);
