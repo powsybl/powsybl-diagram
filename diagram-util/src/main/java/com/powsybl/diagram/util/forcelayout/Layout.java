@@ -12,9 +12,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.LayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
-import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
-import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,16 +39,9 @@ public class Layout<V, E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
-    Layout(SetupEnum setupChoice, LayoutParameters<V, E> layoutParameters) {
-        chooseSetup(setupChoice);
+    Layout(Setup<V, E> setup, LayoutParameters<V, E> layoutParameters) {
+        this.setup = setup;
         chooseLayoutAlgorithm(layoutParameters);
-    }
-
-    private void chooseSetup(SetupEnum setupChoice) {
-        this.setup = switch (setupChoice) {
-            case SPRINGY -> new SpringySetup<>();
-            case SIMPLE -> new SimpleSetup<>();
-        };
     }
 
     private void chooseLayoutAlgorithm(LayoutParameters<V, E> layoutParameters) {

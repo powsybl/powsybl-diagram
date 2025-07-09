@@ -31,7 +31,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SetupEnum;
+import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.jgrapht.Graph;
 
 import java.io.IOException;
@@ -124,7 +124,7 @@ public class ForceLayout<V, E> {
 
     public void execute() {
         this.algorithmRunner = new Layout<>(
-                SetupEnum.SPRINGY,
+                new SpringySetup<>(),
                 this.springyParametersBuilder.build()
         );
         algorithmRunner.run(layoutContext);
