@@ -24,7 +24,7 @@ The classes added by the style provider for the "highlight" graph duplicate are 
 With default CSS used, this leads to subnetworks being highlighted.
 > Note: the `SvgParameters` attribute highlightGraph` needs to be set to `true`, so that the SvgWriter adds that simplified "highlight" graph duplicate, which contains only branches and voltage level nodes.
 
-![subnetworks](/_static/img/subnetworks.png)
+![subnetworks](/_static/img/nad/subnetworks.png)
 
 
 ## NominalStyleProvider feature
