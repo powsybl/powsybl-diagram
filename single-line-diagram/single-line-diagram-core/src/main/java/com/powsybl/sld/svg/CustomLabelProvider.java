@@ -25,13 +25,13 @@ import static com.powsybl.sld.model.coordinate.Direction.*;
  *
  * <p>
  * The labels map defines what will be displayed for the equipments, and it is indexed by the equipment ID.
- * The custom content is declared through an SldCustomLabels record: the label will be displayed in the diagram at its standard position;
+ * The custom content is declared through an CustomLabels record: the label will be displayed in the diagram at its standard position;
  * The additionalLabel will be displayed on the equipment's right side.
  *
  * <p>
  * The feederInfosData map defines what will be displayed along the feeder, and it is indexed by the equipment ID (and a not-null side,
- * for feeders with sides such as lines and transformers), through the SldFeederContext record;
- * The custom content is declared via as a list of SldCustomFeederInfos records: the componentType is the info component type name;
+ * for feeders with sides such as lines and transformers), through the FeederContext record;
+ * The custom content is declared via as a list of CustomFeederInfos records: the componentType is the info component type name;
  * labelDirection determines the direction (e.g., IN or OUT for the arrows); label is the string displayed next to the info component.
  *
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
@@ -40,8 +40,8 @@ public class CustomLabelProvider extends AbstractLabelProvider {
 
     private static final double LABEL2_OFFSET = 6d;
 
-    public record SldCustomLabels(String label, String additionalLabel) {
-        public SldCustomLabels(String label) {
+    public record CustomLabels(String label, String additionalLabel) {
+        public CustomLabels(String label) {
             this(label, null);
         }
 
@@ -54,27 +54,27 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         }
     }
 
-    public record SldCustomFeederInfos(String componentType, LabelDirection labelDirection, String label) {
+    public record CustomFeederInfos(String componentType, LabelDirection labelDirection, String label) {
     }
 
-    public record SldFeederContext(String feederId, NodeSide side) {
-        public SldFeederContext(String feederId) {
+    public record FeederContext(String feederId, NodeSide side) {
+        public FeederContext(String feederId) {
             this(feederId, null);
         }
     }
 
-    private final Map<String, SldCustomLabels> labels;
+    private final Map<String, CustomLabels> labels;
 
-    private final Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData;
+    private final Map<FeederContext, List<CustomFeederInfos>> feederInfosData;
 
-    public CustomLabelProvider(Map<String, SldCustomLabels> labels, Map<SldFeederContext, List<SldCustomFeederInfos>> feederInfosData,
+    public CustomLabelProvider(Map<String, CustomLabels> labels, Map<FeederContext, List<CustomFeederInfos>> feederInfosData,
                                SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         super(componentLibrary, layoutParameters, svgParameters);
         this.labels = Objects.requireNonNull(labels);
         this.feederInfosData = Objects.requireNonNull(feederInfosData);
     }
 
-    private Optional<SldCustomLabels> getEquipmentLabel(Node node) {
+    private Optional<CustomLabels> getEquipmentLabel(Node node) {
         if (node instanceof EquipmentNode eqNode) {
             return Optional.ofNullable(labels.get(eqNode.getEquipmentId()));
         } else {
@@ -83,7 +83,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
     }
 
     private List<FeederInfo> getCustomFeederInfos(FeederNode node, NodeSide side) {
-        return feederInfosData.getOrDefault(new SldFeederContext(node.getEquipmentId(), side), List.of())
+        return feederInfosData.getOrDefault(new FeederContext(node.getEquipmentId(), side), List.of())
                 .stream()
                 .map(info -> new DirectionalFeederInfo(info.componentType(),
                         info.labelDirection(),
@@ -130,7 +130,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         return new LabelPosition(positionName + "_LABEL2", dx, yShift, false, (int) angle);
     }
 
-    private void addNodeLabels(SldCustomLabels labels, List<NodeLabel> nodeLabels, LabelPosition labelPosition, LabelPosition additionalLabelPosition) {
+    private void addNodeLabels(CustomLabels labels, List<NodeLabel> nodeLabels, LabelPosition labelPosition, LabelPosition additionalLabelPosition) {
         if (labels.hasLabel()) {
             nodeLabels.add(new NodeLabel(labels.label(), labelPosition, null));
         }
