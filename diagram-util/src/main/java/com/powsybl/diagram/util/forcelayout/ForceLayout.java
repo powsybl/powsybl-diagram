@@ -66,16 +66,16 @@ public class ForceLayout<V, E> {
     private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
     private Layout<V, E> algorithmRunner;
     @java.lang.SuppressWarnings("java:S2245")
-    private final Random random;
+    private final Random random = new Random();
 
     public ForceLayout(Graph<V, E> graph) {
         this.layoutContext = new LayoutContext<>(Objects.requireNonNull(graph));
-        this.random = new Random(3L);
+        this.random.setSeed(3L);
     }
 
     public ForceLayout(LayoutContext<V, E> layoutContext) {
         this.layoutContext = Objects.requireNonNull(layoutContext);
-        this.random = new Random(3L);
+        this.random.setSeed(3L);
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
