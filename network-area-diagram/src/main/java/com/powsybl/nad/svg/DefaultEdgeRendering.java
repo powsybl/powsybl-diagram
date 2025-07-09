@@ -174,7 +174,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 .filter(e -> !loopEdges.contains(e))
                 .mapToDouble(e -> getAngle(e, graph, node))
                 .sorted().boxed().collect(Collectors.toList());
-        return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture());
+        return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture() * 1.2);
     }
 
     private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
@@ -185,74 +185,84 @@ public class DefaultEdgeRendering implements EdgeRendering {
         return findAvailableAngles(anglesOtherEdges, nbInjections, svgParameters.getInjectionAperture());
     }
 
-    private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double edgeAperture) {
-        List<Double> angles = new ArrayList<>();
+    private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double slotAperture) {
         if (!anglesOtherEdges.isEmpty()) {
             anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
-            double apertureWithMargin = Math.toRadians(edgeAperture * 1.2);
 
             double[] deltaAngles = new double[anglesOtherEdges.size() - 1];
-            int nbSeparatedSlots = 0;
-            int nbSharedSlots = 0;
+            int[] nbAvailableSlots = new int[anglesOtherEdges.size() - 1];
+            double totalDeltaAvailable = 0.;
             for (int i = 0; i < anglesOtherEdges.size() - 1; i++) {
                 deltaAngles[i] = anglesOtherEdges.get(i + 1) - anglesOtherEdges.get(i);
-                nbSeparatedSlots += deltaAngles[i] > apertureWithMargin ? 1 : 0;
-                nbSharedSlots += (int) Math.floor(deltaAngles[i] / apertureWithMargin);
+                nbAvailableSlots[i] = (int) Math.floor(deltaAngles[i] / Math.toRadians(slotAperture));
+                if (nbAvailableSlots[i] > 0) {
+                    totalDeltaAvailable += deltaAngles[i];
+                }
             }
 
-            List<Integer> sortedIndices = IntStream.range(0, deltaAngles.length)
-                    .boxed().sorted(Comparator.comparingDouble(i -> deltaAngles[i]))
-                    .collect(Collectors.toList());
-
-            if (nbAngles <= nbSeparatedSlots) {
-                // Place angles in "slots" separated by other edges
-                computeAnglesWhenEnoughSeparatedSlotsPresent(sortedIndices, nbAngles, anglesOtherEdges, angles);
-            } else if (nbAngles <= nbSharedSlots) {
-                // Place the maximum of angles in "slots" separated by other edges, and put the excessive ones in the bigger "slots"
-                int nbExcessiveRemaining = nbAngles - nbSeparatedSlots;
-                computeAnglesWhenEnoughSharedSlotsPresent(nbExcessiveRemaining, sortedIndices, deltaAngles, apertureWithMargin, edgeAperture, anglesOtherEdges, angles);
+            if (nbAngles <= Arrays.stream(nbAvailableSlots).sum() && totalDeltaAvailable > 0) {
+                // Insert the angles in the "slots" separated by other edges which are large enough
+                int[] nbInsertedAngles = computeAnglesInsertedNumber(nbAngles, nbAvailableSlots, totalDeltaAvailable, deltaAngles);
+                return calculateInsertedAngles(nbInsertedAngles, deltaAngles, slotAperture, anglesOtherEdges);
             } else {
                 // Not enough place in the slots: dividing the circle in nbAngles, starting in the middle of the biggest slot
-                int iMaxDelta = sortedIndices.get(sortedIndices.size() - 1);
+                int iMaxDelta = IntStream.range(0, deltaAngles.length).boxed()
+                        .max(Comparator.comparingDouble(i -> deltaAngles[i]))
+                        .orElse(0);
                 double startAngle = (anglesOtherEdges.get(iMaxDelta) + anglesOtherEdges.get(iMaxDelta + 1)) / 2;
-                IntStream.range(0, nbAngles).mapToDouble(i -> startAngle + i * 2 * Math.PI / nbAngles).forEach(angles::add);
+                return IntStream.range(0, nbAngles).mapToDouble(i -> startAngle + i * 2 * Math.PI / nbAngles).boxed().toList();
             }
 
         } else {
             // No other edges: dividing the circle in nbAngles
-            IntStream.range(0, nbAngles).mapToDouble(i -> i * 2 * Math.PI / nbAngles).forEach(angles::add);
-        }
-
-        return angles;
-    }
-
-    private void computeAnglesWhenEnoughSeparatedSlotsPresent(List<Integer> sortedIndices, int nbLoops, List<Double> anglesOtherEdges,
-                                                              List<Double> loopAngles) {
-        for (int i = sortedIndices.size() - nbLoops; i < sortedIndices.size(); i++) {
-            int iSorted = sortedIndices.get(i);
-            loopAngles.add((anglesOtherEdges.get(iSorted) + anglesOtherEdges.get(iSorted + 1)) / 2);
+            return IntStream.range(0, nbAngles).mapToDouble(i -> i * 2 * Math.PI / nbAngles).boxed().toList();
         }
     }
 
-    private void computeAnglesWhenEnoughSharedSlotsPresent(int initNbExcessiveRemaining, List<Integer> sortedIndices,
-                                                           double[] deltaAngles, double apertureWithMargin,
-                                                           double edgeAperture, List<Double> anglesOtherEdges,
-                                                           List<Double> loopAngles) {
-        int nbExcessiveRemaining = initNbExcessiveRemaining;
-        for (int i = sortedIndices.size() - 1; i >= 0; i--) {
-            int iSorted = sortedIndices.get(i);
-            int nbAvailableSlots = (int) Math.floor(deltaAngles[iSorted] / apertureWithMargin);
-            if (nbAvailableSlots == 0) {
-                break;
+    private int[] computeAnglesInsertedNumber(int nbAngles, int[] nbAvailableSlots, double totalDeltaAvailable, double[] deltaAngles) {
+        int[] nbInsertedAngles = new int[deltaAngles.length];
+        for (int i = 0; i < deltaAngles.length; i++) {
+            double deltaAngleNormalized = deltaAngles[i] / totalDeltaAvailable;
+            double nbSlotsFractions = deltaAngleNormalized * nbAngles;
+            int nbSlotsCeil = (int) Math.ceil(nbSlotsFractions);
+            if (nbSlotsCeil <= nbAvailableSlots[i]) {
+                nbInsertedAngles[i] = nbSlotsCeil;
+            } else {
+                nbInsertedAngles[i] = nbSlotsCeil - 1;
             }
-            int nbLoopsInDelta = Math.min(nbAvailableSlots, nbExcessiveRemaining + 1);
-            double extraSpace = deltaAngles[iSorted] - Math.toRadians(edgeAperture) * nbLoopsInDelta; // extra space without margins
-            double intraSpace = extraSpace / (nbLoopsInDelta + 1); // space between two loops and between non-loop edges and first/last loop
-            double angleStep = (anglesOtherEdges.get(iSorted + 1) - anglesOtherEdges.get(iSorted) - intraSpace) / nbLoopsInDelta;
-            double startAngle = anglesOtherEdges.get(iSorted) + intraSpace / 2 + angleStep / 2;
-            IntStream.range(0, nbLoopsInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(loopAngles::add);
-            nbExcessiveRemaining -= nbLoopsInDelta - 1;
         }
+
+        int totalInsertedAngles = Arrays.stream(nbInsertedAngles).sum();
+        if (totalInsertedAngles > nbAngles) {
+            // Too many slots found: remove slots taken starting from the smallest sliced intervals
+            List<Integer> sortedIndices = IntStream.range(0, deltaAngles.length).boxed()
+                    .sorted(Comparator.comparingDouble(i -> deltaAngles[i] / nbInsertedAngles[i])).toList();
+            int nbExcessiveAngles = totalInsertedAngles - nbAngles;
+            for (int iSorted : sortedIndices) {
+                nbInsertedAngles[iSorted]--;
+                if (--nbExcessiveAngles == 0) {
+                    break;
+                }
+            }
+        }
+
+        return nbInsertedAngles;
+    }
+
+    private List<Double> calculateInsertedAngles(int[] nbInsertedAngles, double[] deltaAngles, double slotAperture, List<Double> anglesOtherEdges) {
+        List<Double> insertedAngles = new ArrayList<>();
+        for (int i = 0; i < nbInsertedAngles.length; i++) {
+            int nbAnglesInDelta = nbInsertedAngles[i];
+            if (nbAnglesInDelta == 0) {
+                continue;
+            }
+            double extraSpace = deltaAngles[i] - Math.toRadians(slotAperture) * nbAnglesInDelta;
+            double intraSpace = extraSpace / (nbAnglesInDelta + 1); // space between two added angles and between other edges and first/last angle
+            double angleStep = intraSpace + Math.toRadians(slotAperture);
+            double startAngle = anglesOtherEdges.get(i) + intraSpace + Math.toRadians(slotAperture) / 2;
+            IntStream.range(0, nbAnglesInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(insertedAngles::add);
+        }
+        return insertedAngles;
     }
 
     private double getAngle(Edge edge, Graph graph, Node node) {
