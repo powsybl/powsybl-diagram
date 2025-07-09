@@ -79,6 +79,6 @@ class LayoutContextTest {
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
-        assertDoesNotThrow(() -> layoutContext.getStablePosition("1", false));
+        assertDoesNotThrow(() -> layoutContext.getStablePosition("0", false));
     }
 }
