@@ -50,10 +50,16 @@ import java.util.function.Function;
  * Force calculations are used to place the nodes.
  *
  * The algorithm is inspired from: https://github.com/dhotson/springy
+ * @deprecated Use {@link com.powsybl.diagram.util.forcelayout.Layout} instead <br>
+ * The equivalent of: <br>
+ * {@code new ForceLayout(graph).execute();}<br>
+ * would be <br>
+ * {@code new Layout(new SpringySetup<>(), new SpringyLayout<>(new SpringyParameters.Builder().build()).run(new LayoutContext<>(graph));}
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
+@Deprecated(since = "4.9.0", forRemoval = true)
 public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
