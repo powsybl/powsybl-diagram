@@ -10,7 +10,6 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.LayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +26,8 @@ import java.util.function.Function;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Layout<V, E> {
-    private Setup<V, E> setup;
-    private LayoutAlgorithm<V, E> layoutAlgorithm;
+    private final Setup<V, E> setup;
+    private final LayoutAlgorithm<V, E> layoutAlgorithm;
     private boolean hasBeenExecuted = false;
     private LayoutContext<V, E> layoutContext;
     private Vector2D center = new Vector2D(0, 0);
@@ -39,13 +38,9 @@ public class Layout<V, E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
-    Layout(Setup<V, E> setup, LayoutParameters<V, E> layoutParameters) {
+    Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
         this.setup = setup;
-        chooseLayoutAlgorithm(layoutParameters);
-    }
-
-    private void chooseLayoutAlgorithm(LayoutParameters<V, E> layoutParameters) {
-        this.layoutAlgorithm = layoutParameters.createLayout();
+        this.layoutAlgorithm = layoutAlgorithm;
     }
 
     public void run(LayoutContext<V, E> layoutContext) {

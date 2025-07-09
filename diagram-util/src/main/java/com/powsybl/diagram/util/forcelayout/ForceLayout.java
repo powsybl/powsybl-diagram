@@ -30,6 +30,7 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.jgrapht.Graph;
@@ -125,7 +126,7 @@ public class ForceLayout<V, E> {
     public void execute() {
         this.algorithmRunner = new Layout<>(
                 new SpringySetup<>(),
-                this.springyParametersBuilder.build()
+                new SpringyLayout<>(springyParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);
     }
