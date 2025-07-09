@@ -47,10 +47,10 @@ public class Layout<V, E> {
         this.layoutContext = layoutContext;
         this.layoutContext.setCenter(center);
         long start = System.nanoTime();
-        setup.setup(layoutContext, random);
+        setup.run(layoutContext, random);
         long setupEnd = System.nanoTime();
         LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
-        layoutAlgorithm.calculateLayout(layoutContext);
+        layoutAlgorithm.run(layoutContext);
         LOGGER.info("Layout calculations took {} s", (System.nanoTime() - setupEnd) / 1e9);
         hasBeenExecuted = true;
     }

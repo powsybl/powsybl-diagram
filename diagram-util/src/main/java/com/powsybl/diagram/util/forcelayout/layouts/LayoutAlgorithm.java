@@ -14,5 +14,5 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface LayoutAlgorithm<V, E> {
-    void calculateLayout(LayoutContext<V, E> layoutContext);
+    void run(LayoutContext<V, E> layoutContext);
 }

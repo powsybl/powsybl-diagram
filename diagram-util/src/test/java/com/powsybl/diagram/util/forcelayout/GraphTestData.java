@@ -67,6 +67,6 @@ public final class GraphTestData {
         fixedNodes.add("1");
         layoutContext.setFixedNodes(fixedNodes);
         SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>();
-        setup.setup(layoutContext, RANDOM);
+        setup.run(layoutContext, RANDOM);
     }
 }

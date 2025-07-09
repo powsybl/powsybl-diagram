@@ -20,7 +20,7 @@ import java.util.Random;
 public class SpringySetup<V, E> implements Setup<V, E> {
 
     @Override
-    public void setup(LayoutContext<V, E> layoutContext, Random random) {
+    public void run(LayoutContext<V, E> layoutContext, Random random) {
         int nbUnknownPositions = layoutContext.getSimpleGraph().vertexSet().size() - layoutContext.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.

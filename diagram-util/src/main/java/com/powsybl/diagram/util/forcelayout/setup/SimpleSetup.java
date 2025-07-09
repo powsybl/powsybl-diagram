@@ -20,7 +20,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
 
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
-    public void setup(LayoutContext<V, E> layoutContext, Random random) {
+    public void run(LayoutContext<V, E> layoutContext, Random random) {
         for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
             if (layoutContext.getFixedNodes().contains(vertex)) {
                 layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));

@@ -76,7 +76,7 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     @Override
-    public void calculateLayout(LayoutContext<V, E> layoutContext) {
+    public void run(LayoutContext<V, E> layoutContext) {
         // it would be better if this was created with all the other forces, but we need the graph to init the springs
         this.forces.add(new SpringForce<>(initializeSprings(layoutContext)));
 
