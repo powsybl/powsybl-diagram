@@ -30,10 +30,14 @@ class LayoutTest {
     @TempDir
     File tempDirectory;
 
+    // Suppress the warning about possible unsafe Random, because we use this for simulation and not cryptography
+    @java.lang.SuppressWarnings("java:S2245")
+    private final Random random = new Random(3L);
+
     @Test
     void svgNotExecuted() {
         Layout<String, DefaultEdge> runner = new Layout<>(
-                new SpringySetup<>(new Random(3L)),
+                new SpringySetup<>(random),
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
@@ -43,7 +47,7 @@ class LayoutTest {
     @Test
     void testCenter() {
         Layout<String, DefaultEdge> runner = new Layout<>(
-                new SimpleSetup<>(new Random(3L)),
+                new SimpleSetup<>(random),
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         Vector2D newCenter = new Vector2D(-445, 23.3);

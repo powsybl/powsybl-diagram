@@ -19,7 +19,6 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Random;
 import java.util.function.Function;
 
 /**
@@ -31,10 +30,6 @@ public class Layout<V, E> {
     private boolean hasBeenExecuted = false;
     private LayoutContext<V, E> layoutContext;
     private Vector2D center = new Vector2D(0, 0);
-
-    // Suppress the warning about possible unsafe Random, because we use this for simulation and not cryptography
-    @java.lang.SuppressWarnings("java:S2245")
-    private final Random random = new Random(3L);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
