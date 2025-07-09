@@ -34,10 +34,10 @@ import java.util.*;
 public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
 
-    private final SpringyParameters<V, E> layoutParameters;
+    private final SpringyParameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
 
-    public SpringyLayout(SpringyParameters<V, E> layoutParameters) {
+    public SpringyLayout(SpringyParameters layoutParameters) {
         this.forces.add(new SpringForce<>(new SpringContainer<>()));
         this.forces.add(new CoulombForce<>(
                 new IntensityEffectFromFixedNodesParameters(

@@ -8,9 +8,12 @@
 
 package com.powsybl.diagram.util.forcelayout.geometry;
 
-import com.powsybl.diagram.util.forcelayout.ForceLayout;
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.Helpers;
+import com.powsybl.diagram.util.forcelayout.Layout;
+import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,6 +21,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,19 +59,24 @@ class LayoutContextTest {
     void toSvg() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(layoutContext);
-        forceLayout.execute();
+        Layout<String, DefaultEdge> layout = new Layout<>(
+                new SpringySetup<>(new Random(3L)),
+                new SpringyLayout<>(new SpringyParameters.Builder().build())
+        );
+        layout.run(layoutContext);
         StringWriter sw = new StringWriter();
-        forceLayout.toSVG(tooltip, sw);
+        layout.toSVG(tooltip, sw);
         Helpers helpers = new Helpers();
         assertEquals(helpers.toString("/springy_5_nodes.svg"), sw.toString());
     }
 
     @Test
     void notExecuted() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(layoutContext);
-        assertDoesNotThrow(() -> forceLayout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
+        Layout<String, DefaultEdge> layout = new Layout<>(
+                new SpringySetup<>(new Random(3L)),
+                new SpringyLayout<>(new SpringyParameters.Builder().build())
+        );
+        assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
     }
 }

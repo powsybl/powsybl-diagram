@@ -33,7 +33,7 @@ public class Layout<V, E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
-    Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
+    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
         this.setup = setup;
         this.layoutAlgorithm = layoutAlgorithm;
     }

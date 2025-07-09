@@ -7,7 +7,6 @@
  */
 package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 
-import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SpringyParametersTest {
     @Test
     void testBuilder() {
-        SpringyParameters<String, DefaultEdge> parameters = new SpringyParameters.Builder()
+        SpringyParameters parameters = new SpringyParameters.Builder()
                 .withMaxSteps(324)
                 .withMinEnergyThreshold(0.8)
                 .withDeltaTime(0.06)

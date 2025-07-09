@@ -11,7 +11,7 @@ package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public final class SpringyParameters<V, E> {
+public final class SpringyParameters {
     private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
@@ -98,8 +98,8 @@ public final class SpringyParameters<V, E> {
             return this;
         }
 
-        public <V, E> SpringyParameters<V, E> build() {
-            return new SpringyParameters<>(
+        public SpringyParameters build() {
+            return new SpringyParameters(
                     maxSteps,
                     minEnergyThreshold,
                     deltaTime,
