@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
+import java.util.Random;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +33,7 @@ class LayoutTest {
     @Test
     void svgNotExecuted() {
         Layout<String, DefaultEdge> runner = new Layout<>(
-                new SpringySetup<>(),
+                new SpringySetup<>(new Random(3L)),
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
@@ -42,7 +43,7 @@ class LayoutTest {
     @Test
     void testCenter() {
         Layout<String, DefaultEdge> runner = new Layout<>(
-                new SimpleSetup<>(),
+                new SimpleSetup<>(new Random(3L)),
                 new SpringyLayout<>(new SpringyParameters.Builder().build())
         );
         Vector2D newCenter = new Vector2D(-445, 23.3);

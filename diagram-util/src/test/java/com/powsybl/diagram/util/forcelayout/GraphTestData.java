@@ -66,7 +66,7 @@ public final class GraphTestData {
         Set<String> fixedNodes = new HashSet<>();
         fixedNodes.add("1");
         layoutContext.setFixedNodes(fixedNodes);
-        SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>();
-        setup.run(layoutContext, RANDOM);
+        SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>(RANDOM);
+        setup.run(layoutContext);
     }
 }

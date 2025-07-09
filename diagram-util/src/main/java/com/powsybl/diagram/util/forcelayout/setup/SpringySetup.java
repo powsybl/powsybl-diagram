@@ -18,9 +18,14 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringySetup<V, E> implements Setup<V, E> {
+    private final Random random;
+
+    public SpringySetup(Random random) {
+        this.random = random;
+    }
 
     @Override
-    public void run(LayoutContext<V, E> layoutContext, Random random) {
+    public void run(LayoutContext<V, E> layoutContext) {
         int nbUnknownPositions = layoutContext.getSimpleGraph().vertexSet().size() - layoutContext.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.

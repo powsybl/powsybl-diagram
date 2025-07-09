@@ -47,7 +47,7 @@ public class Layout<V, E> {
         this.layoutContext = layoutContext;
         this.layoutContext.setCenter(center);
         long start = System.nanoTime();
-        setup.run(layoutContext, random);
+        setup.run(layoutContext);
         long setupEnd = System.nanoTime();
         LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
         layoutAlgorithm.run(layoutContext);

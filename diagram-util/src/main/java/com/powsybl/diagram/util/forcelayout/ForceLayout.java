@@ -131,7 +131,7 @@ public class ForceLayout<V, E> {
 
     public void execute() {
         this.algorithmRunner = new Layout<>(
-                new SpringySetup<>(),
+                new SpringySetup<>(new Random(3L)),
                 new SpringyLayout<>(springyParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);

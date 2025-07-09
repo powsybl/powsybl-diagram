@@ -9,11 +9,9 @@ package com.powsybl.diagram.util.forcelayout.setup;
 
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 
-import java.util.Random;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Setup<V, E> {
-    void run(LayoutContext<V, E> layoutContext, Random random);
+    void run(LayoutContext<V, E> layoutContext);
 }
