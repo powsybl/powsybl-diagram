@@ -46,34 +46,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
         initForceGraph(forceGraph);
         SetupListData setupTopologyData = getPointsForRun(forceGraph);
-
-        int pointNumberOnFirstCircle = forceGraph.getAllPoints().size() - setupTopologyData.pointWithNoEdge.length;
-        if (pointNumberOnFirstCircle <= 0) {
-            throw new IllegalStateException("There are more vertex with no edge than there are vertex in the graph, or the graph does not contain any edge");
-        } else {
-
-            double firstCircleRadius = Math.max(1, pointNumberOnFirstCircle / 720); // ensure a separation of at least half a degree
-            // Start by putting all the points who have edges on a circle
-            double angleSeparation = 2 * Math.PI / setupTopologyData.movablePoints.length;
-            for (int i = 0; i < setupTopologyData.movablePoints.length; ++i) {
-                Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
-                position.multiplyBy(firstCircleRadius);
-                setupTopologyData.movablePoints[i].setPosition(position);
-            }
-
-            double secondCircleRadius = 2 * firstCircleRadius;
-            angleSeparation = 2 * Math.PI / setupTopologyData.pointWithNoEdge.length;
-            // Setup all the points with no edges, we won't move those for the remaining part of the setup
-            for (int i = 0; i < setupTopologyData.pointWithNoEdge.length; ++i) {
-                Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
-                position.multiplyBy(secondCircleRadius);
-                setupTopologyData.pointWithNoEdge[i].setPosition(position);
-            }
-            fillDistanceMatrix(setupTopologyData);
-
-            annealingProcess(setupTopologyData, firstCircleRadius, random);
-
-        }
+        annealingProcess(setupTopologyData, random, forceGraph);
     }
 
     private void initForceGraph(ForceGraph<V, E> forceGraph) {
@@ -88,14 +61,27 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
     }
 
-    private void fillDistanceMatrix(SetupListData setupTopologyData) {
-        for (int i = 0; i < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++i) {
-            for (int k = i + 1; k < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++k) {
-                if (setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] == 1) {
-                    double distance = setupTopologyData.allPoints[i].distanceTo(setupTopologyData.allPoints[k]);
-                    setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = distance;
-                    setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[k][i] = distance;
-                }
+    private void putAllPointsInCircle(Point[] movablePoints, Point[] pointWithNoEdge) {
+        if (movablePoints.length == 0) {
+            throw new IllegalStateException("The graph does not contain any edge");
+        } else {
+
+            double firstCircleRadius = Math.max(1, movablePoints.length / 720); // ensure a separation of at least half a degree
+            // Start by putting all the points who have edges on a circle
+            double angleSeparation = 2 * Math.PI / movablePoints.length;
+            for (int i = 0; i < movablePoints.length; ++i) {
+                Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
+                position.multiplyBy(firstCircleRadius);
+                movablePoints[i].setPosition(position);
+            }
+
+            double secondCircleRadius = 2 * firstCircleRadius;
+            angleSeparation = 2 * Math.PI / pointWithNoEdge.length;
+            // Setup all the points with no edges, we won't move those for the remaining part of the setup
+            for (int i = 0; i < pointWithNoEdge.length; ++i) {
+                Vector2D position = new Vector2D(Math.cos(i * angleSeparation), Math.sin(i * angleSeparation));
+                position.multiplyBy(secondCircleRadius);
+                pointWithNoEdge[i].setPosition(position);
             }
         }
     }
@@ -113,44 +99,68 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             allPoints[i] = getPoint(forceGraph, allVertex[i]);
         }
 
-        double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = new double[allPoints.length][allPoints.length];
+        List<Integer> skippedColumn = new ArrayList<>();
+
+        // Find which points have edges or not
         for (int i = 0; i < neighborSetPerVertex.size(); ++i) {
-            distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][i] = 0;
             Set<V> setOfNeighbors = neighborSetPerVertex.get(i);
             if (setOfNeighbors.isEmpty()) {
                 vertexWithNoEdge.add(allVertex[i]);
+                skippedColumn.add(i);
             } else {
                 V thisVertex = allVertex[i];
                 if (forceGraph.getMovingPoints().containsKey(thisVertex)) {
                     vertexMovable.add(thisVertex);
                 }
-                for (int k = i + 1; k < neighborSetPerVertex.size(); ++k) {
-                    // we fill the matrix if two points are next to each other or at a distance of 2
-                    // if two vertex are not next to each other, and they share a common neighbor, it means they are at a distance of 2
-                    V otherVertex = allVertex[k];
-                    if (setOfNeighbors.contains(otherVertex) || !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))) {
-                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = 1; // use a placeholder for now since we didn't position points in a circle yet
-                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[k][i] = 1; // make symmetric
-                    } else {
-                        distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][k] = 0;
-                    }
-                }
             }
         }
-        // Now convert from vertex to point and return
-        List<Point> pointWithNoEdge = new ArrayList<>();
-        List<Point> pointMovable = new ArrayList<>();
 
-        for (V vertex : vertexWithNoEdge) {
-            pointWithNoEdge.add(getPoint(forceGraph, vertex));
+        // Convert from vertex to point
+        Point[] pointWithNoEdge = new Point[vertexWithNoEdge.size()];
+        Point[] pointMovable = new Point[vertexMovable.size()];
+
+        for (int i = 0; i < vertexWithNoEdge.size(); ++i) {
+            pointWithNoEdge[i] = getPoint(forceGraph, vertexWithNoEdge.get(i));
         }
-        for (V vertex : vertexMovable) {
-            pointMovable.add(getPoint(forceGraph, vertex));
+        for (int i = 0; i < vertexMovable.size(); ++i) {
+            pointMovable[i] = getPoint(forceGraph, vertexMovable.get(i));
+        }
+
+        putAllPointsInCircle(pointMovable, pointWithNoEdge);
+
+        // we can't do the distanceMatrix in the previous loop since we didn't know yet how many points are movable
+        double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = new double[pointMovable.length][pointMovable.length];
+        int lineIndex = 0;
+
+        for (int i = 0; i < neighborSetPerVertex.size(); ++i) {
+            Set<V> setOfNeighbors = neighborSetPerVertex.get(i);
+            if (!setOfNeighbors.isEmpty()) {
+                distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][lineIndex] = 0;
+                int columnIndex = lineIndex + 1;
+                for (int k = i + 1; k < neighborSetPerVertex.size(); ++k) {
+                    if (!skippedColumn.contains(k)) {
+                        // we fill the matrix if two points are next to each other or at a distance of 2
+                        // if two vertex are not next to each other, and they share a common neighbor, it means they are at a distance of 2
+                        V otherVertex = allVertex[k];
+                        if (setOfNeighbors.contains(otherVertex) || !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))) {
+                            double distance = getPoint(forceGraph, allVertex[i]).distanceTo(getPoint(forceGraph, allVertex[k]));
+                            distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][columnIndex] = distance;
+                            distanceMatrixForPointsWithEdgeDistanceOneOrTwo[columnIndex][lineIndex] = distance;
+                        } else {
+                            distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][columnIndex] = 0;
+                        }
+                        ++columnIndex;
+                    }
+
+                }
+                // we only increase the line when we went over a point that had edges
+                ++lineIndex;
+            }
         }
 
         return new SetupListData(
-                pointWithNoEdge.toArray(new Point[0]),
-                pointMovable.toArray(new Point[0]),
+                pointWithNoEdge,
+                pointMovable,
                 allPoints,
                 distanceMatrixForPointsWithEdgeDistanceOneOrTwo
         );
@@ -183,7 +193,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             // ignore if we are at the secondChangedIndex to prevent removing the value twice
             if (firstChangedLine[i] != 0 && i != secondChangedIndex) {
                 sum -= firstChangedLine[i];
-                double newDistance = setupTopologyData.allPoints[firstChangedIndex].distanceTo(setupTopologyData.allPoints[i]);
+                double newDistance = setupTopologyData.movablePoints[firstChangedIndex].distanceTo(setupTopologyData.movablePoints[i]);
                 sum += newDistance;
                 firstChangedLine[i] = newDistance;
                 setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][firstChangedIndex] = newDistance; // matrix is symmetric, this might not actually be useful to update and could be ignored
@@ -194,7 +204,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         for (int i = 0; i < secondChangedLine.length; ++i) {
             if (secondChangedLine[i] != 0) {
                 sum -= secondChangedLine[i];
-                double newDistance = setupTopologyData.allPoints[secondChangedIndex].distanceTo(setupTopologyData.allPoints[i]);
+                double newDistance = setupTopologyData.movablePoints[secondChangedIndex].distanceTo(setupTopologyData.movablePoints[i]);
                 sum += newDistance;
                 secondChangedLine[i] = newDistance;
                 setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][secondChangedIndex] = newDistance;
@@ -217,7 +227,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
 
     private void annealingProcess(
         SetupListData setupTopologyData,
-        double circleRadius,
         Random random
     ) {
         // Then start the process
