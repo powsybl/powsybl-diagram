@@ -31,7 +31,7 @@ class LayoutContextTest {
 
     @Test
     void graphCreation() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         assertEquals(5, layoutContext.getSimpleGraph().vertexSet().size());
         assertEquals(4, layoutContext.getSimpleGraph().edgeSet().size());
         assertEquals(1, layoutContext.getFixedPoints().size());
@@ -42,7 +42,7 @@ class LayoutContextTest {
 
     @Test
     void setFixedPoints() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Map<String, Point> fixedPoints = new HashMap<>();
         fixedPoints.put("2", new Point(1.414, 15));
         fixedPoints.put("4", new Point(0, 0));
@@ -53,7 +53,7 @@ class LayoutContextTest {
 
     @Test
     void toSvg() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
         layout.run(layoutContext);
@@ -65,7 +65,7 @@ class LayoutContextTest {
 
     @Test
     void notExecuted() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
         assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));

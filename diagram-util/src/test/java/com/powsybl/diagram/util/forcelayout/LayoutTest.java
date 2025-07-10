@@ -52,7 +52,7 @@ class LayoutTest {
         assertEquals(newCenter.getY(), runner.getCenter().getY());
         Vector2D otherNewCenter = new Vector2D(3.4, -6.1);
         runner.setCenter(otherNewCenter);
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         runner.run(layoutContext);
         assertEquals(otherNewCenter.getX(), runner.getCenter().getX());
         assertEquals(otherNewCenter.getY(), runner.getCenter().getY());

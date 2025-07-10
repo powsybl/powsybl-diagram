@@ -38,13 +38,13 @@ public final class GraphTestData {
         };
     }
 
-    public static LayoutContext<String, DefaultEdge> getForcegraph() {
+    public static LayoutContext<String, DefaultEdge> getLayoutContext() {
         LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(getGraph());
         setup(layoutContext);
         return layoutContext;
     }
 
-    private static Graph<String, DefaultEdge> getGraph() {
+    public static Graph<String, DefaultEdge> getGraph() {
         Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
         for (int i = 0; i < getPoints().length; i++) {
             graph.addVertex(String.valueOf(i));

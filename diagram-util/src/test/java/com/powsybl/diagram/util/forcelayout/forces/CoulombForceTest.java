@@ -22,7 +22,7 @@ class CoulombForceTest {
     @Test
     void apply() {
         double delta = 1e-4;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         CoulombForce<String, DefaultEdge> force = new CoulombForce<>(2, true);
         String[] vertexToTest = {"0"};
         Vector2D[] resultVector = {

@@ -22,7 +22,7 @@ class GravityForceByEdgeNumberTest {
     @Test
     void apply() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(0.01);
         String[] vertexToTest = {
             "0",

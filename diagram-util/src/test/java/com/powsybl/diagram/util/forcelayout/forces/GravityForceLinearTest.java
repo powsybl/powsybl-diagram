@@ -21,7 +21,7 @@ class GravityForceLinearTest {
     @Test
     void apply() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         GravityForceLinear<String, DefaultEdge> gravityForceLinear = new GravityForceLinear<>(0.01);
         String[] vertexToTest = {
             "1",

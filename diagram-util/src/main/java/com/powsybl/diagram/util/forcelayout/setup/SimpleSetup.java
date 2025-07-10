@@ -17,10 +17,14 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SimpleSetup<V, E> implements Setup<V, E> {
-    private final Random random;
+    @SuppressWarnings("java:S2245")
+    private Random random = new Random(3L);
 
     public SimpleSetup(Random random) {
         this.random = random;
+    }
+
+    public SimpleSetup() {
     }
 
     // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
