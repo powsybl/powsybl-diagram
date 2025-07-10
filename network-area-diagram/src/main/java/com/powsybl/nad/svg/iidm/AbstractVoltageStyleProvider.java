@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg.iidm;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Bus;
@@ -71,9 +72,12 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
-        Terminal terminal = network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
-                .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
-        return getBaseVoltageStyle(terminal);
+        return getBaseVoltageStyle(getThreeWtTerminal(threeWtEdge));
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(Injection injection) {
+        return getBaseVoltageStyle(getInjectionTerminal(injection));
     }
 
     @Override
@@ -83,8 +87,28 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected boolean isDisconnected(ThreeWtEdge threeWtEdge) {
-        Terminal terminal = network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
+        return isDisconnected(getThreeWtTerminal(threeWtEdge));
+    }
+
+    private Terminal getThreeWtTerminal(ThreeWtEdge threeWtEdge) {
+        return network.getThreeWindingsTransformer(threeWtEdge.getEquipmentId())
                 .getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(threeWtEdge.getSide()));
+    }
+
+    @Override
+    protected boolean isDisconnected(Injection injection) {
+        return isDisconnected(getInjectionTerminal(injection));
+    }
+
+    private Terminal getInjectionTerminal(Injection injection) {
+        var connectable = network.getConnectable(injection.getEquipmentId());
+        if (!(connectable instanceof com.powsybl.iidm.network.Injection<?> iidmInj)) {
+            throw new PowsyblException("Unknown injection :" + injection.getEquipmentId());
+        }
+        return iidmInj.getTerminal();
+    }
+
+    private static boolean isDisconnected(Terminal terminal) {
         return terminal == null || !terminal.isConnected();
     }
 

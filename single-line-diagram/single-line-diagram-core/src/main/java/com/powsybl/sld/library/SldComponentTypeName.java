@@ -6,12 +6,14 @@
  */
 package com.powsybl.sld.library;
 
+import com.powsybl.diagram.components.ComponentTypeName;
+
 import java.util.Set;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public final class ComponentTypeName {
+public final class SldComponentTypeName extends ComponentTypeName {
     public static final String ARROW_ACTIVE = "ARROW_ACTIVE";
     public static final String ARROW_REACTIVE = "ARROW_REACTIVE";
     public static final String ARROW_CURRENT = "ARROW_CURRENT";
@@ -20,16 +22,10 @@ public final class ComponentTypeName {
     public static final String DISCONNECTOR = "DISCONNECTOR";
     public static final String GROUND = "GROUND";
     public static final String GROUND_DISCONNECTION = "GROUND_DISCONNECTION";
-    public static final String BATTERY = "BATTERY";
     public static final String BUS_CONNECTION = "BUS_CONNECTION";
-    public static final String GENERATOR = "GENERATOR";
     public static final String LINE = "LINE";
-    public static final String LOAD = "LOAD";
     public static final String LOAD_BREAK_SWITCH = "LOAD_BREAK_SWITCH";
     public static final String NODE = "NODE";
-    public static final String CAPACITOR = "CAPACITOR";
-    public static final String INDUCTOR = "INDUCTOR";
-    public static final String STATIC_VAR_COMPENSATOR = "STATIC_VAR_COMPENSATOR";
     public static final String TWO_WINDINGS_TRANSFORMER = "TWO_WINDINGS_TRANSFORMER";
     public static final String TWO_WINDINGS_TRANSFORMER_LEG = "TWO_WINDINGS_TRANSFORMER_LEG";
     public static final String THREE_WINDINGS_TRANSFORMER = "THREE_WINDINGS_TRANSFORMER";
@@ -51,9 +47,4 @@ public final class ComponentTypeName {
     public static final String TIE_LINE = "TIE_LINE";
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
-    public static final String UNKNOWN_COMPONENT = "UNKNOWN_COMPONENT";
-
-    private ComponentTypeName() {
-        throw new AssertionError();
-    }
 }

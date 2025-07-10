@@ -8,14 +8,10 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.*;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,21 +33,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public String getStyleDefs() {
-        StringBuilder styleSheetBuilder = new StringBuilder("\n");
-        for (URL cssUrl : getCssUrls()) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        return styleSheetBuilder.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-    }
-
-    protected List<URL> getCssUrls() {
+    public List<URL> getCssUrls() {
         return getCssFilenames().stream()
                 .map(n -> getClass().getResource("/" + n))
                 .collect(Collectors.toList());
@@ -133,6 +115,18 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         return result;
     }
 
+    @Override
+    public List<String> getInjectionStyleClasses(Injection injection) {
+        List<String> result = new ArrayList<>();
+        if (isDisconnected(injection)) {
+            result.add(DISCONNECTED_CLASS);
+        }
+        getBaseVoltageStyle(injection).ifPresent(result::add);
+        return result;
+    }
+
+    protected abstract boolean isDisconnected(Injection injection);
+
     protected abstract boolean isDisconnected(ThreeWtEdge threeWtEdge);
 
     protected abstract boolean isDisconnected(BranchEdge branchEdge);
@@ -144,6 +138,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
+
+    protected abstract Optional<String> getBaseVoltageStyle(Injection injection);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

@@ -7,11 +7,12 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -25,25 +26,20 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.sld.util.DomUtil;
+import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.io.Writer;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 import static com.powsybl.sld.util.IdUtil.escapeClassName;
 import static com.powsybl.sld.util.IdUtil.escapeId;
@@ -78,12 +74,12 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String WIDTH = "width";
     protected static final String HEIGHT = "height";
 
-    protected final ComponentLibrary componentLibrary;
+    protected final SldComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
     protected final SvgParameters svgParameters;
 
-    public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
+    public DefaultSVGWriter(SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = svgParameters;
@@ -152,15 +148,16 @@ public class DefaultSVGWriter implements SVGWriter {
         Element style = document.createElement(STYLE);
         switch (svgParameters.getCssLocation()) {
             case INSERTED_IN_SVG:
-                List<URL> urls = styleProvider.getCssUrls();
-                urls.addAll(componentLibrary.getCssUrls());
-                style.appendChild(getCdataSection(document, urls));
+                String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls())
+                        + CssUtil.getFilesContent(componentLibrary.getCssUrls());
+                style.appendChild(document.createCDATASection(cssContent));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
             case EXTERNAL_IMPORTED:
-                styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
-                componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+                String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames())
+                        + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
+                style.appendChild(document.createTextNode(cssImports));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
                 break;
@@ -170,26 +167,6 @@ public class DefaultSVGWriter implements SVGWriter {
             default:
                 throw new AssertionError("Unexpected CSS location: " + svgParameters.getCssLocation());
         }
-    }
-
-    private org.w3c.dom.Node addStyleImportTextNode(Document document, Element style, String name) {
-        return style.appendChild(document.createTextNode("@import url(" + name + ");"));
-    }
-
-    private CDATASection getCdataSection(Document document, List<URL> cssUrls) {
-        StringBuilder styleSheetBuilder = new StringBuilder();
-        for (URL cssUrl : cssUrls) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        String graphStyle = "\n" + styleSheetBuilder + "\n";
-        String cssStr = graphStyle
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-        return document.createCDATASection(cssStr);
     }
 
     private void addFrame(Document document) {
@@ -324,7 +301,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String prefixId = metadata.getSvgParameters().getPrefixId();
 
         String gridId = prefixId + "GRID_" + graph.getVoltageLevelInfos().getId();
-        gridRoot.setAttribute("id", gridId);
+        gridRoot.setAttribute("id", IdUtil.escapeId(gridId));
         gridRoot.setAttribute(CLASS, StyleClassConstants.GRID_STYLE_CLASS);
 
         // vertical lines
@@ -418,7 +395,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(null, nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
                     false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
-                metadata.addComponent(new Component(BUSBAR_SECTION,
+                metadata.addComponent(new SldComponent(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
                         componentLibrary.getTransformations(BUSBAR_SECTION), null));
@@ -508,7 +485,7 @@ public class DefaultSVGWriter implements SVGWriter {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
             String svgId = getNodeLabelId(prefixId, node, labelPosition);
-            label.setAttribute("id", svgId);
+            label.setAttribute("id", IdUtil.escapeId(svgId));
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
@@ -531,7 +508,8 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawGraphLabel(Element root, VoltageLevelGraph graph, GraphMetadata metadata) {
         // drawing the label of the voltageLevel
-        String idLabelVoltageLevel = metadata.getSvgParameters().getPrefixId() + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
+        String unescapedId = metadata.getSvgParameters().getPrefixId() + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
+        String idLabelVoltageLevel = IdUtil.escapeId(unescapedId);
         Element gLabel = root.getOwnerDocument().createElement(GROUP);
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
@@ -543,7 +521,7 @@ public class DefaultSVGWriter implements SVGWriter {
         gLabel.appendChild(label);
         root.appendChild(gLabel);
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, idLabelVoltageLevel,
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(unescapedId, idLabelVoltageLevel,
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
@@ -687,7 +665,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Checking if svg component is allowed to be transformed (rotate or flip)
         // (ex : disconnector in SVG component library not allowed to rotate)
         Orientation nodeOrientation = node.getOrientation();
-        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
         if (transformation != null) {
             switch (transformation) {
                 case ROTATION: {
@@ -866,7 +844,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
-            metadata.addComponent(new Component(componentType,
+            metadata.addComponent(new SldComponent(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
@@ -889,7 +867,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
+        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
@@ -945,7 +923,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute(CLASS, String.join(" ", styles));
 
         // Identity
-        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        String svgId = escapeId(busNode.getId() + "_" + busInfo.getComponentType());
         g.setAttribute("id", svgId);
 
         // Metadata
@@ -1124,7 +1102,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
                 if (subComponents != null) {
                     Element group = document.createElement(GROUP);
-                    group.setAttribute("id", c);
+                    group.setAttribute("id", IdUtil.escapeId(c));
 
                     insertSVGComponentIntoDefsArea(c, group, subComponents);
 
@@ -1142,7 +1120,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Map.Entry<String, List<Element>> subComponent : subComponents.entrySet()) {
             if (subComponents.size() > 1) {
                 Element subComponentGroup = group.getOwnerDocument().createElement("g");
-                subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
+                subComponentGroup.setAttribute("id", IdUtil.escapeId(getHRefValue(subComponents.size(), componentType, subComponent.getKey())));
                 addSvgSubComponentsToElement(subComponent.getValue(), subComponentGroup);
                 group.getOwnerDocument().adoptNode(subComponentGroup);
                 group.appendChild(subComponentGroup);
@@ -1180,7 +1158,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         // colored circle
-        circle.setAttribute("id", idNode + "_circle");
+        circle.setAttribute("id", IdUtil.escapeId(idNode + "_circle"));
         circle.setAttribute("cx", String.valueOf(xShift));
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1192,7 +1170,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double padding = 2.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
-            label.setAttribute("id", idNode + "_" + caption.type());
+            label.setAttribute("id", IdUtil.escapeId(idNode + "_" + caption.type()));
 
             label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
             label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1218,15 +1196,16 @@ public class DefaultSVGWriter implements SVGWriter {
         double xShift = graph.getX() + xInitPos;
         for (BusLegendInfo busLegendInfo : labelProvider.getBusLegendInfos(graph)) {
             String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
+            String escapedIdNode = IdUtil.escapeId(idNode);
             Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
-            gNode.setAttribute("id", idNode);
+            gNode.setAttribute("id", escapedIdNode);
 
             List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
             drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, styles);
 
             nodesInfosNode.appendChild(gNode);
 
-            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(idNode));
+            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(escapedIdNode));
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }

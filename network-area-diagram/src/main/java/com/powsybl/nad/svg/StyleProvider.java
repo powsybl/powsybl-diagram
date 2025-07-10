@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public interface StyleProvider {
     String BOUNDARY_NODE_CLASS = CLASSES_PREFIX + "boundary-node";
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
+    String INJECTIONS_CLASS = CLASSES_PREFIX + "injections";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
     String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
@@ -46,7 +48,7 @@ public interface StyleProvider {
 
     List<String> getCssFilenames();
 
-    String getStyleDefs();
+    List<URL> getCssUrls();
 
     List<String> getNodeStyleClasses(Node node);
 
@@ -64,6 +66,8 @@ public interface StyleProvider {
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
+    List<String> getInjectionStyleClasses(Injection injection);
+
     List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
 
     default String getBusNodeStyle(BusNode busNode) {
@@ -75,6 +79,10 @@ public interface StyleProvider {
     }
 
     default String getThreeWtEdgeStyle(ThreeWtEdge threeWtedge) {
+        return null;
+    }
+
+    default String getInjectionStyle(Injection injection) {
         return null;
     }
 }

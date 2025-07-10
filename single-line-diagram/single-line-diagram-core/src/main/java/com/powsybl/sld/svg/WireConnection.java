@@ -8,8 +8,8 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
@@ -39,17 +39,17 @@ public final class WireConnection {
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
 
-    public static List<AnchorPoint> getAnchorPoints(ComponentLibrary componentLibrary, Node node) {
+    public static List<AnchorPoint> getAnchorPoints(SldComponentLibrary componentLibrary, Node node) {
         String componentType = node.getComponentType();
         Orientation nodeOrientation = node.getOrientation();
-        Component.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
+        SldComponent.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
         return componentLibrary.getAnchorPoints(componentType)
                 .stream()
                 .map(anchorPoint -> anchorPoint.transformAnchorPoint(nodeOrientation, transformation))
                 .collect(Collectors.toList());
     }
 
-    public static WireConnection searchBestAnchorPoints(ComponentLibrary componentLibrary, VoltageLevelGraph graph, Node node1, Node node2) {
+    public static WireConnection searchBestAnchorPoints(SldComponentLibrary componentLibrary, VoltageLevelGraph graph, Node node1, Node node2) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
@@ -76,7 +76,7 @@ public final class WireConnection {
         }
     }
 
-    public static AnchorPoint getBestAnchorPoint(ComponentLibrary componentLibrary, Graph graph, Node node, Point point) {
+    public static AnchorPoint getBestAnchorPoint(SldComponentLibrary componentLibrary, Graph graph, Node node, Point point) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node);
         Objects.requireNonNull(point);

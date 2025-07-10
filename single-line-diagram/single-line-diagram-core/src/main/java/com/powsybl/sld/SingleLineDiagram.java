@@ -13,7 +13,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -180,7 +180,7 @@ public final class SingleLineDiagram {
         metadata.writeJson(metadataWriter);
     }
 
-    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(layoutParameters);
         Objects.requireNonNull(svgParameters);

@@ -8,6 +8,7 @@ package com.powsybl.sld.builders;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
+import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
@@ -21,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
@@ -193,19 +194,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .collect(Collectors.toList()));
     }
 
-    static boolean isCapacitor(ShuntCompensator sc) {
-        switch (sc.getModelType()) {
-            case LINEAR:
-                return ((ShuntCompensatorLinearModel) sc.getModel()).getBPerSection() >= 0;
-            case NON_LINEAR:
-                ShuntCompensatorNonLinearModel model = (ShuntCompensatorNonLinearModel) sc.getModel();
-                double averageB = model.getAllSections().stream().mapToDouble(ShuntCompensatorNonLinearModel.Section::getB).average().orElse(0);
-                return averageB >= 0;
-            default:
-                throw new IllegalStateException("Unknown shunt compensator model type: " + sc.getModelType());
-        }
-    }
-
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
@@ -368,7 +356,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitShuntCompensator(ShuntCompensator sc) {
-            FeederNode feederNode = isCapacitor(sc)
+            FeederNode feederNode = IidmUtil.isCapacitor(sc)
                     ? NodeFactory.createCapacitor(graph, sc.getId(), sc.getNameOrId())
                     : NodeFactory.createInductor(graph, sc.getId(), sc.getNameOrId());
             addTerminalNode(feederNode, sc.getTerminal());

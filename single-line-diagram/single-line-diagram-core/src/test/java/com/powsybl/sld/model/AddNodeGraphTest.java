@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
@@ -51,7 +51,7 @@ class AddNodeGraphTest extends AbstractTestCaseIidm {
 
         // Creates new node
         Node replacingNode = new SwitchNode(replacingNodeId, "replacingNode",
-            ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+            SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
 
         // Replace the origin node with that new node
         Node originNode = graph.getNode(originNodeId);
