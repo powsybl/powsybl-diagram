@@ -259,7 +259,8 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 } else {
                     // swap back
                     swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
-                    previousEnergy = calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
+                    // update matrix back
+                    calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
                 }
             }
             temperature *= TEMPERATURE_DECREASE_RATIO;
