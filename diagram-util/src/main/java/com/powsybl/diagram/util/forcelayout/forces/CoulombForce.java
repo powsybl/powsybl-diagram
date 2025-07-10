@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -18,10 +17,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  */
 public class CoulombForce<V, E> implements Force<V, E> {
 
-    private final IntensityEffectFromFixedNodesParameters forceParameter;
+    private final double forceIntensity;
+    private final boolean effectFromFixedNodes;
 
-    public CoulombForce(IntensityEffectFromFixedNodesParameters forceParameter) {
-        this.forceParameter = forceParameter;
+    public CoulombForce(double forceIntensity, boolean effectFromFixedNodes) {
+        this.forceIntensity = forceIntensity;
+        this.effectFromFixedNodes = effectFromFixedNodes;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class CoulombForce<V, E> implements Force<V, E> {
             }
             coulombBetweenPoints(resultingForce, point, otherMovingPoint);
         }
-        if (forceParameter.isEffectFromFixedNodes()) {
+        if (effectFromFixedNodes) {
             for (Point otherFixedPoint : layoutContext.getFixedPoints().values()) {
                 coulombBetweenPoints(resultingForce, point, otherFixedPoint);
             }
@@ -53,7 +54,7 @@ public class CoulombForce<V, E> implements Force<V, E> {
         /// but that was incorrect since we multiply by 0.5 at the denominator, meaning we multiply by 2 the force
         /// In a goal of getting the same results after the refactor, this implementation of Coulomb does the same
         /// even if it could be considered "incorrect" compared to the original goal of those operations
-        double intensity = forceParameter.getForceIntensity() / (magnitude * magnitude * magnitude * 0.5 + 0.1 * magnitude);
+        double intensity = forceIntensity / (magnitude * magnitude * magnitude * 0.5 + 0.1 * magnitude);
         force.multiplyBy(intensity);
         resultingForce.add(force);
     }

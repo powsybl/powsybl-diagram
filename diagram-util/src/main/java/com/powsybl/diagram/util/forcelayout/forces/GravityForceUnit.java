@@ -7,7 +7,6 @@
  */
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -16,16 +15,16 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class GravityForceUnit<V, E> implements Force<V, E> {
-    private final IntensityParameter forceParameter;
+    private final double forceIntensity;
 
-    public GravityForceUnit(IntensityParameter forceParameter) {
-        this.forceParameter = forceParameter;
+    public GravityForceUnit(double forceIntensity) {
+        this.forceIntensity = forceIntensity;
     }
 
     @Override
     public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
-        force.multiplyBy(forceParameter.getForceIntensity());
+        force.multiplyBy(forceIntensity);
         return force;
     }
 }

@@ -9,7 +9,6 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
@@ -24,9 +23,7 @@ class GravityForceByEdgeNumberTest {
     void apply() {
         double delta = 1e-5;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
-        GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(
-                new IntensityParameter(0.01)
-        );
+        GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(0.01);
         String[] vertexToTest = {
             "0",
             "1",

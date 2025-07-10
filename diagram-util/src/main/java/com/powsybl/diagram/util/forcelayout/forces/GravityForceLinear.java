@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
@@ -17,10 +16,10 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class GravityForceLinear<V, E> implements Force<V, E> {
-    private final IntensityParameter forceParameter;
+    private final double forceIntensity;
 
-    public GravityForceLinear(IntensityParameter forceParameter) {
-        this.forceParameter = forceParameter;
+    public GravityForceLinear(double forceIntensity) {
+        this.forceIntensity = forceIntensity;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class GravityForceLinear<V, E> implements Force<V, E> {
         // it means that nodes will generally not get further than a certain distance from the center, instead of leaving room to other nodes for expanding
         // that makes graphs more compact, but it could also cause issues with big graphs, where it would be too compact
         Vector2D force = Vector2D.calculateVectorBetweenPoints(point, layoutContext.getOrigin());
-        force.multiplyBy(forceParameter.getForceIntensity());
+        force.multiplyBy(forceIntensity);
         return force;
     }
 }

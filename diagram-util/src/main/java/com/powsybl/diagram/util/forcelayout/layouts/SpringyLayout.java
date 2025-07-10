@@ -40,17 +40,11 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
     public SpringyLayout(SpringyParameters layoutParameters) {
         this.forces.add(new SpringForce<>(new SpringContainer<>()));
         this.forces.add(new CoulombForce<>(
-                new IntensityEffectFromFixedNodesParameters(
-                        layoutParameters.getRepulsion(),
-                        layoutParameters.isRepulsionForceFromFixedPoints()
-                )
+            layoutParameters.getRepulsion(),
+            layoutParameters.isRepulsionForceFromFixedPoints()
         ));
         if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new GravityForceLinear<>(
-                    new IntensityParameter(
-                            layoutParameters.getRepulsion() / 200
-                    )
-            ));
+            this.forces.add(new GravityForceLinear<>(layoutParameters.getRepulsion() / 200));
         }
         this.layoutParameters = layoutParameters;
     }

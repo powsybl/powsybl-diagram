@@ -9,7 +9,6 @@
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
@@ -24,7 +23,7 @@ class CoulombForceTest {
     void apply() {
         double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getForcegraph();
-        CoulombForce<String, DefaultEdge> force = new CoulombForce<>(new IntensityEffectFromFixedNodesParameters(2, true));
+        CoulombForce<String, DefaultEdge> force = new CoulombForce<>(2, true);
         String[] vertexToTest = {"0"};
         Vector2D[] resultVector = {
             new Vector2D(-3.9493, 3.8805)
