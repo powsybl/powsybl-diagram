@@ -18,14 +18,14 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringySetup<V, E> implements Setup<V, E> {
-    private final Random random;
+    @SuppressWarnings("java:S2245")
+    private Random random = new Random(3L);
 
     public SpringySetup(Random random) {
         this.random = random;
     }
 
     public SpringySetup() {
-        this.random = new Random(3L);
     }
 
     @Override
