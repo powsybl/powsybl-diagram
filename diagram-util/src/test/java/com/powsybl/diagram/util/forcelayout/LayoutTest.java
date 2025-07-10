@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
