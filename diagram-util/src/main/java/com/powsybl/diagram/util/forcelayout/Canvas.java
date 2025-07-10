@@ -32,7 +32,7 @@ public class Canvas {
 
     public Vector2D toScreen(Vector2D position) {
         double screenX = (position.getX() - boundingBox.getLeft()) * scale + margin;
-        double screenY = (position.getY() - boundingBox.getBottom()) * scale + margin;
+        double screenY = (position.getY() - boundingBox.getTop()) * scale + margin;
         return new Vector2D(screenX, screenY);
     }
 
