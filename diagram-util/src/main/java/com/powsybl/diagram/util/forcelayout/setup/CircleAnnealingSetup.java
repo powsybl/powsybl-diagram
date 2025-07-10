@@ -46,7 +46,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
         initForceGraph(forceGraph);
         SetupListData setupTopologyData = getPointsForRun(forceGraph);
-        annealingProcess(setupTopologyData, random, forceGraph);
+        annealingProcess(setupTopologyData, random);
     }
 
     private void initForceGraph(ForceGraph<V, E> forceGraph) {
@@ -187,7 +187,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
 
     private double calculateObjectiveFunction(SetupListData setupTopologyData, double previousObjectiveValue, int firstChangedIndex, int secondChangedIndex) {
         double sum = previousObjectiveValue;
-        double actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
         double[] firstChangedLine = setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[firstChangedIndex];
         for (int i = 0; i < firstChangedLine.length; ++i) {
             // ignore if we are at the secondChangedIndex to prevent removing the value twice
@@ -199,7 +198,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][firstChangedIndex] = newDistance; // matrix is symmetric, this might not actually be useful to update and could be ignored
             }
         }
-        actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
         double[] secondChangedLine = setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[secondChangedIndex];
         for (int i = 0; i < secondChangedLine.length; ++i) {
             if (secondChangedLine[i] != 0) {
@@ -208,10 +206,8 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 sum += newDistance;
                 secondChangedLine[i] = newDistance;
                 setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[i][secondChangedIndex] = newDistance;
-                actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
             }
         }
-        actualTotal = calculateStartingObjectiveFunction(setupTopologyData);
         return sum;
     }
 
@@ -264,18 +260,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     // swap back
                     swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
                     previousEnergy = calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
-                }
-
-                // if the energy is lower, just update the energy value and keep going
-                // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-                if (newEnergy < previousEnergy || random.nextDouble() < acceptanceRatio) {
-                    previousEnergy = newEnergy;
-                    if (newEnergy < bestEnergy) {
-                        bestEnergy = newEnergy;
-                    }
-                } else {
-                    // swap back
-                    swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
                 }
             }
             temperature *= TEMPERATURE_DECREASE_RATIO;
