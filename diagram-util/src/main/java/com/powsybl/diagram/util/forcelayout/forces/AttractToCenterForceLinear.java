@@ -15,22 +15,20 @@ import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class GravityForceByEdgeNumber<V, E> implements Force<V, E> {
-
+public class AttractToCenterForceLinear<V, E> implements Force<V, E> {
     private final double forceIntensity;
 
-    public GravityForceByEdgeNumber(double forceIntensity) {
+    public AttractToCenterForceLinear(double forceIntensity) {
         this.forceIntensity = forceIntensity;
     }
 
     @Override
     public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
-        // magnitude = k * (deg (point) + 1)
-        // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
-        // this means less connected points will end more on the sides of the graph
-        double magnitude = forceIntensity * (layoutContext.getSimpleGraph().degreeOf(vertex) + 1);
-        Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
-        force.multiplyBy(magnitude);
+        // we don't use a unit vector to follow the previous convention, even though this is a bit strange
+        // it means that nodes will generally not get further than a certain distance from the center, instead of leaving room to other nodes for expanding
+        // that makes graphs more compact, but it could also cause issues with big graphs, where it would be too compact
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(point, layoutContext.getOrigin());
+        force.multiplyBy(forceIntensity);
         return force;
     }
 }

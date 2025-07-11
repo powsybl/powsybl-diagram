@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout.layouts;
 
 import com.powsybl.diagram.util.forcelayout.forces.Force;
 import com.powsybl.diagram.util.forcelayout.forces.CoulombForce;
-import com.powsybl.diagram.util.forcelayout.forces.GravityForceLinear;
+import com.powsybl.diagram.util.forcelayout.forces.AttractToCenterForceLinear;
 import com.powsybl.diagram.util.forcelayout.forces.SpringForce;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.*;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
@@ -44,7 +44,7 @@ public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
             layoutParameters.isRepulsionForceFromFixedPoints()
         ));
         if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new GravityForceLinear<>(layoutParameters.getRepulsion() / 200));
+            this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsion() / 200));
         }
         this.layoutParameters = layoutParameters;
     }

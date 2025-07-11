@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-
 package com.powsybl.diagram.util.forcelayout.forces;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
@@ -17,23 +16,23 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class GravityForceUnitTest {
+class AttractToCenterForceLinearTest {
 
     @Test
     void apply() {
         double delta = 1e-5;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        GravityForceUnit<String, DefaultEdge> gravityForceUnit = new GravityForceUnit<>(0.01);
+        AttractToCenterForceLinear<String, DefaultEdge> attractToCenterForceLinear = new AttractToCenterForceLinear<>(0.01);
         String[] vertexToTest = {
             "1",
             "2",
             "4"
         };
         Vector2D[] resultVector = {
-            new Vector2D(0.007487, -0.006629),
-            new Vector2D(-0.000939, -0.009956),
-            new Vector2D(-0.007071, -0.007071)
+            new Vector2D(0.0314, -0.0278),
+            new Vector2D(-0.01414, -0.15),
+            new Vector2D(-0.05, -0.05)
         };
-        ForceTestUtil.testForceCalculation(layoutContext, gravityForceUnit, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceLinear, vertexToTest, resultVector, delta);
     }
 }

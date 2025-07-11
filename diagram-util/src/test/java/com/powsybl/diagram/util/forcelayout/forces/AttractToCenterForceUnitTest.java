@@ -17,24 +17,23 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class GravityForceByEdgeNumberTest {
+class AttractToCenterForceUnitTest {
 
     @Test
     void apply() {
         double delta = 1e-5;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        GravityForceByEdgeNumber<String, DefaultEdge> gravityForceByEdgeNumber = new GravityForceByEdgeNumber<>(0.01);
+        AttractToCenterForceUnit<String, DefaultEdge> attractToCenterForceUnit = new AttractToCenterForceUnit<>(0.01);
         String[] vertexToTest = {
-            "0",
             "1",
-            "4",
+            "2",
+            "4"
         };
         Vector2D[] resultVector = {
-            new Vector2D(-0.01789, -0.03578),
-            new Vector2D(0.022461, -0.019887),
+            new Vector2D(0.007487, -0.006629),
+            new Vector2D(-0.000939, -0.009956),
             new Vector2D(-0.007071, -0.007071)
         };
-
-        ForceTestUtil.testForceCalculation(layoutContext, gravityForceByEdgeNumber, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceUnit, vertexToTest, resultVector, delta);
     }
 }
