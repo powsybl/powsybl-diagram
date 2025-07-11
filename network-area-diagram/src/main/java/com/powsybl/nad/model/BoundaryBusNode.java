@@ -7,13 +7,15 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.Collections;
+
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 public class BoundaryBusNode extends BusNode {
 
     public BoundaryBusNode(String diagramId, String equipmentId) {
-        super(diagramId, equipmentId);
+        super(diagramId, equipmentId, Collections.emptyList());
     }
 
 }

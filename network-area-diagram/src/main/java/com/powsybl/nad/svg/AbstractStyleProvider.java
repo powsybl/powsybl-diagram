@@ -115,6 +115,18 @@ public abstract class AbstractStyleProvider implements StyleProvider {
         return result;
     }
 
+    @Override
+    public List<String> getInjectionStyleClasses(Injection injection) {
+        List<String> result = new ArrayList<>();
+        if (isDisconnected(injection)) {
+            result.add(DISCONNECTED_CLASS);
+        }
+        getBaseVoltageStyle(injection).ifPresent(result::add);
+        return result;
+    }
+
+    protected abstract boolean isDisconnected(Injection injection);
+
     protected abstract boolean isDisconnected(ThreeWtEdge threeWtEdge);
 
     protected abstract boolean isDisconnected(BranchEdge branchEdge);
@@ -126,6 +138,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
+
+    protected abstract Optional<String> getBaseVoltageStyle(Injection injection);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

@@ -170,6 +170,11 @@ public class CustomStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
+    protected boolean isDisconnected(Injection injection) {
+        return false;
+    }
+
+    @Override
     protected Optional<String> getBaseVoltageStyle(Edge edge) {
         return Optional.empty();
     }
@@ -181,6 +186,11 @@ public class CustomStyleProvider extends AbstractStyleProvider {
 
     @Override
     protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
+        return Optional.empty();
+    }
+
+    @Override
+    protected Optional<String> getBaseVoltageStyle(Injection injection) {
         return Optional.empty();
     }
 }
