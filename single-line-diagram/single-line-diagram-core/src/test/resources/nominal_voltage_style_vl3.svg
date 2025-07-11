@@ -88,47 +88,49 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-vl50to70 sld-bus-disconnected" id="idbbs3" transform="translate(60.0,252.0)">
-            <line x1="0" x2="120.0" y1="0" y2="0"/>
-            <text class="sld-label" id="idbbs3_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs3</text>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
-            <g class="sld-wire sld-vl50to70" id="_95_vl3_95_d3WT_95_3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3">
-                <polyline points="120.0,252.0,120.0,222.0"/>
+        <g class="sld-voltage-level" id="vl3">
+            <g class="sld-busbar-section sld-vl50to70 sld-bus-disconnected" id="idbbs3" transform="translate(60.0,252.0)">
+                <line x1="0" x2="120.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbs3_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs3</text>
             </g>
-            <g class="sld-wire sld-vl50to70" id="_95_vl3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3_95_b3WT_95_3">
-                <polyline points="120.0,222.0,120.0,192.0"/>
-            </g>
-            <g class="sld-wire sld-vl50to70" id="_95_vl3_95_3WT_95_b3WT_95_3">
-                <polyline points="120.0,154.0,120.0,172.0"/>
-            </g>
-            <g class="sld-wire sld-vl300to500 sld-feeder-disconnected" id="_95_vl3_95_3WT_95_ONE_95_3WT">
-                <polyline points="80.0,80.0,80.0,142.0,113.0,142.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl3_95_3WT_95_TWO_95_3WT">
-                <polyline points="160.0,80.0,160.0,142.0,127.0,142.0"/>
-            </g>
-            <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70" id="idd3WT_95_3" transform="translate(116.0,248.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70" id="idINTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3" transform="translate(116.0,218.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-open sld-fictitious sld-vl50to70" id="idb3WT_95_3" transform="translate(110.0,172.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-            </g>
-            <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(112.0,130.0)">
-                <circle class="sld-vl300to500 sld-winding" cx="5" cy="15" r="5"/>
-                <circle class="sld-vl180to300 sld-winding" cx="11" cy="15" r="5"/>
-                <circle class="sld-vl50to70 sld-winding" cx="8" cy="19" r="5"/>
-            </g>
-            <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_ONE" transform="translate(80.0,80.0)">
-                <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
-            </g>
-            <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_TWO" transform="translate(160.0,80.0)">
-                <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
+                <g class="sld-wire sld-vl50to70" id="_95_vl3_95_d3WT_95_3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3">
+                    <polyline points="120.0,252.0,120.0,222.0"/>
+                </g>
+                <g class="sld-wire sld-vl50to70" id="_95_vl3_95_INTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3_95_b3WT_95_3">
+                    <polyline points="120.0,222.0,120.0,192.0"/>
+                </g>
+                <g class="sld-wire sld-vl50to70" id="_95_vl3_95_3WT_95_b3WT_95_3">
+                    <polyline points="120.0,154.0,120.0,172.0"/>
+                </g>
+                <g class="sld-wire sld-vl300to500 sld-feeder-disconnected" id="_95_vl3_95_3WT_95_ONE_95_3WT">
+                    <polyline points="80.0,80.0,80.0,142.0,113.0,142.0"/>
+                </g>
+                <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl3_95_3WT_95_TWO_95_3WT">
+                    <polyline points="160.0,80.0,160.0,142.0,127.0,142.0"/>
+                </g>
+                <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70" id="idd3WT_95_3" transform="translate(116.0,248.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious sld-vl50to70" id="idINTERNAL_95_vl3_95_d3WT_95_3_45_b3WT_95_3" transform="translate(116.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-open sld-fictitious sld-vl50to70" id="idb3WT_95_3" transform="translate(110.0,172.0)">
+                    <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                    <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                </g>
+                <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(112.0,130.0)">
+                    <circle class="sld-vl300to500 sld-winding" cx="5" cy="15" r="5"/>
+                    <circle class="sld-vl180to300 sld-winding" cx="11" cy="15" r="5"/>
+                    <circle class="sld-vl50to70 sld-winding" cx="8" cy="19" r="5"/>
+                </g>
+                <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_ONE" transform="translate(80.0,80.0)">
+                    <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                </g>
+                <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_TWO" transform="translate(160.0,80.0)">
+                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                </g>
             </g>
         </g>
     </g>

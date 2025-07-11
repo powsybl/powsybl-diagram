@@ -12,10 +12,13 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.styles.BusHighlightStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -163,6 +166,20 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         styleProvider = new TopologicalStyleProvider(network, false);
         assertFalse(styleProvider.getCssFilenames().contains("busHighlight.css"));
+    }
+
+    @Test
+    void testBusHighlightSubstationUnifiedVoltageLevelColors() {
+        svgParameters.setUnifyVoltageLevelColors(true);
+
+        // build graph
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run layout
+        new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
+
+        // write SVG and compare to reference
+        assertEquals(toString("/TestBusHighlightSubstationUnifiedColors.svg"), toSVG(g, "/TestBusHighlightSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network, svgParameters, true)));
     }
 
 }
