@@ -11,16 +11,12 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
-import java.util.Objects;
 import java.util.Random;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringySetup<V, E> implements Setup<V, E> {
-    @SuppressWarnings("java:S2245")
-    private Random random = new Random(3L);
-
+public class SpringySetup<V, E> extends SimpleSetup<V, E> {
     public SpringySetup(Random random) {
         this.random = random;
     }
@@ -35,7 +31,7 @@ public class SpringySetup<V, E> implements Setup<V, E> {
         // Initialize the missing positions by use the default random number generator.
         // Apply a scale depending on the number of unknown positions to have an expected mean distance remain around the same value.
         // The positions are around the center of given initial positions.
-        double scale = Math.sqrt(nbUnknownPositions) * 5;
+        this.scale = Math.sqrt(nbUnknownPositions) * 5;
         Vector2D initialPointsCenter = new Vector2D();
         if (!layoutContext.getInitialPoints().isEmpty()) {
             layoutContext.getInitialPoints().values().stream()
@@ -43,18 +39,7 @@ public class SpringySetup<V, E> implements Setup<V, E> {
                     .forEach(initialPointsCenter::add);
             initialPointsCenter.divideBy(layoutContext.getInitialPoints().size());
         }
-        layoutContext.setCenter(initialPointsCenter);
-
-        for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
-            if (layoutContext.getFixedNodes().contains(vertex)) {
-                layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));
-            } else {
-                Point initialPoint = layoutContext.getInitialPoints().get(vertex);
-                layoutContext.getMovingPoints().put(vertex, Objects.requireNonNullElseGet(initialPoint, () -> new Point(
-                        layoutContext.getOrigin().getPosition().getX() + scale * (random.nextDouble() - 0.5),
-                        layoutContext.getOrigin().getPosition().getY() + scale * (random.nextDouble() - 0.5)
-                )));
-            }
-        }
+        this.center = initialPointsCenter;
+        super.run(layoutContext);
     }
 }
