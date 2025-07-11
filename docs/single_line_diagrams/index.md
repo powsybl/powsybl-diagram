@@ -8,6 +8,7 @@ hidden: true
 ---
 
 layout/layout.md
+styleProvider/styleProvider.md
 ```
 
 

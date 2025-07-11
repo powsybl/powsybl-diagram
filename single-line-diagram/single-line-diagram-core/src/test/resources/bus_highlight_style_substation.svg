@@ -85,7 +85,16 @@
 .sld-vl0to30.sld-bus-7 {--sld-vl-color: #648D1C}
 .sld-vl0to30.sld-bus-8 {--sld-vl-color: #BEA04A}
 .sld-vl0to30.sld-bus-9 {--sld-vl-color: #869D22}
-/* ----------------------------------------------------------------------- */
+.sld-voltage-level:has(.sld-bus-0:hover)  .sld-bus-0:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-1:hover)  .sld-bus-1:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-2:hover)  .sld-bus-2:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-3:hover)  .sld-bus-3:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-4:hover)  .sld-bus-4:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-5:hover)  .sld-bus-5:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-6:hover)  .sld-bus-6:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-7:hover)  .sld-bus-7:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-8:hover)  .sld-bus-8:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}
+.sld-voltage-level:has(.sld-bus-9:hover)  .sld-bus-9:not(.sld-breaker):not(.sld-disconnector) {stroke-width: 5px}/* ----------------------------------------------------------------------- */
 /* File : highlightLineStates.css ---------------------------------------- */
 .sld-wire.sld-feeder-disconnected {stroke: black}
 .sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
