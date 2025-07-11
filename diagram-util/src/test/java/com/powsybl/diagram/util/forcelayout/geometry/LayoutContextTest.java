@@ -1,0 +1,116 @@
+/**
+ * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+package com.powsybl.diagram.util.forcelayout.geometry;
+
+import com.powsybl.diagram.util.forcelayout.GraphTestData;
+import com.powsybl.diagram.util.forcelayout.Helpers;
+import com.powsybl.diagram.util.forcelayout.Layout;
+import org.jgrapht.graph.DefaultEdge;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
+ */
+class LayoutContextTest {
+    @TempDir
+    File tempDirectory;
+
+    @Test
+    void graphCreation() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        assertEquals(5, layoutContext.getSimpleGraph().vertexSet().size());
+        assertEquals(4, layoutContext.getSimpleGraph().edgeSet().size());
+        assertEquals(1, layoutContext.getFixedPoints().size());
+        assertEquals(1, layoutContext.getFixedNodes().size());
+        assertEquals(5, layoutContext.getInitialPoints().size());
+        assertEquals(4, layoutContext.getMovingPoints().size());
+    }
+
+    @Test
+    void setFixedPoints() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        Map<String, Point> fixedPoints = new HashMap<>();
+        fixedPoints.put("2", new Point(1.414, 15));
+        fixedPoints.put("4", new Point(0, 0));
+        fixedPoints.put("-1", new Point(-2, 6));
+        layoutContext.setFixedPoints(fixedPoints);
+        assertEquals(2, layoutContext.getInitialPoints().size());
+    }
+
+    @Test
+    void toSvg() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        Function<String, String> tooltip = v -> String.format("Vertex %s", v);
+        Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
+        layout.run(layoutContext);
+        StringWriter sw = new StringWriter();
+        layout.toSVG(tooltip, sw);
+        Helpers helpers = new Helpers();
+        assertEquals(helpers.toString("/springy_5_nodes.svg"), sw.toString());
+    }
+
+    @Test
+    void notExecuted() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        Function<String, String> tooltip = v -> String.format("Vertex %s", v);
+        Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
+        assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
+        assertDoesNotThrow(() -> layoutContext.getStablePosition("0", false));
+    }
+
+    @Test
+    void setFixedNodesUnknownNodes() {
+        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(GraphTestData.getGraph());
+        Set<String> fixedNodes = new HashSet<>();
+        fixedNodes.add("1");
+        fixedNodes.add("2");
+        fixedNodes.add("-1");
+        fixedNodes.add("a");
+        fixedNodes.add("4738387");
+        layoutContext.setFixedNodes(fixedNodes);
+        Set<String> actualFixedNodes = new HashSet<>();
+        actualFixedNodes.add("1");
+        actualFixedNodes.add("2");
+        assertEquals(actualFixedNodes, layoutContext.getFixedNodes());
+    }
+
+    @Test
+    void setFixedPointsWithUnknownPoint() {
+        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(GraphTestData.getGraph());
+        Map<String, Point> fixedPoints = new HashMap<>();
+        fixedPoints.put("1", new Point(1, 1));
+        fixedPoints.put("4", new Point(-2, 3));
+        fixedPoints.put("-1", new Point(0, 3));
+        fixedPoints.put("dfsfds", new Point(-2, -3.3));
+        fixedPoints.put("45", new Point(45, 45));
+        layoutContext.setFixedPoints(fixedPoints);
+        Map<String, Point> expectedFixedPoints = new HashMap<>();
+        expectedFixedPoints.put("1", new Point(1, 1));
+        expectedFixedPoints.put("4", new Point(-2, 3));
+        Set<Map.Entry<String, Point>> actualFixedPoints = layoutContext.getInitialPoints().entrySet();
+        assertEquals(expectedFixedPoints.size(), actualFixedPoints.size());
+        for (Map.Entry<String, Point> entry : actualFixedPoints) {
+            Vector2D expectedPosition = expectedFixedPoints.get(entry.getKey()).getPosition();
+            Vector2D actualPosition = entry.getValue().getPosition();
+            assertEquals(expectedPosition.getX(), actualPosition.getX());
+            assertEquals(expectedPosition.getY(), actualPosition.getY());
+        }
+        assertEquals(expectedFixedPoints.keySet(), layoutContext.getFixedNodes());
+    }
+}
