@@ -21,11 +21,13 @@ public interface Force<V, E> {
     }
 
     /**
-     *
+     * Return the force vector which is the sum of the influence of all other points of the graph on this point<br>
+     * Some forces use all other points to calculate this, such as repulsion force. Other only need to consider points that have an edge with
+     *  this point (such as edge attraction forces), and other don't even need the other points of the graph (forces that attract a point to the center)
      * @param vertex : the vertex to consider for the application of the force
      * @param point : the 2D point corresponding to the vertex parameter
      * @param layoutContext : information about the context of the layout
-     * @return the calculated force to be applied to the point in the 2D space
+     * @return the calculated force to be applied to the point in the 2D space, sum of the influence of each other point in the graph on this point (this influence can be 0 for some points, depending on the force)
      */
     Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext);
 }
