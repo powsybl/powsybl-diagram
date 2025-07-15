@@ -382,7 +382,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
-            writeStyleClasses(g,  styleProvider.getNodeStyles(graph, busNode, componentLibrary,svgParameters.isShowInternalNodes()));
+            writeStyleClasses(g, styleProvider.getNodeStyles(graph, busNode, componentLibrary, svgParameters.isShowInternalNodes()));
 
             drawBus(graph, busNode, g);
             List<LabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
@@ -434,7 +434,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String nodeEscapedId = IdUtil.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeEscapedId);
-            writeStyleClasses(g,  styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary,svgParameters.isShowInternalNodes()));
+            writeStyleClasses(g, styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, svgParameters.isShowInternalNodes()));
 
             incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
             List<LabelProvider.NodeLabel> nodeLabels = labelProvider.getNodeLabels(node, graph.getDirection(node));
@@ -499,7 +499,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                       StyleProvider styleProvider) {
         for (LabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
-            writeStyleClasses(g,  styleProvider.getNodeDecoratorStyles(nodeDecorator, node,componentLibrary));
+            writeStyleClasses(g, styleProvider.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary));
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, graph, node, styleProvider);
             root.appendChild(g);
         }
@@ -1153,7 +1153,7 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
         circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        writeStyleClasses(circle,  styleProvider.getBusStyles(busLegendInfo.busId(),graph));
+        writeStyleClasses(circle, styleProvider.getBusStyles(busLegendInfo.busId(), graph));
         g.appendChild(circle);
 
         // legend nodes

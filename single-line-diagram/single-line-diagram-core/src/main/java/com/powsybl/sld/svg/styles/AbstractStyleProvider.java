@@ -93,9 +93,9 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
         return switch (caption.type()) {
-          case "v" -> List.of(StyleClassConstants.VOLTAGE);
-          case "angle" -> List.of(StyleClassConstants.ANGLE);
-          default -> Collections.emptyList();
+            case "v" -> List.of(StyleClassConstants.VOLTAGE);
+            case "angle" -> List.of(StyleClassConstants.ANGLE);
+            default -> Collections.emptyList();
         };
     }
 
