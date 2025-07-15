@@ -7,32 +7,34 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.diagram.util.CssUtil;
+import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.SldComponent;
 import com.powsybl.sld.library.SldComponentLibrary;
-import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
-import com.powsybl.diagram.util.DomUtil;
 import com.powsybl.sld.util.IdUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.*;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 import java.io.Writer;
 import java.util.*;
@@ -1154,7 +1156,8 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel nodes infos
      */
     private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,
-                                   Element g, String idNode, List<String> styles) {
+                                   Element g, String idNode, VoltageLevelGraph graph, StyleProvider styleProvider) {
+
         Element circle = g.getOwnerDocument().createElement("circle");
 
         // colored circle
@@ -1163,18 +1166,17 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
         circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        circle.setAttribute(CLASS, String.join(" ", styles));
+        circle.setAttribute(CLASS, String.join(" ", styleProvider.getBusStyles(busLegendInfo.busId(), graph)));
         g.appendChild(circle);
 
         // legend nodes
         double padding = 2.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
+            writeStyleClasses(label, styleProvider.getBusLegendCaptionStyles(caption), StyleClassConstants.BUS_LEGEND_INFO);
             label.setAttribute("id", IdUtil.escapeId(idNode + "_" + caption.type()));
-
             label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
             label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-            label.setAttribute(CLASS, StyleClassConstants.BUS_LEGEND_INFO);
             Text textNode = g.getOwnerDocument().createTextNode(caption.label());
             label.appendChild(textNode);
             g.appendChild(label);
@@ -1200,8 +1202,7 @@ public class DefaultSVGWriter implements SVGWriter {
             Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", escapedIdNode);
 
-            List<String> styles = styleProvider.getBusStyles(busLegendInfo.busId(), graph);
-            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, styles);
+            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, graph, styleProvider);
 
             nodesInfosNode.appendChild(gNode);
 
@@ -1209,5 +1210,14 @@ public class DefaultSVGWriter implements SVGWriter {
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }
+    }
+
+    private void writeStyleClasses(Element element, List<String> styleClasses, String... additionalClasses) {
+        if (styleClasses.isEmpty() && additionalClasses.length == 0) {
+            return;
+        }
+        List<String> allClasses = new ArrayList<>(styleClasses);
+        allClasses.addAll(Arrays.asList(additionalClasses));
+        element.setAttribute(CLASS, String.join(" ", allClasses));
     }
 }
