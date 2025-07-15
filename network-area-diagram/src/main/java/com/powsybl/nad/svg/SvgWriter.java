@@ -806,6 +806,7 @@ public class SvgWriter {
                 .toList();
         for (BusNode busNode : notEmptyDescrBusNodes) {
             writer.writeStartElement(DIV_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BUS_DESCR_CLASS);
             writer.writeEmptyElement(SPAN_ELEMENT_NAME);
             writeStyleClasses(writer, styleProvider.getBusNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
             writeStyleAttribute(writer, styleProvider.getBusNodeStyle(busNode));
