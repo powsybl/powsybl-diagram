@@ -122,7 +122,7 @@ public abstract class AbstractTestCase {
             SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
 
             if (debugSvgFiles) {
-                writeToFileInDebugDir(filename.replace(".svg", "_new.svg"), writer);
+                writeToFileInDebugDir(filename, writer);
             }
             if (overrideTestReferences) {
                 overrideTestReference(filename, writer);
