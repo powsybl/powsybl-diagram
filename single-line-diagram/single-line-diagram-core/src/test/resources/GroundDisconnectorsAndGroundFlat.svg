@@ -154,12 +154,12 @@
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
                 <polyline points="115.0,142.0,115.0,80.0"/>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
+            <g class="sld-feeder-info sld-in sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(110.0,115.0)">
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(110.0,115.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -202,12 +202,12 @@
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_load_95_load">
                 <polyline points="165.0,364.0,165.0,418.0"/>
             </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_95_ARROW_95_REACTIVE" transform="translate(160.0,393.0)">
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="idload_95_ARROW_95_REACTIVE" transform="translate(160.0,393.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-active-power sld-feeder-info sld-in" id="idload_95_ARROW_95_ACTIVE" transform="translate(160.0,373.0)">
+            <g class="sld-feeder-info sld-in sld-active-power" id="idload_95_ARROW_95_ACTIVE" transform="translate(160.0,373.0)">
                 <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>

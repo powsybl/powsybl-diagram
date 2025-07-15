@@ -223,10 +223,10 @@ TWO_WINDINGS_TRANSFORMER</title>
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="" id="idvl1_95_trf2_95_one" transform="translate(400.0,100.0)">
+        <g id="idvl1_95_trf2_95_one" transform="translate(400.0,100.0)">
             <text class="sld-label" id="idvl1_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
-        <g class="" id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
+        <g id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
             <text class="sld-label" id="idvl1_95_trf2_95_two_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(432.0,148.0)">

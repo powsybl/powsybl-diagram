@@ -194,7 +194,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div class="nad-label-box" style="position: absolute; top: -359px; left: 44px" id="0-textnode">
                 <div>Voltage level 1</div>
                 <div>Substation 1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/> kV / °</div>
                 <div>0 loads</div>
                 <div>1 generators</div>
@@ -204,7 +204,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div class="nad-label-box" style="position: absolute; top: -39px; left: -130px" id="2-textnode">
                 <div>Voltage level 2</div>
                 <div>Substation 1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/> kV / °</div>
                 <div>0 loads</div>
                 <div>0 generators</div>

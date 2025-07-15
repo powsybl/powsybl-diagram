@@ -201,12 +201,12 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -554px; left: 175px" id="0-textnode">
                 <div>VL_11</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>11.8 kV / -15.2°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 8px; left: -272px" id="2-textnode">
                 <div>VL_132</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl120to180 nad-bus-0 nad-legend-square"/>133.6 kV / -9.6°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 165px; left: 280px" id="4-textnode">

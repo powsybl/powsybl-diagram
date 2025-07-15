@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
 
@@ -51,6 +52,8 @@ public interface StyleProvider {
     List<String> getBusStyles(String busId, VoltageLevelGraph graph);
 
     List<String> getBusInfoStyle(BusInfo info);
+
+    List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption);
 
     List<String> getFeederInfoStyles(FeederInfo info);
 
