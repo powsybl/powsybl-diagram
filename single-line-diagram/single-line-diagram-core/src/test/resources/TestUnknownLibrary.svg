@@ -805,13 +805,13 @@
         <g class="sld-legend">
             <g id="idNODE_95_vl1_95_0">
                 <circle class="sld-bus-0 sld-node-infos" cx="70.0" cy="519.0" id="idNODE_95_vl1_95_0_95_circle" r="10" stroke-width="10"/>
-                <text class="sld-bus-legend-info" id="idNODE_95_vl1_95_0_95_v" x="60.0" y="544.0">— kV</text>
-                <text class="sld-bus-legend-info" id="idNODE_95_vl1_95_0_95_angle" x="60.0" y="559.0">—°</text>
+                <text class="sld-voltage sld-bus-legend-info" id="idNODE_95_vl1_95_0_95_v" x="60.0" y="544.0">— kV</text>
+                <text class="sld-angle sld-bus-legend-info" id="idNODE_95_vl1_95_0_95_angle" x="60.0" y="559.0">—°</text>
             </g>
             <g id="idNODE_95_vl1_95_2">
                 <circle class="sld-bus-1 sld-node-infos" cx="140.0" cy="519.0" id="idNODE_95_vl1_95_2_95_circle" r="10" stroke-width="10"/>
-                <text class="sld-bus-legend-info" id="idNODE_95_vl1_95_2_95_v" x="130.0" y="544.0">— kV</text>
-                <text class="sld-bus-legend-info" id="idNODE_95_vl1_95_2_95_angle" x="130.0" y="559.0">—°</text>
+                <text class="sld-voltage sld-bus-legend-info" id="idNODE_95_vl1_95_2_95_v" x="130.0" y="544.0">— kV</text>
+                <text class="sld-angle sld-bus-legend-info" id="idNODE_95_vl1_95_2_95_angle" x="130.0" y="559.0">—°</text>
             </g>
         </g>
     </g>
