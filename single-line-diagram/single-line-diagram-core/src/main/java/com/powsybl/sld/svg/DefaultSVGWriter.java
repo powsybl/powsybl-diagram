@@ -258,7 +258,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String cellId = IdUtil.escapeId(prefixId + cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
-        g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
+        writeStyleClasses(g, styleProvider.getCellStyles(cell));
 
         List<Node> cellNodes = cell.getNodes();
         List<Node> nodesToDraw = cellNodes.stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
@@ -382,7 +382,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeStyles(graph, busNode, componentLibrary, svgParameters.isShowInternalNodes())));
+            writeStyleClasses(g,  styleProvider.getNodeStyles(graph, busNode, componentLibrary,svgParameters.isShowInternalNodes()));
 
             drawBus(graph, busNode, g);
             List<LabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
@@ -434,7 +434,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String nodeEscapedId = IdUtil.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeEscapedId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, svgParameters.isShowInternalNodes())));
+            writeStyleClasses(g,  styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary,svgParameters.isShowInternalNodes()));
 
             incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
             List<LabelProvider.NodeLabel> nodeLabels = labelProvider.getNodeLabels(node, graph.getDirection(node));
@@ -499,7 +499,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                       StyleProvider styleProvider) {
         for (LabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
+            writeStyleClasses(g,  styleProvider.getNodeDecoratorStyles(nodeDecorator, node,componentLibrary));
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, graph, node, styleProvider);
             root.appendChild(g);
         }
@@ -689,11 +689,8 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        List<String> subComponentStyles = styleProvider.getNodeSubcomponentStyles(graph, node, subComponent);
-        componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
-        if (!subComponentStyles.isEmpty()) {
-            elt.setAttribute(CLASS, String.join(" ", subComponentStyles));
-        }
+        writeStyleClasses(elt, styleProvider.getNodeSubcomponentStyles(graph, node, subComponent),
+                componentLibrary.getSubComponentStyleClass(componentType, subComponent).orElse(null));
     }
 
     private void setDecoratorAttributes(String prefixId, Element g, Graph graph, Node node, LabelProvider.NodeDecorator nodeDecorator,
@@ -702,11 +699,8 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
-        List<String> svgNodeSubcomponentStyles = styleProvider.getNodeSubcomponentStyles(graph, node, subComponentName);
-        componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
-        if (!svgNodeSubcomponentStyles.isEmpty()) {
-            elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));
-        }
+        writeStyleClasses(elt, styleProvider.getNodeSubcomponentStyles(graph, node, subComponentName),
+                componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).orElse(null));
     }
 
     /**
@@ -864,9 +858,6 @@ public class DefaultSVGWriter implements SVGWriter {
         double shX = size.getWidth() + LABEL_OFFSET;
         double shY = size.getHeight() / 2;
 
-        List<String> styles = new ArrayList<>(3);
-        componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).ifPresent(styles::add);
-
         transformFeederInfo(points, size, shift, g);
 
         String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
@@ -879,7 +870,6 @@ public class DefaultSVGWriter implements SVGWriter {
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
         insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
-        styles.addAll(styleProvider.getFeederInfoStyles(feederInfo));
 
         // we draw the right label only if present
         feederInfo.getRightLabel().ifPresent(s -> {
@@ -894,7 +884,8 @@ public class DefaultSVGWriter implements SVGWriter {
             g.appendChild(labelLeft);
         });
 
-        g.setAttribute(CLASS, String.join(" ", styles));
+        writeStyleClasses(g, styleProvider.getFeederInfoStyles(feederInfo),
+                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null));
         root.appendChild(g);
     }
 
@@ -919,10 +910,8 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
 
         // Styles
-        List<String> styles = new ArrayList<>();
-        componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
-        styles.addAll(styleProvider.getBusInfoStyle(busInfo));
-        g.setAttribute(CLASS, String.join(" ", styles));
+        writeStyleClasses(g, styleProvider.getBusInfoStyle(busInfo),
+                componentLibrary.getComponentStyleClass(busInfo.getComponentType()).orElse(null));
 
         // Identity
         String svgId = escapeId(busNode.getId() + "_" + busInfo.getComponentType());
@@ -984,8 +973,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element g = root.getOwnerDocument().createElement(GROUP);
 
                     g.setAttribute("id", wireId);
-                    List<String> wireStyles = styleProvider.getEdgeStyles(graph, edge);
-                    g.setAttribute(CLASS, String.join(" ", wireStyles));
+                    writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
 
                     Element polyline = root.getOwnerDocument().createElement(POLYLINE);
                     polyline.setAttribute(POINTS, pointsListToString(pol));
@@ -1040,8 +1028,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         String snakeLineId = escapeId(metadata.getSvgParameters().getPrefixId() + edge.getId());
         g.setAttribute("id", snakeLineId);
-        List<String> wireStyles = styleProvider.getEdgeStyles(graph, edge);
-        g.setAttribute(CLASS, String.join(" ", wireStyles));
+        writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
         root.appendChild(g);
 
         // Get the points of the snakeLine, already calculated during the layout application
@@ -1166,7 +1153,7 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
         circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        circle.setAttribute(CLASS, String.join(" ", styleProvider.getBusStyles(busLegendInfo.busId(), graph)));
+        writeStyleClasses(circle,  styleProvider.getBusStyles(busLegendInfo.busId(),graph));
         g.appendChild(circle);
 
         // legend nodes
@@ -1212,12 +1199,19 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void writeStyleClasses(Element element, List<String> styleClasses, String... additionalClasses) {
-        if (styleClasses.isEmpty() && additionalClasses.length == 0) {
+    private void writeStyleClasses(Element element, List<String> styleClasses) {
+        writeStyleClasses(element, styleClasses, null);
+    }
+
+    private void writeStyleClasses(Element element, List<String> styleClasses, String additionalClass) {
+        if (styleClasses.isEmpty() && additionalClass == null) {
             return;
         }
-        List<String> allClasses = new ArrayList<>(styleClasses);
-        allClasses.addAll(Arrays.asList(additionalClasses));
+        List<String> allClasses = styleClasses;
+        if (additionalClass != null) {
+            allClasses = new ArrayList<>(styleClasses);
+            allClasses.add(additionalClass);
+        }
         element.setAttribute(CLASS, String.join(" ", allClasses));
     }
 }
