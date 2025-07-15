@@ -152,7 +152,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="vl1">
+        <g class="sld-voltage-level" id="idvl1">
             <g id="idLABEL_95_VL_95_vl1">
                 <text class="sld-graph-label" x="40.0" y="240.0">vl1</text>
             </g>
@@ -782,7 +782,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="vl2">
+        <g class="sld-voltage-level" id="idvl2">
             <g id="idLABEL_95_VL_95_vl2">
                 <text class="sld-graph-label" x="870.0" y="240.0">vl2</text>
             </g>
@@ -1202,7 +1202,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="vl3">
+        <g class="sld-voltage-level" id="idvl3">
             <g id="idLABEL_95_VL_95_vl3">
                 <text class="sld-graph-label" x="1520.0" y="265.0">vl3</text>
             </g>

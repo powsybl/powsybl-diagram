@@ -131,7 +131,7 @@
     </defs>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="vl2">
+        <g class="sld-voltage-level" id="idvl2">
             <g class="sld-busbar-section" id="idvl2_95_bbs1" transform="translate(40.0,320.0)">
                 <line x1="0" x2="200.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idvl2_95_bbs1_95_NW_95_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>

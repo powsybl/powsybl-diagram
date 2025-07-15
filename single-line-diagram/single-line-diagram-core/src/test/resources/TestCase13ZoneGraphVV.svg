@@ -152,7 +152,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="A 400">
+        <g class="sld-voltage-level" id="idA_32_400">
             <g id="idLABEL_95_VL_95_A_32_400">
                 <text class="sld-graph-label" x="111.0" y="131.0">A 400</text>
             </g>
@@ -194,7 +194,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="A 230">
+        <g class="sld-voltage-level" id="idA_32_230">
             <g id="idLABEL_95_VL_95_A_32_230">
                 <text class="sld-graph-label" x="111.0" y="423.0">A 230</text>
             </g>
@@ -346,7 +346,7 @@
             <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl180to300 sld-bus-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
-        <g class="sld-voltage-level" id="B 230">
+        <g class="sld-voltage-level" id="idB_32_230">
             <g id="idLABEL_95_VL_95_B_32_230">
                 <text class="sld-graph-label" x="111.0" y="977.0">B 230</text>
             </g>
@@ -488,7 +488,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="C 230">
+        <g class="sld-voltage-level" id="idC_32_230">
             <g id="idLABEL_95_VL_95_C_32_230">
                 <text class="sld-graph-label" x="111.0" y="1531.0">C 230</text>
             </g>
@@ -563,7 +563,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="C 66">
+        <g class="sld-voltage-level" id="idC_32_66">
             <g id="idLABEL_95_VL_95_C_32_66">
                 <text class="sld-graph-label" x="111.0" y="1995.0">C 66</text>
             </g>
@@ -704,7 +704,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="C 20">
+        <g class="sld-voltage-level" id="idC_32_20">
             <g id="idLABEL_95_VL_95_C_32_20">
                 <text class="sld-graph-label" x="111.0" y="2459.0">C 20</text>
             </g>
@@ -766,7 +766,7 @@
             <circle class="sld-vl50to70 sld-bus-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
             <circle class="sld-vl0to30 sld-bus-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
         </g>
-        <g class="sld-voltage-level" id="D 66">
+        <g class="sld-voltage-level" id="idD_32_66">
             <g id="idLABEL_95_VL_95_D_32_66">
                 <text class="sld-graph-label" x="111.0" y="2841.0">D 66</text>
             </g>
@@ -874,7 +874,7 @@
                 </g>
             </g>
         </g>
-        <g class="sld-voltage-level" id="D 10">
+        <g class="sld-voltage-level" id="idD_32_10">
             <g id="idLABEL_95_VL_95_D_32_10">
                 <text class="sld-graph-label" x="111.0" y="3305.0">D 10</text>
             </g>
@@ -1025,7 +1025,7 @@
             <circle class="sld-vl50to70 sld-bus-1 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl0to30 sld-bus-1 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
-        <g class="sld-voltage-level" id="E 10">
+        <g class="sld-voltage-level" id="idE_32_10">
             <g id="idLABEL_95_VL_95_E_32_10">
                 <text class="sld-graph-label" x="161.0" y="3859.0">E 10</text>
             </g>

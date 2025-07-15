@@ -218,7 +218,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     LabelProvider initProvider,
                                     StyleProvider styleProvider) {
         Element g = root.getOwnerDocument().createElement(GROUP);
-        g.setAttribute("id", graph.getId());
+        g.setAttribute("id", IdUtil.escapeId(graph.getId()));
         g.setAttribute(CLASS, StyleClassConstants.VOLTAGE_LEVEL_CLASS);
 
         if (!graph.isForVoltageLevelDiagram()) {

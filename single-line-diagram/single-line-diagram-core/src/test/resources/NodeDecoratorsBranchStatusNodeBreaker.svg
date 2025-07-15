@@ -152,7 +152,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="VL1">
+        <g class="sld-voltage-level" id="idVL1">
             <g id="idLABEL_95_VL_95_VL1">
                 <text class="sld-graph-label" x="40.0" y="150.0">VL1</text>
             </g>
@@ -601,7 +601,7 @@
                 <polyline points="415.0,170.0,415.0,110.0,615.0,110.0,615.0,170.0"/>
             </g>
         </g>
-        <g class="sld-voltage-level" id="VL2">
+        <g class="sld-voltage-level" id="idVL2">
             <g id="idLABEL_95_VL_95_VL2">
                 <text class="sld-graph-label" x="780.0" y="150.0">VL2</text>
             </g>

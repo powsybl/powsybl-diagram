@@ -82,7 +82,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="VL1">
+        <g class="sld-voltage-level" id="idVL1">
             <g class="sld-busbar-section sld-vl300to500" id="idB11" transform="translate(52.5,252.0)">
                 <line x1="0" x2="675.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idB11_95_NW_95_LABEL" x="-5.0" y="-5.0">B11</text>

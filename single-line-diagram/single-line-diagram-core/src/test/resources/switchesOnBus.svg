@@ -152,7 +152,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="vl">
+        <g class="sld-voltage-level" id="idvl">
             <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idbbs" transform="translate(202.5,252.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>

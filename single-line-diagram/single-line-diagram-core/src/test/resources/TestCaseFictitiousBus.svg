@@ -152,7 +152,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="vl">
+        <g class="sld-voltage-level" id="idvl">
             <g class="sld-busbar-section sld-fictitious sld-vl50to70 sld-bus-0" id="idINTERNAL_95_vl_95_0_95_FictitiousBus" transform="translate(65.0,252.0)">
                 <line x1="0" x2="100.0" y1="0" y2="0"/>
             </g>

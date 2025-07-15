@@ -73,7 +73,7 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-voltage-level" id="VoltageLevel11">
+        <g class="sld-voltage-level" id="idVoltageLevel11">
             <g id="idLABEL_95_VL_95_VoltageLevel11">
                 <text class="sld-graph-label" x="40.0" y="20.0">VoltageLevel11</text>
             </g>
@@ -117,7 +117,7 @@
                 <text class="sld-label" id="idTransformer_95_ONE_95__95_LABEL" x="-5.0" y="-5.0">Transformer</text>
             </g>
         </g>
-        <g class="sld-voltage-level" id="VoltageLevel12">
+        <g class="sld-voltage-level" id="idVoltageLevel12">
             <g id="idLABEL_95_VL_95_VoltageLevel12">
                 <text class="sld-graph-label" x="40.0" y="370.0">VoltageLevel12</text>
             </g>
@@ -168,7 +168,7 @@
             <circle class="sld-winding" cx="5" cy="10" r="5"/>
             <circle class="sld-winding" cx="5" cy="5" r="5"/>
         </g>
-        <g class="sld-voltage-level" id="VoltageLevel21">
+        <g class="sld-voltage-level" id="idVoltageLevel21">
             <g id="idLABEL_95_VL_95_VoltageLevel21">
                 <text class="sld-graph-label" x="140.0" y="920.0">VoltageLevel21</text>
             </g>
