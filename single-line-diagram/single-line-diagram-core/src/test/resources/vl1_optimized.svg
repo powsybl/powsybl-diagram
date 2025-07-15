@@ -72,7 +72,7 @@
 .sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
 ]]></style>
     <defs>
-        <g id="idARROW_95_REACTIVE">
+        <g id="ARROW_REACTIVE">
             <g id="idARROW_95_REACTIVE_45_UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
@@ -80,12 +80,12 @@
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="idLOAD">
+        <g id="LOAD">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
         </g>
-        <g id="idARROW_95_ACTIVE">
+        <g id="ARROW_ACTIVE">
             <g id="idARROW_95_ACTIVE_45_UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
@@ -93,7 +93,7 @@
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="idDISCONNECTOR">
+        <g id="DISCONNECTOR">
             <g id="idDISCONNECTOR_45_CLOSED">
                 <path d="M0,0 8,8 M8,0 0,8"/>
             </g>
@@ -101,7 +101,7 @@
                 <path d="M8,0 0,8"/>
             </g>
         </g>
-        <g id="idTWO_95_WINDINGS_95_TRANSFORMER">
+        <g id="TWO_WINDINGS_TRANSFORMER">
             <g id="idTWO_95_WINDINGS_95_TRANSFORMER_45_WINDING1">
                 <circle cx="5" cy="10" r="5"/>
             </g>
@@ -109,7 +109,7 @@
                 <circle cx="5" cy="5" r="5"/>
             </g>
         </g>
-        <g id="idTHREE_95_WINDINGS_95_TRANSFORMER">
+        <g id="THREE_WINDINGS_TRANSFORMER">
             <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING1">
                 <circle cx="5" cy="15" r="5"/>
             </g>
@@ -120,7 +120,7 @@
                 <circle cx="8" cy="19" r="5"/>
             </g>
         </g>
-        <g id="idBREAKER">
+        <g id="BREAKER">
             <g id="idBREAKER_45_CLOSED">
                 <path d="M1,1 V19 H19 V1z M10,5 V15"/>
             </g>
