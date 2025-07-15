@@ -347,7 +347,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
                 <text class="sld-label" id="idFN_95_NW" text-anchor="middle" x="4.0" y="-1.0">FN</text>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idDJ" transform="translate(530.0,400.85714285714283)">
+            <g class="sld-breaker sld-open sld-vl70to120 sld-disconnected" id="idDJ" transform="translate(530.0,400.85714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
                 <text class="sld-label" id="idDJ_95_NW" text-anchor="middle" x="4.0" y="-1.0">DJ</text>
@@ -512,7 +512,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
                 <text class="sld-label" id="idCL_95_NW" text-anchor="middle" x="4.0" y="-1.0">CL</text>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idDH" transform="translate(555.0,392.5)">
+            <g class="sld-breaker sld-open sld-vl70to120 sld-disconnected" id="idDH" transform="translate(555.0,392.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
                 <text class="sld-label" id="idDH_95_NW" text-anchor="middle" x="4.0" y="-1.0">DH</text>

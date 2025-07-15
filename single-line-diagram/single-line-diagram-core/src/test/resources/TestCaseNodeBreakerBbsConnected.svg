@@ -214,7 +214,7 @@
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-disconnector sld-open sld-disconnected" id="idsLoad" transform="translate(111.0,248.0)">
+            <g class="sld-disconnector sld-open sld-vl180to300 sld-disconnected" id="idsLoad" transform="translate(111.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>

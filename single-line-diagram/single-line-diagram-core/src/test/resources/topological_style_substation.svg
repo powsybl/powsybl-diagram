@@ -322,7 +322,7 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300 sld-disconnected" id="idINTERNAL_95_vl2_95_d2WT_95_2_45_b2WT_95_2" transform="translate(251.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-breaker sld-open sld-fictitious sld-disconnected" id="idb2WT_95_2" transform="translate(245.0,202.0)">
+            <g class="sld-breaker sld-open sld-fictitious sld-vl180to300 sld-disconnected" id="idb2WT_95_2" transform="translate(245.0,202.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -363,7 +363,7 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300 sld-disconnected" id="idINTERNAL_95_vl2_95_d3WT_95_2_45_b3WT_95_2" transform="translate(301.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-breaker sld-open sld-fictitious sld-disconnected" id="idb3WT_95_2" transform="translate(295.0,202.0)">
+            <g class="sld-breaker sld-open sld-fictitious sld-vl180to300 sld-disconnected" id="idb3WT_95_2" transform="translate(295.0,202.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>

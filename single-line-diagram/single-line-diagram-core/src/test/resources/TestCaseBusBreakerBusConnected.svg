@@ -213,7 +213,7 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300 sld-bus-0" id="idINTERNAL_95_vlBb_95_BUSCO_95_b2_95_s23_45_s23" transform="translate(211.0,208.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="ids23" transform="translate(180.0,202.0)">
+            <g class="sld-breaker sld-open sld-vl180to300 sld-disconnected" id="ids23" transform="translate(180.0,202.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
