@@ -312,22 +312,22 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -302px; left: 569px" id="0-textnode">
                 <div>VLHV1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -414px; left: -49px" id="2-textnode">
                 <div>VLHV2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -76px; left: -40px" id="4-textnode">
                 <div>VLHV3</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -551px; left: 176px" id="6-textnode">
                 <div>VLLOAD</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
             </div>
         </div>

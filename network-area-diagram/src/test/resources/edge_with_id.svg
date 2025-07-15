@@ -236,21 +236,21 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -251px; left: 20px" id="0-textnode">
                 <div>Voltage level 1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -83px; left: -166px" id="3-textnode">
                 <div>Voltage level 2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 132px; left: 80px" id="5-textnode">
                 <div>vl3</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
         </div>
