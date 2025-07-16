@@ -8,8 +8,8 @@
 package com.powsybl.nad.routing;
 
 import com.powsybl.nad.model.*;
-import com.powsybl.nad.svg.RadiusUtils;
 import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.utils.RadiusUtils;
 
 import java.util.List;
 
