@@ -8,8 +8,8 @@
 package com.powsybl.nad.routing;
 
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.svg.RadiusUtils;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.SvgWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +110,7 @@ public class CustomPathRouting extends StraightEdgeRouting {
         textNode.setEdgeConnection(customPoints.get(customPoints.size() - 1));
 
         List<Point> allPoints = new ArrayList<>();
-        double circleRadius = SvgWriter.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
+        double circleRadius = RadiusUtils.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
         allPoints.add(voltageLevelNode.getPosition().atDistance(circleRadius, customPoints.get(0)));
         allPoints.addAll(customPoints);
         edge.setPoints(allPoints.toArray(new Point[0]));

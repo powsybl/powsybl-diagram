@@ -8,8 +8,8 @@
 package com.powsybl.nad.routing;
 
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.svg.RadiusUtils;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.SvgWriter;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
 
     @Override
     protected void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge, SvgParameters svgParameters) {
-        double circleRadius = SvgWriter.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
+        double circleRadius = RadiusUtils.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
         Point textNodeConnection = textNode.getEdgeConnection();
         Point vlPoint = voltageLevelNode.getPosition().atDistance(circleRadius, textNodeConnection);
         edge.setPoints(vlPoint, textNodeConnection);

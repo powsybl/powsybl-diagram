@@ -11,7 +11,7 @@ package com.powsybl.nad.routing;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.SvgWriter;
+import com.powsybl.nad.utils.RadiusUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,13 +44,13 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
     protected Point computeEdgeStart(Node node, Point direction, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
         if (node == BusNode.UNKNOWN && vlNode != null) {
-            double unknownBusRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) + svgParameters.getUnknownBusNodeExtraRadius();
+            double unknownBusRadius = RadiusUtils.getVoltageLevelCircleRadius(vlNode, svgParameters) + svgParameters.getUnknownBusNodeExtraRadius();
             return vlNode.getPosition().atDistance(unknownBusRadius, direction);
         }
 
         Point edgeStart = node.getPosition();
         if (node instanceof BusNode busNode && vlNode != null) {
-            double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
+            double busAnnulusOuterRadius = RadiusUtils.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             edgeStart = edgeStart.atDistance(busAnnulusOuterRadius - svgParameters.getEdgeStartShift(), direction);
         }
         return edgeStart;
@@ -265,8 +265,8 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
     }
 
     protected Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line, SvgParameters svgParameters) {
-        double nodeOuterRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters);
-        double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
+        double nodeOuterRadius = RadiusUtils.getVoltageLevelCircleRadius(vlNode, svgParameters);
+        double busAnnulusOuterRadius = RadiusUtils.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
         double shift = svgParameters.getArrowShift() + nodeOuterRadius - busAnnulusOuterRadius;
         return line.get(0).atDistance(shift, line.get(1));
     }

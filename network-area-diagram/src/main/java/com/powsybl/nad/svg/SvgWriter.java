@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.routing.EdgeRouting;
+import com.powsybl.nad.utils.RadiusUtils;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.alg.util.Pair;
@@ -40,8 +41,8 @@ import java.util.stream.Stream;
 public class SvgWriter {
 
     private static final String INDENT = "    ";
-    public static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
-    public static final String XHTML_NAMESPACE_URI = "http://www.w3.org/1999/xhtml";
+    private static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
+    private static final String XHTML_NAMESPACE_URI = "http://www.w3.org/1999/xhtml";
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
     private static final String GROUP_ELEMENT_NAME = "g";
@@ -808,7 +809,7 @@ public class SvgWriter {
         writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
-        double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
+        double nodeOuterRadius = RadiusUtils.getVoltageLevelCircleRadius(vlNode, svgParameters);
 
         if (vlNode.hasUnknownBusNode()) {
             writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
@@ -821,8 +822,8 @@ public class SvgWriter {
         List<Injection> traversingInjections = new ArrayList<>();
 
         for (BusNode busNode : vlNode.getBusNodes()) {
-            double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
-            double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
+            double busInnerRadius = RadiusUtils.getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
+            double busOuterRadius = RadiusUtils.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
                 if (busNode instanceof BoundaryBusNode) {
                     // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
@@ -1068,33 +1069,6 @@ public class SvgWriter {
 
     private static String getFormattedValue(double value) {
         return String.format(Locale.US, "%.2f", value);
-    }
-
-    protected double getVoltageLevelCircleRadius(VoltageLevelNode vlNode) {
-        return getVoltageLevelCircleRadius(vlNode, svgParameters);
-    }
-
-    public static double getVoltageLevelCircleRadius(VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        if (vlNode.isFictitious()) {
-            return svgParameters.getFictitiousVoltageLevelCircleRadius();
-        }
-        int nbBuses = vlNode.getBusNodes().size();
-        return Math.min(Math.max(nbBuses, 1), 2) * svgParameters.getVoltageLevelCircleRadius();
-    }
-
-    public static double getBusAnnulusInnerRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        if (node.getRingIndex() == 0) {
-            return 0;
-        }
-        int nbNeighbours = node.getNbNeighbouringBusNodes();
-        double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return node.getRingIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
-    }
-
-    public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        int nbNeighbours = node.getNbNeighbouringBusNodes();
-        double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
-        return (node.getRingIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public String getPrefixedId(String id) {
