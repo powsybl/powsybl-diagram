@@ -32,7 +32,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
-        graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
+        graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge, svgParameters));
         graph.getVoltageLevelNodesStream().forEach(vln -> injectionEdgesLayout(graph, vln, svgParameters));
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
 
     protected abstract void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters);
 
-    protected abstract void computeTextEdgeLayoutCoordinates(VoltageLevelNode first, TextNode second, TextEdge edge);
+    protected abstract void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge, SvgParameters svgParameters);
 
     protected Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
         if (directionBusGraphNode == BusNode.UNKNOWN) {

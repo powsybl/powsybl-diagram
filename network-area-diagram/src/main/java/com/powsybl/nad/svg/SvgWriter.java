@@ -980,7 +980,6 @@ public class SvgWriter {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeId(writer, edge);
         List<Point> points = edge.getPoints();
-        shiftEdgeStart(points, vlNode);
         String lineFormatted1 = points.stream()
                 .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
                 .collect(Collectors.joining(" "));
@@ -1008,11 +1007,6 @@ public class SvgWriter {
 
     private void writeId(XMLStreamWriter writer, Identifiable identifiable) throws XMLStreamException {
         writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(identifiable.getDiagramId()));
-    }
-
-    private void shiftEdgeStart(List<Point> points, VoltageLevelNode vlNode) {
-        double circleRadius = getVoltageLevelCircleRadius(vlNode);
-        points.set(0, points.get(0).atDistance(circleRadius, points.get(1)));
     }
 
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {

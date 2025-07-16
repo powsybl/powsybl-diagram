@@ -9,6 +9,7 @@ package com.powsybl.nad.routing;
 
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.SvgWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,17 +91,18 @@ public class CustomPathsRouting extends StraightEdgeRouting {
     }
 
     @Override
-    protected void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge) {
+    protected void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge, SvgParameters svgParameters) {
         List<Point> customPoints = customTextPaths.getOrDefault(voltageLevelNode.getEquipmentId(), List.of());
         if (customPoints.isEmpty()) {
-            super.computeTextEdgeLayoutCoordinates(voltageLevelNode, textNode, edge);
+            super.computeTextEdgeLayoutCoordinates(voltageLevelNode, textNode, edge, svgParameters);
             return;
         }
 
         textNode.setEdgeConnection(customPoints.get(customPoints.size() - 1));
 
         List<Point> allPoints = new ArrayList<>();
-        allPoints.add(voltageLevelNode.getPosition());
+        double circleRadius = SvgWriter.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
+        allPoints.add(voltageLevelNode.getPosition().atDistance(circleRadius, customPoints.get(0)));
         allPoints.addAll(customPoints);
         edge.setPoints(allPoints.toArray(new Point[0]));
     }
