@@ -687,56 +687,56 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -503px; left: -216px" id="0-textnode">
                 <div>BBE1AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:yellow; background:yellow"/> kV / °</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-1 nad-legend-square" style="fill:deeppink; background:deeppink"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -85px; left: -398px" id="3-textnode">
                 <div>BBE2AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:yellow; background:yellow"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 181px; left: 363px" id="5-textnode">
                 <div>DDE1AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 23px; left: 642px" id="7-textnode">
                 <div>DDE2AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 480px; left: 455px" id="9-textnode">
                 <div>DDE3AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:red; stroke: black; stroke-width: 2px; background:red; border: solid 2px"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 648px; left: 31px" id="11-textnode">
                 <div>FFR1AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:blue; background:blue"/> kV / °</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-1 nad-legend-square" style="fill:lightblue; background:lightblue"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 366px; left: -316px" id="14-textnode">
                 <div>FFR3AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:blue; background:blue"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -837px; left: 561px" id="16-textnode">
                 <div>NNL1AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:orange; background:orange"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -691px; left: 207px" id="18-textnode">
                 <div>NNL2AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:orange; background:orange"/> kV / °</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -459px; left: 564px" id="20-textnode">
                 <div>NNL3AA1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square" style="fill:orange; background:orange"/> kV / °</div>
             </div>
         </div>

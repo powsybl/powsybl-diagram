@@ -287,12 +287,12 @@
                 <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
                     <polyline points="65.0,142.0,65.0,84.5"/>
                 </g>
-                <g class="sld-active-power sld-feeder-info sld-in sld-arrow-animation-no-speed" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
+                <g class="sld-feeder-info sld-in sld-arrow-animation-no-speed sld-active-power" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-reactive-power sld-feeder-info sld-in sld-arrow-animation-no-speed" id="idl_95_ARROW_95_REACTIVE" transform="translate(60.0,119.5)">
+                <g class="sld-feeder-info sld-in sld-arrow-animation-no-speed sld-reactive-power" id="idl_95_ARROW_95_REACTIVE" transform="translate(60.0,119.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -304,7 +304,7 @@
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300 sld-bus-0" id="idINTERNAL_95_vl_95_d1_45_b1" transform="translate(61.0,246.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-breaker sld-open sld-disconnected" id="idb1" transform="translate(55.0,213.0)">
+                <g class="sld-breaker sld-open sld-vl180to300 sld-disconnected" id="idb1" transform="translate(55.0,213.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 </g>
@@ -329,12 +329,12 @@
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 </g>
-                <g class="sld-breaker sld-open sld-disconnected" id="idb4" transform="translate(205.0,213.0)">
+                <g class="sld-breaker sld-open sld-vl180to300 sld-disconnected" id="idb4" transform="translate(205.0,213.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 </g>
             </g>
-            <g class="" id="idARCH_32_2">
+            <g id="idARCH_32_2">
                 <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_d2_45_b2_95_d2">
                     <polyline points="165.0,250.0,165.0,280.0"/>
                 </g>
@@ -362,7 +362,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
             </g>
-            <g class="" id="idARCH_32_3">
+            <g id="idARCH_32_3">
                 <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_8_95_d3">
                     <polyline points="240.0,250.0,240.0,280.0"/>
                 </g>
@@ -388,7 +388,7 @@
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300 sld-bus-0" id="idINTERNAL_95_vl_95_8" transform="translate(236.0,246.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-breaker sld-open sld-disconnected" id="idb4" transform="translate(205.0,213.0)">
+                <g class="sld-breaker sld-open sld-vl180to300 sld-disconnected" id="idb4" transform="translate(205.0,213.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 </g>
@@ -406,7 +406,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
             </g>
-            <g class="" id="idARCH_32_4">
+            <g id="idARCH_32_4">
                 <g class="sld-wire sld-vl180to300 sld-bus-0" id="_95_vl_95_INTERNAL_95_vl_95_Arch2_95_INTERNAL_95_vl_95_3_95_d4">
                     <polyline points="315.0,250.0,315.0,280.0"/>
                 </g>

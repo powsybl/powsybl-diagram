@@ -254,20 +254,20 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -554px; left: 175px" id="0-textnode">
                 <div>VL 11 description1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>VL2 11</div>
                 <div>VL 1 details1</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 8px; left: -272px" id="3-textnode">
                 <div>VL 132 description1</div>
                 <div>VL1 132 description2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl120to180 nad-bus-0 nad-legend-square"/>VL1 132</div>
                 <div>VL 132 details1</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 165px; left: 280px" id="6-textnode">
                 <div>VL 33 description1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl30to50 nad-bus-0 nad-legend-square"/>VL2 33</div>
                 <div>VL 33 details1</div>
                 <div>VL 33 details2</div>

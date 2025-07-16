@@ -88,13 +88,13 @@
                 <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
                     <polyline points="65.0,190.0,65.0,252.0"/>
                 </g>
-                <g class="sld-active-power sld-feeder-info sld-out" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,227.0)">
+                <g class="sld-feeder-info sld-out sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,227.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">tata</text>
                     <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
                 </g>
-                <g class="sld-reactive-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,207.0)">
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,207.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">tutu</text>

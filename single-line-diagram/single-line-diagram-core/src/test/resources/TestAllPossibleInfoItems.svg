@@ -91,17 +91,17 @@
                 <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
                     <polyline points="65.0,192.0,65.0,84.5"/>
                 </g>
-                <g class="sld-active-power sld-feeder-info sld-out" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
+                <g class="sld-feeder-info sld-out sld-active-power" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">100</text>
                 </g>
-                <g class="sld-reactive-power sld-feeder-info sld-out" id="idl_95_ARROW_95_REACTIVE" transform="translate(60.0,114.5)">
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="idl_95_ARROW_95_REACTIVE" transform="translate(60.0,114.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">10</text>
                 </g>
-                <g class="sld-current sld-feeder-info sld-out" id="idl_95_ARROW_95_CURRENT" transform="translate(60.0,129.5)">
+                <g class="sld-feeder-info sld-out sld-current" id="idl_95_ARROW_95_CURRENT" transform="translate(60.0,129.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">153</text>

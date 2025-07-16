@@ -164,10 +164,10 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
                 <text class="sld-label" id="idvl1_95_dtrf1_95_default" text-anchor="middle" x="0.0" y="-5.0">Tests</text>
             </g>
-            <g class="" id="idvl1_95_trf2_95_one" transform="translate(400.0,100.0)">
+            <g id="idvl1_95_trf2_95_one" transform="translate(400.0,100.0)">
                 <text class="sld-label" id="idvl1_95_trf2_95_one_95_default" text-anchor="middle" x="0.0" y="-5.0">Tests</text>
             </g>
-            <g class="" id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
+            <g id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
                 <text class="sld-label" id="idvl1_95_trf2_95_two_95_default" text-anchor="middle" x="0.0" y="-5.0">Tests</text>
             </g>
             <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(432.0,148.0)">

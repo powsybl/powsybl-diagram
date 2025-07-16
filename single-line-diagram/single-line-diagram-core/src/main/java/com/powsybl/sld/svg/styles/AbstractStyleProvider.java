@@ -16,6 +16,7 @@ import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
@@ -87,6 +88,15 @@ public abstract class AbstractStyleProvider implements StyleProvider {
             return List.of(StyleClassConstants.SHUNT_CELL);
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
+        return switch (caption.type()) {
+            case "v" -> List.of(StyleClassConstants.VOLTAGE);
+            case "angle" -> List.of(StyleClassConstants.ANGLE);
+            default -> Collections.emptyList();
+        };
     }
 
     @Override

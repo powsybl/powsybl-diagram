@@ -183,12 +183,12 @@
                 <g class="sld-wire sld-vl300to500 sld-disconnected sld-feeder-disconnected-connected" id="_95_vl1_95_INTERNAL_95_vl1_95_load_95_load">
                     <polyline points="90.0,297.0,90.0,351.0"/>
                 </g>
-                <g class="sld-reactive-power sld-feeder-info sld-in" id="idload_95_ARROW_95_REACTIVE" transform="translate(85.0,326.0)">
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idload_95_ARROW_95_REACTIVE" transform="translate(85.0,326.0)">
                     <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                     <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-active-power sld-feeder-info sld-in" id="idload_95_ARROW_95_ACTIVE" transform="translate(85.0,306.0)">
+                <g class="sld-feeder-info sld-in sld-active-power" id="idload_95_ARROW_95_ACTIVE" transform="translate(85.0,306.0)">
                     <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z" transform="rotate(180.0,5.0,5.0)"/>
                     <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -208,19 +208,19 @@
                 </g>
                 <g class="sld-pst" id="idtrf3" transform="translate(59.0,179.5)">
                     <path class="sld-vl300to500 sld-bus-0 sld-winding" d="M0.59 10.43 a6 6 0 1 0 10.82 0 A7 7 0 0 1 4.8 12.9 L3.36 15.9 L1.55 15 L2.9 12.25 A7 7 0 0 1 0.59 10.43z" transform="rotate(180.0,6.0,9.5)"/>
-                    <path class="sld-disconnected sld-winding" d="M3.3 11.35 L6 5.55 3.4 6.5 2.7 4.6 8.6 2.5 10.7 8.4 8.8 9.1 7.85 6.4 5.2 11.94 A6 6 0 1 0 3.3 11.35z" transform="rotate(180.0,6.0,9.5)"/>
+                    <path class="sld-vl300to500 sld-disconnected sld-winding" d="M3.3 11.35 L6 5.55 3.4 6.5 2.7 4.6 8.6 2.5 10.7 8.4 8.8 9.1 7.85 6.4 5.2 11.94 A6 6 0 1 0 3.3 11.35z" transform="rotate(180.0,6.0,9.5)"/>
                 </g>
-                <g class="sld-breaker sld-open sld-disconnected" id="iddpst" transform="translate(57.0,208.0)">
+                <g class="sld-breaker sld-open sld-vl300to500 sld-disconnected" id="iddpst" transform="translate(57.0,208.0)">
                     <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
                     <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl1_95_5" transform="translate(86.0,239.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-disconnector sld-open sld-disconnected" id="idd1b" transform="translate(111.0,76.0)">
+                <g class="sld-disconnector sld-open sld-vl300to500 sld-disconnected" id="idd1b" transform="translate(111.0,76.0)">
                     <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
                 </g>
-                <g class="sld-disconnector sld-open sld-disconnected" id="idd2b" transform="translate(111.0,101.0)">
+                <g class="sld-disconnector sld-open sld-vl300to500 sld-disconnected" id="idd2b" transform="translate(111.0,101.0)">
                     <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
                 </g>
                 <g class="sld-breaker sld-closed sld-vl300to500 sld-disconnected" id="idbl" transform="translate(82.0,262.0)">

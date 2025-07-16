@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -68,6 +69,11 @@ public class EmptyStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getBusInfoStyle(BusInfo info) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
         return Collections.emptyList();
     }
 
