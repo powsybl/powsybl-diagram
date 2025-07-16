@@ -80,7 +80,7 @@ public class SvgWriter {
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
-        this.edgeRouting = edgeRouting;
+        this.edgeRouting = Objects.requireNonNull(edgeRouting);
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
