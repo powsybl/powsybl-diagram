@@ -18,11 +18,11 @@ import java.util.Map;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class CustomPathsRouting extends StraightEdgeRouting {
+public class CustomPathRouting extends StraightEdgeRouting {
     private final Map<String, List<Point>> customEdgePaths;
     private final Map<String, List<Point>> customTextPaths;
 
-    public CustomPathsRouting(Map<String, List<Point>> customEdgePaths, Map<String, List<Point>> customTextPaths) {
+    public CustomPathRouting(Map<String, List<Point>> customEdgePaths, Map<String, List<Point>> customTextPaths) {
         this.customEdgePaths = customEdgePaths;
         this.customTextPaths = customTextPaths;
     }

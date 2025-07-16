@@ -4,7 +4,7 @@ The `EdgeRouting` interface provides a way to customize the computation of paths
 The chosen edge routing can be specified through `NadParameters::setEdgeRouting`.
 Note that, internally, the edge routing is passed to the `SvgWriter` which launches the computation.
 
-Currently, there are 2 implementations of the `EdgeRouting`: the `StraightEdgeRouting` and the `CustomPathsRouting`.
+Currently, there are 2 implementations of the `EdgeRouting`: the `StraightEdgeRouting` and the `CustomPathRouting`.
 The default implementation if none specified is the `StraightEdgeRouting`.
 
 ## Common features
@@ -33,8 +33,8 @@ In the `StraightEdgeRouting` implementation,
 
 ![forkstraight](/_static/img/nad/fork-straight.png)
 
-## CustomPathsRouting feature
-In the `CustomPathsRouting` implementation, custom paths can be provided through two maps in the constructor
+## CustomPathRouting feature
+In the `CustomPathRouting` implementation, custom paths can be provided through two maps in the constructor
 - a map whose keys are branch ids and whose values are the list of "bending" points to add to the corresponding branch edge,
 - a map whose keys are voltage level ids and whose values are the list of "bending" points to add to the corresponding text edge.
 

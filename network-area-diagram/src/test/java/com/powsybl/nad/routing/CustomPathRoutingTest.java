@@ -35,7 +35,7 @@ import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-class CustomPathsRoutingTest extends AbstractTest {
+class CustomPathRoutingTest extends AbstractTest {
 
     private FileSystem fileSystem;
 
@@ -69,7 +69,7 @@ class CustomPathsRoutingTest extends AbstractTest {
         Map<String, List<Point>> textMap = Map.of(
                 "VL3", List.of(new Point(450, -400), new Point(479.01, -375.27))
         );
-        return new CustomPathsRouting(edgesMap, textMap);
+        return new CustomPathRouting(edgesMap, textMap);
     }
 
     @Test
