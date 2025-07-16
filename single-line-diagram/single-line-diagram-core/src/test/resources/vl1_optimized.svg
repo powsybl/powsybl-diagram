@@ -72,59 +72,59 @@
 .sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
 ]]></style>
     <defs>
-        <g id="idARROW_95_REACTIVE">
-            <g id="idARROW_95_REACTIVE_45_UP">
+        <g id="ARROW_REACTIVE">
+            <g id="ARROW_REACTIVE-UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-            <g id="idARROW_95_REACTIVE_45_DOWN">
+            <g id="ARROW_REACTIVE-DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="idLOAD">
+        <g id="LOAD">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
         </g>
-        <g id="idARROW_95_ACTIVE">
-            <g id="idARROW_95_ACTIVE_45_UP">
+        <g id="ARROW_ACTIVE">
+            <g id="ARROW_ACTIVE-UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-            <g id="idARROW_95_ACTIVE_45_DOWN">
+            <g id="ARROW_ACTIVE-DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
-        <g id="idDISCONNECTOR">
-            <g id="idDISCONNECTOR_45_CLOSED">
+        <g id="DISCONNECTOR">
+            <g id="DISCONNECTOR-CLOSED">
                 <path d="M0,0 8,8 M8,0 0,8"/>
             </g>
-            <g id="idDISCONNECTOR_45_OPEN">
+            <g id="DISCONNECTOR-OPEN">
                 <path d="M8,0 0,8"/>
             </g>
         </g>
-        <g id="idTWO_95_WINDINGS_95_TRANSFORMER">
-            <g id="idTWO_95_WINDINGS_95_TRANSFORMER_45_WINDING1">
+        <g id="TWO_WINDINGS_TRANSFORMER">
+            <g id="TWO_WINDINGS_TRANSFORMER-WINDING1">
                 <circle cx="5" cy="10" r="5"/>
             </g>
-            <g id="idTWO_95_WINDINGS_95_TRANSFORMER_45_WINDING2">
+            <g id="TWO_WINDINGS_TRANSFORMER-WINDING2">
                 <circle cx="5" cy="5" r="5"/>
             </g>
         </g>
-        <g id="idTHREE_95_WINDINGS_95_TRANSFORMER">
-            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING1">
+        <g id="THREE_WINDINGS_TRANSFORMER">
+            <g id="THREE_WINDINGS_TRANSFORMER-WINDING1">
                 <circle cx="5" cy="15" r="5"/>
             </g>
-            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING2">
+            <g id="THREE_WINDINGS_TRANSFORMER-WINDING2">
                 <circle cx="11" cy="15" r="5"/>
             </g>
-            <g id="idTHREE_95_WINDINGS_95_TRANSFORMER_45_WINDING3">
+            <g id="THREE_WINDINGS_TRANSFORMER-WINDING3">
                 <circle cx="8" cy="19" r="5"/>
             </g>
         </g>
-        <g id="idBREAKER">
-            <g id="idBREAKER_45_CLOSED">
+        <g id="BREAKER">
+            <g id="BREAKER-CLOSED">
                 <path d="M1,1 V19 H19 V1z M10,5 V15"/>
             </g>
-            <g id="idBREAKER_45_OPEN">
+            <g id="BREAKER-OPEN">
                 <path d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
