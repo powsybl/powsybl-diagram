@@ -30,11 +30,13 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
     protected void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge, SvgParameters svgParameters) {
         Node node1 = graph.getBusGraphNode1(edge);
         Node node2 = graph.getBusGraphNode2(edge);
+        VoltageLevelNode voltageLevelNode1 = graph.getVoltageLevelNode1(edge);
+        VoltageLevelNode voltageLevelNode2 = graph.getVoltageLevelNode2(edge);
 
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point direction1 = getDirection(node2, voltageLevelNode2);
         Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
 
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point direction2 = getDirection(node1, voltageLevelNode1);
         Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
@@ -46,6 +48,19 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
             edge.setPoints1(edgeStart1, middle);
             edge.setPoints2(edgeStart2, middle);
         }
+
+        edge.setArrowPoint1(getArrowCenter(voltageLevelNode1, (BusNode) node1, edge.getPoints1(), svgParameters));
+        edge.setArrowPoint2(getArrowCenter(voltageLevelNode2, (BusNode) node2, edge.getPoints2(), svgParameters));
+        for (BranchEdge.Side side : BranchEdge.Side.values()) {
+            edge.setArrowAngle(side, edge.getEdgeStartAngle(side));
+        }
+    }
+
+    protected Point getDirection(Node directionBusGraphNode, Node vlNode) {
+        if (directionBusGraphNode == BusNode.UNKNOWN) {
+            return vlNode.getPosition();
+        }
+        return directionBusGraphNode.getPosition();
     }
 
     @Override
@@ -93,6 +108,7 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
                 ? middle.atDistance(1.5 * svgParameters.getTransformerCircleRadius(), fork)
                 : middle;
         edge.setPoints(side, edgeStart, fork, endFork);
+        edge.setArrow(side, fork.atDistance(svgParameters.getArrowShift(), endFork));
+        edge.setArrowAngle(side, edge.getEdgeEndAngle(side));
     }
-
 }

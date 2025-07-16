@@ -10,6 +10,7 @@ package com.powsybl.nad.routing;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NadParameters;
@@ -43,6 +44,7 @@ class CustomPathsRoutingTest extends AbstractTest {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
+                .setEdgeNameDisplayed(true)
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
     }
@@ -73,6 +75,15 @@ class CustomPathsRoutingTest extends AbstractTest {
     @Test
     void testDrawSvg() {
         Network network = IeeeCdfNetworkFactory.create14Solved();
+
+        Line line121 = network.getLine("L1-2-1");
+        line121.getTerminal1().setP(10);
+        line121.getTerminal2().setP(11);
+
+        Line line151 = network.getLine("L1-5-1");
+        line151.getTerminal1().setP(8);
+        line151.getTerminal2().setP(7);
+
         Path svgFile = fileSystem.getPath("nad-test.svg");
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())

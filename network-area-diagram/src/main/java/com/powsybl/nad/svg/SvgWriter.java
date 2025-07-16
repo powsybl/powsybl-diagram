@@ -403,7 +403,7 @@ public class SvgWriter {
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
         if (edgeInfo != null) {
-            drawBranchEdgeInfo(graph, writer, edge, side, edgeInfo);
+            drawBranchEdgeInfo(writer, edge, side, edgeInfo);
         }
     }
 
@@ -463,7 +463,7 @@ public class SvgWriter {
 
         Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
         if (edgeInfo.isPresent()) {
-            drawThreeWtEdgeInfo(graph, writer, edge, edgeInfo.get());
+            drawThreeWtEdgeInfo(writer, edge, edgeInfo.get());
         }
         writer.writeEndElement();
     }
@@ -543,20 +543,16 @@ public class SvgWriter {
         drawEdgeInfo(writer, edgeInfo, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
     }
 
-    private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
-        VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
-        BusNode busNode = graph.getBusGraphNode(edge, side);
-        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
+    private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfo, edge.getArrow(side), edge.getArrowAngle(side));
     }
 
-    private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, EdgeInfo edgeInfo) throws XMLStreamException {
-        VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
-        BusNode busNode = graph.getBusGraphNode(edge);
-        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+    private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge, EdgeInfo edgeInfo) throws XMLStreamException {
+        drawEdgeInfo(writer, edgeInfo, edge.getArrowPoint(), edge.getEdgeAngle());
     }
 
     private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection, VoltageLevelNode vlNode, BusNode busNode, EdgeInfo edgeInfo) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfo, getArrowCenter(vlNode, busNode, injection.getEdge()), injection.getAngle());
+        drawEdgeInfo(writer, edgeInfo, injection.getArrowPoint(), injection.getAngle());
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
@@ -661,16 +657,6 @@ public class SvgWriter {
         double f1 = centerPosY - cdx * sinRo - cdy * cosRo;
 
         return new double[]{+cosRo, sinRo, -sinRo, cosRo, e1, f1};
-    }
-
-    private Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line) {
-        double shift = svgParameters.getArrowShift();
-        if (line.size() == 2) { // straight line; in case of a forking line it is the middle point which is the starting point
-            double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
-            double busAnnulusOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
-            shift += nodeOuterRadius - busAnnulusOuterRadius;
-        }
-        return line.get(line.size() - 2).atDistance(shift, line.get(line.size() - 1));
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {

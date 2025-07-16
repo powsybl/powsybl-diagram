@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -41,13 +40,6 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
     protected abstract void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters);
 
     protected abstract void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge, SvgParameters svgParameters);
-
-    protected Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
-        if (directionBusGraphNode == BusNode.UNKNOWN) {
-            return vlNodeSupplier.get().getPosition();
-        }
-        return directionBusGraphNode.getPosition();
-    }
 
     protected Point computeEdgeStart(Node node, Point direction, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         // If edge not connected to a bus node on that side, we use corresponding voltage level with specific extra radius
@@ -88,6 +80,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
                 Point injPoint = node.getPosition().atDistance(svgParameters.getInjectionEdgeLength(), angle);
                 Point busNodePoint = computeEdgeStart(busNode, injPoint, node, svgParameters);
                 injection.setEdge(busNodePoint, injPoint);
+                injection.setArrowPoint(getArrowCenter(node, busNode, injection.getEdge(), svgParameters));
             }
         }
     }
@@ -103,12 +96,15 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         double endAngle = angle + sideSign * Math.PI / 2;
 
         Point fork = node.getPosition().atDistance(svgParameters.getEdgesForkLength(), startAngle);
-        Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge, side), fork, node, svgParameters);
+        BusNode busGraphNode = graph.getBusGraphNode(edge, side);
+        Point edgeStart = computeEdgeStart(busGraphNode, fork, node, svgParameters);
         Point control1a = fork.atDistance(controlsDist, startAngle);
         Point middle1 = isTransformer ? middle.atDistance(1.5 * radius, endAngle) : middle;
         Point control1b = middle1.atDistance(isTransformer ? Math.max(0, controlsDist - 1.5 * radius) : controlsDist, endAngle);
 
         edge.setPoints(side, edgeStart, fork, control1a, control1b, middle1);
+        edge.setArrow(side, getArrowCenter(node, busGraphNode, edge.getPoints(side), svgParameters));
+        edge.setArrowAngle(side, edge.getEdgeStartAngle(side));
     }
 
     private List<Double> computeLoopAngles(Graph graph, List<BranchEdge> loopEdges, Node node, SvgParameters svgParameters) {
@@ -240,10 +236,13 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         double dNodeToAnchor = svgParameters.getTransformerCircleRadius() * 1.6;
         for (int i = 0; i < edgesSorted.size(); i++) {
             ThreeWtEdge edge = edgesSorted.get(i);
-            Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge), threeWtNode.getPosition(), graph.getVoltageLevelNode(edge), svgParameters);
+            VoltageLevelNode voltageLevelNode = graph.getVoltageLevelNode(edge);
+            BusNode busGraphNode = graph.getBusGraphNode(edge);
+            Point edgeStart = computeEdgeStart(busGraphNode, threeWtNode.getPosition(), voltageLevelNode, svgParameters);
             double anchorAngle = leadingAngle + i * 2 * Math.PI / 3;
             Point threeWtAnchor = threeWtNode.getPosition().shiftRhoTheta(dNodeToAnchor, anchorAngle);
             edge.setPoints(edgeStart, threeWtAnchor);
+            edge.setArrowPoint(getArrowCenter(voltageLevelNode, busGraphNode, edge.getPoints(), svgParameters));
         }
     }
 
@@ -263,5 +262,12 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
                 .boxed().min(Comparator.comparingDouble(i -> deltaAngles[i]))
                 .orElse(0);
         return ((minDeltaIndex - 1) + 3) % 3;
+    }
+
+    protected Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line, SvgParameters svgParameters) {
+        double nodeOuterRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters);
+        double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
+        double shift = svgParameters.getArrowShift() + nodeOuterRadius - busAnnulusOuterRadius;
+        return line.get(0).atDistance(shift, line.get(1));
     }
 }

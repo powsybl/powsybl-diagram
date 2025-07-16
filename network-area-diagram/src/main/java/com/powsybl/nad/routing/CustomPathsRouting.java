@@ -36,10 +36,13 @@ public class CustomPathsRouting extends StraightEdgeRouting {
         }
 
         // Edge starts should go in the direction of the first/last custom point
-        Point edgeStart1 = computeEdgeStart(graph.getBusGraphNode1(edge), customPoints.get(0),
-                graph.getVoltageLevelNode1(edge), svgParameters);
-        Point edgeStart2 = computeEdgeStart(graph.getBusGraphNode2(edge), customPoints.get(customPoints.size() - 1),
-                graph.getVoltageLevelNode2(edge), svgParameters);
+        Node node1 = graph.getBusGraphNode1(edge);
+        Node node2 = graph.getBusGraphNode2(edge);
+        VoltageLevelNode voltageLevelNode1 = graph.getVoltageLevelNode1(edge);
+        VoltageLevelNode voltageLevelNode2 = graph.getVoltageLevelNode2(edge);
+
+        Point edgeStart1 = computeEdgeStart(node1, customPoints.get(0), voltageLevelNode1, svgParameters);
+        Point edgeStart2 = computeEdgeStart(node2, customPoints.get(customPoints.size() - 1), voltageLevelNode2, svgParameters);
 
         List<Point> allPoints = new ArrayList<>();
         allPoints.add(edgeStart1);
@@ -66,6 +69,12 @@ public class CustomPathsRouting extends StraightEdgeRouting {
         }
         points2[allPoints.size() - iStartMiddlePath - 1] = middle;
         edge.setPoints2(points2);
+
+        edge.setArrowPoint1(getArrowCenter(voltageLevelNode1, (BusNode) node1, edge.getPoints1(), svgParameters));
+        edge.setArrowPoint2(getArrowCenter(voltageLevelNode2, (BusNode) node2, edge.getPoints2(), svgParameters));
+        for (BranchEdge.Side side : BranchEdge.Side.values()) {
+            edge.setArrowAngle(side, edge.getEdgeStartAngle(side));
+        }
     }
 
     private int computeIndexMiddlePath(double[] cumulatedDistance) {
