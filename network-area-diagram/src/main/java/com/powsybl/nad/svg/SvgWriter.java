@@ -157,13 +157,13 @@ public class SvgWriter {
         if (vlNode.getBusNodes().stream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             for (BusNode busNode : vlNode.getBusNodes()) {
-                drawInjections(graph, busNode, vlNode, writer);
+                drawInjections(graph, busNode, writer);
             }
             writer.writeEndElement();
         }
     }
 
-    private void drawInjections(Graph graph, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjections(Graph graph, BusNode busNode, XMLStreamWriter writer) throws XMLStreamException {
         if (busNode.getInjectionCount() == 0) {
             return;
         }
@@ -176,7 +176,7 @@ public class SvgWriter {
             writeStyleClasses(writer, styleProvider.getInjectionStyleClasses(injection));
             writeStyleAttribute(writer, styleProvider.getInjectionStyle(injection));
             insertName(writer, injection::getName);
-            drawInjectionEdge(graph, injection, busNode, vlNode, writer);
+            drawInjectionEdge(graph, injection, writer);
             drawInjectionIcon(injection, writer);
             writer.writeEndElement();
         }
@@ -184,13 +184,13 @@ public class SvgWriter {
 
     }
 
-    private void drawInjectionEdge(Graph graph, Injection injection, BusNode busNode, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjectionEdge(Graph graph, Injection injection, XMLStreamWriter writer) throws XMLStreamException {
         Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(injection.getEdge()));
         if (edgeInfo.isPresent()) {
-            drawInjectionEdgeInfo(writer, injection, vlNode, busNode, edgeInfo.get());
+            drawInjectionEdgeInfo(writer, injection, edgeInfo.get());
         }
     }
 
@@ -389,7 +389,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
-                drawHalfEdge(graph, writer, edge, side, edgeInfo.orElse(null));
+                drawHalfEdge(writer, edge, side, edgeInfo.orElse(null));
             } else {
                 drawLoopEdge(writer, edge, side, edgeInfo.orElse(null));
             }
@@ -397,7 +397,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
@@ -551,7 +551,7 @@ public class SvgWriter {
         drawEdgeInfo(writer, edgeInfo, edge.getArrowPoint(), edge.getEdgeAngle());
     }
 
-    private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection, VoltageLevelNode vlNode, BusNode busNode, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection, EdgeInfo edgeInfo) throws XMLStreamException {
         drawEdgeInfo(writer, edgeInfo, injection.getArrowPoint(), injection.getAngle());
     }
 
