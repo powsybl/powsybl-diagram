@@ -27,6 +27,7 @@ public class Injection extends AbstractIdentifiable {
     private double angle;
     private Point injectionPoint;
     private Point busNodePoint;
+    private Point arrowPoint;
 
     public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
         super(diagramId, equipmentId, nameOrId);
@@ -64,6 +65,14 @@ public class Injection extends AbstractIdentifiable {
 
     public Point getInjectionPoint() {
         return injectionPoint;
+    }
+
+    public Point getArrowPoint() {
+        return arrowPoint;
+    }
+
+    public void setArrowPoint(Point arrowPoint) {
+        this.arrowPoint = arrowPoint;
     }
 
     public Point getIconOrigin(double circleRadius) {

@@ -22,7 +22,8 @@ public class ThreeWtEdge extends AbstractEdge {
     public static final String THREE_WT_EDGE = "ThreeWtEdge";
     public static final String PST_EDGE = "PstEdge";
 
-    private Side side;
+    private final Side side;
+    private Point arrowPoint;
 
     private List<Point> points;
 
@@ -40,6 +41,14 @@ public class ThreeWtEdge extends AbstractEdge {
 
     public List<Point> getPoints() {
         return Collections.unmodifiableList(points);
+    }
+
+    public Point getArrowPoint() {
+        return arrowPoint;
+    }
+
+    public void setArrowPoint(Point arrowPoint) {
+        this.arrowPoint = arrowPoint;
     }
 
     public boolean isVisible() {
