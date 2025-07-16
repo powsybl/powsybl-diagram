@@ -173,7 +173,7 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1" transform="translate(111.0,208.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb1" transform="translate(80.0,202.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb1" transform="translate(80.0,202.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1" transform="rotate(90.0,10.0,10.0)"/>
             </g>
@@ -289,22 +289,22 @@
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2" transform="translate(211.0,303.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb2" transform="translate(205.0,324.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb2" transform="translate(205.0,324.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1"/>
             </g>
             <g class="sld-two-wt" id="idT11" transform="translate(210.0,353.5)">
-                <circle class="sld-disconnected sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
+                <circle class="sld-vl300to500 sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb4" transform="translate(205.0,378.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb4" transform="translate(205.0,378.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl_95_5" transform="translate(236.0,411.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb3" transform="translate(255.0,351.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb3" transform="translate(255.0,351.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1"/>
             </g>
@@ -314,14 +314,14 @@
             <g class="sld-bus-connection sld-fictitious sld-vl300to500 sld-disconnected" id="idBUSCO_95_bbs2_95_b3" transform="translate(261.0,273.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb5" transform="translate(230.0,432.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb5" transform="translate(230.0,432.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1"/>
             </g>
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl_95_l_95_fork" transform="translate(211.0,465.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load-break-switch sld-open sld-disconnected" id="idb" transform="translate(155.0,378.0)">
+            <g class="sld-load-break-switch sld-open sld-vl300to500 sld-disconnected" id="idb" transform="translate(155.0,378.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15 M1,19 19,1"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15 M1,19 19,1"/>
             </g>
