@@ -38,9 +38,10 @@ import java.util.*;
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
     // This should always be between 0 and 1, strictly
-    private static final double STARTING_TRANSITION_PROBABILITY = 0.8;
+    private static final double STARTING_TRANSITION_PROBABILITY = 0.67;
     private static final double STARTING_PRECISION = 1e-3;
-    private static final double TEMPERATURE_DECREASE_RATIO = 0.8;
+    private static final double TEMPERATURE_DECREASE_RATIO = 0.75;
+    private static final int TRIES_MULTIPLIER = 20;
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
@@ -228,7 +229,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         // Then start the process
         double temperature = computeInitialTemperature(setupTopologyData, random);
         LOGGER.trace("Initial temperature : {}", temperature);
-        int neighborNumberTry = 30 * setupTopologyData.movablePoints.length;
+        int neighborNumberTry = TRIES_MULTIPLIER * setupTopologyData.movablePoints.length;
         double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
