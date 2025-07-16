@@ -34,11 +34,16 @@ public class CustomPathsRouting extends StraightEdgeRouting {
             return;
         }
 
-        EdgeStarts edgeStarts = computeEdgeStarts(graph, edge, svgParameters);
+        // Edge starts should go in the direction of the first/last custom point
+        Point edgeStart1 = computeEdgeStart(graph.getBusGraphNode1(edge), customPoints.get(0),
+                graph.getVoltageLevelNode1(edge), svgParameters);
+        Point edgeStart2 = computeEdgeStart(graph.getBusGraphNode2(edge), customPoints.get(customPoints.size() - 1),
+                graph.getVoltageLevelNode2(edge), svgParameters);
+
         List<Point> allPoints = new ArrayList<>();
-        allPoints.add(edgeStarts.point1());
+        allPoints.add(edgeStart1);
         allPoints.addAll(customPoints);
-        allPoints.add(edgeStarts.point2());
+        allPoints.add(edgeStart2);
 
         double[] cumulatedDistance = computeCumulatedDistances(allPoints);
         int iStartMiddlePath = computeIndexMiddlePath(cumulatedDistance);

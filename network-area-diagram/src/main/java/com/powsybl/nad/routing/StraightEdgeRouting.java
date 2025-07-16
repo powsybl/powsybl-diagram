@@ -24,15 +24,23 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
 
     @Override
     protected void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge, SvgParameters svgParameters) {
-        EdgeStarts edgeStarts = computeEdgeStarts(graph, edge, svgParameters);
-        Point middle = Point.createMiddlePoint(edgeStarts.point1(), edgeStarts.point2());
+        Node node1 = graph.getBusGraphNode1(edge);
+        Node node2 = graph.getBusGraphNode2(edge);
+
+        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
+        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
+
+        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
+        Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
+
+        Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
         if (edge.isTransformerEdge()) {
             double radius = svgParameters.getTransformerCircleRadius();
-            edge.setPoints1(edgeStarts.point1(), middle.atDistance(1.5 * radius, edgeStarts.direction2()));
-            edge.setPoints2(edgeStarts.point2(), middle.atDistance(1.5 * radius, edgeStarts.direction1()));
+            edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
+            edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
         } else {
-            edge.setPoints1(edgeStarts.point1(), middle);
-            edge.setPoints2(edgeStarts.point2(), middle);
+            edge.setPoints1(edgeStart1, middle);
+            edge.setPoints2(edgeStart2, middle);
         }
     }
 

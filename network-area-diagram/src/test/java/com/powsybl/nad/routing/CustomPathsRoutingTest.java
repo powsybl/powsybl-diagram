@@ -61,11 +61,11 @@ class CustomPathsRoutingTest extends AbstractTest {
     @Override
     protected EdgeRouting getEdgeRouting() {
         Map<String, List<Point>> edgesMap = Map.of(
-                "L1-2-1", List.of(new Point(-0.89,-652.83)),
-                "L1-5-1", List.of(new Point(296.10,-502.39), new Point(717.04,-455.84), new Point(737.27,-51.09))
+                "L1-2-1", List.of(new Point(-0.89, -652.83)),
+                "L1-5-1", List.of(new Point(296.10, -502.39), new Point(717.04, -455.84), new Point(737.27, -51.09))
         );
         Map<String, List<Point>> textMap = Map.of(
-                "VL3", List.of(new Point(450,-400), new Point(479.01,-375.27))
+                "VL3", List.of(new Point(450, -400), new Point(479.01, -375.27))
         );
         return new CustomPathsRouting(edgesMap, textMap);
     }
@@ -79,6 +79,6 @@ class CustomPathsRoutingTest extends AbstractTest {
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setEdgeRouting(getEdgeRouting());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
-        assertFileEquals("/dangling_line_connected.svg", svgFile);
+        assertFileEquals("/ieee14_custom_paths.svg", svgFile);
     }
 }

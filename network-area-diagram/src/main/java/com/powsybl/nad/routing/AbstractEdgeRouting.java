@@ -38,18 +38,6 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
 
     protected abstract void computeSingleBranchEdgeCoordinates(Graph graph, BranchEdge edge, SvgParameters svgParameters);
 
-    protected EdgeStarts computeEdgeStarts(Graph graph, BranchEdge edge, SvgParameters svgParameters) {
-        Node node1 = graph.getBusGraphNode1(edge);
-        Node node2 = graph.getBusGraphNode2(edge);
-
-        Point direction1 = getDirection(node2, () -> graph.getNode2(edge));
-        Point edgeStart1 = computeEdgeStart(node1, direction1, graph.getVoltageLevelNode1(edge), svgParameters);
-
-        Point direction2 = getDirection(node1, () -> graph.getNode1(edge));
-        Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
-        return new EdgeStarts(edgeStart1, edgeStart2, direction1, direction2);
-    }
-
     protected abstract void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters);
 
     protected abstract void computeTextEdgeLayoutCoordinates(VoltageLevelNode first, TextNode second, TextEdge edge);
@@ -69,7 +57,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         }
 
         Point edgeStart = node.getPosition();
-        if ((node instanceof BusNode busNode) && (vlNode != null)) {
+        if (node instanceof BusNode busNode && vlNode != null) {
             double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             edgeStart = edgeStart.atDistance(busAnnulusOuterRadius - svgParameters.getEdgeStartShift(), direction);
         }
@@ -134,7 +122,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
     private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
         List<Double> anglesOtherEdges = graph.getEdgeStream(vlNode)
                 .mapToDouble(e -> getAngle(e, graph, vlNode))
-                .sorted().boxed().toList();
+                .sorted().boxed().collect(Collectors.toList());
         int nbInjections = vlNode.getBusNodeStream().mapToInt(BusNode::getInjectionCount).sum();
         return findAvailableAngles(anglesOtherEdges, nbInjections, svgParameters.getInjectionAperture());
     }
