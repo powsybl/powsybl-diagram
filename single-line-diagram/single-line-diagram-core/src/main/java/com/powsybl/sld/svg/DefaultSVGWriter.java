@@ -1109,7 +1109,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Map.Entry<String, List<Element>> subComponent : subComponents.entrySet()) {
             if (subComponents.size() > 1) {
                 Element subComponentGroup = group.getOwnerDocument().createElement("g");
-                subComponentGroup.setAttribute("id", IdUtil.escapeId(getHRefValue(subComponents.size(), componentType, subComponent.getKey())));
+                subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
                 addSvgSubComponentsToElement(subComponent.getValue(), subComponentGroup);
                 group.getOwnerDocument().adoptNode(subComponentGroup);
                 group.appendChild(subComponentGroup);
