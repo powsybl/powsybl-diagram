@@ -55,10 +55,10 @@ public class CustomPathsRouting extends StraightEdgeRouting {
         edge.setPoints1(points1);
 
         Point[] points2 = new Point[allPoints.size() - iStartMiddlePath];
-        for (int i = 0; i < allPoints.size() - iStartMiddlePath + 1; i++) {
+        for (int i = 0; i < allPoints.size() - iStartMiddlePath - 1; i++) {
             points2[i] = allPoints.get(allPoints.size() - 1 - i);
         }
-        points2[allPoints.size() - iStartMiddlePath + 1] = middle;
+        points2[allPoints.size() - iStartMiddlePath - 1] = middle;
         edge.setPoints2(points2);
     }
 
@@ -86,7 +86,7 @@ public class CustomPathsRouting extends StraightEdgeRouting {
 
     @Override
     protected void computeTextEdgeLayoutCoordinates(VoltageLevelNode voltageLevelNode, TextNode textNode, TextEdge edge) {
-        List<Point> customPoints = customTextPaths.getOrDefault(edge.getEquipmentId(), List.of());
+        List<Point> customPoints = customTextPaths.getOrDefault(voltageLevelNode.getEquipmentId(), List.of());
         if (customPoints.isEmpty()) {
             super.computeTextEdgeLayoutCoordinates(voltageLevelNode, textNode, edge);
             return;
@@ -97,6 +97,6 @@ public class CustomPathsRouting extends StraightEdgeRouting {
         List<Point> allPoints = new ArrayList<>();
         allPoints.add(voltageLevelNode.getPosition());
         allPoints.addAll(customPoints);
-        edge.setPoints(allPoints.toArray(new Point[allPoints.size() + 1]));
+        edge.setPoints(allPoints.toArray(new Point[0]));
     }
 }

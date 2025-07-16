@@ -1,0 +1,84 @@
+/*
+ * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+package com.powsybl.nad.routing;
+
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.NadParameters;
+import com.powsybl.nad.NetworkAreaDiagram;
+import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.svg.StyleProvider;
+import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
+import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.nio.file.FileSystem;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+
+import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
+
+/**
+ * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
+ */
+class CustomPathsRoutingTest extends AbstractTest {
+
+    private FileSystem fileSystem;
+
+    @BeforeEach
+    void setup() {
+        fileSystem = Jimfs.newFileSystem(Configuration.unix());
+        setLayoutParameters(new LayoutParameters());
+        setSvgParameters(new SvgParameters()
+                .setSvgWidthAndHeightAdded(true)
+                .setFixedWidth(800));
+    }
+
+    @Override
+    protected StyleProvider getStyleProvider(Network network) {
+        return new NominalVoltageStyleProvider(network);
+    }
+
+    @Override
+    protected LabelProvider getLabelProvider(Network network) {
+        return new DefaultLabelProvider(network, getSvgParameters()) {
+        };
+    }
+
+    @Override
+    protected EdgeRouting getEdgeRouting() {
+        Map<String, List<Point>> edgesMap = Map.of(
+                "L1-2-1", List.of(new Point(-0.89,-652.83)),
+                "L1-5-1", List.of(new Point(296.10,-502.39), new Point(717.04,-455.84), new Point(737.27,-51.09))
+        );
+        Map<String, List<Point>> textMap = Map.of(
+                "VL3", List.of(new Point(450,-400), new Point(479.01,-375.27))
+        );
+        return new CustomPathsRouting(edgesMap, textMap);
+    }
+
+    @Test
+    void testDrawSvg() {
+        Network network = IeeeCdfNetworkFactory.create14Solved();
+        Path svgFile = fileSystem.getPath("nad-test.svg");
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setEdgeRouting(getEdgeRouting());
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+        assertFileEquals("/dangling_line_connected.svg", svgFile);
+    }
+}

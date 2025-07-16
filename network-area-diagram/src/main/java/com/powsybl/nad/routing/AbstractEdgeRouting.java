@@ -127,7 +127,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         List<Double> anglesOtherEdges = graph.getEdgeStream(node)
                 .filter(e -> !loopEdges.contains(e))
                 .mapToDouble(e -> getAngle(e, graph, node))
-                .sorted().boxed().toList();
+                .sorted().boxed().collect(Collectors.toList());
         return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture() * 1.2);
     }
 
