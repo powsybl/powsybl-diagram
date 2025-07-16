@@ -103,7 +103,7 @@ public final class NetworkAreaDiagram {
 
     private static SvgWriter createSvgWriter(Network network, NadParameters param) {
         return new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network),
-                param.createLabelProvider(network), param.getComponentLibrary());
+                param.createLabelProvider(network), param.getComponentLibrary(), param.getEdgeRouting());
     }
 
     private static Path getMetadataPath(Path svgPath) {

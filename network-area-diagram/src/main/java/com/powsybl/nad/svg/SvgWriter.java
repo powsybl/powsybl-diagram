@@ -12,6 +12,7 @@ import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.routing.EdgeRouting;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.alg.util.Pair;
@@ -70,15 +71,16 @@ public class SvgWriter {
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
     private final LabelProvider labelProvider;
-    private final EdgeRendering edgeRendering;
+    private final EdgeRouting edgeRouting;
     private final NadComponentLibrary componentLibrary;
 
-    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider, NadComponentLibrary componentLibrary) {
+    public SvgWriter(SvgParameters svgParameters, StyleProvider styleProvider, LabelProvider labelProvider,
+                     NadComponentLibrary componentLibrary, EdgeRouting edgeRouting) {
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.styleProvider = Objects.requireNonNull(styleProvider);
         this.labelProvider = Objects.requireNonNull(labelProvider);
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
-        this.edgeRendering = new DefaultEdgeRendering();
+        this.edgeRouting = edgeRouting;
     }
 
     public void writeSvg(Graph graph, Path svgFile) {
@@ -108,7 +110,7 @@ public class SvgWriter {
         Objects.requireNonNull(svgOs);
 
         // Edge coordinates need to be computed first, based on svg parameters
-        edgeRendering.run(graph, svgParameters);
+        edgeRouting.run(graph, svgParameters);
 
         try {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, svgOs);
@@ -1092,7 +1094,7 @@ public class SvgWriter {
         return getVoltageLevelCircleRadius(vlNode, svgParameters);
     }
 
-    protected static double getVoltageLevelCircleRadius(VoltageLevelNode vlNode, SvgParameters svgParameters) {
+    public static double getVoltageLevelCircleRadius(VoltageLevelNode vlNode, SvgParameters svgParameters) {
         if (vlNode.isFictitious()) {
             return svgParameters.getFictitiousVoltageLevelCircleRadius();
         }
