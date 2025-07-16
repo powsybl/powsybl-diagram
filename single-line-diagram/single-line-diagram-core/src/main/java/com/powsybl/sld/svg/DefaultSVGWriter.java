@@ -219,32 +219,36 @@ public class DefaultSVGWriter implements SVGWriter {
                                     GraphMetadata metadata,
                                     LabelProvider initProvider,
                                     StyleProvider styleProvider) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
+        g.setAttribute("id", IdUtil.escapeId(graph.getId()));
+        g.setAttribute(CLASS, StyleClassConstants.VOLTAGE_LEVEL_CLASS);
 
         if (!graph.isForVoltageLevelDiagram()) {
-            drawGraphLabel(root, graph, metadata);
+            drawGraphLabel(g, graph, metadata);
         }
 
         Set<Node> remainingNodesToDraw = graph.getNodeSet();
         Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
-        drawBuses(root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
+        drawBuses(g, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
         graph.getCellStream().forEach(cell ->
-                drawCell(root, graph, cell, metadata, initProvider, styleProvider,
+                drawCell(g, graph, cell, metadata, initProvider, styleProvider,
                         remainingEdgesToDraw, remainingNodesToDraw));
 
-        drawEdges(root, graph, metadata, initProvider, styleProvider, remainingEdgesToDraw);
+        drawEdges(g, graph, metadata, initProvider, styleProvider, remainingEdgesToDraw);
 
-        drawNodes(root, graph, graph.getCoord(), metadata, initProvider, styleProvider, remainingNodesToDraw);
+        drawNodes(g, graph, graph.getCoord(), metadata, initProvider, styleProvider, remainingNodesToDraw);
 
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
-        drawSnakeLines(root, graph, metadata, styleProvider);
+        drawSnakeLines(g, graph, metadata, styleProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawNodes(root, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
+        drawNodes(g, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && svgParameters.isBusesLegendAdded()) {
-            drawBusesLegend(root, graph, metadata, initProvider, styleProvider);
+            drawBusesLegend(g, graph, metadata, initProvider, styleProvider);
         }
+        root.appendChild(g);
     }
 
     private void drawCell(Element root, VoltageLevelGraph graph, Cell cell,
