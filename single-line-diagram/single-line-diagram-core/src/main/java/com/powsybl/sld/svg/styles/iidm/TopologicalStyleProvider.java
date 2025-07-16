@@ -36,19 +36,33 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     private final Map<String, Integer> stylesIndices = new HashMap<>();
     private final Network network;
     private final SvgParameters svgParameters;
+    private boolean busHighlightOnHover;
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters());
     }
 
     public TopologicalStyleProvider(Network network, SvgParameters svgParameters) {
-        this(BaseVoltagesConfig.fromPlatformConfig(), network, svgParameters);
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, svgParameters, false);
     }
 
     public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network, SvgParameters svgParameters) {
+        this(baseVoltagesConfig, network, svgParameters, false);
+    }
+
+    public TopologicalStyleProvider(Network network, boolean busHighlightOnHover) {
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, new SvgParameters(), busHighlightOnHover);
+    }
+
+    public TopologicalStyleProvider(Network network, SvgParameters svgParameters, boolean busHighlightOnHover) {
+        this(BaseVoltagesConfig.fromPlatformConfig(), network, svgParameters, busHighlightOnHover);
+    }
+
+    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network, SvgParameters svgParameters, boolean busHighlightOnHover) {
         super(baseVoltagesConfig);
         this.network = network;
         this.svgParameters = svgParameters;
+        this.busHighlightOnHover = busHighlightOnHover;
     }
 
     @Override
@@ -216,7 +230,11 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css");
+        List<String> cssFilenames = new ArrayList<>(Arrays.asList("tautologies.css", "topologicalBaseVoltages.css"));
+        if (busHighlightOnHover) {
+            cssFilenames.add("busHighlight.css");
+        }
+        return cssFilenames;
     }
 
 }
