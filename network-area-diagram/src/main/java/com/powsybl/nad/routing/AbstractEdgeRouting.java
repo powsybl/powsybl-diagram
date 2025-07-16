@@ -264,7 +264,4 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
                 .orElse(0);
         return ((minDeltaIndex - 1) + 3) % 3;
     }
-
-    protected record EdgeStarts(Point point1, Point point2, Point direction1, Point direction2) {
-    }
 }

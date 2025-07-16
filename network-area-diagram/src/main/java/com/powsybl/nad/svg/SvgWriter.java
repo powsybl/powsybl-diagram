@@ -971,12 +971,12 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_EDGES_CLASS);
         for (TextEdge edge : graph.getTextEdges()) {
-            drawTextEdge(writer, edge, graph.getVoltageLevelNode(edge));
+            drawTextEdge(writer, edge);
         }
         writer.writeEndElement();
     }
 
-    private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
+    private void drawTextEdge(XMLStreamWriter writer, TextEdge edge) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeId(writer, edge);
         List<Point> points = edge.getPoints();
