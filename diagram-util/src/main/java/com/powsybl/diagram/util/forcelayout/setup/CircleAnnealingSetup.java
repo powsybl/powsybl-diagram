@@ -46,7 +46,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
         initForceGraph(forceGraph);
-        SetupListData setupTopologyData = getPointsForRun(forceGraph);
+        SetupTopologyData setupTopologyData = getPointsForRun(forceGraph);
         annealingProcess(setupTopologyData, random);
     }
 
@@ -87,7 +87,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         }
     }
 
-    private SetupListData getPointsForRun(ForceGraph<V, E> forceGraph) {
+    private SetupTopologyData getPointsForRun(ForceGraph<V, E> forceGraph) {
         List<Set<V>> neighborSetPerVertex = new ArrayList<>();
         SimpleGraph<V, DefaultEdge> graph = forceGraph.getSimpleGraph();
         List<V> vertexWithNoEdge = new ArrayList<>();
@@ -159,7 +159,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
         }
 
-        return new SetupListData(
+        return new SetupTopologyData(
                 pointWithNoEdge,
                 pointMovable,
                 allPoints,
@@ -179,14 +179,14 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
 
     private record VertexPair<V>(V first, V second) { }
 
-    private record SetupListData(
+    private record SetupTopologyData(
             Point[] pointWithNoEdge, // those points are put on an outer circle and do not move for the duration of the setup
             Point[] movablePoints, // points that are "movable" have at least one edge and are not fixed
             Point[] allPoints,
             double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo
     ) { }
 
-    private double calculateObjectiveFunction(SetupListData setupTopologyData, double previousObjectiveValue, int firstChangedIndex, int secondChangedIndex) {
+    private double calculateObjectiveFunction(SetupTopologyData setupTopologyData, double previousObjectiveValue, int firstChangedIndex, int secondChangedIndex) {
         double sum = previousObjectiveValue;
         double[] firstChangedLine = setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo[firstChangedIndex];
         for (int i = 0; i < firstChangedLine.length; ++i) {
@@ -212,7 +212,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         return sum;
     }
 
-    private double calculateStartingObjectiveFunction(SetupListData setupTopologyData) {
+    private double calculateStartingObjectiveFunction(SetupTopologyData setupTopologyData) {
         double sum = 0;
         for (int i = 0; i < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++i) {
             for (int k = i + 1; k < setupTopologyData.distanceMatrixForPointsWithEdgeDistanceOneOrTwo.length; ++k) {
@@ -223,7 +223,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     }
 
     private void annealingProcess(
-        SetupListData setupTopologyData,
+        SetupTopologyData setupTopologyData,
         Random random
     ) {
         // Then start the process
@@ -276,7 +276,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     }
 
     private double computeInitialTemperature(
-            SetupListData setupTopologyData,
+            SetupTopologyData setupTopologyData,
             Random random
     ) {
         // Computed using the algorithm described in Walid Ben-Ameur : Computing the initial temperature of simulated annealing
