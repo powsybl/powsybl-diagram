@@ -37,11 +37,19 @@ import java.util.*;
  */
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
-    // This should always be between 0 and 1, strictly
+    // This should always be between 0 and 1, strictly, the initial probability of positive transition to be accepted
     private static final double STARTING_TRANSITION_PROBABILITY = 0.67;
+    // The precision at which we want our STARTING_TRANSITION_PROBABILITY to be matched by the function calculating the initial temperature
     private static final double STARTING_PRECISION = 1e-3;
-    private static final double TEMPERATURE_DECREASE_RATIO = 0.75;
-    private static final int TRIES_MULTIPLIER = 20;
+    // By how much the temperature will decrease at each step, increasing this means more intermediate temperature, a more stable system but also a longer runtime
+    private static final double TEMPERATURE_DECREASE_RATIO = 0.62;
+    // The coefficient that links the size of the network to the number of iteration at the initial temperature
+    private static final double INITIAL_TRIES_MULTIPLIER = 1.5;
+    // Increasing this will increase the number of iteration at a given temperature step, and increase the total number of steps
+    // This will leave the system more time to stabilize at a given temperature, but will be slower
+    private static final double TRIES_INCREMENT_MULTIPLIER = 1.35;
+    // If the number of positive accepted transitions (ie transitions that increase the energy level) is under this value, we stop
+    private static final double FINAL_ACCEPTANCE_VALUE = 0.015;
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
@@ -229,14 +237,14 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         // Then start the process
         double temperature = computeInitialTemperature(setupTopologyData, random);
         LOGGER.trace("Initial temperature : {}", temperature);
-        int neighborNumberTry = TRIES_MULTIPLIER * setupTopologyData.movablePoints.length;
+        int neighborNumberTry = (int) (INITIAL_TRIES_MULTIPLIER * setupTopologyData.movablePoints.length);
         double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
 
         double averagePositiveTransitionAcceptanceRatio = STARTING_TRANSITION_PROBABILITY;
 
-        while (averagePositiveTransitionAcceptanceRatio > 0.03) {
+        while (averagePositiveTransitionAcceptanceRatio > FINAL_ACCEPTANCE_VALUE) {
             averagePositiveTransitionAcceptanceRatio = 0;
             int numberOfPositiveTransition = 0;
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
@@ -265,6 +273,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 }
             }
             temperature *= TEMPERATURE_DECREASE_RATIO;
+            neighborNumberTry = (int) (TRIES_INCREMENT_MULTIPLIER * neighborNumberTry);
             if (numberOfPositiveTransition == 0) {
                 averagePositiveTransitionAcceptanceRatio = 1;
             } else {
