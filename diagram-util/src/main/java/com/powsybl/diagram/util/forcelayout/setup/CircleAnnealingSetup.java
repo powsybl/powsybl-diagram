@@ -96,7 +96,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
      * @param temperatureDecreaseRatio by how much should the temperature be decreased between each step.
      *                                 It should be more than 0 because we don't want negative temperatures. It should be
      *                                 below 1 because otherwise the temperature would increase, and we wouldn't reach the termination
-     *                                 condition (also the temperature would eventually reach {@link Double#MAX_VALUE}.
+     *                                 condition (also the temperature would eventually reach {@link Double#MAX_VALUE}).
      * @return The instance of this class you used this function on, with the parameter modified.
      */
     public CircleAnnealingSetup<V, E> withTemperatureDecreaseRatio(double temperatureDecreaseRatio) {
@@ -293,10 +293,6 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             );
 
     }
-
-    private record PointPair(Point first, Point second) { }
-
-    private record VertexPair<V>(V first, V second) { }
 
     private record SetupTopologyData(
             Point[] pointWithNoEdge, // those points are put on an outer circle and do not move for the duration of the setup
