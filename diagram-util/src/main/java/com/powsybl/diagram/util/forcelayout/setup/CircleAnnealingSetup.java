@@ -38,18 +38,129 @@ import java.util.*;
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
     // This should always be between 0 and 1, strictly, the initial probability of positive transition to be accepted
-    private static final double STARTING_TRANSITION_PROBABILITY = 0.67;
+    private static final double DEFAULT_STARTING_TRANSITION_PROBABILITY = 0.67;
+    private double startingTransitionProbability = DEFAULT_STARTING_TRANSITION_PROBABILITY;
     // The precision at which we want our STARTING_TRANSITION_PROBABILITY to be matched by the function calculating the initial temperature
-    private static final double STARTING_PRECISION = 1e-3;
+    private static final double DEFAULT_STARTING_PRECISION = 1e-3;
+    private double startingPrecision = DEFAULT_STARTING_PRECISION;
     // By how much the temperature will decrease at each step, increasing this means more intermediate temperature, a more stable system but also a longer runtime
-    private static final double TEMPERATURE_DECREASE_RATIO = 0.62;
+    private static final double DEFAULT_TEMPERATURE_DECREASE_RATIO = 0.62;
+    private double temperatureDecreaseRatio = DEFAULT_TEMPERATURE_DECREASE_RATIO;
     // The coefficient that links the size of the network to the number of iteration at the initial temperature
-    private static final double INITIAL_TRIES_MULTIPLIER = 1.5;
-    // Increasing this will increase the number of iteration at a given temperature step, and increase the total number of steps
-    // This will leave the system more time to stabilize at a given temperature, but will be slower
-    private static final double TRIES_INCREMENT_MULTIPLIER = 1.35;
+    private static final double DEFAULT_INITIAL_TRIES_MULTIPLIER = 1.5;
+    private double initialTriesMultiplier = DEFAULT_INITIAL_TRIES_MULTIPLIER;
+    // How many iteration the next temperature should take compared to the previous, more than 1 is generally better
+    private static final double DEFAULT_TRIES_INCREMENT_MULTIPLIER = 1.35;
+    private double triesIncrementMultiplier = DEFAULT_TRIES_INCREMENT_MULTIPLIER;
     // If the number of positive accepted transitions (ie transitions that increase the energy level) is under this value, we stop
-    private static final double FINAL_ACCEPTANCE_VALUE = 0.015;
+    private static final double DEFAULT_FINAL_ACCEPTANCE_VALUE = 0.015;
+    private double finalAcceptanceValue = DEFAULT_FINAL_ACCEPTANCE_VALUE;
+
+    /**
+     * Set the startingTransitionProbability, default is {@value DEFAULT_STARTING_TRANSITION_PROBABILITY}
+     * @param startingTransitionProbability the probability to accept a transition that will increase the objective function.
+     *                                      This is a probability so it should be between 0 and 1. Setting it to 0 will transform this
+     *                                      into something akin to a gradient descent algorithm, in worse. Values between 0.5 and 1 are generally fine.
+     *                                      The higher the value, the longer it will take for the algorithm to run, since it will need more steps to cool down.
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withStartingTransitionProbability(double startingTransitionProbability) {
+        if (startingTransitionProbability >= 0 && startingTransitionProbability <= 1) {
+            this.startingTransitionProbability = startingTransitionProbability;
+        } else {
+            throw new IllegalArgumentException("The starting transition probability should be between 0 included and 1 included, refer to the Javadoc for explanation");
+        }
+        return this;
+    }
+
+    /**
+     * Set the startingPrecision, default is {@value DEFAULT_STARTING_PRECISION}
+     * @param startingPrecision this algorithm starts by estimating a temperature parameter which translates non-trivially to a probability
+     *                          of accepting states that make the objective function higher. The `startingPrecision` is how close you want the estimate
+     *                          to be compared to the objective `startingTransitionProbability`.
+     *                          It must be strictly greater than 0 (we can never find the perfect value otherwise). It can be set higher than 1, but that means
+     *                          that you accept the first guessed value for the temperature.
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withStartingPrecision(double startingPrecision) {
+        if (startingPrecision > 0) {
+            this.startingPrecision = startingPrecision;
+        } else {
+            throw new IllegalArgumentException("The precision should be strictly greater than 0, refer to the javadoc for explanation");
+        }
+        return this;
+    }
+
+    /**
+     * Set the temperatureDecreaseRatio, default is {@value DEFAULT_TEMPERATURE_DECREASE_RATIO}
+     * @param temperatureDecreaseRatio by how much should the temperature be decreased between each step.
+     *                                 It should be more than 0 because we don't want negative temperatures. It should be
+     *                                 below 1 because otherwise the temperature would increase, and we wouldn't reach the termination
+     *                                 condition (also the temperature would eventually reach {@link Double#MAX_VALUE}.
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withTemperatureDecreaseRatio(double temperatureDecreaseRatio) {
+        if (temperatureDecreaseRatio > 0 && temperatureDecreaseRatio < 1) {
+            this.temperatureDecreaseRatio = temperatureDecreaseRatio;
+        } else {
+            throw new IllegalArgumentException("The temperature decrease ratio should be strictly between 0 and 1, refer to the Javadoc for explanation");
+        }
+        return this;
+    }
+
+    /**
+     * Set the initialTriesMultiplier, default is {@value DEFAULT_INITIAL_TRIES_MULTIPLIER}
+     * @param initialTriesMultiplier the coefficient for how many iterations should be made on the first temperature.
+     *                               The actual number of iterations is this coefficient * the size of the network (its number of Voltage Level).
+     *                               This needs to be strictly more than 0 (otherwise we won't do anything).
+     *                               The higher this is set, the more iterations you will do on the first temperature, but that also impacts
+     *                               all the following temperature (since the next number of iterations is equal to the current number of iterations * `triesIncrementMultiplier`)
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withInitialTriesMultiplier(double initialTriesMultiplier) {
+        if (initialTriesMultiplier > 0) {
+            this.initialTriesMultiplier = initialTriesMultiplier;
+        } else {
+            throw new IllegalArgumentException("The initial tries multiplier should be strictly greater than 0, refer to the Javadoc for explanation");
+        }
+        return this;
+    }
+
+    /**
+     * Set the triesIncrementMultiplier default value is {@value DEFAULT_TRIES_INCREMENT_MULTIPLIER}
+     * @param triesIncrementMultiplier the number of iterations at the current temperature is multiplied by this coefficient to know how many iterations
+     *                                 should be made on the next temperature.
+     *                                 Increasing this will increase runtime but provide generally better results, as the graph will
+     *                                 have more time to stabilize at each temperature. The increase in runtime might not be worth
+     *                                 having a slightly better result though.
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withTriesIncrementMultiplier(double triesIncrementMultiplier) {
+        if (triesIncrementMultiplier > 0) {
+            this.triesIncrementMultiplier = triesIncrementMultiplier;
+        } else {
+            throw new IllegalArgumentException("The tries increment multiplier should be strictly greater than 0, refer to the Javadoc for explanation");
+        }
+        return this;
+    }
+
+    /**
+     * Set the finalAcceptanceValue, default is {@value DEFAULT_FINAL_ACCEPTANCE_VALUE}
+     * @param finalAcceptanceValue If the rate of accepted positive transitions (e.g. changes in the graph that would increase
+     *                             the value of the objective function) becomes lower than the finalAcceptanceValue, we stop.
+     *                             Increasing this will reduce runtime but will provide generally worse result. The decrease in the quality of the setup
+     *                             might affect negatively the runtime of the layout algorithm after it, but this could be acceptable if the time gained
+     *                             on the setup is enough to overweight the increase of time on the layout.
+     * @return The instance of this class you used this function on, with the parameter modified.
+     */
+    public CircleAnnealingSetup<V, E> withFinalAcceptanceValue(double finalAcceptanceValue) {
+        if (finalAcceptanceValue > 0) {
+            this.finalAcceptanceValue = finalAcceptanceValue;
+        } else {
+            throw new IllegalArgumentException("The final acceptance value should be strictly greater than 0, refer to the Javadoc for explanation");
+        }
+        return this;
+    }
 
     @Override
     public void setup(ForceGraph<V, E> forceGraph, Random random) {
@@ -237,14 +348,14 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         // Then start the process
         double temperature = computeInitialTemperature(setupTopologyData, random);
         LOGGER.trace("Initial temperature : {}", temperature);
-        int neighborNumberTry = (int) (INITIAL_TRIES_MULTIPLIER * setupTopologyData.movablePoints.length);
+        int neighborNumberTry = (int) (initialTriesMultiplier * setupTopologyData.movablePoints.length);
         double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double bestEnergy = previousEnergy;
         LOGGER.debug("Starting energy : {}", bestEnergy);
 
-        double averagePositiveTransitionAcceptanceRatio = STARTING_TRANSITION_PROBABILITY;
+        double averagePositiveTransitionAcceptanceRatio = startingTransitionProbability;
 
-        while (averagePositiveTransitionAcceptanceRatio > FINAL_ACCEPTANCE_VALUE) {
+        while (averagePositiveTransitionAcceptanceRatio > finalAcceptanceValue) {
             averagePositiveTransitionAcceptanceRatio = 0;
             int numberOfPositiveTransition = 0;
             for (int neighborIteration = 0; neighborIteration < neighborNumberTry; ++neighborIteration) {
@@ -272,8 +383,8 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
                 }
             }
-            temperature *= TEMPERATURE_DECREASE_RATIO;
-            neighborNumberTry = (int) (TRIES_INCREMENT_MULTIPLIER * neighborNumberTry);
+            temperature *= temperatureDecreaseRatio;
+            neighborNumberTry = (int) (triesIncrementMultiplier * neighborNumberTry);
             if (numberOfPositiveTransition == 0) {
                 averagePositiveTransitionAcceptanceRatio = 1;
             } else {
@@ -314,7 +425,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
             // if the energy is lower, just update the energy value and keep going
             // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-            if (newEnergy < previousEnergy || random.nextDouble() < STARTING_TRANSITION_PROBABILITY) {
+            if (newEnergy < previousEnergy || random.nextDouble() < startingTransitionProbability) {
                 previousEnergy = newEnergy;
             } else {
                 // swap back
@@ -323,7 +434,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
         }
         // See the paper for explanation
-        double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(STARTING_TRANSITION_PROBABILITY));
+        double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(startingTransitionProbability));
         if (initialTemperature <= 0) {
             LOGGER.warn("Calculated an initial annealing temperature that was less or equal to zero, returning default value");
             return 2d;
@@ -352,11 +463,11 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             }
 
             double probabilityEstimate = probabilityEstimateNumerator / probabilityEstimateDenominator;
-            if (Math.abs(probabilityEstimate - STARTING_TRANSITION_PROBABILITY) < STARTING_PRECISION) {
+            if (Math.abs(probabilityEstimate - startingTransitionProbability) < startingPrecision) {
                 // decrease temperature, because we did a round of annealing by searching the start temperature
-                return initialTemperature * TEMPERATURE_DECREASE_RATIO;
+                return initialTemperature * temperatureDecreaseRatio;
             } else {
-                initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(STARTING_TRANSITION_PROBABILITY), 1 / power);
+                initialTemperature *= Math.pow(Math.log(probabilityEstimate) / Math.log(startingTransitionProbability), 1 / power);
             }
             ++iterationStep;
         }
