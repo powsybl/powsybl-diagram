@@ -219,6 +219,44 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             allPoints[i] = getPoint(forceGraph, allVertex[i]);
         }
 
+        List<Integer> skippedColumn = findPointsWithNoEdge(
+                forceGraph,
+                neighborSetPerVertex,
+                vertexWithNoEdge,
+                allVertex,
+                vertexMovable
+        );
+
+        // Convert from vertex to point
+        Point[] pointWithNoEdge = new Point[vertexWithNoEdge.size()];
+        Point[] pointMovable = new Point[vertexMovable.size()];
+
+        for (int i = 0; i < vertexWithNoEdge.size(); ++i) {
+            pointWithNoEdge[i] = getPoint(forceGraph, vertexWithNoEdge.get(i));
+        }
+        for (int i = 0; i < vertexMovable.size(); ++i) {
+            pointMovable[i] = getPoint(forceGraph, vertexMovable.get(i));
+        }
+
+        putAllPointsInCircle(pointMovable, pointWithNoEdge);
+
+        double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = buildDistanceMatrix(
+                forceGraph,
+                pointMovable,
+                neighborSetPerVertex,
+                skippedColumn,
+                allVertex
+        );
+
+        return new SetupTopologyData(
+                pointWithNoEdge,
+                pointMovable,
+                allPoints,
+                distanceMatrixForPointsWithEdgeDistanceOneOrTwo
+        );
+    }
+
+    private static <V, E> List<Integer> findPointsWithNoEdge(ForceGraph<V, E> forceGraph, List<Set<V>> neighborSetPerVertex, List<V> vertexWithNoEdge, V[] allVertex, List<V> vertexMovable) {
         List<Integer> skippedColumn = new ArrayList<>();
 
         // Find which points have edges or not
@@ -234,20 +272,10 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 }
             }
         }
+        return skippedColumn;
+    }
 
-        // Convert from vertex to point
-        Point[] pointWithNoEdge = new Point[vertexWithNoEdge.size()];
-        Point[] pointMovable = new Point[vertexMovable.size()];
-
-        for (int i = 0; i < vertexWithNoEdge.size(); ++i) {
-            pointWithNoEdge[i] = getPoint(forceGraph, vertexWithNoEdge.get(i));
-        }
-        for (int i = 0; i < vertexMovable.size(); ++i) {
-            pointMovable[i] = getPoint(forceGraph, vertexMovable.get(i));
-        }
-
-        putAllPointsInCircle(pointMovable, pointWithNoEdge);
-
+    private double[][] buildDistanceMatrix(ForceGraph<V, E> forceGraph, Point[] pointMovable, List<Set<V>> neighborSetPerVertex, List<Integer> skippedColumn, V[] allVertex) {
         // we can't do the distanceMatrix in the previous loop since we didn't know yet how many points are movable
         double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = new double[pointMovable.length][pointMovable.length];
         int lineIndex = 0;
@@ -277,13 +305,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 ++lineIndex;
             }
         }
-
-        return new SetupTopologyData(
-                pointWithNoEdge,
-                pointMovable,
-                allPoints,
-                distanceMatrixForPointsWithEdgeDistanceOneOrTwo
-        );
+        return distanceMatrixForPointsWithEdgeDistanceOneOrTwo;
     }
 
     private Point getPoint(ForceGraph<V, E> forceGraph, V vertex) {
@@ -364,20 +386,18 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                     ++numberOfPositiveTransition;
                 }
 
-                // if the energy is lower, just update the energy value and keep going
-                // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-                if (newEnergy < previousEnergy || random.nextDouble() < acceptanceRatio) {
-                    previousEnergy = newEnergy;
-
-                    if (newEnergy < bestEnergy) {
-                        bestEnergy = newEnergy;
-                    }
-                } else {
-                    // swap back
-                    swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
-                    // update matrix back
-                    calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
+                if (newEnergy < bestEnergy) {
+                    bestEnergy = newEnergy;
                 }
+
+                previousEnergy = transformationKeepChoice(
+                        setupTopologyData,
+                        random,
+                        newEnergy,
+                        previousEnergy,
+                        acceptanceRatio,
+                        swapIndex
+                );
             }
             temperature *= temperatureDecreaseRatio;
             neighborNumberTry = (int) (triesIncrementMultiplier * neighborNumberTry);
@@ -389,6 +409,27 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         }
         LOGGER.debug("Final energy : {} | Best reached energy : {}", previousEnergy, bestEnergy);
 
+    }
+
+    private double transformationKeepChoice(
+            SetupTopologyData setupTopologyData,
+            Random random,
+            double newEnergy,
+            double previousEnergy,
+            double acceptanceRatio,
+            int[] swapIndex
+    ) {
+        // if the energy is lower, just update the energy value and keep going
+        // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
+        if (newEnergy < previousEnergy || random.nextDouble() < acceptanceRatio) {
+            return newEnergy;
+        } else {
+            // swap back
+            swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
+            // update matrix back
+            calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
+            return previousEnergy;
+        }
     }
 
     private double computeInitialTemperature(
@@ -419,15 +460,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 positiveEnergyTransitions.add(new Double[]{newEnergy, previousEnergy});
                 sumOfAbsolute += previousEnergy - newEnergy;
             }
-            // if the energy is lower, just update the energy value and keep going
-            // if it's not lower, randomly choose if this higher energy value is accepted, if it's not revert the transformation
-            if (newEnergy < previousEnergy || random.nextDouble() < startingTransitionProbability) {
-                previousEnergy = newEnergy;
-            } else {
-                // swap back
-                swapPositions(setupTopologyData.movablePoints, swapIndex[1], swapIndex[0]);
-                previousEnergy = calculateObjectiveFunction(setupTopologyData, newEnergy, swapIndex[1], swapIndex[0]);
-            }
+            previousEnergy = transformationKeepChoice(setupTopologyData, random, newEnergy, previousEnergy, startingTransitionProbability, swapIndex);
         }
         // See the paper for explanation
         double initialTemperature = -sumOfAbsolute / (numberOfTransitions * Math.log(startingTransitionProbability));
