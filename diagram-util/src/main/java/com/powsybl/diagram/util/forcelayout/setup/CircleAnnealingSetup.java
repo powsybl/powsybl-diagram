@@ -281,20 +281,27 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         int lineIndex = 0;
 
         for (int i = 0; i < neighborSetPerVertex.size(); ++i) {
+            Point point = getPoint(forceGraph, allVertex[i]);
             Set<V> setOfNeighbors = neighborSetPerVertex.get(i);
             if (!setOfNeighbors.isEmpty()) {
                 distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][lineIndex] = 0;
                 int columnIndex = lineIndex + 1;
+                // only iterate over upper half of the matrix, the other half is symmetric
                 for (int k = i + 1; k < neighborSetPerVertex.size(); ++k) {
+                    //check that we do not need to skip this
                     if (!skippedColumn.contains(k)) {
-                        // we fill the matrix if two points are next to each other or at a distance of 2
+                        // we fill the matrix if two vertex are next to each other or at a distance of 2
+                        // two vertex are next to each other if one is in the neighbors of the other
                         // if two vertex are not next to each other, and they share a common neighbor, it means they are at a distance of 2
+                        // the condition therefore is (in set of neighbors OR (not in set of neighbors AND intersection of neighbor set != empty))
+                        // which equals to (in set of neighbors OR intersection of neighbor set != empty)
                         V otherVertex = allVertex[k];
                         if (setOfNeighbors.contains(otherVertex) || !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))) {
-                            double distance = getPoint(forceGraph, allVertex[i]).distanceTo(getPoint(forceGraph, allVertex[k]));
+                            double distance = point.distanceTo(getPoint(forceGraph, otherVertex));
                             distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][columnIndex] = distance;
                             distanceMatrixForPointsWithEdgeDistanceOneOrTwo[columnIndex][lineIndex] = distance;
                         } else {
+                            // use 0 if not at a distance of 1 or 2
                             distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][columnIndex] = 0;
                         }
                         ++columnIndex;
