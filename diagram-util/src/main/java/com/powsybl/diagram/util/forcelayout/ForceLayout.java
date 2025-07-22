@@ -142,7 +142,7 @@ public class ForceLayout<V, E> {
     }
 
     public Vector2D getStablePosition(V vertex) {
-        return algorithmRunner.getStablePosition(vertex);
+        return layoutContext.getStablePosition(vertex);
     }
 
     /**
@@ -161,16 +161,16 @@ public class ForceLayout<V, E> {
     }
 
     public void toSVG(Function<V, String> tooltip, Writer writer) {
-        if (algorithmRunner != null) {
-            algorithmRunner.toSVG(tooltip, writer);
+        if (layoutContext != null) {
+            layoutContext.toSVG(tooltip, writer);
         }
     }
 
     public void setCenter(Vector2D center) {
-        algorithmRunner.setCenter(center);
+        layoutContext.setCenter(center);
     }
 
     public Vector2D getCenter() {
-        return algorithmRunner.getCenter();
+        return layoutContext.getCenter();
     }
 }

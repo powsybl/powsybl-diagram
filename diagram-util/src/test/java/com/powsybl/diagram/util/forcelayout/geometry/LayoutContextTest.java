@@ -54,13 +54,26 @@ class LayoutContextTest {
     }
 
     @Test
+    void setCenter() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        Vector2D newCenter = new Vector2D(-445, 23.3);
+        layoutContext.setCenter(newCenter);
+        assertEquals(newCenter.getX(), layoutContext.getCenter().getX());
+        assertEquals(newCenter.getY(), layoutContext.getCenter().getY());
+        Vector2D otherNewCenter = new Vector2D(3.4, -6.1);
+        layoutContext.setCenter(otherNewCenter);
+        assertEquals(otherNewCenter.getX(), layoutContext.getCenter().getX());
+        assertEquals(otherNewCenter.getY(), layoutContext.getCenter().getY());
+    }
+
+    @Test
     void toSvg() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         Layout<String, DefaultEdge> layout = Layout.getBasicDefaultLayout();
         layout.run(layoutContext);
         StringWriter sw = new StringWriter();
-        layout.toSVG(tooltip, sw);
+        layoutContext.toSVG(tooltip, sw);
         assertEquals(ResourceUtils.toString("basic_5_nodes.svg"), sw.toString());
     }
 
@@ -68,9 +81,8 @@ class LayoutContextTest {
     void notExecuted() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        Layout<String, DefaultEdge> layout = Layout.getBasicDefaultLayout();
-        assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
-        assertDoesNotThrow(() -> layoutContext.getStablePosition("0", false));
+        assertDoesNotThrow(() -> layoutContext.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
+        assertDoesNotThrow(() -> layoutContext.getStablePosition("0"));
     }
 
     @Test

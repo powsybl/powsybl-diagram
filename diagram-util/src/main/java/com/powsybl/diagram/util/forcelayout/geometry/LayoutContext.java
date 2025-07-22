@@ -15,8 +15,12 @@ import org.jgrapht.graph.SimpleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -76,6 +80,10 @@ public class LayoutContext<V, E> {
         origin.setPosition(center);
     }
 
+    public Vector2D getCenter() {
+        return origin.getPosition();
+    }
+
     public Point getOrigin() {
         return origin;
     }
@@ -110,6 +118,11 @@ public class LayoutContext<V, E> {
         return this;
     }
 
+    /**
+     * Write a svg in the provided writer, using the tooltip as a text appearing when hovering a given vertex of the graph in the SVG
+     * @param tooltip associates each vertex of the graph to a message which will be displayed when hovering the mouse over the vertex in the SVG
+     * @param writer the writer in which to write the SVG
+     */
     public void toSVG(Function<V, String> tooltip, Writer writer) {
         BoundingBox boundingBoxMovingPoints = BoundingBox.computeBoundingBox(movingPoints.values());
         BoundingBox boundingBoxFixedPoints = BoundingBox.computeBoundingBox(fixedPoints.values());
@@ -162,6 +175,18 @@ public class LayoutContext<V, E> {
         printWriter.close();
     }
 
+    /**
+     * Write a svg at the provided path, using the tooltip as a text appearing when hovering a given vertex of the graph in the SVG
+     * @param tooltip associates each vertex of the graph to a message which will be displayed when hovering the mouse over the vertex in the SVG
+     * @param path the path to write this SVG to
+     * @throws IOException if the path does not exist, the program is lacking permission, or other reasons for which the SVG could not be written
+     */
+    public void toSVG(Function<V, String> tooltip, Path path) throws IOException {
+        try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            toSVG(tooltip, writer);
+        }
+    }
+
     private Optional<Point> getPointWithVertex(V vertex) {
         Point point = movingPoints.get(vertex);
         if (point != null) {
@@ -171,14 +196,16 @@ public class LayoutContext<V, E> {
         }
     }
 
-    public Vector2D getStablePosition(V vertex, boolean hasBeenExecuted) {
+    /**
+     * Get the position of the point associated to the vertex
+     * @param vertex the vertex of the graph that is in <code>layoutContext</code> of the <code>run</code>
+     * @return the position of the point associated with the vertex
+     */
+    public Vector2D getStablePosition(V vertex) {
         Point fixedPoint = fixedPoints.get(vertex);
         if (fixedPoint != null) {
             return fixedPoint.getPosition();
         } else {
-            if (!hasBeenExecuted) {
-                LOGGER.warn("Vertex {} position was not fixed and force layout has not been executed yet", vertex);
-            }
             return movingPoints.getOrDefault(vertex, new Point(-1, -1)).getPosition();
         }
     }
