@@ -1,10 +1,15 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.diagram.util.forcelayout;
+
+import com.powsybl.diagram.util.layout.Canvas;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.io.PrintWriter;
 import java.util.Locale;
@@ -12,7 +17,9 @@ import java.util.Objects;
 
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
+ * @deprecated this class is not used anymore for the description of the springs of the ForceLayout, see forces.SpringForce instead
  */
+@Deprecated(since = "4.10.0", forRemoval = true)
 public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;
     private static final double DEFAULT_STIFFNESS = 100.0;
@@ -54,8 +61,8 @@ public class Spring {
     }
 
     public void toSVG(PrintWriter printWriter, Canvas canvas) {
-        Vector screenPosition1 = canvas.toScreen(point2.getPosition());
-        Vector screenPosition2 = canvas.toScreen(point1.getPosition());
+        Vector2D screenPosition1 = canvas.toScreen(point2.getPosition());
+        Vector2D screenPosition2 = canvas.toScreen(point1.getPosition());
         printWriter.printf(Locale.US, "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
             screenPosition1.getX(), screenPosition1.getY(), screenPosition2.getX(), screenPosition2.getY());
     }
