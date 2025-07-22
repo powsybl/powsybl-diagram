@@ -18,8 +18,8 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SimpleSetup<V, E> implements Setup<V, E> {
-    @SuppressWarnings("java:S2245")
-    protected Random random = new Random(3L);
+    protected static final long DEFAULT_SEED = 3L;
+    private final Random random;
     protected Vector2D center = new Vector2D(0, 0);
     protected double scale = 1;
 
@@ -28,6 +28,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
     }
 
     public SimpleSetup() {
+        this.random = new Random(DEFAULT_SEED);
     }
 
     // very similar to SimpleBarycenterSetup, but the center of the graph is always (0,0) instead of the center of all the points

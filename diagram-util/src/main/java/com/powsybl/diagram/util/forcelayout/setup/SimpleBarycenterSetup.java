@@ -18,10 +18,11 @@ import java.util.Random;
  */
 public class SimpleBarycenterSetup<V, E> extends SimpleSetup<V, E> {
     public SimpleBarycenterSetup(Random random) {
-        this.random = random;
+        super(random);
     }
 
     public SimpleBarycenterSetup() {
+        super(new Random(DEFAULT_SEED));
     }
 
     @Override
