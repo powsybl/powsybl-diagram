@@ -59,7 +59,7 @@ import java.util.function.Function;
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-@Deprecated(since = "4.9.0", forRemoval = true)
+@Deprecated(since = "4.10.0", forRemoval = true)
 public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
