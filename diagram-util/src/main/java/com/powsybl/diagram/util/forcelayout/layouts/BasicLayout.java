@@ -53,7 +53,7 @@ public class BasicLayout<V, E> implements LayoutAlgorithm<V, E> {
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);
         //Initialize Spring force
-        this.forces.get(0).init(layoutContext);
+        initAll(forces, layoutContext);
 
         // do the loop on the nodes and forces
         int i;
