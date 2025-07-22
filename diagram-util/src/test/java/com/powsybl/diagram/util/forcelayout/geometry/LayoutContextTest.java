@@ -9,7 +9,7 @@
 package com.powsybl.diagram.util.forcelayout.geometry;
 
 import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.Helpers;
+import com.powsybl.diagram.util.forcelayout.ResourceUtils;
 import com.powsybl.diagram.util.forcelayout.Layout;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
@@ -61,8 +61,7 @@ class LayoutContextTest {
         layout.run(layoutContext);
         StringWriter sw = new StringWriter();
         layout.toSVG(tooltip, sw);
-        Helpers helpers = new Helpers();
-        assertEquals(helpers.toString("/basic_5_nodes.svg"), sw.toString());
+        assertEquals(ResourceUtils.toString("basic_5_nodes.svg"), sw.toString());
     }
 
     @Test

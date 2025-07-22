@@ -18,10 +18,15 @@ import java.util.Objects;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class Helpers {
-    public String toString(String resourceName) {
+public final class ResourceUtils {
+
+    private ResourceUtils() {
+        throw new AssertionError("Instantiating utility class ResourceUtils");
+    }
+
+    public static String toString(String resourceName) {
         try {
-            InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(resourceName));
+            InputStream in = Objects.requireNonNull(ResourceUtils.class.getClassLoader().getResourceAsStream(resourceName));
             return new String(ByteStreams.toByteArray(in), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
