@@ -11,6 +11,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Random;
  */
 public class SimpleBarycenterSetup<V, E> extends SimpleSetup<V, E> {
     public SimpleBarycenterSetup(Random random) {
-        super(random);
+        super(Objects.requireNonNull(random));
     }
 
     public SimpleBarycenterSetup() {
@@ -27,6 +28,7 @@ public class SimpleBarycenterSetup<V, E> extends SimpleSetup<V, E> {
 
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
         int nbUnknownPositions = layoutContext.getSimpleGraph().vertexSet().size() - layoutContext.getInitialPoints().size();
 
         // Initialize the missing positions by use the default random number generator.

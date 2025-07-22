@@ -37,6 +37,7 @@ public class BasicLayout<V, E> implements LayoutAlgorithm<V, E> {
     private final List<Force<V, E>> forces = new ArrayList<>();
 
     public BasicLayout(BasicParameters layoutParameters) {
+        Objects.requireNonNull(layoutParameters);
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(
             layoutParameters.getRepulsion(),
@@ -50,6 +51,7 @@ public class BasicLayout<V, E> implements LayoutAlgorithm<V, E> {
 
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
         //Initialize Spring force
         this.forces.get(0).init(layoutContext);
 

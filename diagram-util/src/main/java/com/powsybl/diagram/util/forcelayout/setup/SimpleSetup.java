@@ -24,6 +24,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
     protected double scale = 1;
 
     public SimpleSetup(Random random) {
+        Objects.requireNonNull(random);
         this.random = random;
     }
 
@@ -34,6 +35,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
     // very similar to SimpleBarycenterSetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
         layoutContext.setCenter(center);
         for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
             if (layoutContext.getFixedNodes().contains(vertex)) {

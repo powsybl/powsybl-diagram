@@ -42,6 +42,7 @@ public class LayoutContext<V, E> {
     private Set<V> fixedNodes = Collections.emptySet();
 
     public LayoutContext(Graph<V, E> graph) {
+        Objects.requireNonNull(graph);
         SimpleGraph<V, DefaultEdge> locSimpleGraph = new SimpleGraph<>(DefaultEdge.class);
         for (V vertex : graph.vertexSet()) {
             locSimpleGraph.addVertex(vertex);
@@ -92,6 +93,7 @@ public class LayoutContext<V, E> {
      * @param center the center of the graph in the 2D space
      */
     public void setCenter(Vector2D center) {
+        Objects.requireNonNull(center);
         origin.setPosition(center);
     }
 
@@ -114,6 +116,7 @@ public class LayoutContext<V, E> {
      * @return the instance of LayoutContext you used this function on, with the initialPoints changed to the given parameter
      */
     public LayoutContext<V, E> setInitialPoints(Map<V, Point> initialPoints) {
+        Objects.requireNonNull(initialPoints);
         this.initialPoints = Objects.requireNonNull(initialPoints);
         return this;
     }
@@ -158,6 +161,7 @@ public class LayoutContext<V, E> {
      * @param writer the writer in which to write the SVG
      */
     public void toSVG(Function<V, String> tooltip, Writer writer) {
+        Objects.requireNonNull(writer);
         BoundingBox boundingBoxMovingPoints = BoundingBox.computeBoundingBox(movingPoints.values());
         BoundingBox boundingBoxFixedPoints = BoundingBox.computeBoundingBox(fixedPoints.values());
         BoundingBox boundingBox = BoundingBox.addBoundingBoxes(boundingBoxMovingPoints, boundingBoxFixedPoints);
