@@ -51,7 +51,9 @@ public class SpringForce<V, E> implements Force<V, E> {
         forceParameter.setSprings(springs);
     }
 
-    /// This is Hooke's Law
+    /**
+     * This is Hooke's Law
+     */
     @Override
     public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D(0, 0);

@@ -75,7 +75,9 @@ public class Vector2D {
         return direction;
     }
 
-    /// Calculate the unit vector that goes from This point, pointing in the direction of towards
+    /**
+     * Calculate the unit vector that goes from `from`, pointing in the direction of `towards`
+      */
     public static Vector2D calculateUnitVector(Point from, Point towards) {
         if (from != towards) {
             Vector2D normalizedVector = calculateVectorBetweenPoints(from, towards);
