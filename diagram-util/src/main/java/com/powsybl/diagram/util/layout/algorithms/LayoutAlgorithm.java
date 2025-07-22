@@ -8,10 +8,7 @@
 
 package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-
-import java.util.List;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -23,10 +20,4 @@ public interface LayoutAlgorithm<V, E> {
      * @param layoutContext the context of the layout, the graph and the position of points
      */
     void run(LayoutContext<V, E> layoutContext);
-
-    default void initAll(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
-        for (Force<V, E> force : forces) {
-            force.init(layoutContext);
-        }
-    }
 }
