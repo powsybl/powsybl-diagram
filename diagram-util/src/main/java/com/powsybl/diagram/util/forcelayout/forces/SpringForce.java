@@ -8,7 +8,6 @@
 
 package com.powsybl.diagram.util.forcelayout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringContainer;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.SpringParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
@@ -25,16 +24,15 @@ import java.util.Objects;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringForce<V, E> implements Force<V, E> {
-    private final SpringContainer<DefaultEdge> forceParameter;
+    private final Map<DefaultEdge, SpringParameter> springs;
     private static final double DEFAULT_STIFFNESS = 100.0;
 
     public SpringForce() {
-        this.forceParameter = new SpringContainer<>();
+        this.springs = new HashMap<>();
     }
 
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
-        Map<DefaultEdge, SpringParameter> springs = new HashMap<>();
         SimpleGraph<V, DefaultEdge> simpleGraph = layoutContext.getSimpleGraph();
         for (DefaultEdge edge : simpleGraph.edgeSet()) {
             V edgeSource = simpleGraph.getEdgeSource(edge);
@@ -48,7 +46,6 @@ public class SpringForce<V, E> implements Force<V, E> {
                 springs.put(edge, new SpringParameter(DEFAULT_STIFFNESS, simpleGraph.getEdgeWeight(edge)));
             }
         }
-        forceParameter.setSprings(springs);
     }
 
     /**
@@ -68,7 +65,7 @@ public class SpringForce<V, E> implements Force<V, E> {
                 throw new NullPointerException(String.format("No such point corresponding to the given vertex in either moving or non-moving points: Vertex %s", otherVertex));
             }
 
-            SpringParameter spring = forceParameter.getSprings().get(edge);
+            SpringParameter spring = springs.get(edge);
 
             Vector2D force = Vector2D.calculateVectorBetweenPoints(point, otherPoint);
             double displacement = force.magnitude() - spring.getLength();
