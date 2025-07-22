@@ -68,7 +68,7 @@ public class BasicForceLayout extends AbstractLayout {
         layout.run(layoutContext);
 
         jgraphtGraph.vertexSet().forEach(node -> {
-            Vector2D p = layout.getStablePosition(node);
+            Vector2D p = layoutContext.getStablePosition(node);
             if (node instanceof TextNode texNode) {
                 texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
                 texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
