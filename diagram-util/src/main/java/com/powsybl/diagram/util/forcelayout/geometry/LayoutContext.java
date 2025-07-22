@@ -83,7 +83,7 @@ public class LayoutContext<V, E> {
     }
 
     /**
-     * @return a set of all the vertex where the point corresponding to those is fixed. Note that this does not give the corresponding points directly
+     * @return a set of all the vertices where the point corresponding to those is fixed. Note that this does not give the corresponding points directly
      */
     public Set<V> getFixedNodes() {
         return fixedNodes;
@@ -112,7 +112,7 @@ public class LayoutContext<V, E> {
     }
 
     /**
-     * @param initialPoints the vertex with the point give the initial position of the points in the 2D space
+     * @param initialPoints the vertices with the point give the initial position of the points in the 2D space
      * @return the instance of LayoutContext you used this function on, with the initialPoints changed to the given parameter
      */
     public LayoutContext<V, E> setInitialPoints(Map<V, Point> initialPoints) {
@@ -122,7 +122,7 @@ public class LayoutContext<V, E> {
     }
 
     /**
-     * @param fixedNodes all the vertex whose corresponding point you want to not move in the 2D space
+     * @param fixedNodes all the vertices whose corresponding point you want to not move in the 2D space
      * @return the instance of LayoutContext you used this function on, with the fixedNodes changed to the given parameter
      */
     public LayoutContext<V, E> setFixedNodes(Set<V> fixedNodes) {
@@ -140,7 +140,7 @@ public class LayoutContext<V, E> {
 
     /**
      * Does {@link #setInitialPoints(Map)} and {@link #setFixedNodes(Set)} at the same time
-     * @param fixedPoints the vertex you want to have fixed, with the point being their initial position
+     * @param fixedPoints the vertices you want to have fixed, with the point being their initial position
      * @return the instance of LayoutContext you used this function on, with the fixedNodes and initialPoints changed using the given parameter
      */
     public LayoutContext<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
