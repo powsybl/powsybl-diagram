@@ -15,7 +15,7 @@ import com.powsybl.diagram.util.forcelayout.forces.SpringForce;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +33,10 @@ import java.util.*;
 public class BasicLayout<V, E> implements LayoutAlgorithm<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicLayout.class);
 
-    private final BasicParameters layoutParameters;
+    private final BasicLayoutParameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
 
-    public BasicLayout(BasicParameters layoutParameters) {
+    public BasicLayout(BasicLayoutParameters layoutParameters) {
         Objects.requireNonNull(layoutParameters);
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(

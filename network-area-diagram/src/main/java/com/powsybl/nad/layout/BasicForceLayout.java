@@ -11,7 +11,7 @@ import com.powsybl.diagram.util.forcelayout.Layout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -49,7 +49,7 @@ public class BasicForceLayout extends AbstractLayout {
         Layout<Node, Edge> layout = new Layout<>(
                 new SimpleBarycenterSetup<>(),
                 new BasicLayout<>(
-                        new BasicParameters.Builder()
+                        new BasicLayoutParameters.Builder()
                                 .withAttractToCenterForce(attractToCenterForce)
                                 .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())

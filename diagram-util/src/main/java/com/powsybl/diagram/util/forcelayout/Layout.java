@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
 import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
 import org.slf4j.Logger;
@@ -51,7 +51,7 @@ public class Layout<V, E> {
         return new Layout<>(
                 new SimpleBarycenterSetup<>(),
                 new BasicLayout<>(
-                        new BasicParameters.Builder().build()
+                        new BasicLayoutParameters.Builder().build()
                 )
         );
     }
