@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -46,8 +47,8 @@ public class Layout<V, E> {
      * @param layoutAlgorithm the algorithm to place the points once the setup has been applied
      */
     public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
-        this.setup = setup;
-        this.layoutAlgorithm = layoutAlgorithm;
+        this.setup = Objects.requireNonNull(setup);
+        this.layoutAlgorithm = Objects.requireNonNull(layoutAlgorithm);
     }
 
     /**
@@ -68,6 +69,7 @@ public class Layout<V, E> {
      * @param layoutContext the context of the layout, containing the graph and the position of the points
      */
     public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
         this.layoutContext = layoutContext;
         this.layoutContext.setCenter(center);
         long start = System.nanoTime();
