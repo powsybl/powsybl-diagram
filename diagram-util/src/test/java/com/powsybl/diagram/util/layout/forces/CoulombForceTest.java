@@ -5,33 +5,29 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout;
+
+package com.powsybl.diagram.util.layout.forces;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
-import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
-
-import java.io.StringWriter;
-import java.util.function.Function;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-@Deprecated(since = "4.10.0", forRemoval = true)
-class ForceLayoutTest {
+class CoulombForceTest {
 
     @Test
-    void execute() {
+    void apply() {
+        double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(layoutContext);
-        forceLayout.execute();
-        Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        StringWriter sw = new StringWriter();
-        layoutContext.toSVG(tooltip, sw);
-        assertEquals(ResourceUtils.toString("basic_5_nodes.svg"), sw.toString());
+        CoulombForce<String, DefaultEdge> force = new CoulombForce<>(2, true);
+        String[] vertexToTest = {"0"};
+        Vector2D[] resultVector = {
+            new Vector2D(-3.9493, 3.8805)
+        };
+        ForceTestUtil.testForceCalculation(layoutContext, force, vertexToTest, resultVector, delta);
     }
 }

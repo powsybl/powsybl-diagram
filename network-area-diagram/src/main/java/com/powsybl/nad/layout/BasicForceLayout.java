@@ -7,12 +7,12 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.diagram.util.forcelayout.Layout;
-import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.BasicForceLayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicForceLayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
+import com.powsybl.diagram.util.layout.Layout;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.layouts.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.layouts.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -83,12 +83,12 @@ public class BasicForceLayout extends AbstractLayout {
     }
 
     private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph) {
-        Map<Node, com.powsybl.diagram.util.forcelayout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
+        Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
-                    nodePosition -> new com.powsybl.diagram.util.forcelayout.geometry.Point(
+                    nodePosition -> new com.powsybl.diagram.util.layout.geometry.Point(
                             nodePosition.getValue().getX() / SCALE,
                             nodePosition.getValue().getY() / SCALE)
                 ));

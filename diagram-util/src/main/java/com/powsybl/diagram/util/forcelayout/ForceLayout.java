@@ -27,12 +27,13 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.BasicForceLayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicForceLayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
+import com.powsybl.diagram.util.layout.Layout;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.layouts.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.layouts.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import org.jgrapht.Graph;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ import java.util.function.Function;
  * Force calculations are used to place the nodes.
  *
  * The algorithm is inspired from: https://github.com/dhotson/springy
- * @deprecated Use {@link com.powsybl.diagram.util.forcelayout.Layout} instead <br>
+ * @deprecated Use {@link Layout} instead <br>
  * The equivalent of: <br>
  * {@code new ForceLayout(graph).execute();}<br>
  * would be <br>
