@@ -70,7 +70,7 @@ class LayoutContextTest {
     void toSvg() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        Layout<String, DefaultEdge> layout = Layout.getBasicDefaultLayout();
+        Layout<String, DefaultEdge> layout = Layout.createBasicForceLayout();
         layout.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(tooltip, sw);

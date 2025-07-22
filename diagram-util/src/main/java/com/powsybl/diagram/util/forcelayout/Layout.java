@@ -47,7 +47,7 @@ public class Layout<V, E> {
      * Get the default Basic algorithm, with {@link SquareRandomBarycenterSetup} and {@link BasicLayout}
      * @return a ready to run basic algorithm, with default parameters
      */
-    public static <V, E> Layout<V, E> getBasicDefaultLayout() {
+    public static <V, E> Layout<V, E> createBasicForceLayout() {
         return new Layout<>(
                 new SquareRandomBarycenterSetup<>(),
                 new BasicLayout<>(
