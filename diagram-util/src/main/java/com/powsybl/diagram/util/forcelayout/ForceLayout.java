@@ -54,7 +54,7 @@ import java.util.function.Function;
  * The equivalent of: <br>
  * {@code new ForceLayout(graph).execute();}<br>
  * would be <br>
- * {@code new Layout(new SimpleBarycenterSetup<>(), new BasicLayout<>(new BasicParameters.Builder().build()).run(new LayoutContext<>(graph));}
+ * {@code Layout.createBasicForceLayout().run(new LayoutContext<>(graph));}
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
