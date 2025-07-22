@@ -17,18 +17,18 @@ import java.util.Random;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SimpleSetup<V, E> implements Setup<V, E> {
+public class SquareRandomSetup<V, E> implements Setup<V, E> {
     protected static final long DEFAULT_SEED = 3L;
     private final Random random;
     protected Vector2D center = new Vector2D(0, 0);
     protected double scale = 1;
 
-    public SimpleSetup(Random random) {
+    public SquareRandomSetup(Random random) {
         Objects.requireNonNull(random);
         this.random = random;
     }
 
-    public SimpleSetup() {
+    public SquareRandomSetup() {
         this.random = new Random(DEFAULT_SEED);
     }
 

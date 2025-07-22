@@ -12,7 +12,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
+import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -47,7 +47,7 @@ public class BasicForceLayout extends AbstractLayout {
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         Layout<Node, Edge> layout = new Layout<>(
-                new SimpleBarycenterSetup<>(),
+                new SquareRandomBarycenterSetup<>(),
                 new BasicLayout<>(
                         new BasicLayoutParameters.Builder()
                                 .withAttractToCenterForce(attractToCenterForce)

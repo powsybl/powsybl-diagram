@@ -22,14 +22,14 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class SimpleSetupTest {
+class SquareRandomSetupTest {
 
     @Test
     void run() {
         Graph<String, DefaultEdge> graph = GraphTestData.getGraph();
-        SimpleSetup<String, DefaultEdge> simpleSetup = new SimpleSetup<>();
+        SquareRandomSetup<String, DefaultEdge> squareRandomSetup = new SquareRandomSetup<>();
         LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(graph);
-        simpleSetup.run(layoutContext);
+        squareRandomSetup.run(layoutContext);
         checkPointsPosition(layoutContext.getMovingPoints().values());
         checkPointsPosition(layoutContext.getFixedPoints().values());
 

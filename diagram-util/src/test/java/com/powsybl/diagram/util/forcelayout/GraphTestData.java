@@ -10,7 +10,7 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
+import com.powsybl.diagram.util.forcelayout.setup.SquareRandomSetup;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
@@ -66,7 +66,7 @@ public final class GraphTestData {
         Set<String> fixedNodes = new HashSet<>();
         fixedNodes.add("1");
         layoutContext.setFixedNodes(fixedNodes);
-        SimpleSetup<String, DefaultEdge> setup = new SimpleSetup<>(RANDOM);
+        SquareRandomSetup<String, DefaultEdge> setup = new SquareRandomSetup<>(RANDOM);
         setup.run(layoutContext);
     }
 }

@@ -32,7 +32,7 @@ import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
+import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
 import org.jgrapht.Graph;
 
 import java.io.IOException;
@@ -134,7 +134,7 @@ public class ForceLayout<V, E> {
 
     public void execute() {
         Layout<V, E> algorithmRunner = new Layout<>(
-                new SimpleBarycenterSetup<>(random),
+                new SquareRandomBarycenterSetup<>(random),
                 new BasicLayout<>(basicParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);

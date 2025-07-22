@@ -17,12 +17,12 @@ import java.util.Random;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SimpleBarycenterSetup<V, E> extends SimpleSetup<V, E> {
-    public SimpleBarycenterSetup(Random random) {
+public class SquareRandomBarycenterSetup<V, E> extends SquareRandomSetup<V, E> {
+    public SquareRandomBarycenterSetup(Random random) {
         super(Objects.requireNonNull(random));
     }
 
-    public SimpleBarycenterSetup() {
+    public SquareRandomBarycenterSetup() {
         super(new Random(DEFAULT_SEED));
     }
 

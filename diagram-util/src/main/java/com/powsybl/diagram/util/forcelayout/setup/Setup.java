@@ -20,7 +20,7 @@ public interface Setup<V, E> {
      * - use <code>initialPoints</code> to give a starting position to all the points, or create a position if no initial position is given<br>
      * Regarding the initial position, take care that the created positions do not overlap too much. Some forces such as repulsion forces will not work if points are at the exact same place<br>
      * It is therefore ill-advised to put all the points on (0, 0) for example.
-     * For a simple example, see {@link com.powsybl.diagram.util.forcelayout.setup.SimpleSetup}
+     * For a simple example, see {@link SquareRandomSetup}
      * @param layoutContext the context of the layout, the graph and the position of points
      */
     void run(LayoutContext<V, E> layoutContext);
