@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.layout.layouts.parameters;
+package com.powsybl.diagram.util.layout.algorithms.parameters;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}

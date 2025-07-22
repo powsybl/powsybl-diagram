@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.layout.layouts;
+package com.powsybl.diagram.util.layout.algorithms;
 
 import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;

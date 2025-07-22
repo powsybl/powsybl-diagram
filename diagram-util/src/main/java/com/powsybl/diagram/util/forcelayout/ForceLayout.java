@@ -31,8 +31,8 @@ import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.layouts.BasicForceLayoutAlgorithm;
-import com.powsybl.diagram.util.layout.layouts.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import org.jgrapht.Graph;
 

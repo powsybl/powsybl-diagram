@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.layout.layouts;
+package com.powsybl.diagram.util.layout.algorithms;
 
 import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.forces.CoulombForce;
@@ -15,7 +15,7 @@ import com.powsybl.diagram.util.layout.forces.SpringForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.layouts.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
