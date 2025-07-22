@@ -20,7 +20,7 @@ import java.util.Random;
 public class SimpleSetup<V, E> implements Setup<V, E> {
     @SuppressWarnings("java:S2245")
     protected Random random = new Random(3L);
-    protected Vector2D center;
+    protected Vector2D center = new Vector2D(0, 0);
     protected double scale = 1;
 
     public SimpleSetup(Random random) {
@@ -33,9 +33,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
     // very similar to SimpleBarycenterSetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
-        if (center != null) {
-            layoutContext.setCenter(center);
-        }
+        layoutContext.setCenter(center);
         for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
             if (layoutContext.getFixedNodes().contains(vertex)) {
                 layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));
