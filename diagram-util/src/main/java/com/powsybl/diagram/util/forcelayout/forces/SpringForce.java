@@ -28,8 +28,8 @@ public class SpringForce<V, E> implements Force<V, E> {
     private final SpringContainer<DefaultEdge> forceParameter;
     private static final double DEFAULT_STIFFNESS = 100.0;
 
-    public SpringForce(SpringContainer<DefaultEdge> forceParameter) {
-        this.forceParameter = forceParameter;
+    public SpringForce() {
+        this.forceParameter = new SpringContainer<>();
     }
 
     @Override
