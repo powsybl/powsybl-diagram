@@ -7,7 +7,6 @@
  */
 package com.powsybl.diagram.util.forcelayout;
 
-import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
 import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
