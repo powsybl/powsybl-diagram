@@ -12,7 +12,6 @@ import com.powsybl.diagram.util.forcelayout.forces.Force;
 import com.powsybl.diagram.util.forcelayout.forces.CoulombForce;
 import com.powsybl.diagram.util.forcelayout.forces.AttractToCenterForceLinear;
 import com.powsybl.diagram.util.forcelayout.forces.SpringForce;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.*;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
