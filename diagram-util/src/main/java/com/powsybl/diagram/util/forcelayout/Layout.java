@@ -9,8 +9,8 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
 import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
 import org.slf4j.Logger;
@@ -44,14 +44,14 @@ public class Layout<V, E> {
     }
 
     /**
-     * Get the default Basic algorithm, with {@link SquareRandomBarycenterSetup} and {@link BasicLayout}
+     * Get the default Basic algorithm, with {@link SquareRandomBarycenterSetup} and {@link BasicForceLayoutAlgorithm}
      * @return a ready to run basic algorithm, with default parameters
      */
     public static <V, E> Layout<V, E> createBasicForceLayout() {
         return new Layout<>(
                 new SquareRandomBarycenterSetup<>(),
-                new BasicLayout<>(
-                        new BasicLayoutParameters.Builder().build()
+                new BasicForceLayoutAlgorithm<>(
+                        new BasicForceLayoutParameters.Builder().build()
                 )
         );
     }

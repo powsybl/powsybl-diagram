@@ -30,8 +30,8 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
 import org.jgrapht.Graph;
 
@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
-    private final BasicLayoutParameters.Builder basicParametersBuilder = new BasicLayoutParameters.Builder();
+    private final BasicForceLayoutParameters.Builder basicParametersBuilder = new BasicForceLayoutParameters.Builder();
     @java.lang.SuppressWarnings("java:S2245")
     private final Random random = new Random();
 
@@ -135,7 +135,7 @@ public class ForceLayout<V, E> {
     public void execute() {
         Layout<V, E> algorithmRunner = new Layout<>(
                 new SquareRandomBarycenterSetup<>(random),
-                new BasicLayout<>(basicParametersBuilder.build())
+                new BasicForceLayoutAlgorithm<>(basicParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);
     }

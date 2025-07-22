@@ -10,8 +10,8 @@ package com.powsybl.nad.layout;
 import com.powsybl.diagram.util.forcelayout.Layout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicLayoutParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -48,8 +48,8 @@ public class BasicForceLayout extends AbstractLayout {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         Layout<Node, Edge> layout = new Layout<>(
                 new SquareRandomBarycenterSetup<>(),
-                new BasicLayout<>(
-                        new BasicLayoutParameters.Builder()
+                new BasicForceLayoutAlgorithm<>(
+                        new BasicForceLayoutParameters.Builder()
                                 .withAttractToCenterForce(attractToCenterForce)
                                 .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())

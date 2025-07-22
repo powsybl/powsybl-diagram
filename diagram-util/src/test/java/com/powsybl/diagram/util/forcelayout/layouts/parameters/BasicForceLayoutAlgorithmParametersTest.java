@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class BasicLayoutParametersTest {
+class BasicForceLayoutAlgorithmParametersTest {
     @Test
     void testBuilder() {
-        BasicLayoutParameters parameters = new BasicLayoutParameters.Builder()
+        BasicForceLayoutParameters parameters = new BasicForceLayoutParameters.Builder()
                 .withMaxSteps(324)
                 .withMinEnergyThreshold(0.8)
                 .withDeltaTime(0.06)

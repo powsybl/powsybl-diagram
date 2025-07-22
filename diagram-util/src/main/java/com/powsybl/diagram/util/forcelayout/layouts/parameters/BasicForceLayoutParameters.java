@@ -11,7 +11,7 @@ package com.powsybl.diagram.util.forcelayout.layouts.parameters;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public final class BasicLayoutParameters {
+public final class BasicForceLayoutParameters {
     private static final int DEFAULT_MAX_STEPS = 400;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
@@ -28,7 +28,7 @@ public final class BasicLayoutParameters {
     private final boolean repulsionForceFromFixedPoints;
     private final boolean attractToCenterForce;
 
-    private BasicLayoutParameters(
+    private BasicForceLayoutParameters(
             int maxSteps,
             double minEnergyThreshold,
             double deltaTime,
@@ -98,8 +98,8 @@ public final class BasicLayoutParameters {
             return this;
         }
 
-        public BasicLayoutParameters build() {
-            return new BasicLayoutParameters(
+        public BasicForceLayoutParameters build() {
+            return new BasicForceLayoutParameters(
                     maxSteps,
                     minEnergyThreshold,
                     deltaTime,
