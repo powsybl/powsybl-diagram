@@ -60,39 +60,68 @@ public class LayoutContext<V, E> {
         return simpleGraph;
     }
 
+    /**
+     * @return a Map with vertex/point, where the points are movable in the 2D space
+     */
     public Map<V, Point> getMovingPoints() {
         return movingPoints;
     }
 
+    /**
+     * @return a Map with vertex/point, where the points are NOT movable in the 2D space
+     */
     public Map<V, Point> getFixedPoints() {
         return fixedPoints;
     }
 
+    /**
+     * @return a Map vertex/point where the points had an initial position given to them before the setup
+     */
     public Map<V, Point> getInitialPoints() {
         return initialPoints;
     }
 
+    /**
+     * @return a set of all the vertex where the point corresponding to those is fixed. Note that this does not give the corresponding points directly
+     */
     public Set<V> getFixedNodes() {
         return fixedNodes;
     }
 
+    /**
+     * @param center the center of the graph in the 2D space
+     */
     public void setCenter(Vector2D center) {
         origin.setPosition(center);
     }
 
+    /**
+     * @return the center of the graph in the 2D space
+     */
     public Vector2D getCenter() {
         return origin.getPosition();
     }
 
+    /**
+     * @return the center of the graph in the 2D space, but in the format of a point
+     */
     public Point getOrigin() {
         return origin;
     }
 
+    /**
+     * @param initialPoints the vertex with the point give the initial position of the points in the 2D space
+     * @return the instance of LayoutContext you used this function on, with the initialPoints changed to the given parameter
+     */
     public LayoutContext<V, E> setInitialPoints(Map<V, Point> initialPoints) {
         this.initialPoints = Objects.requireNonNull(initialPoints);
         return this;
     }
 
+    /**
+     * @param fixedNodes all the vertex whose corresponding point you want to not move in the 2D space
+     * @return the instance of LayoutContext you used this function on, with the fixedNodes changed to the given parameter
+     */
     public LayoutContext<V, E> setFixedNodes(Set<V> fixedNodes) {
         Objects.requireNonNull(fixedNodes);
         Set<V> intersection = new HashSet<>(fixedNodes);
@@ -106,6 +135,11 @@ public class LayoutContext<V, E> {
         return this;
     }
 
+    /**
+     * Does {@link #setInitialPoints(Map)} and {@link #setFixedNodes(Set)} at the same time
+     * @param fixedPoints the vertex you want to have fixed, with the point being their initial position
+     * @return the instance of LayoutContext you used this function on, with the fixedNodes and initialPoints changed using the given parameter
+     */
     public LayoutContext<V, E> setFixedPoints(Map<V, Point> fixedPoints) {
         Objects.requireNonNull(fixedPoints);
         Map<V, Point> intersection = new HashMap<>(fixedPoints);
