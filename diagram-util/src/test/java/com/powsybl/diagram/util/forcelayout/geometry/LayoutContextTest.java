@@ -57,19 +57,19 @@ class LayoutContextTest {
     void toSvg() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
+        Layout<String, DefaultEdge> layout = Layout.getBasicDefaultLayout();
         layout.run(layoutContext);
         StringWriter sw = new StringWriter();
         layout.toSVG(tooltip, sw);
         Helpers helpers = new Helpers();
-        assertEquals(helpers.toString("/springy_5_nodes.svg"), sw.toString());
+        assertEquals(helpers.toString("/basic_5_nodes.svg"), sw.toString());
     }
 
     @Test
     void notExecuted() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
-        Layout<String, DefaultEdge> layout = Layout.getSpringyDefaultLayout();
+        Layout<String, DefaultEdge> layout = Layout.getBasicDefaultLayout();
         assertDoesNotThrow(() -> layout.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
         assertDoesNotThrow(() -> layoutContext.getStablePosition("0", false));
     }

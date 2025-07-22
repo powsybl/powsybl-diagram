@@ -16,7 +16,7 @@ import com.powsybl.diagram.util.forcelayout.forces.parameters.*;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +31,13 @@ import java.util.*;
  *
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringyLayout<V, E> implements LayoutAlgorithm<V, E> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringyLayout.class);
+public class BasicLayout<V, E> implements LayoutAlgorithm<V, E> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicLayout.class);
 
-    private final SpringyParameters layoutParameters;
+    private final BasicParameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
 
-    public SpringyLayout(SpringyParameters layoutParameters) {
+    public BasicLayout(BasicParameters layoutParameters) {
         this.forces.add(new SpringForce<>(new SpringContainer<>()));
         this.forces.add(new CoulombForce<>(
             layoutParameters.getRepulsion(),

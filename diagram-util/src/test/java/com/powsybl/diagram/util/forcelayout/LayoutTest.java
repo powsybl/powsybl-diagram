@@ -9,8 +9,8 @@ package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
 import com.powsybl.diagram.util.forcelayout.setup.SimpleSetup;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class LayoutTest {
 
     @Test
     void svgNotExecuted() {
-        Layout<String, DefaultEdge> runner = Layout.getSpringyDefaultLayout();
+        Layout<String, DefaultEdge> runner = Layout.getBasicDefaultLayout();
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         assertDoesNotThrow(() -> runner.toSVG(tooltip, tempDirectory.toPath().resolve("test.svg")));
     }
@@ -44,7 +44,7 @@ class LayoutTest {
     void testCenter() {
         Layout<String, DefaultEdge> runner = new Layout<>(
                 new SimpleSetup<>(random),
-                new SpringyLayout<>(new SpringyParameters.Builder().build())
+                new BasicLayout<>(new BasicParameters.Builder().build())
         );
         Vector2D newCenter = new Vector2D(-445, 23.3);
         runner.setCenter(newCenter);

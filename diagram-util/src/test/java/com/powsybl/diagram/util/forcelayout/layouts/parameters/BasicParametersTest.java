@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class SpringyParametersTest {
+class BasicParametersTest {
     @Test
     void testBuilder() {
-        SpringyParameters parameters = new SpringyParameters.Builder()
+        BasicParameters parameters = new BasicParameters.Builder()
                 .withMaxSteps(324)
                 .withMinEnergyThreshold(0.8)
                 .withDeltaTime(0.06)

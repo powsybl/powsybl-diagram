@@ -10,10 +10,10 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
 import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
 import com.powsybl.diagram.util.forcelayout.setup.Setup;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,14 +51,14 @@ public class Layout<V, E> {
     }
 
     /**
-     * Get the default Springy algorithm, with {@link SpringySetup} and {@link SpringyLayout}
-     * @return a ready to run springy algorithm, with default parameters
+     * Get the default Basic algorithm, with {@link SimpleBarycenterSetup} and {@link BasicLayout}
+     * @return a ready to run basic algorithm, with default parameters
      */
-    public static <V, E> Layout<V, E> getSpringyDefaultLayout() {
+    public static <V, E> Layout<V, E> getBasicDefaultLayout() {
         return new Layout<>(
-                new SpringySetup<>(),
-                new SpringyLayout<>(
-                        new SpringyParameters.Builder().build()
+                new SimpleBarycenterSetup<>(),
+                new BasicLayout<>(
+                        new BasicParameters.Builder().build()
                 )
         );
     }

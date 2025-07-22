@@ -16,12 +16,12 @@ import java.util.Random;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class SpringySetup<V, E> extends SimpleSetup<V, E> {
-    public SpringySetup(Random random) {
+public class SimpleBarycenterSetup<V, E> extends SimpleSetup<V, E> {
+    public SimpleBarycenterSetup(Random random) {
         this.random = random;
     }
 
-    public SpringySetup() {
+    public SimpleBarycenterSetup() {
     }
 
     @Override

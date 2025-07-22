@@ -30,7 +30,7 @@ public class SimpleSetup<V, E> implements Setup<V, E> {
     public SimpleSetup() {
     }
 
-    // very similar to SpringySetup, but the center of the graph is always (0,0) instead of the center of all the points
+    // very similar to SimpleBarycenterSetup, but the center of the graph is always (0,0) instead of the center of all the points
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         if (center != null) {

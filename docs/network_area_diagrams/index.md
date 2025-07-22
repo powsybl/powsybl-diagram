@@ -16,7 +16,7 @@ styleProvider/styleProvider.md
 The powsybl-network-area-diagram artifact provides features to generate concise and customized diagrams of the network:
 - Display of the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels;
 - Generation of diagrams of the whole network or of part of the network, given a voltage level and a depth, or a list of voltage levels and a (unique) depth;
-- Graph layout default implementation using a basic force layout algorithm, taken from [springy](https://github.com/dhotson/springy)
+- Graph layout default implementation using a basic force layout algorithm, inspired by [springy](https://github.com/dhotson/springy)
 - Diagram customization:
     - Possible use of your own graph layout implementation;
     - Possible use of your own label provider to display custom directed values on the graph edges (default label provider displays the active power);

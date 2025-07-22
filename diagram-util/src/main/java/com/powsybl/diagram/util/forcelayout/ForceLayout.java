@@ -30,9 +30,9 @@ package com.powsybl.diagram.util.forcelayout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
+import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
 import org.jgrapht.Graph;
 
 import java.io.IOException;
@@ -54,7 +54,7 @@ import java.util.function.Function;
  * The equivalent of: <br>
  * {@code new ForceLayout(graph).execute();}<br>
  * would be <br>
- * {@code new Layout(new SpringySetup<>(), new SpringyLayout<>(new SpringyParameters.Builder().build()).run(new LayoutContext<>(graph));}
+ * {@code new Layout(new SimpleBarycenterSetup<>(), new BasicLayout<>(new BasicParameters.Builder().build()).run(new LayoutContext<>(graph));}
  *
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -63,7 +63,7 @@ import java.util.function.Function;
 public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
-    private final SpringyParameters.Builder springyParametersBuilder = new SpringyParameters.Builder();
+    private final BasicParameters.Builder basicParametersBuilder = new BasicParameters.Builder();
     private Layout<V, E> algorithmRunner;
     @java.lang.SuppressWarnings("java:S2245")
     private final Random random = new Random();
@@ -79,42 +79,42 @@ public class ForceLayout<V, E> {
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
-        this.springyParametersBuilder.withAttractToCenterForce(attractToCenterForce);
+        this.basicParametersBuilder.withAttractToCenterForce(attractToCenterForce);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-        this.springyParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
+        this.basicParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
-        this.springyParametersBuilder.withMaxSteps(maxSteps);
+        this.basicParametersBuilder.withMaxSteps(maxSteps);
         return this;
     }
 
     public ForceLayout<V, E> setMinEnergyThreshold(double minEnergyThreshold) {
-        this.springyParametersBuilder.withMinEnergyThreshold(minEnergyThreshold);
+        this.basicParametersBuilder.withMinEnergyThreshold(minEnergyThreshold);
         return this;
     }
 
     public ForceLayout<V, E> setDeltaTime(double deltaTime) {
-        this.springyParametersBuilder.withDeltaTime(deltaTime);
+        this.basicParametersBuilder.withDeltaTime(deltaTime);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsion(double repulsion) {
-        this.springyParametersBuilder.withRepulsion(repulsion);
+        this.basicParametersBuilder.withRepulsion(repulsion);
         return this;
     }
 
     public ForceLayout<V, E> setFriction(double friction) {
-        this.springyParametersBuilder.withFriction(friction);
+        this.basicParametersBuilder.withFriction(friction);
         return this;
     }
 
     public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
-        this.springyParametersBuilder.withMaxSpeed(maxSpeed);
+        this.basicParametersBuilder.withMaxSpeed(maxSpeed);
         return this;
     }
 
@@ -135,8 +135,8 @@ public class ForceLayout<V, E> {
 
     public void execute() {
         this.algorithmRunner = new Layout<>(
-                new SpringySetup<>(random),
-                new SpringyLayout<>(springyParametersBuilder.build())
+                new SimpleBarycenterSetup<>(random),
+                new BasicLayout<>(basicParametersBuilder.build())
         );
         algorithmRunner.run(layoutContext);
     }

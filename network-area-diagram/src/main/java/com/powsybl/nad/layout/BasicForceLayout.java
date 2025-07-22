@@ -10,9 +10,9 @@ package com.powsybl.nad.layout;
 import com.powsybl.diagram.util.forcelayout.Layout;
 import com.powsybl.diagram.util.forcelayout.geometry.LayoutContext;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.SpringyLayout;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.SpringyParameters;
-import com.powsybl.diagram.util.forcelayout.setup.SpringySetup;
+import com.powsybl.diagram.util.forcelayout.layouts.BasicLayout;
+import com.powsybl.diagram.util.forcelayout.layouts.parameters.BasicParameters;
+import com.powsybl.diagram.util.forcelayout.setup.SimpleBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
@@ -47,9 +47,9 @@ public class BasicForceLayout extends AbstractLayout {
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
         Layout<Node, Edge> layout = new Layout<>(
-                new SpringySetup<>(),
-                new SpringyLayout<>(
-                        new SpringyParameters.Builder()
+                new SimpleBarycenterSetup<>(),
+                new BasicLayout<>(
+                        new BasicParameters.Builder()
                                 .withAttractToCenterForce(attractToCenterForce)
                                 .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
