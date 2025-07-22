@@ -64,7 +64,6 @@ public class ForceLayout<V, E> {
 
     private final LayoutContext<V, E> layoutContext;
     private final BasicParameters.Builder basicParametersBuilder = new BasicParameters.Builder();
-    private Layout<V, E> algorithmRunner;
     @java.lang.SuppressWarnings("java:S2245")
     private final Random random = new Random();
 
@@ -134,7 +133,7 @@ public class ForceLayout<V, E> {
     }
 
     public void execute() {
-        this.algorithmRunner = new Layout<>(
+        Layout<V, E> algorithmRunner = new Layout<>(
                 new SimpleBarycenterSetup<>(random),
                 new BasicLayout<>(basicParametersBuilder.build())
         );
