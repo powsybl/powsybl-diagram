@@ -2,7 +2,7 @@
 <svg viewBox="-950.99 -947.54 2172.58 1879.47" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
 .nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
@@ -397,32 +397,32 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: 159px; left: 725px" id="0-textnode">
                 <div>VL10</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>12.6 kV / -15.1°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -440px; left: 522px" id="2-textnode">
                 <div>VL14</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>12.4 kV / -16.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -143px; left: -254px" id="4-textnode">
                 <div>VL4</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl120to180 nad-bus-0 nad-legend-square"/>137.6 kV / -10.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 261px; left: -34px" id="6-textnode">
                 <div>VL7</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>14.9 kV / -13.4°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 692px; left: -52px" id="8-textnode">
                 <div>VL8</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>21.8 kV / -13.4°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -38px; left: 269px" id="10-textnode">
                 <div>VL9</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>12.7 kV / -14.9°</div>
             </div>
         </div>

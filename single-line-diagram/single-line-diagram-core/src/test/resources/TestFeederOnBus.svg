@@ -73,43 +73,45 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,252.0)">
-            <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
-            <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE">
-                <polyline points="65.0,252.0,65.0,222.0"/>
+        <g class="sld-voltage-level" id="idvl">
+            <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,252.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE_95_INTERNAL_95_vl_95_line_95_ONE">
-                <polyline points="65.0,222.0,65.0,142.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
-                <polyline points="65.0,142.0,65.0,80.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,95.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">tata</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,115.0)">
-                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                <text class="sld-label" x="15.0" y="5.0">tutu</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_line_95_ONE" transform="translate(61.0,248.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE" transform="translate(61.0,218.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(65.0,80.0)">
-                <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">line</text>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
+                <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE">
+                    <polyline points="65.0,252.0,65.0,222.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE_95_INTERNAL_95_vl_95_line_95_ONE">
+                    <polyline points="65.0,222.0,65.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
+                    <polyline points="65.0,142.0,65.0,80.0"/>
+                </g>
+                <g class="sld-feeder-info sld-out sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,95.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">tata</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,115.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">tutu</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_line_95_ONE" transform="translate(61.0,248.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_line_95_ONE_45_line_95_ONE" transform="translate(61.0,218.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(65.0,80.0)">
+                    <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">line</text>
+                </g>
             </g>
         </g>
     </g>

@@ -152,35 +152,37 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_1" transform="translate(52.5,110.0)">
-            <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="id1_46_1_95_NW_95_LABEL" x="-5.0" y="-5.0">1.1</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_2" transform="translate(102.5,110.0)">
-            <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="id1_46_2_95_NW_95_LABEL" x="-5.0" y="-5.0">1.2</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_3" transform="translate(152.5,110.0)">
-            <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="id1_46_3_95_NW_95_LABEL" x="-5.0" y="-5.0">1.3</text>
-        </g>
-        <g class="sld-intern-cell sld-cell-shape-crossover" id="idINTERN_32_0">
-            <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_d1_45_d2">
-                <polyline points="65.0,110.0,65.0,70.0,90.0,70.0"/>
+        <g class="sld-voltage-level" id="idvl">
+            <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_1" transform="translate(52.5,110.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="id1_46_1_95_NW_95_LABEL" x="-5.0" y="-5.0">1.1</text>
             </g>
-            <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_d1_45_d2_95_d2">
-                <polyline points="90.0,70.0,165.0,70.0,165.0,110.0"/>
+            <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_2" transform="translate(102.5,110.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="id1_46_2_95_NW_95_LABEL" x="-5.0" y="-5.0">1.2</text>
             </g>
-            <g class="sld-disconnector sld-open sld-disconnected" id="idd1" transform="translate(61.0,106.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+            <g class="sld-busbar-section sld-vl300to500 sld-disconnected sld-bus-disconnected" id="id1_46_3" transform="translate(152.5,110.0)">
+                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <text class="sld-label" id="id1_46_3_95_NW_95_LABEL" x="-5.0" y="-5.0">1.3</text>
             </g>
-            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl_95_d1_45_d2" transform="translate(86.0,66.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-disconnector sld-open sld-disconnected" id="idd2" transform="translate(161.0,106.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+            <g class="sld-intern-cell sld-cell-shape-crossover" id="idINTERN_32_0">
+                <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_d1_45_d2">
+                    <polyline points="65.0,110.0,65.0,70.0,90.0,70.0"/>
+                </g>
+                <g class="sld-wire sld-vl300to500 sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_d1_45_d2_95_d2">
+                    <polyline points="90.0,70.0,165.0,70.0,165.0,110.0"/>
+                </g>
+                <g class="sld-disconnector sld-open sld-vl300to500 sld-disconnected" id="idd1" transform="translate(61.0,106.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl_95_d1_45_d2" transform="translate(86.0,66.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-disconnector sld-open sld-vl300to500 sld-disconnected" id="idd2" transform="translate(161.0,106.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
             </g>
         </g>
     </g>

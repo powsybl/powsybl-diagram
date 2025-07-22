@@ -10,6 +10,7 @@ hidden: true
 layout/layout.md
 labelProvider/labelProvider.md
 styleProvider/styleProvider.md
+edgeRouting/edgeRouting.md
 ```
 
 
@@ -21,6 +22,7 @@ The powsybl-network-area-diagram artifact provides features to generate concise 
     - Possible use of your own graph layout implementation;
     - Possible use of your own label provider to display custom directed values on the graph edges (default label provider displays the active power);
     - Possible use of your own style provider to have a custom style for nodes and edges (default style provider gives the nodes and edges a class corresponding to their voltage level and gives disconnected lines a specific class);
+    - Possible use of your own edge routing to have custom edge paths;
     - Possible use of your custom layout parameters and svg rendering parameters.
 
 ![nad-example](/_static/img/nad/nad-example.png)

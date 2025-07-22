@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
+import com.powsybl.sld.svg.BusLegendInfo;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
 
@@ -91,6 +92,11 @@ public class StyleProvidersList implements StyleProvider {
     @Override
     public List<String> getBusInfoStyle(BusInfo info) {
         return concatenateLists(sp -> sp.getBusInfoStyle(info));
+    }
+
+    @Override
+    public List<String> getBusLegendCaptionStyles(BusLegendInfo.Caption caption) {
+        return concatenateLists(sp -> sp.getBusLegendCaptionStyles(caption));
     }
 
     @Override

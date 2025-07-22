@@ -37,6 +37,10 @@ public class BranchEdge extends AbstractEdge {
 
     private List<Point> points1 = Collections.emptyList();
     private List<Point> points2 = Collections.emptyList();
+    private Point arrowPoint1 = new Point();
+    private Point arrowPoint2 = new Point();
+    private double arrowAngle1;
+    private double arrowAngle2;
     private final boolean[] visible = new boolean[] {true, true};
 
     public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
@@ -77,6 +81,50 @@ public class BranchEdge extends AbstractEdge {
     public void setPoints2(Point... points) {
         Arrays.stream(points).forEach(Objects::requireNonNull);
         this.points2 = Arrays.asList(points);
+    }
+
+    public Point getArrow(Side side) {
+        Objects.requireNonNull(side);
+        return side == Side.ONE ? getArrowPoint1() : getArrowPoint2();
+    }
+
+    public Point getArrowPoint1() {
+        return arrowPoint1;
+    }
+
+    public Point getArrowPoint2() {
+        return arrowPoint2;
+    }
+
+    public void setArrow(Side side, Point arrow) {
+        Objects.requireNonNull(side);
+        if (side == Side.ONE) {
+            setArrowPoint1(arrow);
+        } else {
+            setArrowPoint2(arrow);
+        }
+    }
+
+    public void setArrowPoint1(Point arrowPoint1) {
+        this.arrowPoint1 = arrowPoint1;
+    }
+
+    public void setArrowPoint2(Point arrowPoint2) {
+        this.arrowPoint2 = arrowPoint2;
+    }
+
+    public void setArrowAngle(Side side, double edgeStartAngle) {
+        Objects.requireNonNull(side);
+        if (side == Side.ONE) {
+            this.arrowAngle1 = edgeStartAngle;
+        } else {
+            this.arrowAngle2 = edgeStartAngle;
+        }
+    }
+
+    public double getArrowAngle(Side side) {
+        Objects.requireNonNull(side);
+        return side == Side.ONE ? arrowAngle1 : arrowAngle2;
     }
 
     public boolean isVisible(Side side) {

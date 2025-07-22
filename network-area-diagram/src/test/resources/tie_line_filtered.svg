@@ -2,7 +2,7 @@
 <svg width="800.00" height="481.57" viewBox="-652.59 -514.01 1283.49 772.62" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
 .nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
@@ -189,17 +189,17 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -314px; left: -353px" id="0-textnode">
                 <div>VLGEN</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>24.5 kV / 2.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -6px; left: -145px" id="2-textnode">
                 <div>VLHV1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 19px; left: 240px" id="4-textnode">
                 <div>VLHV2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
             </div>
         </div>

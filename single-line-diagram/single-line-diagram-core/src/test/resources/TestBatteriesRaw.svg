@@ -61,106 +61,108 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,253.0)">
-            <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
-            <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_b1_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1">
-                <polyline points="115.0,253.0,115.0,223.0"/>
+        <g class="sld-voltage-level" id="idvl">
+            <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,253.0)">
+                <line x1="0" x2="75.0" y1="0" y2="0"/>
+                <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1_95_b1">
-                <polyline points="115.0,223.0,115.0,204.0"/>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
+                <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_b1_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1">
+                    <polyline points="115.0,253.0,115.0,223.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1_95_b1">
+                    <polyline points="115.0,223.0,115.0,204.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b1_95_d1">
+                    <polyline points="115.0,188.0,115.0,173.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_batt1">
+                    <polyline points="115.0,165.0,115.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt1_95_batt1">
+                    <polyline points="115.0,142.0,115.0,86.0"/>
+                </g>
+                <g class="sld-feeder-info sld-out sld-active-power" id="idbatt1_95_ARROW_95_ACTIVE" transform="translate(110.0,101.0)">
+                    <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+                    <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
+                    <text class="sld-label" x="15.0" y="5.0">tata</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idbatt1_95_ARROW_95_REACTIVE" transform="translate(110.0,121.0)">
+                    <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+                    <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
+                    <text class="sld-label" x="15.0" y="5.0">tutu</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_b1" transform="translate(111.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1" transform="translate(111.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb1" transform="translate(107.0,188.0)">
+                    <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
+                    <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd1" transform="translate(111.0,165.0)">
+                    <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_batt1" transform="translate(111.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-battery sld-top-feeder" id="idbatt1" transform="translate(107.0,74.0)">
+                    <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
+                    <text class="sld-label" id="idbatt1_95_N_95_LABEL" x="-5.0" y="-5.0">batt1</text>
+                </g>
             </g>
-            <g class="sld-wire" id="_95_vl_95_b1_95_d1">
-                <polyline points="115.0,188.0,115.0,173.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_batt1">
-                <polyline points="115.0,165.0,115.0,142.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt1_95_batt1">
-                <polyline points="115.0,142.0,115.0,86.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt1_95_ARROW_95_ACTIVE" transform="translate(110.0,101.0)">
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <text class="sld-label" x="15.0" y="5.0">tata</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt1_95_ARROW_95_REACTIVE" transform="translate(110.0,121.0)">
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <text class="sld-label" x="15.0" y="5.0">tutu</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_b1" transform="translate(111.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b1_45_b1" transform="translate(111.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed" id="idb1" transform="translate(107.0,188.0)">
-                <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
-                <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
-            </g>
-            <g class="sld-disconnector sld-closed" id="idd1" transform="translate(111.0,165.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_batt1" transform="translate(111.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-battery sld-top-feeder" id="idbatt1" transform="translate(107.0,74.0)">
-                <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                <text class="sld-label" id="idbatt1_95_N_95_LABEL" x="-5.0" y="-5.0">batt1</text>
-            </g>
-        </g>
-        <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
-            <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_b2_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2">
-                <polyline points="65.0,253.0,65.0,223.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2_95_b2">
-                <polyline points="65.0,223.0,65.0,204.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_b2_95_d2">
-                <polyline points="65.0,188.0,65.0,173.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_d2_95_INTERNAL_95_vl_95_batt2">
-                <polyline points="65.0,165.0,65.0,142.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt2_95_batt2">
-                <polyline points="65.0,142.0,65.0,86.0"/>
-            </g>
-            <g class="sld-active-power sld-feeder-info sld-out" id="idbatt2_95_ARROW_95_ACTIVE" transform="translate(60.0,101.0)">
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <text class="sld-label" x="15.0" y="5.0">tata</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-reactive-power sld-feeder-info sld-in" id="idbatt2_95_ARROW_95_REACTIVE" transform="translate(60.0,121.0)">
-                <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
-                <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
-                <text class="sld-label" x="15.0" y="5.0">tutu</text>
-                <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
-            </g>
-            <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_b2" transform="translate(61.0,249.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2" transform="translate(61.0,219.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-breaker sld-closed" id="idb2" transform="translate(57.0,188.0)">
-                <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
-                <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
-            </g>
-            <g class="sld-disconnector sld-closed" id="idd2" transform="translate(61.0,165.0)">
-                <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_batt2" transform="translate(61.0,138.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-battery sld-top-feeder" id="idbatt2" transform="translate(57.0,74.0)">
-                <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                <text class="sld-label" id="idbatt2_95_N_95_LABEL" x="-5.0" y="-5.0">batt2</text>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
+                <g class="sld-wire" id="_95_vl_95_BUSCO_95_bbs_95_b2_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2">
+                    <polyline points="65.0,253.0,65.0,223.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2_95_b2">
+                    <polyline points="65.0,223.0,65.0,204.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_b2_95_d2">
+                    <polyline points="65.0,188.0,65.0,173.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_d2_95_INTERNAL_95_vl_95_batt2">
+                    <polyline points="65.0,165.0,65.0,142.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_batt2_95_batt2">
+                    <polyline points="65.0,142.0,65.0,86.0"/>
+                </g>
+                <g class="sld-feeder-info sld-out sld-active-power" id="idbatt2_95_ARROW_95_ACTIVE" transform="translate(60.0,101.0)">
+                    <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+                    <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
+                    <text class="sld-label" x="15.0" y="5.0">tata</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idbatt2_95_ARROW_95_REACTIVE" transform="translate(60.0,121.0)">
+                    <path class="sld-arrow-out" d="M 9.95,9.64 C 9.67,10.1 0.257,10.1 0.01,9.64 -0.239,9.16 4.48,0 4.97,0 5.46,0 10.2,9.16 9.95,9.64 Z"/>
+                    <path class="sld-arrow-in" d="m 0.01,0.345 c 0.28,-0.46 9.69,-0.46 9.94,0 C 10.2,0.825 5.48,9.99 4.99,9.99 4.5,9.99 -0.24,0.825 0.01,0.345 Z"/>
+                    <text class="sld-label" x="15.0" y="5.0">tutu</text>
+                    <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
+                </g>
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bbs_95_b2" transform="translate(61.0,249.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_BUSCO_95_bbs_95_b2_45_b2" transform="translate(61.0,219.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-breaker sld-closed" id="idb2" transform="translate(57.0,188.0)">
+                    <path class="sld-sw-closed" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M6.4,3.2 h3.2 v9.6 h-3.2z"/>
+                    <path class="sld-sw-open" d="M16,5 c0,-2.8 -2.2,-5 -5,-5 h-6 c-2.8,0 -5,2.2 -5,5 v6 c0,2.8 2.2,5 5,5 h6 c2.8,0 5,-2.2 5,-5z M12.8,6.4 v3.2 h-9.6 v-3.2Z"/>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd2" transform="translate(61.0,165.0)">
+                    <rect height="8" rx="2" ry="2" width="8" x="0" y="0"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_batt2" transform="translate(61.0,138.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-battery sld-top-feeder" id="idbatt2" transform="translate(57.0,74.0)">
+                    <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
+                    <text class="sld-label" id="idbatt2_95_N_95_LABEL" x="-5.0" y="-5.0">batt2</text>
+                </g>
             </g>
         </g>
     </g>

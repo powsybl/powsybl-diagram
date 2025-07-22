@@ -2,7 +2,7 @@
 <svg width="608.87" height="628.73" viewBox="-420.40 -755.14 1217.75 1257.45" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
 .nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
@@ -595,29 +595,29 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="nad-label-box" style="position: absolute; top: -555px; left: -120px" id="0-textnode">
                 <div>S1VL1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl180to300 nad-bus-0 nad-legend-square"/>224.6 kV / 2.3°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: -174px; left: -52px" id="4-textnode">
                 <div>S1VL2</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / 0.0°</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-1 nad-legend-square"/>400.0 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 192px; left: -63px" id="15-textnode">
                 <div>S2VL1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>408.8 kV / 0.7°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 52px; left: 271px" id="18-textnode">
                 <div>S3VL1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / 0.0°</div>
             </div>
             <div class="nad-label-box" style="position: absolute; top: 262px; left: 597px" id="22-textnode">
                 <div>S4VL1</div>
-                <div>
+                <div class="nad-bus-descr">
                     <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / -1.1°</div>
             </div>
         </div>
