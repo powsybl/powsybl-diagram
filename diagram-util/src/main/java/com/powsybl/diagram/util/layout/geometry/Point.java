@@ -23,6 +23,7 @@ public class Point {
     private Vector2D velocity;
     private Vector2D forces;
     private final double mass;
+    private int pointVertexDegree;
 
     public Point(double x, double y) {
         this(x, y, DEFAULT_MASS);
@@ -73,6 +74,14 @@ public class Point {
 
     public void resetForces() {
         this.forces = new Vector2D(0, 0);
+    }
+
+    public int getPointVertexDegree() {
+        return pointVertexDegree;
+    }
+
+    public void setPointVertexDegree(int pointVertexDegree) {
+        this.pointVertexDegree = pointVertexDegree;
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {

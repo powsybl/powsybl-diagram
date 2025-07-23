@@ -5,15 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.layouts.parameters;
-
-import com.powsybl.diagram.util.forcelayout.layouts.LayoutAlgorithm;
-import com.powsybl.diagram.util.forcelayout.layouts.Atlas2Layout;
+package com.powsybl.diagram.util.layout.algorithms.parameters;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
+public final class Atlas2Parameters {
     private static final int DEFAULT_MAX_STEPS = 6000;
     private static final double DEFAULT_REPULSION = 4;
     private static final double DEFAULT_ATTRACTION = 1;
@@ -122,8 +119,8 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
             return this;
         }
 
-        public <V, E> Atlas2Parameters<V, E> build() {
-            return new Atlas2Parameters<>(
+        public Atlas2Parameters build() {
+            return new Atlas2Parameters(
                     maxSteps,
                     repulsion,
                     attraction,
@@ -176,11 +173,6 @@ public final class Atlas2Parameters<V, E> implements LayoutParameters<V, E> {
 
     public boolean isAttractToCenterForce() {
         return attractToCenterForce;
-    }
-
-    @Override
-    public LayoutAlgorithm<V, E> createLayout() {
-        return new Atlas2Layout<>(this);
     }
 }
 

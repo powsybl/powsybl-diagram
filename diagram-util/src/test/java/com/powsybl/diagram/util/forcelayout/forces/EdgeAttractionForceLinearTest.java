@@ -11,19 +11,20 @@ import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceLinear;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class LinearEdgeAttractionForceTest {
+class EdgeAttractionForceLinearTest {
 
     @Test
     void calculateForce() {
         double delta = 1e-4;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        LinearEdgeAttractionForce<String, DefaultEdge> linearEdgeAttractionForce = new LinearEdgeAttractionForce<>(
+        EdgeAttractionForceLinear<String, DefaultEdge> edgeAttractionForceLinear = new EdgeAttractionForceLinear<>(
                 new IntensityParameter(7)
         );
         String[] vertexToTest = {
@@ -36,6 +37,6 @@ class LinearEdgeAttractionForceTest {
             new Vector2D(-3.5, 3.5),
             new Vector2D(-22.582, 92.96)
         };
-        ForceTestUtil.testForceCalculation(forceGraph, linearEdgeAttractionForce, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, edgeAttractionForceLinear, vertexToTest, resultVector, delta);
     }
 }

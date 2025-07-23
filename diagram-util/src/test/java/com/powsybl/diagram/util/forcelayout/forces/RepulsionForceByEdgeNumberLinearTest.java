@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFro
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Point;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.forces.RepulsionForceByEdgeNumberLinear;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +21,14 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class LinearRepulsionForceByDegreeTest {
+class RepulsionForceByEdgeNumberLinearTest {
 
     @Test
     void calculateForce() {
         double delta = 1e-4;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
         setupPoints(forceGraph);
-        LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegree = new LinearRepulsionForceByDegree<>(
+        RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinear = new RepulsionForceByEdgeNumberLinear<>(
                 new IntensityEffectFromFixedNodesParameters(
                         0.34,
                         true
@@ -39,9 +40,9 @@ class LinearRepulsionForceByDegreeTest {
             new Vector2D(0.463784, 0.201774),
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegree, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
 
-        LinearRepulsionForceByDegree<String, DefaultEdge> linearRepulsionForceByDegreeNoFixed = new LinearRepulsionForceByDegree<>(
+        RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinearNoFixed = new RepulsionForceByEdgeNumberLinear<>(
                 new IntensityEffectFromFixedNodesParameters(
                         0.34,
                         false
@@ -53,7 +54,7 @@ class LinearRepulsionForceByDegreeTest {
             new Vector2D(0.347152, 0.169965),
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, linearRepulsionForceByDegreeNoFixed, vertexToTest, resultVectorNoFixed, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
     }
 
     private void setupPoints(ForceGraph<String, DefaultEdge> forceGraph) {

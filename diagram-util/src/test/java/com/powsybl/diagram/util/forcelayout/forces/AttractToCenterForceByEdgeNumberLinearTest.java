@@ -12,19 +12,20 @@ import com.powsybl.diagram.util.forcelayout.GraphTestData;
 import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
 import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
 import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.forces.AttractToCenterForceByEdgeNumberLinear;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class GravityForceByDegreeLinearTest {
+class AttractToCenterForceByEdgeNumberLinearTest {
 
     @Test
     void calculateForce() {
         double delta = 1e-5;
         ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        GravityForceByDegreeLinear<String, DefaultEdge> gravityForceByDegreeLinear = new GravityForceByDegreeLinear<>(
+        AttractToCenterForceByEdgeNumberLinear<String, DefaultEdge> attractToCenterForceByEdgeNumberLinear = new AttractToCenterForceByEdgeNumberLinear<>(
                 new IntensityParameter(0.01)
         );
         String[] vertexToTest = {
@@ -38,6 +39,6 @@ class GravityForceByDegreeLinearTest {
             new Vector2D(-0.05, -0.05)
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, gravityForceByDegreeLinear, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, attractToCenterForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
     }
 }

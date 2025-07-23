@@ -5,18 +5,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.layouts;
+package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.forcelayout.forces.Force;
-import com.powsybl.diagram.util.forcelayout.forces.GravityForceByDegreeLinear;
-import com.powsybl.diagram.util.forcelayout.forces.LinearEdgeAttractionForce;
-import com.powsybl.diagram.util.forcelayout.forces.LinearRepulsionForceByDegree;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.forcelayout.layouts.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.layout.forces.Force;
+import com.powsybl.diagram.util.layout.forces.AttractToCenterForceByEdgeNumberLinear;
+import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceLinear;
+import com.powsybl.diagram.util.layout.forces.RepulsionForceByEdgeNumberLinear;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +38,7 @@ import java.util.Map;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
-    private final Atlas2Parameters<V, E> layoutParameters;
+    private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
 
@@ -59,22 +57,24 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private static final double STARTING_SPEED_RATIO = 1;
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
-    public Atlas2Layout(Atlas2Parameters<V, E> layoutParameters) {
-        this.forces.add(new LinearEdgeAttractionForce<>(
-                        new IntensityParameter(
-                                layoutParameters.getAttraction()
-                        )
-        ));
+    public Atlas2Layout(Atlas2Parameters layoutParameters) {
+        this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
+                layoutParameters.getRepulsion(),
+                layoutParameters.isRepulsionForceFromFixedPoints()));
+        this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getAttraction()));
         if (layoutParameters.isAttractToCenterForce()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
             // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
-            this.forces.add(new GravityForceByDegreeLinear<>(
-                    new IntensityParameter(
-                            layoutParameters.getGravity()
-                    )
-            ));
+            this.forces.add(new AttractToCenterForceByEdgeNumberLinear<>(layoutParameters.getGravity()));
         }
         this.layoutParameters = layoutParameters;
+    }
+
+    // To be moved later if needed by other algorithms
+    private void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
+        for (Force<V, E> force : forces) {
+            force.init(layoutContext);
+        }
     }
 
     /// Use Atlas2 layout with default parameters
@@ -85,15 +85,12 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     ///  Note : the mass of the points doesn't have an impact on the graph as it doesn't appear in Atlas2
     /// We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
-    public void calculateLayout(ForceGraph<V, E> forceGraph) {
-        IntensityEffectFromFixedNodesParameters repulsionForceParameters = buildRepulsionForceParameters(forceGraph);
-        this.forces.add(new LinearRepulsionForceByDegree<>(
-               repulsionForceParameters
-        ));
+    public void run(LayoutContext<V, E> layoutContext) {
+        initAllForces(forces, layoutContext);
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
-        int graphSize = forceGraph.getSimpleGraph().vertexSet().size();
+        int graphSize = layoutContext.getSimpleGraph().vertexSet().size();
         // starting speed proportional to the size of the network, not part of Atlas2's paper
         double previousGraphSpeed = STARTING_SPEED_RATIO * graphSize;
 
@@ -102,7 +99,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         // this is not part of Atlas2's paper
         final double stoppingGlobalGraphSpeed = NORMALIZED_STOPPING_VALUE * Math.pow(graphSize, NORMALIZATION_POWER);
 
-        for (Point point : forceGraph.getMovingPoints().values()) {
+        for (Point point : layoutContext.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
             swingMap.put(point, 0.);
         }
@@ -112,16 +109,16 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
             double newGraphSpeed;
             double graphTraction = 0.;
             //calculate forces
-            for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
+            for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
                 for (Force<V, E> force : forces) {
-                    Vector2D resultingForce = force.calculateForce(entry.getKey(), point, forceGraph);
+                    Vector2D resultingForce = force.apply(entry.getKey(), point, layoutContext);
                     point.applyForce(resultingForce);
                 }
                 // calculate swg(n) for each node the swing of the node
                 // at the same time calculate tra(n) the traction of the node
                 // we can also calculate swg(G) and tra(G) the swing and traction of the graph
-                int vertexDegreePlusOne = forceGraph.getSimpleGraph().degreeOf(entry.getKey()) + 1;
+                int vertexDegreePlusOne = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
                 Vector2D previousPointForce = previousForces.get(point);
                 double pointSwing = calculatePointSwing(point, previousPointForce);
                 swingMap.put(point, pointSwing);
@@ -146,29 +143,13 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
             // store the forces on each node into the map of forces
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
-            updatePosition(forceGraph, newGraphSpeed, swingMap, previousForces);
+            updatePosition(layoutContext, newGraphSpeed, swingMap, previousForces);
             if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
                 break;
             }
             previousGraphSpeed = newGraphSpeed;
         }
         LOGGER.info("Finished in {} steps", i);
-        this.forces.remove(2); // remove the LinearRepulsionForce as it depends on the graph
-    }
-
-    /// Initialize each point degree, used to optimize the calculation of the repulsion forces
-    /// This prevents having to calculate the degree each time, which speeds up the code by a lot (about 3 times faster)
-    private IntensityEffectFromFixedNodesParameters buildRepulsionForceParameters(ForceGraph<V, E> forceGraph) {
-        for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        for (Map.Entry<V, Point> entry : forceGraph.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        return new IntensityEffectFromFixedNodesParameters(
-                layoutParameters.getRepulsion(),
-                layoutParameters.isRepulsionForceFromFixedPoints()
-        );
     }
 
     private double calculatePointSwing(Point point, Vector2D previousForce) {
@@ -183,8 +164,8 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
         return tractionVector.magnitude() / 2.;
     }
 
-    private void updatePosition(ForceGraph<V, E> forceGraph, double graphSpeed, Map<Point, Double> swingMap, Map<Point, Vector2D> previousForces) {
-        for (Point point : forceGraph.getMovingPoints().values()) {
+    private void updatePosition(LayoutContext<V, E> layoutContext, double graphSpeed, Map<Point, Double> swingMap, Map<Point, Vector2D> previousForces) {
+        for (Point point : layoutContext.getMovingPoints().values()) {
             double speedFactor = layoutParameters.getSpeedFactor()
                     * graphSpeed
                     / (1 + graphSpeed * Math.sqrt(swingMap.get(point)));

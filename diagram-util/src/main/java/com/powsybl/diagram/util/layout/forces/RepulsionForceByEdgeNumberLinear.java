@@ -5,31 +5,42 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.forces;
+package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.util.Map;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
+public class RepulsionForceByEdgeNumberLinear<V, E> implements Force<V, E> {
 
-    private final IntensityEffectFromFixedNodesParameters forceParameter;
+    private final double forceIntensity;
+    private final boolean effectFromFixedNodes;
 
-    public LinearRepulsionForceByDegree(IntensityEffectFromFixedNodesParameters forceParameter) {
-        this.forceParameter = forceParameter;
+    public RepulsionForceByEdgeNumberLinear(double forceIntensity, boolean effectFromFixedNodes) {
+        this.forceIntensity = forceIntensity;
+        this.effectFromFixedNodes = effectFromFixedNodes;
     }
 
     @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public void init(LayoutContext<V, E> layoutContext) {
+        for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+        for (Map.Entry<V, Point> entry : layoutContext.getFixedPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+    }
+
+    @Override
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D();
         int thisVertexDegree = correspondingPoint.getPointVertexDegree();
-        for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getMovingPoints().entrySet()) {
+        for (Map.Entry<V, Point> otherVertexPoint : layoutContext.getMovingPoints().entrySet()) {
             if (otherVertexPoint.getValue() != correspondingPoint) {
                 linearRepulsionBetweenPoints(
                         resultingForce,
@@ -39,8 +50,8 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
                 );
             }
         }
-        if (forceParameter.isEffectFromFixedNodes()) {
-            for (Map.Entry<V, Point> otherVertexPoint : forceGraph.getFixedPoints().entrySet()) {
+        if (effectFromFixedNodes) {
+            for (Map.Entry<V, Point> otherVertexPoint : layoutContext.getFixedPoints().entrySet()) {
                 linearRepulsionBetweenPoints(
                         resultingForce,
                         thisVertexDegree,
@@ -67,7 +78,7 @@ public class LinearRepulsionForceByDegree<V, E> implements Force<V, E> {
         // which would be UnitVector * k * deg(n1) * deg(n2)
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
         // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
-        double intensity = forceParameter.getForceIntensity()
+        double intensity = forceIntensity
                 * (thisVertexDegree + 1)
                 * (otherPoint.getPointVertexDegree() + 1)
                 / force.magnitudeSquare();

@@ -5,11 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.layouts;
+package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.Helpers;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
+import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.ResourceUtils;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +24,11 @@ class Atlas2LayoutTest {
 
     @Test
     void calculateLayout() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>();
-        atlas2.calculateLayout(forceGraph);
+        atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
-        forceGraph.toSVG(v -> String.format("Vertex %s", v), sw);
-        Helpers helper = new Helpers();
-        assertEquals(helper.toString("/atlas2_5_nodes.svg"), sw.toString());
+        layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
+        assertEquals(ResourceUtils.toString("/atlas2_5_nodes.svg"), sw.toString());
     }
 }
