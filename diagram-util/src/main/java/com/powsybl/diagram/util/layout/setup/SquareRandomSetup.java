@@ -48,5 +48,7 @@ public class SquareRandomSetup<V, E> implements Setup<V, E> {
                 )));
             }
         }
+        layoutContext.getAllPoints().putAll(layoutContext.getMovingPoints());
+        layoutContext.getAllPoints().putAll(layoutContext.getFixedPoints());
     }
 }

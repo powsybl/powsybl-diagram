@@ -52,7 +52,7 @@ public final class BoundingBox {
     }
 
     public double getHeight() {
-        return top - bottom;
+        return bottom - top;
     }
 
     public double getWidth() {

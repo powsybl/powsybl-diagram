@@ -29,6 +29,6 @@ class Atlas2LayoutTest {
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
-        assertEquals(ResourceUtils.toString("/atlas2_5_nodes.svg"), sw.toString());
+        assertEquals(ResourceUtils.toString("atlas2_5_nodes.svg"), sw.toString());
     }
 }

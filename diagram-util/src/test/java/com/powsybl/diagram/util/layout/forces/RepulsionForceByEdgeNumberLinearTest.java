@@ -5,14 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.forces;
+package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFixedNodesParameters;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.forces.RepulsionForceByEdgeNumberLinear;
+import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -26,13 +24,11 @@ class RepulsionForceByEdgeNumberLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        setupPoints(forceGraph);
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        setupPoints(layoutContext);
         RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinear = new RepulsionForceByEdgeNumberLinear<>(
-                new IntensityEffectFromFixedNodesParameters(
                         0.34,
                         true
-                )
         );
         String[] vertexToTest = {"0", "4"};
         Vector2D[] resultVector = {
@@ -40,13 +36,11 @@ class RepulsionForceByEdgeNumberLinearTest {
             new Vector2D(0.463784, 0.201774),
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
 
         RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinearNoFixed = new RepulsionForceByEdgeNumberLinear<>(
-                new IntensityEffectFromFixedNodesParameters(
                         0.34,
                         false
-                )
         );
 
         Vector2D[] resultVectorNoFixed = {
@@ -54,10 +48,11 @@ class RepulsionForceByEdgeNumberLinearTest {
             new Vector2D(0.347152, 0.169965),
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceByEdgeNumberLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
     }
 
-    private void setupPoints(ForceGraph<String, DefaultEdge> forceGraph) {
+    //TODO just use force init
+    private void setupPoints(LayoutContext<String, DefaultEdge> forceGraph) {
         for (Map.Entry<String, Point> entry : forceGraph.getMovingPoints().entrySet()) {
             entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
         }

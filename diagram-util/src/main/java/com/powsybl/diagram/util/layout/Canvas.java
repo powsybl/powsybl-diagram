@@ -10,9 +10,6 @@ package com.powsybl.diagram.util.layout;
 import com.powsybl.diagram.util.layout.geometry.BoundingBox;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
-import com.powsybl.diagram.util.forcelayout.geometry.BoundingBox;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-
 import java.util.Objects;
 
 /**

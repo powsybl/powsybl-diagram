@@ -5,13 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.forces;
+package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceLinear;
+import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +21,8 @@ class EdgeAttractionForceLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        EdgeAttractionForceLinear<String, DefaultEdge> edgeAttractionForceLinear = new EdgeAttractionForceLinear<>(
-                new IntensityParameter(7)
-        );
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        EdgeAttractionForceLinear<String, DefaultEdge> edgeAttractionForceLinear = new EdgeAttractionForceLinear<>(7);
         String[] vertexToTest = {
             "4",
             "3",
@@ -37,6 +33,6 @@ class EdgeAttractionForceLinearTest {
             new Vector2D(-3.5, 3.5),
             new Vector2D(-22.582, 92.96)
         };
-        ForceTestUtil.testForceCalculation(forceGraph, edgeAttractionForceLinear, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, edgeAttractionForceLinear, vertexToTest, resultVector, delta);
     }
 }

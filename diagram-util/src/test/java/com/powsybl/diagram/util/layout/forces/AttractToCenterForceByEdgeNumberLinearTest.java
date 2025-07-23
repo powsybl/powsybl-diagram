@@ -6,13 +6,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-package com.powsybl.diagram.util.forcelayout.forces;
+package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.forcelayout.GraphTestData;
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityParameter;
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.forces.AttractToCenterForceByEdgeNumberLinear;
+import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +22,8 @@ class AttractToCenterForceByEdgeNumberLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-5;
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForcegraph();
-        AttractToCenterForceByEdgeNumberLinear<String, DefaultEdge> attractToCenterForceByEdgeNumberLinear = new AttractToCenterForceByEdgeNumberLinear<>(
-                new IntensityParameter(0.01)
-        );
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        AttractToCenterForceByEdgeNumberLinear<String, DefaultEdge> attractToCenterForceByEdgeNumberLinear = new AttractToCenterForceByEdgeNumberLinear<>(0.01);
         String[] vertexToTest = {
             "0",
             "1",
@@ -39,6 +35,6 @@ class AttractToCenterForceByEdgeNumberLinearTest {
             new Vector2D(-0.05, -0.05)
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, attractToCenterForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
     }
 }
