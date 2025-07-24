@@ -5,10 +5,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.forces;
+package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.forcelayout.forces.parameters.IntensityEffectFromFIxedNodesBarnesHutParameters;
-import com.powsybl.diagram.util.forcelayout.geometry.*;
+import com.powsybl.diagram.util.layout.geometry.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,25 +16,30 @@ import java.util.List;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 // TODO make in interface to mutualize code with LinearRepulsionForceByDegree, waiting for the merge of Atlas2
-public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> {
-    private final IntensityEffectFromFIxedNodesBarnesHutParameters forceParameter;
+public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V, E> {
+    private final double forceIntensity;
+    private final boolean effectFromFixedNodes;
+    private final double barnesHutTheta;
+    private final QuadtreeContainer quadtreeContainer;
 
-    public LinearRepulsionForceByDegreeBarnesHut(IntensityEffectFromFIxedNodesBarnesHutParameters forceParameter) {
-        this.forceParameter = forceParameter;
+    public RepulsionForceByEdgeNumberLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, QuadtreeContainer quadtreeContainer) {
+        this.forceIntensity = forceIntensity;
+        this.effectFromFixedNodes = effectFromFixedNodes;
+        this.barnesHutTheta = barnesHutTheta;
+        this.quadtreeContainer = quadtreeContainer;
     }
 
-    @Override
-    public Vector2D calculateForce(V forThisVertex, Point correspondingPoint, ForceGraph<V, E> forceGraph) {
+    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D();
         int thisVertexDegree = correspondingPoint.getPointVertexDegree();
-        BoundingBox rootBb = forceParameter.getQuadtree().getBoundingBox();
+        BoundingBox rootBb = quadtreeContainer.getQuadtree().getBoundingBox();
         // bounding box might not be square, this will work best for shapes that are not too long
         // could also test by using the diagonal width (using square root), might be faster as it will be tighter (but longer to calculate too)
         double width = Math.max(rootBb.getWidth(), rootBb.getHeight());
         // Assume the quadtree is built based on isEffectFromFixedNodes (ie with the fixed points in it or not)
         List<Point> pointInteractionList = new ArrayList<>();
         generatePointInteractionList(
-            forceParameter.getQuadtree().getRootIndex(),
+            quadtreeContainer.getQuadtree().getRootIndex(),
             correspondingPoint,
             width,
             pointInteractionList
@@ -43,7 +47,7 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
         for (Point otherPoint : pointInteractionList) {
             if (!otherPoint.getPosition().equals(correspondingPoint.getPosition())) {
                 linearRepulsionBetweenPoints(
-                        forceParameter.getForceIntensity(),
+                        forceIntensity,
                         resultingForce,
                         thisVertexDegree,
                         correspondingPoint,
@@ -84,12 +88,12 @@ public class LinearRepulsionForceByDegreeBarnesHut<V, E> implements Force<V, E> 
             double nodeWidth,
             List<Point> pointsToInteractWith
     ) {
-        Quadtree quadtree = forceParameter.getQuadtree();
+        Quadtree quadtree = quadtreeContainer.getQuadtree();
         Point barycenter = quadtree.getBarycenters()[parentNodeIndex];
         // Two tests:
         // Check the theta parameter ie width / distance < theta
         // If a point is alone in a quadrant, but is not a leaf node, we could continue descending until the leaf node (or until the first condition is met), but this is not useful
-        if (nodeWidth < forceParameter.getBarnesHutTheta() * forThisPoint.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
+        if (nodeWidth < barnesHutTheta * forThisPoint.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
             pointsToInteractWith.add(barycenter);
         } else {
             Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[parentNodeIndex];
