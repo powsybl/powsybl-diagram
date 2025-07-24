@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.geometry;
+package com.powsybl.diagram.util.layout.geometry;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -105,7 +105,7 @@ public class Quadtree {
         }
 
         Vector2D boundingBoxCenter = boundingBox.getCenter();
-        Predicate<Vector2D> isBottom = v -> v.getY() < boundingBoxCenter.getY();
+        Predicate<Vector2D> isBottom = v -> v.getY() > boundingBoxCenter.getY(); // bottom is max Y, top is min Y
         Predicate<Vector2D> isLeft = v -> v.getX() < boundingBoxCenter.getX();
 
         // [firstIndex, ySplitIndex) is at the bottom, [ySplitIndex, lastIndex) is at the top
