@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.layouts.quadtreeupdateschedule;
+package com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule;
 
 /// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
 /// By Robert Gove, Two Six Labs, for an explanation

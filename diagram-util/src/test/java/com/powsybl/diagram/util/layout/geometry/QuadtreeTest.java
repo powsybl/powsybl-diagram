@@ -5,9 +5,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.geometry;
 
+package com.powsybl.diagram.util.layout.geometry;
+
+import com.powsybl.diagram.util.layout.GraphTestData;
+import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,12 +59,13 @@ class QuadtreeTest {
             new Point(0.63, 1.01, 1),
             new Point(0.87, 0.93, 1)
         };
+        assertEquals(expectedBarycenters.length, barycenters.length);
         checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
     }
 
     @Test
     void checkTreeStructureWithVertexWeight() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph2();
+        LayoutContext<String, DefaultEdge> forceGraph = GraphTestData.getLayoutContext2();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         short rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
@@ -84,6 +90,7 @@ class QuadtreeTest {
             new Point(0.63, 1.01, 3),
             new Point(0.87, 0.93, 2)
         };
+        assertEquals(expectedBarycenters.length, barycenters.length);
         checkChildBarycenter(rootIndex, nodes, barycenters, expectedBarycenters);
     }
 

@@ -7,13 +7,9 @@
  */
 package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.layout.forces.Force;
-import com.powsybl.diagram.util.layout.forces.AttractToCenterForceByEdgeNumberLinear;
-import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceLinear;
-import com.powsybl.diagram.util.layout.forces.RepulsionForceByEdgeNumberLinear;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-import com.powsybl.diagram.util.layout.geometry.Point;
-import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
+import com.powsybl.diagram.util.layout.forces.*;
+import com.powsybl.diagram.util.layout.geometry.*;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,16 +58,14 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
-        this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
-                layoutParameters.getRepulsion(),
-                layoutParameters.isActivateRepulsionForceFromFixedPoints()));
+        this.layoutParameters = layoutParameters;
+        addRepulsionForce();
         this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttraction()));
         if (layoutParameters.isActivateAttractToCenterForce()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
             // Both can work, but for our visualization purpose, a linear gravity force which tends to make the graph more compact worked better
             this.forces.add(new AttractToCenterForceByEdgeNumberLinear<>(layoutParameters.getAttractToCenter()));
         }
-        this.layoutParameters = layoutParameters;
     }
 
     /**
@@ -113,7 +107,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             double newGraphSpeed;
             double graphTraction = 0.;
             if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
-                Collection<Point> interactingPoints = getInteractingPoints(forceGraph);
+                Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
             //calculate forces
@@ -167,43 +161,37 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
     /// Initialize each point degree, used to optimize the calculation of the repulsion forces
     /// This prevents having to calculate the degree each time, which speeds up the code by a lot (about 3 times faster)
-    private void initPointVertexDegree(ForceGraph<V, E> forceGraph) {
-        for (Map.Entry<V, Point> entry : forceGraph.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+    private void initPointVertexDegree(LayoutContext<V, E> layoutContext) {
+        for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
         }
-        for (Map.Entry<V, Point> entry : forceGraph.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
+        for (Map.Entry<V, Point> entry : layoutContext.getFixedPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
         }
     }
 
     /// Choose whether to use Barnes-Hut or not
     private void addRepulsionForce() {
         if (layoutParameters.getBarnesHutTheta() == 0) {
-            IntensityEffectFromFixedNodesParameters repulsionForceParameters = new IntensityEffectFromFixedNodesParameters(
+            this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
                     layoutParameters.getRepulsion(),
                     layoutParameters.isRepulsionForceFromFixedPoints()
-            );
-            this.forces.add(new LinearRepulsionForceByDegree<>(
-                    repulsionForceParameters
             ));
         } else {
-            IntensityEffectFromFIxedNodesBarnesHutParameters repulsionForceParameters = new IntensityEffectFromFIxedNodesBarnesHutParameters(
+            this.forces.add(new RepulsionForceByEdgeNumberLinearBarnesHut<>(
                     layoutParameters.getRepulsion(),
                     layoutParameters.isRepulsionForceFromFixedPoints(),
                     layoutParameters.getBarnesHutTheta(),
                     this.quadtreeContainer
-            );
-            this.forces.add(new LinearRepulsionForceByDegreeBarnesHut<>(
-                    repulsionForceParameters
             ));
         }
     }
 
-    private Collection<Point> getInteractingPoints(ForceGraph<V, E> forceGraph) {
+    private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
         if (layoutParameters.isRepulsionForceFromFixedPoints()) {
-            return forceGraph.getAllPoints().values();
+            return layoutContext.getAllPoints().values();
         } else {
-            return forceGraph.getMovingPoints().values();
+            return layoutContext.getMovingPoints().values();
         }
     }
 

@@ -10,6 +10,7 @@ package com.powsybl.diagram.util.layout.algorithms;
 import com.powsybl.diagram.util.layout.GraphTestData;
 import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.ResourceUtils;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
@@ -26,12 +27,12 @@ class Atlas2ForceLayoutAlgorithmTest {
     @Test
     void calculateLayoutNoBH() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
-        Atlas2Parameters<String, DefaultEdge> layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(0).build();
+        Atlas2Parameters layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(0).build();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>(layoutParameters);
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
-        assertEquals(ResourceUtils.toString("atlas2_5_nodes.svg"), sw.toString());
+        assertEquals(ResourceUtils.toString("atlas2_5_nodes_no_BH.svg"), sw.toString());
     }
 
     @Test
@@ -45,13 +46,12 @@ class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayoutYesBH() {
-        ForceGraph<String, DefaultEdge> forceGraph = GraphTestData.getForceGraph1();
-        Atlas2Parameters<String, DefaultEdge> layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(1.5).build();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
+        Atlas2Parameters layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(1.5).build();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>(layoutParameters);
-        atlas2.calculateLayout(forceGraph);
+        atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
-        forceGraph.toSVG(v -> String.format("Vertex %s", v), sw);
-        Helpers helper = new Helpers();
-        assertEquals(helper.toString("/atlas2_5_nodes_yes_BH.svg"), sw.toString());
+        layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
+        assertEquals(ResourceUtils.toString("atlas2_5_nodes_yes_BH.svg"), sw.toString());
     }
 }
