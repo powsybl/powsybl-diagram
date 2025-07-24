@@ -5,11 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-<<<<<<<< HEAD:diagram-util/src/test/java/com/powsybl/diagram/util/layout/algorithms/parameters/BasicForceLayoutAlgorithmParametersTest.java
+
 package com.powsybl.diagram.util.layout.algorithms.parameters;
-========
-package com.powsybl.diagram.util.forcelayout.layouts.parameters;
->>>>>>>> d46ff350 (Rename layouts.layoutsparameters to layouts.parameters):diagram-util/src/test/java/com/powsybl/diagram/util/forcelayout/layouts/parameters/SpringyParametersTest.java
 
 import org.junit.jupiter.api.Test;
 
