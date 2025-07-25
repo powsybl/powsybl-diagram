@@ -12,24 +12,15 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
-import java.util.Map;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class AttractToCenterForceByEdgeNumber<V, E> implements Force<V, E> {
+public class AttractToCenterForceByEdgeNumber<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
 
     public AttractToCenterForceByEdgeNumber(double forceIntensity) {
         this.forceIntensity = forceIntensity;
-    }
-
-    @Override
-    public void init(LayoutContext<V, E> layoutContext) {
-        for (Map.Entry<V, Point> entry : layoutContext.getAllPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class RepulsionForceByEdgeNumberLinear<V, E> implements Force<V, E> {
+public class RepulsionForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
@@ -24,13 +24,6 @@ public class RepulsionForceByEdgeNumberLinear<V, E> implements Force<V, E> {
     public RepulsionForceByEdgeNumberLinear(double forceIntensity, boolean effectFromFixedNodes) {
         this.forceIntensity = forceIntensity;
         this.effectFromFixedNodes = effectFromFixedNodes;
-    }
-
-    @Override
-    public void init(LayoutContext<V, E> layoutContext) {
-        for (Map.Entry<V, Point> entry : layoutContext.getAllPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 
     @Override
