@@ -24,6 +24,7 @@ class AttractToCenterForceByEdgeNumberLinearTest {
         double delta = 1e-5;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         AttractToCenterForceByEdgeNumberLinear<String, DefaultEdge> attractToCenterForceByEdgeNumberLinear = new AttractToCenterForceByEdgeNumberLinear<>(0.01);
+        attractToCenterForceByEdgeNumberLinear.init(layoutContext);
         String[] vertexToTest = {
             "0",
             "1",

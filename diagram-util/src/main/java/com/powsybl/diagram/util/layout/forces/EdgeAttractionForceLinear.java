@@ -23,17 +23,17 @@ public class EdgeAttractionForceLinear<V, E> implements Force<V, E> {
     }
 
     @Override
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
+    public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D();
-        for (V otherVertex : Graphs.neighborSetOf(layoutContext.getSimpleGraph(), forThisVertex)) {
+        for (V otherVertex : Graphs.neighborSetOf(layoutContext.getSimpleGraph(), vertex)) {
             Point otherPoint = layoutContext.getAllPoints().get(otherVertex);
-            forceBetweenPoints(resultingForce, correspondingPoint, otherPoint);
+            forceBetweenPoints(resultingForce, point, otherPoint);
         }
         return resultingForce;
     }
 
-    private void forceBetweenPoints(Vector2D resultingForce, Point correspondingPoint, Point otherPoint) {
-        Vector2D force = Vector2D.calculateVectorBetweenPoints(correspondingPoint, otherPoint);
+    private void forceBetweenPoints(Vector2D resultingForce, Point point, Point otherPoint) {
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(point, otherPoint);
         force.multiplyBy(forceIntensity);
         resultingForce.add(force);
     }

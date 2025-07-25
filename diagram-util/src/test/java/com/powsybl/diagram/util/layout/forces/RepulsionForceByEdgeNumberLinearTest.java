@@ -9,12 +9,9 @@ package com.powsybl.diagram.util.layout.forces;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -25,11 +22,11 @@ class RepulsionForceByEdgeNumberLinearTest {
     void calculateForce() {
         double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        setupPoints(layoutContext);
         RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinear = new RepulsionForceByEdgeNumberLinear<>(
                         0.34,
                         true
         );
+        repulsionForceByEdgeNumberLinear.init(layoutContext);
         String[] vertexToTest = {"0", "4"};
         Vector2D[] resultVector = {
             new Vector2D(-1.99586, 2.06396),
@@ -49,15 +46,5 @@ class RepulsionForceByEdgeNumberLinearTest {
         };
 
         ForceTestUtil.testForceCalculation(layoutContext, repulsionForceByEdgeNumberLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
-    }
-
-    //TODO just use force init
-    private void setupPoints(LayoutContext<String, DefaultEdge> forceGraph) {
-        for (Map.Entry<String, Point> entry : forceGraph.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        for (Map.Entry<String, Point> entry : forceGraph.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(forceGraph.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 }

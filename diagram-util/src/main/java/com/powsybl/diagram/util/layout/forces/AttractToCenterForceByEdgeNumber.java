@@ -12,6 +12,8 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
+import java.util.Map;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -24,11 +26,18 @@ public class AttractToCenterForceByEdgeNumber<V, E> implements Force<V, E> {
     }
 
     @Override
+    public void init(LayoutContext<V, E> layoutContext) {
+        for (Map.Entry<V, Point> entry : layoutContext.getAllPoints().entrySet()) {
+            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
+        }
+    }
+
+    @Override
     public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         // magnitude = k * (deg (point) + 1)
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph
-        double magnitude = forceIntensity * (layoutContext.getSimpleGraph().degreeOf(vertex) + 1);
+        double magnitude = forceIntensity * (point.getPointVertexDegree() + 1);
         Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
         force.multiplyBy(magnitude);
         return force;

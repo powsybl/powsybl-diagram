@@ -42,10 +42,10 @@ public class CoulombForce<V, E> implements Force<V, E> {
         return resultingForce;
     }
 
-    private void coulombBetweenPoints(Vector2D resultingForce, Point correspondingPoint, Point otherPoint) {
-        Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
+    private void coulombBetweenPoints(Vector2D resultingForce, Point point, Point otherPoint) {
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
         double magnitude = force.magnitude();
-        // this is the contracted version of calculating Coulomb, if we take V as the vector from otherPoint to correspondingPoint, then
+        // this is the contracted version of calculating Coulomb, if we take V as the vector from otherPoint to point, then
         // if we take M(V) the magnitude of the vector V:
         // F = V / M(V) * forceIntensity / M(V)^2
         // The original version of the code did F = V / M(V) * forceIntensity / (M(V)^2 * 0.5 + 0.1)
