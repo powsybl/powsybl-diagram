@@ -48,7 +48,7 @@ class Atlas2ForceLayoutAlgorithmTest {
     void calculateLayoutYesBH() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         Atlas2Parameters layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(1.5).build();
-        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>(layoutParameters);
+        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>(layoutParameters);
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
