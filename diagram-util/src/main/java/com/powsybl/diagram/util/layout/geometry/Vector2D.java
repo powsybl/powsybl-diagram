@@ -9,8 +9,6 @@ package com.powsybl.diagram.util.layout.geometry;
 
 import java.util.Objects;
 
-import java.util.Objects;
-
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
