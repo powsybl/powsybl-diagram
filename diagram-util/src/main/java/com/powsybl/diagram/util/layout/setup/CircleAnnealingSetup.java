@@ -5,11 +5,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-package com.powsybl.diagram.util.forcelayout.setup;
+package com.powsybl.diagram.util.layout.setup;
 
-import com.powsybl.diagram.util.forcelayout.geometry.ForceGraph;
-import com.powsybl.diagram.util.forcelayout.geometry.Point;
-import com.powsybl.diagram.util.forcelayout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
@@ -37,6 +37,7 @@ import java.util.*;
  */
 public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CircleAnnealingSetup.class);
+    private final Random random;
     // This should always be between 0 and 1, strictly, the initial probability of positive transition to be accepted
     private static final double DEFAULT_STARTING_TRANSITION_PROBABILITY = 0.67;
     private double startingTransitionProbability = DEFAULT_STARTING_TRANSITION_PROBABILITY;
@@ -55,6 +56,14 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     // If the number of positive accepted transitions (ie transitions that increase the energy level) is under this value, we stop
     private static final double DEFAULT_FINAL_ACCEPTANCE_VALUE = 0.015;
     private double finalAcceptanceValue = DEFAULT_FINAL_ACCEPTANCE_VALUE;
+
+    public CircleAnnealingSetup(Random random) {
+        this.random = Objects.requireNonNull(random);
+    }
+
+    public CircleAnnealingSetup() {
+        this.random = new Random(3L);
+    }
 
     /**
      * Set the startingTransitionProbability, default is {@value DEFAULT_STARTING_TRANSITION_PROBABILITY}
@@ -163,22 +172,22 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
     }
 
     @Override
-    public void setup(ForceGraph<V, E> forceGraph, Random random) {
-        initForceGraph(forceGraph);
-        SetupTopologyData setupTopologyData = getPointsForRun(forceGraph);
+    public void run(LayoutContext<V, E> layoutContext) {
+        initForceGraph(layoutContext);
+        SetupTopologyData setupTopologyData = getPointsForRun(layoutContext);
         annealingProcess(setupTopologyData, random);
     }
 
-    private void initForceGraph(ForceGraph<V, E> forceGraph) {
-        for (V vertex : forceGraph.getSimpleGraph().vertexSet()) {
-            if (forceGraph.getFixedNodes().contains(vertex)) {
-                forceGraph.getFixedPoints().put(vertex, forceGraph.getInitialPoints().get(vertex));
+    private void initForceGraph(LayoutContext<V, E> layoutContext) {
+        for (V vertex : layoutContext.getSimpleGraph().vertexSet()) {
+            if (layoutContext.getFixedNodes().contains(vertex)) {
+                layoutContext.getFixedPoints().put(vertex, layoutContext.getInitialPoints().get(vertex));
             } else {
-                forceGraph.getMovingPoints().put(vertex, new Point(0, 0));
+                layoutContext.getMovingPoints().put(vertex, new Point(0, 0));
             }
         }
-        forceGraph.getAllPoints().putAll(forceGraph.getMovingPoints());
-        forceGraph.getAllPoints().putAll(forceGraph.getFixedPoints());
+        layoutContext.getAllPoints().putAll(layoutContext.getMovingPoints());
+        layoutContext.getAllPoints().putAll(layoutContext.getFixedPoints());
     }
 
     private void putAllPointsInCircle(Point[] movablePoints, Point[] pointWithNoEdge) {
@@ -206,9 +215,9 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         }
     }
 
-    private SetupTopologyData getPointsForRun(ForceGraph<V, E> forceGraph) {
+    private SetupTopologyData getPointsForRun(LayoutContext<V, E> layoutContext) {
         List<Set<V>> neighborSetPerVertex = new ArrayList<>();
-        SimpleGraph<V, DefaultEdge> graph = forceGraph.getSimpleGraph();
+        SimpleGraph<V, DefaultEdge> graph = layoutContext.getSimpleGraph();
         List<V> vertexWithNoEdge = new ArrayList<>();
         List<V> vertexMovable = new ArrayList<>();
         @SuppressWarnings("unchecked")
@@ -216,11 +225,11 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         Point[] allPoints = new Point[allVertex.length];
         for (int i = 0; i < allVertex.length; ++i) {
             neighborSetPerVertex.add(Graphs.neighborSetOf(graph, allVertex[i]));
-            allPoints[i] = getPoint(forceGraph, allVertex[i]);
+            allPoints[i] = getPoint(layoutContext, allVertex[i]);
         }
 
         List<Integer> skippedColumn = findPointsWithNoEdge(
-                forceGraph,
+                layoutContext,
                 neighborSetPerVertex,
                 vertexWithNoEdge,
                 allVertex,
@@ -232,16 +241,16 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         Point[] pointMovable = new Point[vertexMovable.size()];
 
         for (int i = 0; i < vertexWithNoEdge.size(); ++i) {
-            pointWithNoEdge[i] = getPoint(forceGraph, vertexWithNoEdge.get(i));
+            pointWithNoEdge[i] = getPoint(layoutContext, vertexWithNoEdge.get(i));
         }
         for (int i = 0; i < vertexMovable.size(); ++i) {
-            pointMovable[i] = getPoint(forceGraph, vertexMovable.get(i));
+            pointMovable[i] = getPoint(layoutContext, vertexMovable.get(i));
         }
 
         putAllPointsInCircle(pointMovable, pointWithNoEdge);
 
         double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = buildDistanceMatrix(
-                forceGraph,
+                layoutContext,
                 pointMovable,
                 neighborSetPerVertex,
                 skippedColumn,
@@ -256,7 +265,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         );
     }
 
-    private static <V, E> List<Integer> findPointsWithNoEdge(ForceGraph<V, E> forceGraph, List<Set<V>> neighborSetPerVertex, List<V> vertexWithNoEdge, V[] allVertex, List<V> vertexMovable) {
+    private static <V, E> List<Integer> findPointsWithNoEdge(LayoutContext<V, E> layoutContext, List<Set<V>> neighborSetPerVertex, List<V> vertexWithNoEdge, V[] allVertex, List<V> vertexMovable) {
         List<Integer> skippedColumn = new ArrayList<>();
 
         // Find which points have edges or not
@@ -267,7 +276,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                 skippedColumn.add(i);
             } else {
                 V thisVertex = allVertex[i];
-                if (forceGraph.getMovingPoints().containsKey(thisVertex)) {
+                if (layoutContext.getMovingPoints().containsKey(thisVertex)) {
                     vertexMovable.add(thisVertex);
                 }
             }
@@ -275,13 +284,13 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         return skippedColumn;
     }
 
-    private double[][] buildDistanceMatrix(ForceGraph<V, E> forceGraph, Point[] pointMovable, List<Set<V>> neighborSetPerVertex, List<Integer> skippedColumn, V[] allVertex) {
+    private double[][] buildDistanceMatrix(LayoutContext<V, E> layoutContext, Point[] pointMovable, List<Set<V>> neighborSetPerVertex, List<Integer> skippedColumn, V[] allVertex) {
         // we can't do the distanceMatrix in the previous loop since we didn't know yet how many points are movable
         double[][] distanceMatrixForPointsWithEdgeDistanceOneOrTwo = new double[pointMovable.length][pointMovable.length];
         int lineIndex = 0;
 
         for (int i = 0; i < neighborSetPerVertex.size(); ++i) {
-            Point point = getPoint(forceGraph, allVertex[i]);
+            Point point = getPoint(layoutContext, allVertex[i]);
             Set<V> setOfNeighbors = neighborSetPerVertex.get(i);
             if (!setOfNeighbors.isEmpty()) {
                 distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][lineIndex] = 0;
@@ -297,7 +306,7 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
                         // which equals to (in set of neighbors OR intersection of neighbor set != empty)
                         V otherVertex = allVertex[k];
                         if (setOfNeighbors.contains(otherVertex) || !Collections.disjoint(setOfNeighbors, neighborSetPerVertex.get(k))) {
-                            double distance = point.distanceTo(getPoint(forceGraph, otherVertex));
+                            double distance = point.distanceTo(getPoint(layoutContext, otherVertex));
                             distanceMatrixForPointsWithEdgeDistanceOneOrTwo[lineIndex][columnIndex] = distance;
                             distanceMatrixForPointsWithEdgeDistanceOneOrTwo[columnIndex][lineIndex] = distance;
                         } else {
@@ -315,9 +324,9 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         return distanceMatrixForPointsWithEdgeDistanceOneOrTwo;
     }
 
-    private Point getPoint(ForceGraph<V, E> forceGraph, V vertex) {
+    private Point getPoint(LayoutContext<V, E> layoutContext, V vertex) {
         return Objects.requireNonNull(
-            forceGraph.getAllPoints().get(vertex),
+            layoutContext.getAllPoints().get(vertex),
             String.format("No point corresponding to the given vertex %s", vertex.toString())
             );
 
