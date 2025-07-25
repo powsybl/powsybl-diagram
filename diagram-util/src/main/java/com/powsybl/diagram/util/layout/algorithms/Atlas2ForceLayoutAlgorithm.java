@@ -37,10 +37,10 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
+public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
-    private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2Layout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -57,7 +57,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     private static final double STARTING_SPEED_RATIO = 1;
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
-    public Atlas2Layout(Atlas2Parameters layoutParameters) {
+    public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
         this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
                 layoutParameters.getRepulsion(),
                 layoutParameters.isRepulsionForceFromFixedPoints()));
@@ -78,7 +78,7 @@ public class Atlas2Layout<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     /// Use Atlas2 layout with default parameters
-    public Atlas2Layout() {
+    public Atlas2ForceLayoutAlgorithm() {
         this(new Atlas2Parameters.Builder().build());
     }
 

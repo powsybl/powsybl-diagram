@@ -8,7 +8,7 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.layout.Layout;
-import com.powsybl.diagram.util.layout.algorithms.Atlas2Layout;
+import com.powsybl.diagram.util.layout.algorithms.Atlas2ForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -52,7 +52,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
         //this is not ideal as there are two places with the maxStep, ie LayoutParameters, and Atlas2Parameters
         Layout<Node, Edge> layoutAlgorithmRunner = new Layout<>(
             this.setup,
-            new Atlas2Layout<>(this.atlas2Parameters)
+            new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters)
         );
         setInitialPositions(graph, layoutContext, scale);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()

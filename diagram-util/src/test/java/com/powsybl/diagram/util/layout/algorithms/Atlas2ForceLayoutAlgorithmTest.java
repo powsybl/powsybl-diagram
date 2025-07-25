@@ -20,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class Atlas2LayoutTest {
+class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayout() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2Layout<>();
+        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>();
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
