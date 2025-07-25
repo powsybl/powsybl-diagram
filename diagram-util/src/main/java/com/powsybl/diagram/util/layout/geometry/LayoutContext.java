@@ -37,6 +37,7 @@ public class LayoutContext<V, E> {
     private final Map<V, Point> movingPoints = new LinkedHashMap<>();
     // this will be filled by the Setup function using fixedNodes and initialPoints
     private final Map<V, Point> fixedPoints = new LinkedHashMap<>();
+    private final Map<V, Point> allPoints = new HashMap<>();
 
     private Map<V, Point> initialPoints = Collections.emptyMap();
     private Set<V> fixedNodes = Collections.emptySet();
@@ -73,6 +74,13 @@ public class LayoutContext<V, E> {
      */
     public Map<V, Point> getFixedPoints() {
         return fixedPoints;
+    }
+
+    /**
+     * @return a Map with vertex/point containing all the vertex, this is the sum of fixedPoints + movingPoints
+     */
+    public Map<V, Point> getAllPoints() {
+        return allPoints;
     }
 
     /**
