@@ -59,7 +59,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
     }
 
     @Test
-    void testIEEE14CustomMoreIteration() {
+    void testIEEE14CustomMoreIterationNoBH() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
@@ -67,14 +67,15 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
                         .withIterationNumberIncreasePercent(50)
+                        .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
-        assertSvgEquals("/IEEE_14_atlas2_custom1_moreIteration.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
+        assertSvgEquals("/IEEE_14_atlas2_custom1_moreIteration_NoBH.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
 
     @Test
-    void testIEEE30Custom() {
+    void testIEEE30CustomNoBH() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
@@ -83,23 +84,25 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
                         .withIterationNumberIncreasePercent(60)
+                        .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
-        assertSvgEquals("/IEEE_30_atlas2_custom1.svg", IeeeCdfNetworkFactory.create30(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
+        assertSvgEquals("/IEEE_30_atlas2_custom1_NoBH.svg", IeeeCdfNetworkFactory.create30(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
 
     @Test
-    void testIEEE118Custom() {
+    void testIEEE118CustomNoBH() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
                         .withIterationNumberIncreasePercent(20)
+                        .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
-        assertSvgEquals("/IEEE_118_atlas2_custom1.svg", IeeeCdfNetworkFactory.create118(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
+        assertSvgEquals("/IEEE_118_atlas2_custom1_NoBH.svg", IeeeCdfNetworkFactory.create118(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
 
 }
