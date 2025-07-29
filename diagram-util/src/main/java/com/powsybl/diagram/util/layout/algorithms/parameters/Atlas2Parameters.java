@@ -21,6 +21,7 @@ public final class Atlas2Parameters {
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;
     private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ATTRACT_TO_CENTER = true;
+    private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
 
     private final int maxSteps;
     private final double repulsion;
@@ -32,6 +33,7 @@ public final class Atlas2Parameters {
     private final double maxGlobalSpeedIncreaseRatio;
     private final boolean repulsionForceFromFixedPoints;
     private final boolean attractToCenterForce;
+    private final double iterationNumberIncreasePercent;
 
     private Atlas2Parameters(
             int maxSteps,
@@ -43,7 +45,8 @@ public final class Atlas2Parameters {
             double swingTolerance,
             double maxGlobalSpeedIncreaseRatio,
             boolean repulsionForceFromFixedPoints,
-            boolean attractToCenterForce
+            boolean attractToCenterForce,
+            double iterationNumberIncreasePercent
     ) {
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
@@ -55,6 +58,7 @@ public final class Atlas2Parameters {
         this.maxGlobalSpeedIncreaseRatio = maxGlobalSpeedIncreaseRatio;
         this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
         this.attractToCenterForce = attractToCenterForce;
+        this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
     }
 
     public static class Builder {
@@ -68,6 +72,7 @@ public final class Atlas2Parameters {
         private double maxGlobalSpeedIncreaseRatio = DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO;
         private boolean repulsionForceFromFixedPoints = DEFAULT_REPULSION_FROM_FIXED_POINTS;
         private boolean attractToCenterForce = DEFAULT_ATTRACT_TO_CENTER;
+        private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
 
         public Builder withMaxSteps(int maxSteps) {
             this.maxSteps = maxSteps;
@@ -119,6 +124,14 @@ public final class Atlas2Parameters {
             return this;
         }
 
+        public Builder withIterationNumberIncreasePercent(double iterationNumberIncreasePercent) {
+            if (iterationNumberIncreasePercent < 0) {
+                throw new IllegalArgumentException("iterationNumberIncreasePercent should be strictly positive, as the number of iterations cannot be reduced to less than the stopping criterion");
+            }
+            this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+            return this;
+        }
+
         public Atlas2Parameters build() {
             return new Atlas2Parameters(
                     maxSteps,
@@ -130,7 +143,8 @@ public final class Atlas2Parameters {
                     swingTolerance,
                     maxGlobalSpeedIncreaseRatio,
                     repulsionForceFromFixedPoints,
-                    attractToCenterForce
+                    attractToCenterForce,
+                    iterationNumberIncreasePercent
             );
         }
     }
@@ -173,6 +187,10 @@ public final class Atlas2Parameters {
 
     public boolean isAttractToCenterForce() {
         return attractToCenterForce;
+    }
+
+    public double getIterationNumberIncreasePercent() {
+        return iterationNumberIncreasePercent;
     }
 }
 
