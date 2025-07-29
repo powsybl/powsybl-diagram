@@ -217,8 +217,9 @@ public final class Atlas2Parameters {
                 throw new IllegalArgumentException("iterationNumberIncreasePercent should be strictly positive, as the number of iterations cannot be reduced to less than the stopping criterion");
             }
             this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
-	    return this;
-	}
+            return this;
+        }
+
         public Builder withBarnesHutTheta(double barnesHutTheta) {
             if (barnesHutTheta < 0) {
                 throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
