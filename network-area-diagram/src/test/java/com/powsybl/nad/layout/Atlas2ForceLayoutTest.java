@@ -20,27 +20,42 @@ import org.junit.jupiter.api.Test;
 class Atlas2ForceLayoutTest extends ForceLayoutTest {
 
     @Test
-    void testDiamondDefault() {
-        assertSvgEquals("/diamond-network_atlas2.svg", LayoutNetworkFactory.createDiamond(), VoltageLevelFilter.NO_FILTER, new Atlas2ForceLayout());
+    void testDiamondDefaultNoBH() {
+        assertSvgEquals(
+                "/diamond-network_atlas2_NoBH.svg",
+                LayoutNetworkFactory.createDiamond(),
+                VoltageLevelFilter.NO_FILTER,
+                new Atlas2ForceLayout(
+                        new SquareRandomSetup<>(),
+                        new Atlas2Parameters.Builder().withBarnesHutTheta(0).build()
+        ));
     }
 
     @Test
-    void testIEEE14Default() {
-        assertSvgEquals("/IEEE_14_atlas2.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, new Atlas2ForceLayout());
+    void testIEEE14DefaultNoBH() {
+        assertSvgEquals(
+                "/IEEE_14_atlas2_NoBH.svg",
+                IeeeCdfNetworkFactory.create14(),
+                VoltageLevelFilter.NO_FILTER,
+                new Atlas2ForceLayout(
+                    new SquareRandomSetup<>(),
+                    new Atlas2Parameters.Builder().withBarnesHutTheta(0).build()
+        ));
     }
 
     @Test
-    void testIEEE14Custom() {
+    void testIEEE14CustomNoBH() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
                         .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
+                        .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
-        assertSvgEquals("/IEEE_14_atlas2_custom1.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
+        assertSvgEquals("/IEEE_14_atlas2_custom1_NoBH.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
 
     @Test
