@@ -49,7 +49,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withRepulsion(10)
                         .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
-                        .withIterationNumberIncreasePercent(0.5)
+                        .withIterationNumberIncreasePercent(50)
                         .build()
         );
         assertSvgEquals("/IEEE_14_atlas2_custom1_moreIteration.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
@@ -64,7 +64,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withMaxSpeedFactor(8)
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
-                        .withIterationNumberIncreasePercent(0.6)
+                        .withIterationNumberIncreasePercent(60)
                         .build()
         );
         assertSvgEquals("/IEEE_30_atlas2_custom1.svg", IeeeCdfNetworkFactory.create30(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
@@ -76,7 +76,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
-                        .withIterationNumberIncreasePercent(0.2)
+                        .withIterationNumberIncreasePercent(20)
                         .build()
         );
         assertSvgEquals("/IEEE_118_atlas2_custom1.svg", IeeeCdfNetworkFactory.create118(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);

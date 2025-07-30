@@ -79,7 +79,7 @@ public class ForceLayout<V, E> {
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
-        this.basicParametersBuilder.withAttractToCenterForce(attractToCenterForce);
+        this.basicParametersBuilder.withActivateAttractToCenterForce(attractToCenterForce);
         return this;
     }
 

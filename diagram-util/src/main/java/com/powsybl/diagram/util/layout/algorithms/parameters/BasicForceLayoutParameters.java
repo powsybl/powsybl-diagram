@@ -144,7 +144,7 @@ public final class BasicForceLayoutParameters {
          * @param activateAttractToCenterForce activate or deactivate the center attraction force
          * @return the instance of this Builder with the `activateAttractToCenterForce` changed
          */
-        public Builder withAttractToCenterForce(boolean activateAttractToCenterForce) {
+        public Builder withActivateAttractToCenterForce(boolean activateAttractToCenterForce) {
             this.activateAttractToCenterForce = activateAttractToCenterForce;
             return this;
         }

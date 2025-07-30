@@ -50,7 +50,7 @@ public class BasicForceLayout extends AbstractLayout {
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder()
-                                .withAttractToCenterForce(attractToCenterForce)
+                                .withActivateAttractToCenterForce(attractToCenterForce)
                                 .withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
                                 .build()
