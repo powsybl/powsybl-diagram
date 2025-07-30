@@ -18,8 +18,8 @@ public final class BasicForceLayoutParameters {
     private static final double DEFAULT_REPULSION = 800.0;
     private static final double DEFAULT_FRICTION = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
-    private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS = true;
-    private static final boolean DEFAULT_ATTRACT_TO_CENTER_FORCES = true;
+    private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
+    private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
 
     private final int maxSteps;
     private final double minEnergyThreshold;
@@ -27,8 +27,8 @@ public final class BasicForceLayoutParameters {
     private final double repulsion;
     private final double friction;
     private final double maxSpeed;
-    private final boolean repulsionForceFromFixedPoints;
-    private final boolean attractToCenterForce;
+    private final boolean activateRepulsionForceFromFixedPoints;
+    private final boolean activateAttractToCenterForce;
 
     private BasicForceLayoutParameters(
             int maxSteps,
@@ -37,8 +37,8 @@ public final class BasicForceLayoutParameters {
             double repulsion,
             double friction,
             double maxSpeed,
-            boolean repulsionForceFromFixedPoints,
-            boolean attractToCenterForce
+            boolean activateRepulsionForceFromFixedPoints,
+            boolean activateAttractToCenterForce
     ) {
         this.maxSteps = maxSteps;
         this.minEnergyThreshold = minEnergyThreshold;
@@ -46,8 +46,8 @@ public final class BasicForceLayoutParameters {
         this.repulsion = repulsion;
         this.friction = friction;
         this.maxSpeed = maxSpeed;
-        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
-        this.attractToCenterForce = attractToCenterForce;
+        this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
+        this.activateAttractToCenterForce = activateAttractToCenterForce;
     }
 
     public static class Builder {
@@ -57,8 +57,8 @@ public final class BasicForceLayoutParameters {
         private double repulsion = DEFAULT_REPULSION;
         private double friction = DEFAULT_FRICTION;
         private double maxSpeed = DEFAULT_MAX_SPEED;
-        private boolean repulsionForceFromFixedPoints = DEFAULT_REPULSION_FROM_FIXED_POINTS;
-        private boolean attractToCenterForce = DEFAULT_ATTRACT_TO_CENTER_FORCES;
+        private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS;
+        private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE;
 
         /**
          * Change the maximum number of iteration the algorithm is allowed to run,
@@ -129,23 +129,23 @@ public final class BasicForceLayoutParameters {
 
         /**
          * If set to true, other points will get a repulsion effect from unmovable points (fixed points),
-         * default is {@value DEFAULT_REPULSION_FROM_FIXED_POINTS}
-         * @param repulsionForceFromFixedPoints whether you want to activate repulsion from fixed points or not
-         * @return the instance of this Builder with the `repulsionForceFromFixedPoints` changed
+         * default is {@value DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS}
+         * @param activateRepulsionForceFromFixedPoints whether you want to activate repulsion from fixed points or not
+         * @return the instance of this Builder with the `activateRepulsionForceFromFixedPoints` changed
          */
-        public Builder withRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-            this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        public Builder withActivateRepulsionForceFromFixedPoints(boolean activateRepulsionForceFromFixedPoints) {
+            this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
             return this;
         }
 
         /**
          * Activate or deactivate the force that attracts points to the center of the graph. It is used to prevent non-connected points
-         * from drifting away, default is {@value DEFAULT_ATTRACT_TO_CENTER_FORCES}
-         * @param attractToCenterForce activate or deactivate the center attraction force
-         * @return the instance of this Builder with the `attractToCenterForce` changed
+         * from drifting away, default is {@value DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE}
+         * @param activateAttractToCenterForce activate or deactivate the center attraction force
+         * @return the instance of this Builder with the `activateAttractToCenterForce` changed
          */
-        public Builder withAttractToCenterForce(boolean attractToCenterForce) {
-            this.attractToCenterForce = attractToCenterForce;
+        public Builder withAttractToCenterForce(boolean activateAttractToCenterForce) {
+            this.activateAttractToCenterForce = activateAttractToCenterForce;
             return this;
         }
 
@@ -157,8 +157,8 @@ public final class BasicForceLayoutParameters {
                     repulsion,
                     friction,
                     maxSpeed,
-                    repulsionForceFromFixedPoints,
-                    attractToCenterForce
+                    activateRepulsionForceFromFixedPoints,
+                    activateAttractToCenterForce
             );
         }
     }
@@ -187,12 +187,12 @@ public final class BasicForceLayoutParameters {
         return maxSpeed;
     }
 
-    public boolean isRepulsionForceFromFixedPoints() {
-        return repulsionForceFromFixedPoints;
+    public boolean isActivateRepulsionForceFromFixedPoints() {
+        return activateRepulsionForceFromFixedPoints;
     }
 
-    public boolean isAttractToCenterForce() {
-        return attractToCenterForce;
+    public boolean isActivateAttractToCenterForce() {
+        return activateAttractToCenterForce;
     }
 
 }

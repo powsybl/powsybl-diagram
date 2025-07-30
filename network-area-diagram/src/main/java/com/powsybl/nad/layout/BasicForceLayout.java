@@ -51,7 +51,7 @@ public class BasicForceLayout extends AbstractLayout {
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder()
                                 .withAttractToCenterForce(attractToCenterForce)
-                                .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
+                                .withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
                                 .build()
                 ));
