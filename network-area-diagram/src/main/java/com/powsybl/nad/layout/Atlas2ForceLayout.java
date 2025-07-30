@@ -49,7 +49,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout()));
         double scale = SCALE_COEFFICIENT * Math.pow(layoutContext.getSimpleGraph().vertexSet().size(), SCALE_EXPONENT);
-        //this is not ideal as there are two places with the maxStep, ie LayoutParameters, and Atlas2Parameters
+        //TODO should we use the layoutParameters maxSteps to set Atlas2Parameters maxSteps ?
         Layout<Node, Edge> layoutAlgorithmRunner = new Layout<>(
             this.setup,
             new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters)

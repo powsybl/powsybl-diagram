@@ -147,10 +147,13 @@ public final class Atlas2Parameters {
          * If this value is too low, the global speed of the graph will be low and convergence will slow down. If it's too high, we can
          * observe erratic behaviour in the way the points move. You probably shouldn't change this unless you know what you are doing.
          * Default is {@value DEFAULT_SWING_TOLERANCE}
-         * @param swingTolerance how much swing do we accept compared to traction (ie how much we prefer going towards the stability position compared to swinging around it)
+         * @param swingTolerance how much swing do we accept compared to traction (ie how much we prefer swinging around the stability position compared to going towards it)
          * @return the instance of this Builder with the `swingTolerance` changed
          */
         public Builder withSwingTolerance(double swingTolerance) {
+            if (swingTolerance <= 0) {
+                throw new IllegalArgumentException("swingTolerance should be strictly positive");
+            }
             this.swingTolerance = swingTolerance;
             return this;
         }
