@@ -220,6 +220,12 @@ public final class Atlas2Parameters {
             return this;
         }
 
+        /**
+         * The theta parameter used in the Barnes-Hut approximation. The bigger the theta, the more aggressive the optimization will be,
+         * but that might lead to less visual quality. A bigger value will also generally reduce runtime. Default is {@value DEFAULT_BARNES_HUT_THETA}
+         * @param barnesHutTheta the theta for the barnes-hut optimization
+         * @return  the instance of this Builder with the `barnesHutTheta` changed
+         */
         public Builder withBarnesHutTheta(double barnesHutTheta) {
             if (barnesHutTheta < 0) {
                 throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
@@ -228,6 +234,13 @@ public final class Atlas2Parameters {
             return this;
         }
 
+        /**
+         * Recalculation interval for the quadtree, meaning if you use a value of 3 here, the quadtree is recalculated every 3 steps.
+         * A higher value leads to faster calculations (because we need to recalculate the quadtree less), but might lead to a worse result visually.
+         * Default is {@value DEFAULT_QUADTREE_CALCULATION_INCREMENT}
+         * @param quadtreeCalculationIncrement how many steps between each calculation of the quadtree
+         * @return the instance of this Builder with the `quadtreeCalculationIncrement` changed
+         */
         public Builder withQuadtreeCalculationIncrement(int quadtreeCalculationIncrement) {
             if (quadtreeCalculationIncrement <= 0) {
                 throw new IllegalArgumentException("The increment for the constant schedule has to be strictly positive");
