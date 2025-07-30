@@ -13,65 +13,65 @@ package com.powsybl.diagram.util.layout.algorithms.parameters;
 public final class Atlas2Parameters {
     private static final int DEFAULT_MAX_STEPS = 6000;
     private static final double DEFAULT_REPULSION = 4;
-    private static final double DEFAULT_ATTRACTION = 1;
-    private static final double DEFAULT_GRAVITY = 0.001;
+    private static final double DEFAULT_EDGE_ATTRACTION = 1;
+    private static final double DEFAULT_ATTRACT_TO_CENTER = 0.001;
     private static final double DEFAULT_SPEED_FACTOR = 1;
     private static final double DEFAULT_MAX_SPEED_FACTOR = 10;
     private static final double DEFAULT_SWING_TOLERANCE = 1;
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;
-    private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS = true;
-    private static final boolean DEFAULT_ATTRACT_TO_CENTER = true;
+    private static final boolean DEFAULT_ACTIVATE_REPULSION_FROM_FIXED_POINTS = true;
+    private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER = true;
     private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
 
     private final int maxSteps;
     private final double repulsion;
-    private final double attraction;
-    private final double gravity;
+    private final double edgeAttraction;
+    private final double attractToCenter;
     private final double speedFactor;
     private final double maxSpeedFactor;
     private final double swingTolerance;
     private final double maxGlobalSpeedIncreaseRatio;
-    private final boolean repulsionForceFromFixedPoints;
-    private final boolean attractToCenterForce;
+    private final boolean activateRepulsionForceFromFixedPoints;
+    private final boolean activateAttractToCenterForce;
     private final double iterationNumberIncreasePercent;
 
     private Atlas2Parameters(
             int maxSteps,
             double repulsion,
-            double attraction,
-            double gravity,
+            double edgeAttraction,
+            double attractToCenter,
             double speedFactor,
             double maxSpeedFactor,
             double swingTolerance,
             double maxGlobalSpeedIncreaseRatio,
-            boolean repulsionForceFromFixedPoints,
-            boolean attractToCenterForce,
+            boolean activateRepulsionForceFromFixedPoints,
+            boolean activateAttractToCenterForce,
             double iterationNumberIncreasePercent
     ) {
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
-        this.attraction = attraction;
-        this.gravity = gravity;
+        this.edgeAttraction = edgeAttraction;
+        this.attractToCenter = attractToCenter;
         this.speedFactor = speedFactor;
         this.maxSpeedFactor = maxSpeedFactor;
         this.swingTolerance = swingTolerance;
         this.maxGlobalSpeedIncreaseRatio = maxGlobalSpeedIncreaseRatio;
-        this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
-        this.attractToCenterForce = attractToCenterForce;
+        this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
+        this.activateAttractToCenterForce = activateAttractToCenterForce;
         this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
     }
 
     public static class Builder {
         private int maxSteps = DEFAULT_MAX_STEPS;
         private double repulsion = DEFAULT_REPULSION;
-        private double attraction = DEFAULT_ATTRACTION;
-        private double gravity = DEFAULT_GRAVITY;
+        private double edgeAttraction = DEFAULT_EDGE_ATTRACTION;
+        private double attractToCenter = DEFAULT_ATTRACT_TO_CENTER;
         private double speedFactor = DEFAULT_SPEED_FACTOR;
         private double maxSpeedFactor = DEFAULT_MAX_SPEED_FACTOR;
         private double swingTolerance = DEFAULT_SWING_TOLERANCE;
         private double maxGlobalSpeedIncreaseRatio = DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO;
-        private boolean repulsionForceFromFixedPoints = DEFAULT_REPULSION_FROM_FIXED_POINTS;
-        private boolean attractToCenterForce = DEFAULT_ATTRACT_TO_CENTER;
+        private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FROM_FIXED_POINTS;
+        private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER;
         private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
 
         public Builder withMaxSteps(int maxSteps) {
@@ -84,13 +84,13 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        public Builder withAttraction(double attraction) {
-            this.attraction = attraction;
+        public Builder withEdgeAttraction(double attraction) {
+            this.edgeAttraction = attraction;
             return this;
         }
 
-        public Builder withGravity(double gravity) {
-            this.gravity = gravity;
+        public Builder withAttractToCenter(double gravity) {
+            this.attractToCenter = gravity;
             return this;
         }
 
@@ -114,13 +114,13 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        public Builder withRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-            this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        public Builder withActivateRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
+            this.activateRepulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
             return this;
         }
 
-        public Builder withAttractToCenterForce(boolean attractToCenterForce) {
-            this.attractToCenterForce = attractToCenterForce;
+        public Builder withActivateAttractToCenterForce(boolean attractToCenterForce) {
+            this.activateAttractToCenterForce = attractToCenterForce;
             return this;
         }
 
@@ -136,14 +136,14 @@ public final class Atlas2Parameters {
             return new Atlas2Parameters(
                     maxSteps,
                     repulsion,
-                    attraction,
-                    gravity,
+                    edgeAttraction,
+                    attractToCenter,
                     speedFactor,
                     maxSpeedFactor,
                     swingTolerance,
                     maxGlobalSpeedIncreaseRatio,
-                    repulsionForceFromFixedPoints,
-                    attractToCenterForce,
+                    activateRepulsionForceFromFixedPoints,
+                    activateAttractToCenterForce,
                     iterationNumberIncreasePercent
             );
         }
@@ -157,12 +157,12 @@ public final class Atlas2Parameters {
         return repulsion;
     }
 
-    public double getAttraction() {
-        return attraction;
+    public double getEdgeAttraction() {
+        return edgeAttraction;
     }
 
-    public double getGravity() {
-        return gravity;
+    public double getAttractToCenter() {
+        return attractToCenter;
     }
 
     public double getSpeedFactor() {
@@ -181,12 +181,12 @@ public final class Atlas2Parameters {
         return maxGlobalSpeedIncreaseRatio;
     }
 
-    public boolean isRepulsionForceFromFixedPoints() {
-        return repulsionForceFromFixedPoints;
+    public boolean isActivateRepulsionForceFromFixedPoints() {
+        return activateRepulsionForceFromFixedPoints;
     }
 
-    public boolean isAttractToCenterForce() {
-        return attractToCenterForce;
+    public boolean isActivateAttractToCenterForce() {
+        return activateAttractToCenterForce;
     }
 
     public double getIterationNumberIncreasePercent() {

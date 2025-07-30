@@ -34,7 +34,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
-                        .withAttractToCenterForce(false)
+                        .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
                         .build()
         );
@@ -47,7 +47,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
-                        .withAttractToCenterForce(false)
+                        .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
                         .withIterationNumberIncreasePercent(0.5)
                         .build()
@@ -60,7 +60,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withGravity(0.003)
+                        .withAttractToCenter(0.003)
                         .withMaxSpeedFactor(8)
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
