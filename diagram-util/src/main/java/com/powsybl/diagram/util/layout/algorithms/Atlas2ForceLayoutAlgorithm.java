@@ -175,12 +175,12 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         if (layoutParameters.getBarnesHutTheta() == 0) {
             this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
                     layoutParameters.getRepulsion(),
-                    layoutParameters.isRepulsionForceFromFixedPoints()
+                    layoutParameters.isActivateRepulsionForceFromFixedPoints()
             ));
         } else {
             this.forces.add(new RepulsionForceByEdgeNumberLinearBarnesHut<>(
                     layoutParameters.getRepulsion(),
-                    layoutParameters.isRepulsionForceFromFixedPoints(),
+                    layoutParameters.isActivateRepulsionForceFromFixedPoints(),
                     layoutParameters.getBarnesHutTheta(),
                     this.quadtreeContainer
             ));
@@ -188,7 +188,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
-        if (layoutParameters.isRepulsionForceFromFixedPoints()) {
+        if (layoutParameters.isActivateRepulsionForceFromFixedPoints()) {
             return layoutContext.getAllPoints().values();
         } else {
             return layoutContext.getMovingPoints().values();
