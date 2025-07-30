@@ -19,8 +19,8 @@ public final class Atlas2Parameters {
     private static final double DEFAULT_MAX_SPEED_FACTOR = 10;
     private static final double DEFAULT_SWING_TOLERANCE = 1;
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;
-    private static final boolean DEFAULT_ACTIVATE_REPULSION_FROM_FIXED_POINTS = true;
-    private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER = true;
+    private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
+    private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
     private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
 
     private final int maxSteps;
@@ -70,8 +70,8 @@ public final class Atlas2Parameters {
         private double maxSpeedFactor = DEFAULT_MAX_SPEED_FACTOR;
         private double swingTolerance = DEFAULT_SWING_TOLERANCE;
         private double maxGlobalSpeedIncreaseRatio = DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO;
-        private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FROM_FIXED_POINTS;
-        private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER;
+        private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS;
+        private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE;
         private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
 
         public Builder withMaxSteps(int maxSteps) {
@@ -89,8 +89,8 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        public Builder withAttractToCenter(double gravity) {
-            this.attractToCenter = gravity;
+        public Builder withAttractToCenter(double attractToCenter) {
+            this.attractToCenter = attractToCenter;
             return this;
         }
 
@@ -114,13 +114,13 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        public Builder withActivateRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-            this.activateRepulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
+        public Builder withActivateRepulsionForceFromFixedPoints(boolean activateRepulsionForceFromFixedPoints) {
+            this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
             return this;
         }
 
-        public Builder withActivateAttractToCenterForce(boolean attractToCenterForce) {
-            this.activateAttractToCenterForce = attractToCenterForce;
+        public Builder withActivateAttractToCenterForce(boolean activateAttractToCenterForce) {
+            this.activateAttractToCenterForce = activateAttractToCenterForce;
             return this;
         }
 
