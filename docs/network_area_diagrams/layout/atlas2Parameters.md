@@ -15,6 +15,12 @@ Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(new SquareRandomSetu
 atlas2ForceLayout.run(graph, layoutParameters);
 ```
 
+Here is an example on the ieee-118 nodes graph, with default parameters:
+
+![ieee_118-default](/_static/img/nad/atlas2/ieee_118-default.svg)
+
+Ran in 106 steps, 55 ms
+
 Note that once created, atlas2ForceLayout can be used on multiple different graph without having to create the object again (but the calculations will still have to be done again from the start).
 
 ## Default values
