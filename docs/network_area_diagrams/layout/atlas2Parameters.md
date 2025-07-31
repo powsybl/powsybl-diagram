@@ -45,16 +45,20 @@ Change the maximum number of iteration the algorithm is allowed to run. Atlas2 h
 number of steps is reached. Changing the maximum number of steps generally becomes relevant only when going past 8k nodes networks, with the default parameters.
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxSteps(500).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxSteps(50).build();
 ```
+
+![ieee_118-maxSteps_50](/_static/img/nad/atlas2/ieee_118-maxSteps_50.svg)
 
 ### repulsion
 
 The coefficient of repulsion controls the intensity of the repulsion force between all nodes. Increasing this will make the network more sparse (ie nodes will be further apart).
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withRepulsion(10).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withRepulsion(40).build();
 ```
+
+![ieee_118-repulsion_40](/_static/img/nad/atlas2/ieee_118-repulsion_40.svg)
 
 ### edgeAttraction
 
@@ -64,6 +68,8 @@ The coefficient of edge attraction controls the force between points that share 
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withEdgeAttraction(0.5).build();
 ```
 
+![ieee_118-edgeAttraction_0.5](/_static/img/nad/atlas2/ieee_118-edgeAttraction_0.5.svg)
+
 ### attractToCenter
 
 The coefficient for the force that attracts all points to the center of the 2D space. Smaller values will lead to a less dense graph.
@@ -72,6 +78,8 @@ The coefficient for the force that attracts all points to the center of the 2D s
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withAttractToCenter(0.006).build();
 ```
 
+![ieee_118-attractToCenter_0.006](/_static/img/nad/atlas2/ieee_118-attractToCenter_0.006.svg)
+
 ### speedFactor
 
 Coefficient used to calculate individual point speed factor based on the global graph speed. The link between global and local speed is not a simple multiplication by this coefficient, but it is used in the calculation.
@@ -79,8 +87,10 @@ If this is lower, points will be slower. A lower value might give worse results 
 A value between 0.8 and 1.2 is generally good.
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withSpeedFactor(1.1).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withSpeedFactor(2).build();
 ```
+
+![ieee_118-speedFactor_2](/_static/img/nad/atlas2/ieee_118-speedFactor_2.svg)
 
 ### maxSpeedFactor
 
@@ -92,6 +102,8 @@ Increasing this too much opens the door to erratic behaviour.
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxSpeedFactor(15).build();
 ```
 
+![ieee_118-maxSpeedFactor_15](/_static/img/nad/atlas2/ieee_118-maxSpeedFactor_15.svg)
+
 ### swingTolerance
 
 How much do we accept swing contributing to the global speed of the graph. A lower value means that we accept less swinging. 
@@ -102,21 +114,27 @@ observe erratic behaviour in the way the points move. You probably shouldn't cha
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withSwingTolerance(1.3).build();
 ```
 
+![ieee_118-swingTolerance_1.3.svg](/_static/img/nad/atlas2/ieee_118-swingTolerance_1.3.svg)
+
 ### maxGlobalSpeedIncreaseRatio
 
 How much can the global speed increase between each step. Higher means that the graph will reach a good global speed faster, but it might lead to more erratic behaviour between each step
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxGlobalSpeedIncreaseRatio(2).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxGlobalSpeedIncreaseRatio(1.1).build();
 ```
+
+![ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg](/_static/img/nad/atlas2/ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg)
 
 ### activateRepulsionForceFromFixedPoints
 
 If set to true, other points will get a repulsion effect from unmovable points (fixed points), otherwise fixed points do not repel other points.
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateRepulsionForceFromFixedPoints(true).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateRepulsionForceFromFixedPoints(false).build();
 ```
+
+Identical to default, there are no fixed points in the ieee 118 graph
 
 ### activateAttractToCenterForce
 
@@ -124,8 +142,10 @@ Activate or deactivate the force that attracts points to the center of the graph
 from drifting away. It is generally ill-advised to deactivate this, but if you are sure that everything is connected together then you can deactivate it
 
 ```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateAttractToCenterForce(true).build();
+Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateAttractToCenterForce(false).build();
 ```
+
+![ieee_118-activateAttractToCenterForce_false.svg](/_static/img/nad/atlas2/ieee_118-activateAttractToCenterForce_false.svg)
 
 ### iterationNumberIncreasePercent
 
@@ -137,3 +157,5 @@ This coefficient will also be directly the increase in runtime (e.g. if you use 
 ```java
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withIterationNumberIncreasePercent(25).build();
 ```
+
+![ieee_118-iterationNumberIncreasePercent_25.svg](/_static/img/nad/atlas2/ieee_118-iterationNumberIncreasePercent_25.svg)
