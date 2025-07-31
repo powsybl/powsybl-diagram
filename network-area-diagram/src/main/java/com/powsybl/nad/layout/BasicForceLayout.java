@@ -34,6 +34,7 @@ public class BasicForceLayout extends AbstractLayout {
     private final boolean repulsionForceFromFixedPoints;
     private final boolean attractToCenterForce;
 
+    //TODO maybe deprecate this in favour of directly giving the BasicForceLayoutParameters, to be consistent with Atlas2ForceLayout
     public BasicForceLayout() {
         this(true, true);
     }
@@ -50,8 +51,8 @@ public class BasicForceLayout extends AbstractLayout {
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder()
-                                .withAttractToCenterForce(attractToCenterForce)
-                                .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
+                                .withActivateAttractToCenterForce(attractToCenterForce)
+                                .withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
                                 .build()
                 ));

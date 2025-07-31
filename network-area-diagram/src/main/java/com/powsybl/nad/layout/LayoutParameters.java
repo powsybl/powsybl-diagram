@@ -15,6 +15,7 @@ import com.powsybl.nad.model.Point;
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private Point textNodeFixedShift = new Point(100, -40);
+    //TODO should this be deprecated since the maxSteps is now a parameter directly in diagram-util ?
     private int maxSteps = 1000;
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;

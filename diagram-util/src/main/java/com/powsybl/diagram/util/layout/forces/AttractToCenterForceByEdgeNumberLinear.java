@@ -8,18 +8,18 @@
 
 package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class AttractToCenterForceByEdgeNumber<V, E> extends AbstractByEdgeNumberForce<V, E> {
+public class AttractToCenterForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
 
-    public AttractToCenterForceByEdgeNumber(double forceIntensity) {
+    public AttractToCenterForceByEdgeNumberLinear(double forceIntensity) {
         this.forceIntensity = forceIntensity;
     }
 
@@ -29,7 +29,7 @@ public class AttractToCenterForceByEdgeNumber<V, E> extends AbstractByEdgeNumber
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph
         double magnitude = forceIntensity * (point.getPointVertexDegree() + 1);
-        Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(point, layoutContext.getOrigin());
         force.multiplyBy(magnitude);
         return force;
     }

@@ -5,7 +5,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-
 package com.powsybl.diagram.util.layout.forces;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
@@ -17,25 +16,23 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class AttractToCenterForceByEdgeNumberTest {
+class EdgeAttractionForceLinearTest {
 
     @Test
-    void apply() {
-        double delta = 1e-5;
+    void calculateForce() {
+        double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        AttractToCenterForceByEdgeNumber<String, DefaultEdge> attractToCenterForceByEdgeNumber = new AttractToCenterForceByEdgeNumber<>(0.01);
-        attractToCenterForceByEdgeNumber.init(layoutContext);
+        EdgeAttractionForceLinear<String, DefaultEdge> edgeAttractionForceLinear = new EdgeAttractionForceLinear<>(7);
         String[] vertexToTest = {
-            "0",
-            "1",
             "4",
+            "3",
+            "0",
         };
         Vector2D[] resultVector = {
-            new Vector2D(-0.01789, -0.03578),
-            new Vector2D(0.022461, -0.019887),
-            new Vector2D(-0.007071, -0.007071)
+            new Vector2D(0, 0),
+            new Vector2D(-3.5, 3.5),
+            new Vector2D(-22.582, 92.96)
         };
-
-        ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceByEdgeNumber, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, edgeAttractionForceLinear, vertexToTest, resultVector, delta);
     }
 }

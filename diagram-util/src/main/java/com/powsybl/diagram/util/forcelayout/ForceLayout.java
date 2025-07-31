@@ -79,12 +79,12 @@ public class ForceLayout<V, E> {
     }
 
     public ForceLayout<V, E> setAttractToCenterForce(boolean attractToCenterForce) {
-        this.basicParametersBuilder.withAttractToCenterForce(attractToCenterForce);
+        this.basicParametersBuilder.withActivateAttractToCenterForce(attractToCenterForce);
         return this;
     }
 
     public ForceLayout<V, E> setRepulsionForceFromFixedPoints(boolean repulsionForceFromFixedPoints) {
-        this.basicParametersBuilder.withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
+        this.basicParametersBuilder.withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints);
         return this;
     }
 
