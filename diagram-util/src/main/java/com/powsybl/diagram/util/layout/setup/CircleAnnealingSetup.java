@@ -464,9 +464,13 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
         List<Double[]> positiveEnergyTransitions = new ArrayList<>();
         double previousEnergy = calculateStartingObjectiveFunction(setupTopologyData);
         double sumOfAbsolute = 0;
+        double minEnergy = previousEnergy;
         for (int i = 0; i < numberOfTransitions; ++i) {
             int[] swapIndex = goToNeighborState(setupTopologyData.movablePoints, random);
             double newEnergy = calculateObjectiveFunction(setupTopologyData, previousEnergy, swapIndex[0], swapIndex[1]);
+            if (newEnergy < minEnergy) {
+                minEnergy = newEnergy;
+            }
             // We can use the absolute difference to make every transition positive, because transitions are symmetric
             // That means if we have a negative energy transition, we can say we could have done the swap in the other direction, and it is positive that way
             if (newEnergy > previousEnergy) {
@@ -494,8 +498,9 @@ public class CircleAnnealingSetup<V, E> implements Setup<V, E> {
             double probabilityEstimateNumerator = 0;
             double probabilityEstimateDenominator = 0;
             for (Double[] transition : positiveEnergyTransitions) {
-                probabilityEstimateNumerator += Math.exp(-transition[1] / initialTemperature);
-                probabilityEstimateDenominator += Math.exp(-transition[0] / initialTemperature);
+                // use the min energy
+                probabilityEstimateNumerator += Math.exp((-transition[1] + minEnergy) / initialTemperature);
+                probabilityEstimateDenominator += Math.exp((-transition[0] + minEnergy) / initialTemperature);
             }
             if (probabilityEstimateDenominator == 0) {
                 LOGGER.warn("The denominator of the probability estimator for the initial temperature of the annealing setup was zero");
