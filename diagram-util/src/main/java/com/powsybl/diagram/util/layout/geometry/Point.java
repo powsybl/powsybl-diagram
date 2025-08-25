@@ -25,7 +25,7 @@ public class Point {
      * The sum of all the forces currently applied to this point
      */
     private Vector2D forces;
-    private final double mass;
+    private double mass;
     /**
      * The degree of the vertex corresponding to this point, e.g. the number of edges of that vertex, used by some forces for calculations
      * We store it here so we don't have to query JGraphT multiple times for the value (because JGraphT does not store it, so caching the value is faster)
