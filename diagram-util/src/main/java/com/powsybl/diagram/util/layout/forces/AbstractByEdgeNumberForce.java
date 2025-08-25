@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import java.util.Map;
 
 /**
+ * Abstract class for all the forces that need the number of edges of a point for its calculations
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public abstract class AbstractByEdgeNumberForce<V, E> implements Force<V, E> {

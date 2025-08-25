@@ -29,28 +29,59 @@ import java.util.stream.Stream;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class LayoutContext<V, E> {
+    /**
+     * The center of the graph in the 2D space
+     */
     private final Point origin = new Point(0, 0);
     private static final Logger LOGGER = LoggerFactory.getLogger(LayoutContext.class);
 
+    /**
+     * A JGraphT object that represents the graph, this is the mathematical model and doesn't have anything to do with positions
+     * It's just used to keep the topology of the graph
+     */
     private final SimpleGraph<V, DefaultEdge> simpleGraph;
 
+    /**
+     * A Map that links a vertex V of the graph to a point, where the point is movable. This is mutually exclusive with
+     * {@link #fixedPoints}, though no verification is made of that. If a point is in both, that could lead to bugs.
+     * It's the responsibility of {@link com.powsybl.diagram.util.layout.setup.Setup} to fill this
+     */
     private final Map<V, Point> movingPoints = new LinkedHashMap<>();
     // this will be filled by the Setup function using fixedNodes and initialPoints
+    /**
+     * A Map that links a vertex V of the graph to a point, where the point is not movable. This is mutually exclusive with
+     * movingPoints, though no verification is made of that. If a point is in both, that could lead to bugs.
+     * It's the responsibility of {@link com.powsybl.diagram.util.layout.setup.Setup} to fill this
+     */
     private final Map<V, Point> fixedPoints = new LinkedHashMap<>();
+    /**
+     * A Map that links each vertex V of the graph to a point. It should verify allPoints = movingPoints + fixedPoints.
+     * It's the responsibility of {@link com.powsybl.diagram.util.layout.setup.Setup} to fill this
+     */
     private final Map<V, Point> allPoints = new HashMap<>();
 
+    /**
+     * A Map that links a vertex V to the initial position of the corresponding Point.
+     */
     private Map<V, Point> initialPoints = Collections.emptyMap();
+    /**
+     * The set of vertex that are not moving, to be used by the Setup to fill {@link #fixedPoints}
+     */
     private Set<V> fixedNodes = Collections.emptySet();
 
     public LayoutContext(Graph<V, E> graph) {
         Objects.requireNonNull(graph);
+        // Create a simple graph with the given JGraphT graph to only keep essential information, and prevent be sure of the type of edge used
+        // There were some bugs where the edge supplier of JGraphT was broken because it did not expect a certain type of edge, this way we are sure
         SimpleGraph<V, DefaultEdge> locSimpleGraph = new SimpleGraph<>(DefaultEdge.class);
+        // Add all the vertex in the first graph
         for (V vertex : graph.vertexSet()) {
             locSimpleGraph.addVertex(vertex);
         }
         for (E edge : graph.edgeSet()) {
             V source = graph.getEdgeSource(edge);
             V target = graph.getEdgeTarget(edge);
+            // Remove loops
             if (source != target) {
                 locSimpleGraph.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
             }
@@ -58,6 +89,9 @@ public class LayoutContext<V, E> {
         this.simpleGraph = locSimpleGraph;
     }
 
+    /**
+     * @return the graph object that represents the topology with the vertex and edges
+     */
     public SimpleGraph<V, DefaultEdge> getSimpleGraph() {
         return simpleGraph;
     }

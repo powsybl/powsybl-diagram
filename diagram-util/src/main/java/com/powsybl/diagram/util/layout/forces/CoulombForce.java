@@ -13,6 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 /**
+ * A repulsion between a point and all the other points of the graph. This is similar to the electrostatic repulsion force.
+ * The force is stronger at close distance and gets smaller as points get further away.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class CoulombForce<V, E> implements Force<V, E> {

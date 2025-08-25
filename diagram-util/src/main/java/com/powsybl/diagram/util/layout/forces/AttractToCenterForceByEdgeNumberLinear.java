@@ -13,6 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 
 /**
+ * A force that attracts all the points towards the center of the graph. The force depends on the number of edge of the point.
+ * The force is stronger the further the point is from the center.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class AttractToCenterForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumberForce<V, E> {

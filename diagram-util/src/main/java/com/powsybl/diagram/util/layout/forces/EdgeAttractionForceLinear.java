@@ -13,6 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.Graphs;
 
 /**
+ * A force that attracts a point towards the other points it has an edge with. The further away the points are, the stronger the force is.
+ * The force tends towards 0 as points get closer.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class EdgeAttractionForceLinear<V, E> implements Force<V, E> {

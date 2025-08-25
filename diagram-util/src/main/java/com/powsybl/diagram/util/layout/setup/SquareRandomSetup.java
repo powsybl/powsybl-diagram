@@ -18,9 +18,21 @@ import java.util.Random;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SquareRandomSetup<V, E> implements Setup<V, E> {
+    /**
+     * The seed used for the randomization
+     */
     protected static final long DEFAULT_SEED = 3L;
+    /**
+     * The random object
+     */
     private final Random random;
+    /**
+     * The center of the graph in the 2D space
+     */
     protected Vector2D center = new Vector2D(0, 0);
+    /**
+     * A scaling factor for the position of points
+     */
     protected double scale = 1;
 
     public SquareRandomSetup(Random random) {
@@ -32,7 +44,10 @@ public class SquareRandomSetup<V, E> implements Setup<V, E> {
         this.random = new Random(DEFAULT_SEED);
     }
 
-    // very similar to SimpleBarycenterSetup, but the center of the graph is always (0,0) instead of the center of all the points
+    /**
+     * Put all points in a square of side 1, centered by default on (0, 0)
+     * @param layoutContext the context of the layout, the graph and the position of points
+     */
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);

@@ -14,6 +14,8 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import java.util.Map;
 
 /**
+ * A repulsion force between a point and all the other points of the graph. It is simpler to calculate than the coulomb force.
+ * It depends on the number of edges of the points, it's stronger when points are closer and weaker when points are further away.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class RepulsionForceByEdgeNumberLinear<V, E> extends AbstractByEdgeNumberForce<V, E> {
