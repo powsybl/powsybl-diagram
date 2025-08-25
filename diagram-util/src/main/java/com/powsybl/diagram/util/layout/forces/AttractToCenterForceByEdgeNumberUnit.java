@@ -17,11 +17,11 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
  * The force is the same no matter the distance to the center.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class AttractToCenterForceByEdgeNumber<V, E> extends AbstractByEdgeNumberForce<V, E> {
+public class AttractToCenterForceByEdgeNumberUnit<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
 
-    public AttractToCenterForceByEdgeNumber(double forceIntensity) {
+    public AttractToCenterForceByEdgeNumberUnit(double forceIntensity) {
         this.forceIntensity = forceIntensity;
     }
 
