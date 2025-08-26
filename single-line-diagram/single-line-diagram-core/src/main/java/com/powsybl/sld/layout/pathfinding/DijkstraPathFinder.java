@@ -94,4 +94,9 @@ public final class DijkstraPathFinder implements PathFinder {
 
         return smoothedPath;
     }
+
+    @Override
+    public List<Point> findShortestPath(Point start, Point goal) {
+        return List.of();
+    }
 }
