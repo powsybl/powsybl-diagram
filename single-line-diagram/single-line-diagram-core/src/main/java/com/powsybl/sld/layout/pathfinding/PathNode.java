@@ -10,6 +10,7 @@ package com.powsybl.sld.layout.pathfinding;
 import com.powsybl.sld.model.coordinate.PointInteger;
 
 /**
+ * A structure to represent explored path when doing pathfinding
  * parent is where we came from to get to this node
  * pathCost is the realCost of the path up to this node
  * totalCost is the realCost + an optional heuristic distance

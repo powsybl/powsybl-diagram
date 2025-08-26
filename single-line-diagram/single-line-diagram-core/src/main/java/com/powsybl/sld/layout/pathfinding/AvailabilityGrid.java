@@ -7,12 +7,12 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
-import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
 
 import java.util.List;
 
 /**
+ * A grid that represents how each cell is occupied, used for pathfinding
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class AvailabilityGrid {

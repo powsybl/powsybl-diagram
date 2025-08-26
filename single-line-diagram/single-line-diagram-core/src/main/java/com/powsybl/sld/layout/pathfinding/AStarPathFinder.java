@@ -18,6 +18,8 @@ import static com.powsybl.sld.layout.pathfinding.AvailabilityGrid.WIRE;
 import static com.powsybl.sld.layout.pathfinding.AvailabilityGrid.isRightAngle;
 
 /**
+ * Implementation of the A* algorithm for finding the shortest path between two points. This also adds some constraints,
+ * such as an elevated cost for turning or crossing another wire of the grid.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public final class AStarPathFinder implements PathFinder {
