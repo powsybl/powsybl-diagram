@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @deprecated this class is not used anymore for the description of the springs of the ForceLayout, see forces.SpringForce instead
  */
-@Deprecated(since = "4.10.0", forRemoval = true)
+@Deprecated(since = "5.0.0", forRemoval = true)
 public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;
     private static final double DEFAULT_STIFFNESS = 100.0;
