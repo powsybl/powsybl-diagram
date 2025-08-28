@@ -81,9 +81,30 @@ public class AvailabilityGrid {
         return dotProduct == 0;
     }
 
-    public void makeWire(List<PointInteger> path) {
+    public static boolean isRightAngle(PathNode currentNode, PointInteger next) {
+        PathNode parentNode = currentNode.getParent();
+        return parentNode != null && isRightAngle(parentNode.getPointInteger(), currentNode.getPointInteger(), next);
+    }
+
+    public void makeNotAvailable(int x, int y) {
+        grid[y][x] = NOT_AVAILABLE;
+    }
+
+    public void makeWire(int x, int y) {
+        grid[y][x] = WIRE;
+    }
+
+    public void makeAroundWire(int x, int y) {
+        grid[y][x] = AROUND_WIRE;
+    }
+
+    public void makeAvailable(int x, int y) {
+        grid[y][x] = AVAILABLE;
+    }
+
+    public void makeWirePath(List<PointInteger> path) {
         for (PointInteger pointInteger : path) {
-            grid[pointInteger.getY()][pointInteger.getX()] = WIRE;
+            this.makeWire(pointInteger.getX(), pointInteger.getY());
         }
     }
 }

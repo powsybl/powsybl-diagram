@@ -8,7 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.ZoneRawBuilder;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
+import com.powsybl.sld.layout.pathfinding.AStarPathFinder;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run horizontal zone layout
-        new HorizontalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalZoneLayoutFactory().create(g, AStarPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase12ZoneGraphHHRaw.json"), toJson(g, "/TestCase12ZoneGraphHHRaw.json"));
     }
@@ -49,7 +49,7 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
-        new VerticalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalZoneLayoutFactory().create(g, AStarPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase12ZoneGraphVVRaw.json"), toJson(g, "/TestCase12ZoneGraphVVRaw.json"));
     }
@@ -61,7 +61,7 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run vertical zone layout
-        new VerticalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalZoneLayoutFactory().create(g, AStarPathFinder::new, new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase12ZoneGraphVHRaw.json"), toJson(g, "/TestCase12ZoneGraphVHRaw.json"));
     }
@@ -73,7 +73,7 @@ class TestCase12ZoneGraph extends AbstractTestCaseRaw {
         layoutParameters.setDiagrammPadding(1.0, 1.0, 1.0, 1.0);
 
         // Run horizontal zone layout
-        new HorizontalZoneLayoutFactory().create(g, DijkstraPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalZoneLayoutFactory().create(g, AStarPathFinder::new, new VerticalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase12ZoneGraphHVRaw.json"), toJson(g, "/TestCase12ZoneGraphHVRaw.json"));
     }

@@ -21,23 +21,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestPathFinding extends AbstractTestCaseIidm {
 
-    private Grid pathFinderGrid = null;
-    private final PathFinder pathfinder = new DijkstraPathFinder();
+    private AvailabilityGrid pathFinderGrid = null;
+    private final PathFinder pathfinder = new AStarPathFinder();
 
     @BeforeEach
     public void setUp() throws IOException {
-        pathFinderGrid = new Grid(12, 12);
+        pathFinderGrid = new AvailabilityGrid(12, 12);
     }
 
     @Test
     void testNoSmoothPath() {
         final List<Point> expectedSnakeline = new ArrayList<>();
-        pathFinderGrid.setAvailability(0, 0, true);
+        pathFinderGrid.makeAvailable(0, 0);
         expectedSnakeline.add(new Point(0, 0));
         for (int i = 0; i < 12 - 1; i++) {
-            pathFinderGrid.setAvailability(i + 1, i, true);
+            pathFinderGrid.makeAvailable(i + 1, i);
             expectedSnakeline.add(new Point(i + 1, i));
-            pathFinderGrid.setAvailability(i + 1, i + 1, true);
+            pathFinderGrid.makeAvailable(i + 1, i + 1);
             expectedSnakeline.add(new Point(i + 1, i + 1));
         }
         List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
@@ -52,19 +52,17 @@ class TestPathFinding extends AbstractTestCaseIidm {
     @Test
     void testSmoothPath() {
         final List<Point> expectedSnakeline = new ArrayList<>();
-        // Make available left & right borders
+        // Make available right border
         for (int y = 0; y < 12; y++) {
-            pathFinderGrid.setAvailability(0, y, true);
-            pathFinderGrid.setAvailability(11, y, true);
+            pathFinderGrid.makeAvailable(11, y);
         }
-        // Make available up & down borders
+        // Make available top border
         for (int x = 1; x < 12; x++) {
-            pathFinderGrid.setAvailability(x, 0, true);
-            pathFinderGrid.setAvailability(x, 11, true);
+            pathFinderGrid.makeAvailable(x, 0);
         }
 
         expectedSnakeline.add(new Point(0, 0)); // first point
-        expectedSnakeline.add(new Point(0, 11)); // right angle point
+        expectedSnakeline.add(new Point(11, 0)); // right angle point
         expectedSnakeline.add(new Point(11, 11)); // last point
 
         List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
@@ -74,5 +72,20 @@ class TestPathFinding extends AbstractTestCaseIidm {
         for (int i = 0; i < expectedSnakeline.size(); i++) {
             assertEquals(expectedSnakeline.get(i).toString(), snakeline.get(i).toString());
         }
+    }
+
+    @Test
+    void testAllAvailablePath() {
+        for (int x = 0; x < 12; ++x) {
+            for (int y = 0; y < 12; ++y) {
+                pathFinderGrid.makeAvailable(x, y);
+            }
+        }
+        List<Point> snakeline = pathfinder.findShortestPath(
+                pathFinderGrid,
+                new Point(0, 0),
+                new Point(11, 11)
+        );
+        assertEquals(3, snakeline.size());
     }
 }

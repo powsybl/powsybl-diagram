@@ -22,7 +22,7 @@ ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 String[][] substationsIds = {{"A", "B"},
                              {"D", ""}};
 // Create matrix zone layout using 2D array
-ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
+ZoneLayoutPathFinderFactory pFinderFactory = AStarPathFinder::new;
 SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
 VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
 MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();

@@ -30,6 +30,7 @@ public final class DijkstraPathFinder implements PathFinder {
             if (currentPoint.equals(goal)) {
                 List<Point> path = rebuildPath(current);
                 // Make path not available
+                //TODO there is a bug, rebuild path is the smooth path, so only the right angles, meaning everything between the changes in direction is still considered available
                 grid.setAvailability(path, false);
                 return path;
             }
@@ -96,7 +97,7 @@ public final class DijkstraPathFinder implements PathFinder {
     }
 
     @Override
-    public List<Point> findShortestPath(Point start, Point goal) {
+    public List<Point> findShortestPath(AvailabilityGrid availabilityGrid, Point start, Point goal) {
         return List.of();
     }
 }

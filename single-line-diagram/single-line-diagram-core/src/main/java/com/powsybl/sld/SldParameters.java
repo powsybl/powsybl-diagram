@@ -9,7 +9,7 @@ package com.powsybl.sld;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
+import com.powsybl.sld.layout.pathfinding.AStarPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
@@ -37,7 +37,7 @@ public class SldParameters {
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
     private ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
 
-    private ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = DijkstraPathFinder::new;
+    private ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = AStarPathFinder::new;
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
