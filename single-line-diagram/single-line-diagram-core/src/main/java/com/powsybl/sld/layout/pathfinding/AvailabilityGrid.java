@@ -12,7 +12,7 @@ import com.powsybl.sld.model.coordinate.PointInteger;
 import java.util.List;
 
 /**
- * A grid that represents how each cell is occupied, used for pathfinding
+ * A grid that represents how each cell is occupied, used for pathfinding. By default, all positions are considered as available
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class AvailabilityGrid {
@@ -41,7 +41,7 @@ public class AvailabilityGrid {
             for (int j = 0; j < width; ++j) {
                 // technically not necessary since by default every element will already be 0 which is the value of NOT_AVAILABLE
                 // but in case we change the value of NOT_AVAILABLE it will be necessary
-                grid[i][j] = NOT_AVAILABLE;
+                grid[i][j] = AVAILABLE;
             }
         }
     }
@@ -88,6 +88,10 @@ public class AvailabilityGrid {
 
     public void makeNotAvailable(int x, int y) {
         grid[y][x] = NOT_AVAILABLE;
+    }
+
+    public boolean isNotAvailable(int x, int y) {
+        return grid[y][x] == NOT_AVAILABLE;
     }
 
     public void makeWire(int x, int y) {

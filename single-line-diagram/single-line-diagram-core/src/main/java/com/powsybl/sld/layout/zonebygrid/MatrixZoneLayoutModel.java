@@ -13,6 +13,8 @@ import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -20,6 +22,7 @@ import java.util.*;
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayoutModel {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MatrixZoneLayoutModel.class);
 
     private final Matrix matrix;
 
@@ -40,33 +43,57 @@ public class MatrixZoneLayoutModel {
                                       String ss1Id, Point p1, Direction d1,
                                       String ss2Id, Point p2, Direction d2,
                                       LayoutParameters layoutParameters) {
-        matrix.get(ss1Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell, p1, d1, layoutParameters));
-        matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(matrixCell, p2, d2, layoutParameters));
+        matrix.get(ss1Id).ifPresent(matrixCell -> insertFreePathInSubstation(p1, d1, layoutParameters));
+        matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(p2, d2, layoutParameters));
 
         // Use path finding algo
         return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
     }
 
-    private void insertFreePathInSubstation(MatrixCell cell, Point p, Direction d, LayoutParameters layoutParameters) {
+    /**
+     * Create a path that is available, starting from the point, in the given direction. By default, voltage levels are not available for tracing snakelines,
+     * however for making a snakeline starting from a VL, a path needs to start inside the VL, so a line needs to be made from the point inside the voltage level,
+     * to the outside of the VL (including the padding of the VL).
+     * Note that only the places not available will become available, meaning areas that already have a wire will not become marked as available
+     * @param point the point from which to make the grid available (generally the end of a connection, where we want a snakeline to start or end)
+     * @param direction the direction of the connection (this should only be top or bottom)
+     * @param layoutParameters parameters of the layout, used to know the padding of the voltage level
+     */
+    private void insertFreePathInSubstation(Point point, Direction direction, LayoutParameters layoutParameters) {
         LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-        int x1 = (int) p.getX();
-        double y1 = p.getY();
-        double min1Y = y1 - vlPadding.getTop();
-        double max1Y = y1;
-        if (d == Direction.BOTTOM) {
-            min1Y = y1;
-            max1Y = y1 + vlPadding.getBottom();
+        int pointX = (int) point.getX();
+        // make it somewhat large, but should this even be done ? maybe it should only be a single line for getting out of the substation
+        // making it a bit larger allows multiple snakeline to start from the same point without overlapping, but would that even happen ?
+        int pathMinX = pointX - snakelinePadding;
+        int pathMaxX = pointX + snakelinePadding;
+        double pointY = point.getY();
+        // all path are either in the top or bottom direction
+        int pathMinY = 0;
+        int pathMaxY = 0;
+        // remember that the y-axis is oriented downwards, meaning the smallest y is the one closest to the top of the image
+        switch (direction) {
+            case TOP -> {
+                pathMinY = (int) (pointY - vlPadding.getTop());
+                pathMaxY = (int) pointY;
+            }
+            case BOTTOM -> {
+                pathMinY = (int) pointY;
+                pathMaxY = (int) (pointY + vlPadding.getBottom());
+            }
+            default -> {
+                LOGGER.error("Unknown direction for inserting a free path in substation: Point: {} | Direction: {}", point, direction);
+                return;
+            }
         }
-        for (int y = (int) min1Y; y <= max1Y; y++) {
-            pathFinderGrid.makeAvailable(x1, y);
-        }
-        // Make available a horizontal line large as matrix width + left and right zone layout snakeline padding
-        // In order to allow snakeline between 2 vertical voltagelevels
-        int col = cell.col();
-        int ssX = this.matrix.getX(col);
-        int y = (int) (d == Direction.TOP ? min1Y : max1Y);
-        for (int x = ssX - snakelinePadding; x < ssX + matrix.getMatrixCellWidth(col) + snakelinePadding; x++) {
-            pathFinderGrid.makeAvailable(x, y);
+
+        // should this go to max or stop just before ?
+        for (int y = pathMinY; y <= pathMaxY; ++y) {
+            for (int x = pathMinX; x <= pathMaxX; ++x) {
+                // this prevents marking wire and around wire area as available
+                if (pathFinderGrid.isNotAvailable(x, y)) {
+                    pathFinderGrid.makeAvailable(x, y);
+                }
+            }
         }
     }
 
