@@ -9,10 +9,12 @@ package com.powsybl.sld.layout.pathfinding;
 
 import com.powsybl.sld.model.coordinate.PointInteger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A grid that represents how each cell is occupied, used for pathfinding. By default, all positions are considered as available
+ * A grid that represents how each pixel is occupied, used for pathfinding. By default, all positions are considered as available
+ * Note that this is a much bigger matrix than the matrix of cells (with each cell representing a substation)
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class AvailabilityGrid {
@@ -34,9 +36,11 @@ public class AvailabilityGrid {
     public static final byte AVAILABLE = 3;
 
     private final byte[][] grid;
+    private final int snakelinePadding;
 
-    public AvailabilityGrid(int width, int height) {
+    public AvailabilityGrid(int width, int height, int snakelinePadding) {
         this.grid = new byte[height][width];
+        this.snakelinePadding = snakelinePadding;
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 // technically not necessary since by default every element will already be 0 which is the value of NOT_AVAILABLE
@@ -51,6 +55,7 @@ public class AvailabilityGrid {
      * @param availabilityGrid the availabilityGrid to be deep-copied
      */
     public AvailabilityGrid(AvailabilityGrid availabilityGrid) {
+        this.snakelinePadding = availabilityGrid.snakelinePadding;
         int height = availabilityGrid.grid.length;
         if (height > 0) {
             int width = availabilityGrid.grid[0].length;
@@ -90,26 +95,69 @@ public class AvailabilityGrid {
         grid[y][x] = NOT_AVAILABLE;
     }
 
+    public void makeNotAvailable(PointInteger point) {
+        makeNotAvailable(point.getX(), point.getY());
+    }
+
     public boolean isNotAvailable(int x, int y) {
         return grid[y][x] == NOT_AVAILABLE;
+    }
+
+    public boolean isNotAvailable(PointInteger point) {
+        return isNotAvailable(point.getX(), point.getY());
     }
 
     public void makeWire(int x, int y) {
         grid[y][x] = WIRE;
     }
 
+    public void makeWire(PointInteger point) {
+        makeWire(point.getX(), point.getY());
+    }
+
+    public boolean isWire(int x, int y) {
+        return grid[y][x] == WIRE;
+    }
+
+    public boolean isWire(PointInteger point) {
+        return isWire(point.getX(), point.getY());
+    }
+
     public void makeAroundWire(int x, int y) {
         grid[y][x] = AROUND_WIRE;
+    }
+
+    public void makeAroundWire(PointInteger point) {
+        makeAroundWire(point.getX(), point.getY());
+    }
+
+    public boolean isAroundWire(int x, int y) {
+        return grid[y][x] == AROUND_WIRE;
+    }
+
+    public boolean isAroundWire(PointInteger point) {
+        return isAroundWire(point.getX(), point.getY());
     }
 
     public void makeAvailable(int x, int y) {
         grid[y][x] = AVAILABLE;
     }
 
+    public boolean isAvailable(int x, int y) {
+        return grid[y][x] == AVAILABLE;
+    }
+
+    public boolean isAvailable(PointInteger point) {
+        return isAvailable(point.getX(), point.getY());
+    }
+
     public void makeWirePath(List<PointInteger> path) {
         for (PointInteger pointInteger : path) {
             this.makeWire(pointInteger.getX(), pointInteger.getY());
         }
+    }
+    public int getSnakelinePadding() {
+        return snakelinePadding;
     }
 }
 

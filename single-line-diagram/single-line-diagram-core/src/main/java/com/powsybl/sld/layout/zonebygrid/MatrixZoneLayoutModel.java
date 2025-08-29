@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
+ * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayoutModel {
@@ -28,11 +29,8 @@ public class MatrixZoneLayoutModel {
 
     private AvailabilityGrid pathFinderGrid;
 
-    private final int snakelinePadding;
-
     public MatrixZoneLayoutModel(String[][] ids, LayoutParameters layoutParameters) {
         this.matrix = new Matrix(ids.length, ids[0].length, layoutParameters);
-        this.snakelinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
     }
 
     public void addSubstationGraph(SubstationGraph graph, int row, int col) {
@@ -64,8 +62,8 @@ public class MatrixZoneLayoutModel {
         int pointX = (int) point.getX();
         // make it somewhat large, but should this even be done ? maybe it should only be a single line for getting out of the substation
         // making it a bit larger allows multiple snakeline to start from the same point without overlapping, but would that even happen ?
-        int pathMinX = pointX - snakelinePadding;
-        int pathMaxX = pointX + snakelinePadding;
+        int pathMinX = pointX - 1;
+        int pathMaxX = pointX + 1;
         double pointY = point.getY();
         // all path are either in the top or bottom direction
         int pathMinY = 0;
@@ -97,21 +95,19 @@ public class MatrixZoneLayoutModel {
         }
     }
 
-    public void computePathFindingGrid(ZoneGraph graph, LayoutParameters layoutParameters) {
+    /**
+     * Make unavailable or wire all areas that are already occupied, that is: voltage levels, WT and the snakelines of WT
+     * @param graph the graph of the SLD, representing the different substations
+     * @param layoutParameters the parameters of the layout
+     */
+    public void fillPathFindingGridStates(ZoneGraph graph, LayoutParameters layoutParameters) {
         Objects.requireNonNull(graph);
         int width = (int) graph.getWidth();
         int height = (int) graph.getHeight();
 
-        pathFinderGrid = new AvailabilityGrid(width, height);
-
-        // Horizontal hallways lines
-        computeHorizontalHallwaysAvailability(width, layoutParameters);
-
-        // Vertical hallways lines
-        computeVerticalHallwaysAvailability(height, layoutParameters);
-
-        // Make available empty matrix cells
-        computeMatrixCellsAvailability(layoutParameters);
+        // dividing by 10 means we can fit up to 10 snakelines between zones before they start going on the areas of one another
+        // this is totally arbitrary
+        pathFinderGrid = new AvailabilityGrid(width, height, layoutParameters.getZoneLayoutSnakeLinePadding() / 10);
 
         // Make unavailable all voltagelevels
         computeSubstationsAvailability(layoutParameters);
@@ -137,87 +133,21 @@ public class MatrixZoneLayoutModel {
                 }
             });
 
-            // Make unavailable all multi term nodes (3wt, 2wt, etc...) center
-            graph.getMultiTermNodes().forEach(node -> {
-                Point nodePoint = node.getCoordinates();
-                int x = (int) nodePoint.getX();
-                int y = (int) nodePoint.getY();
-                pathFinderGrid.makeNotAvailable(x, y);
-                node.getAdjacentEdges().forEach(edge -> {
-                    if (edge instanceof BranchEdge branch) {
-                        List<Point> points = Grid.getPointsAlongSnakeline(branch.getSnakeLine());
-                        points.forEach(p -> pathFinderGrid.makeNotAvailable((int) p.getX(), (int) p.getY()));
-                    }
-                });
-            });
-            graph.getLineEdges().forEach(s -> Grid.getPointsAlongSnakeline(s.getSnakeLine()).forEach(p -> pathFinderGrid.makeNotAvailable((int) p.getX(), (int) p.getY())));
+            makeWTSnakelineWire(graph);
         });
     }
 
-    private void computeMatrixCellsAvailability(LayoutParameters layoutParameters) {
-        // Make empty cells available for snakeline computation
-        List<MatrixCell> allCells = matrix.stream().toList();
-        allCells.forEach(cell -> {
-            int matrixCellWidth = (int) matrix.getMatrixCellWidth(cell.col());
-            int matrixCellHeight = (int) matrix.getMatrixCellHeight(cell.row());
-            int ssX = matrix.getX(cell.col());
-            int ssY = matrix.getY(cell.row());
-            // Horizontal lines
-            int stepH = (int) layoutParameters.getHorizontalSnakeLinePadding();
-            int deltaH = (matrixCellHeight % stepH) / 2;
-            for (int x = ssX; x < ssX + matrixCellWidth; x++) {
-                for (int y = ssY + deltaH + stepH; y < ssY + matrixCellHeight - deltaH; y += stepH) {
-                    pathFinderGrid.makeAvailable(x, y);
+    /**
+     * Make unavailable all multi term nodes (3wt, 2wt, etc...), as well as the snakeline of those nodes
+     * @param graph the graph of the SLD, representing the different substations
+     */
+    private void makeWTSnakelineWire(BaseGraph graph) {
+        for (MiddleTwtNode node : graph.getMultiTermNodes()) {
+            for (Edge edge : node.getAdjacentEdges()) {
+                if (edge instanceof BranchEdge branchEdge) {
+                    List<PointInteger> points = PointInteger.fromListOfPoint(Grid.getPointsAlongSnakeline(branchEdge.getSnakeLine()));
+                    pathFinderGrid.makeWirePath(points);
                 }
-            }
-
-            // Vertical lines
-            int stepV = (int) layoutParameters.getVerticalSnakeLinePadding();
-            int deltaV = (matrixCellWidth % stepV) / 2;
-            for (int x = ssX + deltaV + stepV; x < ssX + matrixCellWidth - deltaV; x += stepV) {
-                for (int y = ssY; y < ssY + matrixCellHeight; y++) {
-                    pathFinderGrid.makeAvailable(x, y);
-                }
-            }
-        });
-    }
-
-    private void computeHorizontalHallwaysAvailability(int width, LayoutParameters layoutParameters) {
-        int startX = (int) layoutParameters.getDiagramPadding().getLeft();
-        int endX = width - startX - (int) layoutParameters.getDiagramPadding().getRight();
-        int nextY = 0;
-        for (int r = 0; r < matrix.rowCount(); r++) {
-            for (int x = startX; x < endX; x++) {
-                for (int y = matrix.getY(r); y > matrix.getY(r) - snakelinePadding; y -= layoutParameters.getHorizontalSnakeLinePadding()) {
-                    pathFinderGrid.makeAvailable(x, y);
-                }
-            }
-            nextY += snakelinePadding + matrix.getMatrixCellHeight(r);
-        }
-        // Last snakelineMargin
-        for (int x = startX; x < endX; x++) {
-            for (int y = nextY; y < nextY + snakelinePadding; y += layoutParameters.getHorizontalSnakeLinePadding()) {
-                pathFinderGrid.makeAvailable(x, y);
-            }
-        }
-    }
-
-    private void computeVerticalHallwaysAvailability(int height, LayoutParameters layoutParameters) {
-        int startY = (int) layoutParameters.getDiagramPadding().getTop();
-        int endY = height - startY - (int) layoutParameters.getDiagramPadding().getBottom();
-        int nextX = 0;
-        for (int c = 0; c < matrix.columnCount(); c++) {
-            for (int y = startY; y < endY; y++) {
-                for (int x = matrix.getX(c); x > matrix.getX(c) - snakelinePadding; x -= layoutParameters.getVerticalSnakeLinePadding()) {
-                    pathFinderGrid.makeAvailable(x, y);
-                }
-            }
-            nextX += snakelinePadding + matrix.getMatrixCellWidth(c);
-        }
-        // Last snakelineMargin
-        for (int y = startY; y < endY; y++) {
-            for (int x = nextX; x < nextX + snakelinePadding; x += layoutParameters.getVerticalSnakeLinePadding()) {
-                pathFinderGrid.makeAvailable(x, y);
             }
         }
     }

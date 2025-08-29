@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.model.coordinate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,6 +33,14 @@ public class PointInteger {
     public PointInteger(Point point) {
         this.x = (int) point.getX();
         this.y = (int) point.getY();
+    }
+
+    public static List<PointInteger> fromListOfPoint(List<Point> points) {
+        List<PointInteger> res = new ArrayList<>();
+        for (Point point : points) {
+            res.add(new PointInteger(point));
+        }
+        return res;
     }
 
     public int getX() {
@@ -68,6 +78,25 @@ public class PointInteger {
         PointInteger res = new PointInteger(this);
         res.shift(shift);
         return res;
+    }
+
+    public PointInteger getOpposite() {
+        return new PointInteger(-this.x, -this.y);
+    }
+
+    public PointInteger getDirection(PointInteger towards) {
+        return new PointInteger(towards.x - this.x, towards.y - this.y);
+    }
+
+    /**
+     * Rotates the point of 90° in the trigonometric direction
+     * Doesn't really make sense for a point, but makes sense if the point is used as a representation for a vector
+     */
+    public void rotate() {
+        int oldX = this.x;
+        this.x = -y;
+        //noinspection SuspiciousNameCombination
+        this.y = oldX;
     }
 
     public void shiftX(int transX) {

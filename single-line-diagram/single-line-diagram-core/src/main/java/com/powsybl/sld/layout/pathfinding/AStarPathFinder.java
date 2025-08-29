@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.layout.pathfinding.AvailabilityGrid.WIRE;
 import static com.powsybl.sld.layout.pathfinding.AvailabilityGrid.isRightAngle;
 
 /**
@@ -27,11 +26,15 @@ public final class AStarPathFinder implements PathFinder {
     /**
      * The cost of turning, ie making a 90° turn
      */
-    private static final int TURNING_COST = 20;
+    private static final int TURNING_COST = 100;
+    /**
+     * The cost of being too close to another wire
+     */
+    private static final int AROUND_WIRE_COST = 10;
     /**
      * The cost of having a wire cross another wire
      */
-    private static final int CROSSING_COST = 100;
+    private static final int CROSSING_COST = 200;
 
     /**
      * The grid that keeps track of which areas are available, using a wire or not
@@ -51,6 +54,7 @@ public final class AStarPathFinder implements PathFinder {
     @Override
     public List<Point> findShortestPath(AvailabilityGrid availabilityGrid, Point start, Point goal) {
         this.availabilityGrid = availabilityGrid;
+        AvailabilityGridImageDisplayer.makeAvailabilityImage(availabilityGrid, "/tmp/grid_color.png");
         PointInteger startInteger = new PointInteger(start);
         PointInteger goalInteger = new PointInteger(goal);
         Map<PointInteger, PathNode> visitedNodes = new HashMap<>();
@@ -192,7 +196,7 @@ public final class AStarPathFinder implements PathFinder {
         if (isRightAngle(currentNode, neighbor)) {
             cost += TURNING_COST;
         }
-        if (availabilityGrid.getGrid()[neighbor.getY()][neighbor.getX()] == WIRE) {
+        if (availabilityGrid.isWire(neighbor)) {
             cost += CROSSING_COST;
         }
         return cost;

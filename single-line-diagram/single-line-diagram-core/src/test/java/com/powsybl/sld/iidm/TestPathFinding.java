@@ -26,7 +26,7 @@ class TestPathFinding extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() throws IOException {
-        pathFinderGrid = new AvailabilityGrid(12, 12);
+        pathFinderGrid = new AvailabilityGrid(12, 12, 5);
     }
 
     @Test
