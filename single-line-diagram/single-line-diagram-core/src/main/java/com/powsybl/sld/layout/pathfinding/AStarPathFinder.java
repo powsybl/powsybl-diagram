@@ -199,6 +199,9 @@ public final class AStarPathFinder implements PathFinder {
         if (availabilityGrid.isWire(neighbor)) {
             cost += CROSSING_COST;
         }
+        if (availabilityGrid.isAroundWire(neighbor)) {
+            cost += AROUND_WIRE_COST;
+        }
         return cost;
     }
 }

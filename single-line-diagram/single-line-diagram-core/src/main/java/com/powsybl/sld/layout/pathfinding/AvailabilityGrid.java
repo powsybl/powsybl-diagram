@@ -139,6 +139,32 @@ public class AvailabilityGrid {
         return isAroundWire(point.getX(), point.getY());
     }
 
+    /**
+     * Makes all point in direction and -direction starting from (x, y) (excluded) as AROUND_WIRE, for snakeLinePadding (from the class constructor)
+     * It does so only if those points are AVAILABLE (this does not overwrite NOT_AVAILABLE and WIRE by accident)
+     * @param x starting point X (usually wir;e)
+     * @param y starting point Y (usually wire)
+     * @param direction the direction in which to apply around wire, will also be applied in the opposite direction
+     */
+    public void makeAroundWireInBothDirections(int x, int y, PointInteger direction) {
+        List<PointInteger> candidatePoints = new ArrayList<>();
+        PointInteger oppositeDirection = direction.getOpposite();
+        PointInteger startingPoint = new PointInteger(x, y);
+        PointInteger pointInDirection = startingPoint.getShiftedPoint(direction);
+        PointInteger pointInOppositeDirection = startingPoint.getShiftedPoint(oppositeDirection);
+        for (int i = 0; i < snakelinePadding; ++i) {
+            candidatePoints.add(pointInDirection);
+            candidatePoints.add(pointInOppositeDirection);
+            pointInDirection = pointInDirection.getShiftedPoint(direction);
+            pointInOppositeDirection = pointInOppositeDirection.getShiftedPoint(oppositeDirection);
+        }
+        for (PointInteger candidate : candidatePoints) {
+            if (isAvailable(candidate)) {
+                makeAroundWire(candidate);
+            }
+        }
+    }
+
     public void makeAvailable(int x, int y) {
         grid[y][x] = AVAILABLE;
     }
@@ -151,11 +177,32 @@ public class AvailabilityGrid {
         return isAvailable(point.getX(), point.getY());
     }
 
+    /**
+     * Makes all the points in the path as WIRE
+     * Also makes all points perpendicular to the path as AROUND_WIRE, for snakeLinePadding length
+     * @param path the path of the wire, this function assumes all if two points are next to each other in the list,
+     *             they are next to each other in the 2D space (ie no jumping to different points of the path)
+     *             this condition is needed to be able to properly calculate the perpendicular of the path to set AROUND_WIRE correctly
+     */
     public void makeWirePath(List<PointInteger> path) {
-        for (PointInteger pointInteger : path) {
-            this.makeWire(pointInteger.getX(), pointInteger.getY());
+        PointInteger perpendicularOfPath = new PointInteger(0, 0);
+        // iterate over all the points except the last one, because we can't calculate a direction of the path for the last point
+        for (int i = 0; i < path.size() - 1; ++i) {
+            PointInteger currentPoint = path.get(i);
+            this.makeWire(currentPoint);
+            perpendicularOfPath = currentPoint.getDirection(path.get(i + 1)); // this is the direction of the path
+            // rotate to get perpendicular
+            perpendicularOfPath.rotate();
+            makeAroundWireInBothDirections(currentPoint.getX(), currentPoint.getY(), perpendicularOfPath);
         }
+        // finish with the last point
+        PointInteger lastPoint = path.get(path.size() - 1);
+        this.makeWire(lastPoint);
+        // there is no next point, we can't calculate a direction of path, use the perpendicular of the previous point
+        // since there won't be a turn at the last point
+        makeAroundWireInBothDirections(lastPoint.getX(), lastPoint.getY(), perpendicularOfPath);
     }
+
     public int getSnakelinePadding() {
         return snakelinePadding;
     }
