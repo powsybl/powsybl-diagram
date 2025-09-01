@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
 
 import java.util.ArrayList;
@@ -205,6 +206,61 @@ public class AvailabilityGrid {
 
     public int getSnakelinePadding() {
         return snakelinePadding;
+    }
+
+    /**
+     * Get all the points of the grid that belong to a certain snakeline
+     * @param pathDirectionChangePoints the points representing the snakeline, that is only the points at right angles (we don't have the points between those right angles)
+     * @return the list of points that is all the points of the snakeline, not just the minimal information needed to represent it
+     */
+    public static List<PointInteger> getPointsAlongSnakeline(List<Point> pathDirectionChangePoints) {
+        List<PointInteger> allPoints = new ArrayList<>();
+        //only go to size - 2 because the last line segment is between size - 2 and size - 1
+        for (int i = 0; i < pathDirectionChangePoints.size() - 1; ++i) {
+            PointInteger firstSegmentPoint = new PointInteger(pathDirectionChangePoints.get(i));
+            PointInteger secondSegmentPoint = new PointInteger(pathDirectionChangePoints.get(i + 1));
+            addSegmentPoints(allPoints, firstSegmentPoint, secondSegmentPoint);
+        }
+        // add the last point
+        allPoints.add(new PointInteger(pathDirectionChangePoints.get(pathDirectionChangePoints.size() - 1)));
+        return allPoints;
+    }
+
+    /**
+     * Add to the list of allPoints all the points with integer coordinates in the segment [firstSegmentPoint, secondSegmentPoint[ (start included, end excluded)
+     * This function assumes that both points are either on the same column or the same line.
+     * Note : if in the future this is not the case, change this to implement the Bresenham Algorithm
+     * @param allPoints the list of all the points so far
+     * @param firstSegmentPoint the first point of the segment
+     * @param secondSegmentPoint the second point of the segment
+     */
+    private static void addSegmentPoints(List<PointInteger> allPoints, PointInteger firstSegmentPoint, PointInteger secondSegmentPoint) {
+        PointInteger segmentDirection = firstSegmentPoint.getDirection(secondSegmentPoint);
+        PointInteger normalizedSegmentDirection = getNormalizedSegmentDirection(segmentDirection);
+        PointInteger currentPoint = new PointInteger(firstSegmentPoint);
+        while (!currentPoint.equals(secondSegmentPoint)) {
+            allPoints.add(currentPoint);
+            currentPoint = currentPoint.getShiftedPoint(normalizedSegmentDirection);
+        }
+    }
+
+    /**
+     * Calculate the segment direction so that it only corresponds to UP, DOWN, LEFT or RIGHT directions, with a vector or magnitude 1
+     * @param segmentDirection the direction we want to calculate the normalized direction of
+     * @return a vector of magnitude 1, as long as segmentDirection is only in one of the cardinal direction (ie no diagonal movements)
+     */
+    private static PointInteger getNormalizedSegmentDirection(PointInteger segmentDirection) {
+        int deltaX = segmentDirection.getX();
+        int deltaY = segmentDirection.getY();
+        // normalize x and y to only move by one each time, we get a vector like (0, 1), (0, -1), (1, 0) or (-1, 0)
+        if (deltaX != 0) {
+            // just get the direction of the X change, if it's negative or positive
+            deltaX = deltaX > 0 ? 1 : -1;
+        }
+        if (deltaY != 0) {
+            deltaY = deltaY > 0 ? 1 : -1;
+        }
+        return new PointInteger(deltaX, deltaY);
     }
 }
 

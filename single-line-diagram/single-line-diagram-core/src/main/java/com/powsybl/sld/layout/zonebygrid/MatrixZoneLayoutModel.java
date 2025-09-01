@@ -145,7 +145,7 @@ public class MatrixZoneLayoutModel {
         for (MiddleTwtNode node : graph.getMultiTermNodes()) {
             for (Edge edge : node.getAdjacentEdges()) {
                 if (edge instanceof BranchEdge branchEdge) {
-                    List<PointInteger> points = PointInteger.fromListOfPoint(Grid.getPointsAlongSnakeline(branchEdge.getSnakeLine()));
+                    List<PointInteger> points = AvailabilityGrid.getPointsAlongSnakeline(branchEdge.getSnakeLine());
                     pathFinderGrid.makeWirePath(points);
                 }
             }
