@@ -16,9 +16,6 @@ import java.util.*;
  */
 public interface PathFinder {
 
-    //TODO remove this ?
-    List<Point> findShortestPath(Grid grid, Point start, Point goal);
-
     //TODO change the signature to not require the grid (as this is already an element of implementation instead of an interface with the miniminal needed information)
     List<Point> findShortestPath(AvailabilityGrid availabilityGrid, Point start, Point goal);
 }

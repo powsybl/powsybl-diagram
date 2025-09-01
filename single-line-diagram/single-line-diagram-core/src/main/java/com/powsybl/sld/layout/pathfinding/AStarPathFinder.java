@@ -95,11 +95,6 @@ public final class AStarPathFinder implements PathFinder {
         return List.of();
     }
 
-    @Override
-    public List<Point> findShortestPath(Grid grid, Point start, Point goal) {
-        return List.of();
-    }
-
     /**
      * Starting from the last node in the path search, go back from parent to parent until backtracking to the start. This path is the shortest path
      * @param lastNode rebuild the path starting from the last node (generally the goal node)
