@@ -54,7 +54,7 @@ public final class AStarPathFinder implements PathFinder {
     @Override
     public List<Point> findShortestPath(AvailabilityGrid availabilityGrid, Point start, Point goal) {
         this.availabilityGrid = availabilityGrid;
-        AvailabilityGridImageDisplayer.makeAvailabilityImage(availabilityGrid, "/tmp/grid_color.png");
+        //AvailabilityGridImageDisplayer.makeAvailabilityImage(availabilityGrid, "/tmp/grid_color.png");
         PointInteger startInteger = new PointInteger(start);
         PointInteger goalInteger = new PointInteger(goal);
         Map<PointInteger, PathNode> visitedNodes = new HashMap<>();

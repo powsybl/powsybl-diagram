@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, RTE (http://www.rte-france.com)
+ * Copyright (c) 2023-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -32,14 +32,19 @@ class TestPathFinding extends AbstractTestCaseIidm {
     @Test
     void testNoSmoothPath() {
         final List<Point> expectedSnakeline = new ArrayList<>();
-        pathFinderGrid.makeAvailable(0, 0);
         expectedSnakeline.add(new Point(0, 0));
-        for (int i = 0; i < 12 - 1; i++) {
+        for (int i = 0; i < 12; ++i) {
+            for (int j = 0; j < 12; ++j) {
+                pathFinderGrid.makeNotAvailable(i, j);
+            }
+        }
+        for (int i = 0; i < 11; ++i) {
             pathFinderGrid.makeAvailable(i + 1, i);
             expectedSnakeline.add(new Point(i + 1, i));
             pathFinderGrid.makeAvailable(i + 1, i + 1);
             expectedSnakeline.add(new Point(i + 1, i + 1));
         }
+        pathFinderGrid.makeAvailable(0, 0);
         List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
                 new Point(0, 0),
                 new Point(11, 11));

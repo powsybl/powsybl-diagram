@@ -38,9 +38,13 @@ public class AvailabilityGrid {
 
     private final byte[][] grid;
     private final int snakelinePadding;
+    private final int height;
+    private final int width;
 
     public AvailabilityGrid(int width, int height, int snakelinePadding) {
         this.grid = new byte[height][width];
+        this.height = height;
+        this.width = width;
         this.snakelinePadding = snakelinePadding;
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
@@ -58,13 +62,16 @@ public class AvailabilityGrid {
     public AvailabilityGrid(AvailabilityGrid availabilityGrid) {
         this.snakelinePadding = availabilityGrid.snakelinePadding;
         int height = availabilityGrid.grid.length;
+        this.height = height;
         if (height > 0) {
             int width = availabilityGrid.grid[0].length;
+            this.width = width;
             this.grid = new byte[height][width];
             for (int i = 0; i < height; ++i) {
                 grid[i] = availabilityGrid.grid[i].clone();
             }
         } else {
+            this.width = 0;
             this.grid = new byte[0][0];
         }
     }
@@ -92,6 +99,10 @@ public class AvailabilityGrid {
         return parentNode != null && isRightAngle(parentNode.getPointInteger(), currentNode.getPointInteger(), next);
     }
 
+    private boolean isInBounds(int x, int y) {
+        return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
     public void makeNotAvailable(int x, int y) {
         grid[y][x] = NOT_AVAILABLE;
     }
@@ -101,7 +112,7 @@ public class AvailabilityGrid {
     }
 
     public boolean isNotAvailable(int x, int y) {
-        return grid[y][x] == NOT_AVAILABLE;
+        return isInBounds(x, y) && grid[y][x] == NOT_AVAILABLE;
     }
 
     public boolean isNotAvailable(PointInteger point) {
@@ -117,7 +128,7 @@ public class AvailabilityGrid {
     }
 
     public boolean isWire(int x, int y) {
-        return grid[y][x] == WIRE;
+        return isInBounds(x, y) && grid[y][x] == WIRE;
     }
 
     public boolean isWire(PointInteger point) {
@@ -133,7 +144,7 @@ public class AvailabilityGrid {
     }
 
     public boolean isAroundWire(int x, int y) {
-        return grid[y][x] == AROUND_WIRE;
+        return isInBounds(x, y) && grid[y][x] == AROUND_WIRE;
     }
 
     public boolean isAroundWire(PointInteger point) {
@@ -171,7 +182,7 @@ public class AvailabilityGrid {
     }
 
     public boolean isAvailable(int x, int y) {
-        return grid[y][x] == AVAILABLE;
+        return isInBounds(x, y) && grid[y][x] == AVAILABLE;
     }
 
     public boolean isAvailable(PointInteger point) {
