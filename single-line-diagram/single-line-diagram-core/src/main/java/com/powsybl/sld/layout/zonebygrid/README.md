@@ -88,28 +88,38 @@ protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 
 ### Snakeline route computation between substations
 
-The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
-Each `Node` store :
-* A position (x and y)
-* An availability (whether the `Node` can be used to draw the snakeline or not)
-* A walk-through cost
-* A parent node reference
-* The distance to the end point of the snakeline
+The `AvailabilityGrid` class contains a 2D-array of `byte`, each `byte` representing a state of the pixel of the SLD output file.
+Possible values are :
+* 0 : not available
+* 1 : wire (where there is a snakeline)
+* 2 : around wire
+* 3 : available
 
 #### Exclusion area
-An exclusion area is an area where all `Node` have an availability equals to `false`
+An exclusion area is an area where all `pixel` of the grid are not available.
 This area cannot be used to draw a `snakeline`.
-Those areas are:
-- diagram padding
+This currently includes:
 - voltagelevels with padding
-- snakelines right angles
+
+All other areas start with a default value of 3 : available
 
 #### Shorter path computation
-Dijkstra's computation steps:
-* The starting point cost is set to 0
-* The nearest neighbors (left, right, up and down) are computed (no diagonal moves allowed here)
-  * These neighbors are used only if:
-    * The neighbor is available
-    * The neighbor was not already visited
-  * In order to avoid superfluous right angles, the cost is increased when the next point creates a right angle
-* If no route can be computed by the algorithm, a straight line is drawn from the starting point to the end point of the snakeline (diagonal moves are allowed here)
+A* computation steps:
+* Find all VoltageLevel + padding and set state to 1 : Not available; this is done in `MatrixZoneLayoutModel.fillPathFindingGridStates`
+* For each path:
+  * Insert a free path in the VoltageLevel padding, in order to reach the point from which the snakeline starts
+  * Set the current point as the starting point, set cost of the path to 0
+  * For the current point, explore neighbors, a neighbor is explored only if:
+    * the neighbor point is left, right, down or up compared to the current point (no diagonal moves) 
+    * the neighbor is not "not available" (meaning wire, around wire and available are all ok)
+    * the cost of the path to that neighbor is the lowest cost of a path to that neighbor that has been found (meaning if we found another path with lower cost to the same point, we ignore that neighbor)
+  * To compute the cost of moving to that neighbor, we calculate the sum of:
+    * the cost of path to the current node
+    * 1 (cost of the default movement)
+    * if the neighbor node is a wire, the cost of landing on a wire
+    * if the neighbor node is around a wire, the cost of landing around a wire
+    * if there is a right angle between the previous point of the path, the current point and the neighbor, the cost of a right angle turn
+  * The idea behind this computation is to penalize wire crossing, wires that are too close (less readable) and too many right angle turns
+  * Calculate the total cost as the cost of the path + a metric (currently the manhattan distance between the neighbor and the goal point)
+  * take the next point with the lowest total cost and explore its neighbors (we use a priority queue to keep track of the lowest cost)
+* We end once one path reaches the goal, it's the path with the lowest cost
