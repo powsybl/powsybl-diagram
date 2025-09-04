@@ -45,7 +45,7 @@ public class MatrixZoneLayoutModel {
         matrix.get(ss2Id).ifPresent(matrixCell -> insertFreePathInSubstation(p2, d2, layoutParameters));
 
         // Use path finding algo
-        return pathfinder.findShortestPath(pathFinderGrid, p1, p2);
+        return pathfinder.findBestPath(pathFinderGrid, p1, p2);
     }
 
     /**

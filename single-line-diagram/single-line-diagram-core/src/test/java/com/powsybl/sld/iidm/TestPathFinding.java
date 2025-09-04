@@ -45,7 +45,7 @@ class TestPathFinding extends AbstractTestCaseIidm {
             expectedSnakeline.add(new Point(i + 1, i + 1));
         }
         pathFinderGrid.makeAvailable(0, 0);
-        List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
+        List<Point> snakeline = pathfinder.findBestPath(pathFinderGrid,
                 new Point(0, 0),
                 new Point(11, 11));
         assertEquals(expectedSnakeline.size(), snakeline.size());
@@ -70,7 +70,7 @@ class TestPathFinding extends AbstractTestCaseIidm {
         expectedSnakeline.add(new Point(11, 0)); // right angle point
         expectedSnakeline.add(new Point(11, 11)); // last point
 
-        List<Point> snakeline = pathfinder.findShortestPath(pathFinderGrid,
+        List<Point> snakeline = pathfinder.findBestPath(pathFinderGrid,
                 new Point(0, 0),
                 new Point(11, 11));
         assertEquals(expectedSnakeline.size(), snakeline.size());
@@ -86,7 +86,7 @@ class TestPathFinding extends AbstractTestCaseIidm {
                 pathFinderGrid.makeAvailable(x, y);
             }
         }
-        List<Point> snakeline = pathfinder.findShortestPath(
+        List<Point> snakeline = pathfinder.findBestPath(
                 pathFinderGrid,
                 new Point(0, 0),
                 new Point(11, 11)
