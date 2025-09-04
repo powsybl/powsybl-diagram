@@ -61,11 +61,9 @@ public class AvailabilityGrid {
      */
     public AvailabilityGrid(AvailabilityGrid availabilityGrid) {
         this.snakelinePadding = availabilityGrid.snakelinePadding;
-        int height = availabilityGrid.grid.length;
-        this.height = height;
+        this.height = availabilityGrid.grid.length;
         if (height > 0) {
-            int width = availabilityGrid.grid[0].length;
-            this.width = width;
+            this.width = availabilityGrid.grid[0].length;
             this.grid = new byte[height][width];
             for (int i = 0; i < height; ++i) {
                 grid[i] = availabilityGrid.grid[i].clone();
@@ -80,6 +78,13 @@ public class AvailabilityGrid {
         return grid;
     }
 
+    /**
+     * Checks if the lines formed by previous-current and current-next make a right angle
+     * @param previous the previous point
+     * @param current the current point
+     * @param next the next point
+     * @return if previous-current-next is a right angle
+     */
     public static boolean isRightAngle(PointInteger previous, PointInteger current, PointInteger next) {
         // Check if the angle is a right angle using dot product
         int vectorABx = current.getX() - previous.getX();
@@ -94,12 +99,24 @@ public class AvailabilityGrid {
         return dotProduct == 0;
     }
 
+    /**
+     * Checks if the lines formed by currentNode.parent - currentNode and currentNode-next make a right angle.
+     * currentNode.parent can be null and this operation will return false in that case
+     * @param currentNode the current node of the search
+     * @param next the next point
+     * @return if parent-currentNode-next make a right angle
+     */
     public static boolean isRightAngle(PathNode currentNode, PointInteger next) {
         PathNode parentNode = currentNode.getParent();
         return parentNode != null && isRightAngle(parentNode.getPointInteger(), currentNode.getPointInteger(), next);
     }
 
-    private boolean isInBounds(int x, int y) {
+    /**
+     * @param x the column index
+     * @param y the line index
+     * @return if the coordinates (x,y) are the grid
+     */
+    public boolean isInBounds(int x, int y) {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 

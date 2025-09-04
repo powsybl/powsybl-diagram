@@ -169,9 +169,9 @@ public final class AStarPathFinder implements PathFinder {
             ) {
                 PathNode parent = pathNode.getParent();
                 // check that we do not go backwards, the parent could be null if we are at the start (in which case all directions are ok)
-                // this is the boolean factorization of (parent != null && candidate...) || parent == null
-                // since (not x and y) or x = (not x or x) and (x or y) due to distributivity of or over and
-                // which equals to (true) and (x or y) = x or y
+                // this is the boolean factorization of (parent not null AND candidate...) OR parent is null
+                // since (not a and b) or a = (not a or a) and (a or b) due to distributivity of or over and
+                // which equals to (true) and (a or b) = a or b
                 if (parent == null || !candidate.equals(parent.getPointInteger())) {
                     availableNeighbors.add(candidate);
                 }
