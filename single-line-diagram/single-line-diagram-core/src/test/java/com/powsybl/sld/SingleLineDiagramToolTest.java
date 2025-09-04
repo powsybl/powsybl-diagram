@@ -129,6 +129,8 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
         options.addOption("output-dir", true, "output-dir");
         options.addOption("ids", true, "ids");
 
+        //the options use single dash because add option uses single dash by default when passing just opt (and not longOpt), like -i for short and --input for long
+        //except here we only gave input so that defaults to short option, thus the -input instead of --input
         CommandLine commandLine = defaultParser.parse(
             options,
             new String[] {

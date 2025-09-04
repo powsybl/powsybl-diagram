@@ -33,7 +33,11 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * Note: this class does not use a mock because it had some strange interaction with other tests, where it would greatly
+ * increase the time it would take for some other tests to finish (making it so that running all tests would take 5 minutes instead of 30s)
+ * The problem was also that this behaviour depends on the order in which tests pass (so sometimes the issue would appear, sometimes not)
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
+ * @author Nathan Dissoubray {@literal <nathan.dissoubrat at rte-france.com>}
  */
 class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
@@ -116,6 +120,8 @@ class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
         options.addOption("output-dir", true, "output-dir");
         options.addOption("voltage-level-layout", true, "voltage level layout");
 
+        //the options use single dash because add option uses single dash by default when passing just opt (and not longOpt), like -i for short and --input for long
+        //except here we only gave input so that defaults to short option, thus the -input instead of --input
         CommandLine commandLine = defaultParser.parse(
             options,
             new String[] {
