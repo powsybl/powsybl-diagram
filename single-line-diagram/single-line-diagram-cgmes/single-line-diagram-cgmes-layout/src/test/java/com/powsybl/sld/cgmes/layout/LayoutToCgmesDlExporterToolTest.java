@@ -7,6 +7,8 @@
 package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.computation.LazyCreatedComputationManager;
+import com.powsybl.computation.local.LocalComputationManagerFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.NetworkTest1Factory;
 import com.powsybl.iidm.serde.XMLExporter;
@@ -14,6 +16,9 @@ import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolRunningContext;
 import com.powsybl.tools.test.AbstractToolTest;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +31,6 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -38,7 +41,7 @@ class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
 
     private ToolRunningContext runningContext;
 
-    private CommandLine commandLine;
+    private DefaultParser defaultParser;
 
     private static final String COMMAND_NAME = "generate-cgmes-dl";
 
@@ -58,14 +61,15 @@ class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
         properties.put(XMLExporter.VERSION, "1.0");
         network.write("XIIDM", properties, networkFile);
 
-        runningContext = mock(ToolRunningContext.class);
-        PrintStream err = mock(PrintStream.class);
-        PrintStream out = mock(PrintStream.class);
-        when(runningContext.getErrorStream()).thenReturn(err);
-        when(runningContext.getOutputStream()).thenReturn(out);
-        when(runningContext.getFileSystem()).thenReturn(fileSystem);
+        runningContext = new ToolRunningContext(
+                new PrintStream(PrintStream.nullOutputStream()),
+                new PrintStream(PrintStream.nullOutputStream()),
+                fileSystem,
+                new LazyCreatedComputationManager(new LocalComputationManagerFactory()),
+                new LazyCreatedComputationManager(new LocalComputationManagerFactory())
+        );
 
-        commandLine = mock(CommandLine.class);
+        defaultParser = new DefaultParser();
     }
 
     @Override
@@ -74,6 +78,7 @@ class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
     }
 
     @Override
+    @Test
     public void assertCommand() {
         assertEquals(COMMAND_NAME, tool.getCommand().getName());
         assertEquals("Single line diagram", tool.getCommand().getTheme());
@@ -89,61 +94,91 @@ class LayoutToCgmesDlExporterToolTest extends AbstractToolTest {
     }
 
     @Test
-    void missingInputFileOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(false);
+    void missingInputFileOptions() throws ParseException {
+        CommandLine commandLine = defaultParser.parse(new Options(), new String[]{});
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("input-file parameter is missing"));
     }
 
     @Test
-    void missingOutputDirOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(false);
+    void missingOutputDirOptions() throws ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        CommandLine commandLine = defaultParser.parse(options, new String[]{"-input-file", "/input-dir/sld-tool-test.xiidm"});
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("output-dir parameter is missing"));
     }
 
     @Test
-    void invalidVoltageLevelLayoutOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
+    void invalidVoltageLevelLayoutOptions() throws ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("voltage-level-layout", true, "voltage level layout");
 
-        when(commandLine.hasOption("voltage-level-layout")).thenReturn(true);
-        when(commandLine.getOptionValue("voltage-level-layout")).thenReturn("InvalidLayoutLevel");
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-voltage-level-layout",
+                "InvalidLayoutLevel"
+            }
+        );
+
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("invalid voltage-level-layout: InvalidLayoutLevel"));
     }
 
     @Test
-    void invalidSubstationLayoutOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
+    void invalidSubstationLayoutOptions() throws ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("substation-layout", true, "substation-layout");
 
-        when(commandLine.hasOption("substation-layout")).thenReturn(true);
-        when(commandLine.getOptionValue("substation-layout")).thenReturn("InvalidSubstationLayout");
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-substation-layout",
+                "InvalidSubstationLayout"
+            }
+        );
+
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("invalid substation-layout: InvalidSubstationLayout"));
     }
 
     @Test
-    void runTest() throws IOException {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
+    void runTest() throws IOException, ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("voltage-level-layout", true, "voltage level layout");
+        options.addOption("substation-layout", true, "substation-layout");
+        options.addOption("diagram-name", true, "diagram-name");
 
-        when(commandLine.hasOption("voltage-level-layout")).thenReturn(true);
-        when(commandLine.hasOption("substation-layout")).thenReturn(true);
-        when(commandLine.hasOption("diagram-name")).thenReturn(true);
-
-        when(commandLine.getOptionValue("voltage-level-layout")).thenReturn("auto-without-extensions");
-        when(commandLine.getOptionValue("substation-layout")).thenReturn("horizontal");
-        when(commandLine.getOptionValue("diagram-name")).thenReturn("name");
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-voltage-level-layout",
+                "auto-without-extensions",
+                "-substation-layout",
+                "horizontal",
+                "-diagram-name",
+                "name"
+            }
+        );
 
         tool.run(commandLine, runningContext);
 
