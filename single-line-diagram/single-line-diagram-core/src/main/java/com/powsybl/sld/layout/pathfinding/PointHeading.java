@@ -9,8 +9,6 @@ package com.powsybl.sld.layout.pathfinding;
 
 import com.powsybl.sld.model.coordinate.PointInteger;
 
-import java.util.Objects;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
