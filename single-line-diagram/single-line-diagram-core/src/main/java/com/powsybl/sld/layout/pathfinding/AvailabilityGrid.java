@@ -79,39 +79,6 @@ public class AvailabilityGrid {
     }
 
     /**
-     * Checks if the lines formed by previous-current and current-next make a right angle
-     * @param previous the previous point
-     * @param current the current point
-     * @param next the next point
-     * @return if previous-current-next is a right angle
-     */
-    public static boolean isRightAngle(PointInteger previous, PointInteger current, PointInteger next) {
-        // Check if the angle is a right angle using dot product
-        int vectorABx = current.getX() - previous.getX();
-        int vectorABy = current.getY() - previous.getY();
-        int vectorBCx = next.getX() - current.getX();
-        int vectorBCy = next.getY() - current.getY();
-
-        // Dot product of vectors AB and BC
-        int dotProduct = vectorABx * vectorBCx + vectorABy * vectorBCy;
-
-        // Check if the dot product is zero (cosine of 90 degrees)
-        return dotProduct == 0;
-    }
-
-    /**
-     * Checks if the lines formed by currentNode.parent - currentNode and currentNode-next make a right angle.
-     * currentNode.parent can be null and this operation will return false in that case
-     * @param currentNode the current node of the search
-     * @param next the next point
-     * @return if parent-currentNode-next make a right angle
-     */
-    public static boolean isRightAngle(PathNode currentNode, PointInteger next) {
-        PathNode parentNode = currentNode.getParent();
-        return parentNode != null && isRightAngle(parentNode.getPointInteger(), currentNode.getPointInteger(), next);
-    }
-
-    /**
      * @param x the column index
      * @param y the line index
      * @return if the coordinates (x,y) are the grid

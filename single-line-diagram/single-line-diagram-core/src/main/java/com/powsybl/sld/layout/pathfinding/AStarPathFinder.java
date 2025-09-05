@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.layout.pathfinding.AvailabilityGrid.isRightAngle;
+import static com.powsybl.sld.layout.pathfinding.Headings.isRightAngle;
 
 /**
  * Implementation of the A* algorithm for finding the shortest path between two points. This also adds some constraints,
@@ -41,36 +41,26 @@ public final class AStarPathFinder implements PathFinder {
      */
     private AvailabilityGrid availabilityGrid;
 
-    /**
-     * The movements we can do, using points instead of vectors because in the end, it's two double
-     */
-    private static final List<PointInteger> ALLOWED_MOVEMENTS = List.of(
-        new PointInteger(1, 0),
-        new PointInteger(-1, 0),
-        new PointInteger(0, 1),
-        new PointInteger(0, -1)
-    );
-
     @Override
     public List<Point> findBestPath(AvailabilityGrid availabilityGrid, Point start, Point goal) {
         this.availabilityGrid = availabilityGrid;
         //AvailabilityGridImageDisplayer.makeAvailabilityImage(availabilityGrid, "/tmp/grid_color.png");
         PointInteger startInteger = new PointInteger(start);
         PointInteger goalInteger = new PointInteger(goal);
-        Map<PointInteger, PathNode> visitedNodes = new HashMap<>();
+        Map<PointHeading, PathNode> visitedNodes = new HashMap<>();
         PriorityQueue<PathNode> queue = new PriorityQueue<>(Comparator.comparingDouble(PathNode::getTotalCost));
-        queue.add(new PathNode(startInteger, null, 0, startInteger.manhattanDistance(goalInteger)));
+        queue.add(new PathNode(new PointHeading(startInteger, null), null, 0, startInteger.manhattanDistance(goalInteger)));
 
         while (!queue.isEmpty()) {
             PathNode current = queue.poll();
-            if (current.getPointInteger().equals(goalInteger)) {
+            if (current.getPointHeading().getPoint().equals(goalInteger)) {
                 List<PointInteger> path = rebuildPath(current);
                 // update the grid with the chosen path
                 availabilityGrid.makeWirePath(path);
                 // make the path smooth (ie only keeping the right angles) and convert to List<Point>
                 return convertToPointPath(makeSmoothPath(path));
             }
-            for (PointInteger neighbor : generateAvailableNeighbors(current)) {
+            for (PointHeading neighbor : generateAvailableNeighbors(current)) {
                 int neighborCost = current.getPathCost() + costOfMovement(current, neighbor);
                 if (visitedNodes.containsKey(neighbor)) {
                     PathNode neighborNode = visitedNodes.get(neighbor);
@@ -78,12 +68,12 @@ public final class AStarPathFinder implements PathFinder {
                         // we need to remove and add the node after modification, because there is no way to update the queue directly
                         queue.remove(neighborNode);
                         neighborNode.setPathCost(neighborCost);
-                        neighborNode.setParent(current);
-                        neighborNode.setTotalCost(neighborCost + neighbor.manhattanDistance(goalInteger));
+                        neighborNode.setParentNode(current);
+                        neighborNode.setTotalCost(neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
                         queue.add(neighborNode);
                     }
                 } else {
-                    PathNode neighborPath = new PathNode(neighbor, current, neighborCost, neighborCost + neighbor.manhattanDistance(goalInteger));
+                    PathNode neighborPath = new PathNode(neighbor, current, neighborCost, neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
                     visitedNodes.put(neighbor, neighborPath);
                     // add the neighbor as a new node to check
                     queue.add(neighborPath);
@@ -104,8 +94,8 @@ public final class AStarPathFinder implements PathFinder {
         PathNode current = lastNode;
         List<PointInteger> path = new ArrayList<>();
         while (current != null) {
-            path.add(new PointInteger(current.getPointInteger().getX(), current.getPointInteger().getY()));
-            current = current.getParent();
+            path.add(current.getPointHeading().getPoint());
+            current = current.getParentNode();
         }
         Collections.reverse(path);
         return path;
@@ -147,34 +137,30 @@ public final class AStarPathFinder implements PathFinder {
     }
 
     /**
-     * Make the list of all the neighbors of a given node, considering were we came from (no backtracking), the borders of the grid, and which places are available or not
+     * Make the list of all the neighbors of a given node with the direction to go that neighbor, considering were we came from (no backtracking),
+     * the borders of the grid, and which places are available or not
      * @param pathNode the node which we want to generate its neighbors for
-     * @return the list of all neighbors that verify availability conditions as given in the description of this function
+     * @return the list of all neighbors that verify availability conditions as given in the description of this function, with the associated direction
      */
-    private List<PointInteger> generateAvailableNeighbors(PathNode pathNode) {
-        List<PointInteger> availableNeighbors = new ArrayList<>();
-        PointInteger currentPoint = pathNode.getPointInteger();
-        for (PointInteger movement : ALLOWED_MOVEMENTS) {
+    private List<PointHeading> generateAvailableNeighbors(PathNode pathNode) {
+        List<PointHeading> availableNeighbors = new ArrayList<>();
+        PointInteger currentPoint = pathNode.getPointHeading().getPoint();
+        for (PointInteger movement : Headings.ALL_HEADINGS) {
+            // check that we do not go backwards
+            // we can use == instead of .equals because we use static reference everywhere
+            if (Headings.getOppositeHeading(pathNode.getPointHeading().getHeading()) == movement) {
+                continue;
+            }
             PointInteger candidate = currentPoint.getShiftedPoint(movement);
             int candidateX = candidate.getX();
             int candidateY = candidate.getY();
-            byte[][] grid = availabilityGrid.getGrid();
             //check that the candidate position is inside the bounds of the array and that it is available
             if (
-                    candidateX >= 0
-                    && candidateY >= 0
-                    && candidateY < grid.length
-                    && candidateX < grid[0].length
-                    && grid[candidate.getY()][candidate.getX()] != AvailabilityGrid.NOT_AVAILABLE
+                    availabilityGrid.isInBounds(candidateX, candidateY)
+                    && !availabilityGrid.isNotAvailable(candidateX, candidateY)
             ) {
-                PathNode parent = pathNode.getParent();
-                // check that we do not go backwards, the parent could be null if we are at the start (in which case all directions are ok)
-                // this is the boolean factorization of (parent not null AND candidate...) OR parent is null
-                // since (not a and b) or a = (not a or a) and (a or b) due to distributivity of or over and
-                // which equals to (true) and (a or b) = a or b
-                if (parent == null || !candidate.equals(parent.getPointInteger())) {
-                    availableNeighbors.add(candidate);
-                }
+                PointHeading pointHeading = new PointHeading(candidate, movement);
+                availableNeighbors.add(pointHeading);
             }
         }
         return availableNeighbors;
@@ -186,15 +172,16 @@ public final class AStarPathFinder implements PathFinder {
      * @param neighbor the point we are going to next
      * @return the cost of the movement from currentNode to neighbor
      */
-    private int costOfMovement(PathNode currentNode, PointInteger neighbor) {
+    private int costOfMovement(PathNode currentNode, PointHeading neighbor) {
         int cost = 1; // default cost of movement
-        if (isRightAngle(currentNode, neighbor)) {
+        // if the direction is different, then it means we are turning (since the neighbors can't do backtracking)
+        if (currentNode.getPointHeading().getHeading() != neighbor.getHeading()) {
             cost += TURNING_COST;
         }
-        if (availabilityGrid.isWire(neighbor)) {
+        if (availabilityGrid.isWire(neighbor.getPoint())) {
             cost += CROSSING_COST;
         }
-        if (availabilityGrid.isAroundWire(neighbor)) {
+        if (availabilityGrid.isAroundWire(neighbor.getPoint())) {
             cost += AROUND_WIRE_COST;
         }
         return cost;
