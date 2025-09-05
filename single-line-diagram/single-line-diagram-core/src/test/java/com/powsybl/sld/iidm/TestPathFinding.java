@@ -67,7 +67,7 @@ class TestPathFinding extends AbstractTestCaseIidm {
         }
 
         expectedSnakeline.add(new Point(0, 0)); // first point
-        expectedSnakeline.add(new Point(11, 0)); // right angle point
+        expectedSnakeline.add(new Point(0, 11)); // right angle point
         expectedSnakeline.add(new Point(11, 11)); // last point
 
         List<Point> snakeline = pathfinder.findBestPath(pathFinderGrid,

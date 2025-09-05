@@ -30,7 +30,7 @@ public class PointHeading {
         if (!(o instanceof PointHeading that)) {
             return false;
         }
-        return Objects.equals(point, that.point) && Objects.equals(heading, that.heading);
+        return point.equals(that.point) && heading.equals(that.heading);
     }
 
     public PointInteger getPoint() {
@@ -54,10 +54,11 @@ public class PointHeading {
         int result = hashCode;
         if (result == 0) {
             result = 17;
-            result = 31 * result + point.getX();
-            result = 31 * result + point.getY();
-            result = 31 * result + heading.getX();
-            result = 31 * result + heading.getY();
+            // https://stackoverflow.com/a/2816747
+            result = 92821 * result + point.getX();
+            result = 92821 * result + point.getY();
+            result = 92821 * result + heading.getX();
+            result = 92821 * result + heading.getY();
             hashCode = result;
         }
         return result;

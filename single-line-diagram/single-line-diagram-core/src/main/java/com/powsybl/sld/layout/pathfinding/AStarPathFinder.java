@@ -62,15 +62,15 @@ public final class AStarPathFinder implements PathFinder {
             }
             for (PointHeading neighbor : generateAvailableNeighbors(current)) {
                 int neighborCost = current.getPathCost() + costOfMovement(current, neighbor);
-                if (visitedNodes.containsKey(neighbor)) {
-                    PathNode neighborNode = visitedNodes.get(neighbor);
-                    if (neighborCost < neighborNode.getPathCost()) {
+                PathNode neighborNodeAlreadyVisited = visitedNodes.get(neighbor);
+                if (neighborNodeAlreadyVisited != null) {
+                    if (neighborCost < neighborNodeAlreadyVisited.getPathCost()) {
                         // we need to remove and add the node after modification, because there is no way to update the queue directly
-                        queue.remove(neighborNode);
-                        neighborNode.setPathCost(neighborCost);
-                        neighborNode.setParentNode(current);
-                        neighborNode.setTotalCost(neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
-                        queue.add(neighborNode);
+                        queue.remove(neighborNodeAlreadyVisited);
+                        neighborNodeAlreadyVisited.setPathCost(neighborCost);
+                        neighborNodeAlreadyVisited.setParentNode(current);
+                        neighborNodeAlreadyVisited.setTotalCost(neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
+                        queue.add(neighborNodeAlreadyVisited);
                     }
                 } else {
                     PathNode neighborPath = new PathNode(neighbor, current, neighborCost, neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));

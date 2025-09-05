@@ -73,7 +73,7 @@ public final class Headings {
      * @return if firstDirection is orthogonal to secondHeading
      */
     public static boolean isRightAngle(PointInteger firstHeading, PointInteger secondHeading) {
-        int dotProduct = firstHeading.getX() * secondHeading.getX() + firstHeading.getY() + secondHeading.getY();
+        int dotProduct = firstHeading.getX() * secondHeading.getX() + firstHeading.getY() * secondHeading.getY();
         return dotProduct == 0;
     }
 
