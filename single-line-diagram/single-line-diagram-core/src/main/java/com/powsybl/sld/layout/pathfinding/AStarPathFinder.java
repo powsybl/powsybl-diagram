@@ -60,17 +60,25 @@ public final class AStarPathFinder implements PathFinder {
                 // make the path smooth (ie only keeping the right angles) and convert to List<Point>
                 return convertToPointPath(makeSmoothPath(path));
             }
+            // check if we already visited this point with a path of lower cost
+            PathNode currentAlreadyVisited = visitedNodes.get(current.getPointHeading());
+            if (currentAlreadyVisited != null && currentAlreadyVisited.getPathCost() < current.getPathCost()) {
+                continue;
+            }
             for (PointHeading neighbor : generateAvailableNeighbors(current)) {
                 int neighborCost = current.getPathCost() + costOfMovement(current, neighbor);
                 PathNode neighborNodeAlreadyVisited = visitedNodes.get(neighbor);
                 if (neighborNodeAlreadyVisited != null) {
                     if (neighborCost < neighborNodeAlreadyVisited.getPathCost()) {
-                        // we need to remove and add the node after modification, because there is no way to update the queue directly
-                        queue.remove(neighborNodeAlreadyVisited);
-                        neighborNodeAlreadyVisited.setPathCost(neighborCost);
-                        neighborNodeAlreadyVisited.setParentNode(current);
-                        neighborNodeAlreadyVisited.setTotalCost(neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
-                        queue.add(neighborNodeAlreadyVisited);
+                        //don't remove elements from the queue as it is slow, just add new elements with a lower cost into the queue, and replace the lowest cost found for this PointHeading
+                        PathNode betterPathToNeighborNode = new PathNode(
+                            neighbor,
+                            current,
+                            neighborCost,
+                            neighborCost + (double) neighbor.getPoint().manhattanDistance(goalInteger)
+                        );
+                        queue.add(betterPathToNeighborNode);
+                        visitedNodes.put(neighbor, betterPathToNeighborNode);
                     }
                 } else {
                     PathNode neighborPath = new PathNode(neighbor, current, neighborCost, neighborCost + neighbor.getPoint().manhattanDistance(goalInteger));
