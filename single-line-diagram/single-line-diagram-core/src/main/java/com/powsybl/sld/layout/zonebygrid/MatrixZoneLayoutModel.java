@@ -146,7 +146,7 @@ public class MatrixZoneLayoutModel {
             for (Edge edge : node.getAdjacentEdges()) {
                 if (edge instanceof BranchEdge branchEdge) {
                     List<PointInteger> points = AvailabilityGrid.getPointsAlongSnakeline(branchEdge.getSnakeLine());
-                    pathFinderGrid.makeWirePath(points);
+                    pathFinderGrid.makeWirePathFromFullPath(points);
                 }
             }
         }

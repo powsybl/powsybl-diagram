@@ -66,6 +66,34 @@ public final class Headings {
         }
     }
 
+    public static PointInteger rotateLeft(PointInteger heading) {
+        if (heading == UP) {
+            return LEFT;
+        } else if (heading == LEFT) {
+            return DOWN;
+        } else if (heading == DOWN) {
+            return RIGHT;
+        } else if (heading == RIGHT) {
+            return UP;
+        } else {
+            return new PointInteger(-heading.getY(), heading.getX());
+        }
+    }
+
+    public static PointInteger rotateRight(PointInteger heading) {
+        if (heading == UP) {
+            return RIGHT;
+        } else if (heading == RIGHT) {
+            return DOWN;
+        } else if (heading == DOWN) {
+            return LEFT;
+        } else if (heading == LEFT) {
+            return UP;
+        } else {
+            return new PointInteger(heading.getY(), -heading.getX());
+        }
+    }
+
     /**
      * Check if the vector defined by the firstHeading makes a right angle with the secondHeading
      * @param firstHeading the first direction

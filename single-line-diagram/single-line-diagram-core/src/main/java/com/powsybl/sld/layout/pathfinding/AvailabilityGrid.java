@@ -87,6 +87,10 @@ public class AvailabilityGrid {
         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
+    public boolean isInBounds(PointInteger pointInteger) {
+        return isInBounds(pointInteger.getX(), pointInteger.getY());
+    }
+
     public void makeNotAvailable(int x, int y) {
         grid[y][x] = NOT_AVAILABLE;
     }
@@ -133,6 +137,20 @@ public class AvailabilityGrid {
 
     public boolean isAroundWire(PointInteger point) {
         return isAroundWire(point.getX(), point.getY());
+    }
+
+    /**
+     * Get the state of the grid at coordinates x and y. This does not check if those coordinates are actually part of the grid, use with caution
+     * @param x the X coordinates of the grid (ie the column index)
+     * @param y the Y coordinates of the grid (ie the line index)
+     * @return the state at the line Y, column X
+     */
+    public byte getState(int x, int y) {
+        return grid[y][x];
+    }
+
+    public byte getState(PointInteger pointInteger) {
+        return getState(pointInteger.getX(), pointInteger.getY());
     }
 
     /**
@@ -217,19 +235,41 @@ public class AvailabilityGrid {
     /**
      * Makes all the points in the path as WIRE
      * Also makes all points perpendicular to the path as AROUND_WIRE, for snakeLinePadding length
-     * @param path the path of the wire, this function assumes all if two points are next to each other in the list,
+     * @param incompletePath the path of the wire, this function does NOT assume that two points next to each other in the list are next to each other on the grid,
+     *                        this function however assumes that we can build the complete path by making segments between points that are adjacent in the list
+     */
+    public void makeWirePathFromIncompletePath(List<PointInteger> incompletePath) {
+        List<PointInteger> fullPath = new ArrayList<>();
+        PointInteger pathPoint = incompletePath.getFirst();
+        for (int i = 0; i < incompletePath.size() - 1; ++i) {
+            PointInteger segmentStart = incompletePath.get(i);
+            PointInteger segmentEnd = incompletePath.get(i + 1);
+            PointInteger segmentDirection = getNormalizedSegmentDirection(segmentStart.getDirection(segmentEnd));
+            // add all the points in [segmentStart, segmentEnd[
+            while (!pathPoint.equals(segmentEnd)) {
+                fullPath.add(pathPoint);
+                pathPoint = pathPoint.getShiftedPoint(segmentDirection);
+            }
+        }
+        fullPath.add(incompletePath.get(incompletePath.size() - 1));
+        makeWirePathFromFullPath(fullPath);
+    }
+
+    /**
+     * Makes all the points in the path as WIRE
+     * Also makes all points perpendicular to the path as AROUND_WIRE, for snakeLinePadding length
+     * @param fullPath the path of the wire, this function assumes all if two points are next to each other in the list,
      *             they are next to each other in the 2D space (ie no jumping to different points of the path)
      *             this condition is needed to be able to properly calculate the perpendicular of the path to set AROUND_WIRE correctly
      */
-    public void makeWirePath(List<PointInteger> path) {
-        //define it here because we need it after the loop
+    public void makeWirePathFromFullPath(List<PointInteger> fullPath) {
         PointInteger perpendicularOfPath = new PointInteger(0, 0);
         PointInteger previousPathDirection = null;
         // iterate over all the points except the last one, because we can't calculate a direction of the path for the last point
-        for (int i = 0; i < path.size() - 1; ++i) {
-            PointInteger currentPoint = path.get(i);
+        for (int i = 0; i < fullPath.size() - 1; ++i) {
+            PointInteger currentPoint = fullPath.get(i);
             this.makeWire(currentPoint);
-            PointInteger pathDirection = currentPoint.getDirection(path.get(i + 1)); // this is the direction of the path
+            PointInteger pathDirection = currentPoint.getDirection(fullPath.get(i + 1)); // this is the direction of the path
 
             if (previousPathDirection != null && !pathDirection.equals(previousPathDirection)) {
                 perpendicularOfPath = new PointInteger(previousPathDirection);
@@ -245,7 +285,7 @@ public class AvailabilityGrid {
             previousPathDirection = pathDirection;
         }
         // finish with the last point
-        PointInteger lastPoint = path.get(path.size() - 1);
+        PointInteger lastPoint = fullPath.get(fullPath.size() - 1);
         this.makeWire(lastPoint);
         // there is no next point, we can't calculate a direction of path, use the perpendicular of the previous point
         // since there won't be a turn at the last point
@@ -292,6 +332,7 @@ public class AvailabilityGrid {
         }
     }
 
+    //TODO move this to Headings
     /**
      * Calculate the segment direction so that it only corresponds to UP, DOWN, LEFT or RIGHT directions, with a vector or magnitude 1
      * @param segmentDirection the direction we want to calculate the normalized direction of

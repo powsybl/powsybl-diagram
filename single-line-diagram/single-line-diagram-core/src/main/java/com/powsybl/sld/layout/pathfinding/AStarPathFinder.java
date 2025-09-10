@@ -59,7 +59,7 @@ public final class AStarPathFinder implements PathFinder {
             if (current.getPointHeading().getPoint().equals(goalInteger)) {
                 List<PointInteger> path = rebuildPath(current);
                 // update the grid with the chosen path
-                availabilityGrid.makeWirePath(path);
+                availabilityGrid.makeWirePathFromFullPath(path);
                 // make the path smooth (ie only keeping the right angles) and convert to List<Point>
                 return convertToPointPath(makeSmoothPath(path));
             }
