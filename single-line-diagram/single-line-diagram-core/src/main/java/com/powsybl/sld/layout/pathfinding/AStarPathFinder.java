@@ -9,6 +9,7 @@ package com.powsybl.sld.layout.pathfinding;
 
 import com.powsybl.sld.layout.pathfinding.geometry.Headings;
 import com.powsybl.sld.layout.pathfinding.geometry.PathNode;
+import com.powsybl.sld.layout.pathfinding.geometry.PathUtils;
 import com.powsybl.sld.layout.pathfinding.geometry.PointHeading;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
@@ -16,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-
-import static com.powsybl.sld.layout.pathfinding.geometry.Headings.isRightAngle;
 
 /**
  * Implementation of the A* algorithm for finding the shortest path between two points. This also adds some constraints,
@@ -61,7 +60,7 @@ public final class AStarPathFinder implements PathFinder {
                 // update the grid with the chosen path
                 availabilityGrid.makeWirePathFromFullPath(path);
                 // make the path smooth (ie only keeping the right angles) and convert to List<Point>
-                return convertToPointPath(makeSmoothPath(path));
+                return PathUtils.convertToPointPath(PathUtils.makeSmoothPath(path));
             }
             // check if we already visited this point with a path of lower cost
             PathNode currentAlreadyVisited = visitedNodes.get(current.getPointHeading());
@@ -102,41 +101,6 @@ public final class AStarPathFinder implements PathFinder {
         }
         Collections.reverse(path);
         return path;
-    }
-
-    /**
-     * Transform a path to only its changes in direction (since between those changes, it's only direct lines, so the information would be redundant otherwise)
-     * @param notSmoothPath a path that has all its point
-     * @return virtually the same path, but with only the changes in direction
-     */
-    private List<PointInteger> makeSmoothPath(List<PointInteger> notSmoothPath) {
-        List<PointInteger> smoothPath = new ArrayList<>();
-        smoothPath.add(notSmoothPath.get(0));
-        // start from the second point, stop at the point before the last
-        for (int i = 1; i < notSmoothPath.size() - 1; ++i) {
-            PointInteger currentPoint = notSmoothPath.get(i);
-            PointInteger previousPoint = notSmoothPath.get(i - 1);
-            PointInteger nextPoint = notSmoothPath.get(i + 1);
-            if (isRightAngle(previousPoint, currentPoint, nextPoint)) {
-                smoothPath.add(currentPoint);
-            }
-        }
-        smoothPath.add(notSmoothPath.get(notSmoothPath.size() - 1)); //getLast is only after JDK 21, this code is written on JDK 17
-        return smoothPath;
-    }
-
-    /**
-     * Convert a {@code List<PointInteger>} to a {@code List<Point>}.
-     * Yes that's it, nothing more
-     * @param path the path using point integer
-     * @return same path but using point
-     */
-    private List<Point> convertToPointPath(List<PointInteger> path) {
-        List<Point> pointPath = new ArrayList<>();
-        for (PointInteger pointInteger : path) {
-            pointPath.add(new Point(pointInteger));
-        }
-        return pointPath;
     }
 
     /**
