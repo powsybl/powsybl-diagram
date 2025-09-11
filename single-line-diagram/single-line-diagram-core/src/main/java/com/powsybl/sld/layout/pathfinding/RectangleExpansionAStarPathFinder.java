@@ -98,8 +98,7 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
         rectangleCorners[2] = firstSegmentEnd;
         rectangleCorners[3] = firstSegmentStart;
         PointInteger currentSegmentStart = firstSegmentStart;
-        //TODO this is not correct, we need the normalized direction
-        PointInteger segmentDirection = firstSegmentStart.getDirection(firstSegmentEnd);
+        PointInteger segmentDirection = Headings.getNormalizedDirection(firstSegmentStart, firstSegmentEnd);
         // need to shift by 1 to be able to include the corner in the loop after, otherwise we stop 1 too early
         PointInteger currentSegmentEnd = firstSegmentEnd.getShiftedPoint(segmentDirection);
         final byte startingState = availabilityGrid.getState(firstSegmentStart);
@@ -153,8 +152,7 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
     private void successorPointsOnOneSide(PointInteger firstCorner, PointInteger secondCorner, PointInteger expansionDirection, List<PointInteger> successorPoints) {
         PointInteger currentPoint = firstCorner.getShiftedPoint(expansionDirection);
         PointInteger lastPoint = secondCorner.getShiftedPoint(expansionDirection);
-        //TODO incorrect, we need the normalized direction
-        PointInteger borderDirection = currentPoint.getDirection(lastPoint);
+        PointInteger borderDirection = Headings.getNormalizedDirection(currentPoint, lastPoint);
         // need to move the last point by 1 to go up to the last corner
         lastPoint = lastPoint.getShiftedPoint(borderDirection);
 
@@ -254,8 +252,11 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
      */
     private boolean isTrigonometricOrder(PointInteger[] corners) {
         // the order is trigonometric if we can get the direction of the second edge by rotating the direction of the first edge left
-        //TODO incorrect, need normalized direction
-        return Headings.rotateLeft(corners[0].getDirection(corners[1])).equals(corners[1].getDirection(corners[2]));
+        return Headings.rotateLeft(
+                Headings.getNormalizedDirection(corners[0], corners[1])
+        ).equals(
+                Headings.getNormalizedDirection(corners[1], corners[2])
+        );
     }
 
     /**

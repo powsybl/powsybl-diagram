@@ -84,15 +84,6 @@ public class PointInteger {
         return new PointInteger(-this.x, -this.y);
     }
 
-    /**
-     * Get the vector from this point to towards, this is not the unit vector
-     * @param towards the points towards which we go
-     * @return a point integer that represents the vector From -> Towards
-     */
-    public PointInteger getDirection(PointInteger towards) {
-        return new PointInteger(towards.x - this.x, towards.y - this.y);
-    }
-
     public void shiftX(int transX) {
         x += transX;
     }

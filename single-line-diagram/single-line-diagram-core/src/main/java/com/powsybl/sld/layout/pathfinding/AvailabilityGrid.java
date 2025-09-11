@@ -245,7 +245,7 @@ public class AvailabilityGrid {
         for (int i = 0; i < incompletePath.size() - 1; ++i) {
             PointInteger segmentStart = incompletePath.get(i);
             PointInteger segmentEnd = incompletePath.get(i + 1);
-            PointInteger segmentDirection = getNormalizedSegmentDirection(segmentStart.getDirection(segmentEnd));
+            PointInteger segmentDirection = Headings.getNormalizedDirection(segmentStart, segmentEnd);
             // add all the points in [segmentStart, segmentEnd[
             while (!pathPoint.equals(segmentEnd)) {
                 fullPath.add(pathPoint);
@@ -270,7 +270,7 @@ public class AvailabilityGrid {
         for (int i = 0; i < fullPath.size() - 1; ++i) {
             PointInteger currentPoint = fullPath.get(i);
             this.makeWire(currentPoint);
-            PointInteger pathDirection = currentPoint.getDirection(fullPath.get(i + 1)); // this is the direction of the path
+            PointInteger pathDirection = Headings.getDirection(currentPoint, fullPath.get(i + 1)); // this is the direction of the path
 
             if (previousPathDirection != null && !pathDirection.equals(previousPathDirection)) {
                 perpendicularOfPath = Headings.rotateLeft(new PointInteger(previousPathDirection));
@@ -321,8 +321,7 @@ public class AvailabilityGrid {
      * @param secondSegmentPoint the second point of the segment
      */
     private static void addSegmentPoints(List<PointInteger> allPoints, PointInteger firstSegmentPoint, PointInteger secondSegmentPoint) {
-        PointInteger segmentDirection = firstSegmentPoint.getDirection(secondSegmentPoint);
-        PointInteger normalizedSegmentDirection = getNormalizedSegmentDirection(segmentDirection);
+        PointInteger normalizedSegmentDirection = Headings.getNormalizedDirection(firstSegmentPoint, secondSegmentPoint);
         PointInteger currentPoint = new PointInteger(firstSegmentPoint);
         while (!currentPoint.equals(secondSegmentPoint)) {
             allPoints.add(currentPoint);
@@ -330,24 +329,5 @@ public class AvailabilityGrid {
         }
     }
 
-    //TODO move this to Headings
-    /**
-     * Calculate the segment direction so that it only corresponds to UP, DOWN, LEFT or RIGHT directions, with a vector or magnitude 1
-     * @param segmentDirection the direction we want to calculate the normalized direction of
-     * @return a vector of magnitude 1, as long as segmentDirection is only in one of the cardinal direction (ie no diagonal movements)
-     */
-    private static PointInteger getNormalizedSegmentDirection(PointInteger segmentDirection) {
-        int deltaX = segmentDirection.getX();
-        int deltaY = segmentDirection.getY();
-        // normalize x and y to only move by one each time, we get a vector like (0, 1), (0, -1), (1, 0) or (-1, 0)
-        if (deltaX != 0) {
-            // just get the direction of the X change, if it's negative or positive
-            deltaX = deltaX > 0 ? 1 : -1;
-        }
-        if (deltaY != 0) {
-            deltaY = deltaY > 0 ? 1 : -1;
-        }
-        return new PointInteger(deltaX, deltaY);
-    }
 }
 

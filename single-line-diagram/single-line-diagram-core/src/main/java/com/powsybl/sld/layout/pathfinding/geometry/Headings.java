@@ -109,7 +109,39 @@ public final class Headings {
         return previousPoint != null
                 && currentPoint != null
                 && nextPoint != null
-                && isRightAngle(previousPoint.getDirection(currentPoint), currentPoint.getDirection(nextPoint));
+                && isRightAngle(Headings.getDirection(previousPoint, currentPoint), Headings.getDirection(currentPoint, nextPoint));
     }
+
+    /**
+     * Get the vector from this point to towards, this is not the unit vector
+     * @param from the point from which we start
+     * @param towards the point towards which we go
+     * @return a point integer that represents the vector From -> Towards
+     */
+    public static PointInteger getDirection(PointInteger from, PointInteger towards) {
+        return new PointInteger(towards.getX() - from.getX(), towards.getY() - from.getY());
+    }
+
+    /**
+     * Calculate the segment direction so that it only corresponds to UP, DOWN, LEFT or RIGHT directions, with a vector or magnitude 1
+     * @param from the point from which we start
+     * @param towards the point towards which we go
+     * @return a vector of magnitude 1, as long as segmentDirection is only in one of the cardinal direction (ie no diagonal movements)
+     */
+    public static PointInteger getNormalizedDirection(PointInteger from, PointInteger towards) {
+        PointInteger direction = getDirection(from, towards);
+        int deltaX = direction.getX();
+        int deltaY = direction.getY();
+        // normalize x and y to only move by one each time, we get a vector like (0, 1), (0, -1), (1, 0) or (-1, 0)
+        if (deltaX != 0) {
+            // just get the direction of the X change, if it's negative or positive
+            deltaX = deltaX > 0 ? 1 : -1;
+        }
+        if (deltaY != 0) {
+            deltaY = deltaY > 0 ? 1 : -1;
+        }
+        return new PointInteger(deltaX, deltaY);
+    }
+
 }
 
