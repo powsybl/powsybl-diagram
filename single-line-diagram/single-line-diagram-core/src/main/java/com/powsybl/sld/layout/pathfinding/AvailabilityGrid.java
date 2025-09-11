@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.layout.pathfinding.geometry.Headings;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
 
@@ -240,7 +241,7 @@ public class AvailabilityGrid {
      */
     public void makeWirePathFromIncompletePath(List<PointInteger> incompletePath) {
         List<PointInteger> fullPath = new ArrayList<>();
-        PointInteger pathPoint = incompletePath.getFirst();
+        PointInteger pathPoint = incompletePath.get(0);
         for (int i = 0; i < incompletePath.size() - 1; ++i) {
             PointInteger segmentStart = incompletePath.get(i);
             PointInteger segmentEnd = incompletePath.get(i + 1);
@@ -272,15 +273,12 @@ public class AvailabilityGrid {
             PointInteger pathDirection = currentPoint.getDirection(fullPath.get(i + 1)); // this is the direction of the path
 
             if (previousPathDirection != null && !pathDirection.equals(previousPathDirection)) {
-                perpendicularOfPath = new PointInteger(previousPathDirection);
-                perpendicularOfPath.rotate();
+                perpendicularOfPath = Headings.rotateLeft(new PointInteger(previousPathDirection));
                 makeAroundWireInBothDirections(currentPoint.getX(), currentPoint.getY(), perpendicularOfPath);
                 // we want to make the corner on the side opposite of the turn
                 makeAroundWireCorner(currentPoint.getX(), currentPoint.getY(), previousPathDirection, pathDirection.getOpposite());
             }
-            perpendicularOfPath = new PointInteger(pathDirection);
-            // rotate to get perpendicular
-            perpendicularOfPath.rotate();
+            perpendicularOfPath = Headings.rotateLeft(new PointInteger(pathDirection));
             makeAroundWireInBothDirections(currentPoint.getX(), currentPoint.getY(), perpendicularOfPath);
             previousPathDirection = pathDirection;
         }

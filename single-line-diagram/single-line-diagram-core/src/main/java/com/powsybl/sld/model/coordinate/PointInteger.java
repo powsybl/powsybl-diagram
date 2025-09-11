@@ -93,17 +93,6 @@ public class PointInteger {
         return new PointInteger(towards.x - this.x, towards.y - this.y);
     }
 
-    /**
-     * Rotates the point of 90° in the trigonometric direction
-     * Doesn't really make sense for a point, but makes sense if the point is used as a representation for a vector
-     */
-    public void rotate() {
-        int oldX = this.x;
-        this.x = -y;
-        //noinspection SuspiciousNameCombination
-        this.y = oldX;
-    }
-
     public void shiftX(int transX) {
         x += transX;
     }
