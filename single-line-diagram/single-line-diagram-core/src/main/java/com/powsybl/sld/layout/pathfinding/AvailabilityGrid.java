@@ -161,6 +161,47 @@ public class AvailabilityGrid {
         }
     }
 
+    /**
+     * Make a square of size snakeLinePadding (class field) as around wire, square is defined as a corner (a, b) and the direction of two
+     * segments starting from the corner, in the directions firstDirection and secondDirection. (a, b) is obtained by starting from (x, y)
+     * and going in firstDirection and secondDirection once (meaning you can have (x, y) as the coordinates of the turn of your wire)<br>
+     * <pre>
+     *     {@code
+     *     * * * *
+     *     * * * *  ^
+     *     * * * *  | first direction
+     *     * * * * < - (a, b)
+     *     < -     ┌───
+     *     second  │ \
+     *  direction  │  (x, y)
+     *     }
+     * </pre>
+     * * * * * *
+     * @param x X coordinate of the wire corner
+     * @param y Y coordinate of the wire corner
+     * @param firstDirection direction of one segment starting from (a, b), this should be of magnitude 1, this can be interchanged with secondDirection
+     * @param secondDirection direction of the second segment starting from (a, b), this should be of magnitude 1, this can be interchanged with firstDirection
+     */
+    public void makeAroundWireCorner(int x, int y, PointInteger firstDirection, PointInteger secondDirection) {
+        List<PointInteger> candidatePoints = new ArrayList<>();
+        // we call that "line" but in reality it could be a column, depends on the vector of directions, but it doesn't really matter
+        PointInteger lineStartPoint = new PointInteger(x, y).getShiftedPoint(firstDirection).getShiftedPoint(secondDirection);
+        // loop going in both directions to make the square
+        for (int i = 0; i < snakelinePadding; ++i) {
+            PointInteger linePoint = lineStartPoint;
+            for (int j = 0; j < snakelinePadding; ++j) {
+                candidatePoints.add(linePoint);
+                linePoint = linePoint.getShiftedPoint(firstDirection);
+            }
+            lineStartPoint = lineStartPoint.getShiftedPoint(secondDirection);
+        }
+        for (PointInteger candidate : candidatePoints) {
+            if (isAvailable(candidate)) {
+                makeAroundWire(candidate);
+            }
+        }
+    }
+
     public void makeAvailable(int x, int y) {
         grid[y][x] = AVAILABLE;
     }
@@ -181,15 +222,27 @@ public class AvailabilityGrid {
      *             this condition is needed to be able to properly calculate the perpendicular of the path to set AROUND_WIRE correctly
      */
     public void makeWirePath(List<PointInteger> path) {
+        //define it here because we need it after the loop
         PointInteger perpendicularOfPath = new PointInteger(0, 0);
+        PointInteger previousPathDirection = null;
         // iterate over all the points except the last one, because we can't calculate a direction of the path for the last point
         for (int i = 0; i < path.size() - 1; ++i) {
             PointInteger currentPoint = path.get(i);
             this.makeWire(currentPoint);
-            perpendicularOfPath = currentPoint.getDirection(path.get(i + 1)); // this is the direction of the path
+            PointInteger pathDirection = currentPoint.getDirection(path.get(i + 1)); // this is the direction of the path
+
+            if (previousPathDirection != null && !pathDirection.equals(previousPathDirection)) {
+                perpendicularOfPath = new PointInteger(previousPathDirection);
+                perpendicularOfPath.rotate();
+                makeAroundWireInBothDirections(currentPoint.getX(), currentPoint.getY(), perpendicularOfPath);
+                // we want to make the corner on the side opposite of the turn
+                makeAroundWireCorner(currentPoint.getX(), currentPoint.getY(), previousPathDirection, pathDirection.getOpposite());
+            }
+            perpendicularOfPath = new PointInteger(pathDirection);
             // rotate to get perpendicular
             perpendicularOfPath.rotate();
             makeAroundWireInBothDirections(currentPoint.getX(), currentPoint.getY(), perpendicularOfPath);
+            previousPathDirection = pathDirection;
         }
         // finish with the last point
         PointInteger lastPoint = path.get(path.size() - 1);
