@@ -7,7 +7,6 @@
  */
 package com.powsybl.sld.layout.pathfinding.geometry;
 
-import com.powsybl.sld.layout.pathfinding.PathFinder;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
 

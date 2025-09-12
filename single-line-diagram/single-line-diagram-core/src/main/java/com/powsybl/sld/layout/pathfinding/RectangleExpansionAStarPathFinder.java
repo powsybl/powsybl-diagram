@@ -239,10 +239,14 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
             }
 
             PointInteger oppositeSegmentHeading = Headings.getOppositeHeading(segmentExpansionDirection);
+            firstHeadingPoint = firstHeadingPoint.getShiftedPoint(oppositeSegmentHeading); // we need to go back once because the last point we checked doesn't meet the conditions
+
             PointInteger firstOppositeHeadingPoint = firstSegmentPoint.getShiftedPoint(oppositeSegmentHeading);
             while (availabilityGrid.isAvailable(firstOppositeHeadingPoint) && availabilityGrid.getState(firstOppositeHeadingPoint) == startingState) {
                 firstOppositeHeadingPoint = firstOppositeHeadingPoint.getShiftedPoint(oppositeSegmentHeading);
             }
+            // go back since last point found doesn't meet conditions
+            firstOppositeHeadingPoint = firstOppositeHeadingPoint.getShiftedPoint(segmentExpansionDirection);
 
             return expandRectangleFromSegment(firstHeadingPoint, firstOppositeHeadingPoint, forwardExpansionDirection);
 
@@ -251,6 +255,7 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
             while (availabilityGrid.isAvailable(forwardHeadingPoint) && availabilityGrid.getState(forwardHeadingPoint) == startingState) {
                 forwardHeadingPoint = forwardHeadingPoint.getShiftedPoint(forwardExpansionDirection);
             }
+            forwardHeadingPoint = forwardHeadingPoint.getShiftedPoint(Headings.getOppositeHeading(forwardExpansionDirection));
             PointInteger[] rectangleSegmentDirection = expandRectangleFromSegment(firstSegmentPoint, forwardHeadingPoint, segmentExpansionDirection);
 
             PointInteger oppositeSegmentHeading = Headings.getOppositeHeading(segmentExpansionDirection);
