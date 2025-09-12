@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 /**
  * This is a utility class used to display the state of the AvailabilityGrid using colors for easier visual understanding
@@ -40,6 +41,10 @@ public final class AvailabilityGridImageDisplayer {
      *                   the complete filename will therefore be {@code outputPath-timedate.png}
      */
     public static void makeAvailabilityImage(AvailabilityGrid availabilityGrid, String outputPath) {
+        makeAvailabilityImage(availabilityGrid, outputPath, AvailabilityGridImageDisplayer::defaultGridColoring);
+    }
+
+    public static void makeAvailabilityImage(AvailabilityGrid availabilityGrid, String outputPath, Function<Byte, Color> gridColoring) {
         byte[][] grid = availabilityGrid.getGrid();
         int height = grid.length;
         int width = grid[0].length;
@@ -47,13 +52,7 @@ public final class AvailabilityGridImageDisplayer {
 
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                Color color = switch (grid[y][x]) {
-                    case AvailabilityGrid.NOT_AVAILABLE -> NOT_AVAILABLE_BLACK;
-                    case AvailabilityGrid.WIRE -> WIRE_RED;
-                    case AvailabilityGrid.AROUND_WIRE -> AROUND_WIRE_BLUE;
-                    case AvailabilityGrid.AVAILABLE -> AVAILABLE_GREEN;
-                    default -> UNKNOWN_PINK;
-                };
+                Color color = gridColoring.apply(grid[y][x]);
                 image.setRGB(x, y, color.getRGB());
             }
         }
@@ -66,6 +65,16 @@ public final class AvailabilityGridImageDisplayer {
         } catch (Exception e) {
             LOGGER.error("Could not save availability grid image to {} for the following reason:", outputPath, e);
         }
+    }
+
+    private static Color defaultGridColoring(byte state) {
+        return switch (state) {
+            case AvailabilityGrid.NOT_AVAILABLE -> NOT_AVAILABLE_BLACK;
+            case AvailabilityGrid.WIRE -> WIRE_RED;
+            case AvailabilityGrid.AROUND_WIRE -> AROUND_WIRE_BLUE;
+            case AvailabilityGrid.AVAILABLE -> AVAILABLE_GREEN;
+            default -> UNKNOWN_PINK;
+        };
     }
 }
 
