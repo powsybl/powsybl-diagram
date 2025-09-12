@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.List;
 
 /**
  * Based on "Rectangle expansion A* pathfinding for grid maps", Zhang An, Li Chong , Bi Wenhao, Chinese Journal of Aeronautics, (2016), 29(5): 1385–1396
@@ -132,18 +133,7 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
         PointInteger[] firstRectangle = expandRectangleFromPoint(startingPoint, firstExpansionHeading, orthogonalHeading, false);
         PointInteger oppositeOrthogonalHeading = Headings.getOppositeHeading(orthogonalHeading);
         PointInteger[] secondRectangle = expandRectangleFromPoint(startingPoint, firstExpansionHeading, oppositeOrthogonalHeading, false);
-        // now merge the two rectangles to get the biggest rectangle that includes both orthogonal directions, that way we expand in all 4 directions
-        // both rectangles are in trigonometric order, and both rectangles start with the points of the first segment, but in opposite order
-        // 2 ----- 1  0 ----- 3
-        // |       |  |       |
-        // 3 ----- 0  1 ----- 2
-        // the 0 and 1 are actually the same points but order changes depending on the rectangle
-        return makeRectangleTrigonometricOrder(new PointInteger[] {
-                firstRectangle[2],
-                firstRectangle[3],
-                secondRectangle[2],
-                secondRectangle[3]
-        });
+        return mergeRectangles(firstRectangle, secondRectangle);
     }
 
     /**
@@ -201,14 +191,16 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
         PointInteger currentSegmentStart = firstSegmentStart;
         PointInteger segmentDirection = Headings.getNormalizedDirection(firstSegmentStart, firstSegmentEnd);
         // need to shift by 1 to be able to include the corner in the loop after, otherwise we stop 1 too early
-        PointInteger currentSegmentEnd = firstSegmentEnd.getShiftedPoint(segmentDirection);
+        PointInteger currentSegmentEnd = firstSegmentEnd;
         final byte startingState = availabilityGrid.getState(firstSegmentStart);
         // we'll eventually get out of the loop because the isInBounds condition will get false at one point
         while (true) {
             currentSegmentStart = currentSegmentStart.getShiftedPoint(heading);
             currentSegmentEnd = currentSegmentEnd.getShiftedPoint(heading);
+            boolean arrivedAtSegmentEnd = false;
             PointInteger segmentPoint = currentSegmentStart;
-            while (!segmentPoint.equals(currentSegmentEnd)) {
+            while (!arrivedAtSegmentEnd) {
+                arrivedAtSegmentEnd = segmentPoint.equals(currentSegmentEnd);
                 if (!availabilityGrid.isInBounds(segmentPoint) || availabilityGrid.getState(segmentPoint) != startingState) {
                     return makeRectangleTrigonometricOrder(rectangleCorners);
                 }
@@ -261,18 +253,7 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
             PointInteger oppositeSegmentHeading = Headings.getOppositeHeading(segmentExpansionDirection);
             PointInteger[] rectangleOppositeSegmentDirection = expandRectangleFromSegment(firstSegmentPoint, forwardHeadingPoint, oppositeSegmentHeading);
 
-            // merge the two rectangles
-            // both rectangles are in trigonometric order, and both rectangles start with the points of the first segment, but in opposite order
-            // 2 ----- 1  0 ----- 3
-            // |       |  |       |
-            // 3 ----- 0  1 ----- 2
-            // the 0 and 1 are actually the same points but order changes depending on the rectangle
-            return makeRectangleTrigonometricOrder(new PointInteger[] {
-               rectangleSegmentDirection[2],
-               rectangleSegmentDirection[3],
-               rectangleOppositeSegmentDirection[2],
-               rectangleOppositeSegmentDirection[3]
-            });
+            return mergeRectangles(rectangleSegmentDirection, rectangleOppositeSegmentDirection);
         }
     }
 
@@ -348,6 +329,12 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
         return pathCost;
     }
 
+    /**
+     * Checks if two points are either on the same line or the same column
+     * @param first one point to check
+     * @param second the other point we want to check with
+     * @return true if the two points share an axis, false otherwise
+     */
     private boolean pointsAreAligned(PointInteger first, PointInteger second) {
         return first.getX() == second.getX() || first.getY() == second.getY();
     }
@@ -418,6 +405,96 @@ public class RectangleExpansionAStarPathFinder implements PathFinder {
         ).equals(
                 Headings.getNormalizedDirection(corners[1], corners[2])
         );
+    }
+
+    /**
+     * Determine if the area of a rectangle is 0
+     * @param corners the corners of the rectangle
+     * @return true if the area of the rectangle is 0, false otherwise
+     */
+    private boolean isRectangleOfSizeZero(PointInteger[] corners) {
+        for (int i = 0; i < 3; ++i) {
+            if (corners[i].equals(corners[(i + 1) % 4])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Merge two adjacent rectangles, they need to share an edge
+     * @param firstRectangle the first rectangle to merge, has to be in trigonometric order
+     * @param secondRectangle the second rectangle to merge, has to be in trigonometric order
+     * @return a rectangle in trigonometric order, where the area is the same as the area of the first and second rectangle, and all corners belong to either the first or second rectangle
+     */
+    private PointInteger[] mergeRectangles(PointInteger[] firstRectangle, PointInteger[] secondRectangle) {
+        // if either of the two rectangles is of size 0, to prevent issues with order of points return the other rectangle
+        // we don't lose any information that way anyway
+        if (isRectangleOfSizeZero(firstRectangle)) {
+            return secondRectangle;
+        }
+        if (isRectangleOfSizeZero(secondRectangle)) {
+            return firstRectangle;
+        }
+        // find the segment in common between the two rectangles
+        int[] indexes = findCommonSegment(firstRectangle, secondRectangle);
+        int firstRectangleIndex = indexes[0];
+        int secondRectangleIndex = indexes[1];
+
+        if (firstRectangleIndex == -1 || secondRectangleIndex == -1) {
+            LOGGER.error("Could not merge the two rectangles {} and {}", firstRectangle, secondRectangle);
+            return new PointInteger[0];
+        }
+
+        // merge the two rectangles
+        // both rectangles are in trigonometric order
+        // 3 ----- 2  0 ----- 3
+        // |       |  |       |
+        // 0 ----- 1  1 ----- 2
+        // the find common segment would give the index 1 and 1, for the first segment the two points that are not on the common segment are 3 and 0
+        // for the second rectangle, that's 2 and 3
+        return makeRectangleTrigonometricOrder(new PointInteger[] {
+                firstRectangle[(firstRectangleIndex + 2) % 4],
+                firstRectangle[(firstRectangleIndex + 3) % 4],
+                secondRectangle[(secondRectangleIndex + 1) % 4],
+                secondRectangle[(secondRectangleIndex + 2) % 4]
+        });
+    }
+
+    /**
+     * Find the index of a corner for rectangles such as points are in the same position for the two indexes on the two rectangles,
+     * and that the following point on the first rectangle is equal to the previous point on the second rectangle
+     * 3 ----- 2  2 ----- 1
+     * |       |  |       |
+     * 0 ----- 1  3 ----- 0
+     * so for example, if the first rectangle is on the left, then this function would return 1 and 3, since first.1 = second.3
+     * and first.2 = second.2
+     * @param firstRectangle the first of the two rectangle we search the common segment for
+     * @param secondRectangle the second of the two rectangle we search the common segment for
+     * @return indexes such as first.firstIndex = second.secondIndex and first.(firstIndex + 1) = second.(secondIndex - 1) (with modulo when needed)
+     * return [-1, -1] when an index can't be found
+     */
+    private static int[] findCommonSegment(PointInteger[] firstRectangle, PointInteger[] secondRectangle) {
+        int firstRectangleIndex;
+        int secondRectangleIndex;
+
+        for (firstRectangleIndex = 0; firstRectangleIndex < 3; ++firstRectangleIndex) {
+            for (secondRectangleIndex = 0; secondRectangleIndex < 3; ++secondRectangleIndex) {
+                if (
+                        firstRectangle[firstRectangleIndex].equals(secondRectangle[secondRectangleIndex])
+                        && firstRectangle[(firstRectangleIndex + 1) % 4].equals(secondRectangle[(secondRectangleIndex - 1 + 4) % 4])
+                ) {
+                    // both rectangles in trigonometric order, meaning the segment in common has a reverse index order
+                    // 2 ----- 1  0 ----- 3
+                    // |       |  |       |
+                    // 3 ----- 0  1 ----- 2
+                    // which is why we use first + 1 but use second - 1; for the second we also do a + 4 because we want to keep the index positive
+                    return new int[] {firstRectangleIndex, secondRectangleIndex};
+                }
+            }
+        }
+        // no index found
+        return new int[] {-1, -1};
     }
 
     /**
