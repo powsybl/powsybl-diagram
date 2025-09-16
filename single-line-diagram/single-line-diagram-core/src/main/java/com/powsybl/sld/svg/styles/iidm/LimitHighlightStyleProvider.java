@@ -22,15 +22,41 @@ import static com.powsybl.sld.svg.styles.StyleClassConstants.*;
  */
 public class LimitHighlightStyleProvider extends EmptyStyleProvider {
     private final Network network;
+    private final Map<String, String> violationStyles;
 
     public LimitHighlightStyleProvider(Network network) {
+        this(network, Collections.emptyMap());
+    }
+
+    public LimitHighlightStyleProvider(Network network, Map<String, String> violationStyles) {
         this.network = network;
+        this.violationStyles = violationStyles != null ? violationStyles : Collections.emptyMap();
     }
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
+        // Check custom violations first
+        if (!violationStyles.isEmpty()) {
+            Optional<String> customStyle = getCustomViolationStyle(edge);
+            if (customStyle.isPresent()) {
+                return List.of(customStyle.get());
+            }
+        }
+        // Fallback to default overload detection
         Optional<String> overloadStyle = getOverloadStyle(edge);
         return overloadStyle.map(Collections::singletonList).orElse(Collections.emptyList());
+    }
+
+    private Optional<String> getCustomViolationStyle(Edge edge) {
+        for (Node node : edge.getNodes()) {
+            if (node instanceof FeederNode feederNode) {
+                String style = violationStyles.get(feederNode.getEquipmentId());
+                if (style != null && !style.isBlank()) {
+                    return Optional.of(style);
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     private Optional<String> getOverloadStyle(Edge edge) {
