@@ -35,14 +35,6 @@ public class PointInteger {
         this.y = (int) point.getY();
     }
 
-    public static List<PointInteger> fromListOfPoint(List<Point> points) {
-        List<PointInteger> res = new ArrayList<>();
-        for (Point point : points) {
-            res.add(new PointInteger(point));
-        }
-        return res;
-    }
-
     public int getX() {
         return x;
     }
@@ -57,16 +49,6 @@ public class PointInteger {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public void setCoordinates(PointInteger pointInteger) {
-        setX(pointInteger.x);
-        setY(pointInteger.y);
-    }
-
-    public void setCoordinates(int x, int y) {
-        setX(x);
-        setY(y);
     }
 
     public void shift(PointInteger shiftPoint) {
@@ -102,14 +84,6 @@ public class PointInteger {
         this.x = -y;
         //noinspection SuspiciousNameCombination
         this.y = oldX;
-    }
-
-    public void shiftX(int transX) {
-        x += transX;
-    }
-
-    public void shiftY(int transY) {
-        y += transY;
     }
 
     public int manhattanDistance(PointInteger other) {

@@ -55,25 +55,6 @@ public class AvailabilityGrid {
         }
     }
 
-    /**
-     * Makes a deep copy of the availabilityGrid passed and creates a new one
-     * @param availabilityGrid the availabilityGrid to be deep-copied
-     */
-    public AvailabilityGrid(AvailabilityGrid availabilityGrid) {
-        this.snakelinePadding = availabilityGrid.snakelinePadding;
-        this.height = availabilityGrid.grid.length;
-        if (height > 0) {
-            this.width = availabilityGrid.grid[0].length;
-            this.grid = new byte[height][width];
-            for (int i = 0; i < height; ++i) {
-                grid[i] = availabilityGrid.grid[i].clone();
-            }
-        } else {
-            this.width = 0;
-            this.grid = new byte[0][0];
-        }
-    }
-
     public byte[][] getGrid() {
         return grid;
     }
