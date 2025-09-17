@@ -88,8 +88,8 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
             private LabelPosition getSwitchDecoratorPosition(SwitchNode node) {
                 ComponentSize size = componentLibrary.getSize(node.getComponentType());
-                double yShift = -size.getHeight() / 2;
-                double xShift = size.getWidth() / 2 + SWITCH_DECORATOR_OFFSET;
+                double yShift = -size.height() / 2;
+                double xShift = size.width() / 2 + SWITCH_DECORATOR_OFFSET;
                 return new LabelPosition("DECORATOR", xShift, yShift, false, 0);
             }
 

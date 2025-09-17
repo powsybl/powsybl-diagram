@@ -120,13 +120,13 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         if (direction != UNDEFINED) {
             yShift = direction == TOP
                     ? 2 * LABEL2_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) - 2 * LABEL2_OFFSET);
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).height()) - 2 * LABEL2_OFFSET);
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
             }
         }
-        double dx = (int) componentLibrary.getSize(node.getComponentType()).getWidth() + LABEL2_OFFSET;
+        double dx = (int) componentLibrary.getSize(node.getComponentType()).width() + LABEL2_OFFSET;
         return new LabelPosition(positionName + "_LABEL2", dx, yShift, false, (int) angle);
     }
 

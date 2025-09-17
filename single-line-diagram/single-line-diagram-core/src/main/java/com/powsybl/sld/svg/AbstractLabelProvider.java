@@ -80,7 +80,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         }
 
         return new LabelPosition(positionName + "_DECORATOR",
-                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
+                (int) (componentLibrary.getSize(componentType).width() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
     protected LabelPosition getMiddle3WTDecoratorPosition(Middle3WTNode node, Direction direction) {
@@ -88,7 +88,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         if (direction != UNDEFINED) {
             int excessHeight3wt = 10;
-            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).height() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
             positionName = direction == TOP ? "N" : "S";
         }
 
@@ -107,7 +107,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         if (direction != UNDEFINED) {
             yShift = direction == TOP
                     ? -LABEL_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + LABEL_OFFSET);
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).height()) + LABEL_OFFSET);
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();

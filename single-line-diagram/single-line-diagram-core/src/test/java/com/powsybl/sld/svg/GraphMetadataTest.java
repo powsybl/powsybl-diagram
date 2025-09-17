@@ -80,8 +80,8 @@ class GraphMetadataTest {
         assertEquals(5, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
         assertEquals(4, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
         assertEquals(AnchorOrientation.NONE, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().width(), 0);
+        assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().height(), 0);
         assertEquals(2, metadata2.getNodeMetadata().size());
         assertNotNull(metadata2.getNodeMetadata("id1"));
         assertEquals("id1", metadata2.getNodeMetadata("id1").getId());
@@ -126,8 +126,8 @@ class GraphMetadataTest {
         assertEquals(5, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
         assertEquals(4, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
         assertEquals(AnchorOrientation.NONE, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().width(), 0);
+        assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().height(), 0);
         assertEquals(2, metadata3.getNodeMetadata().size());
         assertNotNull(metadata3.getNodeMetadata("id1"));
         assertEquals("id1", metadata3.getNodeMetadata("id1").getId());

@@ -606,8 +606,8 @@ public class DefaultSVGWriter implements SVGWriter {
         componentLibrary.getSubComponentStyleClass(infoType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
             ComponentSize componentSize = componentLibrary.getSize(infoType);
-            double cx = componentSize.getWidth() / 2;
-            double cy = componentSize.getHeight() / 2;
+            double cx = componentSize.width() / 2;
+            double cy = componentSize.height() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
         }
     }
@@ -675,14 +675,14 @@ public class DefaultSVGWriter implements SVGWriter {
         if (transformation != null) {
             switch (transformation) {
                 case ROTATION: {
-                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")");
                     break;
                 }
                 case FLIP: {
                     if (nodeOrientation.isVertical()) {
-                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.getHeight() + ")");
+                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.height() + ")");
                     } else {
-                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.getWidth() + ", 0)");
+                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.width() + ", 0)");
                     }
                     break;
                 }
@@ -726,11 +726,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
-        double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
+        double dX = componentSize.width() / 2 + decoratorPosition.getdX();
+        double dY = componentSize.height() / 2 + decoratorPosition.getdY();
         if (decoratorPosition.isCentered()) {
-            dX -= decoratorSize.getWidth() / 2;
-            dY -= decoratorSize.getHeight() / 2;
+            dX -= decoratorSize.width() / 2;
+            dY -= decoratorSize.height() / 2;
         }
         return TRANSLATE + "(" + dX + "," + dY + ")";
     }
@@ -742,8 +742,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private double[] getNodeTranslate(Node node, Point shift) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double translateX = node.getX() + shift.getX() - componentSize.getWidth() / 2;
-        double translateY = node.getY() + shift.getY() - componentSize.getHeight() / 2;
+        double translateX = node.getX() + shift.getX() - componentSize.width() / 2;
+        double translateY = node.getY() + shift.getY() - componentSize.height() / 2;
         return new double[] {translateX, translateY};
     }
 
@@ -754,9 +754,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Case of wires with non-direct straight lines: if wire distance between first 2 points is too small to display
         // the feeder info, checks if the distance between the 2nd and the 3rd points is big enough
-        if (points.size() > 2 && distancePoints < 3 * componentSize.getHeight()) {
+        if (points.size() > 2 && distancePoints < 3 * componentSize.height()) {
             double distancePoints23 = points.get(1).distance(points.get(2));
-            if (distancePoints23 > 3 * componentSize.getHeight()) {
+            if (distancePoints23 > 3 * componentSize.height()) {
                 distancePoints = distancePoints23;
                 pointA = points.get(1);
                 pointB = points.get(2);
@@ -784,11 +784,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
         if (angle == 0) {
-            double translateX = centerPosX - componentSize.getWidth() / 2;
-            double translateY = centerPosY - componentSize.getHeight() / 2;
+            double translateX = centerPosX - componentSize.width() / 2;
+            double translateY = centerPosY - componentSize.height() / 2;
             return TRANSLATE + "(" + translateX + "," + translateY + ")";
         } else {
-            double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
+            double[] matrix = getTransformMatrix(componentSize.width(), componentSize.height(), angle,
                 centerPosX, centerPosY);
             return transformMatrixToString(matrix, 4);
         }
@@ -837,7 +837,7 @@ public class DefaultSVGWriter implements SVGWriter {
             drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
-            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).height();
             shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
         }
     }
@@ -859,8 +859,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
 
-        double shX = size.getWidth() + LABEL_OFFSET;
-        double shY = size.getHeight() / 2;
+        double shX = size.width() + LABEL_OFFSET;
+        double shY = size.height() / 2;
 
         transformFeederInfo(points, size, shift, g);
 
@@ -909,8 +909,8 @@ public class DefaultSVGWriter implements SVGWriter {
         // Position
         ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
         double shiftX = svgParameters.getBusInfoMargin();
-        double dy = -size.getHeight() / 2;
-        double dx = busInfo.getAnchor() == Side.RIGHT ? busNode.getPxWidth() - shiftX - size.getWidth() : shiftX;
+        double dy = -size.height() / 2;
+        double dx = busInfo.getAnchor() == Side.RIGHT ? busNode.getPxWidth() - shiftX - size.width() : shiftX;
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
 
         // Styles
@@ -926,7 +926,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Append indicator to SVG
         insertBusInfoSVGIntoDocumentSVG(busInfo, prefixId, g);
-        double shY = size.getHeight() + LABEL_OFFSET;
+        double shY = size.height() + LABEL_OFFSET;
 
         // We draw the bottom label only if present
         busInfo.getBottomLabel().ifPresent(s -> {
