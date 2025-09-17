@@ -652,35 +652,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void addBranchEdges(Graph graph, List<? extends Branch<?>> branches) {
-        Set<String> linesIds = new HashSet<>();
-        branches.forEach(branch -> {
-            if (!linesIds.contains(branch.getId())) {
-                Terminal t1 = branch.getTerminal1();
-                Terminal t2 = branch.getTerminal2();
-                if (addLineEdge(graph, branch.getId(),
-                        t1,
-                        t2,
-                        branch.getId() + "_" + branch.getSide(t1).name(),
-                        branch.getId() + "_" + branch.getSide(t2).name())) {
-                    linesIds.add(branch.getId());
-                }
-            }
-        });
-    }
-
     private void addHvdcLineEdge(Graph graph, HvdcLine hvdcLine) {
         HvdcConverterStation<?> cvs1 = hvdcLine.getConverterStation1();
         HvdcConverterStation<?> cvs2 = hvdcLine.getConverterStation2();
         addLineEdge(graph, hvdcLine.getId(), cvs1.getTerminal(), cvs2.getTerminal(), cvs1.getId(), cvs2.getId());
-    }
-
-    private void addHvdcLineEdges(Graph graph, List<HvdcLine> lines) {
-        lines.forEach(line -> {
-            HvdcConverterStation<?> cvs1 = line.getConverterStation1();
-            HvdcConverterStation<?> cvs2 = line.getConverterStation2();
-            addLineEdge(graph, line.getId(), cvs1.getTerminal(), cvs2.getTerminal(), cvs1.getId(), cvs2.getId());
-        });
     }
 
     private boolean addLineEdge(Graph graph, String lineId, Terminal t1, Terminal t2, String nodeId1, String nodeId2) {
@@ -724,33 +699,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             twoWindingsTransformer.hasPhaseTapChanger());
     }
 
-    private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
-        for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
-            Terminal t1 = transfo.getTerminal1();
-            Terminal t2 = transfo.getTerminal2();
-
-            String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
-            String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
-
-            VoltageLevel vl1 = t1.getVoltageLevel();
-            VoltageLevel vl2 = t2.getVoltageLevel();
-
-            VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
-            VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
-
-            Node n1 = g1.getNode(id1);
-            Node n2 = g2.getNode(id2);
-
-            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
-            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
-
-            NodeFactory.createMiddle2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                    (FeederNode) n1, (FeederNode) n2, voltageLevelInfos1, voltageLevelInfos2,
-                    transfo.hasPhaseTapChanger());
-        }
-    }
-
     private void add3wtEdge(BaseGraph graph, ThreeWindingsTransformer threeWindingsTransformer) {
         List<FeederNode> feederNodes = threeWindingsTransformer.getLegStream().map(leg -> {
             String vlId = leg.getTerminal().getVoltageLevel().getId();
@@ -760,19 +708,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         NodeFactory.createMiddle3WTNode(graph, threeWindingsTransformer.getId(), threeWindingsTransformer.getNameOrId(),
                 feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
-    }
-
-    private void add3wtEdges(BaseGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
-        threeWindingsTransformers.forEach(transfo -> {
-            List<FeederNode> feederNodes = transfo.getLegStream().map(leg -> {
-                String vlId = leg.getTerminal().getVoltageLevel().getId();
-                String idLeg = transfo.getId() + "_" + transfo.getSide(leg.getTerminal()).name();
-                return (FeederNode) graph.getVoltageLevel(vlId).getNode(idLeg);
-            }).collect(Collectors.toList());
-
-            NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                    feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
-        });
     }
 
     private SwitchNode createSwitchNodeFromSwitch(VoltageLevelGraph graph, Switch aSwitch) {
