@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
-class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
+class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
