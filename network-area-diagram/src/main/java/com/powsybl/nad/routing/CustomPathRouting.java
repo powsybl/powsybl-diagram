@@ -7,7 +7,14 @@
  */
 package com.powsybl.nad.routing;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextEdge;
+import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.RadiusUtils;
 

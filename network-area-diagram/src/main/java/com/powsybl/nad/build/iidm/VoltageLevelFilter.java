@@ -7,38 +7,43 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.DefaultTopologyVisitor;
+import com.powsybl.iidm.network.HvdcConverterStation;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class VoltageLevelFilter implements Predicate<VoltageLevel> {
+public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Predicate<VoltageLevel> {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
     private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
 
-    private final Set<VoltageLevel> voltageLevels;
-
-    public VoltageLevelFilter(Set<VoltageLevel> voltageLevels) {
-        this.voltageLevels = voltageLevels;
-    }
-
     public int getNbVoltageLevels() {
         return voltageLevels.size();
-    }
-
-    public Set<VoltageLevel> getVoltageLevels() {
-        return voltageLevels;
     }
 
     @Override
@@ -116,7 +121,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
         List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
         VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
-        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
+        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.voltageLevels());
         voltageLevels.forEach(voltageLevelSet::remove);
         return voltageLevelSet;
     }

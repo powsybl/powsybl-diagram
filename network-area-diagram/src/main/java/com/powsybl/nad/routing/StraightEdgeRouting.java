@@ -7,7 +7,14 @@
  */
 package com.powsybl.nad.routing;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextEdge;
+import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.RadiusUtils;
 
@@ -71,8 +78,8 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
         Point pointA = nodeA.getPosition();
         Point pointB = nodeB.getPosition();
 
-        double dx = pointB.getX() - pointA.getX();
-        double dy = pointB.getY() - pointA.getY();
+        double dx = pointB.x() - pointA.x();
+        double dy = pointB.y() - pointA.y();
         double angle = Math.atan2(dy, dx);
 
         int nbForks = edges.size();

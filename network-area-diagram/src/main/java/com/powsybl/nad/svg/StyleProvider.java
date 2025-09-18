@@ -6,7 +6,11 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.net.URL;
 import java.util.List;

@@ -14,16 +14,19 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
 import com.powsybl.nad.library.NadComponentLibrary;
-import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.routing.EdgeRouting;
+import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.iidm.*;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
+import com.powsybl.nad.svg.iidm.IdProviderFactory;
+import com.powsybl.nad.svg.iidm.LabelProviderFactory;
+import com.powsybl.nad.svg.iidm.StyleProviderFactory;
+import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class NadParameters {

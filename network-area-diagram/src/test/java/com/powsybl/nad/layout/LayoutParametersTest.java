@@ -26,8 +26,8 @@ class LayoutParametersTest {
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
         assertEquals(layoutParameters0.isTextNodesForceLayout(), layoutParameters1.isTextNodesForceLayout());
-        assertEquals(layoutParameters0.getTextNodeFixedShift().getX(), layoutParameters1.getTextNodeFixedShift().getX(), 0);
-        assertEquals(layoutParameters0.getTextNodeFixedShift().getY(), layoutParameters1.getTextNodeFixedShift().getY(), 0);
+        assertEquals(layoutParameters0.getTextNodeFixedShift().x(), layoutParameters1.getTextNodeFixedShift().x(), 0);
+        assertEquals(layoutParameters0.getTextNodeFixedShift().y(), layoutParameters1.getTextNodeFixedShift().y(), 0);
         assertEquals(layoutParameters0.getMaxSteps(), layoutParameters1.getMaxSteps());
         assertEquals(layoutParameters0.getTextNodeEdgeConnectionYShift(), layoutParameters1.getTextNodeEdgeConnectionYShift(), 0);
     }
