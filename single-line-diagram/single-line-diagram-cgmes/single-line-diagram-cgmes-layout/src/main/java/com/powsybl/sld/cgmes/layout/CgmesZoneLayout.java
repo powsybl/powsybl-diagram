@@ -14,10 +14,10 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private static final Logger LOG = LoggerFactory.getLogger(CgmesZoneLayout.class);
 
     private final ZoneGraph graph;
-    private List<VoltageLevelGraph> vlGraphs;
+    private final List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
@@ -51,7 +51,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             return;
         }
         String diagramName = layoutParam.getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "")) {
+        if (checkDiagramFails(diagramName, "")) {
             return;
         }
         // assign coordinates

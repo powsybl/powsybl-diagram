@@ -6,17 +6,46 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.iidm.network.*;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
 import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -59,16 +88,16 @@ public abstract class AbstractCgmesLayout implements Layout {
         return graph;
     }
 
-    protected boolean checkDiagram(String diagramName, String equipment) {
+    protected boolean checkDiagramFails(String diagramName, String equipment) {
         if (diagramName == null) {
             LOG.warn("layout parameter diagramName not set: CGMES-DL layout will not be applied");
-            return false;
+            return true;
         }
         if (!NetworkDiagramData.containsDiagramName(network, diagramName)) {
             LOG.warn("diagram name {} not found in network: CGMES-DL layout will not be applied to network {}, {}", diagramName, network.getId(), equipment);
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName, boolean useNames) {
@@ -84,7 +113,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
-        LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
+        logSettingCoordinates(node);
         switch (node.getType()) {
             case BUS:
                 BusNode busNode = (BusNode) node;
@@ -315,7 +344,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected void setLineNodeCoordinates(VoltageLevel vl, Node node, String diagramName) {
-        LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
+        logSettingCoordinates(node);
         switch (node.getComponentType()) {
             case LINE:
                 FeederNode lineNode = (FeederNode) node;
@@ -405,7 +434,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 .map(SwitchNode.class::cast)
                 .filter(node -> isFictitiousSwitchNode(node, vl))
                 .filter(node -> node.getAdjacentNodes().size() == 2)
-                .collect(Collectors.toList());
+                .toList();
         for (SwitchNode n : fictitiousSwithcNodesToRemove) {
             Node node1 = n.getAdjacentNodes().get(0);
             Node node2 = n.getAdjacentNodes().get(1);
@@ -420,5 +449,9 @@ public abstract class AbstractCgmesLayout implements Layout {
                 vl.getNodeBreakerView().getSwitch(node.getId()) :
                 vl.getBusBreakerView().getSwitch(node.getId());
         return sw == null || sw.isFictitious();
+    }
+
+    private void logSettingCoordinates(Node node) {
+        LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
     }
 }

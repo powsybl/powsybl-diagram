@@ -10,11 +10,10 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.MiddleTwtNode;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.model.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         String diagramName = layoutParam.getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
+        if (checkDiagramFails(diagramName, "substation " + graph.getSubstationId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);

@@ -35,7 +35,7 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     public void run(LayoutParameters layoutParam) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
         String diagramName = layoutParam.getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
+        if (checkDiagramFails(diagramName, "voltage level " + vl.getId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().id(), diagramName);
