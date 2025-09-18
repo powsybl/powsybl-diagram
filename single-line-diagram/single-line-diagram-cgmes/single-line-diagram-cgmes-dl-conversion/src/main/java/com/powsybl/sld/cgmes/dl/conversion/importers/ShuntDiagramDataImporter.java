@@ -41,8 +41,8 @@ public class ShuntDiagramDataImporter extends AbstractInjectionDiagramDataImport
                 shuntIidmDiagramData = new InjectionDiagramData<>(shunt);
             }
             String diagramName = shuntDiagramData.get("diagramName");
-            InjectionDiagramData<ShuntCompensator>.InjectionDiagramDetails diagramDetails = shuntIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(shuntDiagramData.asDouble("x"), shuntDiagramData.asDouble("y"), shuntDiagramData.asInt("seq")),
-                    shuntDiagramData.asDouble("rotation"));
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(shuntDiagramData.asDouble("x"), shuntDiagramData.asDouble("y"), shuntDiagramData.asInt("seq")),
+                shuntDiagramData.asDouble("rotation"));
             addTerminalPoints(shuntId, shunt.getNameOrId(), diagramName, diagramDetails);
             shuntIidmDiagramData.addData(diagramName, diagramDetails);
             shunt.addExtension(InjectionDiagramData.class, shuntIidmDiagramData);

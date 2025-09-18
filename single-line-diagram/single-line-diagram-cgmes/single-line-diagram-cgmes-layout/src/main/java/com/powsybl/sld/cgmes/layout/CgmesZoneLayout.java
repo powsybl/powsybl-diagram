@@ -98,18 +98,18 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         List<Point> snakeLine = edge.getSnakeLine();
         lineDiagramData.getPoints(diagramName).forEach(point -> {
-            snakeLine.add(new Point(point.getX(), point.getY()));
-            setMin(point.getX(), point.getY());
+            snakeLine.add(new Point(point.x(), point.y()));
+            setMin(point.x(), point.y());
         });
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(0).setX(firstPoint.getX());
-            edge.getSnakeLine().get(0).setY(firstPoint.getY());
+            edge.getSnakeLine().get(0).setX(firstPoint.x());
+            edge.getSnakeLine().get(0).setY(firstPoint.y());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.getX());
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.getY());
+            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.x());
+            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.y());
         }
     }
 

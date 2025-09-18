@@ -6,34 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.Objects;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-public class DiagramPoint implements Comparable<DiagramPoint> {
-
-    final double x;
-    final double y;
-    final int seq;
-
-    public DiagramPoint(double x, double y, int seq) {
-        this.x = x;
-        this.y = y;
-        this.seq = seq;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public int getSeq() {
-        return seq;
-    }
+public record DiagramPoint(double x, double y, int seq) implements Comparable<DiagramPoint> {
 
     @Override
     public int hashCode() {
@@ -57,6 +37,7 @@ public class DiagramPoint implements Comparable<DiagramPoint> {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "[" + String.join(",", Double.toString(x), Double.toString(y), Integer.toString(seq)) + "]";
     }

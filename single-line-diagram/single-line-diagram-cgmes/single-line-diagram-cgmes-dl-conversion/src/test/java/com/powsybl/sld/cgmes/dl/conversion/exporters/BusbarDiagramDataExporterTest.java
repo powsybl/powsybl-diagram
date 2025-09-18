@@ -34,7 +34,7 @@ class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterT
         network = Networks.createNetworkWithBusbar();
         busbar = network.getVoltageLevel("VoltageLevel").getNodeBreakerView().getBusbarSection("Busbar");
         NodeDiagramData<BusbarSection> busbarDiagramData = new NodeDiagramData<>(busbar);
-        NodeDiagramData.NodeDiagramDataDetails details = busbarDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails details = new NodeDiagramData.NodeDiagramDataDetails();
         details.setPoint1(point1);
         details.setPoint2(point2);
         busbarDiagramData.addData(basename, details);

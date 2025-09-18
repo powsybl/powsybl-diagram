@@ -19,12 +19,12 @@ abstract class AbstractNodeDiagramDataTest {
         assertNotNull(diagramData);
         NodeDiagramData.NodeDiagramDataDetails nodeDetails = diagramData.getData(diagramName);
         assertNotNull(nodeDetails);
-        assertEquals(1, nodeDetails.getPoint1().getSeq(), 0);
-        assertEquals(0, nodeDetails.getPoint1().getX(), 0);
-        assertEquals(10, nodeDetails.getPoint1().getY(), 0);
-        assertEquals(2, nodeDetails.getPoint2().getSeq(), 0);
-        assertEquals(10, nodeDetails.getPoint2().getX(), 0);
-        assertEquals(0, nodeDetails.getPoint2().getY(), 0);
+        assertEquals(1, nodeDetails.getPoint1().seq(), 0);
+        assertEquals(0, nodeDetails.getPoint1().x(), 0);
+        assertEquals(10, nodeDetails.getPoint1().y(), 0);
+        assertEquals(2, nodeDetails.getPoint2().seq(), 0);
+        assertEquals(10, nodeDetails.getPoint2().x(), 0);
+        assertEquals(0, nodeDetails.getPoint2().y(), 0);
     }
 
 }

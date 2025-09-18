@@ -24,7 +24,7 @@ class GeneratorDiagramDataTest extends AbstractInjectionDiagramDataTest {
         Generator generator = network.getGenerator("Generator");
 
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails diagramDataDetails = generatorDiagramData.new InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
+        InjectionDiagramData.InjectionDiagramDetails diagramDataDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
         diagramDataDetails.addTerminalPoint(new DiagramPoint(15, 10, 2));
         diagramDataDetails.addTerminalPoint(new DiagramPoint(0, 10, 1));
         generatorDiagramData.addData(DIAGRAM_NAME, diagramDataDetails);

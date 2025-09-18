@@ -122,8 +122,8 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (iidmEquivalentNode.isPresent()) {
                 DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, iidmEquivalentNode.get());
                 if (nodePoint != null) {
-                    node.setX(nodePoint.getX());
-                    node.setY(nodePoint.getY());
+                    node.setX(nodePoint.x());
+                    node.setY(nodePoint.y());
                     return;
                 }
             }
@@ -158,14 +158,14 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setBusNodeCoordinates(BusNode node, NodeDiagramData<?> diagramData, String diagramName) {
         if (diagramData != null) {
-            NodeDiagramData<?>.NodeDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
+            NodeDiagramData.NodeDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
-                node.setX(diagramDetails.getPoint1().getX());
-                node.setY(diagramDetails.getPoint1().getY());
+                node.setX(diagramDetails.getPoint1().x());
+                node.setY(diagramDetails.getPoint1().y());
                 node.setPxWidth(computeBusWidth(diagramDetails));
-                rotatedBus = diagramDetails.getPoint1().getX() == diagramDetails.getPoint2().getX();
+                rotatedBus = diagramDetails.getPoint1().x() == diagramDetails.getPoint2().x();
                 node.setOrientation(rotatedBus ? Orientation.UP : Orientation.RIGHT);
-                setMin(diagramDetails.getPoint1().getX(), diagramDetails.getPoint1().getY());
+                setMin(diagramDetails.getPoint1().x(), diagramDetails.getPoint1().y());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, bus {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
             }
@@ -176,12 +176,12 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
-            CouplingDeviceDiagramData<?>.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
+            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
-                node.setX(diagramDetails.getPoint().getX());
-                node.setY(diagramDetails.getPoint().getY());
+                node.setX(diagramDetails.getPoint().x());
+                node.setY(diagramDetails.getPoint().y());
                 setOrientation(node, rotate, diagramDetails.getRotation());
-                setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                setMin(diagramDetails.getPoint().x(), diagramDetails.getPoint().y());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
             }
@@ -191,11 +191,11 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected double computeBusWidth(NodeDiagramData<?>.NodeDiagramDataDetails diagramData) {
-        if (diagramData.getPoint1().getX() == diagramData.getPoint2().getX()) {
-            return Math.abs(diagramData.getPoint1().getY() - diagramData.getPoint2().getY());
+    protected double computeBusWidth(NodeDiagramData.NodeDiagramDataDetails diagramData) {
+        if (diagramData.getPoint1().x() == diagramData.getPoint2().x()) {
+            return Math.abs(diagramData.getPoint1().y() - diagramData.getPoint2().y());
         } else {
-            return Math.abs(diagramData.getPoint1().getX() - diagramData.getPoint2().getX());
+            return Math.abs(diagramData.getPoint1().x() - diagramData.getPoint2().x());
         }
     }
 
@@ -272,12 +272,12 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void setInjectionNodeCoordinates(FeederNode node, InjectionDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
-            InjectionDiagramData<?>.InjectionDiagramDetails diagramDetails = diagramData.getData(diagramName);
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
-                node.setX(diagramDetails.getPoint().getX());
-                node.setY(diagramDetails.getPoint().getY());
+                node.setX(diagramDetails.getPoint().x());
+                node.setY(diagramDetails.getPoint().y());
                 setOrientation(node, rotate, diagramDetails.getRotation());
-                setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                setMin(diagramDetails.getPoint().x(), diagramDetails.getPoint().y());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, injection {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -303,9 +303,9 @@ public abstract class AbstractCgmesLayout implements Layout {
         if (diagramData != null) {
             ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
-                node.setX(diagramDetails.getPoint().getX());
-                node.setY(diagramDetails.getPoint().getY());
-                setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                node.setX(diagramDetails.getPoint().x());
+                node.setY(diagramDetails.getPoint().y());
+                setMin(diagramDetails.getPoint().x(), diagramDetails.getPoint().y());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, transformer {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -338,10 +338,10 @@ public abstract class AbstractCgmesLayout implements Layout {
         if (diagramData != null) {
             if (diagramData.getDiagramsNames().contains(diagramName)) {
                 DiagramPoint linePoint = getLinePoint(diagramData, node, diagramName);
-                node.setX(linePoint.getX());
-                node.setY(linePoint.getY());
+                node.setX(linePoint.x());
+                node.setY(linePoint.y());
                 node.setOrientation(rotatedBus ? Orientation.RIGHT : Orientation.UP);
-                setMin(linePoint.getX(), linePoint.getY());
+                setMin(linePoint.x(), linePoint.y());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, line {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -355,10 +355,10 @@ public abstract class AbstractCgmesLayout implements Layout {
         if (adjacentNodePoint == null) {
             return getLinePoint(lineDiagramData, true, diagramName);
         }
-        double firstPointDistance = Math.hypot(lineDiagramData.getFirstPoint(diagramName).getX() - adjacentNodePoint.getX(),
-                lineDiagramData.getFirstPoint(diagramName).getY() - adjacentNodePoint.getY());
-        double lastPointDistance = Math.hypot(lineDiagramData.getLastPoint(diagramName).getX() - adjacentNodePoint.getX(),
-                lineDiagramData.getLastPoint(diagramName).getY() - adjacentNodePoint.getY());
+        double firstPointDistance = Math.hypot(lineDiagramData.getFirstPoint(diagramName).x() - adjacentNodePoint.x(),
+                lineDiagramData.getFirstPoint(diagramName).y() - adjacentNodePoint.y());
+        double lastPointDistance = Math.hypot(lineDiagramData.getLastPoint(diagramName).x() - adjacentNodePoint.x(),
+                lineDiagramData.getLastPoint(diagramName).y() - adjacentNodePoint.y());
         return getLinePoint(lineDiagramData, firstPointDistance > lastPointDistance, diagramName);
     }
 

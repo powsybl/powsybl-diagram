@@ -27,7 +27,7 @@ class LoadDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTe
         network = Networks.createNetworkWithLoad();
         load = network.getLoad("Load");
         InjectionDiagramData<Load> loadDiagramData = new InjectionDiagramData<>(load);
-        InjectionDiagramData.InjectionDiagramDetails details = loadDiagramData.new InjectionDiagramDetails(point, rotation);
+        InjectionDiagramData.InjectionDiagramDetails details = new InjectionDiagramData.InjectionDiagramDetails(point, rotation);
         details.addTerminalPoint(terminalPoint1);
         details.addTerminalPoint(terminalPoint2);
         loadDiagramData.addData(basename, details);

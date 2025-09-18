@@ -45,9 +45,9 @@ public class BusDiagramDataImporter {
                     busIidmDiagramData = new NodeDiagramData<>(bus);
                 }
                 String diagramName = busDiagramData.get("diagramName");
-                NodeDiagramData<Bus>.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
+                NodeDiagramData.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
                 if (diagramDetails == null) {
-                    diagramDetails = busIidmDiagramData.new NodeDiagramDataDetails();
+                    diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
                 }
                 if (busDiagramData.asInt("seq") == 1) {
                     diagramDetails.setPoint1(new DiagramPoint(busDiagramData.asDouble("x"), busDiagramData.asDouble("y"), busDiagramData.asInt("seq")));

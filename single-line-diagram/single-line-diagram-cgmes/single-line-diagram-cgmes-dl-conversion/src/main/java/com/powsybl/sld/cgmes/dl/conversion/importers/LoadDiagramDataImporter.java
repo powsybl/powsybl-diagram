@@ -41,8 +41,8 @@ public class LoadDiagramDataImporter extends AbstractInjectionDiagramDataImporte
                 loadIidmDiagramData = new InjectionDiagramData<>(load);
             }
             String diagramName = loadDiagramData.get("diagramName");
-            InjectionDiagramData<Load>.InjectionDiagramDetails diagramDetails = loadIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(loadDiagramData.asDouble("x"), loadDiagramData.asDouble("y"), loadDiagramData.asInt("seq")),
-                    loadDiagramData.asDouble("rotation"));
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(loadDiagramData.asDouble("x"), loadDiagramData.asDouble("y"), loadDiagramData.asInt("seq")),
+                loadDiagramData.asDouble("rotation"));
             addTerminalPoints(loadId, load.getNameOrId(), diagramName, diagramDetails);
             loadIidmDiagramData.addData(diagramName, diagramDetails);
             load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);

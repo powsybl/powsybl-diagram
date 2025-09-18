@@ -52,9 +52,9 @@ public abstract class AbstractDiagramDataExporter {
         PropertyBag diagramObjectPointProperties = new PropertyBag(Arrays.asList(CgmesDLModel.DIAGRAM_OBJECT, "sequenceNumber", "xPosition", "yPosition"), true);
         diagramObjectPointProperties.setResourceNames(List.of(CgmesDLModel.DIAGRAM_OBJECT));
         diagramObjectPointProperties.put(CgmesDLModel.DIAGRAM_OBJECT, diagramObjectId);
-        diagramObjectPointProperties.put("sequenceNumber", Integer.toString(point.getSeq()));
-        diagramObjectPointProperties.put("xPosition", Double.toString(point.getX()));
-        diagramObjectPointProperties.put("yPosition", Double.toString(point.getY()));
+        diagramObjectPointProperties.put("sequenceNumber", Integer.toString(point.seq()));
+        diagramObjectPointProperties.put("xPosition", Double.toString(point.x()));
+        diagramObjectPointProperties.put("yPosition", Double.toString(point.y()));
         tripleStore.add(context.getDlContext(), CgmesNamespace.CIM_16_NAMESPACE, "DiagramObjectPoint", diagramObjectPointProperties);
     }
 

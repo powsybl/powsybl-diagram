@@ -26,7 +26,7 @@ class BusDiagramDataTest extends AbstractNodeDiagramDataTest {
 
         NodeDiagramData<Bus> busDiagramData = NodeDiagramData.getOrCreateDiagramData(bus);
         assertNotNull(busDiagramData);
-        NodeDiagramData.NodeDiagramDataDetails busDiagramDetails = busDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails busDiagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
 
         busDiagramDetails.setPoint1(new DiagramPoint(0, 10, 1));
         busDiagramDetails.setPoint2(new DiagramPoint(10, 0, 2));

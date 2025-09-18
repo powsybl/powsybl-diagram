@@ -39,13 +39,13 @@ class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
         NodeDiagramData<BusbarSection> busDiagramData = busbar.getExtension(NodeDiagramData.class);
         assertNotNull(busDiagramData);
         assertNotNull(busDiagramData.getData(DEFAULT_DIAGRAM_NAME));
-        NodeDiagramData<BusbarSection>.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
-        assertEquals(1, nodeDiagramDataDetails.getPoint1().getSeq(), 0);
-        assertEquals(20, nodeDiagramDataDetails.getPoint1().getX(), 0);
-        assertEquals(5, nodeDiagramDataDetails.getPoint1().getY(), 0);
-        assertEquals(2, nodeDiagramDataDetails.getPoint2().getSeq(), 0);
-        assertEquals(20, nodeDiagramDataDetails.getPoint2().getX(), 0);
-        assertEquals(40, nodeDiagramDataDetails.getPoint2().getY(), 0);
+        NodeDiagramData.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
+        assertEquals(1, nodeDiagramDataDetails.getPoint1().seq(), 0);
+        assertEquals(20, nodeDiagramDataDetails.getPoint1().x(), 0);
+        assertEquals(5, nodeDiagramDataDetails.getPoint1().y(), 0);
+        assertEquals(2, nodeDiagramDataDetails.getPoint2().seq(), 0);
+        assertEquals(20, nodeDiagramDataDetails.getPoint2().x(), 0);
+        assertEquals(40, nodeDiagramDataDetails.getPoint2().y(), 0);
     }
 
     @Test

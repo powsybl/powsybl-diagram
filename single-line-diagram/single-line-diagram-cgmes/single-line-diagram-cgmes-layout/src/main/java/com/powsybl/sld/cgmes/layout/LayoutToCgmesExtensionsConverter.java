@@ -53,7 +53,7 @@ public class LayoutToCgmesExtensionsConverter {
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
         Objects.requireNonNull(diagramPoints);
-        return diagramPoints.stream().max(Comparator.naturalOrder()).map(DiagramPoint::getSeq).orElse(0);
+        return diagramPoints.stream().max(Comparator.naturalOrder()).map(DiagramPoint::seq).orElse(0);
     }
 
     private <T extends Identifiable<T>> void setNodeDiagramPoints(NodeDiagramData<T> diagramData, BusNode busNode, OffsetPoint offsetPoint, String diagramName) {
@@ -67,7 +67,7 @@ public class LayoutToCgmesExtensionsConverter {
             y2 += busNode.getPxWidth();
         }
 
-        NodeDiagramData<T>.NodeDiagramDataDetails diagramDetails = diagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
         DiagramPoint p1 = offsetPoint.newDiagramPoint(x1, y1, 1);
         DiagramPoint p2 = offsetPoint.newDiagramPoint(x2, y2, 2);
         diagramDetails.setPoint1(p1);
@@ -111,7 +111,7 @@ public class LayoutToCgmesExtensionsConverter {
                 Node node = vlGraph.getNode(load.getId());
                 DiagramPoint lDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                 InjectionDiagramData<Load> loadIidmDiagramData = new InjectionDiagramData<>(load);
-                InjectionDiagramData<Load>.InjectionDiagramDetails diagramDetails = loadIidmDiagramData.new InjectionDiagramDetails(lDiagramPoint, 0);
+                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(lDiagramPoint, 0);
                 loadIidmDiagramData.addData(diagramName, diagramDetails);
                 LOG.debug("setting CGMES DL IIDM extensions for Load: {}, {}", load.getId(), lDiagramPoint);
                 load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
@@ -121,7 +121,7 @@ public class LayoutToCgmesExtensionsConverter {
                 Node node = vlGraph.getNode(generator.getId());
                 DiagramPoint gDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                 InjectionDiagramData<Generator> gIidmDiagramData = new InjectionDiagramData<>(generator);
-                InjectionDiagramData<Generator>.InjectionDiagramDetails diagramDetails = gIidmDiagramData.new InjectionDiagramDetails(gDiagramPoint, 0);
+                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(gDiagramPoint, 0);
                 gIidmDiagramData.addData(diagramName, diagramDetails);
                 LOG.debug("setting CGMES DL IIDM extensions for Generator: {}, {}", generator.getId(), gDiagramPoint);
                 generator.addExtension(InjectionDiagramData.class, gIidmDiagramData);
@@ -131,7 +131,7 @@ public class LayoutToCgmesExtensionsConverter {
                 Node node = vlGraph.getNode(shuntCompensator.getId());
                 DiagramPoint scDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                 InjectionDiagramData<ShuntCompensator> scDiagramData = new InjectionDiagramData<>(shuntCompensator);
-                InjectionDiagramData<ShuntCompensator>.InjectionDiagramDetails diagramDetails = scDiagramData.new InjectionDiagramDetails(scDiagramPoint, 0);
+                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(scDiagramPoint, 0);
                 scDiagramData.addData(diagramName, diagramDetails);
                 LOG.debug("setting CGMES DL IIDM extensions for ShuntCompensator: {}, {}", shuntCompensator.getId(), scDiagramPoint);
                 shuntCompensator.addExtension(InjectionDiagramData.class, scDiagramData);
@@ -141,7 +141,7 @@ public class LayoutToCgmesExtensionsConverter {
                 Node node = vlGraph.getNode(staticVarCompensator.getId());
                 DiagramPoint svcDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                 InjectionDiagramData<StaticVarCompensator> svcDiagramData = new InjectionDiagramData<>(staticVarCompensator);
-                InjectionDiagramData<StaticVarCompensator>.InjectionDiagramDetails diagramDetails = svcDiagramData.new InjectionDiagramDetails(svcDiagramPoint, 0);
+                InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(svcDiagramPoint, 0);
                 svcDiagramData.addData(diagramName, diagramDetails);
                 LOG.debug("setting CGMES DL IIDM extensions for StaticVarCompensator: {}, {}", staticVarCompensator.getId(), svcDiagramPoint);
                 staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
@@ -179,7 +179,7 @@ public class LayoutToCgmesExtensionsConverter {
                     Node swNode = vlGraph.getNode(sw.getId());
                     if (checkSwitchNode(swNode)) {
                         CouplingDeviceDiagramData<Switch> switchIidmDiagramData = new CouplingDeviceDiagramData<>(sw);
-                        CouplingDeviceDiagramData<Switch>.CouplingDeviceDiagramDetails diagramDetails = switchIidmDiagramData.new CouplingDeviceDiagramDetails(offsetPoint.newDiagramPoint(swNode.getX(), swNode.getY(), 0), switchRotationValue(swNode));
+                        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(offsetPoint.newDiagramPoint(swNode.getX(), swNode.getY(), 0), switchRotationValue(swNode));
                         switchIidmDiagramData.addData(diagramName, diagramDetails);
                         LOG.debug("setting CGMES DL IIDM extensions for Switch {}, {}", sw.getId(), switchIidmDiagramData);
                         sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
@@ -192,7 +192,7 @@ public class LayoutToCgmesExtensionsConverter {
                 .filter(node -> checkNode(twoWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     CouplingDeviceDiagramData<TwoWindingsTransformer> transformerIidmDiagramData = new CouplingDeviceDiagramData<>(twoWindingsTransformer);
-                    CouplingDeviceDiagramData<TwoWindingsTransformer>.CouplingDeviceDiagramDetails diagramDetails = transformerIidmDiagramData.new CouplingDeviceDiagramDetails(tDiagramPoint, rotationValue(node));
+                    CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(tDiagramPoint, rotationValue(node));
                     transformerIidmDiagramData.addData(diagramName, diagramDetails);
                     LOG.info("setting CGMES DL IIDM extensions for TwoWindingTransformer: {}, {}", twoWindingsTransformer.getId(), tDiagramPoint);
                     twoWindingsTransformer.addExtension(CouplingDeviceDiagramData.class, transformerIidmDiagramData);
@@ -203,7 +203,7 @@ public class LayoutToCgmesExtensionsConverter {
                 .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
-                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = transformerIidmDiagramData.new ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
+                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
                     transformerIidmDiagramData.addData(diagramName, diagramDetails);
                     LOG.debug("setting CGMES DL IIDM extensions for ThreeWindingTransformer: {}, {}", threeWindingsTransformer.getId(), tDiagramPoint);
                     threeWindingsTransformer.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);

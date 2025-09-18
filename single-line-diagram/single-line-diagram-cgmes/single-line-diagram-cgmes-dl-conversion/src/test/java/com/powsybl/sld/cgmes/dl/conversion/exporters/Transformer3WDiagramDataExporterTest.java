@@ -45,7 +45,7 @@ class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
         network = Networks.createNetworkWithThreeWindingsTransformer();
         twt = network.getThreeWindingsTransformer("Transformer3w");
         ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
-        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails details = twtDiagramData.new ThreeWindingsTransformerDiagramDataDetails(point, rotation);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails details = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(point, rotation);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point1);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point2);
         details.addTerminalPoint(DiagramTerminal.TERMINAL2, terminal2Point1);

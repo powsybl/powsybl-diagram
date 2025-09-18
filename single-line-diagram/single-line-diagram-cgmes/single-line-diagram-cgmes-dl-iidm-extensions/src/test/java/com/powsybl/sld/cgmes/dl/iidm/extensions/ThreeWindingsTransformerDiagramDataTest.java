@@ -26,7 +26,7 @@ class ThreeWindingsTransformerDiagramDataTest {
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer3w");
 
         ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
-        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = twtDiagramData.new ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(20, 13, 0), 90);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(20, 13, 0), 90);
 
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(15, 10, 2));
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(0, 10, 1));
@@ -46,28 +46,28 @@ class ThreeWindingsTransformerDiagramDataTest {
         ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDataDetails2 = twtDiagramData2.getData(DIAGRAM_NAME);
         assertNotNull(diagramDataDetails2);
 
-        assertEquals(0, diagramDataDetails2.getPoint().getSeq(), 0);
-        assertEquals(20, diagramDataDetails2.getPoint().getX(), 0);
-        assertEquals(13, diagramDataDetails2.getPoint().getY(), 0);
+        assertEquals(0, diagramDataDetails2.getPoint().seq(), 0);
+        assertEquals(20, diagramDataDetails2.getPoint().x(), 0);
+        assertEquals(13, diagramDataDetails2.getPoint().y(), 0);
         assertEquals(90, diagramDataDetails2.getRotation(), 0);
-        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getSeq(), 0);
-        assertEquals(0, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getX(), 0);
-        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getSeq(), 0);
-        assertEquals(15, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getX(), 0);
-        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getY(), 0);
-        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getSeq(), 0);
-        assertEquals(25, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getX(), 0);
-        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getSeq(), 0);
-        assertEquals(40, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getX(), 0);
-        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getY(), 0);
-        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getSeq(), 0);
-        assertEquals(20, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getX(), 0);
-        assertEquals(16, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getSeq(), 0);
-        assertEquals(20, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getX(), 0);
-        assertEquals(30, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getY(), 0);
+        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).seq(), 0);
+        assertEquals(0, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).x(), 0);
+        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).seq(), 0);
+        assertEquals(15, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).x(), 0);
+        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).y(), 0);
+        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).seq(), 0);
+        assertEquals(25, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).x(), 0);
+        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).seq(), 0);
+        assertEquals(40, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).x(), 0);
+        assertEquals(10, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).y(), 0);
+        assertEquals(1, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).seq(), 0);
+        assertEquals(20, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).x(), 0);
+        assertEquals(16, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).seq(), 0);
+        assertEquals(20, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).x(), 0);
+        assertEquals(30, diagramDataDetails2.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).y(), 0);
     }
 
 }

@@ -29,7 +29,7 @@ public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagr
     protected void addDiagramData(String id, String name, InjectionDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                InjectionDiagramData<?>.InjectionDiagramDetails details = diagramData.getData(diagramName);
+                InjectionDiagramData.InjectionDiagramDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());

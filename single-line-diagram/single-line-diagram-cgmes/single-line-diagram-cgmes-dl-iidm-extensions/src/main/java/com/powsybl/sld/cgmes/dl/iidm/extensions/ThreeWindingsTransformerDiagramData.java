@@ -9,7 +9,11 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 import com.powsybl.commons.extensions.AbstractExtension;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -18,61 +22,7 @@ import java.util.stream.Collectors;
 public class ThreeWindingsTransformerDiagramData extends AbstractExtension<ThreeWindingsTransformer> {
 
     static final String NAME = "three-windings-transformer-diagram-data";
-
-    public class ThreeWindingsTransformerDiagramDataDetails {
-        private final DiagramPoint point;
-        private final double rotation;
-        private List<DiagramPoint> terminal1Points = new ArrayList<>();
-        private List<DiagramPoint> terminal2Points = new ArrayList<>();
-        private List<DiagramPoint> terminal3Points = new ArrayList<>();
-
-        public ThreeWindingsTransformerDiagramDataDetails(DiagramPoint point, double rotation) {
-            this.point = Objects.requireNonNull(point);
-            this.rotation = Objects.requireNonNull(rotation);
-        }
-
-        public void addTerminalPoint(DiagramTerminal terminal, DiagramPoint point) {
-            Objects.requireNonNull(terminal);
-            Objects.requireNonNull(point);
-            switch (terminal) {
-                case TERMINAL1:
-                    terminal1Points.add(point);
-                    break;
-                case TERMINAL2:
-                    terminal2Points.add(point);
-                    break;
-                case TERMINAL3:
-                    terminal3Points.add(point);
-                    break;
-                default:
-                    throw new AssertionError("Unexpected terminal: " + terminal);
-            }
-        }
-
-        public List<DiagramPoint> getTerminalPoints(DiagramTerminal terminal) {
-            Objects.requireNonNull(terminal);
-            switch (terminal) {
-                case TERMINAL1:
-                    return terminal1Points.stream().sorted().collect(Collectors.toList());
-                case TERMINAL2:
-                    return terminal2Points.stream().sorted().collect(Collectors.toList());
-                case TERMINAL3:
-                    return terminal3Points.stream().sorted().collect(Collectors.toList());
-                default:
-                    throw new AssertionError("Unexpected terminal: " + terminal);
-            }
-        }
-
-        public DiagramPoint getPoint() {
-            return point;
-        }
-
-        public double getRotation() {
-            return rotation;
-        }
-    }
-
-    private Map<String, ThreeWindingsTransformerDiagramDataDetails> diagramsDetails = new HashMap<>();
+    private final Map<String, ThreeWindingsTransformerDiagramDataDetails> diagramsDetails = new HashMap<>();
 
     public ThreeWindingsTransformerDiagramData(ThreeWindingsTransformer transformer) {
         super(transformer);
@@ -96,6 +46,47 @@ public class ThreeWindingsTransformerDiagramData extends AbstractExtension<Three
 
     public List<String> getDiagramsNames() {
         return new ArrayList<>(diagramsDetails.keySet());
+    }
+
+    public static class ThreeWindingsTransformerDiagramDataDetails {
+        private final DiagramPoint point;
+        private final double rotation;
+        private final List<DiagramPoint> terminal1Points = new ArrayList<>();
+        private final List<DiagramPoint> terminal2Points = new ArrayList<>();
+        private final List<DiagramPoint> terminal3Points = new ArrayList<>();
+
+        public ThreeWindingsTransformerDiagramDataDetails(DiagramPoint point, double rotation) {
+            this.point = Objects.requireNonNull(point);
+            this.rotation = rotation;
+        }
+
+        public void addTerminalPoint(DiagramTerminal terminal, DiagramPoint point) {
+            Objects.requireNonNull(terminal);
+            Objects.requireNonNull(point);
+            switch (terminal) {
+                case TERMINAL1 -> terminal1Points.add(point);
+                case TERMINAL2 -> terminal2Points.add(point);
+                case TERMINAL3 -> terminal3Points.add(point);
+                default -> throw new AssertionError("Unexpected terminal: " + terminal);
+            }
+        }
+
+        public List<DiagramPoint> getTerminalPoints(DiagramTerminal terminal) {
+            Objects.requireNonNull(terminal);
+            return switch (terminal) {
+                case TERMINAL1 -> terminal1Points.stream().sorted().collect(Collectors.toList());
+                case TERMINAL2 -> terminal2Points.stream().sorted().collect(Collectors.toList());
+                case TERMINAL3 -> terminal3Points.stream().sorted().collect(Collectors.toList());
+            };
+        }
+
+        public DiagramPoint getPoint() {
+            return point;
+        }
+
+        public double getRotation() {
+            return rotation;
+        }
     }
 
 }

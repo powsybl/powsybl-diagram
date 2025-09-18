@@ -144,9 +144,9 @@ public abstract class AbstractCgmesDLExporterTest {
                         Arrays.asList("DiagramObject", "sequenceNumber", "xPosition", "yPosition"),
                         Arrays.asList("DiagramObject"), Collections.emptyList());
         assertEquals(diagramObjectId, properties.get("DiagramObject"));
-        assertEquals(expectedPoint.getSeq(), properties.asInt("sequenceNumber"));
-        assertEquals(expectedPoint.getX(), properties.asDouble("xPosition"), 0);
-        assertEquals(expectedPoint.getY(), properties.asDouble("yPosition"), 0);
+        assertEquals(expectedPoint.seq(), properties.asInt("sequenceNumber"));
+        assertEquals(expectedPoint.x(), properties.asDouble("xPosition"), 0);
+        assertEquals(expectedPoint.y(), properties.asDouble("yPosition"), 0);
     }
 
 }
