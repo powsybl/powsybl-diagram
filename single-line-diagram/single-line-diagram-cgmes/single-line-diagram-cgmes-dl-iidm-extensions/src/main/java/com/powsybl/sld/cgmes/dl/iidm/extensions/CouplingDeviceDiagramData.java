@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CouplingDeviceDiagramData<T extends Identifiable<T>> extends AbstractExtension<T> {

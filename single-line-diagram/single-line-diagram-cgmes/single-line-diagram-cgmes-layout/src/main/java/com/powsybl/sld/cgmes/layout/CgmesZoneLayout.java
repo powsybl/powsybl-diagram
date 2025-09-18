@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesZoneLayout extends AbstractCgmesLayout {

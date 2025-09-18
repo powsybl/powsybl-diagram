@@ -9,7 +9,6 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class DiagramPoint implements Comparable<DiagramPoint> {

@@ -23,7 +23,6 @@ import static com.powsybl.sld.library.SldComponentTypeName.LINE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {

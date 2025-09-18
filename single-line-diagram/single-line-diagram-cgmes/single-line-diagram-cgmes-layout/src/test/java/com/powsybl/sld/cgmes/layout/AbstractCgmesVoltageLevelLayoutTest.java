@@ -18,7 +18,6 @@ import com.powsybl.sld.model.nodes.Node;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractCgmesVoltageLevelLayoutTest {

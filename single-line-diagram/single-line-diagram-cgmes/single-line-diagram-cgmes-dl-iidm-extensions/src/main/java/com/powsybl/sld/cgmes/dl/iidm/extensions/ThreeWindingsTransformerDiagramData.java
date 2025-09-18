@@ -13,7 +13,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class ThreeWindingsTransformerDiagramData extends AbstractExtension<ThreeWindingsTransformer> {

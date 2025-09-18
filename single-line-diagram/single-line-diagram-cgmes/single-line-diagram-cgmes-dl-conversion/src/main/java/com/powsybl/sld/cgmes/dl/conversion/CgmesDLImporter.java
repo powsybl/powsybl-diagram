@@ -9,24 +9,37 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.sld.cgmes.dl.conversion.importers.*;
+import com.powsybl.sld.cgmes.dl.conversion.importers.BusDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.BusbarDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.GeneratorDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.HvdcLineDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.LineDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.LoadDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.ShuntDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.SvcDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.SwitchDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.TransformerDiagramDataImporter;
+import com.powsybl.sld.cgmes.dl.conversion.importers.VoltageLevelDiagramDataImporter;
 import com.powsybl.triplestore.api.PropertyBags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesDLImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(CgmesDLImporter.class);
 
-    private Network network;
-    private CgmesDLModel cgmesDLModel;
-    private Map<String, PropertyBags> terminalsDiagramData = new HashMap<>();
+    private final Network network;
+    private final CgmesDLModel cgmesDLModel;
+    private final Map<String, PropertyBags> terminalsDiagramData = new HashMap<>();
 
     public CgmesDLImporter(Network network, CgmesDLModel cgmesDLModel) {
         this.network = Objects.requireNonNull(network);

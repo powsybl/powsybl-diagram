@@ -6,17 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Map;
-import java.util.Objects;
-
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.triplestore.api.TripleStore;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagramDataExporter {

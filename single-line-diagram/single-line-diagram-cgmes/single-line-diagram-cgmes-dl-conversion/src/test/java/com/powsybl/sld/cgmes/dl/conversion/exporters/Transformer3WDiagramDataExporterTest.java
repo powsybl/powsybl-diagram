@@ -21,7 +21,6 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class Transformer3WDiagramDataExporterTest extends AbstractCgmesDLExporterTest {

@@ -6,14 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Map;
-import java.util.Objects;
-
-import com.powsybl.iidm.network.Substation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLModel;
@@ -24,9 +18,13 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagramDataImporter {

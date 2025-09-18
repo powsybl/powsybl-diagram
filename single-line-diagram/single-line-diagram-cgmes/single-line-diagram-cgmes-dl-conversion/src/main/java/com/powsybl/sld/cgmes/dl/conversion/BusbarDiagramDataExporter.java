@@ -6,27 +6,25 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.triplestore.api.TripleStore;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class BusbarDiagramDataExporter extends AbstractNodeDiagramDataExporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(BusbarDiagramDataExporter.class);
 
-    private Map<String, String> busbarNodes;
+    private final Map<String, String> busbarNodes;
 
     public BusbarDiagramDataExporter(TripleStore tripleStore, ExportContext context, Map<String, String> busbarNodes) {
         super(tripleStore, context);

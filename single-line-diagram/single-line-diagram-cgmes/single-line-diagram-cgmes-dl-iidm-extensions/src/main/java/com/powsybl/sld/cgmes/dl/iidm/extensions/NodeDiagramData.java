@@ -14,7 +14,6 @@ import com.powsybl.iidm.network.Identifiable;
 import java.util.*;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtension<T> {

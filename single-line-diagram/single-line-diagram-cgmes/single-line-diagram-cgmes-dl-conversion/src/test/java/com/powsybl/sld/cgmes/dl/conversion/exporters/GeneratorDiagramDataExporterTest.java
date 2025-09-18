@@ -15,7 +15,6 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Generator;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
