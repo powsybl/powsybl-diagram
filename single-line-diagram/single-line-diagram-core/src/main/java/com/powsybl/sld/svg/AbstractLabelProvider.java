@@ -14,9 +14,20 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
@@ -63,8 +74,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     private Optional<String> getLabelOrNameOrId(Node node) {
-        if (node instanceof EquipmentNode) {
-            EquipmentNode eqNode = (EquipmentNode) node;
+        if (node instanceof EquipmentNode eqNode) {
             return Optional.ofNullable(node.getLabel().orElse(svgParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
         } else {
             return node.getLabel();

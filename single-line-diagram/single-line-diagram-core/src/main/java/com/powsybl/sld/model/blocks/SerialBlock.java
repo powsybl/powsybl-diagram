@@ -12,7 +12,11 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
@@ -55,7 +59,7 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
     @Override
     public int getOrder() {
         return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder().orElse(-1) : 0;
+                getExtremityNode(Extremity.END).getOrder().orElse(-1) : 0;
     }
 
     @Override

@@ -10,17 +10,22 @@ import com.powsybl.sld.layout.position.AbstractPositionFinder;
 import com.powsybl.sld.layout.position.BSCluster;
 import com.powsybl.sld.layout.position.Subsection;
 import com.powsybl.sld.layout.position.VerticalBusSet;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.coordinate.Direction;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -87,7 +92,7 @@ public class PositionPredefined extends AbstractPositionFinder {
         setMissingPositionIndices(busNodes, busCells);
         List<BusNode> busNodesSorted = busNodes.stream()
                 .sorted(Comparator.comparingInt(BusNode::getBusbarIndex).thenComparing(BusNode::getSectionIndex))
-                .collect(Collectors.toList());
+                .toList();
         int i = 1;
         for (BusNode busNode : busNodesSorted) {
             busToNb.put(busNode, i++);
@@ -170,7 +175,7 @@ public class PositionPredefined extends AbstractPositionFinder {
         });
 
         List<ExternCell> problematicCells = graph.getExternCellStream()
-                .filter(cell -> cell.getOrder().isEmpty()).collect(Collectors.toList());
+                .filter(cell -> cell.getOrder().isEmpty()).toList();
         if (!problematicCells.isEmpty()) {
             LOGGER.warn("Unable to build the layout only with Extension\nproblematic cells :");
             problematicCells.forEach(cell -> LOGGER
@@ -183,7 +188,7 @@ public class PositionPredefined extends AbstractPositionFinder {
 
     private static void setDirection(BusCell bc) {
         List<Direction> listOfDirectionsInsideCell = bc.getNodes().stream().map(Node::getDirection)
-                .filter(d -> d != Direction.UNDEFINED).distinct().collect(Collectors.toList());
+                .filter(d -> d != Direction.UNDEFINED).distinct().toList();
         int numberOfDirectionsInsideCell = listOfDirectionsInsideCell.size();
         if (numberOfDirectionsInsideCell == 0) {
             if (bc.getType() == EXTERN) {

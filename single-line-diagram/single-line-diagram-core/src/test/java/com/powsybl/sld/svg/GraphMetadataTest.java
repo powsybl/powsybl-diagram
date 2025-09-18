@@ -91,27 +91,27 @@ class GraphMetadataTest {
         assertEquals("id2", metadata2.getNodeMetadata("id2").getId());
         assertEquals("vid2", metadata2.getNodeMetadata("id2").getVId());
         assertNotNull(metadata2.getNodeMetadata("id1").getLabels());
-        assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).getId());
-        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).getUserDefinedId());
-        assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).getPositionName());
+        assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).id());
+        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).userDefinedId());
+        assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).positionName());
         assertNotNull(metadata2.getNodeMetadata("id2"));
         assertEquals(1, metadata2.getWireMetadata().size());
         assertNotNull(metadata2.getWireMetadata("id3"));
-        assertEquals("id3", metadata2.getWireMetadata("id3").getId());
-        assertEquals("id1", metadata2.getWireMetadata("id3").getNodeId1());
-        assertEquals("id2", metadata2.getWireMetadata("id3").getNodeId2());
-        assertFalse(metadata2.getWireMetadata("id3").isStraight());
+        assertEquals("id3", metadata2.getWireMetadata("id3").id());
+        assertEquals("id1", metadata2.getWireMetadata("id3").nodeId1());
+        assertEquals("id2", metadata2.getWireMetadata("id3").nodeId2());
+        assertFalse(metadata2.getWireMetadata("id3").straight());
         assertNotNull(metadata2.getFeederInfoMetadata("id1"));
-        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getEquipmentId());
-        assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").getSide());
-        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
-        assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").getComponentType());
+        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").equipmentId());
+        assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").side());
+        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").userDefinedId());
+        assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").componentType());
 
         assertNotNull(metadata2.getBusLegendInfoMetadata("id1"));
 
         assertNotNull(metadata2.getBusInfoMetadata("id6"));
-        assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").getBusNodeId());
-        assertEquals("user_id", metadata2.getBusInfoMetadata("id6").getUserDefinedId());
+        assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").busNodeId());
+        assertEquals("user_id", metadata2.getBusInfoMetadata("id6").userDefinedId());
 
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER).get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER).get(0).getX(), 0);
@@ -139,11 +139,11 @@ class GraphMetadataTest {
         assertNotNull(metadata3.getNodeMetadata("id2"));
         assertEquals(1, metadata3.getWireMetadata().size());
         assertNotNull(metadata3.getWireMetadata("id3"));
-        assertEquals("id3", metadata3.getWireMetadata("id3").getId());
-        assertEquals("id1", metadata3.getWireMetadata("id3").getNodeId1());
-        assertEquals("id2", metadata3.getWireMetadata("id3").getNodeId2());
-        assertFalse(metadata3.getWireMetadata("id3").isStraight());
-        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").getEquipmentId());
+        assertEquals("id3", metadata3.getWireMetadata("id3").id());
+        assertEquals("id1", metadata3.getWireMetadata("id3").nodeId1());
+        assertEquals("id2", metadata3.getWireMetadata("id3").nodeId2());
+        assertFalse(metadata3.getWireMetadata("id3").straight());
+        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").equipmentId());
     }
 
     @Test
@@ -190,19 +190,19 @@ class GraphMetadataTest {
 
         assertEquals(2, metadata.getWireMetadata().size());
         assertNotNull(metadata.getWireMetadata("wid1"));
-        assertEquals("wid1", metadata.getWireMetadata("wid1").getId());
-        assertEquals("bid1", metadata.getWireMetadata("wid1").getNodeId1());
-        assertEquals("lid1", metadata.getWireMetadata("wid1").getNodeId2());
+        assertEquals("wid1", metadata.getWireMetadata("wid1").id());
+        assertEquals("bid1", metadata.getWireMetadata("wid1").nodeId1());
+        assertEquals("lid1", metadata.getWireMetadata("wid1").nodeId2());
         assertNotNull(metadata.getWireMetadata("wid2"));
-        assertEquals("wid2", metadata.getWireMetadata("wid2").getId());
-        assertEquals("bid2", metadata.getWireMetadata("wid2").getNodeId1());
-        assertEquals("lid2", metadata.getWireMetadata("wid2").getNodeId2());
+        assertEquals("wid2", metadata.getWireMetadata("wid2").id());
+        assertEquals("bid2", metadata.getWireMetadata("wid2").nodeId1());
+        assertEquals("lid2", metadata.getWireMetadata("wid2").nodeId2());
 
         assertEquals(1, metadata.getLineMetadata().size());
         assertNotNull(metadata.getLineMetadata("lid"));
-        assertEquals("lid", metadata.getLineMetadata("lid").getId());
-        assertEquals("lid1", metadata.getLineMetadata("lid").getNodeId1());
-        assertEquals("lid2", metadata.getLineMetadata("lid").getNodeId2());
+        assertEquals("lid", metadata.getLineMetadata("lid").id());
+        assertEquals("lid1", metadata.getLineMetadata("lid").nodeId1());
+        assertEquals("lid2", metadata.getLineMetadata("lid").nodeId2());
     }
 
 }

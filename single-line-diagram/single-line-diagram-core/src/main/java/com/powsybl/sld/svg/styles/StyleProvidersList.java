@@ -16,8 +16,8 @@ import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
 import com.powsybl.sld.svg.BusLegendInfo;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelProvider;
 
 import java.net.URL;
 import java.util.List;

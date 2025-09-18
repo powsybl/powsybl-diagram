@@ -12,10 +12,17 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
@@ -94,27 +101,23 @@ public class BlockPositionner {
     }
 
     private List<BusNode> getBusNodesToClose(Subsection prevSS, Subsection ss) {
-        List<BusNode> busNodesToClose = new ArrayList<>();
-        for (int v = 0; v < prevSS.getSize(); v++) {
-            BusNode prevBusNode = prevSS.getBusNode(v);
-            BusNode actualBusNode = ss.getBusNode(v);
-            if (prevBusNode != null && (actualBusNode == null || prevBusNode != actualBusNode)) {
-                busNodesToClose.add(prevBusNode);
-            }
-        }
-        return busNodesToClose;
+        return getBusToOperate(prevSS, ss, false);
     }
 
     private List<BusNode> getBusNodesToOpen(Subsection prevSS, Subsection ss) {
-        List<BusNode> busNodesToOpen = new ArrayList<>();
+        return getBusToOperate(prevSS, ss, true);
+    }
+
+    private List<BusNode> getBusToOperate(Subsection prevSS, Subsection ss, boolean opening) {
+        List<BusNode> busNodesToOperate = new ArrayList<>();
         for (int v = 0; v < prevSS.getSize(); v++) {
-            BusNode prevBusNode = prevSS.getBusNode(v);
-            BusNode actualBusNode = ss.getBusNode(v);
-            if (actualBusNode != null && (prevBusNode == null || prevBusNode != actualBusNode)) {
-                busNodesToOpen.add(actualBusNode);
+            BusNode busToOperate = opening ? ss.getBusNode(v) : prevSS.getBusNode(v);
+            BusNode otherBus = opening ? prevSS.getBusNode(v) : ss.getBusNode(v);
+            if (busToOperate != null && (otherBus == null || busToOperate != otherBus)) {
+                busNodesToOperate.add(busToOperate);
             }
         }
-        return busNodesToOpen;
+        return busNodesToOperate;
     }
 
     private void closeBusNode(BusNode busNode, int hPositionRight) {

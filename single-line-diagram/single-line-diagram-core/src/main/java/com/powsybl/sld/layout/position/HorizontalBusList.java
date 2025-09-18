@@ -9,7 +9,9 @@ package com.powsybl.sld.layout.position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -100,6 +102,6 @@ public class HorizontalBusList {
 
     @Override
     public String toString() {
-        return String.join(";", busNodes.stream().map(node -> node == null ? "null" : node.getId()).collect(Collectors.toList()));
+        return busNodes.stream().map(node -> node == null ? "null" : node.getId()).collect(Collectors.joining(";"));
     }
 }

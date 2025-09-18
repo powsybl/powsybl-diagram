@@ -8,11 +8,17 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.HorizontalZoneLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.SubstationLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactoryCreator;
+import com.powsybl.sld.layout.ZoneLayoutFactory;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.LabelProviderFactory;

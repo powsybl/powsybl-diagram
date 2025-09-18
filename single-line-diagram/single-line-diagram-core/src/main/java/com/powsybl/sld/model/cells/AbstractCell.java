@@ -25,10 +25,9 @@ import java.util.stream.Collectors;
  */
 
 public abstract class AbstractCell implements Cell {
-    private CellType type;
-    private int number;
     protected final List<Node> nodes = new ArrayList<>();
-
+    private final int number;
+    private CellType type;
     private Block rootBlock;
 
     AbstractCell(int cellNumber, CellType type, Collection<Node> nodes) {
@@ -47,13 +46,13 @@ public abstract class AbstractCell implements Cell {
     }
 
     @Override
-    public void setType(CellType type) {
-        this.type = type;
+    public CellType getType() {
+        return this.type;
     }
 
     @Override
-    public CellType getType() {
-        return this.type;
+    public void setType(CellType type) {
+        this.type = type;
     }
 
     @Override
@@ -69,14 +68,6 @@ public abstract class AbstractCell implements Cell {
     @Override
     public int getNumber() {
         return number;
-    }
-
-    /**
-     * @param includeCoordinates This boolean may be used in overriding classes
-     */
-    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
-        generator.writeStringField("type", type.name());
-        generator.writeNumberField("number", number);
     }
 
     @Override
@@ -97,11 +88,19 @@ public abstract class AbstractCell implements Cell {
 
     @Override
     public String getFullId() {
-        return type + nodes.stream().map(Node::getId).sorted().collect(Collectors.toList()).toString();
+        return type + nodes.stream().map(Node::getId).sorted().toList().toString();
     }
 
     @Override
     public String toString() {
         return type + " " + nodes;
+    }
+
+    /**
+     * @param includeCoordinates This boolean may be used in overriding classes
+     */
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        generator.writeStringField("type", type.name());
+        generator.writeNumberField("number", number);
     }
 }

@@ -40,7 +40,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id()));
         }
         fixTransformersLabel = true;
     }
@@ -57,11 +57,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id());
             setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().id());
             setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates

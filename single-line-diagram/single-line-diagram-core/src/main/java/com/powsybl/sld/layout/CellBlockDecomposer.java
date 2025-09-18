@@ -7,17 +7,28 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BodyParallelBlock;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.PrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -156,7 +167,7 @@ final class CellBlockDecomposer {
      *
      * @param block1 layout.block
      * @param block2 layout.block
-     * @return true if the two blocks are similar : same start and end
+     * @return The node of {@code block1} equals to the node at the start of {@code block2} if the two blocks are similar (same start and end), else null
      */
     private static Node checkParallelCriteria(Block block1, Block block2) {
         Node s1 = block1.getExtremityNode(Block.Extremity.START);

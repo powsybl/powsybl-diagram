@@ -8,7 +8,11 @@ package com.powsybl.sld.layout.position;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.ArchCell;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -20,7 +24,17 @@ import com.powsybl.sld.util.GraphTraversal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -98,7 +112,7 @@ public class Subsection {
     }
 
     private boolean containsAllBusNodes(List<BusNode> nodes) {
-        return Arrays.asList(busNodes).containsAll(nodes);
+        return new HashSet<>(Arrays.asList(busNodes)).containsAll(nodes);
     }
 
     static List<Subsection> createSubsections(VoltageLevelGraph graph, BSCluster bsCluster, Map<BusNode, Integer> busToNb, boolean handleShunts) {
@@ -243,7 +257,7 @@ public class Subsection {
                     .filter(ics -> ics.getCell().checkIsShape(InternCell.Shape.FLAT, InternCell.Shape.CROSSOVER))
                     .forEach(ics -> {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
-                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> ss2.containsAllBusNodes(nodes)).collect(Collectors.toList());
+                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> ss2.containsAllBusNodes(nodes)).toList();
                         if (!candidateSss.isEmpty()) {
                             Subsection candidateSs = ics.getSide() == LEFT ? candidateSss.get(candidateSss.size() - 1) : candidateSss.get(0);
                             if (ss != candidateSs) {
@@ -252,7 +266,7 @@ public class Subsection {
                             }
                         }
                     });
-            ss.internCellSides.removeAll(cellToRemove);
+            cellToRemove.forEach(ss.internCellSides::remove);
         });
         cellSideToMove.forEach((cellSide, ss) -> ss.internCellSides.add(cellSide));
     }
