@@ -17,6 +17,8 @@ import java.util.function.ToDoubleFunction;
 /// The article is called ["Building a quadtree in 22 lines of code"](https://lisyarus.github.io/blog/posts/building-a-quadtree.html)
 
 /**
+ * A quadtree is a structure that recursively divides a space in 4 until only a given number of points reside in each subdivided area. In this case,
+ * the quadtree will only contain 1 point in each leaf node.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Quadtree {
@@ -41,14 +43,40 @@ public class Quadtree {
         }
     }
 
+    /**
+     * The bounding box of all the points. This is also the area of the root of the quadtree
+     */
     BoundingBox bb;
+    /**
+     * The index of the root node in the list of nodes
+     */
     private final short rootIndex;
+    /**
+     * The array of all the nodes of the quadtree
+     */
     private final QuadtreeNode[] nodes;
     // contains both position and mass (since Point has mass attribute)
+    /**
+     * The array of barycenters, ie the position and mass of the corresponding node at the same index in the array of nodes.
+     * That is to say, for a given index i, barycenters[i] is the barycenter of nodes[i]
+     */
     private final Point[] barycenters;
+    /**
+     * The index corresponding to a node that does not exist (for example if a given node doesn't have a children for an area, usually if it's a leaf node)
+     */
     public static final short NO_CHILDREN = -1;
+    /**
+     * The maximum recursion depth when dividing the space. Prevents problems where two points are at the same position or very close and can't be separated into two nodes
+     */
     private static final int MAX_RECURSION_DEPTH = 64;
 
+    /**
+     * Build a quadtree with the given points and a function to get the mass of the point
+     * @param points the list of points we want a quadtree for
+     * @param massGetter a function that associates each point to a mass, used to calculate barycenter. This is used if we want
+     *                   to calculate barycenter differently. For example, we might want to give all the points a mass of 1, or we might
+     *                   want each point to have a mass equal to its number of edges + 1; this allows flexibility
+     */
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
         List<QuadtreeNode> nodesList = new ArrayList<>();
@@ -70,6 +98,22 @@ public class Quadtree {
         this.barycenters = barycentersList.toArray(new Point[0]);
     }
 
+    /**
+     * Recursively build the quadtree
+     * @param nodesList the current list of nodes (same as the array of nodes but using a list since we don't know the length yet)
+     * @param barycentersList the current list of barycenters (same as the array of barycenters but using a list since we don't know the length yet)
+     * @param points all the points that we are building a quadtree on
+     * @param boundingBox the bounding box of the current set of points we are doing the recursion on (this is not the bounding box of all the points)
+     * @param firstIndex the index of the first point contained in the bounding box (included)
+     * @param lastIndex the index of the last point contained in the bounding box (excluded)
+     * @param massGetter the function that gives the mass of a point
+     * @param previousFirstIndex the previous index of the first point contained in the previous bounding box (included).
+     *                           Used for an optimisation to check if two or more points are at the same position (to avoid recursively dividing until the depth limit)
+     * @param previousLastIndex the previous index of the last point contained in the previous bounding box (excluded).
+     *                           Used for an optimisation to check if two or more points are at the same position (to avoid recursively dividing until the depth limit)
+     * @param remainingDepth how many more division of the space can we make for this given bounding box
+     * @return the index of the most parent node (if the depth is 0, this is the root of the quadtree, if the depth is 1, this is the index of a child of the root node, etc...)
+     */
     private short buildQuadtree(
             List<QuadtreeNode> nodesList,
             List<Point> barycentersList,
@@ -130,12 +174,24 @@ public class Quadtree {
 
     }
 
-    /// This function partitions in place and in linear time the points between start and end index, given the splitPredicate
-    /// It will return splitIndex such that:
-    /// All points from startIndex (included) until splitIndex (excluded) will be such that splitPredicate is true
-    /// All points from splitIndex (included) until endIndex (excluded) will be such that splitPredicate is false
-    /// This function is adapted from the "Possible implementation" section of the
-    /// C++ reference page for [std::partition](https://en.cppreference.com/w/cpp/algorithm/partition.html)
+    /**
+     * Partition the points between start (included) and end (excluded) such as :
+     * all points between startIndex (included) and splitIndex (the return value) (excluded) have the splitPredicate as true
+     * all points between splitIndex (the return value) (included) and endIndex (excluded) have the splitPredicate as false
+     * This will change in place the order of the points inside the array of point, but will not create new objects.
+     * This runs in linear time. This function is adapted from the "Possible implementation" section of the
+     * C++ reference page for [std::partition](https://en.cppreference.com/w/cpp/algorithm/partition.html)
+     * @param points the array of all the points
+     * @param startIndex the start index from which we want to partition the array (included)
+     * @param endIndex the end index at which we stop the partition of the array (excluded)
+     * @param splitPredicate a function that returns either true or false given a Vector,
+     *                       it must be consistent ie if two vectors are equals with regards to .equals(),
+     *                       then the splitPredicate must return the same boolean for both
+     * @return the splitIndex at which the predicate changes from true to false on the sorted array.
+     * for all i in [startIndex, splitIndex[, predicate(points[i]) is true
+     * for all i in [splitIndex, endIndex[, predicate(points[i]) is false
+     * no guarantee is given for points outside the [startIndex, endIndex[ range
+     */
     private short partitionPoints(Point[] points, short startIndex, short endIndex, Predicate<Vector2D> splitPredicate) {
         // directly find the index such that the predicate is false, no need to sort the start of the array if it's already ok
         short firstFalseIndex = startIndex;
@@ -162,20 +218,35 @@ public class Quadtree {
         return firstFalseIndex;
     }
 
-    /// This function assumes all points in the range [startIndex, endIndex) have the same position
+    /**
+     * Set the mass and position of the barycenter of a node, use this only if it's a leaf node. This function assumes all points in the [startIndex, endIndex[ range have the same position
+     * (so either the common case of having a single point, or the rarer case of have multiple points on the same position)
+     * @param points the list of all the points
+     * @param nodeBarycenter the barycenter
+     * @param startIndex the index (included) of the first point contained in the node of which we are setting the barycenter
+     * @param endIndex the index (excluded) of the last point contained in the node (the endIndex point is not in the node, the endIndex - 1 is)
+     * @param massGetter the function that associates a point to its mass
+     */
     private void setLeafBarycenter(Point[] points, Point nodeBarycenter, short startIndex, short endIndex, ToDoubleFunction<Point> massGetter) {
         Point leafPoint = points[startIndex];
         nodeBarycenter.setPosition(leafPoint.getPosition());
         double totalMass = massGetter.applyAsDouble(leafPoint);
         for (int i = startIndex + 1; i < endIndex; ++i) {
+            // Springy and Atlas define mass differently for forces
+            // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
             totalMass += massGetter.applyAsDouble(points[i]);
         }
-        // Springy and Atlas define mass differently for forces
-        // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
         nodeBarycenter.setMass(totalMass);
     }
 
-    private void setNodeBarycenter(List<Point> barycentersList, QuadtreeNode node, Point point) {
+    /**
+     * Set the mass and position of the barycenter of a node that is not a leaf node (ie it has at least one children node, otherwise it would be a leaf node,
+     * in which case, use {@link #setLeafBarycenter(Point[], Point, short, short, ToDoubleFunction)}
+     * @param barycentersList the list of all the barycenters
+     * @param node the node for which we are calculating the barycenter
+     * @param nodeBarycenter the barycenter of the node, the one we are setting the mass and position of
+     */
+    private void setNodeBarycenter(List<Point> barycentersList, QuadtreeNode node, Point nodeBarycenter) {
         short[] barycenterIndex = node.getChildrenNodeIdFlatten();
         Vector2D barycenterPosition = new Vector2D();
         double totalBarycenterMass = 0;
@@ -193,10 +264,17 @@ public class Quadtree {
             }
         }
         barycenterPosition.divideBy(totalBarycenterMass);
-        point.setPosition(barycenterPosition);
-        point.setMass(totalBarycenterMass);
+        nodeBarycenter.setPosition(barycenterPosition);
+        nodeBarycenter.setMass(totalBarycenterMass);
     }
 
+    /**
+     * Check if all the points between startIndex (included) and endIndex (excluded) have the same position
+     * @param points all the points
+     * @param startIndex the index of the first point we want to test position equality for (included)
+     * @param endIndex the index of the last point we want to test position equality for (excluded)
+     * @return true if all the points have the same position, false otherwise
+     */
     private boolean checkPointPositionEquality(Point[] points, short startIndex, short endIndex) {
         Vector2D firstPosition = points[startIndex].getPosition();
         for (int i = startIndex + 1; i < endIndex; ++i) {
@@ -207,18 +285,30 @@ public class Quadtree {
         return true;
     }
 
+    /**
+     * @return the index of the root of the quadtree, that is the index of the only node that does not have a parent in the nodes array
+     */
     public short getRootIndex() {
         return rootIndex;
     }
 
+    /**
+     * @return the array of all the nodes of the quadtree
+     */
     public QuadtreeNode[] getNodes() {
         return nodes;
     }
 
+    /**
+     * @return the array of all the barycenters of the quadtree
+     */
     public Point[] getBarycenters() {
         return barycenters;
     }
 
+    /**
+     * @return the bounding box of all the points of the quadtree, this is also the area of the root node of the quadtree
+     */
     public BoundingBox getBoundingBox() {
         return bb;
     }

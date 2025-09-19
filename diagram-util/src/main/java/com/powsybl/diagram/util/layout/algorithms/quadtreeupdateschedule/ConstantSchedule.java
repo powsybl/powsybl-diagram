@@ -11,6 +11,7 @@ package com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule;
 /// By Robert Gove, Two Six Labs, for an explanation
 
 /**
+ * A schedule that says it's time to update every X time step
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ConstantSchedule {
@@ -18,6 +19,10 @@ public class ConstantSchedule {
     private final int increment;
     private int nextUpdate = 0;
 
+    /**
+     * Build a constant update schedule
+     * @param increment update the quadtree every increment step
+     */
     public ConstantSchedule(int increment) {
         if (increment <= 0) {
             throw new IllegalArgumentException("The increment for the constant schedule has to be strictly positive");
@@ -26,7 +31,11 @@ public class ConstantSchedule {
         }
     }
 
-    /// Know if it's time to recalculate the quadtree
+    /**
+     * Check if it's time to update
+     * @param index the time step we are at
+     * @return true if the index is one we need to update the quadtree at, false otherwise
+     */
     public boolean isTimeToUpdate(int index) {
         if (index == nextUpdate) {
             nextUpdate += increment;

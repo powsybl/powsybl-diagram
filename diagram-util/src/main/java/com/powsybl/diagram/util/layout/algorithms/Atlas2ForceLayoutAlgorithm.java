@@ -159,7 +159,9 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         LOGGER.info("Finished in {} steps", i);
     }
 
-    /// Choose whether to use Barnes-Hut or not
+    /**
+     * Choose whether to add a repulsion force using barnes-hut or not
+     */
     private void addRepulsionForce() {
         if (layoutParameters.getBarnesHutTheta() == 0) {
             this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
@@ -176,6 +178,11 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
+    /**
+     * Choose which points to interact with, either all the points or just the moving points, depending on if repulsion force for fixed points is activated
+     * @param layoutContext the context of the layout (points, graph of the points)
+     * @return all the points if fixed points have a repulsion force, just the moving points otherwise
+     */
     private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
         if (layoutParameters.isActivateRepulsionForceFromFixedPoints()) {
             return layoutContext.getAllPoints().values();
