@@ -8,6 +8,9 @@
 package com.powsybl.diagram.util.layout.geometry;
 
 /**
+ * A class that contains a quadtree. This is used for initialization purposes. When starting some algorithms, we create forces
+ * at the start that require a quadtree object, but we don't actually have the points objects needed to create the quadtree. Instead
+ * we use this to say we have a quadtree, and we will later actually create and use the quadtree
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class QuadtreeContainer {

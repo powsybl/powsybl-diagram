@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A linear repulsion force dependent on the number of edges of a node (same as {@link RepulsionForceByEdgeNumberLinear}), that uses
+ * a quadtree to speedup calculations by approximating far away points as their barycenters
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 // TODO make in interface to mutualize code with LinearRepulsionForceByDegree, waiting for the merge of Atlas2
@@ -82,27 +84,38 @@ public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V,
         resultingForce.add(force);
     }
 
+    /**
+     * Recursively descend into child nodes of the quadtree and fill pointsToInteract with all the points / barycenters
+     * that a given point has to calculate the repulsion force with.<br>
+     * This uses a decision criteria, we use the barycenter of a node of the quadtree instead of all its points if the width of the barycenter node
+     * is smaller than the barnesHutTheta * the distance between point and the barycenter
+     * @param nodeIndex the index of the node we are considering approximating all the points it contains to its barycenter
+     * @param point the point we want to get the list of interacting points for
+     * @param nodeWidth the width of the node corresponding to nodeIndex
+     * @param pointsToInteractWith the list of points to fill
+     */
     private void generatePointInteractionList(
-            short parentNodeIndex,
-            Point forThisPoint,
+            short nodeIndex,
+            Point point,
             double nodeWidth,
             List<Point> pointsToInteractWith
     ) {
         Quadtree quadtree = quadtreeContainer.getQuadtree();
-        Point barycenter = quadtree.getBarycenters()[parentNodeIndex];
+        Point barycenter = quadtree.getBarycenters()[nodeIndex];
         // Two tests:
         // Check the theta parameter ie width / distance < theta
         // If a point is alone in a quadrant, but is not a leaf node, we could continue descending until the leaf node (or until the first condition is met), but this is not useful
-        if (nodeWidth < barnesHutTheta * forThisPoint.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
+        // this second check only works if the point doesn't have any edges (because otherwise in Atlas2 its mass will be more than the default mass for example)
+        if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
             pointsToInteractWith.add(barycenter);
         } else {
-            Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[parentNodeIndex];
+            Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[nodeIndex];
             double childNodeWidth = nodeWidth / 2;
             int numberOfChild = 0;
             for (short index : thisNode.getChildrenNodeIdFlatten()) {
                 if (index != Quadtree.NO_CHILDREN) {
                     ++numberOfChild;
-                    generatePointInteractionList(index, forThisPoint, childNodeWidth, pointsToInteractWith);
+                    generatePointInteractionList(index, point, childNodeWidth, pointsToInteractWith);
                 }
             }
             // if the list is empty, it means we are a leaf node, need to add self to the list and return
