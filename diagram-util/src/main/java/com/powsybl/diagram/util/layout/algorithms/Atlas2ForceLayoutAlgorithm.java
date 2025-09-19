@@ -92,7 +92,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         initAllForces(forces, layoutContext);
-        initPointVertexDegree(layoutContext);
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
@@ -170,17 +169,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             ++i;
         }
         LOGGER.info("Finished in {} steps", i);
-    }
-
-    /// Initialize each point degree, used to optimize the calculation of the repulsion forces
-    /// This prevents having to calculate the degree each time, which speeds up the code by a lot (about 3 times faster)
-    private void initPointVertexDegree(LayoutContext<V, E> layoutContext) {
-        for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        for (Map.Entry<V, Point> entry : layoutContext.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 
     /// Choose whether to use Barnes-Hut or not
