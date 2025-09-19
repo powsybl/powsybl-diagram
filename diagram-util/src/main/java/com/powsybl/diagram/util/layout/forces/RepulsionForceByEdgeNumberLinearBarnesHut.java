@@ -18,7 +18,7 @@ import java.util.List;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 // TODO make in interface to mutualize code with LinearRepulsionForceByDegree, waiting for the merge of Atlas2
-public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V, E> {
+public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> extends AbstractByEdgeNumberForce<V, E> {
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
     private final double barnesHutTheta;
@@ -31,9 +31,8 @@ public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V,
         this.quadtreeContainer = quadtreeContainer;
     }
 
-    public Vector2D apply(V forThisVertex, Point correspondingPoint, LayoutContext<V, E> layoutContext) {
+    public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D();
-        int thisVertexDegree = correspondingPoint.getPointVertexDegree();
         BoundingBox rootBb = quadtreeContainer.getQuadtree().getBoundingBox();
         // bounding box might not be square, this will work best for shapes that are not too long
         // could also test by using the diagonal width (using square root), might be faster as it will be tighter (but longer to calculate too)
@@ -42,17 +41,16 @@ public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V,
         List<Point> pointInteractionList = new ArrayList<>();
         generatePointInteractionList(
             quadtreeContainer.getQuadtree().getRootIndex(),
-            correspondingPoint,
+            point,
             width,
             pointInteractionList
         );
         for (Point otherPoint : pointInteractionList) {
-            if (!otherPoint.getPosition().equals(correspondingPoint.getPosition())) {
+            if (!otherPoint.getPosition().equals(point.getPosition())) {
                 linearRepulsionBetweenPoints(
                         forceIntensity,
                         resultingForce,
-                        thisVertexDegree,
-                        correspondingPoint,
+                        point,
                         otherPoint
                 );
             }
@@ -63,12 +61,11 @@ public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V,
     private void linearRepulsionBetweenPoints(
             double forceIntensity,
             Vector2D resultingForce,
-            int thisVertexDegree,
-            Point correspondingPoint,
+            Point point,
             Point otherPoint
     ) {
-        // The force goes from the otherPoint to the correspondingPoint (repulsion)
-        Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, correspondingPoint);
+        // The force goes from the otherPoint to the point (repulsion)
+        Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
         // divide by magnitude^2 because the force multiplies the unit vector by something/magnitude
         // the unit vector is Vector/magnitude, thus the force is Vector/magnitude * something/magnitude, thus Vector/magnitude^2
         // if we just use the vector and not the unit vector, points that are further away will have the same influence as points that are close
@@ -77,7 +74,7 @@ public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> implements Force<V,
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
         // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
         double intensity = forceIntensity
-                * (thisVertexDegree + 1)
+                * (point.getPointVertexDegree() + 1)
                 * (otherPoint.getMass())
                 / force.magnitudeSquare();
         force.multiplyBy(intensity);

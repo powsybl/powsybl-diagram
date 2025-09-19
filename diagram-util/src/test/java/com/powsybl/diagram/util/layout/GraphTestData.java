@@ -112,11 +112,5 @@ public final class GraphTestData {
         layoutContext.setFixedNodes(fixedNodes);
         SquareRandomSetup<String, DefaultEdge> setup = new SquareRandomSetup<>(RANDOM);
         setup.run(layoutContext);
-        for (Map.Entry<String, Point> entry : layoutContext.getMovingPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
-        for (Map.Entry<String, Point> entry : layoutContext.getFixedPoints().entrySet()) {
-            entry.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(entry.getKey()));
-        }
     }
 }
