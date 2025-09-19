@@ -54,7 +54,13 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double NORMALIZED_STOPPING_VALUE = 1.06944;
     private static final double NORMALIZATION_POWER = -0.107886;
     // This is not part of Atlas2's paper, used to control the global graph speed decrease and start value
+    /**
+     * The ratio of the global speed at which to start compared to the number of nodes of the graph. The starting speed is this ratio times the number of nodes
+     */
     private static final double STARTING_SPEED_RATIO = 1;
+    /**
+     * How much can the global speed decrease between each time step
+     */
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
@@ -71,19 +77,26 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     // To be moved later if needed by other algorithms
+    /**
+     * Initializes all the forces using the layoutContext
+     * @param forces forces to be initialized
+     * @param layoutContext the context of the layout
+     */
     private void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
         for (Force<V, E> force : forces) {
             force.init(layoutContext);
         }
     }
 
-    /// Use Atlas2 layout with default parameters
+    /**
+     * Use Atlas2 layout with default parameters
+     */
     public Atlas2ForceLayoutAlgorithm() {
         this(new Atlas2Parameters.Builder().build());
     }
 
-    ///  Note : the mass of the points doesn't have an impact on the graph as it doesn't appear in Atlas2
-    /// We could have the impact be in the position update, by dividing the displacement by the mass of the point
+    //  Note : the mass of the points doesn't have an impact on the graph as it doesn't appear in Atlas2
+    // We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         initAllForces(forces, layoutContext);
@@ -146,7 +159,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             // store the forces on each node into the map of forces
             // calculate D(n) the displacement of each node n
             // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
-            updatePosition(layoutContext, newGraphSpeed, swingMap, previousForces);
+            updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
             if (!changedStoppingStep && isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
                 stoppingStep = Math.min(
                         layoutParameters.getMaxSteps(),
@@ -160,19 +173,38 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         LOGGER.info("Finished in {} steps", i);
     }
 
+    /**
+     * Calculate the swing of the point, as the magnitude of the difference between the previous and the current force applied to the point
+     * @param point the point the force is applied to
+     * @param previousForce the force that was previously applied on the point
+     * @return the swing of the point
+     */
     private double calculatePointSwing(Point point, Vector2D previousForce) {
         Vector2D swingVector = new Vector2D(point.getForces());
         swingVector.subtract(previousForce);
         return swingVector.magnitude();
     }
 
+    /**
+     * Calculate the traction of the point, as the magnitude of the average of the previous and the current force applied to the point
+     * @param point the point the force is applied to
+     * @param previousForce the force that was previously applied on the point
+     * @return the traction of the point
+     */
     private double calculatePointTraction(Point point, Vector2D previousForce) {
         Vector2D tractionVector = new Vector2D(point.getForces());
         tractionVector.add(previousForce);
         return tractionVector.magnitude() / 2.;
     }
 
-    private void updatePosition(LayoutContext<V, E> layoutContext, double graphSpeed, Map<Point, Double> swingMap, Map<Point, Vector2D> previousForces) {
+    /**
+     * Update the position of all the points of the layout
+     * @param layoutContext the context of the layout (points, graph of the points)
+     * @param graphSpeed the global speed of the entire graph
+     * @param swingMap the stored swing of each point, we already calculated it earlier so we store it to not repeat calculations
+     * @param previousForces the map that keeps track of the force applied to each point on the previous time step of the simulation
+     */
+    private void updateAllPositions(LayoutContext<V, E> layoutContext, double graphSpeed, Map<Point, Double> swingMap, Map<Point, Vector2D> previousForces) {
         for (Point point : layoutContext.getMovingPoints().values()) {
             double speedFactor = layoutParameters.getSpeedFactor()
                     * graphSpeed
@@ -191,6 +223,12 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
+    /**
+     * Check if the current global graph speed is lower than the stopping speed
+     * @param newGraphSpeed the current global graph speed
+     * @param stoppingGlobalGraphSpeed the value of the graph speed we should stop at, or under
+     * @return true if the graph speed is lower than the stopping speed, false otherwise
+     */
     private boolean isStable(double newGraphSpeed, double stoppingGlobalGraphSpeed) {
         // this stability condition is handmade and not mentioned in Atlas2's paper
         // a stop condition is given in that paper, but it involves calculating the distance of all the edges and vertex of the graph
