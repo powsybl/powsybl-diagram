@@ -26,13 +26,23 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - name: Build with Maven
-        run: mvn --batch-mode -P jacoco,checks package
+      - name: Build with Maven (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: ./mvnw --batch-mode -P jacoco,checks install
+
+      - name: Build with Maven (Windows)
+        if: matrix.os == 'windows-latest'
+        run: mvnw.cmd --batch-mode install
+        shell: cmd
+
+      - name: Build with Maven (MacOS)
+        if: matrix.os == 'macos-latest'
+        run: ./mvnw --batch-mode install
 
       - name: Run SonarCloud analysis
         if: matrix.os == 'ubuntu-latest'
         run: >
-          mvn --batch-mode -Pjacoco verify sonar:sonar
+          ./mvnw --batch-mode -Pjacoco verify sonar:sonar
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.organization=powsybl-ci-github
           -Dsonar.projectKey=com.powsybl:powsybl-diagram
