@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-@Deprecated(since = "4.10.0", forRemoval = true)
+@Deprecated(since = "5.0.0", forRemoval = true)
 class ForceLayoutTest {
 
     @Test
