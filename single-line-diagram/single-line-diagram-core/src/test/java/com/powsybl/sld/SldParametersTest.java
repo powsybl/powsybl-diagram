@@ -30,7 +30,7 @@ class SldParametersTest {
         SubstationLayoutFactory substationLayoutFactory = new VerticalSubstationLayoutFactory();
         VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = i -> new PositionVoltageLevelLayoutFactory();
         ZoneLayoutFactory zoneLayoutFactory = new HorizontalZoneLayoutFactory();
-        ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = DijkstraPathFinder::new;
+        ZoneLayoutPathFinderFactory zoneLayoutPathFinderFactory = AStarPathFinder::new;
 
         SldParameters sldParameters0 = new SldParameters()
                 .setLayoutParameters(layoutParameters)
