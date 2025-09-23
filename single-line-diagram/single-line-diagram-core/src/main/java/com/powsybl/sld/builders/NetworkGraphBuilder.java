@@ -596,7 +596,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Map<Integer, Node> nodesByNumber = new HashMap<>();
 
         // visit equipments
-        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber));
+        NodeBreakerGraphBuilder builder = createNodeBreakerGraphBuilder(graph, nodesByNumber);
+        vl.getLineStream().sorted(Comparator.comparing(Line::getId))
+            .forEach(l -> builder.visitLine(l, (l.getTerminal1().getVoltageLevel() == vl ? l.getTerminal1().getSide() : l.getTerminal2().getSide()).toTwoSides()));
+        vl.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId))
+            .forEach(twt -> builder.visitTwoWindingsTransformer(twt, (twt.getTerminal1().getVoltageLevel() == vl ? twt.getTerminal1().getSide() : twt.getTerminal2().getSide()).toTwoSides()));
+        vl.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
+            .forEach(thwt -> builder.visitThreeWindingsTransformer(thwt, thwt.getLegStream().filter(leg -> leg.getTerminal().getVoltageLevel() == vl).findFirst().orElseThrow().getSide()));
+        vl.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(builder::visitDanglingLine);
+        vl.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId))
+            .forEach(builder::visitHvdcConverterStation);
+        vl.getLoadStream().sorted(Comparator.comparing(Load::getId)).forEach(builder::visitLoad);
+        vl.getGeneratorStream().sorted(Comparator.comparing(Generator::getId)).forEach(builder::visitGenerator);
+        vl.getBatteryStream().sorted(Comparator.comparing(Battery::getId)).forEach(builder::visitBattery);
+        vl.getStaticVarCompensatorStream().sorted(Comparator.comparing(StaticVarCompensator::getId)).forEach(builder::visitStaticVarCompensator);
+        vl.getGroundStream().sorted(Comparator.comparing(Ground::getId)).forEach(builder::visitGround);
+//        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber));
 
         // switches
         for (Switch sw : vl.getNodeBreakerView().getSwitches()) {
