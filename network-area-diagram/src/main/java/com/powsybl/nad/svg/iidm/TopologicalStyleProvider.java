@@ -22,24 +22,24 @@ import java.util.Optional;
  */
 public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
-    private final Map<String, String> violationStyles;
+    private Map<String, String> limitViolationStyles = Map.of();
 
     public TopologicalStyleProvider(Network network) {
-        this(network, Collections.emptyMap());
+        super(network);
     }
 
     public TopologicalStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle) {
-        this(network, baseVoltageStyle, Collections.emptyMap());
-    }
-
-    public TopologicalStyleProvider(Network network, Map<String, String> violationStyles) {
-        super(network);
-        this.violationStyles = violationStyles != null ? violationStyles : Collections.emptyMap();
-    }
-
-    public TopologicalStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle, Map<String, String> violationStyles) {
         super(network, baseVoltageStyle);
-        this.violationStyles = violationStyles != null ? violationStyles : Collections.emptyMap();
+    }
+
+    public TopologicalStyleProvider(Network network, Map<String, String> limitViolationStyles) {
+        super(network);
+        this.limitViolationStyles = limitViolationStyles;
+    }
+
+    public TopologicalStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle, Map<String, String> limitViolationStyles) {
+        super(network, baseVoltageStyle);
+        this.limitViolationStyles = limitViolationStyles;
     }
 
     @Override
@@ -50,8 +50,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
         // Check custom violations first
-        if (!violationStyles.isEmpty()) {
-            String customStyle = violationStyles.get(branchEdge.getEquipmentId());
+        if (!limitViolationStyles.isEmpty()) {
+            String customStyle = limitViolationStyles.get(branchEdge.getEquipmentId());
             if (customStyle != null && !customStyle.isBlank()) {
                 return List.of(customStyle);
             }
