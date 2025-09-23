@@ -575,7 +575,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // visit equipments
-        vl.visitEquipments(createBusBreakerGraphBuilder(graph, nodesByBusId));
+        visitEquipments(createBusBreakerGraphBuilder(graph, nodesByBusId), vl);
 
         // switches
         for (Switch sw : vl.getBusBreakerView().getSwitches()) {
@@ -598,46 +598,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         // visit equipments
         NodeBreakerGraphBuilder builder = createNodeBreakerGraphBuilder(graph, nodesByNumber);
         vl.getConnectableStream(BusbarSection.class).sorted(Comparator.comparing(BusbarSection::getId)).forEach(builder::visitBusbarSection);
-        vl.getLineStream().sorted(Comparator.comparing(Line::getId))
-            .forEach(l -> {
-                if (l.getTerminal1().getVoltageLevel() == vl) {
-                    builder.visitLine(l, TwoSides.ONE);
-                }
-                if (l.getTerminal2().getVoltageLevel() == vl) {
-                    builder.visitLine(l, TwoSides.TWO);
-                }
-            });
-        vl.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId))
-            .forEach(twt -> {
-                if (twt.getTerminal1().getVoltageLevel() == vl) {
-                    builder.visitTwoWindingsTransformer(twt, TwoSides.ONE);
-                }
-                if (twt.getTerminal2().getVoltageLevel() == vl) {
-                    builder.visitTwoWindingsTransformer(twt, TwoSides.TWO);
-                }
-            });
-        vl.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
-            .forEach(thwt -> {
-                if (thwt.getTerminal(ThreeSides.ONE).getVoltageLevel() == vl) {
-                    builder.visitThreeWindingsTransformer(thwt, ThreeSides.ONE);
-                }
-                if (thwt.getTerminal(ThreeSides.TWO).getVoltageLevel() == vl) {
-                    builder.visitThreeWindingsTransformer(thwt, ThreeSides.TWO);
-                }
-                if (thwt.getTerminal(ThreeSides.THREE).getVoltageLevel() == vl) {
-                    builder.visitThreeWindingsTransformer(thwt, ThreeSides.THREE);
-                }
-            });
-        vl.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(builder::visitDanglingLine);
-        vl.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId))
-            .forEach(builder::visitHvdcConverterStation);
-        vl.getLoadStream().sorted(Comparator.comparing(Load::getId)).forEach(builder::visitLoad);
-        vl.getGeneratorStream().sorted(Comparator.comparing(Generator::getId)).forEach(builder::visitGenerator);
-        vl.getShuntCompensatorStream().sorted(Comparator.comparing(Identifiable::getId)).forEach(builder::visitShuntCompensator);
-        vl.getBatteryStream().sorted(Comparator.comparing(Battery::getId)).forEach(builder::visitBattery);
-        vl.getStaticVarCompensatorStream().sorted(Comparator.comparing(StaticVarCompensator::getId)).forEach(builder::visitStaticVarCompensator);
-        vl.getGroundStream().sorted(Comparator.comparing(Ground::getId)).forEach(builder::visitGround);
-//        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber));
+        visitEquipments(builder, vl);
 
         // switches
         for (Switch sw : vl.getNodeBreakerView().getSwitches()) {
@@ -663,6 +624,53 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             graph.addEdge(nodesByNumber.get(node1), nodesByNumber.get(node2));
         });
+    }
+
+    private static void visitEquipments(AbstractGraphBuilder builder, VoltageLevel voltageLevel) {
+        voltageLevel.getGeneratorStream().sorted(Comparator.comparing(Generator::getId)).forEach(builder::visitGenerator);
+        voltageLevel.getLoadStream().sorted(Comparator.comparing(Load::getId)).forEach(builder::visitLoad);
+        voltageLevel.getLineStream().sorted(Comparator.comparing(Line::getId)).forEach(l -> visitLine(builder, voltageLevel, l));
+        voltageLevel.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId))
+            .forEach(twt -> visitTwoWindingsTransformer(builder, voltageLevel, twt));
+        voltageLevel.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
+            .forEach(thwt -> visitThreeWindingsTransformer(builder, voltageLevel, thwt));
+        voltageLevel.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(builder::visitDanglingLine);
+        voltageLevel.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId))
+            .forEach(builder::visitHvdcConverterStation);
+        voltageLevel.getShuntCompensatorStream().sorted(Comparator.comparing(Identifiable::getId)).forEach(builder::visitShuntCompensator);
+        voltageLevel.getBatteryStream().sorted(Comparator.comparing(Battery::getId)).forEach(builder::visitBattery);
+        voltageLevel.getStaticVarCompensatorStream().sorted(Comparator.comparing(StaticVarCompensator::getId)).forEach(builder::visitStaticVarCompensator);
+        voltageLevel.getGroundStream().sorted(Comparator.comparing(Ground::getId)).forEach(builder::visitGround);
+    }
+
+    private static void visitLine(AbstractGraphBuilder builder, VoltageLevel voltageLevel, Line line) {
+        if (line.getTerminal1().getVoltageLevel() == voltageLevel) {
+            builder.visitLine(line, TwoSides.ONE);
+        }
+        if (line.getTerminal2().getVoltageLevel() == voltageLevel) {
+            builder.visitLine(line, TwoSides.TWO);
+        }
+    }
+
+    private static void visitTwoWindingsTransformer(AbstractGraphBuilder builder, VoltageLevel voltageLevel, TwoWindingsTransformer twoWindingsTransformer) {
+        if (twoWindingsTransformer.getTerminal1().getVoltageLevel() == voltageLevel) {
+            builder.visitTwoWindingsTransformer(twoWindingsTransformer, TwoSides.ONE);
+        }
+        if (twoWindingsTransformer.getTerminal2().getVoltageLevel() == voltageLevel) {
+            builder.visitTwoWindingsTransformer(twoWindingsTransformer, TwoSides.TWO);
+        }
+    }
+
+    private static void visitThreeWindingsTransformer(AbstractGraphBuilder builder, VoltageLevel voltageLevel, ThreeWindingsTransformer threeWindingsTransformer) {
+        if (threeWindingsTransformer.getTerminal(ThreeSides.ONE).getVoltageLevel() == voltageLevel) {
+            builder.visitThreeWindingsTransformer(threeWindingsTransformer, ThreeSides.ONE);
+        }
+        if (threeWindingsTransformer.getTerminal(ThreeSides.TWO).getVoltageLevel() == voltageLevel) {
+            builder.visitThreeWindingsTransformer(threeWindingsTransformer, ThreeSides.TWO);
+        }
+        if (threeWindingsTransformer.getTerminal(ThreeSides.THREE).getVoltageLevel() == voltageLevel) {
+            builder.visitThreeWindingsTransformer(threeWindingsTransformer, ThreeSides.THREE);
+        }
     }
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
