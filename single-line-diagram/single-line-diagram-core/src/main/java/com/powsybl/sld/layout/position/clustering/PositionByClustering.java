@@ -6,7 +6,11 @@
  */
 package com.powsybl.sld.layout.position.clustering;
 
-import com.powsybl.sld.layout.position.*;
+import com.powsybl.sld.layout.position.AbstractPositionFinder;
+import com.powsybl.sld.layout.position.BSCluster;
+import com.powsybl.sld.layout.position.HorizontalBusList;
+import com.powsybl.sld.layout.position.Subsection;
+import com.powsybl.sld.layout.position.VerticalBusSet;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -19,7 +23,15 @@ import com.powsybl.sld.model.nodes.BusNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,7 +75,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         int i = 1;
         for (BusNode n : busNodes.stream()
                 .sorted(Comparator.comparing(BusNode::getId))
-                .collect(Collectors.toList())) {
+                .toList()) {
             busToNb.put(n, i);
             n.setBusBarIndexSectionIndex(0, 0);
             i++;

@@ -41,12 +41,12 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     @Override
     public double getX() {
-        return position.getX();
+        return position.x();
     }
 
     @Override
     public double getY() {
-        return position.getY();
+        return position.y();
     }
 
     @Override

@@ -111,6 +111,7 @@ public class SvgParameters {
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.highlightGraph = other.highlightGraph;
         this.injectionAperture = other.injectionAperture;
         this.injectionEdgeLength = other.injectionEdgeLength;
         this.injectionCircleRadius = other.injectionCircleRadius;
@@ -468,7 +469,7 @@ public class SvgParameters {
     public enum EdgeInfoEnum {
         ACTIVE_POWER,
         REACTIVE_POWER,
-        CURRENT;
+        CURRENT
     }
 
     public EdgeInfoEnum getEdgeInfoDisplayed() {

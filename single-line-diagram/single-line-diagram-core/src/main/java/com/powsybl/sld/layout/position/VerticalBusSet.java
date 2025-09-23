@@ -6,7 +6,13 @@
  */
 package com.powsybl.sld.layout.position;
 
-import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BodyParallelBlock;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.cells.ArchCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -15,11 +21,25 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -108,7 +128,7 @@ public final class VerticalBusSet {
         graph.getExternCellStream().toList().forEach(cell -> fixMultisectionExternCells(cell, graph));
         List<ExternCell> externCells = graph.getExternCellStream()
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .collect(Collectors.toList());
+                .toList();
 
         List<VerticalBusSet> verticalBusSets = new ArrayList<>();
 
@@ -130,7 +150,7 @@ public final class VerticalBusSet {
         // find orphan busNodes and build their VBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
         allBusNodes.removeAll(verticalBusSets.stream().
-                flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
+                flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).toList());
         allBusNodes.stream()
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
                 .forEach(busNode -> verticalBusSets.add(new VerticalBusSet(busToNb, busNode)));

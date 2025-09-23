@@ -14,13 +14,23 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.ThreeSides;
 import com.powsybl.iidm.network.TwoSides;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.BranchEdge.Side;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}

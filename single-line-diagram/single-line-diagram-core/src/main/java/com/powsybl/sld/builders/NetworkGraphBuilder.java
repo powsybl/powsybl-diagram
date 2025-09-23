@@ -13,16 +13,38 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.NodeFactory;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.SldComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.SldComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.SldComponentTypeName.LINE;
+import static com.powsybl.sld.library.SldComponentTypeName.LOAD_BREAK_SWITCH;
+import static com.powsybl.sld.library.SldComponentTypeName.TIE_LINE;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
@@ -379,12 +401,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            FeederNode node;
-            switch (converterStation.getHvdcType()) {
-                case LCC: node = createFeederLccNode(graph, converterStation); break;
-                case VSC: node = createFeederVscNode(graph, converterStation); break;
-                default: throw new AssertionError();
-            }
+            FeederNode node = switch (converterStation.getHvdcType()) {
+                case LCC -> createFeederLccNode(graph, converterStation);
+                case VSC -> createFeederVscNode(graph, converterStation);
+            };
             addTerminalNode(node, converterStation.getTerminal());
         }
 
@@ -438,8 +458,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
             if (connectable instanceof Injection) {
                 return position.getFeeder();
-            } else if (connectable instanceof Branch) {
-                Branch<?> branch = (Branch<?>) connectable;
+            } else if (connectable instanceof Branch<?> branch) {
                 if (branch.getTerminal1() == terminal) {
                     return position.getFeeder1();
                 } else if (branch.getTerminal2() == terminal) {
@@ -447,8 +466,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 } else {
                     throw new AssertionError();
                 }
-            } else if (connectable instanceof ThreeWindingsTransformer) {
-                ThreeWindingsTransformer twt = (ThreeWindingsTransformer) connectable;
+            } else if (connectable instanceof ThreeWindingsTransformer twt) {
                 if (twt.getLeg1().getTerminal() == terminal) {
                     return position.getFeeder1();
                 } else if (twt.getLeg2().getTerminal() == terminal) {
@@ -614,7 +632,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         List<GraphBuildPostProcessor> listPostProcessors = POST_PROCESSOR_LOADER.getServices();
         for (GraphBuildPostProcessor gbp : listPostProcessors) {
             LOGGER.info("Graph post-processor id '{}' : Adding custom node in graph '{}'",
-                    gbp.getId(), graph.getVoltageLevelInfos().getId());
+                    gbp.getId(), graph.getVoltageLevelInfos().id());
             gbp.addNode(graph, network);
         }
     }
@@ -693,7 +711,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 String vlId = leg.getTerminal().getVoltageLevel().getId();
                 String idLeg = transfo.getId() + "_" + transfo.getSide(leg.getTerminal()).name();
                 return (FeederNode) graph.getVoltageLevel(vlId).getNode(idLeg);
-            }).collect(Collectors.toList());
+            }).toList();
 
             NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(),
                     feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
@@ -703,20 +721,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private SwitchNode createSwitchNodeFromSwitch(VoltageLevelGraph graph, Switch aSwitch) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(aSwitch);
-        String componentType;
-        switch (aSwitch.getKind()) {
-            case BREAKER:
-                componentType = BREAKER;
-                break;
-            case DISCONNECTOR:
-                componentType = DISCONNECTOR;
-                break;
-            case LOAD_BREAK_SWITCH:
-                componentType = LOAD_BREAK_SWITCH;
-                break;
-            default:
-                throw new AssertionError();
-        }
+        String componentType = switch (aSwitch.getKind()) {
+            case BREAKER -> BREAKER;
+            case DISCONNECTOR -> DISCONNECTOR;
+            case LOAD_BREAK_SWITCH -> LOAD_BREAK_SWITCH;
+        };
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
         return NodeFactory.createSwitchNode(graph, aSwitch.getId(), aSwitch.getNameOrId(), componentType, aSwitch.isFictitious(), sk, aSwitch.isOpen());
     }

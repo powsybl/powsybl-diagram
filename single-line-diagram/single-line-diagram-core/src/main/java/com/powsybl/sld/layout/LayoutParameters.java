@@ -347,12 +347,7 @@ public class LayoutParameters {
         FIRST, LAST, MIDDLE, NONE
     }
 
-    public static class Padding {
-        private final double left;
-        private final double top;
-        private final double right;
-        private final double bottom;
-
+    public record Padding(double left, double top, double right, double bottom) {
         @JsonCreator
         public Padding(@JsonProperty("left") double left,
                        @JsonProperty("top") double top,
@@ -370,22 +365,6 @@ public class LayoutParameters {
 
         public Padding(Padding padding) {
             this(padding.left, padding.top, padding.right, padding.bottom);
-        }
-
-        public double getLeft() {
-            return left;
-        }
-
-        public double getRight() {
-            return right;
-        }
-
-        public double getTop() {
-            return top;
-        }
-
-        public double getBottom() {
-            return bottom;
         }
     }
 

@@ -15,7 +15,6 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesSubstationLayoutFactory implements SubstationLayoutFactory {

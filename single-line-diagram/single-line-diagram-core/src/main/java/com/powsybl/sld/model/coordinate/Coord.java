@@ -13,10 +13,11 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
 
 /**
- * class use to store relatives coordinates of a nodeBus
+ * class use to store relative coordinates of a nodeBus
  *
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene

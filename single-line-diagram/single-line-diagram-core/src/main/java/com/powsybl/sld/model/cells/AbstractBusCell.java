@@ -7,14 +7,21 @@
 package com.powsybl.sld.model.cells;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

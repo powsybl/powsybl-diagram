@@ -11,7 +11,8 @@ import com.powsybl.sld.model.nodes.Node;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

@@ -14,7 +14,11 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -84,7 +88,7 @@ class BSClusterSide {
                 .filter(hbl -> side == Side.LEFT && hbl.getBusNodes().get(0) == busNode
                         || side == Side.RIGHT && hbl.getBusNodes().get(hbl.getBusNodes().size() - 1) == busNode)
                 .findFirst();
-        if (!horizontalBusList.isPresent()) {
+        if (horizontalBusList.isEmpty()) {
             return 100;
         } else {
             if (side == Side.LEFT) {
@@ -97,6 +101,6 @@ class BSClusterSide {
 
     @Override
     public String toString() {
-        return side.toString() + " " + bsCluster.hblSideBuses(side).toString();
+        return side + " " + bsCluster.hblSideBuses(side).toString();
     }
 }

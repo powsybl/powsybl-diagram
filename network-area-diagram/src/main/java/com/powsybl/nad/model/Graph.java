@@ -10,7 +10,13 @@ import org.jgrapht.alg.util.Pair;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -167,7 +173,7 @@ public class Graph {
 
     public Stream<List<BranchEdge>> getMultiBranchEdgesStream() {
         return voltageLevelGraph.edgeSet().stream()
-                .filter(e -> !isLoop(e))
+                .filter(this::isNotALoop)
                 .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct()
@@ -309,8 +315,8 @@ public class Graph {
         return nodes.containsKey(equipmentId);
     }
 
-    public boolean isLoop(Edge edge) {
-        return getNode1(edge) == getNode2(edge);
+    public boolean isNotALoop(Edge edge) {
+        return getNode1(edge) != getNode2(edge);
     }
 
     public Map<String, Point> getNodePositions() {
