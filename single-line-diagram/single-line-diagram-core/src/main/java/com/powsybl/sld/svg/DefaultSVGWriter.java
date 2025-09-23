@@ -481,7 +481,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void setMetadata(GraphMetadata metadata, Node node, String nodeEscapedId, BaseGraph graph, Direction direction, List<LabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
-        if (node instanceof FeederNode && ((FeederNode) node).getFeeder() instanceof FeederWithSides feederWs) {
+        if (node instanceof FeederNode feederNode && feederNode.getFeeder() instanceof FeederWithSides feederWs) {
             VoltageLevelInfos otherSideVoltageLevelInfos = feederWs.getOtherSideVoltageLevelInfos();
             if (otherSideVoltageLevelInfos != null) {
                 nextVId = otherSideVoltageLevelInfos.id();
@@ -490,7 +490,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         String prefixId = metadata.getSvgParameters().getPrefixId();
 
-        String vId = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().id() : "";
+        String vId = graph instanceof VoltageLevelGraph voltageLevelGraph ? voltageLevelGraph.getVoltageLevelInfos().id() : "";
 
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
 
