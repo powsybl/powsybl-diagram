@@ -312,7 +312,7 @@ public class SvgWriter {
                 case BranchEdge.PST_EDGE, BranchEdge.TWO_WT_EDGE:
                     draw2Wt(writer, edge);
                     break;
-                case BranchEdge.HVDC_LINE_EDGE:
+                case BranchEdge.HVDC_LINE_LCC_EDGE, BranchEdge.HVDC_LINE_VSC_EDGE:
                     drawConverterStation(writer, edge);
                     break;
                 default:

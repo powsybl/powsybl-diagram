@@ -63,7 +63,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     private static Optional<String> getBranchTypeStyle(Edge edge) {
         String edgeType = edge.getType();
         return switch (edgeType) {
-            case BranchEdge.HVDC_LINE_EDGE -> Optional.of(HVDC_EDGE_CLASS);
+            case BranchEdge.HVDC_LINE_LCC_EDGE, BranchEdge.HVDC_LINE_VSC_EDGE -> Optional.of(HVDC_EDGE_CLASS);
             case BranchEdge.DANGLING_LINE_EDGE -> Optional.of(DANGLING_LINE_EDGE_CLASS);
             case BranchEdge.TIE_LINE_EDGE -> Optional.of(TIE_LINE_EDGE_CLASS);
             default -> Optional.empty();

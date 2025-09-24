@@ -33,7 +33,7 @@ public final class IidmUtils {
     }
 
     public static Terminal getTerminalFromEdge(Network network, BranchEdge edge, BranchEdge.Side side) {
-        if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+        if (edge.getType().equals(BranchEdge.HVDC_LINE_LCC_EDGE) || edge.getType().equals(BranchEdge.HVDC_LINE_VSC_EDGE)) {
             HvdcLine line = network.getHvdcLine(edge.getEquipmentId());
             return line.getConverterStation(IidmUtils.getIidmHvdcSideFromBranchEdgeSide(side)).getTerminal();
         } else if (edge.getType().equals(BranchEdge.DANGLING_LINE_EDGE)) {
@@ -96,7 +96,8 @@ public final class IidmUtils {
     public static boolean isIidmBranch(Edge edge) {
         if (edge instanceof BranchEdge) {
             String edgeType = edge.getType();
-            return !edgeType.equals(BranchEdge.HVDC_LINE_EDGE) &&
+            return !edgeType.equals(BranchEdge.HVDC_LINE_LCC_EDGE) &&
+                    !edgeType.equals(BranchEdge.HVDC_LINE_VSC_EDGE) &&
                     !edgeType.equals(BranchEdge.DANGLING_LINE_EDGE);
         }
         return false;
