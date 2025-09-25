@@ -269,4 +269,12 @@ public final class NodeFactory {
         baseGraph.addMultiTermNode(m3wn);
         return m3wn;
     }
+
+    public static TeePointNode createTeePointNode(VoltageLevelGraph baseGraph, String id, String nameOrId) {
+        TeePointNode teePointNode = new TeePointNode(id, nameOrId, id, TEE_POINT);
+        baseGraph.addNode(teePointNode);
+        return teePointNode;     
+
+        // return createFeederNode(baseGraph, id, nameOrId, id, TEE_POINT, false, new BaseFeeder(FeederType.FICTITIOUS), null);
+    }
 }

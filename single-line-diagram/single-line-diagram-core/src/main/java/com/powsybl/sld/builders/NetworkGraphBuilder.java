@@ -207,6 +207,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, FeederNode firstOtherLegNode,
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
+        protected abstract void addTeePoint(Terminal terminal);
+
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
             return createFeederBranchNode(graph, line, side, LINE);
         }
@@ -430,6 +432,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
+        @Override
+        public void visitLine(Line line, TwoSides side) {
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+            VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
+            boolean isTeePoiint = vlOtherSide.isFictitious();
+
+            super.visitLine(line, side);
+            // TODO Check also number of lines
+            if (isTeePoiint) {
+                addTeePoint(line.getTerminal(otherSide));
+            }
+        }
+
         public ConnectablePosition.Feeder getFeeder(Terminal terminal) {
             Connectable<?> connectable = terminal.getConnectable();
             ConnectablePosition<?> position = (ConnectablePosition<?>) connectable.getExtension(ConnectablePosition.class);
@@ -501,6 +516,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
             nodesByNumber.put(busbarSection.getTerminal().getNodeBreakerView().getNode(), node);
         }
+
+        @Override
+        protected void addTeePoint(Terminal terminal) {
+            VoltageLevel vl = terminal.getVoltageLevel();
+            TeePointNode teeNode = NodeFactory.createTeePointNode(graph, vl.getId(), vl.getNameOrId());
+            nodesByNumber.put(terminal.getNodeBreakerView().getNode(), teeNode);
+
+            //addTerminalNode(teeNode, terminal);
+            
+            //nodesByNumber.put(terminal.getNodeBreakerView().getNode(), teeNode);
+        }
     }
 
     public static class BusBreakerGraphBuilder extends AbstractGraphBuilder {
@@ -536,6 +562,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             secondOtherLegNode.setDirection(direction);
 
             connectToBus(middleNode, terminal);
+        }
+
+        @Override
+        protected void addTeePoint(Terminal terminal) {
+            // TODO
         }
     }
 

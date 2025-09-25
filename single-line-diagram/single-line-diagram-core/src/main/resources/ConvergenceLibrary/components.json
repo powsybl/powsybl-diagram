@@ -823,4 +823,12 @@
       }
     ],
     "styleClass": "sld-current"
+  }, {
+    "type" : "TEE_POINT",
+    "styleClass" : "sld-wire",
+    "subComponents": [],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    }
   }]
