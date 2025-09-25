@@ -41,9 +41,9 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(
             layoutParameters.getRepulsion(),
-            layoutParameters.isRepulsionForceFromFixedPoints()
+            layoutParameters.isActivateRepulsionForceFromFixedPoints()
         ));
-        if (layoutParameters.isAttractToCenterForce()) {
+        if (layoutParameters.isActivateAttractToCenterForce()) {
             this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsion() / 200));
         }
         this.layoutParameters = layoutParameters;
