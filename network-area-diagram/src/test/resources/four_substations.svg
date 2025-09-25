@@ -475,35 +475,6 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         </g>
         <g id="27" class="nad-hvdc-edge">
             <g id="27.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="-154.01,-76.33 -158.07,63.85"/>
-                <g class="nad-edge-infos" transform="translate(-154.95,-43.84)">
-                    <g class="nad-active nad-state-out">
-                        <g transform="rotate(-178.34)">
-                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
-                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
-                        </g>
-                        <text transform="rotate(-88.34)" x="-19.00" style="text-anchor:end">10</text>
-                    </g>
-                </g>
-            </g>
-            <g id="27.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="-162.13,204.03 -158.07,63.85"/>
-                <g class="nad-edge-infos" transform="translate(-161.19,171.54)">
-                    <g class="nad-active nad-state-in">
-                        <g transform="rotate(1.66)">
-                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
-                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
-                        </g>
-                        <text transform="rotate(-88.34)" x="19.00">-10</text>
-                    </g>
-                </g>
-            </g>
-            <g>
-                <polyline points="-157.06,28.86 -159.09,98.84" class="nad-hvdc"/>
-            </g>
-        </g>
-        <g id="28" class="nad-hvdc-edge">
-            <g id="28.1" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="-105.17,-100.92 21.70,-12.48"/>
                 <g class="nad-edge-infos" transform="translate(-78.51,-82.33)">
                     <g class="nad-active nad-state-out">
@@ -515,7 +486,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                     </g>
                 </g>
             </g>
-            <g id="28.2" class="nad-vl300to500">
+            <g id="27.2" class="nad-vl300to500">
                 <polyline class="nad-edge-path" points="148.57,75.96 21.70,-12.48"/>
                 <g class="nad-edge-infos" transform="translate(121.91,57.38)">
                     <g class="nad-active nad-state-in">
@@ -529,6 +500,35 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             </g>
             <g>
                 <polyline points="-7.01,-32.49 50.41,7.54" class="nad-hvdc"/>
+            </g>
+        </g>
+        <g id="28" class="nad-hvdc-edge">
+            <g id="28.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-154.01,-76.33 -158.07,63.85"/>
+                <g class="nad-edge-infos" transform="translate(-154.95,-43.84)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(-178.34)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-88.34)" x="-19.00" style="text-anchor:end">10</text>
+                    </g>
+                </g>
+            </g>
+            <g id="28.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-162.13,204.03 -158.07,63.85"/>
+                <g class="nad-edge-infos" transform="translate(-161.19,171.54)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(1.66)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-88.34)" x="19.00">-10</text>
+                    </g>
+                </g>
+            </g>
+            <g>
+                <polyline points="-157.06,28.86 -159.09,98.84" class="nad-hvdc"/>
             </g>
         </g>
         <g id="29">
