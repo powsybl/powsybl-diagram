@@ -627,20 +627,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private static void visitEquipments(AbstractGraphBuilder builder, VoltageLevel voltageLevel) {
-        voltageLevel.getGeneratorStream().sorted(Comparator.comparing(Generator::getId)).forEach(builder::visitGenerator);
-        voltageLevel.getLoadStream().sorted(Comparator.comparing(Load::getId)).forEach(builder::visitLoad);
         voltageLevel.getLineStream().sorted(Comparator.comparing(Line::getId)).forEach(l -> visitLine(builder, voltageLevel, l));
+        voltageLevel.getGeneratorStream().sorted(Comparator.comparing(Generator::getId)).forEach(builder::visitGenerator);
+        voltageLevel.getBatteryStream().sorted(Comparator.comparing(Battery::getId)).forEach(builder::visitBattery);
+        voltageLevel.getShuntCompensatorStream().sorted(Comparator.comparing(Identifiable::getId)).forEach(builder::visitShuntCompensator);
+        voltageLevel.getLoadStream().sorted(Comparator.comparing(Load::getId)).forEach(builder::visitLoad);
         voltageLevel.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId))
             .forEach(twt -> visitTwoWindingsTransformer(builder, voltageLevel, twt));
         voltageLevel.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
             .forEach(thwt -> visitThreeWindingsTransformer(builder, voltageLevel, thwt));
         voltageLevel.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(builder::visitDanglingLine);
+        voltageLevel.getStaticVarCompensatorStream().sorted(Comparator.comparing(StaticVarCompensator::getId)).forEach(builder::visitStaticVarCompensator);
         voltageLevel.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId))
             .forEach(builder::visitHvdcConverterStation);
-        voltageLevel.getShuntCompensatorStream().sorted(Comparator.comparing(Identifiable::getId)).forEach(builder::visitShuntCompensator);
-        voltageLevel.getBatteryStream().sorted(Comparator.comparing(Battery::getId)).forEach(builder::visitBattery);
-        voltageLevel.getStaticVarCompensatorStream().sorted(Comparator.comparing(StaticVarCompensator::getId)).forEach(builder::visitStaticVarCompensator);
         voltageLevel.getGroundStream().sorted(Comparator.comparing(Ground::getId)).forEach(builder::visitGround);
+        voltageLevel.getConnectableStream(AcDcConverter.class).sorted(Comparator.comparing(AcDcConverter::getId))
+            .forEach(acDcConverter -> visitAcDcConverter(builder, voltageLevel, acDcConverter));
     }
 
     private static void visitLine(AbstractGraphBuilder builder, VoltageLevel voltageLevel, Line line) {
@@ -670,6 +672,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
         if (threeWindingsTransformer.getTerminal(ThreeSides.THREE).getVoltageLevel() == voltageLevel) {
             builder.visitThreeWindingsTransformer(threeWindingsTransformer, ThreeSides.THREE);
+        }
+    }
+
+    private static void visitAcDcConverter(AbstractGraphBuilder builder, VoltageLevel voltageLevel, AcDcConverter<?> converter) {
+        if (converter.getTerminal1().getVoltageLevel() == voltageLevel) {
+            builder.visitAcDcConverter(converter, TwoSides.ONE);
+        }
+        Optional<Terminal> terminal2 = converter.getTerminal2();
+        if (terminal2.isPresent() && terminal2.get().getVoltageLevel() == voltageLevel) {
+            builder.visitAcDcConverter(converter, TwoSides.TWO);
         }
     }
 
