@@ -76,18 +76,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         this.layoutParameters = layoutParameters;
     }
 
-    // To be moved later if needed by other algorithms
-    /**
-     * Initializes all the forces using the layoutContext
-     * @param forces forces to be initialized
-     * @param layoutContext the context of the layout
-     */
-    private void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
-        for (Force<V, E> force : forces) {
-            force.init(layoutContext);
-        }
-    }
-
     /**
      * Use Atlas2 layout with default parameters
      */
@@ -99,7 +87,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     // We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
-        initAllForces(forces, layoutContext);
+        Force.initAllForces(forces, layoutContext);
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();

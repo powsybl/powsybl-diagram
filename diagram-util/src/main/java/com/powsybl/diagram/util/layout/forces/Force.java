@@ -12,12 +12,25 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
+import java.util.List;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public interface Force<V, E> {
     default void init(LayoutContext<V, E> layoutContext) {
         // most forces do not need anything to init, default is empty
+    }
+
+    /**
+     * Initializes all the forces using the layoutContext
+     * @param forces forces to be initialized
+     * @param layoutContext the context of the layout
+     */
+    static <V, E> void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
+        for (Force<V, E> force : forces) {
+            force.init(layoutContext);
+        }
     }
 
     /**
