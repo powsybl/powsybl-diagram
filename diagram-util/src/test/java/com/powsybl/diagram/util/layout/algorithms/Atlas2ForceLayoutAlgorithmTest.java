@@ -12,6 +12,8 @@ import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
@@ -36,13 +38,21 @@ class Atlas2ForceLayoutAlgorithmTest {
     }
 
     @Test
-    void calculateLayoutNoOverlap() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        Layout<String, DefaultEdge> atlas2 = Layout.createAtlas2ForceLayout();
+    void calculateLayoutNoOverlapNoBH() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
+        Layout<String, DefaultEdge> atlas2 = new Layout<>(
+            new SquareRandomSetup<>(),
+            new Atlas2ForceLayoutAlgorithm<>(new Atlas2Parameters.Builder()
+                    .withBarnesHutTheta(0)
+                    .build()
+            ),
+            new OverlapPreventionPostProcessing<>()
+        );
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
         assertEquals(ResourceUtils.toString("atlas2_5_nodes_noOverlap.svg"), sw.toString());
+    }
 
     @Test
     void calculateLayoutYesBH() {
