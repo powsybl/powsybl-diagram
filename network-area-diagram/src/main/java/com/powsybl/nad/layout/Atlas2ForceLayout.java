@@ -47,7 +47,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
     }
 
     public Atlas2ForceLayout() {
-        this (
+        this(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder().build(),
                 new OverlapPreventionPostProcessing<>(
