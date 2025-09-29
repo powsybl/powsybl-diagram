@@ -29,10 +29,6 @@ public class Quadtree {
                 {NO_CHILDREN, NO_CHILDREN}
         };
 
-        public short[][] getChildrenNodeId() {
-            return childrenNodeId;
-        }
-
         public short[] getChildrenNodeIdFlatten() {
             return new short[] {
                 childrenNodeId[0][0],
