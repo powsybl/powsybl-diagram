@@ -13,13 +13,15 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 /**
+ * A force that attracts all the points towards the center of the graph. The force depends on the number of edge of the point.
+ * The force is the same no matter the distance to the center.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class AttractToCenterForceByEdgeNumber<V, E> implements Force<V, E> {
+public class AttractToCenterForceByEdgeNumberUnit<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
 
-    public AttractToCenterForceByEdgeNumber(double forceIntensity) {
+    public AttractToCenterForceByEdgeNumberUnit(double forceIntensity) {
         this.forceIntensity = forceIntensity;
     }
 
@@ -28,7 +30,7 @@ public class AttractToCenterForceByEdgeNumber<V, E> implements Force<V, E> {
         // magnitude = k * (deg (point) + 1)
         // with deg(p) the degree of p, ie the number of connected nodes, that is to say the number of edges
         // this means less connected points will end more on the sides of the graph
-        double magnitude = forceIntensity * (layoutContext.getSimpleGraph().degreeOf(vertex) + 1);
+        double magnitude = forceIntensity * (point.getPointVertexDegree() + 1);
         Vector2D force = Vector2D.calculateUnitVector(point, layoutContext.getOrigin());
         force.multiplyBy(magnitude);
         return force;
