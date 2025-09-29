@@ -16,7 +16,7 @@ public final class OverlapPreventionPostProcessingParameters {
     private static final double DEFAULT_EDGE_ATTRACTION_INTENSITY = 1;
     private static final double DEFAULT_REPULSION_NO_OVERLAP = 4;
     private static final double DEFAULT_REPULSION_WITH_OVERLAP = 100;
-    private static final double DEFAULT_REPULSION_ZONE_RATIO = 30;
+    private static final double DEFAULT_REPULSION_ZONE_RATIO = 10;
     private static final double DEFAULT_ATTRACT_TO_CENTER_INTENSITY = 0.001;
 
     private final double pointSizeScale;
