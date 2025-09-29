@@ -8,6 +8,7 @@
 package com.powsybl.diagram.util.layout.algorithms;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.graph.DefaultEdge;
@@ -30,5 +31,15 @@ class Atlas2ForceLayoutAlgorithmTest {
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
         assertEquals(ResourceUtils.toString("atlas2_5_nodes.svg"), sw.toString());
+    }
+
+    @Test
+    void calculateLayoutNoOverlap() {
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        Layout<String, DefaultEdge> atlas2 = Layout.createAtlas2ForceLayout();
+        atlas2.run(layoutContext);
+        StringWriter sw = new StringWriter();
+        layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
+        assertEquals(ResourceUtils.toString("atlas2_5_nodes_noOverlap.svg"), sw.toString());
     }
 }

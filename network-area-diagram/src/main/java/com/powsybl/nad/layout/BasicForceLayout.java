@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.NoPostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -55,7 +56,9 @@ public class BasicForceLayout extends AbstractLayout {
                                 .withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
                                 .build()
-                ));
+                ),
+                new NoPostProcessing<>()
+        );
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 

@@ -7,12 +7,18 @@
  */
 package com.powsybl.diagram.util.layout;
 
+import com.powsybl.diagram.util.layout.algorithms.Atlas2ForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.algorithms.LayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.NoPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.Setup;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
+import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +36,7 @@ import java.util.function.Function;
 public class Layout<V, E> {
     private final Setup<V, E> setup;
     private final LayoutAlgorithm<V, E> layoutAlgorithm;
+    private final PostProcessing<V, E> postProcessing;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
@@ -38,9 +45,10 @@ public class Layout<V, E> {
      * @param setup the setup to be used
      * @param layoutAlgorithm the algorithm to place the points once the setup has been applied
      */
-    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
+    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm, PostProcessing<V, E> postProcessing) {
         this.setup = Objects.requireNonNull(setup);
         this.layoutAlgorithm = Objects.requireNonNull(layoutAlgorithm);
+        this.postProcessing = postProcessing;
     }
 
     /**
@@ -52,7 +60,22 @@ public class Layout<V, E> {
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder().build()
-                )
+                ),
+                new NoPostProcessing<>()
+        );
+    }
+
+    /**
+     * Get the default Atlas2 algorithm, with setup {@link SquareRandomSetup}, algorithm {@link Atlas2ForceLayoutAlgorithm} and post-processing {@link OverlapPreventionPostProcessing}
+     * @return a ready to run atlas2 algorithm, with default parameters
+     */
+    public static <V, E> Layout<V, E> createAtlas2ForceLayout() {
+        return new Layout<>(
+                new SquareRandomSetup<>(),
+                new Atlas2ForceLayoutAlgorithm<>(
+                        new Atlas2Parameters.Builder().build()
+                ),
+                new OverlapPreventionPostProcessing<>()
         );
     }
 
@@ -67,6 +90,10 @@ public class Layout<V, E> {
         long setupEnd = System.nanoTime();
         LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
         layoutAlgorithm.run(layoutContext);
-        LOGGER.info("Layout calculations took {} s", (System.nanoTime() - setupEnd) / 1e9);
+        long algorithmEnd = System.nanoTime();
+        LOGGER.info("Layout calculations took {} s", (algorithmEnd - setupEnd) / 1e9);
+        postProcessing.run(layoutContext);
+        long postProcessingEnd = System.nanoTime();
+        LOGGER.info("Post-processing took {} s", (postProcessingEnd - algorithmEnd) / 1e9);
     }
 }

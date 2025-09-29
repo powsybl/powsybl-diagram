@@ -13,6 +13,9 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.parameters.OverlapPreventionPostProcessingParameters;
 import com.powsybl.diagram.util.layout.setup.Setup;
 import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import com.powsybl.nad.model.Edge;
@@ -35,14 +38,22 @@ public class Atlas2ForceLayout extends AbstractLayout {
     private final Setup<Node, Edge> setup;
     //maybe change the class name to not be confused with NAD LayoutParameters ?
     private final Atlas2Parameters atlas2Parameters;
+    private final PostProcessing<Node, Edge> postProcessing;
 
-    public Atlas2ForceLayout(Setup<Node, Edge> setup, Atlas2Parameters atlas2Parameters) {
+    public Atlas2ForceLayout(Setup<Node, Edge> setup, Atlas2Parameters atlas2Parameters, PostProcessing<Node, Edge> postProcessing) {
         this.setup = setup;
         this.atlas2Parameters = atlas2Parameters;
+        this.postProcessing = postProcessing;
     }
 
     public Atlas2ForceLayout() {
-        this (new SquareRandomSetup<>(), new Atlas2Parameters.Builder().build());
+        this (
+                new SquareRandomSetup<>(),
+                new Atlas2Parameters.Builder().build(),
+                new OverlapPreventionPostProcessing<>(
+                    new OverlapPreventionPostProcessingParameters.Builder().build()
+                )
+        );
     }
 
     @Override
@@ -52,7 +63,8 @@ public class Atlas2ForceLayout extends AbstractLayout {
         //TODO should we use the layoutParameters maxSteps to set Atlas2Parameters maxSteps ?
         Layout<Node, Edge> layoutAlgorithmRunner = new Layout<>(
             this.setup,
-            new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters)
+            new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters),
+            this.postProcessing
         );
         setInitialPositions(graph, layoutContext, scale);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()

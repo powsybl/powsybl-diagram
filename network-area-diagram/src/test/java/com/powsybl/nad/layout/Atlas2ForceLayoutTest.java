@@ -8,6 +8,7 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -36,7 +37,8 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withRepulsion(10)
                         .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
-                        .build()
+                        .build(),
+                new OverlapPreventionPostProcessing<>()
         );
         assertSvgEquals("/IEEE_14_atlas2_custom1.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -50,7 +52,8 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withActivateAttractToCenterForce(false)
                         .withSwingTolerance(0.8)
                         .withIterationNumberIncreasePercent(50)
-                        .build()
+                        .build(),
+                new OverlapPreventionPostProcessing<>()
         );
         assertSvgEquals("/IEEE_14_atlas2_custom1_moreIteration.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -65,7 +68,8 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
                         .withIterationNumberIncreasePercent(60)
-                        .build()
+                        .build(),
+                new OverlapPreventionPostProcessing<>()
         );
         assertSvgEquals("/IEEE_30_atlas2_custom1.svg", IeeeCdfNetworkFactory.create30(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -77,7 +81,8 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 new Atlas2Parameters.Builder()
                         .withRepulsion(10)
                         .withIterationNumberIncreasePercent(20)
-                        .build()
+                        .build(),
+                new OverlapPreventionPostProcessing<>()
         );
         assertSvgEquals("/IEEE_118_atlas2_custom1.svg", IeeeCdfNetworkFactory.create118(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
