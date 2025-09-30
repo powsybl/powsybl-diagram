@@ -7,21 +7,14 @@
  */
 package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.layout.forces.Force;
-import com.powsybl.diagram.util.layout.forces.AttractToCenterForceByEdgeNumberLinear;
-import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceLinear;
-import com.powsybl.diagram.util.layout.forces.RepulsionForceByEdgeNumberLinear;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-import com.powsybl.diagram.util.layout.geometry.Point;
-import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
+import com.powsybl.diagram.util.layout.forces.*;
+import com.powsybl.diagram.util.layout.geometry.*;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /// The code in this class is the implementation of the paper:
 /// Jacomy M, Venturini T, Heymann S, Bastian M (2014)
@@ -41,6 +34,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
+    private final QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -64,16 +58,14 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
-        this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
-                layoutParameters.getRepulsion(),
-                layoutParameters.isActivateRepulsionForceFromFixedPoints()));
+        this.layoutParameters = layoutParameters;
+        addRepulsionForce();
         this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttraction()));
         if (layoutParameters.isActivateAttractToCenterForce()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
-            // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
+            // Both can work, but for our visualization purpose, a linear gravity force which tends to make the graph more compact worked better
             this.forces.add(new AttractToCenterForceByEdgeNumberLinear<>(layoutParameters.getAttractToCenter()));
         }
-        this.layoutParameters = layoutParameters;
     }
 
     /**
@@ -108,10 +100,16 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         int stoppingStep = layoutParameters.getMaxSteps();
         boolean changedStoppingStep = false;
 
+        ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
+
         while (i < stoppingStep) {
             double graphSwing = 0.;
             double newGraphSpeed;
             double graphTraction = 0.;
+            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
+                Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
+                this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
+            }
             //calculate forces
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
@@ -151,7 +149,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             if (!changedStoppingStep && isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
                 stoppingStep = Math.min(
                         layoutParameters.getMaxSteps(),
-                        (int) (i * (1 + layoutParameters.getIterationNumberIncreasePercent() / 100))
+                        (int) (i * (1 + layoutParameters.getIterationNumberIncreasePercent() / 100) * (1 + layoutParameters.getBarnesHutTheta() / 8))
                 );
                 changedStoppingStep = true;
             }
@@ -162,11 +160,44 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     }
 
     /**
+     * Choose whether to add a repulsion force using barnes-hut or not
+     */
+    private void addRepulsionForce() {
+        if (layoutParameters.getBarnesHutTheta() == 0) {
+            this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
+                    layoutParameters.getRepulsion(),
+                    layoutParameters.isActivateRepulsionForceFromFixedPoints()
+            ));
+        } else {
+            this.forces.add(new RepulsionForceByEdgeNumberLinearBarnesHut<>(
+                    layoutParameters.getRepulsion(),
+                    layoutParameters.isActivateRepulsionForceFromFixedPoints(),
+                    layoutParameters.getBarnesHutTheta(),
+                    this.quadtreeContainer
+            ));
+        }
+    }
+
+    /**
+     * Choose which points to interact with, either all the points or just the moving points, depending on if repulsion force for fixed points is activated
+     * @param layoutContext the context of the layout (points, graph of the points)
+     * @return all the points if fixed points have a repulsion force, just the moving points otherwise
+     */
+    private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
+        if (layoutParameters.isActivateRepulsionForceFromFixedPoints()) {
+            return layoutContext.getAllPoints().values();
+        } else {
+            return layoutContext.getMovingPoints().values();
+        }
+    }
+
+  /**
      * Calculate the swing of the point, as the magnitude of the difference between the previous and the current force applied to the point
      * @param point the point the force is applied to
      * @param previousForce the force that was previously applied on the point
      * @return the swing of the point
      */
+
     private double calculatePointSwing(Point point, Vector2D previousForce) {
         Vector2D swingVector = new Vector2D(point.getForces());
         swingVector.subtract(previousForce);

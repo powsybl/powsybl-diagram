@@ -21,7 +21,7 @@ class AttractToCenterForceLinearTest {
     @Test
     void apply() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         AttractToCenterForceLinear<String, DefaultEdge> attractToCenterForceLinear = new AttractToCenterForceLinear<>(0.01);
         String[] vertexToTest = {
             "1",

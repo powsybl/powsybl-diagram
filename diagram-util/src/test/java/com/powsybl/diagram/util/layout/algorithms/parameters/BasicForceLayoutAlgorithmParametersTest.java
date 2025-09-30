@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
+
 package com.powsybl.diagram.util.layout.algorithms.parameters;
 
 import org.junit.jupiter.api.Test;

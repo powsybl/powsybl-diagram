@@ -8,6 +8,7 @@
 package com.powsybl.diagram.util.forcelayout;
 
 import com.powsybl.diagram.util.layout.GraphTestData;
+import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import org.jgrapht.graph.DefaultEdge;
@@ -26,9 +27,9 @@ class ForceLayoutTest {
 
     @Test
     void execute() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
-        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(layoutContext);
-        forceLayout.execute();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
+        Layout<String, DefaultEdge> layout = Layout.createBasicForceLayout();
+        layout.run(layoutContext);
         Function<String, String> tooltip = v -> String.format("Vertex %s", v);
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(tooltip, sw);

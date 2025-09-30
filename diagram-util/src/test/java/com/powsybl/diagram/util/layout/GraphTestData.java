@@ -28,7 +28,7 @@ public final class GraphTestData {
         throw new AssertionError("Instantiating utility class GraphTestData");
     }
 
-    public static Point[] getPoints() {
+    public static Point[] getPoints1() {
         return new Point[] {
             new Point(1, 2),
             new Point(-3.14, 2.78),
@@ -38,17 +38,24 @@ public final class GraphTestData {
         };
     }
 
-    public static LayoutContext<String, DefaultEdge> getLayoutContext() {
-        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(getGraph());
-        setup(layoutContext);
-        return layoutContext;
+    public static Point[] getPoints2() {
+        return new Point[] {
+            new Point(0.5, 0.5),
+            new Point(0, 0),
+            new Point(0.22, 0.22),
+            new Point(-1.29, 1.18),
+            new Point(-0.77, -0.73),
+            new Point(-1.38, -0.7),
+            new Point(1.14, -0.92),
+            new Point(0.87, 0.93),
+            new Point(0.25, 0.34),
+            new Point(0.63, 1.01)
+        };
     }
 
-    public static Graph<String, DefaultEdge> getGraph() {
-        Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
-        for (int i = 0; i < getPoints().length; i++) {
-            graph.addVertex(String.valueOf(i));
-        }
+    public static Graph<String, DefaultEdge> getGraph1() {
+        Point[] points = getPoints1();
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
         graph.addEdge("0", "1");
         graph.addEdge("1", "2");
         graph.addEdge("2", "0");
@@ -56,17 +63,57 @@ public final class GraphTestData {
         return graph;
     }
 
-    private static void setup(LayoutContext<String, DefaultEdge> layoutContext) {
+    public static LayoutContext<String, DefaultEdge> getLayoutContext1() {
+        Graph<String, DefaultEdge> graph = getGraph1();
+        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(graph);
+        Set<String> fixedNodes = new HashSet<>();
+        fixedNodes.add("1");
+        setup(layoutContext, fixedNodes, getPoints1());
+        return layoutContext;
+    }
+
+    public static Graph<String, DefaultEdge> getGraph2() {
+        Point[] points = getPoints2();
+        Graph<String, DefaultEdge> graph = buildGraphVertex(points);
+        graph.addEdge("0", "2");
+        graph.addEdge("1", "2");
+        graph.addEdge("1", "3");
+        graph.addEdge("2", "8");
+        graph.addEdge("2", "9");
+        graph.addEdge("3", "4");
+        graph.addEdge("3", "5");
+        graph.addEdge("4", "5");
+        graph.addEdge("7", "9");
+        return graph;
+    }
+
+    public static LayoutContext<String, DefaultEdge> getLayoutContext2() {
+        Graph<String, DefaultEdge> graph = getGraph2();
+        LayoutContext<String, DefaultEdge> layoutContext = new LayoutContext<>(graph);
+        Set<String> fixedNodes = new HashSet<>();
+        setup(layoutContext, fixedNodes, getPoints2());
+        return layoutContext;
+    }
+
+    private static Graph<String, DefaultEdge> buildGraphVertex(Point[] points) {
+        Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
+        for (int i = 0; i < points.length; ++i) {
+            graph.addVertex(String.valueOf(i));
+        }
+        return graph;
+    }
+
+    private static void setup(LayoutContext<String, DefaultEdge> layoutContext, Set<String> fixedNodes, Point[] points) {
         Map<String, Point> initialPoints = new HashMap<>();
-        Point[] points = getPoints();
         for (int i = 0; i < points.length; i++) {
             initialPoints.put(String.valueOf(i), points[i]);
         }
         layoutContext.setInitialPoints(initialPoints);
-        Set<String> fixedNodes = new HashSet<>();
-        fixedNodes.add("1");
         layoutContext.setFixedNodes(fixedNodes);
         SquareRandomSetup<String, DefaultEdge> setup = new SquareRandomSetup<>(RANDOM);
         setup.run(layoutContext);
+        for (Map.Entry<String, Point> vertexPoint : layoutContext.getAllPoints().entrySet()) {
+            vertexPoint.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(vertexPoint.getKey()));
+        }
     }
 }

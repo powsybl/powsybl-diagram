@@ -7,6 +7,8 @@
  */
 package com.powsybl.diagram.util.layout.geometry;
 
+import java.util.Objects;
+
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -93,6 +95,23 @@ public class Vector2D {
         } else {
             return new Vector2D(0, 0);
         }
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj == null) {
+            return false;
+        } else if (obj instanceof Vector2D vector2D) {
+            return this.x == vector2D.x && this.y == vector2D.y;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
     }
 }

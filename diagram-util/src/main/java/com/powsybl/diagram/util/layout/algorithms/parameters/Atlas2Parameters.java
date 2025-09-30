@@ -22,6 +22,10 @@ public final class Atlas2Parameters {
     private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
     private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
     private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
+    private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
+    /// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
+    /// By Robert Gove, Two Six Labs, for an explanation
+    private static final int DEFAULT_QUADTREE_CALCULATION_INCREMENT = 13;
 
     private final int maxSteps;
     private final double repulsion;
@@ -34,6 +38,8 @@ public final class Atlas2Parameters {
     private final boolean activateRepulsionForceFromFixedPoints;
     private final boolean activateAttractToCenterForce;
     private final double iterationNumberIncreasePercent;
+    private final double barnesHutTheta;
+    private final int quadtreeCalculationIncrement;
 
     private Atlas2Parameters(
             int maxSteps,
@@ -46,7 +52,9 @@ public final class Atlas2Parameters {
             double maxGlobalSpeedIncreaseRatio,
             boolean activateRepulsionForceFromFixedPoints,
             boolean activateAttractToCenterForce,
-            double iterationNumberIncreasePercent
+            double iterationNumberIncreasePercent,
+            double barnesHutTheta,
+            int quadtreeCalculationIncrement
     ) {
         this.maxSteps = maxSteps;
         this.repulsion = repulsion;
@@ -59,6 +67,8 @@ public final class Atlas2Parameters {
         this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
         this.activateAttractToCenterForce = activateAttractToCenterForce;
         this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+        this.barnesHutTheta = barnesHutTheta;
+        this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
     }
 
     public static class Builder {
@@ -73,6 +83,8 @@ public final class Atlas2Parameters {
         private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS;
         private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE;
         private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
+        private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
+        private int quadtreeCalculationIncrement = DEFAULT_QUADTREE_CALCULATION_INCREMENT;
 
         /**
          * Change the maximum number of iteration the algorithm is allowed to run,
@@ -208,6 +220,39 @@ public final class Atlas2Parameters {
             return this;
         }
 
+        /**
+         * The theta parameter used in the Barnes-Hut approximation. The bigger the theta, the more aggressive the optimization will be,
+         * but that might lead to less visual quality. A bigger value will also generally reduce runtime. Default is {@value DEFAULT_BARNES_HUT_THETA}
+         * @param barnesHutTheta the theta for the barnes-hut optimization
+         * @return  the instance of this Builder with the `barnesHutTheta` changed
+         */
+        public Builder withBarnesHutTheta(double barnesHutTheta) {
+            if (barnesHutTheta < 0) {
+                throw new IllegalArgumentException("The theta of the Barnes Hut optimization cannot be a negative value");
+            }
+            this.barnesHutTheta = barnesHutTheta;
+            return this;
+        }
+
+        /**
+         * Recalculation interval for the quadtree, meaning if you use a value of 3 here, the quadtree is recalculated every 3 steps.
+         * A higher value leads to faster calculations (because we need to recalculate the quadtree less), but might lead to a worse result visually.
+         * Default is {@value DEFAULT_QUADTREE_CALCULATION_INCREMENT}
+         * @param quadtreeCalculationIncrement how many steps between each calculation of the quadtree
+         * @return the instance of this Builder with the `quadtreeCalculationIncrement` changed
+         */
+        public Builder withQuadtreeCalculationIncrement(int quadtreeCalculationIncrement) {
+            if (quadtreeCalculationIncrement <= 0) {
+                throw new IllegalArgumentException("The increment for the constant schedule has to be strictly positive");
+            }
+            this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
+            return this;
+        }
+
+        /// By default, the Barnes-Hut optimisation is activated with theta = 1.2
+        /// If your network has a small number of nodes (less than 500), Atlas might finish faster by deactivating Barnes-Hut
+        /// You can do so by using withBarnesHutTheta(0)
+        /// This might be interesting to do especially if you need to run Atlas on a lot of small networks
         public Atlas2Parameters build() {
             return new Atlas2Parameters(
                     maxSteps,
@@ -220,7 +265,9 @@ public final class Atlas2Parameters {
                     maxGlobalSpeedIncreaseRatio,
                     activateRepulsionForceFromFixedPoints,
                     activateAttractToCenterForce,
-                    iterationNumberIncreasePercent
+                    iterationNumberIncreasePercent,
+                    barnesHutTheta,
+                    quadtreeCalculationIncrement
             );
         }
     }
@@ -267,6 +314,14 @@ public final class Atlas2Parameters {
 
     public double getIterationNumberIncreasePercent() {
         return iterationNumberIncreasePercent;
+    }
+
+    public double getBarnesHutTheta() {
+        return barnesHutTheta;
+    }
+
+    public int getQuadtreeCalculationIncrement() {
+        return quadtreeCalculationIncrement;
     }
 }
 

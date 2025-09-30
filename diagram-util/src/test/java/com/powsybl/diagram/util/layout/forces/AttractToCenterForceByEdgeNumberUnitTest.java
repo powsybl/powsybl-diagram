@@ -22,7 +22,7 @@ class AttractToCenterForceByEdgeNumberUnitTest {
     @Test
     void apply() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         AttractToCenterForceByEdgeNumberUnit<String, DefaultEdge> attractToCenterForceByEdgeNumberUnit = new AttractToCenterForceByEdgeNumberUnit<>(0.01);
         attractToCenterForceByEdgeNumberUnit.init(layoutContext);
         String[] vertexToTest = {

@@ -20,7 +20,7 @@ public final class BoundingBox {
     private final double right;
     private final double top;
 
-    private BoundingBox(double left, double top, double right, double bottom) {
+    public BoundingBox(double left, double top, double right, double bottom) {
         this.left = left;
         this.top = top;
         this.right = right;
@@ -36,10 +36,11 @@ public final class BoundingBox {
     }
 
     public static BoundingBox computeBoundingBox(Collection<Point> points) {
-        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(0);
-        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(0);
-        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(0);
-        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(0);
+        // using Double.MAX_VALUE this way the box for no points is the identity element for box fusion
+        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(-Double.MAX_VALUE);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(Double.MAX_VALUE);
+        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(Double.MAX_VALUE);
+        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(-Double.MAX_VALUE);
         return new BoundingBox(left, top, right, bottom);
     }
 
@@ -73,5 +74,9 @@ public final class BoundingBox {
 
     public double getRight() {
         return right;
+    }
+
+    public Vector2D getCenter() {
+        return new Vector2D((left + right) / 2, (top + bottom) / 2);
     }
 }
