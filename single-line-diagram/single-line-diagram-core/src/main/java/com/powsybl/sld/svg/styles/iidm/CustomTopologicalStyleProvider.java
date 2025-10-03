@@ -32,7 +32,7 @@ import static com.powsybl.sld.library.SldComponentTypeName.BUS_CONNECTION;
  * <p>
  * Note that busWidth and width are strings, and can be specified in pixel (e.g, 4px).
  * A dash pattern is a string with a sequence of comma and/or white space separated lengths and percentages, that specify the lengths of alternating dashes and gaps in the edge.
- * Through the optional componentTypesToSkip parameter it is possible to override the list of elements that are not affected by the custom slide;
+ * Through the optional componentTypesToSkip parameter it is possible to override the list of elements that are not affected by the custom style;
  * By default, switches are not affected by the custom style.
  *
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
