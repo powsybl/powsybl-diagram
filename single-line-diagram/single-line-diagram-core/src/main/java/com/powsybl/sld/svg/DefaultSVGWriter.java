@@ -14,7 +14,6 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.SldComponent;
 import com.powsybl.sld.library.SldComponentLibrary;
-import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -236,7 +235,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 drawCell(g, graph, cell, metadata, initProvider, styleProvider,
                         remainingEdgesToDraw, remainingNodesToDraw));
 
-        drawTeePoints(g, graph, graph.getCoord(), metadata, initProvider, styleProvider, remainingNodesToDraw);
         drawEdges(g, graph, metadata, initProvider, styleProvider, remainingEdgesToDraw);
 
         drawNodes(g, graph, graph.getCoord(), metadata, initProvider, styleProvider, remainingNodesToDraw);
@@ -556,49 +554,6 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         g.appendChild(line);
         g.setAttribute(TRANSFORM, String.format("%s(%s,%s)", TRANSLATE, graph.getX() + node.getX(), graph.getY() + node.getY()));
-    }
-
-    protected void drawTeePoints(Element root,
-                             VoltageLevelGraph graph,
-                             Point shift,
-                             GraphMetadata metadata,
-                             LabelProvider labelProvider,
-                             StyleProvider styleProvider,
-                             Collection<? extends Node> nodes) {
-        String prefixId = metadata.getSvgParameters().getPrefixId();
-
-        for (Node node : nodes) {
-            if (node.getComponentType().equals(SldComponentTypeName.TEE_POINT)) {
-                String nodeEscapedId = IdUtil.escapeId(prefixId + "TEEPOINT" + node.getId());
-                Element g = root.getOwnerDocument().createElement(GROUP);
-                g.setAttribute("id", nodeEscapedId);
-                List<String> teePointStyles = new ArrayList<>();
-                node.getAdjacentEdges().forEach(edge -> {
-                    teePointStyles.addAll(styleProvider.getEdgeStyles(graph, edge));
-                });
-                teePointStyles.addAll(styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, svgParameters.isShowInternalNodes()));
-                writeStyleClasses(g, teePointStyles);
-                drawTeePoint(graph, node, g);
-                root.appendChild(g);
-                // nodes.remove(node);
-            }
-        }
-    }
-
-    /*
-     * Drawing the voltageLevel graph teepoint section
-     */
-    protected void drawTeePoint(VoltageLevelGraph graph, Node node, Element g) {
-        Element polyline = g.getOwnerDocument().createElement(POLYLINE);
-        ComponentSize size = componentLibrary.getSize(node.getComponentType());
-        polyline.setAttribute(POINTS, "0,0,0,10,20,10,20,0");
-        g.appendChild(polyline);
-        Point coord = node.getCoordinates();
-
-        double x = size.getWidth() / 2;
-        double y = size.getHeight() / 2;
-        g.setAttribute(TRANSFORM, String.format("%s(%s,%s)", TRANSLATE, graph.getX() + x, graph.getY() - y));
-
     }
 
     /*

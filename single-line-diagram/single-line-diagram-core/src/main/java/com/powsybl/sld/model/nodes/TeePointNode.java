@@ -9,16 +9,18 @@ package com.powsybl.sld.model.nodes;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Point;
 
+import static com.powsybl.sld.library.SldComponentTypeName.TEE_POINT;
+
 import java.io.IOException;
 
-public class TeePointNode extends AbstractNode {
+public class TeePointNode extends EquipmentNode {
 
     private final String name;
 
     private final String equipmentId;
 
-    public TeePointNode(String id, String name, String equipmentId, String componentTypeName) {
-        super(NodeType.INTERNAL, id, componentTypeName, false);
+    public TeePointNode(String id, String name, String equipmentId) {
+        super(NodeType.INTERNAL, id, name, id, TEE_POINT, true);
         this.name = name;
         this.equipmentId = equipmentId;
     }
@@ -49,27 +51,22 @@ public class TeePointNode extends AbstractNode {
 
     @Override
     public void setX(double x) {
-        // TODO Auto-generated method stub
         super.setX(x);
     }
 
     @Override
     public void setY(double x) {
-        // TODO Auto-generated method stub
         super.setY(x);
     }
 
     @Override
     public void setCoordinates(Point coord) {
-        // TODO Auto-generated method stub
         super.setCoordinates(coord);
     }
 
     @Override
     public void setCoordinates(double x, double y) {
-        // TODO Auto-generated method stub
         super.setCoordinates(x, y);
     }
-
 
 }
