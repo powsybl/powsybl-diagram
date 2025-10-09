@@ -62,7 +62,7 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
         // Write the file
         Path networkFile = inputDir.resolve("sld-tool-test.xiidm");
         Properties properties = new Properties();
-        properties.put(XMLExporter.EXTENSIONS_LIST, "");
+        properties.put(XMLExporter.EXTENSIONS_INCLUDED_LIST, "");
         properties.put(XMLExporter.VERSION, "1.0");
         network.write("XIIDM", properties, networkFile);
 
