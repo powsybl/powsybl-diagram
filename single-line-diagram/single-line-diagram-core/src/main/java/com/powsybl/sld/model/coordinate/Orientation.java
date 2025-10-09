@@ -1,0 +1,64 @@
+/**
+ * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package com.powsybl.sld.model.coordinate;
+
+/**
+ * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
+ * @author Nicolas Duchene
+ * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
+ */
+public enum Orientation {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    MIDDLE,
+    UNDEFINED;
+
+    public boolean isVertical() {
+        return this == UP || this == DOWN;
+    }
+
+    public boolean isHorizontal() {
+        return this == LEFT || this == RIGHT;
+    }
+
+    public int progressionSign() {
+        switch (this) {
+            case UP:
+            case LEFT:
+                return -1;
+            case DOWN:
+            case RIGHT:
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
+    public Orientation opposite() {
+        switch (this) {
+            case UP: return DOWN;
+            case DOWN: return UP;
+            case LEFT: return RIGHT;
+            case RIGHT: return LEFT;
+            case MIDDLE: return MIDDLE;
+            case UNDEFINED: return UNDEFINED;
+        }
+        return null;
+    }
+
+    public double toRotationAngle() {
+        switch (this) {
+            case DOWN: return 180.0;
+            case LEFT: return 270.0;
+            case RIGHT: return 90.0;
+            case UP: default: return 0;
+        }
+    }
+
+}

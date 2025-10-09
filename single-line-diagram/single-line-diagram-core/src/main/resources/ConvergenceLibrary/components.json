@@ -1,0 +1,826 @@
+[ {
+    "type" : "BREAKER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "breaker-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    },
+    {
+      "name" : "OPEN",
+      "fileName" : "breaker-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-breaker"
+  }, {
+    "type" : "LOAD_BREAK_SWITCH",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "load-break-switch-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    },
+      {
+        "name" : "OPEN",
+        "fileName" : "load-break-switch-open.svg",
+        "styleClass" : "sld-sw-open"
+      } ],
+    "styleClass" : "sld-load-break-switch"
+  }, {
+    "type" : "GROUND_DISCONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -5.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 56.0,
+      "height" : 20.0
+    },
+    "subComponents" : [ {
+      "name" : "ATTACH",
+      "fileName" : "ground-disconnection-attach.svg",
+      "styleClass" : "sld-ground-disconnection-attach"
+    }, {
+      "name" : "GROUND",
+      "fileName" : "ground-disconnection-ground.svg",
+      "styleClass" : "sld-ground-disconnection-ground"
+    }, {
+      "name" : "CLOSED",
+      "fileName" : "ground-disconnector-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    }, {
+      "name" : "OPEN",
+      "fileName" : "ground-disconnector-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-ground-disconnection"
+  }, {
+    "type" : "LOAD",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -4.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 4.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 9.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "LOAD",
+      "fileName" : "load.svg"
+    } ],
+    "styleClass" : "sld-load"
+  }, {
+    "type" : "BATTERY",
+    "anchorPoints" : [ {
+      "x" : 0,
+      "y" : -4,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0,
+      "y" : 5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 10.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "BATTERY",
+      "fileName" : "battery.svg"
+    } ],
+    "styleClass" : "sld-battery"
+  }, {
+    "type" : "GENERATOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : -6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    } ],
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "GENERATOR",
+      "fileName" : "generator.svg"
+    } ],
+    "styleClass" : "sld-generator"
+  }, {
+    "type" : "TWO_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -8.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 8.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 15.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "2-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "2-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    } ],
+    "styleClass" : "sld-two-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "3-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "3-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    }, {
+      "name": "WINDING3",
+      "fileName": "3-windings-transformer-winding3.svg",
+      "styleClass": "sld-winding"
+    } ],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_1",
+    "anchorPoints" : [ {
+        "x" : -7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 0.0,
+        "y" : 12.0,
+        "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+        "width" : 16.0,
+        "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+        "name" : "WINDING1",
+        "fileName" : "3-windings-transformer-winding1.svg",
+        "styleClass" : "sld-winding"
+    }, {
+        "name": "WINDING2",
+        "fileName": "3-windings-transformer-winding2.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name": "WINDING3",
+        "fileName": "3-windings-transformer-winding3.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW1",
+        "fileName" : "3-phase-shifter-arrow.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_2",
+    "anchorPoints" : [ {
+        "x" : -7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 0.0,
+        "y" : 12.0,
+        "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+        "width" : 16.0,
+        "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+        "name" : "WINDING1",
+        "fileName" : "3-windings-transformer-winding1.svg",
+        "styleClass" : "sld-winding"
+    }, {
+        "name": "WINDING2",
+        "fileName": "3-windings-transformer-winding2.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name": "WINDING3",
+        "fileName": "3-windings-transformer-winding3.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW2",
+        "fileName" : "3-phase-shifter-arrow-2.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_3",
+    "anchorPoints" : [ {
+        "x" : -7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 7.0,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+    }, {
+        "x" : 0.0,
+        "y" : 12.0,
+        "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+        "width" : 16.0,
+        "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+        "name" : "WINDING1",
+        "fileName" : "3-windings-transformer-winding1.svg",
+        "styleClass" : "sld-winding"
+    }, {
+        "name": "WINDING2",
+        "fileName": "3-windings-transformer-winding2.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name": "WINDING3",
+        "fileName": "3-windings-transformer-winding3.svg",
+        "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW3",
+        "fileName" : "3-phase-shifter-arrow-3.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_1_2",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "3-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "3-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    }, {
+      "name": "WINDING3",
+      "fileName": "3-windings-transformer-winding3.svg",
+      "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW1",
+        "fileName" : "3-phase-shifter-arrow.svg",
+        "styleClass" : "sld-winding"
+    },
+    {
+        "name" : "ARROW2",
+        "fileName" : "3-phase-shifter-arrow-2.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_1_3",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "3-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "3-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    }, {
+      "name": "WINDING3",
+      "fileName": "3-windings-transformer-winding3.svg",
+      "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW1",
+        "fileName" : "3-phase-shifter-arrow.svg",
+        "styleClass" : "sld-winding"
+    },
+    {
+        "name" : "ARROW3",
+        "fileName" : "3-phase-shifter-arrow-3.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_2_3",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "3-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "3-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    }, {
+      "name": "WINDING3",
+      "fileName": "3-windings-transformer-winding3.svg",
+      "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW2",
+        "fileName" : "3-phase-shifter-arrow-2.svg",
+        "styleClass" : "sld-winding"
+    },
+    {
+        "name" : "ARROW3",
+        "fileName" : "3-phase-shifter-arrow-3.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_PST_1_2_3",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "3-windings-transformer-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name": "WINDING2",
+      "fileName": "3-windings-transformer-winding2.svg",
+      "styleClass": "sld-winding"
+    }, {
+      "name": "WINDING3",
+      "fileName": "3-windings-transformer-winding3.svg",
+      "styleClass": "sld-winding"
+    }, {
+        "name" : "ARROW1",
+        "fileName" : "3-phase-shifter-arrow.svg",
+        "styleClass" : "sld-winding"
+    },
+    {
+        "name" : "ARROW2",
+        "fileName" : "3-phase-shifter-arrow-2.svg",
+        "styleClass" : "sld-winding"
+    },
+    {
+        "name" : "ARROW3",
+        "fileName" : "3-phase-shifter-arrow-3.svg",
+        "styleClass" : "sld-winding"
+    }],
+    "styleClass" : "sld-three-wt"
+  },{
+    "type" : "CAPACITOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "CAPACITOR",
+      "fileName" : "capacitor.svg"
+    } ],
+    "styleClass" : "sld-capacitor"
+  }, {
+    "type" : "INDUCTOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -4.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 4.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 15.0,
+      "height" : 9.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "INDUCTOR",
+      "fileName" : "inductor.svg"
+    } ],
+    "styleClass" : "sld-inductor"
+  }, {
+    "type" : "DISCONNECTOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "subComponents" : [ {
+      "name" : "CLOSED",
+      "fileName" : "disconnector-closed.svg",
+      "styleClass" : "sld-sw-closed"
+    }, {
+      "name" : "OPEN",
+      "fileName" : "disconnector-open.svg",
+      "styleClass" : "sld-sw-open"
+    } ],
+    "styleClass" : "sld-disconnector"
+  }, {
+    "type" : "BUS_CONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "BUS_CONNECTION",
+      "fileName" : "bus_connection.svg"
+    } ],
+    "styleClass" : "sld-bus-connection"
+  }, {
+    "type" : "NODE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "NODE",
+      "fileName" : "node.svg"
+    } ],
+    "styleClass" : "sld-node"
+  }, {
+    "type" : "PHASE_SHIFT_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -7.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 7.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 14.0,
+      "height" : 15.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN": "ROTATION" },
+    "subComponents" : [ {
+      "name" : "WINDING1",
+      "fileName" : "phase-shifter-winding1.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name" : "WINDING2",
+      "fileName" : "phase-shifter-winding2.svg",
+      "styleClass" : "sld-winding"
+    }, {
+      "name" : "ARROW",
+      "fileName" : "phase-shifter-arrow.svg",
+      "styleClass" : "sld-pst-arrow"
+    } ],
+    "styleClass" : "sld-pst"
+  }, {
+    "type" : "STATIC_VAR_COMPENSATOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "STATIC_VAR_COMPENSATOR",
+      "fileName" : "svc.svg"
+    } ],
+    "styleClass" : "sld-svc"
+  }, {
+    "type" : "VSC_CONVERTER_STATION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 8.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "VSC_CONVERTER_STATION",
+      "fileName" : "vsc.svg"
+    } ],
+    "styleClass" : "sld-vsc"
+  }, {
+    "type" : "LCC_CONVERTER_STATION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 8.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "LCC_CONVERTER_STATION",
+      "fileName" : "lcc.svg"
+    } ],
+    "styleClass" : "sld-lcc"
+  }, {
+    "type" : "GROUND",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "DOWN":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "GROUND",
+      "fileName" : "ground.svg"
+    } ],
+    "styleClass" : "sld-ground"
+  }, {
+    "type" : "BUSBAR_SECTION",
+    "styleClass" : "sld-busbar-section"
+  }, {
+    "type" : "FLASH",
+    "size" : {
+      "width" : 10.0,
+      "height" : 15.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "FLASH",
+      "fileName" : "flash.svg"
+    } ],
+    "styleClass" : "sld-flash"
+  }, {
+    "type" : "LOCK",
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "LOCK",
+      "fileName" : "lock.svg"
+    } ],
+    "styleClass" : "sld-lock"
+  }, {
+    "type" : "UNKNOWN_COMPONENT",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -5.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 5.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : -9.5,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 9.5,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "UNKNOWN_COMPONENT",
+      "fileName" : "unknown-component.svg"
+    } ],
+    "styleClass" : "sld-unknown"
+  },{
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-out"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-in"
+    } ],
+    "styleClass" : "sld-active-power"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-out"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-in"
+    } ],
+    "styleClass" : "sld-reactive-power"
+  }, {
+    "type": "ARROW_CURRENT",
+    "size": {
+      "width": 10.0,
+      "height": 10.0
+    },
+    "transformations": {
+      "LEFT": "ROTATION",
+      "RIGHT": "ROTATION"
+    },
+    "subComponents": [
+      {
+        "name": "UP",
+        "fileName": "arrow-up.svg",
+        "styleClass": "sld-arrow-out"
+      },
+      {
+        "name": "DOWN",
+        "fileName": "arrow-down.svg",
+        "styleClass": "sld-arrow-in"
+      }
+    ],
+    "styleClass": "sld-current"
+  }]

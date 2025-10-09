@@ -1,0 +1,18 @@
+[ {
+    "type" : "VOLTAGE_INDICATOR",
+    "size" : {
+      "width" : 20.0,
+      "height" : 10.0
+    },
+    "transformations" : {},
+    "subComponents" : [ {
+      "name" : "UNPOWERED",
+      "fileName" : "voltage-indicator.svg",
+      "styleClass" : "sld-unpowered"
+    } , {
+      "name" : "POWERED",
+      "fileName" : "voltage-indicator.svg",
+      "styleClass" : "sld-powered"
+    } ],
+    "styleClass" : "sld-voltage-indicator"
+  } ]

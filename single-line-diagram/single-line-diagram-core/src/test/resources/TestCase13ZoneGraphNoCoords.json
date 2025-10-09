@@ -1,0 +1,114 @@
+{
+  "substations" : [ {
+    "substationId" : "Substation1",
+    "voltageLevels" : [ {
+      "voltageLevelInfos" : {
+        "id" : "VoltageLevel1",
+        "name" : "VoltageLevel1",
+        "nominalVoltage" : 380.0
+      },
+      "nodes" : [ {
+        "type" : "BUS",
+        "id" : "Bus1",
+        "componentType" : "BUSBAR_SECTION",
+        "fictitious" : false,
+        "name" : "Bus1",
+        "equipmentId" : "Bus1",
+        "pxWidth" : 1.0,
+        "busbarIndex" : 1,
+        "sectionIndex" : 1,
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 0,
+          "vSpan" : 0
+        }
+      }, {
+        "type" : "FEEDER",
+        "id" : "Line_ONE",
+        "componentType" : "LINE",
+        "fictitious" : false,
+        "name" : "Line",
+        "equipmentId" : "Line",
+        "feederType" : "BRANCH",
+        "order" : 1,
+        "side" : "ONE",
+        "otherSideVoltageLevelInfos" : {
+          "id" : "VoltageLevel2",
+          "name" : "VoltageLevel2",
+          "nominalVoltage" : 380.0
+        }
+      } ],
+      "cells" : [ ],
+      "edges" : [ {
+        "node1" : "Bus1",
+        "node2" : "Line_ONE"
+      } ],
+      "multitermNodes" : [ ],
+      "twtEdges" : [ ],
+      "lineEdges" : [ ]
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
+  }, {
+    "substationId" : "Substation2",
+    "voltageLevels" : [ {
+      "voltageLevelInfos" : {
+        "id" : "VoltageLevel2",
+        "name" : "VoltageLevel2",
+        "nominalVoltage" : 380.0
+      },
+      "nodes" : [ {
+        "type" : "BUS",
+        "id" : "Bus2",
+        "componentType" : "BUSBAR_SECTION",
+        "fictitious" : false,
+        "name" : "Bus2",
+        "equipmentId" : "Bus2",
+        "pxWidth" : 1.0,
+        "busbarIndex" : 1,
+        "sectionIndex" : 1,
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 0,
+          "vSpan" : 0
+        }
+      }, {
+        "type" : "FEEDER",
+        "id" : "Line_TWO",
+        "componentType" : "LINE",
+        "fictitious" : false,
+        "name" : "Line",
+        "equipmentId" : "Line",
+        "feederType" : "BRANCH",
+        "order" : 1,
+        "side" : "TWO",
+        "otherSideVoltageLevelInfos" : {
+          "id" : "VoltageLevel1",
+          "name" : "VoltageLevel1",
+          "nominalVoltage" : 380.0
+        }
+      } ],
+      "cells" : [ ],
+      "edges" : [ {
+        "node1" : "Bus2",
+        "node2" : "Line_TWO"
+      } ],
+      "multitermNodes" : [ ],
+      "twtEdges" : [ ],
+      "lineEdges" : [ ]
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
+  } ],
+  "lineEdges" : [ {
+    "id" : "Line",
+    "nodes" : [ {
+      "node1" : "Line_ONE",
+      "node2" : "Line_TWO"
+    } ]
+  } ]
+}

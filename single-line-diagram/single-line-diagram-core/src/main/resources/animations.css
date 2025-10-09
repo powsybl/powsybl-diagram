@@ -1,0 +1,81 @@
+/* ----------------------------------------------------------------------- */
+/* File : animations.css ------------------------------------------------- */
+/* feeder info  */
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,-10 0,10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-top :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,10 0,-10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-in {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,10 0,-10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+.sld-cell-direction-bottom :not(.sld-arrow-animation-no-speed) .sld-arrow-out {
+  offset-rotate: 0deg;
+  offset-path: path('M 0,-10 0,10');
+  animation: move var(--sld-arrow-animation-parameters, 0s);
+}
+@keyframes move {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* Set arrows animation speeds */
+.sld-arrow-animation-low-speed { --sld-arrow-animation-parameters: 3s infinite linear }
+.sld-arrow-animation-average-speed { --sld-arrow-animation-parameters: 2s infinite linear }
+.sld-arrow-animation-high-speed { --sld-arrow-animation-parameters: 1s infinite linear }
+
+@keyframes sld-overload-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ffeb3b; /* Yellow for overload */
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-overvoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #ff5722;
+    stroke-width: 2;
+  }
+}
+
+@keyframes sld-undervoltage-blink-animation {
+  0%,
+  80%,
+  100% {
+    stroke-width: 1;
+  }
+  40% {
+    stroke: #00BCD4; /* Blue for undervoltage */
+    stroke-width: 2;
+  }
+}
+
+.sld-overload {
+  animation: sld-overload-blink-animation 3s infinite;
+}
+
+.sld-vl-overvoltage {
+  animation: sld-overvoltage-blink-animation 3s infinite;
+}
+
+.sld-vl-undervoltage {
+  animation: sld-undervoltage-blink-animation 3s infinite;
+}

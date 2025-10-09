@@ -1,0 +1,46 @@
+/* File : components.css ------------------------------------------------- */
+.sld-disconnector.sld-open {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
+.sld-disconnector.sld-closed {fill: var(--sld-vl-color, black)}
+.sld-breaker, .sld-load-break-switch {fill: var(--sld-vl-color, blue)}
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
+.sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
+.sld-load {fill: var(--sld-vl-color, blue)}
+.sld-battery {fill: var(--sld-vl-color, blue)}
+.sld-generator {fill: var(--sld-vl-color, blue)}
+.sld-winding {fill: var(--sld-vl-color, blue)}
+.sld-capacitor {fill: var(--sld-vl-color, blue)}
+.sld-inductor {fill: var(--sld-vl-color, blue)}
+.sld-svc {fill: var(--sld-vl-color, blue)}
+.sld-vsc {fill: var(--sld-vl-color, blue)}
+.sld-lcc {fill: var(--sld-vl-color, blue)}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-node {stroke: none; fill: black}
+.sld-flash {stroke: none; fill: black}
+.sld-lock {stroke: none; fill: black}
+.sld-unknown {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px serif}
+.sld-bus-legend-info {font: 10px serif}
+.sld-graph-label {font: 12px serif}
+/* Specific */
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-feeder-info.sld-active-power {fill: #37474f}
+.sld-feeder-info.sld-reactive-power {fill: #0277bd}
+.sld-feeder-info.sld-current {fill:#800080}
+.sld-frame {fill: var(--sld-background-color, transparent)}
+/* fictitious switches and busbar */
+.sld-breaker.sld-fictitious {stroke: maroon; stroke-width: 1.5}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
+.sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open.sld-ground-disconnection {stroke: var(--sld-vl-color, black); fill: none}
+.sld-closed.sld-ground-disconnection {fill: var(--sld-vl-color, black)}

@@ -1,0 +1,1897 @@
+{
+  "voltageLevelInfos" : {
+    "id" : "vl2",
+    "name" : "vl2",
+    "nominalVoltage" : 225.0
+  },
+  "x" : 40.0,
+  "y" : 80.0,
+  "nodes" : [ {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dgen4-bgen4",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 360.0,
+    "y" : 227.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dload3-bload3",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dscpl1-ddcpl1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 120.0,
+    "y" : 132.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dscpl2-ddcpl1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 40.0,
+    "y" : 132.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf21-btrf21",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 280.0,
+    "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf22-btrf22",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1000.0,
+    "y" : 227.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf23-btrf23",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1080.0,
+    "y" : 227.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf24-btrf24",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 440.0,
+    "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf26-btrf26",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf27-btrf27",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 142.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_dtrf28-btrf28",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 227.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_gen4",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 360.0,
+    "y" : 307.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_load3",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 62.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_trf1_TWO",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 280.0,
+    "y" : 62.0
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_trf2_TWO",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1000.0,
+    "y" : 307.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_trf3_TWO",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1080.0,
+    "y" : 307.0,
+    "orientation" : "DOWN"
+  }, {
+    "type" : "INTERNAL",
+    "id" : "INTERNAL_vl2_trf4_TWO",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 440.0,
+    "y" : 62.0
+  }, {
+    "type" : "BUS",
+    "id" : "bbs5",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 20.0,
+    "y" : 172.0,
+    "name" : "bbs5",
+    "equipmentId" : "bbs5",
+    "pxWidth" : 1080.0,
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
+    "position" : {
+      "h" : 0,
+      "v" : 0,
+      "hSpan" : 28,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "BUS",
+    "id" : "bbs6",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 20.0,
+    "y" : 197.0,
+    "name" : "bbs6",
+    "equipmentId" : "bbs6",
+    "pxWidth" : 1080.0,
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
+    "position" : {
+      "h" : 0,
+      "v" : 1,
+      "hSpan" : 28,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "SWITCH",
+    "id" : "bgen4",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 360.0,
+    "y" : 267.0,
+    "orientation" : "DOWN",
+    "name" : "bgen4",
+    "equipmentId" : "bgen4",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "bload3",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 102.0,
+    "name" : "bload3",
+    "equipmentId" : "bload3",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf21",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 280.0,
+    "y" : 102.0,
+    "name" : "btrf21",
+    "equipmentId" : "btrf21",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf22",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 1000.0,
+    "y" : 267.0,
+    "orientation" : "DOWN",
+    "name" : "btrf22",
+    "equipmentId" : "btrf22",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf23",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 1080.0,
+    "y" : 267.0,
+    "orientation" : "DOWN",
+    "name" : "btrf23",
+    "equipmentId" : "btrf23",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf24",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 440.0,
+    "y" : 102.0,
+    "name" : "btrf24",
+    "equipmentId" : "btrf24",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf26",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 102.0,
+    "name" : "btrf26",
+    "equipmentId" : "btrf26",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf27",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 102.0,
+    "name" : "btrf27",
+    "equipmentId" : "btrf27",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf28",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 267.0,
+    "orientation" : "DOWN",
+    "name" : "btrf28",
+    "equipmentId" : "btrf28",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "ddcpl1",
+    "componentType" : "BREAKER",
+    "fictitious" : true,
+    "x" : 80.0,
+    "y" : 132.0,
+    "orientation" : "RIGHT",
+    "name" : "ddcpl1",
+    "equipmentId" : "ddcpl1",
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dgen4",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 360.0,
+    "y" : 197.0,
+    "orientation" : "DOWN",
+    "name" : "dgen4",
+    "equipmentId" : "dgen4",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dload3",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 172.0,
+    "name" : "dload3",
+    "equipmentId" : "dload3",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dscpl1",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 120.0,
+    "y" : 172.0,
+    "name" : "dscpl1",
+    "equipmentId" : "dscpl1",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dscpl2",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 40.0,
+    "y" : 197.0,
+    "name" : "dscpl2",
+    "equipmentId" : "dscpl2",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf21",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 280.0,
+    "y" : 172.0,
+    "name" : "dtrf21",
+    "equipmentId" : "dtrf21",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf22",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 1000.0,
+    "y" : 197.0,
+    "orientation" : "DOWN",
+    "name" : "dtrf22",
+    "equipmentId" : "dtrf22",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf23",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 1080.0,
+    "y" : 197.0,
+    "orientation" : "DOWN",
+    "name" : "dtrf23",
+    "equipmentId" : "dtrf23",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf24",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 440.0,
+    "y" : 172.0,
+    "name" : "dtrf24",
+    "equipmentId" : "dtrf24",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf26",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 197.0,
+    "name" : "dtrf26",
+    "equipmentId" : "dtrf26",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf27",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 172.0,
+    "name" : "dtrf27",
+    "equipmentId" : "dtrf27",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf28",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 197.0,
+    "orientation" : "DOWN",
+    "name" : "dtrf28",
+    "equipmentId" : "dtrf28",
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "FEEDER",
+    "id" : "gen4",
+    "componentType" : "GENERATOR",
+    "fictitious" : false,
+    "x" : 360.0,
+    "y" : 369.0,
+    "orientation" : "DOWN",
+    "label" : "gen4",
+    "name" : "gen4",
+    "equipmentId" : "gen4",
+    "feederType" : "INJECTION",
+    "order" : 2,
+    "direction" : "BOTTOM"
+  }, {
+    "type" : "FEEDER",
+    "id" : "load3",
+    "componentType" : "LOAD",
+    "fictitious" : false,
+    "x" : 200.0,
+    "y" : 0.0,
+    "label" : "load3",
+    "name" : "load3",
+    "equipmentId" : "load3",
+    "feederType" : "INJECTION",
+    "order" : 0,
+    "direction" : "TOP"
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf1_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 280.0,
+    "y" : 0.0,
+    "label" : "trf1",
+    "name" : "trf1",
+    "equipmentId" : "trf1",
+    "feederType" : "BRANCH",
+    "order" : 1,
+    "direction" : "TOP",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf2_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 1000.0,
+    "y" : 369.0,
+    "orientation" : "DOWN",
+    "label" : "trf2",
+    "name" : "trf2",
+    "equipmentId" : "trf2",
+    "feederType" : "BRANCH",
+    "order" : 7,
+    "direction" : "BOTTOM",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf3_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 1080.0,
+    "y" : 369.0,
+    "orientation" : "DOWN",
+    "label" : "trf3",
+    "name" : "trf3",
+    "equipmentId" : "trf3",
+    "feederType" : "BRANCH",
+    "order" : 8,
+    "direction" : "BOTTOM",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf4_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 440.0,
+    "y" : 0.0,
+    "label" : "trf4",
+    "name" : "trf4",
+    "equipmentId" : "trf4",
+    "feederType" : "BRANCH",
+    "order" : 3,
+    "direction" : "TOP",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "INTERNAL",
+    "id" : "trf6",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 62.0,
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf6_ONE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 680.0,
+    "y" : 0.0,
+    "label" : "trf62",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 5,
+    "direction" : "TOP",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf6_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 760.0,
+    "y" : 0.0,
+    "label" : "trf62",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 6,
+    "direction" : "TOP",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "INTERNAL",
+    "id" : "trf7",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 62.0,
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf7_ONE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 520.0,
+    "y" : 0.0,
+    "label" : "trf72",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 4,
+    "direction" : "TOP",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf7_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 600.0,
+    "y" : 0.0,
+    "label" : "trf72",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 5,
+    "direction" : "TOP",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "INTERNAL",
+    "id" : "trf8",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 307.0,
+    "orientation" : "DOWN",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf8_ONE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 840.0,
+    "y" : 369.0,
+    "orientation" : "DOWN",
+    "label" : "trf82",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 6,
+    "direction" : "BOTTOM",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf8_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "fictitious" : false,
+    "x" : 920.0,
+    "y" : 369.0,
+    "orientation" : "DOWN",
+    "label" : "trf82",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 7,
+    "direction" : "BOTTOM",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  } ],
+  "cells" : [ {
+    "type" : "INTERN",
+    "number" : 0,
+    "direction" : "TOP",
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 0,
+        "vSpan" : 0
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : -1,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 40.0,
+          "y" : 172.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dscpl2", "INTERNAL_vl2_dscpl2-ddcpl1" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
+        },
+        "coord" : {
+          "x" : 40.0,
+          "y" : 132.0,
+          "xSpan" : 80.0,
+          "ySpan" : 40.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dscpl2-ddcpl1", "ddcpl1", "INTERNAL_vl2_dscpl1-ddcpl1" ]
+      }, {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 2,
+          "v" : -1,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 120.0,
+          "y" : 172.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs5", "dscpl1", "INTERNAL_vl2_dscpl1-ddcpl1" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 1,
+    "direction" : "TOP",
+    "order" : 0,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 4,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "UP"
+      },
+      "coord" : {
+        "x" : 200.0,
+        "y" : 102.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 200.0,
+          "y" : 142.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs5", "dload3", "INTERNAL_vl2_dload3-bload3" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 200.0,
+          "y" : 102.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dload3-bload3", "bload3", "INTERNAL_vl2_load3" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 200.0,
+          "y" : 62.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_load3", "load3" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 2,
+    "direction" : "TOP",
+    "order" : 1,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 6,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "UP"
+      },
+      "coord" : {
+        "x" : 280.0,
+        "y" : 102.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 280.0,
+          "y" : 142.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs5", "dtrf21", "INTERNAL_vl2_dtrf21-btrf21" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 280.0,
+          "y" : 102.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf21-btrf21", "btrf21", "INTERNAL_vl2_trf1_TWO" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 280.0,
+          "y" : 62.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_trf1_TWO", "trf1_TWO" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 3,
+    "direction" : "TOP",
+    "order" : 3,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 10,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "UP"
+      },
+      "coord" : {
+        "x" : 440.0,
+        "y" : 102.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 440.0,
+          "y" : 142.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs5", "dtrf24", "INTERNAL_vl2_dtrf24-btrf24" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 440.0,
+          "y" : 102.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf24-btrf24", "btrf24", "INTERNAL_vl2_trf4_TWO" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 440.0,
+          "y" : 62.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_trf4_TWO", "trf4_TWO" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 4,
+    "direction" : "TOP",
+    "order" : 4,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 2
+      } ],
+      "position" : {
+        "h" : 12,
+        "v" : 0,
+        "hSpan" : 4,
+        "vSpan" : 4,
+        "orientation" : "UP"
+      },
+      "coord" : {
+        "x" : 560.0,
+        "y" : 102.0,
+        "xSpan" : 160.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 560.0,
+          "y" : 142.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs5", "dtrf27", "INTERNAL_vl2_dtrf27-btrf27" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 560.0,
+          "y" : 102.0,
+          "xSpan" : 160.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf27-btrf27", "btrf27", "trf7" ]
+      }, {
+        "type" : "BODYPARALLEL",
+        "cardinalities" : [ {
+          "START" : 2
+        }, {
+          "END" : 2
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 4,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 560.0,
+          "y" : 62.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "subBlocks" : [ {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 520.0,
+            "y" : 62.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf7", "trf7_ONE" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 2,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 600.0,
+            "y" : 62.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf7", "trf7_THREE" ]
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 5,
+    "direction" : "BOTTOM",
+    "order" : 2,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 8,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "DOWN"
+      },
+      "coord" : {
+        "x" : 360.0,
+        "y" : 267.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 360.0,
+          "y" : 227.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dgen4", "INTERNAL_vl2_dgen4-bgen4" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 360.0,
+          "y" : 267.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dgen4-bgen4", "bgen4", "INTERNAL_vl2_gen4" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 360.0,
+          "y" : 307.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_gen4", "gen4" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 6,
+    "direction" : "BOTTOM",
+    "order" : 7,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 24,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "DOWN"
+      },
+      "coord" : {
+        "x" : 1000.0,
+        "y" : 267.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1000.0,
+          "y" : 227.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dtrf22", "INTERNAL_vl2_dtrf22-btrf22" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1000.0,
+          "y" : 267.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf22-btrf22", "btrf22", "INTERNAL_vl2_trf2_TWO" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1000.0,
+          "y" : 307.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_trf2_TWO", "trf2_TWO" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 7,
+    "direction" : "BOTTOM",
+    "order" : 8,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 26,
+        "v" : 0,
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "DOWN"
+      },
+      "coord" : {
+        "x" : 1080.0,
+        "y" : 267.0,
+        "xSpan" : 80.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1080.0,
+          "y" : 227.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dtrf23", "INTERNAL_vl2_dtrf23-btrf23" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1080.0,
+          "y" : 267.0,
+          "xSpan" : 80.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf23-btrf23", "btrf23", "INTERNAL_vl2_trf3_TWO" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 1080.0,
+          "y" : 307.0,
+          "xSpan" : 80.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "INTERNAL_vl2_trf3_TWO", "trf3_TWO" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 8,
+    "direction" : "TOP",
+    "order" : 5,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 2
+      } ],
+      "position" : {
+        "h" : 16,
+        "v" : 0,
+        "hSpan" : 4,
+        "vSpan" : 4,
+        "orientation" : "UP"
+      },
+      "coord" : {
+        "x" : 720.0,
+        "y" : 102.0,
+        "xSpan" : 160.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 720.0,
+          "y" : 142.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dtrf26", "INTERNAL_vl2_dtrf26-btrf26" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 720.0,
+          "y" : 102.0,
+          "xSpan" : 160.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf26-btrf26", "btrf26", "trf6" ]
+      }, {
+        "type" : "BODYPARALLEL",
+        "cardinalities" : [ {
+          "START" : 2
+        }, {
+          "END" : 2
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 4,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 720.0,
+          "y" : 62.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "subBlocks" : [ {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 680.0,
+            "y" : 62.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf6", "trf6_ONE" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 2,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 760.0,
+            "y" : 62.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf6", "trf6_THREE" ]
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 9,
+    "direction" : "BOTTOM",
+    "order" : 6,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 2
+      } ],
+      "position" : {
+        "h" : 20,
+        "v" : 0,
+        "hSpan" : 4,
+        "vSpan" : 4,
+        "orientation" : "DOWN"
+      },
+      "coord" : {
+        "x" : 880.0,
+        "y" : 267.0,
+        "xSpan" : 160.0,
+        "ySpan" : 80.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 880.0,
+          "y" : 227.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs6", "dtrf28", "INTERNAL_vl2_dtrf28-btrf28" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 880.0,
+          "y" : 267.0,
+          "xSpan" : 160.0,
+          "ySpan" : 80.0
+        },
+        "nodes" : [ "INTERNAL_vl2_dtrf28-btrf28", "btrf28", "trf8" ]
+      }, {
+        "type" : "BODYPARALLEL",
+        "cardinalities" : [ {
+          "START" : 2
+        }, {
+          "END" : 2
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 4,
+          "vSpan" : 0,
+          "orientation" : "DOWN"
+        },
+        "coord" : {
+          "x" : 880.0,
+          "y" : 307.0,
+          "xSpan" : 160.0,
+          "ySpan" : 0.0
+        },
+        "subBlocks" : [ {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 840.0,
+            "y" : 307.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf8", "trf8_ONE" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 2,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "DOWN"
+          },
+          "coord" : {
+            "x" : 920.0,
+            "y" : 307.0,
+            "xSpan" : 80.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "trf8", "trf8_THREE" ]
+        } ]
+      } ]
+    }
+  } ],
+  "edges" : [ {
+    "node1" : "trf6_ONE",
+    "node2" : "trf6"
+  }, {
+    "node1" : "trf6_THREE",
+    "node2" : "trf6"
+  }, {
+    "node1" : "trf7_ONE",
+    "node2" : "trf7"
+  }, {
+    "node1" : "trf7_THREE",
+    "node2" : "trf7"
+  }, {
+    "node1" : "trf8_ONE",
+    "node2" : "trf8"
+  }, {
+    "node1" : "trf8_THREE",
+    "node2" : "trf8"
+  }, {
+    "node1" : "bbs5",
+    "node2" : "dscpl1"
+  }, {
+    "node1" : "dscpl2",
+    "node2" : "bbs6"
+  }, {
+    "node1" : "bbs5",
+    "node2" : "dload3"
+  }, {
+    "node1" : "bbs6",
+    "node2" : "dgen4"
+  }, {
+    "node1" : "bbs5",
+    "node2" : "dtrf21"
+  }, {
+    "node1" : "bbs6",
+    "node2" : "dtrf22"
+  }, {
+    "node1" : "bbs6",
+    "node2" : "dtrf23"
+  }, {
+    "node1" : "bbs5",
+    "node2" : "dtrf24"
+  }, {
+    "node1" : "bbs6",
+    "node2" : "dtrf26"
+  }, {
+    "node1" : "btrf26",
+    "node2" : "trf6"
+  }, {
+    "node1" : "bbs5",
+    "node2" : "dtrf27"
+  }, {
+    "node1" : "btrf27",
+    "node2" : "trf7"
+  }, {
+    "node1" : "bbs6",
+    "node2" : "dtrf28"
+  }, {
+    "node1" : "btrf28",
+    "node2" : "trf8"
+  }, {
+    "node1" : "dscpl1",
+    "node2" : "INTERNAL_vl2_dscpl1-ddcpl1"
+  }, {
+    "node1" : "INTERNAL_vl2_dscpl1-ddcpl1",
+    "node2" : "ddcpl1"
+  }, {
+    "node1" : "dload3",
+    "node2" : "INTERNAL_vl2_dload3-bload3"
+  }, {
+    "node1" : "INTERNAL_vl2_dload3-bload3",
+    "node2" : "bload3"
+  }, {
+    "node1" : "dtrf21",
+    "node2" : "INTERNAL_vl2_dtrf21-btrf21"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf21-btrf21",
+    "node2" : "btrf21"
+  }, {
+    "node1" : "dtrf24",
+    "node2" : "INTERNAL_vl2_dtrf24-btrf24"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf24-btrf24",
+    "node2" : "btrf24"
+  }, {
+    "node1" : "dtrf27",
+    "node2" : "INTERNAL_vl2_dtrf27-btrf27"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf27-btrf27",
+    "node2" : "btrf27"
+  }, {
+    "node1" : "ddcpl1",
+    "node2" : "INTERNAL_vl2_dscpl2-ddcpl1"
+  }, {
+    "node1" : "INTERNAL_vl2_dscpl2-ddcpl1",
+    "node2" : "dscpl2"
+  }, {
+    "node1" : "dgen4",
+    "node2" : "INTERNAL_vl2_dgen4-bgen4"
+  }, {
+    "node1" : "INTERNAL_vl2_dgen4-bgen4",
+    "node2" : "bgen4"
+  }, {
+    "node1" : "dtrf22",
+    "node2" : "INTERNAL_vl2_dtrf22-btrf22"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf22-btrf22",
+    "node2" : "btrf22"
+  }, {
+    "node1" : "dtrf23",
+    "node2" : "INTERNAL_vl2_dtrf23-btrf23"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf23-btrf23",
+    "node2" : "btrf23"
+  }, {
+    "node1" : "dtrf26",
+    "node2" : "INTERNAL_vl2_dtrf26-btrf26"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf26-btrf26",
+    "node2" : "btrf26"
+  }, {
+    "node1" : "dtrf28",
+    "node2" : "INTERNAL_vl2_dtrf28-btrf28"
+  }, {
+    "node1" : "INTERNAL_vl2_dtrf28-btrf28",
+    "node2" : "btrf28"
+  }, {
+    "node1" : "load3",
+    "node2" : "INTERNAL_vl2_load3"
+  }, {
+    "node1" : "INTERNAL_vl2_load3",
+    "node2" : "bload3"
+  }, {
+    "node1" : "gen4",
+    "node2" : "INTERNAL_vl2_gen4"
+  }, {
+    "node1" : "INTERNAL_vl2_gen4",
+    "node2" : "bgen4"
+  }, {
+    "node1" : "btrf21",
+    "node2" : "INTERNAL_vl2_trf1_TWO"
+  }, {
+    "node1" : "INTERNAL_vl2_trf1_TWO",
+    "node2" : "trf1_TWO"
+  }, {
+    "node1" : "btrf22",
+    "node2" : "INTERNAL_vl2_trf2_TWO"
+  }, {
+    "node1" : "INTERNAL_vl2_trf2_TWO",
+    "node2" : "trf2_TWO"
+  }, {
+    "node1" : "btrf23",
+    "node2" : "INTERNAL_vl2_trf3_TWO"
+  }, {
+    "node1" : "INTERNAL_vl2_trf3_TWO",
+    "node2" : "trf3_TWO"
+  }, {
+    "node1" : "btrf24",
+    "node2" : "INTERNAL_vl2_trf4_TWO"
+  }, {
+    "node1" : "INTERNAL_vl2_trf4_TWO",
+    "node2" : "trf4_TWO"
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
+}

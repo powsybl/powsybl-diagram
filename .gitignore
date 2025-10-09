@@ -8,7 +8,18 @@ target/
 # Eclipse projects
 .classpath
 .project
+.factorypath
 org.eclipse.core.resources.prefs
-org.eclipse.jdt.core.prefs
 org.eclipse.m2e.core.prefs
+org.eclipse.jdt.core.prefs
+org.eclipse.jdt.apt.core.prefs
 org.eclipse.jdt.groovy.core.prefs
+
+# Virtual Studio
+.vscode
+
+# Generated readthedocs pages
+build-docs/
+
+# Maven wrapper jar
+.mvn/wrapper/*.jar

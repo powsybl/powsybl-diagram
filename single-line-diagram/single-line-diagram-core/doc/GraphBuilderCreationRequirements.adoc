@@ -1,0 +1,38 @@
+== GraphBuilder creation requirements
+
+Implementing a GraphBuilder is the way to build the graph to be rendered by SingleLineDiagram.
+This shall implement builder for `VoltageLevelGraph`, `SubstationGraph` and `ZoneGraph`.
+Here are some hints that are to be considered.
+
+=== VoltageLevelGraph
+A `VoltageLevelGraph` is made of nodes that extend the `model.nodes.Node` class.
+The `Node` holds an `NodeType` enum that can take the following values:
+
+* `BUS`: representing the BusBar, rendered as one straight horizontal line. The `BusNode` class extending `Node` is initialized with this value
+* `FEEDER`: representing what connect the VoltageLevel to the outside, rendered on top or bottom of the voltageLevel.  The `FeederNode` class extending  `Node` is initialized with this value
+* `INTERNAL` and `SWITCH`: representing nodes that constitute the graph connecting the Buses and the Feeders. (Note that only the `SwitchNode` class should be initialized with `SWITCH`.)
+
+The graph shall be built:
+
+* using `graph.NodeFactory` class for creating nodes. There are factories for each kind of nodes.
+If new nodes are needed ensure to add the created node to the graph appropriately.
+* connecting them with `VoltageLevelGraph.addEdge`
+
+==== Components
+Each node has a `componentTypeName` that is related to a `ComponentLibrary`.
+
+* an easy way to add nodes with components that are not in the NodeFactory is to create a Node with `NodeFactory.createNode`. See `test.raw.TestAddExternalComponent`.
+* Nodes that are to be drawn connected to a BusBar shall have this ability.
+No need to care about that rule as an adapted node (a `Node` with `BUS_CONNECTION` component) will be inserted between the bus and the node if the node is not directly connected to the bus.
+Note that:
+
+** This ability is given to some components in `layout.LayoutParameters.componentsOnBusbars`.
+By default this is set with `DISCONNECTOR` (`BUS_CONNECTION` is implicit as it is needed for the algorithm to work).
+** The `BUS_CONNECTION` component is the one that will be inserted if the component that is connected to the bus has not this ability.
+Therefore, ensure the `ComponentLibrary` contains the `BUS_CONNECTION` component.
+
+=== SubstationGraph
+//todo
+
+=== ZoneGraph
+//todo

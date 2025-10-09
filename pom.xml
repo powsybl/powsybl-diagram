@@ -15,24 +15,30 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-parent</artifactId>
-        <version>4</version>
+        <version>24</version>
         <relativePath/>
     </parent>
-    <artifactId>powsybl-single-line-diagram</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <artifactId>powsybl-diagram</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Single line diagram</name>
-    <description>PowSyBl single line diagram parent project</description>
+    <name>PowSyBl Diagram</name>
+    <description>PowSyBl Diagram parent project</description>
     <url>http://www.powsybl.org</url>
 
     <scm>
-        <connection>scm:git:https://github.com/powsybl/powsybl-single-line-diagram.git</connection>
-        <developerConnection>scm:git:https://github.com/powsybl/powsybl-single-line-diagram.git</developerConnection>
-        <url>https://github.com/powsybl/powsybl-single-line-diagram</url>
+        <connection>scm:git:https://github.com/powsybl/powsybl-diagram.git</connection>
+        <developerConnection>scm:git:https://github.com/powsybl/powsybl-diagram.git</developerConnection>
+        <url>https://github.com/powsybl/powsybl-diagram</url>
     </scm>
 
     <developers>
+        <developer>
+            <name>Florian DUPUY</name>
+            <email>florian.dupuy@rte-france.com</email>
+            <organization>RTE</organization>
+            <organizationUrl>http://www.rte-france.com</organizationUrl>
+        </developer>
         <developer>
             <name>Geoffroy JAMGOTCHIAN</name>
             <email>geoffroy.jamgotchian@rte-france.com</email>
@@ -48,30 +54,27 @@
     </developers>
 
     <modules>
-        <module>single-line-diagram-cgmes</module>
-        <module>single-line-diagram-core</module>
-        <module>single-line-diagram-distribution</module>
-        <module>single-line-diagram-iidm-extensions</module>
-        <module>single-line-diagram-force-layout</module>
+        <module>distribution-diagram</module>
+        <module>network-area-diagram</module>
+        <module>single-line-diagram</module>
+        <module>diagram-util</module>
+        <module>diagram-test</module>
     </modules>
 
     <properties>
-        <java.version>11</java.version>
-
-        <slf4j.version>1.7.22</slf4j.version>
-        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
-        <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
+        <java.version>21</java.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>
-            ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
-            ../../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
+            ../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,
+            ../../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <sonar.exclusions>
             **/generated/**/*
         </sonar.exclusions>
 
-        <powsybl-core.version>4.3.1</powsybl-core.version>
+        <powsybl-core.version>6.8.1</powsybl-core.version>
+
     </properties>
 
     <profiles>
@@ -113,20 +116,71 @@
             </dependency>
 
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-network-area-diagram</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>powsybl-single-line-diagram-core</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-runtime</artifactId>
-                <version>${jaxb-runtime.version}</version>
-                <scope>runtime</scope>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>powsybl-single-line-diagram-cgmes-dl-conversion</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>powsybl-single-line-diagram-cgmes-layout</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-diagram-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-diagram-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-iidm-impl</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-ieee-cdf-converter</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-iidm-test</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-ucte-converter</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-tools-test</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,0 +1,41 @@
+== `Subsection`
+=== Context
+A `Subsection` is a part of the `VoltageLevel` defined by the `BusNodes` that must be displayed in parallel. The `VoltageLevel` is partitionned into `Subsections` each of them having a different set of `BusNodes`.
+
+****
+image::images/subsections.svg[]
+****
+
+A `List<Subsection>` will then be given to `BlockPositionner` that will sequentially treat each `Subsection` assigning the `Positions` *(H,V)* of `BusNodes` and `Cells`.
+
+Therefore the `List<Subsection>` shall consistently respect the following rule: if a `BusNode` spans over many `Subsections`, it shall:
+
+- be in contiguous `Subsections` in the list
+- have the same index (ie same vertical position) in each `Subsection`
+
+=== Definition
+****
+A `Substation` has the following attributes:
+
+- `size` which is the number of parallel `BusNodes` and is defined in the constructor and cannot be changed.
+- `busNodes` a `BusNodes` array of size `size` 
+- `externCells` a list of `ExternCell`
+- `InternCellSides` a Set `InternCellSide` which correspond to the leg of one `InternCell` combined with its `Side`.
+****
+
+[NOTE]
+.When an `InternCell` overlaps 2 `Subsections`
+====
+ - its `LEFT` leg will be on the right side of the first `Subsection`, ie at the end of `internCellSides`
+ - its `RIGHT` leg will be on the left side of the second `Subsection`, ie at the beginning of `internCellSides`
+====
+
+
+=== Building the `List<Subsection>`
+`Subsection` has `createSubsections` as a utility method to build the `List<Subsection> subsections` based on a consolidated `BSCluster` and is called by implementations of `PositionFinder`.
+
+It calls many methods that aim at ensuring the coherence of the position of the `Cells`. Especially, that's where
+
+- `InternCell.Shape` are defined,
+- `InternCell` are flipped (`RIGHT` / `LEFT`) if needed to be consistent with the arrangement,
+- in case of `handleShunt` is set, `ExternCells` involved in a `ShuntCell` are shifted to be as close to one another as possible.

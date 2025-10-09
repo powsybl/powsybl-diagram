@@ -1,0 +1,22 @@
+[ {
+    "type" : "INVALID",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "styleClass" : "sld-invalid",
+    "subComponents" : [ {
+      "name" : "INVALID",
+      "fileName" : "invalid.svg"
+    } ]
+  } ]
