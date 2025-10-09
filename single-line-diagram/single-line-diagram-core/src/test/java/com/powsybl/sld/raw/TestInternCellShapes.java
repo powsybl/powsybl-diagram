@@ -10,6 +10,7 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +31,18 @@ class TestInternCellShapes extends AbstractTestCaseRaw {
         BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);
 
         // InternCell.Shape.FLAT with one disconnector only on busbar 1
-        SwitchNode flatDisconector = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "flatDisconector", false, false);
-        vlBuilder.connectNode(bbs11, flatDisconector);
-        vlBuilder.connectNode(flatDisconector, bbs12);
+        SwitchNode flatDisconnector = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "flatDisconector", false, false);
+        SwitchNode flatDisconnector2a = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "flatDisconector2a", false, false);
+        SwitchNode flatDisconnector2b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "flatDisconector2b", false, false);
+        Node connectivityNode1 = vlBuilder.createConnectivityNode("cNode1");
+        Node connectivityNode2 = vlBuilder.createConnectivityNode("cNode2");
+        vlBuilder.connectNode(bbs11, flatDisconnector);
+        vlBuilder.connectNode(flatDisconnector, connectivityNode1);
+        vlBuilder.connectNode(connectivityNode1, flatDisconnector2a);
+        vlBuilder.connectNode(connectivityNode1, flatDisconnector2b);
+        vlBuilder.connectNode(flatDisconnector2a, connectivityNode2);
+        vlBuilder.connectNode(flatDisconnector2b, connectivityNode2);
+        vlBuilder.connectNode(connectivityNode2, bbs12);
 
         // InternCell.Shape.FLAT with a breaker and disconnectors only on busbar 2
         SwitchNode flatBreaker = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "flatBreaker", false, false);
