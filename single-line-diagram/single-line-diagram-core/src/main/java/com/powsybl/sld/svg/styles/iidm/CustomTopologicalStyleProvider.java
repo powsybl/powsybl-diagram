@@ -35,6 +35,10 @@ import static com.powsybl.sld.library.SldComponentTypeName.BUS_CONNECTION;
  * Through the optional componentTypesToSkip parameter it is possible to override the list of elements that are not affected by the custom style;
  * By default, switches are not affected by the custom style.
  *
+ *  <p>
+ * This class should be used with the ConvergenceComponentLibrary: The logic implemented here, based on fill and stroke attributes and driven by the CustomStyle record,
+ * may not be suitable for certain components when other libraries (e.g., the FlatDesignLibrary) are used, and could lead to unexpected results.
+ *
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
 public class CustomTopologicalStyleProvider extends TopologicalStyleProvider {
