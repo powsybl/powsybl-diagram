@@ -582,18 +582,10 @@ public class SvgWriter {
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
-        drawEdgeInfo(writer, Collections.emptyList(), edgeInfo, infoCenter, edgeAngle);
-    }
-
-    private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
-
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writeStyleClasses(writer, additionalStyles, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
-
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo));
-        drawInAndOutArrows(writer, edgeAngle);
+        drawArrow(writer, edgeInfo, edgeAngle);
         Optional<String> externalLabel = edgeInfo.getExternalLabel();
         if (externalLabel.isPresent()) {
             drawLabel(writer, externalLabel.get(), edgeAngle, true);
@@ -602,24 +594,24 @@ public class SvgWriter {
         if (internalLabel.isPresent()) {
             drawLabel(writer, internalLabel.get(), edgeAngle, false);
         }
-        writer.writeEndElement();
 
         writer.writeEndElement();
     }
 
-    private void drawInAndOutArrows(XMLStreamWriter writer, double edgeAngle) throws XMLStreamException {
-        double rotationAngle = edgeAngle + (edgeAngle > Math.PI / 2 ? -3 * Math.PI / 2 : Math.PI / 2);
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
-        writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
-        writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn());
-        writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_OUT_CLASS);
-        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getScaleString(svgParameters.getArrowHeight()));
-        writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDOut());
-        writer.writeEndElement();
+    private void drawArrow(XMLStreamWriter writer, EdgeInfo edgeInfo, double edgeAngle) throws XMLStreamException {
+        var direction = edgeInfo.getDirection();
+        if (direction.isPresent()) {
+            double rotationAngle = edgeAngle + (edgeAngle > Math.PI / 2 ? -3 * Math.PI / 2 : Math.PI / 2);
+            writer.writeEmptyElement(PATH_ELEMENT_NAME);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
+            if (direction.get() == EdgeInfo.Direction.IN) {
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
+                writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn(svgParameters.getArrowHeight()));
+            } else if (direction.get() == EdgeInfo.Direction.OUT) {
+                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_OUT_CLASS);
+                writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDOut(svgParameters.getArrowHeight()));
+            }
+        }
     }
 
     private void drawLabel(XMLStreamWriter writer, String label, double edgeAngle, boolean externalLabel) throws XMLStreamException {

@@ -23,9 +23,9 @@ public interface LabelProvider {
 
     String getLabel(Edge edge);
 
-    String getArrowPathDIn();
+    String getArrowPathDIn(double arrowHeight);
 
-    String getArrowPathDOut();
+    String getArrowPathDOut(double arrowHeight);
 
     List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode);
 

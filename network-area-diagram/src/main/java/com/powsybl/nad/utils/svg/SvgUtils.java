@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.utils.svg;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
@@ -14,7 +16,18 @@ public final class SvgUtils {
     private SvgUtils() {
     }
 
-    public static final String ARROW_PATH_DIN = "M-1 -1 H1 L0 1z";
+    public static String getArrowPathDIn(double arrowHeight) {
+        String hf = formatHeight(arrowHeight);
+        return String.format("M-%s -%s H%s L0 %sz", hf,  hf, hf, hf);
+    }
 
-    public static final String ARROW_PATH_DOUT = "M-1 1 H1 L0 -1z";
+    public static String getArrowPathDOut(double arrowHeight) {
+        String hf = formatHeight(arrowHeight);
+        return String.format("M-%s %s H%s L0 -%sz", hf,  hf, hf, hf);
+    }
+
+    private static String formatHeight(double arrowHeight) {
+        DecimalFormat df = new DecimalFormat("0.##");
+        return df.format(arrowHeight);
+    }
 }

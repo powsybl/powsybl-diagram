@@ -128,12 +128,12 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public String getArrowPathDIn() {
-        return SvgUtils.ARROW_PATH_DIN;
+    public String getArrowPathDIn(double arrowHeight) {
+        return SvgUtils.getArrowPathDIn(arrowHeight);
     }
 
     @Override
-    public String getArrowPathDOut() {
-        return SvgUtils.ARROW_PATH_DOUT;
+    public String getArrowPathDOut(double arrowHeight) {
+        return SvgUtils.getArrowPathDOut(arrowHeight);
     }
 }
