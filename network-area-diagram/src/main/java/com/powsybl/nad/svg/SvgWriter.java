@@ -125,6 +125,7 @@ public class SvgWriter {
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
+            drawEdgeInfos(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
 
@@ -144,27 +145,27 @@ public class SvgWriter {
     }
 
     private void drawInjections(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        if (graph.getBusNodesStream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
+        if (!graph.getInjections().isEmpty()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.INJECTIONS_CLASS);
             for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
-                drawInjections(graph, vlNode, writer);
+                drawInjections(vlNode, writer);
             }
             writer.writeEndElement();
         }
     }
 
-    private void drawInjections(Graph graph, VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjections(VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
         if (vlNode.getBusNodes().stream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             for (BusNode busNode : vlNode.getBusNodes()) {
-                drawInjections(graph, busNode, writer);
+                drawInjections(busNode, writer);
             }
             writer.writeEndElement();
         }
     }
 
-    private void drawInjections(Graph graph, BusNode busNode, XMLStreamWriter writer) throws XMLStreamException {
+    private void drawInjections(BusNode busNode, XMLStreamWriter writer) throws XMLStreamException {
         if (busNode.getInjectionCount() == 0) {
             return;
         }
@@ -177,7 +178,7 @@ public class SvgWriter {
             writeStyleClasses(writer, styleProvider.getInjectionStyleClasses(injection));
             writeStyleAttribute(writer, styleProvider.getInjectionStyle(injection));
             insertName(writer, injection::getName);
-            drawInjectionEdge(graph, injection, writer);
+            drawInjectionEdge(injection, writer);
             drawInjectionIcon(injection, writer);
             writer.writeEndElement();
         }
@@ -185,14 +186,10 @@ public class SvgWriter {
 
     }
 
-    private void drawInjectionEdge(Graph graph, Injection injection, XMLStreamWriter writer) throws XMLStreamException {
-        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
+    private void drawInjectionEdge(Injection injection, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(injection.getEdge()));
-        if (edgeInfo.isPresent()) {
-            drawInjectionEdgeInfo(writer, injection, edgeInfo.get());
-        }
     }
 
     private void drawInjectionIcon(Injection injection, XMLStreamWriter writer) throws XMLStreamException {
@@ -360,7 +357,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_EDGES_CLASS);
         for (ThreeWtEdge edge : threeWtEdges) {
-            drawThreeWtEdge(graph, writer, edge);
+            drawThreeWtEdge(writer, edge);
         }
         writer.writeEndElement();
     }
@@ -384,28 +381,21 @@ public class SvgWriter {
         if (!edge.isVisible(side) && !(edge.isTransformerEdge())) {
             return;
         }
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
-        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
-            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (!graph.isLoop(edge)) {
-                drawHalfEdge(writer, edge, side, edgeInfo.orElse(null));
+                drawHalfEdge(writer, edge, side);
             } else {
-                drawLoopEdge(writer, edge, side, edgeInfo.orElse(null));
+                drawLoopEdge(writer, edge, side);
             }
         }
-        writer.writeEndElement();
     }
 
-    private void drawHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawHalfEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
+        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side), StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        if (edgeInfo != null) {
-            drawBranchEdgeInfo(writer, edge, side, edgeInfo);
-        }
+
     }
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
@@ -420,14 +410,11 @@ public class SvgWriter {
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
     }
 
-    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
+    private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
-        if (edgeInfo != null) {
-            drawLoopEdgeInfo(writer, edge, side, edgeInfo);
-        }
     }
 
     private String getPolylinePointsString(BranchEdge edge, BranchEdge.Side side) {
@@ -449,7 +436,7 @@ public class SvgWriter {
         return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f", points);
     }
 
-    private void drawThreeWtEdge(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+    private void drawThreeWtEdge(XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
         if (!edge.isVisible()) {
             return;
         }
@@ -461,11 +448,6 @@ public class SvgWriter {
         writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS);
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
-
-        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
-        if (edgeInfo.isPresent()) {
-            drawThreeWtEdgeInfo(writer, edge, edgeInfo.get());
-        }
         writer.writeEndElement();
     }
 
@@ -540,20 +522,63 @@ public class SvgWriter {
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
     }
 
-    private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfo, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
+    private void drawEdgeInfos(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
+
+        for (BranchEdge edge : graph.getBranchEdges()) {
+            if (!graph.isLoop(edge)) {
+                drawBranchEdgeInfo(graph, writer, edge, BranchEdge.Side.ONE);
+                drawBranchEdgeInfo(graph, writer, edge, BranchEdge.Side.TWO);
+            } else {
+                drawLoopEdgeInfo(graph, writer, edge, BranchEdge.Side.ONE);
+                drawLoopEdgeInfo(graph, writer, edge, BranchEdge.Side.TWO);
+            }
+        }
+
+        for (ThreeWtEdge edge : graph.getThreeWtEdges()) {
+            drawThreeWtEdgeInfo(graph, writer, edge);
+        }
+
+        for (Injection injection : graph.getInjections()) {
+            drawInjectionEdgeInfo(graph, writer, injection);
+        }
+
+        writer.writeEndElement();
     }
 
-    private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, EdgeInfo edgeInfo) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfo, edge.getArrow(side), edge.getArrowAngle(side));
+    private void drawLoopEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+        if (edge.isVisible(side)) {
+            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
+            if (edgeInfo.isPresent()) {
+                drawEdgeInfo(writer, edgeInfo.get(), edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
+            }
+        }
     }
 
-    private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge, EdgeInfo edgeInfo) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfo, edge.getArrowPoint(), edge.getEdgeAngle());
+    private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
+        if (edge.isVisible(side)) {
+            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
+            if (edgeInfo.isPresent()) {
+                drawEdgeInfo(writer, edgeInfo.get(), edge.getArrow(side), edge.getArrowAngle(side));
+            }
+        }
     }
 
-    private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection, EdgeInfo edgeInfo) throws XMLStreamException {
-        drawEdgeInfo(writer, edgeInfo, injection.getArrowPoint(), injection.getAngle());
+    private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
+        if (edge.isVisible()) {
+            Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
+            if (edgeInfo.isPresent()) {
+                drawEdgeInfo(writer, edgeInfo.get(), edge.getArrowPoint(), edge.getEdgeAngle());
+            }
+        }
+    }
+
+    private void drawInjectionEdgeInfo(Graph graph, XMLStreamWriter writer, Injection injection) throws XMLStreamException {
+        Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
+        if (edgeInfo.isPresent()) {
+            drawEdgeInfo(writer, edgeInfo.get(), injection.getArrowPoint(), injection.getAngle());
+        }
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {

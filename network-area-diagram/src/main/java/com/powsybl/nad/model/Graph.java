@@ -22,6 +22,7 @@ public class Graph {
     private final Map<String, Node> nodes = new LinkedHashMap<>();
     private final Map<String, BusNode> busNodes = new LinkedHashMap<>();
     private final Map<String, BranchEdge> branchEdges = new LinkedHashMap<>();
+    private final Map<String, Injection> injections = new LinkedHashMap<>();
     private double minX = 0;
     private double minY = 0;
     private double maxX = 0;
@@ -90,6 +91,14 @@ public class Graph {
             busGraph.addVertex(BusNode.UNKNOWN);
         }
         busGraph.addEdge(node1, node2, edge);
+    }
+
+    public void addInjection(Injection injection) {
+        injections.put(injection.getEquipmentId(), injection);
+    }
+
+    public Collection<Injection> getInjections() {
+        return injections.values();
     }
 
     public Stream<BusNode> getBusNodesStream() {

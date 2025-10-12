@@ -69,7 +69,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
         Map<String, List<Injection>> injectionsMap = new HashMap<>();
         if (injectionsAdded) {
-            fillInjectionsMap(vl, injectionsMap);
+            fillInjectionsMap(vl, graph, injectionsMap);
         }
         vl.getBusView().getBusStream()
                 .map(bus -> new BusNode(idProvider.createId(bus), bus.getId(), injectionsMap.getOrDefault(bus.getId(), Collections.emptyList())))
@@ -81,23 +81,25 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return vlNode;
     }
 
-    private void fillInjectionsMap(VoltageLevel vl, Map<String, List<Injection>> injectionsMap) {
-        vl.getGenerators().forEach(g -> addInjection(g, injectionsMap));
-        vl.getLoads().forEach(l -> addInjection(l, injectionsMap));
-        vl.getShuntCompensators().forEach(sc -> addInjection(sc, injectionsMap));
-        vl.getBatteries().forEach(b -> addInjection(b, injectionsMap));
-        vl.getStaticVarCompensators().forEach(svc -> addInjection(svc, injectionsMap));
+    private void fillInjectionsMap(VoltageLevel vl, Graph graph, Map<String, List<Injection>> injectionsMap) {
+        vl.getGenerators().forEach(g -> addInjection(graph, g, injectionsMap));
+        vl.getLoads().forEach(l -> addInjection(graph, l, injectionsMap));
+        vl.getShuntCompensators().forEach(sc -> addInjection(graph, sc, injectionsMap));
+        vl.getBatteries().forEach(b -> addInjection(graph, b, injectionsMap));
+        vl.getStaticVarCompensators().forEach(svc -> addInjection(graph, svc, injectionsMap));
     }
 
-    private void addInjection(com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
+    private void addInjection(Graph graph, com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
         injectionsMap.computeIfAbsent(inj.getTerminal().getBusView().getConnectableBus().getId(), k -> new ArrayList<>())
-                .add(createInjectionFromIidm(inj));
+                .add(createInjectionFromIidm(graph, inj));
     }
 
-    private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
+    private Injection createInjectionFromIidm(Graph graph, com.powsybl.iidm.network.Injection<?> inj) {
         String diagramId = idProvider.createId(inj);
         Injection.Type injectionType = getInjectionType(inj);
-        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
+        Injection injDiagram = new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
+        graph.addInjection(injDiagram);
+        return injDiagram;
     }
 
     private static Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
