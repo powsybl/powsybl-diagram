@@ -68,6 +68,10 @@ public class VoltageLevelNode extends AbstractNode {
         return hasUnknownBusNode;
     }
 
+    public String getLegendDiagramId() {
+        return legendDiagramId;
+    }
+
     public List<String> getLegendHeader() {
         return legendHeader;
     }
