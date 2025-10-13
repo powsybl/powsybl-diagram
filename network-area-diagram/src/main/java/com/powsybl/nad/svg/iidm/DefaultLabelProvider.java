@@ -69,16 +69,15 @@ public class DefaultLabelProvider implements LabelProvider {
         if (terminal == null) {
             return Optional.empty();
         }
-        switch (svgParameters.getEdgeInfoDisplayed()) {
-            case ACTIVE_POWER:
-                return Optional.of(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower));
-            case REACTIVE_POWER:
-                return Optional.of(new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
-            case CURRENT:
-                return Optional.of(new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent));
-            default:
-                return Optional.empty();
-        }
+        return switch (svgParameters.getEdgeInfoDisplayed()) {
+            case ACTIVE_POWER -> toOptional(terminal.getP()).map(p -> new EdgeInfo(EdgeInfo.ACTIVE_POWER, p, valueFormatter::formatPower));
+            case REACTIVE_POWER -> toOptional(terminal.getQ()).map(q -> new EdgeInfo(EdgeInfo.REACTIVE_POWER, q, valueFormatter::formatPower));
+            case CURRENT -> toOptional(terminal.getI()).map(i -> new EdgeInfo(EdgeInfo.CURRENT, i, valueFormatter::formatCurrent));
+        };
+    }
+    
+    public static Optional<Double> toOptional(double value) {
+        return Double.isNaN(value) ? Optional.empty() : Optional.of(value);
     }
 
     @Override
