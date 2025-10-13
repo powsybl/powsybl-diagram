@@ -29,12 +29,13 @@ public class ThreeWtEdge extends AbstractEdge {
     private Point arrowPoint;
     private List<Point> points;
     private final boolean visible;
-    private SvgEdgeInfo svgEdgeInfo;
+    private final SvgEdgeInfo svgEdgeInfo;
 
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, String type, boolean visible) {
+    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, String type, boolean visible, SvgEdgeInfo svgEdgeInfo) {
         super(diagramId, equipmentId, transformerName, type);
         this.side = side;
         this.visible = visible;
+        this.svgEdgeInfo = svgEdgeInfo;
     }
 
     public void setPoints(Point point1, Point point2) {
@@ -63,10 +64,6 @@ public class ThreeWtEdge extends AbstractEdge {
 
     public double getEdgeAngle() {
         return points.get(0).getAngle(points.get(1));
-    }
-
-    public void setSvgEdgeInfo(SvgEdgeInfo svgEdgeInfo) {
-        this.svgEdgeInfo = svgEdgeInfo;
     }
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo() {

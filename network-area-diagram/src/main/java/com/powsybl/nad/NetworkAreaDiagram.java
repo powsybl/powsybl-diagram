@@ -94,7 +94,7 @@ public final class NetworkAreaDiagram {
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
         Objects.requireNonNull(voltageLevelFilter);
-        var networkGraphBuilder = new NetworkGraphBuilder(network, voltageLevelFilter, param.getLayoutParameters(), param.getIdProviderFactory().create());
+        var networkGraphBuilder = new NetworkGraphBuilder(network, voltageLevelFilter, param.createLabelProvider(network), param.getLayoutParameters(), param.getIdProviderFactory().create());
         var graph = networkGraphBuilder.buildGraph();
         param.getLayoutFactory().create().run(graph, param.getLayoutParameters());
         return graph;
@@ -102,7 +102,7 @@ public final class NetworkAreaDiagram {
 
     private static SvgWriter createSvgWriter(Network network, NadParameters param) {
         return new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network),
-                param.createLabelProvider(network), param.getComponentLibrary(), param.getEdgeRouting());
+                param.getComponentLibrary(), param.getEdgeRouting());
     }
 
     private static Path getMetadataPath(Path svgPath) {

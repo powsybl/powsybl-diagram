@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.svg.LabelProvider;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -17,14 +19,24 @@ public class VoltageLevelNode extends AbstractNode {
     private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
     private boolean hasUnknownBusNode = false;
+    private final String legendDiagramId;
+    private final List<String> legendHeader;
+    private final List<String> legendFooter;
 
     public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious) {
-        this(diagramId, equipmentId, nameOrId, fictitious, true);
+        super(diagramId, equipmentId, nameOrId, fictitious);
+        this.visible = true;
+        this.legendDiagramId = null;
+        this.legendHeader = List.of();
+        this.legendFooter = List.of();
     }
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible, String vlLegendId, LabelProvider labelProvider) {
         super(diagramId, equipmentId, nameOrId, fictitious);
         this.visible = visible;
+        this.legendDiagramId = vlLegendId;
+        this.legendHeader = labelProvider.getLegendHeader(equipmentId);
+        this.legendFooter = labelProvider.getLegendFooter(equipmentId);
     }
 
     public void addBusNode(BusNode busNode) {
@@ -54,5 +66,13 @@ public class VoltageLevelNode extends AbstractNode {
 
     public boolean hasUnknownBusNode() {
         return hasUnknownBusNode;
+    }
+
+    public List<String> getLegendHeader() {
+        return legendHeader;
+    }
+
+    public List<String> getLegendFooter() {
+        return legendFooter;
     }
 }

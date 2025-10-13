@@ -41,11 +41,16 @@ public class BranchEdge extends AbstractEdge {
     private double arrowAngle1;
     private double arrowAngle2;
     private final boolean[] visible = new boolean[] {true, true};
-    private SvgEdgeInfo svgEdgeInfo1;
-    private SvgEdgeInfo svgEdgeInfo2;
+    private final SvgEdgeInfo svgEdgeInfo1;
+    private final SvgEdgeInfo svgEdgeInfo2;
+    private final String label;
 
-    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
+    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type,
+                      SvgEdgeInfo svgEdgeInfo1, SvgEdgeInfo svgEdgeInfo2, String label) {
         super(diagramId, equipmentId, nameOrId, type);
+        this.svgEdgeInfo1 = svgEdgeInfo1;
+        this.svgEdgeInfo2 = svgEdgeInfo2;
+        this.label = label;
     }
 
     public boolean isTransformerEdge() {
@@ -148,17 +153,12 @@ public class BranchEdge extends AbstractEdge {
         return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
     }
 
-    public void setSvgEdgeInfo(Side side, SvgEdgeInfo edgeInfo) {
-        Objects.requireNonNull(side);
-        if (side == Side.ONE) {
-            this.svgEdgeInfo1 = edgeInfo;
-        } else {
-            this.svgEdgeInfo2 = edgeInfo;
-        }
-    }
-
     public Optional<SvgEdgeInfo> getSvgEdgeInfo(Side side) {
         Objects.requireNonNull(side);
         return Optional.ofNullable(side == Side.ONE ? svgEdgeInfo1 : svgEdgeInfo2);
+    }
+
+    public String getLabel() {
+        return label;
     }
 }

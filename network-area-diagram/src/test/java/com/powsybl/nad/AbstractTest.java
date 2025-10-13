@@ -9,6 +9,7 @@ package com.powsybl.nad;
 import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
@@ -69,10 +70,10 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter) {
-        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLayoutParameters()).buildGraph();
+        Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLabelProvider(network), getLayoutParameters(), new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, getLayoutParameters());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(network), getLabelProvider(network), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getStyleProvider(network), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
         assertStringEquals(resourceName, writer.toString());
     }
 

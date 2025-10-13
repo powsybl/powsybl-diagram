@@ -15,7 +15,7 @@ import java.util.Collections;
 public class BoundaryBusNode extends BusNode {
 
     public BoundaryBusNode(String diagramId, String equipmentId) {
-        super(diagramId, equipmentId, Collections.emptyList());
+        super(diagramId, equipmentId, Collections.emptyList(), "");
     }
 
 }

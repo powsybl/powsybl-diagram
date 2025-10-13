@@ -12,7 +12,6 @@ import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
@@ -48,12 +47,12 @@ class EdgeInfoLabelTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
                 return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
             }
 
             @Override
-            public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
+            public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
                 return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
         };

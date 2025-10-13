@@ -10,7 +10,6 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.*;
-import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -35,33 +34,33 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-        Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
+        Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, side, branchType);
         return getEdgeInfo(terminal);
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
-        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(edge.getEquipmentId());
+    public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(threeWindingTransformerId);
         if (transformer == null) {
-            throw new PowsyblException("Unknown three windings transformer '" + edge.getEquipmentId() + "'");
+            throw new PowsyblException("Unknown three windings transformer '" + threeWindingTransformerId + "'");
         }
-        Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(edge.getSide()));
+        Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));
         return getEdgeInfo(terminal);
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
-        var connectable = network.getConnectable(injection.getEquipmentId());
+    public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
+        var connectable = network.getConnectable(injectionId);
         if (!(connectable instanceof com.powsybl.iidm.network.Injection<?> iidmInjection)) {
-            throw new PowsyblException("Unknown injection '" + injection.getEquipmentId() + "'");
+            throw new PowsyblException("Unknown injection '" + injectionId + "'");
         }
         return getEdgeInfo(iidmInjection.getTerminal());
     }
 
     @Override
-    public String getLabel(Edge edge) {
-        return svgParameters.isEdgeNameDisplayed() ? edge.getEquipmentId() : null;
+    public String getBranchLabel(String branchId) {
+        return svgParameters.isEdgeNameDisplayed() ? branchId : null;
     }
 
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
@@ -80,8 +79,8 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
-        VoltageLevel vl = network.getVoltageLevel(voltageLevelNode.getEquipmentId());
+    public List<String> getLegendHeader(String voltageLevelId) {
+        VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
         List<String> description = new ArrayList<>();
         description.add(svgParameters.isIdDisplayed() ? vl.getId() : vl.getNameOrId());
         if (svgParameters.isSubstationDescriptionDisplayed()) {
@@ -93,9 +92,9 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public String getBusDescription(BusNode busNode) {
+    public String getLegend(String busId) {
         if (svgParameters.isBusLegend()) {
-            Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+            Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
             String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
             return voltage + " / " + angle;
@@ -104,11 +103,11 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
+    public List<String> getLegendFooter(String voltageLevelId) {
         List<String> voltageLevelDetails = new ArrayList<>();
 
         if (svgParameters.isVoltageLevelDetails()) {
-            VoltageLevel voltageLevel = network.getVoltageLevel(vlNode.getEquipmentId());
+            VoltageLevel voltageLevel = network.getVoltageLevel(voltageLevelId);
 
             double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
             String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");

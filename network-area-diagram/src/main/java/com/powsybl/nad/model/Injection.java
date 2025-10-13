@@ -31,11 +31,12 @@ public class Injection extends AbstractIdentifiable {
     private Point injectionPoint;
     private Point busNodePoint;
     private Point arrowPoint;
-    private SvgEdgeInfo svgEdgeInfo;
+    private final SvgEdgeInfo svgEdgeInfo;
 
-    public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
+    public Injection(String diagramId, String equipmentId, String nameOrId, Type type, SvgEdgeInfo svgEdgeInfo) {
         super(diagramId, equipmentId, nameOrId);
         this.type = type;
+        this.svgEdgeInfo = svgEdgeInfo;
     }
 
     public Type getType() {
@@ -83,10 +84,6 @@ public class Injection extends AbstractIdentifiable {
         double edgeDistance = busNodePoint.distance(injectionPoint);
         Point circleCenter = busNodePoint.atDistance(edgeDistance + circleRadius, injectionPoint);
         return circleCenter.shift(-circleRadius, -circleRadius);
-    }
-
-    public void setSvgEdgeInfo(SvgEdgeInfo svgEdgeInfo) {
-        this.svgEdgeInfo = svgEdgeInfo;
     }
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo() {

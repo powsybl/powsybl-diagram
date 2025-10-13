@@ -67,8 +67,8 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-        BranchLabels bl = this.branchLabels.get(edge.getEquipmentId());
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
+        BranchLabels bl = this.branchLabels.get(branchId);
         return Optional.ofNullable(bl).map(bl1 -> getEdgeInfo(bl1, side));
     }
 
@@ -79,13 +79,12 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
-        ThreeWtLabels threeWtLabels1 = threeWtLabels.get(edge.getEquipmentId());
-        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(edge, lbl));
+    public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+        ThreeWtLabels threeWtLabels1 = threeWtLabels.get(threeWindingTransformerId);
+        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(side, lbl));
     }
 
-    private EdgeInfo getEdgeInfo(ThreeWtEdge edge, ThreeWtLabels labels) {
-        ThreeWtEdge.Side edgeSide = edge.getSide();
+    private EdgeInfo getEdgeInfo(ThreeWtEdge.Side edgeSide, ThreeWtLabels labels) {
         String labelSide = switch (edgeSide) {
             case ONE -> labels.side1;
             case TWO -> labels.side2;
@@ -100,29 +99,29 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
-        InjectionLabels injectionLabel = injectionLabels.get(injection.getEquipmentId());
+    public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
+        InjectionLabels injectionLabel = injectionLabels.get(injectionId);
         return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo(INFO_TYPE, lbl.arrow, null, lbl.label));
     }
 
     @Override
-    public String getLabel(Edge edge) {
-        BranchLabels bl = branchLabels.get(edge.getEquipmentId());
+    public String getBranchLabel(String branchId) {
+        BranchLabels bl = branchLabels.get(branchId);
         return (bl != null) ? bl.middle : null;
     }
 
     @Override
-    public String getBusDescription(BusNode busNode) {
-        return busDescriptions.get(busNode.getEquipmentId());
+    public String getLegend(String busId) {
+        return busDescriptions.get(busId);
     }
 
     @Override
-    public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
-        return vlDescriptions.getOrDefault(voltageLevelNode.getEquipmentId(), Collections.emptyList());
+    public List<String> getLegendHeader(String voltageLevelId) {
+        return vlDescriptions.getOrDefault(voltageLevelId, Collections.emptyList());
     }
 
     @Override
-    public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-        return vlDetails.getOrDefault(vlNode.getEquipmentId(), Collections.emptyList());
+    public List<String> getLegendFooter(String voltageLevelId) {
+        return vlDetails.getOrDefault(voltageLevelId, Collections.emptyList());
     }
 }

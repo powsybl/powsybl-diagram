@@ -21,17 +21,7 @@ public class IntIdProvider implements IdProvider {
     }
 
     @Override
-    public String createId(Identifiable<?> identifiable) {
-        return nextId();
-    }
-
-    @Override
-    public String createId(ThreeWindingsTransformer.Leg leg) {
-        return nextId();
-    }
-
-    @Override
-    public String createId(String edgeId, int side, EdgeInfo edgeInfo) {
+    public String createSvgId(Object object) {
         return nextId();
     }
 
