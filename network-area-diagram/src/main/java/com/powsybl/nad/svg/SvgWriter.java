@@ -412,7 +412,7 @@ public class SvgWriter {
 
     private void drawLoopEdge(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side), StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
     }
