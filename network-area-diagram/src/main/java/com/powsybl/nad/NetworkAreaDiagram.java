@@ -7,7 +7,6 @@
  */
 package com.powsybl.nad;
 
-import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
@@ -89,7 +88,7 @@ public final class NetworkAreaDiagram {
         createMetadata(graph, param).writeJson(metadataWriter);
     }
 
-    private static AbstractMetadata createMetadata(Graph graph, NadParameters param) {
+    private static DiagramMetadata createMetadata(Graph graph, NadParameters param) {
         return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).addMetadata(graph);
     }
 
