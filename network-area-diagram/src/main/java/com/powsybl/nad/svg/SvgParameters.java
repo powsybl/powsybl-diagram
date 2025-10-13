@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.powsybl.diagram.util.ValueFormatter;
 
 import java.util.Locale;
@@ -14,6 +15,7 @@ import java.util.Objects;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@JsonIgnoreProperties({"arrowHeight"})
 public class SvgParameters {
 
     private Padding diagramPadding = new Padding(200);

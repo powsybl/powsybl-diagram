@@ -7,14 +7,13 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.nad.svg.EdgeInfo;
-
-import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeInfoMetadata {
     private final String svgId;
     private final String infoType;

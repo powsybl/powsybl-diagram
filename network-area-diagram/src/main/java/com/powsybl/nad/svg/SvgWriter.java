@@ -551,8 +551,9 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (edgeInfo.isPresent()) {
-                edge.setSvgEdgeInfo(side, graph.addEdgeInfo(edge.getEquipmentId(), side.getNum(), edgeInfo.get()));
-                drawEdgeInfo(writer, edgeInfo.get(), edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
+                SvgEdgeInfo svgEdgeInfo = graph.addEdgeInfo(edge.getEquipmentId(), side.getNum(), edgeInfo.get());
+                edge.setSvgEdgeInfo(side, svgEdgeInfo);
+                drawEdgeInfo(writer, svgEdgeInfo, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
             }
         }
     }
@@ -561,8 +562,9 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (edgeInfo.isPresent()) {
-                edge.setSvgEdgeInfo(side, graph.addEdgeInfo(edge.getEquipmentId(), side.getNum(), edgeInfo.get()));
-                drawEdgeInfo(writer, edgeInfo.get(), edge.getArrow(side), edge.getArrowAngle(side));
+                SvgEdgeInfo svgEdgeInfo = graph.addEdgeInfo(edge.getEquipmentId(), side.getNum(), edgeInfo.get());
+                edge.setSvgEdgeInfo(side, svgEdgeInfo);
+                drawEdgeInfo(writer, svgEdgeInfo, edge.getArrow(side), edge.getArrowAngle(side));
             }
         }
     }
@@ -571,8 +573,9 @@ public class SvgWriter {
         if (edge.isVisible()) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
             if (edgeInfo.isPresent()) {
-                edge.setSvgEdgeInfo(graph.addEdgeInfo(edge.getEquipmentId(), edge.getSide().ordinal() + 1, edgeInfo.get()));
-                drawEdgeInfo(writer, edgeInfo.get(), edge.getArrowPoint(), edge.getEdgeAngle());
+                SvgEdgeInfo svgEdgeInfo = graph.addEdgeInfo(edge.getEquipmentId(), edge.getSide().ordinal() + 1, edgeInfo.get());
+                edge.setSvgEdgeInfo(svgEdgeInfo);
+                drawEdgeInfo(writer, svgEdgeInfo, edge.getArrowPoint(), edge.getEdgeAngle());
             }
         }
     }
@@ -580,13 +583,16 @@ public class SvgWriter {
     private void drawInjectionEdgeInfo(Graph graph, XMLStreamWriter writer, Injection injection) throws XMLStreamException {
         Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
         if (edgeInfo.isPresent()) {
-            injection.setSvgEdgeInfo(graph.addEdgeInfo(injection.getEquipmentId(), -1, edgeInfo.get()));
-            drawEdgeInfo(writer, edgeInfo.get(), injection.getArrowPoint(), injection.getAngle());
+            SvgEdgeInfo svgEdgeInfo = graph.addEdgeInfo(injection.getEquipmentId(), -1, edgeInfo.get());
+            injection.setSvgEdgeInfo(svgEdgeInfo);
+            drawEdgeInfo(writer, svgEdgeInfo, injection.getArrowPoint(), injection.getAngle());
         }
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, EdgeInfo edgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, SvgEdgeInfo svgEdgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
+        EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.diagramId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo));
         drawArrow(writer, edgeInfo, edgeAngle);
