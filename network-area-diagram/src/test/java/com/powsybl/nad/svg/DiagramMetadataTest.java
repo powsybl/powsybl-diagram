@@ -89,8 +89,7 @@ class DiagramMetadataTest extends AbstractTest {
         DiagramMetadata diagramMetadata = roundTrip(network, "/3wt_metadata.json", getLayoutParameters());
         assertEquals(3, diagramMetadata.getBusNodesMetadata().size());
         assertEquals(4, diagramMetadata.getNodesMetadata().size());
-        assertEquals(3, diagramMetadata.getBranchEdgesMetadata().size());
-        assertEquals(3, diagramMetadata.getThreeWtEdgesMetadata().size());
+        assertEquals(3, diagramMetadata.getEdgesMetadata().size());
         assertEquals(3, diagramMetadata.getTextNodesMetadata().size());
     }
 
@@ -102,8 +101,7 @@ class DiagramMetadataTest extends AbstractTest {
         DiagramMetadata diagramMetadata = roundTrip(network, "/IEEE_14_bus_fictitious_metadata.json", getLayoutParameters());
         assertEquals(14, diagramMetadata.getBusNodesMetadata().size());
         assertEquals(14, diagramMetadata.getNodesMetadata().size());
-        assertEquals(20, diagramMetadata.getBranchEdgesMetadata().size());
-        assertEquals(20, diagramMetadata.getThreeWtEdgesMetadata().size());
+        assertEquals(20, diagramMetadata.getEdgesMetadata().size());
         assertEquals(14, diagramMetadata.getTextNodesMetadata().size());
     }
 

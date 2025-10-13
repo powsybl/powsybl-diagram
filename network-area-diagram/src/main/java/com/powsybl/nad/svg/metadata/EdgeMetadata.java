@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BranchEdgeMetadata extends AbstractMetadataItem {
+public class EdgeMetadata extends AbstractMetadataItem {
 
     private final String node1SvgId;
     private final String node2SvgId;
@@ -24,15 +24,15 @@ public class BranchEdgeMetadata extends AbstractMetadataItem {
     private final EdgeInfoMetadata edgeInfo1;
     private final EdgeInfoMetadata edgeInfo2;
 
-    public BranchEdgeMetadata(@JsonProperty("svgId") String svgId,
-                              @JsonProperty("equipmentId") String equipmentId,
-                              @JsonProperty("node1") String node1SvgId,
-                              @JsonProperty("node2") String node2SvgId,
-                              @JsonProperty("busNode1") String busNode1SvgId,
-                              @JsonProperty("busNode2") String busNode2SvgId,
-                              @JsonProperty("type") String edgeType,
-                              @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
-                              @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2) {
+    public EdgeMetadata(@JsonProperty("svgId") String svgId,
+                        @JsonProperty("equipmentId") String equipmentId,
+                        @JsonProperty("node1") String node1SvgId,
+                        @JsonProperty("node2") String node2SvgId,
+                        @JsonProperty("busNode1") String busNode1SvgId,
+                        @JsonProperty("busNode2") String busNode2SvgId,
+                        @JsonProperty("type") String edgeType,
+                        @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
+                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
