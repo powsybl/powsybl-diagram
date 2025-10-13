@@ -6,6 +6,9 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
 import org.jgrapht.alg.util.Pair;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
@@ -23,6 +26,7 @@ public class Graph {
     private final Map<String, BusNode> busNodes = new LinkedHashMap<>();
     private final Map<String, BranchEdge> branchEdges = new LinkedHashMap<>();
     private final List<Injection> injections = new ArrayList<>();
+    private final IdProvider idProvider;
     private double minX = 0;
     private double minY = 0;
     private double maxX = 0;
@@ -34,6 +38,10 @@ public class Graph {
 
     private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE = "-textnode";
     private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE = "-textedge";
+
+    public Graph(IdProvider idProvider) {
+        this.idProvider = idProvider;
+    }
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
@@ -329,5 +337,9 @@ public class Graph {
                         VoltageLevelNode::getEquipmentId,
                         VoltageLevelNode::getPosition
                 ));
+    }
+
+    public SvgEdgeInfo addEdgeInfo(String edgeId, int side, EdgeInfo edgeInfo) {
+        return new SvgEdgeInfo(idProvider.createId(edgeId, side, edgeInfo), edgeInfo);
     }
 }

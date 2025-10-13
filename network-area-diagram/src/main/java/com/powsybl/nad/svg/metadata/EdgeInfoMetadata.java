@@ -16,19 +16,27 @@ import java.util.Optional;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class EdgeInfoMetadata {
+    private final String svgId;
     private final String infoType;
     private final String direction;
     private final String internalLabel;
     private final String externalLabel;
 
-    public EdgeInfoMetadata(@JsonProperty("infoType") String infoType,
+    public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
+                            @JsonProperty("infoType") String infoType,
                             @JsonProperty("direction") String direction,
                             @JsonProperty("internalLabel") String internalLabel,
                             @JsonProperty("externalLabel") String externalLabel) {
+        this.svgId = svgId;
         this.infoType = infoType;
         this.direction = direction;
         this.internalLabel = internalLabel;
         this.externalLabel = externalLabel;
+    }
+
+    @JsonProperty("svgId")
+    public String getSvgId() {
+        return svgId;
     }
 
     @JsonProperty("infoType")

@@ -46,7 +46,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     @Override
     public Graph buildGraph() {
-        Graph graph = new Graph();
+        Graph graph = new Graph(idProvider);
         List<VoltageLevel> voltageLevelsVisible = getVoltageLevels();
         List<VoltageLevel> voltageLevelsInvisible = VoltageLevelFilter.getNextDepthVoltageLevels(network, voltageLevelsVisible)
                 .stream()

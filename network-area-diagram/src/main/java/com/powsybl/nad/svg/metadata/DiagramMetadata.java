@@ -133,7 +133,7 @@ public class DiagramMetadata extends AbstractMetadata {
                                         injection.getComponentType(),
                                         busNode.getDiagramId(),
                                         vlNode.getDiagramId(),
-                                        injection.getEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))))));
+                                        injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))))));
         graph.getBranchEdgeStream().forEach(edge -> branchEdgesMetadata.add(new BranchEdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
@@ -142,8 +142,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
                 edge.getType(),
-                edge.getEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
+                edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
         graph.getThreeWtEdgesStream().forEach(edge -> threeWtEdgesMetadata.add(new ThreeWtEdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
@@ -151,7 +151,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getVoltageLevelNode(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode(edge).getDiagramId()),
                 edge.getType(),
-                edge.getEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
+                edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getDiagramId()),
                 textPair.getFirst().getEquipmentId(),
@@ -163,8 +163,10 @@ public class DiagramMetadata extends AbstractMetadata {
         return this;
     }
 
-    private static EdgeInfoMetadata createEdgeInfoMetadata(EdgeInfo edgeInfo) {
-        return new EdgeInfoMetadata(edgeInfo.getInfoType(),
+    private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
+        EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
+        return new EdgeInfoMetadata(svgEdgeInfo.diagramId(),
+                edgeInfo.getInfoType(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
                 edgeInfo.getInternalLabel().orElse(null),
                 edgeInfo.getExternalLabel().orElse(null));
