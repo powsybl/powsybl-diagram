@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class NodeMetadata extends AbstractMetadataItem {
 
     private final double x;
@@ -62,14 +62,17 @@ public class NodeMetadata extends AbstractMetadataItem {
         return new Point(x, y);
     }
 
+    @JsonProperty("legendSvgId")
     public String getLegendSvgId() {
         return legendSvgId;
     }
 
+    @JsonProperty("legendHeader")
     public List<String> getLegendHeader() {
         return legendHeader;
     }
 
+    @JsonProperty("legendFooter")
     public List<String> getLegendFooter() {
         return legendFooter;
     }

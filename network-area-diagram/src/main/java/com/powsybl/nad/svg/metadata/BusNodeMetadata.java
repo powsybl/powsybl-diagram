@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BusNodeMetadata extends AbstractMetadataItem {
 
     private final int nbNeighbours;
