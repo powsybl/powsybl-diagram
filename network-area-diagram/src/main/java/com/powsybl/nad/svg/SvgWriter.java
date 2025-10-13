@@ -606,10 +606,10 @@ public class SvgWriter {
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
             if (direction.get() == EdgeInfo.Direction.IN) {
                 writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_IN_CLASS);
-                writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDIn(svgParameters.getArrowHeight()));
+                writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathIn());
             } else if (direction.get() == EdgeInfo.Direction.OUT) {
                 writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.ARROW_OUT_CLASS);
-                writer.writeAttribute(PATH_D_ATTRIBUTE, labelProvider.getArrowPathDOut(svgParameters.getArrowHeight()));
+                writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathOut());
             }
         }
     }

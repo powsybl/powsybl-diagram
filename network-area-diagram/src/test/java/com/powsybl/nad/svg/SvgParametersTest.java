@@ -45,7 +45,8 @@ class SvgParametersTest {
                 .setSvgPrefix("TestPrefix")
                 .setIdDisplayed(true)
                 .setSubstationDescriptionDisplayed(true)
-                .setArrowHeight(25)
+                .setArrowPathIn("M-20 -10 H20 L0 10z")
+                .setArrowPathOut("M-5 10 H5 L0 -10z")
                 .setBusLegend(false)
                 .setVoltageLevelDetails(true)
                 .setLanguageTag("de")
@@ -93,7 +94,8 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());
         assertEquals(svgParameters0.isSubstationDescriptionDisplayed(), svgParameters1.isSubstationDescriptionDisplayed());
-        assertEquals(svgParameters0.getArrowHeight(), svgParameters1.getArrowHeight(), 0);
+        assertEquals(svgParameters0.getArrowPathIn(), svgParameters1.getArrowPathIn());
+        assertEquals(svgParameters0.getArrowPathOut(), svgParameters1.getArrowPathOut());
         assertEquals(svgParameters0.isBusLegend(), svgParameters1.isBusLegend());
         assertEquals(svgParameters0.isVoltageLevelDetails(), svgParameters1.isVoltageLevelDetails());
         assertEquals(svgParameters0.getLanguageTag(), svgParameters1.getLanguageTag());

@@ -23,10 +23,6 @@ public interface LabelProvider {
 
     String getLabel(Edge edge);
 
-    String getArrowPathDIn(double arrowHeight);
-
-    String getArrowPathDOut(double arrowHeight);
-
     List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode);
 
     String getBusDescription(BusNode busNode);

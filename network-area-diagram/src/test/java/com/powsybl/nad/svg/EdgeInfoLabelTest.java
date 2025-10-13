@@ -34,7 +34,9 @@ class EdgeInfoLabelTest extends AbstractTest {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedWidth(800)
+                .setArrowPathIn("M-20 -10 H20 L0 10z")
+                .setArrowPathOut("M-5 10 H5 L0 -10z"));
     }
 
     @Override
@@ -53,16 +55,6 @@ class EdgeInfoLabelTest extends AbstractTest {
             @Override
             public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
                 return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
-            }
-
-            @Override
-            public String getArrowPathDIn(double arrowHeight) { // larger arrow
-                return "M-20 -10 H20 L0 10z";
-            }
-
-            @Override
-            public String getArrowPathDOut(double arrowHeight) { // thinner arrow
-                return "M-5 10 H5 L0 -10z";
             }
         };
     }

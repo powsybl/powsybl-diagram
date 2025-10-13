@@ -8,7 +8,6 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
-import com.powsybl.nad.utils.svg.SvgUtils;
 
 import java.util.*;
 
@@ -125,15 +124,5 @@ public class CustomLabelProvider implements LabelProvider {
     @Override
     public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
         return vlDetails.getOrDefault(vlNode.getEquipmentId(), Collections.emptyList());
-    }
-
-    @Override
-    public String getArrowPathDIn(double arrowHeight) {
-        return SvgUtils.getArrowPathDIn(arrowHeight);
-    }
-
-    @Override
-    public String getArrowPathDOut(double arrowHeight) {
-        return SvgUtils.getArrowPathDOut(arrowHeight);
     }
 }

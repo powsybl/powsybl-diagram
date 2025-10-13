@@ -15,7 +15,6 @@ import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.iidm.IidmUtils;
-import com.powsybl.nad.utils.svg.SvgUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +74,7 @@ public class DefaultLabelProvider implements LabelProvider {
             case CURRENT -> toOptional(terminal.getI()).map(i -> new EdgeInfo(EdgeInfo.CURRENT, i, valueFormatter::formatCurrent));
         };
     }
-    
+
     public static Optional<Double> toOptional(double value) {
         return Double.isNaN(value) ? Optional.empty() : Optional.of(value);
     }
@@ -133,15 +132,5 @@ public class DefaultLabelProvider implements LabelProvider {
         }
 
         return voltageLevelDetails;
-    }
-
-    @Override
-    public String getArrowPathDIn(double arrowHeight) {
-        return SvgUtils.getArrowPathDIn(arrowHeight);
-    }
-
-    @Override
-    public String getArrowPathDOut(double arrowHeight) {
-        return SvgUtils.getArrowPathDOut(arrowHeight);
     }
 }
