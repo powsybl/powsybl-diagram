@@ -85,7 +85,7 @@ public class DiagramMetadata extends AbstractMetadata {
         return injectionsMetadata;
     }
 
-    @JsonProperty("branchEdges")
+    @JsonProperty("edges")
     public List<EdgeMetadata> getEdgesMetadata() {
         return edgesMetadata;
     }
