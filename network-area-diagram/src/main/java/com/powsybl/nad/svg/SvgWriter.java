@@ -551,6 +551,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (edgeInfo.isPresent()) {
+                edge.setEdgeInfo(side, edgeInfo.get());
                 drawEdgeInfo(writer, edgeInfo.get(), edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
             }
         }
@@ -560,6 +561,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
             if (edgeInfo.isPresent()) {
+                edge.setEdgeInfo(side, edgeInfo.get());
                 drawEdgeInfo(writer, edgeInfo.get(), edge.getArrow(side), edge.getArrowAngle(side));
             }
         }
@@ -569,6 +571,7 @@ public class SvgWriter {
         if (edge.isVisible()) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge);
             if (edgeInfo.isPresent()) {
+                edge.setEdgeInfo(edgeInfo.get());
                 drawEdgeInfo(writer, edgeInfo.get(), edge.getArrowPoint(), edge.getEdgeAngle());
             }
         }
@@ -577,6 +580,7 @@ public class SvgWriter {
     private void drawInjectionEdgeInfo(Graph graph, XMLStreamWriter writer, Injection injection) throws XMLStreamException {
         Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, injection);
         if (edgeInfo.isPresent()) {
+            injection.setEdgeInfo(edgeInfo.get());
             drawEdgeInfo(writer, edgeInfo.get(), injection.getArrowPoint(), injection.getAngle());
         }
     }

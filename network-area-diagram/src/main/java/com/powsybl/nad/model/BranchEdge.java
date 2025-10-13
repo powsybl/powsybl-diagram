@@ -6,10 +6,9 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import com.powsybl.nad.svg.EdgeInfo;
+
+import java.util.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -42,6 +41,8 @@ public class BranchEdge extends AbstractEdge {
     private double arrowAngle1;
     private double arrowAngle2;
     private final boolean[] visible = new boolean[] {true, true};
+    private EdgeInfo edgeInfo1;
+    private EdgeInfo edgeInfo2;
 
     public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
         super(diagramId, equipmentId, nameOrId, type);
@@ -145,5 +146,19 @@ public class BranchEdge extends AbstractEdge {
     public double getEdgeEndAngle(Side side) {
         List<Point> points = getPoints(side);
         return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
+    }
+
+    public void setEdgeInfo(Side side, EdgeInfo edgeInfo) {
+        Objects.requireNonNull(side);
+        if (side == Side.ONE) {
+            this.edgeInfo1 = edgeInfo;
+        } else {
+            this.edgeInfo2 = edgeInfo;
+        }
+    }
+
+    public Optional<EdgeInfo> getEdgeInfo(Side side) {
+        Objects.requireNonNull(side);
+        return Optional.ofNullable(side == Side.ONE ? edgeInfo1 : edgeInfo2);
     }
 }

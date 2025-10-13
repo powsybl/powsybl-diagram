@@ -13,8 +13,11 @@ import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
+import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
 import com.powsybl.nad.svg.SvgParameters;
 
 import java.io.IOException;
@@ -38,7 +41,8 @@ public class DiagramMetadata extends AbstractMetadata {
     private final SvgParameters svgParameters;
     private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
-    private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
+    private final List<BranchEdgeMetadata> branchEdgesMetadata = new ArrayList<>();
+    private final List<ThreeWtEdgeMetadata> threeWtEdgesMetadata = new ArrayList<>();
     private final List<TextNodeMetadata> textNodesMetadata = new ArrayList<>();
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY) // only serializes it non-empty
@@ -56,14 +60,14 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("busNodes") List<BusNodeMetadata> busNodesMetadata,
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
                            @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
-                           @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
+                           @JsonProperty("edges") List<BranchEdgeMetadata> edgesMetadata,
                            @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
         this.nodesMetadata.addAll(nodesMetadata);
         this.injectionsMetadata.addAll(injectionsMetadata);
-        this.edgesMetadata.addAll(edgesMetadata);
+        this.branchEdgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
     }
 
@@ -82,9 +86,14 @@ public class DiagramMetadata extends AbstractMetadata {
         return injectionsMetadata;
     }
 
-    @JsonProperty("edges")
-    public List<EdgeMetadata> getEdgesMetadata() {
-        return edgesMetadata;
+    @JsonProperty("branchEdges")
+    public List<BranchEdgeMetadata> getBranchEdgesMetadata() {
+        return branchEdgesMetadata;
+    }
+
+    @JsonProperty("threeWtEdges")
+    public List<ThreeWtEdgeMetadata> getThreeWtEdgesMetadata() {
+        return threeWtEdgesMetadata;
     }
 
     @JsonProperty("textNodes")
@@ -123,23 +132,26 @@ public class DiagramMetadata extends AbstractMetadata {
                                         injection.getEquipmentId(),
                                         injection.getComponentType(),
                                         busNode.getDiagramId(),
-                                        vlNode.getDiagramId())))));
-        graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
+                                        vlNode.getDiagramId(),
+                                        injection.getEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))))));
+        graph.getBranchEdgeStream().forEach(edge -> branchEdgesMetadata.add(new BranchEdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getNode2(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
-        graph.getThreeWtEdgesStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
+                edge.getType(),
+                edge.getEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
+        graph.getThreeWtEdgesStream().forEach(edge -> threeWtEdgesMetadata.add(new ThreeWtEdgeMetadata(
                 getPrefixedId(edge.getDiagramId()),
                 edge.getEquipmentId(),
-                getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
+                getPrefixedId(graph.getThreeWtNode(edge).getDiagramId()),
+                getPrefixedId(graph.getVoltageLevelNode(edge).getDiagramId()),
+                getPrefixedId(graph.getBusGraphNode(edge).getDiagramId()),
+                edge.getType(),
+                edge.getEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getDiagramId()),
                 textPair.getFirst().getEquipmentId(),
@@ -149,6 +161,13 @@ public class DiagramMetadata extends AbstractMetadata {
                 round(textPair.getSecond().getEdgeConnection().getX() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getEdgeConnection().getY() - textPair.getFirst().getY()))));
         return this;
+    }
+
+    private static EdgeInfoMetadata createEdgeInfoMetadata(EdgeInfo edgeInfo) {
+        return new EdgeInfoMetadata(edgeInfo.getInfoType(),
+                edgeInfo.getDirection().map(Enum::name).orElse(null),
+                edgeInfo.getInternalLabel().orElse(null),
+                edgeInfo.getExternalLabel().orElse(null));
     }
 
     private String getPrefixedId(String id) {

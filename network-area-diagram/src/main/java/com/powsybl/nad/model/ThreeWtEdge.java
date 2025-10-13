@@ -6,9 +6,12 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.svg.EdgeInfo;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -24,10 +27,9 @@ public class ThreeWtEdge extends AbstractEdge {
 
     private final Side side;
     private Point arrowPoint;
-
     private List<Point> points;
-
     private final boolean visible;
+    private EdgeInfo edgeInfo;
 
     public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, String type, boolean visible) {
         super(diagramId, equipmentId, transformerName, type);
@@ -61,5 +63,13 @@ public class ThreeWtEdge extends AbstractEdge {
 
     public double getEdgeAngle() {
         return points.get(0).getAngle(points.get(1));
+    }
+
+    public void setEdgeInfo(EdgeInfo edgeInfo) {
+        this.edgeInfo = edgeInfo;
+    }
+
+    public Optional<EdgeInfo> getEdgeInfo() {
+        return Optional.ofNullable(edgeInfo);
     }
 }
