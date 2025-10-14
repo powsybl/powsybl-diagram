@@ -43,7 +43,8 @@
     "svgPrefix" : "",
     "idDisplayed" : false,
     "substationDescriptionDisplayed" : false,
-    "arrowHeight" : 10.0,
+    "arrowPathIn" : "M-10 -10 H10 L0 10z",
+    "arrowPathOut" : "M-10 10 H10 L0 -10z",
     "busLegend" : true,
     "voltageLevelDetails" : false,
     "languageTag" : "en",
@@ -60,193 +61,220 @@
     "injectionCircleRadius" : 25.0
   },
   "busNodes" : [ {
-    "svgId" : "1",
+    "svgId" : "2",
     "equipmentId" : "VL1_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "0"
+    "vlNode" : "0",
+    "legend" : "143.1 kV / 0.0°"
   }, {
-    "svgId" : "3",
+    "svgId" : "5",
     "equipmentId" : "VL2_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "2"
+    "vlNode" : "3",
+    "legend" : "141.1 kV / -5.0°"
   }, {
-    "svgId" : "5",
+    "svgId" : "8",
     "equipmentId" : "VL3_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "4"
+    "vlNode" : "6",
+    "legend" : "136.3 kV / -12.7°"
   }, {
-    "svgId" : "7",
+    "svgId" : "11",
     "equipmentId" : "VL4_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "6"
+    "vlNode" : "9",
+    "legend" : "137.6 kV / -10.3°"
   }, {
-    "svgId" : "9",
+    "svgId" : "14",
     "equipmentId" : "VL5_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "8"
+    "vlNode" : "12",
+    "legend" : "137.7 kV / -8.8°"
   }, {
-    "svgId" : "11",
+    "svgId" : "17",
     "equipmentId" : "VL8_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "10"
+    "vlNode" : "15",
+    "legend" : "21.8 kV / -13.4°"
   }, {
-    "svgId" : "13",
+    "svgId" : "20",
     "equipmentId" : "VL6_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "12"
+    "vlNode" : "18",
+    "legend" : "12.8 kV / -14.2°"
   }, {
-    "svgId" : "15",
+    "svgId" : "23",
     "equipmentId" : "VL7_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "14"
+    "vlNode" : "21",
+    "legend" : "14.9 kV / -13.4°"
   }, {
-    "svgId" : "17",
+    "svgId" : "26",
     "equipmentId" : "VL9_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "16"
+    "vlNode" : "24",
+    "legend" : "12.7 kV / -14.9°"
   } ],
   "nodes" : [ {
     "svgId" : "0",
     "equipmentId" : "VL1",
     "x" : -249.02,
-    "y" : 337.72
+    "y" : 337.72,
+    "legendSvgId" : "1",
+    "legendHeader" : [ "VL1" ]
   }, {
-    "svgId" : "2",
+    "svgId" : "3",
     "equipmentId" : "VL2",
     "x" : -241.09,
-    "y" : -38.49
-  }, {
-    "svgId" : "4",
-    "equipmentId" : "VL3",
-    "x" : -379.91,
-    "y" : -377.15
+    "y" : -38.49,
+    "legendSvgId" : "4",
+    "legendHeader" : [ "VL2" ]
   }, {
     "svgId" : "6",
+    "equipmentId" : "VL3",
+    "x" : -379.91,
+    "y" : -377.15,
+    "legendSvgId" : "7",
+    "legendHeader" : [ "VL3" ]
+  }, {
+    "svgId" : "9",
     "equipmentId" : "VL4",
     "x" : 43.65,
-    "y" : -307.91
-  }, {
-    "svgId" : "8",
-    "equipmentId" : "VL5",
-    "x" : 103.37,
-    "y" : 126.77
-  }, {
-    "svgId" : "10",
-    "equipmentId" : "VL8",
-    "x" : 409.59,
-    "y" : 481.85
+    "y" : -307.91,
+    "legendSvgId" : "10",
+    "legendHeader" : [ "VL4" ]
   }, {
     "svgId" : "12",
+    "equipmentId" : "VL5",
+    "x" : 103.37,
+    "y" : 126.77,
+    "legendSvgId" : "13",
+    "legendHeader" : [ "VL5" ]
+  }, {
+    "svgId" : "15",
+    "equipmentId" : "VL8",
+    "x" : 409.59,
+    "y" : 481.85,
+    "legendSvgId" : "16",
+    "legendHeader" : [ "VL8" ]
+  }, {
+    "svgId" : "18",
     "equipmentId" : "VL6",
     "x" : 683.08,
-    "y" : 250.21
+    "y" : 250.21,
+    "legendSvgId" : "19",
+    "legendHeader" : [ "VL6" ]
   }, {
-    "svgId" : "14",
+    "svgId" : "21",
     "equipmentId" : "VL7",
     "x" : 443.55,
-    "y" : -67.88
+    "y" : -67.88,
+    "legendSvgId" : "22",
+    "legendHeader" : [ "VL7" ]
   }, {
-    "svgId" : "16",
+    "svgId" : "24",
     "equipmentId" : "VL9",
     "x" : 95.54,
-    "y" : -762.33
+    "y" : -762.33,
+    "legendSvgId" : "25",
+    "legendHeader" : [ "VL9" ]
   } ],
   "edges" : [ {
-    "svgId" : "18",
+    "svgId" : "27",
     "equipmentId" : "L1-2-1",
     "node1" : "0",
-    "node2" : "2",
-    "busNode1" : "1",
-    "busNode2" : "3",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "19",
-    "equipmentId" : "L1-5-1",
-    "node1" : "0",
-    "node2" : "8",
-    "busNode1" : "1",
-    "busNode2" : "9",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "20",
-    "equipmentId" : "L2-3-1",
-    "node1" : "2",
-    "node2" : "4",
-    "busNode1" : "3",
+    "node2" : "3",
+    "busNode1" : "2",
     "busNode2" : "5",
     "type" : "LineEdge"
   }, {
-    "svgId" : "21",
-    "equipmentId" : "L2-4-1",
-    "node1" : "2",
-    "node2" : "6",
-    "busNode1" : "3",
-    "busNode2" : "7",
+    "svgId" : "28",
+    "equipmentId" : "L1-5-1",
+    "node1" : "0",
+    "node2" : "12",
+    "busNode1" : "2",
+    "busNode2" : "14",
     "type" : "LineEdge"
   }, {
-    "svgId" : "22",
-    "equipmentId" : "L2-5-1",
-    "node1" : "2",
-    "node2" : "8",
-    "busNode1" : "3",
-    "busNode2" : "9",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "23",
-    "equipmentId" : "L3-4-1",
-    "node1" : "4",
+    "svgId" : "29",
+    "equipmentId" : "L2-3-1",
+    "node1" : "3",
     "node2" : "6",
     "busNode1" : "5",
-    "busNode2" : "7",
+    "busNode2" : "8",
     "type" : "LineEdge"
   }, {
-    "svgId" : "24",
-    "equipmentId" : "L4-5-1",
-    "node1" : "6",
-    "node2" : "8",
-    "busNode1" : "7",
-    "busNode2" : "9",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "25",
-    "equipmentId" : "T4-7-1",
-    "node1" : "6",
-    "node2" : "14",
-    "busNode1" : "7",
-    "busNode2" : "15",
-    "type" : "TwoWtEdge"
-  }, {
-    "svgId" : "26",
-    "equipmentId" : "T4-9-1",
-    "node1" : "6",
-    "node2" : "16",
-    "busNode1" : "7",
-    "busNode2" : "17",
-    "type" : "TwoWtEdge"
-  }, {
-    "svgId" : "27",
-    "equipmentId" : "T5-6-1",
-    "node1" : "8",
-    "node2" : "12",
-    "busNode1" : "9",
-    "busNode2" : "13",
-    "type" : "TwoWtEdge"
-  }, {
-    "svgId" : "28",
-    "equipmentId" : "L7-8-1",
-    "node1" : "14",
-    "node2" : "10",
-    "busNode1" : "15",
+    "svgId" : "30",
+    "equipmentId" : "L2-4-1",
+    "node1" : "3",
+    "node2" : "9",
+    "busNode1" : "5",
     "busNode2" : "11",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "31",
+    "equipmentId" : "L2-5-1",
+    "node1" : "3",
+    "node2" : "12",
+    "busNode1" : "5",
+    "busNode2" : "14",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "32",
+    "equipmentId" : "L3-4-1",
+    "node1" : "6",
+    "node2" : "9",
+    "busNode1" : "8",
+    "busNode2" : "11",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "33",
+    "equipmentId" : "L4-5-1",
+    "node1" : "9",
+    "node2" : "12",
+    "busNode1" : "11",
+    "busNode2" : "14",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "34",
+    "equipmentId" : "T4-7-1",
+    "node1" : "9",
+    "node2" : "21",
+    "busNode1" : "11",
+    "busNode2" : "23",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "35",
+    "equipmentId" : "T4-9-1",
+    "node1" : "9",
+    "node2" : "24",
+    "busNode1" : "11",
+    "busNode2" : "26",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "36",
+    "equipmentId" : "T5-6-1",
+    "node1" : "12",
+    "node2" : "18",
+    "busNode1" : "14",
+    "busNode2" : "20",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "37",
+    "equipmentId" : "L7-8-1",
+    "node1" : "21",
+    "node2" : "15",
+    "busNode1" : "23",
+    "busNode2" : "17",
     "type" : "LineEdge"
   } ],
   "textNodes" : [ {
@@ -258,41 +286,41 @@
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "2-textnode",
+    "svgId" : "3-textnode",
     "equipmentId" : "VL2",
-    "vlNode" : "2",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "4-textnode",
-    "equipmentId" : "VL3",
-    "vlNode" : "4",
+    "vlNode" : "3",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
     "svgId" : "6-textnode",
-    "equipmentId" : "VL4",
+    "equipmentId" : "VL3",
     "vlNode" : "6",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "8-textnode",
-    "equipmentId" : "VL5",
-    "vlNode" : "8",
+    "svgId" : "9-textnode",
+    "equipmentId" : "VL4",
+    "vlNode" : "9",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "10-textnode",
+    "svgId" : "12-textnode",
+    "equipmentId" : "VL5",
+    "vlNode" : "12",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "15-textnode",
     "equipmentId" : "VL8",
-    "vlNode" : "10",
+    "vlNode" : "15",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
