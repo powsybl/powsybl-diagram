@@ -6,10 +6,6 @@
  */
 package com.powsybl.nad.build.iidm;
 
-import com.powsybl.iidm.network.Identifiable;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.nad.svg.EdgeInfo;
-
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */

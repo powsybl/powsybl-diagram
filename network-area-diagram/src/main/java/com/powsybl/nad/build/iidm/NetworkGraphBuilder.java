@@ -14,7 +14,6 @@ import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.model.Injection;
-import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgEdgeInfo;
 import com.powsybl.nad.svg.SvgParameters;

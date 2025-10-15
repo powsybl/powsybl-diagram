@@ -9,7 +9,6 @@ package com.powsybl.nad.svg.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.nad.svg.SvgEdgeInfo;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
