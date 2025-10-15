@@ -58,7 +58,9 @@
     "highlightGraph" : false,
     "injectionAperture" : 10.0,
     "injectionEdgeLength" : 145.0,
-    "injectionCircleRadius" : 25.0
+    "injectionCircleRadius" : 25.0,
+    "voltageLevelLegendsIncluded" : true,
+    "edgeInfosIncluded" : true
   },
   "busNodes" : [ {
     "svgId" : "3",

@@ -59,7 +59,9 @@ class SvgParametersTest {
                 .setUndefinedValueSymbol("\u002A")
                 .setInjectionAperture(0.4)
                 .setInjectionCircleRadius(1.)
-                .setInjectionEdgeLength(5.);
+                .setInjectionEdgeLength(5.)
+                .setVoltageLevelLegendsIncluded(false)
+                .setEdgeInfosIncluded(false);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -109,5 +111,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getInjectionAperture(), svgParameters1.getInjectionAperture());
         assertEquals(svgParameters0.getInjectionCircleRadius(), svgParameters1.getInjectionCircleRadius());
         assertEquals(svgParameters0.getInjectionEdgeLength(), svgParameters1.getInjectionEdgeLength());
+        assertEquals(svgParameters0.isVoltageLevelLegendsIncluded(), svgParameters1.isVoltageLevelLegendsIncluded());
+        assertEquals(svgParameters0.isEdgeInfosIncluded(), svgParameters1.isEdgeInfosIncluded());
     }
 }

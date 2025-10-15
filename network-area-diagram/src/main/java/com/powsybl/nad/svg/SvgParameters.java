@@ -62,6 +62,8 @@ public class SvgParameters {
     private double injectionAperture = 10;
     private double injectionEdgeLength = 145;
     private double injectionCircleRadius = 25;
+    private boolean voltageLevelLegendsIncluded = true;
+    private boolean edgeInfosIncluded = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -118,6 +120,8 @@ public class SvgParameters {
         this.injectionAperture = other.injectionAperture;
         this.injectionEdgeLength = other.injectionEdgeLength;
         this.injectionCircleRadius = other.injectionCircleRadius;
+        this.voltageLevelLegendsIncluded = other.voltageLevelLegendsIncluded;
+        this.edgeInfosIncluded = other.edgeInfosIncluded;
     }
 
     public Padding getDiagramPadding() {
@@ -544,6 +548,24 @@ public class SvgParameters {
 
     public SvgParameters setInjectionCircleRadius(double injectionCircleRadius) {
         this.injectionCircleRadius = injectionCircleRadius;
+        return this;
+    }
+
+    public boolean isVoltageLevelLegendsIncluded() {
+        return voltageLevelLegendsIncluded;
+    }
+
+    public SvgParameters setVoltageLevelLegendsIncluded(boolean voltageLevelLegendsIncluded) {
+        this.voltageLevelLegendsIncluded = voltageLevelLegendsIncluded;
+        return this;
+    }
+
+    public boolean isEdgeInfosIncluded() {
+        return edgeInfosIncluded;
+    }
+
+    public SvgParameters setEdgeInfosIncluded(boolean edgeInfosIncluded) {
+        this.edgeInfosIncluded = edgeInfosIncluded;
         return this;
     }
 }

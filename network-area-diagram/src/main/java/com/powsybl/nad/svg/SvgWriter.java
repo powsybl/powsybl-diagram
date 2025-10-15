@@ -123,9 +123,13 @@ public class SvgWriter {
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
-            drawEdgeInfos(graph, writer);
-            drawTextEdges(graph, writer);
-            drawTextNodes(graph, writer);
+            if (svgParameters.isEdgeInfosIncluded()) {
+                drawEdgeInfos(graph, writer);
+            }
+            if (svgParameters.isVoltageLevelLegendsIncluded()) {
+                drawTextEdges(graph, writer);
+                drawTextNodes(graph, writer);
+            }
 
             writer.writeEndDocument();
         } catch (XMLStreamException e) {
