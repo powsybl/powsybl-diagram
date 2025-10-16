@@ -116,19 +116,19 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -251px; left: 20px" id="0-textnode">
+            <div style="position: absolute; top: -251px; left: 20px" id="0-textnode" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -83px; left: -166px" id="4-textnode">
+            <div style="position: absolute; top: -83px; left: -166px" id="4-textnode" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 132px; left: 80px" id="7-textnode">
+            <div style="position: absolute; top: 132px; left: 80px" id="7-textnode" class="nad-vl180to300 nad-label-box">
                 <div>vl3</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>

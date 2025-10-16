@@ -88,7 +88,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -554px; left: 175px" id="0-textnode">
+            <div style="position: absolute; top: -554px; left: 175px" id="0-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL_11</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>11.8 kV / -15.2°</div>

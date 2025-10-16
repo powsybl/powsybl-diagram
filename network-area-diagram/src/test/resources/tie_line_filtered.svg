@@ -137,17 +137,17 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -314px; left: -353px" id="0-textnode">
+            <div style="position: absolute; top: -314px; left: -353px" id="0-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VLGEN</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>24.5 kV / 2.3°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -6px; left: -145px" id="3-textnode">
+            <div style="position: absolute; top: -6px; left: -145px" id="3-textnode" class="nad-vl300to500 nad-label-box">
                 <div>VLHV1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 19px; left: 240px" id="6-textnode">
+            <div style="position: absolute; top: 19px; left: 240px" id="6-textnode" class="nad-vl300to500 nad-label-box">
                 <div>VLHV2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>390.0 kV / -3.5°</div>

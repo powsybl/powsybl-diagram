@@ -160,6 +160,7 @@ public class SvgWriter {
     private void drawInjections(VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
         if (vlNode.getBusNodes().stream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode));
             for (BusNode busNode : vlNode.getBusNodes()) {
                 drawInjections(busNode, writer);
             }
@@ -785,11 +786,11 @@ public class SvgWriter {
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
         long top = Math.round(textNode.getY());
         long left = Math.round(textNode.getX());
         writeStyleAttribute(writer, String.format("position: absolute; top: %spx; left: %spx", top, left));
         writeId(writer, textNode);
+        writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode), StyleProvider.LABEL_BOX_CLASS);
 
         writeLines(vlNode.getLegendHeader(), writer);
         writeBusNodeLegend(writer, vlNode);

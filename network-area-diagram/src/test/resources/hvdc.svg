@@ -173,27 +173,27 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -555px; left: -120px" id="0-textnode">
+            <div style="position: absolute; top: -555px; left: -120px" id="0-textnode" class="nad-vl180to300 nad-label-box">
                 <div>S1VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>224.6 kV / 2.3°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -174px; left: -52px" id="3-textnode">
+            <div style="position: absolute; top: -174px; left: -52px" id="3-textnode" class="nad-vl300to500 nad-label-box">
                 <div>S1VL2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>400.0 kV / 0.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 192px; left: -63px" id="6-textnode">
+            <div style="position: absolute; top: 192px; left: -63px" id="6-textnode" class="nad-vl300to500 nad-label-box">
                 <div>S2VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>408.8 kV / 0.7°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 52px; left: 271px" id="9-textnode">
+            <div style="position: absolute; top: 52px; left: 271px" id="9-textnode" class="nad-vl300to500 nad-label-box">
                 <div>S3VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>400.0 kV / 0.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 262px; left: 597px" id="12-textnode">
+            <div style="position: absolute; top: 262px; left: 597px" id="12-textnode" class="nad-vl300to500 nad-label-box">
                 <div>S4VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/>400.0 kV / -1.1°</div>

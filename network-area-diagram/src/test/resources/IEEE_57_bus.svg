@@ -23,75 +23,75 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-disconnected {--nad-vl-color: #808080}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl0to30 {--nad-vl-color: #afb42b}
-.nad-vl0to30.nad-bus-0 {--nad-vl-color: #827717}
-.nad-vl0to30.nad-bus-1 {--nad-vl-color: #d4e157}
-.nad-vl0to30.nad-bus-2 {--nad-vl-color: #e6ee9c}
-.nad-vl0to30.nad-bus-3 {--nad-vl-color: #c0ca33}
-.nad-vl0to30.nad-bus-4 {--nad-vl-color: #f0fc83}
-.nad-vl0to30.nad-bus-5 {--nad-vl-color: #9e9d24}
-.nad-vl0to30.nad-bus-6 {--nad-vl-color: #cddc39}
-.nad-vl0to30.nad-bus-7 {--nad-vl-color: #dce775}
-.nad-vl0to30.nad-bus-8 {--nad-vl-color: #ddfc88}
+.nad-vl0to30 .nad-bus-0 {--nad-vl-color: #827717}
+.nad-vl0to30 .nad-bus-1 {--nad-vl-color: #d4e157}
+.nad-vl0to30 .nad-bus-2 {--nad-vl-color: #e6ee9c}
+.nad-vl0to30 .nad-bus-3 {--nad-vl-color: #c0ca33}
+.nad-vl0to30 .nad-bus-4 {--nad-vl-color: #f0fc83}
+.nad-vl0to30 .nad-bus-5 {--nad-vl-color: #9e9d24}
+.nad-vl0to30 .nad-bus-6 {--nad-vl-color: #cddc39}
+.nad-vl0to30 .nad-bus-7 {--nad-vl-color: #dce775}
+.nad-vl0to30 .nad-bus-8 {--nad-vl-color: #ddfc88}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl30to50 {--nad-vl-color: #ef9a9a}
-.nad-vl30to50.nad-bus-0 {--nad-vl-color: #c2185b}
-.nad-vl30to50.nad-bus-1 {--nad-vl-color: #f06292}
-.nad-vl30to50.nad-bus-2 {--nad-vl-color: #d81b60}
-.nad-vl30to50.nad-bus-3 {--nad-vl-color: #ec407a}
-.nad-vl30to50.nad-bus-4 {--nad-vl-color: #880e4f}
-.nad-vl30to50.nad-bus-5 {--nad-vl-color: #ad1457}
-.nad-vl30to50.nad-bus-6 {--nad-vl-color: #e91e63}
-.nad-vl30to50.nad-bus-7 {--nad-vl-color: #f48fb1}
-.nad-vl30to50.nad-bus-8 {--nad-vl-color: #f8bbd0}
+.nad-vl30to50 .nad-bus-0 {--nad-vl-color: #c2185b}
+.nad-vl30to50 .nad-bus-1 {--nad-vl-color: #f06292}
+.nad-vl30to50 .nad-bus-2 {--nad-vl-color: #d81b60}
+.nad-vl30to50 .nad-bus-3 {--nad-vl-color: #ec407a}
+.nad-vl30to50 .nad-bus-4 {--nad-vl-color: #880e4f}
+.nad-vl30to50 .nad-bus-5 {--nad-vl-color: #ad1457}
+.nad-vl30to50 .nad-bus-6 {--nad-vl-color: #e91e63}
+.nad-vl30to50 .nad-bus-7 {--nad-vl-color: #f48fb1}
+.nad-vl30to50 .nad-bus-8 {--nad-vl-color: #f8bbd0}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl50to70 {--nad-vl-color: #9c27b0}
-.nad-vl50to70.nad-bus-0 {--nad-vl-color: #7b1fa2}
-.nad-vl50to70.nad-bus-1 {--nad-vl-color: #ba68c8}
-.nad-vl50to70.nad-bus-2 {--nad-vl-color: #512da8}
-.nad-vl50to70.nad-bus-3 {--nad-vl-color: #ab47bc}
-.nad-vl50to70.nad-bus-4 {--nad-vl-color: #e1bee7}
-.nad-vl50to70.nad-bus-5 {--nad-vl-color: #6a1b9a}
-.nad-vl50to70.nad-bus-6 {--nad-vl-color: #4a148c}
-.nad-vl50to70.nad-bus-7 {--nad-vl-color: #ce93d8}
-.nad-vl50to70.nad-bus-8 {--nad-vl-color: #9575cd}
+.nad-vl50to70 .nad-bus-0 {--nad-vl-color: #7b1fa2}
+.nad-vl50to70 .nad-bus-1 {--nad-vl-color: #ba68c8}
+.nad-vl50to70 .nad-bus-2 {--nad-vl-color: #512da8}
+.nad-vl50to70 .nad-bus-3 {--nad-vl-color: #ab47bc}
+.nad-vl50to70 .nad-bus-4 {--nad-vl-color: #e1bee7}
+.nad-vl50to70 .nad-bus-5 {--nad-vl-color: #6a1b9a}
+.nad-vl50to70 .nad-bus-6 {--nad-vl-color: #4a148c}
+.nad-vl50to70 .nad-bus-7 {--nad-vl-color: #ce93d8}
+.nad-vl50to70 .nad-bus-8 {--nad-vl-color: #9575cd}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl70to120 {--nad-vl-color: #e65100}
-.nad-vl70to120.nad-bus-0 {--nad-vl-color: #fb8c00}
-.nad-vl70to120.nad-bus-1 {--nad-vl-color: #ffb74d}
-.nad-vl70to120.nad-bus-2 {--nad-vl-color: #f57c00}
-.nad-vl70to120.nad-bus-3 {--nad-vl-color: #ffa726}
-.nad-vl70to120.nad-bus-4 {--nad-vl-color: #ffe0b2}
-.nad-vl70to120.nad-bus-5 {--nad-vl-color: #ef6c00}
-.nad-vl70to120.nad-bus-6 {--nad-vl-color: #ff9800}
-.nad-vl70to120.nad-bus-7 {--nad-vl-color: #ffcc80}
-.nad-vl70to120.nad-bus-8 {--nad-vl-color: #fff3e0}
+.nad-vl70to120 .nad-bus-0 {--nad-vl-color: #fb8c00}
+.nad-vl70to120 .nad-bus-1 {--nad-vl-color: #ffb74d}
+.nad-vl70to120 .nad-bus-2 {--nad-vl-color: #f57c00}
+.nad-vl70to120 .nad-bus-3 {--nad-vl-color: #ffa726}
+.nad-vl70to120 .nad-bus-4 {--nad-vl-color: #ffe0b2}
+.nad-vl70to120 .nad-bus-5 {--nad-vl-color: #ef6c00}
+.nad-vl70to120 .nad-bus-6 {--nad-vl-color: #ff9800}
+.nad-vl70to120 .nad-bus-7 {--nad-vl-color: #ffcc80}
+.nad-vl70to120 .nad-bus-8 {--nad-vl-color: #fff3e0}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl120to180 {--nad-vl-color: #00ACC1}
-.nad-vl120to180.nad-bus-0 {--nad-vl-color: #4fc3f7}
-.nad-vl120to180.nad-bus-1 {--nad-vl-color: #01579b}
-.nad-vl120to180.nad-bus-2 {--nad-vl-color: #b3e5fc}
-.nad-vl120to180.nad-bus-3 {--nad-vl-color: #039be5}
-.nad-vl120to180.nad-bus-4 {--nad-vl-color: #81d4fa}
-.nad-vl120to180.nad-bus-5 {--nad-vl-color: #0288d1}
-.nad-vl120to180.nad-bus-6 {--nad-vl-color: #29b6f6}
-.nad-vl120to180.nad-bus-7 {--nad-vl-color: #0277bd}
-.nad-vl120to180.nad-bus-8 {--nad-vl-color: #03a9f4}
+.nad-vl120to180 .nad-bus-0 {--nad-vl-color: #4fc3f7}
+.nad-vl120to180 .nad-bus-1 {--nad-vl-color: #01579b}
+.nad-vl120to180 .nad-bus-2 {--nad-vl-color: #b3e5fc}
+.nad-vl120to180 .nad-bus-3 {--nad-vl-color: #039be5}
+.nad-vl120to180 .nad-bus-4 {--nad-vl-color: #81d4fa}
+.nad-vl120to180 .nad-bus-5 {--nad-vl-color: #0288d1}
+.nad-vl120to180 .nad-bus-6 {--nad-vl-color: #29b6f6}
+.nad-vl120to180 .nad-bus-7 {--nad-vl-color: #0277bd}
+.nad-vl120to180 .nad-bus-8 {--nad-vl-color: #03a9f4}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl180to300 {--nad-vl-color: #2e7d32}
-.nad-vl180to300.nad-bus-0 {--nad-vl-color: #81c784}
-.nad-vl180to300.nad-bus-1 {--nad-vl-color: #558b2f}
-.nad-vl180to300.nad-bus-2 {--nad-vl-color: #c8e6c9}
-.nad-vl180to300.nad-bus-3 {--nad-vl-color: #43a047}
-.nad-vl180to300.nad-bus-4 {--nad-vl-color: #a5d6a7}
-.nad-vl180to300.nad-bus-5 {--nad-vl-color: #388e3c}
-.nad-vl180to300.nad-bus-6 {--nad-vl-color: #66bb6a}
-.nad-vl180to300.nad-bus-7 {--nad-vl-color: #1b5e20}
-.nad-vl180to300.nad-bus-8 {--nad-vl-color: #4caf50}
+.nad-vl180to300 .nad-bus-0 {--nad-vl-color: #81c784}
+.nad-vl180to300 .nad-bus-1 {--nad-vl-color: #558b2f}
+.nad-vl180to300 .nad-bus-2 {--nad-vl-color: #c8e6c9}
+.nad-vl180to300 .nad-bus-3 {--nad-vl-color: #43a047}
+.nad-vl180to300 .nad-bus-4 {--nad-vl-color: #a5d6a7}
+.nad-vl180to300 .nad-bus-5 {--nad-vl-color: #388e3c}
+.nad-vl180to300 .nad-bus-6 {--nad-vl-color: #66bb6a}
+.nad-vl180to300 .nad-bus-7 {--nad-vl-color: #1b5e20}
+.nad-vl180to300 .nad-bus-8 {--nad-vl-color: #4caf50}
 :is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl300to500 {--nad-vl-color: #d32f2f}
-.nad-vl300to500.nad-bus-0 {--nad-vl-color: #ef5350}
-.nad-vl300to500.nad-bus-1 {--nad-vl-color: #ef9a9a}
-.nad-vl300to500.nad-bus-2 {--nad-vl-color: #b71c1c}
-.nad-vl300to500.nad-bus-3 {--nad-vl-color: #e57373}
-.nad-vl300to500.nad-bus-4 {--nad-vl-color: #e53935}
-.nad-vl300to500.nad-bus-5 {--nad-vl-color: #ff8a80}
-.nad-vl300to500.nad-bus-6 {--nad-vl-color: #f44336}
-.nad-vl300to500.nad-bus-7 {--nad-vl-color: #ffcdd2}
-.nad-vl300to500.nad-bus-8 {--nad-vl-color: #c62828}
+.nad-vl300to500 .nad-bus-0 {--nad-vl-color: #ef5350}
+.nad-vl300to500 .nad-bus-1 {--nad-vl-color: #ef9a9a}
+.nad-vl300to500 .nad-bus-2 {--nad-vl-color: #b71c1c}
+.nad-vl300to500 .nad-bus-3 {--nad-vl-color: #e57373}
+.nad-vl300to500 .nad-bus-4 {--nad-vl-color: #e53935}
+.nad-vl300to500 .nad-bus-5 {--nad-vl-color: #ff8a80}
+.nad-vl300to500 .nad-bus-6 {--nad-vl-color: #f44336}
+.nad-vl300to500 .nad-bus-7 {--nad-vl-color: #ffcdd2}
+.nad-vl300to500 .nad-bus-8 {--nad-vl-color: #c62828}
 .nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
@@ -128,188 +128,188 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-unknown {stroke: none; fill: black}
 ]]></style>
     <g class="nad-vl-nodes">
-        <g transform="translate(-157.01,-789.09)" id="0">
+        <g transform="translate(-157.01,-789.09)" id="0" class="nad-vl0to30">
             <desc>VL1</desc>
-            <circle r="27.50" id="2" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="2" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(876.10,-380.73)" id="3">
+        <g transform="translate(876.10,-380.73)" id="3" class="nad-vl0to30">
             <desc>VL10</desc>
-            <circle r="27.50" id="6" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M56.006,13.024 A57.500,57.500 149.700 0 1 -54.926,17.011 L-29.926,12.676 A32.500,32.500 -138.203 0 0 30.759,10.495 Z M-57.455,2.269 A57.500,57.500 180.406 1 1 57.470,-1.861 L32.214,-4.300 A32.500,32.500 -168.909 0 0 -32.440,-1.977 Z " id="5" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="6" class="nad-bus-1 nad-busnode"/>
+            <path d="M56.006,13.024 A57.500,57.500 149.700 0 1 -54.926,17.011 L-29.926,12.676 A32.500,32.500 -138.203 0 0 30.759,10.495 Z M-57.455,2.269 A57.500,57.500 180.406 1 1 57.470,-1.861 L32.214,-4.300 A32.500,32.500 -168.909 0 0 -32.440,-1.977 Z " id="5" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1282.46,5.49)" id="7">
+        <g transform="translate(1282.46,5.49)" id="7" class="nad-vl0to30">
             <desc>VL11</desc>
-            <circle r="17.50" id="11" class="nad-vl0to30 nad-bus-2 nad-busnode"/>
-            <path d="M11.031,-35.841 A37.500,37.500 215.124 1 1 -29.644,22.968 L-15.796,16.023 A22.500,22.500 -199.846 1 0 9.419,-20.434 Z M-36.248,9.611 A37.500,37.500 99.039 0 1 -3.797,-37.307 L-5.234,-21.883 A22.500,22.500 -83.760 0 0 -22.322,2.824 Z " id="9" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
-            <path d="M-56.623,-10.005 A57.500,57.500 78.155 0 1 -1.831,-57.471 L-3.307,-42.371 A42.500,42.500 -72.879 0 0 -41.467,-9.313 Z M13.054,-55.999 A57.500,57.500 83.567 0 1 57.109,6.698 L42.394,3.003 A42.500,42.500 -78.292 0 0 11.543,-40.902 Z M53.449,21.200 A57.500,57.500 64.582 0 1 3.793,57.375 L4.752,42.233 A42.500,42.500 -59.307 0 0 38.743,17.471 Z M-11.133,56.412 A57.500,57.500 45.053 0 1 -47.791,31.972 L-34.199,25.232 A42.500,42.500 -39.778 0 0 -10.139,41.273 Z " id="10" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
+            <circle r="17.50" id="11" class="nad-bus-2 nad-busnode"/>
+            <path d="M11.031,-35.841 A37.500,37.500 215.124 1 1 -29.644,22.968 L-15.796,16.023 A22.500,22.500 -199.846 1 0 9.419,-20.434 Z M-36.248,9.611 A37.500,37.500 99.039 0 1 -3.797,-37.307 L-5.234,-21.883 A22.500,22.500 -83.760 0 0 -22.322,2.824 Z " id="9" class="nad-bus-0 nad-busnode"/>
+            <path d="M-56.623,-10.005 A57.500,57.500 78.155 0 1 -1.831,-57.471 L-3.307,-42.371 A42.500,42.500 -72.879 0 0 -41.467,-9.313 Z M13.054,-55.999 A57.500,57.500 83.567 0 1 57.109,6.698 L42.394,3.003 A42.500,42.500 -78.292 0 0 11.543,-40.902 Z M53.449,21.200 A57.500,57.500 64.582 0 1 3.793,57.375 L4.752,42.233 A42.500,42.500 -59.307 0 0 38.743,17.471 Z M-11.133,56.412 A57.500,57.500 45.053 0 1 -47.791,31.972 L-34.199,25.232 A42.500,42.500 -39.778 0 0 -10.139,41.273 Z " id="10" class="nad-bus-1 nad-busnode"/>
         </g>
-        <g transform="translate(557.90,-609.05)" id="12">
+        <g transform="translate(557.90,-609.05)" id="12" class="nad-vl0to30">
             <desc>VL12</desc>
-            <circle r="27.50" id="14" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="14" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(566.82,-26.34)" id="15">
+        <g transform="translate(566.82,-26.34)" id="15" class="nad-vl0to30">
             <desc>VL13</desc>
-            <circle r="27.50" id="18" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M10.717,-56.492 A57.500,57.500 59.693 0 1 54.180,-19.256 L29.379,-13.897 A32.500,32.500 -48.195 0 0 9.225,-31.163 Z M57.313,-4.630 A57.500,57.500 69.755 0 1 24.177,52.170 L16.550,27.970 A32.500,32.500 -58.257 0 0 32.494,0.641 Z M9.903,56.641 A57.500,57.500 18.103 0 1 -8.186,56.914 L-1.381,32.471 A32.500,32.500 -6.605 0 0 2.363,32.414 Z M-22.589,52.877 A57.500,57.500 152.663 0 1 -4.216,-57.345 L-5.618,-32.011 A32.500,32.500 -141.166 0 0 -15.697,28.458 Z " id="17" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="18" class="nad-bus-1 nad-busnode"/>
+            <path d="M10.717,-56.492 A57.500,57.500 59.693 0 1 54.180,-19.256 L29.379,-13.897 A32.500,32.500 -48.195 0 0 9.225,-31.163 Z M57.313,-4.630 A57.500,57.500 69.755 0 1 24.177,52.170 L16.550,27.970 A32.500,32.500 -58.257 0 0 32.494,0.641 Z M9.903,56.641 A57.500,57.500 18.103 0 1 -8.186,56.914 L-1.381,32.471 A32.500,32.500 -6.605 0 0 2.363,32.414 Z M-22.589,52.877 A57.500,57.500 152.663 0 1 -4.216,-57.345 L-5.618,-32.011 A32.500,32.500 -141.166 0 0 -15.697,28.458 Z " id="17" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(192.93,274.95)" id="19">
+        <g transform="translate(192.93,274.95)" id="19" class="nad-vl0to30">
             <desc>VL14</desc>
-            <circle r="27.50" id="22" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M-56.844,-8.658 A57.500,57.500 224.896 1 1 34.156,46.256 L21.828,24.079 A32.500,32.500 -213.399 1 0 -31.478,-8.087 Z M21.071,53.500 A57.500,57.500 105.210 0 1 -57.154,6.296 L-31.786,6.777 A32.500,32.500 -93.713 0 0 8.821,31.280 Z " id="21" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="22" class="nad-bus-1 nad-busnode"/>
+            <path d="M-56.844,-8.658 A57.500,57.500 224.896 1 1 34.156,46.256 L21.828,24.079 A32.500,32.500 -213.399 1 0 -31.478,-8.087 Z M21.071,53.500 A57.500,57.500 105.210 0 1 -57.154,6.296 L-31.786,6.777 A32.500,32.500 -93.713 0 0 8.821,31.280 Z " id="21" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-86.88,-237.07)" id="23">
+        <g transform="translate(-86.88,-237.07)" id="23" class="nad-vl0to30">
             <desc>VL15</desc>
-            <circle r="27.50" id="26" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M57.457,-2.220 A57.500,57.500 39.018 0 1 46.039,34.448 L27.842,16.766 A32.500,32.500 -27.520 0 0 32.438,2.004 Z M35.597,45.157 A57.500,57.500 291.089 1 1 54.941,-16.964 L29.937,-12.651 A32.500,32.500 -279.592 1 0 17.462,27.410 Z " id="25" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="26" class="nad-bus-1 nad-busnode"/>
+            <path d="M57.457,-2.220 A57.500,57.500 39.018 0 1 46.039,34.448 L27.842,16.766 A32.500,32.500 -27.520 0 0 32.438,2.004 Z M35.597,45.157 A57.500,57.500 291.089 1 1 54.941,-16.964 L29.937,-12.651 A32.500,32.500 -279.592 1 0 17.462,27.410 Z " id="25" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(222.61,-1109.31)" id="27">
+        <g transform="translate(222.61,-1109.31)" id="27" class="nad-vl0to30">
             <desc>VL16</desc>
-            <circle r="27.50" id="29" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="29" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(209.17,-807.05)" id="30">
+        <g transform="translate(209.17,-807.05)" id="30" class="nad-vl0to30">
             <desc>VL17</desc>
-            <circle r="27.50" id="32" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="32" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1069.43,1212.93)" id="33">
+        <g transform="translate(-1069.43,1212.93)" id="33" class="nad-vl0to30">
             <desc>VL19</desc>
-            <circle r="27.50" id="35" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="35" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-580.08,-639.91)" id="36">
+        <g transform="translate(-580.08,-639.91)" id="36" class="nad-vl0to30">
             <desc>VL2</desc>
-            <circle r="27.50" id="38" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="38" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-671.36,1406.78)" id="39">
+        <g transform="translate(-671.36,1406.78)" id="39" class="nad-vl0to30">
             <desc>VL20</desc>
-            <circle r="27.50" id="41" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
-            <path d="M-47.982,-31.685 A57.500,57.500 246.998 1 1 -10.416,56.549 L-2.656,32.391 A32.500,32.500 -235.500 1 0 -25.190,-20.535 Z M-24.649,51.949 A57.500,57.500 83.109 0 1 -54.531,-18.237 L-31.699,-7.169 A32.500,32.500 -71.611 0 0 -16.803,27.819 Z " id="42" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
+            <circle r="27.50" id="41" class="nad-bus-0 nad-busnode"/>
+            <path d="M-47.982,-31.685 A57.500,57.500 246.998 1 1 -10.416,56.549 L-2.656,32.391 A32.500,32.500 -235.500 1 0 -25.190,-20.535 Z M-24.649,51.949 A57.500,57.500 83.109 0 1 -54.531,-18.237 L-31.699,-7.169 A32.500,32.500 -71.611 0 0 -16.803,27.819 Z " id="42" class="nad-bus-1 nad-busnode"/>
         </g>
-        <g transform="translate(-333.15,1001.62)" id="43">
+        <g transform="translate(-333.15,1001.62)" id="43" class="nad-vl0to30">
             <desc>VL22</desc>
-            <circle r="27.50" id="45" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="45" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-966.24,820.36)" id="46">
+        <g transform="translate(-966.24,820.36)" id="46" class="nad-vl0to30">
             <desc>VL23</desc>
-            <circle r="27.50" id="48" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="48" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1400.93,65.67)" id="49">
+        <g transform="translate(-1400.93,65.67)" id="49" class="nad-vl0to30">
             <desc>VL24</desc>
-            <circle r="17.50" id="53" class="nad-vl0to30 nad-bus-2 nad-busnode"/>
-            <path d="M-6.457,-36.940 A37.500,37.500 316.226 1 1 -30.218,-22.206 L-19.741,-10.795 A22.500,22.500 -300.947 1 0 -0.893,-22.482 Z " id="52" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M-32.780,-47.241 A57.500,57.500 5.909 0 1 -27.743,-50.365 L-22.197,-36.243 A42.500,42.500 -0.634 0 0 -22.596,-35.995 Z M-13.814,-55.816 A57.500,57.500 14.045 0 1 0.145,-57.500 L-1.849,-42.460 A42.500,42.500 -8.770 0 0 -8.301,-41.681 Z M14.970,-55.517 A57.500,57.500 86.274 0 1 56.373,11.330 L42.008,6.448 A42.500,42.500 -80.998 0 0 12.942,-40.482 Z M51.543,25.487 A57.500,57.500 107.129 0 1 -39.537,41.750 L-27.772,32.171 A42.500,42.500 -101.854 0 0 37.190,20.571 Z M-48.968,30.140 A57.500,57.500 71.909 0 1 -43.856,-37.188 L-33.646,-25.966 A42.500,42.500 -66.634 0 0 -37.180,20.588 Z " id="51" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="17.50" id="53" class="nad-bus-2 nad-busnode"/>
+            <path d="M-6.457,-36.940 A37.500,37.500 316.226 1 1 -30.218,-22.206 L-19.741,-10.795 A22.500,22.500 -300.947 1 0 -0.893,-22.482 Z " id="52" class="nad-bus-1 nad-busnode"/>
+            <path d="M-32.780,-47.241 A57.500,57.500 5.909 0 1 -27.743,-50.365 L-22.197,-36.243 A42.500,42.500 -0.634 0 0 -22.596,-35.995 Z M-13.814,-55.816 A57.500,57.500 14.045 0 1 0.145,-57.500 L-1.849,-42.460 A42.500,42.500 -8.770 0 0 -8.301,-41.681 Z M14.970,-55.517 A57.500,57.500 86.274 0 1 56.373,11.330 L42.008,6.448 A42.500,42.500 -80.998 0 0 12.942,-40.482 Z M51.543,25.487 A57.500,57.500 107.129 0 1 -39.537,41.750 L-27.772,32.171 A42.500,42.500 -101.854 0 0 37.190,20.571 Z M-48.968,30.140 A57.500,57.500 71.909 0 1 -43.856,-37.188 L-33.646,-25.966 A42.500,42.500 -66.634 0 0 -37.180,20.588 Z " id="51" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1504.60,-199.20)" id="54">
+        <g transform="translate(-1504.60,-199.20)" id="54" class="nad-vl0to30">
             <desc>VL27</desc>
-            <circle r="27.50" id="56" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="56" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1011.31,100.14)" id="57">
+        <g transform="translate(-1011.31,100.14)" id="57" class="nad-vl0to30">
             <desc>VL28</desc>
-            <circle r="27.50" id="59" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="59" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-641.75,-161.39)" id="60">
+        <g transform="translate(-641.75,-161.39)" id="60" class="nad-vl0to30">
             <desc>VL3</desc>
-            <circle r="27.50" id="62" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="62" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1295.98,-719.08)" id="63">
+        <g transform="translate(-1295.98,-719.08)" id="63" class="nad-vl0to30">
             <desc>VL30</desc>
-            <circle r="27.50" id="65" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="65" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-891.70,-1272.59)" id="66">
+        <g transform="translate(-891.70,-1272.59)" id="66" class="nad-vl0to30">
             <desc>VL31</desc>
-            <circle r="27.50" id="68" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="68" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-245.32,-1608.02)" id="69">
+        <g transform="translate(-245.32,-1608.02)" id="69" class="nad-vl0to30">
             <desc>VL32</desc>
-            <circle r="27.50" id="72" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M55.454,15.204 A57.500,57.500 27.410 0 1 42.229,39.025 L25.958,19.556 A32.500,32.500 -15.913 0 0 30.325,11.690 Z M30.734,48.597 A57.500,57.500 302.696 1 1 57.499,0.387 L32.358,-3.038 A32.500,32.500 -291.199 1 0 14.533,29.070 Z " id="71" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="72" class="nad-bus-1 nad-busnode"/>
+            <path d="M55.454,15.204 A57.500,57.500 27.410 0 1 42.229,39.025 L25.958,19.556 A32.500,32.500 -15.913 0 0 30.325,11.690 Z M30.734,48.597 A57.500,57.500 302.696 1 1 57.499,0.387 L32.358,-3.038 A32.500,32.500 -291.199 1 0 14.533,29.070 Z " id="71" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-462.55,-1960.12)" id="73">
+        <g transform="translate(-462.55,-1960.12)" id="73" class="nad-vl0to30">
             <desc>VL33</desc>
-            <circle r="27.50" id="75" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="75" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(573.47,-1495.01)" id="76">
+        <g transform="translate(573.47,-1495.01)" id="76" class="nad-vl0to30">
             <desc>VL35</desc>
-            <circle r="27.50" id="78" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="78" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1200.68,-987.49)" id="79">
+        <g transform="translate(1200.68,-987.49)" id="79" class="nad-vl0to30">
             <desc>VL36</desc>
-            <circle r="27.50" id="81" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="81" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1220.39,-525.52)" id="82">
+        <g transform="translate(1220.39,-525.52)" id="82" class="nad-vl0to30">
             <desc>VL37</desc>
-            <circle r="27.50" id="84" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="84" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(483.26,271.75)" id="85">
+        <g transform="translate(483.26,271.75)" id="85" class="nad-vl0to30">
             <desc>VL38</desc>
-            <circle r="27.50" id="87" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="87" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1719.99,-705.39)" id="88">
+        <g transform="translate(1719.99,-705.39)" id="88" class="nad-vl0to30">
             <desc>VL39</desc>
-            <circle r="27.50" id="90" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
-            <path d="M22.368,-52.971 A57.500,57.500 219.834 1 1 -51.108,26.349 L-27.250,17.711 A32.500,32.500 -208.336 1 0 15.578,-28.523 Z M-56.174,12.276 A57.500,57.500 110.273 0 1 7.948,-56.948 L1.246,-32.476 A32.500,32.500 -98.775 0 0 -32.286,3.723 Z " id="91" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
+            <circle r="27.50" id="90" class="nad-bus-0 nad-busnode"/>
+            <path d="M22.368,-52.971 A57.500,57.500 219.834 1 1 -51.108,26.349 L-27.250,17.711 A32.500,32.500 -208.336 1 0 15.578,-28.523 Z M-56.174,12.276 A57.500,57.500 110.273 0 1 7.948,-56.948 L1.246,-32.476 A32.500,32.500 -98.775 0 0 -32.286,3.723 Z " id="91" class="nad-bus-1 nad-busnode"/>
         </g>
-        <g transform="translate(-1055.97,509.19)" id="92">
+        <g transform="translate(-1055.97,509.19)" id="92" class="nad-vl0to30">
             <desc>VL4</desc>
-            <circle r="27.50" id="95" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M-6.754,-57.102 A57.500,57.500 167.966 0 1 18.511,54.439 L13.492,29.567 A32.500,32.500 -156.468 0 0 -0.566,-32.495 Z M-8.568,56.858 A57.500,57.500 149.738 0 1 -21.253,-53.428 L-14.977,-28.843 A32.500,32.500 -138.241 0 0 -8.037,31.491 Z " id="94" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="95" class="nad-bus-1 nad-busnode"/>
+            <path d="M-6.754,-57.102 A57.500,57.500 167.966 0 1 18.511,54.439 L13.492,29.567 A32.500,32.500 -156.468 0 0 -0.566,-32.495 Z M-8.568,56.858 A57.500,57.500 149.738 0 1 -21.253,-53.428 L-14.977,-28.843 A32.500,32.500 -138.241 0 0 -8.037,31.491 Z " id="94" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1602.38,-393.12)" id="96">
+        <g transform="translate(1602.38,-393.12)" id="96" class="nad-vl0to30">
             <desc>VL40</desc>
-            <circle r="27.50" id="98" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
-            <path d="M-25.728,-51.423 A57.500,57.500 79.784 0 1 46.045,-34.440 L23.944,-21.975 A32.500,32.500 -68.286 0 0 -11.557,-30.376 Z M53.370,-21.399 A57.500,57.500 250.323 1 1 -38.120,-43.048 L-23.875,-22.051 A32.500,32.500 -238.825 1 0 31.225,-9.013 Z " id="99" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
+            <circle r="27.50" id="98" class="nad-bus-0 nad-busnode"/>
+            <path d="M-25.728,-51.423 A57.500,57.500 79.784 0 1 46.045,-34.440 L23.944,-21.975 A32.500,32.500 -68.286 0 0 -11.557,-30.376 Z M53.370,-21.399 A57.500,57.500 250.323 1 1 -38.120,-43.048 L-23.875,-22.051 A32.500,32.500 -238.825 1 0 31.225,-9.013 Z " id="99" class="nad-bus-1 nad-busnode"/>
         </g>
-        <g transform="translate(1743.63,10.59)" id="100">
+        <g transform="translate(1743.63,10.59)" id="100" class="nad-vl0to30">
             <desc>VL42</desc>
-            <circle r="27.50" id="102" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="102" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(118.48,-36.82)" id="103">
+        <g transform="translate(118.48,-36.82)" id="103" class="nad-vl0to30">
             <desc>VL44</desc>
-            <circle r="27.50" id="105" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="105" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(446.66,733.26)" id="106">
+        <g transform="translate(446.66,733.26)" id="106" class="nad-vl0to30">
             <desc>VL47</desc>
-            <circle r="27.50" id="108" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="108" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(732.54,502.78)" id="109">
+        <g transform="translate(732.54,502.78)" id="109" class="nad-vl0to30">
             <desc>VL48</desc>
-            <circle r="27.50" id="111" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="111" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-1347.66,678.57)" id="112">
+        <g transform="translate(-1347.66,678.57)" id="112" class="nad-vl0to30">
             <desc>VL5</desc>
-            <circle r="27.50" id="114" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="114" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(584.19,-330.65)" id="115">
+        <g transform="translate(584.19,-330.65)" id="115" class="nad-vl0to30">
             <desc>VL50</desc>
-            <circle r="27.50" id="117" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="117" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(144.26,1211.82)" id="118">
+        <g transform="translate(144.26,1211.82)" id="118" class="nad-vl0to30">
             <desc>VL52</desc>
-            <circle r="27.50" id="120" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="120" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(688.34,1295.47)" id="121">
+        <g transform="translate(688.34,1295.47)" id="121" class="nad-vl0to30">
             <desc>VL53</desc>
-            <circle r="27.50" id="123" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="123" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(1015.21,871.83)" id="124">
+        <g transform="translate(1015.21,871.83)" id="124" class="nad-vl0to30">
             <desc>VL54</desc>
-            <circle r="27.50" id="126" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="126" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-728.11,545.34)" id="127">
+        <g transform="translate(-728.11,545.34)" id="127" class="nad-vl0to30">
             <desc>VL6</desc>
-            <circle r="27.50" id="129" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="129" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(-417.45,638.06)" id="130">
+        <g transform="translate(-417.45,638.06)" id="130" class="nad-vl0to30">
             <desc>VL7</desc>
-            <circle r="27.50" id="132" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
-            <path d="M-52.491,-23.473 A57.500,57.500 120.271 0 1 46.732,-33.502 L24.384,-21.486 A32.500,32.500 -108.773 0 0 -28.191,-16.172 Z M53.792,-20.315 A57.500,57.500 104.330 0 1 6.369,57.146 L6.817,31.777 A32.500,32.500 -92.832 0 0 31.401,-8.379 Z M-8.585,56.855 A57.500,57.500 90.559 0 1 -56.769,-9.140 L-32.443,-1.926 A32.500,32.500 -79.062 0 0 -8.047,31.488 Z " id="133" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
+            <circle r="27.50" id="132" class="nad-bus-0 nad-busnode"/>
+            <path d="M-52.491,-23.473 A57.500,57.500 120.271 0 1 46.732,-33.502 L24.384,-21.486 A32.500,32.500 -108.773 0 0 -28.191,-16.172 Z M53.792,-20.315 A57.500,57.500 104.330 0 1 6.369,57.146 L6.817,31.777 A32.500,32.500 -92.832 0 0 31.401,-8.379 Z M-8.585,56.855 A57.500,57.500 90.559 0 1 -56.769,-9.140 L-32.443,-1.926 A32.500,32.500 -79.062 0 0 -8.047,31.488 Z " id="133" class="nad-bus-1 nad-busnode"/>
         </g>
-        <g transform="translate(-106.75,471.73)" id="134">
+        <g transform="translate(-106.75,471.73)" id="134" class="nad-vl0to30">
             <desc>VL8</desc>
-            <circle r="27.50" id="136" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="136" class="nad-bus-0 nad-busnode"/>
         </g>
-        <g transform="translate(828.33,108.50)" id="137">
+        <g transform="translate(828.33,108.50)" id="137" class="nad-vl0to30">
             <desc>VL9</desc>
-            <circle r="27.50" id="140" class="nad-vl0to30 nad-bus-1 nad-busnode"/>
-            <path d="M6.293,57.155 A57.500,57.500 330.541 1 1 33.588,46.670 L21.531,24.345 A32.500,32.500 -319.044 1 0 0.303,32.499 Z " id="139" class="nad-vl0to30 nad-bus-0 nad-busnode"/>
+            <circle r="27.50" id="140" class="nad-bus-1 nad-busnode"/>
+            <path d="M6.293,57.155 A57.500,57.500 330.541 1 1 33.588,46.670 L21.531,24.345 A32.500,32.500 -319.044 1 0 0.303,32.499 Z " id="139" class="nad-bus-0 nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -829,245 +829,245 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -829px; left: -57px" id="0-textnode">
+            <div style="position: absolute; top: -829px; left: -57px" id="0-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / 0.0°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / 0.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -421px; left: 976px" id="3-textnode">
+            <div style="position: absolute; top: -421px; left: 976px" id="3-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL10</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.1 kV / -12.5°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.1 kV / -12.5°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -11.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -11.4°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -35px; left: 1382px" id="7-textnode">
+            <div style="position: absolute; top: -35px; left: 1382px" id="7-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL11</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-2 nad-legend-square"/>1.0 kV / -11.3°</div>
+                    <span class="nad-bus-2 nad-legend-square"/>1.0 kV / -11.3°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -10.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -10.2°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -14.1°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -14.1°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -649px; left: 658px" id="12-textnode">
+            <div style="position: absolute; top: -649px; left: 658px" id="12-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL12</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -10.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -10.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -66px; left: 667px" id="15-textnode">
+            <div style="position: absolute; top: -66px; left: 667px" id="15-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL13</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -12.9°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -9.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -9.8°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 235px; left: 293px" id="19-textnode">
+            <div style="position: absolute; top: 235px; left: 293px" id="19-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL14</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.1 kV / -11.9°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.1 kV / -11.9°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -9.3°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -9.3°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -277px; left: 13px" id="23-textnode">
+            <div style="position: absolute; top: -277px; left: 13px" id="23-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL15</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -9.2°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -9.2°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -7.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -7.2°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -1149px; left: 323px" id="27-textnode">
+            <div style="position: absolute; top: -1149px; left: 323px" id="27-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL16</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -8.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -8.8°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -847px; left: 309px" id="30-textnode">
+            <div style="position: absolute; top: -847px; left: 309px" id="30-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL17</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -5.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -5.4°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 1173px; left: -969px" id="33-textnode">
+            <div style="position: absolute; top: 1173px; left: -969px" id="33-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL19</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.2°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -680px; left: -480px" id="36-textnode">
+            <div style="position: absolute; top: -680px; left: -480px" id="36-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -1.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -1.2°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 1367px; left: -571px" id="39-textnode">
+            <div style="position: absolute; top: 1367px; left: -571px" id="39-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL20</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -12.9°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 962px; left: -233px" id="43-textnode">
+            <div style="position: absolute; top: 962px; left: -233px" id="43-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL22</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.8°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 780px; left: -866px" id="46-textnode">
+            <div style="position: absolute; top: 780px; left: -866px" id="46-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL23</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.9°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 26px; left: -1301px" id="49-textnode">
+            <div style="position: absolute; top: 26px; left: -1301px" id="49-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL24</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-2 nad-legend-square"/>1.0 kV / -12.9°</div>
+                    <span class="nad-bus-2 nad-legend-square"/>1.0 kV / -12.9°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -18.1°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -18.1°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.2°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -239px; left: -1405px" id="54-textnode">
+            <div style="position: absolute; top: -239px; left: -1405px" id="54-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL27</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -11.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -11.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 60px; left: -911px" id="57-textnode">
+            <div style="position: absolute; top: 60px; left: -911px" id="57-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL28</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -10.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -10.4°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -201px; left: -542px" id="60-textnode">
+            <div style="position: absolute; top: -201px; left: -542px" id="60-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL3</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -6.0°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -6.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -759px; left: -1196px" id="63-textnode">
+            <div style="position: absolute; top: -759px; left: -1196px" id="63-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL30</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -18.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -18.7°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -1313px; left: -792px" id="66-textnode">
+            <div style="position: absolute; top: -1313px; left: -792px" id="66-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL31</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>0.9 kV / -19.3°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>0.9 kV / -19.3°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -1648px; left: -145px" id="69-textnode">
+            <div style="position: absolute; top: -1648px; left: -145px" id="69-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL32</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -14.1°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -14.1°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>0.9 kV / -18.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>0.9 kV / -18.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -2000px; left: -363px" id="73-textnode">
+            <div style="position: absolute; top: -2000px; left: -363px" id="73-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL33</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>0.9 kV / -18.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>0.9 kV / -18.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -1535px; left: 673px" id="76-textnode">
+            <div style="position: absolute; top: -1535px; left: 673px" id="76-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL35</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.9°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.9°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -1027px; left: 1301px" id="79-textnode">
+            <div style="position: absolute; top: -1027px; left: 1301px" id="79-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL36</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.6°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -566px; left: 1320px" id="82-textnode">
+            <div style="position: absolute; top: -566px; left: 1320px" id="82-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL37</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 232px; left: 583px" id="85-textnode">
+            <div style="position: absolute; top: 232px; left: 583px" id="85-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL38</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.7°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -745px; left: 1820px" id="88-textnode">
+            <div style="position: absolute; top: -745px; left: 1820px" id="88-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL39</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.5°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -16.6°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -16.6°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 469px; left: -956px" id="92-textnode">
+            <div style="position: absolute; top: 469px; left: -956px" id="92-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL4</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -11.7°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -11.7°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -7.3°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -7.3°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -433px; left: 1702px" id="96-textnode">
+            <div style="position: absolute; top: -433px; left: 1702px" id="96-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL40</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.6°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -16.0°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -16.0°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -29px; left: 1844px" id="100-textnode">
+            <div style="position: absolute; top: -29px; left: 1844px" id="100-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL42</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -15.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -15.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -77px; left: 218px" id="103-textnode">
+            <div style="position: absolute; top: -77px; left: 218px" id="103-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL44</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -11.9°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -11.9°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 693px; left: 547px" id="106-textnode">
+            <div style="position: absolute; top: 693px; left: 547px" id="106-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL47</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 463px; left: 833px" id="109-textnode">
+            <div style="position: absolute; top: 463px; left: 833px" id="109-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL48</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.6°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 639px; left: -1248px" id="112-textnode">
+            <div style="position: absolute; top: 639px; left: -1248px" id="112-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL5</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -8.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -8.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: -371px; left: 684px" id="115-textnode">
+            <div style="position: absolute; top: -371px; left: 684px" id="115-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL50</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -13.4°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 1172px; left: 244px" id="118-textnode">
+            <div style="position: absolute; top: 1172px; left: 244px" id="118-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL52</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -11.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -11.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 1255px; left: 788px" id="121-textnode">
+            <div style="position: absolute; top: 1255px; left: 788px" id="121-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL53</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -12.2°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -12.2°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 832px; left: 1115px" id="124-textnode">
+            <div style="position: absolute; top: 832px; left: 1115px" id="124-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL54</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -11.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -11.7°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 505px; left: -628px" id="127-textnode">
+            <div style="position: absolute; top: 505px; left: -628px" id="127-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL6</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -8.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -8.7°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 598px; left: -317px" id="130-textnode">
+            <div style="position: absolute; top: 598px; left: -317px" id="130-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL7</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -7.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -7.6°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -9.8°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -9.8°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 432px; left: -7px" id="134-textnode">
+            <div style="position: absolute; top: 432px; left: -7px" id="134-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL8</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -4.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -4.5°</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 69px; left: 928px" id="137-textnode">
+            <div style="position: absolute; top: 69px; left: 928px" id="137-textnode" class="nad-vl0to30 nad-label-box">
                 <div>VL9</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-1 nad-legend-square"/>1.0 kV / -10.8°</div>
+                    <span class="nad-bus-1 nad-legend-square"/>1.0 kV / -10.8°</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-vl0to30 nad-bus-0 nad-legend-square"/>1.0 kV / -9.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"/>1.0 kV / -9.6°</div>
             </div>
         </div>
     </foreignObject>

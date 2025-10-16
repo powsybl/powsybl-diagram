@@ -121,12 +121,12 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div class="nad-label-box" style="position: absolute; top: -236px; left: 44px" id="0-textnode">
+            <div style="position: absolute; top: -236px; left: 44px" id="0-textnode" class="nad-label-box">
                 <div>VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-            <div class="nad-label-box" style="position: absolute; top: 18px; left: -221px" id="3-textnode">
+            <div style="position: absolute; top: 18px; left: -221px" id="3-textnode" class="nad-label-box">
                 <div>VL2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
