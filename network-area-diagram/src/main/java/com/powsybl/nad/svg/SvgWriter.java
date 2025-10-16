@@ -656,10 +656,6 @@ public class SvgWriter {
         return "rotate(" + getFormattedValue(Math.toDegrees(angleRad)) + ")";
     }
 
-    private String getScaleString(double scale) {
-        return "scale(" + getFormattedValue(scale) + ")";
-    }
-
     private String getMatrixString(double[] matrix) {
         return "matrix("
                 + getFormattedValue(matrix[0]) + "," + getFormattedValue(matrix[1]) + ","
