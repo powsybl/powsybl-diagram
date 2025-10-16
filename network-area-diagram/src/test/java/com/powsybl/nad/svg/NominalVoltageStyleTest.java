@@ -19,6 +19,8 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -95,7 +97,7 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Test
     void testIEEE24() {
-        Network network = NetworkSerDe.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
+        Network network = NetworkSerDe.read(Objects.requireNonNull(getClass().getResourceAsStream("/IEEE_24_bus.xiidm")));
         assertSvgEquals("/IEEE_24_bus.svg", network);
     }
 
