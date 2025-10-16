@@ -131,7 +131,7 @@
     "node2" : "4",
     "busNode1" : "3",
     "busNode2" : "5",
-    "type" : "HvdcLineEdge"
+    "type" : "HvdcLineLccEdge"
   }, {
     "svgId" : "12",
     "equipmentId" : "HVDC2",
@@ -139,7 +139,7 @@
     "node2" : "6",
     "busNode1" : "3",
     "busNode2" : "7",
-    "type" : "HvdcLineEdge"
+    "type" : "HvdcLineLccEdge"
   }, {
     "svgId" : "13",
     "equipmentId" : "LINE_S2S3",
