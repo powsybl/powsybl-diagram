@@ -7,10 +7,20 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.utils.svg.SvgUtils;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Enables the configuration of content displayed in the NAD for branches and three-winding-transformers (labels, arrows direction),

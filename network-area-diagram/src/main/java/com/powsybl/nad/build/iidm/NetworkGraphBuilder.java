@@ -9,14 +9,27 @@ package com.powsybl.nad.build.iidm;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BoundaryBusNode;
+import com.powsybl.nad.model.BoundaryNode;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**

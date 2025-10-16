@@ -6,10 +6,22 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import org.jgrapht.alg.util.Pair;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -93,10 +105,10 @@ public abstract class AbstractLayout implements Layout {
     protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
         TextPosition fixedTextPosition = textNodesWithFixedPosition.get(nodes.getFirst().getEquipmentId());
         Point textShift = fixedTextPosition != null ? fixedTextPosition.topLeftPosition() : layoutParameters.getTextNodeFixedShift();
-        Point textPosition = nodes.getFirst().getPosition().shift(textShift.getX(), textShift.getY());
+        Point textPosition = nodes.getFirst().getPosition().shift(textShift.x(), textShift.y());
         Point connectionShift = fixedTextPosition != null ? fixedTextPosition.edgeConnection() :
-                new Point(layoutParameters.getTextNodeFixedShift().getX(), layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
-        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.getX(), connectionShift.getY());
+                new Point(layoutParameters.getTextNodeFixedShift().x(), layoutParameters.getTextNodeFixedShift().y() + layoutParameters.getTextNodeEdgeConnectionYShift());
+        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.x(), connectionShift.y());
         nodes.getSecond().setPosition(textPosition);
         nodes.getSecond().setEdgeConnection(edgeConnection);
     }

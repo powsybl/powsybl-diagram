@@ -7,7 +7,12 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
@@ -146,8 +151,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(textPair.getFirst().getDiagramId()),
                 round(textPair.getSecond().getX() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getY() - textPair.getFirst().getY()),
-                round(textPair.getSecond().getEdgeConnection().getX() - textPair.getFirst().getX()),
-                round(textPair.getSecond().getEdgeConnection().getY() - textPair.getFirst().getY()))));
+                round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
+                round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
         return this;
     }
 

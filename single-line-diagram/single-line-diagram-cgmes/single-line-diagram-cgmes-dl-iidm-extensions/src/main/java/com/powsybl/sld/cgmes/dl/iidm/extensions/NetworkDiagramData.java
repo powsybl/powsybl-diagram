@@ -24,7 +24,7 @@ import com.powsybl.iidm.network.Network;
 public final class NetworkDiagramData extends AbstractExtension<Network> {
 
     static final String NAME = "network-diagram-data";
-    private Map<String, Set<String>> diagramsNames = new TreeMap<>();
+    private final Map<String, Set<String>> diagramsNames = new TreeMap<>();
 
     private NetworkDiagramData() {
     }

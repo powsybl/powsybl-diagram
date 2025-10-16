@@ -15,11 +15,15 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.GroundDisconnectionNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BusLegendInfo;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +68,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getNodeDecoratorStyles(LabelProvider.NodeDecorator nodeDecorator, Node node, SldComponentLibrary componentLibrary) {
-        return componentLibrary.getComponentStyleClass(nodeDecorator.getType())
+        return componentLibrary.getComponentStyleClass(nodeDecorator.type())
                 .map(List::of)
                 .orElse(Collections.emptyList());
     }

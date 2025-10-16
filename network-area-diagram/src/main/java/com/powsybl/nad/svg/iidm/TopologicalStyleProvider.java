@@ -10,7 +10,9 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BoundaryBusNode;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
 
 import java.util.ArrayList;
 import java.util.Collections;

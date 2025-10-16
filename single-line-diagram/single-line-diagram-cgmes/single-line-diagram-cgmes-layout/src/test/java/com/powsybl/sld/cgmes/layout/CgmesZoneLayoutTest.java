@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesZoneLayoutTest {
@@ -137,7 +136,7 @@ class CgmesZoneLayoutTest {
     private void addDiagramData(Network network) {
         Load load = network.getLoad(LOAD_ID);
         InjectionDiagramData<Load> loadDiagramData = new InjectionDiagramData<>(load);
-        InjectionDiagramData.InjectionDiagramDetails loadsDiagramDetails = loadDiagramData.new InjectionDiagramDetails(new DiagramPoint(10, 20, 0), 90);
+        InjectionDiagramData.InjectionDiagramDetails loadsDiagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(10, 20, 0), 90);
         loadsDiagramDetails.addTerminalPoint(new DiagramPoint(15, 20, 1));
         loadsDiagramDetails.addTerminalPoint(new DiagramPoint(30, 20, 2));
         loadDiagramData.addData(DIAGRAM_ID, loadsDiagramDetails);
@@ -145,7 +144,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus11 = network.getVoltageLevel(VOLTAGE_LEVEL_11_ID).getBusBreakerView().getBus(BUS_11_ID);
         NodeDiagramData<Bus> busDiagramData11 = new NodeDiagramData<>(bus11);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails11 = busDiagramData11.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails11 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails11.setPoint1(new DiagramPoint(30, 10, 1));
         diagramDetails11.setPoint2(new DiagramPoint(30, 30, 2));
         busDiagramData11.addData(DIAGRAM_ID, diagramDetails11);
@@ -153,7 +152,7 @@ class CgmesZoneLayoutTest {
 
         TwoWindingsTransformer twt = network.getTwoWindingsTransformer(TRANSFORMER_ID);
         CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = twtDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(50, 20, 0), 90);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(50, 20, 0), 90);
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(45, 20, 1));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(30, 20, 2));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(55, 20, 1));
@@ -163,7 +162,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus12 = network.getVoltageLevel(VOLTAGE_LEVEL_12_ID).getBusBreakerView().getBus(BUS_12_ID);
         NodeDiagramData<Bus> busDiagramData12 = new NodeDiagramData<>(bus12);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails12 = busDiagramData11.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails12 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails12.setPoint1(new DiagramPoint(70, 10, 1));
         diagramDetails12.setPoint2(new DiagramPoint(70, 30, 2));
         busDiagramData12.addData(DIAGRAM_ID, diagramDetails12);
@@ -179,7 +178,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus21 = network.getVoltageLevel(VOLTAGE_LEVEL_21_ID).getBusBreakerView().getBus(BUS_21_ID);
         NodeDiagramData<Bus> busDiagramData21 = new NodeDiagramData<>(bus21);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails21 = busDiagramData21.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails21 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails21.setPoint1(new DiagramPoint(130, 50, 1));
         diagramDetails21.setPoint2(new DiagramPoint(130, 70, 2));
         busDiagramData21.addData(DIAGRAM_ID, diagramDetails21);
@@ -187,7 +186,7 @@ class CgmesZoneLayoutTest {
 
         Generator generator = network.getGenerator(GENERATOR_ID);
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorDiagramData.new InjectionDiagramDetails(new DiagramPoint(150, 60, 0), 0);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(150, 60, 0), 0);
         diagramDetails.addTerminalPoint(new DiagramPoint(145, 60, 1));
         diagramDetails.addTerminalPoint(new DiagramPoint(130, 60, 2));
         generatorDiagramData.addData(DIAGRAM_ID, diagramDetails);

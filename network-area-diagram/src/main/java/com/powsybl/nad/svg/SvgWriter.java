@@ -11,7 +11,20 @@ import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.library.NadComponentLibrary;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BoundaryBusNode;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Identifiable;
+import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextEdge;
+import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.routing.EdgeRouting;
 import com.powsybl.nad.utils.RadiusUtils;
 import org.apache.commons.io.output.WriterOutputStream;
@@ -26,11 +39,22 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -99,7 +123,10 @@ public class SvgWriter {
     }
 
     public void writeSvg(Graph graph, Writer svgWriter) {
-        try (WriterOutputStream svgOs = new WriterOutputStream(svgWriter, StandardCharsets.UTF_8)) {
+        try (WriterOutputStream svgOs = WriterOutputStream.builder()
+            .setWriter(svgWriter)
+            .setCharset(StandardCharsets.UTF_8)
+            .get()) {
             writeSvg(graph, svgOs);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -201,8 +228,8 @@ public class SvgWriter {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         double radius = svgParameters.getInjectionCircleRadius();
         Point circleCenter = injection.getInjectionPoint().atDistance(-radius, injection.getBusNodePoint());
-        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
-        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.x()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.y()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
 
         insertSvgComponent(injection, writer);
@@ -345,7 +372,7 @@ public class SvgWriter {
             points.add(line2.get(1).atDistance(halfWidth, line2.get(0)));
         }
         String lineFormatted = points.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .map(point -> getFormattedValue(point.x()) + "," + getFormattedValue(point.y()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.HVDC_CLASS);
@@ -389,7 +416,7 @@ public class SvgWriter {
         writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
             Optional<EdgeInfo> edgeInfo = labelProvider.getEdgeInfo(graph, edge, side);
-            if (!graph.isLoop(edge)) {
+            if (graph.isNotALoop(edge)) {
                 drawHalfEdge(writer, edge, side, edgeInfo.orElse(null));
             } else {
                 drawLoopEdge(writer, edge, side, edgeInfo.orElse(null));
@@ -409,7 +436,7 @@ public class SvgWriter {
     }
 
     private void drawHighlightHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
-        if (edge.isVisible(side) && !graph.isLoop(edge)) {
+        if (edge.isVisible(side) && graph.isNotALoop(edge)) {
             drawHighlightHalfEdge(writer, edge, side);
         }
     }
@@ -440,12 +467,12 @@ public class SvgWriter {
 
     private String getPolylinePointsString(List<Point> points) {
         return points.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .map(point -> getFormattedValue(point.x()) + "," + getFormattedValue(point.y()))
                 .collect(Collectors.joining(" "));
     }
 
     private String getLoopPathString(BranchEdge edge, BranchEdge.Side side) {
-        Object[] points = edge.getPoints(side).stream().flatMap(p -> Stream.of(p.getX(), p.getY())).toArray();
+        Object[] points = edge.getPoints(side).stream().flatMap(p -> Stream.of(p.x(), p.y())).toArray();
         return String.format(Locale.US, "M%.2f,%.2f L%.2f,%.2f C%.2f,%.2f %.2f,%.2f %.2f,%.2f", points);
     }
 
@@ -482,7 +509,7 @@ public class SvgWriter {
     }
 
     private void drawThreeWtNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        List<ThreeWtNode> threeWtNodes = graph.getThreeWtNodesStream().collect(Collectors.toList());
+        List<ThreeWtNode> threeWtNodes = graph.getThreeWtNodesStream().toList();
         if (threeWtNodes.isEmpty()) {
             return;
         }
@@ -494,7 +521,7 @@ public class SvgWriter {
             writeId(writer, threeWtNode);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(threeWtNode.getPosition()));
             writeStyleClasses(writer, styleProvider.getNodeStyleClasses(threeWtNode));
-            List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
+            List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).toList();
             for (ThreeWtEdge edge : edges) {
                 draw3WtWinding(edge, threeWtNode, writer);
                 if (ThreeWtEdge.PST_EDGE.equals(edge.getType())) {
@@ -512,8 +539,8 @@ public class SvgWriter {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
         writeStyleClasses(writer, styleProvider.getThreeWtEdgeStyleClasses(edge), StyleProvider.WINDING_CLASS);
         writeStyleAttribute(writer, styleProvider.getThreeWtEdgeStyle(edge));
-        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX() - threeWtNode.getX()));
-        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY() - threeWtNode.getY()));
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.x() - threeWtNode.getX()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.y() - threeWtNode.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
     }
 
@@ -530,7 +557,7 @@ public class SvgWriter {
 
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
-        Point p = new Point(circleCenter.getX() - threeWtNode.getX(), circleCenter.getY() - threeWtNode.getY());
+        Point p = new Point(circleCenter.x() - threeWtNode.getX(), circleCenter.y() - threeWtNode.getY());
         double[] matrix = getTransformMatrix(arrowSize, arrowSize, rotationAngle, p);
 
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
@@ -646,8 +673,8 @@ public class SvgWriter {
     }
 
     private double[] getTransformMatrix(double width, double height, double angle, Point center) {
-        double centerPosX = center.getX();
-        double centerPosY = center.getY();
+        double centerPosX = center.x();
+        double centerPosY = center.y();
 
         double cosRo = Math.cos(angle);
         double sinRo = Math.sin(angle);
@@ -669,8 +696,8 @@ public class SvgWriter {
         Point point2 = halfPoints.get(halfPoints.size() - 2); // point near voltage level, or control point for loops
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = point1.atDistance(-radius, point2);
-        writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
-        writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
+        writer.writeAttribute("cx", getFormattedValue(circleCenter.x()));
+        writer.writeAttribute("cy", getFormattedValue(circleCenter.y()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
     }
 
@@ -711,7 +738,7 @@ public class SvgWriter {
     private void drawHighlightVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.VOLTAGE_LEVEL_NODES_CLASS);
-        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).collect(Collectors.toList())) {
+        for (VoltageLevelNode vlNode : graph.getVoltageLevelNodesStream().filter(VoltageLevelNode::isVisible).toList()) {
             drawHighlightedNode(writer, vlNode);
         }
         writer.writeEndElement();
@@ -746,7 +773,7 @@ public class SvgWriter {
     }
 
     private String getTranslateString(Point point) {
-        return getTranslateString(point.getX(), point.getY());
+        return getTranslateString(point.x(), point.y());
     }
 
     private String getTranslateString(double x, double y) {
@@ -968,7 +995,7 @@ public class SvgWriter {
         writeId(writer, edge);
         List<Point> points = edge.getPoints();
         String lineFormatted1 = points.stream()
-                .map(point -> getFormattedValue(point.getX()) + "," + getFormattedValue(point.getY()))
+                .map(point -> getFormattedValue(point.x()) + "," + getFormattedValue(point.y()))
                 .collect(Collectors.joining(" "));
         writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted1);
     }
@@ -1010,21 +1037,12 @@ public class SvgWriter {
     private double[] getDiagramDimensions(Graph graph) {
         double width = getDiagramWidth(graph);
         double height = getDiagramHeight(graph);
-        double scale;
-        switch (svgParameters.getSizeConstraint()) {
-            case FIXED_WIDTH:
-                scale = svgParameters.getFixedWidth() / width;
-                break;
-            case FIXED_HEIGHT:
-                scale = svgParameters.getFixedHeight() / height;
-                break;
-            case FIXED_SCALE:
-                scale = svgParameters.getFixedScale();
-                break;
-            default:
-                scale = 1;
-                break;
-        }
+        double scale = switch (svgParameters.getSizeConstraint()) {
+            case FIXED_WIDTH -> svgParameters.getFixedWidth() / width;
+            case FIXED_HEIGHT -> svgParameters.getFixedHeight() / height;
+            case FIXED_SCALE -> svgParameters.getFixedScale();
+            default -> 1;
+        };
         return new double[] {width * scale, height * scale};
     }
 

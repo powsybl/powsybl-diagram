@@ -8,9 +8,18 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.ValueFormatter;
-import com.powsybl.iidm.network.*;
-import com.powsybl.nad.model.*;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -69,16 +78,13 @@ public class DefaultLabelProvider implements LabelProvider {
         if (terminal == null) {
             return Optional.empty();
         }
-        switch (svgParameters.getEdgeInfoDisplayed()) {
-            case ACTIVE_POWER:
-                return Optional.of(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower));
-            case REACTIVE_POWER:
-                return Optional.of(new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
-            case CURRENT:
-                return Optional.of(new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent));
-            default:
-                return Optional.empty();
-        }
+        return switch (svgParameters.getEdgeInfoDisplayed()) {
+            case ACTIVE_POWER ->
+                Optional.of(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower));
+            case REACTIVE_POWER ->
+                Optional.of(new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
+            case CURRENT -> Optional.of(new EdgeInfo(EdgeInfo.CURRENT, terminal.getI(), valueFormatter::formatCurrent));
+        };
     }
 
     @Override

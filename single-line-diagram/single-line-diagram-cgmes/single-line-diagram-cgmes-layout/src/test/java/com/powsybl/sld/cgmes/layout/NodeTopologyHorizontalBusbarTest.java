@@ -15,7 +15,6 @@ import com.powsybl.sld.model.nodes.BusNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class NodeTopologyHorizontalBusbarTest extends AbstractNodeTopologyTest {
