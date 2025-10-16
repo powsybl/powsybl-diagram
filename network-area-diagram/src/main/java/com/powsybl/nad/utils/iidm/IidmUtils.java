@@ -33,16 +33,20 @@ public final class IidmUtils {
     }
 
     public static Terminal getTerminalFromEdge(Network network, BranchEdge edge, BranchEdge.Side side) {
-        if (edge.getType().equals(BranchEdge.HVDC_LINE_LCC_EDGE) || edge.getType().equals(BranchEdge.HVDC_LINE_VSC_EDGE)) {
-            HvdcLine line = network.getHvdcLine(edge.getEquipmentId());
+        return IidmUtils.getTerminalFromEdge(network, edge.getEquipmentId(), side, edge.getType());
+    }
+
+    public static Terminal getTerminalFromEdge(Network network, String branchId, BranchEdge.Side side, String branchType) {
+        if (branchType.equals(BranchEdge.HVDC_LINE_LCC_EDGE) || branchType.equals(BranchEdge.HVDC_LINE_VSC_EDGE)) {
+            HvdcLine line = network.getHvdcLine(branchId);
             return line.getConverterStation(IidmUtils.getIidmHvdcSideFromBranchEdgeSide(side)).getTerminal();
-        } else if (edge.getType().equals(BranchEdge.DANGLING_LINE_EDGE)) {
+        } else if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
             if (side.equals(BranchEdge.Side.ONE)) {
-                return network.getDanglingLine(edge.getEquipmentId()).getTerminal();
+                return network.getDanglingLine(branchId).getTerminal();
             }
             return null;
         } else {
-            Branch<?> branch = network.getBranch(edge.getEquipmentId());
+            Branch<?> branch = network.getBranch(branchId);
             return branch.getTerminal(IidmUtils.getIidmSideFromBranchEdgeSide(side));
         }
     }

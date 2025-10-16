@@ -13,22 +13,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BusNodeMetadata extends AbstractMetadataItem {
 
     private final int nbNeighbours;
     private final int index;
     private final String vlNodeId;
+    private final String legend;
 
     public BusNodeMetadata(@JsonProperty("svgId") String svgId,
                            @JsonProperty("equipmentId") String equipmentId,
                            @JsonProperty("nbNeighbours") int nbNeighbours,
                            @JsonProperty("index") int index,
-                           @JsonProperty("vlNode") String vlNodeId) {
+                           @JsonProperty("vlNode") String vlNodeId,
+                           @JsonProperty("legend") String legend) {
         super(svgId, equipmentId);
         this.nbNeighbours = nbNeighbours;
         this.index = index;
         this.vlNodeId = vlNodeId;
+        this.legend = legend;
     }
 
     @JsonProperty("nbNeighbours")
@@ -44,5 +47,10 @@ public class BusNodeMetadata extends AbstractMetadataItem {
     @JsonProperty("vlNode")
     public String getVlNodeId() {
         return vlNodeId;
+    }
+
+    @JsonProperty("legend")
+    public String getLegend() {
+        return legend;
     }
 }

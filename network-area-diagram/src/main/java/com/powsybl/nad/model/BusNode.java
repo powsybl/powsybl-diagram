@@ -16,16 +16,18 @@ import java.util.Objects;
  */
 public class BusNode extends AbstractNode {
 
-    public static final BusNode UNKNOWN = new BusNode("", "", Collections.emptyList());
+    public static final BusNode UNKNOWN = new BusNode("", "", Collections.emptyList(), "");
 
     private int ringIndex;
     private int busIndex;
     private int nbNeighbouringBusNodes;
     private final List<Injection> injections = new ArrayList<>();
+    private final String legend;
 
-    public BusNode(String diagramId, String id, List<Injection> injections) {
+    public BusNode(String diagramId, String id, List<Injection> injections, String legend) {
         super(diagramId, id, null, false);
         this.injections.addAll(Objects.requireNonNull(injections));
+        this.legend = legend;
     }
 
     public void setRingIndex(int ringIndex) {
@@ -58,6 +60,10 @@ public class BusNode extends AbstractNode {
 
     public List<Injection> getInjections() {
         return Collections.unmodifiableList(injections);
+    }
+
+    public String getLegend() {
+        return legend;
     }
 }
 
