@@ -168,7 +168,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             case BranchEdge.TWO_WT_EDGE, BranchEdge.PST_EDGE -> network.getTwoWindingsTransformer(edge.getEquipmentId()).getTerminal(iidmSide);
             case BranchEdge.DANGLING_LINE_EDGE -> network.getDanglingLine(edge.getEquipmentId()).getTerminal();
             case BranchEdge.TIE_LINE_EDGE -> network.getTieLine(edge.getEquipmentId()).getTerminal(iidmSide);
-            case BranchEdge.HVDC_LINE_EDGE -> network.getHvdcLine(edge.getEquipmentId()).getConverterStation(iidmSide).getTerminal();
+            case BranchEdge.HVDC_LINE_LCC_EDGE, BranchEdge.HVDC_LINE_VSC_EDGE -> network.getHvdcLine(edge.getEquipmentId()).getConverterStation(iidmSide).getTerminal();
             default -> null;
         };
         return Optional.ofNullable(terminal).map(t -> t.getVoltageLevel().getParentNetwork().getId());

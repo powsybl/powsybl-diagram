@@ -197,7 +197,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminal = converterStation.getTerminal();
         Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
 
-        addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == TwoSides.ONE);
+        String edgeType = switch (converterStation.getHvdcType()) {
+            case LCC -> BranchEdge.HVDC_LINE_LCC_EDGE;
+            case VSC -> BranchEdge.HVDC_LINE_VSC_EDGE;
+        };
+
+        addEdge(graph, terminal, otherSideTerminal, hvdcLine, edgeType, otherSide == TwoSides.ONE);
     }
 
     private void addEdge(Graph graph, Branch<?> branch, VoltageLevel vl, String edgeType) {
