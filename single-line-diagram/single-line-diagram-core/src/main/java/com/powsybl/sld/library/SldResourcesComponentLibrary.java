@@ -31,7 +31,8 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
         SldComponentTypeName.DANGLING_LINE,
-        SldComponentTypeName.BUSBAR_SECTION
+        SldComponentTypeName.BUSBAR_SECTION,
+        SldComponentTypeName.TEE_POINT
     };
 
     public SldResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {

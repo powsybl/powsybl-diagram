@@ -2472,6 +2472,65 @@ public final class Networks {
         return network;
     }
 
+    public static Network createTeePointNodeBreakerNetwork() {
+        Network network = Network.create("testCase1", "test");
+        Substation substation = createSubstation(network, "subst", "subst", Country.FR);
+
+        VoltageLevel vl = substation.newVoltageLevel()
+                .setId("vl-tee-point")
+                .setNominalV(50)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .setFictitious(true)
+                .add();
+
+        VoltageLevel vl1 = substation.newVoltageLevel()
+                .setId("vl1")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl2 = substation.newVoltageLevel()
+                .setId("vl2")
+                .setNominalV(30)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl3 = substation.newVoltageLevel()
+                .setId("vl3")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        createInternalConnection(vl, 1, 0);
+        createInternalConnection(vl, 2, 0);
+        createInternalConnection(vl, 3, 0);
+
+        createLine(network, "L1", "L1", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                1, 10, vl.getId(), vl1.getId(),
+                "L1", 0, ConnectablePosition.Direction.TOP,
+                "L1", 1, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L2", "L2", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                2, 20, vl.getId(), vl2.getId(),
+                "L2", 1, ConnectablePosition.Direction.BOTTOM,
+                "L2", 0, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L3", "L3", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                3, 30, vl.getId(), vl3.getId(),
+                "L3", 2, ConnectablePosition.Direction.TOP,
+                "L3", 0, ConnectablePosition.Direction.TOP);
+
+        createBusBarSection(vl1, "bbs1", 21, 0, 1);
+        createBusBarSection(vl2, "bbs2", 31, 0, 2);
+        createBusBarSection(vl3, "bbs3", 41, 0, 3);
+
+        createSwitch(vl1, "br1", SwitchKind.BREAKER, true, false, false, 21, 10);
+        createSwitch(vl2, "br2", SwitchKind.BREAKER, true, false, false, 31, 20);
+        createSwitch(vl3, "br3", SwitchKind.BREAKER, true, false, false, 41, 30);
+
+        return network;
+    }
+
     public static Network createDanglingConnectablesNetwork() {
         Network network = Network.create("testDLoad", "testDLoad");
         VoltageLevel vl = network.newVoltageLevel()
