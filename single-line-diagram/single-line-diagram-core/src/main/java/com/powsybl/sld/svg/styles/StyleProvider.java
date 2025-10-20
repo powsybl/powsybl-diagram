@@ -12,6 +12,7 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
@@ -58,4 +59,21 @@ public interface StyleProvider {
     List<String> getFeederInfoStyles(FeederInfo info);
 
     List<String> getCellStyles(Cell cell);
+
+    default String getBusNodeStyle(BusNode busNode) {
+        return null;
+    }
+
+    default String getNodeStyle(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
+        return null;
+    }
+
+    default String getEdgeStyle(Graph graph, Edge edge) {
+        return null;
+    }
+
+    default String getNodeSubcomponentStyle(Graph graph, Node node, String subComponentName) {
+        return null;
+    }
+
 }

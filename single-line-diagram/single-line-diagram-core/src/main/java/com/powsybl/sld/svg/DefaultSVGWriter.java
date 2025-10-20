@@ -368,6 +368,12 @@ public class DefaultSVGWriter implements SVGWriter {
         root.appendChild(line);
     }
 
+    private void writeStyleAttribute(Element g, String style) {
+        if (!StringUtils.isEmpty(style)) {
+            g.setAttribute(STYLE, style);
+        }
+    }
+
     /*
      * Drawing the voltageLevel graph nodes
      */
@@ -387,6 +393,8 @@ public class DefaultSVGWriter implements SVGWriter {
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
             writeStyleClasses(g, styleProvider.getNodeStyles(graph, busNode, componentLibrary, svgParameters.isShowInternalNodes()));
+
+            writeStyleAttribute(g, styleProvider.getBusNodeStyle(busNode));
 
             drawBus(graph, busNode, g);
             List<LabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
@@ -439,6 +447,8 @@ public class DefaultSVGWriter implements SVGWriter {
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeEscapedId);
             writeStyleClasses(g, styleProvider.getNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, svgParameters.isShowInternalNodes()));
+
+            writeStyleAttribute(g, styleProvider.getNodeStyle(graph.getVoltageLevelGraph(node), node, componentLibrary, svgParameters.isShowInternalNodes()));
 
             incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
             List<LabelProvider.NodeLabel> nodeLabels = labelProvider.getNodeLabels(node, graph.getDirection(node));
@@ -695,6 +705,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         writeStyleClasses(elt, styleProvider.getNodeSubcomponentStyles(graph, node, subComponent),
                 componentLibrary.getSubComponentStyleClass(componentType, subComponent).orElse(null));
+
+        writeStyleAttribute(elt, styleProvider.getNodeSubcomponentStyle(graph, node, subComponent));
     }
 
     private void setDecoratorAttributes(String prefixId, Element g, Graph graph, Node node, LabelProvider.NodeDecorator nodeDecorator,
@@ -979,6 +991,8 @@ public class DefaultSVGWriter implements SVGWriter {
                     g.setAttribute("id", wireId);
                     writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
 
+                    writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+
                     Element polyline = root.getOwnerDocument().createElement(POLYLINE);
                     polyline.setAttribute(POINTS, pointsListToString(pol));
 
@@ -1033,6 +1047,9 @@ public class DefaultSVGWriter implements SVGWriter {
         String snakeLineId = escapeId(metadata.getSvgParameters().getPrefixId() + edge.getId());
         g.setAttribute("id", snakeLineId);
         writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
+
+        writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+
         root.appendChild(g);
 
         // Get the points of the snakeLine, already calculated during the layout application
