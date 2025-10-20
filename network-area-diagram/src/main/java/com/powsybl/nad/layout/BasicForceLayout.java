@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.NoPostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
@@ -34,6 +35,7 @@ public class BasicForceLayout extends AbstractLayout {
     private final boolean repulsionForceFromFixedPoints;
     private final boolean attractToCenterForce;
 
+    //TODO maybe deprecate this in favour of directly giving the BasicForceLayoutParameters, to be consistent with Atlas2ForceLayout
     public BasicForceLayout() {
         this(true, true);
     }
@@ -50,11 +52,13 @@ public class BasicForceLayout extends AbstractLayout {
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder()
-                                .withAttractToCenterForce(attractToCenterForce)
-                                .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
+                                .withActivateAttractToCenterForce(attractToCenterForce)
+                                .withActivateRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
                                 .build()
-                ));
+                ),
+                new NoPostProcessing<>()
+        );
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 

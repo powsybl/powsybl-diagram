@@ -26,6 +26,10 @@ public class SquareRandomBarycenterSetup<V, E> extends SquareRandomSetup<V, E> {
         super(new Random(DEFAULT_SEED));
     }
 
+    /**
+     * Almost the same as SquareRandomSetup, but calculate the barycenter of the initial positions to set the center
+     * @param layoutContext the context of the layout, the graph and the position of points
+     */
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);

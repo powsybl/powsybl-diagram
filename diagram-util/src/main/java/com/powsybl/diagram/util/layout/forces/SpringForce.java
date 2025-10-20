@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * Similar to edge attraction force, but there is a equilibrium length; meaning that this force will attract if points are far away,
+ * but will repulse if points are too close (closer than the equilibrium length)
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class SpringForce<V, E> implements Force<V, E> {

@@ -21,8 +21,16 @@ public class Point {
 
     private Vector2D position;
     private Vector2D velocity;
+    /**
+     * The sum of all the forces currently applied to this point
+     */
     private Vector2D forces;
     private final double mass;
+    /**
+     * The degree of the vertex corresponding to this point, e.g. the number of edges of that vertex, used by some forces for calculations
+     * We store it here so we don't have to query JGraphT multiple times for the value (because JGraphT does not store it, so caching the value is faster)
+     */
+    private int pointVertexDegree;
 
     public Point(double x, double y) {
         this(x, y, DEFAULT_MASS);
@@ -63,6 +71,9 @@ public class Point {
         this.velocity = velocity;
     }
 
+    /**
+     * @return the kinetic energy
+     */
     public double getEnergy() {
         return 0.5 * mass * velocity.magnitudeSquare();
     }
@@ -73,6 +84,14 @@ public class Point {
 
     public void resetForces() {
         this.forces = new Vector2D(0, 0);
+    }
+
+    public int getPointVertexDegree() {
+        return pointVertexDegree;
+    }
+
+    public void setPointVertexDegree(int pointVertexDegree) {
+        this.pointVertexDegree = pointVertexDegree;
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {
@@ -88,6 +107,10 @@ public class Point {
         printWriter.println("</g>");
     }
 
+    /**
+     * @param other the other point we want to calculate the distance to
+     * @return the Euclidean distance from This point to `other`
+     */
     public double distanceTo(Point other) {
         // we could do this.position.subtract(other.getPosition()).magnitude(); but that involves creating a new position, maybe not great for the GC
         double deltaX = this.position.getX() - other.getPosition().getX();
