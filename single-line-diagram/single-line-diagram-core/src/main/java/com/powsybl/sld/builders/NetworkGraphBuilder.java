@@ -112,32 +112,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addBranchEdges(VoltageLevelGraph graph, VoltageLevel vl) {
-        // Lines
-        vl.getLineStream()
+        addBranchEdges(graph, vl.getConnectableStream(Line.class)
             .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
-            .sorted(Comparator.comparing(Line::getId))
-            .forEach(line -> addBranchEdge(graph, line));
+            .collect(Collectors.toList()));
 
-        // Two windings transformers
-        vl.getTwoWindingsTransformerStream()
+        add2wtEdges(graph, vl.getConnectableStream(TwoWindingsTransformer.class)
             .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
-            .sorted(Comparator.comparing(TwoWindingsTransformer::getId))
-            .forEach(twoWindingsTransformer -> add2wtEdge(graph, twoWindingsTransformer));
+            .collect(Collectors.toList()));
 
-        // Three windings transformers
-        vl.getThreeWindingsTransformerStream()
-            .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
-            .sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
-            .forEach(threeWindingsTransformer -> add3wtEdge(graph, threeWindingsTransformer));
+        add3wtEdges(graph, vl.getConnectableStream(ThreeWindingsTransformer.class)
+            .filter(t -> t.getLeg1().getTerminal().getVoltageLevel().getId().equals(t.getLeg2().getTerminal().getVoltageLevel().getId())
+                && t.getLeg2().getTerminal().getVoltageLevel().getId().equals(t.getLeg3().getTerminal().getVoltageLevel().getId()))
+            .collect(Collectors.toList()));
 
-        // Dangling lines
-        vl.getDanglingLineStream()
+        addBranchEdges(graph, vl.getConnectableStream(DanglingLine.class)
             .map(DanglingLine::getTieLine)
             .flatMap(Optional::stream)
             .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
-            .distinct()
-            .sorted(Comparator.comparing(TieLine::getId))
-            .forEach(tieLine -> addBranchEdge(graph, tieLine));
+            .collect(Collectors.toList()));
     }
 
     @Override
@@ -178,41 +170,27 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addSnakeEdges(SubstationGraph graph, Substation substation) {
-        // Lines
-        substation.getVoltageLevelStream()
-            .flatMap(VoltageLevel::getLineStream)
+        addBranchEdges(graph, substation.getVoltageLevelStream()
+            .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
             .filter(NetworkGraphBuilder::isInternalToSubstation)
             .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
-            .distinct()
-            .sorted(Comparator.comparing(Line::getId))
-            .forEach(line -> addBranchEdge(graph, line));
+            .collect(Collectors.toList()));
 
-        // Two windings transformers
-        substation.getVoltageLevelStream()
-            .flatMap(VoltageLevel::getTwoWindingsTransformerStream)
+        add2wtEdges(graph, substation.getTwoWindingsTransformerStream()
             .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
-            .distinct()
-            .sorted(Comparator.comparing(TwoWindingsTransformer::getId))
-            .forEach(twoWindingsTransformer -> add2wtEdge(graph, twoWindingsTransformer));
+            .collect(Collectors.toList()));
 
-        // Three windings transformers
-        substation.getVoltageLevelStream()
-            .flatMap(VoltageLevel::getThreeWindingsTransformerStream)
+        add3wtEdges(graph, substation.getThreeWindingsTransformerStream()
             .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
-            .distinct()
-            .sorted(Comparator.comparing(ThreeWindingsTransformer::getId))
-            .forEach(threeWindingsTransformer -> add3wtEdge(graph, threeWindingsTransformer));
+            .collect(Collectors.toList()));
 
-        // Tie lines
-        substation.getVoltageLevelStream()
-            .flatMap(VoltageLevel::getDanglingLineStream)
+        addBranchEdges(graph, substation.getVoltageLevelStream()
+            .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
             .map(DanglingLine::getTieLine)
             .flatMap(Optional::stream)
             .filter(NetworkGraphBuilder::isInternalToSubstation)
             .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
-            .distinct()
-            .sorted(Comparator.comparing(TieLine::getId))
-            .forEach(tieLine -> addBranchEdge(graph, tieLine));
+            .collect(Collectors.toList()));
     }
 
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
@@ -640,18 +618,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void addBranchEdge(Graph graph, Branch<?> branch) {
-        Terminal t1 = branch.getTerminal1();
-        Terminal t2 = branch.getTerminal2();
-        if (!addLineEdge(graph, branch.getId(),
-            t1,
-            t2,
-            branch.getId() + "_" + branch.getSide(t1).name(),
-            branch.getId() + "_" + branch.getSide(t2).name())) {
-            LOGGER.warn("Failed to add branch edge for branch '{}'", branch.getId());
-        }
-    }
-
     private void addBranchEdges(Graph graph, List<? extends Branch<?>> branches) {
         Set<String> linesIds = new HashSet<>();
         branches.forEach(branch -> {
@@ -667,12 +633,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 }
             }
         });
-    }
-
-    private void addHvdcLineEdge(Graph graph, HvdcLine hvdcLine) {
-        HvdcConverterStation<?> cvs1 = hvdcLine.getConverterStation1();
-        HvdcConverterStation<?> cvs2 = hvdcLine.getConverterStation2();
-        addLineEdge(graph, hvdcLine.getId(), cvs1.getTerminal(), cvs2.getTerminal(), cvs1.getId(), cvs2.getId());
     }
 
     private void addHvdcLineEdges(Graph graph, List<HvdcLine> lines) {
@@ -697,31 +657,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addLineEdge(lineId, n1, n2);
         }
         return isNotNull;
-    }
-
-    private void add2wtEdge(BaseGraph graph, TwoWindingsTransformer twoWindingsTransformer) {
-        Terminal t1 = twoWindingsTransformer.getTerminal1();
-        Terminal t2 = twoWindingsTransformer.getTerminal2();
-
-        String id1 = twoWindingsTransformer.getId() + "_" + twoWindingsTransformer.getSide(t1).name();
-        String id2 = twoWindingsTransformer.getId() + "_" + twoWindingsTransformer.getSide(t2).name();
-
-        VoltageLevel vl1 = t1.getVoltageLevel();
-        VoltageLevel vl2 = t2.getVoltageLevel();
-
-        VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
-        VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
-
-        Node n1 = g1.getNode(id1);
-        Node n2 = g2.getNode(id2);
-
-        // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-        VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
-        VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
-
-        NodeFactory.createMiddle2WTNode(graph, twoWindingsTransformer.getId(), twoWindingsTransformer.getNameOrId(),
-                (FeederNode) n1, (FeederNode) n2, voltageLevelInfos1, voltageLevelInfos2,
-            twoWindingsTransformer.hasPhaseTapChanger());
     }
 
     private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
@@ -828,27 +763,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
         // add snake edges between different
         // - substations in the same zone
-        zone.stream().flatMap(Substation::getVoltageLevelStream)
-            .flatMap(VoltageLevel::getLineStream)
+        addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+            .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
             .filter(NetworkGraphBuilder::isNotInternalToSubstation)
-            .sorted(Comparator.comparing(Line::getId))
-            .distinct()
-            .forEach(line -> addBranchEdge(zoneGraph, line));
+            .collect(Collectors.toList()));
 
         // - hvdc lines in the same zone
-        zone.stream().flatMap(Substation::getVoltageLevelStream)
-            .flatMap(VoltageLevel::getVscConverterStationStream)
+        addHvdcLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+            .flatMap(voltageLevel -> voltageLevel.getConnectableStream(VscConverterStation.class))
             .map(HvdcConverterStation::getHvdcLine)
             .distinct()
-            .forEach(hvdcLine -> addHvdcLineEdge(zoneGraph, hvdcLine));
+            .collect(Collectors.toList()));
 
         // - tie lines in the same zone
-        zone.stream().flatMap(Substation::getVoltageLevelStream)
-            .flatMap(VoltageLevel::getDanglingLineStream)
+        addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+            .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
             .map(DanglingLine::getTieLine)
-            .flatMap(Optional::stream)
-            .sorted(Comparator.comparing(TieLine::getId))
-            .distinct()
-            .forEach(tieLine -> addBranchEdge(zoneGraph, tieLine));
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .collect(Collectors.toList()));
     }
 }
