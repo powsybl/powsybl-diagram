@@ -9,7 +9,17 @@ package com.powsybl.nad.build.iidm;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@FunctionalInterface
 public interface IdProvider {
 
+    /**
+     * Creates a new unique id for a svg tag related to the given object,
+     * knowing that:
+     * <ul>
+     *     <li>calling twice on the same object should result in two different ids,</li>
+     *     <li>using the object fields to create an id should be limited to debug mode.</li>
+     * </ul>
+     * @return a unique id
+     */
     String createSvgId(Object object);
 }
