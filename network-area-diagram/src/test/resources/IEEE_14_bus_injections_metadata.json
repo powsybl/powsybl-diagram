@@ -63,102 +63,102 @@
     "edgeInfosIncluded" : true
   },
   "busNodes" : [ {
-    "svgId" : "3",
+    "svgId" : "4",
     "equipmentId" : "VL1_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0",
     "legend" : "143.1 kV / 0.0°"
   }, {
-    "svgId" : "7",
+    "svgId" : "9",
     "equipmentId" : "VL10_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "4",
+    "vlNode" : "5",
     "legend" : "12.6 kV / -15.1°"
   }, {
-    "svgId" : "11",
+    "svgId" : "14",
     "equipmentId" : "VL11_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "8",
+    "vlNode" : "10",
     "legend" : "12.7 kV / -14.8°"
   }, {
-    "svgId" : "15",
+    "svgId" : "19",
     "equipmentId" : "VL12_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "12",
+    "vlNode" : "15",
     "legend" : "12.7 kV / -15.1°"
   }, {
-    "svgId" : "19",
+    "svgId" : "24",
     "equipmentId" : "VL13_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "16",
+    "vlNode" : "20",
     "legend" : "12.6 kV / -15.2°"
   }, {
-    "svgId" : "23",
+    "svgId" : "29",
     "equipmentId" : "VL14_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "20",
+    "vlNode" : "25",
     "legend" : "12.4 kV / -16.0°"
   }, {
-    "svgId" : "28",
+    "svgId" : "35",
     "equipmentId" : "VL2_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "24",
+    "vlNode" : "30",
     "legend" : "141.1 kV / -5.0°"
   }, {
-    "svgId" : "33",
+    "svgId" : "41",
     "equipmentId" : "VL3_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "29",
+    "vlNode" : "36",
     "legend" : "136.3 kV / -12.7°"
   }, {
-    "svgId" : "37",
+    "svgId" : "46",
     "equipmentId" : "VL4_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "34",
+    "vlNode" : "42",
     "legend" : "137.6 kV / -10.3°"
   }, {
-    "svgId" : "41",
+    "svgId" : "51",
     "equipmentId" : "VL5_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "38",
+    "vlNode" : "47",
     "legend" : "137.7 kV / -8.8°"
   }, {
-    "svgId" : "46",
+    "svgId" : "57",
     "equipmentId" : "VL6_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "42",
+    "vlNode" : "52",
     "legend" : "12.8 kV / -14.2°"
   }, {
-    "svgId" : "49",
+    "svgId" : "61",
     "equipmentId" : "VL7_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "47",
+    "vlNode" : "58",
     "legend" : "14.9 kV / -13.4°"
   }, {
-    "svgId" : "53",
+    "svgId" : "66",
     "equipmentId" : "VL8_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "50",
+    "vlNode" : "62",
     "legend" : "21.8 kV / -13.4°"
   }, {
-    "svgId" : "58",
+    "svgId" : "72",
     "equipmentId" : "VL9_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "54",
+    "vlNode" : "67",
     "legend" : "12.7 kV / -14.9°"
   } ],
   "nodes" : [ {
@@ -167,365 +167,379 @@
     "x" : 379.5,
     "y" : -897.76,
     "legendSvgId" : "1",
+    "legendEdgeSvgId" : "2",
     "legendHeader" : [ "VL1" ]
   }, {
-    "svgId" : "4",
+    "svgId" : "5",
     "equipmentId" : "VL10",
     "x" : -586.21,
     "y" : 325.09,
-    "legendSvgId" : "5",
+    "legendSvgId" : "6",
+    "legendEdgeSvgId" : "7",
     "legendHeader" : [ "VL10" ]
   }, {
-    "svgId" : "8",
+    "svgId" : "10",
     "equipmentId" : "VL11",
     "x" : -781.48,
     "y" : -92.63,
-    "legendSvgId" : "9",
+    "legendSvgId" : "11",
+    "legendEdgeSvgId" : "12",
     "legendHeader" : [ "VL11" ]
   }, {
-    "svgId" : "12",
+    "svgId" : "15",
     "equipmentId" : "VL12",
     "x" : -156.95,
     "y" : -227.74,
-    "legendSvgId" : "13",
+    "legendSvgId" : "16",
+    "legendEdgeSvgId" : "17",
     "legendHeader" : [ "VL12" ]
   }, {
-    "svgId" : "16",
+    "svgId" : "20",
     "equipmentId" : "VL13",
     "x" : -299.94,
     "y" : 73.32,
-    "legendSvgId" : "17",
+    "legendSvgId" : "21",
+    "legendEdgeSvgId" : "22",
     "legendHeader" : [ "VL13" ]
   }, {
-    "svgId" : "20",
+    "svgId" : "25",
     "equipmentId" : "VL14",
     "x" : -202.47,
     "y" : 556.41,
-    "legendSvgId" : "21",
+    "legendSvgId" : "26",
+    "legendEdgeSvgId" : "27",
     "legendHeader" : [ "VL14" ]
   }, {
-    "svgId" : "24",
+    "svgId" : "30",
     "equipmentId" : "VL2",
     "x" : 556.21,
     "y" : -541.57,
-    "legendSvgId" : "25",
+    "legendSvgId" : "31",
+    "legendEdgeSvgId" : "32",
     "legendHeader" : [ "VL2" ]
   }, {
-    "svgId" : "29",
+    "svgId" : "36",
     "equipmentId" : "VL3",
     "x" : 844.8,
     "y" : -305.76,
-    "legendSvgId" : "30",
+    "legendSvgId" : "37",
+    "legendEdgeSvgId" : "38",
     "legendHeader" : [ "VL3" ]
   }, {
-    "svgId" : "34",
+    "svgId" : "42",
     "equipmentId" : "VL4",
     "x" : 459.93,
     "y" : -101.51,
-    "legendSvgId" : "35",
+    "legendSvgId" : "43",
+    "legendEdgeSvgId" : "44",
     "legendHeader" : [ "VL4" ]
   }, {
-    "svgId" : "38",
+    "svgId" : "47",
     "equipmentId" : "VL5",
     "x" : 175.68,
     "y" : -542.18,
-    "legendSvgId" : "39",
+    "legendSvgId" : "48",
+    "legendEdgeSvgId" : "49",
     "legendHeader" : [ "VL5" ]
   }, {
-    "svgId" : "42",
+    "svgId" : "52",
     "equipmentId" : "VL6",
     "x" : -404.28,
     "y" : -368.04,
-    "legendSvgId" : "43",
+    "legendSvgId" : "53",
+    "legendEdgeSvgId" : "54",
     "legendHeader" : [ "VL6" ]
   }, {
-    "svgId" : "47",
+    "svgId" : "58",
     "equipmentId" : "VL7",
     "x" : 526.92,
     "y" : 376.56,
-    "legendSvgId" : "48",
+    "legendSvgId" : "59",
+    "legendEdgeSvgId" : "60",
     "legendHeader" : [ "VL7" ]
   }, {
-    "svgId" : "50",
+    "svgId" : "62",
     "equipmentId" : "VL8",
     "x" : 807.02,
     "y" : 692.3,
-    "legendSvgId" : "51",
+    "legendSvgId" : "63",
+    "legendEdgeSvgId" : "64",
     "legendHeader" : [ "VL8" ]
   }, {
-    "svgId" : "54",
+    "svgId" : "67",
     "equipmentId" : "VL9",
     "x" : 88.08,
     "y" : 340.05,
-    "legendSvgId" : "55",
+    "legendSvgId" : "68",
+    "legendEdgeSvgId" : "69",
     "legendHeader" : [ "VL9" ]
   } ],
   "injections" : [ {
-    "svgId" : "2",
+    "svgId" : "3",
     "equipmentId" : "B1-G",
     "componentType" : "GENERATOR",
-    "busNodeId" : "3",
+    "busNodeId" : "4",
     "vlNodeId" : "0"
   }, {
-    "svgId" : "6",
+    "svgId" : "8",
     "equipmentId" : "B10-L",
     "componentType" : "LOAD",
-    "busNodeId" : "7",
-    "vlNodeId" : "4"
+    "busNodeId" : "9",
+    "vlNodeId" : "5"
   }, {
-    "svgId" : "10",
+    "svgId" : "13",
     "equipmentId" : "B11-L",
     "componentType" : "LOAD",
-    "busNodeId" : "11",
-    "vlNodeId" : "8"
-  }, {
-    "svgId" : "14",
-    "equipmentId" : "B12-L",
-    "componentType" : "LOAD",
-    "busNodeId" : "15",
-    "vlNodeId" : "12"
+    "busNodeId" : "14",
+    "vlNodeId" : "10"
   }, {
     "svgId" : "18",
-    "equipmentId" : "B13-L",
+    "equipmentId" : "B12-L",
     "componentType" : "LOAD",
     "busNodeId" : "19",
-    "vlNodeId" : "16"
+    "vlNodeId" : "15"
   }, {
-    "svgId" : "22",
-    "equipmentId" : "B14-L",
+    "svgId" : "23",
+    "equipmentId" : "B13-L",
     "componentType" : "LOAD",
-    "busNodeId" : "23",
+    "busNodeId" : "24",
     "vlNodeId" : "20"
   }, {
-    "svgId" : "26",
+    "svgId" : "28",
+    "equipmentId" : "B14-L",
+    "componentType" : "LOAD",
+    "busNodeId" : "29",
+    "vlNodeId" : "25"
+  }, {
+    "svgId" : "33",
     "equipmentId" : "B2-G",
     "componentType" : "GENERATOR",
-    "busNodeId" : "28",
-    "vlNodeId" : "24"
+    "busNodeId" : "35",
+    "vlNodeId" : "30"
   }, {
-    "svgId" : "27",
+    "svgId" : "34",
     "equipmentId" : "B2-L",
     "componentType" : "LOAD",
-    "busNodeId" : "28",
-    "vlNodeId" : "24"
+    "busNodeId" : "35",
+    "vlNodeId" : "30"
   }, {
-    "svgId" : "31",
+    "svgId" : "39",
     "equipmentId" : "B3-G",
     "componentType" : "GENERATOR",
-    "busNodeId" : "33",
-    "vlNodeId" : "29"
-  }, {
-    "svgId" : "32",
-    "equipmentId" : "B3-L",
-    "componentType" : "LOAD",
-    "busNodeId" : "33",
-    "vlNodeId" : "29"
-  }, {
-    "svgId" : "36",
-    "equipmentId" : "B4-L",
-    "componentType" : "LOAD",
-    "busNodeId" : "37",
-    "vlNodeId" : "34"
+    "busNodeId" : "41",
+    "vlNodeId" : "36"
   }, {
     "svgId" : "40",
-    "equipmentId" : "B5-L",
+    "equipmentId" : "B3-L",
     "componentType" : "LOAD",
     "busNodeId" : "41",
-    "vlNodeId" : "38"
-  }, {
-    "svgId" : "44",
-    "equipmentId" : "B6-G",
-    "componentType" : "GENERATOR",
-    "busNodeId" : "46",
-    "vlNodeId" : "42"
+    "vlNodeId" : "36"
   }, {
     "svgId" : "45",
-    "equipmentId" : "B6-L",
+    "equipmentId" : "B4-L",
     "componentType" : "LOAD",
     "busNodeId" : "46",
     "vlNodeId" : "42"
   }, {
-    "svgId" : "52",
-    "equipmentId" : "B8-G",
+    "svgId" : "50",
+    "equipmentId" : "B5-L",
+    "componentType" : "LOAD",
+    "busNodeId" : "51",
+    "vlNodeId" : "47"
+  }, {
+    "svgId" : "55",
+    "equipmentId" : "B6-G",
     "componentType" : "GENERATOR",
-    "busNodeId" : "53",
-    "vlNodeId" : "50"
+    "busNodeId" : "57",
+    "vlNodeId" : "52"
   }, {
     "svgId" : "56",
-    "equipmentId" : "B9-L",
+    "equipmentId" : "B6-L",
     "componentType" : "LOAD",
-    "busNodeId" : "58",
-    "vlNodeId" : "54"
-  }, {
-    "svgId" : "57",
-    "equipmentId" : "B9-SH",
-    "componentType" : "SHUNT_COMPENSATOR_CAPACITOR",
-    "busNodeId" : "58",
-    "vlNodeId" : "54"
-  } ],
-  "edges" : [ {
-    "svgId" : "59",
-    "equipmentId" : "L1-2-1",
-    "node1" : "0",
-    "node2" : "24",
-    "busNode1" : "3",
-    "busNode2" : "28",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "60",
-    "equipmentId" : "L1-5-1",
-    "node1" : "0",
-    "node2" : "38",
-    "busNode1" : "3",
-    "busNode2" : "41",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "61",
-    "equipmentId" : "L9-10-1",
-    "node1" : "54",
-    "node2" : "4",
-    "busNode1" : "58",
-    "busNode2" : "7",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "62",
-    "equipmentId" : "L10-11-1",
-    "node1" : "4",
-    "node2" : "8",
-    "busNode1" : "7",
-    "busNode2" : "11",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "63",
-    "equipmentId" : "L6-11-1",
-    "node1" : "42",
-    "node2" : "8",
-    "busNode1" : "46",
-    "busNode2" : "11",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "64",
-    "equipmentId" : "L6-12-1",
-    "node1" : "42",
-    "node2" : "12",
-    "busNode1" : "46",
-    "busNode2" : "15",
-    "type" : "LineEdge"
+    "busNodeId" : "57",
+    "vlNodeId" : "52"
   }, {
     "svgId" : "65",
-    "equipmentId" : "L12-13-1",
-    "node1" : "12",
-    "node2" : "16",
-    "busNode1" : "15",
-    "busNode2" : "19",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "66",
-    "equipmentId" : "L6-13-1",
-    "node1" : "42",
-    "node2" : "16",
-    "busNode1" : "46",
-    "busNode2" : "19",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "67",
-    "equipmentId" : "L13-14-1",
-    "node1" : "16",
-    "node2" : "20",
-    "busNode1" : "19",
-    "busNode2" : "23",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "68",
-    "equipmentId" : "L9-14-1",
-    "node1" : "54",
-    "node2" : "20",
-    "busNode1" : "58",
-    "busNode2" : "23",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "69",
-    "equipmentId" : "L2-3-1",
-    "node1" : "24",
-    "node2" : "29",
-    "busNode1" : "28",
-    "busNode2" : "33",
-    "type" : "LineEdge"
+    "equipmentId" : "B8-G",
+    "componentType" : "GENERATOR",
+    "busNodeId" : "66",
+    "vlNodeId" : "62"
   }, {
     "svgId" : "70",
-    "equipmentId" : "L2-4-1",
-    "node1" : "24",
-    "node2" : "34",
-    "busNode1" : "28",
-    "busNode2" : "37",
-    "type" : "LineEdge"
+    "equipmentId" : "B9-L",
+    "componentType" : "LOAD",
+    "busNodeId" : "72",
+    "vlNodeId" : "67"
   }, {
     "svgId" : "71",
-    "equipmentId" : "L2-5-1",
-    "node1" : "24",
-    "node2" : "38",
-    "busNode1" : "28",
-    "busNode2" : "41",
-    "type" : "LineEdge"
-  }, {
-    "svgId" : "72",
-    "equipmentId" : "L3-4-1",
-    "node1" : "29",
-    "node2" : "34",
-    "busNode1" : "33",
-    "busNode2" : "37",
-    "type" : "LineEdge"
-  }, {
+    "equipmentId" : "B9-SH",
+    "componentType" : "SHUNT_COMPENSATOR_CAPACITOR",
+    "busNodeId" : "72",
+    "vlNodeId" : "67"
+  } ],
+  "edges" : [ {
     "svgId" : "73",
-    "equipmentId" : "L4-5-1",
-    "node1" : "34",
-    "node2" : "38",
-    "busNode1" : "37",
-    "busNode2" : "41",
+    "equipmentId" : "L1-2-1",
+    "node1" : "0",
+    "node2" : "30",
+    "busNode1" : "4",
+    "busNode2" : "35",
     "type" : "LineEdge"
   }, {
     "svgId" : "74",
-    "equipmentId" : "T4-7-1",
-    "node1" : "34",
+    "equipmentId" : "L1-5-1",
+    "node1" : "0",
     "node2" : "47",
-    "busNode1" : "37",
-    "busNode2" : "49",
-    "type" : "TwoWtEdge"
+    "busNode1" : "4",
+    "busNode2" : "51",
+    "type" : "LineEdge"
   }, {
     "svgId" : "75",
-    "equipmentId" : "T4-9-1",
-    "node1" : "34",
-    "node2" : "54",
-    "busNode1" : "37",
-    "busNode2" : "58",
-    "type" : "TwoWtEdge"
+    "equipmentId" : "L9-10-1",
+    "node1" : "67",
+    "node2" : "5",
+    "busNode1" : "72",
+    "busNode2" : "9",
+    "type" : "LineEdge"
   }, {
     "svgId" : "76",
-    "equipmentId" : "T5-6-1",
-    "node1" : "38",
-    "node2" : "42",
-    "busNode1" : "41",
-    "busNode2" : "46",
-    "type" : "TwoWtEdge"
+    "equipmentId" : "L10-11-1",
+    "node1" : "5",
+    "node2" : "10",
+    "busNode1" : "9",
+    "busNode2" : "14",
+    "type" : "LineEdge"
   }, {
     "svgId" : "77",
-    "equipmentId" : "L7-8-1",
-    "node1" : "47",
-    "node2" : "50",
-    "busNode1" : "49",
-    "busNode2" : "53",
+    "equipmentId" : "L6-11-1",
+    "node1" : "52",
+    "node2" : "10",
+    "busNode1" : "57",
+    "busNode2" : "14",
     "type" : "LineEdge"
   }, {
     "svgId" : "78",
-    "equipmentId" : "L7-9-1",
+    "equipmentId" : "L6-12-1",
+    "node1" : "52",
+    "node2" : "15",
+    "busNode1" : "57",
+    "busNode2" : "19",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "79",
+    "equipmentId" : "L12-13-1",
+    "node1" : "15",
+    "node2" : "20",
+    "busNode1" : "19",
+    "busNode2" : "24",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "80",
+    "equipmentId" : "L6-13-1",
+    "node1" : "52",
+    "node2" : "20",
+    "busNode1" : "57",
+    "busNode2" : "24",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "81",
+    "equipmentId" : "L13-14-1",
+    "node1" : "20",
+    "node2" : "25",
+    "busNode1" : "24",
+    "busNode2" : "29",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "82",
+    "equipmentId" : "L9-14-1",
+    "node1" : "67",
+    "node2" : "25",
+    "busNode1" : "72",
+    "busNode2" : "29",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "83",
+    "equipmentId" : "L2-3-1",
+    "node1" : "30",
+    "node2" : "36",
+    "busNode1" : "35",
+    "busNode2" : "41",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "84",
+    "equipmentId" : "L2-4-1",
+    "node1" : "30",
+    "node2" : "42",
+    "busNode1" : "35",
+    "busNode2" : "46",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "85",
+    "equipmentId" : "L2-5-1",
+    "node1" : "30",
+    "node2" : "47",
+    "busNode1" : "35",
+    "busNode2" : "51",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "86",
+    "equipmentId" : "L3-4-1",
+    "node1" : "36",
+    "node2" : "42",
+    "busNode1" : "41",
+    "busNode2" : "46",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "87",
+    "equipmentId" : "L4-5-1",
+    "node1" : "42",
+    "node2" : "47",
+    "busNode1" : "46",
+    "busNode2" : "51",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "88",
+    "equipmentId" : "T4-7-1",
+    "node1" : "42",
+    "node2" : "58",
+    "busNode1" : "46",
+    "busNode2" : "61",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "89",
+    "equipmentId" : "T4-9-1",
+    "node1" : "42",
+    "node2" : "67",
+    "busNode1" : "46",
+    "busNode2" : "72",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "90",
+    "equipmentId" : "T5-6-1",
     "node1" : "47",
-    "node2" : "54",
-    "busNode1" : "49",
-    "busNode2" : "58",
+    "node2" : "52",
+    "busNode1" : "51",
+    "busNode2" : "57",
+    "type" : "TwoWtEdge"
+  }, {
+    "svgId" : "91",
+    "equipmentId" : "L7-8-1",
+    "node1" : "58",
+    "node2" : "62",
+    "busNode1" : "61",
+    "busNode2" : "66",
+    "type" : "LineEdge"
+  }, {
+    "svgId" : "92",
+    "equipmentId" : "L7-9-1",
+    "node1" : "58",
+    "node2" : "67",
+    "busNode1" : "61",
+    "busNode2" : "72",
     "type" : "LineEdge"
   } ],
   "textNodes" : [ {
-    "svgId" : "0-textnode",
+    "svgId" : "1",
     "equipmentId" : "VL1",
     "vlNode" : "0",
     "shiftX" : 100.0,
@@ -533,105 +547,105 @@
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "4-textnode",
+    "svgId" : "6",
     "equipmentId" : "VL10",
-    "vlNode" : "4",
+    "vlNode" : "5",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "8-textnode",
+    "svgId" : "11",
     "equipmentId" : "VL11",
-    "vlNode" : "8",
+    "vlNode" : "10",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "12-textnode",
+    "svgId" : "16",
     "equipmentId" : "VL12",
-    "vlNode" : "12",
+    "vlNode" : "15",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "16-textnode",
+    "svgId" : "21",
     "equipmentId" : "VL13",
-    "vlNode" : "16",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "20-textnode",
-    "equipmentId" : "VL14",
     "vlNode" : "20",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "24-textnode",
+    "svgId" : "26",
+    "equipmentId" : "VL14",
+    "vlNode" : "25",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "31",
     "equipmentId" : "VL2",
-    "vlNode" : "24",
+    "vlNode" : "30",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "29-textnode",
+    "svgId" : "37",
     "equipmentId" : "VL3",
-    "vlNode" : "29",
+    "vlNode" : "36",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "34-textnode",
+    "svgId" : "43",
     "equipmentId" : "VL4",
-    "vlNode" : "34",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "38-textnode",
-    "equipmentId" : "VL5",
-    "vlNode" : "38",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "42-textnode",
-    "equipmentId" : "VL6",
     "vlNode" : "42",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "47-textnode",
-    "equipmentId" : "VL7",
+    "svgId" : "48",
+    "equipmentId" : "VL5",
     "vlNode" : "47",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "50-textnode",
-    "equipmentId" : "VL8",
-    "vlNode" : "50",
+    "svgId" : "53",
+    "equipmentId" : "VL6",
+    "vlNode" : "52",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "54-textnode",
+    "svgId" : "59",
+    "equipmentId" : "VL7",
+    "vlNode" : "58",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "63",
+    "equipmentId" : "VL8",
+    "vlNode" : "62",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "68",
     "equipmentId" : "VL9",
-    "vlNode" : "54",
+    "vlNode" : "67",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,

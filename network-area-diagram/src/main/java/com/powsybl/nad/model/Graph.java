@@ -32,9 +32,6 @@ public class Graph {
     private final org.jgrapht.Graph<Node, Edge> busGraph = new Pseudograph<>(Edge.class);
     private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
 
-    private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE = "-textnode";
-    private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE = "-textedge";
-
     public void addNode(Node node) {
         Objects.requireNonNull(node);
         nodes.put(node.getEquipmentId(), node);
@@ -53,8 +50,8 @@ public class Graph {
     public void addTextNode(VoltageLevelNode vlNode) {
         Objects.requireNonNull(vlNode);
         addEdge(vlNode,
-                new TextNode(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE),
-                new TextEdge(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE));
+                new TextNode(vlNode.getLegendDiagramId()),
+                new TextEdge(vlNode.getLegendEdgeDiagramId()));
     }
 
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,

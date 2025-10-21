@@ -24,6 +24,7 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final double y;
     private final boolean fictitious;
     private final String legendSvgId;
+    private final String legendEdgeSvgId;
     private final List<String> legendHeader;
     private final List<String> legendFooter;
 
@@ -33,6 +34,7 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("y") double y,
                         @JsonProperty("fictitious") boolean fictitious,
                         @JsonProperty("legendSvgId") String legendSvgId,
+                        @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
                         @JsonProperty("legendFooter") List<String> legendFooter) {
         super(svgId, equipmentId);
@@ -40,6 +42,7 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.y = y;
         this.fictitious = fictitious;
         this.legendSvgId = legendSvgId;
+        this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
         this.legendFooter = legendFooter;
     }
@@ -65,6 +68,11 @@ public class NodeMetadata extends AbstractMetadataItem {
     @JsonProperty("legendSvgId")
     public String getLegendSvgId() {
         return legendSvgId;
+    }
+
+    @JsonProperty("legendEdgeSvgId")
+    public String getLegendEdgeSvgId() {
+        return legendEdgeSvgId;
     }
 
     @JsonProperty("legendHeader")

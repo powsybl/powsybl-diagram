@@ -74,8 +74,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible, boolean injectionsAdded) {
         String vlNodeId = idProvider.createSvgId(vl);
         String vlLegendId = idProvider.createSvgId(vl);
+        String vlLegendEdgeId = idProvider.createSvgId(vl);
         VoltageLevelNode vlNode = new VoltageLevelNode(vlNodeId, vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible,
-                vlLegendId, labelProvider);
+                vlLegendId, vlLegendEdgeId, labelProvider);
         Map<String, List<Injection>> injectionsMap = new HashMap<>();
         if (injectionsAdded) {
             fillInjectionsMap(vl, graph, injectionsMap);

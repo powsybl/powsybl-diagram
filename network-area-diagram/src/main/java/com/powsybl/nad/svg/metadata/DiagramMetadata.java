@@ -167,6 +167,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     round(node.getY()),
                     node.isFictitious(),
                     vlNode.getLegendDiagramId(),
+                    vlNode.getLegendEdgeDiagramId(),
                     vlNode.getLegendHeader(),
                     vlNode.getLegendFooter());
         } else {
@@ -176,6 +177,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     round(node.getX()),
                     round(node.getY()),
                     node.isFictitious(),
+                    null,
                     null,
                     null,
                     null);

@@ -20,6 +20,7 @@ public class VoltageLevelNode extends AbstractNode {
     private final boolean visible;
     private boolean hasUnknownBusNode = false;
     private final String legendDiagramId;
+    private final String legendEdgeDiagramId;
     private final List<String> legendHeader;
     private final List<String> legendFooter;
 
@@ -27,14 +28,17 @@ public class VoltageLevelNode extends AbstractNode {
         super(diagramId, equipmentId, nameOrId, fictitious);
         this.visible = true;
         this.legendDiagramId = null;
+        this.legendEdgeDiagramId = null;
         this.legendHeader = List.of();
         this.legendFooter = List.of();
     }
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible, String vlLegendId, LabelProvider labelProvider) {
+    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible,
+                            String vlLegendId, String vlLegendEdgeId, LabelProvider labelProvider) {
         super(diagramId, equipmentId, nameOrId, fictitious);
         this.visible = visible;
         this.legendDiagramId = vlLegendId;
+        this.legendEdgeDiagramId = vlLegendEdgeId;
         this.legendHeader = labelProvider.getLegendHeader(equipmentId);
         this.legendFooter = labelProvider.getLegendFooter(equipmentId);
     }
@@ -70,6 +74,10 @@ public class VoltageLevelNode extends AbstractNode {
 
     public String getLegendDiagramId() {
         return legendDiagramId;
+    }
+
+    public String getLegendEdgeDiagramId() {
+        return legendEdgeDiagramId;
     }
 
     public List<String> getLegendHeader() {

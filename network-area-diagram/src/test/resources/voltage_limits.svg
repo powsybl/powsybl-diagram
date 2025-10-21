@@ -64,45 +64,45 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 ]]></style>
     <g class="nad-vl-nodes">
         <g transform="translate(-56.06,-318.70)" id="0" class="nad-vl300to500">
-            <circle r="27.50" id="2" class="nad-overvoltage nad-busnode"/>
-            <path d="M-52.556,23.326 A57.500,57.500 345.053 1 1 -44.762,36.092 L-23.130,22.831 A32.500,32.500 -333.556 1 0 -30.877,10.142 Z " id="3" class="nad-busnode"/>
+            <circle r="27.50" id="3" class="nad-overvoltage nad-busnode"/>
+            <path d="M-52.556,23.326 A57.500,57.500 345.053 1 1 -44.762,36.092 L-23.130,22.831 A32.500,32.500 -333.556 1 0 -30.877,10.142 Z " id="4" class="nad-busnode"/>
         </g>
-        <g transform="translate(-230.42,1.18)" id="4" class="nad-vl300to500">
-            <circle r="27.50" id="6" class="nad-undervoltage nad-busnode"/>
+        <g transform="translate(-230.42,1.18)" id="5" class="nad-vl300to500">
+            <circle r="27.50" id="8" class="nad-undervoltage nad-busnode"/>
         </g>
-        <g transform="translate(-49.12,317.14)" id="9" class="nad-boundary-node nad-vl300to500">
-            <path d="M-23.852,13.687 A27.500,27.500 180.000 0 1 23.852,-13.687" id="10" class="nad-busnode"/>
+        <g transform="translate(-49.12,317.14)" id="11" class="nad-boundary-node nad-vl300to500">
+            <path d="M-23.852,13.687 A27.500,27.500 180.000 0 1 23.852,-13.687" id="12" class="nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="7">
+        <g id="9">
             <polyline class="nad-vl300to500 nad-edge-path" points="-79.53,-304.37 -124.34,-277.01 -178.36,-177.90"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-231.10,-26.31 -232.38,-78.80 -178.36,-177.90"/>
         </g>
-        <g id="8">
+        <g id="10">
             <polyline class="nad-vl300to500 nad-edge-path" points="-54.65,-261.22 -54.10,-238.72 -108.12,-139.62"/>
             <polyline class="nad-disconnected nad-vl300to500 nad-edge-path" points="-206.95,-13.15 -162.14,-40.51 -108.12,-139.62"/>
         </g>
-        <g id="11" class="nad-dangling-line-edge">
+        <g id="13" class="nad-dangling-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
         </g>
     </g>
     <g class="nad-edge-infos"></g>
     <g class="nad-text-edges">
-        <polyline id="0-textedge" points="3.28,-327.60 43.94,-333.70"/>
-        <polyline id="4-textedge" points="-200.75,-3.27 -130.42,-13.82"/>
+        <polyline id="2" points="3.28,-327.60 43.94,-333.70"/>
+        <polyline id="7" points="-200.75,-3.27 -130.42,-13.82"/>
     </g>
     <foreignObject height="1" width="1" class="nad-text-nodes">
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <div style="position: absolute; top: -359px; left: 44px" id="0-textnode" class="nad-vl300to500 nad-label-box">
+            <div style="position: absolute; top: -359px; left: 44px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-overvoltage nad-legend-square"/>385.1 kV / °</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"/> kV / °</div>
             </div>
-            <div style="position: absolute; top: -39px; left: -130px" id="4-textnode" class="nad-vl300to500 nad-label-box">
+            <div style="position: absolute; top: -39px; left: -130px" id="6" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-undervoltage nad-legend-square"/>388.0 kV / °</div>
