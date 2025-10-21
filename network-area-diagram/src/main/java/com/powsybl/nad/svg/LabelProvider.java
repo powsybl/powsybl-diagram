@@ -6,9 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.ThreeWtEdge;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,9 +23,5 @@ public interface LabelProvider {
 
     String getBranchLabel(String branchId);
 
-    List<String> getLegendHeader(String voltageLevelId);
-
-    String getLegend(String busId);
-
-    List<String> getLegendFooter(String voltageLevelId);
+    VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId);
 }

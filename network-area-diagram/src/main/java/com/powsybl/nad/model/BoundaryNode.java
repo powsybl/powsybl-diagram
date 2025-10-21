@@ -7,13 +7,17 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
+import java.util.List;
+
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
 public class BoundaryNode extends VoltageLevelNode {
 
-    public BoundaryNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId, false);
+    public BoundaryNode(IdProvider idProvider, String equipmentId, String nameOrId) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, false, true, null, null, List.of(), List.of());
     }
 
 }

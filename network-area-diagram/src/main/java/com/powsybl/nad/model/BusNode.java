@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +26,12 @@ public class BusNode extends AbstractNode {
     private final List<Injection> injections = new ArrayList<>();
     private final String legend;
 
-    public BusNode(String diagramId, String id, List<Injection> injections, String legend) {
-        super(diagramId, id, null, false);
+    public BusNode(IdProvider idProvider, String id, List<Injection> injections, String legend) {
+        this(idProvider.createSvgId(id), id, injections, legend);
+    }
+
+    public BusNode(String svgId, String equipmentId, List<Injection> injections, String legend) {
+        super(svgId, equipmentId, null, false);
         this.injections.addAll(Objects.requireNonNull(injections));
         this.legend = legend;
     }

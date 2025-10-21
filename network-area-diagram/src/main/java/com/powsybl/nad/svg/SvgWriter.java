@@ -587,7 +587,7 @@ public class SvgWriter {
     private void drawEdgeInfo(XMLStreamWriter writer, SvgEdgeInfo svgEdgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.diagramId());
+        writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.svgId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo));
         drawArrow(writer, edgeInfo, edgeAngle);
@@ -737,7 +737,7 @@ public class SvgWriter {
 
     private void drawHighlightedNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement(USE_ELEMENT_NAME);
-        writer.writeAttribute(HREF_ATTRIBUTE, "#" + getPrefixedId(vlNode.getDiagramId()));
+        writer.writeAttribute(HREF_ATTRIBUTE, "#" + getPrefixedId(vlNode.getSvgId()));
         writeStyleClasses(writer, styleProvider.getHighlightNodeStyleClasses(vlNode));
         writer.writeEndElement();
     }
@@ -1007,7 +1007,7 @@ public class SvgWriter {
     }
 
     private void writeId(XMLStreamWriter writer, Identifiable identifiable) throws XMLStreamException {
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(identifiable.getDiagramId()));
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(identifiable.getSvgId()));
     }
 
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {

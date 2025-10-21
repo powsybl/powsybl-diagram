@@ -17,7 +17,7 @@ public class IntIdProvider implements IdProvider {
     }
 
     @Override
-    public String createSvgId(Object object) {
+    public String createSvgId(String idNetworkElement) {
         return nextId();
     }
 

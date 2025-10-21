@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.SvgEdgeInfo;
 
 import java.util.Arrays;
@@ -31,11 +33,11 @@ public class ThreeWtEdge extends AbstractEdge {
     private final boolean visible;
     private final SvgEdgeInfo svgEdgeInfo;
 
-    public ThreeWtEdge(String diagramId, String equipmentId, String transformerName, Side side, String type, boolean visible, SvgEdgeInfo svgEdgeInfo) {
-        super(diagramId, equipmentId, transformerName, type);
+    public ThreeWtEdge(IdProvider idProvider, String equipmentId, String transformerName, Side side, String type, boolean visible, EdgeInfo edgeInfo) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, transformerName, type);
         this.side = side;
         this.visible = visible;
-        this.svgEdgeInfo = svgEdgeInfo;
+        this.svgEdgeInfo = edgeInfo != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo) : null;
     }
 
     public void setPoints(Point point1, Point point2) {

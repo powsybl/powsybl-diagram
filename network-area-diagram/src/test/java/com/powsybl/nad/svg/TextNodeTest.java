@@ -46,7 +46,12 @@ class TextNodeTest extends AbstractTest {
         }
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public List<String> getLegendFooter(String voltageLevelId) {
+            public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
+                var vlLegend = super.getVoltageLevelLegend(voltageLevelId);
+                return new VoltageLevelLegend(vlLegend.legendHeader(), getLegendFooter(voltageLevelId), vlLegend.busLegend());
+            }
+
+            private List<String> getLegendFooter(String voltageLevelId) {
                 if (getSvgParameters().isVoltageLevelDetails()) {
                     VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
                     return List.of(

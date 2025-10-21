@@ -43,9 +43,7 @@ public class CustomLabelProvider implements LabelProvider {
     final Map<String, BranchLabels> branchLabels;
     final Map<String, ThreeWtLabels> threeWtLabels;
     final Map<String, InjectionLabels> injectionLabels;
-    final Map<String, String> busDescriptions;
-    final Map<String, List<String>> vlDescriptions;
-    final Map<String, List<String>> vlDetails;
+    final Map<String, VoltageLevelLegend> vlLegends;
 
     public record BranchLabels(String side1, String middle, String side2, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2) {
     }
@@ -57,13 +55,11 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     public CustomLabelProvider(Map<String, BranchLabels> branchLabels, Map<String, ThreeWtLabels> threeWtLabels, Map<String, InjectionLabels> injectionLabels,
-                               Map<String, String> busDescriptions, Map<String, List<String>> vlDescriptions, Map<String, List<String>> vlDetails) {
+                               Map<String, VoltageLevelLegend> vlLegends) {
         this.branchLabels = Objects.requireNonNull(branchLabels);
         this.threeWtLabels = Objects.requireNonNull(threeWtLabels);
         this.injectionLabels = Objects.requireNonNull(injectionLabels);
-        this.busDescriptions = Objects.requireNonNull(busDescriptions);
-        this.vlDescriptions = Objects.requireNonNull(vlDescriptions);
-        this.vlDetails = Objects.requireNonNull(vlDetails);
+        this.vlLegends = Objects.requireNonNull(vlLegends);
     }
 
     @Override
@@ -111,17 +107,7 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public String getLegend(String busId) {
-        return busDescriptions.get(busId);
-    }
-
-    @Override
-    public List<String> getLegendHeader(String voltageLevelId) {
-        return vlDescriptions.getOrDefault(voltageLevelId, Collections.emptyList());
-    }
-
-    @Override
-    public List<String> getLegendFooter(String voltageLevelId) {
-        return vlDetails.getOrDefault(voltageLevelId, Collections.emptyList());
+    public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
+        return vlLegends.getOrDefault(voltageLevelId, new VoltageLevelLegend(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap()));
     }
 }

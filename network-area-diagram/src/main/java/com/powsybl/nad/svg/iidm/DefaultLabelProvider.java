@@ -13,11 +13,10 @@ import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.VoltageLevelLegend;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -79,8 +78,18 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<String> getLegendHeader(String voltageLevelId) {
+    public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
+        Map<String, String> busLegend = new HashMap<>();
+        if (svgParameters.isBusLegend()) {
+            for (Bus bus : vl.getBusView().getBuses()) {
+                busLegend.put(bus.getId(), getBusLegend(bus.getId()));
+            }
+        }
+        return new VoltageLevelLegend(getLegendHeader(vl), getLegendFooter(vl), busLegend);
+    }
+
+    private List<String> getLegendHeader(VoltageLevel vl) {
         List<String> description = new ArrayList<>();
         description.add(svgParameters.isIdDisplayed() ? vl.getId() : vl.getNameOrId());
         if (svgParameters.isSubstationDescriptionDisplayed()) {
@@ -91,8 +100,7 @@ public class DefaultLabelProvider implements LabelProvider {
         return description;
     }
 
-    @Override
-    public String getLegend(String busId) {
+    private String getBusLegend(String busId) {
         if (svgParameters.isBusLegend()) {
             Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
@@ -102,13 +110,10 @@ public class DefaultLabelProvider implements LabelProvider {
         return null;
     }
 
-    @Override
-    public List<String> getLegendFooter(String voltageLevelId) {
+    private List<String> getLegendFooter(VoltageLevel voltageLevel) {
         List<String> voltageLevelDetails = new ArrayList<>();
 
         if (svgParameters.isVoltageLevelDetails()) {
-            VoltageLevel voltageLevel = network.getVoltageLevel(voltageLevelId);
-
             double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
             String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
 

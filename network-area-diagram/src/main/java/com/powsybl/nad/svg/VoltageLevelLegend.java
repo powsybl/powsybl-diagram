@@ -7,9 +7,14 @@
  */
 package com.powsybl.nad.svg;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public record SvgEdgeInfo(String svgId, EdgeInfo edgeInfo) {
-
+public record VoltageLevelLegend(List<String> legendHeader, List<String> legendFooter, Map<String, String> busLegend) {
+    public String getBusLegend(String id) {
+        return busLegend.getOrDefault(id, "");
+    }
 }

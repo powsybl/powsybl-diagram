@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.SvgEdgeInfo;
 
 import java.util.*;
@@ -46,11 +48,11 @@ public class BranchEdge extends AbstractEdge {
     private final SvgEdgeInfo svgEdgeInfo2;
     private final String label;
 
-    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type,
-                      SvgEdgeInfo svgEdgeInfo1, SvgEdgeInfo svgEdgeInfo2, String label) {
-        super(diagramId, equipmentId, nameOrId, type);
-        this.svgEdgeInfo1 = svgEdgeInfo1;
-        this.svgEdgeInfo2 = svgEdgeInfo2;
+    public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
+                      EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, String label) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
+        this.svgEdgeInfo1 = edgeInfo1 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = edgeInfo2 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
         this.label = label;
     }
 

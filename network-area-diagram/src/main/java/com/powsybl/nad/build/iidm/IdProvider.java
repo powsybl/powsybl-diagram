@@ -13,7 +13,7 @@ package com.powsybl.nad.build.iidm;
 public interface IdProvider {
 
     /**
-     * Creates a new unique id for a svg tag related to the given object,
+     * Creates a new unique id for a svg tag related to the given network element id,
      * knowing that:
      * <ul>
      *     <li>calling twice on the same object should result in two different ids,</li>
@@ -21,5 +21,5 @@ public interface IdProvider {
      * </ul>
      * @return a unique id
      */
-    String createSvgId(Object object);
+    String createSvgId(String idNetworkElement);
 }

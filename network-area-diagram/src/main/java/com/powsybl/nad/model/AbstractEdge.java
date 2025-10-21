@@ -13,8 +13,8 @@ public abstract class AbstractEdge extends AbstractIdentifiable implements Edge 
 
     protected final String type;
 
-    protected AbstractEdge(String diagramId, String equipmentId, String nameOrId, String type) {
-        super(diagramId, equipmentId, nameOrId);
+    protected AbstractEdge(String svgId, String equipmentId, String nameOrId, String type) {
+        super(svgId, equipmentId, nameOrId);
         this.type = type;
     }
 

@@ -6,7 +6,7 @@
  */
 package com.powsybl.nad.model;
 
-import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.build.iidm.IdProvider;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -19,28 +19,25 @@ public class VoltageLevelNode extends AbstractNode {
     private final List<BusNode> busNodes = new ArrayList<>();
     private final boolean visible;
     private boolean hasUnknownBusNode = false;
-    private final String legendDiagramId;
-    private final String legendEdgeDiagramId;
+    private final String legendSvgId;
+    private final String legendEdgeSvgId;
     private final List<String> legendHeader;
     private final List<String> legendFooter;
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious) {
-        super(diagramId, equipmentId, nameOrId, fictitious);
-        this.visible = true;
-        this.legendDiagramId = null;
-        this.legendEdgeDiagramId = null;
-        this.legendHeader = List.of();
-        this.legendFooter = List.of();
+    public VoltageLevelNode(IdProvider idProvider, String equipmentId, String nameOrId, boolean fictitious, boolean visible,
+                            List<String> legendHeader, List<String> legendFooter) {
+        this(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, fictitious, visible,
+                idProvider.createSvgId(equipmentId), idProvider.createSvgId(equipmentId), legendHeader, legendFooter);
     }
 
-    public VoltageLevelNode(String diagramId, String equipmentId, String nameOrId, boolean fictitious, boolean visible,
-                            String vlLegendId, String vlLegendEdgeId, LabelProvider labelProvider) {
-        super(diagramId, equipmentId, nameOrId, fictitious);
+    protected VoltageLevelNode(String svgId, String equipmentId, String nameOrId, boolean fictitious, boolean visible,
+                               String legendSvgId, String legendEdgeSvgId, List<String> legendHeader, List<String> legendFooter) {
+        super(svgId, equipmentId, nameOrId, fictitious);
         this.visible = visible;
-        this.legendDiagramId = vlLegendId;
-        this.legendEdgeDiagramId = vlLegendEdgeId;
-        this.legendHeader = labelProvider.getLegendHeader(equipmentId);
-        this.legendFooter = labelProvider.getLegendFooter(equipmentId);
+        this.legendSvgId = legendSvgId;
+        this.legendEdgeSvgId = legendEdgeSvgId;
+        this.legendHeader = Objects.requireNonNull(legendHeader);
+        this.legendFooter = Objects.requireNonNull(legendFooter);
     }
 
     public void addBusNode(BusNode busNode) {
@@ -72,12 +69,12 @@ public class VoltageLevelNode extends AbstractNode {
         return hasUnknownBusNode;
     }
 
-    public String getLegendDiagramId() {
-        return legendDiagramId;
+    public String getLegendSvgId() {
+        return legendSvgId;
     }
 
-    public String getLegendEdgeDiagramId() {
-        return legendEdgeDiagramId;
+    public String getLegendEdgeSvgId() {
+        return legendEdgeSvgId;
     }
 
     public List<String> getLegendHeader() {

@@ -50,8 +50,8 @@ public class Graph {
     public void addTextNode(VoltageLevelNode vlNode) {
         Objects.requireNonNull(vlNode);
         addEdge(vlNode,
-                new TextNode(vlNode.getLegendDiagramId()),
-                new TextEdge(vlNode.getLegendEdgeDiagramId()));
+                new TextNode(vlNode.getLegendSvgId()),
+                new TextEdge(vlNode.getLegendEdgeSvgId()));
     }
 
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,
