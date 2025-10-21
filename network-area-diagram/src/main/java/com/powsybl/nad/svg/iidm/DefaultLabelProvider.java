@@ -25,9 +25,9 @@ import java.util.Optional;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class DefaultLabelProvider implements LabelProvider {
-    protected final Network network;
-    protected final SvgParameters svgParameters;
-    protected final ValueFormatter valueFormatter;
+    private final Network network;
+    private final SvgParameters svgParameters;
+    private final ValueFormatter valueFormatter;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
@@ -144,5 +144,17 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public String getArrowPathDOut() {
         return SvgUtils.ARROW_PATH_DOUT;
+    }
+
+    protected Network getNetwork() {
+        return this.network;
+    }
+
+    protected SvgParameters getSvgParameters() {
+        return this.svgParameters;
+    }
+
+    protected ValueFormatter getValueFormatter() {
+        return this.valueFormatter;
     }
 }
