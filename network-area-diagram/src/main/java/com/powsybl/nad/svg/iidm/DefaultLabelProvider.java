@@ -145,4 +145,16 @@ public class DefaultLabelProvider implements LabelProvider {
     public String getArrowPathDOut() {
         return SvgUtils.ARROW_PATH_DOUT;
     }
+
+    protected Network getNetwork() {
+        return this.network;
+    }
+
+    protected SvgParameters getSvgParameters() {
+        return this.svgParameters;
+    }
+
+    protected ValueFormatter getValueFormatter() {
+        return this.valueFormatter;
+    }
 }
