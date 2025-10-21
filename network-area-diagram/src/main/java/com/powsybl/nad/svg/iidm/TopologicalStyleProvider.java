@@ -11,16 +11,18 @@ import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
 import com.powsybl.nad.model.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
+
+    private Map<String, String> limitViolationStyles = Map.of();
 
     public TopologicalStyleProvider(Network network) {
         super(network);
@@ -30,9 +32,32 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         super(network, baseVoltageStyle);
     }
 
+    public TopologicalStyleProvider(Network network, Map<String, String> limitViolationStyles) {
+        super(network);
+        this.limitViolationStyles = limitViolationStyles;
+    }
+
+    public TopologicalStyleProvider(Network network, BaseVoltagesConfig baseVoltageStyle, Map<String, String> limitViolationStyles) {
+        super(network, baseVoltageStyle);
+        this.limitViolationStyles = limitViolationStyles;
+    }
+
     @Override
     public List<String> getCssFilenames() {
         return Collections.singletonList("topologicalStyle.css");
+    }
+
+    @Override
+    public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
+        // Check custom violations first
+        if (!limitViolationStyles.isEmpty()) {
+            String customStyle = limitViolationStyles.get(branchEdge.getEquipmentId());
+            if (customStyle != null && !customStyle.isBlank()) {
+                return List.of(customStyle);
+            }
+        }
+        // Fallback to default overload detection
+        return super.getBranchEdgeStyleClasses(branchEdge);
     }
 
     @Override
