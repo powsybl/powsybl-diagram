@@ -172,18 +172,18 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <polyline class="nad-vl120to180 nad-edge-path" points="629.14,-49.31 778.46,-176.83"/>
         </g>
         <g id="58">
+            <polyline class="nad-vl0to30 nad-edge-path" points="-332.76,533.92 -163.36,589.33"/>
+        </g>
+        <g id="59">
             <polyline class="nad-vl0to30 nad-edge-path" points="-365.18,66.20 -362.23,282.03"/>
             <polyline class="nad-vl0to30 nad-edge-path" points="-359.28,497.87 -362.23,282.03"/>
         </g>
-        <g id="59">
-            <polyline class="nad-vl0to30 nad-edge-path" points="-332.76,533.92 -163.36,589.33"/>
-        </g>
         <g id="60">
-            <polyline class="nad-vl0to30 nad-edge-path" points="-365.22,11.20 -362.47,-219.01"/>
-            <polyline class="nad-vl0to30 nad-edge-path" points="-359.72,-449.21 -362.47,-219.01"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="-332.15,-472.99 -182.29,-452.52"/>
         </g>
         <g id="61">
-            <polyline class="nad-vl0to30 nad-edge-path" points="-332.15,-472.99 -182.29,-452.52"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="-365.22,11.20 -362.47,-219.01"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="-359.72,-449.21 -362.47,-219.01"/>
         </g>
         <g id="62">
             <polyline class="nad-vl120to180 nad-edge-path" points="563.47,-369.25 452.47,-349.43"/>

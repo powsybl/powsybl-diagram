@@ -123,14 +123,14 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <polyline class="nad-vl0to30 nad-edge-path" points="201.36,-55.55 192.16,-349.65"/>
         </g>
         <g id="49">
-            <desc>L9-10-1</desc>
-            <polyline class="nad-vl0to30 nad-edge-path" points="-172.20,-92.74 -361.39,-1.64"/>
-            <polyline class="nad-vl0to30 nad-edge-path" points="-550.59,89.46 -361.39,-1.64"/>
-        </g>
-        <g id="50">
             <desc>L10-11-1</desc>
             <polyline class="nad-vl0to30 nad-edge-path" points="-553.14,115.79 -434.62,204.42"/>
             <polyline class="nad-vl0to30 nad-edge-path" points="-316.10,293.04 -434.62,204.42"/>
+        </g>
+        <g id="50">
+            <desc>L9-10-1</desc>
+            <polyline class="nad-vl0to30 nad-edge-path" points="-172.20,-92.74 -361.39,-1.64"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="-550.59,89.46 -361.39,-1.64"/>
         </g>
         <g id="51">
             <desc>L6-11-1</desc>
@@ -138,24 +138,24 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <polyline class="nad-vl0to30 nad-edge-path" points="-274.59,293.98 -59.17,147.56"/>
         </g>
         <g id="52">
-            <desc>L6-12-1</desc>
-            <polyline class="nad-vl0to30 nad-edge-path" points="256.41,-18.36 462.83,26.19"/>
-            <polyline class="nad-vl0to30 nad-edge-path" points="669.26,70.75 462.83,26.19"/>
-        </g>
-        <g id="53">
             <desc>L12-13-1</desc>
             <polyline class="nad-vl0to30 nad-edge-path" points="677.38,95.31 581.29,205.02"/>
             <polyline class="nad-vl0to30 nad-edge-path" points="485.20,314.73 581.29,205.02"/>
         </g>
-        <g id="54">
-            <desc>L6-13-1</desc>
-            <polyline class="nad-vl0to30 nad-edge-path" points="234.93,14.73 344.14,164.03"/>
-            <polyline class="nad-vl0to30 nad-edge-path" points="453.35,313.34 344.14,164.03"/>
+        <g id="53">
+            <desc>L6-12-1</desc>
+            <polyline class="nad-vl0to30 nad-edge-path" points="256.41,-18.36 462.83,26.19"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="669.26,70.75 462.83,26.19"/>
         </g>
-        <g id="55">
+        <g id="54">
             <desc>L13-14-1</desc>
             <polyline class="nad-vl0to30 nad-edge-path" points="443.61,339.86 290.26,376.58"/>
             <polyline class="nad-vl0to30 nad-edge-path" points="136.91,413.30 290.26,376.58"/>
+        </g>
+        <g id="55">
+            <desc>L6-13-1</desc>
+            <polyline class="nad-vl0to30 nad-edge-path" points="234.93,14.73 344.14,164.03"/>
+            <polyline class="nad-vl0to30 nad-edge-path" points="453.35,313.34 344.14,164.03"/>
         </g>
         <g id="56">
             <desc>L9-14-1</desc>

@@ -129,11 +129,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addGraphEdges(VoltageLevel vl, Graph graph) {
-        vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
-        vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
-        vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
-        vl.getDanglingLineStream().forEach(dl -> visitDanglingLine(dl, graph));
-        vl.getConnectableStream(HvdcConverterStation.class).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
+        vl.getLineStream().sorted(Comparator.comparing(Line::getId)).forEach(l -> visitLine(vl, l, graph));
+        vl.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId)).forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
+        vl.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId)).forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
+        vl.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(dl -> visitDanglingLine(dl, graph));
+        vl.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId)).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
     }
 
     private void visitLine(VoltageLevel vl, Line line, Graph graph) {
