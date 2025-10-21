@@ -31,7 +31,6 @@ class TextNotIncludedTest extends AbstractTest {
         network.getVoltageLevelStream()
                 .flatMap(VoltageLevel::getConnectableStream)
                 .flatMap(c -> c.getTerminals().stream())
-                .filter(t -> t instanceof Terminal)
                 .forEach(t -> ((Terminal) t).setP(0));
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters());
