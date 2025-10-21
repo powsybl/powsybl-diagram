@@ -8,7 +8,6 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
