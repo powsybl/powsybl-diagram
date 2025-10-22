@@ -8,14 +8,10 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.model.BranchEdge.Side;
+import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
@@ -39,6 +35,20 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         super(baseVoltageStyle);
         this.network = network;
         buildSubnetworkMaps();
+    }
+
+    @Override
+    public List<String> getNodeStyleClasses(Node node) {
+        List<String> styles = new ArrayList<>(super.getNodeStyleClasses(node));
+        Optional<Double> nominalV = Optional.empty();
+        if (node instanceof BoundaryNode) {
+            nominalV = Optional.of(network.getDanglingLine(node.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV());
+        } else if (node instanceof VoltageLevelNode) {
+            nominalV = Optional.of(network.getVoltageLevel(node.getEquipmentId()).getNominalV());
+        }
+        nominalV.flatMap(this::getBaseVoltageStyle)
+                .ifPresent(styles::add);
+        return styles;
     }
 
     @Override
@@ -73,11 +83,6 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     @Override
     protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
         return getBaseVoltageStyle(getThreeWtTerminal(threeWtEdge));
-    }
-
-    @Override
-    protected Optional<String> getBaseVoltageStyle(Injection injection) {
-        return getBaseVoltageStyle(getInjectionTerminal(injection));
     }
 
     @Override

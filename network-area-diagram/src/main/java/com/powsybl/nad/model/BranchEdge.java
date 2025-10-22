@@ -6,10 +6,11 @@
  */
 package com.powsybl.nad.model;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
+
+import java.util.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -43,9 +44,16 @@ public class BranchEdge extends AbstractEdge {
     private double arrowAngle1;
     private double arrowAngle2;
     private final boolean[] visible = new boolean[] {true, true};
+    private final SvgEdgeInfo svgEdgeInfo1;
+    private final SvgEdgeInfo svgEdgeInfo2;
+    private final String label;
 
-    public BranchEdge(String diagramId, String equipmentId, String nameOrId, String type) {
-        super(diagramId, equipmentId, nameOrId, type);
+    public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
+                      EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, String label) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
+        this.svgEdgeInfo1 = edgeInfo1 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = edgeInfo2 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
+        this.label = label;
     }
 
     public boolean isTransformerEdge() {
@@ -146,5 +154,14 @@ public class BranchEdge extends AbstractEdge {
     public double getEdgeEndAngle(Side side) {
         List<Point> points = getPoints(side);
         return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
+    }
+
+    public Optional<SvgEdgeInfo> getSvgEdgeInfo(Side side) {
+        Objects.requireNonNull(side);
+        return Optional.ofNullable(side == Side.ONE ? svgEdgeInfo1 : svgEdgeInfo2);
+    }
+
+    public String getLabel() {
+        return label;
     }
 }

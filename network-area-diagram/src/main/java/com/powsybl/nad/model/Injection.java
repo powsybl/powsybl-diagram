@@ -7,7 +7,12 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -28,10 +33,12 @@ public class Injection extends AbstractIdentifiable {
     private Point injectionPoint;
     private Point busNodePoint;
     private Point arrowPoint;
+    private final SvgEdgeInfo svgEdgeInfo;
 
-    public Injection(String diagramId, String equipmentId, String nameOrId, Type type) {
-        super(diagramId, equipmentId, nameOrId);
+    public Injection(IdProvider idProvider, String equipmentId, String nameOrId, Type type, EdgeInfo edgeInfo) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId);
         this.type = type;
+        this.svgEdgeInfo = edgeInfo != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo) : null;
     }
 
     public Type getType() {
@@ -79,5 +86,9 @@ public class Injection extends AbstractIdentifiable {
         double edgeDistance = busNodePoint.distance(injectionPoint);
         Point circleCenter = busNodePoint.atDistance(edgeDistance + circleRadius, injectionPoint);
         return circleCenter.shift(-circleRadius, -circleRadius);
+    }
+
+    public Optional<SvgEdgeInfo> getSvgEdgeInfo() {
+        return Optional.ofNullable(svgEdgeInfo);
     }
 }
