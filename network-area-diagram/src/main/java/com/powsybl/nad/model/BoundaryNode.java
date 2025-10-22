@@ -17,7 +17,8 @@ import java.util.List;
 public class BoundaryNode extends VoltageLevelNode {
 
     public BoundaryNode(IdProvider idProvider, String equipmentId, String nameOrId) {
-        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, false, true, null, null, List.of(), List.of());
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, false, true, List.of(),
+                null, null, List.of(), List.of());
     }
 
 }

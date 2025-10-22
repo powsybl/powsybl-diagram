@@ -68,21 +68,25 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
     }
 
     protected void injectionEdgesLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters) {
-        List<Double> angles = null;
-        int i = 0;
-        for (BusNode busNode : node.getBusNodes()) {
-            for (Injection injection : busNode.getInjections()) {
-                if (angles == null) { // lazy computed, to avoid computing angles if no injections
-                    angles = computeInjectionAngles(graph, node, svgParameters);
-                }
-                Double angle = angles.get(i++);
-                injection.setAngle(angle);
-                Point injPoint = node.getPosition().atDistance(svgParameters.getInjectionEdgeLength(), angle);
-                Point busNodePoint = computeEdgeStart(busNode, injPoint, node, svgParameters);
-                injection.setEdge(busNodePoint, injPoint);
-                injection.setArrowPoint(getArrowCenter(node, busNode, injection.getEdge(), svgParameters));
-            }
+        if (!node.hasInjections()) {
+            return;
         }
+        List<Injection> injections = node.getInjections();
+        List<Double> angles = computeInjectionAngles(graph, node, injections.size(), svgParameters);
+        int i = 0;
+        for (Injection injection : injections) {
+            i++;
+            injectionEdgeLayout(node, svgParameters, busNode, injection, angles, i);
+        }
+    }
+
+    private void injectionEdgeLayout(VoltageLevelNode node, SvgParameters svgParameters, BusNode busNode, Injection injection, List<Double> angles, int i) {
+        Double angle = angles.get(i);
+        injection.setAngle(angle);
+        Point injPoint = node.getPosition().atDistance(svgParameters.getInjectionEdgeLength(), angle);
+        Point busNodePoint = computeEdgeStart(busNode, injPoint, node, svgParameters);
+        injection.setEdge(busNodePoint, injPoint);
+        injection.setArrowPoint(getArrowCenter(node, busNode, injection.getEdge(), svgParameters));
     }
 
     private void loopEdgesHalfLayout(Graph graph, VoltageLevelNode node, SvgParameters svgParameters,
@@ -115,11 +119,10 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         return findAvailableAngles(anglesOtherEdges, loopEdges.size(), svgParameters.getLoopEdgesAperture() * 1.2);
     }
 
-    private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, SvgParameters svgParameters) {
+    private List<Double> computeInjectionAngles(Graph graph, VoltageLevelNode vlNode, int nbInjections, SvgParameters svgParameters) {
         List<Double> anglesOtherEdges = graph.getEdgeStream(vlNode)
                 .mapToDouble(e -> getAngle(e, graph, vlNode))
                 .sorted().boxed().collect(Collectors.toList());
-        int nbInjections = vlNode.getBusNodeStream().mapToInt(BusNode::getInjectionCount).sum();
         return findAvailableAngles(anglesOtherEdges, nbInjections, svgParameters.getInjectionAperture());
     }
 

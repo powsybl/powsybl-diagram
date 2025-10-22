@@ -73,13 +73,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible, boolean injectionsAdded) {
-        VoltageLevelLegend voltageLevelLegend = labelProvider.getVoltageLevelLegend(vl.getId());
-        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider, vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible,
-                voltageLevelLegend.legendHeader(), voltageLevelLegend.legendFooter());
         Map<String, List<Injection>> injectionsMap = new HashMap<>();
         if (injectionsAdded) {
             fillInjectionsMap(vl, graph, injectionsMap);
         }
+        VoltageLevelLegend voltageLevelLegend = labelProvider.getVoltageLevelLegend(vl.getId());
+        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider, vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible,
+                injectionsMap.getOrDefault(vl.getId(), List.of()),
+                voltageLevelLegend.legendHeader(), voltageLevelLegend.legendFooter());
         vl.getBusView().getBusStream()
                 .map(bus -> new BusNode(idProvider, bus.getId(),
                         injectionsMap.getOrDefault(bus.getId(), Collections.emptyList()),
@@ -102,10 +103,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void addInjection(Graph graph, com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
         Bus connectableBus = inj.getTerminal().getBusView().getConnectableBus();
-        if (connectableBus != null) {
-            injectionsMap.computeIfAbsent(connectableBus.getId(), k -> new ArrayList<>())
+        String key = connectableBus != null ? connectableBus.getId() : inj.getTerminal().getVoltageLevel().getId();
+        injectionsMap.computeIfAbsent(key, k -> new ArrayList<>())
                 .add(createInjectionFromIidm(graph, inj));
-        }
     }
 
     private Injection createInjectionFromIidm(Graph graph, com.powsybl.iidm.network.Injection<?> inj) {

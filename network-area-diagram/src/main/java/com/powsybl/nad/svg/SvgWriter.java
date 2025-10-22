@@ -158,7 +158,7 @@ public class SvgWriter {
     }
 
     private void drawInjections(VoltageLevelNode vlNode, XMLStreamWriter writer) throws XMLStreamException {
-        if (vlNode.getBusNodes().stream().mapToInt(BusNode::getInjectionCount).anyMatch(nb -> nb > 0)) {
+        if (vlNode.hasInjections()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode));
             for (BusNode busNode : vlNode.getBusNodes()) {
