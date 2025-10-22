@@ -29,7 +29,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testTeePointTopological() {
+    void testTeePointNodeBreaker() {
         network = Networks.createTeePointNodeBreakerNetwork();
 
         Line line2 = network.getLine("L2");
@@ -50,4 +50,18 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
                 toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true)));
     }
 
+    @Test
+    void testTeePointBusBreaker() {
+        network = Networks.createTeePointBusBreakerNetwork();
+
+        // build graph
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL_132");
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write Json and compare to reference
+        assertEquals(toString("/TestCaseTeePointBusBreaker.svg"),
+                toSVG(g, "/TestCaseTeePointBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true)));
+    }
 }

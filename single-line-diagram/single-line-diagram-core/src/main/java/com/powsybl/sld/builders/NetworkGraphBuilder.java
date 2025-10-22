@@ -403,7 +403,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitLine(Line line, TwoSides side) {
-            addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+            VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
+            VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
+            boolean isTeePoiint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
+
+            if (isTeePoiint) {
+                addTeePoint(line, side, vlOwnSide, vlOtherSide); // BB
+            } else {
+                addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            }
         }
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
@@ -430,20 +439,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
             super(graph);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
-        }
-
-        @Override
-        public void visitLine(Line line, TwoSides side) {
-            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
-            VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
-            VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            boolean isTeePoiint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
-
-            if (isTeePoiint) {
-                addTeePoint(line, side, vlOwnSide, vlOtherSide);
-            } else {
-                super.visitLine(line, side);
-            }
         }
 
         public ConnectablePosition.Feeder getFeeder(Terminal terminal) {
@@ -573,7 +568,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         protected void addTeePoint(Line line, TwoSides side, VoltageLevel vlOwnSide, VoltageLevel vlOtherSide) {
-            // TODO
+            List<FeederNode> feeders = new ArrayList<>();
+            vlOtherSide.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
+                FeederNode otherLineNode = NodeFactory.createFeederTeePointgNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vlOtherSide.getId(), vlOwnSide.getNameOrId(), vlOtherSide.getNominalV()));
+                feeders.add(otherLineNode);
+            });
+
+            TeePointNode teeNode = NodeFactory.createTeePointNode(graph, vlOtherSide.getId(), vlOtherSide.getNameOrId(), feeders.get(0), feeders.get(1));
+            connectToBus(teeNode, line.getTerminal(vlOwnSide.getId()));
         }
     }
 
