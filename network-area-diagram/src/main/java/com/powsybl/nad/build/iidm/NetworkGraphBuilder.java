@@ -101,8 +101,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addInjection(Graph graph, com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
-        injectionsMap.computeIfAbsent(inj.getTerminal().getBusView().getConnectableBus().getId(), k -> new ArrayList<>())
+        Bus connectableBus = inj.getTerminal().getBusView().getConnectableBus();
+        if (connectableBus != null) {
+            injectionsMap.computeIfAbsent(connectableBus.getId(), k -> new ArrayList<>())
                 .add(createInjectionFromIidm(graph, inj));
+        }
     }
 
     private Injection createInjectionFromIidm(Graph graph, com.powsybl.iidm.network.Injection<?> inj) {
