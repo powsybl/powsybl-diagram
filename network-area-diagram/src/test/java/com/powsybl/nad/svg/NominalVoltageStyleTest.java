@@ -28,7 +28,8 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @BeforeEach
     void setup() {
-        setLayoutParameters(new LayoutParameters());
+        setLayoutParameters(new LayoutParameters()
+                .setInjectionsAdded(true));
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
