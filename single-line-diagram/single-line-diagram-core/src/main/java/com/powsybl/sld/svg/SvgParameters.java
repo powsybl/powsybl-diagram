@@ -25,6 +25,7 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
+    private int percentageValuePrecision = 0;
     private String activePowerUnit = "";
     private String reactivePowerUnit = "";
     private String currentUnit = "";
@@ -66,6 +67,7 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
+        this.percentageValuePrecision = other.percentageValuePrecision;
         this.activePowerUnit = other.activePowerUnit;
         this.reactivePowerUnit = other.reactivePowerUnit;
         this.currentUnit = other.currentUnit;
@@ -93,7 +95,7 @@ public class SvgParameters {
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public String getPrefixId() {
@@ -163,6 +165,15 @@ public class SvgParameters {
 
     public SvgParameters setCurrentValuePrecision(int currentValuePrecision) {
         this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
+    public int getPercentageValuePrecision() {
+        return percentageValuePrecision;
+    }
+
+    public SvgParameters setPercentageValuePrecision(int percentageValuePrecision) {
+        this.percentageValuePrecision = percentageValuePrecision;
         return this;
     }
 

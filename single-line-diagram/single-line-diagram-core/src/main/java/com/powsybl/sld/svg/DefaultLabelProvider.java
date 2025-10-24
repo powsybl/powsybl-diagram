@@ -88,7 +88,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         Branch<?> branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             TwoSides side = TwoSides.valueOf(feeder.getSide().name());
-            measures = buildFeederInfos(branch, side);
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+            measures = buildFeederInfos(branch, side, otherSide);
         }
         return measures;
     }
@@ -98,8 +99,10 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
+            ThreeSides otherSide = side == ThreeSides.ONE ? ThreeSides.TWO : ThreeSides.ONE;
+            ThreeSides lastSide = side == ThreeSides.THREE ? ThreeSides.TWO : ThreeSides.THREE;
             boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
-            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            feederInfos = buildFeederInfos(transformer, side, otherSide, lastSide, insideVoltageLevel);
         }
         return feederInfos;
     }
@@ -109,7 +112,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             TwoSides side = TwoSides.valueOf(feeder.getSide().name());
-            measures = buildFeederInfos(transformer, side);
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+            measures = buildFeederInfos(transformer, side, otherSide);
         }
         return measures;
     }
@@ -193,7 +197,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         }
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, ThreeSides otherSide, ThreeSides lastSide, boolean insideVoltageLevel) {
         return this.buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
     }
 
@@ -201,8 +205,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return this.buildFeederInfos(injection.getTerminal());
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side) {
-        return this.buildFeederInfos(branch.getTerminal(side));
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side, TwoSides otherSide) {
+        return buildFeederInfos(branch, side, otherSide, true);
     }
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
@@ -215,6 +219,29 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return buildFeederInfos(terminal, true);
     }
 
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, TwoSides side, TwoSides otherSide, boolean insideVoltageLevel) {
+        Terminal terminal = branch.getTerminal(side);
+        Terminal otherSideTerminal = branch.getTerminal(otherSide);
+
+        List<FeederInfo> feederInfoList = buildFeederInfos(terminal, insideVoltageLevel);
+
+        if (this.svgParameters.isDisplayCurrentFeederInfo()) {
+            double terminalI = terminal.getI();
+            double otherSideTerminalI = otherSideTerminal.getI();
+
+            double permanentLimit = branch.getCurrentLimits(side).map(CurrentLimits::getPermanentLimit).orElse(Double.POSITIVE_INFINITY);
+            double otherSidePermanentLimit = branch.getCurrentLimits(otherSide).map(CurrentLimits::getPermanentLimit).orElse(Double.POSITIVE_INFINITY);
+            double percentagePermanentLimit = Math.max(
+                (Math.abs(terminalI) * 100) / permanentLimit,
+                (Math.abs(otherSideTerminalI) * 100) / otherSidePermanentLimit
+            );
+
+            feederInfoList.add(new HiddenComponentFeederInfo(PERCENTAGE_PERMANENT_LIMIT, percentagePermanentLimit, valueFormatter::formatPercentage));
+        }
+
+        return feederInfoList;
+    }
+
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = new ArrayList<>();
         double terminalP = terminal.getP();
@@ -225,10 +252,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             terminalQ = -terminalQ;
             terminalI = -terminalI;
         }
-        feederInfoList.add(new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        DirectionalFeederInfo activePowerFeederInfo = new DirectionalFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower);
+        feederInfoList.add(activePowerFeederInfo);
         feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
         if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatPower));
+            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent, activePowerFeederInfo.getDirection()));
         }
         return feederInfoList;
     }

@@ -9,6 +9,7 @@ package com.powsybl.sld.library;
 import com.powsybl.diagram.components.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Orientation;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,8 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
         SldComponentTypeName.DANGLING_LINE,
-        SldComponentTypeName.BUSBAR_SECTION
+        SldComponentTypeName.BUSBAR_SECTION,
+        SldComponentTypeName.PERCENTAGE_PERMANENT_LIMIT
     };
 
     public SldResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {
@@ -39,6 +41,10 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         for (String hiddenComponent : HIDDEN_COMPONENTS) {
             addNoComponentType(hiddenComponent);
         }
+    }
+
+    public static boolean isHiddenComponent(String type) {
+        return Arrays.asList(HIDDEN_COMPONENTS).contains(type);
     }
 
     @Override
