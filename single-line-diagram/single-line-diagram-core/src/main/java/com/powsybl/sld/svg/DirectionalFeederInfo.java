@@ -50,7 +50,17 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     public DirectionalFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter) {
-        this(componentType, value, unit, formatter, null);
+        this(componentType, value, unit, formatter, (String) null);
+    }
+
+    public DirectionalFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter, LabelProvider.LabelDirection arrowDirection, String userDefinedId) {
+        super(componentType, null, formatter.apply(value, unit), userDefinedId);
+        this.arrowDirection = arrowDirection;
+        this.value = value;
+    }
+
+    public DirectionalFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter, LabelProvider.LabelDirection arrowDirection) {
+        this(componentType, value, unit, formatter, arrowDirection, null);
     }
 
     private static LabelProvider.LabelDirection getArrowDirection(double value) {

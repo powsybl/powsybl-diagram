@@ -14,6 +14,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.SldComponent;
 import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -633,11 +634,13 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertSVGIntoDocumentSVG(String componentType, Element g, String tooltip,
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(g, tooltip);
-        Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
-        subComponents.forEach(svgParameters.isAvoidSVGComponentsDuplication() ?
-            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
-            (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)
-        );
+        if (!SldResourcesComponentLibrary.isHiddenComponent(componentType)) {
+            Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
+            subComponents.forEach(svgParameters.isAvoidSVGComponentsDuplication() ?
+                (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
+                (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)
+            );
+        }
     }
 
     private void insertDuplicatedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, List<Element> svgSubComponent) {
@@ -846,7 +849,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
-            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
+            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider); // CJ ici
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -901,7 +904,7 @@ public class DefaultSVGWriter implements SVGWriter {
         });
 
         writeStyleClasses(g, styleProvider.getFeederInfoStyles(feederInfo),
-                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null));
+                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null)); // CJ ici
         root.appendChild(g);
     }
 

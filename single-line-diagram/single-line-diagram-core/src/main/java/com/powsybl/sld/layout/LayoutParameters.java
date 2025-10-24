@@ -35,7 +35,7 @@ public class LayoutParameters {
     private double stackHeight = 30;
     private double horizontalSnakeLinePadding = 20;
     private double verticalSnakeLinePadding = 25;
-    private double spaceForFeederInfos = 50;
+    private double spaceForFeederInfos = 60;
     private boolean adaptCellHeightToContent = true;
     private double maxComponentHeight = 12;
     private double minSpaceBetweenComponents = 15;

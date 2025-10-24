@@ -55,6 +55,7 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
+    private int percentageValuePrecision = 0;
     private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
@@ -114,6 +115,7 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
+        this.percentageValuePrecision = other.percentageValuePrecision;
         this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
@@ -478,8 +480,17 @@ public class SvgParameters {
         return this;
     }
 
+    public int getPercentageValuePrecision() {
+        return percentageValuePrecision;
+    }
+
+    public SvgParameters setPercentageValuePrecision(int percentageValuePrecision) {
+        this.percentageValuePrecision = percentageValuePrecision;
+        return this;
+    }
+
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public enum EdgeInfoEnum {
