@@ -26,6 +26,7 @@ class SvgParametersTest {
                 .setPowerValuePrecision(3)
                 .setAngleValuePrecision(2)
                 .setCurrentValuePrecision(1)
+                .setPercentageValuePrecision(1)
                 .setActivePowerUnit("MW")
                 .setReactivePowerUnit("MVAR")
                 .setCurrentUnit("A")
@@ -60,6 +61,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getPowerValuePrecision(), svgParameters1.getPowerValuePrecision());
         assertEquals(svgParameters0.getAngleValuePrecision(), svgParameters1.getAngleValuePrecision());
         assertEquals(svgParameters0.getCurrentValuePrecision(), svgParameters1.getCurrentValuePrecision());
+        assertEquals(svgParameters0.getPercentageValuePrecision(), svgParameters1.getPercentageValuePrecision());
         assertEquals(svgParameters0.getActivePowerUnit(), svgParameters1.getActivePowerUnit());
         assertEquals(svgParameters0.getReactivePowerUnit(), svgParameters1.getReactivePowerUnit());
         assertEquals(svgParameters0.getCurrentUnit(), svgParameters1.getCurrentUnit());

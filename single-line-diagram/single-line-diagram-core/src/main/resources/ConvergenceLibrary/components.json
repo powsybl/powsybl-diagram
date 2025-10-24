@@ -823,13 +823,5 @@
       }
     ],
     "styleClass": "sld-current"
-  },
-  {
-    "type": "PERCENTAGE_PERMANENT_LIMIT",
-    "styleClass": "sld-percentage-permanent-limit",
-    "size": {
-      "width": 10.0,
-      "height": 10.0
-    }
   }
 ]
