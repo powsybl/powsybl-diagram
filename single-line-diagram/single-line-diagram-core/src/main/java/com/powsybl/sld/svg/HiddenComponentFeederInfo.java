@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import java.util.function.BiFunction;
 import java.util.function.DoubleFunction;
 
 /**
@@ -16,15 +15,6 @@ public class HiddenComponentFeederInfo extends AbstractFeederInfo {
 
     private final double value;
 
-    public HiddenComponentFeederInfo(String componentType, String leftLabel, String rightLabel) {
-        this(componentType, leftLabel, rightLabel, null);
-    }
-
-    public HiddenComponentFeederInfo(String componentType, String leftLabel, String rightLabel, String userDefinedId) {
-        super(componentType, leftLabel, rightLabel, userDefinedId);
-        this.value = Double.NaN;
-    }
-
     public HiddenComponentFeederInfo(String componentType, double value, DoubleFunction<String> formatter) {
         this(componentType, value, formatter, null);
     }
@@ -32,15 +22,6 @@ public class HiddenComponentFeederInfo extends AbstractFeederInfo {
     public HiddenComponentFeederInfo(String componentType, double value, DoubleFunction<String> formatter, String userDefinedId) {
         super(componentType, null, formatter.apply(value), userDefinedId);
         this.value = value;
-    }
-
-    public HiddenComponentFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter, String userDefinedId) {
-        super(componentType, null, formatter.apply(value, unit), userDefinedId);
-        this.value = value;
-    }
-
-    public HiddenComponentFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter) {
-        this(componentType, value, unit, formatter, (String) null);
     }
 
     public double getValue() {

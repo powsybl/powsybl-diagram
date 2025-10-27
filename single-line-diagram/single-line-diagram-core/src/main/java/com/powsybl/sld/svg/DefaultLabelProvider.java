@@ -225,7 +225,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
         List<FeederInfo> feederInfoList = buildFeederInfos(terminal, insideVoltageLevel);
 
-        if (this.svgParameters.isDisplayCurrentFeederInfo()) {
+        if (this.svgParameters.isDisplayPercentagePermanentLimitFeederInfo()) {
             double terminalI = terminal.getI();
             double otherSideTerminalI = otherSideTerminal.getI();
 

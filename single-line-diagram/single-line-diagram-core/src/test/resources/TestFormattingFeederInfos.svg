@@ -232,8 +232,8 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">1 534,6</text>
                 </g>
-                <g class="sld-feeder-info" id="idline_95_ONE_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(115.0,160.0)">
-                    <text class="sld-label" x="5.0" y="0.0">0 %</text>
+                <g class="sld-feeder-info sld-percentage-permanent-limit" id="idline_95_ONE_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(110.0,155.0)">
+                    <text class="sld-label" x="15.0" y="5.0">0 %</text>
                 </g>
                 <g class="sld-disconnector sld-closed sld-vl300to500 sld-bus-0" id="idd2" transform="translate(111.0,258.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

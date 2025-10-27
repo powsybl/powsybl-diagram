@@ -849,10 +849,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
-            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider); // CJ ici
+            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
+            System.out.println("taille : " + height + " pour " + feederInfo.getLeftLabel() + " " + feederInfo.getRightLabel());
             shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
         }
     }
@@ -904,7 +905,7 @@ public class DefaultSVGWriter implements SVGWriter {
         });
 
         writeStyleClasses(g, styleProvider.getFeederInfoStyles(feederInfo),
-                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null)); // CJ ici
+                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null));
         root.appendChild(g);
     }
 
