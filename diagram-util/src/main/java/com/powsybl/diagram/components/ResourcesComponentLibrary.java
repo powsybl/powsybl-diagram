@@ -125,7 +125,6 @@ public class ResourcesComponentLibrary<C extends Component> implements Component
     public ComponentSize getSize(String type) {
         Objects.requireNonNull(type);
         Component component = getComponent(type);
-        System.out.println(type + " a le component : " + component);
         return component != null ? component.getSize() : new ComponentSize(0, 0);
     }
 

@@ -853,7 +853,6 @@ public class DefaultSVGWriter implements SVGWriter {
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
-            System.out.println("taille : " + height + " pour " + feederInfo.getLeftLabel() + " " + feederInfo.getRightLabel());
             shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
         }
     }
