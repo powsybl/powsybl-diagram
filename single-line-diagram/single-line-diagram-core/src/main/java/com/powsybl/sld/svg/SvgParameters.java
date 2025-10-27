@@ -47,6 +47,7 @@ public class SvgParameters {
     private boolean showGrid = false;
     private boolean showInternalNodes = false;
     private boolean displayCurrentFeederInfo = false;
+    private boolean displayPercentagePermanentLimitFeederInfo = false;
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
@@ -89,6 +90,7 @@ public class SvgParameters {
         this.showGrid = other.showGrid;
         this.showInternalNodes = other.showInternalNodes;
         this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
+        this.displayPercentagePermanentLimitFeederInfo = other.displayPercentagePermanentLimitFeederInfo;
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
@@ -364,6 +366,15 @@ public class SvgParameters {
 
     public SvgParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
         this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+        return this;
+    }
+
+    public boolean isDisplayPercentagePermanentLimitFeederInfo() {
+        return this.displayPercentagePermanentLimitFeederInfo;
+    }
+
+    public SvgParameters setDisplayPercentagePermanentLimitFeederInfo(boolean displayPercentagePermanentLimitFeederInfo) {
+        this.displayPercentagePermanentLimitFeederInfo = displayPercentagePermanentLimitFeederInfo;
         return this;
     }
 
