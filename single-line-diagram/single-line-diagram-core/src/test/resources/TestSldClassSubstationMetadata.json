@@ -546,7 +546,7 @@
     "stackHeight" : 30.0,
     "horizontalSnakeLinePadding" : 20.0,
     "verticalSnakeLinePadding" : 25.0,
-    "spaceForFeederInfos" : 50.0,
+    "spaceForFeederInfos" : 60.0,
     "adaptCellHeightToContent" : true,
     "maxComponentHeight" : 12.0,
     "minSpaceBetweenComponents" : 15.0,

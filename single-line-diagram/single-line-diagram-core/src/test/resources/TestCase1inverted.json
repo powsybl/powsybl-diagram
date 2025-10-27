@@ -12,21 +12,21 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 142.0
+    "y" : 152.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0
+    "y" : 72.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 102.0,
+    "y" : 112.0,
     "name" : "b",
     "equipmentId" : "b",
     "open" : false,
@@ -37,7 +37,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 172.0,
+    "y" : 182.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
     "pxWidth" : 25.0,
@@ -55,7 +55,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 172.0,
+    "y" : 182.0,
     "name" : "d",
     "equipmentId" : "d",
     "open" : false,
@@ -95,7 +95,7 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 102.0,
+        "y" : 112.0,
         "xSpan" : 50.0,
         "ySpan" : 80.0
       },
@@ -115,7 +115,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 142.0,
+          "y" : 152.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -136,7 +136,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 102.0,
+          "y" : 112.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
@@ -157,7 +157,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 62.0,
+          "y" : 72.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

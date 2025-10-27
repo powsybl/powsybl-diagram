@@ -12,7 +12,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 143.0,
+    "y" : 153.0,
     "isShunt" : true
   }, {
     "type" : "INTERNAL",
@@ -20,7 +20,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
-    "y" : 116.0,
+    "y" : 126.0,
     "orientation" : "RIGHT"
   }, {
     "type" : "INTERNAL",
@@ -28,7 +28,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 116.0,
+    "y" : 126.0,
     "orientation" : "RIGHT"
   }, {
     "type" : "INTERNAL",
@@ -36,21 +36,21 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 143.0
+    "y" : 153.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.0
+    "y" : 72.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la_fork",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 89.0,
+    "y" : 99.0,
     "isShunt" : true
   }, {
     "type" : "INTERNAL",
@@ -58,14 +58,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0
+    "y" : 72.0
   }, {
     "type" : "SWITCH",
     "id" : "ba",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 116.0,
+    "y" : 126.0,
     "name" : "ba",
     "equipmentId" : "ba",
     "open" : false,
@@ -76,7 +76,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 102.5,
+    "y" : 112.5,
     "name" : "bb",
     "equipmentId" : "bb",
     "open" : false,
@@ -87,7 +87,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 173.0,
+    "y" : 183.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
     "pxWidth" : 125.0,
@@ -105,7 +105,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 116.0,
+    "y" : 126.0,
     "orientation" : "RIGHT",
     "name" : "bs",
     "equipmentId" : "bs",
@@ -117,7 +117,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 173.0,
+    "y" : 183.0,
     "name" : "da",
     "equipmentId" : "da",
     "open" : false,
@@ -128,7 +128,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 173.0,
+    "y" : 183.0,
     "name" : "db",
     "equipmentId" : "db",
     "open" : false,
@@ -181,7 +181,7 @@
       },
       "coord" : {
         "x" : 125.0,
-        "y" : 102.5,
+        "y" : 112.5,
         "xSpan" : 50.0,
         "ySpan" : 81.0
       },
@@ -201,7 +201,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 143.0,
+          "y" : 153.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -222,7 +222,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 116.0,
+          "y" : 126.0,
           "xSpan" : 50.0,
           "ySpan" : 54.0
         },
@@ -243,7 +243,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 75.5,
+          "y" : 85.5,
           "xSpan" : 50.0,
           "ySpan" : 27.0
         },
@@ -264,7 +264,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 62.0,
+          "y" : 72.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -317,7 +317,7 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 102.5,
+        "y" : 112.5,
         "xSpan" : 50.0,
         "ySpan" : 81.0
       },
@@ -337,7 +337,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 143.0,
+          "y" : 153.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -358,7 +358,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 102.5,
+          "y" : 112.5,
           "xSpan" : 50.0,
           "ySpan" : 81.0
         },
@@ -379,7 +379,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 62.0,
+          "y" : 72.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
