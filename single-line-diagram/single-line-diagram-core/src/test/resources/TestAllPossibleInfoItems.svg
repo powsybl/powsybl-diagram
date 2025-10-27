@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg height="382.0" viewBox="0 0 130.0 382.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
+<svg height="382.0" viewBox="0 0 180.0 382.0" width="180.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -76,7 +76,7 @@
     <g>
         <g class="sld-voltage-level" id="idvl">
             <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,302.0)">
-                <line x1="0" x2="25.0" y1="0" y2="0"/>
+                <line x1="0" x2="75.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
@@ -126,6 +126,48 @@
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
                     <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-5.0">l</text>
+                </g>
+            </g>
+            <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
+                <g class="sld-wire" id="_95_vl_95_d2_95_INTERNAL_95_vl_95_d2_45_line_95_ONE">
+                    <polyline points="115.0,302.0,115.0,272.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_d2_45_line_95_ONE_95_INTERNAL_95_vl_95_line_95_ONE">
+                    <polyline points="115.0,272.0,115.0,192.0"/>
+                </g>
+                <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
+                    <polyline points="115.0,192.0,115.0,80.0"/>
+                </g>
+                <g class="sld-feeder-info sld-out sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">100</text>
+                </g>
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(110.0,110.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">10</text>
+                </g>
+                <g class="sld-feeder-info sld-out sld-current" id="idline_95_ONE_95_ARROW_95_CURRENT" transform="translate(110.0,125.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">153</text>
+                </g>
+                <g class="sld-feeder-info" id="idline_95_ONE_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(115.0,145.0)">
+                    <text class="sld-label" x="5.0" y="0.0">152.7 %</text>
+                </g>
+                <g class="sld-disconnector sld-closed" id="idd2" transform="translate(111.0,298.0)">
+                    <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                    <path class="sld-sw-open" d="M8,0 0,8"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_d2_45_line_95_ONE" transform="translate(111.0,268.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(111.0,188.0)">
+                    <circle cx="4" cy="4" r="4"/>
+                </g>
+                <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(115.0,80.0)">
+                    <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">fn1</text>
                 </g>
             </g>
         </g>
