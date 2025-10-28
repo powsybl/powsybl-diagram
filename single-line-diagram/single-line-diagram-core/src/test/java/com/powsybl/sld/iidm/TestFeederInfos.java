@@ -85,7 +85,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setPercentageValuePrecision(2)
                 .setFeederInfosIntraMargin(5)
                 .setDisplayCurrentFeederInfo(true)
-                .setDisplayPercentagePermanentLimitFeederInfo(true);
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -129,7 +129,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setCurrentValuePrecision(0)
                 .setPercentageValuePrecision(1)
                 .setDisplayCurrentFeederInfo(true)
-                .setDisplayPercentagePermanentLimitFeederInfo(true);
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
 
         // build graph
         network.getLoad("l").getTerminal().setP(100).setQ(10);
@@ -167,7 +167,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setCurrentValuePrecision(1)
                 .setPercentageValuePrecision(0)
                 .setDisplayCurrentFeederInfo(true)
-                .setDisplayPercentagePermanentLimitFeederInfo(true);
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -182,7 +182,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     void testBuildFeederInfosWithCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        svgParameters.setDisplayCurrentFeederInfo(true).setDisplayPercentagePermanentLimitFeederInfo(true);
+        svgParameters.setDisplayCurrentFeederInfo(true).setDisplayPermanentLimitPercentageFeederInfo(true);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(3, feederInfoList.size());
@@ -194,7 +194,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     void testBuildFeederInfosWithoutCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        svgParameters.setDisplayCurrentFeederInfo(false).setDisplayPercentagePermanentLimitFeederInfo(true);
+        svgParameters.setDisplayCurrentFeederInfo(false).setDisplayPermanentLimitPercentageFeederInfo(true);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(2, feederInfoList.size());
@@ -278,7 +278,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     void testBuildFeederInfosWithUnits() {
         Network network = IeeeCdfNetworkFactory.create9();
         svgParameters.setDisplayCurrentFeederInfo(true)
-                .setDisplayPercentagePermanentLimitFeederInfo(true)
+                .setDisplayPermanentLimitPercentageFeederInfo(true)
                 .setActivePowerUnit("MW")
                 .setReactivePowerUnit("MVAR")
                 .setCurrentUnit("A");

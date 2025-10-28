@@ -358,7 +358,7 @@
     "showGrid" : false,
     "showInternalNodes" : false,
     "displayCurrentFeederInfo" : false,
-    "displayPercentagePermanentLimitFeederInfo" : false,
+    "displayPermanentLimitPercentageFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false

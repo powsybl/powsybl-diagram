@@ -225,18 +225,18 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
         List<FeederInfo> feederInfoList = buildFeederInfos(terminal, insideVoltageLevel);
 
-        if (this.svgParameters.isDisplayPercentagePermanentLimitFeederInfo()) {
+        if (this.svgParameters.isDisplayPermanentLimitPercentageFeederInfo()) {
             double terminalI = terminal.getI();
             double otherSideTerminalI = otherSideTerminal.getI();
 
             double permanentLimit = branch.getCurrentLimits(side).map(CurrentLimits::getPermanentLimit).orElse(Double.POSITIVE_INFINITY);
             double otherSidePermanentLimit = branch.getCurrentLimits(otherSide).map(CurrentLimits::getPermanentLimit).orElse(Double.POSITIVE_INFINITY);
-            double percentagePermanentLimit = Math.max(
+            double permanentLimitPercentage = Math.max(
                 (Math.abs(terminalI) * 100) / permanentLimit,
                 (Math.abs(otherSideTerminalI) * 100) / otherSidePermanentLimit
             );
 
-            feederInfoList.add(new HiddenComponentFeederInfo(PERCENTAGE_PERMANENT_LIMIT, percentagePermanentLimit, valueFormatter::formatPercentage));
+            feederInfoList.add(new HiddenComponentFeederInfo(PERCENTAGE_PERMANENT_LIMIT, permanentLimitPercentage, valueFormatter::formatPercentage));
         }
 
         return feederInfoList;
