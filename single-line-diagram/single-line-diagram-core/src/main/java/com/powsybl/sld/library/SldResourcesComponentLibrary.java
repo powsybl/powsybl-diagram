@@ -33,7 +33,7 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.TIE_LINE,
         SldComponentTypeName.DANGLING_LINE,
         SldComponentTypeName.BUSBAR_SECTION,
-        SldComponentTypeName.PERCENTAGE_PERMANENT_LIMIT
+        SldComponentTypeName.PERMANENT_LIMIT_PERCENTAGE
     };
 
     public SldResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {

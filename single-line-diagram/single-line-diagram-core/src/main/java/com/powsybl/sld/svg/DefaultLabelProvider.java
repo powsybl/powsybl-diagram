@@ -236,7 +236,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
                 (Math.abs(otherSideTerminalI) * 100) / otherSidePermanentLimit
             );
 
-            feederInfoList.add(new HiddenComponentFeederInfo(PERCENTAGE_PERMANENT_LIMIT, permanentLimitPercentage, valueFormatter::formatPercentage));
+            feederInfoList.add(new HiddenComponentFeederInfo(PERMANENT_LIMIT_PERCENTAGE, permanentLimitPercentage, valueFormatter::formatPercentage));
         }
 
         return feederInfoList;

@@ -102,7 +102,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
                         new DirectionalFeederInfo(ARROW_CURRENT, 123.456789, valueFormatter::formatCurrent),
-                        new HiddenComponentFeederInfo(PERCENTAGE_PERMANENT_LIMIT, 30, valueFormatter::formatPercentage));
+                        new HiddenComponentFeederInfo(PERMANENT_LIMIT_PERCENTAGE, 30, valueFormatter::formatPercentage));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
