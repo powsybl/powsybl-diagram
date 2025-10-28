@@ -12,7 +12,7 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
-.sld-percentage-permanent-limit .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
@@ -122,7 +122,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">123.46</text>
                 </g>
-                <g class="sld-feeder-info sld-percentage-permanent-limit" id="idl_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(60.0,189.5)">
+                <g class="sld-feeder-info sld-permanent-limit-percentage" id="idl_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(60.0,189.5)">
                     <text class="sld-label" x="15.0" y="5.0">30.00 %</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,298.0)">
@@ -186,7 +186,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">123.46</text>
                 </g>
-                <g class="sld-feeder-info sld-percentage-permanent-limit" id="idline_95_ONE_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(110.0,185.0)">
+                <g class="sld-feeder-info sld-permanent-limit-percentage" id="idline_95_ONE_95_PERCENTAGE_95_PERMANENT_95_LIMIT" transform="translate(110.0,185.0)">
                     <text class="sld-label" x="15.0" y="5.0">30.00 %</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="idd2" transform="translate(111.0,298.0)">

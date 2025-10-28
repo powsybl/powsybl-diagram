@@ -949,7 +949,7 @@
     },
     {
       "type": "PERCENTAGE_PERMANENT_LIMIT",
-      "styleClass": "sld-percentage-permanent-limit",
+      "styleClass": "sld-permanent-limit-percentage",
       "size": {
         "width": 10.0,
         "height": 10.0
