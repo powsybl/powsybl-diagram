@@ -2425,7 +2425,7 @@ public final class Networks {
      * </pre>
      */
     public static Network createTeePointNetwork() {
-        Network network = Network.create("testCase1", "test");
+        Network network = Network.create("testCaseTeePoint1", "test");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")
                 .setNominalV(50)
@@ -2473,8 +2473,8 @@ public final class Networks {
     }
 
     public static Network createTeePointNodeBreakerNetwork() {
-        Network network = Network.create("testCase1", "test");
-        Substation substation = createSubstation(network, "subst", "subst", Country.FR);
+        Network network = Network.create("testCaseTeePoint2", "test");
+        Substation substation = createSubstation(network, "subst1", "subst1", Country.FR);
 
         VoltageLevel vl = substation.newVoltageLevel()
                 .setId("vl-tee-point")

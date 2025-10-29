@@ -129,10 +129,8 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private List<FeederInfo> getTeePointFeederInfos(FeederNode node, FeederTeePointLeg feeder) {
-        List<FeederInfo> feederInfos = new ArrayList<>();
         boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
-        feederInfos = buildFeederInfos(network.getLine(node.getEquipmentId()).getTerminal1(), insideVoltageLevel);
-        return feederInfos;
+        return buildFeederInfos(network.getLine(node.getEquipmentId()).getTerminal1(), insideVoltageLevel);
     }
 
     @Override
