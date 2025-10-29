@@ -126,10 +126,10 @@
                     <circle class="sld-vl50to70 sld-winding" cx="8" cy="19" r="5"/>
                 </g>
                 <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_ONE" transform="translate(80.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                    <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-15.0">3WT_3</text>
                 </g>
                 <g class="sld-top-feeder sld-vl50to70" id="id3WT_95_TWO" transform="translate(160.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT_3</text>
+                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-15.0">3WT_3</text>
                 </g>
             </g>
         </g>

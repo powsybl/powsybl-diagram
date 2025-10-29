@@ -187,7 +187,7 @@
                     <circle cx="6" cy="6" r="6"/>
                     <path d="M6,6 A 6 40 0 0 0 2,6"/>
                     <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                    <text class="sld-label" id="idGEN_95_132_95_N_95_LABEL" x="-5.0" y="-5.0">GEN_132</text>
+                    <text class="sld-label" id="idGEN_95_132_95_N_95_LABEL" x="-5.0" y="-9.0">GEN_132</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -220,7 +220,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_ONE" transform="translate(115.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_ONE_95_S_95_LABEL" x="-5.0" y="15.0">3WT</text>
                 </g>
             </g>
         </g>
@@ -265,7 +265,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idLOAD_95_33_95_N_95_LABEL" x="-5.0" y="-5.0">LOAD_33</text>
+                    <text class="sld-label" id="idLOAD_95_33_95_N_95_LABEL" x="-5.0" y="-10.5">LOAD_33</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -298,7 +298,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl30to50 sld-bus-0" id="id3WT_95_TWO" transform="translate(255.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_TWO_95_S_95_LABEL" x="-5.0" y="15.0">3WT</text>
                 </g>
             </g>
         </g>
@@ -343,7 +343,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idLOAD_95_11_95_N_95_LABEL" x="-5.0" y="-5.0">LOAD_11</text>
+                    <text class="sld-label" id="idLOAD_95_11_95_N_95_LABEL" x="-5.0" y="-10.5">LOAD_11</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -376,7 +376,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl0to30 sld-bus-0" id="id3WT_95_THREE" style="stroke: orange; stroke-width: 2px;" transform="translate(395.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_THREE_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_THREE_95_S_95_LABEL" x="-5.0" y="15.0">3WT</text>
                 </g>
             </g>
         </g>

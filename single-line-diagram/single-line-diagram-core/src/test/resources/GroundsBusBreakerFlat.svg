@@ -173,7 +173,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="ids1_32__45__32_s2_95_ONE" transform="translate(65.0,80.0)">
-                    <text class="sld-label" id="ids1_32__45__32_s2_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">s1 - s2</text>
+                    <text class="sld-label" id="ids1_32__45__32_s2_95_ONE_95_N_95_LABEL" x="-5.0" y="-15.0">s1 - s2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">

@@ -265,7 +265,7 @@
                     <circle cx="6" cy="6" r="6"/>
                     <path d="M6,6 A 6 40 0 0 0 2,6"/>
                     <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                    <text class="sld-label" id="idGEN_95_132_95_N_95_LABEL" x="-5.0" y="-5.0">GEN_132</text>
+                    <text class="sld-label" id="idGEN_95_132_95_N_95_LABEL" x="-5.0" y="-9.0">GEN_132</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
@@ -313,10 +313,10 @@
                     <circle class="sld-vl120to180 sld-bus-0 sld-winding" cx="8" cy="19" r="5"/>
                 </g>
                 <g class="sld-top-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-15.0">3WT</text>
                 </g>
                 <g class="sld-top-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-15.0">3WT</text>
                 </g>
             </g>
         </g>

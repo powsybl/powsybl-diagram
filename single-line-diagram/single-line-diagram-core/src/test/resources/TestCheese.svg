@@ -131,7 +131,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-5.0">l</text>
+                    <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-10.5">l</text>
                 </g>
             </g>
         </g>

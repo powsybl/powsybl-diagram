@@ -250,7 +250,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-5.0">load1</text>
+                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-10.5">load1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
@@ -388,10 +388,10 @@
                     <path class="sld-disconnected" d="M 10,0 -0,10 10,20 20,10 Z m 2.57,7.93 c 0,1.7 -0.8,1.93 -2.2,2.87 V 12 H 9.28 V 10.3 C 10.5,9.73 11.5,9.26 11.5,8 11.5,6.35 8.89,6.58 7.62,7.36 H 7.93 V 6.19 C 9.97,5.55 12.5,5.59 12.5,7.93 Z M 9.25,12.7 h 1.15 v 1.2 H 9.25 Z"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf6_95_TWO" transform="translate(480.0,80.0)">
-                    <text class="sld-label" id="idtrf6_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf61</text>
+                    <text class="sld-label" id="idtrf6_95_TWO_95_N_95_LABEL" x="-5.0" y="-15.0">trf61</text>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf6_95_THREE" transform="translate(560.0,80.0)">
-                    <text class="sld-label" id="idtrf6_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">trf61</text>
+                    <text class="sld-label" id="idtrf6_95_THREE_95_N_95_LABEL" x="-5.0" y="-15.0">trf61</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_6">
@@ -432,7 +432,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idline1_95_ONE" transform="translate(800.0,80.0)">
-                    <text class="sld-label" id="idline1_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">line1</text>
+                    <text class="sld-label" id="idline1_95_ONE_95_N_95_LABEL" x="-5.0" y="-15.0">line1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_7">
@@ -476,7 +476,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-5.0">load2</text>
+                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-10.5">load2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_8">
@@ -572,10 +572,10 @@
                     <path class="sld-disconnected" d="M 10,0 -0,10 10,20 20,10 Z m 2.57,7.93 c 0,1.7 -0.8,1.93 -2.2,2.87 V 12 H 9.28 V 10.3 C 10.5,9.73 11.5,9.26 11.5,8 11.5,6.35 8.89,6.58 7.62,7.36 H 7.93 V 6.19 C 9.97,5.55 12.5,5.59 12.5,7.93 Z M 9.25,12.7 h 1.15 v 1.2 H 9.25 Z"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf8_95_TWO" transform="translate(1040.0,80.0)">
-                    <text class="sld-label" id="idtrf8_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf81</text>
+                    <text class="sld-label" id="idtrf8_95_TWO_95_N_95_LABEL" x="-5.0" y="-15.0">trf81</text>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf8_95_THREE" transform="translate(1120.0,80.0)">
-                    <text class="sld-label" id="idtrf8_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">trf81</text>
+                    <text class="sld-label" id="idtrf8_95_THREE_95_N_95_LABEL" x="-5.0" y="-15.0">trf81</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
@@ -713,10 +713,10 @@
                     <path class="sld-disconnected" d="M 10,0 -0,10 10,20 20,10 Z m 2.57,7.93 c 0,1.7 -0.8,1.93 -2.2,2.87 V 12 H 9.28 V 10.3 C 10.5,9.73 11.5,9.26 11.5,8 11.5,6.35 8.89,6.58 7.62,7.36 H 7.93 V 6.19 C 9.97,5.55 12.5,5.59 12.5,7.93 Z M 9.25,12.7 h 1.15 v 1.2 H 9.25 Z"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-1" id="idtrf7_95_TWO" transform="translate(640.0,449.0)">
-                    <text class="sld-label" id="idtrf7_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">trf71</text>
+                    <text class="sld-label" id="idtrf7_95_TWO_95_S_95_LABEL" x="-5.0" y="15.0">trf71</text>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-1" id="idtrf7_95_THREE" transform="translate(720.0,449.0)">
-                    <text class="sld-label" id="idtrf7_95_THREE_95_S_95_LABEL" x="-5.0" y="5.0">trf71</text>
+                    <text class="sld-label" id="idtrf7_95_THREE_95_S_95_LABEL" x="-5.0" y="15.0">trf71</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_13">

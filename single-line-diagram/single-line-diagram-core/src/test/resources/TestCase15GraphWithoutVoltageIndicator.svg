@@ -144,7 +144,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idloadA_95_N_95_LABEL" x="-5.0" y="-5.0">loadA</text>
+                    <text class="sld-label" id="idloadA_95_N_95_LABEL" x="-5.0" y="-10.5">loadA</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="iddA2" transform="translate(61.0,301.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -191,7 +191,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idloadB_95_N_95_LABEL" x="-5.0" y="-5.0">loadB</text>
+                    <text class="sld-label" id="idloadB_95_N_95_LABEL" x="-5.0" y="-10.5">loadB</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="iddB1" transform="translate(111.0,301.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -339,7 +339,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idloadD_95_N_95_LABEL" x="-5.0" y="-5.0">loadD</text>
+                    <text class="sld-label" id="idloadD_95_N_95_LABEL" x="-5.0" y="-10.5">loadD</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadC" transform="translate(298.5,138.0)">
                     <circle cx="4" cy="4" r="4"/>
@@ -348,7 +348,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idloadC_95_N_95_LABEL" x="-5.0" y="-5.0">loadC</text>
+                    <text class="sld-label" id="idloadC_95_N_95_LABEL" x="-5.0" y="-10.5">loadC</text>
                 </g>
             </g>
         </g>

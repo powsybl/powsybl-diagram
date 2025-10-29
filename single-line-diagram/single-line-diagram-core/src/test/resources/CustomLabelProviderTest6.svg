@@ -173,7 +173,7 @@
                 <g class="sld-disconnector sld-closed sld-vl300to500 sld-bus-0" id="idd" transform="translate(61.0,248.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                     <path class="sld-sw-open" d="M8,0 0,8"/>
-                    <text class="sld-label" id="idd_95_N_95_LABEL" x="-5.0" y="-5.0">C_disconnector</text>
+                    <text class="sld-label" id="idd_95_N_95_LABEL" x="-5.0" y="-11.0">C_disconnector</text>
                     <text class="sld-label" id="idd_95_N_95_LABEL2" x="14.0" y="12.0">DISCONNECTOR</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_d_45_b" transform="translate(61.0,218.0)">
@@ -192,7 +192,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-5.0">C_load</text>
+                    <text class="sld-label" id="idl_95_N_95_LABEL" x="-5.0" y="-10.5">C_load</text>
                     <text class="sld-label" id="idl_95_N_95_LABEL2" x="22.0" y="12.0">LOAD</text>
                 </g>
             </g>

@@ -112,7 +112,7 @@
                 </g>
                 <g class="sld-battery sld-top-feeder" id="idbatt1" transform="translate(107.0,74.0)">
                     <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                    <text class="sld-label" id="idbatt1_95_N_95_LABEL" x="-5.0" y="-5.0">batt1</text>
+                    <text class="sld-label" id="idbatt1_95_N_95_LABEL" x="-5.0" y="-9.0">batt1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
@@ -161,7 +161,7 @@
                 </g>
                 <g class="sld-battery sld-top-feeder" id="idbatt2" transform="translate(57.0,74.0)">
                     <path d="M0,2.5 v8.5 c0,0.5 0.5,1 1,1 h14 c0.5,0 1,-0.5 1,-1 v-8.5 c0,-0.5 -0.5,-1 -1,-1 h-1 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-2 v-0.5 c0,-0.5 -0.5,-1 -1,-1 h-3 c-0.5,0 -1,0.5 -1,1 v0.5 h-1 c-0.5,0 -1,0.5 -1,1z M10.5,3 h2 v1.5 h1.5 v2 h-1.5 v1.5 h-2 v-1.5 h-1.5 v-2 h1.5z z M2,4.5 h5 v2 h-5z"/>
-                    <text class="sld-label" id="idbatt2_95_N_95_LABEL" x="-5.0" y="-5.0">batt2</text>
+                    <text class="sld-label" id="idbatt2_95_N_95_LABEL" x="-5.0" y="-9.0">batt2</text>
                 </g>
             </g>
         </g>
