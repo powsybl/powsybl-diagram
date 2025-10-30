@@ -144,7 +144,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 50.0,
-    "y" : 235.0,
+    "y" : 225.0,
     "orientation" : "DOWN",
     "label" : "load displayed name",
     "name" : "load",

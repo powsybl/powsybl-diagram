@@ -12,35 +12,35 @@
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 182.0
+    "y" : 172.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_BUSCO_bbs_l1-l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 152.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 72.0
+    "y" : 62.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 72.0
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 112.0,
+    "y" : 102.0,
     "name" : "b",
     "equipmentId" : "b",
     "open" : false,
@@ -51,7 +51,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
     "pxWidth" : 75.0,
@@ -108,7 +108,7 @@
       },
       "coord" : {
         "x" : 50.0,
-        "y" : 112.0,
+        "y" : 102.0,
         "xSpan" : 100.0,
         "ySpan" : 80.0
       },
@@ -128,7 +128,7 @@
         },
         "coord" : {
           "x" : 50.0,
-          "y" : 152.0,
+          "y" : 142.0,
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
@@ -149,7 +149,7 @@
         },
         "coord" : {
           "x" : 50.0,
-          "y" : 112.0,
+          "y" : 102.0,
           "xSpan" : 100.0,
           "ySpan" : 80.0
         },
@@ -169,7 +169,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 112.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
@@ -189,7 +189,7 @@
             },
             "coord" : {
               "x" : 25.0,
-              "y" : 112.0,
+              "y" : 102.0,
               "xSpan" : 50.0,
               "ySpan" : 80.0
             },
@@ -210,7 +210,7 @@
             },
             "coord" : {
               "x" : 25.0,
-              "y" : 72.0,
+              "y" : 62.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -232,7 +232,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 112.0,
+            "y" : 102.0,
             "xSpan" : 50.0,
             "ySpan" : 80.0
           },
@@ -252,7 +252,7 @@
             },
             "coord" : {
               "x" : 75.0,
-              "y" : 112.0,
+              "y" : 102.0,
               "xSpan" : 50.0,
               "ySpan" : 80.0
             },
@@ -273,7 +273,7 @@
             },
             "coord" : {
               "x" : 75.0,
-              "y" : 72.0,
+              "y" : 62.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },

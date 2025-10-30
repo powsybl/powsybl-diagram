@@ -12,14 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 40.0,
-    "y" : 152.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl3_dself4-bself4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 120.0,
-    "y" : 212.0,
+    "y" : 202.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -27,7 +27,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 760.0,
-    "y" : 212.0,
+    "y" : 202.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -35,7 +35,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 840.0,
-    "y" : 212.0,
+    "y" : 202.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -43,7 +43,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 212.0,
+    "y" : 202.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -51,14 +51,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 320.0,
-    "y" : 152.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl3_dtrf37-btrf37",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 480.0,
-    "y" : 212.0,
+    "y" : 202.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -66,21 +66,21 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 640.0,
-    "y" : 152.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl3_load4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 40.0,
-    "y" : 72.0
+    "y" : 62.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl3_self4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 120.0,
-    "y" : 292.0,
+    "y" : 282.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -88,7 +88,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 760.0,
-    "y" : 292.0,
+    "y" : 282.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -96,7 +96,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 840.0,
-    "y" : 292.0,
+    "y" : 282.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -104,7 +104,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 292.0,
+    "y" : 282.0,
     "orientation" : "DOWN"
   }, {
     "type" : "BUS",
@@ -112,7 +112,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 20.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "bbs7",
     "equipmentId" : "bbs7",
     "pxWidth" : 760.0,
@@ -130,7 +130,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 820.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "bbs8",
     "equipmentId" : "bbs8",
     "pxWidth" : 40.0,
@@ -148,7 +148,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 40.0,
-    "y" : 112.0,
+    "y" : 102.0,
     "name" : "bload4",
     "equipmentId" : "bload4",
     "open" : false,
@@ -159,7 +159,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 120.0,
-    "y" : 252.0,
+    "y" : 242.0,
     "orientation" : "DOWN",
     "name" : "bself4",
     "equipmentId" : "bself4",
@@ -171,7 +171,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 760.0,
-    "y" : 252.0,
+    "y" : 242.0,
     "orientation" : "DOWN",
     "name" : "bself5",
     "equipmentId" : "bself5",
@@ -183,7 +183,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 840.0,
-    "y" : 252.0,
+    "y" : 242.0,
     "orientation" : "DOWN",
     "name" : "bself6",
     "equipmentId" : "bself6",
@@ -195,7 +195,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 252.0,
+    "y" : 242.0,
     "orientation" : "DOWN",
     "name" : "btrf25",
     "equipmentId" : "btrf25",
@@ -207,7 +207,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 320.0,
-    "y" : 112.0,
+    "y" : 102.0,
     "name" : "btrf36",
     "equipmentId" : "btrf36",
     "open" : false,
@@ -218,7 +218,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 480.0,
-    "y" : 252.0,
+    "y" : 242.0,
     "orientation" : "DOWN",
     "name" : "btrf37",
     "equipmentId" : "btrf37",
@@ -230,7 +230,7 @@
     "componentType" : "BREAKER",
     "fictitious" : true,
     "x" : 640.0,
-    "y" : 112.0,
+    "y" : 102.0,
     "name" : "btrf38",
     "equipmentId" : "btrf38",
     "open" : false,
@@ -241,7 +241,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 40.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "dload4",
     "equipmentId" : "dload4",
     "open" : false,
@@ -252,7 +252,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 120.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "dself4",
     "equipmentId" : "dself4",
@@ -264,7 +264,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 760.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "dself5",
     "equipmentId" : "dself5",
@@ -276,7 +276,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 840.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "dself6",
     "equipmentId" : "dself6",
@@ -288,7 +288,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "dtrf25",
     "equipmentId" : "dtrf25",
@@ -300,7 +300,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 320.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "dtrf36",
     "equipmentId" : "dtrf36",
     "open" : false,
@@ -311,7 +311,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 480.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "dtrf37",
     "equipmentId" : "dtrf37",
@@ -323,7 +323,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : true,
     "x" : 640.0,
-    "y" : 182.0,
+    "y" : 172.0,
     "name" : "dtrf38",
     "equipmentId" : "dtrf38",
     "open" : false,
@@ -347,7 +347,7 @@
     "componentType" : "INDUCTOR",
     "fictitious" : false,
     "x" : 120.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "self4",
     "name" : "self4",
@@ -361,7 +361,7 @@
     "componentType" : "INDUCTOR",
     "fictitious" : false,
     "x" : 760.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "self5",
     "name" : "self5",
@@ -375,7 +375,7 @@
     "componentType" : "CAPACITOR",
     "fictitious" : false,
     "x" : 840.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "self6",
     "name" : "self6",
@@ -389,7 +389,7 @@
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : false,
     "x" : 200.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "trf5",
     "name" : "trf5",
@@ -409,7 +409,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 320.0,
-    "y" : 72.0,
+    "y" : 62.0,
     "name" : "trf6",
     "equipmentId" : "trf6",
     "voltageLevelInfosLeg1" : {
@@ -471,7 +471,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 480.0,
-    "y" : 292.0,
+    "y" : 282.0,
     "orientation" : "DOWN",
     "name" : "trf7",
     "equipmentId" : "trf7",
@@ -496,7 +496,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "fictitious" : false,
     "x" : 440.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "trf73",
     "name" : "trf7",
@@ -516,7 +516,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "fictitious" : false,
     "x" : 520.0,
-    "y" : 364.0,
+    "y" : 344.0,
     "orientation" : "DOWN",
     "label" : "trf73",
     "name" : "trf7",
@@ -536,7 +536,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 640.0,
-    "y" : 72.0,
+    "y" : 62.0,
     "name" : "trf8",
     "equipmentId" : "trf8",
     "voltageLevelInfosLeg1" : {
@@ -614,7 +614,7 @@
       },
       "coord" : {
         "x" : 40.0,
-        "y" : 112.0,
+        "y" : 102.0,
         "xSpan" : 80.0,
         "ySpan" : 80.0
       },
@@ -634,7 +634,7 @@
         },
         "coord" : {
           "x" : 40.0,
-          "y" : 152.0,
+          "y" : 142.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -655,7 +655,7 @@
         },
         "coord" : {
           "x" : 40.0,
-          "y" : 112.0,
+          "y" : 102.0,
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
@@ -676,7 +676,7 @@
         },
         "coord" : {
           "x" : 40.0,
-          "y" : 72.0,
+          "y" : 62.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -704,7 +704,7 @@
       },
       "coord" : {
         "x" : 120.0,
-        "y" : 252.0,
+        "y" : 242.0,
         "xSpan" : 80.0,
         "ySpan" : 80.0
       },
@@ -724,7 +724,7 @@
         },
         "coord" : {
           "x" : 120.0,
-          "y" : 212.0,
+          "y" : 202.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -745,7 +745,7 @@
         },
         "coord" : {
           "x" : 120.0,
-          "y" : 252.0,
+          "y" : 242.0,
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
@@ -766,7 +766,7 @@
         },
         "coord" : {
           "x" : 120.0,
-          "y" : 292.0,
+          "y" : 282.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -794,7 +794,7 @@
       },
       "coord" : {
         "x" : 200.0,
-        "y" : 252.0,
+        "y" : 242.0,
         "xSpan" : 80.0,
         "ySpan" : 80.0
       },
@@ -814,7 +814,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 212.0,
+          "y" : 202.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -835,7 +835,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 252.0,
+          "y" : 242.0,
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
@@ -856,7 +856,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 292.0,
+          "y" : 282.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -884,7 +884,7 @@
       },
       "coord" : {
         "x" : 320.0,
-        "y" : 112.0,
+        "y" : 102.0,
         "xSpan" : 160.0,
         "ySpan" : 80.0
       },
@@ -904,7 +904,7 @@
         },
         "coord" : {
           "x" : 320.0,
-          "y" : 152.0,
+          "y" : 142.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -925,7 +925,7 @@
         },
         "coord" : {
           "x" : 320.0,
-          "y" : 112.0,
+          "y" : 102.0,
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
@@ -946,7 +946,7 @@
         },
         "coord" : {
           "x" : 320.0,
-          "y" : 72.0,
+          "y" : 62.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -966,7 +966,7 @@
           },
           "coord" : {
             "x" : 280.0,
-            "y" : 72.0,
+            "y" : 62.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -987,7 +987,7 @@
           },
           "coord" : {
             "x" : 360.0,
-            "y" : 72.0,
+            "y" : 62.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -1016,7 +1016,7 @@
       },
       "coord" : {
         "x" : 480.0,
-        "y" : 252.0,
+        "y" : 242.0,
         "xSpan" : 160.0,
         "ySpan" : 80.0
       },
@@ -1036,7 +1036,7 @@
         },
         "coord" : {
           "x" : 480.0,
-          "y" : 212.0,
+          "y" : 202.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -1057,7 +1057,7 @@
         },
         "coord" : {
           "x" : 480.0,
-          "y" : 252.0,
+          "y" : 242.0,
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
@@ -1078,7 +1078,7 @@
         },
         "coord" : {
           "x" : 480.0,
-          "y" : 292.0,
+          "y" : 282.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -1098,7 +1098,7 @@
           },
           "coord" : {
             "x" : 440.0,
-            "y" : 292.0,
+            "y" : 282.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -1119,7 +1119,7 @@
           },
           "coord" : {
             "x" : 520.0,
-            "y" : 292.0,
+            "y" : 282.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -1148,7 +1148,7 @@
       },
       "coord" : {
         "x" : 640.0,
-        "y" : 112.0,
+        "y" : 102.0,
         "xSpan" : 160.0,
         "ySpan" : 80.0
       },
@@ -1168,7 +1168,7 @@
         },
         "coord" : {
           "x" : 640.0,
-          "y" : 152.0,
+          "y" : 142.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -1189,7 +1189,7 @@
         },
         "coord" : {
           "x" : 640.0,
-          "y" : 112.0,
+          "y" : 102.0,
           "xSpan" : 160.0,
           "ySpan" : 80.0
         },
@@ -1210,7 +1210,7 @@
         },
         "coord" : {
           "x" : 640.0,
-          "y" : 72.0,
+          "y" : 62.0,
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
@@ -1230,7 +1230,7 @@
           },
           "coord" : {
             "x" : 600.0,
-            "y" : 72.0,
+            "y" : 62.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -1251,7 +1251,7 @@
           },
           "coord" : {
             "x" : 680.0,
-            "y" : 72.0,
+            "y" : 62.0,
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
@@ -1280,7 +1280,7 @@
       },
       "coord" : {
         "x" : 760.0,
-        "y" : 252.0,
+        "y" : 242.0,
         "xSpan" : 80.0,
         "ySpan" : 80.0
       },
@@ -1300,7 +1300,7 @@
         },
         "coord" : {
           "x" : 760.0,
-          "y" : 212.0,
+          "y" : 202.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -1321,7 +1321,7 @@
         },
         "coord" : {
           "x" : 760.0,
-          "y" : 252.0,
+          "y" : 242.0,
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
@@ -1342,7 +1342,7 @@
         },
         "coord" : {
           "x" : 760.0,
-          "y" : 292.0,
+          "y" : 282.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -1370,7 +1370,7 @@
       },
       "coord" : {
         "x" : 840.0,
-        "y" : 252.0,
+        "y" : 242.0,
         "xSpan" : 80.0,
         "ySpan" : 80.0
       },
@@ -1390,7 +1390,7 @@
         },
         "coord" : {
           "x" : 840.0,
-          "y" : 212.0,
+          "y" : 202.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -1411,7 +1411,7 @@
         },
         "coord" : {
           "x" : 840.0,
-          "y" : 252.0,
+          "y" : 242.0,
           "xSpan" : 80.0,
           "ySpan" : 80.0
         },
@@ -1432,7 +1432,7 @@
         },
         "coord" : {
           "x" : 840.0,
-          "y" : 292.0,
+          "y" : 282.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },

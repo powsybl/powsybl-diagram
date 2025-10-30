@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg height="342.0" viewBox="0 0 130.0 342.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
+<svg height="332.0" viewBox="0 0 130.0 332.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -87,15 +87,15 @@
                     <polyline points="65.0,110.0,65.0,190.0"/>
                 </g>
                 <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_line_95_ONE_95_line_95_ONE">
-                    <polyline points="65.0,190.0,65.0,262.0"/>
+                    <polyline points="65.0,190.0,65.0,252.0"/>
                 </g>
-                <g class="sld-feeder-info sld-out sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,237.0)">
+                <g class="sld-feeder-info sld-out sld-active-power" id="idline_95_ONE_95_ARROW_95_ACTIVE" transform="translate(60.0,227.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">tata</text>
                     <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,217.0)">
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idline_95_ONE_95_ARROW_95_REACTIVE" transform="translate(60.0,207.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                     <text class="sld-label" x="15.0" y="5.0">tutu</text>
@@ -111,7 +111,7 @@
                 <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,186.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-bottom-feeder" id="idline_95_ONE" transform="translate(65.0,262.0)">
+                <g class="sld-bottom-feeder" id="idline_95_ONE" transform="translate(65.0,252.0)">
                     <text class="sld-label" id="idline_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">line</text>
                 </g>
             </g>

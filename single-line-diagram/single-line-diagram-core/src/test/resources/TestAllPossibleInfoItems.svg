@@ -153,7 +153,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">153</text>
                 </g>
-                <g class="sld-feeder-info sld-permanent-limit-percentage" id="idline_95_ONE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,140.0)">
+                <g class="sld-feeder-info sld-permanent-limit-percentage" id="idline_95_ONE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,140.0)">
                     <text class="sld-label" x="15.0" y="5.0">152.7 %</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="idd2" transform="translate(111.0,298.0)">

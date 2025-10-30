@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg height="343.0" viewBox="0 0 130.0 343.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
+<svg height="333.0" viewBox="0 0 130.0 333.0" width="130.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -79,25 +79,25 @@
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-voltage-level" id="idvl">
-            <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,263.0)">
+            <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,253.0)">
                 <line x1="0" x2="25.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idbbs_95_NW_95_LABEL" x="-5.0" y="-5.0">bbs</text>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
                 <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d_45_b">
-                    <polyline points="65.0,263.0,65.0,233.0"/>
+                    <polyline points="65.0,253.0,65.0,223.0"/>
                 </g>
                 <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_d_45_b_95_b">
-                    <polyline points="65.0,233.0,65.0,216.0"/>
+                    <polyline points="65.0,223.0,65.0,206.0"/>
                 </g>
                 <g class="sld-wire" id="_95_vl_95_b_95_cheese">
-                    <polyline points="65.0,196.0,65.0,191.0"/>
+                    <polyline points="65.0,186.0,65.0,181.0"/>
                 </g>
                 <g class="sld-wire" id="_95_vl_95_cheese_95_INTERNAL_95_vl_95_l">
-                    <polyline points="65.0,167.0,65.0,152.0"/>
+                    <polyline points="65.0,157.0,65.0,142.0"/>
                 </g>
                 <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
-                    <polyline points="65.0,152.0,65.0,84.5"/>
+                    <polyline points="65.0,142.0,65.0,84.5"/>
                 </g>
                 <g class="sld-feeder-info sld-out sld-active-power" id="idl_95_ARROW_95_ACTIVE" transform="translate(60.0,99.5)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
@@ -111,21 +111,21 @@
                     <text class="sld-label" x="15.0" y="5.0">tutu</text>
                     <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
                 </g>
-                <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,259.0)">
+                <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,249.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                     <path class="sld-sw-open" d="M8,0 0,8"/>
                 </g>
-                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_d_45_b" transform="translate(61.0,229.0)">
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_d_45_b" transform="translate(61.0,219.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-breaker sld-closed" id="idb" transform="translate(55.0,196.0)">
+                <g class="sld-breaker sld-closed" id="idb" transform="translate(55.0,186.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 </g>
-                <g class="sld-cheese" id="idcheese" transform="translate(53.0,167.0)">
+                <g class="sld-cheese" id="idcheese" transform="translate(53.0,157.0)">
                     <path d="M 20.325518,19.189281 A 11,11 0 0 1 8.1864313,22.317785 11,11 0 0 1 1.0000978,12.04639 11,11 0 0 1 8.0995425,1.7147469 11,11 0 0 1 20.264584,4.7407541 L 12,12 Z"/>
                 </g>
-                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,148.0)">
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,138.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-load sld-top-feeder" id="idl" transform="translate(57.0,75.5)">
