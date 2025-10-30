@@ -20,7 +20,7 @@ import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.HiddenComponentFeederInfo;
+import com.powsybl.sld.svg.ValueFeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.*;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
@@ -102,7 +102,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
                         new DirectionalFeederInfo(ARROW_CURRENT, 123.456789, valueFormatter::formatCurrent),
-                        new HiddenComponentFeederInfo(PERMANENT_LIMIT_PERCENTAGE, 30, valueFormatter::formatPercentage));
+                        new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, 30, valueFormatter::formatPercentage));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);

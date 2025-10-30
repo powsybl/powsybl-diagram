@@ -825,11 +825,17 @@
     "styleClass": "sld-current"
   },
     {
-      "type": "PERMANENT_LIMIT_PERCENTAGE",
+      "type": "VALUE_PERMANENT_LIMIT_PERCENTAGE",
       "styleClass": "sld-permanent-limit-percentage",
       "size": {
         "width": 10.0,
         "height": 10.0
-      }
+      },
+      "subComponents" : [
+        {
+          "name" : "EMPTY_COMPONENT",
+          "fileName" : "empty-component.svg"
+        } 
+      ]
     }
 ]
