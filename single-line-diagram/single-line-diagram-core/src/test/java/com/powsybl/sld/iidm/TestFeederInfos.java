@@ -17,11 +17,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
-import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.ValueFeederInfo;
-import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.*;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -139,8 +135,8 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLine("line").getTerminal1().getBusView().getBus().setV(vl.getNominalV());
         network.getLine("line").getTerminal2().getBusView().getBus().setV(vl2.getNominalV());
 
-        network.getLine("line").newCurrentLimits1().setPermanentLimit(100).add();
-        network.getLine("line").newCurrentLimits2().setPermanentLimit(200).add();
+        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits().setPermanentLimit(200).add();
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
