@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import java.util.function.BiFunction;
 import java.util.function.DoubleFunction;
 
 /**
@@ -15,5 +16,9 @@ public class ValueFeederInfo extends AbstractFeederInfo {
 
     public ValueFeederInfo(String componentType, double value, DoubleFunction<String> formatter) {
         super(componentType, null, formatter.apply(value), null);
+    }
+
+    public ValueFeederInfo(String componentType, double value, String unit, BiFunction<Double, String, String> formatter) {
+        super(componentType, null, formatter.apply(value, unit), null);
     }
 }

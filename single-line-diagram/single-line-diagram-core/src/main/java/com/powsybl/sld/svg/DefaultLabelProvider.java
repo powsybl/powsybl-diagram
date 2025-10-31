@@ -241,7 +241,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         feederInfoList.add(activePowerFeederInfo);
         feederInfoList.add(new DirectionalFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
         if (this.svgParameters.isDisplayCurrentFeederInfo()) {
-            feederInfoList.add(new DirectionalFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent, activePowerFeederInfo.getDirection()));
+            feederInfoList.add(new ValueFeederInfo(VALUE_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
         }
         return feederInfoList;
     }
