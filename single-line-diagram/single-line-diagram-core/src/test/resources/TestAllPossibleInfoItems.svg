@@ -12,6 +12,7 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
 .sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
@@ -102,9 +103,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">10</text>
                 </g>
-                <g class="sld-feeder-info sld-out sld-current" id="idl_95_ARROW_95_CURRENT" transform="translate(60.0,129.5)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <g class="sld-feeder-info sld-current-value" id="idl_95_VALUE_95_CURRENT" transform="translate(60.0,129.5)">
                     <text class="sld-label" x="15.0" y="5.0">153</text>
                 </g>
                 <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,298.0)">
@@ -148,9 +147,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">10</text>
                 </g>
-                <g class="sld-feeder-info sld-out sld-current" id="idline_95_ONE_95_ARROW_95_CURRENT" transform="translate(110.0,125.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <g class="sld-feeder-info sld-current-value" id="idline_95_ONE_95_VALUE_95_CURRENT" transform="translate(110.0,125.0)">
                     <text class="sld-label" x="15.0" y="5.0">153</text>
                 </g>
                 <g class="sld-feeder-info sld-permanent-limit-percentage" id="idline_95_ONE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,140.0)">

@@ -12,6 +12,7 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
 .sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: baseVoltages.css ------------------------------------------------ */
@@ -108,9 +109,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">— MVAR</text>
                 </g>
-                <g class="sld-feeder-info sld-in sld-current" id="idB5_45_L_95_ARROW_95_CURRENT" transform="translate(60.0,139.5)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <g class="sld-feeder-info sld-current-value" id="idB5_45_L_95_VALUE_95_CURRENT" transform="translate(60.0,139.5)">
                     <text class="sld-label" x="15.0" y="5.0">— A</text>
                 </g>
                 <g class="sld-bus-connection sld-fictitious sld-vl70to120" id="idBUSCO_95_B5_95_B5_45_L" transform="translate(61.0,248.0)">
@@ -142,9 +141,7 @@
                 <g class="sld-feeder-info sld-permanent-limit-percentage" id="idL7_45_5_45_0_95_TWO_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,399.0)">
                     <text class="sld-label" x="15.0" y="5.0">— %</text>
                 </g>
-                <g class="sld-feeder-info sld-in sld-current" id="idL7_45_5_45_0_95_TWO_95_ARROW_95_CURRENT" transform="translate(110.0,379.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <g class="sld-feeder-info sld-current-value" id="idL7_45_5_45_0_95_TWO_95_VALUE_95_CURRENT" transform="translate(110.0,379.0)">
                     <text class="sld-label" x="15.0" y="5.0">— A</text>
                 </g>
                 <g class="sld-feeder-info sld-in sld-reactive-power" id="idL7_45_5_45_0_95_TWO_95_ARROW_95_REACTIVE" transform="translate(110.0,359.0)">
@@ -190,9 +187,7 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">— MVAR</text>
                 </g>
-                <g class="sld-feeder-info sld-in sld-current" id="idL5_45_4_45_0_95_ONE_95_ARROW_95_CURRENT" transform="translate(160.0,135.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <g class="sld-feeder-info sld-current-value" id="idL5_45_4_45_0_95_ONE_95_VALUE_95_CURRENT" transform="translate(160.0,135.0)">
                     <text class="sld-label" x="15.0" y="5.0">— A</text>
                 </g>
                 <g class="sld-feeder-info sld-permanent-limit-percentage" id="idL5_45_4_45_0_95_ONE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(160.0,155.0)">
