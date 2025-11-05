@@ -132,7 +132,9 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getType(),
                 edge.getLabel(),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                (null == edge.getSvgEdgeInfoMiddle()) ? null : createEdgeInfoMetadata(edge.getSvgEdgeInfoMiddle())))
+        );
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
             edgesMetadata.add(new EdgeMetadata(
@@ -145,7 +147,9 @@ public class DiagramMetadata extends AbstractMetadata {
                     edge.getType(),
                     null,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                    null));
+                    null,
+                    null
+            ));
         });
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getSvgId()),
