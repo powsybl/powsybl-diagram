@@ -557,7 +557,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
 
         for (BranchEdge edge : graph.getBranchEdges()) {
-            if (!graph.isLoop(edge)) {
+            if (graph.isNotALoop(edge)) {
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.TWO);
             } else {
