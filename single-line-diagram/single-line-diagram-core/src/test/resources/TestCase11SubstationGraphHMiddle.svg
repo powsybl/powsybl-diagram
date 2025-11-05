@@ -154,7 +154,7 @@
     <g>
         <g class="sld-voltage-level" id="idvl1">
             <g id="idLABEL_95_VL_95_vl1">
-                <text class="sld-graph-label" x="40.0" y="240.0">vl1</text>
+                <text class="sld-graph-label" x="40.0" y="230.0">vl1</text>
             </g>
             <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idbbs1" transform="translate(52.5,432.0)">
                 <line x1="0" x2="375.0" y1="0" y2="0"/>
@@ -784,7 +784,7 @@
         </g>
         <g class="sld-voltage-level" id="idvl2">
             <g id="idLABEL_95_VL_95_vl2">
-                <text class="sld-graph-label" x="870.0" y="240.0">vl2</text>
+                <text class="sld-graph-label" x="870.0" y="230.0">vl2</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300 sld-bus-0" id="idbbs5" transform="translate(882.5,432.0)">
                 <line x1="0" x2="525.0" y1="0" y2="0"/>
@@ -1204,7 +1204,7 @@
         </g>
         <g class="sld-voltage-level" id="idvl3">
             <g id="idLABEL_95_VL_95_vl3">
-                <text class="sld-graph-label" x="1520.0" y="252.5">vl3</text>
+                <text class="sld-graph-label" x="1520.0" y="242.5">vl3</text>
             </g>
             <g class="sld-busbar-section sld-vl50to70 sld-bus-0" id="idbbs7" transform="translate(1532.5,444.5)">
                 <line x1="0" x2="225.0" y1="0" y2="0"/>

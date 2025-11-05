@@ -154,7 +154,7 @@
     <g>
         <g class="sld-voltage-level" id="idvl1">
             <g id="idLABEL_95_VL_95_vl1">
-                <text class="sld-graph-label" x="40.0" y="60.0">vl1</text>
+                <text class="sld-graph-label" x="40.0" y="50.0">vl1</text>
             </g>
             <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idbbs1" transform="translate(52.5,80.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>

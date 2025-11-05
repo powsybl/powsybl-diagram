@@ -154,7 +154,7 @@
     <g>
         <g class="sld-voltage-level" id="idA_32_400">
             <g id="idLABEL_95_VL_95_A_32_400">
-                <text class="sld-graph-label" x="111.0" y="131.0">A 400</text>
+                <text class="sld-graph-label" x="111.0" y="121.0">A 400</text>
             </g>
             <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idA_32_400_32_Bus" transform="translate(123.5,323.0)">
                 <line x1="0" x2="25.0" y1="0" y2="0"/>
@@ -196,7 +196,7 @@
         </g>
         <g class="sld-voltage-level" id="idA_32_230">
             <g id="idLABEL_95_VL_95_A_32_230">
-                <text class="sld-graph-label" x="111.0" y="423.0">A 230</text>
+                <text class="sld-graph-label" x="111.0" y="413.0">A 230</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300 sld-bus-0" id="idA_32_230_32_Bus" transform="translate(123.5,615.0)">
                 <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -348,7 +348,7 @@
         </g>
         <g class="sld-voltage-level" id="idB_32_230">
             <g id="idLABEL_95_VL_95_B_32_230">
-                <text class="sld-graph-label" x="111.0" y="977.0">B 230</text>
+                <text class="sld-graph-label" x="111.0" y="967.0">B 230</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300 sld-bus-1" id="idB_32_230_32_Bus" transform="translate(123.5,1169.0)">
                 <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -490,7 +490,7 @@
         </g>
         <g class="sld-voltage-level" id="idC_32_230">
             <g id="idLABEL_95_VL_95_C_32_230">
-                <text class="sld-graph-label" x="111.0" y="1531.0">C 230</text>
+                <text class="sld-graph-label" x="111.0" y="1521.0">C 230</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300 sld-bus-2" id="idC_32_230_32_Bus" transform="translate(123.5,1723.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -565,7 +565,7 @@
         </g>
         <g class="sld-voltage-level" id="idC_32_66">
             <g id="idLABEL_95_VL_95_C_32_66">
-                <text class="sld-graph-label" x="111.0" y="1995.0">C 66</text>
+                <text class="sld-graph-label" x="111.0" y="1985.0">C 66</text>
             </g>
             <g class="sld-busbar-section sld-vl50to70 sld-bus-0" id="idC_32_66_32_Bus" transform="translate(123.5,2187.0)">
                 <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -706,7 +706,7 @@
         </g>
         <g class="sld-voltage-level" id="idC_32_20">
             <g id="idLABEL_95_VL_95_C_32_20">
-                <text class="sld-graph-label" x="111.0" y="2459.0">C 20</text>
+                <text class="sld-graph-label" x="111.0" y="2449.0">C 20</text>
             </g>
             <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="idC_32_20_32_Bus" transform="translate(123.5,2651.0)">
                 <line x1="0" x2="25.0" y1="0" y2="0"/>
@@ -768,7 +768,7 @@
         </g>
         <g class="sld-voltage-level" id="idD_32_66">
             <g id="idLABEL_95_VL_95_D_32_66">
-                <text class="sld-graph-label" x="111.0" y="2841.0">D 66</text>
+                <text class="sld-graph-label" x="111.0" y="2831.0">D 66</text>
             </g>
             <g class="sld-busbar-section sld-vl50to70 sld-bus-1" id="idD_32_66_32_Bus" transform="translate(123.5,3033.0)">
                 <line x1="0" x2="125.0" y1="0" y2="0"/>
@@ -876,7 +876,7 @@
         </g>
         <g class="sld-voltage-level" id="idD_32_10">
             <g id="idLABEL_95_VL_95_D_32_10">
-                <text class="sld-graph-label" x="111.0" y="3305.0">D 10</text>
+                <text class="sld-graph-label" x="111.0" y="3295.0">D 10</text>
             </g>
             <g class="sld-busbar-section sld-vl0to30 sld-bus-1" id="idD_32_10_32_Bus" transform="translate(123.5,3497.0)">
                 <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -1027,7 +1027,7 @@
         </g>
         <g class="sld-voltage-level" id="idE_32_10">
             <g id="idLABEL_95_VL_95_E_32_10">
-                <text class="sld-graph-label" x="161.0" y="3859.0">E 10</text>
+                <text class="sld-graph-label" x="161.0" y="3849.0">E 10</text>
             </g>
             <g class="sld-busbar-section sld-vl0to30 sld-bus-2" id="idE_32_10_32_Bus" transform="translate(173.5,4051.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
