@@ -47,14 +47,9 @@ public final class CgmesDLUtils {
         network.getLineStream().forEach(t -> t.removeExtension(LineDiagramData.class));
         network.getVoltageLevelStream().forEach(voltageLevel -> {
             switch (voltageLevel.getTopologyKind()) {
-                case NODE_BREAKER:
-                    voltageLevel.getNodeBreakerView().getBusbarSectionStream().forEach(busBarSection -> busBarSection.removeExtension(NodeDiagramData.class));
-                    break;
-                case BUS_BREAKER:
-                    voltageLevel.getBusBreakerView().getBusStream().forEach(bus -> bus.removeExtension(NodeDiagramData.class));
-                    break;
-                default:
-                    throw new AssertionError("Unexpected topology kind: " + voltageLevel.getTopologyKind());
+                case NODE_BREAKER -> voltageLevel.getNodeBreakerView().getBusbarSectionStream().forEach(busBarSection -> busBarSection.removeExtension(NodeDiagramData.class));
+                case BUS_BREAKER -> voltageLevel.getBusBreakerView().getBusStream().forEach(bus -> bus.removeExtension(NodeDiagramData.class));
+                default -> throw new AssertionError("Unexpected topology kind: " + voltageLevel.getTopologyKind());
             }
         });
         network.getSwitchStream().forEach(sw -> sw.removeExtension(CouplingDeviceDiagramData.class));

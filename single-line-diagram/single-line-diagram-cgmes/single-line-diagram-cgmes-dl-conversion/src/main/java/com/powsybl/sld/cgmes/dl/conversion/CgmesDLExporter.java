@@ -133,16 +133,15 @@ public class CgmesDLExporter {
         LOG.info("Exporting Nodes DL Data");
         network.getVoltageLevelStream().forEach(voltageLavel -> {
             switch (voltageLavel.getTopologyKind()) {
-                case NODE_BREAKER:
+                case NODE_BREAKER -> {
                     BusbarDiagramDataExporter busbarDiagramDataExporter = new BusbarDiagramDataExporter(tripleStore, context, busbarNodes);
                     voltageLavel.getNodeBreakerView().getBusbarSectionStream().forEach(busbarDiagramDataExporter::exportDiagramData);
-                    break;
-                case BUS_BREAKER:
+                }
+                case BUS_BREAKER -> {
                     BusDiagramDataExporter busDiagramDataExporter = new BusDiagramDataExporter(tripleStore, context);
                     voltageLavel.getBusBreakerView().getBusStream().forEach(busDiagramDataExporter::exportDiagramData);
-                    break;
-                default:
-                    throw new AssertionError("Unexpected topology kind: " + voltageLavel.getTopologyKind());
+                }
+                default -> throw new AssertionError("Unexpected topology kind: " + voltageLavel.getTopologyKind());
             }
         });
     }

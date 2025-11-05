@@ -115,7 +115,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
         logSettingCoordinates(node);
         switch (node.getType()) {
-            case BUS:
+            case BUS -> {
                 BusNode busNode = (BusNode) node;
                 if (TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind())) {
                     BusbarSection busbar = vl.getConnectable(busNode.getId(), BusbarSection.class);
@@ -126,21 +126,17 @@ public abstract class AbstractCgmesLayout implements Layout {
                     NodeDiagramData<Bus> busDiagramData = bus != null ? bus.getExtension(NodeDiagramData.class) : null;
                     setBusNodeCoordinates(busNode, busDiagramData, diagramName);
                 }
-                break;
-            case SWITCH:
+            }
+            case SWITCH -> {
                 SwitchNode switchNode = (SwitchNode) node;
                 Switch sw = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind()) ?
                             vl.getNodeBreakerView().getSwitch(switchNode.getId()) :
                             vl.getBusBreakerView().getSwitch(switchNode.getId());
                 CouplingDeviceDiagramData<Switch> switchDiagramData = sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
-                break;
-            case FEEDER:
-                setFeederNodeCoordinates(vl, node, diagramName, useNames);
-                break;
-            default:
-                processDefaultNodeCase(vl, node, diagramName);
-                break;
+            }
+            case FEEDER -> setFeederNodeCoordinates(vl, node, diagramName, useNames);
+            default -> processDefaultNodeCase(vl, node, diagramName);
         }
     }
 

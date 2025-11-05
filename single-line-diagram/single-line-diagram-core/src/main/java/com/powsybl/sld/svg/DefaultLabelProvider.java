@@ -68,28 +68,15 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FeederInfo> feederInfos = new ArrayList<>();
         Feeder feeder = node.getFeeder();
-
-        switch (feeder.getFeederType()) {
-            case INJECTION:
-                feederInfos = getInjectionFeederInfos(node);
-                break;
-            case BRANCH:
-                feederInfos = getBranchFeederInfos(node, (FeederWithSides) feeder);
-                break;
-            case TWO_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get2WTFeederInfos(node, (FeederTwLeg) feeder);
-                break;
-            case THREE_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get3WTFeederInfos(node, (FeederTwLeg) feeder);
-                break;
-            case HVDC:
-                feederInfos = getHvdcFeederInfos(node, (FeederWithSides) feeder);
-                break;
-            default:
-                break;
-        }
+        List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
+            case INJECTION -> getInjectionFeederInfos(node);
+            case BRANCH -> getBranchFeederInfos(node, (FeederWithSides) feeder);
+            case TWO_WINDINGS_TRANSFORMER_LEG -> get2WTFeederInfos(node, (FeederTwLeg) feeder);
+            case THREE_WINDINGS_TRANSFORMER_LEG -> get3WTFeederInfos(node, (FeederTwLeg) feeder);
+            case HVDC -> getHvdcFeederInfos(node, (FeederWithSides) feeder);
+            default -> new ArrayList<>();
+        };
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }

@@ -115,14 +115,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         LOGGER.info("Building '{}' graph...", vl.getId());
 
         switch (vl.getTopologyKind()) {
-            case BUS_BREAKER:
-                buildBusBreakerGraph(graph, vl);
-                break;
-            case NODE_BREAKER:
-                buildNodeBreakerGraph(graph, vl);
-                break;
-            default:
-                throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
+            case BUS_BREAKER -> buildBusBreakerGraph(graph, vl);
+            case NODE_BREAKER -> buildNodeBreakerGraph(graph, vl);
+            default -> throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
         }
 
         // Add snake edges in the same voltage level
@@ -310,23 +305,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 NodeSide firstOtherLegSide;
                 NodeSide secondOtherLegSide;
                 switch (side) {
-                    case ONE:
+                    case ONE -> {
                         vlLegSide = NodeSide.ONE;
                         firstOtherLegSide = NodeSide.TWO;
                         secondOtherLegSide = NodeSide.THREE;
-                        break;
-                    case TWO:
+                    }
+                    case TWO -> {
                         vlLegSide = NodeSide.TWO;
                         firstOtherLegSide = NodeSide.ONE;
                         secondOtherLegSide = NodeSide.THREE;
-                        break;
-                    case THREE:
+                    }
+                    case THREE -> {
                         vlLegSide = NodeSide.THREE;
                         firstOtherLegSide = NodeSide.ONE;
                         secondOtherLegSide = NodeSide.TWO;
-                        break;
-                    default:
-                        throw new IllegalStateException();
+                    }
+                    default -> throw new IllegalStateException();
                 }
 
                 // create first other leg feeder node

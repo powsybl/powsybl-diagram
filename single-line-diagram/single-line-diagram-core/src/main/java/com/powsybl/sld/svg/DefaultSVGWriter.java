@@ -176,25 +176,24 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Element style = document.createElement(STYLE);
         switch (svgParameters.getCssLocation()) {
-            case INSERTED_IN_SVG:
+            case INSERTED_IN_SVG -> {
                 String cssContent = CssUtil.getFilesContent(styleProvider.getCssUrls())
-                        + CssUtil.getFilesContent(componentLibrary.getCssUrls());
+                    + CssUtil.getFilesContent(componentLibrary.getCssUrls());
                 style.appendChild(document.createCDATASection(cssContent));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
-                break;
-            case EXTERNAL_IMPORTED:
+            }
+            case EXTERNAL_IMPORTED -> {
                 String cssImports = CssUtil.getImportCssString(styleProvider.getCssFilenames())
-                        + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
+                    + CssUtil.getImportCssString(componentLibrary.getCssFilenames());
                 style.appendChild(document.createTextNode(cssImports));
                 document.adoptNode(style);
                 document.getDocumentElement().appendChild(style);
-                break;
-            case EXTERNAL_NO_IMPORT:
+            }
+            case EXTERNAL_NO_IMPORT -> {
                 // Nothing to do
-                break;
-            default:
-                throw new AssertionError("Unexpected CSS location: " + svgParameters.getCssLocation());
+            }
+            default -> throw new AssertionError("Unexpected CSS location: " + svgParameters.getCssLocation());
         }
     }
 
@@ -710,20 +709,15 @@ public class DefaultSVGWriter implements SVGWriter {
         SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
         if (transformation != null) {
             switch (transformation) {
-                case ROTATION: {
-                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")");
-                    break;
-                }
-                case FLIP: {
+                case ROTATION -> elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")");
+                case FLIP -> {
                     if (nodeOrientation.isVertical()) {
                         elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.height() + ")");
                     } else {
                         elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.width() + ", 0)");
                     }
-                    break;
                 }
-                case NONE:
-                default: {
+                default -> {
                     // No transformation
                 }
             }

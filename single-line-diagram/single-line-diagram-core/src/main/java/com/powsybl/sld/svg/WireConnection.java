@@ -158,31 +158,32 @@ public final class WireConnection {
         double yB = pointB.getY();
 
         switch (anchorPointA.getOrientation()) {
-            case VERTICAL:
+            case VERTICAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.VERTICAL) {
                     double mid = (yA + yB) / 2;
                     pol.addAll(Point.createPointsList(xA, mid, xB, mid));
                 } else {
                     pol.add(new Point(xA, yB));
                 }
-                break;
-            case HORIZONTAL:
+            }
+            case HORIZONTAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     double mid = (xA + xB) / 2;
                     pol.addAll(Point.createPointsList(mid, yA, mid, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            case NONE:
+            }
+            case NONE -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     pol.add(new Point(xA, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+                // Do nothing
+            }
         }
     }
 }

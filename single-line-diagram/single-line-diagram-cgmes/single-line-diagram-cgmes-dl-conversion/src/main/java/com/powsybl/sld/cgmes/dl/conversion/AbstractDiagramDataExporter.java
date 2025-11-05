@@ -66,24 +66,24 @@ public abstract class AbstractDiagramDataExporter {
     }
 
     protected String addDiagramObjectStyle(TopologyKind topologyKind) {
-        switch (topologyKind) {
-            case NODE_BREAKER:
+        return switch (topologyKind) {
+            case NODE_BREAKER -> {
                 if (context.hasNodeBreakerDiagramObjectStyleId()) {
-                    return context.getNodeBreakerDiagramObjectStyleId();
+                    yield context.getNodeBreakerDiagramObjectStyleId();
                 }
                 String nodeBreakerDiagramObjectStyleId = addDiagramObjectStyle("node-breaker");
                 context.setNodeBreakerDiagramObjectStyleId(nodeBreakerDiagramObjectStyleId);
-                return nodeBreakerDiagramObjectStyleId;
-            case BUS_BREAKER:
+                yield nodeBreakerDiagramObjectStyleId;
+            }
+            case BUS_BREAKER -> {
                 if (context.hasBusBranchDiagramObjectStyleId()) {
-                    return context.getBusBranchDiagramObjectStyleId();
+                    yield context.getBusBranchDiagramObjectStyleId();
                 }
                 String busBranchdiagramObjectStyleId = addDiagramObjectStyle("bus-branch");
                 context.setBusBranchDiagramObjectStyleId(busBranchdiagramObjectStyleId);
-                return busBranchdiagramObjectStyleId;
-            default:
-                throw new AssertionError("Unexpected topology kind: " + topologyKind);
-        }
+                yield busBranchdiagramObjectStyleId;
+            }
+        };
     }
 
     protected void addTerminalData(String id, String name, int side, List<DiagramPoint> terminalPoints, String diagramObjectStyleId, String diagramId) {
