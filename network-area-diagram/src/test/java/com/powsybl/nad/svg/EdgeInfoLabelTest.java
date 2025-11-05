@@ -52,6 +52,11 @@ class EdgeInfoLabelTest extends AbstractTest {
             }
 
             @Override
+            public EdgeInfo getBranchEdgeInfo(String branchId, String branchType) {
+                return new EdgeInfo("test", EdgeInfo.Direction.OUT, null, "test");
+            }
+
+            @Override
             public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
                 return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }

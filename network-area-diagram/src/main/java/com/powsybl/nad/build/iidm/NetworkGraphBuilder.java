@@ -226,10 +226,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         String branchId = identifiable.getId();
         EdgeInfo edgeInfo1 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.ONE, edgeType).orElse(null);
         EdgeInfo edgeInfo2 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.TWO, edgeType).orElse(null);
-        String branchLabel = labelProvider.getBranchLabel(branchId);
+        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfo(branchId, edgeType);
 
         BranchEdge edge = new BranchEdge(idProvider, branchId, identifiable.getNameOrId(), edgeType,
-                edgeInfo1, edgeInfo2, branchLabel);
+                edgeInfo1, edgeInfo2, edgeInfoMiddle);
         if (!terminalsInReversedOrder) {
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {
@@ -257,7 +257,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         String branchType = BranchEdge.DANGLING_LINE_EDGE;
         EdgeInfo edgeInfo = labelProvider.getBranchEdgeInfo(dl.getId(), BranchEdge.Side.ONE, branchType).orElse(null);
         BranchEdge edge = new BranchEdge(idProvider,
-                dl.getId(), dl.getNameOrId(), branchType, edgeInfo, null, null);
+                dl.getId(), dl.getNameOrId(), branchType, edgeInfo, null, new EdgeInfo());
         graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
     }
 

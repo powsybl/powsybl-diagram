@@ -107,6 +107,12 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
+    public EdgeInfo getBranchEdgeInfo(String branchId, String branchType) {
+        BranchLabels bl = branchLabels.get(branchId);
+        return new EdgeInfo(INFO_TYPE, bl.arrow1, null, branchId);
+    }
+
+    @Override
     public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
         return vlLegends.getOrDefault(voltageLevelId, new VoltageLevelLegend(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap()));
     }

@@ -23,5 +23,7 @@ public interface LabelProvider {
 
     String getBranchLabel(String branchId);
 
+    EdgeInfo getBranchEdgeInfo(String branchId, String branchType);
+
     VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId);
 }

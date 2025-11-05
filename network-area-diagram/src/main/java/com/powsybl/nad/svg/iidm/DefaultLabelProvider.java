@@ -62,6 +62,12 @@ public class DefaultLabelProvider implements LabelProvider {
         return svgParameters.isEdgeNameDisplayed() ? branchId : null;
     }
 
+    @Override
+    public EdgeInfo getBranchEdgeInfo(String branchId, String branchType) {
+        Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, BranchEdge.Side.ONE, branchType);
+        return getEdgeInfo(branchId, terminal);
+    }
+
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
         if (terminal == null) {
             return Optional.empty();
@@ -70,6 +76,14 @@ public class DefaultLabelProvider implements LabelProvider {
             case ACTIVE_POWER -> toOptional(terminal.getP()).map(p -> new EdgeInfo(EdgeInfo.ACTIVE_POWER, p, valueFormatter::formatPower));
             case REACTIVE_POWER -> toOptional(terminal.getQ()).map(q -> new EdgeInfo(EdgeInfo.REACTIVE_POWER, q, valueFormatter::formatPower));
             case CURRENT -> toOptional(terminal.getI()).map(i -> new EdgeInfo(EdgeInfo.CURRENT, i, valueFormatter::formatCurrent));
+        };
+    }
+
+    private EdgeInfo getEdgeInfo(String branchId, Terminal terminal) {
+        return switch (svgParameters.getEdgeInfoDisplayed()) {
+            case ACTIVE_POWER -> new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal == null ? Double.NaN : terminal.getP(), svgParameters.isEdgeNameDisplayed() ? branchId : null);
+            case REACTIVE_POWER -> new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal == null ? Double.NaN : terminal.getQ(), svgParameters.isEdgeNameDisplayed() ? branchId : null);
+            case CURRENT -> new EdgeInfo(EdgeInfo.CURRENT, terminal == null ? Double.NaN : terminal.getI(), svgParameters.isEdgeNameDisplayed() ? branchId : null);
         };
     }
 

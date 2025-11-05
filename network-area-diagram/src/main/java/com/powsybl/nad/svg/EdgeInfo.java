@@ -33,6 +33,14 @@ public class EdgeInfo {
         this(infoType, getArrowDirection(value), null, formatter.apply(value));
     }
 
+    public EdgeInfo(String infoType, double value, String externalLabel) {
+        this(infoType, getArrowDirection(value), null, externalLabel);
+    }
+
+    public EdgeInfo() {
+        this(EdgeInfo.ACTIVE_POWER, null, null, null);
+    }
+
     private static Direction getArrowDirection(double value) {
         if (Double.isNaN(value)) {
             return null;

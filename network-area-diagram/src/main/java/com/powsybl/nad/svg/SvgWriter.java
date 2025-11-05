@@ -276,7 +276,7 @@ public class SvgWriter {
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
 
         if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
-            drawEdgeMiddleLabel(edgeLabel, edge, writer);
+//            drawEdgeMiddleLabel(edgeLabel, edge, writer);
         } else if (edge.isVisible(BranchEdge.Side.ONE)) {
             drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.ONE, writer);
         } else {
@@ -288,6 +288,7 @@ public class SvgWriter {
 
     private void drawEdgeMiddleLabel(String edgeLabel, BranchEdge edge, XMLStreamWriter writer) throws XMLStreamException {
         double edgeEndAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+        // Ajout de la flèche et décaler le texte
         drawLabel(writer, edgeLabel, 0, "text-anchor:middle", computeTextAngle(edgeEndAngle), X_ATTRIBUTE);
     }
 
@@ -533,6 +534,7 @@ public class SvgWriter {
             if (!graph.isLoop(edge)) {
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.TWO);
+                drawEdgeInfo(writer, edge.getSvgEdgeInfoMiddle(), edge.getMiddlePoint(), edge.getEdgeEndAngle(BranchEdge.Side.ONE));
             } else {
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.TWO);
