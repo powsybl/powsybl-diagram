@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.powsybl.diagram.util.ValueFormatter;
 
 import java.util.Locale;
@@ -14,6 +15,7 @@ import java.util.Objects;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@JsonIgnoreProperties({"arrowHeight"})
 public class SvgParameters {
 
     private Padding diagramPadding = new Padding(200);
@@ -44,7 +46,8 @@ public class SvgParameters {
     private String svgPrefix = "";
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
-    private double arrowHeight = 10;
+    private String arrowPathIn = "M-10 -10 H10 L0 10z";
+    private String arrowPathOut = "M-10 10 H10 L0 -10z";
     private boolean busLegend = true;
     private boolean voltageLevelDetails = false;
     private String languageTag = "en";
@@ -59,6 +62,8 @@ public class SvgParameters {
     private double injectionAperture = 10;
     private double injectionEdgeLength = 145;
     private double injectionCircleRadius = 25;
+    private boolean voltageLevelLegendsIncluded = true;
+    private boolean edgeInfosIncluded = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -100,7 +105,8 @@ public class SvgParameters {
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
-        this.arrowHeight = other.arrowHeight;
+        this.arrowPathIn = other.arrowPathIn;
+        this.arrowPathOut = other.arrowPathOut;
         this.busLegend = other.busLegend;
         this.voltageLevelDetails = other.voltageLevelDetails;
         this.languageTag = other.languageTag;
@@ -115,6 +121,8 @@ public class SvgParameters {
         this.injectionAperture = other.injectionAperture;
         this.injectionEdgeLength = other.injectionEdgeLength;
         this.injectionCircleRadius = other.injectionCircleRadius;
+        this.voltageLevelLegendsIncluded = other.voltageLevelLegendsIncluded;
+        this.edgeInfosIncluded = other.edgeInfosIncluded;
     }
 
     public Padding getDiagramPadding() {
@@ -386,12 +394,21 @@ public class SvgParameters {
         return this;
     }
 
-    public double getArrowHeight() {
-        return arrowHeight;
+    public String getArrowPathIn() {
+        return arrowPathIn;
     }
 
-    public SvgParameters setArrowHeight(double arrowHeight) {
-        this.arrowHeight = arrowHeight;
+    public SvgParameters setArrowPathIn(String arrowPathIn) {
+        this.arrowPathIn = arrowPathIn;
+        return this;
+    }
+
+    public String getArrowPathOut() {
+        return arrowPathOut;
+    }
+
+    public SvgParameters setArrowPathOut(String arrowPathOut) {
+        this.arrowPathOut = arrowPathOut;
         return this;
     }
 
@@ -532,6 +549,24 @@ public class SvgParameters {
 
     public SvgParameters setInjectionCircleRadius(double injectionCircleRadius) {
         this.injectionCircleRadius = injectionCircleRadius;
+        return this;
+    }
+
+    public boolean isVoltageLevelLegendsIncluded() {
+        return voltageLevelLegendsIncluded;
+    }
+
+    public SvgParameters setVoltageLevelLegendsIncluded(boolean voltageLevelLegendsIncluded) {
+        this.voltageLevelLegendsIncluded = voltageLevelLegendsIncluded;
+        return this;
+    }
+
+    public boolean isEdgeInfosIncluded() {
+        return edgeInfosIncluded;
+    }
+
+    public SvgParameters setEdgeInfosIncluded(boolean edgeInfosIncluded) {
+        this.edgeInfosIncluded = edgeInfosIncluded;
         return this;
     }
 }

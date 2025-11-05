@@ -16,8 +16,8 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     private Point position;
     private final boolean fictitious;
 
-    protected AbstractNode(String diagramId, String equipmentId, String name, boolean fictitious) {
-        super(diagramId, equipmentId, name);
+    protected AbstractNode(String svgId, String equipmentId, String name, boolean fictitious) {
+        super(svgId, equipmentId, name);
         position = new Point();
         width = 0;
         height = 0;

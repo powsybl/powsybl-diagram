@@ -7,35 +7,21 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Injection;
 import com.powsybl.nad.model.ThreeWtEdge;
-import com.powsybl.nad.model.VoltageLevelNode;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface LabelProvider {
-    Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side);
+    Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType);
 
-    Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge);
+    Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side);
 
-    Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection);
+    Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId);
 
-    String getLabel(Edge edge);
+    String getBranchLabel(String branchId);
 
-    String getArrowPathDIn();
-
-    String getArrowPathDOut();
-
-    List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode);
-
-    String getBusDescription(BusNode busNode);
-
-    List<String> getVoltageLevelDetails(VoltageLevelNode vlNode);
+    VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId);
 }

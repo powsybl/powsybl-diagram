@@ -11,7 +11,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,9 +46,14 @@ class TextNodeTest extends AbstractTest {
         }
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
+            public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
+                var vlLegend = super.getVoltageLevelLegend(voltageLevelId);
+                return new VoltageLevelLegend(vlLegend.legendHeader(), getLegendFooter(voltageLevelId), vlLegend.busLegend());
+            }
+
+            private List<String> getLegendFooter(String voltageLevelId) {
                 if (getSvgParameters().isVoltageLevelDetails()) {
-                    VoltageLevel vl = network.getVoltageLevel(vlNode.getEquipmentId());
+                    VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
                     return List.of(
                             vl.getLoadCount() + " loads",
                             vl.getGeneratorCount() + " generators",

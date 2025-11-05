@@ -43,10 +43,10 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
-    private static final String WINDING3 = "WINDING3";
+    protected static final String WINDING3 = "WINDING3";
     private static final String ARROW1 = "ARROW1";
     private static final String ARROW2 = "ARROW2";
-    private static final String ARROW3 = "ARROW3";
+    protected static final String ARROW3 = "ARROW3";
 
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -161,7 +161,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side);
 
-    private Node getFeederNode(Middle3WTNode node, String subComponentName) {
+    protected Node getFeederNode(Middle3WTNode node, String subComponentName) {
         return switch (subComponentName) {
             case WINDING1, ARROW1 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
             case WINDING2, ARROW2 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
@@ -170,7 +170,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         };
     }
 
-    private Node getFeederNode(Middle2WTNode node, String subComponentName) {
+    protected Node getFeederNode(Middle2WTNode node, String subComponentName) {
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ? 0 : 1);
     }
 

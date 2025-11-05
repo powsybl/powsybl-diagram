@@ -74,7 +74,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     private static Optional<String> getBranchTypeStyle(Edge edge) {
         String edgeType = edge.getType();
         return switch (edgeType) {
-            case BranchEdge.HVDC_LINE_EDGE -> Optional.of(HVDC_EDGE_CLASS);
+            case BranchEdge.HVDC_LINE_LCC_EDGE, BranchEdge.HVDC_LINE_VSC_EDGE -> Optional.of(HVDC_EDGE_CLASS);
             case BranchEdge.DANGLING_LINE_EDGE -> Optional.of(DANGLING_LINE_EDGE_CLASS);
             case BranchEdge.TIE_LINE_EDGE -> Optional.of(TIE_LINE_EDGE_CLASS);
             default -> Optional.empty();
@@ -95,24 +95,12 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
-        String infoType = info.getInfoType();
-        switch (infoType) {
-            case EdgeInfo.ACTIVE_POWER:
-                styles.add(CLASSES_PREFIX + "active");
-                break;
-            case EdgeInfo.REACTIVE_POWER:
-                styles.add(CLASSES_PREFIX + "reactive");
-                break;
-            case EdgeInfo.CURRENT:
-                styles.add(CLASSES_PREFIX + "current");
-                break;
-            default:
-                LOGGER.warn("The \"{}\" type of information is not handled", infoType);
-                break;
+        switch (info.getInfoType()) {
+            case EdgeInfo.ACTIVE_POWER -> styles.add(CLASSES_PREFIX + "active");
+            case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
+            case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
+            default -> LOGGER.warn("The \"{}\" type of information is not handled", info.getInfoType());
         }
-
-        info.getDirection().ifPresent(direction -> styles.add(
-                CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
         return styles;
     }
 
@@ -128,12 +116,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getInjectionStyleClasses(Injection injection) {
-        List<String> result = new ArrayList<>();
-        if (isDisconnected(injection)) {
-            result.add(DISCONNECTED_CLASS);
-        }
-        getBaseVoltageStyle(injection).ifPresent(result::add);
-        return result;
+        return isDisconnected(injection) ? List.of(DISCONNECTED_CLASS) : Collections.emptyList();
     }
 
     protected abstract boolean isDisconnected(Injection injection);
@@ -149,8 +132,6 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
-
-    protected abstract Optional<String> getBaseVoltageStyle(Injection injection);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

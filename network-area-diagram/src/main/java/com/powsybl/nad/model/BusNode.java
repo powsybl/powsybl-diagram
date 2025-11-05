@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,16 +18,22 @@ import java.util.Objects;
  */
 public class BusNode extends AbstractNode {
 
-    public static final BusNode UNKNOWN = new BusNode("", "", Collections.emptyList());
+    public static final BusNode UNKNOWN = new BusNode("", "", Collections.emptyList(), "");
 
     private int ringIndex;
     private int busIndex;
     private int nbNeighbouringBusNodes;
     private final List<Injection> injections = new ArrayList<>();
+    private final String legend;
 
-    public BusNode(String diagramId, String id, List<Injection> injections) {
-        super(diagramId, id, null, false);
+    public BusNode(IdProvider idProvider, String id, List<Injection> injections, String legend) {
+        this(idProvider.createSvgId(id), id, injections, legend);
+    }
+
+    public BusNode(String svgId, String equipmentId, List<Injection> injections, String legend) {
+        super(svgId, equipmentId, null, false);
         this.injections.addAll(Objects.requireNonNull(injections));
+        this.legend = legend;
     }
 
     public void setRingIndex(int ringIndex) {
@@ -58,6 +66,10 @@ public class BusNode extends AbstractNode {
 
     public List<Injection> getInjections() {
         return Collections.unmodifiableList(injections);
+    }
+
+    public String getLegend() {
+        return legend;
     }
 }
 

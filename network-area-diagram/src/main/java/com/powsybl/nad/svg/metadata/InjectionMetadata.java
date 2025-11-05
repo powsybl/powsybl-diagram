@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InjectionMetadata extends AbstractMetadataItem {
 
     private final String componentType;
+    private final EdgeInfoMetadata edgeInfo;
     private final String busNodeId;
     private final String vlNodeId;
 
@@ -24,11 +25,13 @@ public class InjectionMetadata extends AbstractMetadataItem {
                              @JsonProperty("equipmentId") String equipmentId,
                              @JsonProperty("componentType") String componentType,
                              @JsonProperty("busNodeId") String busNodeId,
-                             @JsonProperty("vlNodeId") String vlNodeId) {
+                             @JsonProperty("vlNodeId") String vlNodeId,
+                             @JsonProperty("edgeInfo") EdgeInfoMetadata edgeInfo) {
         super(svgId, equipmentId);
         this.componentType = componentType;
         this.busNodeId = busNodeId;
         this.vlNodeId = vlNodeId;
+        this.edgeInfo = edgeInfo;
     }
 
     @JsonProperty("componentType")
@@ -44,5 +47,10 @@ public class InjectionMetadata extends AbstractMetadataItem {
     @JsonProperty("vlNodeId")
     public String getVlNodeId() {
         return vlNodeId;
+    }
+
+    @JsonProperty("edgeInfo")
+    public EdgeInfoMetadata getEdgeInfoMetadata() {
+        return edgeInfo;
     }
 }

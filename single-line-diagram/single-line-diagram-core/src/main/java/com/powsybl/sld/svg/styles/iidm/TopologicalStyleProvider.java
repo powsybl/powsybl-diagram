@@ -185,7 +185,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
                 .orElse(StyleClassConstants.DISCONNECTED_STYLE_CLASS);
     }
 
-    private void findConnectedNodes(Node node, Set<Node> visitedNodes) {
+    protected void findConnectedNodes(Node node, Set<Node> visitedNodes) {
         if (visitedNodes.contains(node)) {
             return;
         }

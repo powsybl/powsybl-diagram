@@ -199,9 +199,4 @@ public class CustomStyleProvider extends AbstractStyleProvider {
     protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
         return Optional.empty();
     }
-
-    @Override
-    protected Optional<String> getBaseVoltageStyle(Injection injection) {
-        return Optional.empty();
-    }
 }
