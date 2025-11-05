@@ -174,7 +174,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
                             .collect(Collectors.toList());
                     if (terminals.size() == 1) {
                         // if more than one (vl-internal transformer), we don't know which side to take
-                        Bus bus = terminals.get(0).getBusView().getBus();
+                        Bus bus = terminals.getFirst().getBusView().getBus();
                         return bus != null ? bus.getId() : null;
                     }
                     return null;

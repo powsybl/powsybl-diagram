@@ -456,28 +456,31 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (position == null) {
                 return null;
             }
-            if (connectable instanceof Injection) {
-                return position.getFeeder();
-            } else if (connectable instanceof Branch<?> branch) {
-                if (branch.getTerminal1() == terminal) {
-                    return position.getFeeder1();
-                } else if (branch.getTerminal2() == terminal) {
-                    return position.getFeeder2();
-                } else {
-                    throw new AssertionError();
+            switch (connectable) {
+                case Injection<?> ignored -> {
+                    return position.getFeeder();
                 }
-            } else if (connectable instanceof ThreeWindingsTransformer twt) {
-                if (twt.getLeg1().getTerminal() == terminal) {
-                    return position.getFeeder1();
-                } else if (twt.getLeg2().getTerminal() == terminal) {
-                    return position.getFeeder2();
-                } else if (twt.getLeg3().getTerminal() == terminal) {
-                    return position.getFeeder3();
-                } else {
-                    throw new AssertionError();
+                case Branch<?> branch -> {
+                    if (branch.getTerminal1() == terminal) {
+                        return position.getFeeder1();
+                    } else if (branch.getTerminal2() == terminal) {
+                        return position.getFeeder2();
+                    } else {
+                        throw new AssertionError();
+                    }
                 }
-            } else {
-                throw new AssertionError();
+                case ThreeWindingsTransformer twt -> {
+                    if (twt.getLeg1().getTerminal() == terminal) {
+                        return position.getFeeder1();
+                    } else if (twt.getLeg2().getTerminal() == terminal) {
+                        return position.getFeeder2();
+                    } else if (twt.getLeg3().getTerminal() == terminal) {
+                        return position.getFeeder3();
+                    } else {
+                        throw new AssertionError();
+                    }
+                }
+                default -> throw new AssertionError();
             }
         }
 

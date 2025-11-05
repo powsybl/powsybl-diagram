@@ -80,6 +80,6 @@ final class Links {
     }
 
     BSCluster getFinalBsCluster() {
-        return bsClusterSides.get(0).getCluster();
+        return bsClusterSides.getFirst().getCluster();
     }
 }

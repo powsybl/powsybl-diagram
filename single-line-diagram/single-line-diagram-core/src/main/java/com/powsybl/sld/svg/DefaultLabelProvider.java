@@ -202,17 +202,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private NodeDecorator getOperatingStatusDecorator(Node node, Direction direction, String decoratorType) {
-        if (node instanceof Middle3WTNode middle3WTNode) {
-            return new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
-        } else if (node instanceof BusNode) {
-            return new NodeDecorator(decoratorType, getBusDecoratorPosition());
-        } else if (node instanceof FeederNode) {
-            return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
-        } else if (node instanceof Internal2WTNode) {
-            return new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
-        } else {
-            return new NodeDecorator(decoratorType, getGenericDecoratorPosition());
-        }
+        return switch (node) {
+            case Middle3WTNode middle3WTNode -> new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
+            case BusNode ignored -> new NodeDecorator(decoratorType, getBusDecoratorPosition());
+            case FeederNode ignored -> new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
+            case Internal2WTNode ignored -> new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
+            case null, default -> new NodeDecorator(decoratorType, getGenericDecoratorPosition());
+        };
     }
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {

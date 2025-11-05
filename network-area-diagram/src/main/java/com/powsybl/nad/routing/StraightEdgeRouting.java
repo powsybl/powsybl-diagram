@@ -72,7 +72,7 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
 
     @Override
     protected void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters) {
-        BranchEdge firstEdge = edges.iterator().next();
+        BranchEdge firstEdge = edges.getFirst();
         VoltageLevelNode nodeA = graph.getVoltageLevelNode1(firstEdge);
         VoltageLevelNode nodeB = graph.getVoltageLevelNode2(firstEdge);
         Point pointA = nodeA.getPosition();

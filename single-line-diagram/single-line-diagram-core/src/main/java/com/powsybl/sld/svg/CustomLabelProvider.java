@@ -113,7 +113,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
             case INJECTION -> getCustomFeederInfos(node, null);
             case BRANCH, HVDC, TWO_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_LEG -> getCustomFeederInfos(node, ((FeederWithSides) feeder).getSide());
-            default -> List.of();
+            default -> new ArrayList<>();
         };
 
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {

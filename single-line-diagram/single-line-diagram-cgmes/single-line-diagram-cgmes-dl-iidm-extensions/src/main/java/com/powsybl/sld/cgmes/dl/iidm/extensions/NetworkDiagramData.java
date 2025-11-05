@@ -58,7 +58,7 @@ public final class NetworkDiagramData extends AbstractExtension<Network> {
     public static boolean containsDiagramName(Network network, String diagramName) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(diagramName);
-        return checkNetworkDiagramData(network) && getNetworkDiagramData(network).diagramsNames.keySet().contains(diagramName);
+        return checkNetworkDiagramData(network) && getNetworkDiagramData(network).diagramsNames.containsKey(diagramName);
     }
 
     public static List<String> getSubstations(Network network, String diagramName) {

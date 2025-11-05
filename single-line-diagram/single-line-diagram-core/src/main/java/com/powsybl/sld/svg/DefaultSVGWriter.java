@@ -1104,7 +1104,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     private void adaptCoordSnakeLine(BranchEdge edge, List<Point> pol, Graph graph) {
         // Getting the right polyline point from where we need to compute the best anchor point
-        Point multiTermPoint = pol.get(pol.size() - 1);
+        Point multiTermPoint = pol.getLast();
         Point pointBeforeNode = pol.get(Math.max(pol.size() - 2, 0));
 
         AnchorPoint bestAnchorPoint = WireConnection.getBestAnchorPoint(componentLibrary, graph, edge.getNode2(), pointBeforeNode);

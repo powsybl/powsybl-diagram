@@ -194,7 +194,7 @@ public class Graph {
                         .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
                         .collect(Collectors.toList()))
                 .filter(l -> !l.isEmpty())
-                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.get(0)), l -> l));
+                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.getFirst()), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {

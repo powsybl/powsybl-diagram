@@ -82,11 +82,11 @@ class BSClusterSide {
         if (buses.isEmpty()) {
             return 100;
         }
-        BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
+        BusNode busNode = buses.getFirst(); //shall have only one as used for a flatCell
         Optional<HorizontalBusList> horizontalBusList = bsCluster.getHorizontalBusLists()
                 .stream()
-                .filter(hbl -> side == Side.LEFT && hbl.getBusNodes().get(0) == busNode
-                        || side == Side.RIGHT && hbl.getBusNodes().get(hbl.getBusNodes().size() - 1) == busNode)
+                .filter(hbl -> side == Side.LEFT && hbl.getBusNodes().getFirst() == busNode
+                        || side == Side.RIGHT && hbl.getBusNodes().getLast() == busNode)
                 .findFirst();
         if (horizontalBusList.isEmpty()) {
             return 100;

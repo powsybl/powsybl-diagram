@@ -33,8 +33,8 @@ abstract class AbstractParallelBlock<T extends Block> extends AbstractComposedBl
             }
         }
 
-        Node node0s = subBlocks.get(0).getExtremityNode(START);
-        Node node0e = subBlocks.get(0).getExtremityNode(END);
+        Node node0s = subBlocks.getFirst().getExtremityNode(START);
+        Node node0e = subBlocks.getFirst().getExtremityNode(END);
         for (Block b : this.subBlocks) {
             b.setParentBlock(this);
             if (b.getExtremityNode(START) != node0s && b.getExtremityNode(END) != node0e) {

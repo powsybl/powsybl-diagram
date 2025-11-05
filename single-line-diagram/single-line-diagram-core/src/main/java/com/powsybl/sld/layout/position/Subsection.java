@@ -168,7 +168,7 @@ public class Subsection {
     private static void identifyOneLegInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
         graph.getInternCellStream()
                 .filter(c -> c.checkIsShape(InternCell.Shape.MAYBE_FLAT, InternCell.Shape.UNDEFINED))
-                .filter(c -> c.getBodyBlock() instanceof BodyPrimaryBlock bpb && bpb.getNodes().size() == 1 && bpb.getNodes().get(0) instanceof ConnectivityNode)
+                .filter(c -> c.getBodyBlock() instanceof BodyPrimaryBlock bpb && bpb.getNodes().size() == 1 && bpb.getNodes().getFirst() instanceof ConnectivityNode)
                 .forEach(c -> subsections.stream().filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes())).findFirst().ifPresent(s -> {
                     c.replaceBackMultiLegByOneLeg();
                     s.internCellSides.removeIf(ics -> ics.getCell() == c);
@@ -210,14 +210,7 @@ public class Subsection {
     }
 
     private static void identifyCrossOverAndCheckOrientation(List<Subsection> subsections) {
-        final class SideSs {
-            private Side side;
-            private Subsection ss;
-
-            private SideSs(Side side, Subsection ss) {
-                this.side = side;
-                this.ss = ss;
-            }
+        record SideSs(Side side, Subsection ss) {
         }
 
         Map<InternCell, List<SideSs>> cellToSideSs = new LinkedHashMap<>();
@@ -239,7 +232,7 @@ public class Subsection {
                 if (!cell.checkIsShape(InternCell.Shape.FLAT)) {
                     cell.setShape(InternCell.Shape.CROSSOVER);
                 }
-                if (sideSses.get(0).side == RIGHT) {
+                if (sideSses.getFirst().side == RIGHT) {
                     cell.reverseCell();
                     sideSses.stream().flatMap(sss -> sss.ss.internCellSides.stream())
                             .filter(ics -> ics.getCell() == cell)
@@ -259,7 +252,7 @@ public class Subsection {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
                         List<Subsection> candidateSss = subsections.stream().filter(ss2 -> ss2.containsAllBusNodes(nodes)).toList();
                         if (!candidateSss.isEmpty()) {
-                            Subsection candidateSs = ics.getSide() == LEFT ? candidateSss.get(candidateSss.size() - 1) : candidateSss.get(0);
+                            Subsection candidateSs = ics.getSide() == LEFT ? candidateSss.getLast() : candidateSss.getFirst();
                             if (ss != candidateSs) {
                                 cellToRemove.add(ics);
                                 cellSideToMove.put(ics, candidateSs);
@@ -329,7 +322,7 @@ public class Subsection {
             }
         }
         if (side == LEFT) {
-            ss.externCells.add(0, c);
+            ss.externCells.addFirst(c);
         } else {
             ss.externCells.add(c);
         }

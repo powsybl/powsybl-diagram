@@ -66,7 +66,7 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
             int voltageLevelListSize = voltageLevelList.size();
 
             if (voltageLevelListSize == 1) {
-                String voltageLevelId = voltageLevelList.get(0).getId();
+                String voltageLevelId = voltageLevelList.getFirst().getId();
                 fixedNodePositionMap.put(voltageLevelId, new Point(scalingFactor * mercatorCoordinates.getFirst(), scalingFactor * mercatorCoordinates.getSecond()));
             } else if (voltageLevelListSize > 1) {
                 //Deal with voltage levels within the same substation (and thus with the same coordinates)

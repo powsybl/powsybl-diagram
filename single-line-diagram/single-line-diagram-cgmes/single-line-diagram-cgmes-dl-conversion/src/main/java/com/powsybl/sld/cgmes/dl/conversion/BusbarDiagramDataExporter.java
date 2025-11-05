@@ -44,7 +44,7 @@ public class BusbarDiagramDataExporter extends AbstractNodeDiagramDataExporter {
             return busbarNodes.get(busbarId);
         }
         LOG.warn("Cannot find node id of busbar {} in triple store: creating new id", busbarId);
-        return "_" + UUID.randomUUID().toString();
+        return "_" + UUID.randomUUID();
     }
 
 }

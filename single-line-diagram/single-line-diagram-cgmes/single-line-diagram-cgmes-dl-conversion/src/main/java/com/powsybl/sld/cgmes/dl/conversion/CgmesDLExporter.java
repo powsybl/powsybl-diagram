@@ -104,8 +104,8 @@ public class CgmesDLExporter {
     }
 
     private void addModel(ExportContext context) {
-        PropertyBag modelProperties = new PropertyBag(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, "" +
-                CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON), true);
+        PropertyBag modelProperties = new PropertyBag(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION,
+            CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON), true);
         modelProperties.setResourceNames(List.of(CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.put(CgmesDLModel.MODEL_SCENARIO_TIME, network.getCaseDate().toString());

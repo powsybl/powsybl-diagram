@@ -48,7 +48,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
     public void visit(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
         if (blockNodes.size() == 1) {
-            blockNodes.get(0).setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
+            blockNodes.getFirst().setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
             return;
         }
 

@@ -105,11 +105,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(0).setX(firstPoint.x());
-            edge.getSnakeLine().get(0).setY(firstPoint.y());
+            edge.getSnakeLine().getFirst().setX(firstPoint.x());
+            edge.getSnakeLine().getFirst().setY(firstPoint.y());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.x());
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.y());
+            edge.getSnakeLine().getLast().setX(lastPoint.x());
+            edge.getSnakeLine().getLast().setY(lastPoint.y());
         }
     }
 

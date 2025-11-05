@@ -161,7 +161,7 @@ public class ImplicitCellDetector implements CellDetector {
                     hasMixBranch = true;
                 } else if (types.isEmpty()) {
                     return false;
-                } else if (types.get(0).equals(FEEDER)) {
+                } else if (types.getFirst().equals(FEEDER)) {
                     hasDepartBranch = true;
                 } else {
                     hasBusBranch = true;
@@ -189,7 +189,7 @@ public class ImplicitCellDetector implements CellDetector {
         if (cellNodesExtern.isPresent()) {
             Set<Node> remainingNodes = new LinkedHashSet<>(nodes);
             List<ShuntCell> shuntCellsCreated = new ArrayList<>(shuntCells);
-            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().get(0);  // reminder: the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
+            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().getFirst();  // reminder: the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
             splitNodes(graph, nodes, shuntNode, cellNodesExtern.get(), remainingNodes, externalNodes, shuntCellsCreated);
 
             // buses and shunts are kept as they might be shared, but if isolated, they should be removed now from remaining nodes
@@ -251,7 +251,7 @@ public class ImplicitCellDetector implements CellDetector {
 
         //look for consecutive shunt nodes
         for (List<Node> shuntNodes : shuntsNodes) {
-            ConnectivityNode consecutiveShuntNode = (ConnectivityNode) shuntNodes.get(shuntNodes.size() - 1); //createShuntCellNodes ensure last node is InternalNode
+            ConnectivityNode consecutiveShuntNode = (ConnectivityNode) shuntNodes.getLast(); //createShuntCellNodes ensure last node is InternalNode
             List<Node> cellNodesExtern2 = checkCandidateShuntNode(consecutiveShuntNode, externalNodes);
             if (!cellNodesExtern2.isEmpty()) {
                 splitNodes(graph, nodes, consecutiveShuntNode, cellNodesExtern2, remainingNodes, externalNodes, shuntCellsCreated);

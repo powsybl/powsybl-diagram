@@ -153,7 +153,7 @@ public class BranchEdge extends AbstractEdge {
 
     public double getEdgeEndAngle(Side side) {
         List<Point> points = getPoints(side);
-        return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
+        return points.get(points.size() - 2).getAngle(points.getLast());
     }
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo(Side side) {

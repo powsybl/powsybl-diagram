@@ -121,7 +121,7 @@ public class BSCluster {
     }
 
     public void sortHblByVPos() {
-        horizontalBusLists.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getBusbarIndex()));
+        horizontalBusLists.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().getFirst().getBusbarIndex()));
     }
 
     public int getLength() {

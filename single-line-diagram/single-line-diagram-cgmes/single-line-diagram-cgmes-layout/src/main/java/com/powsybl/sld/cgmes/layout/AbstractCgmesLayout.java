@@ -396,7 +396,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         if (adjacentNodes == null || adjacentNodes.isEmpty()) {
             return null;
         }
-        Node adjacentNode = adjacentNodes.get(0); // as we are working on a single voltage level a line node should be connected to only 1 node
+        Node adjacentNode = adjacentNodes.getFirst(); // as we are working on a single voltage level a line node should be connected to only 1 node
         // a line should not be connected to another line, so I should already have the coordinates of the adjacent node
         return new DiagramPoint(adjacentNode.getX(), adjacentNode.getY(), 0);
     }

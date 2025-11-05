@@ -67,7 +67,7 @@ final class CellBlockDecomposer {
                 .forEach(n -> nodeRemainingSlots.put(n, n.getCardinality(voltageLevelGraph)));
         elaborateLegPrimaryBlock(busCell, nodeRemainingSlots, blocks);
         elaborateFeederPrimaryBlock(busCell, nodeRemainingSlots, blocks);
-        rElaborateBodyPrimaryBlocks(busCell, blocks.get(0).getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
+        rElaborateBodyPrimaryBlocks(busCell, blocks.getFirst().getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
 
         return blocks;
     }
@@ -92,7 +92,7 @@ final class CellBlockDecomposer {
                 }
             }
         }
-        busCell.blocksSetting(blocks.get(0), legPrimaryBlocks, feederPrimaryBlocks);
+        busCell.blocksSetting(blocks.getFirst(), legPrimaryBlocks, feederPrimaryBlocks);
     }
 
     /**
@@ -149,7 +149,7 @@ final class CellBlockDecomposer {
             if (blocksBundle.isEmpty()) {
                 i++;
             } else {
-                blocksBundle.add(0, blocks.get(i));
+                blocksBundle.addFirst(blocks.get(i));
                 blocks.removeAll(blocksBundle);
                 blocksBundlesToMerge.add(blocksBundle);
             }
@@ -240,7 +240,7 @@ final class CellBlockDecomposer {
                 if (checkRemainingSlots(nodeRemainingSlots, node, 1)) {
                     List<Node> primaryPattern = pileUp2adjNodes(entryNode, node, nodeRemainingSlots);
                     blocks.add(BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern));
-                    Node lastNode = primaryPattern.get(primaryPattern.size() - 1);
+                    Node lastNode = primaryPattern.getLast();
                     rElaborateBodyPrimaryBlocks(busCell, lastNode, nodeRemainingSlots, blocks);
                 }
             }
@@ -272,6 +272,6 @@ final class CellBlockDecomposer {
 
     private static Node getNextNode(Node currentNode, Node parentCurrentNode) {
         List<Node> adjacentNodes = currentNode.getAdjacentNodes();
-        return adjacentNodes.get(adjacentNodes.get(0).equals(parentCurrentNode) ? 1 : 0);
+        return adjacentNodes.get(adjacentNodes.getFirst().equals(parentCurrentNode) ? 1 : 0);
     }
 }

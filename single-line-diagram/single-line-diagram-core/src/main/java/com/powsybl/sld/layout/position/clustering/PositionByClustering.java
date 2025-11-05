@@ -106,7 +106,7 @@ public class PositionByClustering extends AbstractPositionFinder {
         }
         List<HorizontalBusList> sortedHbl = horizontalBusLists.stream()
                 .sorted(Comparator.comparingInt(HorizontalBusList::getStartingIndex)
-                        .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness
+                        .thenComparing(hl -> hl.getBusNodes().getFirst().getId())) // cope with randomness
                 .collect(Collectors.toList());
         int clusterLength = sortedHbl.stream()
                 .mapToInt(HorizontalBusList::getEndingIndex)

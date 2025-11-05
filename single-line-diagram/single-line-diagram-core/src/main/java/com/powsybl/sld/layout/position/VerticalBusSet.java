@@ -168,10 +168,10 @@ public final class VerticalBusSet {
         // (note that zero means no value in the code so far) by dismissing the detection if there is a zero busbar
         // index. There cannot be any zero busbar index with PositionFromExtension, they are replaced in the call
         // PositionFromExtension::setMissingPositionIndices.
-        if (busbarIndices.size() < busNodes.size() && busbarIndices.get(0) != 0
+        if (busbarIndices.size() < busNodes.size() && busbarIndices.getFirst() != 0
                 && externCell.getRootBlock() instanceof SerialBlock rootSerialBlock) {
             List<LegPrimaryBlock> sortedLegs = legPrimaryBlocks.stream().sorted(Comparator.comparing(lpb -> lpb.getBusNode().getBusbarIndex())).toList();
-            LegPrimaryBlock legKept = sortedLegs.get(0);
+            LegPrimaryBlock legKept = sortedLegs.getFirst();
             int order = externCell.getFeederNodes().stream().map(FeederNode::getOrder).flatMap(Optional::stream).findFirst().orElse(-1);
             var direction = externCell.getFeederNodes().stream().map(FeederNode::getDirection).findFirst().orElse(Direction.UNDEFINED);
             if (rootSerialBlock.getLowerBlock() instanceof LegParallelBlock) {
@@ -249,7 +249,7 @@ public final class VerticalBusSet {
         int order = orderMin;
         for (LegPrimaryBlock legPrimaryBlock : legsRemoved) {
             List<Node> legNodes = legPrimaryBlock.getNodes();
-            Node fork = legNodes.get(legNodes.size() - 1);
+            Node fork = legNodes.getLast();
             ConnectivityNode archNode = graph.insertConnectivityNode(legNodes.get(legNodes.size() - 2), fork, "Arch_" + legNodes.get(1).getId());
 
             List<Node> fakeCellNodes = new ArrayList<>(legNodes.subList(0, legNodes.size() - 1));
@@ -345,7 +345,7 @@ public final class VerticalBusSet {
         List<LegPrimaryBlock> left = it.next();
         List<LegPrimaryBlock> right = it.next();
         internCell.replaceOneLegByMultiLeg(
-                left.size() == 1 ? left.get(0) : new LegParallelBlock(left, true),
-                right.size() == 1 ? right.get(0) : new LegParallelBlock(right, true));
+                left.size() == 1 ? left.getFirst() : new LegParallelBlock(left, true),
+                right.size() == 1 ? right.getFirst() : new LegParallelBlock(right, true));
     }
 }

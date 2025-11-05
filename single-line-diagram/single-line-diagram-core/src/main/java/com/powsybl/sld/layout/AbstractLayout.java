@@ -261,7 +261,7 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
         // for the second new edge, we keep the last two points of the original first polyline (in reverse order
         // as the edges are always from middleTwtNode to twtLegNode
         // we need to create a new point to avoid having a point shared between part1 and part2
-        List<Point> part2 = Arrays.asList(points1.get(points1.size() - 1), new Point(points1.get(points1.size() - 2)));
+        List<Point> part2 = Arrays.asList(points1.getLast(), new Point(points1.get(points1.size() - 2)));
 
         // the third new edge is made with the original second polyline, except the first point (in reverse order
         // as the edges are always from middleTwtNode to twtLegNode)

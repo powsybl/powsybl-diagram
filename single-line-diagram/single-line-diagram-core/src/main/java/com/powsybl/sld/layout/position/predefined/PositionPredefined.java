@@ -109,7 +109,7 @@ public class PositionPredefined extends AbstractPositionFinder {
     private static void setMissingPositionIndices(List<BusNode> busNodes, List<BusCell> busCells) {
         List<BusNode> missingIndicesBusNodes = busNodes.stream()
                 .filter(busNode -> busNode.getBusbarIndex() <= 0 || busNode.getSectionIndex() <= 0)
-                .collect(Collectors.toList());
+                .toList();
         if (!missingIndicesBusNodes.isEmpty()) {
             int maxSectionIndex = busNodes.stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
             for (BusNode busNode : missingIndicesBusNodes) {
@@ -198,7 +198,7 @@ public class PositionPredefined extends AbstractPositionFinder {
             // later to avoid overlap, see BlockPositionner::manageInternCellOverlaps. This cannot be done now, as the
             // flat intern cells haven't been yet identified
         } else {
-            bc.setDirection(listOfDirectionsInsideCell.get(0));
+            bc.setDirection(listOfDirectionsInsideCell.getFirst());
             if (numberOfDirectionsInsideCell > 1) {
                 LOGGER.warn("Directions inside cell are not consistent: {} directions found instead of 1", numberOfDirectionsInsideCell);
             }

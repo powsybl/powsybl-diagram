@@ -296,7 +296,7 @@ public class SvgWriter {
 
         List<Point> points1 = edge.getPoints1();
         List<Point> points2 = edge.getPoints2();
-        Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+        Point anchorPoint = Point.createMiddlePoint(points1.getLast(), points2.getLast());
 
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
@@ -710,7 +710,7 @@ public class SvgWriter {
         writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side), StyleProvider.WINDING_CLASS);
         writeStyleAttribute(writer, styleProvider.getSideEdgeStyle(edge, side));
         List<Point> halfPoints = edge.getPoints(side);
-        Point point1 = halfPoints.get(halfPoints.size() - 1); // point near 2wt
+        Point point1 = halfPoints.getLast(); // point near 2wt
         Point point2 = halfPoints.get(halfPoints.size() - 2); // point near voltage level, or control point for loops
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = point1.atDistance(-radius, point2);
@@ -725,7 +725,7 @@ public class SvgWriter {
 
         List<Point> points1 = edge.getPoints1();
         List<Point> points2 = edge.getPoints2();
-        Point middle = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+        Point middle = Point.createMiddlePoint(points1.getLast(), points2.getLast());
         double[] matrix = getTransformMatrix(arrowSize, arrowSize, rotationAngle, middle);
 
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
@@ -912,7 +912,7 @@ public class SvgWriter {
         Collections.sort(angles);
 
         // adding first angle to close the circle annulus, and adding 360° to keep the list ordered
-        angles.add(angles.get(0) + 2 * Math.PI);
+        angles.add(angles.getFirst() + 2 * Math.PI);
 
         double halfWidth = svgParameters.getNodeHollowWidth() / 2;
         double deltaAngle0 = halfWidth / outerRadius;

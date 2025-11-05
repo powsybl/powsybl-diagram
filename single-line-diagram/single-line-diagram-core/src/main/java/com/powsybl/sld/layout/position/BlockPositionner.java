@@ -175,7 +175,7 @@ public class BlockPositionner {
      * After bundleToCompatibleLanes each lane contents non overlapping cells
      * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
      */
-    private class InternCellsLanes {
+    private static class InternCellsLanes {
         InternCellsLanes nextLane;
         List<InternCellsLanes> lanes;
         List<InternCell> cells;

@@ -76,9 +76,9 @@ public class HorizontalBusList {
             return null;
         }
         if (side == Side.LEFT) {
-            return busNodes.get(0);
+            return busNodes.getFirst();
         }
-        return busNodes.get(busNodes.size() - 1);
+        return busNodes.getLast();
     }
 
     public int getStartingIndex() {
