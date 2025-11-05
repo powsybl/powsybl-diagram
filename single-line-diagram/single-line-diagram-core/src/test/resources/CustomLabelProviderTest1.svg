@@ -176,7 +176,7 @@
                 <g class="sld-disconnector sld-closed sld-vl300to500 sld-bus-0" id="idd1" transform="translate(111.0,249.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                     <path class="sld-sw-open" d="M8,0 0,8"/>
-                    <text class="sld-label" id="idd1_95_N_95_LABEL" x="-5.0" y="-11.0">C_D1</text>
+                    <text class="sld-label" id="idd1_95_N_95_LABEL" x="-5.0" y="-8.0">C_D1</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_d1_45_b1" transform="translate(111.0,219.0)">
                     <circle cx="4" cy="4" r="4"/>
@@ -184,20 +184,20 @@
                 <g class="sld-breaker sld-closed sld-vl300to500 sld-bus-0" id="idb1" transform="translate(105.0,186.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                    <text class="sld-label" id="idb1_95_N_95_LABEL" x="-5.0" y="-5.0">C_B1</text>
+                    <text class="sld-label" id="idb1_95_N_95_LABEL" x="-5.0" y="-2.0">C_B1</text>
                 </g>
                 <g class="sld-ground-disconnection sld-open sld-vl300to500 sld-bus-0" id="idgd1" transform="translate(87.0,159.0)">
                     <path class="sld-ground-disconnection-attach" d="M28,5 h12"/>
                     <path class="sld-ground-disconnection-ground" d="M40,5 h10 v8 M56,13 h-12 M54,16 h-8 M52,19 h-4"/>
                     <path class="sld-sw-closed" d="M36,1 44,9 M44,1 36,9"/>
                     <path class="sld-sw-open" d="M44,1 36,9"/>
-                    <text class="sld-label" id="idgd1_95_N_95_LABEL" x="-5.0" y="-5.0">C_GD1</text>
+                    <text class="sld-label" id="idgd1_95_N_95_LABEL" x="-5.0" y="-2.0">C_GD1</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(111.0,138.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(115.0,80.0)">
-                    <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-15.0">C_LINE</text>
+                    <text class="sld-label" id="idline_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">C_LINE</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -219,7 +219,7 @@
                 <g class="sld-disconnector sld-closed sld-vl300to500 sld-bus-0" id="idd2" transform="translate(161.0,249.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                     <path class="sld-sw-open" d="M8,0 0,8"/>
-                    <text class="sld-label" id="idd2_95_S_95_LABEL" x="-5.0" y="19.0">C_D2</text>
+                    <text class="sld-label" id="idd2_95_S_95_LABEL" x="-5.0" y="16.0">C_D2</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_d2_45_b2" transform="translate(161.0,279.0)">
                     <circle cx="4" cy="4" r="4"/>
@@ -227,14 +227,14 @@
                 <g class="sld-breaker sld-closed sld-vl300to500 sld-bus-0" id="idb2" transform="translate(155.0,300.0)">
                     <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                     <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                    <text class="sld-label" id="idb2_95_S_95_LABEL" x="-5.0" y="25.0">C_B2</text>
+                    <text class="sld-label" id="idb2_95_S_95_LABEL" x="-5.0" y="22.0">C_B2</text>
                 </g>
                 <g class="sld-ground-disconnection sld-closed sld-vl300to500 sld-bus-0" id="idgd2" transform="translate(137.0,327.0)">
                     <path class="sld-ground-disconnection-attach" d="M28,5 h12"/>
                     <path class="sld-ground-disconnection-ground" d="M40,5 h10 v8 M56,13 h-12 M54,16 h-8 M52,19 h-4"/>
                     <path class="sld-sw-closed" d="M36,1 44,9 M44,1 36,9"/>
                     <path class="sld-sw-open" d="M44,1 36,9"/>
-                    <text class="sld-label" id="idgd2_95_S_95_LABEL" x="-5.0" y="25.0">C_GD2</text>
+                    <text class="sld-label" id="idgd2_95_S_95_LABEL" x="-5.0" y="22.0">C_GD2</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-bus-0" id="idINTERNAL_95_vl_95_load" transform="translate(161.0,360.0)">
                     <circle cx="4" cy="4" r="4"/>
@@ -243,7 +243,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload_95_S_95_LABEL" x="-5.0" y="19.5">C_LOAD</text>
+                    <text class="sld-label" id="idload_95_S_95_LABEL" x="-5.0" y="16.5">C_LOAD</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -259,7 +259,7 @@
                 <g class="sld-disconnector sld-open sld-vl300to500 sld-disconnected" id="idgd" transform="translate(61.0,249.0)">
                     <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                     <path class="sld-sw-open" d="M8,0 0,8"/>
-                    <text class="sld-label" id="idgd_95_N_95_LABEL" x="-5.0" y="-11.0">C_GD</text>
+                    <text class="sld-label" id="idgd_95_N_95_LABEL" x="-5.0" y="-8.0">C_GD</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500 sld-disconnected" id="idINTERNAL_95_vl_95_gd_45_ground" transform="translate(61.0,219.0)">
                     <circle cx="4" cy="4" r="4"/>
@@ -269,7 +269,7 @@
                 </g>
                 <g class="sld-ground sld-top-feeder sld-vl300to500 sld-disconnected" id="idground" transform="translate(55.0,70.0)">
                     <path d="M10,10 v10 M0,10 h20 M5,5 h10 M8,0 h4"/>
-                    <text class="sld-label" id="idground_95_N_95_LABEL" x="-5.0" y="-5.0">C_GROUND</text>
+                    <text class="sld-label" id="idground_95_N_95_LABEL" x="-5.0" y="-2.0">C_GROUND</text>
                 </g>
             </g>
         </g>

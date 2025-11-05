@@ -249,7 +249,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idLD1_95_N_95_LABEL" x="-5.0" y="-10.5">LD1</text>
+                    <text class="sld-label" id="idLD1_95_N_95_LABEL" x="-5.0" y="-7.5">LD1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -282,7 +282,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idL11_95_ONE" style="stroke: orange; stroke-width: 2px;" transform="translate(315.0,449.0)">
-                    <text class="sld-label" id="idL11_95_ONE_95_S_95_LABEL" x="-5.0" y="15.0">L11</text>
+                    <text class="sld-label" id="idL11_95_ONE_95_S_95_LABEL" x="-5.0" y="12.0">L11</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_4">
@@ -315,7 +315,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idL12_95_ONE" style="stroke: orange; stroke-width: 2px;" transform="translate(365.0,449.0)">
-                    <text class="sld-label" id="idL12_95_ONE_95_S_95_LABEL" x="-5.0" y="15.0">L12</text>
+                    <text class="sld-label" id="idL12_95_ONE_95_S_95_LABEL" x="-5.0" y="12.0">L12</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
@@ -363,10 +363,10 @@
                     <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="8" cy="19" r="5" style="stroke: orange; stroke-width: 2px;" transform="scale(1, -1) translate(0, -24.0)"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_TWO" transform="translate(415.0,449.0)">
-                    <text class="sld-label" id="idT3_95_12_95_TWO_95_S_95_LABEL" x="-5.0" y="15.0">T3_12</text>
+                    <text class="sld-label" id="idT3_95_12_95_TWO_95_S_95_LABEL" x="-5.0" y="12.0">T3_12</text>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_THREE" transform="translate(465.0,449.0)">
-                    <text class="sld-label" id="idT3_95_12_95_THREE_95_S_95_LABEL" x="-5.0" y="15.0">T3_12</text>
+                    <text class="sld-label" id="idT3_95_12_95_THREE_95_S_95_LABEL" x="-5.0" y="12.0">T3_12</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_6">
@@ -402,7 +402,7 @@
                     <circle cx="6" cy="6" r="6"/>
                     <path d="M6,6 A 6 40 0 0 0 2,6"/>
                     <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                    <text class="sld-label" id="idG_95_N_95_LABEL" x="-5.0" y="-9.0">G</text>
+                    <text class="sld-label" id="idG_95_N_95_LABEL" x="-5.0" y="-6.0">G</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
@@ -435,7 +435,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idL11_95_TWO" style="stroke: orange; stroke-width: 2px;" transform="translate(565.0,449.0)">
-                    <text class="sld-label" id="idL11_95_TWO_95_S_95_LABEL" x="-5.0" y="15.0">L11</text>
+                    <text class="sld-label" id="idL11_95_TWO_95_S_95_LABEL" x="-5.0" y="12.0">L11</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_8">
@@ -470,7 +470,7 @@
                 <g class="sld-two-wt sld-bottom-feeder" id="idT12_95_ONE" style="stroke: orange; stroke-width: 2px;" transform="translate(610.0,441.5)">
                     <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="5" cy="10" r="5" style="stroke: orange; stroke-width: 2px;" transform="rotate(180.0,5.0,7.5)"/>
                     <circle class="sld-vl300to500 sld-bus-2 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                    <text class="sld-label" id="idT12_95_ONE_95_S_95_LABEL" x="-5.0" y="22.5">T12</text>
+                    <text class="sld-label" id="idT12_95_ONE_95_S_95_LABEL" x="-5.0" y="19.5">T12</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_9">
@@ -518,10 +518,10 @@
                     <circle class="sld-vl300to500 sld-bus-0 sld-winding" cx="8" cy="19" r="5" style="stroke: orange; stroke-width: 2px;" transform="scale(1, -1) translate(0, -24.0)"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_ONE" transform="translate(665.0,449.0)">
-                    <text class="sld-label" id="idT3_95_12_95_ONE_95_S_95_LABEL" x="-5.0" y="15.0">T3_12</text>
+                    <text class="sld-label" id="idT3_95_12_95_ONE_95_S_95_LABEL" x="-5.0" y="12.0">T3_12</text>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-disconnected" id="idT3_95_12_95_THREE" transform="translate(715.0,449.0)">
-                    <text class="sld-label" id="idT3_95_12_95_THREE_95_S_95_LABEL" x="-5.0" y="15.0">T3_12</text>
+                    <text class="sld-label" id="idT3_95_12_95_THREE_95_S_95_LABEL" x="-5.0" y="12.0">T3_12</text>
                 </g>
             </g>
             <g class="sld-wire sld-vl300to500 sld-bus-0" id="idL11" style="stroke: orange; stroke-width: 2px;">

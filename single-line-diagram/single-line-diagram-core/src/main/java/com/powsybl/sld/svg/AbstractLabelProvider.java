@@ -28,7 +28,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
-    private static final double LABEL_PADDING = 15d;
+    private static final double LABEL_PADDING = 12d;
 
     protected final SldComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;

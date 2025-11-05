@@ -262,7 +262,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idLine_95_ONE" transform="translate(65.0,80.0)">
-                    <text class="sld-label" id="idLine_95_ONE_95_N_95_LABEL" x="-5.0" y="-15.0">Line</text>
+                    <text class="sld-label" id="idLine_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">Line</text>
                 </g>
             </g>
         </g>

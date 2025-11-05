@@ -225,7 +225,7 @@
                     <circle cx="6" cy="6" r="6"/>
                     <path d="M6,6 A 6 40 0 0 0 2,6"/>
                     <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                    <text class="sld-label" id="idG_95_N_95_LABEL" x="-5.0" y="-9.0">G</text>
+                    <text class="sld-label" id="idG_95_N_95_LABEL" x="-5.0" y="-6.0">G</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_2">
@@ -339,7 +339,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idl_95_S_95_LABEL" x="-5.0" y="19.5">l</text>
+                    <text class="sld-label" id="idl_95_S_95_LABEL" x="-5.0" y="16.5">l</text>
                 </g>
             </g>
         </g>
