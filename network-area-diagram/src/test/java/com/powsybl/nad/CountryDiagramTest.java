@@ -11,8 +11,6 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
-import com.powsybl.nad.layout.LayoutFactoryUtils;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -60,8 +58,7 @@ class CountryDiagramTest extends AbstractTest {
                         .setEdgeInfoAlongEdge(false)
                         .setArrowShift(140)
                         .setArrowLabelShift(30))
-                .setStyleProviderFactory(TopologicalStyleProvider::new)
-                .setLayoutFactory(LayoutFactoryUtils.create(Path.of("/home/dupuyflo/countries_metadata.json"), new BasicForceLayoutFactory()));
+                .setStyleProviderFactory(TopologicalStyleProvider::new);
         Path svgFile = fileSystem.getPath("countries-test.svg");
         CountryDiagram.draw(network, svgFile, nadParameters);
         assertFileEquals("/eurostag_country_diagram.svg", svgFile);

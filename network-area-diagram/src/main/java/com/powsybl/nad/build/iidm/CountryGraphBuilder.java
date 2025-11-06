@@ -17,7 +17,6 @@ import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.EdgeInfo;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Graph builder that creates a graph based on substation countries.
@@ -50,12 +49,11 @@ public class CountryGraphBuilder implements GraphBuilder {
         Graph graph = new Graph();
 
         // Get all countries from substations
-        Set<Country> countries = getCountries();
 
         // Create a VoltageLevelNode with one BusNode for each country
         Map<Country, VoltageLevelNode> countryToVlNode = new EnumMap<>(Country.class);
 
-        for (Country country : countries) {
+        for (Country country : getCountries()) {
             CountryLabelProvider.CountryLegend legend = labelProvider.getCountryLegend(country);
             VoltageLevelNode vlNode = new VoltageLevelNode(
                     idProvider,
@@ -85,13 +83,14 @@ public class CountryGraphBuilder implements GraphBuilder {
     /**
      * Gets all countries from substations in the network.
      *
-     * @return set of countries
+     * @return list of countries
      */
-    private Set<Country> getCountries() {
+    private List<Country> getCountries() {
         return network.getSubstationStream()
                 .map(Substation::getNullableCountry)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+                .distinct()
+                .toList();
     }
 
     /**
@@ -104,7 +103,7 @@ public class CountryGraphBuilder implements GraphBuilder {
                                           Map<Country, VoltageLevelNode> countryToVlNode) {
 
         // Map to store aggregated active powers between countries
-        Map<Border, BorderEdges> borderEdgesMap = new HashMap<>();
+        Map<Border, BorderEdges> borderEdgesMap = new LinkedHashMap<>();
 
         // Process all lines
         network.getLineStream().forEach(line -> fillBorderEdgesMap(line, borderEdgesMap));
