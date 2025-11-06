@@ -34,9 +34,9 @@ public class CountryGraphBuilder implements GraphBuilder {
 
     /**
      * Creates a new CountryGraphBuilder.
-     * 
-     * @param network the network
-     * @param idProvider the ID provider
+     *
+     * @param network       the network
+     * @param idProvider    the ID provider
      * @param labelProvider the label provider
      */
     public CountryGraphBuilder(Network network, IdProvider idProvider, CountryLabelProvider labelProvider) {
@@ -48,50 +48,50 @@ public class CountryGraphBuilder implements GraphBuilder {
     @Override
     public Graph buildGraph() {
         Graph graph = new Graph();
-        
+
         // Get all countries from substations
         Set<Country> countries = getCountries();
-        
+
         // Create a VoltageLevelNode with one BusNode for each country
         Map<Country, VoltageLevelNode> countryToVlNode = new EnumMap<>(Country.class);
 
         for (Country country : countries) {
             CountryLabelProvider.CountryLegend legend = labelProvider.getCountryLegend(country);
             VoltageLevelNode vlNode = new VoltageLevelNode(
-                idProvider,
-                country.name(),
-                country.name(),
-                false,
-                true,
-                legend.header(),
-                legend.footer()
+                    idProvider,
+                    country.name(),
+                    country.name(),
+                    false,
+                    true,
+                    legend.header(),
+                    legend.footer()
             );
-            
+
             BusNode busNode = new BusNode(idProvider, country.name(), Collections.emptyList(), null);
-            
+
             vlNode.addBusNode(busNode);
             graph.addNode(vlNode);
             graph.addTextNode(vlNode);
-            
+
             countryToVlNode.put(country, vlNode);
         }
-        
+
         // Create edges between countries based on lines
         createCountryConnections(graph, countryToVlNode);
-        
+
         return graph;
     }
 
     /**
      * Gets all countries from substations in the network.
-     * 
+     *
      * @return set of countries
      */
     private Set<Country> getCountries() {
         return network.getSubstationStream()
-            .map(Substation::getNullableCountry)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toSet());
+                .map(Substation::getNullableCountry)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -100,9 +100,9 @@ public class CountryGraphBuilder implements GraphBuilder {
      * @param graph           the graph to add edges to
      * @param countryToVlNode mapping from country to voltage level node
      */
-    private void createCountryConnections(Graph graph, 
-                                        Map<Country, VoltageLevelNode> countryToVlNode) {
-        
+    private void createCountryConnections(Graph graph,
+                                          Map<Country, VoltageLevelNode> countryToVlNode) {
+
         // Map to store aggregated active powers between countries
         Map<Border, BorderEdges> borderEdgesMap = new HashMap<>();
 
@@ -112,12 +112,12 @@ public class CountryGraphBuilder implements GraphBuilder {
 
         // Process HVDC lines
         network.getHvdcLineStream().forEach(hvdcLine -> fillBorderEdgesMap(hvdcLine, borderEdgesMap));
-        
+
         // Create BranchEdges for each country pair with connections
         borderEdgesMap.forEach((border, borderEdges) -> {
             Country country1 = border.country1();
             Country country2 = border.country2();
-            
+
             VoltageLevelNode vlNode1 = countryToVlNode.get(country1);
             VoltageLevelNode vlNode2 = countryToVlNode.get(country2);
 
@@ -133,7 +133,7 @@ public class CountryGraphBuilder implements GraphBuilder {
     private void fillBorderEdgesMap(Branch<?> branch, Map<Border, BorderEdges> allBorderLines) {
         Country country1 = getCountryFromTerminal(branch.getTerminal1());
         Country country2 = getCountryFromTerminal(branch.getTerminal2());
-        
+
         if (country1 != null && country2 != null && country1 != country2) {
             Border pair = new Border(country1, country2);
             allBorderLines.computeIfAbsent(pair, k -> new BorderEdges())
@@ -147,7 +147,7 @@ public class CountryGraphBuilder implements GraphBuilder {
     private void fillBorderEdgesMap(HvdcLine hvdcLine, Map<Border, BorderEdges> allBorderLines) {
         Country country1 = getCountryFromTerminal(hvdcLine.getConverterStation1().getTerminal());
         Country country2 = getCountryFromTerminal(hvdcLine.getConverterStation2().getTerminal());
-        
+
         if (country1 != null && country2 != null && country1 != country2) {
             Border pair = new Border(country1, country2);
             allBorderLines.computeIfAbsent(pair, k -> new BorderEdges())
@@ -167,22 +167,22 @@ public class CountryGraphBuilder implements GraphBuilder {
      */
     private void createCountryEdge(Graph graph, Country country1, Country country2, BorderEdges borderEdges,
                                    VoltageLevelNode vlNode1, VoltageLevelNode vlNode2) {
-        
+
         String edgeId = country1.name() + "-" + country2.name();
         Optional<EdgeInfo> edgeInfo1 = labelProvider.getCountryEdgeInfo(country1, country2, borderEdges.lines, borderEdges.tieLines, borderEdges.hvdcLines, BranchEdge.Side.ONE);
         Optional<EdgeInfo> edgeInfo2 = labelProvider.getCountryEdgeInfo(country1, country2, borderEdges.lines, borderEdges.tieLines, borderEdges.hvdcLines, BranchEdge.Side.TWO);
         String label = labelProvider.getBranchLabel(country1, country2, borderEdges.lines, borderEdges.tieLines, borderEdges.hvdcLines);
-        
+
         BranchEdge edge = new BranchEdge(
-            idProvider,
-            edgeId,
-            edgeId,
-            BranchEdge.LINE_EDGE,
-            edgeInfo1.orElse(null),
-            edgeInfo2.orElse(null),
-            label
+                idProvider,
+                edgeId,
+                edgeId,
+                BranchEdge.LINE_EDGE,
+                edgeInfo1.orElse(null),
+                edgeInfo2.orElse(null),
+                label
         );
-        
+
         graph.addEdge(vlNode1, vlNode1.getBusNodes().getFirst(), vlNode2, vlNode2.getBusNodes().getFirst(), edge);
     }
 
