@@ -57,30 +57,29 @@
   "busNodes" : [ {
     "svgId" : "1",
     "equipmentId" : "vl1_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0"
   }, {
     "svgId" : "3",
     "equipmentId" : "vl2_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "2"
   }, {
     "svgId" : "6",
     "equipmentId" : "dl1",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "5"
   } ],
   "nodes" : [ {
     "svgId" : "0",
     "equipmentId" : "vl1",
+    "busNodesCount" : 1,
     "x" : -56.06,
     "y" : -318.7
   }, {
     "svgId" : "2",
     "equipmentId" : "vl2",
+    "busNodesCount" : 1,
     "x" : -230.42,
     "y" : 1.18
   }, {

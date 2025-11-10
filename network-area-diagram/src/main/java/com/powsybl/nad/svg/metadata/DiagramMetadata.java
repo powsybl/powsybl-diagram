@@ -107,7 +107,6 @@ public class DiagramMetadata extends AbstractMetadata {
         graph.getVoltageLevelNodesStream().forEach(vlNode -> vlNode.getBusNodeStream().forEach(busNode -> busNodesMetadata.add(new BusNodeMetadata(
                 getPrefixedId(busNode.getSvgId()),
                 busNode.getEquipmentId(),
-                busNode.getNbNeighbouringBusNodes(),
                 busNode.getRingIndex(),
                 getPrefixedId(vlNode.getSvgId()),
                 busNode.getLegend()))));
@@ -163,6 +162,7 @@ public class DiagramMetadata extends AbstractMetadata {
             return new NodeMetadata(
                     getPrefixedId(node.getSvgId()),
                     node.getEquipmentId(),
+                    vlNode.getBusNodesCount(),
                     round(node.getX()),
                     round(node.getY()),
                     node.isFictitious(),
@@ -174,6 +174,7 @@ public class DiagramMetadata extends AbstractMetadata {
             return new NodeMetadata(
                     getPrefixedId(node.getSvgId()),
                     node.getEquipmentId(),
+                    0,
                     round(node.getX()),
                     round(node.getY()),
                     node.isFictitious(),

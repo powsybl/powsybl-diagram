@@ -65,21 +65,18 @@
   "busNodes" : [ {
     "svgId" : "3",
     "equipmentId" : "VL_11_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0",
     "legend" : "11.8 kV / -15.2°"
   }, {
     "svgId" : "7",
     "equipmentId" : "VL_132_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "4",
     "legend" : "133.6 kV / -9.6°"
   }, {
     "svgId" : "11",
     "equipmentId" : "VL_33_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "8",
     "legend" : "34.9 kV / -15.2°"
@@ -87,6 +84,7 @@
   "nodes" : [ {
     "svgId" : "0",
     "equipmentId" : "VL_11",
+    "busNodesCount" : 1,
     "x" : 75.04,
     "y" : -513.76,
     "legendSvgId" : "1",
@@ -95,6 +93,7 @@
   }, {
     "svgId" : "4",
     "equipmentId" : "VL_132",
+    "busNodesCount" : 1,
     "x" : -371.52,
     "y" : 47.69,
     "legendSvgId" : "5",
@@ -103,6 +102,7 @@
   }, {
     "svgId" : "8",
     "equipmentId" : "VL_33",
+    "busNodesCount" : 1,
     "x" : 180.23,
     "y" : 204.68,
     "legendSvgId" : "9",

@@ -22,7 +22,6 @@ public class BusNode extends AbstractNode {
 
     private int ringIndex;
     private int busIndex;
-    private int nbNeighbouringBusNodes;
     private final List<Injection> injections = new ArrayList<>();
     private final String legend;
 
@@ -50,14 +49,6 @@ public class BusNode extends AbstractNode {
 
     public int getBusIndex() {
         return busIndex;
-    }
-
-    public void setNbNeighbouringBusNodes(int nbNeighbouringBusNodes) {
-        this.nbNeighbouringBusNodes = nbNeighbouringBusNodes;
-    }
-
-    public int getNbNeighbouringBusNodes() {
-        return nbNeighbouringBusNodes;
     }
 
     public int getInjectionCount() {

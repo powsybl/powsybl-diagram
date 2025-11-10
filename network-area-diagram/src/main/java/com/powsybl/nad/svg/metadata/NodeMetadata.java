@@ -20,6 +20,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class NodeMetadata extends AbstractMetadataItem {
 
+    private final int busNodesCount;
     private final double x;
     private final double y;
     private final boolean fictitious;
@@ -30,6 +31,7 @@ public class NodeMetadata extends AbstractMetadataItem {
 
     public NodeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
+                        @JsonProperty("busNodesCount") int busNodesCount,
                         @JsonProperty("x") double x,
                         @JsonProperty("y") double y,
                         @JsonProperty("fictitious") boolean fictitious,
@@ -38,6 +40,7 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("legendHeader") List<String> legendHeader,
                         @JsonProperty("legendFooter") List<String> legendFooter) {
         super(svgId, equipmentId);
+        this.busNodesCount = busNodesCount;
         this.x = x;
         this.y = y;
         this.fictitious = fictitious;
@@ -45,6 +48,11 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
         this.legendFooter = legendFooter;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    public int getBusNodesCount() {
+        return busNodesCount;
     }
 
     public double getX() {
@@ -84,4 +92,5 @@ public class NodeMetadata extends AbstractMetadataItem {
     public List<String> getLegendFooter() {
         return legendFooter;
     }
+
 }

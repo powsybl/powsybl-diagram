@@ -84,4 +84,8 @@ public class VoltageLevelNode extends AbstractNode {
     public List<String> getLegendFooter() {
         return legendFooter;
     }
+
+    public int getBusNodesCount() {
+        return busNodes.size();
+    }
 }

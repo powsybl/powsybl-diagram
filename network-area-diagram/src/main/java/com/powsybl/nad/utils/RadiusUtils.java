@@ -28,14 +28,12 @@ public final class RadiusUtils {
         if (node.getRingIndex() == 0) {
             return 0;
         }
-        int nbNeighbours = node.getNbNeighbouringBusNodes();
-        double unitaryRadius = getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
+        double unitaryRadius = getVoltageLevelCircleRadius(vlNode, svgParameters) / vlNode.getBusNodesCount();
         return node.getRingIndex() * unitaryRadius + svgParameters.getInterAnnulusSpace() / 2;
     }
 
     public static double getBusAnnulusOuterRadius(BusNode node, VoltageLevelNode vlNode, SvgParameters svgParameters) {
-        int nbNeighbours = node.getNbNeighbouringBusNodes();
-        double unitaryRadius = getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
+        double unitaryRadius = getVoltageLevelCircleRadius(vlNode, svgParameters) / vlNode.getBusNodesCount();
         return (node.getRingIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
     }
 }

@@ -65,57 +65,57 @@
   "busNodes" : [ {
     "svgId" : "1",
     "equipmentId" : "S1VL1_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0"
   }, {
     "svgId" : "3",
     "equipmentId" : "S1VL2_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "2"
   }, {
     "svgId" : "5",
     "equipmentId" : "S2VL1_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "4"
   }, {
     "svgId" : "7",
     "equipmentId" : "S3VL1_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "6"
   }, {
     "svgId" : "9",
     "equipmentId" : "S4VL1_0",
-    "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "8"
   } ],
   "nodes" : [ {
     "svgId" : "0",
     "equipmentId" : "S1VL1",
+    "busNodesCount" : 1,
     "x" : -220.4,
     "y" : -515.14
   }, {
     "svgId" : "2",
     "equipmentId" : "S1VL2",
+    "busNodesCount" : 1,
     "x" : -152.34,
     "y" : -133.8
   }, {
     "svgId" : "4",
     "equipmentId" : "S2VL1",
+    "busNodesCount" : 1,
     "x" : -162.93,
     "y" : 231.51
   }, {
     "svgId" : "6",
     "equipmentId" : "S3VL1",
+    "busNodesCount" : 1,
     "x" : 171.13,
     "y" : 91.69
   }, {
     "svgId" : "8",
     "equipmentId" : "S4VL1",
+    "busNodesCount" : 1,
     "x" : 497.34,
     "y" : 302.31
   } ],
