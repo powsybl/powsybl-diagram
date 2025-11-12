@@ -40,7 +40,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider(), legendRawProvider);
     }
 
-    private final LegendProvider legendRawProvider = new DefaultLegendProvider(Network.create("empty", ""), svgParameters);
+    private final SVGLegendWriter legendRawProvider = new DefaultSVGLegendWriter(Network.create("empty", ""), svgParameters);
 
     private final LabelProvider labelRawProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
@@ -61,7 +61,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return labelRawProvider;
     }
 
-    public LegendProvider getLegendRawProvider() {
+    public SVGLegendWriter getLegendRawProvider() {
         return legendRawProvider;
     }
 }

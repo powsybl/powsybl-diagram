@@ -20,5 +20,5 @@ public interface SVGWriter {
 
     String GROUP = "g";
 
-    GraphMetadata write(Graph graph, LabelProvider initProvider, StyleProvider styleProvider, LegendProvider legendProvider, Writer writer);
+    GraphMetadata write(Graph graph, LabelProvider initProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter, Writer writer);
 }

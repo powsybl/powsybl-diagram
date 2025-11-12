@@ -18,9 +18,9 @@ import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultLegendProvider;
+import com.powsybl.sld.svg.DefaultSVGLegendWriter;
 import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.LegendProvider;
+import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -45,7 +45,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl2;
     VoltageLevel vl3;
     private StyleProvider styleProvider;
-    private LegendProvider legendProvider;
+    private SVGLegendWriter legendWriter;
 
     @BeforeEach
     public void setUp() {
@@ -59,7 +59,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
                 new NominalVoltageStyleProvider(),
                 new HighlightLineStateStyleProvider(network));
 
-        legendProvider = new DefaultLegendProvider(network, svgParameters);
+        legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
 
         // first voltage level
         vl1 = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
@@ -161,7 +161,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
 
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendProvider));
+        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
     @Test
@@ -169,7 +169,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
 
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendProvider));
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
     @Test
@@ -177,7 +177,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
 
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendProvider));
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
 }

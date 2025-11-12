@@ -7,13 +7,13 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.styles.StyleProvider;
-import org.w3c.dom.Element;
+import com.powsybl.iidm.network.Network;
 
 /**
  * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
-public interface LegendProvider {
-    void drawLegend(VoltageLevelGraph graph, GraphMetadata metadata, StyleProvider styleProvider, Element legendRootElement, double positionX, double positionY);
+
+@FunctionalInterface
+public interface LegendWriterFactory {
+    SVGLegendWriter create(Network network, SvgParameters svgParameters);
 }

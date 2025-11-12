@@ -27,13 +27,13 @@ import static com.powsybl.sld.svg.DefaultSVGWriter.GROUP;
 /**
  * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}
  */
-public class DefaultLegendProvider implements LegendProvider {
+public class DefaultSVGLegendWriter implements SVGLegendWriter {
 
     protected final Network network;
     protected final SvgParameters svgParameters;
     protected final ValueFormatter valueFormatter;
 
-    public DefaultLegendProvider(Network net, SvgParameters svgParameters) {
+    public DefaultSVGLegendWriter(Network net, SvgParameters svgParameters) {
         this.network = Objects.requireNonNull(net);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.valueFormatter = svgParameters.createValueFormatter();

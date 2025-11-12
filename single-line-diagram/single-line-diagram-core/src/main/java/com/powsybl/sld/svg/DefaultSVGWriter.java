@@ -94,7 +94,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * @param writer writer for the SVG content
      */
     @Override
-    public GraphMetadata write(Graph graph, LabelProvider labelProvider, StyleProvider styleProvider, LegendProvider legendProvider, Writer writer) {
+    public GraphMetadata write(Graph graph, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter, Writer writer) {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
@@ -109,7 +109,7 @@ public class DefaultSVGWriter implements SVGWriter {
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         addFrame(document);
-        GraphMetadata metadata = writeGraph(graph, document, labelProvider, styleProvider, legendProvider);
+        GraphMetadata metadata = writeGraph(graph, document, labelProvider, styleProvider, legendWriter);
 
         DomUtil.transformDocument(document, writer);
 
@@ -183,7 +183,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the graph
      */
-    protected GraphMetadata writeGraph(Graph graph, Document document, LabelProvider initProvider, StyleProvider styleProvider, LegendProvider legendProvider) {
+    protected GraphMetadata writeGraph(Graph graph, Document document, LabelProvider initProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         GraphMetadata metadata = new GraphMetadata(layoutParameters, svgParameters);
 
         Element root = document.createElement(GROUP);
@@ -191,11 +191,11 @@ public class DefaultSVGWriter implements SVGWriter {
         drawGrid(graph, document, metadata, root);
 
         if (graph instanceof VoltageLevelGraph) {
-            drawVoltageLevel((VoltageLevelGraph) graph, root, metadata, initProvider, styleProvider, legendProvider);
+            drawVoltageLevel((VoltageLevelGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         } else if (graph instanceof SubstationGraph) {
-            drawSubstation((SubstationGraph) graph, root, metadata, initProvider, styleProvider, legendProvider);
+            drawSubstation((SubstationGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         } else if (graph instanceof ZoneGraph) {
-            drawZone((ZoneGraph) graph, root, metadata, initProvider, styleProvider, legendProvider);
+            drawZone((ZoneGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         document.adoptNode(root);
@@ -219,7 +219,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     GraphMetadata metadata,
                                     LabelProvider initProvider,
                                     StyleProvider styleProvider,
-                                    LegendProvider legendProvider) {
+                                    SVGLegendWriter legendWriter) {
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", IdUtil.escapeId(graph.getId()));
         g.setAttribute(CLASS, StyleClassConstants.VOLTAGE_LEVEL_CLASS);
@@ -247,7 +247,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(g, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && svgParameters.isBusesLegendAdded()) {
-            drawLegend(g, graph, metadata, initProvider, styleProvider, legendProvider);
+            drawLegend(g, graph, metadata, styleProvider, legendWriter);
         }
         root.appendChild(g);
     }
@@ -285,10 +285,10 @@ public class DefaultSVGWriter implements SVGWriter {
                                   GraphMetadata metadata,
                                   LabelProvider initProvider,
                                   StyleProvider styleProvider,
-                                  LegendProvider legendProvider) {
+                                  SVGLegendWriter legendWriter) {
         // Drawing the voltageLevel graphs
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            drawVoltageLevel(vlGraph, root, metadata, initProvider, styleProvider, legendProvider);
+            drawVoltageLevel(vlGraph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
@@ -1155,16 +1155,15 @@ public class DefaultSVGWriter implements SVGWriter {
                           GraphMetadata metadata,
                           LabelProvider initProvider,
                           StyleProvider styleProvider,
-                          LegendProvider legendProvider) {
+                          SVGLegendWriter legendWriter) {
         for (SubstationGraph sGraph : graph.getSubstations()) {
-            drawSubstation(sGraph, root, metadata, initProvider, styleProvider, legendProvider);
+            drawSubstation(sGraph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         drawSnakeLines(root, graph, metadata, styleProvider);
     }
 
-    private void drawLegend(Element root, VoltageLevelGraph graph, GraphMetadata metadata,
-                            LabelProvider labelProvider, StyleProvider styleProvider, LegendProvider legendProvider) {
+    private void drawLegend(Element root, VoltageLevelGraph graph, GraphMetadata metadata, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         Element legendRootElement = root.getOwnerDocument().createElement(GROUP);
         root.appendChild(legendRootElement);
         legendRootElement.setAttribute(CLASS, StyleClassConstants.LEGEND);
@@ -1172,18 +1171,6 @@ public class DefaultSVGWriter implements SVGWriter {
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double xPos = graph.getX() + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
-        legendProvider.drawLegend(graph, metadata, styleProvider, legendRootElement, xPos, yPos);
-
-//        Element table = nodesInfosNode.getOwnerDocument().createElement("foreignObject");
-//        table.setAttribute("id", IdUtil.escapeId("test_table"));
-//        table.setAttribute("x", String.valueOf(xShift));
-//        table.setAttribute("y", String.valueOf(yPos));
-//        table.setAttribute("height", "100%");
-//        table.setAttribute("width", "100%");
-//        Element div = table.getOwnerDocument().createElementNS("http://www.w3.org/1999/xhtml", "div");
-//        div.setAttribute("background-color", "#FBD603");
-//        div.appendChild(table.getOwnerDocument().createTextNode("TOTOTOOTOTO"));
-//        table.appendChild(div);
-//        nodesInfosNode.appendChild(table);
+        legendWriter.drawLegend(graph, metadata, styleProvider, legendRootElement, xPos, yPos);
     }
 }

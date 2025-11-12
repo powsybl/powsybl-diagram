@@ -57,7 +57,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     private LabelProvider withIncompleteBusInfoProvider;
 
-    private LegendProvider legendProvider;
+    private SVGLegendWriter legendWriter;
 
     @BeforeEach
     public void setUp() throws IOException {
@@ -65,7 +65,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         svgParameters.setBusInfoMargin(5);
 
-        legendProvider = new DefaultLegendProvider(network, svgParameters);
+        legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
 
         withFullBusInfoProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters) {
 
@@ -119,7 +119,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters), new DefaultLegendProvider(network, svgParameters));
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters), new DefaultSVGLegendWriter(network, svgParameters));
     }
 
     @Test
@@ -130,7 +130,7 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider, legendProvider);
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider, legendWriter);
     }
 
     @Test
@@ -141,10 +141,10 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return List.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider, legendProvider);
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider, legendWriter);
     }
 
-    private void runTest(StyleProvider styleProvider, String filename, LabelProvider labelProvider, LegendProvider legendProvider) {
+    private void runTest(StyleProvider styleProvider, String filename, LabelProvider labelProvider, SVGLegendWriter legendWriter) {
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
@@ -160,6 +160,6 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(getResourcesComponentLibrary(), layoutParameters, svgParameters);
-        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, labelProvider, styleProvider, legendProvider));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter));
     }
 }

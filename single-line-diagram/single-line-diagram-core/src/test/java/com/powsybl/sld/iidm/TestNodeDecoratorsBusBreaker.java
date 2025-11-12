@@ -37,6 +37,6 @@ class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
+                toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

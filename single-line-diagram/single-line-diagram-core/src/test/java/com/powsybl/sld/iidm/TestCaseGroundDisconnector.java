@@ -48,7 +48,7 @@ class TestCaseGroundDisconnector extends AbstractTestCaseIidm {
 
         // Write svg and compare to reference
         assertEquals(toString(resourceName), toSVG(g, resourceName, componentLibrary, layoutParameters, svgParameters,
-                getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultDiagramLegendProvider()));
+                getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 
     private static List<Arguments> provideTestData() {

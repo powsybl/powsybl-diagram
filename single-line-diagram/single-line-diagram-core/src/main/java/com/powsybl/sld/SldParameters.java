@@ -29,7 +29,7 @@ public class SldParameters {
     private LayoutParameters layoutParameters = new LayoutParameters();
     private SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
-    private LegendProviderFactory legendProviderFactory = DefaultLegendProvider::new;
+    private LegendWriterFactory legendWriterFactory = DefaultSVGLegendWriter::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
@@ -86,12 +86,12 @@ public class SldParameters {
         return voltageLevelLayoutFactoryCreator.create(network);
     }
 
-    public LegendProvider createLegendProvider(Network network) {
-        return legendProviderFactory.create(network, svgParameters);
+    public SVGLegendWriter createLegendWriter(Network network) {
+        return legendWriterFactory.create(network, svgParameters);
     }
 
-    public SldParameters setLegendProviderFactory(LegendProviderFactory legendProviderFactory) {
-        this.legendProviderFactory = Objects.requireNonNull(legendProviderFactory);
+    public SldParameters setLegendWriterFactory(LegendWriterFactory legendWriterFactory) {
+        this.legendWriterFactory = Objects.requireNonNull(legendWriterFactory);
         return this;
     }
 

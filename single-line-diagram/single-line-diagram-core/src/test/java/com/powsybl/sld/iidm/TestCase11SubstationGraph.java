@@ -16,7 +16,7 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultLegendProvider;
+import com.powsybl.sld.svg.DefaultSVGLegendWriter;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import com.powsybl.sld.svg.styles.NominalVoltageStyleProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -79,7 +79,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
-        assertEquals(toString(filename), toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
+        assertEquals(toString(filename), toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -161,7 +161,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 layoutParameters,
                 svgParameters,
                 new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new BasicStyleProvider(),
-                new DefaultLegendProvider(network, svgParameters)));
+                new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
     @Test
@@ -171,7 +171,7 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
         new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/substDiag_metadata.json"), toMetadata(substationGraph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultDiagramLegendProvider()));
+        assertEquals(toString("/substDiag_metadata.json"), toMetadata(substationGraph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -181,6 +181,6 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         new HorizontalSubstationLayoutFactory().create(graph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/substDiag_metadata.json"), toMetadata(graph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultDiagramLegendProvider()));
+        assertEquals(toString("/substDiag_metadata.json"), toMetadata(graph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }
