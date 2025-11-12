@@ -45,6 +45,6 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // write SVGs and compare to reference
-        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
     }
 }

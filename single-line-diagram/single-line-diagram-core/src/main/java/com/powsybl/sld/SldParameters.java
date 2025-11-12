@@ -13,10 +13,7 @@ import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.LabelProviderFactory;
-import com.powsybl.sld.svg.SvgParameters;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
@@ -32,6 +29,7 @@ public class SldParameters {
     private LayoutParameters layoutParameters = new LayoutParameters();
     private SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
+    private LegendProviderFactory legendProviderFactory = DefaultLegendProvider::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
@@ -86,6 +84,15 @@ public class SldParameters {
 
     public VoltageLevelLayoutFactory createVoltageLevelLayoutFactory(Network network) {
         return voltageLevelLayoutFactoryCreator.create(network);
+    }
+
+    public LegendProvider createLegendProvider(Network network) {
+        return legendProviderFactory.create(network, svgParameters);
+    }
+
+    public SldParameters setLegendProviderFactory(LegendProviderFactory legendProviderFactory) {
+        this.legendProviderFactory = Objects.requireNonNull(legendProviderFactory);
+        return this;
     }
 
     public SldParameters setVoltageLevelLayoutFactoryCreator(VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {

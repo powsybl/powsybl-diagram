@@ -54,6 +54,6 @@ class TestAddBatteries extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestBatteriesRaw.svg"),
-                toSVG(g, "/TestBatteriesRaw.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestBatteriesRaw.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider(), getLegendRawProvider()));
     }
 }

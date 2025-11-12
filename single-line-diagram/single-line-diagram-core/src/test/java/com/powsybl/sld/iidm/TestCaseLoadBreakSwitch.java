@@ -60,6 +60,6 @@ class TestCaseLoadBreakSwitch extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseLoadBreakSwitch.svg"), toSVG(g, "/TestCaseLoadBreakSwitch.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultDiagramLegendProvider()));
     }
 }

@@ -19,6 +19,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultLegendProvider;
 import com.powsybl.sld.svg.styles.BusHighlightStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleClassConstants;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -152,7 +153,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
 
-        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
     }
 
     @Test
@@ -162,7 +163,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         BusHighlightStyleProviderFactory styleFactory = new BusHighlightStyleProviderFactory();
         StyleProvider styleProvider = styleFactory.create(network, svgParameters);
         assertTrue(styleProvider.getCssFilenames().contains("busHighlight.css"));
-        assertEquals(toString("/bus_highlight_style_substation.svg"), toSVG(graph, "/bus_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), styleProvider));
+        assertEquals(toString("/bus_highlight_style_substation.svg"), toSVG(graph, "/bus_highlight_style_substation.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), styleProvider, getDefaultDiagramLegendProvider()));
 
         styleProvider = new TopologicalStyleProvider(network, false);
         assertFalse(styleProvider.getCssFilenames().contains("busHighlight.css"));
@@ -179,7 +180,7 @@ class TopologicalStyleTest extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestBusHighlightSubstationUnifiedColors.svg"), toSVG(g, "/TestBusHighlightSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network, svgParameters, true)));
+        assertEquals(toString("/TestBusHighlightSubstationUnifiedColors.svg"), toSVG(g, "/TestBusHighlightSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network, svgParameters, true), new DefaultLegendProvider(network, svgParameters)));
     }
 
 }

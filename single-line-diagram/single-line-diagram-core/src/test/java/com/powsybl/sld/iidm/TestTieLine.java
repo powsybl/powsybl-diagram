@@ -15,6 +15,7 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultLegendProvider;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class TestTieLine extends AbstractTestCaseIidm {
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestTieLineVoltageLevel.svg"), toSVG(g, "/TestTieLineVoltageLevel.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network), new DefaultLegendProvider(network, svgParameters)));
     }
 
     @Test
@@ -56,7 +57,7 @@ class TestTieLine extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network), new DefaultLegendProvider(network, svgParameters)));
     }
 
 }

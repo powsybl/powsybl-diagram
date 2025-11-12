@@ -38,7 +38,7 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
 
-        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/noComponentsOnBus.svg"), toSVG(vlg, "/noComponentsOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
     }
 
     @Test
@@ -47,6 +47,6 @@ class ComponentsOnBusTest extends AbstractTestCaseIidm {
         VoltageLevelGraph vlg = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(vlg);
 
-        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/switchesOnBus.svg"), toSVG(vlg, "/switchesOnBus.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultDiagramLegendProvider()));
     }
 }
