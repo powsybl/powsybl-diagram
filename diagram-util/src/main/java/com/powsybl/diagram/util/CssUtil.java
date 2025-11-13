@@ -22,7 +22,7 @@ import java.util.Objects;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public final class CssUtil {
-    public static String CLASS = "class";
+    public static final String CLASS = "class";
 
     public static String getFilesContent(List<URL> cssUrls) {
         Objects.requireNonNull(cssUrls);
