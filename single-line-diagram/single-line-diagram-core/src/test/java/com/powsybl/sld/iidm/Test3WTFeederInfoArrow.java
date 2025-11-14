@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +32,9 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testVoltageLevelGraph() {
+    void testVoltageLevelGraphInsideVoltageLevel() {
 
-        // Build substation graph and run layout
+        // Build voltage level graph and run layout with INSIDE_VOLTAGE_LEVEL mode (default)
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
         voltageLevelGraphLayout(g);
 
@@ -41,13 +42,36 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testSubstationGraph() {
+    void testVoltageLevelGraphFull3WT() {
 
-        // Build substation graph and run layout
+        // Build voltage level graph and run layout with FULL_3WT mode
+        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
+        voltageLevelGraphLayout(g);
+
+        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelFull3WT.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelFull3WT.svg"));
+    }
+
+    @Test
+    void testSubstationGraphInsideVoltageLevel() {
+
+        // Build substation graph and run layout with INSIDE_VOLTAGE_LEVEL mode (default)
         SubstationGraph g = graphBuilder.buildSubstationGraph("SUBSTATION");
         substationGraphLayout(g);
 
         assertEquals(toString("/Test3WTFeederInfoArrowSubstation.svg"), toSVG(g, "/Test3WTFeederInfoArrowSubstation.svg"));
+
+    }
+
+    @Test
+    void testSubstationGraphFull3WT() {
+
+        // Build substation graph and run layout with FULL_3WT mode
+        svgParameters.setThreeWindingsTransformerFeederInfoMode(SvgParameters.ThreeWindingsTransformerFeederInfoMode.FULL_3WT);
+        SubstationGraph g = graphBuilder.buildSubstationGraph("SUBSTATION");
+        substationGraphLayout(g);
+
+        assertEquals(toString("/Test3WTFeederInfoArrowSubstationFull3WT.svg"), toSVG(g, "/Test3WTFeederInfoArrowSubstationFull3WT.svg"));
 
     }
 }

@@ -99,7 +99,17 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         if (transformer != null) {
             ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
             boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
-            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            
+            // Check the display mode for 3WT feeder info
+            if (svgParameters.getThreeWindingsTransformerFeederInfoMode() == SvgParameters.ThreeWindingsTransformerFeederInfoMode.INSIDE_VOLTAGE_LEVEL) {
+                // Only display feeder info for the leg inside the voltage level
+                if (insideVoltageLevel) {
+                    feederInfos = buildFeederInfos(transformer, side, true);
+                }
+            } else {
+                // Display feeder info for all legs (FULL_3WT mode)
+                feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            }
         }
         return feederInfos;
     }
