@@ -55,7 +55,6 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
-    private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
@@ -114,7 +113,6 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
-        this.edgeInfoDisplayed = other.edgeInfoDisplayed;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
         this.injectionAperture = other.injectionAperture;
@@ -480,21 +478,6 @@ public class SvgParameters {
 
     public ValueFormatter createValueFormatter() {
         return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
-    }
-
-    public enum EdgeInfoEnum {
-        ACTIVE_POWER,
-        REACTIVE_POWER,
-        CURRENT;
-    }
-
-    public EdgeInfoEnum getEdgeInfoDisplayed() {
-        return this.edgeInfoDisplayed;
-    }
-
-    public SvgParameters setEdgeInfoDisplayed(EdgeInfoEnum edgeInfoDisplayed) {
-        this.edgeInfoDisplayed = edgeInfoDisplayed;
-        return this;
     }
 
     public double getPstArrowHeadSize() {

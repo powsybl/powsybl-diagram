@@ -534,7 +534,7 @@ public class SvgWriter {
             if (!graph.isLoop(edge)) {
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.TWO);
-                drawEdgeInfo(writer, edge.getSvgEdgeInfoMiddle(), edge.getMiddlePoint(), edge.getEdgeEndAngle(BranchEdge.Side.ONE));
+                drawBranchMiddleEdgeInfo(writer, edge);
             } else {
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.TWO);
@@ -570,6 +570,15 @@ public class SvgWriter {
         }
     }
 
+    private void drawBranchMiddleEdgeInfo(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
+            Optional<SvgEdgeInfo> edgeInfo = edge.getSvgEdgeInfoMiddle();
+            if (edgeInfo.isPresent()) {
+                drawEdgeInfo(writer, edgeInfo.get(), edge.getMiddlePoint(), edge.getEdgeEndAngle(BranchEdge.Side.ONE));
+            }
+        }
+    }
+
     private void drawThreeWtEdgeInfo(XMLStreamWriter writer, ThreeWtEdge edge) throws XMLStreamException {
         if (edge.isVisible()) {
             Optional<SvgEdgeInfo> edgeInfo = edge.getSvgEdgeInfo();
@@ -588,6 +597,9 @@ public class SvgWriter {
 
     private void drawEdgeInfo(XMLStreamWriter writer, SvgEdgeInfo svgEdgeInfo, Point infoCenter, double edgeAngle) throws XMLStreamException {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
+        if (checkIfEdgeInfoIsEmpty(edgeInfo)) {
+            return;
+        }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.svgId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
@@ -603,6 +615,10 @@ public class SvgWriter {
         }
 
         writer.writeEndElement();
+    }
+
+    private boolean checkIfEdgeInfoIsEmpty(EdgeInfo edgeInfo) {
+        return edgeInfo.getExternalLabel().isEmpty() && edgeInfo.getInternalLabel().isEmpty() && edgeInfo.getDirection().isEmpty();
     }
 
     private void drawArrow(XMLStreamWriter writer, EdgeInfo edgeInfo, double edgeAngle) throws XMLStreamException {

@@ -16,17 +16,34 @@ public class EdgeInfo {
     public static final String ACTIVE_POWER = "ActivePower";
     public static final String REACTIVE_POWER = "ReactivePower";
     public static final String CURRENT = "Current";
+    public static final String NAME = "Name";
+    public static final String LOAD_PERCENTAGE = "Load percentage";
+    public static final String EMPTY = "Empty";
 
-    private final String infoType;
+    private final String internalInfoType;
+    private final String externalInfoType;
     private final Direction arrowDirection;
     private final String internalLabel;
     private final String externalLabel;
 
-    public EdgeInfo(String infoType, Direction arrowDirection, String internalLabel, String externalLabel) {
-        this.infoType = infoType;
+    public EdgeInfo(String internalInfoType, String externalInfoType, Direction arrowDirection, String internalLabel, String externalLabel) {
+        this.externalInfoType = externalInfoType;
+        this.internalInfoType = internalInfoType;
         this.arrowDirection = arrowDirection;
         this.internalLabel = internalLabel;
         this.externalLabel = externalLabel;
+    }
+
+    public EdgeInfo(String internalInfoType, String externalInfoType, double referenceValue, String internalLabel, String externalLabel) {
+        this(internalInfoType, externalInfoType, getArrowDirection(referenceValue), internalLabel, externalLabel);
+    }
+
+    public EdgeInfo(String infoType, Direction arrowDirection, String internalLabel, String externalLabel) {
+        this(infoType, infoType, arrowDirection, internalLabel, externalLabel);
+    }
+
+    public EdgeInfo(String infoType, double internalValue, double externalValue, DoubleFunction<String> formatter) {
+        this(infoType, getArrowDirection(externalValue), formatter.apply(internalValue), formatter.apply(externalValue));
     }
 
     public EdgeInfo(String infoType, double value, DoubleFunction<String> formatter) {
@@ -38,7 +55,7 @@ public class EdgeInfo {
     }
 
     public EdgeInfo() {
-        this(EdgeInfo.ACTIVE_POWER, null, null, null);
+        this(EdgeInfo.ACTIVE_POWER, null, null, null, null);
     }
 
     private static Direction getArrowDirection(double value) {
@@ -48,8 +65,20 @@ public class EdgeInfo {
         return value < 0 ? Direction.IN : Direction.OUT;
     }
 
+    /**
+     * @deprecated since 5.1.0, use {@link #getExternalInfoType()} instead.
+     */
+    @Deprecated(since = "5.1.0")
     public String getInfoType() {
-        return infoType;
+        return getExternalInfoType();
+    }
+
+    public String getExternalInfoType() {
+        return externalInfoType;
+    }
+
+    public String getInternalInfoType() {
+        return internalInfoType;
     }
 
     public Optional<Direction> getDirection() {

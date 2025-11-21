@@ -16,18 +16,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeInfoMetadata {
     private final String svgId;
-    private final String infoType;
+    private final String internalInfoType;
+    private final String externalInfoType;
     private final String direction;
     private final String internalLabel;
     private final String externalLabel;
 
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
-                            @JsonProperty("infoType") String infoType,
+                            @JsonProperty("internalInfoType") String internalInfoType,
+                            @JsonProperty("externalInfoType") String externalInfoType,
                             @JsonProperty("direction") String direction,
                             @JsonProperty("internalLabel") String internalLabel,
                             @JsonProperty("externalLabel") String externalLabel) {
         this.svgId = svgId;
-        this.infoType = infoType;
+        this.internalInfoType = internalInfoType;
+        this.externalInfoType = externalInfoType;
         this.direction = direction;
         this.internalLabel = internalLabel;
         this.externalLabel = externalLabel;
@@ -38,9 +41,14 @@ public class EdgeInfoMetadata {
         return svgId;
     }
 
-    @JsonProperty("infoType")
-    public String getInfoType() {
-        return infoType;
+    @JsonProperty("internalInfoType")
+    public String getInternalInfoType() {
+        return internalInfoType;
+    }
+
+    @JsonProperty("externalInfoType")
+    public String getExternalInfoType() {
+        return externalInfoType;
     }
 
     @JsonProperty("direction")

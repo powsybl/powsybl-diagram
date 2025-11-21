@@ -7,9 +7,13 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.ThreeWtEdge;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Enables the configuration of content displayed in the NAD for branches and three-winding-transformers (labels, arrows direction),
@@ -107,9 +111,9 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public EdgeInfo getBranchEdgeInfo(String branchId, String branchType) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         BranchLabels bl = branchLabels.get(branchId);
-        return new EdgeInfo(INFO_TYPE, bl.arrow1, null, branchId);
+        return Optional.of(new EdgeInfo(INFO_TYPE, bl.arrow1, null, branchId));
     }
 
     @Override

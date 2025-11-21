@@ -133,7 +133,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getLabel(),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                (null == edge.getSvgEdgeInfoMiddle()) ? null : createEdgeInfoMetadata(edge.getSvgEdgeInfoMiddle())))
+                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null)))
         );
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
@@ -191,7 +191,8 @@ public class DiagramMetadata extends AbstractMetadata {
     private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         return new EdgeInfoMetadata(svgEdgeInfo.svgId(),
-                edgeInfo.getInfoType(),
+                edgeInfo.getInternalInfoType(),
+                edgeInfo.getExternalInfoType(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
                 edgeInfo.getInternalLabel().orElse(null),
                 edgeInfo.getExternalLabel().orElse(null));

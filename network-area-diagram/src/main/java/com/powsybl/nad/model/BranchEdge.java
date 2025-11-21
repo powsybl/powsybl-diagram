@@ -51,9 +51,9 @@ public class BranchEdge extends AbstractEdge {
     public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
                       EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, EdgeInfo edgeInfoMiddle) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
-        this.svgEdgeInfo1 = edgeInfo1 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
-        this.svgEdgeInfo2 = edgeInfo2 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
-        this.svgEdgeInfoMiddle = new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle);
+        this.svgEdgeInfo1 = isEddgeInfoNotEmptyNorNull(edgeInfo1) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = isEddgeInfoNotEmptyNorNull(edgeInfo2) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
+        this.svgEdgeInfoMiddle = isEddgeInfoNotEmptyNorNull(edgeInfoMiddle) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle) : null;
     }
 
     public boolean isTransformerEdge() {
@@ -165,11 +165,15 @@ public class BranchEdge extends AbstractEdge {
         return Optional.ofNullable(side == Side.ONE ? svgEdgeInfo1 : svgEdgeInfo2);
     }
 
-    public SvgEdgeInfo getSvgEdgeInfoMiddle() {
-        return svgEdgeInfoMiddle;
+    public Optional<SvgEdgeInfo> getSvgEdgeInfoMiddle() {
+        return Optional.ofNullable(svgEdgeInfoMiddle);
     }
 
     public String getLabel() {
-        return svgEdgeInfoMiddle.edgeInfo() != null ? svgEdgeInfoMiddle.edgeInfo().getExternalLabel().orElse(null) : null;
+        return svgEdgeInfoMiddle != null && svgEdgeInfoMiddle.edgeInfo() != null ? svgEdgeInfoMiddle.edgeInfo().getExternalLabel().orElse(null) : null;
+    }
+
+    private static boolean isEddgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
+        return edgeInfo != null && (!EdgeInfo.EMPTY.equals(edgeInfo.getExternalInfoType()) || !EdgeInfo.EMPTY.equals(edgeInfo.getInternalInfoType()));
     }
 }
