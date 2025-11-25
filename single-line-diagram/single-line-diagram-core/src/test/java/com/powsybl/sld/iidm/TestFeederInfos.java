@@ -17,10 +17,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
-import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.*;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,16 +43,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestFeederInfos extends AbstractTestCaseIidm {
 
+    protected VoltageLevel vl2;
+    protected Substation substation2;
+    protected Bus bus;
+    protected Bus bus2;
+
     @BeforeEach
     public void setUp() {
         network = Network.create("testCase14", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
         vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
+        substation2 = Networks.createSubstation(network, "s2", "s2", Country.FR);
+        vl2 = Networks.createVoltageLevel(substation2, "vl2", "vl2", TopologyKind.NODE_BREAKER, 380);
+
         Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
+        Networks.createBusBarSection(vl2, "bbs2", "bbs2", 5, 1, 1);
+
         Networks.createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         Networks.createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+
+        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 3, 4, vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
+        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        Networks.createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 4, 5);
     }
 
     @Test
@@ -66,8 +77,11 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         layoutParameters.setSpaceForFeederInfos(100);
 
         svgParameters.setPowerValuePrecision(3)
+                .setCurrentValuePrecision(2)
+                .setPercentageValuePrecision(2)
                 .setFeederInfosIntraMargin(5)
-                .setDisplayCurrentFeederInfo(true);
+                .setDisplayCurrentFeederInfo(true)
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -82,7 +96,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                         new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
+                        new DirectionalFeederInfo(VALUE_CURRENT, 123.456789, valueFormatter::formatCurrent),
+                        new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, 30, valueFormatter::formatPercentage));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -106,9 +122,22 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         layoutParameters.setSpaceForFeederInfos(100);
         svgParameters.setFeederInfosIntraMargin(5)
                 .setPowerValuePrecision(0)
-                .setDisplayCurrentFeederInfo(true);
+                .setCurrentValuePrecision(0)
+                .setPercentageValuePrecision(1)
+                .setDisplayCurrentFeederInfo(true)
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
+
         // build graph
-        network.getLoad("l").getTerminal().setP(100).setQ(10).getBusView().getBus().setV(vl.getNominalV());
+        network.getLoad("l").getTerminal().setP(100).setQ(10);
+        network.getLine("line").getTerminal1().setP(100).setQ(10).connect();
+        network.getLine("line").getTerminal2().setP(90).setQ(10).connect();
+
+        network.getLine("line").getTerminal1().getBusView().getBus().setV(vl.getNominalV());
+        network.getLine("line").getTerminal2().getBusView().getBus().setV(vl2.getNominalV());
+
+        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits().setPermanentLimit(200).add();
+
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
@@ -121,11 +150,20 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     void testFrenchFormatting() {
 
-        // Add power values to the load
-        network.getLoad("l").getTerminal().setP(1200.29);
-        network.getLoad("l").getTerminal().setQ(-1);
+        // Add power values to the equipments
+        network.getLoad("l").getTerminal().setP(1200.29).setQ(-1);
+        network.getLine("line").getTerminal1().setP(1010).setQ(-10).connect();
+        network.getLine("line").getTerminal2().setP(10).setQ(10).connect();
 
-        svgParameters.setLanguageTag("fr").setPowerValuePrecision(1);
+        network.getLine("line").getTerminal1().getBusView().getBus().setV(vl.getNominalV());
+        network.getLine("line").getTerminal2().getBusView().getBus().setV(vl2.getNominalV());
+
+        svgParameters.setLanguageTag("fr")
+                .setPowerValuePrecision(1)
+                .setCurrentValuePrecision(1)
+                .setPercentageValuePrecision(0)
+                .setDisplayCurrentFeederInfo(true)
+                .setDisplayPermanentLimitPercentageFeederInfo(true);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -140,19 +178,19 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     @Test
     void testBuildFeederInfosWithCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        svgParameters.setDisplayCurrentFeederInfo(true);
+        svgParameters.setDisplayCurrentFeederInfo(true).setDisplayPermanentLimitPercentageFeederInfo(true);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(3, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
-        assertEquals(ARROW_CURRENT, feederInfoList.get(2).getComponentType());
+        assertEquals(VALUE_CURRENT, feederInfoList.get(2).getComponentType());
     }
 
     @Test
     void testBuildFeederInfosWithoutCurrent() {
         Network network = IeeeCdfNetworkFactory.create9();
-        svgParameters.setDisplayCurrentFeederInfo(false);
+        svgParameters.setDisplayCurrentFeederInfo(false).setDisplayPermanentLimitPercentageFeederInfo(true);
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
         assertEquals(2, feederInfoList.size());
@@ -164,8 +202,8 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     void testAnimation() {
 
         // Add load at bottom
-        Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        Networks.createLoad(vl, "l2", "l2", "l2", 0, ConnectablePosition.Direction.BOTTOM, 3, 10, 10);
+        Networks.createSwitch(vl, "d4", "d4", SwitchKind.DISCONNECTOR, false, false, false, 0, 10);
+        Networks.createLoad(vl, "l2", "l2", "l2", 0, ConnectablePosition.Direction.BOTTOM, 10, 10, 10);
 
         // Add power values to the load
         network.getLoad("l").getTerminal().setP(1200.29);
@@ -236,6 +274,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     void testBuildFeederInfosWithUnits() {
         Network network = IeeeCdfNetworkFactory.create9();
         svgParameters.setDisplayCurrentFeederInfo(true)
+                .setDisplayPermanentLimitPercentageFeederInfo(true)
                 .setActivePowerUnit("MW")
                 .setReactivePowerUnit("MVAR")
                 .setCurrentUnit("A");
