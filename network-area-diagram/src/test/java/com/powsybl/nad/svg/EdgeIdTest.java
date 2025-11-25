@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
  */
 class EdgeIdTest extends AbstractTest {
 
+    private DefaultLabelProvider.EdgeInfoEnum middleSide2Info;
+
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters());
@@ -35,21 +37,25 @@ class EdgeIdTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters()) {
-        };
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(middleSide2Info)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void testNameOnEdgeDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setEdgeNameDisplayed(true);
+        middleSide2Info = DefaultLabelProvider.EdgeInfoEnum.NAME;
         assertSvgEquals("/edge_with_id.svg", network);
     }
 
     @Test
     void testNameOnEdgeNotDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setEdgeNameDisplayed(false);
+        middleSide2Info = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
         assertSvgEquals("/edge_without_id.svg", network);
     }
 }

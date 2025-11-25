@@ -41,7 +41,6 @@ public class SvgParameters {
     private double loopEdgesAperture = 60;
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
-    private boolean edgeNameDisplayed = false;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
@@ -99,7 +98,6 @@ public class SvgParameters {
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
-        this.edgeNameDisplayed = other.edgeNameDisplayed;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
@@ -343,15 +341,6 @@ public class SvgParameters {
 
     public SvgParameters setEdgeInfoAlongEdge(boolean edgeInfoAlongEdge) {
         this.edgeInfoAlongEdge = edgeInfoAlongEdge;
-        return this;
-    }
-
-    public boolean isEdgeNameDisplayed() {
-        return edgeNameDisplayed;
-    }
-
-    public SvgParameters setEdgeNameDisplayed(boolean edgeNameDisplayed) {
-        this.edgeNameDisplayed = edgeNameDisplayed;
         return this;
     }
 

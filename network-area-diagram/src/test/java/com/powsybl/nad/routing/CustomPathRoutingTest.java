@@ -38,13 +38,17 @@ import static com.powsybl.nad.build.iidm.VoltageLevelFilter.NO_FILTER;
 class CustomPathRoutingTest extends AbstractTest {
 
     private FileSystem fileSystem;
+    DefaultLabelProvider.Builder builder = new DefaultLabelProvider.Builder()
+        .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+        .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+        .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+        .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.NAME);
 
     @BeforeEach
     void setup() {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
-                .setEdgeNameDisplayed(true)
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
     }
@@ -56,8 +60,7 @@ class CustomPathRoutingTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters()) {
-        };
+        return builder.build(network, getSvgParameters());
     }
 
     @Override
@@ -88,6 +91,7 @@ class CustomPathRoutingTest extends AbstractTest {
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
                 .setStyleProviderFactory(this::getStyleProvider)
+                .setLabelProviderFactory(builder::build)
                 .setEdgeRouting(getEdgeRouting());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
         assertFileEquals("/ieee14_custom_paths.svg", svgFile);

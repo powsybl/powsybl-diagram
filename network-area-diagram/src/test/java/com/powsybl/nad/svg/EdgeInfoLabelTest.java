@@ -55,7 +55,7 @@ class EdgeInfoLabelTest extends AbstractTest {
 
             @Override
             public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
-                return Optional.of(new EdgeInfo(EdgeInfo.EMPTY, "test", EdgeInfo.Direction.OUT, side1Label, side2Label));
+                return Optional.of(new EdgeInfo(EdgeInfo.EMPTY, EdgeInfo.EMPTY, null, side1Label, side2Label));
             }
 
             @Override

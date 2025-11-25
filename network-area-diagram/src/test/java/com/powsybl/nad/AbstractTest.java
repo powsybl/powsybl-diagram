@@ -7,6 +7,8 @@
 package com.powsybl.nad;
 
 import com.google.common.io.ByteStreams;
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.build.iidm.IntIdProvider;
@@ -23,6 +25,9 @@ import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
+import org.opentest4j.AssertionFailedError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -38,8 +43,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public abstract class AbstractTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+    private static final Pattern SVG_ID_PATTERN = Pattern.compile("(.*id=\")(\\w+)(\".*)");
+    private static final Pattern HREF_PATTERN = Pattern.compile("(.*href=\")(#\\w+)(\".*)");
     protected boolean debugSvg = true;
     protected boolean overrideTestReferences = false;
+    protected boolean throwOnIdChange = false;
 
     private SvgParameters svgParameters;
 
@@ -84,7 +93,50 @@ public abstract class AbstractTest {
         if (overrideTestReferences) {
             overrideTestReference(resourceNameExpected, generated);
         }
-        assertEquals(toString(resourceNameExpected), normalizeLineSeparator(generated));
+        String expected = toString(resourceNameExpected);
+        String actual = normalizeLineSeparator(generated);
+        try {
+            assertEquals(expected, actual);
+        } catch (AssertionFailedError exception) {
+            if (checkIfOnlyIdsAreDifferent(expected, actual)) {
+                LOGGER.error("Only ids and/or hrefs are different between the expected and the actual svg.");
+                if (throwOnIdChange) {
+                    throw exception;
+                }
+            } else {
+                throw exception;
+            }
+        }
+    }
+
+    private static boolean checkIfOnlyIdsAreDifferent(String expected, String actual) {
+        String[] expectedLines = expected.split("\n");
+        String[] actualLines = actual.split("\n");
+        for (int i = 0; i < expectedLines.length; i++) {
+            String expectedLine = expectedLines[i];
+            String actualLine = actualLines[i];
+            if (!expectedLine.equals(actualLine) && checkAroundSvgIds(expectedLine, actualLine) && checkAroundHref(expectedLine, actualLine)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean checkAroundHref(String expectedLine, String actualLine) {
+        return checkPattern(expectedLine, actualLine, HREF_PATTERN);
+    }
+
+    private static boolean checkAroundSvgIds(String expectedLine, String actualLine) {
+        return checkPattern(expectedLine, actualLine, SVG_ID_PATTERN);
+    }
+
+    private static boolean checkPattern(String expectedLine, String actualLine, Pattern pattern) {
+        Matcher expectedMatcher = pattern.matcher(expectedLine);
+        Matcher actualMatcher = pattern.matcher(actualLine);
+        return !expectedMatcher.matches() || !actualMatcher.matches()
+            || !expectedMatcher.group(1).equals(actualMatcher.group(1))
+            || !expectedMatcher.group(3).equals(actualMatcher.group(3));
+
     }
 
     private void writeToHomeDir(String refFilename, String svgString) {

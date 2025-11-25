@@ -276,7 +276,7 @@ public class SvgWriter {
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
 
         if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
-//            drawEdgeMiddleLabel(edgeLabel, edge, writer);
+            drawEdgeMiddleLabel(edgeLabel, edge, writer);
         } else if (edge.isVisible(BranchEdge.Side.ONE)) {
             drawHalfEdgeLabel(edgeLabel, edge, BranchEdge.Side.ONE, writer);
         } else {
@@ -306,8 +306,8 @@ public class SvgWriter {
         if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
-        String edgeLabel = edge.getLabel();
-        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || !StringUtils.isEmpty(edgeLabel)) {
+        Optional<String> edgeLabel = edge.getLabel();
+        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || edgeLabel.isPresent()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             switch (edge.getType()) {
                 case BranchEdge.PST_EDGE, BranchEdge.TWO_WT_EDGE:
@@ -319,7 +319,9 @@ public class SvgWriter {
                 default:
                     break;
             }
-            drawEdgeLabel(writer, edge, edgeLabel);
+            if (edgeLabel.isPresent()) {
+                drawEdgeLabel(writer, edge, edgeLabel.get());
+            }
             writer.writeEndElement();
         }
     }
@@ -534,10 +536,12 @@ public class SvgWriter {
             if (!graph.isLoop(edge)) {
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawBranchEdgeInfo(writer, edge, BranchEdge.Side.TWO);
-                drawBranchMiddleEdgeInfo(writer, edge);
             } else {
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.TWO);
+            }
+            if (edge.getLabel().isEmpty()) {
+                drawBranchMiddleEdgeInfo(writer, edge);
             }
         }
 

@@ -36,7 +36,6 @@ class CustomLabelProviderTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800)
-                .setEdgeNameDisplayed(false)
                 .setVoltageLevelDetails(false)
                 .setBusLegend(false));
     }
@@ -56,10 +55,10 @@ class CustomLabelProviderTest extends AbstractTest {
         Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
 
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
-        branchLabels.put("L12", new CustomLabelProvider.BranchLabels("L1_1", "L1", "L1_2", EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T12", new CustomLabelProvider.BranchLabels("TWT1_1", "TWT1", "TWT1_2", null, null));
-        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, "L2", null, EdgeInfo.Direction.IN, EdgeInfo.Direction.IN));
-        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, "TWT2", "TWT2_2", null, EdgeInfo.Direction.OUT));
+        branchLabels.put("L12", new CustomLabelProvider.BranchLabels(null, "L1_1", null, "L1", null, "L1_2", EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
+        branchLabels.put("T12", new CustomLabelProvider.BranchLabels(null, "TWT1_1", null, "TWT1", null, "TWT1_2", null, null, null));
+        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, null, null, "L2",  null, null, EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
+        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, null, null, "TWT2",  null, "TWT2_2", null, null, EdgeInfo.Direction.OUT));
 
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
 
@@ -86,11 +85,11 @@ class CustomLabelProviderTest extends AbstractTest {
 
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
-        threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels("SIDE1", "SIDE2", "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
+        threeWtLabels.put("3WT", new CustomLabelProvider.ThreeWtLabels(null, "SIDE1", null, "SIDE2", null, "SIDE3", EdgeInfo.Direction.IN, EdgeInfo.Direction.OUT, EdgeInfo.Direction.IN));
 
         Map<String, CustomLabelProvider.InjectionLabels> injLabels = new HashMap<>();
-        injLabels.put("GEN_132", new CustomLabelProvider.InjectionLabels("G132", EdgeInfo.Direction.IN));
-        injLabels.put("LOAD_33", new CustomLabelProvider.InjectionLabels("L33", EdgeInfo.Direction.OUT));
+        injLabels.put("GEN_132", new CustomLabelProvider.InjectionLabels(null, "G132", EdgeInfo.Direction.IN));
+        injLabels.put("LOAD_33", new CustomLabelProvider.InjectionLabels(null, "L33", EdgeInfo.Direction.OUT));
 
         Map<String, VoltageLevelLegend> vlDescriptions = new HashMap<>();
         var vl132Legend = new VoltageLevelLegend(

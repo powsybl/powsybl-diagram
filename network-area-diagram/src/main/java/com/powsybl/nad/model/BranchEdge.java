@@ -169,8 +169,16 @@ public class BranchEdge extends AbstractEdge {
         return Optional.ofNullable(svgEdgeInfoMiddle);
     }
 
-    public String getLabel() {
-        return svgEdgeInfoMiddle != null && svgEdgeInfoMiddle.edgeInfo() != null ? svgEdgeInfoMiddle.edgeInfo().getExternalLabel().orElse(null) : null;
+    public Optional<String> getLabel() {
+        if (svgEdgeInfoMiddle == null || svgEdgeInfoMiddle.edgeInfo() == null) {
+            return Optional.empty();
+        }
+        EdgeInfo edgeInfo = svgEdgeInfoMiddle.edgeInfo();
+        // If an arrow has to be drawn or if two labels are expected, do not return a label
+        if (edgeInfo.getDirection().isPresent() || edgeInfo.getExternalLabel().isPresent() && edgeInfo.getInternalLabel().isPresent()) {
+            return Optional.empty();
+        }
+        return edgeInfo.getExternalLabel().isPresent() ? edgeInfo.getExternalLabel() : edgeInfo.getInternalLabel();
     }
 
     private static boolean isEddgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
