@@ -60,6 +60,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
     private LabelProvider labelProvider;
+    private SVGLegendWriter legendWriter;
     private LabelProvider labelNoFeederInfoProvider;
     private LabelProvider diagramLabelMultiLineTooltipProvider;
     private LabelProvider diagramLabelSameNodeProvider;
@@ -662,12 +663,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
                 return new ArrayList<>();
             }
         };
+
+        legendWriter = new DefaultSVGLegendWriter(Network.create("empty", ""), svgParameters);
     }
 
     @Test
     void testVl1() {
         assertEquals(toString("/vl1.svg"),
-                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -675,7 +678,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
 
         assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -683,26 +686,26 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
 
         assertEquals(toString("/vl1_external_css_no_import.svg"),
-                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testVl2() {
         assertEquals(toString("/vl2.svg"),
-                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testVl3() {
         assertEquals(toString("/vl3.svg"),
-                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider()));
+                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider(), legendWriter));
     }
 
     @Test
@@ -710,14 +713,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         svgParameters.setFeederInfoSymmetry(true);
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
-                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -726,7 +729,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl1_optimized.svg"),
-                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -735,7 +738,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl2_optimized.svg"),
-                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -744,7 +747,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl3_optimized.svg"),
-                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -753,7 +756,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/substation_optimized.svg"),
-                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -761,7 +764,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setShowGrid(false);
 
         assertEquals(toString("/zone.svg"),
-                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -769,7 +772,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setDrawStraightWires(true);
 
         assertEquals(toString("/vl1_straightWires.svg"),
-                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -777,7 +780,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setTooltipEnabled(true);
 
         assertEquals(toString("/vl1_tooltip.svg"),
-                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -787,7 +790,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setTooltipEnabled(true);
 
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -795,7 +798,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // same node label provider example for the test :
 
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider()));
+                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -808,6 +811,6 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         };
 
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
+                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter));
     }
 }

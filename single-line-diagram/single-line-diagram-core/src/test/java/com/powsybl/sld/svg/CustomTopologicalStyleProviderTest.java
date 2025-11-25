@@ -307,7 +307,7 @@ class CustomTopologicalStyleProviderTest extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString(resourceName), toSVG(g, resourceName, componentLibrary, layoutParameters, svgParameters,
-                getDefaultDiagramLabelProvider(), styleProvider));
+                getDefaultDiagramLabelProvider(), styleProvider, getDefaultSVGLegendWriter()));
     }
 
     private static List<Arguments> provideSubstationTestData() {
@@ -352,7 +352,7 @@ class CustomTopologicalStyleProviderTest extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         assertEquals(toString(resourceName), toSVG(g, resourceName, componentLibrary, layoutParameters, svgParameters,
-                getDefaultDiagramLabelProvider(), styleProvider));
+                getDefaultDiagramLabelProvider(), styleProvider, getDefaultSVGLegendWriter()));
     }
 
 }
