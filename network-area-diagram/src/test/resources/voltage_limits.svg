@@ -98,14 +98,14 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -359px; left: 44px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-overvoltage nad-legend-square"/>385.1 kV / °</div>
+                    <span class="nad-overvoltage nad-legend-square"></span>385.1 kV / °</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/> kV / °</div>
+                    <span class="nad-legend-square"></span> kV / °</div>
             </div>
             <div style="position: absolute; top: -39px; left: -130px" id="6" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-undervoltage nad-legend-square"/>388.0 kV / °</div>
+                    <span class="nad-undervoltage nad-legend-square"></span>388.0 kV / °</div>
             </div>
         </div>
     </foreignObject>
