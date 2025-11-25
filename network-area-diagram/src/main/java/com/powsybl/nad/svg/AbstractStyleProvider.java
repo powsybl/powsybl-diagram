@@ -91,6 +91,10 @@ public abstract class AbstractStyleProvider implements StyleProvider {
                 case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
                 case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
                 case EdgeInfo.LOAD_PERCENTAGE -> styles.add(CLASSES_PREFIX + "load-percentage");
+                case EdgeInfo.NAME -> styles.add(CLASSES_PREFIX + "name");
+                case EdgeInfo.EMPTY -> {
+                    // Nothing to do
+                }
                 default -> LOGGER.warn("The \"{}\" type of information is not handled", externalInfoType);
             }
         }
