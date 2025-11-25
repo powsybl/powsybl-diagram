@@ -42,7 +42,7 @@ public class DefaultLabelProvider implements LabelProvider {
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
         this.svgParameters = svgParameters;
-        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.NAME, null, null);
+        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.NAME, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = svgParameters.createValueFormatter();
         this.isBusLegend = svgParameters.isBusLegend();
         this.substationDescriptionDisplayed = svgParameters.isSubstationDescriptionDisplayed();
