@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class Grid {
 
-    static class Node {
+    public static class Node {
         private final Point point;
         private boolean available;
         private int cost;
@@ -148,7 +148,7 @@ public class Grid {
             pointsList.addAll(pointsAlongSegment);
         }
         // Adding last point
-        pointsList.add(points.get(points.size() - 1));
+        pointsList.add(points.getLast());
         return pointsList;
     }
 

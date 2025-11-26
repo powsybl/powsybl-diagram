@@ -24,7 +24,7 @@ public class LayoutParameters {
 
     public LayoutParameters(LayoutParameters other) {
         this.textNodesForceLayout = other.textNodesForceLayout;
-        this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
+        this.textNodeFixedShift = new Point(other.textNodeFixedShift.x(), other.textNodeFixedShift.y());
         this.maxSteps = other.maxSteps;
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
         this.injectionsAdded = other.injectionsAdded;

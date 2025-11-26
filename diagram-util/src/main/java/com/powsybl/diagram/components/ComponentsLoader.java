@@ -9,7 +9,11 @@ package com.powsybl.diagram.components;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.powsybl.commons.json.JsonUtil;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;

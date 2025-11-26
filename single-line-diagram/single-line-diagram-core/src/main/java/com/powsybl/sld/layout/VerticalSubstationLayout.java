@@ -6,16 +6,18 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.coordinate.Direction;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.List;
 
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -49,22 +51,22 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
 
-        double xVoltageLevels = diagramPadding.getLeft() + voltageLevelPadding.getLeft();
+        double xVoltageLevels = diagramPadding.left() + voltageLevelPadding.left();
         double substationWidth = 0;
-        double y = diagramPadding.getTop();
+        double y = diagramPadding.top();
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             // Calculate the objects coordinates inside the voltageLevel graph
             Layout vLayout = vLayoutFactory.create(vlGraph);
             vLayout.run(layoutParameters);
 
-            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
+            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.top());
 
             substationWidth = Math.max(substationWidth, vlGraph.getWidth());
             y += vlGraph.getHeight();
         }
 
-        double substationHeight = y - diagramPadding.getTop();
+        double substationHeight = y - diagramPadding.top();
         getGraph().setSize(substationWidth, substationHeight);
 
         maxVoltageLevelWidth = substationWidth;
@@ -84,18 +86,18 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
 
-        double xVoltageLevels = widthSnakeLinesLeft + diagramPadding.getLeft() + voltageLevelPadding.getLeft();
-        double y = diagramPadding.getTop()
+        double xVoltageLevels = widthSnakeLinesLeft + diagramPadding.left() + voltageLevelPadding.left();
+        double y = diagramPadding.top()
             + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters)).orElse(0.);
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
+            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.top());
             y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters);
         }
 
         double widthSnakeLinesRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
         double substationWidth = getGraph().getWidth() + widthSnakeLinesLeft + widthSnakeLinesRight;
-        double substationHeight = y - diagramPadding.getTop();
+        double substationHeight = y - diagramPadding.top();
         getGraph().setSize(substationWidth, substationHeight);
 
         infosNbSnakeLines.reset();

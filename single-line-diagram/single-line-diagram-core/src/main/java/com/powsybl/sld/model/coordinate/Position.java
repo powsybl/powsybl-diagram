@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -25,70 +25,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 public class Position {
 
-    public class Segment {
-        private int value;
-        private int span;
-        private int shift;
-
-        Segment(int value, int span, int shift) {
-            this.value = value;
-            this.span = span;
-            this.shift = shift;
-        }
-
-        public void copy(Segment segment) {
-            this.value = segment.value;
-            this.span = segment.span;
-            this.shift = segment.shift;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public int getSpan() {
-            return span;
-        }
-
-        public void setSpan(int span) {
-            this.span = span;
-        }
-
-        public int getShift() {
-            return shift;
-        }
-
-        public void setShift(int shift) {
-            this.shift = shift;
-        }
-
-        public void mergeEnvelop(Stream<Segment> segStream) {
-            List<Segment> segments = segStream.collect(Collectors.toList());
-            setSpan(segments.stream().mapToInt(Segment::getSpan).max().orElse(0));
-            segments.forEach(seg -> seg.setValue(0));
-        }
-
-        public void glue(Stream<Segment> segStream) {
-            List<Segment> segments = segStream.collect(Collectors.toList());
-            setSpan(segments.stream().mapToInt(Segment::getSpan).sum());
-            int cumulSpan = 0;
-            for (Segment seg : segments) {
-                seg.setValue(cumulSpan);
-                cumulSpan += seg.getSpan();
-            }
-        }
-    }
-
-    public enum Dimension {
-        H, V
-    }
-
-    private Map<Dimension, Segment> dim2Seg = new EnumMap<>(Dimension.class);
-
+    private final Map<Dimension, Segment> dim2Seg = new EnumMap<>(Dimension.class);
     private Orientation orientation;
 
     public Position(int h, int v, int hSpan, int vSpan, Orientation orientation) {
@@ -146,5 +83,67 @@ public class Position {
             generator.writeStringField("orientation", orientation.name());
         }
         generator.writeEndObject();
+    }
+
+    public enum Dimension {
+        H, V
+    }
+
+    public static class Segment {
+        private int value;
+        private int span;
+        private int shift;
+
+        Segment(int value, int span, int shift) {
+            this.value = value;
+            this.span = span;
+            this.shift = shift;
+        }
+
+        public void copy(Segment segment) {
+            this.value = segment.value;
+            this.span = segment.span;
+            this.shift = segment.shift;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public int getSpan() {
+            return span;
+        }
+
+        public void setSpan(int span) {
+            this.span = span;
+        }
+
+        public int getShift() {
+            return shift;
+        }
+
+        public void setShift(int shift) {
+            this.shift = shift;
+        }
+
+        public void mergeEnvelop(Stream<Segment> segStream) {
+            List<Segment> segments = segStream.toList();
+            setSpan(segments.stream().mapToInt(Segment::getSpan).max().orElse(0));
+            segments.forEach(seg -> seg.setValue(0));
+        }
+
+        public void glue(Stream<Segment> segStream) {
+            List<Segment> segments = segStream.toList();
+            setSpan(segments.stream().mapToInt(Segment::getSpan).sum());
+            int cumulSpan = 0;
+            for (Segment seg : segments) {
+                seg.setValue(cumulSpan);
+                cumulSpan += seg.getSpan();
+            }
+        }
     }
 }

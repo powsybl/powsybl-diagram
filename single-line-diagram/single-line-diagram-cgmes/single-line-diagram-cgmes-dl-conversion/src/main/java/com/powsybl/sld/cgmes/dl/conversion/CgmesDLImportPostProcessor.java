@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 @AutoService(CgmesImportPostProcessor.class)
