@@ -53,6 +53,7 @@ public class BasicForceLayout extends AbstractLayout {
                                 .withAttractToCenterForce(attractToCenterForce)
                                 .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
+                                .withTimeoutSeconds(layoutParameters.getTimeoutSeconds())
                                 .build()
                 ));
 

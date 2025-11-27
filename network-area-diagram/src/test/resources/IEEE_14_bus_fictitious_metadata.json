@@ -6,6 +6,7 @@
       "y" : -40.0
     },
     "maxSteps" : 1000,
+    "timeoutSeconds" : 15.0,
     "textNodeEdgeConnectionYShift" : 25.0,
     "injectionsAdded" : false
   },
