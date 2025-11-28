@@ -105,8 +105,8 @@ public final class WireConnection {
     private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,
                                                          List<AnchorPoint> anchorPoints1,
                                                          List<AnchorPoint> anchorPoints2) {
-        AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
-        AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
+        AnchorPoint betterAnchorPoint1 = anchorPoints1.getFirst();
+        AnchorPoint betterAnchorPoint2 = anchorPoints2.getFirst();
 
         double currentDistance = coord1.getShiftedPoint(betterAnchorPoint1).distanceSquare(
             coord2.getShiftedPoint(betterAnchorPoint2));

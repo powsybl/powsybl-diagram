@@ -33,7 +33,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private static final Logger LOG = LoggerFactory.getLogger(CgmesZoneLayout.class);
 
     private final ZoneGraph graph;
-    private List<VoltageLevelGraph> vlGraphs;
+    private final List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
@@ -106,11 +106,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(0).setX(firstPoint.getX());
-            edge.getSnakeLine().get(0).setY(firstPoint.getY());
+            edge.getSnakeLine().getFirst().setX(firstPoint.getX());
+            edge.getSnakeLine().getFirst().setY(firstPoint.getY());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.getX());
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.getY());
+            edge.getSnakeLine().getLast().setX(lastPoint.getX());
+            edge.getSnakeLine().getLast().setY(lastPoint.getY());
         }
     }
 

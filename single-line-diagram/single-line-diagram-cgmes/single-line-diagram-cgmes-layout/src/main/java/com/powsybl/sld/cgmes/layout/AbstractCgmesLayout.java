@@ -47,18 +47,10 @@ public abstract class AbstractCgmesLayout implements Layout {
     protected Network network;
 
     protected void setMinMax(double x, double y) {
-        if (x < minX) {
-            minX = x;
-        }
-        if (y < minY) {
-            minY = y;
-        }
-        if (x > maxX) {
-            maxX = x;
-        }
-        if (y > maxY) {
-            maxY = y;
-        }
+        minX = Math.min(x, minX);
+        minY = Math.min(y, minY);
+        maxX = Math.max(x, maxX);
+        maxY = Math.max(y, maxY);
     }
 
     protected VoltageLevelGraph removeFictitiousNodes(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -112,7 +104,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                             vl.getNodeBreakerView().getSwitch(switchNode.getId()) :
                             vl.getBusBreakerView().getSwitch(switchNode.getId());
                 CouplingDeviceDiagramData<Switch> switchDiagramData = sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
-                setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
+                setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, diagramName);
                 break;
             case FEEDER:
                 setFeederNodeCoordinates(vl, node, diagramName, useNames);
@@ -182,13 +174,13 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
+    protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, String diagramName) {
         if (diagramData != null) {
             CouplingDeviceDiagramData<?>.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                setOrientation(node, rotate, diagramDetails.getRotation());
+                setOrientation(node, true, diagramDetails.getRotation());
                 setMinMax(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -251,7 +243,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
                     setTransformersLabel(transformerNode, useNames, transformer.getNameOrId(), transformer.getId());
                 }
-                setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, true, diagramName);
+                setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, diagramName);
                 break;
             case THREE_WINDINGS_TRANSFORMER, THREE_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_PST_1,
                     THREE_WINDINGS_TRANSFORMER_PST_2, THREE_WINDINGS_TRANSFORMER_PST_3,
@@ -375,7 +367,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         if (adjacentNodes == null || adjacentNodes.isEmpty()) {
             return null;
         }
-        Node adjacentNode = adjacentNodes.get(0); // as we are working on a single voltage level a line node should be connected to only 1 node
+        Node adjacentNode = adjacentNodes.getFirst(); // as we are working on a single voltage level a line node should be connected to only 1 node
         // a line should not be connected to another line, so I should already have the coordinates of the adjacent node
         return new DiagramPoint(adjacentNode.getX(), adjacentNode.getY(), 0);
     }
@@ -408,19 +400,18 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     public static void removeFictitiousSwitchNodes(VoltageLevelGraph graph, VoltageLevel vl) {
-        List<SwitchNode> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
+        graph.getNodes().stream()
                 .filter(SwitchNode.class::isInstance)
                 .map(SwitchNode.class::cast)
                 .filter(node -> isFictitiousSwitchNode(node, vl))
                 .filter(node -> node.getAdjacentNodes().size() == 2)
-                .collect(Collectors.toList());
-        for (SwitchNode n : fictitiousSwithcNodesToRemove) {
-            Node node1 = n.getAdjacentNodes().get(0);
-            Node node2 = n.getAdjacentNodes().get(1);
-            LOG.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());
-            graph.removeNode(n);
-            graph.addEdge(node1, node2);
-        }
+                .forEach(n -> {
+                    Node node1 = n.getAdjacentNodes().get(0);
+                    Node node2 = n.getAdjacentNodes().get(1);
+                    LOG.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());
+                    graph.removeNode(n);
+                    graph.addEdge(node1, node2);
+                });
     }
 
     private static boolean isFictitiousSwitchNode(Node node, VoltageLevel vl) {

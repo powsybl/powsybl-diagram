@@ -105,39 +105,31 @@
         }
       ],
       "styleClass": "sld-load-break-switch"
-    },
-    {
-      "type": "GROUND_DISCONNECTION",
-      "anchorPoints": [
-        {
-          "x": 0.0,
-          "y": -5.0,
-          "orientation": "VERTICAL"
-        }
-      ],
-      "size": {
-        "width": 56.0,
-        "height": 20.0
+    }, {
+      "type" : "GROUND_DISCONNECTION",
+      "anchorPoints" : [ {
+        "x" : 0.0,
+        "y" : -5.0,
+        "orientation" : "VERTICAL"
+      } ],
+      "size" : {
+        "width" : 56.0,
+        "height" : 20.0
       },
-      "subComponents": [
-        {
-          "name": "ATTACH",
-          "fileName": "ground-disconnection-attach.svg",
-          "styleClass": "sld-ground-disconnection-attach"
-        },
-        {
-          "name": "GROUND",
-          "fileName": "ground-disconnection-ground.svg",
-          "styleClass": "sld-ground-disconnection-ground"
-        },
-        {
-          "name": "GROUND_DISCONNECTOR",
-          "fileName": "ground-disconnector.svg"
-        }
-      ],
-      "styleClass": "sld-ground-disconnection"
-    },
-    {
+      "subComponents" : [ {
+        "name" : "ATTACH",
+        "fileName" : "ground-disconnection-attach.svg",
+        "styleClass" : "sld-ground-disconnection-attach"
+      }, {
+        "name" : "GROUND",
+        "fileName" : "ground-disconnection-ground.svg",
+        "styleClass" : "sld-ground-disconnection-ground"
+      }, {
+        "name" : "GROUND_DISCONNECTOR",
+        "fileName" : "ground-disconnector.svg"
+      } ],
+      "styleClass" : "sld-ground-disconnection"
+    }, {
       "type": "LOAD",
       "anchorPoints": [
         {
@@ -822,8 +814,7 @@
           "styleClass": "sld-lcc"
         }
       ]
-    },
-    {
+    }, {
       "type": "GROUND",
       "anchorPoints": [
         {
@@ -847,7 +838,7 @@
           "fileName": "ground.svg"
         }
       ],
-      "styleClass": "sld-ground"
+      "styleClass" : "sld-ground"
     },
     {
       "type": "BUSBAR_SECTION",
@@ -896,41 +887,34 @@
       "styleClass": "sld-node"
     },
     {
-      "type": "UNKNOWN_COMPONENT",
-      "anchorPoints": [
-        {
-          "x": 0.0,
-          "y": -5.5,
-          "orientation": "VERTICAL"
-        },
-        {
-          "x": 0.0,
-          "y": 5.5,
-          "orientation": "VERTICAL"
-        },
-        {
-          "x": -9.5,
-          "y": 0.0,
-          "orientation": "HORIZONTAL"
-        },
-        {
-          "x": 9.5,
-          "y": 0.0,
-          "orientation": "HORIZONTAL"
-        }
-      ],
-      "size": {
-        "width": 20.0,
-        "height": 20.0
+      "type" : "UNKNOWN_COMPONENT",
+      "anchorPoints" : [ {
+        "x" : 0.0,
+        "y" : -5.5,
+        "orientation" : "VERTICAL"
+      }, {
+        "x" : 0.0,
+        "y" : 5.5,
+        "orientation" : "VERTICAL"
+      }, {
+        "x" : -9.5,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+      }, {
+        "x" : 9.5,
+        "y" : 0.0,
+        "orientation" : "HORIZONTAL"
+      } ],
+      "size" : {
+        "width" : 20.0,
+        "height" : 20.0
       },
-      "transformations": {},
-      "subComponents": [
-        {
-          "name": "UNKNOWN_COMPONENT",
-          "fileName": "unknown-component.svg"
-        }
-      ],
-      "styleClass": "sld-unknown"
+      "transformations" : {},
+      "subComponents" : [ {
+        "name" : "UNKNOWN_COMPONENT",
+        "fileName" : "unknown-component.svg"
+      } ],
+      "styleClass" : "sld-unknown"
     },
     {
       "type": "ARROW_ACTIVE",
@@ -971,8 +955,7 @@
         }
       ],
       "styleClass": "sld-reactive-power"
-    },
-    {
+    }, {
       "type": "ARROW_CURRENT",
       "size": {
         "width": 10.0,
