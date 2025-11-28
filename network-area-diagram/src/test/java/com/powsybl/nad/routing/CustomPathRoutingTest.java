@@ -91,7 +91,7 @@ class CustomPathRoutingTest extends AbstractTest {
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
                 .setStyleProviderFactory(this::getStyleProvider)
-                .setLabelProviderFactory(builder::build)
+                .setLabelProviderFactory((network1, svgParameters) -> builder.build(network1, svgParameters))
                 .setEdgeRouting(getEdgeRouting());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
         assertFileEquals("/ieee14_custom_paths.svg", svgFile);

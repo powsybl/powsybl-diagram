@@ -40,6 +40,8 @@ class EdgeInfoShiftTest extends AbstractTest {
             .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setSubstationDescriptionDisplayed(false)
+            .setBusLegend(true)
             .build(network, getSvgParameters());
     }
 

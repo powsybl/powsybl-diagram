@@ -30,7 +30,6 @@ class TypeOfEdgeInfoTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
         network = Networks.createTwoVoltageLevels();
@@ -58,6 +57,7 @@ class TypeOfEdgeInfoTest extends AbstractTest {
             .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setVoltageLevelDetails(false)
             .build(network, getSvgParameters());
         assertSvgEquals("/edge_info_reactive_power.svg", network);
     }

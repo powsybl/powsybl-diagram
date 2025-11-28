@@ -306,8 +306,7 @@ public class SvgWriter {
         if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
-        Optional<String> edgeLabel = edge.getLabel();
-        if (!BranchEdge.LINE_EDGE.equals(edge.getType()) || edgeLabel.isPresent()) {
+        if (!BranchEdge.LINE_EDGE.equals(edge.getType())) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
             switch (edge.getType()) {
                 case BranchEdge.PST_EDGE, BranchEdge.TWO_WT_EDGE:
@@ -318,9 +317,6 @@ public class SvgWriter {
                     break;
                 default:
                     break;
-            }
-            if (edgeLabel.isPresent()) {
-                drawEdgeLabel(writer, edge, edgeLabel.get());
             }
             writer.writeEndElement();
         }
@@ -540,9 +536,7 @@ public class SvgWriter {
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.ONE);
                 drawLoopEdgeInfo(writer, edge, BranchEdge.Side.TWO);
             }
-            if (edge.getLabel().isEmpty()) {
-                drawBranchMiddleEdgeInfo(writer, edge);
-            }
+            drawBranchMiddleInfo(writer, edge);
         }
 
         for (ThreeWtEdge edge : graph.getThreeWtEdges()) {
@@ -574,12 +568,16 @@ public class SvgWriter {
         }
     }
 
-    private void drawBranchMiddleEdgeInfo(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-        if (edge.isVisible(BranchEdge.Side.ONE) && edge.isVisible(BranchEdge.Side.TWO)) {
-            Optional<SvgEdgeInfo> edgeInfo = edge.getSvgEdgeInfoMiddle();
-            if (edgeInfo.isPresent()) {
-                drawEdgeInfo(writer, edgeInfo.get(), edge.getMiddlePoint(), edge.getEdgeEndAngle(BranchEdge.Side.ONE));
-            }
+    private void drawBranchMiddleInfo(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfoMiddle();
+        if (svgEdgeInfo.isEmpty() || svgEdgeInfo.get().edgeInfo() == null || checkIfEdgeInfoIsEmpty(svgEdgeInfo.get().edgeInfo())) {
+            return;
+        }
+        EdgeInfo middleEdgeInfo = svgEdgeInfo.get().edgeInfo();
+        if (middleEdgeInfo.getDirection().isPresent() || middleEdgeInfo.getLabel2().isPresent() && middleEdgeInfo.getLabel1().isPresent()) {
+            drawEdgeInfo(writer, svgEdgeInfo.get(), edge.getMiddlePoint(), edge.getEdgeEndAngle(BranchEdge.Side.ONE));
+        } else {
+            drawEdgeLabel(writer, edge, middleEdgeInfo.getLabel2().isPresent() ? middleEdgeInfo.getLabel2().get() : middleEdgeInfo.getLabel1().get());
         }
     }
 
@@ -609,20 +607,20 @@ public class SvgWriter {
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo));
         drawArrow(writer, edgeInfo, edgeAngle);
-        Optional<String> externalLabel = edgeInfo.getExternalLabel();
-        if (externalLabel.isPresent()) {
-            drawLabel(writer, externalLabel.get(), edgeAngle, true);
+        Optional<String> label2 = edgeInfo.getLabel2();
+        if (label2.isPresent()) {
+            drawLabel(writer, label2.get(), edgeAngle, true);
         }
-        Optional<String> internalLabel = edgeInfo.getInternalLabel();
-        if (internalLabel.isPresent()) {
-            drawLabel(writer, internalLabel.get(), edgeAngle, false);
+        Optional<String> label1 = edgeInfo.getLabel1();
+        if (label1.isPresent()) {
+            drawLabel(writer, label1.get(), edgeAngle, false);
         }
 
         writer.writeEndElement();
     }
 
     private boolean checkIfEdgeInfoIsEmpty(EdgeInfo edgeInfo) {
-        return edgeInfo.getExternalLabel().isEmpty() && edgeInfo.getInternalLabel().isEmpty() && edgeInfo.getDirection().isEmpty();
+        return edgeInfo.getLabel2().isEmpty() && edgeInfo.getLabel1().isEmpty() && edgeInfo.getDirection().isEmpty();
     }
 
     private void drawArrow(XMLStreamWriter writer, EdgeInfo edgeInfo, double edgeAngle) throws XMLStreamException {

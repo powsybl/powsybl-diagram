@@ -43,17 +43,15 @@ public class SvgParameters {
     private boolean edgeInfoAlongEdge = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
-    private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
     private String arrowPathIn = "M-10 -10 H10 L0 10z";
     private String arrowPathOut = "M-10 10 H10 L0 -10z";
-    private boolean busLegend = true;
-    private boolean voltageLevelDetails = false;
     private String languageTag = "en";
     private int voltageValuePrecision = 1;
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
+    private int percentageValuePrecision = 0;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
@@ -100,17 +98,15 @@ public class SvgParameters {
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
-        this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
         this.arrowPathIn = other.arrowPathIn;
         this.arrowPathOut = other.arrowPathOut;
-        this.busLegend = other.busLegend;
-        this.voltageLevelDetails = other.voltageLevelDetails;
         this.languageTag = other.languageTag;
         this.voltageValuePrecision = other.voltageValuePrecision;
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
+        this.percentageValuePrecision = other.percentageValuePrecision;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
         this.injectionAperture = other.injectionAperture;
@@ -362,24 +358,6 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isIdDisplayed() {
-        return idDisplayed;
-    }
-
-    public SvgParameters setIdDisplayed(boolean idDisplayed) {
-        this.idDisplayed = idDisplayed;
-        return this;
-    }
-
-    public boolean isSubstationDescriptionDisplayed() {
-        return substationDescriptionDisplayed;
-    }
-
-    public SvgParameters setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
-        this.substationDescriptionDisplayed = substationDescriptionDisplayed;
-        return this;
-    }
-
     public String getArrowPathIn() {
         return arrowPathIn;
     }
@@ -395,24 +373,6 @@ public class SvgParameters {
 
     public SvgParameters setArrowPathOut(String arrowPathOut) {
         this.arrowPathOut = arrowPathOut;
-        return this;
-    }
-
-    public boolean isBusLegend() {
-        return busLegend;
-    }
-
-    public SvgParameters setBusLegend(boolean detailedNodeDescription) {
-        this.busLegend = detailedNodeDescription;
-        return this;
-    }
-
-    public boolean isVoltageLevelDetails() {
-        return voltageLevelDetails;
-    }
-
-    public SvgParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
-        this.voltageLevelDetails = voltageLevelDetails;
         return this;
     }
 
@@ -465,8 +425,18 @@ public class SvgParameters {
         return this;
     }
 
+    public int getPercentageValuePrecision() {
+        return percentageValuePrecision;
+    }
+
+    public SvgParameters setPercentageValuePrecision(int percentageValuePrecision) {
+        this.percentageValuePrecision = percentageValuePrecision;
+        return this;
+    }
+
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
+            percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public double getPstArrowHeadSize() {

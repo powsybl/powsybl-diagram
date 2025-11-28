@@ -17,19 +17,23 @@ public class ValueFormatter {
 
     /** degree sign unicode for degree symbol */
     private static final String DEGREE_CHAR = "\u00b0";
+    private static final String PERCENT_CHAR = "\u0025";
 
     private final int powerValuePrecision;
     private final int voltageValuePrecision;
     private final int currentValuePrecision;
     private final int angleValuePrecision;
+    private final int percentageValuePrecision;
     private final DecimalFormat format;
     private final String undefinedValueSymbol;
 
-    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int currentValuePrecision, int angleValuePrecision, Locale locale, String undefinedValueSymbol) {
+    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int currentValuePrecision,
+                          int angleValuePrecision, int percentageValuePrecision, Locale locale, String undefinedValueSymbol) {
         this.powerValuePrecision = powerValuePrecision;
         this.voltageValuePrecision = voltageValuePrecision;
         this.currentValuePrecision = currentValuePrecision;
         this.angleValuePrecision = angleValuePrecision;
+        this.percentageValuePrecision = percentageValuePrecision;
         this.format = new DecimalFormat();
         format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
         this.undefinedValueSymbol = undefinedValueSymbol;
@@ -74,5 +78,11 @@ public class ValueFormatter {
 
     public String formatCurrent(double current) {
         return formatCurrent(current, "");
+    }
+
+    public String formatPercentage(double percentage) {
+        setFractionDigits(percentageValuePrecision);
+        String valueFormatted = Double.isNaN(percentage) ? undefinedValueSymbol : format.format(percentage);
+        return valueFormatted + " " + PERCENT_CHAR;
     }
 }

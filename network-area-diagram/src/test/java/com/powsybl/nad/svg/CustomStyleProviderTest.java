@@ -32,9 +32,7 @@ class CustomStyleProviderTest extends AbstractTest {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800)
-                .setVoltageLevelDetails(true)
-                .setBusLegend(true));
+                .setFixedWidth(800));
     }
 
     @Override
@@ -49,6 +47,8 @@ class CustomStyleProviderTest extends AbstractTest {
             .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.NAME)
+            .setBusLegend(true)
+            .setVoltageLevelDetails(true)
             .build(network, getSvgParameters());
     }
 

@@ -20,26 +20,26 @@ public class EdgeInfo {
     public static final String LOAD_PERCENTAGE = "Load percentage";
     public static final String EMPTY = "Empty";
 
-    private final String internalInfoType;
-    private final String externalInfoType;
+    private final String infoType1;
+    private final String infoType2;
     private final Direction arrowDirection;
-    private final String internalLabel;
-    private final String externalLabel;
+    private final String label1;
+    private final String label2;
 
-    public EdgeInfo(String internalInfoType, String externalInfoType, Direction arrowDirection, String internalLabel, String externalLabel) {
-        this.externalInfoType = externalInfoType;
-        this.internalInfoType = internalInfoType;
+    public EdgeInfo(String infoType1, String infoType2, Direction arrowDirection, String label1, String label2) {
+        this.infoType2 = infoType2;
+        this.infoType1 = infoType1;
         this.arrowDirection = arrowDirection;
-        this.internalLabel = internalLabel;
-        this.externalLabel = externalLabel;
+        this.label1 = label1;
+        this.label2 = label2;
     }
 
-    public EdgeInfo(String internalInfoType, String externalInfoType, double referenceValue, String internalLabel, String externalLabel) {
-        this(internalInfoType, externalInfoType, getArrowDirection(referenceValue), internalLabel, externalLabel);
+    public EdgeInfo(String infoType1, String infoType2, double referenceValue, String label1, String label2) {
+        this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2);
     }
 
-    public EdgeInfo(String infoType, Direction arrowDirection, String internalLabel, String externalLabel) {
-        this(infoType, infoType, arrowDirection, internalLabel, externalLabel);
+    public EdgeInfo(String infoType, Direction arrowDirection, String label1, String label2) {
+        this(infoType, infoType, arrowDirection, label1, label2);
     }
 
     public EdgeInfo(String infoType, double internalValue, double externalValue, DoubleFunction<String> formatter) {
@@ -50,8 +50,8 @@ public class EdgeInfo {
         this(infoType, getArrowDirection(value), null, formatter.apply(value));
     }
 
-    public EdgeInfo(String infoType, double value, String externalLabel) {
-        this(infoType, getArrowDirection(value), null, externalLabel);
+    public EdgeInfo(String infoType, double value, String label2) {
+        this(infoType, getArrowDirection(value), null, label2);
     }
 
     public EdgeInfo() {
@@ -66,31 +66,31 @@ public class EdgeInfo {
     }
 
     /**
-     * @deprecated since 5.1.0, use {@link #getExternalInfoType()} instead.
+     * @deprecated since 5.1.0, use {@link #getInfoType2()} instead.
      */
     @Deprecated(since = "5.1.0")
     public String getInfoType() {
-        return getExternalInfoType();
+        return getInfoType2();
     }
 
-    public String getExternalInfoType() {
-        return externalInfoType;
+    public String getInfoType2() {
+        return infoType2;
     }
 
-    public String getInternalInfoType() {
-        return internalInfoType;
+    public String getInfoType1() {
+        return infoType1;
     }
 
     public Optional<Direction> getDirection() {
         return Optional.ofNullable(arrowDirection);
     }
 
-    public Optional<String> getInternalLabel() {
-        return Optional.ofNullable(internalLabel);
+    public Optional<String> getLabel1() {
+        return Optional.ofNullable(label1);
     }
 
-    public Optional<String> getExternalLabel() {
-        return Optional.ofNullable(externalLabel);
+    public Optional<String> getLabel2() {
+        return Optional.ofNullable(label2);
     }
 
     public enum Direction {

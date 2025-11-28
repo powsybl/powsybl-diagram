@@ -175,13 +175,13 @@ public class BranchEdge extends AbstractEdge {
         }
         EdgeInfo edgeInfo = svgEdgeInfoMiddle.edgeInfo();
         // If an arrow has to be drawn or if two labels are expected, do not return a label
-        if (edgeInfo.getDirection().isPresent() || edgeInfo.getExternalLabel().isPresent() && edgeInfo.getInternalLabel().isPresent()) {
+        if (edgeInfo.getDirection().isPresent() || edgeInfo.getLabel2().isPresent() && edgeInfo.getLabel1().isPresent()) {
             return Optional.empty();
         }
-        return edgeInfo.getExternalLabel().isPresent() ? edgeInfo.getExternalLabel() : edgeInfo.getInternalLabel();
+        return edgeInfo.getLabel2().isPresent() ? edgeInfo.getLabel2() : edgeInfo.getLabel1();
     }
 
     private static boolean isEddgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
-        return edgeInfo != null && (!EdgeInfo.EMPTY.equals(edgeInfo.getExternalInfoType()) || !EdgeInfo.EMPTY.equals(edgeInfo.getInternalInfoType()));
+        return edgeInfo != null && (!EdgeInfo.EMPTY.equals(edgeInfo.getInfoType2()) || !EdgeInfo.EMPTY.equals(edgeInfo.getInfoType1()));
     }
 }

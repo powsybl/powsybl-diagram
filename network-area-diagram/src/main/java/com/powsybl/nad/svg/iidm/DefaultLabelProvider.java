@@ -7,8 +7,11 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.util.PermanentLimitPercentageMax;
 import com.powsybl.diagram.util.ValueFormatter;
+import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Injection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
@@ -16,6 +19,7 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.svg.LabelProviderParameters;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -32,38 +36,38 @@ import java.util.Optional;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class DefaultLabelProvider implements LabelProvider {
-    private final boolean isBusLegend;
+
     private final EdgeInfoParameters edgeInfoParameters;
     private final Network network;
-    private final boolean substationDescriptionDisplayed;
-    private final SvgParameters svgParameters;
+    private final LabelProviderParameters parameters;
     private final ValueFormatter valueFormatter;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
-        this.svgParameters = svgParameters;
         this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = svgParameters.createValueFormatter();
-        this.isBusLegend = svgParameters.isBusLegend();
-        this.substationDescriptionDisplayed = svgParameters.isSubstationDescriptionDisplayed();
+        this.parameters = new LabelProviderParameters();
     }
 
-    public DefaultLabelProvider(Network network, EdgeInfoParameters edgeInfoParameters, ValueFormatter valueFormatter, boolean substationDescriptionDisplayed) {
+    public DefaultLabelProvider(Network network, ValueFormatter valueFormatter) {
         this.network = network;
-        this.svgParameters = new SvgParameters();
-        this.edgeInfoParameters = edgeInfoParameters;
+        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = valueFormatter;
-        this.substationDescriptionDisplayed = substationDescriptionDisplayed;
-        this.isBusLegend = true;
+        this.parameters = new LabelProviderParameters();
     }
 
-    public DefaultLabelProvider(Network network, EdgeInfoParameters edgeInfoParameters, ValueFormatter valueFormatter, boolean substationDescriptionDisplayed, boolean isBusLegend) {
+    public DefaultLabelProvider(Network network, ValueFormatter valueFormatter, LabelProviderParameters parameters) {
         this.network = network;
-        this.svgParameters = new SvgParameters();
+        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
+        this.valueFormatter = valueFormatter;
+        this.parameters = parameters;
+    }
+
+    public DefaultLabelProvider(Network network, EdgeInfoParameters edgeInfoParameters, ValueFormatter valueFormatter, LabelProviderParameters parameters) {
+        this.network = network;
         this.edgeInfoParameters = edgeInfoParameters;
         this.valueFormatter = valueFormatter;
-        this.substationDescriptionDisplayed = substationDescriptionDisplayed;
-        this.isBusLegend = isBusLegend;
+        this.parameters = parameters;
     }
 
     public static Optional<Double> toOptional(double value) {
@@ -96,11 +100,6 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public String getBranchLabel(String branchId) {
-        return edgeInfoParameters.infoMiddleSide1 == EdgeInfoEnum.NAME || edgeInfoParameters.infoMiddleSide2 == EdgeInfoEnum.NAME ? branchId : null;
-    }
-
-    @Override
     public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, BranchEdge.Side.ONE, branchType);
         return getEdgeInfo(branchId, terminal);
@@ -110,7 +109,7 @@ public class DefaultLabelProvider implements LabelProvider {
     public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
         Map<String, String> busLegend = new HashMap<>();
-        if (isBusLegend) {
+        if (parameters.isBusLegend()) {
             for (Bus bus : vl.getBusView().getBuses()) {
                 busLegend.put(bus.getId(), getBusLegend(bus.getId()));
             }
@@ -155,8 +154,17 @@ public class DefaultLabelProvider implements LabelProvider {
             case REACTIVE_POWER -> toOptional(terminal.getQ()).map(valueFormatter::formatPower);
             case CURRENT -> toOptional(terminal.getI()).map(valueFormatter::formatCurrent);
             case NAME -> Optional.of(connectableNameOrId);
-            case LOAD_PERCENTAGE -> Optional.empty();
+            case VALUE_PERMANENT_LIMIT_PERCENTAGE -> toOptional(getPermanentLimitPercentage(terminal)).map(valueFormatter::formatPercentage);
             case EMPTY -> Optional.empty();
+        };
+    }
+
+    private double getPermanentLimitPercentage(Terminal terminal) {
+        Connectable<?> connectable = terminal.getConnectable();
+        return switch (connectable) {
+            case Branch<?> branch -> PermanentLimitPercentageMax.getPermanentLimitPercentageMax(branch);
+            case ThreeWindingsTransformer twt -> PermanentLimitPercentageMax.getPermanentLimitPercentageMax(twt);
+            default -> Double.NaN;
         };
     }
 
@@ -169,7 +177,7 @@ public class DefaultLabelProvider implements LabelProvider {
             case ACTIVE_POWER -> toOptional(terminal.getP());
             case REACTIVE_POWER -> toOptional(terminal.getQ());
             case CURRENT -> toOptional(terminal.getI());
-            case NAME, LOAD_PERCENTAGE, EMPTY -> Optional.empty();
+            case NAME, VALUE_PERMANENT_LIMIT_PERCENTAGE, EMPTY -> Optional.empty();
         };
     }
 
@@ -179,24 +187,24 @@ public class DefaultLabelProvider implements LabelProvider {
             case REACTIVE_POWER -> EdgeInfo.REACTIVE_POWER;
             case CURRENT -> EdgeInfo.CURRENT;
             case NAME -> EdgeInfo.NAME;
-            case LOAD_PERCENTAGE -> EdgeInfo.LOAD_PERCENTAGE;
+            case VALUE_PERMANENT_LIMIT_PERCENTAGE -> EdgeInfo.LOAD_PERCENTAGE;
             case EMPTY -> EdgeInfo.EMPTY;
         };
     }
 
     private List<String> getLegendHeader(VoltageLevel vl) {
         List<String> description = new ArrayList<>();
-        description.add(svgParameters.isIdDisplayed() ? vl.getId() : vl.getNameOrId());
-        if (substationDescriptionDisplayed) {
+        description.add(parameters.isIdDisplayed() ? vl.getId() : vl.getNameOrId());
+        if (parameters.isSubstationDescriptionDisplayed()) {
             vl.getSubstation()
-                .map(s -> svgParameters.isIdDisplayed() ? s.getId() : s.getNameOrId())
+                .map(s -> parameters.isIdDisplayed() ? s.getId() : s.getNameOrId())
                 .ifPresent(description::add);
         }
         return description;
     }
 
     private String getBusLegend(String busId) {
-        if (isBusLegend) {
+        if (parameters.isBusLegend()) {
             Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
             String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
@@ -208,7 +216,7 @@ public class DefaultLabelProvider implements LabelProvider {
     private List<String> getLegendFooter(VoltageLevel voltageLevel) {
         List<String> voltageLevelDetails = new ArrayList<>();
 
-        if (svgParameters.isVoltageLevelDetails()) {
+        if (parameters.isVoltageLevelDetails()) {
             double activeProductionValue = voltageLevel.getGeneratorStream().mapToDouble(generator -> -generator.getTerminal().getP()).filter(p -> !Double.isNaN(p)).sum();
             String activeProduction = activeProductionValue == 0 ? "" : valueFormatter.formatPower(activeProductionValue, "MW");
 
@@ -238,7 +246,7 @@ public class DefaultLabelProvider implements LabelProvider {
         REACTIVE_POWER,
         CURRENT,
         NAME,
-        LOAD_PERCENTAGE,
+        VALUE_PERMANENT_LIMIT_PERCENTAGE,
         EMPTY
     }
 
@@ -247,7 +255,7 @@ public class DefaultLabelProvider implements LabelProvider {
         private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.NAME;
         private EdgeInfoEnum infoMiddleSide2 = EdgeInfoEnum.EMPTY;
         private EdgeInfoEnum infoSideInternal = EdgeInfoEnum.EMPTY;
-        private boolean busLegend = true;
+        private final LabelProviderParameters parameters = new LabelProviderParameters();
 
         public Builder setInfoSideExternal(EdgeInfoEnum infoSideExternal) {
             this.infoSideExternal = infoSideExternal;
@@ -270,20 +278,35 @@ public class DefaultLabelProvider implements LabelProvider {
         }
 
         public Builder setBusLegend(boolean busLegend) {
-            this.busLegend = busLegend;
+            this.parameters.setBusLegend(busLegend);
+            return this;
+        }
+
+        public Builder setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
+            this.parameters.setSubstationDescriptionDisplayed(substationDescriptionDisplayed);
+            return this;
+        }
+
+        public Builder setIdDisplayed(boolean idDisplayed) {
+            this.parameters.setIdDisplayed(idDisplayed);
+            return this;
+        }
+
+        public Builder setVoltageLevelDetails(boolean voltageLevelDetails) {
+            this.parameters.setVoltageLevelDetails(voltageLevelDetails);
             return this;
         }
 
         public DefaultLabelProvider build(Network network, SvgParameters svgParameters) {
             return new DefaultLabelProvider(network,
                 new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal),
-                svgParameters.createValueFormatter(), svgParameters.isSubstationDescriptionDisplayed(), busLegend);
+                svgParameters.createValueFormatter(), parameters);
         }
 
-        public DefaultLabelProvider build(Network network, ValueFormatter valueFormatter, boolean substationDescriptionDisplayed) {
+        public DefaultLabelProvider build(Network network, ValueFormatter valueFormatter) {
             return new DefaultLabelProvider(network,
                 new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal),
-                valueFormatter, substationDescriptionDisplayed, busLegend);
+                valueFormatter, parameters);
         }
     }
 
