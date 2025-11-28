@@ -105,9 +105,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         double angle = 0;
         if (direction != UNDEFINED) {
-            yShift = direction == TOP
-                    ? -LABEL_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + LABEL_OFFSET);
+            yShift = (direction == TOP ? -layoutParameters.getMaxComponentHeight() : layoutParameters.getMaxComponentHeight()) + (componentLibrary.getSize(node.getComponentType()).getHeight() / 2);
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
