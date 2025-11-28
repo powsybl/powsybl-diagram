@@ -455,7 +455,7 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(110, graph.getNodes().get(1).getY(), 0);
         assertEquals(200, graph.getNodes().get(2).getX(), 0);
         assertEquals(20, graph.getNodes().get(2).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(2).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(2).getOrientation());
     }
 
     private void checkSubstationTwt(SubstationGraph graph, int edgesNumber) {

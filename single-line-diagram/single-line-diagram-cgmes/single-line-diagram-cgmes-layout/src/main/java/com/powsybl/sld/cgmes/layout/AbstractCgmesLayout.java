@@ -305,6 +305,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
+                setOrientation(node, true, diagramDetails.getRotation());
                 setMinMax(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, transformer {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
