@@ -381,7 +381,7 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(Orientation.RIGHT, graph.getNodes().get(3).getOrientation());
         assertEquals(200, graph.getNodes().get(4).getX(), 0);
         assertEquals(20, graph.getNodes().get(4).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(4).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(4).getOrientation());
     }
 
     private void checkGraphVl2(VoltageLevelGraph graph) {
@@ -419,7 +419,7 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(Orientation.LEFT, graph.getNodes().get(1).getOrientation());
         assertEquals(200, graph.getNodes().get(2).getX(), 0);
         assertEquals(20, graph.getNodes().get(2).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(2).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(2).getOrientation());
     }
 
     private void checkGraphVl3(VoltageLevelGraph graph) {
