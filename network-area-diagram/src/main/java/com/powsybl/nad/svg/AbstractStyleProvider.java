@@ -84,11 +84,19 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     @Override
     public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
         List<String> styles = new LinkedList<>();
-        switch (info.getInfoType()) {
-            case EdgeInfo.ACTIVE_POWER -> styles.add(CLASSES_PREFIX + "active");
-            case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
-            case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
-            default -> LOGGER.warn("The \"{}\" type of information is not handled", info.getInfoType());
+        String externalInfoType = info.getInfoType2();
+        if (externalInfoType != null) {
+            switch (externalInfoType) {
+                case EdgeInfo.ACTIVE_POWER -> styles.add(CLASSES_PREFIX + "active");
+                case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
+                case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
+                case EdgeInfo.LOAD_PERCENTAGE -> styles.add(CLASSES_PREFIX + "load-percentage");
+                case EdgeInfo.NAME -> styles.add(CLASSES_PREFIX + "name");
+                case EdgeInfo.EMPTY -> {
+                    // Nothing to do
+                }
+                default -> LOGGER.warn("The \"{}\" type of information is not handled", externalInfoType);
+            }
         }
         return styles;
     }
