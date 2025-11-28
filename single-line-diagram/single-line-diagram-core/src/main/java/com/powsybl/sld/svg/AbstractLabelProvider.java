@@ -28,7 +28,6 @@ public abstract class AbstractLabelProvider implements LabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
-    private static final double LABEL_PADDING = 12d;
 
     protected final SldComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
@@ -106,7 +105,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         double angle = 0;
         if (direction != UNDEFINED) {
-            yShift = (direction == TOP ? -LABEL_PADDING : LABEL_PADDING) + (componentLibrary.getSize(node.getComponentType()).getHeight() / 2);
+            yShift = (direction == TOP ? -layoutParameters.getMaxComponentHeight() : layoutParameters.getMaxComponentHeight()) + (componentLibrary.getSize(node.getComponentType()).getHeight() / 2);
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
