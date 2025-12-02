@@ -55,8 +55,8 @@ class CustomLabelProviderTest extends AbstractTest {
         Map<String, CustomLabelProvider.BranchLabels> branchLabels = new HashMap<>();
         branchLabels.put("L12", new CustomLabelProvider.BranchLabels(null, "L1_1", null, "L1", null, "L1_2", EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
         branchLabels.put("T12", new CustomLabelProvider.BranchLabels(null, "TWT1_1", null, "TWT1", null, "TWT1_2", null, null, null));
-        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, null, null, "L2",  null, null, EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
-        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, null, null, "TWT2",  null, "TWT2_2", null, null, EdgeInfo.Direction.OUT));
+        branchLabels.put("L11", new CustomLabelProvider.BranchLabels(null, null, null, "L2", null, null, EdgeInfo.Direction.IN, null, EdgeInfo.Direction.IN));
+        branchLabels.put("T11", new CustomLabelProvider.BranchLabels(null, null, null, "TWT2", null, "TWT2_2", null, null, EdgeInfo.Direction.OUT));
 
         Map<String, CustomLabelProvider.ThreeWtLabels> threeWtLabels = new HashMap<>();
 
