@@ -48,7 +48,7 @@ public abstract class AbstractTest {
     private static final Pattern HREF_PATTERN = Pattern.compile("(.*href=\")(#\\w+)(\".*)");
     protected boolean debugSvg = true;
     protected boolean overrideTestReferences = false;
-    protected boolean throwOnIdChange = false;
+    protected boolean throwOnIdChange = true;
 
     private SvgParameters svgParameters;
 
