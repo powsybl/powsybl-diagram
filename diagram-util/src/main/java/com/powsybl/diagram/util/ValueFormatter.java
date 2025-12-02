@@ -46,7 +46,7 @@ public class ValueFormatter {
     public String formatVoltage(double voltage, String unit) {
         setFractionDigits(voltageValuePrecision);
         String valueFormatted = Double.isNaN(voltage) ? undefinedValueSymbol : format.format(voltage);
-        return valueFormatted + " " + unit;
+        return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }
 
     public String formatPower(double power) {
