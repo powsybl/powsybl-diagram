@@ -7,7 +7,6 @@
 package com.powsybl.nad.svg;
 
 import java.util.Optional;
-import java.util.function.DoubleFunction;
 
 /**
  * Edge information container
@@ -42,26 +41,6 @@ public class EdgeInfo {
 
     public EdgeInfo(String infoType1, String infoType2, double referenceValue, String label1, String label2) {
         this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2);
-    }
-
-    public EdgeInfo(String infoType, Direction arrowDirection, String label1, String label2) {
-        this(infoType, infoType, arrowDirection, label1, label2);
-    }
-
-    public EdgeInfo(String infoType, double internalValue, double externalValue, DoubleFunction<String> formatter) {
-        this(infoType, getArrowDirection(externalValue), formatter.apply(internalValue), formatter.apply(externalValue));
-    }
-
-    public EdgeInfo(String infoType, double value, DoubleFunction<String> formatter) {
-        this(infoType, getArrowDirection(value), null, formatter.apply(value));
-    }
-
-    public EdgeInfo(String infoType, double value, String label2) {
-        this(infoType, getArrowDirection(value), null, label2);
-    }
-
-    public EdgeInfo() {
-        this(EdgeInfo.ACTIVE_POWER, null, null, null, null);
     }
 
     private static Direction getArrowDirection(double value) {
