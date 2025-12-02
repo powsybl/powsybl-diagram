@@ -30,9 +30,6 @@ class CustomLabelProviderTest extends AbstractTest {
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters());
-
-        //Note: SvgParameters and EdgeNameDisplayed are set explicitly at false to demonstrate that
-        // the custom label provider ignores them when rendering edge names, the VL descriptions, and VL details.
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));

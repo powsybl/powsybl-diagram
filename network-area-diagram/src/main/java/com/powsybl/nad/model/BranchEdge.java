@@ -51,9 +51,9 @@ public class BranchEdge extends AbstractEdge {
     public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
                       EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, EdgeInfo edgeInfoMiddle) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
-        this.svgEdgeInfo1 = isEddgeInfoNotEmptyNorNull(edgeInfo1) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
-        this.svgEdgeInfo2 = isEddgeInfoNotEmptyNorNull(edgeInfo2) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
-        this.svgEdgeInfoMiddle = isEddgeInfoNotEmptyNorNull(edgeInfoMiddle) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle) : null;
+        this.svgEdgeInfo1 = isEdgeInfoNotEmptyNorNull(edgeInfo1) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = isEdgeInfoNotEmptyNorNull(edgeInfo2) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
+        this.svgEdgeInfoMiddle = isEdgeInfoNotEmptyNorNull(edgeInfoMiddle) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle) : null;
     }
 
     public boolean isTransformerEdge() {
@@ -181,7 +181,7 @@ public class BranchEdge extends AbstractEdge {
         return edgeInfo.getLabel2().isPresent() ? edgeInfo.getLabel2() : edgeInfo.getLabel1();
     }
 
-    private static boolean isEddgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
+    private static boolean isEdgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
         return edgeInfo != null && (!EdgeInfo.EMPTY.equals(edgeInfo.getInfoType2()) || !EdgeInfo.EMPTY.equals(edgeInfo.getInfoType1()));
     }
 }

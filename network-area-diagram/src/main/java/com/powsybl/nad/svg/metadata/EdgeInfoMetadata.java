@@ -16,24 +16,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeInfoMetadata {
     private final String svgId;
-    private final String internalInfoType;
-    private final String externalInfoType;
+    private final String infoType1;
+    private final String infoType2;
     private final String direction;
-    private final String internalLabel;
-    private final String externalLabel;
+    private final String label1;
+    private final String label2;
 
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
-                            @JsonProperty("internalInfoType") String internalInfoType,
-                            @JsonProperty("externalInfoType") String externalInfoType,
+                            @JsonProperty("internalInfoType") String infoType1,
+                            @JsonProperty("externalInfoType") String infoType2,
                             @JsonProperty("direction") String direction,
-                            @JsonProperty("internalLabel") String internalLabel,
-                            @JsonProperty("externalLabel") String externalLabel) {
+                            @JsonProperty("internalLabel") String label1,
+                            @JsonProperty("externalLabel") String label2) {
         this.svgId = svgId;
-        this.internalInfoType = internalInfoType;
-        this.externalInfoType = externalInfoType;
+        this.infoType1 = infoType1;
+        this.infoType2 = infoType2;
         this.direction = direction;
-        this.internalLabel = internalLabel;
-        this.externalLabel = externalLabel;
+        this.label1 = label1;
+        this.label2 = label2;
     }
 
     @JsonProperty("svgId")
@@ -42,13 +42,13 @@ public class EdgeInfoMetadata {
     }
 
     @JsonProperty("internalInfoType")
-    public String getInternalInfoType() {
-        return internalInfoType;
+    public String getInfoType1() {
+        return infoType1;
     }
 
     @JsonProperty("externalInfoType")
-    public String getExternalInfoType() {
-        return externalInfoType;
+    public String getInfoType2() {
+        return infoType2;
     }
 
     @JsonProperty("direction")
@@ -57,12 +57,12 @@ public class EdgeInfoMetadata {
     }
 
     @JsonProperty("internalLabel")
-    public String getInternalLabel() {
-        return internalLabel;
+    public String getLabel1() {
+        return label1;
     }
 
     @JsonProperty("externalLabel")
-    public String getExternalLabel() {
-        return externalLabel;
+    public String getLabel2() {
+        return label2;
     }
 }

@@ -527,7 +527,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfo(side);
             if (svgEdgeInfo.isPresent()) {
-                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), svgEdgeInfo.get().edgeInfo(), edge.getPoints(side).get(1),
+                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getPoints(side).get(1),
                     edge.getEdgeStartAngle(side), edge, this::drawEdgeInfoAsLabel);
             }
         }
@@ -537,7 +537,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfo(side);
             if (svgEdgeInfo.isPresent()) {
-                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), svgEdgeInfo.get().edgeInfo(), edge.getArrow(side),
+                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getArrow(side),
                     edge.getArrowAngle(side), edge, this::drawEdgeInfoAsLabel);
             }
         }
@@ -548,8 +548,7 @@ public class SvgWriter {
         if (svgEdgeInfo.isEmpty() || svgEdgeInfo.get().edgeInfo() == null || checkIfEdgeInfoIsEmpty(svgEdgeInfo.get().edgeInfo())) {
             return;
         }
-        EdgeInfo middleEdgeInfo = svgEdgeInfo.get().edgeInfo();
-        drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), middleEdgeInfo, edge.getMiddlePoint(),
+        drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getMiddlePoint(),
             edge.getEdgeEndAngle(BranchEdge.Side.ONE), edge, this::drawEdgeInfoAsLabel);
     }
 
@@ -557,7 +556,7 @@ public class SvgWriter {
         if (edge.isVisible()) {
             Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfo();
             if (svgEdgeInfo.isPresent()) {
-                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), svgEdgeInfo.get().edgeInfo(), edge.getArrowPoint(),
+                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getArrowPoint(),
                     edge.getEdgeAngle(), edge, this::drawEdgeInfoAsLabel);
             }
         }
@@ -566,7 +565,7 @@ public class SvgWriter {
     private void drawInjectionEdgeInfo(XMLStreamWriter writer, Injection injection) throws XMLStreamException {
         Optional<SvgEdgeInfo> svgEdgeInfo = injection.getSvgEdgeInfo();
         if (svgEdgeInfo.isPresent()) {
-            drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), svgEdgeInfo.get().edgeInfo(), injection.getArrowPoint(),
+            drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), injection.getArrowPoint(),
                 injection.getAngle(), injection, this::drawEdgeInfoAsLabel);
         }
     }
@@ -579,11 +578,11 @@ public class SvgWriter {
 
     private <E> void drawEdgeInfoOrLabel(XMLStreamWriter writer,
                                          SvgEdgeInfo svgEdgeInfo,
-                                         EdgeInfo edgeInfo,
                                          Point point,
                                          double edgeAngle,
                                          E edge,
                                          EdgeLabelDrawer<E> labelDrawer) throws XMLStreamException {
+        EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         if (checkIfEdgeInfoIsEmpty(edgeInfo)) {
             return;
         }

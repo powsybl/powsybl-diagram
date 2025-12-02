@@ -10,6 +10,12 @@ import java.util.Optional;
 import java.util.function.DoubleFunction;
 
 /**
+ * Edge information container
+ *
+ * <p>{@code infoType1} and {@code label1} correspond to the data on the <b>internal</b> side for an EdgeInfo on a side of an
+ * edge, and to the data on <b>side 1</b> for the EdgeInfo in the middle of an edge.</p>
+ * <p>{@code infoType2} and {@code label2} correspond to the data on the <b>external</b> side for an EdgeInfo on a side of an
+ * edge, and to the data on <b>side 2</b> for the EdgeInfo in the middle of an edge.</p>
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class EdgeInfo {
