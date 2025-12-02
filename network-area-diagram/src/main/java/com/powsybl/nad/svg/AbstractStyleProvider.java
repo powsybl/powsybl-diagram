@@ -90,7 +90,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
                 case EdgeInfo.ACTIVE_POWER -> styles.add(CLASSES_PREFIX + "active");
                 case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
                 case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
-                case EdgeInfo.LOAD_PERCENTAGE -> styles.add(CLASSES_PREFIX + "load-percentage");
+                case EdgeInfo.VALUE_PERMANENT_LIMIT_PERCENTAGE -> styles.add(CLASSES_PREFIX + "permanent-limit-percentage");
                 case EdgeInfo.NAME -> styles.add(CLASSES_PREFIX + "name");
                 case EdgeInfo.EMPTY -> {
                     // Nothing to do

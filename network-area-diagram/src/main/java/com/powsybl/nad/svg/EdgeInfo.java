@@ -22,7 +22,7 @@ public class EdgeInfo {
     public static final String REACTIVE_POWER = "ReactivePower";
     public static final String CURRENT = "Current";
     public static final String NAME = "Name";
-    public static final String LOAD_PERCENTAGE = "Load percentage";
+    public static final String VALUE_PERMANENT_LIMIT_PERCENTAGE = "PermanentLimitPercentage";
     public static final String EMPTY = "Empty";
 
     private final String infoType1;
