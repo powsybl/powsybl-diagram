@@ -139,13 +139,14 @@ public class DefaultLabelProvider implements LabelProvider {
         }
         Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
         Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
+        double referenceValue = getReferenceValue(terminal, infoEnum2).orElse(getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
         if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(new EdgeInfo(
             getDisplayedType(infoEnum1),
             getDisplayedType(infoEnum2),
-            getReferenceValue(terminal, infoEnum2).orElse(Double.NaN),
+            referenceValue,
             optionalValue1.orElse(null),
             optionalValue2.orElse(null)
         ));
