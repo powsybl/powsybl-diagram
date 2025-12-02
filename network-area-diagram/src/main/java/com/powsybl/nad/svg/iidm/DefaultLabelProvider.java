@@ -102,7 +102,7 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, BranchEdge.Side.ONE, branchType);
-        return getEdgeInfo(branchId, terminal);
+        return getMiddleEdgeInfo(terminal);
     }
 
     @Override
@@ -126,25 +126,28 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
+        return getEdgeInfo(terminal, edgeInfoParameters.infoSideInternal, edgeInfoParameters.infoSideExternal);
+    }
+
+    private Optional<EdgeInfo> getMiddleEdgeInfo(Terminal terminal) {
+        return getEdgeInfo(terminal, edgeInfoParameters.infoMiddleSide1, edgeInfoParameters.infoMiddleSide2);
+    }
+
+    private Optional<EdgeInfo> getEdgeInfo(Terminal terminal, EdgeInfoEnum infoEnum1, EdgeInfoEnum infoEnum2) {
         if (terminal == null) {
             return Optional.empty();
         }
+        Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
+        Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
+        if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
+            return Optional.empty();
+        }
         return Optional.of(new EdgeInfo(
-            getDisplayedType(edgeInfoParameters.infoSideInternal),
-            getDisplayedType(edgeInfoParameters.infoSideExternal),
-            getReferenceValue(terminal, edgeInfoParameters.infoSideExternal).orElse(Double.NaN),
-            getDisplayedValue(terminal, edgeInfoParameters.infoSideInternal).orElse(null),
-            getDisplayedValue(terminal, edgeInfoParameters.infoSideExternal).orElse(null)
-        ));
-    }
-
-    private Optional<EdgeInfo> getEdgeInfo(String branchId, Terminal terminal) {
-        return Optional.of(new EdgeInfo(
-            getDisplayedType(edgeInfoParameters.infoMiddleSide1),
-            getDisplayedType(edgeInfoParameters.infoMiddleSide2),
-            getReferenceValue(terminal, edgeInfoParameters.infoMiddleSide2).orElse(Double.NaN),
-            getDisplayedValue(terminal, edgeInfoParameters.infoMiddleSide1, branchId).orElse(null),
-            getDisplayedValue(terminal, edgeInfoParameters.infoMiddleSide2, branchId).orElse(null)
+            getDisplayedType(infoEnum1),
+            getDisplayedType(infoEnum2),
+            getReferenceValue(terminal, infoEnum2).orElse(Double.NaN),
+            optionalValue1.orElse(null),
+            optionalValue2.orElse(null)
         ));
     }
 
@@ -252,7 +255,7 @@ public class DefaultLabelProvider implements LabelProvider {
 
     public static class Builder {
         private EdgeInfoEnum infoSideExternal = EdgeInfoEnum.ACTIVE_POWER;
-        private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.NAME;
+        private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.EMPTY;
         private EdgeInfoEnum infoMiddleSide2 = EdgeInfoEnum.EMPTY;
         private EdgeInfoEnum infoSideInternal = EdgeInfoEnum.EMPTY;
         private final LabelProviderParameters parameters = new LabelProviderParameters();

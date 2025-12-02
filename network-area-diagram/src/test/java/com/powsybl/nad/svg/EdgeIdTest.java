@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 class EdgeIdTest extends AbstractTest {
 
+    private DefaultLabelProvider.EdgeInfoEnum externalInfo;
     private DefaultLabelProvider.EdgeInfoEnum middleSide2Info;
 
     @BeforeEach
@@ -28,6 +29,7 @@ class EdgeIdTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
+
     }
 
     @Override
@@ -38,7 +40,7 @@ class EdgeIdTest extends AbstractTest {
     @Override
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider.Builder()
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoSideExternal(externalInfo)
             .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
             .setInfoMiddleSide2(middleSide2Info)
@@ -48,6 +50,7 @@ class EdgeIdTest extends AbstractTest {
     @Test
     void testNameOnEdgeDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
         middleSide2Info = DefaultLabelProvider.EdgeInfoEnum.NAME;
         assertSvgEquals("/edge_with_id.svg", network);
     }
@@ -55,7 +58,16 @@ class EdgeIdTest extends AbstractTest {
     @Test
     void testNameOnEdgeNotDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
         middleSide2Info = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
         assertSvgEquals("/edge_without_id.svg", network);
+    }
+
+    @Test
+    void testNameOnEdgeDisplayedExternal() {
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        middleSide2Info = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
+        assertSvgEquals("/edge_with_id_external.svg", network);
     }
 }

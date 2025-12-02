@@ -43,7 +43,6 @@ public class SvgParameters {
     private boolean edgeInfoAlongEdge = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
-    private boolean substationDescriptionDisplayed;
     private String arrowPathIn = "M-10 -10 H10 L0 10z";
     private String arrowPathOut = "M-10 10 H10 L0 -10z";
     private String languageTag = "en";
@@ -98,7 +97,6 @@ public class SvgParameters {
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
-        this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
         this.arrowPathIn = other.arrowPathIn;
         this.arrowPathOut = other.arrowPathOut;
         this.languageTag = other.languageTag;
