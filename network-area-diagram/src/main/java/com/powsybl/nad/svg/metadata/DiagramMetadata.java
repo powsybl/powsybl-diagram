@@ -130,7 +130,6 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
                 edge.getType(),
-                edge.getLabel().orElse(null),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null)))
@@ -145,7 +144,6 @@ public class DiagramMetadata extends AbstractMetadata {
                     getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
                     getPrefixedId(threeWtNodeSvgId),
                     edge.getType(),
-                    null,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                     null,
                     null
