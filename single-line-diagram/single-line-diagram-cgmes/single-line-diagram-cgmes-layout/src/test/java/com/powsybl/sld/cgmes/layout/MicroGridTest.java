@@ -81,6 +81,8 @@ class MicroGridTest {
         String filename = "/microgrid_S2_10kV_open_switch.svg";
         Path svgOutput = tmpDir.resolve(filename);
         network.getSwitch("1287758d-606d-44c9-9e93-2f465ebf54b7").setOpen(true);
+        LayoutParameters layoutParameters = new LayoutParameters(sldParameters.getLayoutParameters()).setCgmesScaleFactor(2);
+        sldParameters.setLayoutParameters(layoutParameters);
         SingleLineDiagram.draw(network, VL_S2_10, svgOutput, sldParameters);
         assertSvgOutputEqualsReference(filename, svgOutput);
     }
