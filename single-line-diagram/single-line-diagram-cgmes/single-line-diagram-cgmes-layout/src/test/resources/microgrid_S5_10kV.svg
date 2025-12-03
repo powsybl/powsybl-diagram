@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg viewBox="0 0 245.29663000000005 334.89726600000006" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 245.29663000000005 364.204166" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -153,101 +153,101 @@
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-voltage-level" id="id8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132">
-            <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="id4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68" transform="translate(75.02637000000004,10.0)">
+            <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="id4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68" transform="translate(95.02637000000004,80.0)">
                 <line x1="0" x2="0" y1="0" y2="204.204166"/>
                 <text class="sld-label" id="id4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68_95_NW_95_LABEL" x="-5.0" y="-5.0">BUSBAR4</text>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68">
-                <polyline points="180.79663000000005,71.660035,75.02637000000004,71.660035"/>
+                <polyline points="200.79663000000005,141.660035,95.02637000000004,141.660035"/>
             </g>
-            <g class="sld-feeder-info sld-out sld-active-power" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,76.66)">
+            <g class="sld-feeder-info sld-out sld-active-power" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,175.7966,146.66)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">5</text>
             </g>
-            <g class="sld-feeder-info sld-out sld-reactive-power" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,135.7966,76.66)">
+            <g class="sld-feeder-info sld-out sld-reactive-power" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,146.66)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">3</text>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_ba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68">
-                <polyline points="180.79663000000005,128.27880900000002,75.02637000000004,128.27880900000002"/>
+                <polyline points="200.79663000000005,198.27880900000002,95.02637000000004,198.27880900000002"/>
             </g>
-            <g class="sld-feeder-info sld-out sld-active-power" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,133.2788)">
+            <g class="sld-feeder-info sld-out sld-active-power" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,175.7966,203.2788)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">2</text>
             </g>
-            <g class="sld-feeder-info sld-out sld-reactive-power" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,135.7966,133.2788)">
+            <g class="sld-feeder-info sld-out sld-reactive-power" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,203.2788)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">1</text>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_f184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68">
-                <polyline points="180.79663000000005,184.89726600000006,75.02637000000004,184.89726600000006"/>
+                <polyline points="200.79663000000005,254.89726600000006,95.02637000000004,254.89726600000006"/>
             </g>
-            <g class="sld-feeder-info sld-out sld-active-power" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,189.8973)">
+            <g class="sld-feeder-info sld-out sld-active-power" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,175.7966,259.8973)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">2</text>
             </g>
-            <g class="sld-feeder-info sld-out sld-reactive-power" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,135.7966,189.8973)">
+            <g class="sld-feeder-info sld-out sld-reactive-power" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,155.7966,259.8973)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">1</text>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_3a783d1d_45_1113_45_414d_45_ab67_45_34b139781196_95_4171593e_45_40e0_45_4937_45_8c04_45_2276c3c16d68">
-                <polyline points="66.56079,38.58846600000004,75.02637000000004,38.58846600000004"/>
+                <polyline points="86.56079,108.58846600000004,95.02637000000004,108.58846600000004"/>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_fbdcf00d_45_8a07_45_4c62_45_9e39_45_86f459bea2be_95_3a783d1d_45_1113_45_414d_45_ab67_45_34b139781196">
-                <polyline points="59.62963999999988,38.58846600000004,66.56079,38.58846600000004"/>
+                <polyline points="79.62963999999988,108.58846600000004,86.56079,108.58846600000004"/>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_fbdcf00d_45_8a07_45_4c62_45_9e39_45_86f459bea2be_95_83317cbd_45_8326_45_44b8_45_a9fb_45_f69b6ba5a1cb">
-                <polyline points="39.62963999999988,38.58846600000004,32.69837000000007,38.58846600000004"/>
+                <polyline points="59.62963999999988,108.58846600000004,52.69837000000007,108.58846600000004"/>
             </g>
             <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_8d4a8238_45_5b31_45_4c16_45_8692_45_0265dae5e132_95_56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_83317cbd_45_8326_45_44b8_45_a9fb_45_f69b6ba5a1cb">
-                <polyline points="20.0,38.58846600000004,32.69837000000007,38.58846600000004"/>
+                <polyline points="40.0,108.58846600000004,52.69837000000007,108.58846600000004"/>
             </g>
-            <g class="sld-feeder-info sld-in sld-active-power" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,35.0,43.5885)">
+            <g class="sld-feeder-info sld-in sld-active-power" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,55.0,113.5885)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-feeder-info sld-in sld-reactive-power" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,55.0,43.5885)">
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,75.0,113.5885)">
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-load sld-vl0to30 sld-bus-0" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1" transform="translate(177.29663000000005,67.160035)">
+            <g class="sld-load sld-vl0to30 sld-bus-0" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1" transform="translate(197.29663000000005,137.160035)">
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95__95_LABEL" x="-5.0" y="-5.0">M3</text>
             </g>
-            <g class="sld-load sld-vl0to30 sld-bus-0" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa" transform="translate(177.29663000000005,123.77880900000002)">
+            <g class="sld-load sld-vl0to30 sld-bus-0" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa" transform="translate(197.29663000000005,193.77880900000002)">
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95__95_LABEL" x="-5.0" y="-5.0">M2a</text>
             </g>
-            <g class="sld-load sld-vl0to30 sld-bus-0" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1" transform="translate(177.29663000000005,180.39726600000006)">
+            <g class="sld-load sld-vl0to30 sld-bus-0" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1" transform="translate(197.29663000000005,250.39726600000006)">
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95__95_LABEL" x="-5.0" y="-5.0">M2b</text>
             </g>
-            <g id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO" transform="translate(20.0,38.58846600000004)">
+            <g id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO" transform="translate(40.0,108.58846600000004)">
                 <text class="sld-label" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">L6</text>
             </g>
-            <g class="sld-breaker sld-closed sld-vl0to30 sld-bus-0" id="idfbdcf00d_45_8a07_45_4c62_45_9e39_45_86f459bea2be" transform="translate(39.62963999999988,28.58846600000004)">
+            <g class="sld-breaker sld-closed sld-vl0to30 sld-bus-0" id="idfbdcf00d_45_8a07_45_4c62_45_9e39_45_86f459bea2be" transform="translate(59.62963999999988,98.58846600000004)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="id3a783d1d_45_1113_45_414d_45_ab67_45_34b139781196" transform="translate(62.56079,34.58846600000004)">
+            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="id3a783d1d_45_1113_45_414d_45_ab67_45_34b139781196" transform="translate(82.56079,104.58846600000004)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="id83317cbd_45_8326_45_44b8_45_a9fb_45_f69b6ba5a1cb" transform="translate(28.698370000000068,34.58846600000004)">
+            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="id83317cbd_45_8326_45_44b8_45_a9fb_45_f69b6ba5a1cb" transform="translate(48.69837000000007,104.58846600000004)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>

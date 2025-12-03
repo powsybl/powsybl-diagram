@@ -14,10 +14,10 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,10 +66,10 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         // shift coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
+            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node));
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            shiftLineCoordinates(edge, layoutParam.getCgmesScaleFactor());
+            shiftLineCoordinates(edge);
         }
         // scale coordinates
         if (layoutParam.getCgmesScaleFactor() != 1) {
@@ -100,7 +100,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         List<Point> snakeLine = edge.getSnakeLine();
         lineDiagramData.getPoints(diagramName).forEach(point -> {
             snakeLine.add(new Point(point.getX(), point.getY()));
-            setMinMax(point.getX(), point.getY());
+            setMinMax(point);
         });
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
@@ -114,8 +114,8 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
     }
 
-    private void shiftLineCoordinates(BranchEdge edge, double scaleFactor) {
-        Point shift = new Point(-minX + (X_MARGIN / scaleFactor), -minY + (Y_MARGIN / scaleFactor));
+    private void shiftLineCoordinates(BranchEdge edge) {
+        Point shift = new Point(-minX, -minY);
         edge.getSnakeLine().forEach(p -> p.shift(shift));
     }
 

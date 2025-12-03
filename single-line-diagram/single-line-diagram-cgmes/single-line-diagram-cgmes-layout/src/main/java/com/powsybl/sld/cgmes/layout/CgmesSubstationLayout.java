@@ -53,7 +53,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
             setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
+            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node));
         }
         if (layoutParam.getCgmesScaleFactor() != 1) {
             for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {

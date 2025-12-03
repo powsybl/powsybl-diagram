@@ -16,7 +16,10 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,8 +35,6 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCgmesLayout.class);
 
-    protected static final double X_MARGIN = 20;
-    protected static final double Y_MARGIN = 10;
     protected static final double LINE_OFFSET = 20;
 
     protected double minX = Double.MAX_VALUE;
@@ -46,7 +47,9 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected Network network;
 
-    protected void setMinMax(double x, double y) {
+    protected void setMinMax(DiagramPoint diagramPoint) {
+        double x = diagramPoint.getX();
+        double y = diagramPoint.getY();
         minX = Math.min(x, minX);
         minY = Math.min(y, minY);
         maxX = Math.max(x, maxX);
@@ -165,7 +168,8 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setPxWidth(computeBusWidth(diagramDetails));
                 rotatedBus = diagramDetails.getPoint1().getX() == diagramDetails.getPoint2().getX();
                 node.setOrientation(rotatedBus ? Orientation.UP : Orientation.RIGHT);
-                setMinMax(diagramDetails.getPoint1().getX(), diagramDetails.getPoint1().getY());
+                setMinMax(diagramDetails.getPoint1());
+                setMinMax(diagramDetails.getPoint2());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, bus {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
             }
@@ -181,7 +185,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
                 setOrientation(node, true, diagramDetails.getRotation());
-                setMinMax(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                setMinMax(diagramDetails.getPoint());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
             }
@@ -277,7 +281,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
                 setOrientation(node, rotate, diagramDetails.getRotation());
-                setMinMax(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                setMinMax(diagramDetails.getPoint());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, injection {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -306,7 +310,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
                 setOrientation(node, true, diagramDetails.getRotation());
-                setMinMax(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
+                setMinMax(diagramDetails.getPoint());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, transformer {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -342,7 +346,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setX(linePoint.getX());
                 node.setY(linePoint.getY());
                 node.setOrientation(rotatedBus ? Orientation.RIGHT : Orientation.UP);
-                setMinMax(linePoint.getX(), linePoint.getY());
+                setMinMax(linePoint);
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, line {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
@@ -380,9 +384,9 @@ public abstract class AbstractCgmesLayout implements Layout {
         return isLastPointCloser ? lineDiagramData.getLastPoint(diagramName, LINE_OFFSET) : lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
     }
 
-    protected void shiftNodeCoordinates(Node node, double scaleFactor) {
-        node.setX(node.getX() - minX + (X_MARGIN / scaleFactor));
-        node.setY(node.getY() - minY + (Y_MARGIN / scaleFactor));
+    protected void shiftNodeCoordinates(Node node) {
+        node.setX(node.getX() - minX);
+        node.setY(node.getY() - minY);
     }
 
     protected void scaleNodeCoordinates(Node node, double scaleFactor) {
