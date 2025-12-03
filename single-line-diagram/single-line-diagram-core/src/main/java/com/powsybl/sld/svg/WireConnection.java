@@ -61,18 +61,34 @@ public final class WireConnection {
 
     private static List<AnchorPoint> getBusNodeAnchorPoint(VoltageLevelGraph graph, BusNode busNode, Node otherNode) {
         Direction direction = graph.getDirection(otherNode);
-        boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
-                && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
-                && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
-                || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
-        if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
-            return Arrays.asList(
-                    new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
-                    new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
-            );
+        if (busNode.getOrientation().isHorizontal()) {
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
+                    && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
+                    || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
+                        new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            }
         } else {
-            return Collections.singletonList(
-                    new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getX() == busNode.getCoordinates().getX()
+                    && (otherNode.getCoordinates().getY() < busNode.getCoordinates().getY()
+                    || otherNode.getCoordinates().getY() > busNode.getCoordinates().getY() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.VERTICAL),
+                        new AnchorPoint(0, busNode.getPxWidth(), AnchorOrientation.VERTICAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(0, otherNode.getY() - busNode.getY(), AnchorOrientation.HORIZONTAL));
+            }
         }
     }
 
@@ -89,8 +105,8 @@ public final class WireConnection {
     private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,
                                                          List<AnchorPoint> anchorPoints1,
                                                          List<AnchorPoint> anchorPoints2) {
-        AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
-        AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
+        AnchorPoint betterAnchorPoint1 = anchorPoints1.getFirst();
+        AnchorPoint betterAnchorPoint2 = anchorPoints2.getFirst();
 
         double currentDistance = coord1.getShiftedPoint(betterAnchorPoint1).distanceSquare(
             coord2.getShiftedPoint(betterAnchorPoint2));

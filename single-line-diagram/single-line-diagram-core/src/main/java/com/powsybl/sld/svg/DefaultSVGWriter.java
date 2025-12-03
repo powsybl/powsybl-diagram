@@ -681,25 +681,19 @@ public class DefaultSVGWriter implements SVGWriter {
         // Checking if svg component is allowed to be transformed (rotate or flip)
         // (ex : disconnector in SVG component library not allowed to rotate)
         Orientation nodeOrientation = node.getOrientation();
-        SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
-        if (transformation != null) {
-            switch (transformation) {
-                case ROTATION: {
-                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-                    break;
-                }
-                case FLIP: {
-                    if (nodeOrientation.isVertical()) {
-                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.getHeight() + ")");
-                    } else {
-                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.getWidth() + ", 0)");
-                    }
-                    break;
-                }
-                case NONE:
-                default: {
-                    // No transformation
-                }
+        SldComponent.Transformation transformationType = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        if (transformationType != null) {
+            String transform = switch (transformationType) {
+                case ROTATION -> ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")";
+                case FLIP -> SCALE + "(1, -1)" + " "
+                        + TRANSLATE + "(0, " + -size.getHeight() + ")";
+                case FLIP_AND_ROTATION -> SCALE + "(1, -1)" + " "
+                        + TRANSLATE + "(0, " + -size.getHeight() + ") "
+                        + ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")";
+                default -> null;
+            };
+            if (transform != null) {
+                elt.setAttribute(TRANSFORM, transform);
             }
         }
 
