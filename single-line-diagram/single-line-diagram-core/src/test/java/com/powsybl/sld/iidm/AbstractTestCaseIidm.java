@@ -18,7 +18,6 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;
 import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
@@ -47,7 +46,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         return toMetadata(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
-    protected LabelProvider getDefaultDiagramLabelProvider() {
+    protected DefaultLabelProvider getDefaultDiagramLabelProvider() {
         return new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
     }
 

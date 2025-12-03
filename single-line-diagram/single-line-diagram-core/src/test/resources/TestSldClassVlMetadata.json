@@ -357,8 +357,6 @@
     "drawStraightWires" : false,
     "showGrid" : false,
     "showInternalNodes" : false,
-    "displayCurrentFeederInfo" : false,
-    "displayPermanentLimitPercentageFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false

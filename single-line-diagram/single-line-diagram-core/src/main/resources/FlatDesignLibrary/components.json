@@ -953,13 +953,7 @@
       "size": {
         "width": 10.0,
         "height": 10.0
-      },
-      "subComponents" : [
-        {
-          "name" : "EMPTY_COMPONENT",
-          "fileName" : "empty-component.svg"
-        }
-      ]
+      }
     },
     {
       "type": "VALUE_CURRENT",
@@ -967,12 +961,6 @@
       "size": {
         "width": 10.0,
         "height": 10.0
-      },
-      "subComponents" : [
-        {
-          "name" : "EMPTY_COMPONENT",
-          "fileName" : "empty-component.svg"
-        } 
-      ]
+      }
     }
   ]

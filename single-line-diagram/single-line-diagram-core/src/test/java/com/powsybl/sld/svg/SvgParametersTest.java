@@ -47,8 +47,6 @@ class SvgParametersTest {
                 .setDrawStraightWires(true)
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
-                .setDisplayCurrentFeederInfo(true)
-                .setDisplayPermanentLimitPercentageFeederInfo(true)
                 .setDisplayEquipmentNodesLabel(true)
                 .setDisplayConnectivityNodesId(true)
                 .setUnifyVoltageLevelColors(true);
@@ -83,8 +81,6 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isDrawStraightWires(), svgParameters1.isDrawStraightWires());
         assertEquals(svgParameters0.isShowGrid(), svgParameters1.isShowGrid());
         assertEquals(svgParameters0.isShowInternalNodes(), svgParameters1.isShowInternalNodes());
-        assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
-        assertEquals(svgParameters0.isDisplayPermanentLimitPercentageFeederInfo(), svgParameters1.isDisplayPermanentLimitPercentageFeederInfo());
         assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
         assertEquals(svgParameters0.isDisplayConnectivityNodesId(), svgParameters1.isDisplayConnectivityNodesId());
         assertEquals(svgParameters0.isUnifyVoltageLevelColors(), svgParameters1.isUnifyVoltageLevelColors());
