@@ -101,7 +101,7 @@ public class DefaultLabelProvider implements LabelProvider {
         return description;
     }
 
-    protected String getBusLegend(String busId) {
+    private String getBusLegend(String busId) {
         if (svgParameters.isBusLegend()) {
             Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
