@@ -39,23 +39,32 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
         this.valueFormatter = svgParameters.createValueFormatter();
     }
 
+    private String getIdNode(GraphMetadata metadata, BusLegendInfo busLegendInfo) {
+        return metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
+    }
+
     @Override
     public void drawLegend(VoltageLevelGraph graph, GraphMetadata metadata, StyleProvider styleProvider, Element legendRootElement, double positionX, double positionY) {
         double shiftX = positionX;
         for (BusLegendInfo busLegendInfo : getBusLegendInfos(graph)) {
-            String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
-            String escapedIdNode = IdUtil.escapeId(idNode);
+            String idNode = getIdNode(metadata, busLegendInfo);
             Element gNode = legendRootElement.getOwnerDocument().createElement(GROUP);
-            gNode.setAttribute("id", escapedIdNode);
+            gNode.setAttribute("id", IdUtil.escapeId(idNode));
 
             drawBusLegendInfo(busLegendInfo, shiftX, positionY, gNode, idNode, graph, styleProvider);
 
             legendRootElement.appendChild(gNode);
 
-            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(escapedIdNode));
-
             shiftX += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }
+    }
+
+    @Override
+    public void addLegendMetadataInfos(VoltageLevelGraph graph, GraphMetadata metadata) {
+        List<GraphMetadata.BusLegendInfoMetadata> busLegendMetadataInfos = getBusLegendInfos(graph).stream()
+            .map(busLegendInfo -> new GraphMetadata.BusLegendInfoMetadata(IdUtil.escapeId(getIdNode(metadata, busLegendInfo))))
+            .toList();
+        metadata.addBusLegendInfosMetadata(busLegendMetadataInfos);
     }
 
     protected List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {

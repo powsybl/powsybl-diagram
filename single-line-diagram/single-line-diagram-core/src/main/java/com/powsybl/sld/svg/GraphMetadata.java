@@ -521,6 +521,11 @@ public class GraphMetadata extends AbstractMetadata {
         return ImmutableList.copyOf(busInfoMetadataMap.values());
     }
 
+    public void addBusLegendInfosMetadata(List<BusLegendInfoMetadata> metadataInfos) {
+        Objects.requireNonNull(metadataInfos);
+        metadataInfos.forEach(metadata -> busLegendInfoMetadataMap.put(metadata.getId(), metadata));
+    }
+
     public void addBusLegendInfoMetadata(BusLegendInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
         busLegendInfoMetadataMap.put(metadata.getId(), metadata);
