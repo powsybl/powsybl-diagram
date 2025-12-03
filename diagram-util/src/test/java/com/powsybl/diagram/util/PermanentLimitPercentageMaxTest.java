@@ -69,14 +69,16 @@ class PermanentLimitPercentageMaxTest {
 
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
 
-        double percentage = getPermanentLimitPercentageMax(twt);
-        assertEquals(71.35512, percentage, 0.0001);
+        assertEquals(71.35512, getPermanentLimitPercentageMax(twt), 0.0001);
     }
 
     @Test
     void testPermanentLimitPercentageMaxBranch() {
         Network network = Networks.createTwoVoltageLevels();
         Line line = network.getLine("l1");
+
+        // No current limits
+        assertEquals(Double.NaN, getPermanentLimitPercentageMax(line), 0.0001);
 
         // Add current limits
         line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits()
@@ -114,8 +116,7 @@ class PermanentLimitPercentageMaxTest {
         line.getTerminal1().getBusBreakerView().getBus().setV(400.0);
         line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
 
-        double percentage = getPermanentLimitPercentageMax(line);
-        assertEquals(105.07933, percentage, 0.0001);
+        assertEquals(105.07933, getPermanentLimitPercentageMax(line), 0.0001);
 
     }
 }
