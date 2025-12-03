@@ -100,13 +100,13 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <g class="nad-edge-infos">
         <g id="14" transform="translate(60.27,-455.61)">
-            <text transform="rotate(-75.75)" x="0.00" style="text-anchor:middle">3WT</text>
+            <text transform="rotate(-75.75)" class="nad-name" x="0.00" style="text-anchor:middle">3WT</text>
         </g>
         <g id="16" transform="translate(-318.25,20.09)">
-            <text transform="rotate(-27.88)" x="0.00" style="text-anchor:middle">3WT</text>
+            <text transform="rotate(-27.88)" class="nad-name" x="0.00" style="text-anchor:middle">3WT</text>
         </g>
         <g id="18" transform="translate(149.68,153.04)">
-            <text transform="rotate(-299.97)" x="0.00" style="text-anchor:middle">3WT</text>
+            <text transform="rotate(-299.97)" class="nad-name" x="0.00" style="text-anchor:middle">3WT</text>
         </g>
     </g>
     <g class="nad-text-edges">

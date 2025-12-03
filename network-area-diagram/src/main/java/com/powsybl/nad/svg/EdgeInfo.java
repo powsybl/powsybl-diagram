@@ -30,17 +30,27 @@ public class EdgeInfo {
     private final Direction arrowDirection;
     private final String label1;
     private final String label2;
+    private final boolean arrowFollowsSide2;
 
-    public EdgeInfo(String infoType1, String infoType2, Direction arrowDirection, String label1, String label2) {
+    public EdgeInfo(String infoType1, String infoType2, Direction arrowDirection, String label1, String label2, boolean arrowFollowsSide2) {
         this.infoType2 = infoType2;
         this.infoType1 = infoType1;
         this.arrowDirection = arrowDirection;
         this.label1 = label1;
         this.label2 = label2;
+        this.arrowFollowsSide2 = arrowFollowsSide2;
+    }
+
+    public EdgeInfo(String infoType1, String infoType2, Direction arrowDirection, String label1, String label2) {
+        this(infoType1, infoType2, arrowDirection, label1, label2, true);
     }
 
     public EdgeInfo(String infoType1, String infoType2, double referenceValue, String label1, String label2) {
-        this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2);
+        this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2, true);
+    }
+
+    public EdgeInfo(String infoType1, String infoType2, double referenceValue, String label1, String label2, boolean arrowFollowsSide2) {
+        this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2, arrowFollowsSide2);
     }
 
     private static Direction getArrowDirection(double value) {
@@ -76,6 +86,10 @@ public class EdgeInfo {
 
     public Optional<String> getLabel2() {
         return Optional.ofNullable(label2);
+    }
+
+    public boolean isArrowFollowsSide2() {
+        return arrowFollowsSide2;
     }
 
     public enum Direction {

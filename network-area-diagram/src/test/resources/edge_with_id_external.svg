@@ -110,31 +110,31 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <g class="nad-edge-infos">
         <g id="15" transform="translate(-180.78,-174.25)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l1</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l1</text>
         </g>
         <g id="16" transform="translate(-219.05,-139.65)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l1</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l1</text>
         </g>
         <g id="18" transform="translate(-127.13,-114.90)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l2</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l2</text>
         </g>
         <g id="19" transform="translate(-165.40,-80.31)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l2</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l2</text>
         </g>
         <g id="21" transform="translate(-66.26,-122.26)">
-            <text transform="rotate(81.03)" x="0.00" style="text-anchor:middle">tr1</text>
+            <text transform="rotate(81.03)" class="nad-name" x="0.00" style="text-anchor:middle">tr1</text>
         </g>
         <g id="22" transform="translate(-33.87,82.85)">
-            <text transform="rotate(81.03)" x="0.00" style="text-anchor:middle">tr1</text>
+            <text transform="rotate(81.03)" class="nad-name" x="0.00" style="text-anchor:middle">tr1</text>
         </g>
         <g id="24" transform="translate(-220.71,-3.90)">
-            <text transform="rotate(41.17)" x="0.00" style="text-anchor:middle">tr2</text>
+            <text transform="rotate(41.17)" class="nad-name" x="0.00" style="text-anchor:middle">tr2</text>
         </g>
         <g id="25" transform="translate(-87.58,112.51)">
-            <text transform="rotate(41.17)" x="0.00" style="text-anchor:middle">tr2</text>
+            <text transform="rotate(41.17)" class="nad-name" x="0.00" style="text-anchor:middle">tr2</text>
         </g>
         <g id="29" transform="translate(-215.61,-76.16)">
-            <text transform="rotate(-33.10)" x="0.00" style="text-anchor:middle">dl1</text>
+            <text transform="rotate(-33.10)" class="nad-name" x="0.00" style="text-anchor:middle">dl1</text>
         </g>
     </g>
     <g class="nad-text-edges">

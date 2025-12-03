@@ -339,79 +339,79 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <g class="nad-edge-infos">
         <g id="52" transform="translate(-209.86,-456.08)">
-            <text transform="rotate(79.88)" x="0.00" style="text-anchor:middle">TWT</text>
+            <text transform="rotate(79.88)" class="nad-name" x="0.00" style="text-anchor:middle">TWT</text>
         </g>
         <g id="53" transform="translate(-168.15,-222.40)">
-            <text transform="rotate(79.88)" x="0.00" style="text-anchor:middle">TWT</text>
+            <text transform="rotate(79.88)" class="nad-name" x="0.00" style="text-anchor:middle">TWT</text>
         </g>
         <g id="55" transform="translate(-78.51,-82.33)">
-            <text transform="rotate(34.88)" x="0.00" style="text-anchor:middle">LCC1</text>
+            <text transform="rotate(34.88)" class="nad-name" x="0.00" style="text-anchor:middle">LCC1</text>
         </g>
         <g id="56" transform="translate(121.91,57.38)">
-            <text transform="rotate(34.88)" x="0.00" style="text-anchor:middle">LCC2</text>
+            <text transform="rotate(34.88)" class="nad-name" x="0.00" style="text-anchor:middle">LCC2</text>
         </g>
         <g id="58" transform="translate(-154.95,-43.84)">
-            <text transform="rotate(-88.34)" x="0.00" style="text-anchor:middle">VSC1</text>
+            <text transform="rotate(-88.34)" class="nad-name" x="0.00" style="text-anchor:middle">VSC1</text>
         </g>
         <g id="59" transform="translate(-161.19,171.54)">
-            <text transform="rotate(-88.34)" x="0.00" style="text-anchor:middle">VSC2</text>
+            <text transform="rotate(-88.34)" class="nad-name" x="0.00" style="text-anchor:middle">VSC2</text>
         </g>
         <g id="61" transform="translate(-107.58,208.35)">
-            <text transform="rotate(-22.71)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+            <text transform="rotate(-22.71)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
         </g>
         <g id="62" transform="translate(115.79,114.85)">
-            <text transform="rotate(-22.71)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+            <text transform="rotate(-22.71)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
         </g>
         <g id="64" transform="translate(221.54,124.23)">
-            <text transform="rotate(32.85)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
+            <text transform="rotate(32.85)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
         </g>
         <g id="65" transform="translate(446.94,269.76)">
-            <text transform="rotate(32.85)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
+            <text transform="rotate(32.85)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
         </g>
         <g id="4" transform="translate(-277.40,-533.90)">
-            <text transform="rotate(18.21)" x="0.00" style="text-anchor:middle">LD1</text>
+            <text transform="rotate(18.21)" class="nad-name" x="0.00" style="text-anchor:middle">LD1</text>
         </g>
         <g id="6" transform="translate(-173.42,-552.46)">
-            <text transform="rotate(321.55)" x="0.00" style="text-anchor:middle">BATTERY</text>
+            <text transform="rotate(321.55)" class="nad-name" x="0.00" style="text-anchor:middle">BATTERY</text>
         </g>
         <g id="12" transform="translate(-119.90,-217.75)">
-            <text transform="rotate(-68.87)" x="0.00" style="text-anchor:middle">GH1</text>
+            <text transform="rotate(-68.87)" class="nad-name" x="0.00" style="text-anchor:middle">GH1</text>
         </g>
         <g id="14" transform="translate(-76.54,-182.32)">
-            <text transform="rotate(-32.62)" x="0.00" style="text-anchor:middle">GH2</text>
+            <text transform="rotate(-32.62)" class="nad-name" x="0.00" style="text-anchor:middle">GH2</text>
         </g>
         <g id="16" transform="translate(-62.52,-128.10)">
-            <text transform="rotate(3.63)" x="0.00" style="text-anchor:middle">GH3</text>
+            <text transform="rotate(3.63)" class="nad-name" x="0.00" style="text-anchor:middle">GH3</text>
         </g>
         <g id="18" transform="translate(-235.76,-100.01)">
-            <text transform="rotate(-22.05)" x="0.00" style="text-anchor:middle">LD2</text>
+            <text transform="rotate(-22.05)" class="nad-name" x="0.00" style="text-anchor:middle">LD2</text>
         </g>
         <g id="20" transform="translate(-239.82,-154.95)">
-            <text transform="rotate(13.59)" x="0.00" style="text-anchor:middle">LD3</text>
+            <text transform="rotate(13.59)" class="nad-name" x="0.00" style="text-anchor:middle">LD3</text>
         </g>
         <g id="22" transform="translate(-211.11,-201.97)">
-            <text transform="rotate(49.24)" x="0.00" style="text-anchor:middle">LD4</text>
+            <text transform="rotate(49.24)" class="nad-name" x="0.00" style="text-anchor:middle">LD4</text>
         </g>
         <g id="24" transform="translate(-111.86,-53.42)">
-            <text transform="rotate(63.27)" x="0.00" style="text-anchor:middle">SHUNT</text>
+            <text transform="rotate(63.27)" class="nad-name" x="0.00" style="text-anchor:middle">SHUNT</text>
         </g>
         <g id="26" transform="translate(-200.44,-57.73)">
-            <text transform="rotate(-57.70)" x="0.00" style="text-anchor:middle">SHUNT_CAPACITOR</text>
+            <text transform="rotate(-57.70)" class="nad-name" x="0.00" style="text-anchor:middle">SHUNT_CAPACITOR</text>
         </g>
         <g id="33" transform="translate(-196.89,280.98)">
-            <text transform="rotate(-55.53)" x="0.00" style="text-anchor:middle">GTH1</text>
+            <text transform="rotate(-55.53)" class="nad-name" x="0.00" style="text-anchor:middle">GTH1</text>
         </g>
         <g id="39" transform="translate(204.57,41.87)">
-            <text transform="rotate(-56.14)" x="0.00" style="text-anchor:middle">GTH2</text>
+            <text transform="rotate(-56.14)" class="nad-name" x="0.00" style="text-anchor:middle">GTH2</text>
         </g>
         <g id="41" transform="translate(165.83,151.45)">
-            <text transform="rotate(-84.93)" x="0.00" style="text-anchor:middle">LD5</text>
+            <text transform="rotate(-84.93)" class="nad-name" x="0.00" style="text-anchor:middle">LD5</text>
         </g>
         <g id="47" transform="translate(549.91,273.39)">
-            <text transform="rotate(-28.82)" x="0.00" style="text-anchor:middle">LD6</text>
+            <text transform="rotate(-28.82)" class="nad-name" x="0.00" style="text-anchor:middle">LD6</text>
         </g>
         <g id="49" transform="translate(492.62,362.12)">
-            <text transform="rotate(-85.48)" x="0.00" style="text-anchor:middle">SVC</text>
+            <text transform="rotate(-85.48)" class="nad-name" x="0.00" style="text-anchor:middle">SVC</text>
         </g>
     </g>
     <g class="nad-text-edges">

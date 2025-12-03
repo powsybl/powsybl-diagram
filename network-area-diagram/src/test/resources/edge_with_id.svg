@@ -110,16 +110,16 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <g class="nad-edge-infos">
         <g id="15" transform="translate(-199.91,-156.95)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l1</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l1</text>
         </g>
         <g id="17" transform="translate(-146.26,-97.60)">
-            <text transform="rotate(-42.11)" x="0.00" style="text-anchor:middle">l2</text>
+            <text transform="rotate(-42.11)" class="nad-name" x="0.00" style="text-anchor:middle">l2</text>
         </g>
         <g id="19" transform="translate(-47.73,-4.88)">
-            <text transform="rotate(81.03)" x="0.00" style="text-anchor:middle">tr1</text>
+            <text transform="rotate(81.03)" class="nad-name" x="0.00" style="text-anchor:middle">tr1</text>
         </g>
         <g id="21" transform="translate(-154.14,54.30)">
-            <text transform="rotate(41.17)" x="0.00" style="text-anchor:middle">tr2</text>
+            <text transform="rotate(41.17)" class="nad-name" x="0.00" style="text-anchor:middle">tr2</text>
         </g>
     </g>
     <g class="nad-text-edges">

@@ -73,4 +73,15 @@ class TypeOfEdgeInfoTest extends AbstractTest {
         assertSvgEquals("/edge_info_current.svg", network);
     }
 
+    @Test
+    void testMultipleInfoLabel() {
+        labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+            .build(network, getSvgParameters());
+        assertSvgEquals("/edge_info_multiple.svg", network);
+    }
+
 }
