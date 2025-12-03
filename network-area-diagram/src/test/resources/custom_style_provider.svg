@@ -83,32 +83,32 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
     </g>
     <g class="nad-edge-infos">
         <g id="9" transform="translate(-109.37,-303.48)">
-            <text transform="rotate(-26.51)" class="nad-name" x="0.00" style="text-anchor:middle">L11</text>
+            <text transform="rotate(-26.51)" x="0.00" style="text-anchor:middle">L11</text>
         </g>
         <g id="11" transform="translate(-216.16,-98.22)">
-            <text transform="rotate(-43.69)" class="nad-name" x="0.00" style="text-anchor:middle">L12</text>
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">L12</text>
         </g>
         <g id="13" transform="translate(11.03,-240.07)">
-            <path transform="rotate(56.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-33.33)" class="nad-active" x="19.00">375</text>
+            <path transform="rotate(56.67)" class="nad-state-out nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-33.33)" class="nad-state-out" x="19.00">375</text>
         </g>
         <g id="14" transform="translate(15.69,-160.20)">
-            <path transform="rotate(116.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(26.67)" class="nad-active" x="19.00">375</text>
+            <path transform="rotate(116.67)" class="nad-state-out nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(26.67)" class="nad-state-out" x="19.00">375</text>
         </g>
         <g id="15" transform="translate(63.99,-203.08)">
-            <text transform="rotate(86.67)" class="nad-name" x="0.00" style="text-anchor:middle">T11</text>
+            <text transform="rotate(86.67)" x="0.00" style="text-anchor:middle">T11</text>
         </g>
         <g id="17" transform="translate(-99.96,-98.60)">
-            <path transform="rotate(-133.69)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-43.69)" class="nad-active" x="-19.00" style="text-anchor:end">375</text>
+            <path transform="rotate(-133.69)" class="nad-state-out nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-43.69)" class="nad-state-out" x="-19.00" style="text-anchor:end">375</text>
         </g>
         <g id="18" transform="translate(-221.83,17.85)">
-            <path transform="rotate(46.31)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-43.69)" class="nad-active" x="19.00">375</text>
+            <path transform="rotate(46.31)" class="nad-state-out nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-43.69)" class="nad-state-out" x="19.00">375</text>
         </g>
         <g id="19" transform="translate(-160.89,-40.37)">
-            <text transform="rotate(-43.69)" class="nad-name" x="0.00" style="text-anchor:middle">T12</text>
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">T12</text>
         </g>
     </g>
     <g class="nad-text-edges">

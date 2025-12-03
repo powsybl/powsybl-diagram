@@ -132,7 +132,7 @@ public class CustomStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
-    public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
+    public List<String> getEdgeInfoStyleClasses(EdgeInfo info, String externalInfoType) {
         List<String> styles = new LinkedList<>();
         info.getDirection().ifPresent(direction -> styles.add(
                 CLASSES_PREFIX + (direction == EdgeInfo.Direction.OUT ? "state-out" : "state-in")));

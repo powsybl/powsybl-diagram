@@ -592,7 +592,7 @@ public class SvgWriter {
         } else {
             String label = edgeInfo.getLabel2().orElse(edgeInfo.getLabel1().orElse(null));
             String externalInfoType = edgeInfo.isArrowFollowsSide2() ? edgeInfo.getInfoType2() : edgeInfo.getInfoType1();
-            labelDrawer.draw(writer, svgEdgeInfo, point, edge, label, styleProvider.getEdgeInfoStyleClasses(externalInfoType));
+            labelDrawer.draw(writer, svgEdgeInfo, point, edge, label, styleProvider.getEdgeInfoStyleClasses(edgeInfo, externalInfoType));
         }
     }
 
@@ -656,11 +656,11 @@ public class SvgWriter {
         drawArrow(writer, edgeInfo, edgeAngle);
         Optional<String> label2 = edgeInfo.getLabel2();
         if (label2.isPresent()) {
-            drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoType2()));
+            drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo, edgeInfo.getInfoType2()));
         }
         Optional<String> label1 = edgeInfo.getLabel1();
         if (label1.isPresent()) {
-            drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoType1()));
+            drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo, edgeInfo.getInfoType1()));
         }
 
         writer.writeEndElement();
@@ -678,10 +678,10 @@ public class SvgWriter {
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
             String externalInfoType = edgeInfo.isArrowFollowsSide2() ? edgeInfo.getInfoType2() : edgeInfo.getInfoType1();
             if (direction.get() == EdgeInfo.Direction.IN) {
-                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(externalInfoType), StyleProvider.ARROW_IN_CLASS);
+                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo, externalInfoType), StyleProvider.ARROW_IN_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathIn());
             } else if (direction.get() == EdgeInfo.Direction.OUT) {
-                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(externalInfoType), StyleProvider.ARROW_OUT_CLASS);
+                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo, externalInfoType), StyleProvider.ARROW_OUT_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathOut());
             }
         }

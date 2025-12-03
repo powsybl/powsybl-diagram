@@ -63,9 +63,7 @@ public interface StyleProvider {
 
     List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getEdgeInfoStyleClasses(String externalInfoType);
-
-    List<String> getEdgeInfoStyleClasses(EdgeInfo info);
+    List<String> getEdgeInfoStyleClasses(EdgeInfo info, String externalInfoType);
 
     List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
 
