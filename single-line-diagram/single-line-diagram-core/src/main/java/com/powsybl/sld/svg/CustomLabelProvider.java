@@ -161,5 +161,10 @@ public class CustomLabelProvider extends AbstractLabelProvider {
     public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
         return List.of();
     }
+
+    @Override
+    public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
+        return List.of();
+    }
 }
 

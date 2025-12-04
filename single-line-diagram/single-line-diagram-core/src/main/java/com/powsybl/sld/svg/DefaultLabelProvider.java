@@ -74,6 +74,16 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         return feederInfos;
     }
 
+    public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
+        List<FeederInfo> infos = new ArrayList<>();
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer(twtNode.getEquipmentId());
+        if (twt != null) {
+            twt.getTerminal(ThreeSides.ONE);
+            infos.addAll(this.buildFeederInfos(twt.getTerminal(ThreeSides.ONE), true));
+        }
+        return infos;
+    }
+
     private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
         List<FeederInfo> measures = new ArrayList<>();
         Injection<?> injection = (Injection<?>) network.getIdentifiable(node.getEquipmentId());
@@ -99,7 +109,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         if (transformer != null) {
             ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
             boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
-            feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            if (svgParameters.getThreeWindingsTransformerFeederInfoMode() == SvgParameters.ThreeWindingsTransformerFeederInfoMode.INSIDE_VOLTAGE_LEVEL) {
+                if (insideVoltageLevel) {
+                    feederInfos = buildFeederInfos(transformer, side, true);
+                }
+            } else {
+                feederInfos = buildFeederInfos(transformer, side, insideVoltageLevel);
+            }
         }
         return feederInfos;
     }

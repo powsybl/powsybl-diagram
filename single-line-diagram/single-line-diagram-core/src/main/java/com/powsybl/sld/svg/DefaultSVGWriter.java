@@ -854,6 +854,24 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    protected void insertFeederInfos(String prefixId,
+                                      List<Point> points,
+                                      Element root,
+                                      VoltageLevelGraph graph,
+                                      Middle3WTNode twtNode,
+                                      GraphMetadata metadata,
+                                      LabelProvider labelProvider,
+                                      StyleProvider styleProvider) {
+        double shiftFeederInfo = 0;
+        for (FeederInfo feederInfo : labelProvider.getFeederInfos(twtNode)) {
+            drawFeederInfo(prefixId, twtNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
+            addInfoComponentMetadata(metadata, feederInfo.getComponentType());
+
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
+            shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
+        }
+    }
+
     private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new SldComponent(componentType,
@@ -881,6 +899,47 @@ public class DefaultSVGWriter implements SVGWriter {
         String componentType = feederInfo.getComponentType();
 
         String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
+
+        // we draw the feeder info
+        double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+        insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
+
+        // we draw the right label only if present
+        feederInfo.getRightLabel().ifPresent(s -> {
+            Element labelRight = createLabelElement(s, shX, shY, 0, g);
+            g.appendChild(labelRight);
+        });
+
+        // we draw the left label only if present
+        feederInfo.getLeftLabel().ifPresent(s -> {
+            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
+            labelLeft.setAttribute(STYLE, "text-anchor:end");
+            g.appendChild(labelLeft);
+        });
+
+        writeStyleClasses(g, styleProvider.getFeederInfoStyles(feederInfo),
+                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null));
+        root.appendChild(g);
+    }
+
+    private void drawFeederInfo(String prefixId, Middle3WTNode feederNode, List<Point> points, Element root,
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata,
+                                StyleProvider styleProvider) {
+
+        Element g = root.getOwnerDocument().createElement(GROUP);
+        ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
+
+        double shX = size.getWidth() + LABEL_OFFSET;
+        double shY = size.getHeight() / 2;
+
+        transformFeederInfo(points, size, shift, g);
+
+        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
+        g.setAttribute("id", svgId);
+        String componentType = feederInfo.getComponentType();
+
+        String side = null; //feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info
@@ -1014,7 +1073,17 @@ public class DefaultSVGWriter implements SVGWriter {
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
                 insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
+            } else {
+                if (edge.getNode1() instanceof Middle3WTNode) {
+                    if (!(edge.getNode2() instanceof FeederNode)) {
+                        insertFeederInfos(prefixId, pol, root, graph, (Middle3WTNode) edge.getNode1(), metadata, initProvider, styleProvider);
+                    }
+                } else if (edge.getNode2() instanceof Middle3WTNode) {
+                    Collections.reverse(pol);
+                    insertFeederInfos(prefixId, pol, root, graph, (Middle3WTNode) edge.getNode2(), metadata, initProvider, styleProvider);
+                }
             }
+
         }
     }
 
