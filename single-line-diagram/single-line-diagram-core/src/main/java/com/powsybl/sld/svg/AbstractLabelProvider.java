@@ -135,11 +135,6 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
-        return Collections.emptyList();
-    }
-
-    @Override
     public Optional<BusInfo> getBusInfo(BusNode node) {
         return Optional.empty();
     }

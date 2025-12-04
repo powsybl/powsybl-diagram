@@ -18,6 +18,7 @@ import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.ValueFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 
 import java.util.ArrayList;
@@ -35,13 +36,15 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph graph, String filename) {
-        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
+        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider(), legendRawProvider);
     }
 
     @Override
     public String toMetadata(Graph graph, String filename) {
-        return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
+        return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider(), legendRawProvider);
     }
+
+    private final SVGLegendWriter legendRawProvider = new DefaultSVGLegendWriter(Network.create("empty", ""), svgParameters);
 
     private final LabelProvider labelRawProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
@@ -60,5 +63,9 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     public LabelProvider getLabelRawProvider() {
         return labelRawProvider;
+    }
+
+    public SVGLegendWriter getLegendRawProvider() {
+        return legendRawProvider;
     }
 }
