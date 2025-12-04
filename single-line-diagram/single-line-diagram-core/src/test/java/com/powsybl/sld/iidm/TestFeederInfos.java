@@ -17,10 +17,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
-import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.*;
 import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -97,8 +94,10 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         };
 
+        SVGLegendWriter legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
+
 // write SVG and compare to reference
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelManyFeederInfoProvider, new BasicStyleProvider()));
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelManyFeederInfoProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -115,7 +114,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -134,7 +133,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -229,7 +228,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
     @Test
@@ -241,6 +240,6 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setCurrentUnit("A");
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
-        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new NominalVoltageStyleProvider()));
+        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new NominalVoltageStyleProvider(), new DefaultSVGLegendWriter(network, svgParameters)));
     }
 }

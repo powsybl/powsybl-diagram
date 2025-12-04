@@ -12,7 +12,6 @@ import com.powsybl.iidm.network.extensions.OperatingStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
@@ -153,17 +151,6 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         }
 
         return nodeDecorators;
-    }
-
-    @Override
-    public List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        return vl.getBusView().getBusStream()
-                .map(b -> new BusLegendInfo(b.getId(), List.of(
-                    new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
-                    new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
-                )))
-                .collect(Collectors.toList());
     }
 
     private <T extends Identifiable<T>> void addOperatingStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Direction direction, Identifiable<T> identifiable) {

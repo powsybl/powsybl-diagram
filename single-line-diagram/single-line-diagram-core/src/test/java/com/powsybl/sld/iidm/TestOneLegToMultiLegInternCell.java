@@ -47,7 +47,7 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         String filename = "/TestInternCellDifferentSubsections.svg";
 
-        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -64,7 +64,7 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         String filename = "/TestOneLegInternCellDifferentSubsectionsSi.svg";
 
-        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -81,6 +81,6 @@ class TestOneLegToMultiLegInternCell extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         String filename = "/TestOneLegInternCellDifferentSubsectionsLbs.svg";
 
-        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }
