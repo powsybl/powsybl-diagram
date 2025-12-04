@@ -202,7 +202,7 @@
             </g>
             <g class="sld-generator" id="idvl2_95_gen1" transform="translate(84.0,94.0)">
                 <use href="#GENERATOR"/>
-                <text class="sld-label" id="idvl2_95_gen1_95__95_LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
+                <text class="sld-label" id="idvl2_95_gen1_95_LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
             </g>
             <g class="sld-breaker sld-closed" id="idvl2_95_bgen1" transform="translate(80.0,190.0)">
                 <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
@@ -215,7 +215,7 @@
             <g class="sld-two-wt" id="idvl2_95_trf1" transform="translate(135.0,512.5)">
                 <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
                 <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
-                <text class="sld-label" id="idvl2_95_trf1_95__95_LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
+                <text class="sld-label" id="idvl2_95_trf1_95_LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
             </g>
             <g class="sld-breaker sld-closed" id="idvl2_95_btrf1" transform="translate(130.0,410.0)">
                 <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
@@ -226,10 +226,10 @@
                 <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             </g>
             <g id="idvl2_95_trf2_95_one" transform="translate(170.0,100.0)">
-                <text class="sld-label" id="idvl2_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
+                <text class="sld-label" id="idvl2_95_trf2_95_one_95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
             </g>
             <g id="idvl2_95_trf2_95_two" transform="translate(230.0,100.0)">
-                <text class="sld-label" id="idvl2_95_trf2_95_two_95__95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
+                <text class="sld-label" id="idvl2_95_trf2_95_two_95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
             </g>
             <g class="sld-three-wt sld-fictitious" id="idvl2_95_trf2" transform="translate(192.0,148.0)">
                 <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>

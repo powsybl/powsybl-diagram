@@ -244,7 +244,7 @@
                 </g>
                 <g class="sld-vsc sld-top-feeder sld-vl300to500 sld-bus-0" id="idvsc" transform="translate(257.0,76.0)">
                     <text x="-15.5" y="6.6">AC / DC - VSC</text>
-                    <text class="sld-label" id="idvsc_95_N_95_LABEL" x="-5.0" y="-7.0">C_hvdc</text>
+                    <text class="sld-label" id="idvsc_95_N_95_LABEL" x="-5.0" y="-5.0">C_hvdc</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -308,7 +308,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-0" id="iddl1" transform="translate(115.0,424.0)">
-                    <text class="sld-label" id="iddl1_95_S_95_LABEL" x="-5.0" y="11.0">C_dl1</text>
+                    <text class="sld-label" id="iddl1_95_S_95_LABEL" x="-5.0" y="5.0">C_dl1</text>
                 </g>
             </g>
         </g>

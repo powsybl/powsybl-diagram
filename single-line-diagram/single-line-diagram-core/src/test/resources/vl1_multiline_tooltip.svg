@@ -195,7 +195,7 @@
                 <title>vl1_load1
 LOAD</title>
                 <use href="#LOAD"/>
-                <text class="sld-label" id="idvl1_95_load1_95__95_LABEL" x="-5.0" y="-5.0">vl1_load1</text>
+                <text class="sld-label" id="idvl1_95_load1_95_LABEL" x="-5.0" y="-5.0">vl1_load1</text>
             </g>
             <g class="sld-breaker sld-closed" id="idvl1_95_bload1" transform="translate(70.0,190.0)">
                 <title>vl1_bload1</title>
@@ -212,7 +212,7 @@ LOAD</title>
 TWO_WINDINGS_TRANSFORMER</title>
                 <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
                 <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
-                <text class="sld-label" id="idvl1_95_trf1_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
+                <text class="sld-label" id="idvl1_95_trf1_95_LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
             </g>
             <g class="sld-breaker sld-closed" id="idvl1_95_btrf1" transform="translate(110.0,410.0)">
                 <title>vl1_btrf1</title>
@@ -225,10 +225,10 @@ TWO_WINDINGS_TRANSFORMER</title>
                 <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             </g>
             <g id="idvl1_95_trf2_95_one" transform="translate(400.0,100.0)">
-                <text class="sld-label" id="idvl1_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
+                <text class="sld-label" id="idvl1_95_trf2_95_one_95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
             </g>
             <g id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
-                <text class="sld-label" id="idvl1_95_trf2_95_two_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
+                <text class="sld-label" id="idvl1_95_trf2_95_two_95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
             </g>
             <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(432.0,148.0)">
                 <title>vl1_trf2</title>
