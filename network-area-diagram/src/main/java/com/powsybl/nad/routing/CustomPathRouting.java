@@ -7,7 +7,14 @@
  */
 package com.powsybl.nad.routing;
 
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.TextEdge;
+import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.utils.RadiusUtils;
 
@@ -41,8 +48,8 @@ public class CustomPathRouting extends StraightEdgeRouting {
         VoltageLevelNode voltageLevelNode1 = graph.getVoltageLevelNode1(edge);
         VoltageLevelNode voltageLevelNode2 = graph.getVoltageLevelNode2(edge);
 
-        Point edgeStart1 = computeEdgeStart(node1, customPoints.get(0), voltageLevelNode1, svgParameters);
-        Point edgeStart2 = computeEdgeStart(node2, customPoints.get(customPoints.size() - 1), voltageLevelNode2, svgParameters);
+        Point edgeStart1 = computeEdgeStart(node1, customPoints.getFirst(), voltageLevelNode1, svgParameters);
+        Point edgeStart2 = computeEdgeStart(node2, customPoints.getLast(), voltageLevelNode2, svgParameters);
 
         List<Point> allPoints = new ArrayList<>();
         allPoints.add(edgeStart1);
@@ -107,11 +114,11 @@ public class CustomPathRouting extends StraightEdgeRouting {
             return;
         }
 
-        textNode.setEdgeConnection(customPoints.get(customPoints.size() - 1));
+        textNode.setEdgeConnection(customPoints.getLast());
 
         List<Point> allPoints = new ArrayList<>();
         double circleRadius = RadiusUtils.getVoltageLevelCircleRadius(voltageLevelNode, svgParameters);
-        allPoints.add(voltageLevelNode.getPosition().atDistance(circleRadius, customPoints.get(0)));
+        allPoints.add(voltageLevelNode.getPosition().atDistance(circleRadius, customPoints.getFirst()));
         allPoints.addAll(customPoints);
         edge.setPoints(allPoints.toArray(new Point[0]));
     }

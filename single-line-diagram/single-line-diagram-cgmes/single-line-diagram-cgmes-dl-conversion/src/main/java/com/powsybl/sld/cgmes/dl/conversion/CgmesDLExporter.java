@@ -30,9 +30,9 @@ public class CgmesDLExporter {
     private static final Logger LOG = LoggerFactory.getLogger(CgmesDLExporter.class);
     public static final String MD_NAMESPACE = "http://iec.ch/TC57/61970-552/ModelDescription/1#";
 
-    private Network network;
-    private TripleStore tripleStore;
-    private CgmesDLModel cgmesDLModel;
+    private final Network network;
+    private final TripleStore tripleStore;
+    private final CgmesDLModel cgmesDLModel;
 
     public CgmesDLExporter(Network network, TripleStore tripleStore, CgmesDLModel cgmesDLModel) {
         this.network = Objects.requireNonNull(network);
@@ -88,25 +88,25 @@ public class CgmesDLExporter {
     }
 
     private void addNamespaces(ExportContext context) {
-        if (!namespaceAlreadyExist("data")) {
+        if (namespaceDoesNotExist("data")) {
             tripleStore.addNamespace("data", context.getBaseNamespace());
         }
-        if (!namespaceAlreadyExist("cim")) {
+        if (namespaceDoesNotExist("cim")) {
             tripleStore.addNamespace("cim", CgmesNamespace.CIM_16_NAMESPACE);
         }
-        if (!namespaceAlreadyExist("md")) {
+        if (namespaceDoesNotExist("md")) {
             tripleStore.addNamespace("md", MD_NAMESPACE);
         }
     }
 
-    private boolean namespaceAlreadyExist(String prefix) {
-        return tripleStore.getNamespaces().stream().map(PrefixNamespace::getPrefix).anyMatch(prefix::equals);
+    private boolean namespaceDoesNotExist(String prefix) {
+        return tripleStore.getNamespaces().stream().map(PrefixNamespace::getPrefix).noneMatch(prefix::equals);
     }
 
     private void addModel(ExportContext context) {
-        PropertyBag modelProperties = new PropertyBag(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, "" +
-                CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON), true);
-        modelProperties.setResourceNames(Arrays.asList(CgmesDLModel.MODEL_DEPENDENT_ON));
+        PropertyBag modelProperties = new PropertyBag(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION,
+            CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON), true);
+        modelProperties.setResourceNames(List.of(CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.MODEL_SCENARIO_TIME, CgmesDLModel.MODEL_CREATED, CgmesDLModel.MODEL_DESCRIPTION, CgmesDLModel.MODEL_VERSION, CgmesDLModel.MODEL_PROFILE, CgmesDLModel.MODEL_DEPENDENT_ON));
         modelProperties.put(CgmesDLModel.MODEL_SCENARIO_TIME, network.getCaseDate().toString());
         modelProperties.put(CgmesDLModel.MODEL_CREATED, new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date()));
@@ -120,8 +120,8 @@ public class CgmesDLExporter {
     private void addDiagrams(ExportContext context) {
         NetworkDiagramData.getDiagramsNames(network).forEach(diagramName -> {
             PropertyBag diagramObjectProperties = new PropertyBag(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME, CgmesDLModel.ORIENTATION), true);
-            diagramObjectProperties.setResourceNames(Arrays.asList(CgmesDLModel.ORIENTATION));
-            diagramObjectProperties.setClassPropertyNames(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME));
+            diagramObjectProperties.setResourceNames(List.of(CgmesDLModel.ORIENTATION));
+            diagramObjectProperties.setClassPropertyNames(List.of(CgmesDLModel.IDENTIFIED_OBJECT_NAME));
             diagramObjectProperties.put(CgmesDLModel.IDENTIFIED_OBJECT_NAME, diagramName);
             diagramObjectProperties.put(CgmesDLModel.ORIENTATION, CgmesNamespace.CIM_16_NAMESPACE + "OrientationKind.negative");
             String diagramId = tripleStore.add(context.getDlContext(), CgmesNamespace.CIM_16_NAMESPACE, "Diagram", diagramObjectProperties);
@@ -133,16 +133,15 @@ public class CgmesDLExporter {
         LOG.info("Exporting Nodes DL Data");
         network.getVoltageLevelStream().forEach(voltageLavel -> {
             switch (voltageLavel.getTopologyKind()) {
-                case NODE_BREAKER:
+                case NODE_BREAKER -> {
                     BusbarDiagramDataExporter busbarDiagramDataExporter = new BusbarDiagramDataExporter(tripleStore, context, busbarNodes);
                     voltageLavel.getNodeBreakerView().getBusbarSectionStream().forEach(busbarDiagramDataExporter::exportDiagramData);
-                    break;
-                case BUS_BREAKER:
+                }
+                case BUS_BREAKER -> {
                     BusDiagramDataExporter busDiagramDataExporter = new BusDiagramDataExporter(tripleStore, context);
                     voltageLavel.getBusBreakerView().getBusStream().forEach(busDiagramDataExporter::exportDiagramData);
-                    break;
-                default:
-                    throw new AssertionError("Unexpected topology kind: " + voltageLavel.getTopologyKind());
+                }
+                default -> throw new AssertionError("Unexpected topology kind: " + voltageLavel.getTopologyKind());
             }
         });
     }

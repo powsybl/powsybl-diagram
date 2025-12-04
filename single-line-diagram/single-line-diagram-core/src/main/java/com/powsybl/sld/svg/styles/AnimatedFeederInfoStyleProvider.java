@@ -38,8 +38,7 @@ public class AnimatedFeederInfoStyleProvider extends EmptyStyleProvider {
     @Override
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info));
-        if (info instanceof DirectionalFeederInfo) {
-            DirectionalFeederInfo feederInfo = (DirectionalFeederInfo) info;
+        if (info instanceof DirectionalFeederInfo feederInfo) {
             feederInfo.getRightLabel().ifPresent(label -> {
                 double value = Math.abs(feederInfo.getValue());
                 if (!Double.isNaN(value) && value > 0) {

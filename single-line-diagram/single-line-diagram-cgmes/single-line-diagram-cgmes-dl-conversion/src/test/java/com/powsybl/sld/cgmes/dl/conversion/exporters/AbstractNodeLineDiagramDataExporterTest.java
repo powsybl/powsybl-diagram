@@ -14,7 +14,6 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractNodeLineDiagramDataExporterTest extends AbstractCgmesDLExporterTest {
