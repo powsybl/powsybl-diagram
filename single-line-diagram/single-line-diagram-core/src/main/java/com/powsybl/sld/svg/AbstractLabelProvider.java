@@ -105,7 +105,15 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         double angle = 0;
         if (direction != UNDEFINED) {
-            yShift = (direction == TOP ? -layoutParameters.getMaxComponentHeight() : layoutParameters.getMaxComponentHeight()) + (componentLibrary.getSize(node.getComponentType()).getHeight() / 2);
+            // The node position is at the top-left position of the corresponding component.
+            // We first shift to half the component height to be back at the center of the component, knowing that
+            // all the FeederNode centers are on the same horizontal line.
+            yShift = componentLibrary.getSize(node.getComponentType()).getHeight() / 2;
+            // Then we add a shift of half the max component height to be above all feeder components.
+            yShift += (direction == TOP ? -1 : 1) * layoutParameters.getMaxComponentHeight() / 2;
+            // And finally we add an offset to be slightly above a component whose height is equal to the max height
+            yShift += (direction == TOP ? -1 : 1) * LABEL_OFFSET;
+
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();

@@ -123,7 +123,7 @@
                 <g class="sld-two-wt sld-top-feeder" id="id2WT_95_TWO" transform="translate(75.0,72.5)">
                     <circle class="sld-vl180to300 sld-winding" cx="5" cy="10" r="5"/>
                     <circle class="sld-vl300to500 sld-winding" cx="5" cy="5" r="5"/>
-                    <text class="sld-label" id="id2WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-4.5">2WT_2</text>
+                    <text class="sld-label" id="id2WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-3.5">2WT_2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
@@ -159,10 +159,10 @@
                     <circle class="sld-vl180to300 sld-winding" cx="8" cy="19" r="5"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300" id="id3WT_95_ONE" transform="translate(160.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">3WT_2</text>
+                    <text class="sld-label" id="id3WT_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">3WT_2</text>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300" id="id3WT_95_THREE" transform="translate(240.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-12.0">3WT_2</text>
+                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-11.0">3WT_2</text>
                 </g>
             </g>
         </g>

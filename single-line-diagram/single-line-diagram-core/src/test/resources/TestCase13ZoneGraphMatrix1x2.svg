@@ -190,7 +190,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idA_32__45__32_B_95_TWO" transform="translate(135.0,165.0)">
-                    <text class="sld-label" id="idA_32__45__32_B_95_TWO_95_N_95_LABEL" x="-5.0" y="-12.0">A - B</text>
+                    <text class="sld-label" id="idA_32__45__32_B_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">A - B</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -223,7 +223,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idB_32__45__32_C_95_ONE" transform="translate(185.0,509.0)">
-                    <text class="sld-label" id="idB_32__45__32_C_95_ONE_95_S_95_LABEL" x="-5.0" y="12.0">B - C</text>
+                    <text class="sld-label" id="idB_32__45__32_C_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">B - C</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -257,7 +257,7 @@
                 </g>
                 <g class="sld-vsc sld-top-feeder sld-vl180to300 sld-bus-0" id="idConverter2" transform="translate(227.0,161.0)">
                     <text x="-15.5" y="6.6">AC / DC - VSC</text>
-                    <text class="sld-label" id="idConverter2_95_N_95_LABEL" x="-5.0" y="-8.0">Converter2</text>
+                    <text class="sld-label" id="idConverter2_95_N_95_LABEL" x="-5.0" y="-7.0">Converter2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -290,7 +290,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl180to300 sld-bus-0" id="idA230_95_B230_95_TWO" transform="translate(285.0,509.0)">
-                    <text class="sld-label" id="idA230_95_B230_95_TWO_95_S_95_LABEL" x="-5.0" y="12.0">A230_B230</text>
+                    <text class="sld-label" id="idA230_95_B230_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">A230_B230</text>
                 </g>
             </g>
         </g>
@@ -332,7 +332,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300 sld-bus-1" id="idC_32_230_32_66_95_ONE" transform="translate(465.0,180.0)">
-                    <text class="sld-label" id="idC_32_230_32_66_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">C 230 66</text>
+                    <text class="sld-label" id="idC_32_230_32_66_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">C 230 66</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -365,7 +365,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idB_32__45__32_C_95_TWO" transform="translate(515.0,524.0)">
-                    <text class="sld-label" id="idB_32__45__32_C_95_TWO_95_S_95_LABEL" x="-5.0" y="12.0">B - C</text>
+                    <text class="sld-label" id="idB_32__45__32_C_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">B - C</text>
                 </g>
             </g>
         </g>
@@ -407,7 +407,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl50to70 sld-bus-0" id="idC_32_230_32_66_95_TWO" transform="translate(605.0,180.0)">
-                    <text class="sld-label" id="idC_32_230_32_66_95_TWO_95_N_95_LABEL" x="-5.0" y="-12.0">C 230 66</text>
+                    <text class="sld-label" id="idC_32_230_32_66_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">C 230 66</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -440,7 +440,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idC_32_66_32_20_95_ONE" transform="translate(655.0,524.0)">
-                    <text class="sld-label" id="idC_32_66_32_20_95_ONE_95_S_95_LABEL" x="-5.0" y="12.0">C 66 20</text>
+                    <text class="sld-label" id="idC_32_66_32_20_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">C 66 20</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -473,7 +473,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idC_32__45__32_D_95_ONE" transform="translate(705.0,180.0)">
-                    <text class="sld-label" id="idC_32__45__32_D_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">C - D</text>
+                    <text class="sld-label" id="idC_32__45__32_D_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">C - D</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -506,7 +506,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idC66_32__45__32_D" transform="translate(755.0,524.0)">
-                    <text class="sld-label" id="idC66_32__45__32_D_95_S_95_LABEL" x="-5.0" y="12.0">C66 - D</text>
+                    <text class="sld-label" id="idC66_32__45__32_D_95_S_95_LABEL" x="-5.0" y="11.0">C66 - D</text>
                 </g>
             </g>
         </g>
@@ -548,7 +548,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl0to30 sld-bus-0" id="idC_32_66_32_20_95_TWO" transform="translate(845.0,180.0)">
-                    <text class="sld-label" id="idC_32_66_32_20_95_TWO_95_N_95_LABEL" x="-5.0" y="-12.0">C 66 20</text>
+                    <text class="sld-label" id="idC_32_66_32_20_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">C 66 20</text>
                 </g>
             </g>
         </g>

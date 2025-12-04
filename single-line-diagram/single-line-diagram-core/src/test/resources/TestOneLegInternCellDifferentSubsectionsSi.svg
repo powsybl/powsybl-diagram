@@ -225,7 +225,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-7.5">load1</text>
+                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-6.5">load1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -262,7 +262,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-7.5">load2</text>
+                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-6.5">load2</text>
                 </g>
             </g>
         </g>

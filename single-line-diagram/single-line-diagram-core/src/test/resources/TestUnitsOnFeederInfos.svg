@@ -125,7 +125,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idB5_45_L_95_N_95_LABEL" x="-5.0" y="-7.5">B5-L</text>
+                    <text class="sld-label" id="idB5_45_L_95_N_95_LABEL" x="-5.0" y="-6.5">B5-L</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -163,7 +163,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder" id="idL7_45_5_45_0_95_TWO" transform="translate(115.0,424.0)">
-                    <text class="sld-label" id="idL7_45_5_45_0_95_TWO_95_S_95_LABEL" x="-5.0" y="12.0">L7-5-0</text>
+                    <text class="sld-label" id="idL7_45_5_45_0_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">L7-5-0</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -201,7 +201,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idL5_45_4_45_0_95_ONE" transform="translate(165.0,80.0)">
-                    <text class="sld-label" id="idL5_45_4_45_0_95_ONE_95_N_95_LABEL" x="-5.0" y="-12.0">L5-4-0</text>
+                    <text class="sld-label" id="idL5_45_4_45_0_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">L5-4-0</text>
                 </g>
             </g>
         </g>
