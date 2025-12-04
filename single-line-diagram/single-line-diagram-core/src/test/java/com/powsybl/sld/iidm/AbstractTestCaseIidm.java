@@ -19,7 +19,6 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultLabelProvider;
 import com.powsybl.sld.svg.DefaultSVGLegendWriter;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import com.powsybl.sld.svg.styles.StyleProvidersList;

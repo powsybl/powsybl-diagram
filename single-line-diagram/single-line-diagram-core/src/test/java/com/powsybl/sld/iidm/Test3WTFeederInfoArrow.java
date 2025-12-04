@@ -48,7 +48,7 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
         labelProvider.setDisplayArrowForCurrent(true);
         labelProvider.setDisplayPermanentLimitPercentage(true);
 
-        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
 
     }
 

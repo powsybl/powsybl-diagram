@@ -146,7 +146,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -176,19 +176,21 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
     void testBuildFeederInfosWithCurrent() {
-        Network network = IeeeCdfNetworkFactory.create9();
-        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
-        DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
-        labelProvider.setDisplayCurrent(true);
-        labelProvider.setDisplayArrowForCurrent(true);
-        labelProvider.setDisplayPermanentLimitPercentage(true);
-        List<FeederInfo> feederInfoList = labelProvider.getFeederInfos(g.getFeederNodes().get(0));
+        List<FeederInfo> feederInfoList = getFeederInfoList(true, false);
+        assertEquals(3, feederInfoList.size());
+        assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
+        assertEquals(VALUE_CURRENT, feederInfoList.get(2).getComponentType());
+    }
 
+    @Test
+    void testBuildFeederInfosWithArrowForCurrent() {
+        List<FeederInfo> feederInfoList = getFeederInfoList(true, true);
         assertEquals(3, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
@@ -197,12 +199,20 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
     @Test
     void testBuildFeederInfosWithoutCurrent() {
-        Network network = IeeeCdfNetworkFactory.create9();
-        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
-        List<FeederInfo> feederInfoList = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters).getFeederInfos(g.getFeederNodes().get(0));
+        List<FeederInfo> feederInfoList = getFeederInfoList(false, false);
         assertEquals(2, feederInfoList.size());
         assertEquals(ARROW_ACTIVE, feederInfoList.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfoList.get(1).getComponentType());
+    }
+
+    List<FeederInfo> getFeederInfoList(boolean displayCurrent, boolean displayArrowForCurrent) {
+        Network network = IeeeCdfNetworkFactory.create9();
+        VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
+        DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
+        labelProvider.setDisplayCurrent(displayCurrent);
+        labelProvider.setDisplayArrowForCurrent(displayArrowForCurrent);
+        labelProvider.setDisplayPermanentLimitPercentage(displayCurrent);
+        return labelProvider.getFeederInfos(g.getFeederNodes().get(0));
     }
 
     @Test
@@ -290,6 +300,6 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
-        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new NominalVoltageStyleProvider(), new DefaultSVGLegendWriter(network, svgParameters)));
+        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider(), new DefaultSVGLegendWriter(network, svgParameters)));
     }
 }
