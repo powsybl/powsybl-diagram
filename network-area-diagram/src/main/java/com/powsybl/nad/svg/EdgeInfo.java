@@ -77,6 +77,10 @@ public class EdgeInfo {
         return Optional.ofNullable(label2);
     }
 
+    /**
+     * Returns the main info type.
+     * @return the main info type. By default, the info type of the side 2.
+     */
     public String mainInfoType() {
         return infoType2 != null ? infoType2 : infoType1;
     }
