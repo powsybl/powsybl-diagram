@@ -106,7 +106,7 @@ public class DefaultLabelProvider implements LabelProvider {
             Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
             String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
-            return isDisplayAngle() ? voltage + " / " + angle : voltage;
+            return this.displayAngle ? voltage + " / " + angle : voltage;
         }
         return null;
     }
@@ -149,10 +149,6 @@ public class DefaultLabelProvider implements LabelProvider {
 
     protected ValueFormatter getValueFormatter() {
         return this.valueFormatter;
-    }
-
-    public boolean isDisplayAngle() {
-        return this.displayAngle;
     }
 
     public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {

@@ -108,9 +108,4 @@ public class NadParameters {
         this.edgeRouting = edgeRouting;
         return this;
     }
-
-    public NadParameters setDisplayAngle(boolean displayAngle) {
-        this.labelProviderFactory = (net, svgParams) -> new DefaultLabelProvider(net, svgParams).setDisplayAngle(displayAngle);
-        return this;
-    }
 }
