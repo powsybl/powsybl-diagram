@@ -591,7 +591,7 @@ public class SvgWriter {
             drawEdgeInfo(writer, svgEdgeInfo, point, edgeAngle);
         } else {
             String label = edgeInfo.getLabel2().orElse(edgeInfo.getLabel1().orElse(null));
-            labelDrawer.draw(writer, svgEdgeInfo, point, edge, label, styleProvider.getEdgeInfoStyleClasses(edgeInfo.mainInfoType()));
+            labelDrawer.draw(writer, svgEdgeInfo, point, edge, label, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getMainInfoType()));
         }
     }
 
@@ -676,10 +676,10 @@ public class SvgWriter {
             writer.writeEmptyElement(PATH_ELEMENT_NAME);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getRotateString(rotationAngle));
             if (direction.get() == EdgeInfo.Direction.IN) {
-                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo.mainInfoType()), StyleProvider.ARROW_IN_CLASS);
+                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getMainInfoType()), StyleProvider.ARROW_IN_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathIn());
             } else if (direction.get() == EdgeInfo.Direction.OUT) {
-                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo.mainInfoType()), StyleProvider.ARROW_OUT_CLASS);
+                writeStyleClasses(writer, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getMainInfoType()), StyleProvider.ARROW_OUT_CLASS);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, svgParameters.getArrowPathOut());
             }
         }

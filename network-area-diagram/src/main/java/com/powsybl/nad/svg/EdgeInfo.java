@@ -81,7 +81,7 @@ public class EdgeInfo {
      * Returns the main info type.
      * @return the main info type. By default, the info type of the side 2.
      */
-    public String mainInfoType() {
+    public String getMainInfoType() {
         return infoType2 != null ? infoType2 : infoType1;
     }
 
