@@ -119,17 +119,17 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -554px; left: 175px" id="1" class="nad-vl0to30 nad-label-box">
                 <div>VL_11</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>11.8 kV / -15.2°</div>
+                    <span class="nad-legend-square"></span>11.8 kV / -15.2°</div>
             </div>
             <div style="position: absolute; top: 8px; left: -272px" id="5" class="nad-vl120to180 nad-label-box">
                 <div>VL_132</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>133.6 kV / -9.6°</div>
+                    <span class="nad-legend-square"></span>133.6 kV / -9.6°</div>
             </div>
             <div style="position: absolute; top: 165px; left: 280px" id="9" class="nad-vl30to50 nad-label-box">
                 <div>VL_33</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>34.9 kV / -15.2°</div>
+                    <span class="nad-legend-square"></span>34.9 kV / -15.2°</div>
             </div>
         </div>
     </foreignObject>
