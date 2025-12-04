@@ -16,6 +16,4 @@ import org.w3c.dom.Element;
  */
 public interface SVGLegendWriter {
     void drawLegend(VoltageLevelGraph graph, GraphMetadata metadata, StyleProvider styleProvider, Element legendRootElement, double positionX, double positionY);
-
-    void addLegendMetadataInfos(VoltageLevelGraph graph, GraphMetadata metadata);
 }

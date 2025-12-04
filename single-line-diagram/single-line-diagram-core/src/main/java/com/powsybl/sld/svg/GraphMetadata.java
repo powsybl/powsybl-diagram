@@ -16,10 +16,15 @@ import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
+import com.powsybl.sld.library.AnchorOrientation;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.SldComponent;
 import com.powsybl.sld.model.coordinate.Direction;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -327,21 +332,6 @@ public class GraphMetadata extends AbstractMetadata {
         }
     }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class BusLegendInfoMetadata {
-
-        private final String id;
-
-        @JsonCreator
-        public BusLegendInfoMetadata(@JsonProperty("id") String id) {
-            this.id = Objects.requireNonNull(id);
-        }
-
-        public String getId() {
-            return id;
-        }
-    }
-
     private final Map<String, SldComponent> componentByType = new HashMap<>();
 
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
@@ -355,12 +345,10 @@ public class GraphMetadata extends AbstractMetadata {
 
     private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
-    private final Map<String, BusLegendInfoMetadata> busLegendInfoMetadataMap = new HashMap<>();
-
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
     }
 
     @JsonCreator
@@ -369,7 +357,6 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
-                         @JsonProperty("busLegendInfos") List<BusLegendInfoMetadata> busLegendInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
                          @JsonProperty("svgParams") SvgParameters svgParams) {
@@ -387,9 +374,6 @@ public class GraphMetadata extends AbstractMetadata {
         }
         for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
             addFeederInfoMetadata(feederInfoMetadata);
-        }
-        for (BusLegendInfoMetadata busLegendInfoMetadata : busLegendInfoMetadataList) {
-            addBusLegendInfoMetadata(busLegendInfoMetadata);
         }
         for (BusInfoMetadata busInfoMetadata : busInfoMetadataList) {
             addBusInfoMetadata(busInfoMetadata);
@@ -519,26 +503,6 @@ public class GraphMetadata extends AbstractMetadata {
     @JsonProperty("busInfos")
     public List<BusInfoMetadata> getBusInfoMetadata() {
         return ImmutableList.copyOf(busInfoMetadataMap.values());
-    }
-
-    public void addBusLegendInfosMetadata(List<BusLegendInfoMetadata> metadataInfos) {
-        Objects.requireNonNull(metadataInfos);
-        metadataInfos.forEach(metadata -> busLegendInfoMetadataMap.put(metadata.getId(), metadata));
-    }
-
-    public void addBusLegendInfoMetadata(BusLegendInfoMetadata metadata) {
-        Objects.requireNonNull(metadata);
-        busLegendInfoMetadataMap.put(metadata.getId(), metadata);
-    }
-
-    public BusLegendInfoMetadata getBusLegendInfoMetadata(String id) {
-        Objects.requireNonNull(id);
-        return busLegendInfoMetadataMap.get(id);
-    }
-
-    @JsonProperty("busLegendInfos")
-    public List<BusLegendInfoMetadata> getBusLegendInfoMetadata() {
-        return ImmutableList.copyOf(busLegendInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

@@ -1172,6 +1172,5 @@ public class DefaultSVGWriter implements SVGWriter {
         double xPos = graph.getX() + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         legendWriter.drawLegend(graph, metadata, styleProvider, legendRootElement, xPos, yPos);
-        legendWriter.addLegendMetadataInfos(graph, metadata);
     }
 }
