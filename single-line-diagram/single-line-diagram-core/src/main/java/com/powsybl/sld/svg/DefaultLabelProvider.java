@@ -33,9 +33,9 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
-    private boolean displayCurrentFeederInfo = false;
-    private boolean displayArrowForCurrentFeederInfo = true;
-    private boolean displayPermanentLimitPercentageFeederInfo = false;
+    private boolean displayCurrent = false;
+    private boolean displayArrowForCurrent = true;
+    private boolean displayPermanentLimitPercentage = false;
 
     protected final Network network;
 
@@ -201,16 +201,16 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private List<FeederInfo> getBranchFeederInfos(Branch<?> branch, TwoSides side) {
         List<FeederInfo> feederInfoList = buildFeederInfos(branch.getTerminal(side), true);
-        if (this.isDisplayPermanentLimitPercentageFeederInfo()) {
-            feederInfoList.add(new EdgeFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, false, getPermanentLimitPercentageMax(branch), valueFormatter::formatPercentage));
+        if (this.displayPermanentLimitPercentage) {
+            feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(branch), valueFormatter::formatPercentage));
         }
         return feederInfoList;
     }
 
     private List<FeederInfo> get3WTFeederInfos(ThreeWindingsTransformer transformer, ThreeSides side, boolean insideVoltageLevel) {
         List<FeederInfo> feederInfoList = buildFeederInfos(transformer.getTerminal(side), insideVoltageLevel);
-        if (this.isDisplayPermanentLimitPercentageFeederInfo()) {
-            feederInfoList.add(new EdgeFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, false, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
+        if (this.displayPermanentLimitPercentage) {
+            feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
         }
         return feederInfoList;
     }
@@ -241,36 +241,27 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             terminalQ = -terminalQ;
             terminalI = -terminalI;
         }
-        feederInfoList.add(new EdgeFeederInfo(ARROW_ACTIVE, true, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
-        feederInfoList.add(new EdgeFeederInfo(ARROW_REACTIVE, true, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
-        if (this.isDisplayCurrentFeederInfo()) {
-            boolean isDirectional = this.isDisplayArrowForCurrentFeederInfo();
-            feederInfoList.add(new EdgeFeederInfo(isDirectional ? ARROW_CURRENT : VALUE_CURRENT, isDirectional, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
+        feederInfoList.add(new ValueFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
+        feederInfoList.add(new ValueFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
+        if (this.displayCurrent) {
+            if (this.displayArrowForCurrent) {
+                feederInfoList.add(new ValueFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
+            } else {
+                feederInfoList.add(new ValueFeederInfo(VALUE_CURRENT, LabelDirection.NONE, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
+            }
         }
         return feederInfoList;
     }
 
-    public void setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
-        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
+    public void setDisplayCurrent(boolean displayCurrent) {
+        this.displayCurrent = displayCurrent;
     }
 
-    public boolean isDisplayCurrentFeederInfo() {
-        return this.displayCurrentFeederInfo;
+    public void setDisplayArrowForCurrent(boolean displayArrowForCurrent) {
+        this.displayArrowForCurrent = displayArrowForCurrent;
     }
 
-    public void setDisplayArrowForCurrentFeederInfo(boolean displayArrowForCurrentFeederInfo) {
-        this.displayArrowForCurrentFeederInfo = displayArrowForCurrentFeederInfo;
-    }
-
-    public boolean isDisplayArrowForCurrentFeederInfo() {
-        return this.displayArrowForCurrentFeederInfo;
-    }
-
-    public void setDisplayPermanentLimitPercentageFeederInfo(boolean displayPermanentLimitPercentageFeederInfo) {
-        this.displayPermanentLimitPercentageFeederInfo = displayPermanentLimitPercentageFeederInfo;
-    }
-
-    public boolean isDisplayPermanentLimitPercentageFeederInfo() {
-        return this.displayPermanentLimitPercentageFeederInfo;
+    public void setDisplayPermanentLimitPercentage(boolean displayPermanentLimitPercentage) {
+        this.displayPermanentLimitPercentage = displayPermanentLimitPercentage;
     }
 }

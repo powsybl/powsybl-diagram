@@ -43,8 +43,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class TestFeederInfos extends AbstractTestCaseIidm {
 
-    protected VoltageLevel vl2;
-
     @BeforeEach
     public void setUp() {
         network = Network.create("testCase14", "test");
@@ -53,7 +51,7 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         vl = Networks.createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380);
 
         Substation substation2 = Networks.createSubstation(network, "s2", "s2", Country.FR);
-        vl2 = Networks.createVoltageLevel(substation2, "vl2", "vl2", TopologyKind.NODE_BREAKER, 380);
+        VoltageLevel vl2 = Networks.createVoltageLevel(substation2, "vl2", "vl2", TopologyKind.NODE_BREAKER, 380);
 
         Networks.createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
         Networks.createBusBarSection(vl2, "bbs2", "bbs2", 5, 1, 1);
@@ -88,14 +86,14 @@ class TestFeederInfos extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new EdgeFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
-                        new EdgeFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                        new EdgeFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
-                        new EdgeFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
-                        new EdgeFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
-                        new EdgeFeederInfo(ARROW_CURRENT, 12.34567, valueFormatter::formatCurrent),
-                        new EdgeFeederInfo(VALUE_CURRENT, false, 123.456789, valueFormatter::formatCurrent),
-                        new EdgeFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, false, 30, valueFormatter::formatPercentage));
+                        new ValueFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
+                        new ValueFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                        new ValueFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
+                        new ValueFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
+                        new ValueFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null),
+                        new ValueFeederInfo(ARROW_CURRENT, 12.34567, valueFormatter::formatCurrent),
+                        new ValueFeederInfo(VALUE_CURRENT, LabelDirection.NONE, 123.456789, valueFormatter::formatCurrent),
+                        new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, 30, valueFormatter::formatPercentage));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -109,9 +107,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
             }
 
         };
-        labelManyFeederInfoProvider.setDisplayCurrentFeederInfo(true);
-        labelManyFeederInfoProvider.setDisplayArrowForCurrentFeederInfo(true);
-        labelManyFeederInfoProvider.setDisplayPermanentLimitPercentageFeederInfo(true);
+        labelManyFeederInfoProvider.setDisplayCurrent(true);
+        labelManyFeederInfoProvider.setDisplayArrowForCurrent(true);
+        labelManyFeederInfoProvider.setDisplayPermanentLimitPercentage(true);
 
 // write SVG and compare to reference
         assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelManyFeederInfoProvider, new BasicStyleProvider()));
@@ -125,17 +123,17 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setCurrentValuePrecision(0)
                 .setPercentageValuePrecision(1);
         DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
-        labelProvider.setDisplayCurrentFeederInfo(true);
-        labelProvider.setDisplayArrowForCurrentFeederInfo(true);
-        labelProvider.setDisplayPermanentLimitPercentageFeederInfo(true);
+        labelProvider.setDisplayCurrent(true);
+        labelProvider.setDisplayArrowForCurrent(true);
+        labelProvider.setDisplayPermanentLimitPercentage(true);
 
         // build graph
         network.getLoad("l").getTerminal().setP(100).setQ(10);
         network.getLine("line").getTerminal1().setP(100).setQ(10).connect();
         network.getLine("line").getTerminal2().setP(90).setQ(10).connect();
 
-        network.getLine("line").getTerminal1().getBusView().getBus().setV(vl.getNominalV());
-        network.getLine("line").getTerminal2().getBusView().getBus().setV(vl2.getNominalV());
+        network.getLine("line").getTerminal1().getBusView().getBus().setV(380);
+        network.getLine("line").getTerminal2().getBusView().getBus().setV(380);
 
         network.getLine("line").getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
         network.getLine("line").getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits().setPermanentLimit(200).add();
@@ -157,17 +155,17 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         network.getLine("line").getTerminal1().setP(1010).setQ(-10).connect();
         network.getLine("line").getTerminal2().setP(10).setQ(10).connect();
 
-        network.getLine("line").getTerminal1().getBusView().getBus().setV(vl.getNominalV());
-        network.getLine("line").getTerminal2().getBusView().getBus().setV(vl2.getNominalV());
+        network.getLine("line").getTerminal1().getBusView().getBus().setV(380);
+        network.getLine("line").getTerminal2().getBusView().getBus().setV(380);
 
         svgParameters.setLanguageTag("fr")
                 .setPowerValuePrecision(1)
                 .setCurrentValuePrecision(1)
                 .setPercentageValuePrecision(0);
         DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
-        labelProvider.setDisplayCurrentFeederInfo(true);
-        labelProvider.setDisplayArrowForCurrentFeederInfo(true);
-        labelProvider.setDisplayPermanentLimitPercentageFeederInfo(true);
+        labelProvider.setDisplayCurrent(true);
+        labelProvider.setDisplayArrowForCurrent(true);
+        labelProvider.setDisplayPermanentLimitPercentage(true);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -184,9 +182,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         Network network = IeeeCdfNetworkFactory.create9();
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
-        labelProvider.setDisplayCurrentFeederInfo(true);
-        labelProvider.setDisplayArrowForCurrentFeederInfo(true);
-        labelProvider.setDisplayPermanentLimitPercentageFeederInfo(true);
+        labelProvider.setDisplayCurrent(true);
+        labelProvider.setDisplayArrowForCurrent(true);
+        labelProvider.setDisplayPermanentLimitPercentage(true);
         List<FeederInfo> feederInfoList = labelProvider.getFeederInfos(g.getFeederNodes().get(0));
 
         assertEquals(3, feederInfoList.size());
@@ -230,13 +228,13 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
                 if (Objects.equals(l.getNameOrId(), node.getEquipmentId())) {
                     return Arrays.asList(
-                            new EdgeFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
-                            new EdgeFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
+                            new ValueFeederInfo(ARROW_ACTIVE, l.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new ValueFeederInfo(ARROW_REACTIVE, l.getTerminal().getQ(), valueFormatter::formatPower, null));
                 } else {
                     return Arrays.asList(
-                            new EdgeFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
-                            new EdgeFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
-                            new EdgeFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
+                            new ValueFeederInfo(ARROW_ACTIVE, l2.getTerminal().getP(), valueFormatter::formatPower, null),
+                            new ValueFeederInfo(ARROW_REACTIVE, l2.getTerminal().getQ(), valueFormatter::formatPower, null),
+                            new ValueFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
                             new FeederInfo() {
                                 @Override
                                 public String getUserDefinedId() {
@@ -284,9 +282,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
                 .setReactivePowerUnit("MVAR")
                 .setCurrentUnit("A");
         DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters);
-        labelProvider.setDisplayCurrentFeederInfo(true);
-        labelProvider.setDisplayArrowForCurrentFeederInfo(true);
-        labelProvider.setDisplayPermanentLimitPercentageFeederInfo(true);
+        labelProvider.setDisplayCurrent(true);
+        labelProvider.setDisplayArrowForCurrent(true);
+        labelProvider.setDisplayPermanentLimitPercentage(true);
 
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);

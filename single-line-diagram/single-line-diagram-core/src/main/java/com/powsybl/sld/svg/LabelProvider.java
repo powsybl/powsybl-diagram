@@ -77,7 +77,7 @@ public interface LabelProvider {
     }
 
     enum LabelDirection {
-        OUT, IN;
+        OUT, IN, NONE;
     }
 
     List<FeederInfo> getFeederInfos(FeederNode node);
