@@ -139,57 +139,41 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <g id="8">
             <path class="nad-vl300to500 nad-edge-path" d="M-78.74,-211.28 L-122.53,-240.24 C-155.89,-262.31 -145.17,-285.63 -109.37,-303.48"/>
             <path class="nad-vl300to500 nad-edge-path" d="M-54.13,-223.55 L-50.94,-275.96 C-48.51,-315.88 -73.58,-321.34 -109.37,-303.48"/>
-            <g>
-                <g class="nad-edge-label" transform="translate(-109.37,-303.48)">
-                    <text transform="rotate(-26.51)" x="0.00" style="text-anchor:middle">L2</text>
-                </g>
-            </g>
         </g>
-        <g id="11">
+        <g id="12">
             <polyline class="nad-vl300to500 nad-edge-path" points="-82.52,-189.59 -133.53,-177.16 -216.16,-98.22"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-313.53,31.12 -298.79,-19.27 -216.16,-98.22"/>
-            <g>
-                <g class="nad-edge-label" transform="translate(-216.16,-98.22)">
-                    <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">L1</text>
-                </g>
-            </g>
         </g>
-        <g id="14">
+        <g id="16">
             <path class="nad-vl300to500 nad-edge-path" d="M-32.83,-211.22 L11.03,-240.07 C44.45,-262.05 61.67,-243.02 62.25,-233.03"/>
             <path class="nad-vl300to500 nad-edge-path" d="M-31.23,-183.76 L15.69,-160.20 C51.43,-142.25 66.32,-163.15 65.74,-173.13"/>
             <g>
                 <circle class="nad-vl300to500 nad-winding" cx="63.41" cy="-213.07" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="64.58" cy="-193.10" r="20.00"/>
-                <g class="nad-edge-label" transform="translate(63.99,-203.08)">
-                    <text transform="rotate(86.67)" x="0.00" style="text-anchor:middle">TWT2</text>
-                </g>
             </g>
         </g>
-        <g id="17">
+        <g id="20">
             <polyline class="nad-vl300to500 nad-edge-path" points="-63.52,-169.71 -78.26,-119.32 -139.20,-61.10"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-294.53,51.00 -243.53,38.57 -182.59,-19.65"/>
             <g>
                 <circle class="nad-vl300to500 nad-winding" cx="-153.66" cy="-47.28" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-168.12" cy="-33.47" r="20.00"/>
-                <g class="nad-edge-label" transform="translate(-160.89,-40.37)">
-                    <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">TWT1</text>
-                </g>
             </g>
         </g>
     </g>
     <g class="nad-3wt-edges">
-        <g id="21" class="nad-vl300to500">
+        <g id="25" class="nad-vl300to500">
             <polyline class="nad-edge-path" points="-50.52,-169.12 31.80,115.04"/>
         </g>
-        <g id="22" class="nad-vl300to500">
+        <g id="26" class="nad-vl300to500">
             <polyline class="nad-edge-path" points="-50.52,-169.12 18.67,168.89"/>
         </g>
-        <g id="23" class="nad-vl300to500">
+        <g id="27" class="nad-vl300to500">
             <polyline class="nad-edge-path" points="-294.53,64.03 -21.40,130.60"/>
         </g>
     </g>
     <g class="nad-3wt-nodes">
-        <g id="20" transform="translate(9.69,138.18)">
+        <g id="24" transform="translate(9.69,138.18)">
             <circle class="nad-vl300to500 nad-winding" cx="8.29" cy="-8.68" r="20.00"/>
             <circle class="nad-vl300to500 nad-winding" cx="3.37" cy="11.52" r="20.00"/>
             <circle class="nad-vl300to500 nad-winding" cx="-11.66" cy="-2.84" r="20.00"/>
@@ -202,24 +186,35 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <g id="10" transform="translate(-50.94,-275.96)">
             <path transform="rotate(3.49)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
         </g>
-        <g id="12" transform="translate(-155.22,-156.44)">
+        <g id="11" transform="translate(-109.37,-303.48)">
+            <text transform="rotate(-26.51)" x="0.00" style="text-anchor:middle">L2</text>
+        </g>
+        <g id="13" transform="translate(-155.22,-156.44)">
             <path transform="rotate(-133.69)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
             <text transform="rotate(-43.69)" x="-19.00" style="text-anchor:end">L1_1</text>
         </g>
-        <g id="13" transform="translate(-277.10,-39.99)">
+        <g id="14" transform="translate(-277.10,-39.99)">
             <path transform="rotate(46.31)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
             <text transform="rotate(-43.69)" x="19.00">L1_2</text>
         </g>
-        <g id="15" transform="translate(11.03,-240.07)"></g>
-        <g id="16" transform="translate(15.69,-160.20)">
+        <g id="15" transform="translate(-216.16,-98.22)">
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">L1</text>
+        </g>
+        <g id="18" transform="translate(15.69,-160.20)">
             <path transform="rotate(116.67)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
             <text transform="rotate(26.67)" x="19.00">TWT2_2</text>
         </g>
-        <g id="18" transform="translate(-99.96,-98.60)">
-            <text transform="rotate(-43.69)" x="-19.00" style="text-anchor:end">TWT1_1</text>
+        <g id="19" transform="translate(63.99,-203.08)">
+            <text transform="rotate(86.67)" x="0.00" style="text-anchor:middle">TWT2</text>
         </g>
-        <g id="19" transform="translate(-221.83,17.85)">
-            <text transform="rotate(-43.69)" x="19.00">TWT1_2</text>
+        <g id="21" transform="translate(-99.96,-98.60)">
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">TWT1_1</text>
+        </g>
+        <g id="22" transform="translate(-221.83,17.85)">
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">TWT1_2</text>
+        </g>
+        <g id="23" transform="translate(-160.89,-40.37)">
+            <text transform="rotate(-43.69)" x="0.00" style="text-anchor:middle">TWT1</text>
         </g>
     </g>
     <g class="nad-text-edges">
