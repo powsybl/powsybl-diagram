@@ -41,15 +41,22 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
 
         assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevel.svg"));
 
-        // Test with all possible feeder infos
+    }
+
+    @Test
+    void testVoltageLevelGraphWithFeederInfos() {
+
         layoutParameters.setSpaceForFeederInfos(90);
         DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
         labelProvider.setDisplayCurrent(true);
         labelProvider.setDisplayArrowForCurrent(true);
         labelProvider.setDisplayPermanentLimitPercentage(true);
 
-        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
+        // Build substation graph and run layout
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
+        voltageLevelGraphLayout(g);
 
+        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
