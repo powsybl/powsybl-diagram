@@ -25,6 +25,7 @@ public class DefaultLabelProvider implements LabelProvider {
     private final Network network;
     private final SvgParameters svgParameters;
     private final ValueFormatter valueFormatter;
+    private boolean displayAngle = true;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
@@ -105,7 +106,7 @@ public class DefaultLabelProvider implements LabelProvider {
             Bus b = network.getBusView().getBus(busId);
             String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
             String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
-            return voltage + " / " + angle;
+            return this.displayAngle ? voltage + " / " + angle : voltage;
         }
         return null;
     }
@@ -148,5 +149,10 @@ public class DefaultLabelProvider implements LabelProvider {
 
     protected ValueFormatter getValueFormatter() {
         return this.valueFormatter;
+    }
+
+    public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
+        this.displayAngle = displayAngle;
+        return this;
     }
 }
