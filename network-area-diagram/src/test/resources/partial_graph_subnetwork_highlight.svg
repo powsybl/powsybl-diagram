@@ -202,22 +202,22 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -302px; left: 569px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>VLHV1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
+                    <span class="nad-legend-square"></span>402.1 kV / 0.0°</div>
             </div>
             <div style="position: absolute; top: -414px; left: -49px" id="5" class="nad-vl300to500 nad-label-box">
                 <div>VLHV2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
+                    <span class="nad-legend-square"></span>390.0 kV / -3.5°</div>
             </div>
             <div style="position: absolute; top: -76px; left: -40px" id="9" class="nad-vl300to500 nad-label-box">
                 <div>VLHV3</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
+                    <span class="nad-legend-square"></span>197.6 kV / 3.0°</div>
             </div>
             <div style="position: absolute; top: -551px; left: 176px" id="13" class="nad-vl120to180 nad-label-box">
                 <div>VLLOAD</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
+                    <span class="nad-legend-square"></span>147.6 kV / -9.6°</div>
             </div>
         </div>
     </foreignObject>
