@@ -118,10 +118,10 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <text transform="rotate(-44.85)" class="nad-current" x="19.00">116</text>
         </g>
         <g id="23" transform="translate(122.96,-349.95)">
-            <text transform="rotate(-44.85)" x="0.00" style="text-anchor:start">TWT</text>
+            <text transform="rotate(-44.85)" class="nad-name" x="0.00" style="text-anchor:middle">TWT</text>
         </g>
         <g id="25" transform="translate(-16.78,-12.08)">
-            <text transform="rotate(88.69)" x="0.00" style="text-anchor:middle">LCC1</text>
+            <text transform="rotate(88.69)" class="nad-name" x="0.00" style="text-anchor:middle">LCC1</text>
         </g>
         <g id="27" transform="translate(-68.28,-172.57)">
             <path transform="rotate(-125.81)" class="nad-current nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
@@ -132,7 +132,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <text transform="rotate(-35.81)" class="nad-current" x="19.00">170</text>
         </g>
         <g id="29" transform="translate(-177.73,-93.60)">
-            <text transform="rotate(-35.81)" x="0.00" style="text-anchor:middle">VSC1</text>
+            <text transform="rotate(-35.81)" class="nad-name" x="0.00" style="text-anchor:middle">VSC1</text>
         </g>
         <g id="31" transform="translate(-282.47,45.52)">
             <path transform="rotate(116.86)" class="nad-current nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
@@ -143,14 +143,14 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <text transform="rotate(-333.14)" class="nad-current" x="-19.00" style="text-anchor:end">310</text>
         </g>
         <g id="33" transform="translate(-173.27,100.83)">
-            <text transform="rotate(26.86)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+            <text transform="rotate(26.86)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
         </g>
         <g id="35" transform="translate(25.95,225.93)">
             <path transform="rotate(138.72)" class="nad-current nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
             <text transform="rotate(48.72)" class="nad-current" x="19.00">346</text>
         </g>
         <g id="37" transform="translate(115.33,327.73)">
-            <text transform="rotate(48.72)" x="0.00" style="text-anchor:start">LINE_S3S4</text>
+            <text transform="rotate(48.72)" class="nad-name" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
         </g>
     </g>
     <g class="nad-text-edges">

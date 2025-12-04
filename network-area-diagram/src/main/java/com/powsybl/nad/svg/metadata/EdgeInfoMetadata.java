@@ -41,12 +41,12 @@ public class EdgeInfoMetadata {
         return svgId;
     }
 
-    @JsonProperty("internalInfoType")
+    @JsonProperty("infoType1")
     public String getInfoType1() {
         return infoType1;
     }
 
-    @JsonProperty("externalInfoType")
+    @JsonProperty("infoType2")
     public String getInfoType2() {
         return infoType2;
     }
@@ -56,12 +56,12 @@ public class EdgeInfoMetadata {
         return direction;
     }
 
-    @JsonProperty("internalLabel")
+    @JsonProperty("label1")
     public String getLabel1() {
         return label1;
     }
 
-    @JsonProperty("externalLabel")
+    @JsonProperty("label2")
     public String getLabel2() {
         return label2;
     }

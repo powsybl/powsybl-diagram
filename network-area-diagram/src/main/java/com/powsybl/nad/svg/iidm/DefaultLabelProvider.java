@@ -192,7 +192,7 @@ public class DefaultLabelProvider implements LabelProvider {
             case CURRENT -> EdgeInfo.CURRENT;
             case NAME -> EdgeInfo.NAME;
             case VALUE_PERMANENT_LIMIT_PERCENTAGE -> EdgeInfo.VALUE_PERMANENT_LIMIT_PERCENTAGE;
-            case EMPTY -> EdgeInfo.EMPTY;
+            case EMPTY -> null;
         };
     }
 
