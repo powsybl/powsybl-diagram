@@ -1112,7 +1112,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             listUsedComponentSVG.forEach(c -> {
                 Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
-                if (subComponents != null) {
+                if (subComponents != null && !subComponents.isEmpty()) {
                     Element group = document.createElement(GROUP);
                     group.setAttribute("id", c);
 

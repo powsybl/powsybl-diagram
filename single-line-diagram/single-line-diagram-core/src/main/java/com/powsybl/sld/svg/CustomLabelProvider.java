@@ -85,7 +85,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
     private List<FeederInfo> getCustomFeederInfos(FeederNode node, NodeSide side) {
         return feederInfosData.getOrDefault(new FeederContext(node.getEquipmentId(), side), List.of())
                 .stream()
-                .map(info -> new DirectionalFeederInfo(info.componentType(),
+                .map(info -> new ValueFeederInfo(info.componentType(),
                         info.labelDirection(),
                         null,
                         info.label()))
