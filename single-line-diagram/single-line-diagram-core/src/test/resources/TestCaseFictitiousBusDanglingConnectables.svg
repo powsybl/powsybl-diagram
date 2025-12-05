@@ -227,7 +227,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload_95_N_95_LABEL" x="-5.0" y="-5.0">load</text>
+                    <text class="sld-label" id="idload_95_N_95_LABEL" x="-5.0" y="-6.5">load</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_2">
@@ -263,7 +263,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="iddLoad1_95_S_95_LABEL" x="-5.0" y="14.0">dLoad1</text>
+                    <text class="sld-label" id="iddLoad1_95_S_95_LABEL" x="-5.0" y="15.5">dLoad1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
@@ -336,7 +336,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="iddLoad2_95_N_95_LABEL" x="-5.0" y="-5.0">dLoad2</text>
+                    <text class="sld-label" id="iddLoad2_95_N_95_LABEL" x="-5.0" y="-6.5">dLoad2</text>
                 </g>
             </g>
         </g>

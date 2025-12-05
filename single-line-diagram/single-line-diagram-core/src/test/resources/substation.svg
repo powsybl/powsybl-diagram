@@ -86,7 +86,7 @@
     <g>
         <g class="sld-voltage-level" id="idvl1">
             <g id="idLABEL_95_VL_95_vl1">
-                <text class="sld-graph-label" x="40.0" y="20.0">vl1</text>
+                <text class="sld-graph-label" x="40.0" y="16.0">vl1</text>
             </g>
             <g class="sld-busbar-section sld-vl300to500" id="idvl1_95_bbs1" transform="translate(40.0,340.0)">
                 <line x1="0" x2="200.0" y1="0" y2="0"/>
@@ -172,7 +172,7 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="idvl1_95_load1_95__95_LABEL" x="-5.0" y="-5.0">vl1_load1</text>
+                <text class="sld-label" id="idvl1_95_load1_95_LABEL" x="-5.0" y="-5.0">vl1_load1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl300to500" id="idvl1_95_bload1" transform="translate(70.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -183,7 +183,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-vl300to500" id="idvl1_95_trf1" transform="translate(120.0,540.0)">
-                <text class="sld-label" id="idvl1_95_trf1_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
+                <text class="sld-label" id="idvl1_95_trf1_95_LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl300to500" id="idvl1_95_btrf1" transform="translate(110.0,430.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -194,7 +194,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-vl300to500" id="idvl1_95_trf2_95_one" transform="translate(440.0,120.0)">
-                <text class="sld-label" id="idvl1_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
+                <text class="sld-label" id="idvl1_95_trf2_95_one_95_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl300to500" id="idvl1_95_btrf2" transform="translate(430.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -207,7 +207,7 @@
         </g>
         <g class="sld-voltage-level" id="idvl2">
             <g id="idLABEL_95_VL_95_vl2">
-                <text class="sld-graph-label" x="590.0" y="20.0">vl2</text>
+                <text class="sld-graph-label" x="590.0" y="16.0">vl2</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300" id="idvl2_95_bbs1" transform="translate(590.0,340.0)">
                 <line x1="0" x2="200.0" y1="0" y2="0"/>
@@ -265,7 +265,7 @@
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="idvl2_95_gen1_95__95_LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
+                <text class="sld-label" id="idvl2_95_gen1_95_LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl180to300" id="idvl2_95_bgen1" transform="translate(630.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -276,7 +276,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-vl180to300" id="idvl2_95_trf1" transform="translate(690.0,540.0)">
-                <text class="sld-label" id="idvl2_95_trf1_95__95_LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
+                <text class="sld-label" id="idvl2_95_trf1_95_LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl180to300" id="idvl2_95_btrf1" transform="translate(680.0,430.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -287,7 +287,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-vl180to300" id="idvl2_95_trf2_95_one" transform="translate(750.0,120.0)">
-                <text class="sld-label" id="idvl2_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
+                <text class="sld-label" id="idvl2_95_trf2_95_one_95_LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl180to300" id="idvl2_95_btrf2" transform="translate(740.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -300,7 +300,7 @@
         </g>
         <g class="sld-voltage-level" id="idvl3">
             <g id="idLABEL_95_VL_95_vl3">
-                <text class="sld-graph-label" x="890.0" y="20.0">vl3</text>
+                <text class="sld-graph-label" x="890.0" y="16.0">vl3</text>
             </g>
             <g class="sld-busbar-section sld-vl50to70" id="idvl3_95_bbs1" transform="translate(890.0,340.0)">
                 <line x1="0" x2="200.0" y1="0" y2="0"/>
@@ -343,7 +343,7 @@
                 <line x1="0" x2="12" y1="4.5" y2="4.5"/>
                 <line x1="0" x2="12" y1="7.5" y2="7.5"/>
                 <line x1="6" x2="6" y1="7.5" y2="12"/>
-                <text class="sld-label" id="idvl3_95_capa1_95__95_LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
+                <text class="sld-label" id="idvl3_95_capa1_95_LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl50to70" id="idvl3_95_bcapa1" transform="translate(920.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -354,7 +354,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-vl50to70" id="idvl3_95_trf2_95_one" transform="translate(1040.0,120.0)">
-                <text class="sld-label" id="idvl3_95_trf2_95_one_95__95_LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
+                <text class="sld-label" id="idvl3_95_trf2_95_one_95_LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl50to70" id="idvl3_95_btrf2" transform="translate(1030.0,210.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>

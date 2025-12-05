@@ -156,7 +156,7 @@
     <g>
         <g class="sld-voltage-level" id="idVL_95_132">
             <g id="idLABEL_95_VL_95_VL_95_132">
-                <text class="sld-graph-label" x="40.0" y="60.0">VL_132</text>
+                <text class="sld-graph-label" x="40.0" y="56.0">VL_132</text>
             </g>
             <g class="sld-busbar-section sld-vl120to180 sld-bus-0" id="idBUS_95_132" transform="translate(52.5,252.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -228,13 +228,13 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_ONE" transform="translate(115.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">3WT</text>
                 </g>
             </g>
         </g>
         <g class="sld-voltage-level" id="idVL_95_33">
             <g id="idLABEL_95_VL_95_VL_95_33">
-                <text class="sld-graph-label" x="180.0" y="60.0">VL_33</text>
+                <text class="sld-graph-label" x="180.0" y="56.0">VL_33</text>
             </g>
             <g class="sld-busbar-section sld-vl30to50 sld-bus-0" id="idBUS_95_33" transform="translate(192.5,252.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -273,7 +273,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idLOAD_95_33_95_N_95_LABEL" x="-5.0" y="-5.0">LOAD_33</text>
+                    <text class="sld-label" id="idLOAD_95_33_95_N_95_LABEL" x="-5.0" y="-6.5">LOAD_33</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -306,13 +306,13 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl30to50 sld-bus-0" id="id3WT_95_TWO" transform="translate(255.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">3WT</text>
                 </g>
             </g>
         </g>
         <g class="sld-voltage-level" id="idVL_95_11">
             <g id="idLABEL_95_VL_95_VL_95_11">
-                <text class="sld-graph-label" x="320.0" y="60.0">VL_11</text>
+                <text class="sld-graph-label" x="320.0" y="56.0">VL_11</text>
             </g>
             <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="idBUS_95_11" transform="translate(332.5,252.0)">
                 <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -351,7 +351,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idLOAD_95_11_95_N_95_LABEL" x="-5.0" y="-5.0">LOAD_11</text>
+                    <text class="sld-label" id="idLOAD_95_11_95_N_95_LABEL" x="-5.0" y="-6.5">LOAD_11</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -384,7 +384,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl0to30 sld-bus-0" id="id3WT_95_THREE" transform="translate(395.0,424.0)">
-                    <text class="sld-label" id="id3WT_95_THREE_95_S_95_LABEL" x="-5.0" y="5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_THREE_95_S_95_LABEL" x="-5.0" y="11.0">3WT</text>
                 </g>
             </g>
         </g>

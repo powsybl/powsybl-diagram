@@ -77,7 +77,7 @@
     <g>
         <g class="sld-voltage-level" id="idVoltageLevel11">
             <g id="idLABEL_95_VL_95_VoltageLevel11">
-                <text class="sld-graph-label" x="40.0" y="20.0">VoltageLevel11</text>
+                <text class="sld-graph-label" x="40.0" y="16.0">VoltageLevel11</text>
             </g>
             <g class="sld-busbar-section" id="idBus11" transform="translate(70.0,200.0)">
                 <line x1="0" x2="40.0" y1="0" y2="0"/>
@@ -113,15 +113,15 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="idLoad_95__95_LABEL" x="-5.0" y="-5.0">Load</text>
+                <text class="sld-label" id="idLoad_95_LABEL" x="-5.0" y="-5.0">Load</text>
             </g>
             <g id="idTransformer_95_ONE" transform="translate(90.0,300.0)">
-                <text class="sld-label" id="idTransformer_95_ONE_95__95_LABEL" x="-5.0" y="-5.0">Transformer</text>
+                <text class="sld-label" id="idTransformer_95_ONE_95_LABEL" x="-5.0" y="-5.0">Transformer</text>
             </g>
         </g>
         <g class="sld-voltage-level" id="idVoltageLevel12">
             <g id="idLABEL_95_VL_95_VoltageLevel12">
-                <text class="sld-graph-label" x="40.0" y="370.0">VoltageLevel12</text>
+                <text class="sld-graph-label" x="40.0" y="366.0">VoltageLevel12</text>
             </g>
             <g class="sld-busbar-section" id="idBus12" transform="translate(70.0,500.0)">
                 <line x1="0" x2="40.0" y1="0" y2="0"/>
@@ -154,10 +154,10 @@
                 <text class="sld-label" x="15.0" y="5.0">10</text>
             </g>
             <g id="idTransformer_95_TWO" transform="translate(90.0,400.0)">
-                <text class="sld-label" id="idTransformer_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">Transformer</text>
+                <text class="sld-label" id="idTransformer_95_TWO_95_LABEL" x="-5.0" y="-5.0">Transformer</text>
             </g>
             <g id="idLine_95_ONE" transform="translate(90.0,650.0)">
-                <text class="sld-label" id="idLine_95_ONE_95__95_LABEL" x="-5.0" y="-5.0">Line</text>
+                <text class="sld-label" id="idLine_95_ONE_95_LABEL" x="-5.0" y="-5.0">Line</text>
             </g>
         </g>
         <g class="sld-wire" id="idEDGE_95_Transformer_95_ONE">
@@ -172,7 +172,7 @@
         </g>
         <g class="sld-voltage-level" id="idVoltageLevel21">
             <g id="idLABEL_95_VL_95_VoltageLevel21">
-                <text class="sld-graph-label" x="140.0" y="920.0">VoltageLevel21</text>
+                <text class="sld-graph-label" x="140.0" y="916.0">VoltageLevel21</text>
             </g>
             <g class="sld-busbar-section" id="idBus21" transform="translate(170.0,1100.0)">
                 <line x1="0" x2="40.0" y1="0" y2="0"/>
@@ -208,10 +208,10 @@
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="idGenerator_95__95_LABEL" x="-5.0" y="-5.0">Generator</text>
+                <text class="sld-label" id="idGenerator_95_LABEL" x="-5.0" y="-5.0">Generator</text>
             </g>
             <g id="idLine_95_TWO" transform="translate(190.0,950.0)">
-                <text class="sld-label" id="idLine_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">Line</text>
+                <text class="sld-label" id="idLine_95_TWO_95_LABEL" x="-5.0" y="-5.0">Line</text>
             </g>
         </g>
         <g class="sld-wire" id="idLine">

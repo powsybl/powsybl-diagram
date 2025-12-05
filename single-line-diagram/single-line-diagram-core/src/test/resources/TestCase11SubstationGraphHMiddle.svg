@@ -156,7 +156,7 @@
     <g>
         <g class="sld-voltage-level" id="idvl1">
             <g id="idLABEL_95_VL_95_vl1">
-                <text class="sld-graph-label" x="40.0" y="240.0">vl1</text>
+                <text class="sld-graph-label" x="40.0" y="236.0">vl1</text>
             </g>
             <g class="sld-busbar-section sld-vl300to500 sld-bus-0" id="idbbs1" transform="translate(52.5,432.0)">
                 <line x1="0" x2="375.0" y1="0" y2="0"/>
@@ -279,7 +279,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-5.0">load1</text>
+                    <text class="sld-label" id="idload1_95_N_95_LABEL" x="-5.0" y="-6.5">load1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
@@ -320,7 +320,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf1_95_ONE" transform="translate(115.0,260.0)">
-                    <text class="sld-label" id="idtrf1_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">trf1</text>
+                    <text class="sld-label" id="idtrf1_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">trf1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_4">
@@ -361,7 +361,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf5_95_ONE" transform="translate(265.0,260.0)">
-                    <text class="sld-label" id="idtrf5_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">trf5</text>
+                    <text class="sld-label" id="idtrf5_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">trf5</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_5">
@@ -402,7 +402,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf6_95_ONE" transform="translate(315.0,260.0)">
-                    <text class="sld-label" id="idtrf6_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">trf61</text>
+                    <text class="sld-label" id="idtrf6_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">trf61</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_6">
@@ -443,7 +443,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idline1_95_ONE" transform="translate(415.0,260.0)">
-                    <text class="sld-label" id="idline1_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">line1</text>
+                    <text class="sld-label" id="idline1_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">line1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_7">
@@ -487,7 +487,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-5.0">load2</text>
+                    <text class="sld-label" id="idload2_95_N_95_LABEL" x="-5.0" y="-6.5">load2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_8">
@@ -528,7 +528,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf2_95_ONE" transform="translate(665.0,260.0)">
-                    <text class="sld-label" id="idtrf2_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">trf2</text>
+                    <text class="sld-label" id="idtrf2_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">trf2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_9">
@@ -569,7 +569,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl300to500 sld-bus-0" id="idtrf8_95_ONE" transform="translate(565.0,260.0)">
-                    <text class="sld-label" id="idtrf8_95_ONE_95_N_95_LABEL" x="-5.0" y="-5.0">trf81</text>
+                    <text class="sld-label" id="idtrf8_95_ONE_95_N_95_LABEL" x="-5.0" y="-11.0">trf81</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_10">
@@ -654,7 +654,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-1" id="idtrf3_95_ONE" transform="translate(215.0,629.0)">
-                    <text class="sld-label" id="idtrf3_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">trf3</text>
+                    <text class="sld-label" id="idtrf3_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">trf3</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_12">
@@ -695,7 +695,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-1" id="idtrf7_95_ONE" transform="translate(365.0,629.0)">
-                    <text class="sld-label" id="idtrf7_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">trf71</text>
+                    <text class="sld-label" id="idtrf7_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">trf71</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_13">
@@ -780,13 +780,13 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl300to500 sld-bus-1" id="idtrf4_95_ONE" transform="translate(615.0,629.0)">
-                    <text class="sld-label" id="idtrf4_95_ONE_95_S_95_LABEL" x="-5.0" y="5.0">trf4</text>
+                    <text class="sld-label" id="idtrf4_95_ONE_95_S_95_LABEL" x="-5.0" y="11.0">trf4</text>
                 </g>
             </g>
         </g>
         <g class="sld-voltage-level" id="idvl2">
             <g id="idLABEL_95_VL_95_vl2">
-                <text class="sld-graph-label" x="870.0" y="240.0">vl2</text>
+                <text class="sld-graph-label" x="870.0" y="236.0">vl2</text>
             </g>
             <g class="sld-busbar-section sld-vl180to300 sld-bus-0" id="idbbs5" transform="translate(882.5,432.0)">
                 <line x1="0" x2="525.0" y1="0" y2="0"/>
@@ -869,7 +869,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload3_95_N_95_LABEL" x="-5.0" y="-5.0">load3</text>
+                    <text class="sld-label" id="idload3_95_N_95_LABEL" x="-5.0" y="-6.5">load3</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -910,7 +910,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300 sld-bus-0" id="idtrf1_95_TWO" transform="translate(1045.0,260.0)">
-                    <text class="sld-label" id="idtrf1_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf1</text>
+                    <text class="sld-label" id="idtrf1_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">trf1</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_3">
@@ -951,7 +951,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300 sld-bus-0" id="idtrf4_95_TWO" transform="translate(1145.0,260.0)">
-                    <text class="sld-label" id="idtrf4_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf4</text>
+                    <text class="sld-label" id="idtrf4_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">trf4</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_4">
@@ -992,7 +992,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300 sld-bus-0" id="idtrf7_95_TWO" transform="translate(1195.0,260.0)">
-                    <text class="sld-label" id="idtrf7_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf72</text>
+                    <text class="sld-label" id="idtrf7_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">trf72</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_5">
@@ -1077,7 +1077,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl180to300 sld-bus-0" id="idtrf2_95_TWO" transform="translate(1345.0,629.0)">
-                    <text class="sld-label" id="idtrf2_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">trf2</text>
+                    <text class="sld-label" id="idtrf2_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">trf2</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_7">
@@ -1118,7 +1118,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl180to300 sld-bus-0" id="idtrf3_95_TWO" transform="translate(1395.0,629.0)">
-                    <text class="sld-label" id="idtrf3_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">trf3</text>
+                    <text class="sld-label" id="idtrf3_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">trf3</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_8">
@@ -1159,7 +1159,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl180to300 sld-bus-0" id="idtrf6_95_TWO" transform="translate(1245.0,260.0)">
-                    <text class="sld-label" id="idtrf6_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">trf62</text>
+                    <text class="sld-label" id="idtrf6_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">trf62</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_9">
@@ -1200,13 +1200,13 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl180to300 sld-bus-0" id="idtrf8_95_TWO" transform="translate(1295.0,629.0)">
-                    <text class="sld-label" id="idtrf8_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">trf82</text>
+                    <text class="sld-label" id="idtrf8_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">trf82</text>
                 </g>
             </g>
         </g>
         <g class="sld-voltage-level" id="idvl3">
             <g id="idLABEL_95_VL_95_vl3">
-                <text class="sld-graph-label" x="1520.0" y="252.5">vl3</text>
+                <text class="sld-graph-label" x="1520.0" y="248.5">vl3</text>
             </g>
             <g class="sld-busbar-section sld-vl50to70 sld-bus-0" id="idbbs7" transform="translate(1532.5,444.5)">
                 <line x1="0" x2="225.0" y1="0" y2="0"/>
@@ -1253,7 +1253,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload4_95_N_95_LABEL" x="-5.0" y="-5.0">load4</text>
+                    <text class="sld-label" id="idload4_95_N_95_LABEL" x="-5.0" y="-6.5">load4</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -1294,7 +1294,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idtrf5_95_TWO" transform="translate(1595.0,616.5)">
-                    <text class="sld-label" id="idtrf5_95_TWO_95_S_95_LABEL" x="-5.0" y="5.0">trf5</text>
+                    <text class="sld-label" id="idtrf5_95_TWO_95_S_95_LABEL" x="-5.0" y="11.0">trf5</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_2">
@@ -1335,7 +1335,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl50to70 sld-bus-0" id="idtrf6_95_THREE" transform="translate(1645.0,272.5)">
-                    <text class="sld-label" id="idtrf6_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">trf63</text>
+                    <text class="sld-label" id="idtrf6_95_THREE_95_N_95_LABEL" x="-5.0" y="-11.0">trf63</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_3">
@@ -1376,7 +1376,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-bottom-feeder sld-vl50to70 sld-bus-0" id="idtrf7_95_THREE" transform="translate(1695.0,616.5)">
-                    <text class="sld-label" id="idtrf7_95_THREE_95_S_95_LABEL" x="-5.0" y="5.0">trf73</text>
+                    <text class="sld-label" id="idtrf7_95_THREE_95_S_95_LABEL" x="-5.0" y="11.0">trf73</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_4">
@@ -1417,7 +1417,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder sld-vl50to70 sld-bus-0" id="idtrf8_95_THREE" transform="translate(1745.0,272.5)">
-                    <text class="sld-label" id="idtrf8_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">trf83</text>
+                    <text class="sld-label" id="idtrf8_95_THREE_95_N_95_LABEL" x="-5.0" y="-11.0">trf83</text>
                 </g>
             </g>
         </g>
