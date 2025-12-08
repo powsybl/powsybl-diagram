@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,6 +22,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String busNode1SvgId;
     private final String busNode2SvgId;
     private final String edgeType;
+    private final boolean invisibleSide1;
+    private final boolean invisibleSide2;
     private final String label;
     private final EdgeInfoMetadata edgeInfo1;
     private final EdgeInfoMetadata edgeInfo2;
@@ -32,6 +35,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("busNode1") String busNode1SvgId,
                         @JsonProperty("busNode2") String busNode2SvgId,
                         @JsonProperty("type") String edgeType,
+                        @JsonProperty("invisible1") boolean invisibleSide1,
+                        @JsonProperty("invisible2") boolean invisibleSide2,
                         @JsonProperty("label") String label,
                         @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
                         @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2) {
@@ -41,6 +46,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
         this.busNode1SvgId = busNode1SvgId;
         this.busNode2SvgId = busNode2SvgId;
         this.edgeType = edgeType;
+        this.invisibleSide1 = invisibleSide1;
+        this.invisibleSide2 = invisibleSide2;
         this.label = label;
         this.edgeInfo1 = edgeInfo1;
         this.edgeInfo2 = edgeInfo2;
@@ -69,6 +76,18 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("type")
     public String getEdgeType() {
         return edgeType;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible1")
+    public boolean isInvisibleSide1() {
+        return invisibleSide1;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible2")
+    public boolean isInvisibleSide2() {
+        return invisibleSide2;
     }
 
     @JsonProperty("label")

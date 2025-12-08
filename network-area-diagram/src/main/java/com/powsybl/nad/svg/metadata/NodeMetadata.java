@@ -23,6 +23,7 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final double x;
     private final double y;
     private final boolean fictitious;
+    private final boolean invisible;
     private final String legendSvgId;
     private final String legendEdgeSvgId;
     private final List<String> legendHeader;
@@ -33,6 +34,7 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("x") double x,
                         @JsonProperty("y") double y,
                         @JsonProperty("fictitious") boolean fictitious,
+                        @JsonProperty("visible") boolean invisible,
                         @JsonProperty("legendSvgId") String legendSvgId,
                         @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
@@ -41,6 +43,7 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.x = x;
         this.y = y;
         this.fictitious = fictitious;
+        this.invisible = invisible;
         this.legendSvgId = legendSvgId;
         this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
@@ -56,8 +59,15 @@ public class NodeMetadata extends AbstractMetadataItem {
     }
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("fictitious")
     public boolean isFictitious() {
         return fictitious;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible")
+    public boolean isInvisible() {
+        return invisible;
     }
 
     @JsonIgnore

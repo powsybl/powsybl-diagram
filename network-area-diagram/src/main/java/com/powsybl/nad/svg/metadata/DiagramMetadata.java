@@ -130,6 +130,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
                 edge.getType(),
+                !edge.isVisible(BranchEdge.Side.ONE),
+                !edge.isVisible(BranchEdge.Side.TWO),
                 edge.getLabel(),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
@@ -143,6 +145,8 @@ public class DiagramMetadata extends AbstractMetadata {
                     getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
                     getPrefixedId(threeWtNodeSvgId),
                     edge.getType(),
+                    !edge.isVisible(),
+                    false,
                     null,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                     null));
@@ -166,6 +170,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     round(node.getX()),
                     round(node.getY()),
                     node.isFictitious(),
+                    !vlNode.isVisible(),
                     vlNode.getLegendSvgId(),
                     vlNode.getLegendEdgeSvgId(),
                     vlNode.getLegendHeader(),
@@ -177,6 +182,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     round(node.getX()),
                     round(node.getY()),
                     node.isFictitious(),
+                    false,
                     null,
                     null,
                     null,
