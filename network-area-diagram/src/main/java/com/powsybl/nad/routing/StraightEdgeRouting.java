@@ -65,7 +65,7 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
 
     @Override
     protected void computeMultiBranchEdgesCoordinates(Graph graph, List<BranchEdge> edges, SvgParameters svgParameters) {
-        BranchEdge firstEdge = edges.iterator().next();
+        BranchEdge firstEdge = edges.getFirst();
         VoltageLevelNode nodeA = graph.getVoltageLevelNode1(firstEdge);
         VoltageLevelNode nodeB = graph.getVoltageLevelNode2(firstEdge);
         Point pointA = nodeA.getPosition();
@@ -80,24 +80,20 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
         double forkLength = svgParameters.getEdgesForkLength();
         double angleStep = forkAperture / (nbForks - 1);
 
-        int i = 0;
-        for (BranchEdge edge : edges) {
-            if (2 * i + 1 == nbForks) { // in the middle, hence alpha = 0
-                computeSingleBranchEdgeCoordinates(graph, edge, svgParameters);
-            } else {
-                double alpha = -forkAperture / 2 + i * angleStep;
-                double angleForkA = angle - alpha;
-                double angleForkB = angle + Math.PI + alpha;
+        for (int i = 0; i < edges.size(); i++) {
+            BranchEdge edge = edges.get(i);
 
-                Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
-                Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
-                Point middle = Point.createMiddlePoint(forkA, forkB);
-                BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+            double alpha = -forkAperture / 2 + i * angleStep;
+            double angleForkA = angle - alpha;
+            double angleForkB = angle + Math.PI + alpha;
 
-                computeHalfForkCoordinates(graph, svgParameters, nodeA, edge, forkA, middle, sideA);
-                computeHalfForkCoordinates(graph, svgParameters, nodeB, edge, forkB, middle, sideA.getOpposite());
-            }
-            i++;
+            Point forkA = pointA.shift(forkLength * Math.cos(angleForkA), forkLength * Math.sin(angleForkA));
+            Point forkB = pointB.shift(forkLength * Math.cos(angleForkB), forkLength * Math.sin(angleForkB));
+            Point middle = Point.createMiddlePoint(forkA, forkB);
+            BranchEdge.Side sideA = graph.getNode1(edge) == nodeA ? BranchEdge.Side.ONE : BranchEdge.Side.TWO;
+
+            computeHalfForkCoordinates(graph, svgParameters, nodeA, edge, forkA, middle, sideA);
+            computeHalfForkCoordinates(graph, svgParameters, nodeB, edge, forkB, middle, sideA.getOpposite());
         }
     }
 
