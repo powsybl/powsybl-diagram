@@ -255,28 +255,28 @@
     "equipmentId" : "VL11",
     "x" : 32.17,
     "y" : 653.29,
+    "invisible" : true,
     "legendSvgId" : "45",
     "legendEdgeSvgId" : "46",
-    "legendHeader" : [ "VL11" ],
-    "invisible" : true
+    "legendHeader" : [ "VL11" ]
   }, {
     "svgId" : "48",
     "equipmentId" : "VL12",
     "x" : 692.44,
     "y" : 630.83,
+    "invisible" : true,
     "legendSvgId" : "49",
     "legendEdgeSvgId" : "50",
-    "legendHeader" : [ "VL12" ],
-    "invisible" : true
+    "legendHeader" : [ "VL12" ]
   }, {
     "svgId" : "52",
     "equipmentId" : "VL13",
     "x" : -5.18,
     "y" : -428.32,
+    "invisible" : true,
     "legendSvgId" : "53",
     "legendEdgeSvgId" : "54",
-    "legendHeader" : [ "VL13" ],
-    "invisible" : true
+    "legendHeader" : [ "VL13" ]
   } ],
   "edges" : [ {
     "svgId" : "56",
