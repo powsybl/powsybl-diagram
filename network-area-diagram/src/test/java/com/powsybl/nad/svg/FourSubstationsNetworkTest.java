@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
  */
 class FourSubstationsNetworkTest extends AbstractTest {
 
+    private DefaultLabelProvider.EdgeInfoEnum externalInfo;
+
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters()
@@ -30,6 +32,7 @@ class FourSubstationsNetworkTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedScale(0.5));
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
     }
 
     @Override
@@ -39,11 +42,29 @@ class FourSubstationsNetworkTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(externalInfo)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void test() {
+        Network network = createNetwork();
+
+        assertSvgEquals("/four_substations.svg", network);
+    }
+
+    @Test
+    void testLabelsOnEdges() {
+        Network network = createNetwork();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        assertSvgEquals("/four_substations_labels_on_edge.svg", network);
+    }
+
+    private Network createNetwork() {
         Network network = FourSubstationsNodeBreakerFactory.create();
 
         // Open the coupler to get a two-nodes voltage level
@@ -54,14 +75,14 @@ class FourSubstationsNetworkTest extends AbstractTest {
         s1vl2.getNodeBreakerView().newDisconnector().setId("S1VL2_BBS1_SCC_DISCONNECTOR").setOpen(true).setNode1(0).setNode2(24).add();
         s1vl2.getNodeBreakerView().newBreaker().setId("S1VL2_BBS1_SCC_BREAKER").setOpen(false).setNode1(24).setNode2(25).add();
         ShuntCompensator shuntCapacitor = s1vl2.newShuntCompensator()
-                .setId("SHUNT_CAPACITOR")
-                .setNode(25)
-                .setSectionCount(1)
-                .newLinearModel()
-                .setMaximumSectionCount(1)
-                .setBPerSection(0.032)
-                .add()
-                .add();
+            .setId("SHUNT_CAPACITOR")
+            .setNode(25)
+            .setSectionCount(1)
+            .newLinearModel()
+            .setMaximumSectionCount(1)
+            .setBPerSection(0.032)
+            .add()
+            .add();
         shuntCapacitor.getTerminal().setQ(1920.0).setP(0.);
 
         // Add battery
@@ -69,18 +90,18 @@ class FourSubstationsNetworkTest extends AbstractTest {
         s1vl1.getNodeBreakerView().newDisconnector().setId("S1VL1_BATTERY_DISCONNECTOR").setNode1(0).setNode2(5).add();
         s1vl1.getNodeBreakerView().newBreaker().setId("S1VL1_BATTERY_BREAKER").setNode1(5).setNode2(6).add();
         Battery battery = s1vl1.newBattery()
-                .setId("BATTERY")
-                .setNode(6)
-                .setTargetP(50.)
-                .setTargetQ(2.)
-                .setMinP(-5)
-                .setMaxP(60)
-                .add();
+            .setId("BATTERY")
+            .setNode(6)
+            .setTargetP(50.)
+            .setTargetQ(2.)
+            .setMinP(-5)
+            .setMaxP(60)
+            .add();
         battery.getTerminal().setP(15.);
 
         // Override NaN value on shunt
         network.getShuntCompensator("SHUNT").getTerminal().setP(0.);
 
-        assertSvgEquals("/four_substations.svg", network);
+        return network;
     }
 }

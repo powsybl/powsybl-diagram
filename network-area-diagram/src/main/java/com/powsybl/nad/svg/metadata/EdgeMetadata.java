@@ -23,9 +23,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String edgeType;
     private final boolean invisibleSide1;
     private final boolean invisibleSide2;
-    private final String label;
     private final EdgeInfoMetadata edgeInfo1;
     private final EdgeInfoMetadata edgeInfo2;
+    private final EdgeInfoMetadata edgeInfoMiddle;
 
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -36,9 +36,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("type") String edgeType,
                         @JsonProperty("invisible1") boolean invisibleSide1,
                         @JsonProperty("invisible2") boolean invisibleSide2,
-                        @JsonProperty("label") String label,
                         @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
-                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2) {
+                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2,
+                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
@@ -47,9 +47,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
         this.edgeType = edgeType;
         this.invisibleSide1 = invisibleSide1;
         this.invisibleSide2 = invisibleSide2;
-        this.label = label;
         this.edgeInfo1 = edgeInfo1;
         this.edgeInfo2 = edgeInfo2;
+        this.edgeInfoMiddle = edgeInfoMiddle;
     }
 
     @JsonProperty("node1")
@@ -89,11 +89,6 @@ public class EdgeMetadata extends AbstractMetadataItem {
         return invisibleSide2;
     }
 
-    @JsonProperty("label")
-    public String getLabel() {
-        return label;
-    }
-
     @JsonProperty("edgeInfo1")
     public EdgeInfoMetadata getEdgeInfo1() {
         return edgeInfo1;
@@ -102,5 +97,10 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("edgeInfo2")
     public EdgeInfoMetadata getEdgeInfo2() {
         return edgeInfo2;
+    }
+
+    @JsonProperty("edgeInfoMiddle")
+    public EdgeInfoMetadata getEdgeInfoMiddle() {
+        return edgeInfoMiddle;
     }
 }

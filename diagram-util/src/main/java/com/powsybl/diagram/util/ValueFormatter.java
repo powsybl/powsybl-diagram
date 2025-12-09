@@ -27,7 +27,8 @@ public class ValueFormatter {
     private final DecimalFormat format;
     private final String undefinedValueSymbol;
 
-    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int currentValuePrecision, int angleValuePrecision, int percentageValuePrecision, Locale locale, String undefinedValueSymbol) {
+    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int currentValuePrecision,
+                          int angleValuePrecision, int percentageValuePrecision, Locale locale, String undefinedValueSymbol) {
         this.powerValuePrecision = powerValuePrecision;
         this.voltageValuePrecision = voltageValuePrecision;
         this.currentValuePrecision = currentValuePrecision;
@@ -45,7 +46,7 @@ public class ValueFormatter {
     public String formatVoltage(double voltage, String unit) {
         setFractionDigits(voltageValuePrecision);
         String valueFormatted = Double.isNaN(voltage) ? undefinedValueSymbol : format.format(voltage);
-        return valueFormatted + " " + unit;
+        return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }
 
     public String formatPower(double power) {
