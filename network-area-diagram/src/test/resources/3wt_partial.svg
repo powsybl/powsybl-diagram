@@ -91,7 +91,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -554px; left: 175px" id="1" class="nad-vl0to30 nad-label-box">
                 <div>VL_11</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>11.8 kV / -15.2°</div>
+                    <span class="nad-legend-square"></span>11.8 kV / -15.2°</div>
             </div>
         </div>
     </foreignObject>

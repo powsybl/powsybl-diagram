@@ -84,9 +84,9 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         </g>
     </g>
     <g class="nad-edge-infos">
-        <g id="9" transform="translate(-84.78,-266.02)" class="nad-active">
-            <path transform="rotate(-151.41)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-61.41)" x="-19.00" style="text-anchor:end">101</text>
+        <g id="9" transform="translate(-84.78,-266.02)">
+            <path transform="rotate(-151.41)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-61.41)" class="nad-active" x="-19.00" style="text-anchor:end">101</text>
         </g>
     </g>
     <g class="nad-text-edges">
@@ -98,12 +98,12 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -359px; left: 44px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>390.0 kV / °</div>
+                    <span class="nad-legend-square"></span>390.0 kV / °</div>
             </div>
             <div style="position: absolute; top: -39px; left: -130px" id="5" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/> kV / °</div>
+                    <span class="nad-legend-square"></span> kV / °</div>
             </div>
         </div>
     </foreignObject>

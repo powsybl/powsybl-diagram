@@ -32,7 +32,6 @@ class NominalVoltageStyleTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
     }
@@ -44,7 +43,9 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setVoltageLevelDetails(false)
+            .build(network, getSvgParameters());
     }
 
     @Test

@@ -28,6 +28,7 @@ import java.util.Collections;
 class ThreeWindingTransformerTest extends AbstractTest {
 
     private StyleProvider styleProvider;
+    private DefaultLabelProvider.EdgeInfoEnum externalInfo;
 
     @BeforeEach
     void setup() {
@@ -36,6 +37,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
     }
 
     @Override
@@ -45,13 +47,25 @@ class ThreeWindingTransformerTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(externalInfo)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         assertSvgEquals("/3wt.svg", network);
+    }
+
+    @Test
+    void test3wtWithLabelsOnEdges() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        assertSvgEquals("/3wt_labels_on_edge.svg", network);
     }
 
     @Test

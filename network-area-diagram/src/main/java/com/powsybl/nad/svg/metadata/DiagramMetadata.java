@@ -130,9 +130,10 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
                 edge.getType(),
-                edge.getLabel(),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))));
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null)))
+        );
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
             edgesMetadata.add(new EdgeMetadata(
@@ -143,9 +144,10 @@ public class DiagramMetadata extends AbstractMetadata {
                     getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
                     getPrefixedId(threeWtNodeSvgId),
                     edge.getType(),
-                    null,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                    null));
+                    null,
+                    null
+            ));
         });
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getSvgId()),
@@ -187,10 +189,11 @@ public class DiagramMetadata extends AbstractMetadata {
     private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         return new EdgeInfoMetadata(svgEdgeInfo.svgId(),
-                edgeInfo.getInfoType(),
+                edgeInfo.getInfoTypeA(),
+                edgeInfo.getInfoTypeB(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
-                edgeInfo.getInternalLabel().orElse(null),
-                edgeInfo.getExternalLabel().orElse(null));
+                edgeInfo.getLabelA().orElse(null),
+                edgeInfo.getLabelB().orElse(null));
     }
 
     private String getPrefixedId(String id) {
