@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -222,22 +224,22 @@
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95__95_LABEL" x="-5.0" y="-5.0">M3</text>
+                <text class="sld-label" id="id062ece1f_45_ade5_45_4d20_45_9c3a_45_fd8f12d12ec1_95_LABEL" x="-5.0" y="-5.0">M3</text>
             </g>
             <g class="sld-load sld-vl0to30 sld-bus-0" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa" transform="translate(197.29663000000005,193.77880900000002)">
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95__95_LABEL" x="-5.0" y="-5.0">M2a</text>
+                <text class="sld-label" id="idba62884d_45_8800_45_41a8_45_9c26_45_698297d7ebaa_95_LABEL" x="-5.0" y="-5.0">M2a</text>
             </g>
             <g class="sld-load sld-vl0to30 sld-bus-0" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1" transform="translate(197.29663000000005,250.39726600000006)">
                 <rect height="9" transform="rotate(270.0,8.0,4.5)" width="16"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="0" x2="16" y1="0" y2="9"/>
                 <line transform="rotate(270.0,8.0,4.5)" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95__95_LABEL" x="-5.0" y="-5.0">M2b</text>
+                <text class="sld-label" id="idf184d87b_45_5565_45_45ee_45_89b4_45_29e8a42d3ad1_95_LABEL" x="-5.0" y="-5.0">M2b</text>
             </g>
             <g id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO" transform="translate(40.0,108.58846600000004)">
-                <text class="sld-label" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">L6</text>
+                <text class="sld-label" id="id56757c2b_45_550e_45_4843_45_886a_45_ed193f6eb21e_95_TWO_95_LABEL" x="-5.0" y="-5.0">L6</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl0to30 sld-bus-0" id="idfbdcf00d_45_8a07_45_4c62_45_9e39_45_86f459bea2be" transform="translate(59.62963999999988,98.58846600000004)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>

@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -196,12 +198,12 @@
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="id2970a2b7_45_b840_45_4e9c_45_b405_45_0cb854cd2318_95__95_LABEL" x="-5.0" y="-5.0">G2</text>
+                <text class="sld-label" id="id2970a2b7_45_b840_45_4e9c_45_b405_45_0cb854cd2318_95_LABEL" x="-5.0" y="-5.0">G2</text>
             </g>
             <g class="sld-two-wt" id="idf1e72854_45_ec35_45_46e9_45_b614_45_27db354e8dbb_95_TWO" transform="translate(35.0,162.34973199999996)">
                 <circle class="sld-vl0to30 sld-disconnected sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
                 <circle class="sld-vl70to120 sld-bus-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
-                <text class="sld-label" id="idf1e72854_45_ec35_45_46e9_45_b614_45_27db354e8dbb_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">T2</text>
+                <text class="sld-label" id="idf1e72854_45_ec35_45_46e9_45_b614_45_27db354e8dbb_95_TWO_95_LABEL" x="-5.0" y="-5.0">T2</text>
             </g>
             <g class="sld-breaker sld-open sld-vl0to30 sld-disconnected" id="id1287758d_45_606d_45_44c9_45_9e93_45_2f465ebf54b7" transform="translate(305.9331000000002,159.84973199999996)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>

@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,6 +36,8 @@ public abstract class AbstractTest {
     private FileSystem fileSystem;
     protected Path tmpDir;
     protected Network network;
+
+    protected boolean overrideTestReferences = false;
 
     @AfterEach
     void tearDown() throws Exception {
@@ -63,8 +66,19 @@ public abstract class AbstractTest {
         assertSvgEqualsReference(filename, svgOutput);
     }
 
-    protected static void assertSvgEqualsReference(String filename, Path svgOutput) throws IOException {
+    protected void assertSvgEqualsReference(String filename, Path svgOutput) throws IOException {
+        if (overrideTestReferences) {
+            overrideTestReference(filename, svgOutput);
+        }
         InputStream svgRef = Objects.requireNonNull(AbstractTest.class.getResourceAsStream(filename));
         ComparisonUtils.assertTxtEquals(svgRef, Files.newInputStream(svgOutput));
+    }
+
+    protected void overrideTestReference(String filename, Path actual) throws IOException {
+        Path testReference = Path.of("src", "test", "resources", filename);
+        if (!Files.exists(testReference)) {
+            return;
+        }
+        Files.copy(actual, testReference, StandardCopyOption.REPLACE_EXISTING);
     }
 }

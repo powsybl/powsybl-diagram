@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -154,7 +156,7 @@
     <g>
         <g class="sld-voltage-level" id="id051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031">
             <g id="idLABEL_95_VL_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031">
-                <text class="sld-graph-label" x="40.0" y="60.0">S3 110kV</text>
+                <text class="sld-graph-label" x="40.0" y="56.0">S3 110kV</text>
             </g>
             <g class="sld-busbar-section sld-vl70to120 sld-bus-0" id="idda8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31" transform="translate(95.02648999999997,80.0)">
                 <line x1="0" x2="0" y1="0" y2="147.02697700000004"/>
@@ -227,13 +229,13 @@
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO" transform="translate(40.0,178.01797700000003)">
-                <text class="sld-label" id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">L5</text>
+                <text class="sld-label" id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO_95_LABEL" x="-5.0" y="-5.0">L5</text>
             </g>
             <g id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO" transform="translate(40.0,108.58857699999999)">
-                <text class="sld-label" id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">L2</text>
+                <text class="sld-label" id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO_95_LABEL" x="-5.0" y="-5.0">L2</text>
             </g>
             <g class="sld-vl70to120 sld-bus-0" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE" transform="translate(237.96948999999995,178.01797700000003)">
-                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE_95__95_LABEL" x="-5.0" y="-5.0">T1</text>
+                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE_95_LABEL" x="-5.0" y="-5.0">T1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="id622a9aff_45_f9d4_45_49c7_45_8f29_45_fd88009c5df0" transform="translate(59.62963999999988,168.01797700000003)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
@@ -274,7 +276,7 @@
         </g>
         <g class="sld-voltage-level" id="id6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590">
             <g id="idLABEL_95_VL_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590">
-                <text class="sld-graph-label" x="277.96948999999995" y="60.0">S3 21kV</text>
+                <text class="sld-graph-label" x="277.96948999999995" y="56.0">S3 21kV</text>
             </g>
             <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="ida43ab51f_45_ba09_45_4224_45_8437_45_63a9ab30ea50" transform="translate(408.6601599999999,80.0)">
                 <line x1="0" x2="0" y1="0" y2="98.01803500000005"/>
@@ -319,10 +321,10 @@
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22_95__95_LABEL" x="-5.0" y="-5.0">G1</text>
+                <text class="sld-label" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22_95_LABEL" x="-5.0" y="-5.0">G1</text>
             </g>
             <g class="sld-vl0to30 sld-bus-0" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO" transform="translate(277.96948999999995,129.00903500000004)">
-                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO_95__95_LABEL" x="-5.0" y="-5.0">T1</text>
+                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO_95_LABEL" x="-5.0" y="-5.0">T1</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl0to30 sld-bus-0" id="id052682ba_45_a4e5_45_41d5_45_9728_45_0fa4e2e01011" transform="translate(373.2633099999998,119.00903500000004)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
