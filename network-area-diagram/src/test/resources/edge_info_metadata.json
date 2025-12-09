@@ -117,24 +117,24 @@
     "type" : "LineEdge",
     "edgeInfo1" : {
       "svgId" : "10",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
       "direction" : "OUT",
-      "infoType1" : "ActivePower",
-      "infoType2" : "Current",
-      "label1" : "1,400",
-      "label2" : "2,102"
+      "labelA" : "1,400",
+      "labelB" : "2,102"
     },
     "edgeInfo2" : {
       "svgId" : "11",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
       "direction" : "OUT",
-      "infoType1" : "ActivePower",
-      "infoType2" : "Current",
-      "label1" : "1,410",
-      "label2" : "2,068"
+      "labelA" : "1,410",
+      "labelB" : "2,068"
     },
     "edgeInfoMiddle" : {
       "svgId" : "12",
-      "infoType1" : "Name",
-      "label1" : "l1"
+      "infoTypeA" : "Name",
+      "labelA" : "l1"
     }
   }, {
     "svgId" : "15",

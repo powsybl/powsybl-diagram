@@ -170,6 +170,6 @@ public class BranchEdge extends AbstractEdge {
     }
 
     private static boolean isEdgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
-        return edgeInfo != null && (edgeInfo.getInfoType2() != null || edgeInfo.getInfoType1() != null);
+        return edgeInfo != null && (edgeInfo.getInfoTypeB() != null || edgeInfo.getInfoTypeA() != null);
     }
 }

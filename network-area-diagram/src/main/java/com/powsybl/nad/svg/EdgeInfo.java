@@ -24,22 +24,22 @@ public class EdgeInfo {
     public static final String NAME = "Name";
     public static final String VALUE_PERMANENT_LIMIT_PERCENTAGE = "PermanentLimitPercentage";
 
-    private final String infoType1;
-    private final String infoType2;
+    private final String infoTypeA;
+    private final String infoTypeB;
     private final Direction arrowDirection;
-    private final String label1;
-    private final String label2;
+    private final String labelA;
+    private final String labelB;
 
-    public EdgeInfo(String infoType1, String infoType2, Direction arrowDirection, String label1, String label2) {
-        this.infoType2 = infoType2;
-        this.infoType1 = infoType1;
+    public EdgeInfo(String infoTypeA, String infoTypeB, Direction arrowDirection, String labelA, String labelB) {
+        this.infoTypeB = infoTypeB;
+        this.infoTypeA = infoTypeA;
         this.arrowDirection = arrowDirection;
-        this.label1 = label1;
-        this.label2 = label2;
+        this.labelA = labelA;
+        this.labelB = labelB;
     }
 
-    public EdgeInfo(String infoType1, String infoType2, double referenceValue, String label1, String label2) {
-        this(infoType1, infoType2, getArrowDirection(referenceValue), label1, label2);
+    public EdgeInfo(String infoTypeA, String infoTypeB, double referenceValue, String labelA, String labelB) {
+        this(infoTypeA, infoTypeB, getArrowDirection(referenceValue), labelA, labelB);
     }
 
     private static Direction getArrowDirection(double value) {
@@ -50,31 +50,31 @@ public class EdgeInfo {
     }
 
     /**
-     * @deprecated since 5.1.0, use {@link #getInfoType2()} instead.
+     * @deprecated since 5.2.0, use {@link #getInfoTypeB()} instead.
      */
-    @Deprecated(since = "5.1.0")
+    @Deprecated(since = "5.2.0")
     public String getInfoType() {
-        return getInfoType2();
+        return getInfoTypeB();
     }
 
-    public String getInfoType2() {
-        return infoType2;
+    public String getInfoTypeB() {
+        return infoTypeB;
     }
 
-    public String getInfoType1() {
-        return infoType1;
+    public String getInfoTypeA() {
+        return infoTypeA;
     }
 
     public Optional<Direction> getDirection() {
         return Optional.ofNullable(arrowDirection);
     }
 
-    public Optional<String> getLabel1() {
-        return Optional.ofNullable(label1);
+    public Optional<String> getLabelA() {
+        return Optional.ofNullable(labelA);
     }
 
-    public Optional<String> getLabel2() {
-        return Optional.ofNullable(label2);
+    public Optional<String> getLabelB() {
+        return Optional.ofNullable(labelB);
     }
 
     /**
@@ -82,7 +82,7 @@ public class EdgeInfo {
      * @return the main info type. By default, the info type of the side 2.
      */
     public String getMainInfoType() {
-        return infoType2 != null ? infoType2 : infoType1;
+        return infoTypeB != null ? infoTypeB : infoTypeA;
     }
 
     public enum Direction {

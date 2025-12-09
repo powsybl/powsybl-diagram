@@ -587,10 +587,10 @@ public class SvgWriter {
         if (checkIfEdgeInfoIsEmpty(edgeInfo)) {
             return;
         }
-        if (edgeInfo.getDirection().isPresent() || edgeInfo.getLabel2().isPresent() && edgeInfo.getLabel1().isPresent()) {
+        if (edgeInfo.getDirection().isPresent() || edgeInfo.getLabelB().isPresent() && edgeInfo.getLabelA().isPresent()) {
             drawEdgeInfo(writer, svgEdgeInfo, point, edgeAngle);
         } else {
-            String label = edgeInfo.getLabel2().orElse(edgeInfo.getLabel1().orElse(null));
+            String label = edgeInfo.getLabelB().orElse(edgeInfo.getLabelA().orElse(null));
             labelDrawer.draw(writer, svgEdgeInfo, point, edge, label, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getMainInfoType()));
         }
     }
@@ -653,20 +653,20 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.svgId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         drawArrow(writer, edgeInfo, edgeAngle);
-        Optional<String> label2 = edgeInfo.getLabel2();
+        Optional<String> label2 = edgeInfo.getLabelB();
         if (label2.isPresent()) {
-            drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoType2()));
+            drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeB()));
         }
-        Optional<String> label1 = edgeInfo.getLabel1();
+        Optional<String> label1 = edgeInfo.getLabelA();
         if (label1.isPresent()) {
-            drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoType1()));
+            drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeA()));
         }
 
         writer.writeEndElement();
     }
 
     private boolean checkIfEdgeInfoIsEmpty(EdgeInfo edgeInfo) {
-        return edgeInfo.getLabel2().isEmpty() && edgeInfo.getLabel1().isEmpty() && edgeInfo.getDirection().isEmpty();
+        return edgeInfo.getLabelB().isEmpty() && edgeInfo.getLabelA().isEmpty() && edgeInfo.getDirection().isEmpty();
     }
 
     private void drawArrow(XMLStreamWriter writer, EdgeInfo edgeInfo, double edgeAngle) throws XMLStreamException {

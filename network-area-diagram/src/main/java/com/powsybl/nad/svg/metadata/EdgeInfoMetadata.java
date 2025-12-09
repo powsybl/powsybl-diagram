@@ -16,24 +16,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeInfoMetadata {
     private final String svgId;
-    private final String infoType1;
-    private final String infoType2;
+    private final String infoTypeA;
+    private final String infoTypeB;
     private final String direction;
-    private final String label1;
-    private final String label2;
+    private final String labelA;
+    private final String labelB;
 
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
-                            @JsonProperty("internalInfoType") String infoType1,
-                            @JsonProperty("externalInfoType") String infoType2,
+                            @JsonProperty("infoTypeA") String infoTypeA,
+                            @JsonProperty("infoTypeB") String infoTypeB,
                             @JsonProperty("direction") String direction,
-                            @JsonProperty("internalLabel") String label1,
-                            @JsonProperty("externalLabel") String label2) {
+                            @JsonProperty("labelA") String labelA,
+                            @JsonProperty("labelB") String labelB) {
         this.svgId = svgId;
-        this.infoType1 = infoType1;
-        this.infoType2 = infoType2;
+        this.infoTypeA = infoTypeA;
+        this.infoTypeB = infoTypeB;
         this.direction = direction;
-        this.label1 = label1;
-        this.label2 = label2;
+        this.labelA = labelA;
+        this.labelB = labelB;
     }
 
     @JsonProperty("svgId")
@@ -41,14 +41,14 @@ public class EdgeInfoMetadata {
         return svgId;
     }
 
-    @JsonProperty("infoType1")
-    public String getInfoType1() {
-        return infoType1;
+    @JsonProperty("infoTypeA")
+    public String getInfoTypeA() {
+        return infoTypeA;
     }
 
-    @JsonProperty("infoType2")
-    public String getInfoType2() {
-        return infoType2;
+    @JsonProperty("infoTypeB")
+    public String getInfoTypeB() {
+        return infoTypeB;
     }
 
     @JsonProperty("direction")
@@ -56,13 +56,13 @@ public class EdgeInfoMetadata {
         return direction;
     }
 
-    @JsonProperty("label1")
-    public String getLabel1() {
-        return label1;
+    @JsonProperty("labelA")
+    public String getLabelA() {
+        return labelA;
     }
 
-    @JsonProperty("label2")
-    public String getLabel2() {
-        return label2;
+    @JsonProperty("labelB")
+    public String getLabelB() {
+        return labelB;
     }
 }

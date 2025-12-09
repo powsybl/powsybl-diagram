@@ -189,11 +189,11 @@ public class DiagramMetadata extends AbstractMetadata {
     private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         return new EdgeInfoMetadata(svgEdgeInfo.svgId(),
-                edgeInfo.getInfoType1(),
-                edgeInfo.getInfoType2(),
+                edgeInfo.getInfoTypeA(),
+                edgeInfo.getInfoTypeB(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
-                edgeInfo.getLabel1().orElse(null),
-                edgeInfo.getLabel2().orElse(null));
+                edgeInfo.getLabelA().orElse(null),
+                edgeInfo.getLabelB().orElse(null));
     }
 
     private String getPrefixedId(String id) {
