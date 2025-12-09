@@ -7,6 +7,7 @@ All parameters have default values.
 | Name                           | Type      | Default value   |
 |--------------------------------|-----------|-----------------|
 | $maxSteps$                     | `int`     | 1000            |
+| $timeoutSeconds$               | `double`  | 15              |
 | $textNodesForceLayout$         | `boolean` | false           |
 | $textNodeFixedShift$           | `Point`   | Point(100, -40) |
 | $textNodeEdgeConnectionYShift$ | `double`  | 25              |
@@ -45,6 +46,11 @@ NB1: for a very simple network like the one displayed above, the difference in s
 
 NB2: the maximum number of iterations is not always reached as there are typically other stopping criteria in layout algorithms.
 
+### The `timeoutSeconds` parameter
+
+The `timeoutSeconds` parameter represents the maximum amount of time an automatic layout algorithm may spend.
+As a consequence, this parameter will limit the number of iterations performed by the algorithm if the time limit is reached before the maximum number of iterations is reached.
+Again, as for `maxSteps` parameter, the value assigned strikes a balance between speed and rendering quality.
 
 ## Text node parameters
 
