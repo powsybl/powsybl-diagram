@@ -93,7 +93,8 @@ public class SvgParameters {
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
+            percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public String getPrefixId() {

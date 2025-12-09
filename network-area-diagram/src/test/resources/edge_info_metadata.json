@@ -7,7 +7,7 @@
     },
     "maxSteps" : 1000,
     "textNodeEdgeConnectionYShift" : 25.0,
-    "injectionsAdded" : false
+    "injectionsAdded" : true
   },
   "svgParameters" : {
     "diagramPadding" : {
@@ -58,102 +58,105 @@
     "edgeInfosIncluded" : true
   },
   "busNodes" : [ {
-    "svgId" : "3",
-    "equipmentId" : "VL_11_0",
+    "svgId" : "4",
+    "equipmentId" : "vl1_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0",
-    "legend" : "11.8 kV / -15.2°"
+    "legend" : "400.0 kV / °"
   }, {
-    "svgId" : "7",
-    "equipmentId" : "VL_132_0",
+    "svgId" : "8",
+    "equipmentId" : "vl2_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "4",
-    "legend" : "133.6 kV / -9.6°"
+    "vlNode" : "5",
+    "legend" : "410.0 kV / °"
   }, {
-    "svgId" : "11",
-    "equipmentId" : "VL_33_0",
+    "svgId" : "14",
+    "equipmentId" : "dl1",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "8",
-    "legend" : "34.9 kV / -15.2°"
+    "vlNode" : "13"
   } ],
   "nodes" : [ {
     "svgId" : "0",
-    "equipmentId" : "VL_11",
-    "x" : 75.04,
-    "y" : -513.76,
+    "equipmentId" : "vl1",
+    "x" : -56.06,
+    "y" : -318.7,
     "legendSvgId" : "1",
     "legendEdgeSvgId" : "2",
-    "legendHeader" : [ "VL_11" ]
+    "legendHeader" : [ "Voltage level 1" ]
   }, {
-    "svgId" : "4",
-    "equipmentId" : "VL_132",
-    "x" : -371.52,
-    "y" : 47.69,
-    "legendSvgId" : "5",
-    "legendEdgeSvgId" : "6",
-    "legendHeader" : [ "VL_132" ]
+    "svgId" : "5",
+    "equipmentId" : "vl2",
+    "x" : -230.42,
+    "y" : 1.18,
+    "legendSvgId" : "6",
+    "legendEdgeSvgId" : "7",
+    "legendHeader" : [ "Voltage level 2" ]
   }, {
-    "svgId" : "8",
-    "equipmentId" : "VL_33",
-    "x" : 180.23,
-    "y" : 204.68,
-    "legendSvgId" : "9",
-    "legendEdgeSvgId" : "10",
-    "legendHeader" : [ "VL_33" ]
-  }, {
-    "svgId" : "12",
-    "equipmentId" : "3WT",
-    "x" : -22.79,
-    "y" : -128.62
+    "svgId" : "13",
+    "equipmentId" : "dl1",
+    "x" : -49.12,
+    "y" : 317.14
+  } ],
+  "injections" : [ {
+    "svgId" : "3",
+    "equipmentId" : "g1",
+    "componentType" : "GENERATOR",
+    "busNodeId" : "4",
+    "vlNodeId" : "0"
   } ],
   "edges" : [ {
-    "svgId" : "13",
-    "equipmentId" : "3WT",
+    "svgId" : "9",
+    "equipmentId" : "l1",
     "node1" : "0",
-    "node2" : "12",
-    "busNode1" : "3",
-    "busNode2" : "12",
-    "type" : "ThreeWtEdge"
-  }, {
-    "svgId" : "14",
-    "equipmentId" : "3WT",
-    "node1" : "4",
-    "node2" : "12",
-    "busNode1" : "7",
-    "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "node2" : "5",
+    "busNode1" : "4",
+    "busNode2" : "8",
+    "type" : "LineEdge",
+    "edgeInfo1" : {
+      "svgId" : "10",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
+      "direction" : "OUT",
+      "labelA" : "1,400",
+      "labelB" : "2,102"
+    },
+    "edgeInfo2" : {
+      "svgId" : "11",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
+      "direction" : "OUT",
+      "labelA" : "1,410",
+      "labelB" : "2,068"
+    },
+    "edgeInfoMiddle" : {
+      "svgId" : "12",
+      "infoTypeA" : "Name",
+      "labelA" : "l1"
+    }
   }, {
     "svgId" : "15",
-    "equipmentId" : "3WT",
-    "node1" : "8",
-    "node2" : "12",
-    "busNode1" : "11",
-    "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "equipmentId" : "dl1",
+    "node1" : "5",
+    "node2" : "13",
+    "busNode1" : "8",
+    "busNode2" : "14",
+    "type" : "DanglingLineEdge"
   } ],
   "textNodes" : [ {
     "svgId" : "1",
-    "equipmentId" : "VL_11",
+    "equipmentId" : "vl1",
     "vlNode" : "0",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "5",
-    "equipmentId" : "VL_132",
-    "vlNode" : "4",
-    "shiftX" : 100.0,
-    "shiftY" : -40.0,
-    "connectionShiftX" : 100.0,
-    "connectionShiftY" : -15.0
-  }, {
-    "svgId" : "9",
-    "equipmentId" : "VL_33",
-    "vlNode" : "8",
+    "svgId" : "6",
+    "equipmentId" : "vl2",
+    "vlNode" : "5",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,

@@ -16,21 +16,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeInfoMetadata {
     private final String svgId;
-    private final String infoType;
+    private final String infoTypeA;
+    private final String infoTypeB;
     private final String direction;
-    private final String internalLabel;
-    private final String externalLabel;
+    private final String labelA;
+    private final String labelB;
 
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
-                            @JsonProperty("infoType") String infoType,
+                            @JsonProperty("infoTypeA") String infoTypeA,
+                            @JsonProperty("infoTypeB") String infoTypeB,
                             @JsonProperty("direction") String direction,
-                            @JsonProperty("internalLabel") String internalLabel,
-                            @JsonProperty("externalLabel") String externalLabel) {
+                            @JsonProperty("labelA") String labelA,
+                            @JsonProperty("labelB") String labelB) {
         this.svgId = svgId;
-        this.infoType = infoType;
+        this.infoTypeA = infoTypeA;
+        this.infoTypeB = infoTypeB;
         this.direction = direction;
-        this.internalLabel = internalLabel;
-        this.externalLabel = externalLabel;
+        this.labelA = labelA;
+        this.labelB = labelB;
     }
 
     @JsonProperty("svgId")
@@ -38,9 +41,14 @@ public class EdgeInfoMetadata {
         return svgId;
     }
 
-    @JsonProperty("infoType")
-    public String getInfoType() {
-        return infoType;
+    @JsonProperty("infoTypeA")
+    public String getInfoTypeA() {
+        return infoTypeA;
+    }
+
+    @JsonProperty("infoTypeB")
+    public String getInfoTypeB() {
+        return infoTypeB;
     }
 
     @JsonProperty("direction")
@@ -48,13 +56,13 @@ public class EdgeInfoMetadata {
         return direction;
     }
 
-    @JsonProperty("internalLabel")
-    public String getInternalLabel() {
-        return internalLabel;
+    @JsonProperty("labelA")
+    public String getLabelA() {
+        return labelA;
     }
 
-    @JsonProperty("externalLabel")
-    public String getExternalLabel() {
-        return externalLabel;
+    @JsonProperty("labelB")
+    public String getLabelB() {
+        return labelB;
     }
 }
