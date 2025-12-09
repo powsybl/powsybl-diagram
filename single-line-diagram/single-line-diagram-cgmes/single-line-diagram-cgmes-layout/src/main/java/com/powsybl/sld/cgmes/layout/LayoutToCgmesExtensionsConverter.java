@@ -50,7 +50,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     public LayoutToCgmesExtensionsConverter() {
-        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters().setCgmesUseNames(true));
+        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters());
     }
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {

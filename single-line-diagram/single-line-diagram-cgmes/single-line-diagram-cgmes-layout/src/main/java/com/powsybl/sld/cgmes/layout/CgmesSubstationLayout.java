@@ -50,7 +50,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
+            setNodeCoordinates(vl, vlGraph, diagramName);
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node));

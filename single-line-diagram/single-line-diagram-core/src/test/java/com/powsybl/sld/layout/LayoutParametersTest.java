@@ -43,7 +43,6 @@ class LayoutParametersTest {
                 .setRemoveFictitiousSwitchNodes(true)
                 .setCgmesScaleFactor(2)
                 .setCgmesDiagramName("diag")
-                .setCgmesUseNames(true)
                 .setZoneLayoutSnakeLinePadding(120);
 
         layoutParameters.setComponentsSize(null);
@@ -69,7 +68,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
         assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
         assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
-        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
         assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
     }
 

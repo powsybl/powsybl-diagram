@@ -74,10 +74,10 @@ public abstract class AbstractCgmesLayout implements Layout {
         return true;
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName, boolean useNames) {
+    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName) {
         isNodeBreaker = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind());
         // skip line nodes: I need the coordinates of the adjacent node to know which side of the line belongs to this voltage level
-        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, node, diagramName, useNames));
+        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, node, diagramName));
         // set line nodes coordinates: I use the coordinates of the adjacent node to know which side of the line belongs to this voltage level
         graph.getNodes().stream().filter(this::isLineNode).forEach(node -> setLineNodeCoordinates(vl, node, diagramName));
     }
@@ -86,7 +86,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION, LCC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
+    protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getType()) {
             case BUS:
@@ -110,7 +110,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, diagramName);
                 break;
             case FEEDER:
-                setFeederNodeCoordinates(vl, node, diagramName, useNames);
+                setFeederNodeCoordinates(vl, node, diagramName);
                 break;
             default:
                 processDefaultNodeCase(vl, node, diagramName);
@@ -203,7 +203,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected void setFeederNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
+    protected void setFeederNodeCoordinates(VoltageLevel vl, Node node, String diagramName) {
         switch (node.getComponentType()) {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;
@@ -245,7 +245,6 @@ public abstract class AbstractCgmesLayout implements Layout {
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
-                    setTransformersLabel(transformerNode, useNames, transformer.getNameOrId(), transformer.getId());
                 }
                 setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, diagramName);
                 break;
@@ -258,7 +257,6 @@ public abstract class AbstractCgmesLayout implements Layout {
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
                 if (transformer3w != null) {
                     transformer3wDiagramData = transformer3w.getExtension(ThreeWindingsTransformerDiagramData.class);
-                    setTransformersLabel(transformer3wNode, useNames, transformer3w.getNameOrId(), transformer3w.getId());
                 }
                 setThreeWindingsTransformerNodeCoordinates(transformer3wNode, transformer3wDiagramData, diagramName);
                 break;

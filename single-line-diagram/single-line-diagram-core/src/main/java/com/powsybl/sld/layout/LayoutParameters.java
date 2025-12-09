@@ -47,7 +47,6 @@ public class LayoutParameters {
     private boolean removeFictitiousSwitchNodes = false;
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
-    private boolean cgmesUseNames = true;
     private int zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
@@ -78,7 +77,6 @@ public class LayoutParameters {
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
-                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
@@ -101,7 +99,6 @@ public class LayoutParameters {
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
         this.cgmesDiagramName = cgmesDiagramName;
         this.cgmesScaleFactor = cgmesScaleFactor;
-        this.cgmesUseNames = cgmesUseNames;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
     }
 
@@ -128,7 +125,6 @@ public class LayoutParameters {
         componentsSize = other.componentsSize;
         cgmesScaleFactor = other.cgmesScaleFactor;
         cgmesDiagramName = other.cgmesDiagramName;
-        cgmesUseNames = other.cgmesUseNames;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
     }
 
@@ -322,15 +318,6 @@ public class LayoutParameters {
 
     public LayoutParameters setCgmesDiagramName(String cgmesDiagramName) {
         this.cgmesDiagramName = cgmesDiagramName;
-        return this;
-    }
-
-    public boolean isCgmesUseNames() {
-        return cgmesUseNames;
-    }
-
-    public LayoutParameters setCgmesUseNames(boolean cgmesUseNames) {
-        this.cgmesUseNames = cgmesUseNames;
         return this;
     }
 
