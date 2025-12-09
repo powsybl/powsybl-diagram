@@ -13,7 +13,6 @@ import com.powsybl.commons.test.ComparisonUtils;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.SldParameters;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.AfterEach;
@@ -25,7 +24,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Objects;
 
 /**

@@ -7,7 +7,6 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
@@ -31,8 +30,6 @@ import java.nio.file.Path;
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class BusTopology3wtTest extends AbstractTest {
-
-    Network network;
 
     @Override
     @BeforeEach
