@@ -41,6 +41,8 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+import static com.powsybl.diagram.util.CssUtil.CLASS;
+import static com.powsybl.diagram.util.CssUtil.writeStyleClasses;
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
 import static com.powsybl.sld.util.IdUtil.escapeClassName;
@@ -60,8 +62,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSVGWriter.class);
 
-    protected static final String GROUP = "g";
-    protected static final String CLASS = "class";
     protected static final String STYLE = "style";
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
@@ -94,7 +94,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * @param writer writer for the SVG content
      */
     @Override
-    public GraphMetadata write(Graph graph, LabelProvider labelProvider, StyleProvider styleProvider, Writer writer) {
+    public GraphMetadata write(Graph graph, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter, Writer writer) {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
@@ -109,7 +109,7 @@ public class DefaultSVGWriter implements SVGWriter {
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         addFrame(document);
-        GraphMetadata metadata = writeGraph(graph, document, labelProvider, styleProvider);
+        GraphMetadata metadata = writeGraph(graph, document, labelProvider, styleProvider, legendWriter);
 
         DomUtil.transformDocument(document, writer);
 
@@ -183,7 +183,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the graph
      */
-    protected GraphMetadata writeGraph(Graph graph, Document document, LabelProvider initProvider, StyleProvider styleProvider) {
+    protected GraphMetadata writeGraph(Graph graph, Document document, LabelProvider initProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         GraphMetadata metadata = new GraphMetadata(layoutParameters, svgParameters);
 
         Element root = document.createElement(GROUP);
@@ -191,11 +191,11 @@ public class DefaultSVGWriter implements SVGWriter {
         drawGrid(graph, document, metadata, root);
 
         if (graph instanceof VoltageLevelGraph) {
-            drawVoltageLevel((VoltageLevelGraph) graph, root, metadata, initProvider, styleProvider);
+            drawVoltageLevel((VoltageLevelGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         } else if (graph instanceof SubstationGraph) {
-            drawSubstation((SubstationGraph) graph, root, metadata, initProvider, styleProvider);
+            drawSubstation((SubstationGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         } else if (graph instanceof ZoneGraph) {
-            drawZone((ZoneGraph) graph, root, metadata, initProvider, styleProvider);
+            drawZone((ZoneGraph) graph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         document.adoptNode(root);
@@ -218,7 +218,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                     Element root,
                                     GraphMetadata metadata,
                                     LabelProvider initProvider,
-                                    StyleProvider styleProvider) {
+                                    StyleProvider styleProvider,
+                                    SVGLegendWriter legendWriter) {
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", IdUtil.escapeId(graph.getId()));
         g.setAttribute(CLASS, StyleClassConstants.VOLTAGE_LEVEL_CLASS);
@@ -246,7 +247,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(g, graph, new Point(0, 0), metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && svgParameters.isBusesLegendAdded()) {
-            drawBusesLegend(g, graph, metadata, initProvider, styleProvider);
+            drawLegend(g, graph, metadata, styleProvider, legendWriter);
         }
         root.appendChild(g);
     }
@@ -283,10 +284,11 @@ public class DefaultSVGWriter implements SVGWriter {
                                   Element root,
                                   GraphMetadata metadata,
                                   LabelProvider initProvider,
-                                  StyleProvider styleProvider) {
+                                  StyleProvider styleProvider,
+                                  SVGLegendWriter legendWriter) {
         // Drawing the voltageLevel graphs
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            drawVoltageLevel(vlGraph, root, metadata, initProvider, styleProvider);
+            drawVoltageLevel(vlGraph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
@@ -529,7 +531,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element gLabel = root.getOwnerDocument().createElement(GROUP);
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
-        double yPos = graph.getY() - 20.;
+        double yPos = graph.getY() - 24.;
 
         String graphName = svgParameters.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
         Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
@@ -1104,7 +1106,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             listUsedComponentSVG.forEach(c -> {
                 Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
-                if (subComponents != null) {
+                if (subComponents != null && !subComponents.isEmpty()) {
                     Element group = document.createElement(GROUP);
                     group.setAttribute("id", c);
 
@@ -1146,87 +1148,23 @@ public class DefaultSVGWriter implements SVGWriter {
                           Element root,
                           GraphMetadata metadata,
                           LabelProvider initProvider,
-                          StyleProvider styleProvider) {
+                          StyleProvider styleProvider,
+                          SVGLegendWriter legendWriter) {
         for (SubstationGraph sGraph : graph.getSubstations()) {
-            drawSubstation(sGraph, root, metadata, initProvider, styleProvider);
+            drawSubstation(sGraph, root, metadata, initProvider, styleProvider, legendWriter);
         }
 
         drawSnakeLines(root, graph, metadata, styleProvider);
     }
 
-    /*
-     * Drawing the voltageLevel nodes infos
-     */
-    private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,
-                                   Element g, String idNode, VoltageLevelGraph graph, StyleProvider styleProvider) {
+    private void drawLegend(Element root, VoltageLevelGraph graph, GraphMetadata metadata, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+        Element legendRootElement = root.getOwnerDocument().createElement(GROUP);
+        root.appendChild(legendRootElement);
+        legendRootElement.setAttribute(CLASS, StyleClassConstants.LEGEND);
 
-        Element circle = g.getOwnerDocument().createElement("circle");
-
-        // colored circle
-        circle.setAttribute("id", IdUtil.escapeId(idNode + "_circle"));
-        circle.setAttribute("cx", String.valueOf(xShift));
-        circle.setAttribute("cy", String.valueOf(yShift));
-        circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        writeStyleClasses(circle, styleProvider.getBusStyles(busLegendInfo.busId(), graph));
-        g.appendChild(circle);
-
-        // legend nodes
-        double padding = 2.5;
-        for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
-            Element label = g.getOwnerDocument().createElement("text");
-            writeStyleClasses(label, styleProvider.getBusLegendCaptionStyles(caption), StyleClassConstants.BUS_LEGEND_INFO);
-            label.setAttribute("id", IdUtil.escapeId(idNode + "_" + caption.type()));
-            label.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
-            label.setAttribute("y", String.valueOf(yShift + padding * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-            Text textNode = g.getOwnerDocument().createTextNode(caption.label());
-            label.appendChild(textNode);
-            g.appendChild(label);
-
-            padding += 1.5;
-        }
-    }
-
-    private void drawBusesLegend(Element root, VoltageLevelGraph graph,
-                                 GraphMetadata metadata, LabelProvider labelProvider, StyleProvider styleProvider) {
-
-        Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
-        root.appendChild(nodesInfosNode);
-        nodesInfosNode.setAttribute(CLASS, StyleClassConstants.LEGEND);
-
-        double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        double xPos = graph.getX() + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
-        double xShift = graph.getX() + xInitPos;
-        for (BusLegendInfo busLegendInfo : labelProvider.getBusLegendInfos(graph)) {
-            String idNode = metadata.getSvgParameters().getPrefixId() + "NODE_" + busLegendInfo.busId();
-            String escapedIdNode = IdUtil.escapeId(idNode);
-            Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
-            gNode.setAttribute("id", escapedIdNode);
-
-            drawBusLegendInfo(busLegendInfo, xShift, yPos, gNode, idNode, graph, styleProvider);
-
-            nodesInfosNode.appendChild(gNode);
-
-            metadata.addBusLegendInfoMetadata(new GraphMetadata.BusLegendInfoMetadata(escapedIdNode));
-
-            xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
-        }
-    }
-
-    private void writeStyleClasses(Element element, List<String> styleClasses) {
-        writeStyleClasses(element, styleClasses, null);
-    }
-
-    private void writeStyleClasses(Element element, List<String> styleClasses, String additionalClass) {
-        if (styleClasses.isEmpty() && additionalClass == null) {
-            return;
-        }
-        List<String> allClasses = styleClasses;
-        if (additionalClass != null) {
-            allClasses = new ArrayList<>(styleClasses);
-            allClasses.add(additionalClass);
-        }
-        element.setAttribute(CLASS, String.join(" ", allClasses));
+        legendWriter.drawLegend(graph, metadata, styleProvider, legendRootElement, xPos, yPos);
     }
 }
