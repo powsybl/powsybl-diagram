@@ -32,6 +32,11 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
     private final SubstationGraph graph;
 
     public CgmesSubstationLayout(SubstationGraph graph, Network network) {
+        this(graph, network, null);
+    }
+
+    public CgmesSubstationLayout(SubstationGraph graph, Network network, String cgmesDiagramName) {
+        super(cgmesDiagramName);
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
@@ -43,7 +48,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        String diagramName = layoutParam.getCgmesDiagramName();
+        String diagramName = getCgmesDiagramName();
         if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
             return;
         }
@@ -53,7 +58,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node));
+            vlGraph.getNodes().forEach(this::shiftNodeCoordinates);
         }
         if (layoutParam.getCgmesScaleFactor() != 1) {
             for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {

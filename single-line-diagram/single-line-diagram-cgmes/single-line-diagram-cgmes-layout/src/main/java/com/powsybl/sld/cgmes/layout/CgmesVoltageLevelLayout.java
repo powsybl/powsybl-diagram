@@ -27,6 +27,11 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     private final VoltageLevelGraph graph;
 
     public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network) {
+        this(graph, network, null);
+    }
+
+    public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network, String cgmesDiagramName) {
+        super(cgmesDiagramName);
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));
@@ -35,7 +40,7 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        String diagramName = layoutParam.getCgmesDiagramName();
+        String diagramName = getCgmesDiagramName();
         if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
             return;
         }

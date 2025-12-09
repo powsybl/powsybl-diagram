@@ -46,6 +46,11 @@ public abstract class AbstractCgmesLayout implements Layout {
     protected boolean fixTransformersLabel = false;
 
     protected Network network;
+    private String cgmesDiagramName;
+
+    protected AbstractCgmesLayout(String cgmesDiagramName) {
+        this.cgmesDiagramName = cgmesDiagramName;
+    }
 
     protected void setMinMax(DiagramPoint diagramPoint) {
         double x = diagramPoint.getX();
@@ -422,5 +427,15 @@ public abstract class AbstractCgmesLayout implements Layout {
                 vl.getNodeBreakerView().getSwitch(node.getId()) :
                 vl.getBusBreakerView().getSwitch(node.getId());
         return sw == null || sw.isFictitious();
+    }
+
+    public String getCgmesDiagramName() {
+        if (cgmesDiagramName == null && network != null) {
+            List<String> names = NetworkDiagramData.getDiagramsNames(network);
+            if (!names.isEmpty()) {
+                cgmesDiagramName = names.getFirst();
+            }
+        }
+        return cgmesDiagramName;
     }
 }

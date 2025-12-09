@@ -45,7 +45,7 @@ class BusTopology3wtTest extends AbstractTest {
     void testSubstationLayout() throws IOException {
         SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph("Substation");
 
-        var layoutParameters = new LayoutParameters().setCgmesScaleFactor(2).setCgmesDiagramName("default");
+        var layoutParameters = new LayoutParameters().setCgmesScaleFactor(2);
         new CgmesSubstationLayout(graph, network).run(layoutParameters);
 
         var svgParameters = new SvgParameters();

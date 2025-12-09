@@ -46,7 +46,6 @@ public class LayoutParameters {
     private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
     private double cgmesScaleFactor = 1;
-    private String cgmesDiagramName = null;
     private int zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
@@ -76,7 +75,6 @@ public class LayoutParameters {
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
-                            @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
@@ -97,7 +95,6 @@ public class LayoutParameters {
         this.busbarsAlignment = busbarsAlignment;
         this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
-        this.cgmesDiagramName = cgmesDiagramName;
         this.cgmesScaleFactor = cgmesScaleFactor;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
     }
@@ -124,7 +121,6 @@ public class LayoutParameters {
         removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
         componentsSize = other.componentsSize;
         cgmesScaleFactor = other.cgmesScaleFactor;
-        cgmesDiagramName = other.cgmesDiagramName;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
     }
 
@@ -309,15 +305,6 @@ public class LayoutParameters {
 
     public LayoutParameters setCgmesScaleFactor(double cgmesScaleFactor) {
         this.cgmesScaleFactor = cgmesScaleFactor;
-        return this;
-    }
-
-    public String getCgmesDiagramName() {
-        return cgmesDiagramName;
-    }
-
-    public LayoutParameters setCgmesDiagramName(String cgmesDiagramName) {
-        this.cgmesDiagramName = cgmesDiagramName;
         return this;
     }
 

@@ -36,6 +36,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private final List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
+        this(graph, network, null);
+    }
+
+    public CgmesZoneLayout(ZoneGraph graph, Network network, String cgmesDiagramName) {
+        super(cgmesDiagramName);
         this.network = Objects.requireNonNull(network);
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
@@ -51,7 +56,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }
-        String diagramName = layoutParam.getCgmesDiagramName();
+        String diagramName = getCgmesDiagramName();
         if (!checkDiagram(diagramName, "")) {
             return;
         }
@@ -66,7 +71,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         // shift coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node));
+            vlGraph.getNodes().forEach(this::shiftNodeCoordinates);
         }
         for (BranchEdge edge : graph.getLineEdges()) {
             shiftLineCoordinates(edge);

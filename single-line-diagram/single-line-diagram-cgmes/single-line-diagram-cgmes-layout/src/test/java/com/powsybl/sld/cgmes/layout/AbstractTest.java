@@ -56,12 +56,8 @@ public abstract class AbstractTest {
 
     protected void assertSvgDrawnEqualsReference(String containerId, String filename, LayoutParameters layoutParameters,
                                                  SvgParameters svgParameters) throws IOException {
-        List<String> names = NetworkDiagramData.getDiagramsNames(network);
-        layoutParameters.setCgmesDiagramName(names.getFirst());
-        svgParameters.setUseName(true);
-
         Path svgOutput = tmpDir.resolve(filename);
-        var sldParameters = new SldParameters().setLayoutParameters(layoutParameters).setSvgParameters(svgParameters);
+        var sldParameters = new SldParameters().setLayoutParameters(layoutParameters).setSvgParameters(svgParameters.setUseName(true));
         SingleLineDiagram.draw(network, containerId, svgOutput, sldParameters);
         assertSvgEqualsReference(filename, svgOutput);
     }

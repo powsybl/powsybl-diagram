@@ -323,7 +323,6 @@
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
     "cgmesScaleFactor" : 1.0,
-    "cgmesDiagramName" : null,
     "zoneLayoutSnakeLinePadding" : 90
   },
   "svgParams" : {
