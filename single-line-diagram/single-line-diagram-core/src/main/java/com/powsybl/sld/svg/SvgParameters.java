@@ -46,7 +46,6 @@ public class SvgParameters {
     private boolean drawStraightWires = false;
     private boolean showGrid = false;
     private boolean showInternalNodes = false;
-    private boolean displayCurrentFeederInfo = false;
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
@@ -88,7 +87,6 @@ public class SvgParameters {
         this.drawStraightWires = other.drawStraightWires;
         this.showGrid = other.showGrid;
         this.showInternalNodes = other.showInternalNodes;
-        this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
@@ -356,15 +354,6 @@ public class SvgParameters {
 
     public SvgParameters setShowInternalNodes(boolean showInternalNodes) {
         this.showInternalNodes = showInternalNodes;
-        return this;
-    }
-
-    public boolean isDisplayCurrentFeederInfo() {
-        return this.displayCurrentFeederInfo;
-    }
-
-    public SvgParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
-        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
         return this;
     }
 

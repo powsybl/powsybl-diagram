@@ -52,6 +52,6 @@ class TestCase1 extends AbstractTestCaseRaw {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCase1.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider(), getLegendRawProvider()));
     }
 }

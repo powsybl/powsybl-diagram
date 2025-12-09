@@ -1444,11 +1444,6 @@
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   } ],
-  "busLegendInfos" : [ {
-    "id" : "idNODE_95_vl1_95_0"
-  }, {
-    "id" : "idNODE_95_vl1_95_2"
-  } ],
   "busInfos" : [ ],
   "layoutParams" : {
     "verticalSpaceBus" : 25.0,
@@ -1513,7 +1508,6 @@
     "drawStraightWires" : false,
     "showGrid" : false,
     "showInternalNodes" : false,
-    "displayCurrentFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false
