@@ -34,7 +34,7 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("x") double x,
                         @JsonProperty("y") double y,
                         @JsonProperty("fictitious") boolean fictitious,
-                        @JsonProperty("visible") boolean invisible,
+                        @JsonProperty("invisible") boolean invisible,
                         @JsonProperty("legendSvgId") String legendSvgId,
                         @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
