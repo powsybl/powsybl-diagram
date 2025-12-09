@@ -17,19 +17,19 @@ import java.io.IOException;
  *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-class NodeTopologyHorizontalBusbarTest extends AbstractTest {
+class NodeTopologyVerticalBusbarIcTest extends AbstractTest {
 
     @Override
     @BeforeEach
     public void setup() throws IOException {
         super.setup();
-        network = Networks.createNodeTopologyNetwork();
-        Networks.addNodeTopologyHorizontalBusbarDiagramData(network);
+        network = Networks.createNodeTopologyNetworkWithInternalConnections();
+        Networks.addNodeTopologyVerticalBusbarDiagramData(network);
     }
 
     @Test
     void testVoltageLevelLayout() throws IOException {
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyTestH.svg",
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyIcTestV.svg",
                 new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
     }
 }

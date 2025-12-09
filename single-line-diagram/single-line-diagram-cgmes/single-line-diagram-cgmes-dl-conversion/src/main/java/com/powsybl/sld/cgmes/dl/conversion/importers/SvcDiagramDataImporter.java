@@ -43,7 +43,7 @@ public class SvcDiagramDataImporter extends AbstractInjectionDiagramDataImporter
                 svcIidmDiagramData = new InjectionDiagramData<>(svc);
             }
             String diagramName = svcDiagramData.get("diagramName");
-            InjectionDiagramData<StaticVarCompensator>.InjectionDiagramDetails diagramDetails = svcIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
                     svcDiagramData.asDouble("rotation"));
             addTerminalPoints(svcId, svc.getNameOrId(), diagramName, diagramDetails);
             svcIidmDiagramData.addData(diagramName, diagramDetails);

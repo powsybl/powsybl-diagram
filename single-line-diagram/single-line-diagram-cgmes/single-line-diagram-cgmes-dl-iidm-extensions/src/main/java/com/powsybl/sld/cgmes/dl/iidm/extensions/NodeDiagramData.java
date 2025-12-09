@@ -21,7 +21,7 @@ public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtensio
 
     static final String NAME = "node-diagram-data";
 
-    public class NodeDiagramDataDetails {
+    public static class NodeDiagramDataDetails {
         private DiagramPoint point1;
         private DiagramPoint point2;
 
@@ -42,7 +42,7 @@ public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         }
     }
 
-    private Map<String, NodeDiagramDataDetails> diagramsDetails = new HashMap<>();
+    private final Map<String, NodeDiagramDataDetails> diagramsDetails = new HashMap<>();
 
     private NodeDiagramData(T identifiable) {
         super(identifiable);

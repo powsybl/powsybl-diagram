@@ -47,7 +47,7 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
             if (transformerIidmDiagramData == null) {
                 transformerIidmDiagramData = new CouplingDeviceDiagramData<>(transformer);
             }
-            CouplingDeviceDiagramData<TwoWindingsTransformer>.CouplingDeviceDiagramDetails diagramDetails = transformerIidmDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
+            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
                     transformersDiagramData.asDouble("rotation"));
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);

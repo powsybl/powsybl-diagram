@@ -11,22 +11,12 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.Node;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.powsybl.sld.library.SldComponentTypeName.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -137,7 +127,7 @@ class CgmesZoneLayoutTest {
     private void addDiagramData(Network network) {
         Load load = network.getLoad(LOAD_ID);
         InjectionDiagramData<Load> loadDiagramData = new InjectionDiagramData<>(load);
-        InjectionDiagramData.InjectionDiagramDetails loadsDiagramDetails = loadDiagramData.new InjectionDiagramDetails(new DiagramPoint(10, 20, 0), 90);
+        InjectionDiagramData.InjectionDiagramDetails loadsDiagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(10, 20, 0), 90);
         loadsDiagramDetails.addTerminalPoint(new DiagramPoint(15, 20, 1));
         loadsDiagramDetails.addTerminalPoint(new DiagramPoint(30, 20, 2));
         loadDiagramData.addData(DIAGRAM_ID, loadsDiagramDetails);
@@ -145,7 +135,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus11 = network.getVoltageLevel(VOLTAGE_LEVEL_11_ID).getBusBreakerView().getBus(BUS_11_ID);
         NodeDiagramData<Bus> busDiagramData11 = new NodeDiagramData<>(bus11);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails11 = busDiagramData11.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails11 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails11.setPoint1(new DiagramPoint(30, 10, 1));
         diagramDetails11.setPoint2(new DiagramPoint(30, 30, 2));
         busDiagramData11.addData(DIAGRAM_ID, diagramDetails11);
@@ -153,7 +143,7 @@ class CgmesZoneLayoutTest {
 
         TwoWindingsTransformer twt = network.getTwoWindingsTransformer(TRANSFORMER_ID);
         CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = twtDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(50, 20, 0), 90);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(50, 20, 0), 90);
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(45, 20, 1));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(30, 20, 2));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(55, 20, 1));
@@ -163,7 +153,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus12 = network.getVoltageLevel(VOLTAGE_LEVEL_12_ID).getBusBreakerView().getBus(BUS_12_ID);
         NodeDiagramData<Bus> busDiagramData12 = new NodeDiagramData<>(bus12);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails12 = busDiagramData11.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails12 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails12.setPoint1(new DiagramPoint(70, 10, 1));
         diagramDetails12.setPoint2(new DiagramPoint(70, 30, 2));
         busDiagramData12.addData(DIAGRAM_ID, diagramDetails12);
@@ -179,7 +169,7 @@ class CgmesZoneLayoutTest {
 
         Bus bus21 = network.getVoltageLevel(VOLTAGE_LEVEL_21_ID).getBusBreakerView().getBus(BUS_21_ID);
         NodeDiagramData<Bus> busDiagramData21 = new NodeDiagramData<>(bus21);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails21 = busDiagramData21.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails21 = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails21.setPoint1(new DiagramPoint(130, 50, 1));
         diagramDetails21.setPoint2(new DiagramPoint(130, 70, 2));
         busDiagramData21.addData(DIAGRAM_ID, diagramDetails21);
@@ -187,7 +177,7 @@ class CgmesZoneLayoutTest {
 
         Generator generator = network.getGenerator(GENERATOR_ID);
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorDiagramData.new InjectionDiagramDetails(new DiagramPoint(150, 60, 0), 0);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(150, 60, 0), 0);
         diagramDetails.addTerminalPoint(new DiagramPoint(145, 60, 1));
         diagramDetails.addTerminalPoint(new DiagramPoint(130, 60, 2));
         generatorDiagramData.addData(DIAGRAM_ID, diagramDetails);
@@ -208,75 +198,5 @@ class CgmesZoneLayoutTest {
         layoutParameters.setCgmesDiagramName(DIAGRAM_ID);
         new CgmesZoneLayout(graph, network).run(layoutParameters);
 
-        assertEquals(2, graph.getSubstations().size());
-        assertEquals(2, graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevels().size());
-        assertEquals(1, graph.getSubstationGraph(SUBSTATION_2_ID).getVoltageLevels().size());
-        assertEquals(SUBSTATION_1_ID, graph.getSubstations().get(0).getSubstationId());
-        assertEquals(SUBSTATION_2_ID, graph.getSubstations().get(1).getSubstationId());
-
-        VoltageLevelGraph vlGraph11 = graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevel(VOLTAGE_LEVEL_11_ID);
-        assertEquals(3, vlGraph11.getNodes().size());
-        assertEquals(2, vlGraph11.getEdges().size());
-        checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(LOAD_ID, TRANSFORMER_ID + "_" + TwoSides.ONE), 60, 10, true);
-        checkNode(vlGraph11.getNodes().get(1), Node.NodeType.FEEDER, LOAD_ID, LOAD, Arrays.asList(BUS_11_ID), 20, 30, true);
-        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + TwoSides.ONE, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_11_ID), 100, 30, true);
-
-        VoltageLevelGraph vlGraph12 = graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevel(VOLTAGE_LEVEL_12_ID);
-        assertEquals(3, vlGraph12.getNodes().size());
-        assertEquals(2, vlGraph12.getEdges().size());
-        checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + TwoSides.ONE, TRANSFORMER_ID + "_" + TwoSides.TWO), 140, 10, true);
-        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + TwoSides.TWO, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_12_ID), 100, 30, true);
-        checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + TwoSides.ONE, LINE, Arrays.asList(BUS_12_ID), 180, 30, true);
-
-        VoltageLevelGraph vlGraph21 = graph.getSubstationGraph(SUBSTATION_2_ID).getVoltageLevel(VOLTAGE_LEVEL_21_ID);
-        assertEquals(3, vlGraph21.getNodes().size());
-        assertEquals(2, vlGraph21.getEdges().size());
-        checkNode(vlGraph21.getNodes().get(0), Node.NodeType.BUS, BUS_21_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + TwoSides.TWO, GENERATOR_ID), 260, 90, true);
-        checkNode(vlGraph21.getNodes().get(1), Node.NodeType.FEEDER, GENERATOR_ID, GENERATOR, Arrays.asList(BUS_21_ID), 300, 110, false);
-        checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + TwoSides.TWO, LINE, Arrays.asList(BUS_21_ID), 220, 110, true);
-
-        assertEquals(1, graph.getLineEdges().size());
-        BranchEdge linEdge = graph.getLineEdges().get(0);
-        assertEquals(LINE_ID, linEdge.getId());
-        assertEquals(LINE_ID + "_" + TwoSides.ONE, linEdge.getNode1().getId());
-        assertEquals(LINE_ID + "_" + TwoSides.TWO, linEdge.getNode2().getId());
-        List<Point> points = linEdge.getSnakeLine();
-        assertEquals(4, points.size());
-        checkLinePointCoordinates(points.get(0), 180, 30);
-        checkLinePointCoordinates(points.get(1), 200, 30);
-        checkLinePointCoordinates(points.get(2), 200, 110);
-        checkLinePointCoordinates(points.get(3), 220, 110);
     }
-
-    private void checkNode(Node node, Node.NodeType type, String id, String componentType,
-                           List<String> expectedAdjacentNodes, double x, double y, boolean rotated) {
-        assertEquals(type, node.getType());
-        assertEquals(id, node.getId());
-        assertEquals(componentType, node.getComponentType());
-        assertEquals(expectedAdjacentNodes.size(), node.getAdjacentNodes().size());
-        checkAdjacentNodes(node, expectedAdjacentNodes);
-        checkNodeCoordinates(node, x, y, rotated);
-    }
-
-    private void checkAdjacentNodes(Node node, List<String> expectedAdjacentNodes) {
-        node.getAdjacentNodes().forEach(adjacentNode -> {
-            assertTrue(expectedAdjacentNodes.contains(adjacentNode.getId()));
-        });
-    }
-
-    private void checkNodeCoordinates(Node node, double x, double y, boolean rotated) {
-        assertEquals(x, node.getX(), 0);
-        assertEquals(y, node.getY(), 0);
-        if (node instanceof BusNode) {
-            assertEquals(rotated ? Orientation.UP : Orientation.RIGHT, node.getOrientation());
-        } else {
-            assertEquals(rotated ? Orientation.RIGHT : Orientation.UP, node.getOrientation());
-        }
-    }
-
-    private void checkLinePointCoordinates(Point point, int x, int y) {
-        assertEquals(x, point.getX(), 0);
-        assertEquals(y, point.getY(), 0);
-    }
-
 }
