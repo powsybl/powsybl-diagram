@@ -42,7 +42,7 @@ class BusTopology3wtTest extends AbstractTest {
     void testSubstationLayout() throws IOException {
         SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph("Substation");
 
-        var layoutParameters = new LayoutParameters().setCgmesScaleFactor(2);
+        var layoutParameters = new LayoutParameters().setCgmesScaleFactor(3);
         new CgmesSubstationLayout(graph, network).run(layoutParameters);
 
         var svgParameters = new SvgParameters();
@@ -54,8 +54,9 @@ class BusTopology3wtTest extends AbstractTest {
 
         String filename = "/busTopology3wtSubstationTest.svg";
         Path svgOutput = tmpDir.resolve(filename);
-        Writer fileWriter = Files.newBufferedWriter(svgOutput, StandardCharsets.UTF_8);
-        svgWriter.write(graph, labelProvider, styleProvider, legendWriter, fileWriter);
+        try (Writer fileWriter = Files.newBufferedWriter(svgOutput, StandardCharsets.UTF_8)) {
+            svgWriter.write(graph, labelProvider, styleProvider, legendWriter, fileWriter);
+        }
 
         assertSvgEqualsReference(filename, svgOutput);
     }

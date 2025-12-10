@@ -9,7 +9,9 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.graphs.AbstractGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
@@ -437,5 +439,17 @@ public abstract class AbstractCgmesLayout implements Layout {
             }
         }
         return cgmesDiagramName;
+    }
+
+    protected void setGraphSize(AbstractGraph graph, LayoutParameters layoutParam) {
+        double widthWithoutPadding = maxX - minX;
+        double heightWithoutPadding = maxY - minY;
+
+        LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
+        double cgmesScaleFactor = layoutParam.getCgmesScaleFactor();
+        double width = widthWithoutPadding * cgmesScaleFactor + padding.getLeft() + padding.getRight();
+        double height = heightWithoutPadding * cgmesScaleFactor + padding.getTop() + padding.getBottom();
+
+        graph.setSize(width, height);
     }
 }
