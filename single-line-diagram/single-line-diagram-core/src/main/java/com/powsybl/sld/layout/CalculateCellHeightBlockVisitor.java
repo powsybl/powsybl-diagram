@@ -12,7 +12,9 @@ import java.util.Set;
 import java.util.function.DoubleBinaryOperator;
 
 import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 
@@ -64,8 +66,10 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
         // already encountered
         long nbNodes = block.getNodeStream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
                 .count();
+        long nbSwitch3wt = block.getNodeStream().filter(n -> !encounteredNodes.contains(n) && n.getType() == NodeType.SWITCH)
+                .filter(sw -> sw.getAdjacentNodes().stream().anyMatch(n -> n instanceof Middle3WTNode)).count();
 
-        this.blockHeight = (nbNodes - 1) * componentHeight;
+        this.blockHeight = (2 * nbSwitch3wt + nbNodes  - 1) * componentHeight;
     }
 
     @Override
