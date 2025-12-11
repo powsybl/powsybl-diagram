@@ -23,7 +23,7 @@ class StaticVarCompensatorDiagramDataTest extends AbstractInjectionDiagramDataTe
         StaticVarCompensator svc = network.getStaticVarCompensator("Svc");
 
         InjectionDiagramData<StaticVarCompensator> svcDiagramData = new InjectionDiagramData<>(svc);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = svcDiagramData.new InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
         diagramDetails.addTerminalPoint(new DiagramPoint(15, 10, 2));
         diagramDetails.addTerminalPoint(new DiagramPoint(0, 10, 1));
         svcDiagramData.addData(DIAGRAM_NAME, diagramDetails);

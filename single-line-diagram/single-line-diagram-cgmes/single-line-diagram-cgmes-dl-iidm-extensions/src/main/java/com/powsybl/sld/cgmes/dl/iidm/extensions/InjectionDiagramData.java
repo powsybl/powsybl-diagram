@@ -20,14 +20,14 @@ public class InjectionDiagramData<T extends Injection<T>> extends AbstractExtens
 
     static final String NAME = "injection-diagram-data";
 
-    public class InjectionDiagramDetails {
+    public static class InjectionDiagramDetails {
         private final DiagramPoint point;
         private final double rotation;
-        private List<DiagramPoint> terminalPoints = new ArrayList<>();
+        private final List<DiagramPoint> terminalPoints = new ArrayList<>();
 
         public InjectionDiagramDetails(DiagramPoint point, double rotation) {
             this.point = Objects.requireNonNull(point);
-            this.rotation = Objects.requireNonNull(rotation);
+            this.rotation = rotation;
         }
 
         public void addTerminalPoint(DiagramPoint point) {

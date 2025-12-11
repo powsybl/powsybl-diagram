@@ -6,53 +6,30 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.svg.SvgParameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.IOException;
 
 /**
  *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-class NodeTopologyVerticalBusbarTest extends AbstractNodeTopologyTest {
+class NodeTopologyVerticalBusbarTest extends AbstractTest {
 
     @Override
-    protected void addDiagramData(Network network) {
-        addBusbarSectionDiagramData(network.getBusbarSection("BusbarSection"), new DiagramPoint(140, 60, 1), new DiagramPoint(140, 170, 2));
-        addGeneratorDiagramData(network.getGenerator("Generator"), new DiagramPoint(45, 85, 0),
-                                new DiagramPoint(50, 85, 1), new DiagramPoint(140, 85, 2));
-        addSwitchDiagramData(network.getSwitch("Disconnector1"), new DiagramPoint(155, 150, 0), 90, new DiagramPoint(150, 150, 1),
-                             new DiagramPoint(145, 150, 2), new DiagramPoint(130, 160, 1), new DiagramPoint(165, 150, 2));
-        addSwitchDiagramData(network.getSwitch("Breaker1"), new DiagramPoint(175, 150, 0), 90, new DiagramPoint(170, 150, 1),
-                             new DiagramPoint(165, 150, 2), new DiagramPoint(180, 150, 1), new DiagramPoint(185, 150, 2));
-        addSwitchDiagramData(network.getSwitch("Disconnector2"), new DiagramPoint(195, 150, 0), 90, new DiagramPoint(190, 150, 1),
-                             new DiagramPoint(185, 150, 2), new DiagramPoint(200, 150, 1), new DiagramPoint(205, 150, 1));
-        addLineDiagramData(network.getLine("Line"), new DiagramPoint(205, 150, 1), new DiagramPoint(260, 150, 2));
+    @BeforeEach
+    public void setup() throws IOException {
+        super.setup();
+        network = Networks.createNodeTopologyNetwork();
+        Networks.addNodeTopologyVerticalBusbarDiagramData(network);
     }
 
-    @Override
-    protected void checkCoordinates(VoltageLevelGraph graph) {
-        assertEquals(210, graph.getNodes().get(0).getX(), 0);
-        assertEquals(10, graph.getNodes().get(0).getY(), 0);
-        assertEquals(220, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
-        assertEquals(340, graph.getNodes().get(1).getX(), 0);
-        assertEquals(190, graph.getNodes().get(1).getY(), 0);
-        assertEquals(20, graph.getNodes().get(2).getX(), 0);
-        assertEquals(60, graph.getNodes().get(2).getY(), 0);
-        assertEquals(240, graph.getNodes().get(3).getX(), 0);
-        assertEquals(190, graph.getNodes().get(3).getY(), 0);
-        assertEquals(Orientation.RIGHT, graph.getNodes().get(3).getOrientation());
-        assertEquals(280, graph.getNodes().get(4).getX(), 0);
-        assertEquals(190, graph.getNodes().get(4).getY(), 0);
-        assertEquals(Orientation.RIGHT, graph.getNodes().get(4).getOrientation());
-        assertEquals(320, graph.getNodes().get(5).getX(), 0);
-        assertEquals(190, graph.getNodes().get(5).getY(), 0);
-        assertEquals(Orientation.RIGHT, graph.getNodes().get(5).getOrientation());
+    @Test
+    void testVoltageLevelLayout() throws IOException {
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyTestV.svg",
+                new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
     }
-
 }

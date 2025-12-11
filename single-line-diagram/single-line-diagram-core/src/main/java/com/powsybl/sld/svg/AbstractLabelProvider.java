@@ -63,8 +63,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     private Optional<String> getLabelOrNameOrId(Node node) {
-        if (node instanceof EquipmentNode) {
-            EquipmentNode eqNode = (EquipmentNode) node;
+        if (node instanceof EquipmentNode eqNode) {
             return Optional.ofNullable(node.getLabel().orElse(svgParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
         } else {
             return node.getLabel();

@@ -30,7 +30,7 @@ class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExp
         network = Networks.createNetworkWithSwitch();
         sw = network.getSwitch("Switch");
         CouplingDeviceDiagramData<Switch> switchDiagramData = new CouplingDeviceDiagramData<>(sw);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails details = switchDiagramData.new CouplingDeviceDiagramDetails(point, rotation);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails details = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(point, rotation);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point1);
         details.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point2);
         details.addTerminalPoint(DiagramTerminal.TERMINAL2, terminal2Point1);

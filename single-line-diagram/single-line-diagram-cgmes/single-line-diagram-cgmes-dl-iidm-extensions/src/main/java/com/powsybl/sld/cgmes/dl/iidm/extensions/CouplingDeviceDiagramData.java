@@ -22,7 +22,7 @@ public class CouplingDeviceDiagramData<T extends Identifiable<T>> extends Abstra
 
     static final String NAME = "coupling-device-diagram-data";
 
-    public class CouplingDeviceDiagramDetails {
+    public static class CouplingDeviceDiagramDetails {
         private final DiagramPoint point;
         private final double rotation;
         private List<DiagramPoint> terminal1Points = new ArrayList<>();
