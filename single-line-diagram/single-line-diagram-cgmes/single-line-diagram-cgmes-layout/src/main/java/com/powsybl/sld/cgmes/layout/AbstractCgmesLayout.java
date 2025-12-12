@@ -11,7 +11,10 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.AbstractGraph;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
@@ -389,24 +392,13 @@ public abstract class AbstractCgmesLayout implements Layout {
         return isLastPointCloser ? lineDiagramData.getLastPoint(diagramName, LINE_OFFSET) : lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
     }
 
-    protected void shiftNodeCoordinates(Node node) {
-        node.setX(node.getX() - minX);
-        node.setY(node.getY() - minY);
-    }
-
-    protected void scaleNodeCoordinates(Node node, double scaleFactor) {
-        node.setX(node.getX() * scaleFactor);
-        node.setY(node.getY() * scaleFactor);
+    protected void shiftAndScaleNodeCoordinates(Node node, double scaleFactor) {
+        node.setX((node.getX() - minX) * scaleFactor);
+        node.setY((node.getY() - minY) * scaleFactor);
         if (node.getType() == NodeType.BUS) {
             BusNode nodeBus = (BusNode) node;
             nodeBus.setPxWidth(nodeBus.getPxWidth() * scaleFactor);
         }
-    }
-
-    protected void setVoltageLevelCoord(VoltageLevelGraph vlGraph) {
-        double minNodeX = vlGraph.getNodes().stream().mapToDouble(Node::getX).min().orElse(0);
-        double minNodeY = vlGraph.getNodes().stream().mapToDouble(Node::getY).min().orElse(0);
-        vlGraph.setCoord(minNodeX, minNodeY);
     }
 
     public static void removeFictitiousSwitchNodes(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -451,5 +443,44 @@ public abstract class AbstractCgmesLayout implements Layout {
         double height = heightWithoutPadding * cgmesScaleFactor + padding.getTop() + padding.getBottom();
 
         graph.setSize(width, height);
+    }
+
+    protected void setMultiNodesCoord(SubstationGraph substationGraph) {
+        for (MiddleTwtNode multiNode : substationGraph.getMultiTermNodes()) {
+            var node = multiNode.getAdjacentNodes().getFirst();
+            var multiNodeCoord = getCoordinatesInDiagram(node, substationGraph);
+            multiNode.setCoordinates(multiNodeCoord);
+            List<List<Point>> snakeLines = multiNode.getAdjacentEdges().stream()
+                    .map(e -> getSnakeLine(e, multiNode, substationGraph))
+                    .toList();
+            if (multiNode instanceof Middle2WTNode middle2WTNode) {
+                middle2WTNode.setOrientationFromSnakeLines(snakeLines);
+            } else if (multiNode instanceof Middle3WTNode middle3WTNode) {
+                middle3WTNode.setOrientationFromSnakeLines(snakeLines);
+            }
+        }
+    }
+
+    private List<Point> getSnakeLine(Edge e, Node node, BaseGraph graph) {
+        var oppositeNode = e.getOppositeNode(node);
+        if (!getCoordinatesInDiagram(oppositeNode, graph).equals(node.getCoordinates())) {
+            return List.of(getCoordinatesInDiagram(oppositeNode, graph), node.getCoordinates());
+        }
+        var adjacentNodes = oppositeNode.getAdjacentNodes();
+        var nextNode = adjacentNodes.getFirst() == node ? adjacentNodes.get(1) : adjacentNodes.getFirst();
+        Point nextNodeCoord = getCoordinatesInDiagram(nextNode, graph);
+        if (nextNode instanceof BusNode) {
+            if (nextNode.getOrientation() == Orientation.UP) {
+                nextNodeCoord.setY(node.getCoordinates().getY());
+            } else {
+                nextNodeCoord.setX(node.getCoordinates().getX());
+            }
+        }
+        return List.of(nextNodeCoord, node.getCoordinates());
+    }
+
+    private Point getCoordinatesInDiagram(Node node, BaseGraph graph) {
+        var vlGraph = graph.getVoltageLevelGraph(node);
+        return vlGraph.getCoord().getShiftedPoint(node.getCoordinates());
     }
 }

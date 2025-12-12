@@ -46,12 +46,8 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
         }
         LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), diagramName);
         setNodeCoordinates(vl, graph, diagramName);
-        graph.getNodes().forEach(this::shiftNodeCoordinates);
-        double cgmesScaleFactor = layoutParam.getCgmesScaleFactor();
-        if (cgmesScaleFactor != 1) {
-            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, cgmesScaleFactor));
-        }
-        graph.setCoord(layoutParam);
+        graph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, layoutParam.getCgmesScaleFactor()));
+        graph.addPaddingToCoord(layoutParam);
 
         setGraphSize(graph, layoutParam);
     }

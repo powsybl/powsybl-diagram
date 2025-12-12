@@ -15,12 +15,14 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,22 +71,20 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
             setLineCoordinates(vl, edge, diagramName);
         }
-        // shift coordinates
+        // shift and scale coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(this::shiftNodeCoordinates);
+            vlGraph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, layoutParam.getCgmesScaleFactor()));
+            vlGraph.addPaddingToCoord(layoutParam);
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            shiftLineCoordinates(edge);
+            shiftAndScaleLineCoordinates(edge, layoutParam);
         }
-        // scale coordinates
-        if (layoutParam.getCgmesScaleFactor() != 1) {
-            for (VoltageLevelGraph vlGraph : vlGraphs) {
-                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
-            }
-            for (BranchEdge edge : graph.getLineEdges()) {
-                scaleLineCoordinates(edge, layoutParam.getCgmesScaleFactor());
-            }
+
+        for (SubstationGraph substationGraph : graph.getSubstations()) {
+            setMultiNodesCoord(substationGraph);
         }
+
+        setGraphSize(graph, layoutParam);
     }
 
     private void setLineCoordinates(VoltageLevel vl, BranchEdge edge, String diagramName) {
@@ -102,11 +102,12 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             LOG.warn("No CGMES-DL data for line {} name {}, diagramName {}, skipping line edge {}", line.getId(), line.getNameOrId(), diagramName, edge.getId());
             return;
         }
-        List<Point> snakeLine = edge.getSnakeLine();
-        lineDiagramData.getPoints(diagramName).forEach(point -> {
-            snakeLine.add(new Point(point.getX(), point.getY()));
-            setMinMax(point);
-        });
+        var diagramDataPoints = lineDiagramData.getPoints(diagramName);
+        diagramDataPoints.forEach(this::setMinMax);
+        var snakeLine = diagramDataPoints.stream()
+                .map(point -> new Point(point.getX(), point.getY()))
+                .toList();
+        edge.setSnakeLine(snakeLine);
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
@@ -119,13 +120,16 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
     }
 
-    private void shiftLineCoordinates(BranchEdge edge) {
-        Point shift = new Point(-minX, -minY);
-        edge.getSnakeLine().forEach(p -> p.shift(shift));
+    private void shiftAndScaleLineCoordinates(BranchEdge edge, LayoutParameters layoutParam) {
+        var dPadding = layoutParam.getDiagramPadding();
+        var vlPadding = layoutParam.getVoltageLevelPadding();
+        var snakeLine = new ArrayList<>(edge.getSnakeLine());
+        snakeLine.forEach(point -> {
+            point.shiftX(-minX);
+            point.shiftY(-minY);
+            point.scale(layoutParam.getCgmesScaleFactor());
+            point.shiftX(dPadding.getLeft() + vlPadding.getLeft());
+            point.shiftY(dPadding.getTop() + vlPadding.getTop());
+        });
     }
-
-    private void scaleLineCoordinates(BranchEdge edge, double scaleFactor) {
-        edge.getSnakeLine().forEach(p -> p.scale(scaleFactor));
-    }
-
 }

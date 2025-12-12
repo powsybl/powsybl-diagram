@@ -36,7 +36,7 @@ public class Middle3WTNode extends MiddleTwtNode {
      * As we are dealing with straight lines, we always have two out of three snake lines which are in line, the third
      * one being perpendicular.
      */
-    public void handle3wtNodeOrientation(List<List<Point>> snakeLines) {
+    public void setOrientationFromSnakeLines(List<List<Point>> snakeLines) {
         List<Point> snakeLineLeg1 = snakeLines.get(0); // snakeline from leg1 feeder node to 3wt
         List<Point> snakeLineLeg2 = snakeLines.get(1); // snakeline with simply two points going from leg2 feeder node to 3wt
         List<Point> snakeLineLeg3 = snakeLines.get(2); // snakeline from leg3 feeder node to 3wt

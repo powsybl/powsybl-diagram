@@ -9,14 +9,12 @@ package com.powsybl.sld.layout;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import org.jgrapht.alg.util.Pair;
 
 import java.util.*;
-import java.util.function.BooleanSupplier;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -40,12 +38,12 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
         for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            if (multiNode instanceof Middle2WTNode) {
+            if (multiNode instanceof Middle2WTNode m2wtNode) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
                 ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
                 ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
-                handle2wtNodeOrientation((Middle2WTNode) multiNode, pollingSplit);
+                m2wtNode.setOrientationFromSnakeLines(pollingSplit);
             } else if (multiNode instanceof Middle3WTNode m3wtNode) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(1), adjacentNodes.get(2)), false);
@@ -53,29 +51,13 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
                 for (int i = 0; i < 3; i++) {
                     ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
                 }
-                m3wtNode.handle3wtNodeOrientation(pollingSplit);
+                m3wtNode.setOrientationFromSnakeLines(pollingSplit);
             }
         }
 
         for (BranchEdge lineEdge : graph.getLineEdges()) {
             List<Node> adjacentNodes = lineEdge.getNodes();
             lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, new Pair<>(adjacentNodes.get(0), adjacentNodes.get(1)), true));
-        }
-    }
-
-    private void handle2wtNodeOrientation(Middle2WTNode node, List<List<Point>> pollingSplit) {
-        List<Point> pol1 = pollingSplit.get(0);
-        List<Point> pol2 = pollingSplit.get(1);
-
-        // Orientation.LEFT example:
-        // coord1 o-----OO-----o coord2
-        Point coord1 = pol1.get(pol1.size() - 2); // point linked to winding1
-        Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2
-
-        if (coord1.getX() == coord2.getX()) {
-            node.setOrientation(coord2.getY() > coord1.getY() ? Orientation.DOWN : Orientation.UP);
-        } else {
-            node.setOrientation(coord1.getX() < coord2.getX() ? Orientation.RIGHT : Orientation.LEFT);
         }
     }
 
