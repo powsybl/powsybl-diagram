@@ -42,8 +42,8 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
         if (edge.isTransformerEdge()) {
             double radius = svgParameters.getTransformerCircleRadius();
-            edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
-            edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
+            edge.setPoints1(edgeStart1, middle.atMaxDistanceOnSegment(1.5 * radius, direction2));
+            edge.setPoints2(edgeStart2, middle.atMaxDistanceOnSegment(1.5 * radius, direction1));
         } else {
             edge.setPoints1(edgeStart1, middle);
             edge.setPoints2(edgeStart2, middle);
@@ -101,7 +101,7 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
         Node busNodeA = side == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
         Point edgeStart = computeEdgeStart(busNodeA, fork, node, svgParameters);
         Point endFork = edge.isTransformerEdge()
-                ? middle.atDistance(1.5 * svgParameters.getTransformerCircleRadius(), fork)
+                ? middle.atMaxDistanceOnSegment(1.5 * svgParameters.getTransformerCircleRadius(), fork)
                 : middle;
         edge.setPoints(side, edgeStart, fork, endFork);
         edge.setArrow(side, fork.atDistance(svgParameters.getArrowShift(), endFork));

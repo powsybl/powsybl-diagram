@@ -65,6 +65,14 @@ public class Point {
                 y + r * (direction.y - y));
     }
 
+    public Point atMaxDistanceOnSegment(double dist, Point direction) {
+        double segmentLength = distance(direction);
+        double truncatedDist = Math.min(dist - 1e-4, segmentLength);
+        double r = truncatedDist / segmentLength;
+        return new Point(x + r * (direction.x - x),
+                y + r * (direction.y - y));
+    }
+
     public Point atDistance(double dist, double angle) {
         return new Point(x + dist * Math.cos(angle),
                 y + dist * Math.sin(angle));
