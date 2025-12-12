@@ -28,12 +28,11 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
     private final SubstationGraph graph;
 
     public CgmesSubstationLayout(SubstationGraph graph, Network network) {
-        this(graph, network, null);
+        this(graph, network, null, DEFAULT_CGMES_SCALE_FACTOR);
     }
 
-    public CgmesSubstationLayout(SubstationGraph graph, Network network, String cgmesDiagramName) {
-        super(cgmesDiagramName);
-        this.network = Objects.requireNonNull(network);
+    public CgmesSubstationLayout(SubstationGraph graph, Network network, String cgmesDiagramName, double cgmesScaleFactor) {
+        super(network, cgmesDiagramName, cgmesScaleFactor);
         Objects.requireNonNull(graph);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
@@ -44,17 +43,16 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        String diagramName = getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
+        if (!checkDiagram(cgmesDiagramName, "substation " + graph.getSubstationId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), cgmesDiagramName);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName);
+            setNodeCoordinates(vl, vlGraph, cgmesDiagramName);
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            vlGraph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, layoutParam.getCgmesScaleFactor()));
+            vlGraph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, cgmesScaleFactor));
             vlGraph.addPaddingToCoord(layoutParam);
         }
 

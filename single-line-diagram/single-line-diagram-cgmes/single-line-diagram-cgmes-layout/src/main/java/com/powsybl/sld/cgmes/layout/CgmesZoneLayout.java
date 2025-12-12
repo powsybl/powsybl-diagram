@@ -38,12 +38,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private final List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
-        this(graph, network, null);
+        this(graph, network, null, DEFAULT_CGMES_SCALE_FACTOR);
     }
 
-    public CgmesZoneLayout(ZoneGraph graph, Network network, String cgmesDiagramName) {
-        super(cgmesDiagramName);
-        this.network = Objects.requireNonNull(network);
+    public CgmesZoneLayout(ZoneGraph graph, Network network, String cgmesDiagramName, double cgmesScaleFactor) {
+        super(network, cgmesDiagramName, cgmesScaleFactor);
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
@@ -58,22 +57,21 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }
-        String diagramName = getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "")) {
+        if (!checkDiagram(cgmesDiagramName, "")) {
             return;
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName);
+            setNodeCoordinates(vl, vlGraph, cgmesDiagramName);
         }
         for (BranchEdge edge : graph.getLineEdges()) {
             VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
-            setLineCoordinates(vl, edge, diagramName);
+            setLineCoordinates(vl, edge, cgmesDiagramName);
         }
         // shift and scale coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, layoutParam.getCgmesScaleFactor()));
+            vlGraph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, cgmesScaleFactor));
             vlGraph.addPaddingToCoord(layoutParam);
         }
         for (BranchEdge edge : graph.getLineEdges()) {
@@ -127,7 +125,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         snakeLine.forEach(point -> {
             point.shiftX(-minX);
             point.shiftY(-minY);
-            point.scale(layoutParam.getCgmesScaleFactor());
+            point.scale(cgmesScaleFactor);
             point.shiftX(dPadding.getLeft() + vlPadding.getLeft());
             point.shiftY(dPadding.getTop() + vlPadding.getTop());
         });

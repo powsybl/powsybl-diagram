@@ -10,8 +10,6 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.cgmes.conformity.CgmesConformity1ModifiedCatalog;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,14 +40,14 @@ class MicroGridTest extends AbstractTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("provideTestData")
     void test(String testName, String filename, String containerId) throws IOException {
-        assertSvgDrawnEqualsReference(containerId, filename);
+        assertSvgDrawnEqualsReference(containerId, filename, 1);
     }
 
     @Test
     void testOpenSwitch() throws IOException {
         String filename = "/microgrid_S2_10kV_open_switch.svg";
         network.getSwitch("1287758d-606d-44c9-9e93-2f465ebf54b7").setOpen(true);
-        assertSvgDrawnEqualsReference(VL_S2_10, filename, new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
+        assertSvgDrawnEqualsReference(VL_S2_10, filename, 2);
     }
 
     private static List<Arguments> provideTestData() {

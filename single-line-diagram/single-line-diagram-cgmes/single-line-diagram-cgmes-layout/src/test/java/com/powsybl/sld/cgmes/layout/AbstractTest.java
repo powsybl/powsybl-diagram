@@ -48,14 +48,17 @@ public abstract class AbstractTest {
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
     }
 
-    protected void assertSvgDrawnEqualsReference(String containerId, String filename) throws IOException {
-        assertSvgDrawnEqualsReference(containerId, filename, new LayoutParameters(), new SvgParameters());
+    protected void assertSvgDrawnEqualsReference(String containerId, String filename, double cgmesScaleFactor) throws IOException {
+        assertSvgDrawnEqualsReference(containerId, filename, new LayoutParameters(), new SvgParameters(), cgmesScaleFactor);
     }
 
     protected void assertSvgDrawnEqualsReference(String containerId, String filename, LayoutParameters layoutParameters,
-                                                 SvgParameters svgParameters) throws IOException {
+                                                 SvgParameters svgParameters, double cgmesScaleFactor) throws IOException {
         Path svgOutput = tmpDir.resolve(filename);
-        var sldParameters = new SldParameters().setLayoutParameters(layoutParameters).setSvgParameters(svgParameters.setUseName(true));
+        var sldParameters = new SldParameters()
+                .setVoltageLevelLayoutFactoryCreator(n -> new CgmesVoltageLevelLayoutFactory(n, null, cgmesScaleFactor))
+                .setLayoutParameters(layoutParameters)
+                .setSvgParameters(svgParameters.setUseName(true));
         SingleLineDiagram.draw(network, containerId, svgOutput, sldParameters);
         assertSvgEqualsReference(filename, svgOutput);
     }

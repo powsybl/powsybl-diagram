@@ -13,8 +13,6 @@ import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,14 +74,12 @@ class DoubleBusbarSectionTest extends AbstractTest {
     @Test
     void testVoltageLevelData() throws IOException {
         addDiagramData(true);
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithVlData.svg",
-                new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithVlData.svg", 2);
     }
 
     @Test
     void testNoVoltageLevelData() throws IOException {
         addDiagramData(false);
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithoutVlData.svg",
-                new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithoutVlData.svg", 2);
     }
 }

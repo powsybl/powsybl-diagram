@@ -294,7 +294,6 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "cgmesScaleFactor" : 1.0,
     "zoneLayoutSnakeLinePadding" : 90
   },
   "svgParams" : {

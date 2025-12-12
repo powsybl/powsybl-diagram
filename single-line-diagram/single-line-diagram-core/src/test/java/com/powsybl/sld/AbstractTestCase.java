@@ -61,7 +61,6 @@ public abstract class AbstractTestCase {
                 .setExternCellHeight(250)
                 .setInternCellHeight(40)
                 .setStackHeight(30)
-                .setCgmesScaleFactor(1)
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30);
     }

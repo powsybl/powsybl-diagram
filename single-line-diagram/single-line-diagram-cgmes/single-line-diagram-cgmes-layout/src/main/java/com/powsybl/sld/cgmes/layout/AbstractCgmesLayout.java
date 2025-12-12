@@ -21,10 +21,7 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,6 +38,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCgmesLayout.class);
 
     protected static final double LINE_OFFSET = 20;
+    protected static final double DEFAULT_CGMES_SCALE_FACTOR = 3.0;
 
     protected double minX = Double.MAX_VALUE;
     protected double minY = Double.MAX_VALUE;
@@ -50,11 +48,19 @@ public abstract class AbstractCgmesLayout implements Layout {
     protected boolean isNodeBreaker = true;
     protected boolean fixTransformersLabel = false;
 
-    protected Network network;
-    private String cgmesDiagramName;
+    protected final Network network;
+    protected final String cgmesDiagramName;
+    protected final double cgmesScaleFactor;
 
-    protected AbstractCgmesLayout(String cgmesDiagramName) {
-        this.cgmesDiagramName = cgmesDiagramName;
+    protected AbstractCgmesLayout(Network network, String cgmesDiagramName, double cgmesScaleFactor) {
+        this.network = Objects.requireNonNull(network);
+        this.cgmesDiagramName = cgmesDiagramName != null ? cgmesDiagramName : getFirstCgmesDiagramName(network);
+        this.cgmesScaleFactor = cgmesScaleFactor;
+    }
+
+    private String getFirstCgmesDiagramName(Network network) {
+        List<String> names = NetworkDiagramData.getDiagramsNames(network);
+        return !names.isEmpty() ? names.getFirst() : null;
     }
 
     protected void setMinMax(DiagramPoint diagramPoint) {
@@ -423,22 +429,11 @@ public abstract class AbstractCgmesLayout implements Layout {
         return sw == null || sw.isFictitious();
     }
 
-    public String getCgmesDiagramName() {
-        if (cgmesDiagramName == null && network != null) {
-            List<String> names = NetworkDiagramData.getDiagramsNames(network);
-            if (!names.isEmpty()) {
-                cgmesDiagramName = names.getFirst();
-            }
-        }
-        return cgmesDiagramName;
-    }
-
     protected void setGraphSize(AbstractGraph graph, LayoutParameters layoutParam) {
         double widthWithoutPadding = maxX - minX;
         double heightWithoutPadding = maxY - minY;
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-        double cgmesScaleFactor = layoutParam.getCgmesScaleFactor();
         double width = widthWithoutPadding * cgmesScaleFactor + padding.getLeft() + padding.getRight();
         double height = heightWithoutPadding * cgmesScaleFactor + padding.getTop() + padding.getBottom();
 

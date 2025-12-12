@@ -45,7 +45,7 @@ class CgmesZoneLayoutTest extends AbstractTest {
         List<String> zone = Arrays.asList("Substation1", "Substation2");
         ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
-        var layoutParameters = new LayoutParameters().setCgmesScaleFactor(3);
+        var layoutParameters = new LayoutParameters();
         new CgmesZoneLayout(graph, network).run(layoutParameters);
 
         var svgParameters = new SvgParameters();

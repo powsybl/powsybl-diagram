@@ -45,7 +45,6 @@ public class LayoutParameters {
     private Alignment busbarsAlignment = Alignment.FIRST;
     private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
-    private double cgmesScaleFactor = 1;
     private int zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
@@ -95,7 +94,6 @@ public class LayoutParameters {
         this.busbarsAlignment = busbarsAlignment;
         this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
-        this.cgmesScaleFactor = cgmesScaleFactor;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
     }
 
@@ -120,7 +118,6 @@ public class LayoutParameters {
         componentsOnBusbars = new ArrayList<>(other.componentsOnBusbars);
         removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
         componentsSize = other.componentsSize;
-        cgmesScaleFactor = other.cgmesScaleFactor;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
     }
 
@@ -297,15 +294,6 @@ public class LayoutParameters {
     @JsonIgnore
     public double getBusPadding() {
         return getCellWidth() / 4;
-    }
-
-    public double getCgmesScaleFactor() {
-        return cgmesScaleFactor;
-    }
-
-    public LayoutParameters setCgmesScaleFactor(double cgmesScaleFactor) {
-        this.cgmesScaleFactor = cgmesScaleFactor;
-        return this;
     }
 
     public int getZoneLayoutSnakeLinePadding() {

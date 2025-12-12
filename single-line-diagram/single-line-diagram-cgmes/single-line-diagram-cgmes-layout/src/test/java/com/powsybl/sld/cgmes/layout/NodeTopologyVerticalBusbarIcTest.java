@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +27,6 @@ class NodeTopologyVerticalBusbarIcTest extends AbstractTest {
 
     @Test
     void testVoltageLevelLayout() throws IOException {
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyIcTestV.svg",
-                new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyIcTestV.svg", 2);
     }
 }

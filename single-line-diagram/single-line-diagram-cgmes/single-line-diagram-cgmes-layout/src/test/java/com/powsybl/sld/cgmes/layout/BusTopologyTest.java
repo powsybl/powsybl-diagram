@@ -7,8 +7,6 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.svg.SvgParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +18,7 @@ import java.io.IOException;
  */
 class BusTopologyTest extends AbstractTest {
 
+    @Override
     @BeforeEach
     public void setup() throws IOException {
         super.setup();
@@ -28,7 +27,6 @@ class BusTopologyTest extends AbstractTest {
 
     @Test
     void testVoltageLevelLayout() throws IOException {
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/busTopologyTest.svg",
-                new LayoutParameters().setCgmesScaleFactor(2), new SvgParameters());
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/busTopologyTest.svg", 2);
     }
 }
