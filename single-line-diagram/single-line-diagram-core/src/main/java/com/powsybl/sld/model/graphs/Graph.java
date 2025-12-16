@@ -6,18 +6,18 @@
  */
 package com.powsybl.sld.model.graphs;
 
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Node;
+
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
-
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.coordinate.Direction;
 
 /**
  * @author Slimane Amar {@literal <slimane.amar at rte-france.com>}

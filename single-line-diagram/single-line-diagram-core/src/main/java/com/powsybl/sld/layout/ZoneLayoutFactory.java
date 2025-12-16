@@ -10,7 +10,6 @@ import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public interface ZoneLayoutFactory {

@@ -78,10 +78,10 @@ public final class DijkstraPathFinder implements PathFinder {
         }
 
         List<Point> smoothedPath = new ArrayList<>();
-        smoothedPath.add(path.get(0));
+        smoothedPath.add(path.getFirst());
 
         for (int i = 1; i < path.size() - 1; i++) {
-            Point prev = smoothedPath.get(smoothedPath.size() - 1);
+            Point prev = smoothedPath.getLast();
             Point current = path.get(i);
             Point next = path.get(i + 1);
 
@@ -90,7 +90,7 @@ public final class DijkstraPathFinder implements PathFinder {
             }
         }
 
-        smoothedPath.add(path.get(path.size() - 1));
+        smoothedPath.add(path.getLast());
 
         return smoothedPath;
     }

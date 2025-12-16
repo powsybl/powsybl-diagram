@@ -56,7 +56,7 @@ class DoubleBusbarSectionTest {
 
     private void addBusbarSectionDiagramData(BusbarSection busbarSection, DiagramPoint point1, DiagramPoint point2) {
         NodeDiagramData<BusbarSection> busbarDiagramData = new NodeDiagramData<>(busbarSection);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails = busbarDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails.setPoint1(point1);
         diagramDetails.setPoint2(point2);
         busbarDiagramData.addData(DIAGRAM_NAME, diagramDetails);
@@ -65,14 +65,14 @@ class DoubleBusbarSectionTest {
 
     private void addGeneratorDiagramData(Generator generator, DiagramPoint generatorPoint) {
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorDiagramData.new InjectionDiagramDetails(generatorPoint, 0);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(generatorPoint, 0);
         generatorDiagramData.addData(DIAGRAM_NAME, diagramDetails);
         generator.addExtension(InjectionDiagramData.class, generatorDiagramData);
     }
 
     private void addSwitchDiagramData(Switch sw, DiagramPoint switchPoint, int rotation) {
         CouplingDeviceDiagramData<Switch> switchDiagramData = new CouplingDeviceDiagramData<>(sw);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = switchDiagramData.new CouplingDeviceDiagramDetails(switchPoint, rotation);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(switchPoint, rotation);
         switchDiagramData.addData(DIAGRAM_NAME, diagramDetails);
         sw.addExtension(CouplingDeviceDiagramData.class, switchDiagramData);
     }

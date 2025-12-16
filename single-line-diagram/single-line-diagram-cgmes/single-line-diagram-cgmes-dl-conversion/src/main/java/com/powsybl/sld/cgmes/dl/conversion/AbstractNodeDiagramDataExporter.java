@@ -6,14 +6,12 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.triplestore.api.TripleStore;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractNodeDiagramDataExporter extends AbstractDiagramDataExporter {
@@ -27,7 +25,7 @@ public abstract class AbstractNodeDiagramDataExporter extends AbstractDiagramDat
     protected void addDiagramData(String id, String name, NodeDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                NodeDiagramData<?>.NodeDiagramDataDetails details = diagramData.getData(diagramName);
+                NodeDiagramData.NodeDiagramDataDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, 0, diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint1());

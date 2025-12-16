@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.builders;
 
-import com.powsybl.commons.*;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.model.nodes.*;
-
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.NodeSide;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

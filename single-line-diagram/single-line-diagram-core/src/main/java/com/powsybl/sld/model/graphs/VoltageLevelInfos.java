@@ -15,30 +15,12 @@ import java.util.Objects;
  *
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public class VoltageLevelInfos {
-
-    private final String id;
-
-    private final String name;
-
-    private final double nominalVoltage;
+public record VoltageLevelInfos(String id, String name, double nominalVoltage) {
 
     public VoltageLevelInfos(String id, String name, double nominalVoltage) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.nominalVoltage = nominalVoltage;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getNominalVoltage() {
-        return nominalVoltage;
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {

@@ -60,9 +60,9 @@ public abstract class AbstractComposedBlock<T extends Block> extends AbstractBlo
     @Override
     public Node getExtremityNode(Extremity extremity) {
         if (extremity == Extremity.START) {
-            return subBlocks.get(0).getExtremityNode(Extremity.START);
+            return subBlocks.getFirst().getExtremityNode(Extremity.START);
         } else {
-            return subBlocks.get(subBlocks.size() - 1).getExtremityNode(Extremity.END);
+            return subBlocks.getLast().getExtremityNode(Extremity.END);
         }
     }
 

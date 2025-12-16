@@ -12,7 +12,6 @@ import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
@@ -23,7 +22,7 @@ class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {
         TwoWindingsTransformer twt = network.getTwoWindingsTransformer("Transformer");
 
         CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDataDetails = twtDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(20, 10, 0), 90);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDataDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(20, 10, 0), 90);
 
         twtDiagramDataDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(15, 10, 2));
         twtDiagramDataDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(0, 10, 1));

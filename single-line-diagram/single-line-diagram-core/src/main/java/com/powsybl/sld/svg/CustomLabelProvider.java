@@ -10,13 +10,26 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
  * Enables the configuration of content displayed in the SLD, for labels and feeder infos.
@@ -100,7 +113,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
             case INJECTION -> getCustomFeederInfos(node, null);
             case BRANCH, HVDC, TWO_WINDINGS_TRANSFORMER_LEG, THREE_WINDINGS_TRANSFORMER_LEG -> getCustomFeederInfos(node, ((FeederWithSides) feeder).getSide());
-            default -> List.of();
+            default -> new ArrayList<>();
         };
 
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
@@ -120,13 +133,13 @@ public class CustomLabelProvider extends AbstractLabelProvider {
         if (direction != UNDEFINED) {
             yShift = direction == TOP
                     ? 2 * LABEL2_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) - 2 * LABEL2_OFFSET);
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).height()) - 2 * LABEL2_OFFSET);
             positionName = direction == TOP ? "N" : "S";
             if (svgParameters.isLabelDiagonal()) {
                 angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
             }
         }
-        double dx = (int) componentLibrary.getSize(node.getComponentType()).getWidth() + LABEL2_OFFSET;
+        double dx = (int) componentLibrary.getSize(node.getComponentType()).width() + LABEL2_OFFSET;
         return new LabelPosition(positionName + "_LABEL2", dx, yShift, false, (int) angle);
     }
 

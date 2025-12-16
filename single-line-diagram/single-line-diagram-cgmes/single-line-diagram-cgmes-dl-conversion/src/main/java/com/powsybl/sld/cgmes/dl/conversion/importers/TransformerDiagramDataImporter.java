@@ -6,14 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Map;
-import java.util.Objects;
-
-import com.powsybl.iidm.network.Substation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLModel;
@@ -24,9 +18,13 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagramDataImporter {
@@ -47,8 +45,8 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
             if (transformerIidmDiagramData == null) {
                 transformerIidmDiagramData = new CouplingDeviceDiagramData<>(transformer);
             }
-            CouplingDeviceDiagramData<TwoWindingsTransformer>.CouplingDeviceDiagramDetails diagramDetails = transformerIidmDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
-                    transformersDiagramData.asDouble("rotation"));
+            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
+                transformersDiagramData.asDouble("rotation"));
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
             transformerIidmDiagramData.addData(diagramName, diagramDetails);
@@ -61,8 +59,8 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
                 if (transformerIidmDiagramData == null) {
                     transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(transformer3w);
                 }
-                ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = transformerIidmDiagramData.new ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
-                        transformersDiagramData.asDouble("rotation"));
+                ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
+                    transformersDiagramData.asDouble("rotation"));
                 addTerminalPoints(transformerId, transformer3w.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
                 addTerminalPoints(transformerId, transformer3w.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
                 addTerminalPoints(transformerId, transformer3w.getNameOrId(), diagramName, DiagramTerminal.TERMINAL3, "3", diagramDetails);

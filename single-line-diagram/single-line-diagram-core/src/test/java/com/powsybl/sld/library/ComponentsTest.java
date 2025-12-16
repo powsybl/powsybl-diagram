@@ -61,8 +61,8 @@ class ComponentsTest {
         assertEquals("breaker.svg", components.get(0).getSubComponents().get(0).fileName());
         assertEquals(BREAKER, components.get(0).getType());
         assertEquals(BREAKER, components.get(0).getSubComponents().get(0).name());
-        assertEquals(18, components.get(0).getSize().getWidth(), 0);
-        assertEquals(19, components.get(0).getSize().getHeight(), 0);
+        assertEquals(18, components.get(0).getSize().width(), 0);
+        assertEquals(19, components.get(0).getSize().height(), 0);
         assertEquals("ComponentSize(width=18.0, height=19.0)", components.get(0).getSize().toString());
         assertEquals(2, components.get(0).getAnchorPoints().size());
         assertEquals(9, components.get(0).getAnchorPoints().get(0).getX(), 0);

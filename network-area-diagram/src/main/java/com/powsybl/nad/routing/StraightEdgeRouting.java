@@ -71,8 +71,8 @@ public class StraightEdgeRouting extends AbstractEdgeRouting {
         Point pointA = nodeA.getPosition();
         Point pointB = nodeB.getPosition();
 
-        double dx = pointB.getX() - pointA.getX();
-        double dy = pointB.getY() - pointA.getY();
+        double dx = pointB.x() - pointA.x();
+        double dy = pointB.y() - pointA.y();
         double angle = Math.atan2(dy, dx);
 
         int nbForks = edges.size();

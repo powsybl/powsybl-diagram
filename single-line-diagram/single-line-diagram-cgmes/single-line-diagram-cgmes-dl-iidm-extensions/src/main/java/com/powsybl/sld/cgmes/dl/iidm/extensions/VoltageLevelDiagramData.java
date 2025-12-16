@@ -10,7 +10,11 @@ import com.powsybl.commons.extensions.AbstractExtension;
 import com.powsybl.iidm.network.VoltageLevel;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
@@ -19,7 +23,7 @@ public final class VoltageLevelDiagramData extends AbstractExtension<VoltageLeve
 
     static final String NAME = "voltage-level-diagram-data";
 
-    private Map<String, Map<Integer, DiagramPoint>> internalNodesPoints = new HashMap<>();
+    private final Map<String, Map<Integer, DiagramPoint>> internalNodesPoints = new HashMap<>();
 
     private VoltageLevelDiagramData() {
     }

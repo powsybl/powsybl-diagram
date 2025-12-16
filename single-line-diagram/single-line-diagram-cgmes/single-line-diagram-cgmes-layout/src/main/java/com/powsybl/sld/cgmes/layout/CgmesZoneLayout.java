@@ -14,10 +14,10 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesZoneLayout extends AbstractCgmesLayout {
@@ -33,14 +32,14 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private static final Logger LOG = LoggerFactory.getLogger(CgmesZoneLayout.class);
 
     private final ZoneGraph graph;
-    private List<VoltageLevelGraph> vlGraphs;
+    private final List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id()));
         }
         fixTransformersLabel = true;
     }
@@ -52,16 +51,16 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             return;
         }
         String diagramName = layoutParam.getCgmesDiagramName();
-        if (!checkDiagram(diagramName, "")) {
+        if (checkDiagramFails(diagramName, "")) {
             return;
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id());
             setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isCgmesUseNames());
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().id());
             setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates
@@ -99,18 +98,18 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         List<Point> snakeLine = edge.getSnakeLine();
         lineDiagramData.getPoints(diagramName).forEach(point -> {
-            snakeLine.add(new Point(point.getX(), point.getY()));
-            setMin(point.getX(), point.getY());
+            snakeLine.add(new Point(point.x(), point.y()));
+            setMin(point.x(), point.y());
         });
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(0).setX(firstPoint.getX());
-            edge.getSnakeLine().get(0).setY(firstPoint.getY());
+            edge.getSnakeLine().getFirst().setX(firstPoint.x());
+            edge.getSnakeLine().getFirst().setY(firstPoint.y());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.getX());
-            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.getY());
+            edge.getSnakeLine().getLast().setX(lastPoint.x());
+            edge.getSnakeLine().getLast().setY(lastPoint.y());
         }
     }
 
