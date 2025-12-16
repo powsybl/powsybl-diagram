@@ -64,6 +64,7 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         // do the loop on the nodes and forces
         int i;
+        long t0 = System.currentTimeMillis();
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
@@ -75,11 +76,20 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             updateVelocity(layoutContext);
             updatePosition(layoutContext);
 
-            if (isStable(layoutContext)) {
+            if (isStable(layoutContext) || isOverDurationLimit(t0)) {
                 break;
             }
         }
-        LOGGER.info("Calculating the layout took {} steps", i);
+        LOGGER.info("Layout calculated in {} steps", i);
+    }
+
+    private boolean isOverDurationLimit(long t0) {
+        long layoutTimeSpent = System.currentTimeMillis() - t0;
+        boolean over = layoutTimeSpent > 1000 * layoutParameters.getTimeoutSeconds();
+        if (over) {
+            LOGGER.info("Layout calculation timeout {}s, stopping the iteration", layoutTimeSpent / 1000.);
+        }
+        return over;
     }
 
     private void updateVelocity(LayoutContext<V, E> layoutContext) {

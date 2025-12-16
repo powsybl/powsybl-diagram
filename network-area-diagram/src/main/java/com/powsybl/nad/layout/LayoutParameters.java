@@ -16,6 +16,7 @@ public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private Point textNodeFixedShift = new Point(100, -40);
     private int maxSteps = 1000;
+    private double timeoutSeconds = 15;
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;
 
@@ -26,6 +27,7 @@ public class LayoutParameters {
         this.textNodesForceLayout = other.textNodesForceLayout;
         this.textNodeFixedShift = new Point(other.textNodeFixedShift.x(), other.textNodeFixedShift.y());
         this.maxSteps = other.maxSteps;
+        this.timeoutSeconds = other.timeoutSeconds;
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
         this.injectionsAdded = other.injectionsAdded;
     }
@@ -54,6 +56,15 @@ public class LayoutParameters {
 
     public LayoutParameters setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
+        return this;
+    }
+
+    public double getTimeoutSeconds() {
+        return timeoutSeconds;
+    }
+
+    public LayoutParameters setTimeoutSeconds(double timeoutSeconds) {
+        this.timeoutSeconds = timeoutSeconds;
         return this;
     }
 
