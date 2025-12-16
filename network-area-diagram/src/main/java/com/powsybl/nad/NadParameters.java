@@ -18,11 +18,7 @@ import com.powsybl.nad.routing.EdgeRouting;
 import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.IdProviderFactory;
-import com.powsybl.nad.svg.iidm.LabelProviderFactory;
-import com.powsybl.nad.svg.iidm.StyleProviderFactory;
-import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
+import com.powsybl.nad.svg.iidm.*;
 
 import java.util.Objects;
 

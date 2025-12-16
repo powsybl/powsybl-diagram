@@ -6,13 +6,7 @@
  */
 package com.powsybl.nad.utils.iidm;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.ThreeWtEdge;

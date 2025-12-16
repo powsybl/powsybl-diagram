@@ -27,12 +27,7 @@ import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}

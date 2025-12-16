@@ -1162,8 +1162,8 @@ public class DefaultSVGWriter implements SVGWriter {
         root.appendChild(legendRootElement);
         legendRootElement.setAttribute(CLASS, StyleClassConstants.LEGEND);
 
-        double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
-        double xPos = graph.getX() + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().top() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        double xPos = graph.getX() + layoutParameters.getDiagramPadding().left() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         legendWriter.drawLegend(graph, metadata, styleProvider, legendRootElement, xPos, yPos);
     }

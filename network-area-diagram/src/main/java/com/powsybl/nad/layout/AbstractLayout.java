@@ -6,22 +6,10 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.model.Point;
-import com.powsybl.nad.model.TextNode;
-import com.powsybl.nad.model.VoltageLevelNode;
+import com.powsybl.nad.model.*;
 import org.jgrapht.alg.util.Pair;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**

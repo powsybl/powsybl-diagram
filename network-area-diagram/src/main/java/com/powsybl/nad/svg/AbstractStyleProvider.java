@@ -7,23 +7,12 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.nad.model.BoundaryNode;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Injection;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**

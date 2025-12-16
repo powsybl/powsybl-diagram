@@ -27,14 +27,7 @@ import com.powsybl.nad.svg.VoltageLevelLegend;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**

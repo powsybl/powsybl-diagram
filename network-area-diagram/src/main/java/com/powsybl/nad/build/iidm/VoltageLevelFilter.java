@@ -7,27 +7,12 @@
 package com.powsybl.nad.build.iidm;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.DefaultTopologyVisitor;
-import com.powsybl.iidm.network.HvdcConverterStation;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoSides;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

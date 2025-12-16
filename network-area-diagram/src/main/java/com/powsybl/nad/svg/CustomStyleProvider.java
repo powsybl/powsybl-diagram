@@ -7,20 +7,9 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Injection;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
