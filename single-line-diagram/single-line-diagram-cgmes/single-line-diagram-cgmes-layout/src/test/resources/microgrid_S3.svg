@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 558.9305499999998 307.02697700000004" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
+.sld-out .sld-arrow-in {visibility: hidden}
+.sld-in .sld-arrow-out {visibility: hidden}
+.sld-closed .sld-sw-open {visibility: hidden}
+.sld-open .sld-sw-closed {visibility: hidden}
+.sld-hidden-node {visibility: hidden}
+.sld-top-feeder .sld-label {dominant-baseline: auto}
+.sld-bottom-feeder .sld-label {dominant-baseline: hanging}
+.sld-active-power .sld-label {dominant-baseline: mathematical}
+.sld-reactive-power .sld-label {dominant-baseline: mathematical}
+.sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
+/* ----------------------------------------------------------------------- */
+/* File: topologicalBaseVoltages.css ------------------------------------- */
+.sld-disconnected {--sld-vl-color: #808080}
+.sld-vl300to500.sld-bus-0 {--sld-vl-color: #FF0000}
+.sld-vl300to500.sld-bus-1 {--sld-vl-color: #7F6C00}
+.sld-vl300to500.sld-bus-2 {--sld-vl-color: #F6B2FF}
+.sld-vl300to500.sld-bus-3 {--sld-vl-color: #996700}
+.sld-vl300to500.sld-bus-4 {--sld-vl-color: #FF85EB}
+.sld-vl300to500.sld-bus-5 {--sld-vl-color: #B25B00}
+.sld-vl300to500.sld-bus-6 {--sld-vl-color: #FF59B5}
+.sld-vl300to500.sld-bus-7 {--sld-vl-color: #CC4400}
+.sld-vl300to500.sld-bus-8 {--sld-vl-color: #FF2C67}
+.sld-vl300to500.sld-bus-9 {--sld-vl-color: #E52600}
+.sld-vl180to300.sld-bus-0 {--sld-vl-color: #218B21}
+.sld-vl180to300.sld-bus-1 {--sld-vl-color: #0D4940}
+.sld-vl180to300.sld-bus-2 {--sld-vl-color: #DFDAB9}
+.sld-vl180to300.sld-bus-3 {--sld-vl-color: #105640}
+.sld-vl180to300.sld-bus-4 {--sld-vl-color: #C2CB92}
+.sld-vl180to300.sld-bus-5 {--sld-vl-color: #14643C}
+.sld-vl180to300.sld-bus-6 {--sld-vl-color: #95B66B}
+.sld-vl180to300.sld-bus-7 {--sld-vl-color: #187036}
+.sld-vl180to300.sld-bus-8 {--sld-vl-color: #5FA046}
+.sld-vl180to300.sld-bus-9 {--sld-vl-color: #1C7E2D}
+.sld-vl120to180.sld-bus-0 {--sld-vl-color: #00AFAE}
+.sld-vl120to180.sld-bus-1 {--sld-vl-color: #000D58}
+.sld-vl120to180.sld-bus-2 {--sld-vl-color: #B8E7B2}
+.sld-vl120to180.sld-bus-3 {--sld-vl-color: #002169}
+.sld-vl120to180.sld-bus-4 {--sld-vl-color: #85D993}
+.sld-vl120to180.sld-bus-5 {--sld-vl-color: #003C7B}
+.sld-vl120to180.sld-bus-6 {--sld-vl-color: #59CB8B}
+.sld-vl120to180.sld-bus-7 {--sld-vl-color: #005C8C}
+.sld-vl120to180.sld-bus-8 {--sld-vl-color: #2CBD94}
+.sld-vl120to180.sld-bus-9 {--sld-vl-color: #00839E}
+.sld-vl70to120.sld-bus-0 {--sld-vl-color: #CC5500}
+.sld-vl70to120.sld-bus-1 {--sld-vl-color: #4A6600}
+.sld-vl70to120.sld-bus-2 {--sld-vl-color: #EFB2DD}
+.sld-vl70to120.sld-bus-3 {--sld-vl-color: #6E7A00}
+.sld-vl70to120.sld-bus-4 {--sld-vl-color: #E685AE}
+.sld-vl70to120.sld-bus-5 {--sld-vl-color: #8E8400}
+.sld-vl70to120.sld-bus-6 {--sld-vl-color: #DD596B}
+.sld-vl70to120.sld-bus-7 {--sld-vl-color: #A37B00}
+.sld-vl70to120.sld-bus-8 {--sld-vl-color: #D4432C}
+.sld-vl70to120.sld-bus-9 {--sld-vl-color: #B76B00}
+.sld-vl50to70.sld-bus-0 {--sld-vl-color: #A020EF}
+.sld-vl50to70.sld-bus-1 {--sld-vl-color: #7F0848}
+.sld-vl50to70.sld-bus-2 {--sld-vl-color: #B7DBFE}
+.sld-vl50to70.sld-bus-3 {--sld-vl-color: #960C6D}
+.sld-vl50to70.sld-bus-4 {--sld-vl-color: #8DA6FE}
+.sld-vl50to70.sld-bus-5 {--sld-vl-color: #AD109A}
+.sld-vl50to70.sld-bus-6 {--sld-vl-color: #6F66FB}
+.sld-vl50to70.sld-bus-7 {--sld-vl-color: #BC14C4}
+.sld-vl50to70.sld-bus-8 {--sld-vl-color: #7F42F6}
+.sld-vl50to70.sld-bus-9 {--sld-vl-color: #B11AD9}
+.sld-vl30to50.sld-bus-0 {--sld-vl-color: #FF8290}
+.sld-vl30to50.sld-bus-1 {--sld-vl-color: #7F6F41}
+.sld-vl30to50.sld-bus-2 {--sld-vl-color: #F6D9FF}
+.sld-vl30to50.sld-bus-3 {--sld-vl-color: #99784E}
+.sld-vl30to50.sld-bus-4 {--sld-vl-color: #FFC3FB}
+.sld-vl30to50.sld-bus-5 {--sld-vl-color: #B27D5B}
+.sld-vl30to50.sld-bus-6 {--sld-vl-color: #FFADE3}
+.sld-vl30to50.sld-bus-7 {--sld-vl-color: #CC7E68}
+.sld-vl30to50.sld-bus-8 {--sld-vl-color: #FF97BF}
+.sld-vl30to50.sld-bus-9 {--sld-vl-color: #E57B75}
+.sld-vl0to30.sld-bus-0 {--sld-vl-color: #AAAE27}
+.sld-vl0to30.sld-bus-1 {--sld-vl-color: #195B0F}
+.sld-vl0to30.sld-bus-2 {--sld-vl-color: #EABABE}
+.sld-vl0to30.sld-bus-3 {--sld-vl-color: #2D6C13}
+.sld-vl0to30.sld-bus-4 {--sld-vl-color: #DDA193}
+.sld-vl0to30.sld-bus-5 {--sld-vl-color: #477D17}
+.sld-vl0to30.sld-bus-6 {--sld-vl-color: #CE9A6E}
+.sld-vl0to30.sld-bus-7 {--sld-vl-color: #648D1C}
+.sld-vl0to30.sld-bus-8 {--sld-vl-color: #BEA04A}
+.sld-vl0to30.sld-bus-9 {--sld-vl-color: #869D22}
+/* ----------------------------------------------------------------------- */
+/* File : highlightLineStates.css ---------------------------------------- */
+.sld-wire.sld-feeder-disconnected {stroke: black}
+.sld-wire.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
+.sld-wire.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
+.sld-busbar-section.sld-bus-disconnected {stroke-dasharray: 3,3}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke black */
+.sld-disconnector {stroke-width: 3; stroke: black; fill: none}
+/* Stroke blue */
+.sld-breaker {stroke-width: 2; stroke: blue; fill:white}
+.sld-load-break-switch {stroke: blue; fill: white}
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-tie-line {stroke-width: 2px}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-battery {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-generator {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-two-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-three-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-winding {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst-arrow {stroke: black; fill: none}
+.sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-lcc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-ground {stroke: var(--sld-vl-color, blue); fill: none}
+/* Stroke none & fill: --sld-vl-color */
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+/* Stroke none & fill: black */
+.sld-node {stroke: none; fill: black}
+.sld-flash {stroke: none; fill: black}
+.sld-lock {stroke: none; fill: black}
+.sld-unknown {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px serif}
+.sld-bus-legend-info {font: 10px serif}
+.sld-graph-label {font: 12px serif}
+/* Specific */
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-feeder-info.sld-active-power {fill:black}
+.sld-feeder-info.sld-reactive-power {fill:blue}
+.sld-feeder-info.sld-current {fill:purple}
+.sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
+.sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
+/* ground disconnector specific */
+.sld-ground-disconnection-attach {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-open .sld-ground-disconnection-ground {stroke: black; fill: none}
+.sld-closed .sld-ground-disconnection-ground {stroke: var(--sld-vl-color, #c80000); fill: none}
+.sld-ground-disconnection .sld-sw-open {stroke: black; fill: none}
+.sld-ground-disconnection .sld-sw-closed {stroke: black; fill: none}
+]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
+    <g>
+        <g class="sld-voltage-level" id="id051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031">
+            <g id="idLABEL_95_VL_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031">
+                <text class="sld-graph-label" x="40.0" y="56.0">S3 110kV</text>
+            </g>
+            <g class="sld-busbar-section sld-vl70to120 sld-bus-0" id="idda8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31" transform="translate(95.02648999999997,80.0)">
+                <line x1="0" x2="0" y1="0" y2="147.02697700000004"/>
+                <text class="sld-label" id="idda8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31_95_NW_95_LABEL" x="-5.0" y="-5.0">BUSBAR2</text>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_da8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31_95_3006c97d_45_d51e_45_4e7b_45_92b1_45_a9a321f585ce">
+                <polyline points="95.02648999999997,178.01797700000003,86.5609199999999,178.01797700000003"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_f5335138_45_f3b9_45_400b_45_abf1_45_e9b559c887b2_95_1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO">
+                <polyline points="52.69848999999999,178.01797700000003,40.0,178.01797700000003"/>
+            </g>
+            <g class="sld-feeder-info sld-in sld-active-power" id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,55.0,183.018)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,75.0,183.018)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_da8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31_95_8fa214d6_45_5b7f_45_4d04_45_8de7_45_e5609d9f9deb">
+                <polyline points="95.02648999999997,108.58857699999999,86.5609199999999,108.58857699999999"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_9e8afc23_45_52fc_45_40e6_45_ab85_45_3d0328a228f2_95_efdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO">
+                <polyline points="52.69848999999999,108.58857699999999,40.0,108.58857699999999"/>
+            </g>
+            <g class="sld-feeder-info sld-in sld-active-power" id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,55.0,113.5886)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,75.0,113.5886)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_da8e9cec_45_96f8_45_4048_45_b31a_45_a56f5ef53c31_95_27cb23c0_45_ad7b_45_4019_45_8cdf_45_205e240f742a">
+                <polyline points="95.02648999999997,178.01797700000003,103.49206999999979,178.01797700000003"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_2791a96c_45_c66c_45_44e7_45_a5dc_45_8331a8996c76_95_813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE">
+                <polyline points="137.35449999999992,178.01797700000003,237.96948999999995,178.01797700000003"/>
+            </g>
+            <g class="sld-feeder-info sld-in sld-active-power" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,212.9695,183.018)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,192.9695,183.018)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_622a9aff_45_f9d4_45_49c7_45_8f29_45_fd88009c5df0_95_3006c97d_45_d51e_45_4e7b_45_92b1_45_a9a321f585ce">
+                <polyline points="79.62963999999988,178.01797700000003,86.5609199999999,178.01797700000003"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_622a9aff_45_f9d4_45_49c7_45_8f29_45_fd88009c5df0_95_f5335138_45_f3b9_45_400b_45_abf1_45_e9b559c887b2">
+                <polyline points="59.62963999999988,178.01797700000003,52.69848999999999,178.01797700000003"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_eb33e134_45_698f_45_4258_45_8361_45_4b5fa4c2f9de_95_8fa214d6_45_5b7f_45_4d04_45_8de7_45_e5609d9f9deb">
+                <polyline points="79.62963999999988,108.58857699999999,86.5609199999999,108.58857699999999"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_eb33e134_45_698f_45_4258_45_8361_45_4b5fa4c2f9de_95_9e8afc23_45_52fc_45_40e6_45_ab85_45_3d0328a228f2">
+                <polyline points="59.62963999999988,108.58857699999999,52.69848999999999,108.58857699999999"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_fdf5cfbe_45_9bf5_45_406a_45_8d04_45_fafe47afe31d_95_27cb23c0_45_ad7b_45_4019_45_8cdf_45_205e240f742a">
+                <polyline points="110.42333999999983,178.01797700000003,103.49206999999979,178.01797700000003"/>
+            </g>
+            <g class="sld-wire sld-vl70to120 sld-bus-0" id="_95_051b93ae_45_9c15_45_4490_45_8cea_45_33395298f031_95_fdf5cfbe_45_9bf5_45_406a_45_8d04_45_fafe47afe31d_95_2791a96c_45_c66c_45_44e7_45_a5dc_45_8331a8996c76">
+                <polyline points="130.42333999999983,178.01797700000003,137.35449999999992,178.01797700000003"/>
+            </g>
+            <g id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO" transform="translate(40.0,178.01797700000003)">
+                <text class="sld-label" id="id1e7f52a9_45_21d0_45_4ebe_45_9a8a_45_b29281d5bfc9_95_TWO_95_LABEL" x="-5.0" y="-5.0">L5</text>
+            </g>
+            <g id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO" transform="translate(40.0,108.58857699999999)">
+                <text class="sld-label" id="idefdd7f46_45_67e6_45_46e3_45_9dcd_45_a3b6f8c613a4_95_TWO_95_LABEL" x="-5.0" y="-5.0">L2</text>
+            </g>
+            <g class="sld-vl70to120 sld-bus-0" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE" transform="translate(237.96948999999995,178.01797700000003)">
+                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE_95_LABEL" x="-5.0" y="-5.0">T1</text>
+            </g>
+            <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="id622a9aff_45_f9d4_45_49c7_45_8f29_45_fd88009c5df0" transform="translate(59.62963999999988,168.01797700000003)">
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+            </g>
+            <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="ideb33e134_45_698f_45_4258_45_8361_45_4b5fa4c2f9de" transform="translate(59.62963999999988,98.58857699999999)">
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+            </g>
+            <g class="sld-breaker sld-closed sld-vl70to120 sld-bus-0" id="idfdf5cfbe_45_9bf5_45_406a_45_8d04_45_fafe47afe31d" transform="translate(110.42333999999983,168.01797700000003)">
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="id3006c97d_45_d51e_45_4e7b_45_92b1_45_a9a321f585ce" transform="translate(82.5609199999999,174.01797700000003)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="idf5335138_45_f3b9_45_400b_45_abf1_45_e9b559c887b2" transform="translate(48.69848999999999,174.01797700000003)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="id8fa214d6_45_5b7f_45_4d04_45_8de7_45_e5609d9f9deb" transform="translate(82.5609199999999,104.58857699999999)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="id9e8afc23_45_52fc_45_40e6_45_ab85_45_3d0328a228f2" transform="translate(48.69848999999999,104.58857699999999)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="id27cb23c0_45_ad7b_45_4019_45_8cdf_45_205e240f742a" transform="translate(99.49206999999979,174.01797700000003)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl70to120 sld-bus-0" id="id2791a96c_45_c66c_45_44e7_45_a5dc_45_8331a8996c76" transform="translate(133.35449999999992,174.01797700000003)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+        </g>
+        <g class="sld-voltage-level" id="id6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590">
+            <g id="idLABEL_95_VL_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590">
+                <text class="sld-graph-label" x="277.96948999999995" y="56.0">S3 21kV</text>
+            </g>
+            <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="ida43ab51f_45_ba09_45_4224_45_8437_45_63a9ab30ea50" transform="translate(408.6601599999999,80.0)">
+                <line x1="0" x2="0" y1="0" y2="98.01803500000005"/>
+                <text class="sld-label" id="ida43ab51f_45_ba09_45_4224_45_8437_45_63a9ab30ea50_95_NW_95_LABEL" x="-5.0" y="-5.0">BUSBAR8</text>
+            </g>
+            <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590_95_a43ab51f_45_ba09_45_4224_45_8437_45_63a9ab30ea50_95_b7e79b65_45_8d3e_45_4ee9_45_bf05_45_12bf2250b12d">
+                <polyline points="408.6601599999999,129.00903500000004,400.19445999999994,129.00903500000004"/>
+            </g>
+            <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590_95_2af10fbd_45_4763_45_4940_45_b11d_45_00dcd7627016_95_813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO">
+                <polyline points="366.3320399999998,129.00903500000004,277.96948999999995,129.00903500000004"/>
+            </g>
+            <g class="sld-feeder-info sld-in sld-active-power" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,292.9695,134.009)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,312.9695,134.009)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
+            </g>
+            <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590_95_a43ab51f_45_ba09_45_4224_45_8437_45_63a9ab30ea50_95_ca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22">
+                <polyline points="408.6601599999999,129.00903500000004,512.9305499999998,129.00903500000004"/>
+            </g>
+            <g class="sld-feeder-info sld-in sld-active-power" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22_95_ARROW_95_ACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,487.9305,134.009)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">-5</text>
+            </g>
+            <g class="sld-feeder-info sld-in sld-reactive-power" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22_95_ARROW_95_REACTIVE" transform="matrix(0.0,-1.0,1.0,0.0,467.9305,134.009)">
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <text class="sld-label" x="15.0" y="5.0">-2</text>
+            </g>
+            <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590_95_052682ba_45_a4e5_45_41d5_45_9728_45_0fa4e2e01011_95_b7e79b65_45_8d3e_45_4ee9_45_bf05_45_12bf2250b12d">
+                <polyline points="393.2633099999998,129.00903500000004,400.19445999999994,129.00903500000004"/>
+            </g>
+            <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_6f8ef715_45_bc0a_45_47d7_45_a74e_45_27f17234f590_95_052682ba_45_a4e5_45_41d5_45_9728_45_0fa4e2e01011_95_2af10fbd_45_4763_45_4940_45_b11d_45_00dcd7627016">
+                <polyline points="373.2633099999998,129.00903500000004,366.3320399999998,129.00903500000004"/>
+            </g>
+            <g class="sld-vl0to30 sld-bus-0" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO" transform="translate(277.96948999999995,129.00903500000004)">
+                <text class="sld-label" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO_95_LABEL" x="-5.0" y="-5.0">T1</text>
+            </g>
+            <g class="sld-generator sld-vl0to30 sld-bus-0" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22" transform="translate(512.9305499999998,123.00903500000004)">
+                <circle cx="6" cy="6" r="6"/>
+                <path d="M6,6 A 6 40 0 0 0 2,6"/>
+                <path d="M6,6 A 6 40 0 0 0 10,6"/>
+                <text class="sld-label" id="idca67be42_45_750e_45_4ebf_45_bfaa_45_24d446e59a22_95_LABEL" x="-5.0" y="-5.0">G1</text>
+            </g>
+            <g class="sld-breaker sld-closed sld-vl0to30 sld-bus-0" id="id052682ba_45_a4e5_45_41d5_45_9728_45_0fa4e2e01011" transform="translate(373.2633099999998,119.00903500000004)">
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="idb7e79b65_45_8d3e_45_4ee9_45_bf05_45_12bf2250b12d" transform="translate(396.19445999999994,125.00903500000004)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+            <g class="sld-disconnector sld-closed sld-vl0to30 sld-bus-0" id="id2af10fbd_45_4763_45_4940_45_b11d_45_00dcd7627016" transform="translate(362.3320399999998,125.00903500000004)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+        </g>
+        <g class="sld-wire sld-vl70to120 sld-bus-0" id="idEDGE_95_813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_ONE">
+            <polyline points="237.96948999999995,178.01797700000003,237.96948999999995,20.0,249.96948999999995,20.0"/>
+        </g>
+        <g class="sld-wire sld-vl0to30 sld-bus-0" id="idEDGE_95_813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174_95_TWO">
+            <polyline points="277.96948999999995,129.00903500000004,277.96948999999995,20.0,265.96948999999995,20.0"/>
+        </g>
+        <g class="sld-two-wt sld-fictitious" id="id813365c3_45_5be7_45_4ef0_45_a0a7_45_abd1ae6dc174" transform="translate(252.96948999999995,12.5)">
+            <circle class="sld-vl70to120 sld-bus-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle class="sld-vl0to30 sld-bus-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
+        </g>
+    </g>
+</svg>

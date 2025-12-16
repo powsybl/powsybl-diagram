@@ -6,11 +6,12 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.BooleanSupplier;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
@@ -28,6 +29,60 @@ public class Middle3WTNode extends MiddleTwtNode {
 
     public boolean isEmbeddedInVlGraph() {
         return embeddedInVlGraph;
+    }
+
+    /**
+     * Deduce the node orientation based on the lines coordinates supporting the svg component.
+     * As we are dealing with straight lines, we always have two out of three snake lines which are in line, the third
+     * one being perpendicular.
+     */
+    public void setOrientationFromSnakeLines(List<List<Point>> snakeLines) {
+        List<Point> snakeLineLeg1 = snakeLines.get(0); // snakeline from leg1 feeder node to 3wt
+        List<Point> snakeLineLeg2 = snakeLines.get(1); // snakeline with simply two points going from leg2 feeder node to 3wt
+        List<Point> snakeLineLeg3 = snakeLines.get(2); // snakeline from leg3 feeder node to 3wt
+
+        // Orientation.UP example:
+        // line going  _____OO_____ line going
+        //   to leg1        O        to leg3
+        //                  |
+        //                  o leg2
+        Point leg1 = snakeLineLeg1.get(snakeLineLeg1.size() - 2);
+        Point leg2 = snakeLineLeg2.get(snakeLineLeg2.size() - 2);
+        Point leg3 = snakeLineLeg3.get(snakeLineLeg3.size() - 2);
+
+        if (leg1.getY() == leg3.getY()) {
+            // General case
+            setOrientation(leg2.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
+            setWindingOrder(() -> leg1.getX() < leg3.getX(),
+                    Arrays.asList(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT,
+                            Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT));
+        } else if (leg1.getY() == leg2.getY()) {
+            // General case
+            setOrientation(leg3.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
+            setWindingOrder(() -> leg1.getX() < leg2.getX(),
+                    Arrays.asList(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN,
+                            Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN));
+        } else if (leg2.getX() == leg1.getX()) {
+            // Specific case of leg1 and leg2 facing feeder nodes with same abscissa
+            setOrientation(leg3.getX() > leg1.getX() ? Orientation.LEFT : Orientation.RIGHT);
+            setWindingOrder(() -> leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY(),
+                    Arrays.asList(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN,
+                            Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN));
+        } else if (leg2.getX() == leg3.getX()) {
+            // Specific case of leg2 and leg3 facing feeder nodes with same abscissa
+            setOrientation(leg1.getX() > leg3.getX() ? Orientation.LEFT : Orientation.RIGHT);
+            setWindingOrder(() -> leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY(),
+                    Arrays.asList(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT,
+                            Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT));
+        }
+    }
+
+    private void setWindingOrder(BooleanSupplier cond, List<Middle3WTNode.Winding> windings) {
+        if (cond.getAsBoolean()) {
+            setWindingOrder(windings.get(0), windings.get(1), windings.get(2));
+        } else {
+            setWindingOrder(windings.get(3), windings.get(4), windings.get(5));
+        }
     }
 
     public void setWindingOrder(Winding first, Winding second, Winding third) {

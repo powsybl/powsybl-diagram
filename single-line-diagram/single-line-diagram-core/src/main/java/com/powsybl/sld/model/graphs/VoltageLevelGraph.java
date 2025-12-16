@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.cells.ArchCell;
 import com.powsybl.sld.model.cells.BusCell;
@@ -587,6 +588,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Point getCoord() {
         return coord;
+    }
+
+    public void addPaddingToCoord(LayoutParameters layoutParam) {
+        LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
+        LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
+        setCoord(coord.getX() + dPadding.left() + vlPadding.left(),
+                coord.getY() + dPadding.top() + vlPadding.top());
     }
 
     public void setCoord(double x, double y) {

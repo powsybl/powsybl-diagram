@@ -15,32 +15,30 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 
 /**
+ *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-class CgmesZoneLayoutTest extends AbstractTest {
+class BusTopology3wtTest extends AbstractTest {
 
     @Override
     @BeforeEach
     public void setup() throws IOException {
         super.setup();
-        network = Networks.createZoneDiagramNetwork();
+        network = Networks.createBusTopologyNetworkWith3WT();
     }
 
     @Test
-    void testZoneLayout() throws IOException {
+    void testSubstationLayout() throws IOException {
         var sldParameters = new SldParameters()
                 .setVoltageLevelLayoutFactoryCreator(n -> null)
-                .setZoneLayoutFactory(new CgmesZoneLayoutFactory(network, null, 3.))
+                .setSubstationLayoutFactory(new CgmesSubstationLayoutFactory(network, null, 3.))
                 .setSvgParameters(new SvgParameters().setUseName(true));
 
-        String filename = "/zoneLayoutTest.svg";
+        String filename = "/busTopology3wtSubstationTest.svg";
         Path svgOutput = tmpDir.resolve(filename);
-        List<String> zone = Arrays.asList("Substation1", "Substation2");
-        SingleLineDiagram.drawMultiSubstations(network, zone, svgOutput, sldParameters);
+        SingleLineDiagram.draw(network, "Substation", svgOutput, sldParameters);
 
         assertSvgEqualsReference(filename, svgOutput);
     }

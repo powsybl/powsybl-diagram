@@ -19,13 +19,17 @@ import java.util.Objects;
 public class CgmesVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
 
     private final Network network;
+    private final double cgmesScaleFactor;
+    private final String cgmesDiagramName;
 
-    public CgmesVoltageLevelLayoutFactory(Network network) {
+    public CgmesVoltageLevelLayoutFactory(Network network, String cgmesDiagramName, double cgmesScaleFactor) {
         this.network = Objects.requireNonNull(network);
+        this.cgmesDiagramName = cgmesDiagramName;
+        this.cgmesScaleFactor = cgmesScaleFactor;
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
-        return new CgmesVoltageLevelLayout(graph, network);
+        return new CgmesVoltageLevelLayout(graph, network, cgmesDiagramName, cgmesScaleFactor);
     }
 }

@@ -10,30 +10,14 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.EquipmentNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.MiddleTwtNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,13 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.library.SldComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.SldComponentTypeName.LCC_CONVERTER_STATION;
-import static com.powsybl.sld.library.SldComponentTypeName.LINE;
-import static com.powsybl.sld.library.SldComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.VSC_CONVERTER_STATION;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
@@ -72,7 +50,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     public LayoutToCgmesExtensionsConverter() {
-        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters().setCgmesUseNames(true));
+        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters());
     }
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
@@ -299,7 +277,8 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, MiddleTwtNode node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType())
+                && n instanceof EquipmentNode equipmentNode && equipmentNode.getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

@@ -7,39 +7,32 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.iidm.network.*;
-import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.diagram.test.Networks;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.IOException;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
  */
-class DoubleBusbarSectionTest {
+class DoubleBusbarSectionTest extends AbstractTest {
 
     private static final String DIAGRAM_NAME = "default";
 
-    private VoltageLevel voltageLevel;
-
-    private int iNode = 2;
-
+    @Override
     @BeforeEach
-    public void setUp() {
-        Network network = Networks.createNetworkWithDoubleBusbarSections();
-        voltageLevel = network.getVoltageLevel("VoltageLevel1");
+    void setup() throws IOException {
+        super.setup();
+        network = Networks.createNetworkWithDoubleBusbarSections();
     }
 
     private void addDiagramData(boolean isVoltageLevelDataEnabled) {
-        Network network = voltageLevel.getNetwork();
         addBusbarSectionDiagramData(network.getBusbarSection("BusbarSection1"), new DiagramPoint(20, 10, 1),
                 new DiagramPoint(180, 10, 2));
         addBusbarSectionDiagramData(network.getBusbarSection("BusbarSection2"), new DiagramPoint(20, 40, 1),
@@ -49,7 +42,8 @@ class DoubleBusbarSectionTest {
         addSwitchDiagramData(network.getSwitch("Disconnector2"), new DiagramPoint(75, 40, 0), 0);
         addSwitchDiagramData(network.getSwitch("Breaker1"), new DiagramPoint(80, 50, 0), 0);
         if (isVoltageLevelDataEnabled) {
-            VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, DIAGRAM_NAME, iNode, new DiagramPoint(80, 45, 0));
+            VoltageLevel voltageLevel1 = network.getVoltageLevel("VoltageLevel1");
+            VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel1, DIAGRAM_NAME, 2, new DiagramPoint(80, 45, 0));
         }
         NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation1");
     }
@@ -77,82 +71,15 @@ class DoubleBusbarSectionTest {
         sw.addExtension(CouplingDeviceDiagramData.class, switchDiagramData);
     }
 
-    private void checkGraph(VoltageLevelGraph graph) {
-        assertEquals(7, graph.getNodes().size());
-
-        assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());
-        assertEquals(Node.NodeType.BUS, graph.getNodes().get(1).getType());
-        assertEquals(Node.NodeType.FEEDER, graph.getNodes().get(2).getType());
-        assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(3).getType());
-        assertEquals(Node.NodeType.INTERNAL, graph.getNodes().get(4).getType());
-        assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(5).getType());
-        assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(6).getType());
-
-        assertEquals(1, graph.getNodes().get(0).getAdjacentNodes().size());
-        assertEquals(1, graph.getNodes().get(1).getAdjacentNodes().size());
-        assertEquals(1, graph.getNodes().get(2).getAdjacentNodes().size());
-        assertEquals(2, graph.getNodes().get(3).getAdjacentNodes().size());
-        assertEquals(3, graph.getNodes().get(4).getAdjacentNodes().size());
-        assertEquals(2, graph.getNodes().get(5).getAdjacentNodes().size());
-        assertEquals(2, graph.getNodes().get(6).getAdjacentNodes().size());
-
-        assertEquals(6, graph.getEdges().size());
-    }
-
-    private void checkNodeCoordinates(VoltageLevelGraph graph, boolean isVoltageLevelDataEnabled) {
-        assertEquals(20, graph.getNodes().get(0).getX(), 0);
-        assertEquals(10, graph.getNodes().get(0).getY(), 0);
-        assertEquals(160, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertEquals(Orientation.RIGHT, graph.getNodes().get(0).getOrientation());
-
-        assertEquals(20, graph.getNodes().get(1).getX(), 0);
-        assertEquals(40, graph.getNodes().get(1).getY(), 0);
-        assertEquals(160, ((BusNode) graph.getNodes().get(1)).getPxWidth(), 0);
-        assertEquals(Orientation.RIGHT, graph.getNodes().get(1).getOrientation());
-
-        assertEquals(80, graph.getNodes().get(2).getX(), 0);
-        assertEquals(100, graph.getNodes().get(2).getY(), 0);
-
-        assertEquals(75, graph.getNodes().get(3).getX(), 0);
-        assertEquals(10, graph.getNodes().get(3).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(3).getOrientation());
-
-        assertEquals(isVoltageLevelDataEnabled ? 80 : -1, graph.getNodes().get(4).getX(), 0);
-        assertEquals(isVoltageLevelDataEnabled ? 45 : -1, graph.getNodes().get(4).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(4).getOrientation());
-
-        assertEquals(75, graph.getNodes().get(5).getX(), 0);
-        assertEquals(40, graph.getNodes().get(5).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(5).getOrientation());
-
-        assertEquals(80, graph.getNodes().get(6).getX(), 0);
-        assertEquals(50, graph.getNodes().get(6).getY(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(6).getOrientation());
-    }
-
-    private VoltageLevelGraph processCgmesLayout() {
-        NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(voltageLevel.getNetwork());
-        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(voltageLevel.getId());
-        LayoutParameters layoutParameters = new LayoutParameters();
-        layoutParameters.setCgmesScaleFactor(1);
-        layoutParameters.setCgmesDiagramName(DIAGRAM_NAME);
-        new CgmesVoltageLevelLayout(graph, voltageLevel.getNetwork()).run(layoutParameters);
-        return graph;
-    }
-
     @Test
-    void testVoltageLevelData() {
+    void testVoltageLevelData() throws IOException {
         addDiagramData(true);
-        VoltageLevelGraph graph = processCgmesLayout();
-        checkGraph(graph);
-        checkNodeCoordinates(graph, true);
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithVlData.svg", 2);
     }
 
     @Test
-    void testNoVoltageLevelData() {
+    void testNoVoltageLevelData() throws IOException {
         addDiagramData(false);
-        VoltageLevelGraph graph = processCgmesLayout();
-        checkGraph(graph);
-        checkNodeCoordinates(graph, false);
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/doubleBbsWithoutVlData.svg", 2);
     }
 }

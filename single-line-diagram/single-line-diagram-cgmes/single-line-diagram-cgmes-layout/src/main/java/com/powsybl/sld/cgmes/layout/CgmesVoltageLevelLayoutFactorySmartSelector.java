@@ -50,6 +50,6 @@ public class CgmesVoltageLevelLayoutFactorySmartSelector implements VoltageLevel
 
     @Override
     public VoltageLevelLayoutFactory createFactory(Network network) {
-        return new CgmesVoltageLevelLayoutFactory(network);
+        return new CgmesVoltageLevelLayoutFactory(network, null, AbstractCgmesLayout.DEFAULT_CGMES_SCALE_FACTOR);
     }
 }

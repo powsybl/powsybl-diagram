@@ -41,9 +41,6 @@ class LayoutParametersTest {
                 .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
                 .setComponentsOnBusbars(List.of("COMPONENT_ON_BUS"))
                 .setRemoveFictitiousSwitchNodes(true)
-                .setCgmesScaleFactor(2)
-                .setCgmesDiagramName("diag")
-                .setCgmesUseNames(true)
                 .setZoneLayoutSnakeLinePadding(120);
 
         layoutParameters.setComponentsSize(null);
@@ -67,9 +64,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getComponentsOnBusbars(), layoutParameters2.getComponentsOnBusbars());
         assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
-        assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
-        assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
-        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
         assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
     }
 

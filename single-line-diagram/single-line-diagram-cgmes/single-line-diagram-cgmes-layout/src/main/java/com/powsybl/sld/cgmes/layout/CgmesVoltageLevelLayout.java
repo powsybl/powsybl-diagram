@@ -26,7 +26,11 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     private final VoltageLevelGraph graph;
 
     public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network) {
-        this.network = Objects.requireNonNull(network);
+        this(graph, network, null, DEFAULT_CGMES_SCALE_FACTOR);
+    }
+
+    public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network, String cgmesDiagramName, double cgmesScaleFactor) {
+        super(network, cgmesDiagramName, cgmesScaleFactor);
         Objects.requireNonNull(graph);
         this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().id()));
     }
@@ -34,15 +38,15 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
-        String diagramName = layoutParam.getCgmesDiagramName();
-        if (checkDiagramFails(diagramName, "voltage level " + vl.getId())) {
+        if (checkDiagramFails(cgmesDiagramName, "voltage level " + vl.getId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().id(), diagramName);
-        setNodeCoordinates(vl, graph, diagramName, layoutParam.isCgmesUseNames());
-        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
-        if (layoutParam.getCgmesScaleFactor() != 1) {
-            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getCgmesScaleFactor()));
-        }
+        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().id(), cgmesDiagramName);
+        setNodeCoordinates(vl, graph, cgmesDiagramName);
+        graph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, cgmesScaleFactor));
+        graph.addPaddingToCoord(layoutParam);
+
+        setGraphSize(graph, layoutParam);
     }
+
 }

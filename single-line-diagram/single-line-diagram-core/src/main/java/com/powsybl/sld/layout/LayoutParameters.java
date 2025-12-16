@@ -45,9 +45,6 @@ public class LayoutParameters {
     private Alignment busbarsAlignment = Alignment.FIRST;
     private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
-    private double cgmesScaleFactor = 1;
-    private String cgmesDiagramName = null;
-    private boolean cgmesUseNames = true;
     private int zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
@@ -77,8 +74,6 @@ public class LayoutParameters {
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
-                            @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
-                            @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
@@ -99,9 +94,6 @@ public class LayoutParameters {
         this.busbarsAlignment = busbarsAlignment;
         this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
-        this.cgmesDiagramName = cgmesDiagramName;
-        this.cgmesScaleFactor = cgmesScaleFactor;
-        this.cgmesUseNames = cgmesUseNames;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
     }
 
@@ -126,9 +118,6 @@ public class LayoutParameters {
         componentsOnBusbars = new ArrayList<>(other.componentsOnBusbars);
         removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
         componentsSize = other.componentsSize;
-        cgmesScaleFactor = other.cgmesScaleFactor;
-        cgmesDiagramName = other.cgmesDiagramName;
-        cgmesUseNames = other.cgmesUseNames;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
     }
 
@@ -305,33 +294,6 @@ public class LayoutParameters {
     @JsonIgnore
     public double getBusPadding() {
         return getCellWidth() / 4;
-    }
-
-    public double getCgmesScaleFactor() {
-        return cgmesScaleFactor;
-    }
-
-    public LayoutParameters setCgmesScaleFactor(double cgmesScaleFactor) {
-        this.cgmesScaleFactor = cgmesScaleFactor;
-        return this;
-    }
-
-    public String getCgmesDiagramName() {
-        return cgmesDiagramName;
-    }
-
-    public LayoutParameters setCgmesDiagramName(String cgmesDiagramName) {
-        this.cgmesDiagramName = cgmesDiagramName;
-        return this;
-    }
-
-    public boolean isCgmesUseNames() {
-        return cgmesUseNames;
-    }
-
-    public LayoutParameters setCgmesUseNames(boolean cgmesUseNames) {
-        this.cgmesUseNames = cgmesUseNames;
-        return this;
     }
 
     public int getZoneLayoutSnakeLinePadding() {
