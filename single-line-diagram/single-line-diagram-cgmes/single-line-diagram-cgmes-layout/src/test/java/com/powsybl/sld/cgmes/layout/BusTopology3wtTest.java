@@ -7,22 +7,13 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultSVGLegendWriter;
-import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.SingleLineDiagram;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.svg.SvgParameters;
-import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -40,23 +31,14 @@ class BusTopology3wtTest extends AbstractTest {
 
     @Test
     void testSubstationLayout() throws IOException {
-        SubstationGraph graph = new NetworkGraphBuilder(network).buildSubstationGraph("Substation");
-
-        var layoutParameters = new LayoutParameters();
-        new CgmesSubstationLayout(graph, network).run(layoutParameters);
-
-        var svgParameters = new SvgParameters();
-        var componentLib = new ConvergenceComponentLibrary();
-        var svgWriter = new DefaultSVGWriter(componentLib, layoutParameters, svgParameters);
-        var labelProvider = new DefaultLabelProvider(network, componentLib, layoutParameters, svgParameters);
-        var styleProvider = new TopologicalStyleProvider(network, svgParameters);
-        var legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
+        var sldParameters = new SldParameters()
+                .setVoltageLevelLayoutFactoryCreator(n -> null)
+                .setSubstationLayoutFactory(new CgmesSubstationLayoutFactory(network, null, 3.))
+                .setSvgParameters(new SvgParameters().setUseName(true));
 
         String filename = "/busTopology3wtSubstationTest.svg";
         Path svgOutput = tmpDir.resolve(filename);
-        try (Writer fileWriter = Files.newBufferedWriter(svgOutput, StandardCharsets.UTF_8)) {
-            svgWriter.write(graph, labelProvider, styleProvider, legendWriter, fileWriter);
-        }
+        SingleLineDiagram.draw(network, "Substation", svgOutput, sldParameters);
 
         assertSvgEqualsReference(filename, svgOutput);
     }

@@ -7,22 +7,13 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.model.graphs.ZoneGraph;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DefaultSVGLegendWriter;
-import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.SingleLineDiagram;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.svg.SvgParameters;
-import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -41,23 +32,15 @@ class CgmesZoneLayoutTest extends AbstractTest {
 
     @Test
     void testZoneLayout() throws IOException {
-        List<String> zone = Arrays.asList("Substation1", "Substation2");
-        ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone);
-
-        var layoutParameters = new LayoutParameters();
-        new CgmesZoneLayout(graph, network).run(layoutParameters);
-
-        var svgParameters = new SvgParameters();
-        var componentLib = new ConvergenceComponentLibrary();
-        var svgWriter = new DefaultSVGWriter(componentLib, layoutParameters, svgParameters);
-        var labelProvider = new DefaultLabelProvider(network, componentLib, layoutParameters, svgParameters);
-        var styleProvider = new TopologicalStyleProvider(network, svgParameters);
-        var legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
+        var sldParameters = new SldParameters()
+                .setVoltageLevelLayoutFactoryCreator(n -> null)
+                .setZoneLayoutFactory(new CgmesZoneLayoutFactory(network, null, 3.))
+                .setSvgParameters(new SvgParameters().setUseName(true));
 
         String filename = "/zoneLayoutTest.svg";
         Path svgOutput = tmpDir.resolve(filename);
-        Writer fileWriter = Files.newBufferedWriter(svgOutput, StandardCharsets.UTF_8);
-        svgWriter.write(graph, labelProvider, styleProvider, legendWriter, fileWriter);
+        List<String> zone = Arrays.asList("Substation1", "Substation2");
+        SingleLineDiagram.drawMultiSubstations(network, zone, svgOutput, sldParameters);
 
         assertSvgEqualsReference(filename, svgOutput);
     }
