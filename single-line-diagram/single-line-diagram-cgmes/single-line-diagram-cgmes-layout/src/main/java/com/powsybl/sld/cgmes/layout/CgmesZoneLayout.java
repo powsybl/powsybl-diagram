@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesZoneLayout extends AbstractCgmesLayout {
@@ -46,7 +45,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id()));
         }
         fixTransformersLabel = true;
     }
@@ -57,16 +56,16 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }
-        if (!checkDiagram(cgmesDiagramName, "")) {
+        if (checkDiagramFails(cgmesDiagramName, "")) {
             return;
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id());
             setNodeCoordinates(vl, vlGraph, cgmesDiagramName);
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().id());
             setLineCoordinates(vl, edge, cgmesDiagramName);
         }
         // shift and scale coordinates
@@ -103,18 +102,18 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         var diagramDataPoints = lineDiagramData.getPoints(diagramName);
         diagramDataPoints.forEach(this::setMinMax);
         var snakeLine = diagramDataPoints.stream()
-                .map(point -> new Point(point.getX(), point.getY()))
+                .map(point -> new Point(point.x(), point.y()))
                 .toList();
         edge.setSnakeLine(snakeLine);
 
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().getFirst().setX(firstPoint.getX());
-            edge.getSnakeLine().getFirst().setY(firstPoint.getY());
+            edge.getSnakeLine().getFirst().setX(firstPoint.x());
+            edge.getSnakeLine().getFirst().setY(firstPoint.y());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getSnakeLine().getLast().setX(lastPoint.getX());
-            edge.getSnakeLine().getLast().setY(lastPoint.getY());
+            edge.getSnakeLine().getLast().setX(lastPoint.x());
+            edge.getSnakeLine().getLast().setY(lastPoint.y());
         }
     }
 
@@ -126,8 +125,8 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             point.shiftX(-minX);
             point.shiftY(-minY);
             point.scale(cgmesScaleFactor);
-            point.shiftX(dPadding.getLeft() + vlPadding.getLeft());
-            point.shiftY(dPadding.getTop() + vlPadding.getTop());
+            point.shiftX(dPadding.left() + vlPadding.left());
+            point.shiftY(dPadding.top() + vlPadding.top());
         });
     }
 }

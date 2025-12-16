@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * Represents a connected set of nodes if considering the borderNodes as disconnected:
- * for any couple of nodes in <code>nodes</code> there is at least one path connecting them together WITHOUT passing
+ * for any couple of nodes in <code>nodes</code> there is at least one path connecting them WITHOUT passing
  * through any nodes of <code>borderNodes</code>.
  * The <code>nodes</code> holds the connected set of nodes.
  * The <code>borderNodes</code> holds the nodes that are at the border of this set, that is for which 1 adjacent node
@@ -20,22 +20,5 @@ import java.util.Set;
  *
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
-public class TopologicallyConnectedNodesSet {
-
-    private final Set<Node> nodes;
-
-    private final Set<Node> borderNodes;
-
-    TopologicallyConnectedNodesSet(Set<Node> nodes, Set<Node> borderSwitchNodes) {
-        this.nodes = nodes;
-        this.borderNodes = borderSwitchNodes;
-    }
-
-    public Set<Node> getNodes() {
-        return nodes;
-    }
-
-    public Set<Node> getBorderNodes() {
-        return borderNodes;
-    }
+public record TopologicallyConnectedNodesSet(Set<Node> nodes, Set<Node> borderNodes) {
 }

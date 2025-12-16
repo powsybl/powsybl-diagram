@@ -79,7 +79,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         }
 
         return new LabelPosition(positionName + "_DECORATOR",
-                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
+                (int) (componentLibrary.getSize(componentType).width() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
     protected LabelPosition getMiddle3WTDecoratorPosition(Middle3WTNode node, Direction direction) {
@@ -87,7 +87,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         if (direction != UNDEFINED) {
             int excessHeight3wt = 10;
-            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).height() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
             positionName = direction == TOP ? "N" : "S";
         }
 
@@ -115,7 +115,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
 
     private double getLabelYShift(Node node, Direction direction) {
         return direction != TOP
-                ? componentLibrary.getSize(node.getComponentType()).getHeight() + LABEL_OFFSET
+                ? componentLibrary.getSize(node.getComponentType()).height() + LABEL_OFFSET
                 : -LABEL_OFFSET;
     }
 
@@ -127,7 +127,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         // The FeederNode position is at the top-left position of the corresponding component.
         // We first shift to half the component height to be back at the center of the component, knowing that
         // all the FeederNode centers are on the same horizontal line.
-        double shiftToFeederComponentCenter = componentLibrary.getSize(node.getComponentType()).getHeight() / 2;
+        double shiftToFeederComponentCenter = componentLibrary.getSize(node.getComponentType()).height() / 2;
 
         // Then we add a shift of half the max component height to be just above/just below all feeder components.
         double shiftToFeederOut = (direction == TOP ? -1 : 1) * layoutParameters.getMaxComponentHeight() / 2;

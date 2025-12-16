@@ -6,23 +6,21 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Map;
-import java.util.Objects;
-
-import com.powsybl.iidm.network.Substation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataImporter {
@@ -44,7 +42,7 @@ public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataIm
             }
             String diagramName = generatorDiagramData.get("diagramName");
             InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(generatorDiagramData.asDouble("x"), generatorDiagramData.asDouble("y"), generatorDiagramData.asInt("seq")),
-                    generatorDiagramData.asDouble("rotation"));
+                generatorDiagramData.asDouble("rotation"));
             addTerminalPoints(generatorId, generator.getNameOrId(), diagramName, diagramDetails);
             generatorIidmDiagramData.addData(diagramName, diagramDetails);
             generator.addExtension(InjectionDiagramData.class, generatorIidmDiagramData);

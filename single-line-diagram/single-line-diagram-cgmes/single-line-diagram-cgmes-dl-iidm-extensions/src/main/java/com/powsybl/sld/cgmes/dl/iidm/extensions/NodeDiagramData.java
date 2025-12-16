@@ -11,37 +11,18 @@ import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Identifiable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtension<T> {
 
     static final String NAME = "node-diagram-data";
-
-    public static class NodeDiagramDataDetails {
-        private DiagramPoint point1;
-        private DiagramPoint point2;
-
-        public DiagramPoint getPoint1() {
-            return point1;
-        }
-
-        public void setPoint1(DiagramPoint point1) {
-            this.point1 = Objects.requireNonNull(point1);
-        }
-
-        public DiagramPoint getPoint2() {
-            return point2;
-        }
-
-        public void setPoint2(DiagramPoint point2) {
-            this.point2 = Objects.requireNonNull(point2);
-        }
-    }
-
     private final Map<String, NodeDiagramDataDetails> diagramsDetails = new HashMap<>();
 
     private NodeDiagramData(T identifiable) {
@@ -54,6 +35,22 @@ public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtensio
 
     public NodeDiagramData(Bus bus) {
         this((T) bus);
+    }
+
+    public static NodeDiagramData<Bus> getOrCreateDiagramData(Bus bus) {
+        NodeDiagramData<Bus> nodeDiagramData = bus.getExtension(NodeDiagramData.class);
+        if (nodeDiagramData == null) {
+            nodeDiagramData = new NodeDiagramData<>(bus);
+        }
+        return nodeDiagramData;
+    }
+
+    public static NodeDiagramData<BusbarSection> getOrCreateDiagramData(BusbarSection busbar) {
+        NodeDiagramData<BusbarSection> nodeDiagramData = busbar.getExtension(NodeDiagramData.class);
+        if (nodeDiagramData == null) {
+            nodeDiagramData = new NodeDiagramData<>(busbar);
+        }
+        return nodeDiagramData;
     }
 
     @Override
@@ -76,20 +73,25 @@ public class NodeDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         return new ArrayList<>(diagramsDetails.keySet());
     }
 
-    public static NodeDiagramData<Bus> getOrCreateDiagramData(Bus bus) {
-        NodeDiagramData<Bus> nodeDiagramData = bus.getExtension(NodeDiagramData.class);
-        if (nodeDiagramData == null) {
-            nodeDiagramData = new NodeDiagramData<>(bus);
-        }
-        return nodeDiagramData;
-    }
+    public static class NodeDiagramDataDetails {
+        private DiagramPoint point1;
+        private DiagramPoint point2;
 
-    public static NodeDiagramData<BusbarSection> getOrCreateDiagramData(BusbarSection busbar) {
-        NodeDiagramData<BusbarSection> nodeDiagramData = busbar.getExtension(NodeDiagramData.class);
-        if (nodeDiagramData == null) {
-            nodeDiagramData = new NodeDiagramData<>(busbar);
+        public DiagramPoint getPoint1() {
+            return point1;
         }
-        return nodeDiagramData;
+
+        public void setPoint1(DiagramPoint point1) {
+            this.point1 = Objects.requireNonNull(point1);
+        }
+
+        public DiagramPoint getPoint2() {
+            return point2;
+        }
+
+        public void setPoint2(DiagramPoint point2) {
+            this.point2 = Objects.requireNonNull(point2);
+        }
     }
 
 }

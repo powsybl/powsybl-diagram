@@ -192,14 +192,11 @@ public final class SingleLineDiagram {
     private static DefaultSVGWriter preDraw(Graph graph, SldParameters sldParameters, Network network) {
         LayoutParameters layoutParameters = sldParameters.getLayoutParameters();
         VoltageLevelLayoutFactory voltageLevelLayoutFactory = sldParameters.createVoltageLevelLayoutFactory(network);
-        if (graph instanceof VoltageLevelGraph voltageLevelGraph) {
-            voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
-        } else if (graph instanceof SubstationGraph substationGraph) {
-            sldParameters.getSubstationLayoutFactory().create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
-        } else if (graph instanceof ZoneGraph zoneGraph) {
-            sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getZoneLayoutPathFinderFactory(), sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
-        } else {
-            throw new PowsyblException("First argument is an instance of an unexpected class");
+        switch (graph) {
+            case VoltageLevelGraph voltageLevelGraph -> voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
+            case SubstationGraph substationGraph -> sldParameters.getSubstationLayoutFactory().create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
+            case ZoneGraph zoneGraph -> sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getZoneLayoutPathFinderFactory(), sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
+            case null, default -> throw new PowsyblException("First argument is an instance of an unexpected class");
         }
         return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters());
     }

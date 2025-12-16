@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesZoneLayoutTest extends AbstractTest {

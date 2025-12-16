@@ -8,17 +8,14 @@ package com.powsybl.diagram.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public class ComponentSize {
-
-    private final double width;
-
-    private final double height;
+public record ComponentSize(double width, double height) {
 
     @JsonCreator
     public ComponentSize(@JsonProperty("width") double width,
@@ -27,15 +24,8 @@ public class ComponentSize {
         this.height = height;
     }
 
-    public double getWidth() {
-        return width;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
     @Override
+    @NonNull
     public String toString() {
         return "ComponentSize(width=" + width + ", height=" + height + ")";
     }

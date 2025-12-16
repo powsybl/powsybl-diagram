@@ -484,7 +484,7 @@ public final class Networks {
     private static void addBusTopology3WTransformerDiagramData(Network network) {
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer");
         ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
-        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails twtDiagramDetails = twtDiagramData.new ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(100, 15, 0), 90);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails twtDiagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(100, 15, 0), 90);
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(95, 15, 1));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(60, 15, 2));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(105, 15, 1));
@@ -549,7 +549,7 @@ public final class Networks {
                 .add();
     }
 
-    protected static void addNodeTopologyHorizontalBusbarDiagramData(Network network) {
+    static void addNodeTopologyHorizontalBusbarDiagramData(Network network) {
         addNodeTopologyBusbarSectionDiagramData(network.getBusbarSection("BusbarSection"), new DiagramPoint(20, 115, 1), new DiagramPoint(180, 115, 2));
         addNodeTopologyGeneratorDiagramData(network.getGenerator("Generator"), new DiagramPoint(105, 230, 0),
                 new DiagramPoint(105, 225, 1), new DiagramPoint(105, 115, 2));
@@ -562,7 +562,7 @@ public final class Networks {
         addNodeTopologyLineDiagramData(network.getLine("Line"), new DiagramPoint(105, 50, 1), new DiagramPoint(105, 10, 2));
     }
 
-    protected static void addNodeTopologyVerticalBusbarDiagramData(Network network) {
+    static void addNodeTopologyVerticalBusbarDiagramData(Network network) {
         addNodeTopologyBusbarSectionDiagramData(network.getBusbarSection("BusbarSection"), new DiagramPoint(140, 60, 1), new DiagramPoint(140, 170, 2));
         addNodeTopologyGeneratorDiagramData(network.getGenerator("Generator"), new DiagramPoint(45, 85, 0),
                 new DiagramPoint(50, 85, 1), new DiagramPoint(140, 85, 2));

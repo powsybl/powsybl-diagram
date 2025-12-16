@@ -46,14 +46,14 @@ public class BranchEdge extends AbstractEdge {
     private final boolean[] visible = new boolean[] {true, true};
     private final SvgEdgeInfo svgEdgeInfo1;
     private final SvgEdgeInfo svgEdgeInfo2;
-    private final String label;
+    private final SvgEdgeInfo svgEdgeInfoMiddle;
 
     public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
-                      EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, String label) {
+                      EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, EdgeInfo edgeInfoMiddle) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
-        this.svgEdgeInfo1 = edgeInfo1 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
-        this.svgEdgeInfo2 = edgeInfo2 != null ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
-        this.label = label;
+        this.svgEdgeInfo1 = isEdgeInfoNotEmptyNorNull(edgeInfo1) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = isEdgeInfoNotEmptyNorNull(edgeInfo2) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
+        this.svgEdgeInfoMiddle = isEdgeInfoNotEmptyNorNull(edgeInfoMiddle) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle) : null;
     }
 
     public boolean isTransformerEdge() {
@@ -71,6 +71,10 @@ public class BranchEdge extends AbstractEdge {
 
     public List<Point> getPoints2() {
         return Collections.unmodifiableList(points2);
+    }
+
+    public Point getMiddlePoint() {
+        return Point.createMiddlePoint(points1.getLast(), points2.getLast());
     }
 
     public void setPoints(Side side, Point... points) {
@@ -153,7 +157,7 @@ public class BranchEdge extends AbstractEdge {
 
     public double getEdgeEndAngle(Side side) {
         List<Point> points = getPoints(side);
-        return points.get(points.size() - 2).getAngle(points.get(points.size() - 1));
+        return points.get(points.size() - 2).getAngle(points.getLast());
     }
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo(Side side) {
@@ -161,7 +165,11 @@ public class BranchEdge extends AbstractEdge {
         return Optional.ofNullable(side == Side.ONE ? svgEdgeInfo1 : svgEdgeInfo2);
     }
 
-    public String getLabel() {
-        return label;
+    public Optional<SvgEdgeInfo> getSvgEdgeInfoMiddle() {
+        return Optional.ofNullable(svgEdgeInfoMiddle);
+    }
+
+    private static boolean isEdgeInfoNotEmptyNorNull(EdgeInfo edgeInfo) {
+        return edgeInfo != null && (edgeInfo.getInfoTypeB() != null || edgeInfo.getInfoTypeA() != null);
     }
 }

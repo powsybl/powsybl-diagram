@@ -12,7 +12,6 @@ import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class TransformerDiagramDataTest extends AbstractCouplingDeviceDiagramDataTest {

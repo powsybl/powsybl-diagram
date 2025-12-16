@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagramDataExporter {

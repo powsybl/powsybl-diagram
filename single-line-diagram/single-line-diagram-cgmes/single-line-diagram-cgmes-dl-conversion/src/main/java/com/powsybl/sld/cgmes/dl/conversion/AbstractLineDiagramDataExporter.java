@@ -6,14 +6,12 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.triplestore.api.TripleStore;
-
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractLineDiagramDataExporter extends AbstractDiagramDataExporter {

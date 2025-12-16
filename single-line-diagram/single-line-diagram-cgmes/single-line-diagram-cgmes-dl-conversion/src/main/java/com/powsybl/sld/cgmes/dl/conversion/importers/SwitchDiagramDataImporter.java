@@ -6,14 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Map;
-import java.util.Objects;
-
-import com.powsybl.iidm.network.Substation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
@@ -21,6 +15,11 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
@@ -44,7 +43,7 @@ public class SwitchDiagramDataImporter extends AbstractCouplingDeviceDiagramData
             }
             String diagramName = switchesDiagramData.get("diagramName");
             CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(switchesDiagramData.asDouble("x"), switchesDiagramData.asDouble("y"), 0),
-                    switchesDiagramData.asDouble("rotation"));
+                switchesDiagramData.asDouble("rotation"));
             addTerminalPoints(switchId, sw.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
             addTerminalPoints(switchId, sw.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
             switchIidmDiagramData.addData(diagramName, diagramDetails);

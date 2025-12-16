@@ -55,7 +55,7 @@ public class LayoutToCgmesExtensionsConverter {
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
         Objects.requireNonNull(diagramPoints);
-        return diagramPoints.stream().max(Comparator.naturalOrder()).map(DiagramPoint::getSeq).orElse(0);
+        return diagramPoints.stream().max(Comparator.naturalOrder()).map(DiagramPoint::seq).orElse(0);
     }
 
     private <T extends Identifiable<T>> void setNodeDiagramPoints(NodeDiagramData<T> diagramData, BusNode busNode, OffsetPoint offsetPoint, String diagramName) {
@@ -205,7 +205,7 @@ public class LayoutToCgmesExtensionsConverter {
                 .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
-                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = transformerIidmDiagramData.new ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
+                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
                     transformerIidmDiagramData.addData(diagramName, diagramDetails);
                     LOG.debug("setting CGMES DL IIDM extensions for ThreeWindingTransformer: {}, {}", threeWindingsTransformer.getId(), tDiagramPoint);
                     threeWindingsTransformer.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);

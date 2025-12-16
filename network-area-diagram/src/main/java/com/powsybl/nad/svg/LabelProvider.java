@@ -21,7 +21,7 @@ public interface LabelProvider {
 
     Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId);
 
-    String getBranchLabel(String branchId);
+    Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType);
 
     VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId);
 }

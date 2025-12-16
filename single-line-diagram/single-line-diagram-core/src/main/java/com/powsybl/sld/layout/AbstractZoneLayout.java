@@ -7,11 +7,16 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.layout.pathfinding.PathFinder;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.model.nodes.BranchEdge;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -19,7 +24,7 @@ import java.util.*;
 public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
     protected SubstationLayoutFactory sLayoutFactory;
     protected VoltageLevelLayoutFactory vLayoutFactory;
-    protected Map<BaseGraph, AbstractLayout<SubstationGraph>> layoutBySubstation;
+    protected Map<BaseGraph, Layout> layoutBySubstation;
     protected PathFinder pathFinder;
 
     protected AbstractZoneLayout(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
@@ -29,7 +34,7 @@ public abstract class AbstractZoneLayout extends AbstractBaseLayout<ZoneGraph> {
         this.layoutBySubstation = new HashMap<>();
         for (SubstationGraph subGraph : getGraph().getSubstations()) {
             Layout sLayout = sLayoutFactory.create(subGraph, vLayoutFactory);
-            layoutBySubstation.put(subGraph, (AbstractLayout<SubstationGraph>) sLayout);
+            layoutBySubstation.put(subGraph, sLayout);
         }
     }
 

@@ -6,19 +6,17 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Map;
-import java.util.Objects;
-
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.triplestore.api.TripleStore;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class Transformer3WDiagramDataExporter extends AbstractDiagramDataExporter {

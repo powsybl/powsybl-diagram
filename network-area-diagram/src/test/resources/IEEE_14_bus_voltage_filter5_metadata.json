@@ -6,6 +6,7 @@
       "y" : -40.0
     },
     "maxSteps" : 1000,
+    "timeoutSeconds" : 15.0,
     "textNodeEdgeConnectionYShift" : 25.0,
     "injectionsAdded" : false
   },
@@ -38,22 +39,16 @@
     "loopEdgesAperture" : 60.0,
     "loopControlDistance" : 40.0,
     "edgeInfoAlongEdge" : true,
-    "edgeNameDisplayed" : false,
     "interAnnulusSpace" : 5.0,
     "svgPrefix" : "",
-    "idDisplayed" : false,
-    "substationDescriptionDisplayed" : false,
     "arrowPathIn" : "M-10 -10 H10 L0 10z",
     "arrowPathOut" : "M-10 10 H10 L0 -10z",
-    "busLegend" : true,
-    "voltageLevelDetails" : false,
     "languageTag" : "en",
     "voltageValuePrecision" : 1,
     "powerValuePrecision" : 0,
     "angleValuePrecision" : 1,
     "currentValuePrecision" : 0,
     "percentageValuePrecision" : 0,
-    "edgeInfoDisplayed" : "ACTIVE_POWER",
     "pstArrowHeadSize" : 8.0,
     "undefinedValueSymbol" : "",
     "highlightGraph" : false,
@@ -180,6 +175,7 @@
     "equipmentId" : "VL6",
     "x" : 683.08,
     "y" : 250.21,
+    "invisible" : true,
     "legendSvgId" : "25",
     "legendEdgeSvgId" : "26",
     "legendHeader" : [ "VL6" ]
@@ -188,6 +184,7 @@
     "equipmentId" : "VL7",
     "x" : 443.55,
     "y" : -67.88,
+    "invisible" : true,
     "legendSvgId" : "29",
     "legendEdgeSvgId" : "30",
     "legendHeader" : [ "VL7" ]
@@ -196,6 +193,7 @@
     "equipmentId" : "VL9",
     "x" : 95.54,
     "y" : -762.33,
+    "invisible" : true,
     "legendSvgId" : "33",
     "legendEdgeSvgId" : "34",
     "legendHeader" : [ "VL9" ]
@@ -263,7 +261,8 @@
     "node2" : "28",
     "busNode1" : "15",
     "busNode2" : "31",
-    "type" : "TwoWtEdge"
+    "type" : "TwoWtEdge",
+    "invisible2" : true
   }, {
     "svgId" : "44",
     "equipmentId" : "T4-9-1",
@@ -271,7 +270,8 @@
     "node2" : "32",
     "busNode1" : "15",
     "busNode2" : "35",
-    "type" : "TwoWtEdge"
+    "type" : "TwoWtEdge",
+    "invisible2" : true
   }, {
     "svgId" : "45",
     "equipmentId" : "T5-6-1",
@@ -279,7 +279,8 @@
     "node2" : "24",
     "busNode1" : "19",
     "busNode2" : "27",
-    "type" : "TwoWtEdge"
+    "type" : "TwoWtEdge",
+    "invisible2" : true
   }, {
     "svgId" : "46",
     "equipmentId" : "L7-8-1",
@@ -287,7 +288,8 @@
     "node2" : "20",
     "busNode1" : "31",
     "busNode2" : "23",
-    "type" : "LineEdge"
+    "type" : "LineEdge",
+    "invisible1" : true
   } ],
   "textNodes" : [ {
     "svgId" : "1",

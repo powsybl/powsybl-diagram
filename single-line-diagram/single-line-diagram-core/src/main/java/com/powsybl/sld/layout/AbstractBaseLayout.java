@@ -7,12 +7,16 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.coordinate.*;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
-import org.jgrapht.alg.util.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.AbstractBaseGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.Node;
+import org.jgrapht.alg.util.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
@@ -87,7 +91,7 @@ public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends Ab
         Direction dNode2 = getNodeDirection(node2, 2);
 
         // increment not needed for 3WT for the common node
-        String vl1 = getGraph().getVoltageLevelInfos(node1).getId();
+        String vl1 = getGraph().getVoltageLevelInfos(node1).id();
         int nbSnakeLines1 = increment
                 ? infosNbSnakeLinesV.incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
                 : infosNbSnakeLinesV.getNbSnakeLinesHorizontalBetween(vl1, dNode1);
@@ -106,7 +110,7 @@ public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends Ab
                 polyline.add(new Point(p1.getX(), ySnakeLine));
             }
         } else {
-            String vl2 = getGraph().getVoltageLevelInfos(node2).getId();
+            String vl2 = getGraph().getVoltageLevelInfos(node2).id();
             int nbSnakeLines2 = infosNbSnakeLinesV.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
             double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLines2);
 
@@ -124,7 +128,7 @@ public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends Ab
 
     private double getVerticalShift(LayoutParameters layoutParam, Direction dNode1, int nbSnakeLines1) {
         return (nbSnakeLines1 - 1) * layoutParam.getVerticalSnakeLinePadding()
-                + (dNode1 == Direction.TOP ? layoutParam.getVoltageLevelPadding().getTop() : layoutParam.getVoltageLevelPadding().getBottom());
+                + (dNode1 == Direction.TOP ? layoutParam.getVoltageLevelPadding().top() : layoutParam.getVoltageLevelPadding().bottom());
     }
 
     /**
@@ -136,7 +140,7 @@ public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends Ab
 
     private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam, InfosNbSnakeLinesVertical infosNbSnakeLinesV) {
         double shiftLeftRight = Math.max(infosNbSnakeLinesV.getNbSnakeLinesLeftRight().compute(side, (k, v) -> v + 1) - 1, 0) * layoutParam.getHorizontalSnakeLinePadding();
-        return getGraph().getVoltageLevelGraph(node).getX() - layoutParam.getVoltageLevelPadding().getLeft()
+        return getGraph().getVoltageLevelGraph(node).getX() - layoutParam.getVoltageLevelPadding().left()
                 + (side == Side.LEFT ? -shiftLeftRight : shiftLeftRight + maxVoltageLevelWidth);
     }
 
@@ -152,7 +156,7 @@ public abstract class AbstractBaseLayout<T extends AbstractBaseGraph> extends Ab
             } else {
                 VoltageLevelGraph vlAbove = vls.get(iVl - 1);
                 return vlAbove.getY()
-                        + vlAbove.getHeight() - layoutParam.getVoltageLevelPadding().getTop() - layoutParam.getVoltageLevelPadding().getBottom()
+                        + vlAbove.getHeight() - layoutParam.getVoltageLevelPadding().top() - layoutParam.getVoltageLevelPadding().bottom()
                         + decalV;
             }
         }

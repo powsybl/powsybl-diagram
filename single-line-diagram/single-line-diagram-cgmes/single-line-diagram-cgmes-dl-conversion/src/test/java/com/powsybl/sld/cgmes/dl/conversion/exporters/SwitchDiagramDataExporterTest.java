@@ -16,7 +16,6 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.iidm.network.Switch;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class SwitchDiagramDataExporterTest extends AbstractCouplingDeviceDiagramDataExporterTest {

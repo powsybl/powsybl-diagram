@@ -21,9 +21,11 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String busNode1SvgId;
     private final String busNode2SvgId;
     private final String edgeType;
-    private final String label;
+    private final boolean invisibleSide1;
+    private final boolean invisibleSide2;
     private final EdgeInfoMetadata edgeInfo1;
     private final EdgeInfoMetadata edgeInfo2;
+    private final EdgeInfoMetadata edgeInfoMiddle;
 
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -32,18 +34,22 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("busNode1") String busNode1SvgId,
                         @JsonProperty("busNode2") String busNode2SvgId,
                         @JsonProperty("type") String edgeType,
-                        @JsonProperty("label") String label,
+                        @JsonProperty("invisible1") boolean invisibleSide1,
+                        @JsonProperty("invisible2") boolean invisibleSide2,
                         @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
-                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2) {
+                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2,
+                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
         this.busNode1SvgId = busNode1SvgId;
         this.busNode2SvgId = busNode2SvgId;
         this.edgeType = edgeType;
-        this.label = label;
+        this.invisibleSide1 = invisibleSide1;
+        this.invisibleSide2 = invisibleSide2;
         this.edgeInfo1 = edgeInfo1;
         this.edgeInfo2 = edgeInfo2;
+        this.edgeInfoMiddle = edgeInfoMiddle;
     }
 
     @JsonProperty("node1")
@@ -71,9 +77,16 @@ public class EdgeMetadata extends AbstractMetadataItem {
         return edgeType;
     }
 
-    @JsonProperty("label")
-    public String getLabel() {
-        return label;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible1")
+    public boolean isInvisibleSide1() {
+        return invisibleSide1;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible2")
+    public boolean isInvisibleSide2() {
+        return invisibleSide2;
     }
 
     @JsonProperty("edgeInfo1")
@@ -84,5 +97,10 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("edgeInfo2")
     public EdgeInfoMetadata getEdgeInfo2() {
         return edgeInfo2;
+    }
+
+    @JsonProperty("edgeInfoMiddle")
+    public EdgeInfoMetadata getEdgeInfoMiddle() {
+        return edgeInfoMiddle;
     }
 }

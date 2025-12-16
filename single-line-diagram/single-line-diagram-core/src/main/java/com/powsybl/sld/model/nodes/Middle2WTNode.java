@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.model.nodes;
 
-import java.util.List;
-import java.util.Objects;
-
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}

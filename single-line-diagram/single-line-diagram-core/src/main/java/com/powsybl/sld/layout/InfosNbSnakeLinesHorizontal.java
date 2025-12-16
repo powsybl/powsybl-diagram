@@ -7,7 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -25,22 +27,21 @@ public final class InfosNbSnakeLinesHorizontal {
     private final Map<String, Integer> nbSnakeLinesVerticalBetween;
 
     static InfosNbSnakeLinesHorizontal create(ZoneGraph zoneGraph) {
-        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesVerticalBetween = zoneGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
-        return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesVerticalBetween);
+        return create(zoneGraph.getVoltageLevelStream());
     }
 
     static InfosNbSnakeLinesHorizontal create(SubstationGraph substationGraph) {
-        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesVerticalBetween = substationGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
-        return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesVerticalBetween);
+        return create(substationGraph.getVoltageLevelStream());
     }
 
     static InfosNbSnakeLinesHorizontal create(VoltageLevelGraph graph) {
         // used only for horizontal layout
-        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesBetween = Stream.of(graph).collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        return create(Stream.of(graph));
+    }
 
+    private static InfosNbSnakeLinesHorizontal create(Stream<VoltageLevelGraph> voltageLevelGraphStream) {
+        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
+        Map<String, Integer> nbSnakeLinesBetween = voltageLevelGraphStream.collect(Collectors.toMap(g -> g.getVoltageLevelInfos().id(), v -> 0));
         return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesBetween);
     }
 

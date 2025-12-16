@@ -19,26 +19,16 @@ import java.util.stream.Collectors;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class VoltageLevelFilter implements Predicate<VoltageLevel> {
+public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Predicate<VoltageLevel> {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelFilter.class);
 
     public static final Predicate<VoltageLevel> NO_FILTER = voltageLevel -> true;
 
     private static final String UNKNOWN_VOLTAGE_LEVEL = "Unknown voltage level id '";
 
-    private final Set<VoltageLevel> voltageLevels;
-
-    public VoltageLevelFilter(Set<VoltageLevel> voltageLevels) {
-        this.voltageLevels = voltageLevels;
-    }
-
     public int getNbVoltageLevels() {
         return voltageLevels.size();
-    }
-
-    public Set<VoltageLevel> getVoltageLevels() {
-        return voltageLevels;
     }
 
     @Override
@@ -116,7 +106,7 @@ public class VoltageLevelFilter implements Predicate<VoltageLevel> {
     public static Collection<VoltageLevel> getNextDepthVoltageLevels(Network network, List<VoltageLevel> voltageLevels) {
         List<String> voltageLevelIds = voltageLevels.stream().map(VoltageLevel::getId).collect(Collectors.toList());
         VoltageLevelFilter voltageLevelFilter = createVoltageLevelsDepthFilter(network, voltageLevelIds, 1);
-        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.getVoltageLevels());
+        Set<VoltageLevel> voltageLevelSet = new HashSet<>(voltageLevelFilter.voltageLevels());
         voltageLevels.forEach(voltageLevelSet::remove);
         return voltageLevelSet;
     }

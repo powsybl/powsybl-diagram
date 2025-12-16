@@ -173,7 +173,7 @@ public class Graph {
 
     public Stream<List<BranchEdge>> getMultiBranchEdgesStream() {
         return voltageLevelGraph.edgeSet().stream()
-                .filter(e -> !isLoop(e))
+                .filter(this::isNotALoop)
                 .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct()
@@ -187,7 +187,7 @@ public class Graph {
                         .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
                         .collect(Collectors.toList()))
                 .filter(l -> !l.isEmpty())
-                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.get(0)), l -> l));
+                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.getFirst()), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
@@ -315,8 +315,8 @@ public class Graph {
         return nodes.containsKey(equipmentId);
     }
 
-    public boolean isLoop(Edge edge) {
-        return getNode1(edge) == getNode2(edge);
+    public boolean isNotALoop(Edge edge) {
+        return getNode1(edge) != getNode2(edge);
     }
 
     public Map<String, Point> getNodePositions() {

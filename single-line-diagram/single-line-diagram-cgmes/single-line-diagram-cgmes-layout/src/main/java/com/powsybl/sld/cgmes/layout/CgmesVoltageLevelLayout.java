@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
@@ -33,16 +32,16 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
     public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network, String cgmesDiagramName, double cgmesScaleFactor) {
         super(network, cgmesDiagramName, cgmesScaleFactor);
         Objects.requireNonNull(graph);
-        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));
+        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().id()));
     }
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        if (!checkDiagram(cgmesDiagramName, "voltage level " + vl.getId())) {
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
+        if (checkDiagramFails(cgmesDiagramName, "voltage level " + vl.getId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), cgmesDiagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().id(), cgmesDiagramName);
         setNodeCoordinates(vl, graph, cgmesDiagramName);
         graph.getNodes().forEach(n -> shiftAndScaleNodeCoordinates(n, cgmesScaleFactor));
         graph.addPaddingToCoord(layoutParam);

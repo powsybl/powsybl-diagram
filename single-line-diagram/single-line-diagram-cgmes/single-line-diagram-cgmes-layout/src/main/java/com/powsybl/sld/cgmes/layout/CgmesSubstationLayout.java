@@ -35,7 +35,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
         super(network, cgmesDiagramName, cgmesScaleFactor);
         Objects.requireNonNull(graph);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id()));
         }
         fixTransformersLabel = true;
         this.graph = graph;
@@ -43,12 +43,12 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        if (!checkDiagram(cgmesDiagramName, "substation " + graph.getSubstationId())) {
+        if (checkDiagramFails(cgmesDiagramName, "substation " + graph.getSubstationId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), cgmesDiagramName);
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().id());
             setNodeCoordinates(vl, vlGraph, cgmesDiagramName);
         }
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {

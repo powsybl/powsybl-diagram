@@ -20,7 +20,6 @@ import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class BusbarDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {

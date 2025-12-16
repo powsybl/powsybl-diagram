@@ -14,7 +14,6 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {

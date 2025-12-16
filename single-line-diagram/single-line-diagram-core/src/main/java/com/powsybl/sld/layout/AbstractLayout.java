@@ -10,7 +10,9 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.AbstractBaseGraph;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 import org.jgrapht.alg.util.Pair;
 
@@ -136,7 +138,7 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
             LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
             double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
             double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLinesTopBottom);
-            double xBetweenGraph = xMaxGraph - vlPadding.getLeft()
+            double xBetweenGraph = xMaxGraph - vlPadding.left()
                     - (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) - 1) * layoutParam.getHorizontalSnakeLinePadding();
 
             pol.addAll(Point.createPointsList(x1, y1 + decal1V,
@@ -148,9 +150,9 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
 
     private static double getVerticalShift(LayoutParameters layoutParam, Direction dNode1, Map<Direction, Integer> nbSnakeLinesTopBottom) {
         if (dNode1 == Direction.BOTTOM) {
-            return Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() + layoutParam.getVoltageLevelPadding().getBottom();
+            return Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() + layoutParam.getVoltageLevelPadding().bottom();
         } else {
-            return -Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() - layoutParam.getVoltageLevelPadding().getTop();
+            return -Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() - layoutParam.getVoltageLevelPadding().top();
         }
     }
 
@@ -179,7 +181,7 @@ public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Lay
         // for the second new edge, we keep the last two points of the original first polyline (in reverse order
         // as the edges are always from middleTwtNode to twtLegNode
         // we need to create a new point to avoid having a point shared between part1 and part2
-        List<Point> part2 = Arrays.asList(points1.get(points1.size() - 1), new Point(points1.get(points1.size() - 2)));
+        List<Point> part2 = Arrays.asList(points1.getLast(), new Point(points1.get(points1.size() - 2)));
 
         // the third new edge is made with the original second polyline, except the first point (in reverse order
         // as the edges are always from middleTwtNode to twtLegNode)
