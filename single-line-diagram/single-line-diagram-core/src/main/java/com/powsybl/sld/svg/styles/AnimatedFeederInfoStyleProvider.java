@@ -7,7 +7,7 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.svg.DirectionalFeederInfo;
+import com.powsybl.sld.svg.ValueFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class AnimatedFeederInfoStyleProvider extends EmptyStyleProvider {
     @Override
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>(super.getFeederInfoStyles(info));
-        if (info instanceof DirectionalFeederInfo feederInfo) {
+        if (info instanceof ValueFeederInfo feederInfo) {
             feederInfo.getRightLabel().ifPresent(label -> {
                 double value = Math.abs(feederInfo.getValue());
                 if (!Double.isNaN(value) && value > 0) {

@@ -106,14 +106,14 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -359px; left: 44px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>vl1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/> kV / °</div>
+                    <span class="nad-legend-square"></span> kV / °</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/> kV / °</div>
+                    <span class="nad-legend-square"></span> kV / °</div>
             </div>
             <div style="position: absolute; top: -39px; left: -130px" id="6" class="nad-vl180to300 nad-label-box">
                 <div>vl2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/> kV / °</div>
+                    <span class="nad-legend-square"></span> kV / °</div>
             </div>
         </div>
     </foreignObject>

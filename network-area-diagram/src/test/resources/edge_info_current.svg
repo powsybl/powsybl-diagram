@@ -89,13 +89,13 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         </g>
     </g>
     <g class="nad-edge-infos">
-        <g id="9" transform="translate(-83.82,-267.77)" class="nad-current">
-            <path transform="rotate(-151.41)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-61.41)" x="-19.00" style="text-anchor:end">153</text>
+        <g id="9" transform="translate(-83.82,-267.77)">
+            <path transform="rotate(-151.41)" class="nad-current nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-61.41)" class="nad-current" x="-19.00" style="text-anchor:end">153</text>
         </g>
-        <g id="10" transform="translate(-202.66,-49.75)" class="nad-current">
-            <path transform="rotate(28.59)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-61.41)" x="19.00">152</text>
+        <g id="10" transform="translate(-202.66,-49.75)">
+            <path transform="rotate(28.59)" class="nad-current nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-61.41)" class="nad-current" x="19.00">152</text>
         </g>
     </g>
     <g class="nad-text-edges">
@@ -107,12 +107,12 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -359px; left: 44px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>380.0 kV / °</div>
+                    <span class="nad-legend-square"></span>380.0 kV / °</div>
             </div>
             <div style="position: absolute; top: -39px; left: -130px" id="5" class="nad-vl300to500 nad-label-box">
                 <div>Voltage level 2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>379.0 kV / °</div>
+                    <span class="nad-legend-square"></span>379.0 kV / °</div>
             </div>
         </div>
     </foreignObject>

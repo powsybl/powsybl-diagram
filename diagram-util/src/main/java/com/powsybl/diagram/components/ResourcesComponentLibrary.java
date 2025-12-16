@@ -84,6 +84,9 @@ public class ResourcesComponentLibrary<C extends Component> implements Component
         DocumentBuilder db = DomUtil.getDocumentBuilder();
         new ComponentsLoader<>(componentClass).load(directory).forEach(c -> {
             String componentType = c.getType();
+            if (c.getSubComponents().isEmpty()) {
+                svgDocuments.computeIfAbsent(componentType, k -> new LinkedHashMap<>());
+            }
             c.getSubComponents().forEach(s -> {
                 String resourceName = directory + "/" + s.fileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);

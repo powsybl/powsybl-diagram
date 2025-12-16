@@ -15,15 +15,11 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.GroundDisconnectionNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.BusLegendInfo;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.ValueFeederInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,8 +103,8 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     public List<String> getFeederInfoStyles(FeederInfo info) {
         List<String> styles = new ArrayList<>();
         styles.add(StyleClassConstants.FEEDER_INFO);
-        if (info instanceof DirectionalFeederInfo) {
-            styles.add(((DirectionalFeederInfo) info).getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
+        if (info instanceof ValueFeederInfo vfi && vfi.getDirection() != LabelProvider.LabelDirection.NONE) {
+            styles.add(vfi.getDirection() == LabelProvider.LabelDirection.OUT ? StyleClassConstants.OUT_CLASS : StyleClassConstants.IN_CLASS);
         }
         return styles;
     }

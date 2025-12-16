@@ -149,17 +149,17 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         </g>
     </g>
     <g class="nad-edge-infos">
-        <g id="9" transform="translate(-84.78,-266.02)" class="nad-active">
-            <path transform="rotate(-151.41)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-61.41)" x="-19.00" style="text-anchor:end">0</text>
+        <g id="9" transform="translate(-84.78,-266.02)">
+            <path transform="rotate(-151.41)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-61.41)" class="nad-active" x="-19.00" style="text-anchor:end">0</text>
         </g>
-        <g id="10" transform="translate(-201.70,-51.50)" class="nad-active">
-            <path transform="rotate(28.59)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-61.41)" x="19.00">0</text>
+        <g id="10" transform="translate(-201.70,-51.50)">
+            <path transform="rotate(28.59)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-61.41)" class="nad-active" x="19.00">0</text>
         </g>
-        <g id="14" transform="translate(-200.56,53.22)" class="nad-active">
-            <path transform="rotate(150.15)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(60.15)" x="19.00">0</text>
+        <g id="14" transform="translate(-200.56,53.22)">
+            <path transform="rotate(150.15)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(60.15)" class="nad-active" x="19.00">0</text>
         </g>
     </g>
 </svg>

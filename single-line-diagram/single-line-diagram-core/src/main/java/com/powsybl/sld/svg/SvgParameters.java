@@ -24,6 +24,7 @@ public class SvgParameters {
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
+    private int percentageValuePrecision = 0;
     private String activePowerUnit = "";
     private String reactivePowerUnit = "";
     private String currentUnit = "";
@@ -44,7 +45,6 @@ public class SvgParameters {
     private boolean drawStraightWires = false;
     private boolean showGrid = false;
     private boolean showInternalNodes = false;
-    private boolean displayCurrentFeederInfo = false;
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
@@ -65,6 +65,7 @@ public class SvgParameters {
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
+        this.percentageValuePrecision = other.percentageValuePrecision;
         this.activePowerUnit = other.activePowerUnit;
         this.reactivePowerUnit = other.reactivePowerUnit;
         this.currentUnit = other.currentUnit;
@@ -85,14 +86,14 @@ public class SvgParameters {
         this.drawStraightWires = other.drawStraightWires;
         this.showGrid = other.showGrid;
         this.showInternalNodes = other.showInternalNodes;
-        this.displayCurrentFeederInfo = other.displayCurrentFeederInfo;
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
     }
 
     public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
+            percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public String getPrefixId() {
@@ -162,6 +163,15 @@ public class SvgParameters {
 
     public SvgParameters setCurrentValuePrecision(int currentValuePrecision) {
         this.currentValuePrecision = currentValuePrecision;
+        return this;
+    }
+
+    public int getPercentageValuePrecision() {
+        return percentageValuePrecision;
+    }
+
+    public SvgParameters setPercentageValuePrecision(int percentageValuePrecision) {
+        this.percentageValuePrecision = percentageValuePrecision;
         return this;
     }
 
@@ -343,15 +353,6 @@ public class SvgParameters {
 
     public SvgParameters setShowInternalNodes(boolean showInternalNodes) {
         this.showInternalNodes = showInternalNodes;
-        return this;
-    }
-
-    public boolean isDisplayCurrentFeederInfo() {
-        return this.displayCurrentFeederInfo;
-    }
-
-    public SvgParameters setDisplayCurrentFeederInfo(boolean displayCurrentFeederInfo) {
-        this.displayCurrentFeederInfo = displayCurrentFeederInfo;
         return this;
     }
 

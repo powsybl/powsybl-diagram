@@ -221,15 +221,6 @@ public class GraphMetadata extends AbstractMetadata {
         }
     }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public record BusLegendInfoMetadata(String id) {
-
-        @JsonCreator
-        public BusLegendInfoMetadata(@JsonProperty("id") String id) {
-            this.id = Objects.requireNonNull(id);
-        }
-    }
-
     private final Map<String, SldComponent> componentByType = new HashMap<>();
 
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
@@ -243,12 +234,10 @@ public class GraphMetadata extends AbstractMetadata {
 
     private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
-    private final Map<String, BusLegendInfoMetadata> busLegendInfoMetadataMap = new HashMap<>();
-
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
     }
 
     @JsonCreator
@@ -257,7 +246,6 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
-                         @JsonProperty("busLegendInfos") List<BusLegendInfoMetadata> busLegendInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
                          @JsonProperty("svgParams") SvgParameters svgParams) {
@@ -275,9 +263,6 @@ public class GraphMetadata extends AbstractMetadata {
         }
         for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
             addFeederInfoMetadata(feederInfoMetadata);
-        }
-        for (BusLegendInfoMetadata busLegendInfoMetadata : busLegendInfoMetadataList) {
-            addBusLegendInfoMetadata(busLegendInfoMetadata);
         }
         for (BusInfoMetadata busInfoMetadata : busInfoMetadataList) {
             addBusInfoMetadata(busInfoMetadata);
@@ -407,21 +392,6 @@ public class GraphMetadata extends AbstractMetadata {
     @JsonProperty("busInfos")
     public List<BusInfoMetadata> getBusInfoMetadata() {
         return ImmutableList.copyOf(busInfoMetadataMap.values());
-    }
-
-    public void addBusLegendInfoMetadata(BusLegendInfoMetadata metadata) {
-        Objects.requireNonNull(metadata);
-        busLegendInfoMetadataMap.put(metadata.id(), metadata);
-    }
-
-    public BusLegendInfoMetadata getBusLegendInfoMetadata(String id) {
-        Objects.requireNonNull(id);
-        return busLegendInfoMetadataMap.get(id);
-    }
-
-    @JsonProperty("busLegendInfos")
-    public List<BusLegendInfoMetadata> getBusLegendInfoMetadata() {
-        return ImmutableList.copyOf(busLegendInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

@@ -25,7 +25,7 @@ public class ThreeWtEdge extends AbstractEdge {
     }
 
     public static final String THREE_WT_EDGE = "ThreeWtEdge";
-    public static final String PST_EDGE = "PstEdge";
+    public static final String PST_EDGE = "ThreeWtPstEdge";
 
     private final Side side;
     private Point arrowPoint;

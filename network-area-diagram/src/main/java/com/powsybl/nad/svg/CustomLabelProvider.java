@@ -49,13 +49,19 @@ public class CustomLabelProvider implements LabelProvider {
     final Map<String, InjectionLabels> injectionLabels;
     final Map<String, VoltageLevelLegend> vlLegends;
 
-    public record BranchLabels(String side1, String middle, String side2, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2) {
+    public record BranchLabels(String side1Internal, String side1External,
+                               String middle1, String middle2,
+                               String side2Internal, String side2External,
+                               EdgeInfo.Direction arrow1, EdgeInfo.Direction arrowMiddle, EdgeInfo.Direction arrow2) {
     }
 
-    public record ThreeWtLabels(String side1, String side2, String side3, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
+    public record ThreeWtLabels(String side1Internal, String side1External,
+                                String side2Internal, String side2External,
+                                String side3Internal, String side3External,
+                                EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
     }
 
-    public record InjectionLabels(String label, EdgeInfo.Direction arrow) {
+    public record InjectionLabels(String labelInternal, String labelExternal, EdgeInfo.Direction arrow) {
     }
 
     public CustomLabelProvider(Map<String, BranchLabels> branchLabels, Map<String, ThreeWtLabels> threeWtLabels, Map<String, InjectionLabels> injectionLabels,
@@ -73,9 +79,10 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     private EdgeInfo getEdgeInfo(BranchLabels bl, BranchEdge.Side side) {
-        String label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
-        EdgeInfo.Direction arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
-        return new EdgeInfo(INFO_TYPE, arrowDirection, null, label);
+        return switch (side) {
+            case ONE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrow1, bl.side1Internal, bl.side1External);
+            case TWO -> new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrow2, bl.side2Internal, bl.side2External);
+        };
     }
 
     @Override
@@ -85,29 +92,24 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     private EdgeInfo getEdgeInfo(ThreeWtEdge.Side edgeSide, ThreeWtLabels labels) {
-        String labelSide = switch (edgeSide) {
-            case ONE -> labels.side1;
-            case TWO -> labels.side2;
-            case THREE -> labels.side3;
+        return switch (edgeSide) {
+            case ONE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow1, labels.side1Internal, labels.side1External);
+            case TWO -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow2, labels.side2Internal, labels.side2External);
+            case THREE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow3, labels.side3Internal, labels.side3External);
         };
-        EdgeInfo.Direction arrowDirection = switch (edgeSide) {
-            case ONE -> labels.arrow1;
-            case TWO -> labels.arrow2;
-            case THREE -> labels.arrow3;
-        };
-        return new EdgeInfo(INFO_TYPE, arrowDirection, null, labelSide);
     }
 
     @Override
     public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
         InjectionLabels injectionLabel = injectionLabels.get(injectionId);
-        return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo(INFO_TYPE, lbl.arrow, null, lbl.label));
+        return Optional.ofNullable(injectionLabel)
+            .map(lbl -> new EdgeInfo(INFO_TYPE, INFO_TYPE, lbl.arrow, injectionLabel.labelInternal, lbl.labelExternal));
     }
 
     @Override
-    public String getBranchLabel(String branchId) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         BranchLabels bl = branchLabels.get(branchId);
-        return (bl != null) ? bl.middle : null;
+        return Optional.of(new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
     }
 
     @Override

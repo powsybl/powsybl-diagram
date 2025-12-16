@@ -98,7 +98,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
     private List<FeederInfo> getCustomFeederInfos(FeederNode node, NodeSide side) {
         return feederInfosData.getOrDefault(new FeederContext(node.getEquipmentId(), side), List.of())
                 .stream()
-                .map(info -> new DirectionalFeederInfo(info.componentType(),
+                .map(info -> new ValueFeederInfo(info.componentType(),
                         info.labelDirection(),
                         null,
                         info.label()))
@@ -163,7 +163,7 @@ public class CustomLabelProvider extends AbstractLabelProvider {
                     addNodeLabels(l, nodeLabels, getBusLabelPosition(), getAdditionalBusLabelPosition()));
         } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
             getEquipmentLabel(node).ifPresent(l ->
-                    addNodeLabels(l, nodeLabels, getLabelPosition(node, direction), getAdditionalLabelPosition(node, direction)));
+                    addNodeLabels(l, nodeLabels, getFeederLabelPosition(node, direction), getAdditionalLabelPosition(node, direction)));
         } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
             nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }

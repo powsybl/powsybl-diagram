@@ -239,10 +239,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         String branchId = identifiable.getId();
         EdgeInfo edgeInfo1 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.ONE, edgeType).orElse(null);
         EdgeInfo edgeInfo2 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.TWO, edgeType).orElse(null);
-        String branchLabel = labelProvider.getBranchLabel(branchId);
+        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfo(branchId, edgeType).orElse(null);
 
         BranchEdge edge = new BranchEdge(idProvider, branchId, identifiable.getNameOrId(), edgeType,
-                edgeInfo1, edgeInfo2, branchLabel);
+                edgeInfo1, edgeInfo2, edgeInfoMiddle);
         if (!terminalsInReversedOrder) {
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {
