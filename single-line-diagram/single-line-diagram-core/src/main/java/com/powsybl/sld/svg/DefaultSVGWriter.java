@@ -853,7 +853,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertFeederInfos(String prefixId,
                                       List<Point> points,
                                       Element root,
-                                      VoltageLevelGraph graph,
                                       Middle3WTNode twtNode,
                                       GraphMetadata metadata,
                                       LabelProvider labelProvider,
@@ -1041,13 +1040,13 @@ public class DefaultSVGWriter implements SVGWriter {
                 Collections.reverse(pol);
                 insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
             } else {
-                if (edge.getNode1() instanceof Middle3WTNode) {
+                if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
                     if (!(edge.getNode2() instanceof FeederNode)) {
-                        insertFeederInfos(prefixId, pol, root, graph, (Middle3WTNode) edge.getNode1(), metadata, initProvider, styleProvider);
+                        insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
                     }
-                } else if (edge.getNode2() instanceof Middle3WTNode) {
+                } else if (edge.getNode2() instanceof Middle3WTNode middle3wtNode) {
                     Collections.reverse(pol);
-                    insertFeederInfos(prefixId, pol, root, graph, (Middle3WTNode) edge.getNode2(), metadata, initProvider, styleProvider);
+                    insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
                 }
             }
 

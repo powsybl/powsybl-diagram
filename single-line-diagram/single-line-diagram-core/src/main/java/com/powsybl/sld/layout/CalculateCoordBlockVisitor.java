@@ -62,7 +62,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
 
             for (int i = 0; i < blockNodes.size(); i++) {
                 Node n = blockNodes.get(i);
-                if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(m -> m instanceof Middle3WTNode)) {
+                if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(Middle3WTNode.class::isInstance)) {
                     n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + swStep);
                 } else {
                     n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
@@ -77,7 +77,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
             double swStep = block.getCoord().getSpan(X) / (blockNodes.size());
             for (int i = 0; i < blockNodes.size(); i++) {
                 Node n = blockNodes.get(i);
-                if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(m -> m instanceof Middle3WTNode)) {
+                if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(Middle3WTNode.class::isInstance)) {
                     n.setCoordinates(x0 + swStep + xPxStep * i, block.getCoord().get(Y));
                 } else {
                     n.setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
