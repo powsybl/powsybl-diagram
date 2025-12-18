@@ -77,8 +77,10 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
                 .count();
         boolean blockWith3wt = block.getNodeStream().anyMatch(n -> n instanceof Middle3WTNode);
 
-        this.blockHeight = (nbNodes  - 1) * componentHeight;
-        if (blockWith3wt) this.blockHeight += layoutParameters.getFeederSpan();
+        this.blockHeight = (nbNodes - 1) * componentHeight;
+        if (blockWith3wt) {
+            this.blockHeight += layoutParameters.getFeederSpan();
+        }
     }
 
     @Override

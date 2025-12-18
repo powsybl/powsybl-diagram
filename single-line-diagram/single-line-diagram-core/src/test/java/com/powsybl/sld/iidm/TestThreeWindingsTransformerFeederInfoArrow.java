@@ -102,7 +102,7 @@ class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     }
 
-	@Test
+    @Test
     void testVoltageLevelGraph3WTSwitch() {
 
         // Build voltage level graph and run layout with FULL_3WT mode

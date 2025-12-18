@@ -863,7 +863,7 @@ public class DefaultSVGWriter implements SVGWriter {
             drawFeederInfo(prefixId, twtNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
             addInfoComponentMetadata(metadata, feederInfo.getComponentType());
 
-            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).height();
             shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
         }
     }
@@ -926,8 +926,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
 
-        double shX = size.getWidth() + LABEL_OFFSET;
-        double shY = size.getHeight() / 2;
+        double shX = size.width() + LABEL_OFFSET;
+        double shY = size.height() / 2;
 
         transformFeederInfo(points, size, shift, g);
 

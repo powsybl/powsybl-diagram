@@ -2984,6 +2984,7 @@
     "showInternalNodes" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
-    "unifyVoltageLevelColors" : false
+    "unifyVoltageLevelColors" : false,
+    "threeWindingsTransformerFeederInfoMode" : "INSIDE_VOLTAGE_LEVEL"
   }
 }

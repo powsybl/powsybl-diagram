@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg height="372.0" viewBox="0 0 230.0 372.0" width="230.0" xmlns="http://www.w3.org/2000/svg">
+<svg height="421.0" viewBox="0 0 230.0 421.0" width="230.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[/* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -76,16 +76,16 @@
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-voltage-level" id="idVL_95_132">
-            <g class="sld-busbar-section" id="idBUS_95_132" transform="translate(52.5,292.0)">
+            <g class="sld-busbar-section" id="idBUS_95_132" transform="translate(52.5,341.0)">
                 <line x1="0" x2="125.0" y1="0" y2="0"/>
                 <text class="sld-label" id="idBUS_95_132_95_NW_95_LABEL" x="-5.0" y="-5.0">BUS_132</text>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
                 <g class="sld-wire" id="_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_GEN_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_GEN_95_132_45_GEN_95_132">
-                    <polyline points="65.0,292.0,65.0,262.0"/>
+                    <polyline points="65.0,341.0,65.0,311.0"/>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_GEN_95_132_45_GEN_95_132_95_INTERNAL_95_VL_95_132_95_GEN_95_132">
-                    <polyline points="65.0,262.0,65.0,182.0"/>
+                    <polyline points="65.0,311.0,65.0,182.0"/>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_GEN_95_132_95_GEN_95_132">
                     <polyline points="65.0,182.0,65.0,86.0"/>
@@ -105,10 +105,10 @@
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_BUS_95_132_95_GEN_95_132" transform="translate(61.0,288.0)">
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_BUS_95_132_95_GEN_95_132" transform="translate(61.0,337.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_GEN_95_132_45_GEN_95_132" transform="translate(61.0,258.0)">
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_GEN_95_132_45_GEN_95_132" transform="translate(61.0,307.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL_95_132_95_GEN_95_132" transform="translate(61.0,178.0)">
@@ -123,57 +123,42 @@
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_1">
                 <g class="sld-wire" id="_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT">
-                    <polyline points="140.0,292.0,140.0,262.0"/>
+                    <polyline points="140.0,341.0,140.0,311.0"/>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT_95_3WT">
-                    <polyline points="140.0,262.0,140.0,194.0"/>
+                    <polyline points="140.0,311.0,140.0,194.0"/>
+                </g>
+                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_ARROW_95_ACTIVE" transform="translate(135.0,209.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">-2,800</text>
+                </g>
+                <g class="sld-feeder-info sld-out sld-reactive-power" id="id3WT_95_ARROW_95_REACTIVE" transform="translate(135.0,229.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">800</text>
+                </g>
+                <g class="sld-feeder-info sld-out sld-current" id="id3WT_95_ARROW_95_CURRENT" transform="translate(135.0,249.0)">
+                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                    <text class="sld-label" x="15.0" y="5.0">12,586</text>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_3WT_95_TWO_95_3WT">
                     <polyline points="115.0,80.0,115.0,182.0,133.0,182.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_TWO_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-1,400</text>
-                </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="id3WT_95_TWO_95_ARROW_95_REACTIVE" transform="translate(110.0,115.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-400</text>
-                </g>
-                <g class="sld-feeder-info sld-in sld-current" id="id3WT_95_TWO_95_ARROW_95_CURRENT" transform="translate(110.0,135.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-24,100</text>
-                </g>
-                <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_TWO_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,155.0)">
+                <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_TWO_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,95.0)">
                     <text class="sld-label" x="15.0" y="5.0">0 %</text>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_3WT_95_THREE_95_3WT">
                     <polyline points="165.0,80.0,165.0,182.0,147.0,182.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="id3WT_95_THREE_95_ARROW_95_ACTIVE" transform="translate(160.0,95.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-1,400</text>
-                </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="id3WT_95_THREE_95_ARROW_95_REACTIVE" transform="translate(160.0,115.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-400</text>
-                </g>
-                <g class="sld-feeder-info sld-in sld-current" id="id3WT_95_THREE_95_ARROW_95_CURRENT" transform="translate(160.0,135.0)">
-                    <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                    <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
-                    <text class="sld-label" x="15.0" y="5.0">-71,355</text>
-                </g>
-                <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_THREE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(160.0,155.0)">
+                <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_THREE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(160.0,95.0)">
                     <text class="sld-label" x="15.0" y="5.0">0 %</text>
                 </g>
-                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_BUS_95_132_95_3WT" transform="translate(136.0,288.0)">
+                <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_BUS_95_132_95_3WT" transform="translate(136.0,337.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT" transform="translate(136.0,258.0)">
+                <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_3WT_45_3WT" transform="translate(136.0,307.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(132.0,170.0)">
