@@ -7,14 +7,18 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
-import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.model.coordinate.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.pathfinding.Grid;
+import com.powsybl.sld.layout.pathfinding.PathFinder;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.model.nodes.BranchEdge;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
@@ -51,11 +55,11 @@ public class MatrixZoneLayoutModel {
         LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
         double x1 = p.getX();
         double y1 = p.getY();
-        double min1Y = y1 - vlPadding.getTop();
+        double min1Y = y1 - vlPadding.top();
         double max1Y = y1;
         if (d == Direction.BOTTOM) {
             min1Y = y1;
-            max1Y = y1 + vlPadding.getBottom();
+            max1Y = y1 + vlPadding.bottom();
         }
         for (int y = (int) min1Y; y <= max1Y; y++) {
             pathFinderGrid.setAvailability(x1, y, true);
@@ -102,8 +106,8 @@ public class MatrixZoneLayoutModel {
 
                 LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
 
-                for (int x = xGraph - ((int) vlPadding.getLeft() - 1); x < xGraph + widthNoPadding + (int) vlPadding.getRight(); x++) {
-                    for (int y = yGraph - ((int) vlPadding.getTop() - 1); y < yGraph + heightNoPadding + (int) vlPadding.getBottom(); y++) {
+                for (int x = xGraph - ((int) vlPadding.left() - 1); x < xGraph + widthNoPadding + (int) vlPadding.right(); x++) {
+                    for (int y = yGraph - ((int) vlPadding.top() - 1); y < yGraph + heightNoPadding + (int) vlPadding.bottom(); y++) {
                         pathFinderGrid.setAvailability(x, y, false);
                     }
                 }
@@ -134,58 +138,58 @@ public class MatrixZoneLayoutModel {
             // Horizontal lines
             int stepH = (int) layoutParameters.getHorizontalSnakeLinePadding();
             int deltaH = (matrixCellHeight % stepH) / 2;
-            for (int x = ssX; x < ssX + matrixCellWidth; x++) {
-                for (int y = ssY + deltaH + stepH; y < ssY + matrixCellHeight - deltaH; y += stepH) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-            }
+            setGridAvailability(ssX, ssX + matrixCellWidth, 1, ssY + deltaH + stepH, ssY + matrixCellHeight - deltaH, stepH);
 
             // Vertical lines
             int stepV = (int) layoutParameters.getVerticalSnakeLinePadding();
             int deltaV = (matrixCellWidth % stepV) / 2;
-            for (int x = ssX + deltaV + stepV; x < ssX + matrixCellWidth - deltaV; x += stepV) {
-                for (int y = ssY; y < ssY + matrixCellHeight; y++) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-            }
+            setGridAvailability(ssX + deltaV + stepV, ssX + matrixCellWidth - deltaV, stepV, ssY, ssY + matrixCellHeight, stepV);
         });
     }
 
+    private void setGridAvailability(int xMin, int xMax, int xStep, int yMin, int yMax, int yStep) {
+        for (int x = xMin; x < xMax; x += xStep) {
+            for (int y = yMin; y < yMax; y += yStep) {
+                pathFinderGrid.setAvailability(x, y, true);
+            }
+        }
+    }
+
     private void computeHorizontalHallwaysAvailability(int width, LayoutParameters layoutParameters) {
-        int startX = (int) layoutParameters.getDiagramPadding().getLeft();
-        int endX = width - startX - (int) layoutParameters.getDiagramPadding().getRight();
+        int startX = (int) layoutParameters.getDiagramPadding().left();
+        int endX = width - startX - (int) layoutParameters.getDiagramPadding().right();
         int nextY = 0;
         for (int r = 0; r < matrix.rowCount(); r++) {
             for (int x = startX; x < endX; x++) {
-                for (int y = matrix.getY(r); y >= matrix.getY(r) - snakelinePadding; y -= layoutParameters.getHorizontalSnakeLinePadding()) {
+                for (int y = matrix.getY(r); y >= matrix.getY(r) - snakelinePadding; y -= (int) layoutParameters.getHorizontalSnakeLinePadding()) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
-            nextY += snakelinePadding + matrix.getMatrixCellHeight(r);
+            nextY += (int) (snakelinePadding + matrix.getMatrixCellHeight(r));
         }
         // Last snakelineMargin
         for (int x = startX; x < endX; x++) {
-            for (int y = nextY; y <= nextY + snakelinePadding; y += layoutParameters.getHorizontalSnakeLinePadding()) {
+            for (int y = nextY; y <= nextY + snakelinePadding; y += (int) layoutParameters.getHorizontalSnakeLinePadding()) {
                 pathFinderGrid.setAvailability(x, y, true);
             }
         }
     }
 
     private void computeVerticalHallwaysAvailability(int height, LayoutParameters layoutParameters) {
-        int startY = (int) layoutParameters.getDiagramPadding().getTop();
-        int endY = height - startY - (int) layoutParameters.getDiagramPadding().getBottom();
+        int startY = (int) layoutParameters.getDiagramPadding().top();
+        int endY = height - startY - (int) layoutParameters.getDiagramPadding().bottom();
         int nextX = 0;
         for (int c = 0; c < matrix.columnCount(); c++) {
             for (int y = startY; y < endY; y++) {
-                for (int x = matrix.getX(c); x >= matrix.getX(c) - snakelinePadding; x -= layoutParameters.getVerticalSnakeLinePadding()) {
+                for (int x = matrix.getX(c); x >= matrix.getX(c) - snakelinePadding; x -= (int) layoutParameters.getVerticalSnakeLinePadding()) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
-            nextX += snakelinePadding + matrix.getMatrixCellWidth(c);
+            nextX += (int) (snakelinePadding + matrix.getMatrixCellWidth(c));
         }
         // Last snakelineMargin
         for (int y = startY; y < endY; y++) {
-            for (int x = nextX; x <= nextX + snakelinePadding; x += layoutParameters.getVerticalSnakeLinePadding()) {
+            for (int x = nextX; x <= nextX + snakelinePadding; x += (int) layoutParameters.getVerticalSnakeLinePadding()) {
                 pathFinderGrid.setAvailability(x, y, true);
             }
         }

@@ -16,13 +16,22 @@ import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
+import com.powsybl.sld.library.AnchorOrientation;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.SldComponent;
 import com.powsybl.sld.model.coordinate.Direction;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -93,7 +102,7 @@ public class GraphMetadata extends AbstractMetadata {
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
             this.componentType = componentType;
-            this.open = Objects.requireNonNull(open);
+            this.open = open;
             this.direction = direction;
             this.vLabel = vLabel;
             this.equipmentId = equipmentId;
@@ -147,14 +156,7 @@ public class GraphMetadata extends AbstractMetadata {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class NodeLabelMetadata {
-
-        private final String id;
-
-        private final String positionName;
-
-        private final String userDefinedId;
-
+    public record NodeLabelMetadata(String id, String positionName, String userDefinedId) {
         @JsonCreator
         public NodeLabelMetadata(@JsonProperty("id") String id,
                                  @JsonProperty("positionName") String positionName,
@@ -163,75 +165,26 @@ public class GraphMetadata extends AbstractMetadata {
             this.positionName = Objects.requireNonNull(positionName);
             this.userDefinedId = userDefinedId;
         }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getUserDefinedId() {
-            return userDefinedId;
-        }
-
-        public String getPositionName() {
-            return positionName;
-        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class WireMetadata {
-
-        private final String id;
-
-        private final String nodeId1;
-
-        private final String nodeId2;
-
-        private final boolean straight;
-
-        private final boolean snakeLine;
-
+    public record WireMetadata(String id, String nodeId1, String nodeId2, boolean straight, boolean snakeLine) {
         @JsonCreator
         public WireMetadata(@JsonProperty("id") String id,
                             @JsonProperty("nodeId1") String nodeId1,
                             @JsonProperty("nodeId2") String nodeId2,
                             @JsonProperty("straight") boolean straight,
-                            @JsonProperty("snakeline") boolean snakeline) {
+                            @JsonProperty("snakeLine") boolean snakeLine) {
             this.id = Objects.requireNonNull(id);
             this.nodeId1 = Objects.requireNonNull(nodeId1);
             this.nodeId2 = Objects.requireNonNull(nodeId2);
             this.straight = straight;
-            this.snakeLine = snakeline;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getNodeId1() {
-            return nodeId1;
-        }
-
-        public String getNodeId2() {
-            return nodeId2;
-        }
-
-        public boolean isStraight() {
-            return straight;
-        }
-
-        public boolean isSnakeLine() {
-            return snakeLine;
+            this.snakeLine = snakeLine;
         }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class LineMetadata {
-
-        private final String id;
-
-        private final String nodeId1;
-
-        private final String nodeId2;
+    public record LineMetadata(String id, String nodeId1, String nodeId2) {
 
         @JsonCreator
         public LineMetadata(@JsonProperty("id") String id,
@@ -241,32 +194,11 @@ public class GraphMetadata extends AbstractMetadata {
             this.nodeId1 = Objects.requireNonNull(nodeId1);
             this.nodeId2 = Objects.requireNonNull(nodeId2);
         }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getNodeId1() {
-            return nodeId1;
-        }
-
-        public String getNodeId2() {
-            return nodeId2;
-        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class FeederInfoMetadata {
-
-        private final String id;
-
-        private final String equipmentId;
-
-        private final String side;
-
-        private final String userDefinedId;
-
-        private final String componentType;
+    public record FeederInfoMetadata(String id, String equipmentId, String side, String componentType,
+                                     String userDefinedId) {
 
         @JsonCreator
         public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("componentType") String componentType, @JsonProperty("userDefinedId") String userDefinedId) {
@@ -276,69 +208,16 @@ public class GraphMetadata extends AbstractMetadata {
             this.componentType = componentType;
             this.userDefinedId = userDefinedId;
         }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getEquipmentId() {
-            return equipmentId;
-        }
-
-        public String getSide() {
-            return side;
-        }
-
-        public String getComponentType() {
-            return componentType;
-        }
-
-        public String getUserDefinedId() {
-            return userDefinedId;
-        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class BusInfoMetadata {
-
-        private final String id;
-
-        private final String busNodeId;
-
-        private final String userDefinedId;
+    public record BusInfoMetadata(String id, String busNodeId, String userDefinedId) {
 
         @JsonCreator
         public BusInfoMetadata(@JsonProperty("id") String id, @JsonProperty("busNodeId") String busNodeId, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
             this.busNodeId = Objects.requireNonNull(busNodeId);
             this.userDefinedId = userDefinedId;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getBusNodeId() {
-            return busNodeId;
-        }
-
-        public String getUserDefinedId() {
-            return userDefinedId;
-        }
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class BusLegendInfoMetadata {
-
-        private final String id;
-
-        @JsonCreator
-        public BusLegendInfoMetadata(@JsonProperty("id") String id) {
-            this.id = Objects.requireNonNull(id);
-        }
-
-        public String getId() {
-            return id;
         }
     }
 
@@ -355,12 +234,10 @@ public class GraphMetadata extends AbstractMetadata {
 
     private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
-    private final Map<String, BusLegendInfoMetadata> busLegendInfoMetadataMap = new HashMap<>();
-
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
     }
 
     @JsonCreator
@@ -369,7 +246,6 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
-                         @JsonProperty("busLegendInfos") List<BusLegendInfoMetadata> busLegendInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
                          @JsonProperty("svgParams") SvgParameters svgParams) {
@@ -387,9 +263,6 @@ public class GraphMetadata extends AbstractMetadata {
         }
         for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
             addFeederInfoMetadata(feederInfoMetadata);
-        }
-        for (BusLegendInfoMetadata busLegendInfoMetadata : busLegendInfoMetadataList) {
-            addBusLegendInfoMetadata(busLegendInfoMetadata);
         }
         for (BusInfoMetadata busInfoMetadata : busInfoMetadataList) {
             addBusInfoMetadata(busInfoMetadata);
@@ -463,7 +336,7 @@ public class GraphMetadata extends AbstractMetadata {
 
     public void addWireMetadata(WireMetadata metadata) {
         Objects.requireNonNull(metadata);
-        wireMetadataMap.put(metadata.getId(), metadata);
+        wireMetadataMap.put(metadata.id(), metadata);
     }
 
     public WireMetadata getWireMetadata(String id) {
@@ -478,7 +351,7 @@ public class GraphMetadata extends AbstractMetadata {
 
     public void addLineMetadata(LineMetadata metadata) {
         Objects.requireNonNull(metadata);
-        lineMetadataMap.put(metadata.getId(), metadata);
+        lineMetadataMap.put(metadata.id(), metadata);
     }
 
     public LineMetadata getLineMetadata(String id) {
@@ -493,7 +366,7 @@ public class GraphMetadata extends AbstractMetadata {
 
     public void addFeederInfoMetadata(FeederInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
-        feederInfoMetadataMap.put(metadata.getId(), metadata);
+        feederInfoMetadataMap.put(metadata.id(), metadata);
     }
 
     public FeederInfoMetadata getFeederInfoMetadata(String id) {
@@ -508,7 +381,7 @@ public class GraphMetadata extends AbstractMetadata {
 
     public void addBusInfoMetadata(BusInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
-        busInfoMetadataMap.put(metadata.getId(), metadata);
+        busInfoMetadataMap.put(metadata.id(), metadata);
     }
 
     public BusInfoMetadata getBusInfoMetadata(String id) {
@@ -519,21 +392,6 @@ public class GraphMetadata extends AbstractMetadata {
     @JsonProperty("busInfos")
     public List<BusInfoMetadata> getBusInfoMetadata() {
         return ImmutableList.copyOf(busInfoMetadataMap.values());
-    }
-
-    public void addBusLegendInfoMetadata(BusLegendInfoMetadata metadata) {
-        Objects.requireNonNull(metadata);
-        busLegendInfoMetadataMap.put(metadata.getId(), metadata);
-    }
-
-    public BusLegendInfoMetadata getBusLegendInfoMetadata(String id) {
-        Objects.requireNonNull(id);
-        return busLegendInfoMetadataMap.get(id);
-    }
-
-    @JsonProperty("busLegendInfos")
-    public List<BusLegendInfoMetadata> getBusLegendInfoMetadata() {
-        return ImmutableList.copyOf(busLegendInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

@@ -12,15 +12,7 @@ import java.util.Objects;
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  * @author Jacques Borsenberger {@literal <jacques.borsenberger at rte-france.com>}
  */
-public class LabelPosition {
-
-    private final String positionName;
-
-    private final double dX;
-
-    private final double dY;
-    private final boolean isCentered;
-    private final int shiftAngle;
+public record LabelPosition(String positionName, double dX, double dY, boolean isCentered, int shiftAngle) {
 
     public LabelPosition(String positionName, double dX, double dY, boolean isCentered, int shiftAngle) {
         this.positionName = Objects.requireNonNull(positionName);
@@ -28,25 +20,5 @@ public class LabelPosition {
         this.dY = dY;
         this.isCentered = isCentered;
         this.shiftAngle = shiftAngle;
-    }
-
-    public String getPositionName() {
-        return positionName;
-    }
-
-    public double getdX() {
-        return dX;
-    }
-
-    public double getdY() {
-        return dY;
-    }
-
-    public boolean isCentered() {
-        return isCentered;
-    }
-
-    public int getShiftAngle() {
-        return shiftAngle;
     }
 }

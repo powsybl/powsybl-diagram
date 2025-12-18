@@ -8,11 +8,13 @@
 package com.powsybl.diagram.util;
 
 import org.apache.commons.io.IOUtils;
+import org.w3c.dom.Element;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ import java.util.Objects;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public final class CssUtil {
+    public static final String CLASS = "class";
 
     public static String getFilesContent(List<URL> cssUrls) {
         Objects.requireNonNull(cssUrls);
@@ -42,6 +45,22 @@ public final class CssUtil {
             importStringBuilder.append("@import url(").append(cssFilename).append(");");
         }
         return importStringBuilder.toString();
+    }
+
+    public static void writeStyleClasses(Element element, List<String> styleClasses) {
+        writeStyleClasses(element, styleClasses, null);
+    }
+
+    public static void writeStyleClasses(Element element, List<String> styleClasses, String additionalClass) {
+        if (styleClasses.isEmpty() && additionalClass == null) {
+            return;
+        }
+        List<String> allClasses = styleClasses;
+        if (additionalClass != null) {
+            allClasses = new ArrayList<>(styleClasses);
+            allClasses.add(additionalClass);
+        }
+        element.setAttribute(CLASS, String.join(" ", allClasses));
     }
 
     private CssUtil() {

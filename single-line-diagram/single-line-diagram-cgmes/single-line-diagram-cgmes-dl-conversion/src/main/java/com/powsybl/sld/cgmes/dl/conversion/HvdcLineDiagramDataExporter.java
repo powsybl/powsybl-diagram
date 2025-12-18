@@ -6,14 +6,13 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Objects;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.iidm.network.HvdcLine;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.triplestore.api.TripleStore;
 
+import java.util.Objects;
+
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class HvdcLineDiagramDataExporter extends AbstractLineDiagramDataExporter {

@@ -8,7 +8,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
 import java.util.List;
 

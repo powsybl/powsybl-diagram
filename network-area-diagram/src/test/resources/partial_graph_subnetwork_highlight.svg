@@ -166,29 +166,29 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         </g>
     </g>
     <g class="nad-edge-infos">
-        <g id="30" transform="translate(507.58,-215.87)" class="nad-active">
-            <path transform="rotate(139.60)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
-            <text transform="rotate(49.60)" x="19.00">-605</text>
+        <g id="30" transform="translate(507.58,-215.87)">
+            <path transform="rotate(139.60)" class="nad-active nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
+            <text transform="rotate(49.60)" class="nad-active" x="19.00">-605</text>
         </g>
-        <g id="32" transform="translate(409.66,-272.30)" class="nad-active">
-            <path transform="rotate(-79.69)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-349.69)" x="-19.00" style="text-anchor:end">302</text>
+        <g id="32" transform="translate(409.66,-272.30)">
+            <path transform="rotate(-79.69)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-349.69)" class="nad-active" x="-19.00" style="text-anchor:end">302</text>
         </g>
-        <g id="33" transform="translate(-89.84,-363.19)" class="nad-active">
-            <path transform="rotate(100.31)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
-            <text transform="rotate(10.31)" x="19.00">-300</text>
+        <g id="33" transform="translate(-89.84,-363.19)">
+            <path transform="rotate(100.31)" class="nad-active nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
+            <text transform="rotate(10.31)" class="nad-active" x="19.00">-300</text>
         </g>
-        <g id="39" transform="translate(-97.60,-405.10)" class="nad-active">
-            <path transform="rotate(58.70)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-31.30)" x="19.00">601</text>
+        <g id="39" transform="translate(-97.60,-405.10)">
+            <path transform="rotate(58.70)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-31.30)" class="nad-active" x="19.00">601</text>
         </g>
-        <g id="40" transform="translate(24.89,-479.57)" class="nad-active">
-            <path transform="rotate(-121.30)" class="nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
-            <text transform="rotate(-31.30)" x="-19.00" style="text-anchor:end">-600</text>
+        <g id="40" transform="translate(24.89,-479.57)">
+            <path transform="rotate(-121.30)" class="nad-active nad-arrow-in" d="M-10 -10 H10 L0 10z"/>
+            <text transform="rotate(-31.30)" class="nad-active" x="-19.00" style="text-anchor:end">-600</text>
         </g>
-        <g id="49" transform="translate(-115.57,-90.30)" class="nad-active">
-            <path transform="rotate(24.51)" class="nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-65.49)" x="19.00">100</text>
+        <g id="49" transform="translate(-115.57,-90.30)">
+            <path transform="rotate(24.51)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(-65.49)" class="nad-active" x="19.00">100</text>
         </g>
     </g>
     <g class="nad-text-edges">
@@ -202,22 +202,22 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -302px; left: 569px" id="1" class="nad-vl300to500 nad-label-box">
                 <div>VLHV1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>402.1 kV / 0.0°</div>
+                    <span class="nad-legend-square"></span>402.1 kV / 0.0°</div>
             </div>
             <div style="position: absolute; top: -414px; left: -49px" id="5" class="nad-vl300to500 nad-label-box">
                 <div>VLHV2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>390.0 kV / -3.5°</div>
+                    <span class="nad-legend-square"></span>390.0 kV / -3.5°</div>
             </div>
             <div style="position: absolute; top: -76px; left: -40px" id="9" class="nad-vl300to500 nad-label-box">
                 <div>VLHV3</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>197.6 kV / 3.0°</div>
+                    <span class="nad-legend-square"></span>197.6 kV / 3.0°</div>
             </div>
             <div style="position: absolute; top: -551px; left: 176px" id="13" class="nad-vl120to180 nad-label-box">
                 <div>VLLOAD</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-legend-square"/>147.6 kV / -9.6°</div>
+                    <span class="nad-legend-square"></span>147.6 kV / -9.6°</div>
             </div>
         </div>
     </foreignObject>

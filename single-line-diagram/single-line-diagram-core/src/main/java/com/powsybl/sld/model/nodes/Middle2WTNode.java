@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.model.nodes;
 
-import java.util.Objects;
-
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}

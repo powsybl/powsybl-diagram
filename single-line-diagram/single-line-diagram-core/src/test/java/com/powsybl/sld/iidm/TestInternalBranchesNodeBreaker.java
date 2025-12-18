@@ -40,7 +40,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // Run layout with default parameters and compare subsequent SVG with reference
         voltageLevelGraphLayout(g);
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -53,7 +53,7 @@ class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
                 .setSubstituteInternalMiddle2wtByEquipmentNodes(false);
         new PositionVoltageLevelLayoutFactory(new PositionPredefined(), pvllfParameters).create(g).run(this.layoutParameters);
         assertEquals(toString("/InternalBranchesNodeBreaker_externalPst.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker_externalPst.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesNodeBreaker_externalPst.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test

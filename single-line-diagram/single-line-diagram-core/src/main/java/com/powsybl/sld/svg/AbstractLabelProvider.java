@@ -54,7 +54,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         if (node instanceof BusNode) {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
         } else if (node instanceof FeederNode || svgParameters.isDisplayEquipmentNodesLabel() && node instanceof EquipmentNode) {
-            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getLabelPosition(node, direction), null)));
+            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getFeederLabelPosition(node, direction), null)));
         } else if (svgParameters.isDisplayConnectivityNodesId() && node instanceof ConnectivityNode) {
             nodeLabels.add(new NodeLabel(node.getId(), getLabelPosition(node, direction), null));
         }
@@ -63,8 +63,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     private Optional<String> getLabelOrNameOrId(Node node) {
-        if (node instanceof EquipmentNode) {
-            EquipmentNode eqNode = (EquipmentNode) node;
+        if (node instanceof EquipmentNode eqNode) {
             return Optional.ofNullable(node.getLabel().orElse(svgParameters.isUseName() ? eqNode.getName() : eqNode.getEquipmentId()));
         } else {
             return node.getLabel();
@@ -80,7 +79,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         }
 
         return new LabelPosition(positionName + "_DECORATOR",
-                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
+                (int) (componentLibrary.getSize(componentType).width() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
     protected LabelPosition getMiddle3WTDecoratorPosition(Middle3WTNode node, Direction direction) {
@@ -88,7 +87,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         String positionName = "";
         if (direction != UNDEFINED) {
             int excessHeight3wt = 10;
-            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).height() - 1.5 * excessHeight3wt + DECORATOR_OFFSET);
             positionName = direction == TOP ? "N" : "S";
         }
 
@@ -100,22 +99,58 @@ public abstract class AbstractLabelProvider implements LabelProvider {
         return new LabelPosition("BUS_DECORATOR", 35, -10, true, 0);
     }
 
+    protected LabelPosition getFeederLabelPosition(Node node, Direction direction) {
+        return new LabelPosition(getLabelPositionName(direction), getLabelXShift(),
+                getFeederLabelYShift(node, direction), svgParameters.isLabelCentered(), getLabelAngle(direction));
+    }
+
     protected LabelPosition getLabelPosition(Node node, Direction direction) {
-        double yShift = -LABEL_OFFSET;
-        String positionName = "";
-        double angle = 0;
-        if (direction != UNDEFINED) {
-            yShift = direction == TOP
-                    ? -LABEL_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + LABEL_OFFSET);
-            positionName = direction == TOP ? "N" : "S";
-            if (svgParameters.isLabelDiagonal()) {
-                angle = direction == TOP ? -svgParameters.getAngleLabelShift() : svgParameters.getAngleLabelShift();
-            }
+        return new LabelPosition(getLabelPositionName(direction), getLabelXShift(),
+                getLabelYShift(node, direction), svgParameters.isLabelCentered(), getLabelAngle(direction));
+    }
+
+    private double getLabelXShift() {
+        return svgParameters.isLabelCentered() ? 0 : -LABEL_OFFSET;
+    }
+
+    private double getLabelYShift(Node node, Direction direction) {
+        return direction != TOP
+                ? componentLibrary.getSize(node.getComponentType()).height() + LABEL_OFFSET
+                : -LABEL_OFFSET;
+    }
+
+    private double getFeederLabelYShift(Node node, Direction direction) {
+        if (direction == UNDEFINED) {
+            return -LABEL_OFFSET;
         }
 
-        return new LabelPosition(positionName + "_LABEL",
-                svgParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, svgParameters.isLabelCentered(), (int) angle);
+        // The FeederNode position is at the top-left position of the corresponding component.
+        // We first shift to half the component height to be back at the center of the component, knowing that
+        // all the FeederNode centers are on the same horizontal line.
+        double shiftToFeederComponentCenter = componentLibrary.getSize(node.getComponentType()).height() / 2;
+
+        // Then we add a shift of half the max component height to be just above/just below all feeder components.
+        double shiftToFeederOut = (direction == TOP ? -1 : 1) * layoutParameters.getMaxComponentHeight() / 2;
+
+        // And finally we add an offset to be slightly above a component whose height is equal to the max height
+        double margin = (direction == TOP ? -1 : 1) * LABEL_OFFSET;
+
+        return shiftToFeederComponentCenter + shiftToFeederOut + margin;
+    }
+
+    private int getLabelAngle(Direction direction) {
+        if (!svgParameters.isLabelDiagonal()) {
+            return 0;
+        }
+        return (int) Math.round((direction == TOP ? -1 : 1) * svgParameters.getAngleLabelShift());
+    }
+
+    private String getLabelPositionName(Direction direction) {
+        return switch (direction) {
+            case TOP -> "N_LABEL";
+            case BOTTOM -> "S_LABEL";
+            default -> "LABEL";
+        };
     }
 
     protected LabelPosition getInternal2WTDecoratorPosition(Orientation orientation) {
@@ -132,11 +167,6 @@ public abstract class AbstractLabelProvider implements LabelProvider {
 
     protected LabelPosition getBusLabelPosition() {
         return new LabelPosition("NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
-    }
-
-    @Override
-    public List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
-        return Collections.emptyList();
     }
 
     @Override

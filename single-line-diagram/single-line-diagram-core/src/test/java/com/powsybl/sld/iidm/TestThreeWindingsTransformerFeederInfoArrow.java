@@ -19,7 +19,8 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.SvgParameters;
-
+import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.styles.BasicStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
-class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
+class TestThreeWindingsTransformerFeederInfoArrow extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {
@@ -47,6 +48,23 @@ class Test3WTFeederInfoArrow extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevel.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevel.svg"));
+
+    }
+
+    @Test
+    void testVoltageLevelGraphWithFeederInfos() {
+
+        layoutParameters.setSpaceForFeederInfos(90);
+        DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
+        labelProvider.setDisplayCurrent(true);
+        labelProvider.setDisplayArrowForCurrent(true);
+        labelProvider.setDisplayPermanentLimitPercentage(true);
+
+        // Build substation graph and run layout
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("VL_132");
+        voltageLevelGraphLayout(g);
+
+        assertEquals(toString("/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg"), toSVG(g, "/Test3WTFeederInfoArrowVoltageLevelWithAllPossibleFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test

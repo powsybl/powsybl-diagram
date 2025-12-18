@@ -7,7 +7,6 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public enum DiagramTerminal {
