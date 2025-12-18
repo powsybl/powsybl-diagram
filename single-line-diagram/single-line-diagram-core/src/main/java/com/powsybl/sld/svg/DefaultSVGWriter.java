@@ -881,45 +881,17 @@ public class DefaultSVGWriter implements SVGWriter {
     private void drawFeederInfo(String prefixId, FeederNode feederNode, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
                                 StyleProvider styleProvider) {
-
-        Element g = root.getOwnerDocument().createElement(GROUP);
-        ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
-
-        double shX = size.width() + LABEL_OFFSET;
-        double shY = size.height() / 2;
-
-        transformFeederInfo(points, size, shift, g);
-
-        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
-        g.setAttribute("id", svgId);
-        String componentType = feederInfo.getComponentType();
-
         String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
-
-        // we draw the feeder info
-        double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-        insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
-
-        // we draw the right label only if present
-        feederInfo.getRightLabel().ifPresent(s -> {
-            Element labelRight = createLabelElement(s, shX, shY, 0, g);
-            g.appendChild(labelRight);
-        });
-
-        // we draw the left label only if present
-        feederInfo.getLeftLabel().ifPresent(s -> {
-            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-            labelLeft.setAttribute(STYLE, "text-anchor:end");
-            g.appendChild(labelLeft);
-        });
-
-        writeStyleClasses(g, styleProvider.getFeederInfoStyles(feederInfo),
-                componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).orElse(null));
-        root.appendChild(g);
+        drawFeederInfo(prefixId, feederNode.getId(), feederNode.getEquipmentId(), side, points, root, feederInfo, shift, metadata, styleProvider);
     }
 
     private void drawFeederInfo(String prefixId, Middle3WTNode feederNode, List<Point> points, Element root,
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata,
+                                StyleProvider styleProvider) {
+        drawFeederInfo(prefixId, feederNode.getId(), feederNode.getEquipmentId(), null, points, root, feederInfo, shift, metadata, styleProvider);
+    }
+
+    private void drawFeederInfo(String prefixId, String id, String equipmentId, String side, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
                                 StyleProvider styleProvider) {
 
@@ -931,12 +903,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNode.getId() + "_" + feederInfo.getComponentType());
+        String svgId = escapeId(id + "_" + feederInfo.getComponentType());
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
-        String side = null; //feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, equipmentId, side, componentType, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
