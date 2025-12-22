@@ -7,21 +7,31 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.HvdcLine;
+import com.powsybl.iidm.network.Identifiable;
+import com.powsybl.iidm.network.LccConverterStation;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.VscConverterStation;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtension<T> {
 
     static final String NAME = "line-diagram-data";
 
-    private Map<String, List<DiagramPoint>> diagramsDetails = new HashMap<>();
+    private final Map<String, List<DiagramPoint>> diagramsDetails = new HashMap<>();
 
     private LineDiagramData(T line) {
         super(line);
@@ -61,7 +71,7 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
     }
 
     public DiagramPoint getLastPoint(String diagramName) {
-        return diagramsDetails.getOrDefault(diagramName, Collections.emptyList()).stream().sorted(Comparator.reverseOrder()).findFirst().orElse(new DiagramPoint(0, 0, 0));
+        return diagramsDetails.getOrDefault(diagramName, Collections.emptyList()).stream().max(Comparator.naturalOrder()).orElse(new DiagramPoint(0, 0, 0));
     }
 
     public DiagramPoint getFirstPoint(String diagramName, double offset) {
@@ -79,16 +89,16 @@ public class LineDiagramData<T extends Identifiable<T>> extends AbstractExtensio
         if (points.size() < 2) {
             return getLastPoint(diagramName);
         }
-        DiagramPoint lastPoint = points.stream().sorted(Comparator.reverseOrder()).findFirst().orElseThrow(AssertionError::new);
+        DiagramPoint lastPoint = points.stream().max(Comparator.naturalOrder()).orElseThrow(AssertionError::new);
         DiagramPoint secondLastPoint = points.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElseThrow(AssertionError::new);
         return shiftPoint(lastPoint, secondLastPoint, offset);
     }
 
     private DiagramPoint shiftPoint(DiagramPoint point, DiagramPoint otherPoint, double offset) {
-        Vector2D pointVector = new Vector2D(point.getX(), point.getY());
-        Vector2D otherPointVector = new Vector2D(otherPoint.getX(), otherPoint.getY());
+        Vector2D pointVector = new Vector2D(point.x(), point.y());
+        Vector2D otherPointVector = new Vector2D(otherPoint.x(), otherPoint.y());
         Vector2D shiftedPointVector = pointVector.add(otherPointVector.subtract(pointVector).normalize().scalarMultiply(offset));
-        return new DiagramPoint(shiftedPointVector.getX(), shiftedPointVector.getY(), point.getSeq());
+        return new DiagramPoint(shiftedPointVector.getX(), shiftedPointVector.getY(), point.seq());
     }
 
     public List<String> getDiagramsNames() {

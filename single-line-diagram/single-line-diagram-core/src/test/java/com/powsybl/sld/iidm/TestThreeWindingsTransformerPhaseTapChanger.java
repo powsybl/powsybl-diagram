@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Giovanni Ferrari {@literal <giovanni.ferrari at soft.it>}
  */
-class Test3WTPhaseTapChanger extends AbstractTestCaseIidm {
+class TestThreeWindingsTransformerPhaseTapChanger extends AbstractTestCaseIidm {
 
     @BeforeEach
     public void setUp() {

@@ -10,7 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.powsybl.sld.model.blocks.Block.Type.BODYPARALLEL;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

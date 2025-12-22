@@ -12,7 +12,6 @@ import com.powsybl.diagram.test.Networks;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
@@ -23,7 +22,7 @@ class ShuntDiagramDataTest extends AbstractInjectionDiagramDataTest {
         ShuntCompensator shunt = network.getShuntCompensator("Shunt");
 
         InjectionDiagramData<ShuntCompensator> shuntDiagramData = new InjectionDiagramData<>(shunt);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = shuntDiagramData.new InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(20, 10, 0), 90);
         diagramDetails.addTerminalPoint(new DiagramPoint(15, 10, 2));
         diagramDetails.addTerminalPoint(new DiagramPoint(0, 10, 1));
         shuntDiagramData.addData(DIAGRAM_NAME, diagramDetails);

@@ -16,7 +16,6 @@ import com.powsybl.iidm.network.Line;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class LineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {

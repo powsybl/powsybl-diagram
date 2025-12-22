@@ -7,8 +7,8 @@
  */
 package com.powsybl.nad.svg;
 
-import com.powsybl.nad.model.*;
-import com.powsybl.nad.utils.svg.SvgUtils;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.util.*;
 
@@ -44,96 +44,73 @@ public class CustomLabelProvider implements LabelProvider {
     final Map<String, BranchLabels> branchLabels;
     final Map<String, ThreeWtLabels> threeWtLabels;
     final Map<String, InjectionLabels> injectionLabels;
-    final Map<String, String> busDescriptions;
-    final Map<String, List<String>> vlDescriptions;
-    final Map<String, List<String>> vlDetails;
+    final Map<String, VoltageLevelLegend> vlLegends;
 
-    public record BranchLabels(String side1, String middle, String side2, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2) {
+    public record BranchLabels(String side1Internal, String side1External,
+                               String middle1, String middle2,
+                               String side2Internal, String side2External,
+                               EdgeInfo.Direction arrow1, EdgeInfo.Direction arrowMiddle, EdgeInfo.Direction arrow2) {
     }
 
-    public record ThreeWtLabels(String side1, String side2, String side3, EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
+    public record ThreeWtLabels(String side1Internal, String side1External,
+                                String side2Internal, String side2External,
+                                String side3Internal, String side3External,
+                                EdgeInfo.Direction arrow1, EdgeInfo.Direction arrow2, EdgeInfo.Direction arrow3) {
     }
 
-    public record InjectionLabels(String label, EdgeInfo.Direction arrow) {
+    public record InjectionLabels(String labelInternal, String labelExternal, EdgeInfo.Direction arrow) {
     }
 
     public CustomLabelProvider(Map<String, BranchLabels> branchLabels, Map<String, ThreeWtLabels> threeWtLabels, Map<String, InjectionLabels> injectionLabels,
-                               Map<String, String> busDescriptions, Map<String, List<String>> vlDescriptions, Map<String, List<String>> vlDetails) {
+                               Map<String, VoltageLevelLegend> vlLegends) {
         this.branchLabels = Objects.requireNonNull(branchLabels);
         this.threeWtLabels = Objects.requireNonNull(threeWtLabels);
         this.injectionLabels = Objects.requireNonNull(injectionLabels);
-        this.busDescriptions = Objects.requireNonNull(busDescriptions);
-        this.vlDescriptions = Objects.requireNonNull(vlDescriptions);
-        this.vlDetails = Objects.requireNonNull(vlDetails);
+        this.vlLegends = Objects.requireNonNull(vlLegends);
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, BranchEdge edge, BranchEdge.Side side) {
-        BranchLabels bl = this.branchLabels.get(edge.getEquipmentId());
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
+        BranchLabels bl = this.branchLabels.get(branchId);
         return Optional.ofNullable(bl).map(bl1 -> getEdgeInfo(bl1, side));
     }
 
     private EdgeInfo getEdgeInfo(BranchLabels bl, BranchEdge.Side side) {
-        String label = side == BranchEdge.Side.ONE ? bl.side1 : bl.side2;
-        EdgeInfo.Direction arrowDirection = side == BranchEdge.Side.ONE ? bl.arrow1 : bl.arrow2;
-        return new EdgeInfo(INFO_TYPE, arrowDirection, null, label);
-    }
-
-    @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, ThreeWtEdge edge) {
-        ThreeWtLabels threeWtLabels1 = threeWtLabels.get(edge.getEquipmentId());
-        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(edge, lbl));
-    }
-
-    private EdgeInfo getEdgeInfo(ThreeWtEdge edge, ThreeWtLabels labels) {
-        ThreeWtEdge.Side edgeSide = edge.getSide();
-        String labelSide = switch (edgeSide) {
-            case ONE -> labels.side1;
-            case TWO -> labels.side2;
-            case THREE -> labels.side3;
+        return switch (side) {
+            case ONE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrow1, bl.side1Internal, bl.side1External);
+            case TWO -> new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrow2, bl.side2Internal, bl.side2External);
         };
-        EdgeInfo.Direction arrowDirection = switch (edgeSide) {
-            case ONE -> labels.arrow1;
-            case TWO -> labels.arrow2;
-            case THREE -> labels.arrow3;
+    }
+
+    @Override
+    public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+        ThreeWtLabels threeWtLabels1 = threeWtLabels.get(threeWindingTransformerId);
+        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(side, lbl));
+    }
+
+    private EdgeInfo getEdgeInfo(ThreeWtEdge.Side edgeSide, ThreeWtLabels labels) {
+        return switch (edgeSide) {
+            case ONE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow1, labels.side1Internal, labels.side1External);
+            case TWO -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow2, labels.side2Internal, labels.side2External);
+            case THREE -> new EdgeInfo(INFO_TYPE, INFO_TYPE, labels.arrow3, labels.side3Internal, labels.side3External);
         };
-        return new EdgeInfo(INFO_TYPE, arrowDirection, null, labelSide);
     }
 
     @Override
-    public Optional<EdgeInfo> getEdgeInfo(Graph graph, Injection injection) {
-        InjectionLabels injectionLabel = injectionLabels.get(injection.getEquipmentId());
-        return Optional.ofNullable(injectionLabel).map(lbl -> new EdgeInfo(INFO_TYPE, lbl.arrow, null, lbl.label));
+    public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
+        InjectionLabels injectionLabel = injectionLabels.get(injectionId);
+        return Optional.ofNullable(injectionLabel)
+            .map(lbl -> new EdgeInfo(INFO_TYPE, INFO_TYPE, lbl.arrow, injectionLabel.labelInternal, lbl.labelExternal));
     }
 
     @Override
-    public String getLabel(Edge edge) {
-        BranchLabels bl = branchLabels.get(edge.getEquipmentId());
-        return (bl != null) ? bl.middle : null;
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
+        BranchLabels bl = branchLabels.get(branchId);
+        return Optional.of(new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
     }
 
     @Override
-    public String getBusDescription(BusNode busNode) {
-        return busDescriptions.get(busNode.getEquipmentId());
-    }
-
-    @Override
-    public List<String> getVoltageLevelDescription(VoltageLevelNode voltageLevelNode) {
-        return vlDescriptions.getOrDefault(voltageLevelNode.getEquipmentId(), Collections.emptyList());
-    }
-
-    @Override
-    public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-        return vlDetails.getOrDefault(vlNode.getEquipmentId(), Collections.emptyList());
-    }
-
-    @Override
-    public String getArrowPathDIn() {
-        return SvgUtils.ARROW_PATH_DIN;
-    }
-
-    @Override
-    public String getArrowPathDOut() {
-        return SvgUtils.ARROW_PATH_DOUT;
+    public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
+        return vlLegends.getOrDefault(voltageLevelId, new VoltageLevelLegend(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap()));
     }
 }

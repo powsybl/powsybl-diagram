@@ -9,11 +9,22 @@ package com.powsybl.nad.build.iidm;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BoundaryBusNode;
+import com.powsybl.nad.model.BoundaryNode;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.VoltageLevelNode;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.VoltageLevelLegend;
+import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.*;
@@ -25,23 +36,25 @@ import java.util.function.Predicate;
 public class NetworkGraphBuilder implements GraphBuilder {
 
     private final Network network;
-    private final IdProvider idProvider;
     private final Predicate<VoltageLevel> voltageLevelFilter;
+    private final LabelProvider labelProvider;
+    private final IdProvider idProvider;
     private final boolean injectionsAdded;
 
-    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, LayoutParameters layoutParameters, IdProvider idProvider) {
+    public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, LabelProvider labelProvider, LayoutParameters layoutParameters, IdProvider idProvider) {
         this.network = Objects.requireNonNull(network);
         this.voltageLevelFilter = voltageLevelFilter;
+        this.labelProvider = labelProvider;
         this.idProvider = Objects.requireNonNull(idProvider);
         this.injectionsAdded = layoutParameters.isInjectionsAdded();
     }
 
     public NetworkGraphBuilder(Network network, Predicate<VoltageLevel> voltageLevelFilter, LayoutParameters layoutParameters) {
-        this(network, voltageLevelFilter, layoutParameters, new IntIdProvider());
+        this(network, voltageLevelFilter, new DefaultLabelProvider(network, new SvgParameters()), layoutParameters, new IntIdProvider());
     }
 
     public NetworkGraphBuilder(Network network, LayoutParameters layoutParameters) {
-        this(network, VoltageLevelFilter.NO_FILTER, layoutParameters, new IntIdProvider());
+        this(network, VoltageLevelFilter.NO_FILTER, layoutParameters);
     }
 
     @Override
@@ -66,13 +79,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private VoltageLevelNode addVoltageLevelGraphNode(VoltageLevel vl, Graph graph, boolean visible, boolean injectionsAdded) {
-        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider.createId(vl), vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible);
+        VoltageLevelLegend voltageLevelLegend = labelProvider.getVoltageLevelLegend(vl.getId());
+        VoltageLevelNode vlNode = new VoltageLevelNode(idProvider, vl.getId(), vl.getNameOrId(), vl.isFictitious(), visible,
+                voltageLevelLegend.legendHeader(), voltageLevelLegend.legendFooter());
         Map<String, List<Injection>> injectionsMap = new HashMap<>();
         if (injectionsAdded) {
-            fillInjectionsMap(vl, injectionsMap);
+            fillInjectionsMap(vl, graph, injectionsMap);
         }
         vl.getBusView().getBusStream()
-                .map(bus -> new BusNode(idProvider.createId(bus), bus.getId(), injectionsMap.getOrDefault(bus.getId(), Collections.emptyList())))
+                .map(bus -> new BusNode(idProvider, bus.getId(),
+                        injectionsMap.getOrDefault(bus.getId(), Collections.emptyList()),
+                        voltageLevelLegend.getBusLegend(bus.getId())))
                 .forEach(vlNode::addBusNode);
         graph.addNode(vlNode);
         if (visible) {
@@ -81,23 +98,28 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return vlNode;
     }
 
-    private void fillInjectionsMap(VoltageLevel vl, Map<String, List<Injection>> injectionsMap) {
-        vl.getGenerators().forEach(g -> addInjection(g, injectionsMap));
-        vl.getLoads().forEach(l -> addInjection(l, injectionsMap));
-        vl.getShuntCompensators().forEach(sc -> addInjection(sc, injectionsMap));
-        vl.getBatteries().forEach(b -> addInjection(b, injectionsMap));
-        vl.getStaticVarCompensators().forEach(svc -> addInjection(svc, injectionsMap));
+    private void fillInjectionsMap(VoltageLevel vl, Graph graph, Map<String, List<Injection>> injectionsMap) {
+        vl.getGenerators().forEach(g -> addInjection(graph, g, injectionsMap));
+        vl.getLoads().forEach(l -> addInjection(graph, l, injectionsMap));
+        vl.getShuntCompensators().forEach(sc -> addInjection(graph, sc, injectionsMap));
+        vl.getBatteries().forEach(b -> addInjection(graph, b, injectionsMap));
+        vl.getStaticVarCompensators().forEach(svc -> addInjection(graph, svc, injectionsMap));
     }
 
-    private void addInjection(com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
-        injectionsMap.computeIfAbsent(inj.getTerminal().getBusView().getConnectableBus().getId(), k -> new ArrayList<>())
-                .add(createInjectionFromIidm(inj));
+    private void addInjection(Graph graph, com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
+        Bus connectableBus = inj.getTerminal().getBusView().getConnectableBus();
+        if (connectableBus != null) {
+            injectionsMap.computeIfAbsent(connectableBus.getId(), k -> new ArrayList<>())
+                .add(createInjectionFromIidm(graph, inj));
+        }
     }
 
-    private Injection createInjectionFromIidm(com.powsybl.iidm.network.Injection<?> inj) {
-        String diagramId = idProvider.createId(inj);
+    private Injection createInjectionFromIidm(Graph graph, com.powsybl.iidm.network.Injection<?> inj) {
         Injection.Type injectionType = getInjectionType(inj);
-        return new Injection(diagramId, inj.getId(), inj.getNameOrId(), injectionType);
+        EdgeInfo edgeInfo = labelProvider.getInjectionEdgeInfo(inj.getId()).orElse(null);
+        Injection injDiagram = new Injection(idProvider, inj.getId(), inj.getNameOrId(), injectionType, edgeInfo);
+        graph.addInjection(injDiagram);
+        return injDiagram;
     }
 
     private static Injection.Type getInjectionType(com.powsybl.iidm.network.Injection<?> inj) {
@@ -116,11 +138,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void addGraphEdges(VoltageLevel vl, Graph graph) {
-        vl.getLineStream().forEach(l -> visitLine(vl, l, graph));
-        vl.getTwoWindingsTransformerStream().forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
-        vl.getThreeWindingsTransformerStream().forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
-        vl.getDanglingLineStream().forEach(dl -> visitDanglingLine(dl, graph));
-        vl.getConnectableStream(HvdcConverterStation.class).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
+        vl.getLineStream().sorted(Comparator.comparing(Line::getId)).forEach(l -> visitLine(vl, l, graph));
+        vl.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId)).forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
+        vl.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId)).forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
+        vl.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(dl -> visitDanglingLine(dl, graph));
+        vl.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId)).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
     }
 
     private void visitLine(VoltageLevel vl, Line line, Graph graph) {
@@ -137,7 +159,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return;
         }
 
-        ThreeWtNode tn = new ThreeWtNode(idProvider.createId(thwt), thwt.getId(), thwt.getNameOrId());
+        ThreeWtNode tn = new ThreeWtNode(idProvider, thwt.getId(), thwt.getNameOrId());
         graph.addNode(tn);
 
         ThreeSides side = Arrays.stream(ThreeSides.values())
@@ -152,8 +174,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
         if (!dl.isPaired()) {
-            BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
-            BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(dl), dl.getId());
+            BoundaryNode boundaryNode = new BoundaryNode(idProvider, dl.getId(), dl.getNameOrId());
+            BusNode boundaryBusNode = new BoundaryBusNode(idProvider, dl.getId());
             boundaryNode.addBusNode(boundaryBusNode);
             graph.addNode(boundaryNode);
             addEdge(graph, dl, boundaryNode, boundaryBusNode);
@@ -179,7 +201,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         Terminal terminal = converterStation.getTerminal();
         Terminal otherSideTerminal = hvdcLine.getConverterStation(otherSide).getTerminal();
 
-        addEdge(graph, terminal, otherSideTerminal, hvdcLine, BranchEdge.HVDC_LINE_EDGE, otherSide == TwoSides.ONE);
+        String edgeType = switch (converterStation.getHvdcType()) {
+            case LCC -> BranchEdge.HVDC_LINE_LCC_EDGE;
+            case VSC -> BranchEdge.HVDC_LINE_VSC_EDGE;
+        };
+
+        addEdge(graph, terminal, otherSideTerminal, hvdcLine, edgeType, otherSide == TwoSides.ONE);
     }
 
     private void addEdge(Graph graph, Branch<?> branch, VoltageLevel vl, String edgeType) {
@@ -202,7 +229,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         BusNode busNodeA = getBusNode(graph, terminalA);
         BusNode busNodeB = getBusNode(graph, terminalB);
 
-        BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
+        String branchId = identifiable.getId();
+        EdgeInfo edgeInfo1 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.ONE, edgeType).orElse(null);
+        EdgeInfo edgeInfo2 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.TWO, edgeType).orElse(null);
+        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfo(branchId, edgeType).orElse(null);
+
+        BranchEdge edge = new BranchEdge(idProvider, branchId, identifiable.getNameOrId(), edgeType,
+                edgeInfo1, edgeInfo2, edgeInfoMiddle);
         if (!terminalsInReversedOrder) {
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {
@@ -213,18 +246,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void addThreeWtEdge(Graph graph, ThreeWindingsTransformer twt, ThreeWtNode tn, ThreeSides side) {
         Terminal terminal = twt.getTerminal(side);
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
-        ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
-                twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side),
-                twt.getLeg(side).hasPhaseTapChanger() ? ThreeWtEdge.PST_EDGE : ThreeWtEdge.THREE_WT_EDGE,
-                vlNode.isVisible());
+        String type = twt.getLeg(side).hasPhaseTapChanger() ? ThreeWtEdge.PST_EDGE : ThreeWtEdge.THREE_WT_EDGE;
+        ThreeWtEdge.Side twtEdgeSide = IidmUtils.getThreeWtEdgeSideFromIidmSide(side);
+
+        EdgeInfo edgeInfo = labelProvider.getThreeWindingTransformerEdgeInfo(twt.getId(), twtEdgeSide).orElse(null);
+        ThreeWtEdge edge = new ThreeWtEdge(idProvider,
+                twt.getId(), twt.getNameOrId(), twtEdgeSide,
+                type, vlNode.isVisible(), edgeInfo);
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
     }
 
     private void addEdge(Graph graph, DanglingLine dl, BoundaryNode boundaryVlNode, BusNode boundaryBusNode) {
         Terminal terminal = dl.getTerminal();
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
-        BranchEdge edge = new BranchEdge(idProvider.createId(dl),
-                dl.getId(), dl.getNameOrId(), BranchEdge.DANGLING_LINE_EDGE);
+
+        String branchType = BranchEdge.DANGLING_LINE_EDGE;
+        EdgeInfo edgeInfo = labelProvider.getBranchEdgeInfo(dl.getId(), BranchEdge.Side.ONE, branchType).orElse(null);
+        BranchEdge edge = new BranchEdge(idProvider,
+                dl.getId(), dl.getNameOrId(), branchType, edgeInfo, null, null);
         graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
     }
 

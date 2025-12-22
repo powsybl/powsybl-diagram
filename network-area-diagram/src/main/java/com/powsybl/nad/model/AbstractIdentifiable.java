@@ -14,19 +14,19 @@ import java.util.Optional;
  */
 abstract class AbstractIdentifiable implements Identifiable {
 
-    private final String diagramId;
+    private final String svgId;
     private final String equipmentId;
     private final String name;
 
-    protected AbstractIdentifiable(String diagramId, String equipmentId, String nameOrId) {
-        this.diagramId = Objects.requireNonNull(diagramId);
+    protected AbstractIdentifiable(String svgId, String equipmentId, String nameOrId) {
+        this.svgId = Objects.requireNonNull(svgId);
         this.equipmentId = equipmentId;
         this.name = nameOrId;
     }
 
     @Override
-    public String getDiagramId() {
-        return diagramId;
+    public String getSvgId() {
+        return svgId;
     }
 
     @Override

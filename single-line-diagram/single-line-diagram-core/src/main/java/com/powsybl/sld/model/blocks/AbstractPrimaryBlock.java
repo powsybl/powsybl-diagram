@@ -90,10 +90,10 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     @Override
     public Node getExtremityNode(Extremity extremity) {
         if (extremity == Extremity.START) {
-            return nodes.get(0);
+            return nodes.getFirst();
         }
         if (extremity == Extremity.END) {
-            return nodes.get(nodes.size() - 1);
+            return nodes.getLast();
         }
         return null;
     }

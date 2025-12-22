@@ -6,13 +6,15 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class ThreeWtNode extends AbstractNode {
 
-    public ThreeWtNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId, false);
+    public ThreeWtNode(IdProvider idProvider, String equipmentId, String nameOrId) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, false);
     }
 
 }

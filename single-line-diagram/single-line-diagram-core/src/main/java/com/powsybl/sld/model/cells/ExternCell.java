@@ -76,9 +76,9 @@ public final class ExternCell extends AbstractBusCell {
 
     public void addShuntCell(ShuntCell shuntCell) {
         List<Node> shuntNodes = shuntCell.getNodes();
-        if (getNodes().contains(shuntNodes.get(0))) {
+        if (getNodes().contains(shuntNodes.getFirst())) {
             shuntCell.putSideCell(Side.LEFT, this);
-        } else if (getNodes().contains(shuntNodes.get(shuntNodes.size() - 1))) {
+        } else if (getNodes().contains(shuntNodes.getLast())) {
             shuntCell.putSideCell(Side.RIGHT, this);
         } else {
             throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");

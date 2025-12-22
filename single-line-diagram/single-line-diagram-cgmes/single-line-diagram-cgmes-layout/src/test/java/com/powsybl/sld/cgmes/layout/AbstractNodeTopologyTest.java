@@ -23,7 +23,6 @@ import static com.powsybl.sld.library.SldComponentTypeName.LINE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
@@ -171,7 +170,7 @@ abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutT
 
     protected void addBusbarSectionDiagramData(BusbarSection busbarSection, DiagramPoint point1, DiagramPoint point2) {
         NodeDiagramData<BusbarSection> busbarDiagramData = new NodeDiagramData<>(busbarSection);
-        NodeDiagramData.NodeDiagramDataDetails diagramDetails = busbarDiagramData.new NodeDiagramDataDetails();
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
         diagramDetails.setPoint1(point1);
         diagramDetails.setPoint2(point2);
         busbarDiagramData.addData(DIAGRAM_NAME, diagramDetails);
@@ -180,7 +179,7 @@ abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutT
 
     protected void addGeneratorDiagramData(Generator generator, DiagramPoint generatorPoint, DiagramPoint terminalPoint1, DiagramPoint terminalPoint2) {
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorDiagramData.new InjectionDiagramDetails(generatorPoint, 0);
+        InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(generatorPoint, 0);
         diagramDetails.addTerminalPoint(terminalPoint1);
         diagramDetails.addTerminalPoint(terminalPoint2);
         generatorDiagramData.addData(DIAGRAM_NAME, diagramDetails);
@@ -190,7 +189,7 @@ abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevelLayoutT
     protected void addSwitchDiagramData(Switch sw, DiagramPoint switchPoint, int rotation, DiagramPoint terminal1Point1, DiagramPoint terminal1Point2,
                                         DiagramPoint terminal2Point1, DiagramPoint terminal2Point2) {
         CouplingDeviceDiagramData<Switch> switchDiagramData = new CouplingDeviceDiagramData<>(sw);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = switchDiagramData.new CouplingDeviceDiagramDetails(switchPoint, rotation);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(switchPoint, rotation);
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point1);
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, terminal1Point2);
         diagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, terminal2Point1);

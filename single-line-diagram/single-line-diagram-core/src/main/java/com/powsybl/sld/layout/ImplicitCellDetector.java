@@ -12,13 +12,20 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.util.GraphTraversal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -35,16 +42,16 @@ public class ImplicitCellDetector implements CellDetector {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
 
     /**
-     * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
+     * internCell detection: an internal cell is composed of nodes connecting BUSes without connecting Feeder.
      * detectCell is used to detect cells exploring the graph and scanning exclusionTypes and stopTypes
      * <p>
      * *************INTERN CELL*******************
-     * exclusion types = {FEEDER} : if a FEEDER type is reached it is not an INTERN CELL
-     * stop the visit if reach a Bus : stopTypes = {BUS}
+     * exclusion types = {FEEDER}: if a FEEDER type is reached it is not an INTERN CELL
+     * stop the visit if reach a Bus: stopTypes = {BUS}
      * ***************EXTERN AND SHUNT CELLS******
-     * detection : nodes connecting buses and departures without being in an internCell (previously allocated nodes)
+     * detection: nodes connecting buses and departures without being in an internCell (previously allocated nodes)
      * exclusion types = {}
-     * stop the visit if reach a Bus : stopTypes = {BUS,FEEDER} * @param graph g
+     * stop the visit if reach a Bus: stopTypes = {BUS, FEEDER} * @param graph g
      */
     @Override
     public void detectCells(VoltageLevelGraph graph) {
@@ -88,10 +95,10 @@ public class ImplicitCellDetector implements CellDetector {
     }
 
     /**
-     * @param graph          is the voltage level graph
-     * @param typeStops      is the types of node that stops the exploration
-     * @param exclusionTypes is the types when reached considers the exploration unsuccessful
-     * @param allocatedNodes is the list of nodes already allocated to a cell.
+     * @param graph          The voltage level graph
+     * @param typeStops      The types of node that stops the exploration
+     * @param exclusionTypes The types of node that, when reached, consider the exploration unsuccessful
+     * @param allocatedNodes The list of nodes already allocated to a cell.
      * @return the list of nodes for each detected cell
      */
     private List<Set<Node>> detectCell(VoltageLevelGraph graph,
@@ -149,12 +156,12 @@ public class ImplicitCellDetector implements CellDetector {
                 List<Node.NodeType> types = nodesConnex.stream()
                         .map(Node::getType)
                         .distinct().filter(t -> t == FEEDER || t == BUS)
-                        .collect(Collectors.toList());
+                        .toList();
                 if (types.size() == 2) {
                     hasMixBranch = true;
                 } else if (types.isEmpty()) {
                     return false;
-                } else if (types.get(0).equals(FEEDER)) {
+                } else if (types.getFirst().equals(FEEDER)) {
                     hasDepartBranch = true;
                 } else {
                     hasBusBranch = true;
@@ -182,13 +189,13 @@ public class ImplicitCellDetector implements CellDetector {
         if (cellNodesExtern.isPresent()) {
             Set<Node> remainingNodes = new LinkedHashSet<>(nodes);
             List<ShuntCell> shuntCellsCreated = new ArrayList<>(shuntCells);
-            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().get(0);  // reminder : the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
+            ConnectivityNode shuntNode = (ConnectivityNode) cellNodesExtern.get().getFirst();  // reminder: the first node returned by checkCandidateShuntNode is the candidateShuntNode and is therefore a checked InternalNode
             splitNodes(graph, nodes, shuntNode, cellNodesExtern.get(), remainingNodes, externalNodes, shuntCellsCreated);
 
-            // buses and shunts are kept as they might be shared, but if isolated they should be removed now from remaining nodes
+            // buses and shunts are kept as they might be shared, but if isolated, they should be removed now from remaining nodes
             remainingNodes.removeIf(rn -> isIsolatedBusOrShunt(remainingNodes, rn));
 
-            // when created, a shunt cell created is attached to the left to a pure extern cell, hence only the right side is checked
+            // when created, a shunt cell created is attached to the left to a pure extern cell; hence only the right side is checked
             List<ShuntCell> linkedShuntCells = shuntCellsCreated.stream()
                     .filter(sc -> remainingNodes.contains(sc.getSideShuntNode(Side.RIGHT)))
                     .collect(Collectors.toList());
@@ -244,7 +251,7 @@ public class ImplicitCellDetector implements CellDetector {
 
         //look for consecutive shunt nodes
         for (List<Node> shuntNodes : shuntsNodes) {
-            ConnectivityNode consecutiveShuntNode = (ConnectivityNode) shuntNodes.get(shuntNodes.size() - 1); //createShuntCellNodes ensure last node is InternalNode
+            ConnectivityNode consecutiveShuntNode = (ConnectivityNode) shuntNodes.getLast(); //createShuntCellNodes ensure last node is InternalNode
             List<Node> cellNodesExtern2 = checkCandidateShuntNode(consecutiveShuntNode, externalNodes);
             if (!cellNodesExtern2.isEmpty()) {
                 splitNodes(graph, nodes, consecutiveShuntNode, cellNodesExtern2, remainingNodes, externalNodes, shuntCellsCreated);

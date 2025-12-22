@@ -8,14 +8,14 @@
 
 package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.layout.forces.Force;
-import com.powsybl.diagram.util.layout.forces.CoulombForce;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.layout.forces.AttractToCenterForceLinear;
+import com.powsybl.diagram.util.layout.forces.CoulombForce;
+import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.forces.SpringForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ import java.util.*;
  * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no unnecessary crossings.
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
- * The algorithm is inspired from: https://github.com/dhotson/springy
+ * The algorithm is inspired from: <a href="https://github.com/dhotson/springy">https://github.com/dhotson/springy</a>
  *
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -64,6 +64,7 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         // do the loop on the nodes and forces
         int i;
+        long t0 = System.currentTimeMillis();
         for (i = 0; i < layoutParameters.getMaxSteps(); ++i) {
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
                 Point point = entry.getValue();
@@ -75,11 +76,20 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             updateVelocity(layoutContext);
             updatePosition(layoutContext);
 
-            if (isStable(layoutContext)) {
+            if (isStable(layoutContext) || isOverDurationLimit(t0)) {
                 break;
             }
         }
-        LOGGER.info("Calculating the layout took {} steps", i);
+        LOGGER.info("Layout calculated in {} steps", i);
+    }
+
+    private boolean isOverDurationLimit(long t0) {
+        long layoutTimeSpent = System.currentTimeMillis() - t0;
+        boolean over = layoutTimeSpent > 1000 * layoutParameters.getTimeoutSeconds();
+        if (over) {
+            LOGGER.info("Layout calculation timeout {}s, stopping the iteration", layoutTimeSpent / 1000.);
+        }
+        return over;
     }
 
     private void updateVelocity(LayoutContext<V, E> layoutContext) {

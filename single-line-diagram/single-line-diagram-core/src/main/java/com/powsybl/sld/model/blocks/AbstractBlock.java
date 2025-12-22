@@ -13,7 +13,10 @@ import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
@@ -28,13 +31,10 @@ public abstract class AbstractBlock implements Block {
 
     protected final Type type;
 
-    private Map<Extremity, Integer> cardinality;
-
+    private final Map<Extremity, Integer> cardinality;
+    private final Position position;
+    private final Coord coord;
     private Block parentBlock;
-
-    private Position position;
-
-    private Coord coord;
 
     /**
      * Constructor for primary layout.block with the list of nodes corresponding to the
@@ -102,11 +102,6 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void setOrientation(Orientation orientation) {
-        getPosition().setOrientation(orientation);
-    }
-
-    @Override
     public void setOrientation(Orientation orientation, boolean recursively) {
         setOrientation(orientation);
     }
@@ -114,6 +109,11 @@ public abstract class AbstractBlock implements Block {
     @Override
     public Orientation getOrientation() {
         return getPosition().getOrientation();
+    }
+
+    @Override
+    public void setOrientation(Orientation orientation) {
+        getPosition().setOrientation(orientation);
     }
 
     @Override
@@ -125,8 +125,6 @@ public abstract class AbstractBlock implements Block {
     public Block.Type getType() {
         return this.type;
     }
-
-    protected abstract void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     @Override
     public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
@@ -149,5 +147,7 @@ public abstract class AbstractBlock implements Block {
         writeJsonContent(generator, includeCoordinates);
         generator.writeEndObject();
     }
+
+    protected abstract void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
 }

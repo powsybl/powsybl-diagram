@@ -12,12 +12,23 @@ import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
@@ -32,10 +43,10 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
-    private static final String WINDING3 = "WINDING3";
+    protected static final String WINDING3 = "WINDING3";
     private static final String ARROW1 = "ARROW1";
     private static final String ARROW2 = "ARROW2";
-    private static final String ARROW3 = "ARROW3";
+    protected static final String ARROW3 = "ARROW3";
 
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -150,16 +161,16 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side);
 
-    private Node getFeederNode(Middle3WTNode node, String subComponentName) {
-        switch (subComponentName) {
-            case WINDING1, ARROW1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2, ARROW2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3, ARROW3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
-            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
-        }
+    protected Node getFeederNode(Middle3WTNode node, String subComponentName) {
+        return switch (subComponentName) {
+            case WINDING1, ARROW1 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3 -> node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
+            default -> throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
+        };
     }
 
-    private Node getFeederNode(Middle2WTNode node, String subComponentName) {
+    protected Node getFeederNode(Middle2WTNode node, String subComponentName) {
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ? 0 : 1);
     }
 
@@ -176,12 +187,12 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
-        switch (subComponentName) {
-            case WINDING1, ARROW1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2, ARROW2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3, ARROW3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
-            default: return null; // for decorators
-        }
+        return switch (subComponentName) {
+            case WINDING1, ARROW1 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
+            default -> null; // for decorators
+        };
     }
 
     @Override

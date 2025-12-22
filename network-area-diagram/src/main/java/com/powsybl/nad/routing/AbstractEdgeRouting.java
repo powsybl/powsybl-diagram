@@ -125,7 +125,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
 
     private List<Double> findAvailableAngles(List<Double> anglesOtherEdges, int nbAngles, double slotAperture) {
         if (!anglesOtherEdges.isEmpty()) {
-            anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
+            anglesOtherEdges.add(anglesOtherEdges.getFirst() + 2 * Math.PI);
 
             double[] deltaAngles = new double[anglesOtherEdges.size() - 1];
             int[] nbAvailableSlots = new int[anglesOtherEdges.size() - 1];
@@ -251,7 +251,7 @@ public abstract class AbstractEdgeRouting implements EdgeRouting {
         List<Double> sortedAngles = angles.stream().sorted().collect(Collectors.toList());
 
         // Then calculating the apertures
-        sortedAngles.add(sortedAngles.get(0) + 2 * Math.PI);
+        sortedAngles.add(sortedAngles.getFirst() + 2 * Math.PI);
         double[] deltaAngles = new double[3];
         for (int i = 0; i < 3; i++) {
             deltaAngles[i] = sortedAngles.get(i + 1) - sortedAngles.get(i);

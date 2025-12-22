@@ -24,7 +24,7 @@ import com.powsybl.iidm.network.Network;
 public final class NetworkDiagramData extends AbstractExtension<Network> {
 
     static final String NAME = "network-diagram-data";
-    private Map<String, Set<String>> diagramsNames = new TreeMap<>();
+    private final Map<String, Set<String>> diagramsNames = new TreeMap<>();
 
     private NetworkDiagramData() {
     }
@@ -58,7 +58,7 @@ public final class NetworkDiagramData extends AbstractExtension<Network> {
     public static boolean containsDiagramName(Network network, String diagramName) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(diagramName);
-        return checkNetworkDiagramData(network) && getNetworkDiagramData(network).diagramsNames.keySet().contains(diagramName);
+        return checkNetworkDiagramData(network) && getNetworkDiagramData(network).diagramsNames.containsKey(diagramName);
     }
 
     public static List<String> getSubstations(Network network, String diagramName) {

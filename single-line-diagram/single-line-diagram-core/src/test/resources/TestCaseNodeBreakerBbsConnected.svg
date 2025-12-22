@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -192,7 +194,7 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-top-feeder" id="idline_95_TWO" transform="translate(65.0,80.0)">
-                    <text class="sld-label" id="idline_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">line</text>
+                    <text class="sld-label" id="idline_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">line</text>
                 </g>
             </g>
             <g class="sld-extern-cell sld-cell-direction-bottom" id="idEXTERN_32_1">
@@ -229,7 +231,7 @@
                     <rect height="9" width="16"/>
                     <line x1="0" x2="16" y1="0" y2="9"/>
                     <line x1="16" x2="0" y1="0" y2="9"/>
-                    <text class="sld-label" id="idload_95_S_95_LABEL" x="-5.0" y="14.0">load</text>
+                    <text class="sld-label" id="idload_95_S_95_LABEL" x="-5.0" y="15.5">load</text>
                 </g>
             </g>
         </g>

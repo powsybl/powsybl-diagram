@@ -10,8 +10,20 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.components.ComponentTypeName;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.GroundDisconnectionNode;
+import com.powsybl.sld.model.nodes.Internal2WTNode;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
 import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
 import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
@@ -198,10 +210,8 @@ public final class NodeFactory {
 
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
         // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
-        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
-        ConnectivityNode cn = new ConnectivityNode(connectivityNodeId, NODE);
-        graph.addNode(cn);
-        return cn;
+        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().id() + "_" + Objects.requireNonNull(id);
+        return createConnectivityNode(graph, connectivityNodeId, NODE);
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {

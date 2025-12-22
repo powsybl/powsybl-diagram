@@ -6,23 +6,21 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Map;
-import java.util.Objects;
-
-import com.powsybl.iidm.network.Substation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class SvcDiagramDataImporter extends AbstractInjectionDiagramDataImporter {
@@ -43,8 +41,8 @@ public class SvcDiagramDataImporter extends AbstractInjectionDiagramDataImporter
                 svcIidmDiagramData = new InjectionDiagramData<>(svc);
             }
             String diagramName = svcDiagramData.get("diagramName");
-            InjectionDiagramData<StaticVarCompensator>.InjectionDiagramDetails diagramDetails = svcIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
-                    svcDiagramData.asDouble("rotation"));
+            InjectionDiagramData.InjectionDiagramDetails diagramDetails = new InjectionDiagramData.InjectionDiagramDetails(new DiagramPoint(svcDiagramData.asDouble("x"), svcDiagramData.asDouble("y"), svcDiagramData.asInt("seq")),
+                svcDiagramData.asDouble("rotation"));
             addTerminalPoints(svcId, svc.getNameOrId(), diagramName, diagramDetails);
             svcIidmDiagramData.addData(diagramName, diagramDetails);
             svc.addExtension(InjectionDiagramData.class, svcIidmDiagramData);
