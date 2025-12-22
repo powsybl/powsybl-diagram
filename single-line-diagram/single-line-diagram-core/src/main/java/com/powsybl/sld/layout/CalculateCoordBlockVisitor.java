@@ -18,7 +18,9 @@ import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 
 import java.util.List;
 
@@ -53,20 +55,43 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
         }
 
         if (block.getPosition().getOrientation().isVertical()) {
-            int sign = block.getOrientation() == UP ? 1 : -1;
-            double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
-            double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
-            for (int i = 0; i < blockNodes.size(); i++) {
-                blockNodes.get(i).setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
-            }
+            setVerticalOrientationCoord(block);
         } else {
-            double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
-            if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
-                x0 += layoutParameters.getCellWidth() / 2;
+            setHorizontalOrientationCoord(block);
+        }
+    }
+
+    private void setVerticalOrientationCoord(BodyPrimaryBlock block) {
+        List<Node> blockNodes = block.getNodes();
+        int sign = block.getOrientation() == UP ? 1 : -1;
+        double y0 = block.getCoord().get(Y) + sign * block.getCoord().getSpan(Y) / 2;
+        double yPxStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size() - 1);
+        double swStep = sign * block.getCoord().getSpan(Y) / (blockNodes.size());
+
+        for (int i = 0; i < blockNodes.size(); i++) {
+            Node n = blockNodes.get(i);
+            if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(Middle3WTNode.class::isInstance)) {
+                n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i + swStep);
+            } else {
+                n.setCoordinates(block.getCoord().get(X), y0 - yPxStep * i);
             }
-            double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
-            for (int i = 0; i < blockNodes.size(); i++) {
-                blockNodes.get(i).setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
+        }
+    }
+
+    private void setHorizontalOrientationCoord(BodyPrimaryBlock block) {
+        List<Node> blockNodes = block.getNodes();
+        double x0 = block.getCoord().get(X) - block.getCoord().getSpan(X) / 2;
+        if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
+            x0 += layoutParameters.getCellWidth() / 2;
+        }
+        double xPxStep = block.getCoord().getSpan(X) / (blockNodes.size() - 1);
+        double swStep = block.getCoord().getSpan(X) / (blockNodes.size());
+        for (int i = 0; i < blockNodes.size(); i++) {
+            Node n = blockNodes.get(i);
+            if (n.getType() == NodeType.SWITCH && n.getAdjacentNodes().stream().anyMatch(Middle3WTNode.class::isInstance)) {
+                n.setCoordinates(x0 + swStep + xPxStep * i, block.getCoord().get(Y));
+            } else {
+                n.setCoordinates(x0 + xPxStep * i, block.getCoord().get(Y));
             }
         }
     }

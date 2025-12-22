@@ -850,6 +850,23 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    protected void insertFeederInfos(String prefixId,
+                                      List<Point> points,
+                                      Element root,
+                                      Middle3WTNode twtNode,
+                                      GraphMetadata metadata,
+                                      LabelProvider labelProvider,
+                                      StyleProvider styleProvider) {
+        double shiftFeederInfo = 0;
+        for (FeederInfo feederInfo : labelProvider.getFeederInfos(twtNode)) {
+            drawFeederInfo(prefixId, twtNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
+            addInfoComponentMetadata(metadata, feederInfo.getComponentType());
+
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).height();
+            shiftFeederInfo += svgParameters.getFeederInfosIntraMargin() + height;
+        }
+    }
+
     private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new SldComponent(componentType,
@@ -861,6 +878,19 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawFeederInfo(String prefixId, FeederNode feederNode, List<Point> points, Element root,
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata,
+                                StyleProvider styleProvider) {
+        String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
+        drawFeederInfo(prefixId, feederNode, side, points, root, feederInfo, shift, metadata, styleProvider);
+    }
+
+    private void drawFeederInfo(String prefixId, Middle3WTNode feederNode, List<Point> points, Element root,
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata,
+                                StyleProvider styleProvider) {
+        drawFeederInfo(prefixId, feederNode, null, points, root, feederInfo, shift, metadata, styleProvider);
+    }
+
+    private void drawFeederInfo(String prefixId, EquipmentNode feederNode, String side, List<Point> points, Element root,
                                 FeederInfo feederInfo, double shift, GraphMetadata metadata,
                                 StyleProvider styleProvider) {
 
@@ -876,7 +906,6 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", svgId);
         String componentType = feederInfo.getComponentType();
 
-        String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, componentType, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info
@@ -1003,13 +1032,30 @@ public class DefaultSVGWriter implements SVGWriter {
                     svgParameters.isDrawStraightWires(),
                     false));
 
-            if (edge.getNode1() instanceof FeederNode) {
+            insertEdgeFeederInfos(prefixId, pol, root, graph, edge, metadata, initProvider, styleProvider);
+
+        }
+    }
+
+    private void insertEdgeFeederInfos(String prefixId, List<Point> pol, Element root,
+                                     VoltageLevelGraph graph, Edge edge,
+                                     GraphMetadata metadata, LabelProvider initProvider,
+                                     StyleProvider styleProvider) {
+        if (edge.getNode1() instanceof FeederNode) {
+            if (!(edge.getNode2() instanceof FeederNode)) {
+                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider, styleProvider);
+            }
+        } else if (edge.getNode2() instanceof FeederNode) {
+            Collections.reverse(pol);
+            insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
+        } else {
+            if (edge.getNode1() instanceof Middle3WTNode middle3wtNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider, styleProvider);
+                    insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
                 }
-            } else if (edge.getNode2() instanceof FeederNode) {
+            } else if (edge.getNode2() instanceof Middle3WTNode middle3wtNode) {
                 Collections.reverse(pol);
-                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
+                insertFeederInfos(prefixId, pol, root, middle3wtNode, metadata, initProvider, styleProvider);
             }
         }
     }

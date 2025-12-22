@@ -1307,13 +1307,13 @@
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf7_95_TWO_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf7",
-    "side" : "TWO",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
     "id" : "idtrf2_95_ONE_95_ARROW_95_ACTIVE",
     "equipmentId" : "trf2",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idtrf4_95_ONE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "trf4",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
@@ -1322,36 +1322,53 @@
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf6_95_THREE_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf6",
-    "side" : "THREE",
+    "id" : "idgen1_95_ARROW_95_REACTIVE",
+    "equipmentId" : "gen1",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf8_95_TWO_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf8",
-    "side" : "TWO",
+    "id" : "idtrf3_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf3",
+    "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idtrf7_95_THREE_95_ARROW_95_REACTIVE",
+    "id" : "idtrf7_95_ARROW_95_REACTIVE",
     "equipmentId" : "trf7",
-    "side" : "THREE",
     "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idtrf7_95_THREE_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf7",
-    "side" : "THREE",
-    "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idgen2_95_ARROW_95_REACTIVE",
     "equipmentId" : "gen2",
     "componentType" : "ARROW_REACTIVE"
   }, {
+    "id" : "idload2_95_ARROW_95_ACTIVE",
+    "equipmentId" : "load2",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idtrf8_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf8",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idtrf7_95_ARROW_95_ACTIVE",
+    "equipmentId" : "trf7",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
     "id" : "idgen2_95_ARROW_95_ACTIVE",
     "equipmentId" : "gen2",
     "componentType" : "ARROW_ACTIVE"
   }, {
+    "id" : "idtrf6_95_ARROW_95_REACTIVE",
+    "equipmentId" : "trf6",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idtrf8_95_ARROW_95_ACTIVE",
+    "equipmentId" : "trf8",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
     "id" : "idgen1_95_ARROW_95_ACTIVE",
     "equipmentId" : "gen1",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idload1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "load1",
     "componentType" : "ARROW_ACTIVE"
   }, {
     "id" : "idload1_95_ARROW_95_REACTIVE",
@@ -1368,66 +1385,13 @@
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
+    "id" : "idtrf6_95_ARROW_95_ACTIVE",
+    "equipmentId" : "trf6",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
     "id" : "idtrf2_95_ONE_95_ARROW_95_REACTIVE",
     "equipmentId" : "trf2",
     "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idtrf6_95_TWO_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf6",
-    "side" : "TWO",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf8_95_TWO_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf8",
-    "side" : "TWO",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf6_95_THREE_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf6",
-    "side" : "THREE",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf4_95_ONE_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf4",
-    "side" : "ONE",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idgen1_95_ARROW_95_REACTIVE",
-    "equipmentId" : "gen1",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idtrf3_95_ONE_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf3",
-    "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idtrf7_95_TWO_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf7",
-    "side" : "TWO",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf6_95_TWO_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf6",
-    "side" : "TWO",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idload2_95_ARROW_95_ACTIVE",
-    "equipmentId" : "load2",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idload1_95_ARROW_95_ACTIVE",
-    "equipmentId" : "load1",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf8_95_THREE_95_ARROW_95_ACTIVE",
-    "equipmentId" : "trf8",
-    "side" : "THREE",
-    "componentType" : "ARROW_ACTIVE"
-  }, {
-    "id" : "idtrf8_95_THREE_95_ARROW_95_REACTIVE",
-    "equipmentId" : "trf8",
-    "side" : "THREE",
     "componentType" : "ARROW_REACTIVE"
   }, {
     "id" : "idload2_95_ARROW_95_REACTIVE",
@@ -1510,6 +1474,7 @@
     "showInternalNodes" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
-    "unifyVoltageLevelColors" : false
+    "unifyVoltageLevelColors" : false,
+    "threeWindingsTransformerFeederInfoMode" : "INSIDE_VOLTAGE_LEVEL"
   }
 }

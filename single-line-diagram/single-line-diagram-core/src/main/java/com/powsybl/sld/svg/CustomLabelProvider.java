@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.EquipmentNode;
 import com.powsybl.sld.model.nodes.Feeder;
 import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
@@ -172,6 +173,11 @@ public class CustomLabelProvider extends AbstractLabelProvider {
 
     @Override
     public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
+        return List.of();
+    }
+
+    @Override
+    public List<FeederInfo> getFeederInfos(Middle3WTNode twtNode) {
         return List.of();
     }
 }
