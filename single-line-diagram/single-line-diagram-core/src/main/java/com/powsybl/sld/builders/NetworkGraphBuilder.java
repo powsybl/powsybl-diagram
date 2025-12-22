@@ -26,10 +26,12 @@ import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;

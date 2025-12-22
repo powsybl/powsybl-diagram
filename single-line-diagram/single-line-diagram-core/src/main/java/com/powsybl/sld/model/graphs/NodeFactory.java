@@ -25,6 +25,7 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
+import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
 import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;

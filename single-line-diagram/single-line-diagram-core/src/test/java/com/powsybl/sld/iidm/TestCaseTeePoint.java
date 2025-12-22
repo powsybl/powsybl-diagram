@@ -47,7 +47,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseTeePointTopological.svg"),
-                toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true)));
+                toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -62,6 +62,6 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseTeePointBusBreaker.svg"),
-                toSVG(g, "/TestCaseTeePointBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true)));
+                toSVG(g, "/TestCaseTeePointBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
     }
 }

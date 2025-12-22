@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -246,13 +248,13 @@
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB2" transform="translate(55.0,70.0)">
-                    <text class="sld-label" id="idSUB1_32__45__32_SUB2_95_N_95_LABEL" x="-5.0" y="-5.0">SUB1 - SUB2</text>
+                    <text class="sld-label" id="idSUB1_32__45__32_SUB2_95_N_95_LABEL" x="-5.0" y="-1.0">SUB1 - SUB2</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180 sld-bus-0" id="idINTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB3" transform="translate(111.0,138.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
                 <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB3" transform="translate(105.0,70.0)">
-                    <text class="sld-label" id="idSUB1_32__45__32_SUB3_95_N_95_LABEL" x="-5.0" y="-5.0">SUB1 - SUB3</text>
+                    <text class="sld-label" id="idSUB1_32__45__32_SUB3_95_N_95_LABEL" x="-5.0" y="-1.0">SUB1 - SUB3</text>
                 </g>
             </g>
         </g>
