@@ -25,7 +25,9 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
+import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
+import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
@@ -175,6 +177,10 @@ public final class NodeFactory {
         return createFeederBranchNode(graph, id, name, equipmentId, SldComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
     }
 
+    public static FeederNode createFeederTeePointLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTeePointLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+    }
+
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
@@ -193,6 +199,14 @@ public final class NodeFactory {
 
     public static FeederNode createFeeder3WTLegNodeForSubstationDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side) {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
+    }
+
+    public static FeederNode createFeederTeePointNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+    }
+
+    public static FeederNode createFeederTeePointgNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return createFeederTeePointLegNode(graph, id, name, equipmentId, TEE_POINT, side, otherSideVoltageLevelInfos, FeederType.TEE_POINT_LEG);
     }
 
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
@@ -278,5 +292,14 @@ public final class NodeFactory {
         baseGraph.addTwtEdge(legNode3, m3wn);
         baseGraph.addMultiTermNode(m3wn);
         return m3wn;
+    }
+
+    public static TeePointNode createTeePointNode(VoltageLevelGraph baseGraph, String id, String nameOrId, FeederNode legNode2, FeederNode legNode3) {
+        ((FeederTeePointLeg) legNode2.getFeeder()).getVoltageLevelInfos();
+        TeePointNode teePointNode = new TeePointNode(id, nameOrId, id);
+        baseGraph.addNode(teePointNode);
+        baseGraph.addEdge(legNode2, teePointNode);
+        baseGraph.addEdge(legNode3, teePointNode);
+        return teePointNode;
     }
 }

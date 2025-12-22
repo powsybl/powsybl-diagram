@@ -13,6 +13,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
@@ -50,11 +51,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         Objects.requireNonNull(node);
 
         Feeder feeder = node.getFeeder();
+
         List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
             case INJECTION -> getInjectionFeederInfos(node);
             case BRANCH -> getBranchFeederInfos(node, ((FeederWithSides) feeder).getSide());
             case TWO_WINDINGS_TRANSFORMER_LEG -> getBranchFeederInfos(node, ((FeederTwLeg) feeder).getSide());
             case THREE_WINDINGS_TRANSFORMER_LEG -> get3WTFeederInfos(node, (FeederTwLeg) feeder);
+            case TEE_POINT_LEG -> getTeePointFeederInfos(node, (FeederTeePointLeg) feeder);
             case HVDC -> getHvdcFeederInfos(node, (FeederWithSides) feeder);
             default -> new ArrayList<>();
         };
@@ -102,6 +105,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             measures = buildFeederInfos(hvdcLine, side);
         }
         return measures;
+    }
+
+    private List<FeederInfo> getTeePointFeederInfos(FeederNode node, FeederTeePointLeg feeder) {
+        boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().id().equals(feeder.getVoltageLevelInfos().id());
+        return buildFeederInfos(network.getLine(node.getEquipmentId()).getTerminal1(), insideVoltageLevel);
     }
 
     @Override

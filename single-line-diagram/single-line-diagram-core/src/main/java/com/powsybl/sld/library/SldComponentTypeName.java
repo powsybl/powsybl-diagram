@@ -49,4 +49,5 @@ public final class SldComponentTypeName extends ComponentTypeName {
     public static final String TIE_LINE = "TIE_LINE";
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
+    public static final String TEE_POINT = "TEE_POINT";
 }
