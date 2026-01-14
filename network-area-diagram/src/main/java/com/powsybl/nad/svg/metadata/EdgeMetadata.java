@@ -9,6 +9,9 @@ package com.powsybl.nad.svg.metadata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+import com.powsybl.nad.model.Point;
 
 import java.util.List;
 
@@ -34,6 +37,10 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String style1;
     private final String style2;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) // only serializes it non-empty
+    @JsonSetter(nulls = Nulls.AS_EMPTY) // if missing when deserializing creates an empty array
+    private final List<Point> bendingPoints;
+
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
                         @JsonProperty("node1") String node1SvgId,
@@ -50,8 +57,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("classes1") List<String> classes1,
                         @JsonProperty("classes2") List<String> classes2,
                         @JsonProperty("style1") String style1,
-                        @JsonProperty("style2") String style2
-                        ) {
+                        @JsonProperty("style2") String style2,
+                        @JsonProperty("bendingPoints") List<Point> bendingPoints) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
@@ -68,6 +75,7 @@ public class EdgeMetadata extends AbstractMetadataItem {
         this.classes2 = classes2;
         this.style1 = style1;
         this.style2 = style2;
+        this.bendingPoints = bendingPoints;
     }
 
     @JsonProperty("node1")
@@ -149,5 +157,10 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("style2")
     public String getStyle2() {
         return style2;
+    }
+
+    @JsonProperty("bendingPoints")
+    public List<Point> getBendingPoints() {
+        return bendingPoints;
     }
 }
