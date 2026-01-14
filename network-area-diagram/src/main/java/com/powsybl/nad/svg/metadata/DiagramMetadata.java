@@ -150,7 +150,21 @@ public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
                                         injection.getStyleClasses(),
                                         injection.getStyle()
                                 )))));
-        graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
+        graph.getBranchEdgeStream().forEach(edge -> addBranchEdgeMetadata(edge, graph));
+        graph.getThreeWtEdgesStream().forEach(edge -> addThreeWtEdgeMetadata(edge, graph));
+        graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
+                getPrefixedId(textPair.getSecond().getSvgId()),
+                textPair.getFirst().getEquipmentId(),
+                getPrefixedId(textPair.getFirst().getSvgId()),
+                round(textPair.getSecond().getX() - textPair.getFirst().getX()),
+                round(textPair.getSecond().getY() - textPair.getFirst().getY()),
+                round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
+                round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
+        return this;
+    }
+
+    private void addBranchEdgeMetadata(BranchEdge edge, Graph graph) {
+        edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getSvgId()),
                 edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getSvgId()),
@@ -168,18 +182,9 @@ public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style(),
-                edge.getStyleClasses()
-        )));
-        graph.getThreeWtEdgesStream().forEach(edge -> addThreeWtEdgeMetadata(edge, graph));
-        graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
-                getPrefixedId(textPair.getSecond().getSvgId()),
-                textPair.getFirst().getEquipmentId(),
-                getPrefixedId(textPair.getFirst().getSvgId()),
-                round(textPair.getSecond().getX() - textPair.getFirst().getX()),
-                round(textPair.getSecond().getY() - textPair.getFirst().getY()),
-                round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
-                round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
-        return this;
+                edge.getStyleClasses(),
+                List.of()
+        ));
     }
 
     private void addThreeWtEdgeMetadata(ThreeWtEdge edge, Graph graph) {
@@ -202,7 +207,8 @@ public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
             null,
             edge.getEdgeStyleInfo().style(),
             null,
-            null
+            null,
+            List.of()
         ));
     }
 
