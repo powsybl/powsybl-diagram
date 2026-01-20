@@ -9,11 +9,17 @@ package com.powsybl.nad.build.iidm;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.nad.build.GraphBuilder;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.*;
+import com.powsybl.nad.model.BoundaryBusNode;
+import com.powsybl.nad.model.BoundaryNode;
+import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Injection;
+import com.powsybl.nad.model.ThreeWtEdge;
+import com.powsybl.nad.model.ThreeWtNode;
+import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -226,10 +232,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         String branchId = identifiable.getId();
         EdgeInfo edgeInfo1 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.ONE, edgeType).orElse(null);
         EdgeInfo edgeInfo2 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.TWO, edgeType).orElse(null);
-        String branchLabel = labelProvider.getBranchLabel(branchId);
+        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfo(branchId, edgeType).orElse(null);
 
         BranchEdge edge = new BranchEdge(idProvider, branchId, identifiable.getNameOrId(), edgeType,
-                edgeInfo1, edgeInfo2, branchLabel);
+                edgeInfo1, edgeInfo2, edgeInfoMiddle);
         if (!terminalsInReversedOrder) {
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {

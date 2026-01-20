@@ -12,7 +12,11 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
@@ -35,8 +39,8 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
 
     public SerialBlock(List<Block> blocks) {
         super(SERIAL, blocks);
-        if (blocks.size() == 1 && blocks.get(0).getType() == SERIAL) {
-            subBlocks = ((SerialBlock) blocks.get(0)).getSubBlocks();
+        if (blocks.size() == 1 && blocks.getFirst().getType() == SERIAL) {
+            subBlocks = ((SerialBlock) blocks.getFirst()).getSubBlocks();
         } else {
             subBlocks = new ArrayList<>(blocks);
         }
@@ -55,7 +59,7 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
     @Override
     public int getOrder() {
         return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder().orElse(-1) : 0;
+                getExtremityNode(Extremity.END).getOrder().orElse(-1) : 0;
     }
 
     @Override
@@ -118,10 +122,10 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
     }
 
     public Optional<Extremity> whichExtremity(Block block) {
-        if (block.equals(subBlocks.get(0))) {
+        if (block.equals(subBlocks.getFirst())) {
             return Optional.of(Extremity.START);
         }
-        if (block.equals(subBlocks.get(subBlocks.size() - 1))) {
+        if (block.equals(subBlocks.getLast())) {
             return Optional.of(Extremity.END);
         }
         return Optional.empty();
@@ -131,7 +135,7 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
         List<Block> subBlocksCopy = new ArrayList<>(subBlocks);
         subBlocksCopy.removeAll(blocks);
         if (subBlocksCopy.size() == 1) {
-            return subBlocksCopy.get(0);
+            return subBlocksCopy.getFirst();
         } else {
             return new SerialBlock(subBlocksCopy);
         }
@@ -140,7 +144,7 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
     private void insertBlock(Block block, Extremity myExtremity) {
         block.setParentBlock(this);
         if (myExtremity == Extremity.START) {
-            subBlocks.add(0, block);
+            subBlocks.addFirst(block);
         } else {
             subBlocks.add(block);
         }
@@ -148,11 +152,11 @@ public class SerialBlock extends AbstractComposedBlock<Block> {
     }
 
     public Block getUpperBlock() {
-        return subBlocks.get(subBlocks.size() - 1);
+        return subBlocks.getLast();
     }
 
     public Block getLowerBlock() {
-        return subBlocks.get(0);
+        return subBlocks.getFirst();
     }
 
     public List<Node> getChainingNodes() {

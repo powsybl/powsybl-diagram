@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 
 import java.util.Objects;
 

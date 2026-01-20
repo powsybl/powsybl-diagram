@@ -39,7 +39,7 @@ public class LegParallelBlock extends AbstractParallelBlock<LegPrimaryBlock> imp
             List<LegPrimaryBlock> subBlocksCopy = new ArrayList<>(subBlocks);
             int h = 0;
             while (!subBlocksCopy.isEmpty()) {
-                LegPrimaryBlock b = subBlocksCopy.get(0);
+                LegPrimaryBlock b = subBlocksCopy.getFirst();
                 Position pos = b.getPosition();
                 pos.set(H, h);
                 pos.set(V, 0);

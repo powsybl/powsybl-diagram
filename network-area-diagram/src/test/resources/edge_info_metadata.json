@@ -1,0 +1,166 @@
+{
+  "layoutParameters" : {
+    "textNodesForceLayout" : false,
+    "textNodeFixedShift" : {
+      "x" : 100.0,
+      "y" : -40.0
+    },
+    "maxSteps" : 1000,
+    "timeoutSeconds" : 15.0,
+    "textNodeEdgeConnectionYShift" : 25.0,
+    "injectionsAdded" : true
+  },
+  "svgParameters" : {
+    "diagramPadding" : {
+      "left" : 200.0,
+      "top" : 200.0,
+      "right" : 200.0,
+      "bottom" : 200.0
+    },
+    "insertNameDesc" : true,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "sizeConstraint" : "FIXED_WIDTH",
+    "fixedWidth" : 800,
+    "fixedHeight" : -1,
+    "fixedScale" : 0.2,
+    "arrowShift" : 30.0,
+    "arrowLabelShift" : 19.0,
+    "converterStationWidth" : 70.0,
+    "voltageLevelCircleRadius" : 30.0,
+    "fictitiousVoltageLevelCircleRadius" : 15.0,
+    "transformerCircleRadius" : 20.0,
+    "nodeHollowWidth" : 15.0,
+    "edgesForkLength" : 80.0,
+    "edgesForkAperture" : 60.0,
+    "edgeStartShift" : 0.0,
+    "unknownBusNodeExtraRadius" : 10.0,
+    "loopDistance" : 120.0,
+    "loopEdgesAperture" : 60.0,
+    "loopControlDistance" : 40.0,
+    "edgeInfoAlongEdge" : true,
+    "interAnnulusSpace" : 5.0,
+    "svgPrefix" : "",
+    "arrowPathIn" : "M-10 -10 H10 L0 10z",
+    "arrowPathOut" : "M-10 10 H10 L0 -10z",
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
+    "pstArrowHeadSize" : 8.0,
+    "undefinedValueSymbol" : "",
+    "highlightGraph" : false,
+    "injectionAperture" : 10.0,
+    "injectionEdgeLength" : 145.0,
+    "injectionCircleRadius" : 25.0,
+    "voltageLevelLegendsIncluded" : true,
+    "edgeInfosIncluded" : true
+  },
+  "busNodes" : [ {
+    "svgId" : "4",
+    "equipmentId" : "vl1_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "0",
+    "legend" : "400.0 kV / °"
+  }, {
+    "svgId" : "8",
+    "equipmentId" : "vl2_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "5",
+    "legend" : "410.0 kV / °"
+  }, {
+    "svgId" : "14",
+    "equipmentId" : "dl1",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "13"
+  } ],
+  "nodes" : [ {
+    "svgId" : "0",
+    "equipmentId" : "vl1",
+    "x" : -56.06,
+    "y" : -318.7,
+    "legendSvgId" : "1",
+    "legendEdgeSvgId" : "2",
+    "legendHeader" : [ "Voltage level 1" ]
+  }, {
+    "svgId" : "5",
+    "equipmentId" : "vl2",
+    "x" : -230.42,
+    "y" : 1.18,
+    "legendSvgId" : "6",
+    "legendEdgeSvgId" : "7",
+    "legendHeader" : [ "Voltage level 2" ]
+  }, {
+    "svgId" : "13",
+    "equipmentId" : "dl1",
+    "x" : -49.12,
+    "y" : 317.14
+  } ],
+  "injections" : [ {
+    "svgId" : "3",
+    "equipmentId" : "g1",
+    "componentType" : "GENERATOR",
+    "busNodeId" : "4",
+    "vlNodeId" : "0"
+  } ],
+  "edges" : [ {
+    "svgId" : "9",
+    "equipmentId" : "l1",
+    "node1" : "0",
+    "node2" : "5",
+    "busNode1" : "4",
+    "busNode2" : "8",
+    "type" : "LineEdge",
+    "edgeInfo1" : {
+      "svgId" : "10",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
+      "direction" : "OUT",
+      "labelA" : "1,400",
+      "labelB" : "2,102"
+    },
+    "edgeInfo2" : {
+      "svgId" : "11",
+      "infoTypeA" : "ActivePower",
+      "infoTypeB" : "Current",
+      "direction" : "OUT",
+      "labelA" : "1,410",
+      "labelB" : "2,068"
+    },
+    "edgeInfoMiddle" : {
+      "svgId" : "12",
+      "infoTypeA" : "Name",
+      "labelA" : "l1"
+    }
+  }, {
+    "svgId" : "15",
+    "equipmentId" : "dl1",
+    "node1" : "5",
+    "node2" : "13",
+    "busNode1" : "8",
+    "busNode2" : "14",
+    "type" : "DanglingLineEdge"
+  } ],
+  "textNodes" : [ {
+    "svgId" : "1",
+    "equipmentId" : "vl1",
+    "vlNode" : "0",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "6",
+    "equipmentId" : "vl2",
+    "vlNode" : "5",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  } ]
+}

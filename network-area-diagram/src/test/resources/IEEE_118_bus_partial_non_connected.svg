@@ -325,52 +325,52 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: 506px; left: 543px" id="1" class="nad-vl120to180 nad-label-box">
                 <div>VL113</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>137.0 kV / 13.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>137.0 kV / 13.7°</div>
             </div>
             <div style="position: absolute; top: 11px; left: 616px" id="5" class="nad-vl120to180 nad-label-box">
                 <div>VL114</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>132.5 kV / 14.5°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>132.5 kV / 14.5°</div>
             </div>
             <div style="position: absolute; top: 188px; left: 1502px" id="9" class="nad-vl120to180 nad-label-box">
                 <div>VL23</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>138.0 kV / 21.0°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>138.0 kV / 21.0°</div>
             </div>
             <div style="position: absolute; top: -294px; left: 1025px" id="13" class="nad-vl120to180 nad-label-box">
                 <div>VL27</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>133.6 kV / 15.3°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>133.6 kV / 15.3°</div>
             </div>
             <div style="position: absolute; top: 442px; left: -308px" id="17" class="nad-vl300to500 nad-label-box">
                 <div>VL30</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>334.0 kV / 18.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>334.0 kV / 18.8°</div>
             </div>
             <div style="position: absolute; top: 873px; left: 697px" id="21" class="nad-vl120to180 nad-label-box">
                 <div>VL31</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>133.4 kV / 12.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>133.4 kV / 12.8°</div>
             </div>
             <div style="position: absolute; top: 297px; left: 930px" id="25" class="nad-vl120to180 nad-label-box">
                 <div>VL32</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>133.0 kV / 14.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>133.0 kV / 14.8°</div>
             </div>
             <div style="position: absolute; top: -401px; left: -1091px" id="29" class="nad-vl120to180 nad-label-box">
                 <div>VL37</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>136.9 kV / 11.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>136.9 kV / 11.8°</div>
             </div>
             <div style="position: absolute; top: -321px; left: -452px" id="33" class="nad-vl300to500 nad-label-box">
                 <div>VL38</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>331.9 kV / 16.9°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>331.9 kV / 16.9°</div>
             </div>
             <div style="position: absolute; top: -1031px; left: -164px" id="37" class="nad-vl300to500 nad-label-box">
                 <div>VL65</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>346.7 kV / 27.6°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>346.7 kV / 27.6°</div>
             </div>
         </div>
     </foreignObject>

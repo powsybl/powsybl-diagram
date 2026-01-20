@@ -7,7 +7,11 @@
 package com.powsybl.sld.model.cells;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
@@ -17,7 +21,13 @@ import com.powsybl.sld.model.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
@@ -190,11 +200,10 @@ public class InternCell extends AbstractBusCell {
     }
 
     private Side extremityToSide(Block.Extremity extremity) {
-        switch (extremity) {
-            case START: return Side.LEFT;
-            case END: return Side.RIGHT;
-            default: return Side.UNDEFINED;
-        }
+        return switch (extremity) {
+            case START -> Side.LEFT;
+            case END -> Side.RIGHT;
+        };
     }
 
     private List<LegBlock> searchLegs() {

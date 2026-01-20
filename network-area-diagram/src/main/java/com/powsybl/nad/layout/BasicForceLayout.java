@@ -53,6 +53,7 @@ public class BasicForceLayout extends AbstractLayout {
                                 .withAttractToCenterForce(attractToCenterForce)
                                 .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
                                 .withMaxSteps(layoutParameters.getMaxSteps())
+                                .withTimeoutSeconds(layoutParameters.getTimeoutSeconds())
                                 .build()
                 ));
 
@@ -89,8 +90,8 @@ public class BasicForceLayout extends AbstractLayout {
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
                     nodePosition -> new com.powsybl.diagram.util.layout.geometry.Point(
-                            nodePosition.getValue().getX() / SCALE,
-                            nodePosition.getValue().getY() / SCALE)
+                            nodePosition.getValue().x() / SCALE,
+                            nodePosition.getValue().y() / SCALE)
                 ));
         layoutContext.setInitialPoints(initialPoints);
     }

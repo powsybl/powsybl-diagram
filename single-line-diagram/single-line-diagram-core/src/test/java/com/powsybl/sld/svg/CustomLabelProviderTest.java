@@ -66,7 +66,7 @@ class CustomLabelProviderTest extends AbstractTestCaseIidm {
         LabelProvider labelProvider = new CustomLabelProvider(labels, feederInfosData, componentLibrary, layoutParameters, svgParameters);
 
         assertEquals(toString(resourceName), toSVG(g, resourceName, componentLibrary, layoutParameters, svgParameters,
-                labelProvider, getDefaultDiagramStyleProvider()));
+                labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     private static SvgParameters createSvgParameters() {

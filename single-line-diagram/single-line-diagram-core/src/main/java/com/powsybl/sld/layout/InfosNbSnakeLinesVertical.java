@@ -7,10 +7,14 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.AbstractBaseGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 

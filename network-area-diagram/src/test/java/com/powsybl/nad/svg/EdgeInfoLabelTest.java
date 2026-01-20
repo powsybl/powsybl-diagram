@@ -27,6 +27,8 @@ class EdgeInfoLabelTest extends AbstractTest {
 
     private String internalLabel;
     private String externalLabel;
+    private String side1Label;
+    private String side2Label;
 
     @BeforeEach
     void setup() {
@@ -48,12 +50,17 @@ class EdgeInfoLabelTest extends AbstractTest {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
             public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
-                return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
+            }
+
+            @Override
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
+                return Optional.of(new EdgeInfo(null, null, null, side1Label, side2Label));
             }
 
             @Override
             public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
-                return Optional.of(new EdgeInfo("test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
         };
     }
@@ -70,6 +77,8 @@ class EdgeInfoLabelTest extends AbstractTest {
         Network network = Networks.createTwoVoltageLevels();
         internalLabel = "int";
         externalLabel = "ext";
+        side1Label = "side1";
+        side2Label = "side2";
         getSvgParameters().setEdgeInfoAlongEdge(false)
                 .setArrowShift(50)
                 .setArrowLabelShift(25);

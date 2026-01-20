@@ -208,27 +208,27 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
             <div style="position: absolute; top: -285px; left: 103px" id="1" class="nad-vl120to180 nad-label-box">
                 <div>VL1</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>143.1 kV / 0.0°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>143.1 kV / 0.0°</div>
             </div>
             <div style="position: absolute; top: -10px; left: -36px" id="5" class="nad-vl120to180 nad-label-box">
                 <div>VL2</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>141.1 kV / -5.0°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>141.1 kV / -5.0°</div>
             </div>
             <div style="position: absolute; top: -258px; left: -231px" id="9" class="nad-vl120to180 nad-label-box">
                 <div>VL3</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>136.3 kV / -12.7°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>136.3 kV / -12.7°</div>
             </div>
             <div style="position: absolute; top: -94px; left: 368px" id="13" class="nad-vl120to180 nad-label-box">
                 <div>VL4</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>137.6 kV / -10.3°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>137.6 kV / -10.3°</div>
             </div>
             <div style="position: absolute; top: 233px; left: 143px" id="17" class="nad-vl120to180 nad-label-box">
                 <div>VL5</div>
                 <div class="nad-bus-descr">
-                    <span class="nad-bus-0 nad-legend-square"/>137.7 kV / -8.8°</div>
+                    <span class="nad-bus-0 nad-legend-square"></span>137.7 kV / -8.8°</div>
             </div>
         </div>
     </foreignObject>

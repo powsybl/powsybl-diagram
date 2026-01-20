@@ -74,27 +74,19 @@ public final class IidmUtils {
     }
 
     public static ThreeSides getIidmSideFromThreeWtEdgeSide(ThreeWtEdge.Side side) {
-        switch (Objects.requireNonNull(side)) {
-            case ONE:
-                return ThreeSides.ONE;
-            case TWO:
-                return ThreeSides.TWO;
-            case THREE:
-                return ThreeSides.THREE;
-        }
-        return null;
+        return switch (Objects.requireNonNull(side)) {
+            case ONE -> ThreeSides.ONE;
+            case TWO -> ThreeSides.TWO;
+            case THREE -> ThreeSides.THREE;
+        };
     }
 
     public static ThreeWtEdge.Side getThreeWtEdgeSideFromIidmSide(ThreeSides side) {
-        switch (Objects.requireNonNull(side)) {
-            case ONE:
-                return ThreeWtEdge.Side.ONE;
-            case TWO:
-                return ThreeWtEdge.Side.TWO;
-            case THREE:
-                return ThreeWtEdge.Side.THREE;
-        }
-        return null;
+        return switch (Objects.requireNonNull(side)) {
+            case ONE -> ThreeWtEdge.Side.ONE;
+            case TWO -> ThreeWtEdge.Side.TWO;
+            case THREE -> ThreeWtEdge.Side.THREE;
+        };
     }
 
     public static boolean isIidmBranch(Edge edge) {
