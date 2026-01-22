@@ -40,7 +40,6 @@ class DiagonalLabelsTest extends AbstractTestCaseIidm {
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-
-        assertEquals(toString("/diagonalLabelsTest.svg"), toSVG(g, "/diagonalLabelsTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/diagonalLabelsTest.svg"), toSVG(g, "/diagonalLabelsTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }
