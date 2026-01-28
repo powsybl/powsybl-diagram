@@ -834,10 +834,6 @@ public class SvgWriter {
     }
 
     private void writeTextNode(XMLStreamWriter writer, VoltageLevelNode vlNode, TextNode textNode) throws XMLStreamException {
-        if (textNode == null) {
-            return;
-        }
-
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
         writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
