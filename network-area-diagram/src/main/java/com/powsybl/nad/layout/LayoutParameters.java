@@ -92,7 +92,7 @@ public class LayoutParameters {
         return scaleFactor;
     }
 
-    public LayoutParameters setScaleFactor(int scaleFactor) {
+    public LayoutParameters setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
         return this;
     }
