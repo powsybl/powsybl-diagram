@@ -19,7 +19,7 @@ public class LayoutParameters {
     private double timeoutSeconds = 15;
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;
-    private int scaleFactor = 1;
+    private double scaleFactor = 1;
 
     public LayoutParameters() {
     }
@@ -88,7 +88,7 @@ public class LayoutParameters {
         return this;
     }
 
-    public int getScaleFactor() {
+    public double getScaleFactor() {
         return scaleFactor;
     }
 

@@ -59,7 +59,7 @@ public class BasicForceLayout extends AbstractLayout {
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 
-        int scaleFactor = SCALE * layoutParameters.getScaleFactor();
+        double scaleFactor = (double) SCALE * layoutParameters.getScaleFactor();
         setInitialPositions(layoutContext, graph, scaleFactor);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
@@ -84,7 +84,7 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph, int scaleFactor) {
+    private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph, double scaleFactor) {
         Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
