@@ -111,7 +111,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         while (i < stoppingStep) {
             double graphSwing = 0.;
-            double newGraphSpeed;
             double graphTraction = 0.;
             //calculate forces
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
@@ -138,7 +137,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
-            newGraphSpeed = Math.clamp(
+            double newGraphSpeed = Math.clamp(
                     layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
                     MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
                     layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
