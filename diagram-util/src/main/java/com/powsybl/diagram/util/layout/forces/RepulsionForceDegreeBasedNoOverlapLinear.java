@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.diagram.util.layout.forces.util.NoOverlapPointSize;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -16,11 +17,13 @@ import java.util.Map;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> extends AbstractNoOverlapForce<V, E> {
+public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, E> {
     private final double forceIntensityNoOverlap;
     private final double forceIntensityWithOverlap;
     private final double repulsionZoneRatio;
     private double repulsionZoneRadius;
+    private final NoOverlapPointSize<V, E> pointSizeRecord;
+    private double pointSize = 15;
 
     /**
      * Build a repulsion force to prevent overlap of points that have a given pointSize, only consider points closer than pointSize * repulsionZoneRatio for the repulsion interaction
@@ -31,18 +34,19 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> extends AbstractNoOv
      * @param repulsionZoneRatio the zone in which to consider the interaction with other points is a disc of radius repulsionZoneRatio * pointSize
      */
     public RepulsionForceDegreeBasedNoOverlapLinear(double forceIntensityNoOverlap, double forceIntensityWithOverlap, double pointSizeScale, double pointSizeOffset, double repulsionZoneRatio) {
-        super(pointSizeScale, pointSizeOffset);
         this.forceIntensityNoOverlap = forceIntensityNoOverlap;
         this.forceIntensityWithOverlap = forceIntensityWithOverlap;
         this.repulsionZoneRatio = repulsionZoneRatio;
         // using default value, will change later
         this.repulsionZoneRadius = pointSize * repulsionZoneRatio;
+        this.pointSizeRecord = new NoOverlapPointSize<>(pointSizeScale, pointSizeOffset);
     }
 
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
         // init point size
-        super.init(layoutContext);
+        this.pointSize = pointSizeRecord.calculatePointSize(layoutContext);
+        layoutContext.initDegree();
         this.repulsionZoneRadius = this.repulsionZoneRatio * this.pointSize;
     }
 
