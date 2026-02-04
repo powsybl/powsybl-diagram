@@ -17,10 +17,7 @@ import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -89,7 +86,8 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     // We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
-        Force.initAllForces(forces, layoutContext);
+        Objects.requireNonNull(layoutContext);
+        forces.forEach(f -> f.init(layoutContext));
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();

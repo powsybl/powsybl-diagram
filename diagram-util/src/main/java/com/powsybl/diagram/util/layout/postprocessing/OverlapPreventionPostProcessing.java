@@ -18,6 +18,7 @@ import com.powsybl.diagram.util.layout.postprocessing.parameters.OverlapPreventi
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -49,13 +50,15 @@ public class OverlapPreventionPostProcessing<V, E> implements PostProcessing<V, 
 
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
         pointSize = parameters.getPointSizeScale() * layoutContext.getAllPoints().size() + parameters.getPointSizeOffset();
         List<Force<V, E>> forces = List.of(
                 new EdgeAttractionForceNoOverlapLinear<>(parameters.getEdgeAttractionIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset()),
                 new RepulsionForceDegreeBasedNoOverlapLinear<>(parameters.getRepulsionNoOverlap(), parameters.getRepulsionWithOverlap(), parameters.getPointSizeScale(), parameters.getPointSizeOffset(), parameters.getRepulsionZoneRatio()),
                 new AttractToCenterForceDegreeBasedLinear<>(parameters.getAttractToCenterIntensity())
         );
-        Force.initAllForces(forces, layoutContext);
+
+        forces.forEach(f -> f.init(layoutContext));
         double speedFactor = STARTING_SPEED_FACTOR;
         for (int i = 0; i < ITERATION_NUMBER; ++i) {
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {

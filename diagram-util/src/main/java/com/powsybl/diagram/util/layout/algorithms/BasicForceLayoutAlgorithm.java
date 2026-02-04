@@ -52,8 +52,7 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);
-        //Initialize Spring force
-        Force.initAllForces(forces, layoutContext);
+        forces.forEach(f -> f.init(layoutContext));
 
         // do the loop on the nodes and forces
         int i;
