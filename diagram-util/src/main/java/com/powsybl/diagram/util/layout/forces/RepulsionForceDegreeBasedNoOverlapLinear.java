@@ -79,7 +79,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
             //check distance against 2 * pointSize, imagine that the two points are touching edge to edge,
             // the distance between centers will be 2 * pointSize
             // we want to check against that limit to know if points are too close to each other
-            double forceIntensity = magnitude <= 2 * pointSize ? forceIntensityWithOverlap : forceIntensityNoOverlap;
+            double forceIntensity = magnitude <= 2 * pointSize ? forceIntensityWithOverlap : forceIntensityNoOverlap / magnitude;
 
             double intensity = forceIntensity
                     * (vertexDegree + 1)
