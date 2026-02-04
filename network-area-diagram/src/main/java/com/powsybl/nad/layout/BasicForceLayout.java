@@ -19,7 +19,6 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.model.TextNode;
-import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +41,7 @@ public class BasicForceLayout extends AbstractLayout {
     private BasicForceLayoutParameters parameters = null;
 
     public BasicForceLayout() {
-        throw new NotImplementedException("Default call is not yet implemented");
-        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed, not implemented to prevent inconsistencies
+        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed and maxSteps / timeout are not in the layoutParameters / BasicForceLayoutParamters
     }
 
     /**
