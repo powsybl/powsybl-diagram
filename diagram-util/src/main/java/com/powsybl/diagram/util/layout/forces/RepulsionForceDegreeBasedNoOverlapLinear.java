@@ -76,14 +76,11 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
         double magnitude = force.magnitude();
         if (magnitude < repulsionZoneRadius) {
-            double forceIntensity;
-            if (magnitude < 2 * pointSize) {
-                forceIntensity = forceIntensityWithOverlap;
-            } else if (magnitude > 2 * pointSize) {
-                forceIntensity = forceIntensityNoOverlap / magnitude;
-            } else {
-                return;
-            }
+            //check distance against 2 * pointSize, imagine that the two points are touching edge to edge,
+            // the distance between centers will be 2 * pointSize
+            // we want to check against that limit to know if points are too close to each other
+            double forceIntensity = magnitude <= 2 * pointSize ? forceIntensityWithOverlap : forceIntensityNoOverlap;
+
             double intensity = forceIntensity
                     * (vertexDegree + 1)
                     * (otherPoint.getPointVertexDegree() + 1)
