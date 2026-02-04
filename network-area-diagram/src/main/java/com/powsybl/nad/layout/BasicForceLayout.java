@@ -19,6 +19,7 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.model.TextNode;
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +42,13 @@ public class BasicForceLayout extends AbstractLayout {
     private BasicForceLayoutParameters parameters = null;
 
     public BasicForceLayout() {
-        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed
+        throw new NotImplementedException("Default call is not yet implemented");
+        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed, not implemented to prevent inconsistencies
     }
 
+    /**
+     * @deprecated use {@link BasicForceLayout#BasicForceLayout(BasicForceLayoutParameters)} instead
+     */
     @Deprecated(since = "5.3.0", forRemoval = true)
     BasicForceLayout(boolean repulsionForceFromFixedPoints, boolean attractToCenterForce) {
         this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
