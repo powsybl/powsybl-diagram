@@ -12,9 +12,9 @@ package com.powsybl.diagram.util.layout.algorithms.parameters;
  */
 public final class Atlas2Parameters {
     private static final int DEFAULT_MAX_STEPS = 6000;
-    private static final double DEFAULT_REPULSION = 4;
-    private static final double DEFAULT_EDGE_ATTRACTION = 1;
-    private static final double DEFAULT_ATTRACT_TO_CENTER = 0.001;
+    private static final double DEFAULT_REPULSION_INTENSITY = 4;
+    private static final double DEFAULT_EDGE_ATTRACTION_INTENSITY = 1;
+    private static final double DEFAULT_ATTRACT_TO_CENTER_INTENSITY = 0.001;
     private static final double DEFAULT_SPEED_FACTOR = 1;
     private static final double DEFAULT_MAX_SPEED_FACTOR = 10;
     private static final double DEFAULT_SWING_TOLERANCE = 1;
@@ -23,9 +23,9 @@ public final class Atlas2Parameters {
     private static final boolean DEFAULT_ATTRACT_TO_CENTER_ENABLED = true;
 
     private final int maxSteps;
-    private final double repulsion;
-    private final double edgeAttraction;
-    private final double attractToCenter;
+    private final double repulsionIntensity;
+    private final double edgeAttractionIntensity;
+    private final double attractToCenterIntensity;
     private final double speedFactor;
     private final double maxSpeedFactor;
     private final double swingTolerance;
@@ -35,9 +35,9 @@ public final class Atlas2Parameters {
 
     private Atlas2Parameters(
             int maxSteps,
-            double repulsion,
-            double edgeAttraction,
-            double attractToCenter,
+            double repulsionIntensity,
+            double edgeAttractionIntensity,
+            double attractToCenterIntensity,
             double speedFactor,
             double maxSpeedFactor,
             double swingTolerance,
@@ -46,9 +46,9 @@ public final class Atlas2Parameters {
             boolean attractToCenterEnabled
     ) {
         this.maxSteps = maxSteps;
-        this.repulsion = repulsion;
-        this.edgeAttraction = edgeAttraction;
-        this.attractToCenter = attractToCenter;
+        this.repulsionIntensity = repulsionIntensity;
+        this.edgeAttractionIntensity = edgeAttractionIntensity;
+        this.attractToCenterIntensity = attractToCenterIntensity;
         this.speedFactor = speedFactor;
         this.maxSpeedFactor = maxSpeedFactor;
         this.swingTolerance = swingTolerance;
@@ -59,9 +59,9 @@ public final class Atlas2Parameters {
 
     public static class Builder {
         private int maxSteps = DEFAULT_MAX_STEPS;
-        private double repulsion = DEFAULT_REPULSION;
-        private double edgeAttraction = DEFAULT_EDGE_ATTRACTION;
-        private double attractToCenter = DEFAULT_ATTRACT_TO_CENTER;
+        private double repulsionIntensity = DEFAULT_REPULSION_INTENSITY;
+        private double edgeAttractionIntensity = DEFAULT_EDGE_ATTRACTION_INTENSITY;
+        private double attractToCenterIntensity = DEFAULT_ATTRACT_TO_CENTER_INTENSITY;
         private double speedFactor = DEFAULT_SPEED_FACTOR;
         private double maxSpeedFactor = DEFAULT_MAX_SPEED_FACTOR;
         private double swingTolerance = DEFAULT_SWING_TOLERANCE;
@@ -81,35 +81,35 @@ public final class Atlas2Parameters {
         }
 
         /**
-         * Coefficient for the repulsion force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
-         * default is {@value DEFAULT_REPULSION}
-         * @param repulsion the repulsion coefficient you want
-         * @return the instance of this Builder with the `repulsion` changed
+         * Coefficient for the repulsionIntensity force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
+         * default is {@value DEFAULT_REPULSION_INTENSITY}
+         * @param repulsionIntensity the repulsionIntensity coefficient you want
+         * @return the instance of this Builder with the `repulsionIntensity` changed
          */
-        public Builder withRepulsion(double repulsion) {
-            this.repulsion = repulsion;
+        public Builder withRepulsionIntensity(double repulsionIntensity) {
+            this.repulsionIntensity = repulsionIntensity;
             return this;
         }
 
         /**
          * Coefficient for the attraction force between points that share an edge, increasing this might help with
-         * emphasizing clusters of points. It will also tend to make the graph smaller. Default is {@value DEFAULT_EDGE_ATTRACTION}
-         * @param edgeAttraction the coefficient for the attraction force between points that have an edge together
-         * @return the instance of this Builder with the `edgeAttraction` changed
+         * emphasizing clusters of points. It will also tend to make the graph smaller. Default is {@value DEFAULT_EDGE_ATTRACTION_INTENSITY}
+         * @param edgeAttractionIntensity the coefficient for the attraction force between points that have an edge together
+         * @return the instance of this Builder with the `edgeAttractionIntensity` changed
          */
-        public Builder withEdgeAttraction(double edgeAttraction) {
-            this.edgeAttraction = edgeAttraction;
+        public Builder withEdgeAttractionIntensity(double edgeAttractionIntensity) {
+            this.edgeAttractionIntensity = edgeAttractionIntensity;
             return this;
         }
 
         /**
          * Coefficient for the force that attracts all points to the center of the 2D space. Smaller values will lead to a less dense graph.
-         * Default is {@value DEFAULT_ATTRACT_TO_CENTER}
-         * @param attractToCenter coefficient for the center attraction force
-         * @return the instance of this Builder with the `attractToCenter` changed
+         * Default is {@value DEFAULT_ATTRACT_TO_CENTER_INTENSITY}
+         * @param attractToCenterIntensity coefficient for the center attraction force
+         * @return the instance of this Builder with the `attractToCenterIntensity` changed
          */
-        public Builder withAttractToCenter(double attractToCenter) {
-            this.attractToCenter = attractToCenter;
+        public Builder withAttractToCenterIntensity(double attractToCenterIntensity) {
+            this.attractToCenterIntensity = attractToCenterIntensity;
             return this;
         }
 
@@ -189,9 +189,9 @@ public final class Atlas2Parameters {
         public Atlas2Parameters build() {
             return new Atlas2Parameters(
                     maxSteps,
-                    repulsion,
-                    edgeAttraction,
-                    attractToCenter,
+                    repulsionIntensity,
+                    edgeAttractionIntensity,
+                    attractToCenterIntensity,
                     speedFactor,
                     maxSpeedFactor,
                     swingTolerance,
@@ -206,16 +206,16 @@ public final class Atlas2Parameters {
         return maxSteps;
     }
 
-    public double getRepulsion() {
-        return repulsion;
+    public double getRepulsionIntensity() {
+        return repulsionIntensity;
     }
 
-    public double getEdgeAttraction() {
-        return edgeAttraction;
+    public double getEdgeAttractionIntensity() {
+        return edgeAttractionIntensity;
     }
 
-    public double getAttractToCenter() {
-        return attractToCenter;
+    public double getAttractToCenterIntensity() {
+        return attractToCenterIntensity;
     }
 
     public double getSpeedFactor() {

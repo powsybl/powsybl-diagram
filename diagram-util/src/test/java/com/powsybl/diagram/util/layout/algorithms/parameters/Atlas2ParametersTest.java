@@ -31,9 +31,9 @@ class Atlas2ParametersTest {
     void checkBuilder() {
         Atlas2Parameters parameters = new Atlas2Parameters.Builder()
                 .withMaxSteps(maxSteps)
-                .withRepulsion(repulsion)
-                .withEdgeAttraction(edgeAttraction)
-                .withAttractToCenter(attractToCenter)
+                .withRepulsionIntensity(repulsion)
+                .withEdgeAttractionIntensity(edgeAttraction)
+                .withAttractToCenterIntensity(attractToCenter)
                 .withSpeedFactor(speedFactor)
                 .withMaxSpeedFactor(maxSpeedFactor)
                 .withSwingTolerance(swingTolerance)
@@ -43,9 +43,9 @@ class Atlas2ParametersTest {
                 .build();
 
         assertEquals(maxSteps, parameters.getMaxSteps());
-        assertEquals(repulsion, parameters.getRepulsion());
-        assertEquals(edgeAttraction, parameters.getEdgeAttraction());
-        assertEquals(attractToCenter, parameters.getAttractToCenter());
+        assertEquals(repulsion, parameters.getRepulsionIntensity());
+        assertEquals(edgeAttraction, parameters.getEdgeAttractionIntensity());
+        assertEquals(attractToCenter, parameters.getAttractToCenterIntensity());
         assertEquals(speedFactor, parameters.getSpeedFactor());
         assertEquals(maxSpeedFactor, parameters.getMaxSpeedFactor());
         assertEquals(swingTolerance, parameters.getSwingTolerance());

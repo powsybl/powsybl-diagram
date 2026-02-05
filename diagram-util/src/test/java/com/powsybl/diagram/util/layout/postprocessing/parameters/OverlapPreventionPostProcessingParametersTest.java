@@ -29,8 +29,8 @@ class OverlapPreventionPostProcessingParametersTest {
                 .withPointSizeScale(pointSizeScale)
                 .withPointSizeOffset(pointSizeOffset)
                 .withEdgeAttractionIntensity(edgeAttractionIntensity)
-                .withRepulsionNoOverlap(repulsionNoOverlap)
-                .withRepulsionWithOverlap(repulsionWithOverlap)
+                .withRepulsionNoOverlapIntensity(repulsionNoOverlap)
+                .withRepulsionWithOverlapIntensity(repulsionWithOverlap)
                 .withRepulsionZoneRatio(repulsionZoneRatio)
                 .withAttractToCenterIntensity(attractToCenterIntensity)
                 .build();
@@ -38,8 +38,8 @@ class OverlapPreventionPostProcessingParametersTest {
         assertEquals(pointSizeScale, parameters.getPointSizeScale());
         assertEquals(pointSizeOffset, parameters.getPointSizeOffset());
         assertEquals(edgeAttractionIntensity, parameters.getEdgeAttractionIntensity());
-        assertEquals(repulsionNoOverlap, parameters.getRepulsionNoOverlap());
-        assertEquals(repulsionWithOverlap, parameters.getRepulsionWithOverlap());
+        assertEquals(repulsionNoOverlap, parameters.getRepulsionNoOverlapIntensity());
+        assertEquals(repulsionWithOverlap, parameters.getRepulsionWithOverlapIntensity());
         assertEquals(repulsionZoneRatio, parameters.getRepulsionZoneRatio());
         assertEquals(attractToCenterIntensity, parameters.getAttractToCenterIntensity());
     }

@@ -34,7 +34,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
+                        .withRepulsionIntensity(10)
                         .withAttractToCenterEnabled(false)
                         .withSwingTolerance(0.8)
                         .build(),
