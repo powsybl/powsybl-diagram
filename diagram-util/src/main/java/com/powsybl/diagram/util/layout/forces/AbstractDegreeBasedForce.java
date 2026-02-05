@@ -16,7 +16,7 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 public abstract class AbstractDegreeBasedForce<V, E> implements Force<V, E> {
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
-        layoutContext.initDegree();
+        layoutContext.cacheDegree();
     }
 }
 

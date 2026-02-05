@@ -60,6 +60,8 @@ public class LayoutContext<V, E> {
      */
     private final Map<V, Point> allPoints = new HashMap<>();
 
+    private boolean cachedDegree = false;
+
     /**
      * A Map that links a vertex V to the initial position of the corresponding Point.
      */
@@ -89,9 +91,12 @@ public class LayoutContext<V, E> {
         this.simpleGraph = locSimpleGraph;
     }
 
-    public void initDegree() {
-        for (Map.Entry<V, Point> entry : allPoints.entrySet()) {
-            entry.getValue().setPointVertexDegree(simpleGraph.degreeOf(entry.getKey()));
+    public void cacheDegree() {
+        if (!cachedDegree) {
+            for (Map.Entry<V, Point> entry : allPoints.entrySet()) {
+                entry.getValue().setPointVertexDegree(simpleGraph.degreeOf(entry.getKey()));
+            }
+            cachedDegree = true;
         }
     }
 

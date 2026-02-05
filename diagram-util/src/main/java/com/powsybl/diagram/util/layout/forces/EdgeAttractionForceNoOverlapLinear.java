@@ -25,7 +25,7 @@ public class EdgeAttractionForceNoOverlapLinear<V, E> implements Force<V, E> {
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
         pointSize = pointSizeRecord.calculatePointSize(layoutContext);
-        layoutContext.initDegree();
+        layoutContext.cacheDegree();
     }
 
     public EdgeAttractionForceNoOverlapLinear(double forceIntensity, double pointSizeScale, double pointSizeOffset) {

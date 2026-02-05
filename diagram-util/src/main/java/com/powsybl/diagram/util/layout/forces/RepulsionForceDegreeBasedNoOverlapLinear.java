@@ -46,7 +46,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
     public void init(LayoutContext<V, E> layoutContext) {
         // init point size
         this.pointSize = pointSizeRecord.calculatePointSize(layoutContext);
-        layoutContext.initDegree();
+        layoutContext.cacheDegree();
         this.repulsionZoneRadius = this.repulsionZoneRatio * this.pointSize;
     }
 
