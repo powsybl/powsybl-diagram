@@ -102,12 +102,12 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         for (Point point : layoutContext.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
-            swingMap.put(point, 0.);
         }
         int i = 0;
         int stoppingStep = layoutParameters.getMaxSteps();
+        boolean graphSwingIsZero = false;
 
-        while (i < stoppingStep) {
+        while (i < stoppingStep && !graphSwingIsZero) {
             double graphSwing = 0.;
             double graphTraction = 0.;
             //calculate forces
@@ -127,29 +127,28 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                 graphSwing += pointSwing * weight;
                 graphTraction += calculatePointTraction(point, previousPointForce) * weight;
             }
-            if (graphSwing == 0) {
-                // that means that all the points are not moving anymore, or are diverging very fast
-                break;
-            }
+            graphSwingIsZero = graphSwing == 0;
             // calculate s(G) the global speed of the graph
             // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
-            double newGraphSpeed = Math.clamp(
-                    layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
-                    MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
-                    layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
-                    );
-            // calculate s(n) the speed of each node n
-            // store the forces on each node into the map of forces
-            // calculate D(n) the displacement of each node n
-            // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
-            updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
-            if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
-                break;
+            if (!graphSwingIsZero) {
+                double newGraphSpeed = Math.clamp(
+                        layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
+                        MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
+                        layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
+                );
+                // calculate s(n) the speed of each node n
+                // store the forces on each node into the map of forces
+                // calculate D(n) the displacement of each node n
+                // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
+                updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
+                if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
+                    break;
+                }
+                previousGraphSpeed = newGraphSpeed;
+                ++i;
             }
-            previousGraphSpeed = newGraphSpeed;
-            ++i;
         }
         LOGGER.info("Finished in {} steps", i);
     }
