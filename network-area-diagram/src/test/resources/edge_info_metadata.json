@@ -99,7 +99,8 @@
     "svgId" : "13",
     "equipmentId" : "dl1",
     "x" : -49.12,
-    "y" : 317.14
+    "y" : 317.14,
+    "boundary" : true
   } ],
   "injections" : [ {
     "svgId" : "3",

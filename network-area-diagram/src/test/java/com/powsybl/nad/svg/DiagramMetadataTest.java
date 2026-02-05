@@ -13,6 +13,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ScadaNetworkFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.IntIdProvider;
@@ -116,6 +117,13 @@ class DiagramMetadataTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         roundTrip(network, "/IEEE_14_bus_injections_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testUnknownBus() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/scada_network.json", new LayoutParameters().setInjectionsAdded(true));
     }
 
     @Test

@@ -108,7 +108,8 @@
     "svgId" : "12",
     "equipmentId" : "3WT",
     "x" : -22.79,
-    "y" : -128.62
+    "y" : -128.62,
+    "threeWindings" : true
   } ],
   "edges" : [ {
     "svgId" : "13",
@@ -117,7 +118,8 @@
     "node2" : "12",
     "busNode1" : "3",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "THREE"
   }, {
     "svgId" : "14",
     "equipmentId" : "3WT",
@@ -125,7 +127,8 @@
     "node2" : "12",
     "busNode1" : "7",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "ONE"
   }, {
     "svgId" : "15",
     "equipmentId" : "3WT",
@@ -133,7 +136,8 @@
     "node2" : "12",
     "busNode1" : "11",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "TWO"
   } ],
   "textNodes" : [ {
     "svgId" : "1",

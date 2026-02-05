@@ -24,6 +24,9 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final double y;
     private final boolean fictitious;
     private final boolean invisible;
+    private final boolean boundary;
+    private final boolean threeWindings;
+    private final boolean unknownBus;
     private final String legendSvgId;
     private final String legendEdgeSvgId;
     private final List<String> legendHeader;
@@ -38,7 +41,10 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("legendSvgId") String legendSvgId,
                         @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
-                        @JsonProperty("legendFooter") List<String> legendFooter) {
+                        @JsonProperty("legendFooter") List<String> legendFooter,
+                        @JsonProperty("boundary") boolean boundary,
+                        @JsonProperty("threeWindings") boolean threeWindings,
+                        @JsonProperty("unknownBus") boolean unknownBus) {
         super(svgId, equipmentId);
         this.x = x;
         this.y = y;
@@ -48,6 +54,9 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
         this.legendFooter = legendFooter;
+        this.boundary = boundary;
+        this.threeWindings = threeWindings;
+        this.unknownBus = unknownBus;
     }
 
     public double getX() {
@@ -68,6 +77,24 @@ public class NodeMetadata extends AbstractMetadataItem {
     @JsonProperty("invisible")
     public boolean isInvisible() {
         return invisible;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("boundary")
+    public boolean isBoundary() {
+        return boundary;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("threeWindings")
+    public boolean isThreeWindings() {
+        return threeWindings;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBus")
+    public boolean isUnknownBus() {
+        return unknownBus;
     }
 
     @JsonIgnore

@@ -130,6 +130,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
                 edge.getType(),
+                null,
                 !edge.isVisible(BranchEdge.Side.ONE),
                 !edge.isVisible(BranchEdge.Side.TWO),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
@@ -146,6 +147,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
                     getPrefixedId(threeWtNodeSvgId),
                     edge.getType(),
+                    edge.getSide().name(),
                     !edge.isVisible(),
                     false,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
@@ -176,7 +178,10 @@ public class DiagramMetadata extends AbstractMetadata {
                     vlNode.getLegendSvgId(),
                     vlNode.getLegendEdgeSvgId(),
                     vlNode.getLegendHeader(),
-                    vlNode.getLegendFooter());
+                    vlNode.getLegendFooter(),
+                    vlNode instanceof BoundaryNode,
+                    false,
+                    vlNode.hasUnknownBusNode());
         } else {
             return new NodeMetadata(
                     getPrefixedId(node.getSvgId()),
@@ -188,7 +193,10 @@ public class DiagramMetadata extends AbstractMetadata {
                     null,
                     null,
                     null,
-                    null);
+                    null,
+                    false,
+                    node instanceof ThreeWtNode,
+                    false);
         }
     }
 

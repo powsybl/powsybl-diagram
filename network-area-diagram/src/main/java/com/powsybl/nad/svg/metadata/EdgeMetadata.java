@@ -21,6 +21,7 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String busNode1SvgId;
     private final String busNode2SvgId;
     private final String edgeType;
+    private final String side;
     private final boolean invisibleSide1;
     private final boolean invisibleSide2;
     private final EdgeInfoMetadata edgeInfo1;
@@ -34,17 +35,20 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("busNode1") String busNode1SvgId,
                         @JsonProperty("busNode2") String busNode2SvgId,
                         @JsonProperty("type") String edgeType,
+                        @JsonProperty("side") String side,
                         @JsonProperty("invisible1") boolean invisibleSide1,
                         @JsonProperty("invisible2") boolean invisibleSide2,
                         @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
                         @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2,
-                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle) {
+                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle
+                        ) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
         this.busNode1SvgId = busNode1SvgId;
         this.busNode2SvgId = busNode2SvgId;
         this.edgeType = edgeType;
+        this.side = side;
         this.invisibleSide1 = invisibleSide1;
         this.invisibleSide2 = invisibleSide2;
         this.edgeInfo1 = edgeInfo1;
@@ -75,6 +79,11 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("type")
     public String getEdgeType() {
         return edgeType;
+    }
+
+    @JsonProperty("side")
+    public String getSide() {
+        return side;
     }
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
