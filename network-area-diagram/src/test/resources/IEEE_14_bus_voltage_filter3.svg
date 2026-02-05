@@ -17,7 +17,7 @@
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-foreignObject.nad-text-nodes {overflow: visible; color: black}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
@@ -205,38 +205,48 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <polyline id="18" points="-122.00,727.49 -51.67,716.94"/>
         <polyline id="22" points="198.93,-2.43 269.27,-12.98"/>
     </g>
-    <foreignObject height="1" width="1" class="nad-text-nodes">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <div style="position: absolute; top: 159px; left: 725px" id="1" class="nad-vl0to30 nad-label-box">
+    <g class="nad-text-nodes">
+        <foreignObject id="1" y="159.31" x="725.23" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL10</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>12.6 kV / -15.1°</div>
             </div>
-            <div style="position: absolute; top: -440px; left: 522px" id="5" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="5" y="-439.74" x="522.06" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL14</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>12.4 kV / -16.0°</div>
             </div>
-            <div style="position: absolute; top: -143px; left: -254px" id="9" class="nad-vl120to180 nad-label-box">
+        </foreignObject>
+        <foreignObject id="9" y="-142.92" x="-253.77" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl120to180 nad-label-box">
                 <div>VL4</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>137.6 kV / -10.3°</div>
             </div>
-            <div style="position: absolute; top: 261px; left: -34px" id="13" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="13" y="261.34" x="-33.98" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL7</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>14.9 kV / -13.4°</div>
             </div>
-            <div style="position: absolute; top: 692px; left: -52px" id="17" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="17" y="691.94" x="-51.67" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL8</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>21.8 kV / -13.4°</div>
             </div>
-            <div style="position: absolute; top: -38px; left: 269px" id="21" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="21" y="-37.98" x="269.27" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL9</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span>12.7 kV / -14.9°</div>
             </div>
-        </div>
-    </foreignObject>
+        </foreignObject>
+    </g>
 </svg>
