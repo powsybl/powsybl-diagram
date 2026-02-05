@@ -21,8 +21,8 @@ class BasicForceLayoutAlgorithmParametersTest {
                 .withMaxSteps(324)
                 .withMinEnergyThreshold(0.8)
                 .withDeltaTime(0.06)
-                .withRepulsion(7.9)
-                .withFriction(-3.4)
+                .withRepulsionIntensity(7.9)
+                .withFrictionIntensity(-3.4)
                 .withMaxSpeed(107)
                 .withRepulsionFromFixedPointsEnabled(false)
                 .withAttractToCenterEnabled(false)
@@ -31,8 +31,8 @@ class BasicForceLayoutAlgorithmParametersTest {
         assertEquals(324, parameters.getMaxSteps());
         assertEquals(0.8, parameters.getMinEnergyThreshold());
         assertEquals(0.06, parameters.getDeltaTime());
-        assertEquals(7.9, parameters.getRepulsion());
-        assertEquals(-3.4, parameters.getFriction());
+        assertEquals(7.9, parameters.getRepulsionIntensity());
+        assertEquals(-3.4, parameters.getFrictionIntensity());
         assertEquals(107, parameters.getMaxSpeed());
         assertFalse(parameters.isRepulsionFromFixedPointsEnabled());
         assertFalse(parameters.isAttractToCenterEnabled());

@@ -16,8 +16,8 @@ public final class BasicForceLayoutParameters {
     private static final int DEFAULT_MAX_DURATION_SECONDS = 15;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.001;
     private static final double DEFAULT_DELTA_TIME = 0.1;
-    private static final double DEFAULT_REPULSION = 800.0;
-    private static final double DEFAULT_FRICTION = 500;
+    private static final double DEFAULT_REPULSION_INTENSITY = 800.0;
+    private static final double DEFAULT_FRICTION_INTENSITY = 500;
     private static final double DEFAULT_MAX_SPEED = 100;
     private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED = true;
     private static final boolean DEFAULT_ATTRACT_TO_CENTER_ENABLED = true;
@@ -26,8 +26,8 @@ public final class BasicForceLayoutParameters {
     private final double timeoutSeconds;
     private final double minEnergyThreshold;
     private final double deltaTime;
-    private final double repulsion;
-    private final double friction;
+    private final double repulsionIntensity;
+    private final double frictionIntensity;
     private final double maxSpeed;
     private final boolean repulsionFromFixedPointsEnabled;
     private final boolean attractToCenterEnabled;
@@ -37,8 +37,8 @@ public final class BasicForceLayoutParameters {
             double timeoutSeconds,
             double minEnergyThreshold,
             double deltaTime,
-            double repulsion,
-            double friction,
+            double repulsionIntensity,
+            double frictionIntensity,
             double maxSpeed,
             boolean repulsionFromFixedPointsEnabled,
             boolean attractToCenterEnabled
@@ -47,8 +47,8 @@ public final class BasicForceLayoutParameters {
         this.timeoutSeconds = timeoutSeconds;
         this.minEnergyThreshold = minEnergyThreshold;
         this.deltaTime = deltaTime;
-        this.repulsion = repulsion;
-        this.friction = friction;
+        this.repulsionIntensity = repulsionIntensity;
+        this.frictionIntensity = frictionIntensity;
         this.maxSpeed = maxSpeed;
         this.repulsionFromFixedPointsEnabled = repulsionFromFixedPointsEnabled;
         this.attractToCenterEnabled = attractToCenterEnabled;
@@ -59,8 +59,8 @@ public final class BasicForceLayoutParameters {
         private double timeoutSeconds = DEFAULT_MAX_DURATION_SECONDS;
         private double minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
         private double deltaTime = DEFAULT_DELTA_TIME;
-        private double repulsion = DEFAULT_REPULSION;
-        private double friction = DEFAULT_FRICTION;
+        private double repulsionIntensity = DEFAULT_REPULSION_INTENSITY;
+        private double frictionIntensity = DEFAULT_FRICTION_INTENSITY;
         private double maxSpeed = DEFAULT_MAX_SPEED;
         private boolean repulsionFromFixedPointsEnabled = DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED;
         private boolean attractToCenterEnabled = DEFAULT_ATTRACT_TO_CENTER_ENABLED;
@@ -105,24 +105,24 @@ public final class BasicForceLayoutParameters {
         }
 
         /**
-         * Coefficient for the repulsion force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
-         * default is {@value DEFAULT_REPULSION}
-         * @param repulsion the repulsion coefficient you want
-         * @return the instance of this Builder with the `repulsion` changed
+         * Coefficient for the repulsionIntensity force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
+         * default is {@value DEFAULT_REPULSION_INTENSITY}
+         * @param repulsionIntensity the repulsionIntensity coefficient you want
+         * @return the instance of this Builder with the `repulsionIntensity` changed
          */
-        public Builder withRepulsion(double repulsion) {
-            this.repulsion = repulsion;
+        public Builder withRepulsionIntensity(double repulsionIntensity) {
+            this.repulsionIntensity = repulsionIntensity;
             return this;
         }
 
         /**
          * Coefficient for the slowdown of the points, the higher the coefficient, the slower a point will be,
-         * default is {@value DEFAULT_FRICTION}
-         * @param friction the value of the friction
-         * @return the instance of this Builder with the `friction` changed
+         * default is {@value DEFAULT_FRICTION_INTENSITY}
+         * @param frictionIntensity the value of the frictionIntensity
+         * @return the instance of this Builder with the `frictionIntensity` changed
          */
-        public Builder withFriction(double friction) {
-            this.friction = friction;
+        public Builder withFrictionIntensity(double frictionIntensity) {
+            this.frictionIntensity = frictionIntensity;
             return this;
         }
 
@@ -165,8 +165,8 @@ public final class BasicForceLayoutParameters {
                     timeoutSeconds,
                     minEnergyThreshold,
                     deltaTime,
-                    repulsion,
-                    friction,
+                    repulsionIntensity,
+                    frictionIntensity,
                     maxSpeed,
                     repulsionFromFixedPointsEnabled,
                     attractToCenterEnabled
@@ -190,12 +190,12 @@ public final class BasicForceLayoutParameters {
         return deltaTime;
     }
 
-    public double getRepulsion() {
-        return repulsion;
+    public double getRepulsionIntensity() {
+        return repulsionIntensity;
     }
 
-    public double getFriction() {
-        return friction;
+    public double getFrictionIntensity() {
+        return frictionIntensity;
     }
 
     public double getMaxSpeed() {
