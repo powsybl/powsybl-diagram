@@ -22,8 +22,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
     private final double forceIntensityWithOverlap;
     private final double repulsionZoneRatio;
     private double repulsionZoneRadius;
-    private final NoOverlapPointSize<V, E> pointSizeRecord;
-    private double pointSize = 15;
+    private final NoOverlapPointSize pointSizeRecord;
 
     /**
      * Build a repulsion force to prevent overlap of points that have a given pointSize, only consider points closer than pointSize * repulsionZoneRatio for the repulsion interaction
@@ -38,16 +37,16 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
         this.forceIntensityWithOverlap = forceIntensityWithOverlap;
         this.repulsionZoneRatio = repulsionZoneRatio;
         // using default value, will change later
-        this.repulsionZoneRadius = pointSize * repulsionZoneRatio;
-        this.pointSizeRecord = new NoOverlapPointSize<>(pointSizeScale, pointSizeOffset);
+        this.pointSizeRecord = new NoOverlapPointSize(pointSizeScale, pointSizeOffset);
+        this.repulsionZoneRadius = pointSizeRecord.getPointSize() * repulsionZoneRatio;
     }
 
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
         // init point size
-        this.pointSize = pointSizeRecord.calculatePointSize(layoutContext);
+        pointSizeRecord.calculatePointSize(layoutContext.getAllPoints().size());
         layoutContext.cacheDegree();
-        this.repulsionZoneRadius = this.repulsionZoneRatio * this.pointSize;
+        this.repulsionZoneRadius = this.repulsionZoneRatio * this.pointSizeRecord.getPointSize();
     }
 
     @Override
@@ -79,7 +78,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
             //check distance against 2 * pointSize, imagine that the two points are touching edge to edge,
             // the distance between centers will be 2 * pointSize
             // we want to check against that limit to know if points are too close to each other
-            double forceIntensity = magnitude <= 2 * pointSize ? forceIntensityWithOverlap : forceIntensityNoOverlap / magnitude;
+            double forceIntensity = magnitude <= 2 * pointSizeRecord.getPointSize() ? forceIntensityWithOverlap : forceIntensityNoOverlap / magnitude;
 
             double intensity = forceIntensity
                     * (vertexDegree + 1)

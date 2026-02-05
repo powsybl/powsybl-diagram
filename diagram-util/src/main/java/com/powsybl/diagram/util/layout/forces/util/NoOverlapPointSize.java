@@ -7,14 +7,24 @@
  */
 package com.powsybl.diagram.util.layout.forces.util;
 
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-
 /**
  * @author Dissoubray Nathan {@literal <nathan.dissoubray at rte-france.com>}
  */
-public record NoOverlapPointSize<V, E>(double pointSizeScale, double pointSizeOffset) {
+public class NoOverlapPointSize {
+    private final double pointSizeScale;
+    private final double pointSizeOffset;
+    private double pointSize = 15;
 
-    public double calculatePointSize(LayoutContext<V, E> layoutContext) {
-        return this.pointSizeScale * layoutContext.getAllPoints().size() + this.pointSizeOffset;
+    public NoOverlapPointSize(double pointSizeScale, double pointSizeOffset) {
+        this.pointSizeScale = pointSizeScale;
+        this.pointSizeOffset = pointSizeOffset;
+    }
+
+    public void calculatePointSize(double graphSize) {
+        this.pointSize = this.pointSizeScale * graphSize + this.pointSizeOffset;
+    }
+
+    public double getPointSize() {
+        return pointSize;
     }
 }

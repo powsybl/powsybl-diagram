@@ -19,18 +19,17 @@ import org.jgrapht.Graphs;
  */
 public class EdgeAttractionForceNoOverlapLinear<V, E> implements Force<V, E> {
     private final double forceIntensity;
-    private final NoOverlapPointSize<V, E> pointSizeRecord;
-    private double pointSize = 15;
+    private final NoOverlapPointSize pointSizeRecord;
 
     @Override
     public void init(LayoutContext<V, E> layoutContext) {
-        pointSize = pointSizeRecord.calculatePointSize(layoutContext);
+        pointSizeRecord.calculatePointSize(layoutContext.getAllPoints().size());
         layoutContext.cacheDegree();
     }
 
     public EdgeAttractionForceNoOverlapLinear(double forceIntensity, double pointSizeScale, double pointSizeOffset) {
         this.forceIntensity = forceIntensity;
-        this.pointSizeRecord = new NoOverlapPointSize<>(pointSizeScale, pointSizeOffset);
+        this.pointSizeRecord = new NoOverlapPointSize(pointSizeScale, pointSizeOffset);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class EdgeAttractionForceNoOverlapLinear<V, E> implements Force<V, E> {
     private void forceBetweenPoints(Vector2D resultingForce, Point point, Point otherPoint) {
         Vector2D force = Vector2D.calculateVectorBetweenPoints(point, otherPoint);
         // check that there is no overlap between the points
-        if (force.magnitude() > 2 * pointSize) {
+        if (force.magnitude() > 2 * pointSizeRecord.getPointSize()) {
             force.multiplyBy(forceIntensity);
             resultingForce.add(force);
         }
