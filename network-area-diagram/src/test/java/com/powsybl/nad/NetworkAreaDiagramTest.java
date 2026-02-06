@@ -24,6 +24,7 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -257,5 +258,50 @@ class NetworkAreaDiagramTest extends AbstractTest {
         assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrows() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        Path svgFile = fileSystem.getPath("nad-test-double-arrows.svg");
+        Path metadataFile = fileSystem.getPath("nad-test-double-arrows_metadata.json");
+
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                    .setDoubleArrowsDisplayed(true)
+                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                    .build(network1, svgParameters1)
+                );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/nad_double_arrows.svg", svgFile);
+        assertFileEquals("/nad_double_arrows_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrowsAndMiddleValues() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        Path svgFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values.svg");
+        Path metadataFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values_metadata.json");
+
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                    .setDoubleArrowsDisplayed(true)
+                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                    .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+                    .build(network1, svgParameters1)
+                );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/nad-double-arrows-with-middle-values.svg", svgFile);
+        assertFileEquals("/nad-double-arrows-with-middle-values_metadata.json", metadataFile);
     }
 }

@@ -549,21 +549,34 @@ public class SvgWriter {
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         if (edge.isVisible(side)) {
-            Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfo(side);
-            if (svgEdgeInfo.isPresent()) {
-                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getPoints(side).get(1),
-                    edge.getEdgeStartAngle(side), edge, this::drawEdgeInfoAsLabel);
-            }
+            List<SvgEdgeInfo> svgEdgeInfos = edge.getSvgEdgeInfos(side);
+            Point basePoint = edge.getPoints(side).get(1);
+            double edgeAngle = edge.getEdgeStartAngle(side);
+            drawMultipleEdgeInfos(writer, svgEdgeInfos, basePoint, edgeAngle, edge, this::drawEdgeInfoAsLabel);
         }
     }
 
     private void drawBranchEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         if (edge.isVisible(side)) {
-            Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfo(side);
-            if (svgEdgeInfo.isPresent()) {
-                drawEdgeInfoOrLabel(writer, svgEdgeInfo.get(), edge.getArrow(side),
-                    edge.getArrowAngle(side), edge, this::drawEdgeInfoAsLabel);
-            }
+            List<SvgEdgeInfo> svgEdgeInfos = edge.getSvgEdgeInfos(side);
+            Point basePoint = edge.getArrow(side);
+            double edgeAngle = edge.getArrowAngle(side);
+            drawMultipleEdgeInfos(writer, svgEdgeInfos, basePoint, edgeAngle, edge, this::drawEdgeInfoAsLabel);
+        }
+    }
+
+    private static final double EDGE_INFO_FIXED_SHIFT = 65.0;
+
+    private <E> void drawMultipleEdgeInfos(XMLStreamWriter writer, List<SvgEdgeInfo> svgEdgeInfos, Point basePoint,
+                                           double edgeAngle, E edge, EdgeLabelDrawer<E> labelDrawer) throws XMLStreamException {
+        if (svgEdgeInfos == null || svgEdgeInfos.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < svgEdgeInfos.size(); i++) {
+            SvgEdgeInfo svgEdgeInfo = svgEdgeInfos.get(i);
+            // Calculate shifted point along the edge direction for each additional info
+            Point shiftedPoint = i == 0 ? basePoint : basePoint.atDistance(i * EDGE_INFO_FIXED_SHIFT, edgeAngle);
+            drawEdgeInfoOrLabel(writer, svgEdgeInfo, shiftedPoint, edgeAngle, edge, labelDrawer);
         }
     }
 

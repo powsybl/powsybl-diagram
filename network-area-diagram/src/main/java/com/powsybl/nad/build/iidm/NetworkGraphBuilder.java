@@ -126,7 +126,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private Injection createInjectionFromIidm(Graph graph, com.powsybl.iidm.network.Injection<?> inj) {
         Injection.Type injectionType = getInjectionType(inj);
-        EdgeInfo edgeInfo = labelProvider.getInjectionEdgeInfo(inj.getId()).orElse(null);
+        EdgeInfo edgeInfo = labelProvider.getInjectionEdgeInfos(inj.getId()).stream().findFirst().orElse(null);
         Injection injDiagram = new Injection(idProvider, inj.getId(), inj.getNameOrId(), injectionType, edgeInfo);
         graph.addInjection(injDiagram);
         return injDiagram;
@@ -248,12 +248,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         BusNode busNodeB = getBusNode(graph, terminalB);
 
         String branchId = identifiable.getId();
-        EdgeInfo edgeInfo1 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.ONE, edgeType).orElse(null);
-        EdgeInfo edgeInfo2 = labelProvider.getBranchEdgeInfo(branchId, BranchEdge.Side.TWO, edgeType).orElse(null);
-        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfo(branchId, edgeType).orElse(null);
+        List<EdgeInfo> edgeInfos1 = labelProvider.getBranchEdgeInfos(branchId, BranchEdge.Side.ONE, edgeType);
+        List<EdgeInfo> edgeInfos2 = labelProvider.getBranchEdgeInfos(branchId, BranchEdge.Side.TWO, edgeType);
+        EdgeInfo edgeInfoMiddle = labelProvider.getBranchEdgeInfos(branchId, edgeType).stream().findFirst().orElse(null);
 
         BranchEdge edge = new BranchEdge(idProvider, branchId, identifiable.getNameOrId(), edgeType,
-                edgeInfo1, edgeInfo2, edgeInfoMiddle);
+                edgeInfos1, edgeInfos2, edgeInfoMiddle);
         if (!terminalsInReversedOrder) {
             graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
         } else {
@@ -267,7 +267,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         String type = twt.getLeg(side).hasPhaseTapChanger() ? ThreeWtEdge.PST_EDGE : ThreeWtEdge.THREE_WT_EDGE;
         ThreeWtEdge.Side twtEdgeSide = IidmUtils.getThreeWtEdgeSideFromIidmSide(side);
 
-        EdgeInfo edgeInfo = labelProvider.getThreeWindingTransformerEdgeInfo(twt.getId(), twtEdgeSide).orElse(null);
+        EdgeInfo edgeInfo = labelProvider.getThreeWindingTransformerEdgeInfos(twt.getId(), twtEdgeSide).stream().findFirst().orElse(null);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider,
                 twt.getId(), twt.getNameOrId(), twtEdgeSide,
                 type, vlNode.isVisible(), edgeInfo);
@@ -279,9 +279,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
 
         String branchType = BranchEdge.DANGLING_LINE_EDGE;
-        EdgeInfo edgeInfo = labelProvider.getBranchEdgeInfo(dl.getId(), BranchEdge.Side.ONE, branchType).orElse(null);
+        List<EdgeInfo> edgeInfos = labelProvider.getBranchEdgeInfos(dl.getId(), BranchEdge.Side.ONE, branchType);
         BranchEdge edge = new BranchEdge(idProvider,
-                dl.getId(), dl.getNameOrId(), branchType, edgeInfo, null, null);
+                dl.getId(), dl.getNameOrId(), branchType, edgeInfos, null, null);
         graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
     }
 
