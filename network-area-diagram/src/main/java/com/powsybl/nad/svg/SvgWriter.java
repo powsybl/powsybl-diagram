@@ -266,26 +266,107 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
-            writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writeId(writer, edge);
-            writeStyleClasses(writer, edge.getStyleClasses());
-            insertName(writer, edge::getName);
-            drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
-            drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            boolean merged = canMergeHalfEdges(graph, edge);
+            boolean isLine = BranchEdge.LINE_EDGE.equals(edge.getType());
+            boolean hasName = edge.getName().isPresent() && svgParameters.isInsertNameDesc();
+            boolean needsGroup = !isLine || hasName || !merged;
+
+            if (needsGroup) {
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+                writeId(writer, edge);
+                writeStyleClasses(writer, edge.getStyleClasses());
+                insertName(writer, edge::getName);
+            }
+            if (merged) {
+                drawMergedHalfEdges(writer, edge);
+            } else {
+                drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
+                drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            }
             drawEdgeCenter(writer, edge);
-            writer.writeEndElement();
+            if (needsGroup) {
+                writer.writeEndElement();
+            }
         }
         writer.writeEndElement();
+    }
+
+    private boolean canMergeHalfEdges(Graph graph, BranchEdge edge) {
+        if (edge.isTransformerEdge() || !graph.isNotALoop(edge)) {
+            return false;
+        }
+        if (!edge.isVisible(BranchEdge.Side.ONE) || !edge.isVisible(BranchEdge.Side.TWO)) {
+            return false;
+        }
+        EdgeStyleInfo edgeStyleInfo1 = edge.getEdgeStyleInfo(BranchEdge.Side.ONE);
+        EdgeStyleInfo edgeStyleInfo2 = edge.getEdgeStyleInfo(BranchEdge.Side.TWO);
+        if (!Objects.equals(edgeStyleInfo1.styleClasses(), edgeStyleInfo2.styleClasses())) {
+            return false;
+        }
+        return Objects.equals(edgeStyleInfo1.style(), edgeStyleInfo2.style());
+    }
+
+    private void drawMergedHalfEdges(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        EdgeStyleInfo edgeStyleInfo = edge.getEdgeStyleInfo(BranchEdge.Side.ONE);
+
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeStyleClasses(writer, edgeStyleInfo.styleClasses(), StyleProvider.EDGE_PATH_CLASS);
+        writeStyleAttribute(writer, edgeStyleInfo.style());
+
+        List<Point> points1 = edge.getPoints1();
+        List<Point> points2 = edge.getPoints2();
+        List<Point> mergedPoints = new ArrayList<>(points1.size() + points2.size() - 1);
+        for (int i = 0; i < points1.size() - 1; i++) {
+            mergedPoints.add(points1.get(i));
+        }
+        for (int i = points2.size() - 2; i >= 0; i--) {
+            mergedPoints.add(points2.get(i));
+        }
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(mergedPoints));
     }
 
     private void drawHighlightBranchEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
-            drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
-            drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            if (canMergeHighlightHalfEdges(graph, edge)) {
+                drawMergedHighlightHalfEdges(writer, edge);
+            } else {
+                drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
+                drawHighlightHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            }
         }
         writer.writeEndElement();
+    }
+
+    private boolean canMergeHighlightHalfEdges(Graph graph, BranchEdge edge) {
+        if (edge.isTransformerEdge() || !graph.isNotALoop(edge)) {
+            return false;
+        }
+        if (!edge.isVisible(BranchEdge.Side.ONE) || !edge.isVisible(BranchEdge.Side.TWO)) {
+            return false;
+        }
+        EdgeStyleInfo edgeStyleInfo1 = edge.getEdgeStyleInfo(BranchEdge.Side.ONE);
+        EdgeStyleInfo edgeStyleInfo2 = edge.getEdgeStyleInfo(BranchEdge.Side.TWO);
+        return Objects.equals(edgeStyleInfo1.highlightStyleClasses(), edgeStyleInfo2.highlightStyleClasses());
+    }
+
+    private void drawMergedHighlightHalfEdges(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        EdgeStyleInfo edgeStyleInfo = edge.getEdgeStyleInfo(BranchEdge.Side.ONE);
+
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writeStyleClasses(writer, edgeStyleInfo.highlightStyleClasses());
+
+        List<Point> points1 = edge.getPoints1();
+        List<Point> points2 = edge.getPoints2();
+        List<Point> mergedPoints = new ArrayList<>(points1.size() + points2.size() - 1);
+        for (int i = 0; i < points1.size() - 1; i++) {
+            mergedPoints.add(points1.get(i));
+        }
+        for (int i = points2.size() - 1; i >= 0; i--) {
+            mergedPoints.add(points2.get(i));
+        }
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(mergedPoints));
     }
 
     private void drawEdgeMiddleLabel(String edgeLabel, double edgeEndAngle, XMLStreamWriter writer, List<String> classes) throws XMLStreamException {
