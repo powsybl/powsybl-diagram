@@ -11,9 +11,10 @@ package com.powsybl.sld.svg;
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface IdProvider {
-    String createSvgId(String equipmentId);
 
-    String createSvgId(String equipmentId, String subType);
+    String getOrCreateSvgId(String equipmentId);
 
-    String createSvgId(String containerId, String id1, String id2);
+    String getOrCreateSvgId(String equipmentId, String subType);
+
+    String getOrCreateSvgId(String containerId, String id1, String id2);
 }

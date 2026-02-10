@@ -9,32 +9,36 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.util.IdUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class LegacyIdProvider implements IdProvider {
 
     private final String prefixId;
+    private final Map<String, String> idMap = new HashMap<>();
 
     public LegacyIdProvider(String prefixId) {
         this.prefixId = prefixId;
     }
 
     @Override
-    public String createSvgId(String equipmentId) {
-        return IdUtil.escapeId(prefixId + equipmentId);
+    public String getOrCreateSvgId(String equipmentId) {
+        return idMap.computeIfAbsent(prefixId + equipmentId, IdUtil::escapeId);
     }
 
     @Override
-    public String createSvgId(String equipmentId, String subType) {
-        return IdUtil.escapeId(prefixId + equipmentId + "_" + subType);
+    public String getOrCreateSvgId(String equipmentId, String subType) {
+        return idMap.computeIfAbsent(prefixId + equipmentId + "_" + subType, IdUtil::escapeId);
     }
 
     @Override
-    public String createSvgId(String containerId, String id1, String id2) {
+    public String getOrCreateSvgId(String containerId, String id1, String id2) {
         // For global unicity in all type of container (voltage level, substation, zone), we prefix with the container Id and
         // we rely on the fact that node ids are unique inside a voltage level. We also prepend with a custom prefix id to
         // allow multiple diagrams unicity.
-        return IdUtil.escapeClassName(prefixId + "_" + containerId + "_" + id1 + "_" + id2);
+        return idMap.computeIfAbsent(prefixId + "_" + containerId + "_" + id1 + "_" + id2, IdUtil::escapeClassName);
     }
 }

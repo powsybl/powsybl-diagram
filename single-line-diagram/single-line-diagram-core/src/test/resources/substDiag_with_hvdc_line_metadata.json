@@ -195,50 +195,50 @@
   } ],
   "wires" : [ {
     "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_LCC_95_1_95_LCC_95_1",
-    "nodeId1" : "INTERNAL_VoltageLevel1_LCC_1",
-    "nodeId2" : "LCC_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_LCC_95_1",
+    "nodeId2" : "idLCC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1_95_INTERNAL_95_VoltageLevel1_95_LCC_95_1",
-    "nodeId1" : "INTERNAL_VoltageLevel1_BUSCO_Bus3_LCC_1-LCC_1",
-    "nodeId2" : "INTERNAL_VoltageLevel1_LCC_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_LCC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_VSC_95_1_95_VSC_95_1",
-    "nodeId1" : "INTERNAL_VoltageLevel1_VSC_1",
-    "nodeId2" : "VSC_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_VSC_95_1",
+    "nodeId2" : "idVSC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
-    "nodeId1" : "BUSCO_Bus1_VSC_1",
-    "nodeId2" : "INTERNAL_VoltageLevel1_BUSCO_Bus1_VSC_1-VSC_1",
+    "nodeId1" : "idBUSCO_95_Bus1_95_VSC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1_95_INTERNAL_95_VoltageLevel1_95_VSC_95_1",
-    "nodeId1" : "INTERNAL_VoltageLevel1_BUSCO_Bus1_VSC_1-VSC_1",
-    "nodeId2" : "INTERNAL_VoltageLevel1_VSC_1",
+    "nodeId1" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus1_95_VSC_95_1_45_VSC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_VSC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_Bus1_95_BUSCO_95_Bus1_95_VSC_95_1",
-    "nodeId1" : "Bus1",
-    "nodeId2" : "BUSCO_Bus1_VSC_1",
+    "nodeId1" : "idBus1",
+    "nodeId2" : "idBUSCO_95_Bus1_95_VSC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_Bus3_95_BUSCO_95_Bus3_95_LCC_95_1",
-    "nodeId1" : "Bus3",
-    "nodeId2" : "BUSCO_Bus3_LCC_1",
+    "nodeId1" : "idBus3",
+    "nodeId2" : "idBUSCO_95_Bus3_95_LCC_95_1",
     "straight" : false,
     "snakeLine" : false
   }, {
     "id" : "_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_95_INTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
-    "nodeId1" : "BUSCO_Bus3_LCC_1",
-    "nodeId2" : "INTERNAL_VoltageLevel1_BUSCO_Bus3_LCC_1-LCC_1",
+    "nodeId1" : "idBUSCO_95_Bus3_95_LCC_95_1",
+    "nodeId2" : "idINTERNAL_95_VoltageLevel1_95_BUSCO_95_Bus3_95_LCC_95_1_45_LCC_95_1",
     "straight" : false,
     "snakeLine" : false
   } ],
