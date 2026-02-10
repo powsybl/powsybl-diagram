@@ -69,6 +69,11 @@ public class Vector2D {
         this.divideBy(this.magnitude());
     }
 
+    /**
+     * @param from the point this vector starts at
+     * @param towards the point this vector ends at
+     * @return the vector that goes from `from`, to `towards`
+     */
     public static Vector2D calculateVectorBetweenPoints(Point from, Point towards) {
         Vector2D direction = new Vector2D(towards.getPosition());
         direction.subtract(from.getPosition());
@@ -76,8 +81,10 @@ public class Vector2D {
     }
 
     /**
-     * Calculate the unit vector that goes from `from`, pointing in the direction of `towards`
-      */
+     * @param from the point this vector starts at
+     * @param towards the direction of the point this vector is pointing to
+     * @return the unit vector that goes from `from`, pointing in the direction of `towards`, the magnitude of this vector is 1
+     */
     public static Vector2D calculateUnitVector(Point from, Point towards) {
         if (from != towards) {
             Vector2D normalizedVector = calculateVectorBetweenPoints(from, towards);
