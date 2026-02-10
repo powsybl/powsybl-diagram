@@ -240,7 +240,7 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
-    private void drawComponentOnBranchEdgeMiddle(XMLStreamWriter writer, EdgeInfo svgEdgeInfo, String componentType) throws XMLStreamException {
+    private void drawComponentOnBranchEdgeMiddle(XMLStreamWriter writer, String componentType) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         ComponentSize componentSize = componentLibrary.getComponentsSize().getOrDefault(componentType, null);
 
@@ -689,8 +689,9 @@ public class SvgWriter {
         writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.svgId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
 
-        if (edgeInfo.getComponentType().isPresent()) {
-            this.drawComponentOnBranchEdgeMiddle(writer, edgeInfo, edgeInfo.getComponentType().get());
+        Optional<String> componentType = edgeInfo.getComponentType();
+        if (componentType.isPresent()) {
+            this.drawComponentOnBranchEdgeMiddle(writer, componentType.get());
         } else {
             drawArrow(writer, edgeInfo, edgeAngle);
             Optional<String> label2 = edgeInfo.getLabelB();
