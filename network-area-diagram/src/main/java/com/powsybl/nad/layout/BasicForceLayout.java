@@ -59,7 +59,7 @@ public class BasicForceLayout extends AbstractLayout {
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 
-        double scaleFactor = (double) SCALE * layoutParameters.getScaleFactor();
+        double scaleFactor = SCALE * layoutParameters.getScaleFactor();
         setInitialPositions(layoutContext, graph, scaleFactor);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
