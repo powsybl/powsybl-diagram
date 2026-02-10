@@ -7,7 +7,7 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}

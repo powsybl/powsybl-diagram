@@ -52,6 +52,6 @@ class TestAddExternalComponent extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCheese.svg"),
-                toSVG(g, "/TestCheese.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
+                toSVG(g, "/TestCheese.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider(), getLegendRawProvider()));
     }
 }

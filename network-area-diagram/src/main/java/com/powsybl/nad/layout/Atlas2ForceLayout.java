@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,6 +22,8 @@ import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.TextNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Optional;
@@ -32,11 +34,12 @@ import java.util.stream.Collectors;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Atlas2ForceLayout extends AbstractLayout {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayout.class);
+
     private static final double SCALE_COEFFICIENT = 190.757;
     private static final double SCALE_EXPONENT = -0.458;
 
     private final Setup<Node, Edge> setup;
-    //maybe change the class name to not be confused with NAD LayoutParameters ?
     private final Atlas2Parameters atlas2Parameters;
     private final PostProcessing<Node, Edge> postProcessing;
 
@@ -58,9 +61,11 @@ public class Atlas2ForceLayout extends AbstractLayout {
 
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
+        if (atlas2Parameters.getMaxSteps() != layoutParameters.getMaxSteps()) {
+            LOGGER.warn("The max steps of layoutParameters and Atlas2Parameters are different, ignoring layoutParameters");
+        }
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout()));
         double scale = SCALE_COEFFICIENT * Math.pow(layoutContext.getSimpleGraph().vertexSet().size(), SCALE_EXPONENT);
-        //TODO should we use the layoutParameters maxSteps to set Atlas2Parameters maxSteps ?
         Layout<Node, Edge> layoutAlgorithmRunner = new Layout<>(
             this.setup,
             new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters),
@@ -99,8 +104,8 @@ public class Atlas2ForceLayout extends AbstractLayout {
                 .collect(Collectors.toMap(
                         nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
                         nodePosition -> new Point(
-                                nodePosition.getValue().getX() / scale,
-                                nodePosition.getValue().getY() / scale)
+                                nodePosition.getValue().x() / scale,
+                                nodePosition.getValue().y() / scale)
                 ));
         layoutContext.setInitialPoints(initialPoints);
     }

@@ -15,7 +15,6 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public final class Networks {

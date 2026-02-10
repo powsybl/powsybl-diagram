@@ -14,8 +14,8 @@ import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
 import com.powsybl.nad.library.NadComponentLibrary;
-import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.routing.EdgeRouting;
+import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
@@ -23,7 +23,6 @@ import com.powsybl.nad.svg.iidm.*;
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class NadParameters {
@@ -31,7 +30,7 @@ public class NadParameters {
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
-    private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
+    private LabelProviderFactory labelProviderFactory = (network, svgParam) -> new DefaultLabelProvider(network, svgParam.createValueFormatter());
     private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
     private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();

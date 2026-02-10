@@ -132,14 +132,6 @@ public class CustomStyleProvider extends AbstractStyleProvider {
     }
 
     @Override
-    public List<String> getEdgeInfoStyleClasses(EdgeInfo info) {
-        List<String> styles = new LinkedList<>();
-        info.getDirection().ifPresent(direction -> styles.add(
-                CLASSES_PREFIX + (direction == EdgeInfo.Direction.OUT ? "state-out" : "state-in")));
-        return styles;
-    }
-
-    @Override
     public List<String> getHighlightNodeStyleClasses(Node node) {
         return List.of();
     }
@@ -186,11 +178,6 @@ public class CustomStyleProvider extends AbstractStyleProvider {
 
     @Override
     protected Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge) {
-        return Optional.empty();
-    }
-
-    @Override
-    protected Optional<String> getBaseVoltageStyle(Injection injection) {
         return Optional.empty();
     }
 }

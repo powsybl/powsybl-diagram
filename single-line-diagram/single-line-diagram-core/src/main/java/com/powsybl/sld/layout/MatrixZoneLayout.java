@@ -7,16 +7,23 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.commons.*;
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.layout.zonebygrid.*;
-import com.powsybl.sld.model.coordinate.*;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
+import com.powsybl.sld.layout.zonebygrid.Matrix;
+import com.powsybl.sld.layout.zonebygrid.MatrixCell;
+import com.powsybl.sld.layout.zonebygrid.MatrixZoneLayoutModel;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.Node;
-import org.jgrapht.alg.util.*;
+import org.jgrapht.alg.util.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
@@ -77,14 +84,14 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                     double dy = maxHeightRow + (row + 1.0) * snakelineMargin;
                     move(graph, dx + deltaX, dy + deltaY);
                 }
-                maxWidthCol += matrix.getMatrixCellWidth(col);
+                maxWidthCol += (int) matrix.getMatrixCellWidth(col);
             }
-            maxHeightRow += matrix.getMatrixCellHeight(row);
+            maxHeightRow += (int) matrix.getMatrixCellHeight(row);
         }
         double zoneWidth = maxWidthCol + (nbCols + 1.0) * snakelineMargin;
         double zoneHeight = maxHeightRow + (nbRows + 1.0) * snakelineMargin;
-        getGraph().setSize(diagramPadding.getLeft() + zoneWidth + diagramPadding.getRight(),
-                diagramPadding.getTop() + zoneHeight + diagramPadding.getBottom());
+        getGraph().setSize(diagramPadding.left() + zoneWidth + diagramPadding.right(),
+                diagramPadding.top() + zoneHeight + diagramPadding.bottom());
     }
 
     @Override

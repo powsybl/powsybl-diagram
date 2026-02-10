@@ -22,6 +22,7 @@ public class Graph {
     private final Map<String, Node> nodes = new LinkedHashMap<>();
     private final Map<String, BusNode> busNodes = new LinkedHashMap<>();
     private final Map<String, BranchEdge> branchEdges = new LinkedHashMap<>();
+    private final List<Injection> injections = new ArrayList<>();
     private double minX = 0;
     private double minY = 0;
     private double maxX = 0;
@@ -30,9 +31,6 @@ public class Graph {
     private final org.jgrapht.Graph<Node, Edge> voltageLevelGraph = new WeightedPseudograph<>(Edge.class);
     private final org.jgrapht.Graph<Node, Edge> busGraph = new Pseudograph<>(Edge.class);
     private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
-
-    private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE = "-textnode";
-    private static final String DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE = "-textedge";
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
@@ -52,8 +50,8 @@ public class Graph {
     public void addTextNode(VoltageLevelNode vlNode) {
         Objects.requireNonNull(vlNode);
         addEdge(vlNode,
-                new TextNode(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_TEXT_NODE),
-                new TextEdge(vlNode.getDiagramId() + DIAGRAM_ID_SUFFIX_FOR_TEXT_EDGE));
+                new TextNode(vlNode.getLegendSvgId()),
+                new TextEdge(vlNode.getLegendEdgeSvgId()));
     }
 
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,
@@ -90,6 +88,14 @@ public class Graph {
             busGraph.addVertex(BusNode.UNKNOWN);
         }
         busGraph.addEdge(node1, node2, edge);
+    }
+
+    public void addInjection(Injection injection) {
+        injections.add(injection);
+    }
+
+    public Collection<Injection> getInjections() {
+        return injections;
     }
 
     public Stream<BusNode> getBusNodesStream() {
@@ -167,7 +173,7 @@ public class Graph {
 
     public Stream<List<BranchEdge>> getMultiBranchEdgesStream() {
         return voltageLevelGraph.edgeSet().stream()
-                .filter(e -> !isLoop(e))
+                .filter(this::isNotALoop)
                 .map(e -> voltageLevelGraph.getAllEdges(voltageLevelGraph.getEdgeSource(e), voltageLevelGraph.getEdgeTarget(e)))
                 .filter(e -> e.size() > 1)
                 .distinct()
@@ -181,7 +187,7 @@ public class Graph {
                         .filter(BranchEdge.class::isInstance).map(BranchEdge.class::cast)
                         .collect(Collectors.toList()))
                 .filter(l -> !l.isEmpty())
-                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.get(0)), l -> l));
+                .collect(Collectors.toMap(l -> getVoltageLevelNode1(l.getFirst()), l -> l));
     }
 
     public Stream<ThreeWtEdge> getThreeWtEdgesStream() {
@@ -309,8 +315,8 @@ public class Graph {
         return nodes.containsKey(equipmentId);
     }
 
-    public boolean isLoop(Edge edge) {
-        return getNode1(edge) == getNode2(edge);
+    public boolean isNotALoop(Edge edge) {
+        return getNode1(edge) != getNode2(edge);
     }
 
     public Map<String, Point> getNodePositions() {

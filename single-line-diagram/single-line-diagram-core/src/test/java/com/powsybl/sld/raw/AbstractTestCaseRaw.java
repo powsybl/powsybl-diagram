@@ -15,9 +15,10 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.DirectionalFeederInfo;
+import com.powsybl.sld.svg.ValueFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.BasicStyleProvider;
 
 import java.util.ArrayList;
@@ -35,21 +36,23 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public String toSVG(Graph graph, String filename) {
-        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
+        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider(), legendRawProvider);
     }
 
     @Override
     public String toMetadata(Graph graph, String filename) {
-        return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider());
+        return toMetadata(graph, filename, componentLibrary, layoutParameters, svgParameters, labelRawProvider, new BasicStyleProvider(), legendRawProvider);
     }
+
+    private final SVGLegendWriter legendRawProvider = new DefaultSVGLegendWriter(Network.create("empty", ""), svgParameters);
 
     private final LabelProvider labelRawProvider = new DefaultLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters, svgParameters) {
 
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
             return Arrays.asList(
-                    new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
-                    new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
+                    new ValueFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
+                    new ValueFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
         }
 
         @Override
@@ -60,5 +63,9 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     public LabelProvider getLabelRawProvider() {
         return labelRawProvider;
+    }
+
+    public SVGLegendWriter getLegendRawProvider() {
+        return legendRawProvider;
     }
 }

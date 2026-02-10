@@ -16,7 +16,6 @@ import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {

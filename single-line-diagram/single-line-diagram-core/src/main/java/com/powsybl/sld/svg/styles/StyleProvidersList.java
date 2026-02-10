@@ -12,15 +12,17 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BusInfo;
 import com.powsybl.sld.svg.BusLegendInfo;
-import com.powsybl.sld.svg.LabelProvider;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelProvider;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -110,5 +112,37 @@ public class StyleProvidersList implements StyleProvider {
                 .flatMap(List::stream)
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getBusNodeStyle(BusNode busNode) {
+        return styleProviders.stream()
+                .map(sp -> sp.getBusNodeStyle(busNode))
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String getNodeStyle(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
+        return styleProviders.stream()
+                .map(sp -> sp.getNodeStyle(graph, node, componentLibrary, showInternalNodes))
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String getEdgeStyle(Graph graph, Edge edge) {
+        return styleProviders.stream()
+                .map(sp -> sp.getEdgeStyle(graph, edge))
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String getNodeSubcomponentStyle(Graph graph, Node node, String subComponentName) {
+        return styleProviders.stream()
+                .map(sp -> sp.getNodeSubcomponentStyle(graph, node, subComponentName))
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(" "));
     }
 }

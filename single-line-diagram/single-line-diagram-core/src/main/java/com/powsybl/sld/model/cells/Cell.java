@@ -12,7 +12,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

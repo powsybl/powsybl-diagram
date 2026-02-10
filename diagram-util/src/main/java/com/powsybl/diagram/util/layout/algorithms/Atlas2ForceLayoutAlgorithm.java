@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,18 +16,21 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-/// The code in this class is the implementation of the paper:
-/// Jacomy M, Venturini T, Heymann S, Bastian M (2014)
-/// ForceAtlas2, a Continuous Graph Layout Algorithm for Handy Network Visualization Designed for
-/// the Gephi Software. PLoS ONE 9(6): e98679. doi:10.1371/journal.pone.0098679
-/// The paper requires its usage to credit the original author and the source, DO NOT REMOVE THE ABOVE REFERENCE
-/// Some parts of the code do not directly come from the paper and are instead found through experimenting, to find something that works best
-/// The parts that are not inside the original paper are:
-/// - the choice of a starting global speed for the graph
-/// - a maximum decrease ratio in global speed between each step
-/// - a "quick to calculate" stopping condition
-
 /**
+ * <p>
+ * The code in this class is the implementation of the paper:<br>
+ * Jacomy M, Venturini T, Heymann S, Bastian M (2014) ForceAtlas2,
+ * a Continuous Graph Layout Algorithm for Handy Network Visualization Designed for
+ * the Gephi Software. PLoS ONE 9(6): e98679. doi:10.1371/journal.pone.0098679<br>
+ * The paper requires its usage to credit the original author and the source, DO NOT REMOVE THE ABOVE REFERENCE <br>
+ * Some parts of the code do not directly come from the paper and were instead developed through experimenting, to find something that works best.
+ * The parts that are not inside the original paper are:
+ * <ul>
+ *     <li>the choice of a starting global speed for the graph</li>
+ *     <li>a maximum decrease ratio in global speed between each step</li>
+ *     <li>a "quick to calculate" stopping condition</li>
+ * </ul>
+ * </p>
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
@@ -41,7 +44,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     // This was found by launching the algorithm on a lot of graphs and checking after how many steps the graph looked stable
     // We then check the corresponding global graph speed, and made a regression between the number of nodes and the global graph speed at each step
     // this gave a curve y = a * x^b with a = NORMALIZED_STOPPING_VALUE and b = NORMALIZATION_POWER
-    // it means that we can know the graph speed at which the graph is stable, no matter the speed of the graph
+    // It means that we can know the graph speed at which the graph is stable, no matter the speed of the graph
     // The speed is globally decreasing (even though it goes up sometimes). On all the tests that were ran, the global speed
     // reaches this stopping value for the first time when it is stable (meaning it doesn't become stable when it reaches it for the 2nd, 3rd try)
     // meaning we can be confident to stop once we reach this value for the first time
@@ -58,14 +61,16 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
-        this.layoutParameters = layoutParameters;
-        addRepulsionForce();
-        this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttraction()));
-        if (layoutParameters.isActivateAttractToCenterForce()) {
+        this.forces.add(new RepulsionForceDegreeBasedLinear<>(
+                layoutParameters.getRepulsionIntensity(),
+                layoutParameters.isRepulsionFromFixedPointsEnabled()));
+        this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttractionIntensity()));
+        if (layoutParameters.isAttractToCenterEnabled()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
-            // Both can work, but for our visualization purpose, a linear gravity force which tends to make the graph more compact worked better
-            this.forces.add(new AttractToCenterForceByEdgeNumberLinear<>(layoutParameters.getAttractToCenter()));
+            // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
+            this.forces.add(new AttractToCenterForceDegreeBasedLinear<>(layoutParameters.getAttractToCenterIntensity()));
         }
+        this.layoutParameters = layoutParameters;
     }
 
     /**
@@ -79,7 +84,8 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     // We could have the impact be in the position update, by dividing the displacement by the mass of the point
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
-        Force.initAllForces(forces, layoutContext);
+        Objects.requireNonNull(layoutContext);
+        forces.forEach(f -> f.init(layoutContext));
 
         Map<Point, Vector2D> previousForces = new HashMap<>();
         Map<Point, Double> swingMap = new HashMap<>();
@@ -94,19 +100,17 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         for (Point point : layoutContext.getMovingPoints().values()) {
             previousForces.put(point, new Vector2D());
-            swingMap.put(point, 0.);
         }
         int i = 0;
         int stoppingStep = layoutParameters.getMaxSteps();
-        boolean changedStoppingStep = false;
+        boolean graphSwingIsZero = false;
 
         ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
 
-        while (i < stoppingStep) {
+        while (i < stoppingStep && !graphSwingIsZero) {
             double graphSwing = 0.;
-            double newGraphSpeed;
             double graphTraction = 0.;
-            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
+	    if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
                 Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
@@ -120,41 +124,36 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                 // calculate swg(n) for each node the swing of the node
                 // at the same time calculate tra(n) the traction of the node
                 // we can also calculate swg(G) and tra(G) the swing and traction of the graph
-                int vertexDegreePlusOne = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
+                int weight = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
                 Vector2D previousPointForce = previousForces.get(point);
                 double pointSwing = calculatePointSwing(point, previousPointForce);
                 swingMap.put(point, pointSwing);
-                graphSwing += pointSwing * vertexDegreePlusOne;
-                graphTraction += calculatePointTraction(point, previousPointForce) * vertexDegreePlusOne;
+                graphSwing += pointSwing * weight;
+                graphTraction += calculatePointTraction(point, previousPointForce) * weight;
             }
-            if (graphSwing == 0) {
-                // that means that all the points are not moving anymore, or are diverging very fast
-                break;
-            }
+            graphSwingIsZero = graphSwing == 0;
             // calculate s(G) the global speed of the graph
             // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
-            newGraphSpeed = Math.max(
-                MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
-                Math.min(
-                    layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
-                    layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
-            ));
-            // calculate s(n) the speed of each node n
-            // store the forces on each node into the map of forces
-            // calculate D(n) the displacement of each node n
-            // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
-            updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
-            if (!changedStoppingStep && isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
-                stoppingStep = Math.min(
-                        layoutParameters.getMaxSteps(),
-                        (int) (i * (1 + layoutParameters.getIterationNumberIncreasePercent() / 100) * (1 + layoutParameters.getBarnesHutTheta() / 8))
+            if (!graphSwingIsZero) {
+                double newGraphSpeed = Math.clamp(
+                        layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
+                        MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
+                        layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
                 );
-                changedStoppingStep = true;
+                // calculate s(n) the speed of each node n
+                // store the forces on each node into the map of forces
+                // calculate D(n) the displacement of each node n
+                // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
+                updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
+                if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
+		    //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
+                    break;
+                }
+                previousGraphSpeed = newGraphSpeed;
+                ++i;
             }
-            previousGraphSpeed = newGraphSpeed;
-            ++i;
         }
         LOGGER.info("Finished in {} steps", i);
     }
@@ -197,7 +196,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
      * @param previousForce the force that was previously applied on the point
      * @return the swing of the point
      */
-
     private double calculatePointSwing(Point point, Vector2D previousForce) {
         Vector2D swingVector = new Vector2D(point.getForces());
         swingVector.subtract(previousForce);

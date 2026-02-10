@@ -6,6 +6,7 @@
  */
 package com.powsybl.nad.svg;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.powsybl.diagram.util.ValueFormatter;
 
 import java.util.Locale;
@@ -14,6 +15,7 @@ import java.util.Objects;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
+@JsonIgnoreProperties({"arrowHeight"})
 public class SvgParameters {
 
     private Padding diagramPadding = new Padding(200);
@@ -39,26 +41,24 @@ public class SvgParameters {
     private double loopEdgesAperture = 60;
     private double loopControlDistance = 40;
     private boolean edgeInfoAlongEdge = true;
-    private boolean edgeNameDisplayed = false;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
-    private boolean idDisplayed = false;
-    private boolean substationDescriptionDisplayed;
-    private double arrowHeight = 10;
-    private boolean busLegend = true;
-    private boolean voltageLevelDetails = false;
+    private String arrowPathIn = "M-10 -10 H10 L0 10z";
+    private String arrowPathOut = "M-10 10 H10 L0 -10z";
     private String languageTag = "en";
     private int voltageValuePrecision = 1;
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
     private int currentValuePrecision = 0;
-    private EdgeInfoEnum edgeInfoDisplayed = EdgeInfoEnum.ACTIVE_POWER;
+    private int percentageValuePrecision = 0;
     private double pstArrowHeadSize = 8;
     private String undefinedValueSymbol = "";
     private boolean highlightGraph;
     private double injectionAperture = 10;
     private double injectionEdgeLength = 145;
     private double injectionCircleRadius = 25;
+    private boolean voltageLevelLegendsIncluded = true;
+    private boolean edgeInfosIncluded = true;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -95,25 +95,24 @@ public class SvgParameters {
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
-        this.edgeNameDisplayed = other.edgeNameDisplayed;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
-        this.idDisplayed = other.idDisplayed;
-        this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
-        this.arrowHeight = other.arrowHeight;
-        this.busLegend = other.busLegend;
-        this.voltageLevelDetails = other.voltageLevelDetails;
+        this.arrowPathIn = other.arrowPathIn;
+        this.arrowPathOut = other.arrowPathOut;
         this.languageTag = other.languageTag;
         this.voltageValuePrecision = other.voltageValuePrecision;
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
         this.currentValuePrecision = other.currentValuePrecision;
-        this.edgeInfoDisplayed = other.edgeInfoDisplayed;
+        this.percentageValuePrecision = other.percentageValuePrecision;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.highlightGraph = other.highlightGraph;
         this.injectionAperture = other.injectionAperture;
         this.injectionEdgeLength = other.injectionEdgeLength;
         this.injectionCircleRadius = other.injectionCircleRadius;
+        this.voltageLevelLegendsIncluded = other.voltageLevelLegendsIncluded;
+        this.edgeInfosIncluded = other.edgeInfosIncluded;
     }
 
     public Padding getDiagramPadding() {
@@ -340,15 +339,6 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isEdgeNameDisplayed() {
-        return edgeNameDisplayed;
-    }
-
-    public SvgParameters setEdgeNameDisplayed(boolean edgeNameDisplayed) {
-        this.edgeNameDisplayed = edgeNameDisplayed;
-        return this;
-    }
-
     public double getInterAnnulusSpace() {
         return interAnnulusSpace;
     }
@@ -367,48 +357,21 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isIdDisplayed() {
-        return idDisplayed;
+    public String getArrowPathIn() {
+        return arrowPathIn;
     }
 
-    public SvgParameters setIdDisplayed(boolean idDisplayed) {
-        this.idDisplayed = idDisplayed;
+    public SvgParameters setArrowPathIn(String arrowPathIn) {
+        this.arrowPathIn = arrowPathIn;
         return this;
     }
 
-    public boolean isSubstationDescriptionDisplayed() {
-        return substationDescriptionDisplayed;
+    public String getArrowPathOut() {
+        return arrowPathOut;
     }
 
-    public SvgParameters setSubstationDescriptionDisplayed(boolean substationDescriptionDisplayed) {
-        this.substationDescriptionDisplayed = substationDescriptionDisplayed;
-        return this;
-    }
-
-    public double getArrowHeight() {
-        return arrowHeight;
-    }
-
-    public SvgParameters setArrowHeight(double arrowHeight) {
-        this.arrowHeight = arrowHeight;
-        return this;
-    }
-
-    public boolean isBusLegend() {
-        return busLegend;
-    }
-
-    public SvgParameters setBusLegend(boolean detailedNodeDescription) {
-        this.busLegend = detailedNodeDescription;
-        return this;
-    }
-
-    public boolean isVoltageLevelDetails() {
-        return voltageLevelDetails;
-    }
-
-    public SvgParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
-        this.voltageLevelDetails = voltageLevelDetails;
+    public SvgParameters setArrowPathOut(String arrowPathOut) {
+        this.arrowPathOut = arrowPathOut;
         return this;
     }
 
@@ -461,23 +424,18 @@ public class SvgParameters {
         return this;
     }
 
-    public ValueFormatter createValueFormatter() {
-        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
+    public int getPercentageValuePrecision() {
+        return percentageValuePrecision;
     }
 
-    public enum EdgeInfoEnum {
-        ACTIVE_POWER,
-        REACTIVE_POWER,
-        CURRENT;
-    }
-
-    public EdgeInfoEnum getEdgeInfoDisplayed() {
-        return this.edgeInfoDisplayed;
-    }
-
-    public SvgParameters setEdgeInfoDisplayed(EdgeInfoEnum edgeInfoDisplayed) {
-        this.edgeInfoDisplayed = edgeInfoDisplayed;
+    public SvgParameters setPercentageValuePrecision(int percentageValuePrecision) {
+        this.percentageValuePrecision = percentageValuePrecision;
         return this;
+    }
+
+    public ValueFormatter createValueFormatter() {
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, currentValuePrecision, angleValuePrecision,
+            percentageValuePrecision, Locale.forLanguageTag(languageTag), undefinedValueSymbol);
     }
 
     public double getPstArrowHeadSize() {
@@ -531,6 +489,24 @@ public class SvgParameters {
 
     public SvgParameters setInjectionCircleRadius(double injectionCircleRadius) {
         this.injectionCircleRadius = injectionCircleRadius;
+        return this;
+    }
+
+    public boolean isVoltageLevelLegendsIncluded() {
+        return voltageLevelLegendsIncluded;
+    }
+
+    public SvgParameters setVoltageLevelLegendsIncluded(boolean voltageLevelLegendsIncluded) {
+        this.voltageLevelLegendsIncluded = voltageLevelLegendsIncluded;
+        return this;
+    }
+
+    public boolean isEdgeInfosIncluded() {
+        return edgeInfosIncluded;
+    }
+
+    public SvgParameters setEdgeInfosIncluded(boolean edgeInfosIncluded) {
+        this.edgeInfosIncluded = edgeInfosIncluded;
         return this;
     }
 }

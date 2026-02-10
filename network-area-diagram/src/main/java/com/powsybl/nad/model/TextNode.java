@@ -13,8 +13,8 @@ public class TextNode extends AbstractNode {
 
     private Point edgeConnection;
 
-    public TextNode(String diagramId) {
-        super(diagramId, null, null, false);
+    public TextNode(String svgId) {
+        super(svgId, null, null, false);
         edgeConnection = new Point();
     }
 

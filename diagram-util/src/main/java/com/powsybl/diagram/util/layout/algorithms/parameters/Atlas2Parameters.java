@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -12,78 +12,74 @@ package com.powsybl.diagram.util.layout.algorithms.parameters;
  */
 public final class Atlas2Parameters {
     private static final int DEFAULT_MAX_STEPS = 6000;
-    private static final double DEFAULT_REPULSION = 4;
-    private static final double DEFAULT_EDGE_ATTRACTION = 1;
-    private static final double DEFAULT_ATTRACT_TO_CENTER = 0.001;
+    private static final double DEFAULT_REPULSION_INTENSITY = 4;
+    private static final double DEFAULT_EDGE_ATTRACTION_INTENSITY = 1;
+    private static final double DEFAULT_ATTRACT_TO_CENTER_INTENSITY = 0.001;
     private static final double DEFAULT_SPEED_FACTOR = 1;
     private static final double DEFAULT_MAX_SPEED_FACTOR = 10;
     private static final double DEFAULT_SWING_TOLERANCE = 1;
     private static final double DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO = 1.5;
-    private static final boolean DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS = true;
-    private static final boolean DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE = true;
-    private static final double DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT = 0;
+    private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED = true;
+    private static final boolean DEFAULT_ATTRACT_TO_CENTER_ENABLED = true;
     private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
     /// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
     /// By Robert Gove, Two Six Labs, for an explanation
     private static final int DEFAULT_QUADTREE_CALCULATION_INCREMENT = 13;
 
     private final int maxSteps;
-    private final double repulsion;
-    private final double edgeAttraction;
-    private final double attractToCenter;
+    private final double repulsionIntensity;
+    private final double edgeAttractionIntensity;
+    private final double attractToCenterIntensity;
     private final double speedFactor;
     private final double maxSpeedFactor;
     private final double swingTolerance;
     private final double maxGlobalSpeedIncreaseRatio;
-    private final boolean activateRepulsionForceFromFixedPoints;
-    private final boolean activateAttractToCenterForce;
-    private final double iterationNumberIncreasePercent;
+    private final boolean repulsionFromFixedPointsEnabled;
+    private final boolean attractToCenterEnabled;
     private final double barnesHutTheta;
     private final int quadtreeCalculationIncrement;
 
+
     private Atlas2Parameters(
             int maxSteps,
-            double repulsion,
-            double edgeAttraction,
-            double attractToCenter,
+            double repulsionIntensity,
+            double edgeAttractionIntensity,
+            double attractToCenterIntensity,
             double speedFactor,
             double maxSpeedFactor,
             double swingTolerance,
             double maxGlobalSpeedIncreaseRatio,
-            boolean activateRepulsionForceFromFixedPoints,
-            boolean activateAttractToCenterForce,
+            boolean repulsionFromFixedPointsEnabled,
+            boolean attractToCenterEnabled,
             double iterationNumberIncreasePercent,
-            double barnesHutTheta,
-            int quadtreeCalculationIncrement
+            double barnesHutTheta
     ) {
         this.maxSteps = maxSteps;
-        this.repulsion = repulsion;
-        this.edgeAttraction = edgeAttraction;
-        this.attractToCenter = attractToCenter;
+        this.repulsionIntensity = repulsionIntensity;
+        this.edgeAttractionIntensity = edgeAttractionIntensity;
+        this.attractToCenterIntensity = attractToCenterIntensity;
         this.speedFactor = speedFactor;
         this.maxSpeedFactor = maxSpeedFactor;
         this.swingTolerance = swingTolerance;
         this.maxGlobalSpeedIncreaseRatio = maxGlobalSpeedIncreaseRatio;
-        this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
-        this.activateAttractToCenterForce = activateAttractToCenterForce;
-        this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+        this.repulsionFromFixedPointsEnabled = repulsionFromFixedPointsEnabled;
+        this.attractToCenterEnabled = attractToCenterEnabled;
+	this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
         this.barnesHutTheta = barnesHutTheta;
-        this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
     }
 
     public static class Builder {
         private int maxSteps = DEFAULT_MAX_STEPS;
-        private double repulsion = DEFAULT_REPULSION;
-        private double edgeAttraction = DEFAULT_EDGE_ATTRACTION;
-        private double attractToCenter = DEFAULT_ATTRACT_TO_CENTER;
+        private double repulsionIntensity = DEFAULT_REPULSION_INTENSITY;
+        private double edgeAttractionIntensity = DEFAULT_EDGE_ATTRACTION_INTENSITY;
+        private double attractToCenterIntensity = DEFAULT_ATTRACT_TO_CENTER_INTENSITY;
         private double speedFactor = DEFAULT_SPEED_FACTOR;
         private double maxSpeedFactor = DEFAULT_MAX_SPEED_FACTOR;
         private double swingTolerance = DEFAULT_SWING_TOLERANCE;
         private double maxGlobalSpeedIncreaseRatio = DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO;
-        private boolean activateRepulsionForceFromFixedPoints = DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS;
-        private boolean activateAttractToCenterForce = DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE;
-        private double iterationNumberIncreasePercent = DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT;
-        private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
+        private boolean repulsionFromFixedPointsEnabled = DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED;
+        private boolean attractToCenterEnabled = DEFAULT_ATTRACT_TO_CENTER_ENABLED;
+	private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
         private int quadtreeCalculationIncrement = DEFAULT_QUADTREE_CALCULATION_INCREMENT;
 
         /**
@@ -98,35 +94,35 @@ public final class Atlas2Parameters {
         }
 
         /**
-         * Coefficient for the repulsion force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
-         * default is {@value DEFAULT_REPULSION}
-         * @param repulsion the repulsion coefficient you want
-         * @return the instance of this Builder with the `repulsion` changed
+         * Coefficient for the repulsionIntensity force between nodes. Increasing this will make the network more sparse (ie nodes will be further apart),
+         * default is {@value DEFAULT_REPULSION_INTENSITY}
+         * @param repulsionIntensity the repulsionIntensity coefficient you want
+         * @return the instance of this Builder with the `repulsionIntensity` changed
          */
-        public Builder withRepulsion(double repulsion) {
-            this.repulsion = repulsion;
+        public Builder withRepulsionIntensity(double repulsionIntensity) {
+            this.repulsionIntensity = repulsionIntensity;
             return this;
         }
 
         /**
          * Coefficient for the attraction force between points that share an edge, increasing this might help with
-         * emphasizing clusters of points. It will also tend to make the graph smaller. Default is {@value DEFAULT_EDGE_ATTRACTION}
-         * @param edgeAttraction the coefficient for the attraction force between points that have an edge together
-         * @return the instance of this Builder with the `edgeAttraction` changed
+         * emphasizing clusters of points. It will also tend to make the graph smaller. Default is {@value DEFAULT_EDGE_ATTRACTION_INTENSITY}
+         * @param edgeAttractionIntensity the coefficient for the attraction force between points that have an edge together
+         * @return the instance of this Builder with the `edgeAttractionIntensity` changed
          */
-        public Builder withEdgeAttraction(double edgeAttraction) {
-            this.edgeAttraction = edgeAttraction;
+        public Builder withEdgeAttractionIntensity(double edgeAttractionIntensity) {
+            this.edgeAttractionIntensity = edgeAttractionIntensity;
             return this;
         }
 
         /**
          * Coefficient for the force that attracts all points to the center of the 2D space. Smaller values will lead to a less dense graph.
-         * Default is {@value DEFAULT_ATTRACT_TO_CENTER}
-         * @param attractToCenter coefficient for the center attraction force
-         * @return the instance of this Builder with the `attractToCenter` changed
+         * Default is {@value DEFAULT_ATTRACT_TO_CENTER_INTENSITY}
+         * @param attractToCenterIntensity coefficient for the center attraction force
+         * @return the instance of this Builder with the `attractToCenterIntensity` changed
          */
-        public Builder withAttractToCenter(double attractToCenter) {
-            this.attractToCenter = attractToCenter;
+        public Builder withAttractToCenterIntensity(double attractToCenterIntensity) {
+            this.attractToCenterIntensity = attractToCenterIntensity;
             return this;
         }
 
@@ -183,40 +179,23 @@ public final class Atlas2Parameters {
 
         /**
          * If set to true, other points will get a repulsion effect from unmovable points (fixed points),
-         * default is {@value DEFAULT_ACTIVATE_REPULSION_FORCE_FROM_FIXED_POINTS}
-         * @param activateRepulsionForceFromFixedPoints whether you want to activate repulsion from fixed points or not
-         * @return the instance of this Builder with the `activateRepulsionForceFromFixedPoints` changed
+         * default is {@value DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED}
+         * @param repulsionFromFixedPointsEnabled whether you want to activate repulsion from fixed points or not
+         * @return the instance of this Builder with the `repulsionFromFixedPointsEnabled` changed
          */
-        public Builder withActivateRepulsionForceFromFixedPoints(boolean activateRepulsionForceFromFixedPoints) {
-            this.activateRepulsionForceFromFixedPoints = activateRepulsionForceFromFixedPoints;
+        public Builder withRepulsionFromFixedPointsEnabled(boolean repulsionFromFixedPointsEnabled) {
+            this.repulsionFromFixedPointsEnabled = repulsionFromFixedPointsEnabled;
             return this;
         }
 
         /**
          * Activate or deactivate the force that attracts points to the center of the graph. It is used to prevent non-connected points
-         * from drifting away, default is {@value DEFAULT_ACTIVATE_ATTRACT_TO_CENTER_FORCE}
-         * @param activateAttractToCenterForce activate or deactivate the center attraction force
-         * @return the instance of this Builder with the `activateAttractToCenterForce` changed
+         * from drifting away, default is {@value DEFAULT_ATTRACT_TO_CENTER_ENABLED}
+         * @param attractToCenterEnabled activate or deactivate the center attraction force
+         * @return the instance of this Builder with the `attractToCenterEnabled` changed
          */
-        public Builder withActivateAttractToCenterForce(boolean activateAttractToCenterForce) {
-            this.activateAttractToCenterForce = activateAttractToCenterForce;
-            return this;
-        }
-
-        /**
-         * By how many iteration (in percent) you want to increase the run once the stopping condition was met.
-         * The stopping condition generally stops when the graph is "good enough", but for specific use you might want a graph that looks better.
-         * Increasing the number of iterations past the stopping condition will increase the visual quality of the graph, but it will also take longer.
-         * This coefficient will also be directly the increase in runtime (e.g. if you use 10%, you will have a 10% longer runtime).
-         * Default is {@value DEFAULT_ITERATION_NUMBER_INCREASE_PERCENT}
-         * @param iterationNumberIncreasePercent how many more iterations (in percent) you want the run to last
-         * @return the instance of this Builder with the `iterationNumberIncreasePercent` changed
-         */
-        public Builder withIterationNumberIncreasePercent(double iterationNumberIncreasePercent) {
-            if (iterationNumberIncreasePercent < 0) {
-                throw new IllegalArgumentException("iterationNumberIncreasePercent should be strictly positive, as the number of iterations cannot be reduced to less than the stopping criterion");
-            }
-            this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
+        public Builder withAttractToCenterEnabled(boolean attractToCenterEnabled) {
+            this.attractToCenterEnabled = attractToCenterEnabled;
             return this;
         }
 
@@ -249,23 +228,23 @@ public final class Atlas2Parameters {
             return this;
         }
 
-        /// By default, the Barnes-Hut optimisation is activated with theta = 1.2
-        /// If your network has a small number of nodes (less than 500), Atlas might finish faster by deactivating Barnes-Hut
-        /// You can do so by using withBarnesHutTheta(0)
-        /// This might be interesting to do especially if you need to run Atlas on a lot of small networks
+
+
         public Atlas2Parameters build() {
             return new Atlas2Parameters(
                     maxSteps,
-                    repulsion,
-                    edgeAttraction,
-                    attractToCenter,
+                    repulsionIntensity,
+                    edgeAttractionIntensity,
+                    attractToCenterIntensity,
                     speedFactor,
                     maxSpeedFactor,
                     swingTolerance,
                     maxGlobalSpeedIncreaseRatio,
                     activateRepulsionForceFromFixedPoints,
                     activateAttractToCenterForce,
-                    iterationNumberIncreasePercent,
+                    iterationNumberIncreasePercent
+                    repulsionFromFixedPointsEnabled,
+                    attractToCenterEnabled,
                     barnesHutTheta,
                     quadtreeCalculationIncrement
             );
@@ -276,16 +255,16 @@ public final class Atlas2Parameters {
         return maxSteps;
     }
 
-    public double getRepulsion() {
-        return repulsion;
+    public double getRepulsionIntensity() {
+        return repulsionIntensity;
     }
 
-    public double getEdgeAttraction() {
-        return edgeAttraction;
+    public double getEdgeAttractionIntensity() {
+        return edgeAttractionIntensity;
     }
 
-    public double getAttractToCenter() {
-        return attractToCenter;
+    public double getAttractToCenterIntensity() {
+        return attractToCenterIntensity;
     }
 
     public double getSpeedFactor() {
@@ -304,16 +283,12 @@ public final class Atlas2Parameters {
         return maxGlobalSpeedIncreaseRatio;
     }
 
-    public boolean isActivateRepulsionForceFromFixedPoints() {
-        return activateRepulsionForceFromFixedPoints;
+    public boolean isRepulsionFromFixedPointsEnabled() {
+        return repulsionFromFixedPointsEnabled;
     }
 
-    public boolean isActivateAttractToCenterForce() {
-        return activateAttractToCenterForce;
-    }
-
-    public double getIterationNumberIncreasePercent() {
-        return iterationNumberIncreasePercent;
+    public boolean isAttractToCenterEnabled() {
+        return attractToCenterEnabled;
     }
 
     public double getBarnesHutTheta() {

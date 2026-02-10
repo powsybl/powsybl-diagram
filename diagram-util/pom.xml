@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--~
-  ~ Copyright (c) 2022-2025, RTE (http://www.rte-france.com)
+  ~ Copyright (c) 2022-2026, RTE (http://www.rte-france.com)
   ~ This Source Code Form is subject to the terms of the Mozilla Public
   ~ License, v. 2.0. If a copy of the MPL was not distributed with this
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-diagram</artifactId>
-        <version>4.10.0-SNAPSHOT</version>
+        <version>5.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>powsybl-diagram-util</artifactId>
@@ -60,17 +60,29 @@
 
         <!-- test dependencies -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-config-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-diagram-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

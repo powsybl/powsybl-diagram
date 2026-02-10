@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -14,16 +14,16 @@ public final class OverlapPreventionPostProcessingParameters {
     private static final double DEFAULT_POINT_SIZE_SCALE = 0.008;
     private static final double DEFAULT_POINT_SIZE_OFFSET = 4;
     private static final double DEFAULT_EDGE_ATTRACTION_INTENSITY = 1;
-    private static final double DEFAULT_REPULSION_NO_OVERLAP = 4;
-    private static final double DEFAULT_REPULSION_WITH_OVERLAP = 100;
+    private static final double DEFAULT_REPULSION_NO_OVERLAP_INTENSITY = 4;
+    private static final double DEFAULT_REPULSION_WITH_OVERLAP_INTENSITY = 100;
     private static final double DEFAULT_REPULSION_ZONE_RATIO = 10;
     private static final double DEFAULT_ATTRACT_TO_CENTER_INTENSITY = 0.001;
 
     private final double pointSizeScale;
     private final double pointSizeOffset;
     private final double edgeAttractionIntensity;
-    private final double repulsionNoOverlap;
-    private final double repulsionWithOverlap;
+    private final double repulsionNoOverlapIntensity;
+    private final double repulsionWithOverlapIntensity;
     private final double repulsionZoneRatio;
     private final double attractToCenterIntensity;
 
@@ -31,8 +31,8 @@ public final class OverlapPreventionPostProcessingParameters {
      * @param pointSizeScale scaling coefficient for the size of the point given the number of nodes of the graph, get the size of a point via scale * graph size + offset
      * @param pointSizeOffset offset for the size of the point, get the size of a point via scale * graph size + offset
      * @param edgeAttractionIntensity coefficient for the attraction force on the edges
-     * @param repulsionNoOverlap coefficient for the repulsion force when points do not overlap, should be no more than repulsionWithOverlap / 10 to work correctly
-     * @param repulsionWithOverlap coefficient for the repulsion force when points overlap, should be no less than repulsionWithOverlap * 10 to work correctly
+     * @param repulsionNoOverlapIntensity coefficient for the repulsion force when points do not overlap, should be no more than repulsionWithOverlap / 10 to work correctly
+     * @param repulsionWithOverlapIntensity coefficient for the repulsion force when points overlap, should be no less than repulsionWithOverlap * 10 to work correctly
      * @param repulsionZoneRatio ratio for the area in which the repulsion force is calculated around a point, the area is of radius pointSize * repulsionZoneRatio
      * @param attractToCenterIntensity coefficient for the intensity of the force to attract all points to the center
      */
@@ -40,16 +40,16 @@ public final class OverlapPreventionPostProcessingParameters {
             double pointSizeScale,
             double pointSizeOffset,
             double edgeAttractionIntensity,
-            double repulsionNoOverlap,
-            double repulsionWithOverlap,
+            double repulsionNoOverlapIntensity,
+            double repulsionWithOverlapIntensity,
             double repulsionZoneRatio,
             double attractToCenterIntensity
     ) {
         this.pointSizeScale = pointSizeScale;
         this.pointSizeOffset = pointSizeOffset;
         this.edgeAttractionIntensity = edgeAttractionIntensity;
-        this.repulsionNoOverlap = repulsionNoOverlap;
-        this.repulsionWithOverlap = repulsionWithOverlap;
+        this.repulsionNoOverlapIntensity = repulsionNoOverlapIntensity;
+        this.repulsionWithOverlapIntensity = repulsionWithOverlapIntensity;
         this.repulsionZoneRatio = repulsionZoneRatio;
         this.attractToCenterIntensity = attractToCenterIntensity;
     }
@@ -58,8 +58,8 @@ public final class OverlapPreventionPostProcessingParameters {
         private double pointSizeScale = DEFAULT_POINT_SIZE_SCALE;
         private double pointSizeOffset = DEFAULT_POINT_SIZE_OFFSET;
         private double edgeAttractionIntensity = DEFAULT_EDGE_ATTRACTION_INTENSITY;
-        private double repulsionNoOverlap = DEFAULT_REPULSION_NO_OVERLAP;
-        private double repulsionWithOverlap = DEFAULT_REPULSION_WITH_OVERLAP;
+        private double repulsionNoOverlapIntensity = DEFAULT_REPULSION_NO_OVERLAP_INTENSITY;
+        private double repulsionWithOverlapIntensity = DEFAULT_REPULSION_WITH_OVERLAP_INTENSITY;
         private double repulsionZoneRatio = DEFAULT_REPULSION_ZONE_RATIO;
         private double attractToCenterIntensity = DEFAULT_ATTRACT_TO_CENTER_INTENSITY;
 
@@ -94,22 +94,22 @@ public final class OverlapPreventionPostProcessingParameters {
         }
 
         /**
-         * @param repulsionNoOverlap the coefficient for the repulsion force when two points do not overlap, should be no greater than repulsionWithOverlap / 10<br>
-         *                           Default is {@value DEFAULT_REPULSION_NO_OVERLAP}
-         * @return the instance of this Builder with the repulsionNoOverlap parameter changed
+         * @param repulsionNoOverlapIntensity the coefficient for the repulsion force when two points do not overlap, should be no greater than repulsionWithOverlap / 10<br>
+         *                           Default is {@value DEFAULT_REPULSION_NO_OVERLAP_INTENSITY}
+         * @return the instance of this Builder with the repulsionNoOverlapIntensity parameter changed
          */
-        public Builder withRepulsionNoOverlap(double repulsionNoOverlap) {
-            this.repulsionNoOverlap = repulsionNoOverlap;
+        public Builder withRepulsionNoOverlapIntensity(double repulsionNoOverlapIntensity) {
+            this.repulsionNoOverlapIntensity = repulsionNoOverlapIntensity;
             return this;
         }
 
         /**
-         * @param repulsionWithOverlap the coefficient for the repulsion force when two points overlap, should be at least 10 times the value of the repulsion without overlap<br>
-         *                             Default is {@value DEFAULT_REPULSION_WITH_OVERLAP}
-         * @return the instance of this Builder with the repulsionWithOverlap parameter changed
+         * @param repulsionWithOverlapIntensity the coefficient for the repulsion force when two points overlap, should be at least 10 times the value of the repulsion without overlap<br>
+         *                             Default is {@value DEFAULT_REPULSION_WITH_OVERLAP_INTENSITY}
+         * @return the instance of this Builder with the repulsionWithOverlapIntensity parameter changed
          */
-        public Builder withRepulsionWithOverlap(double repulsionWithOverlap) {
-            this.repulsionWithOverlap = repulsionWithOverlap;
+        public Builder withRepulsionWithOverlapIntensity(double repulsionWithOverlapIntensity) {
+            this.repulsionWithOverlapIntensity = repulsionWithOverlapIntensity;
             return this;
         }
 
@@ -138,8 +138,8 @@ public final class OverlapPreventionPostProcessingParameters {
                     pointSizeScale,
                     pointSizeOffset,
                     edgeAttractionIntensity,
-                    repulsionNoOverlap,
-                    repulsionWithOverlap,
+                    repulsionNoOverlapIntensity,
+                    repulsionWithOverlapIntensity,
                     repulsionZoneRatio,
                     attractToCenterIntensity
             );
@@ -158,12 +158,12 @@ public final class OverlapPreventionPostProcessingParameters {
         return edgeAttractionIntensity;
     }
 
-    public double getRepulsionNoOverlap() {
-        return repulsionNoOverlap;
+    public double getRepulsionNoOverlapIntensity() {
+        return repulsionNoOverlapIntensity;
     }
 
-    public double getRepulsionWithOverlap() {
-        return repulsionWithOverlap;
+    public double getRepulsionWithOverlapIntensity() {
+        return repulsionWithOverlapIntensity;
     }
 
     public double getRepulsionZoneRatio() {

@@ -37,7 +37,6 @@ Note that once created, atlas2ForceLayout can be used on multiple different grap
 | $maxGlobalSpeedIncreaseRatio$           | `double`  | 1.5           | $\gt$ 1           |
 | $activateRepulsionForceFromFixedPoints$ | `boolean` | true          | true / false      |
 | $activateAttractToCenterForce$          | `boolean` | true          | true / false      |
-| $iterationNumberIncreasePercent$        | `double`  | 0             | $\geq$ 0          |
 
 ### maxSteps
 
@@ -146,16 +145,3 @@ Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateA
 ```
 
 ![ieee_118-activateAttractToCenterForce_false.svg](/_static/img/nad/atlas2/ieee_118-activateAttractToCenterForce_false.svg)
-
-### iterationNumberIncreasePercent
-
-By how many iteration (in percent) you want to increase the run once the stopping condition was met.
-The stopping condition generally stops when the graph is "good enough", but for specific use you might want a graph that looks better.
-Increasing the number of iterations past the stopping condition will increase the visual quality of the graph, but it will also take longer.
-This coefficient will also be directly the increase in runtime (e.g. if you use 10%, you will have a 10% longer runtime).
-
-```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withIterationNumberIncreasePercent(25).build();
-```
-
-![ieee_118-iterationNumberIncreasePercent_25.svg](/_static/img/nad/atlas2/ieee_118-iterationNumberIncreasePercent_25.svg)
