@@ -22,7 +22,7 @@ class AttractToCenterForceDegreeBasedLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         AttractToCenterForceDegreeBasedLinear<String, DefaultEdge> attractToCenterForceDegreeBasedLinear = new AttractToCenterForceDegreeBasedLinear<>(0.01);
         attractToCenterForceDegreeBasedLinear.init(layoutContext);
         String[] vertexToTest = {

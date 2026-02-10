@@ -61,16 +61,14 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
-        this.forces.add(new RepulsionForceDegreeBasedLinear<>(
-                layoutParameters.getRepulsionIntensity(),
-                layoutParameters.isRepulsionFromFixedPointsEnabled()));
+        this.layoutParameters = layoutParameters;
+        addRepulsionForce(layoutParameters);
         this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttractionIntensity()));
         if (layoutParameters.isAttractToCenterEnabled()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
             // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
             this.forces.add(new AttractToCenterForceDegreeBasedLinear<>(layoutParameters.getAttractToCenterIntensity()));
         }
-        this.layoutParameters = layoutParameters;
     }
 
     /**
@@ -110,7 +108,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         while (i < stoppingStep && !graphSwingIsZero) {
             double graphSwing = 0.;
             double graphTraction = 0.;
-	    if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
+            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
                 Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
@@ -148,7 +146,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                 // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
                 updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
                 if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
-		    //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
+            //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
                     break;
                 }
                 previousGraphSpeed = newGraphSpeed;
@@ -161,17 +159,17 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     /**
      * Choose whether to add a repulsion force using barnes-hut or not
      */
-    private void addRepulsionForce() {
-        if (layoutParameters.getBarnesHutTheta() == 0) {
-            this.forces.add(new RepulsionForceByEdgeNumberLinear<>(
-                    layoutParameters.getRepulsion(),
-                    layoutParameters.isActivateRepulsionForceFromFixedPoints()
+    private void addRepulsionForce(Atlas2Parameters parameters) {
+        if (parameters.getBarnesHutTheta() == 0) {
+            this.forces.add(new RepulsionForceDegreeBasedLinear<>(
+                    parameters.getRepulsionIntensity(),
+                    parameters.isRepulsionFromFixedPointsEnabled()
             ));
         } else {
-            this.forces.add(new RepulsionForceByEdgeNumberLinearBarnesHut<>(
-                    layoutParameters.getRepulsion(),
-                    layoutParameters.isActivateRepulsionForceFromFixedPoints(),
-                    layoutParameters.getBarnesHutTheta(),
+            this.forces.add(new RepulsionForceDegreeBasedLinearBarnesHut<>(
+                    parameters.getRepulsionIntensity(),
+                    parameters.isRepulsionFromFixedPointsEnabled(),
+                    parameters.getBarnesHutTheta(),
                     this.quadtreeContainer
             ));
         }
@@ -183,7 +181,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
      * @return all the points if fixed points have a repulsion force, just the moving points otherwise
      */
     private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
-        if (layoutParameters.isActivateRepulsionForceFromFixedPoints()) {
+        if (layoutParameters.isRepulsionFromFixedPointsEnabled()) {
             return layoutContext.getAllPoints().values();
         } else {
             return layoutContext.getMovingPoints().values();

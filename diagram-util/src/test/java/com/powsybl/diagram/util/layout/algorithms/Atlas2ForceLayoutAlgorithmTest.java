@@ -10,7 +10,10 @@ package com.powsybl.diagram.util.layout.algorithms;
 import com.powsybl.diagram.util.layout.GraphTestData;
 import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.ResourceUtils;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 

@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-class RepulsionForceByEdgeNumberLinearBarnesHutTest {
+class RepulsionForceDegreeBasedLinearBarnesHutTest {
 
     @Test
     void apply() {
@@ -25,7 +25,7 @@ class RepulsionForceByEdgeNumberLinearBarnesHutTest {
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
         quadtreeContainer.setQuadtree(quadtree);
-        RepulsionForceByEdgeNumberLinearBarnesHut<String, DefaultEdge> repulsionForceByEdgeNumberLinearBarnesHut = new RepulsionForceByEdgeNumberLinearBarnesHut<>(
+        RepulsionForceDegreeBasedLinearBarnesHut<String, DefaultEdge> repulsionForceDegreeBasedLinearBarnesHut = new RepulsionForceDegreeBasedLinearBarnesHut<>(
                 1.2,
                 true,
                 1.5,
@@ -39,9 +39,9 @@ class RepulsionForceByEdgeNumberLinearBarnesHutTest {
             new Vector2D(-43.04168, -62.56815),
             new Vector2D(-42.662327, 33.520947)
         };
-        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinearBarnesHut, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceDegreeBasedLinearBarnesHut, vertexToTest, resultVector, delta);
 
-        RepulsionForceByEdgeNumberLinearBarnesHut<String, DefaultEdge> repulsionForceByEdgeNumberLinearBarnesHut2 = new RepulsionForceByEdgeNumberLinearBarnesHut<>(
+        RepulsionForceDegreeBasedLinearBarnesHut<String, DefaultEdge> repulsionForceDegreeBasedLinearBarnesHut2 = new RepulsionForceDegreeBasedLinearBarnesHut<>(
                 0.7,
                 true,
                 1.2,
@@ -52,6 +52,6 @@ class RepulsionForceByEdgeNumberLinearBarnesHutTest {
             new Vector2D(-27.523551875, -40.034076755)
         };
 
-        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceByEdgeNumberLinearBarnesHut2, vertexToTest2, resultVector2, delta);
+        ForceTestUtil.testForceCalculation(forceGraph, repulsionForceDegreeBasedLinearBarnesHut2, vertexToTest2, resultVector2, delta);
     }
 }

@@ -17,24 +17,15 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-<<<<<<<< HEAD:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceByEdgeNumberUnitTest.java
-class AttractToCenterForceByEdgeNumberUnitTest {
-========
+
 class AttractToCenterForceDegreeBasedUnitTest {
->>>>>>>> main:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceDegreeBasedUnitTest.java
 
     @Test
     void apply() {
         double delta = 1e-5;
-<<<<<<<< HEAD:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceByEdgeNumberUnitTest.java
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
-        AttractToCenterForceByEdgeNumberUnit<String, DefaultEdge> attractToCenterForceByEdgeNumberUnit = new AttractToCenterForceByEdgeNumberUnit<>(0.01);
-        attractToCenterForceByEdgeNumberUnit.init(layoutContext);
-========
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
         AttractToCenterForceDegreeBasedUnit<String, DefaultEdge> attractToCenterForceDegreeBasedUnit = new AttractToCenterForceDegreeBasedUnit<>(0.01);
         attractToCenterForceDegreeBasedUnit.init(layoutContext);
->>>>>>>> main:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceDegreeBasedUnitTest.java
         String[] vertexToTest = {
             "0",
             "1",
@@ -46,10 +37,6 @@ class AttractToCenterForceDegreeBasedUnitTest {
             new Vector2D(-0.007071, -0.007071)
         };
 
-<<<<<<<< HEAD:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceByEdgeNumberUnitTest.java
-        ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceByEdgeNumberUnit, vertexToTest, resultVector, delta);
-========
         ForceTestUtil.testForceCalculation(layoutContext, attractToCenterForceDegreeBasedUnit, vertexToTest, resultVector, delta);
->>>>>>>> main:diagram-util/src/test/java/com/powsybl/diagram/util/layout/forces/AttractToCenterForceDegreeBasedUnitTest.java
     }
 }

@@ -9,6 +9,7 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -50,8 +51,8 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
-                        .withActivateAttractToCenterForce(false)
+                        .withRepulsionIntensity(10)
+                        .withAttractToCenterEnabled(false)
                         .withSwingTolerance(0.8)
                         .withBarnesHutTheta(0)
                         .build(),
@@ -65,7 +66,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder().build(),
-                new NoPostProcessing<>()
+                PostProcessing.noOp()
         );
         assertSvgEquals("/IEEE_14_atlas2_yesBH.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -81,10 +82,9 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
-                        .withActivateAttractToCenterForce(false)
+                        .withRepulsionIntensity(10)
+                        .withAttractToCenterEnabled(false)
                         .withSwingTolerance(0.8)
-                        .withIterationNumberIncreasePercent(50)
                         .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
@@ -93,39 +93,14 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
     }
 
     @Test
-    void testIEEE14CustomMoreIterationYesBH() {
-        Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
-                new SquareRandomSetup<>(),
-                new Atlas2Parameters.Builder()
-                        .withIterationNumberIncreasePercent(50)
-                        .build(),
-                new NoPostProcessing<>()
-        );
-        assertSvgEquals("/IEEE_14_atlas2_custom_moreIteration_yesBH.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
-    }
-
-    @Test
-    void testIEEE14CustomMoreIterationYesBHNoOverlap() {
-        Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
-                new SquareRandomSetup<>(),
-                new Atlas2Parameters.Builder()
-                        .withIterationNumberIncreasePercent(50)
-                        .build(),
-                new OverlapPreventionPostProcessing<>()
-        );
-        assertSvgEquals("/IEEE_14_atlas2_custom_moreIteration_yesBH_NoOverlap.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
-    }
-
-    @Test
     void testIEEE30CustomNoBHNoOverlap() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withAttractToCenter(0.003)
+                        .withAttractToCenterIntensity(0.003)
                         .withMaxSpeedFactor(8)
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
-                        .withIterationNumberIncreasePercent(60)
                         .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
@@ -138,7 +113,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
             new SquareRandomSetup<>(),
             new Atlas2Parameters.Builder().build(),
-            new NoPostProcessing<>()
+            PostProcessing.noOp()
         );
         assertSvgEquals("/IEEE_30_atlas2_yesBH.svg", IeeeCdfNetworkFactory.create30(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -154,8 +129,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
-                        .withIterationNumberIncreasePercent(20)
+                        .withRepulsionIntensity(10)
                         .withBarnesHutTheta(0)
                         .build(),
                 new OverlapPreventionPostProcessing<>()
@@ -168,11 +142,10 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
-                        .withIterationNumberIncreasePercent(20)
+                        .withRepulsionIntensity(10)
                         .withBarnesHutTheta(1.2)
                         .build(),
-                new NoPostProcessing<>()
+                PostProcessing.noOp()
         );
         assertSvgEquals("/IEEE_118_atlas2_custom_yesBH.svg", IeeeCdfNetworkFactory.create118(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
     }
@@ -182,8 +155,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
-                        .withRepulsion(10)
-                        .withIterationNumberIncreasePercent(20)
+                        .withRepulsionIntensity(10)
                         .withBarnesHutTheta(1.2)
                         .build(),
                 new OverlapPreventionPostProcessing<>()

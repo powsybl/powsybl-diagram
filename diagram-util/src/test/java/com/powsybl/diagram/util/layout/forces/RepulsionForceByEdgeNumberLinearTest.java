@@ -22,20 +22,20 @@ class RepulsionForceByEdgeNumberLinearTest {
     void calculateForce() {
         double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
-        RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinear = new RepulsionForceByEdgeNumberLinear<>(
+        RepulsionForceDegreeBasedLinear<String, DefaultEdge> repulsionForceDegreeBasedLinear = new RepulsionForceDegreeBasedLinear<>(
                         0.34,
                         true
         );
-        repulsionForceByEdgeNumberLinear.init(layoutContext);
+        repulsionForceDegreeBasedLinear.init(layoutContext);
         String[] vertexToTest = {"0", "4"};
         Vector2D[] resultVector = {
             new Vector2D(-1.99586, 2.06396),
             new Vector2D(0.463784, 0.201774),
         };
 
-        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceByEdgeNumberLinear, vertexToTest, resultVector, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceDegreeBasedLinear, vertexToTest, resultVector, delta);
 
-        RepulsionForceByEdgeNumberLinear<String, DefaultEdge> repulsionForceByEdgeNumberLinearNoFixed = new RepulsionForceByEdgeNumberLinear<>(
+        RepulsionForceDegreeBasedLinear<String, DefaultEdge> repulsionForceDegreeBasedLinearNoFixed = new RepulsionForceDegreeBasedLinear<>(
                         0.34,
                         false
         );
@@ -45,6 +45,6 @@ class RepulsionForceByEdgeNumberLinearTest {
             new Vector2D(0.347152, 0.169965),
         };
 
-        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceByEdgeNumberLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
+        ForceTestUtil.testForceCalculation(layoutContext, repulsionForceDegreeBasedLinearNoFixed, vertexToTest, resultVectorNoFixed, delta);
     }
 }

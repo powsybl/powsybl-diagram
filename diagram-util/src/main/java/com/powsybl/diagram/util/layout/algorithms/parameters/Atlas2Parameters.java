@@ -39,7 +39,6 @@ public final class Atlas2Parameters {
     private final double barnesHutTheta;
     private final int quadtreeCalculationIncrement;
 
-
     private Atlas2Parameters(
             int maxSteps,
             double repulsionIntensity,
@@ -51,8 +50,8 @@ public final class Atlas2Parameters {
             double maxGlobalSpeedIncreaseRatio,
             boolean repulsionFromFixedPointsEnabled,
             boolean attractToCenterEnabled,
-            double iterationNumberIncreasePercent,
-            double barnesHutTheta
+            double barnesHutTheta,
+            int quadtreeCalculationIncrement
     ) {
         this.maxSteps = maxSteps;
         this.repulsionIntensity = repulsionIntensity;
@@ -64,8 +63,8 @@ public final class Atlas2Parameters {
         this.maxGlobalSpeedIncreaseRatio = maxGlobalSpeedIncreaseRatio;
         this.repulsionFromFixedPointsEnabled = repulsionFromFixedPointsEnabled;
         this.attractToCenterEnabled = attractToCenterEnabled;
-	this.iterationNumberIncreasePercent = iterationNumberIncreasePercent;
         this.barnesHutTheta = barnesHutTheta;
+        this.quadtreeCalculationIncrement = quadtreeCalculationIncrement;
     }
 
     public static class Builder {
@@ -79,7 +78,7 @@ public final class Atlas2Parameters {
         private double maxGlobalSpeedIncreaseRatio = DEFAULT_MAX_GLOBAL_SPEED_INCREASE_RATIO;
         private boolean repulsionFromFixedPointsEnabled = DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED;
         private boolean attractToCenterEnabled = DEFAULT_ATTRACT_TO_CENTER_ENABLED;
-	private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
+        private double barnesHutTheta = DEFAULT_BARNES_HUT_THETA;
         private int quadtreeCalculationIncrement = DEFAULT_QUADTREE_CALCULATION_INCREMENT;
 
         /**
@@ -228,8 +227,6 @@ public final class Atlas2Parameters {
             return this;
         }
 
-
-
         public Atlas2Parameters build() {
             return new Atlas2Parameters(
                     maxSteps,
@@ -240,9 +237,6 @@ public final class Atlas2Parameters {
                     maxSpeedFactor,
                     swingTolerance,
                     maxGlobalSpeedIncreaseRatio,
-                    activateRepulsionForceFromFixedPoints,
-                    activateAttractToCenterForce,
-                    iterationNumberIncreasePercent
                     repulsionFromFixedPointsEnabled,
                     attractToCenterEnabled,
                     barnesHutTheta,

@@ -18,13 +18,13 @@ import java.util.List;
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 // TODO make in interface to mutualize code with LinearRepulsionForceByDegree, waiting for the merge of Atlas2
-public class RepulsionForceByEdgeNumberLinearBarnesHut<V, E> extends AbstractByEdgeNumberForce<V, E> {
+public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEdgeNumberForce<V, E> {
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
     private final double barnesHutTheta;
     private final QuadtreeContainer quadtreeContainer;
 
-    public RepulsionForceByEdgeNumberLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, QuadtreeContainer quadtreeContainer) {
+    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, QuadtreeContainer quadtreeContainer) {
         this.forceIntensity = forceIntensity;
         this.effectFromFixedNodes = effectFromFixedNodes;
         this.barnesHutTheta = barnesHutTheta;
