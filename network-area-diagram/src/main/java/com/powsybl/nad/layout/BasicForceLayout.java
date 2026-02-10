@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -12,12 +12,15 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
 import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.model.TextNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Optional;
@@ -29,33 +32,57 @@ import java.util.stream.Collectors;
  */
 public class BasicForceLayout extends AbstractLayout {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicForceLayout.class);
+
     private static final int SCALE = 100;
 
-    private final boolean repulsionForceFromFixedPoints;
-    private final boolean attractToCenterForce;
+    private boolean repulsionForceFromFixedPoints = true;
+    private boolean attractToCenterForce = true;
+    private BasicForceLayoutParameters parameters = null;
 
     public BasicForceLayout() {
-        this(true, true);
+        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed and maxSteps / timeout are not in the layoutParameters / BasicForceLayoutParamters
     }
 
+    /**
+     * @deprecated use {@link BasicForceLayout#BasicForceLayout(BasicForceLayoutParameters)} instead
+     */
+    @Deprecated(since = "5.3.0", forRemoval = true)
     BasicForceLayout(boolean repulsionForceFromFixedPoints, boolean attractToCenterForce) {
         this.repulsionForceFromFixedPoints = repulsionForceFromFixedPoints;
         this.attractToCenterForce = attractToCenterForce;
     }
 
+    BasicForceLayout(BasicForceLayoutParameters parameters) {
+        this.parameters = parameters;
+    }
+
     @Override
     protected void nodesLayout(Graph graph, LayoutParameters layoutParameters) {
         org.jgrapht.Graph<Node, Edge> jgraphtGraph = graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout());
+        if (parameters == null) {
+            parameters = new BasicForceLayoutParameters.Builder()
+                    .withAttractToCenterEnabled(attractToCenterForce)
+                    .withRepulsionFromFixedPointsEnabled(repulsionForceFromFixedPoints)
+                    .withMaxSteps(layoutParameters.getMaxSteps())
+                    .withTimeoutSeconds(layoutParameters.getTimeoutSeconds())
+                    .build();
+        } else {
+            //TODO remove this once maxSteps and timeout are properly passed
+            if (parameters.getMaxSteps() != layoutParameters.getMaxSteps()) {
+                LOGGER.warn("The max steps of layoutParameters and BasicForceLayoutParameters are different, ignoring layoutParameters");
+            }
+            if (parameters.getTimeoutSeconds() != layoutParameters.getTimeoutSeconds()) {
+                LOGGER.warn("The timeout of layoutParameters and BasicForceLayoutParameters are different, ignoring layoutParameters");
+            }
+        }
         Layout<Node, Edge> layout = new Layout<>(
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
-                        new BasicForceLayoutParameters.Builder()
-                                .withAttractToCenterForce(attractToCenterForce)
-                                .withRepulsionForceFromFixedPoints(repulsionForceFromFixedPoints)
-                                .withMaxSteps(layoutParameters.getMaxSteps())
-                                .withTimeoutSeconds(layoutParameters.getTimeoutSeconds())
-                                .build()
-                ));
+                        parameters
+                ),
+                PostProcessing.noOp()
+        );
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 

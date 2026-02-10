@@ -13,6 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 /**
+ * A force that attracts all the points towards the center of the graph. This force does not depend on the number of edge of the point.
+ * The force is stronger the further the point is from the center.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class AttractToCenterForceLinear<V, E> implements Force<V, E> {
