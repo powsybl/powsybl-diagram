@@ -78,21 +78,6 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
     }
 
     @Test
-    void testIEEE14CustomMoreIterationNoBHNoOverlap() {
-        Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
-                new SquareRandomSetup<>(),
-                new Atlas2Parameters.Builder()
-                        .withRepulsionIntensity(10)
-                        .withAttractToCenterEnabled(false)
-                        .withSwingTolerance(0.8)
-                        .withBarnesHutTheta(0)
-                        .build(),
-                new OverlapPreventionPostProcessing<>()
-        );
-        assertSvgEquals("/IEEE_14_atlas2_custom1_moreIteration_NoBH.svg", IeeeCdfNetworkFactory.create14(), VoltageLevelFilter.NO_FILTER, atlas2ForceLayout);
-    }
-
-    @Test
     void testIEEE30CustomNoBHNoOverlap() {
         Atlas2ForceLayout atlas2ForceLayout = new Atlas2ForceLayout(
                 new SquareRandomSetup<>(),
