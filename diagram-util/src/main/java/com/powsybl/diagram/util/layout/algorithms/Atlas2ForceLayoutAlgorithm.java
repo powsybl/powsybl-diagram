@@ -108,7 +108,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         while (i < stoppingStep && !graphSwingIsZero) {
             double graphSwing = 0.;
             double graphTraction = 0.;
-            if (quadtreeUpdateSchedule.isTimeToUpdate(i) && layoutParameters.getBarnesHutTheta() > 0) {
+            if (layoutParameters.isBarnesHutEnabled() && quadtreeUpdateSchedule.isTimeToUpdate(i)) {
                 Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
                 this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
