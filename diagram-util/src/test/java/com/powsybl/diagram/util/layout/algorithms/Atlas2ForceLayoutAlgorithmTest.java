@@ -29,7 +29,7 @@ class Atlas2ForceLayoutAlgorithmTest {
     @Test
     void calculateLayoutNoBH() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
-        Atlas2Parameters layoutParameters = new Atlas2Parameters.Builder().withBarnesHutTheta(0).build();
+        Atlas2Parameters layoutParameters = new Atlas2Parameters.Builder().withBarnesHutDisabled().build();
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>(layoutParameters);
         atlas2.run(layoutContext);
         StringWriter sw = new StringWriter();
@@ -43,7 +43,7 @@ class Atlas2ForceLayoutAlgorithmTest {
         Layout<String, DefaultEdge> atlas2 = new Layout<>(
             new SquareRandomSetup<>(),
             new Atlas2ForceLayoutAlgorithm<>(new Atlas2Parameters.Builder()
-                    .withBarnesHutTheta(0)
+                    .withBarnesHutDisabled()
                     .build()
             ),
             new OverlapPreventionPostProcessing<>()

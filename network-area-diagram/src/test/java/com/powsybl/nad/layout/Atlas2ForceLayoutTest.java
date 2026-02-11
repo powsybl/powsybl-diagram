@@ -28,7 +28,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 VoltageLevelFilter.NO_FILTER,
                 new Atlas2ForceLayout(
                     new SquareRandomSetup<>(),
-                    new Atlas2Parameters.Builder().withBarnesHutTheta(0).build(),
+                    new Atlas2Parameters.Builder().withBarnesHutDisabled().build(),
                     new OverlapPreventionPostProcessing<>()
         ));
     }
@@ -41,7 +41,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 VoltageLevelFilter.NO_FILTER,
                 new Atlas2ForceLayout(
                     new SquareRandomSetup<>(),
-                    new Atlas2Parameters.Builder().withBarnesHutTheta(0).build(),
+                    new Atlas2Parameters.Builder().withBarnesHutDisabled().build(),
                     new OverlapPreventionPostProcessing<>()
         ));
     }
@@ -54,7 +54,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withRepulsionIntensity(10)
                         .withAttractToCenterEnabled(false)
                         .withSwingTolerance(0.8)
-                        .withBarnesHutTheta(0)
+                        .withBarnesHutDisabled()
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
@@ -86,7 +86,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                         .withMaxSpeedFactor(8)
                         .withSpeedFactor(0.9)
                         .withMaxSteps(200)
-                        .withBarnesHutTheta(0)
+                        .withBarnesHutDisabled()
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
@@ -115,7 +115,7 @@ class Atlas2ForceLayoutTest extends ForceLayoutTest {
                 new SquareRandomSetup<>(),
                 new Atlas2Parameters.Builder()
                         .withRepulsionIntensity(10)
-                        .withBarnesHutTheta(0)
+                        .withBarnesHutDisabled()
                         .build(),
                 new OverlapPreventionPostProcessing<>()
         );
