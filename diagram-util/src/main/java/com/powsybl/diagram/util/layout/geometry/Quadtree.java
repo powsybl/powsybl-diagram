@@ -153,10 +153,10 @@ public class Quadtree {
         // [ySplitIndex, xUpperSplitIndex) is top left, [xUpperSplitIndex, lastIndex) is top right
         int xUpperSplitIndex = partitionPoints(points, ySplitIndex, lastIndex, isLeft);
 
-        BoundingBox bottomLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBoxCenter.getY(), boundingBoxCenter.getX(), boundingBox.getBottom());
-        BoundingBox bottomRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBoxCenter.getY(), boundingBox.getRight(), boundingBox.getBottom());
-        BoundingBox topLeftBb = new BoundingBox(boundingBox.getLeft(), boundingBox.getTop(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
-        BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.getTop(), boundingBox.getRight(), boundingBoxCenter.getY());
+        BoundingBox bottomLeftBb = new BoundingBox(boundingBox.left(), boundingBoxCenter.getY(), boundingBoxCenter.getX(), boundingBox.bottom());
+        BoundingBox bottomRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBoxCenter.getY(), boundingBox.right(), boundingBox.bottom());
+        BoundingBox topLeftBb = new BoundingBox(boundingBox.left(), boundingBox.top(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
+        BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.top(), boundingBox.right(), boundingBoxCenter.getY());
 
         nodesList.get(newNodeIndex).childrenNodeId[0][0] = buildQuadtree(nodesList, barycentersList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
         nodesList.get(newNodeIndex).childrenNodeId[0][1] = buildQuadtree(nodesList, barycentersList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);

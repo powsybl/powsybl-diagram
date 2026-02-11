@@ -13,18 +13,9 @@ import java.util.Collection;
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
-public final class BoundingBox {
+public record BoundingBox(double left, double top, double right, double bottom) {
 
-    private final double left;
-    private final double bottom;
-    private final double right;
-    private final double top;
-
-    public BoundingBox(double left, double top, double right, double bottom) {
-        this.left = left;
-        this.top = top;
-        this.right = right;
-        this.bottom = bottom;
+    public BoundingBox {
         // top is the smallest y, bottom the biggest y
         // axes are:
         // (0, 0) ---> x
@@ -58,22 +49,6 @@ public final class BoundingBox {
 
     public double getWidth() {
         return right - left;
-    }
-
-    public double getLeft() {
-        return left;
-    }
-
-    public double getTop() {
-        return top;
-    }
-
-    public double getBottom() {
-        return bottom;
-    }
-
-    public double getRight() {
-        return right;
     }
 
     public Vector2D getCenter() {
