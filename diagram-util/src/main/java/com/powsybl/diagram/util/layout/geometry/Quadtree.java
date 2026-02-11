@@ -189,12 +189,8 @@ public class Quadtree {
     private int partitionPoints(Point[] points, int startIndex, int endIndex, Predicate<Vector2D> splitPredicate) {
         // directly find the index such that the predicate is false, no need to sort the start of the array if it's already ok
         int firstFalseIndex = startIndex;
-        while (firstFalseIndex < endIndex) {
-            if (splitPredicate.test(points[firstFalseIndex].getPosition())) {
-                ++firstFalseIndex;
-            } else {
-                break;
-            }
+        while (firstFalseIndex < endIndex && splitPredicate.test(points[firstFalseIndex].getPosition())) {
+            ++firstFalseIndex;
         }
 
         for (int i = firstFalseIndex + 1; i < endIndex; ++i) {
