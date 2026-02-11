@@ -23,17 +23,6 @@ public interface Force<V, E> {
     }
 
     /**
-     * Initializes all the forces using the layoutContext
-     * @param forces forces to be initialized
-     * @param layoutContext the context of the layout
-     */
-    static <V, E> void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
-        for (Force<V, E> force : forces) {
-            force.init(layoutContext);
-        }
-    }
-
-    /**
      * Return the force vector which is the sum of the influence of all other points of the graph on this point<br>
      * Some forces use all other points to calculate this, such as repulsion force. Other only need to consider points that have an edge with
      *  this point (such as edge attraction forces), and other don't even need the other points of the graph (forces that attract a point to the center)
