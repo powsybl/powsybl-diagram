@@ -12,8 +12,6 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
-import java.util.List;
-
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
