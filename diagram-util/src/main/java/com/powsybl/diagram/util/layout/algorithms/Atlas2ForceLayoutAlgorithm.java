@@ -160,17 +160,17 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
      * Choose whether to add a repulsion force using barnes-hut or not
      */
     private void addRepulsionForce(Atlas2Parameters parameters) {
-        if (parameters.getBarnesHutTheta() == 0) {
-            this.forces.add(new RepulsionForceDegreeBasedLinear<>(
-                    parameters.getRepulsionIntensity(),
-                    parameters.isRepulsionFromFixedPointsEnabled()
-            ));
-        } else {
+        if (parameters.isBarnesHutEnabled()) {
             this.forces.add(new RepulsionForceDegreeBasedLinearBarnesHut<>(
                     parameters.getRepulsionIntensity(),
                     parameters.isRepulsionFromFixedPointsEnabled(),
                     parameters.getBarnesHutTheta(),
                     this.quadtreeContainer
+            ));
+        } else {
+            this.forces.add(new RepulsionForceDegreeBasedLinear<>(
+                    parameters.getRepulsionIntensity(),
+                    parameters.isRepulsionFromFixedPointsEnabled()
             ));
         }
     }
