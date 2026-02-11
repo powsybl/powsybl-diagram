@@ -1,9 +1,9 @@
-# Other layout parameters
+# Atlas2 parameters
 
 Apart from using layoutParameters, more parameters can be set by using the parameters from diagram-util.
 This is currently only available with Atlas2 (and not with basic force layout).
 
-Parameters can be built as follows:
+Atlas2 parameters can be built as follows:
 
 ```java
 Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder()
@@ -37,8 +37,8 @@ Note that once created, atlas2ForceLayout can be used on multiple different grap
 | $maxGlobalSpeedIncreaseRatio$          | `double`  | 1.5           | $\gt$ 1           |
 | $repulsionForceFromFixedPointsEnabled$ | `boolean` | true          | true / false      |
 | $attractToCenterForceEnabled$          | `boolean` | true          | true / false      |
-| $barnesHutTheta$                       | `double`  | 1.2           | $geq$ 0           |
-| $quadtreeCalculationIncrement$         | `int`     | 13            | $geq$ 1           |
+| $barnesHutTheta$                       | `double`  | 1.2           | $\geq$ 0          |
+| $quadtreeCalculationIncrement$         | `int`     | 13            | $\geq$ 1          |
 
 ### maxSteps
 
@@ -163,7 +163,18 @@ Below is a graph showing the time taken to calculate a layout with Barnes-Hut (i
 The drop in relative performance for one of the networks in the middle is an exception due to the specificity of the shape of the network used.
 
 Below are two images showing the visual result without (left) and with (right) Barnes-Hut. The value used in Barnes-Hut for the theta is the default of 1.2.
-<img src="/_static/img/nad/atlas2/ieee_118-noBH.svg" width="45%"> <img src="/_static/img/nad/atlas2/ieee_118-yesBH.svg" width="45%">
+
+```{image} /_static/img/nad/atlas2/ieee_118-noBH.svg
+:alt: IEEE 118 without Barnes-Hut
+:width: 45%
+:align: left
+```
+
+```{image} /_static/img/nad/atlas2/ieee_118-yesBH.svg
+:alt: IEEE 118 with Barnes-Hut
+:width: 45%
+:align: right
+```
 
 ### quadtreeCalculationIncrement
 
