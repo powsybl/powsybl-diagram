@@ -130,15 +130,14 @@ public class Quadtree {
         Point nodeBarycenter = new Point(0, 0);
         barycentersList.add(nodeBarycenter);
 
-        if (firstIndex + 1 == lastIndex) {
+        if (
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
-            setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
-            return newNodeIndex;
-        }
-
-        // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
-        // use this check to not have to calculate the equality between all points in the range each time
-        if (remainingDepth == 0 || firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)) {
+                firstIndex + 1 == lastIndex
+                || remainingDepth == 0
+            // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
+            // use the first two index checks to not have to calculate the equality between all points in the range each time
+                || firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)
+        ) {
             setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
             return newNodeIndex;
         }
