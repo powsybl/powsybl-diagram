@@ -7,11 +7,10 @@
  */
 package com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule;
 
-/// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
-/// By Robert Gove, Two Six Labs, for an explanation
-
 /**
  * A schedule that says it's time to update every X time step
+ * See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
+ * By Robert Gove, Two Six Labs, for an explanation
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class ConstantSchedule {

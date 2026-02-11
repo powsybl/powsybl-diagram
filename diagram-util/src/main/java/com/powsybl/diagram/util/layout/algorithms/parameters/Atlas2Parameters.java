@@ -22,8 +22,10 @@ public final class Atlas2Parameters {
     private static final boolean DEFAULT_REPULSION_FROM_FIXED_POINTS_ENABLED = true;
     private static final boolean DEFAULT_ATTRACT_TO_CENTER_ENABLED = true;
     private static final double DEFAULT_BARNES_HUT_THETA = 1.2;
-    /// See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
-    /// By Robert Gove, Two Six Labs, for an explanation
+    /**
+     * See "It Pays to Be Lazy: Reusing Force Approximations to Compute Better Graph Layouts Faster"
+     * By Robert Gove, Two Six Labs, for an explanation
+     */
     private static final int DEFAULT_QUADTREE_CALCULATION_INCREMENT = 13;
 
     private final int maxSteps;
@@ -200,9 +202,11 @@ public final class Atlas2Parameters {
 
         /**
          * The theta parameter used in the Barnes-Hut approximation. The bigger the theta, the more aggressive the optimization will be,
-         * but that might lead to less visual quality. A bigger value will also generally reduce runtime. Default is {@value DEFAULT_BARNES_HUT_THETA}
+         * but that might lead to less visual quality. A bigger value will also generally reduce runtime. Default is {@value DEFAULT_BARNES_HUT_THETA}.
+         * <p>Note: if your network is small (less than 500 nodes), Atlas2 might finish faster by deactivating Barnes-Hut. You can do so by using
+         * withBarnesHutDeactivated(). This might be interesting to do especially if you need to run Atlas2 on a lot of small networks.</p>
          * @param barnesHutTheta the theta for the barnes-hut optimization
-         * @return  the instance of this Builder with the `barnesHutTheta` changed
+         * @return the instance of this Builder with the `barnesHutTheta` changed
          */
         public Builder withBarnesHutTheta(double barnesHutTheta) {
             if (barnesHutTheta < 0) {
