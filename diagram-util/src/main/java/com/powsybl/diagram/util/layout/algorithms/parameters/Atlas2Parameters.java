@@ -304,7 +304,7 @@ public final class Atlas2Parameters {
     }
 
     public boolean isBarnesHutEnabled() {
-        return barnesHutTheta == 0;
+        return barnesHutTheta > 0;
     }
 
     public int getQuadtreeCalculationIncrement() {
