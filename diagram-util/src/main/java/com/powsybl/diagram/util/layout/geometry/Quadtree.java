@@ -242,11 +242,9 @@ public class Quadtree {
             if (index != NO_CHILDREN) {
                 // get the mass / position of each quadrant and do a weighted sum (quite literally)
                 Point quadrantBarycenter = barycentersList.get(index);
-                Vector2D quadrantBarycenterPosition = new Vector2D(quadrantBarycenter.getPosition());
                 // do not use the massGetter, that's only for leaf nodes, quadrants contain leaf which already have their correct mass set
                 double quadrantMass = quadrantBarycenter.getMass();
-                quadrantBarycenterPosition.multiplyBy(quadrantMass);
-                barycenterPosition.add(quadrantBarycenterPosition);
+                barycenterPosition.addScaled(quadrantBarycenter.getPosition(), quadrantMass);
                 totalBarycenterMass += quadrantMass;
             }
         }

@@ -44,6 +44,17 @@ public class Vector2D {
         this.y += otherVector.y;
     }
 
+    /**
+     * Scale the <code>otherVector</code> by the <code>scalingFactor</code> and add it to this vector.
+     * Note that the <code>otherVector</code> is not modified by this operation.
+     * @param otherVector the other vector we want to add
+     * @param scalingFactor how to scale the other vector before adding it to this vector
+     */
+    public void addScaled(Vector2D otherVector, double scalingFactor) {
+        this.x += otherVector.x * scalingFactor;
+        this.y += otherVector.y * scalingFactor;
+    }
+
     public void subtract(Vector2D otherVector) {
         this.x -= otherVector.x;
         this.y -= otherVector.y;
