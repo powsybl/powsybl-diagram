@@ -36,7 +36,7 @@ class QuadtreeTest {
                 new Point(0.63, 1.01)
         );
         Quadtree quadtree = new Quadtree(points, Point::getMass);
-        short rootIndex = quadtree.getRootIndex();
+        int rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
         Point[] barycenters = quadtree.getBarycenters();
         Point[] expectedBarycenters = {
@@ -67,7 +67,7 @@ class QuadtreeTest {
     void checkTreeStructureWithVertexWeight() {
         LayoutContext<String, DefaultEdge> forceGraph = GraphTestData.getLayoutContext2();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
-        short rootIndex = quadtree.getRootIndex();
+        int rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
         Point[] barycenters = quadtree.getBarycenters();
         Point[] expectedBarycenters = {
@@ -95,16 +95,16 @@ class QuadtreeTest {
     }
 
     private void checkChildBarycenter(
-            short parentNodeIndex,
+            int parentNodeIndex,
             Quadtree.QuadtreeNode[] nodes,
             Point[] barycenters,
             Point[] expectedBarycenters
     ) {
         double delta = 1e-3;
         Quadtree.QuadtreeNode thisNode = nodes[parentNodeIndex];
-        short[] subAreaIndexList = thisNode.getChildrenNodeIdFlatten();
+        int[] subAreaIndexList = thisNode.getChildrenNodeIdFlatten();
         // check all child areas
-        for (short subAreaIndex : subAreaIndexList) {
+        for (int subAreaIndex : subAreaIndexList) {
             if (subAreaIndex != Quadtree.NO_CHILDREN) {
                 checkChildBarycenter(subAreaIndex, nodes, barycenters, expectedBarycenters);
             }

@@ -92,7 +92,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
      * @param pointsToInteractWith the list of points to fill
      */
     private void generatePointInteractionList(
-            short nodeIndex,
+            int nodeIndex,
             Point point,
             double nodeWidth,
             List<Point> pointsToInteractWith
@@ -106,7 +106,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
             Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[nodeIndex];
             double childNodeWidth = nodeWidth / 2;
             int numberOfChild = 0;
-            for (short index : thisNode.getChildrenNodeIdFlatten()) {
+            for (int index : thisNode.getChildrenNodeIdFlatten()) {
                 if (index != Quadtree.NO_CHILDREN) {
                     ++numberOfChild;
                     generatePointInteractionList(index, point, childNodeWidth, pointsToInteractWith);
