@@ -217,6 +217,16 @@ public final class Atlas2Parameters {
         }
 
         /**
+         * Used to deactivate the Barnes-Hut optimization. This is interesting if your network is small (less than 500 nodes).
+         * It will not be very noticeable on a single run, but it will be if you need to run Atlas2 on a lot of small networks.
+         * @return the instance of this Builder with the `barnesHutTheta` set to 0
+         */
+        public Builder withBarnesHutDisabled() {
+            this.barnesHutTheta = 0;
+            return this;
+        }
+
+        /**
          * Recalculation interval for the quadtree, meaning if you use a value of 3 here, the quadtree is recalculated every 3 steps.
          * A higher value leads to faster calculations (because we need to recalculate the quadtree less), but might lead to a worse result visually.
          * Default is {@value DEFAULT_QUADTREE_CALCULATION_INCREMENT}
@@ -291,6 +301,10 @@ public final class Atlas2Parameters {
 
     public double getBarnesHutTheta() {
         return barnesHutTheta;
+    }
+
+    public boolean isBarnesHutEnabled() {
+        return barnesHutTheta == 0;
     }
 
     public int getQuadtreeCalculationIncrement() {
