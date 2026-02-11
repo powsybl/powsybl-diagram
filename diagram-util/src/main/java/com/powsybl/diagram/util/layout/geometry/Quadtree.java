@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 
-/// This quadtree implementation is a Java version of a C++ quadtree presented by Nikita Lisitsa on his lisyarus blog
-/// The article is called ["Building a quadtree in 22 lines of code"](https://lisyarus.github.io/blog/posts/building-a-quadtree.html)
-
 /**
  * A quadtree is a structure that recursively divides a space in 4 until only a given number of points reside in each subdivided area. In this case,
  * the quadtree will only contain 1 point in each leaf node.
+ * <p>This quadtree implementation is a Java version of a C++ quadtree presented by Nikita Lisitsa on his lisyarus blog.
+ * The article is called "<a href="https://lisyarus.github.io/blog/posts/building-a-quadtree.html">Building a quadtree in 22 lines of code</a>"</p>
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
 public class Quadtree {
