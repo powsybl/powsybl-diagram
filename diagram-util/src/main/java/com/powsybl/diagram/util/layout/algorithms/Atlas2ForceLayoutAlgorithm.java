@@ -188,7 +188,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         }
     }
 
-  /**
+    /**
      * Calculate the swing of the point, as the magnitude of the difference between the previous and the current force applied to the point
      * @param point the point the force is applied to
      * @param previousForce the force that was previously applied on the point
