@@ -196,9 +196,6 @@ public class Quadtree {
                 break;
             }
         }
-        if (firstFalseIndex == endIndex) {
-            return firstFalseIndex;
-        }
 
         for (int i = firstFalseIndex + 1; i < endIndex; ++i) {
             if (splitPredicate.test(points[i].getPosition())) {
