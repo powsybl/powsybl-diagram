@@ -86,25 +86,31 @@
     <g class="nad-edge-infos">
         <g id="9" transform="translate(-94.35,-248.46)">
             <g transform="translate(-25.00,-25.00)" class="nad-flash">
-                <path d="M41.71,10.58H28l-7.4,22.28a.1.1,0,0,0,.09.13h8.49a.1.1,0,0,1,.1.13L22.71,52.76a.5.5,0,0,0,.88.45L43.41,26a.1.1,0,0,0-.08-.16H34.42a.11.11,0,0,1-.09-.15l7.47-15A.1.1,0,0,0,41.71,10.58Z"></path>
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
             </g>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">ext</text>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">int</text>
         </g>
         <g id="10" transform="translate(-192.13,-69.06)">
             <g transform="translate(-25.00,-25.00)" class="nad-flash">
-                <path d="M41.71,10.58H28l-7.4,22.28a.1.1,0,0,0,.09.13h8.49a.1.1,0,0,1,.1.13L22.71,52.76a.5.5,0,0,0,.88.45L43.41,26a.1.1,0,0,0-.08-.16H34.42a.11.11,0,0,1-.09-.15l7.47-15A.1.1,0,0,0,41.71,10.58Z"></path>
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
             </g>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">ext</text>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">int</text>
         </g>
         <g id="11" transform="translate(-143.24,-158.76)">
             <g transform="translate(-25.00,-25.00)" class="nad-lock">
-                <g id="lock">
-    <path d="M24,14V10A8,8,0,0,0,8,10v4a3.24,3.24,0,0,0-3,3.21v9.54A3.23,3.23,0,0,0,8.23,30H23.77A3.23,3.23,0,0,0,27,26.77V17.23A3.24,3.24,0,0,0,24,14ZM16,4a6,6,0,0,1,6,6v4H10V10A6,6,0,0,1,16,4Zm9,22.77A1.23,1.23,0,0,1,23.77,28H8.23A1.23,1.23,0,0,1,7,26.77V17.23A1.23,1.23,0,0,1,8.23,16H23.77A1.23,1.23,0,0,1,25,17.23Z"></path>
-  </g>
+                <path d="M32 22V18A8 8 0 0 0 16 18v4a3.24 3.24 0 0 0-3 3.21v9.54A3.23 3.23 0 0 0 16.23 38H31.77A3.23 3.23 0 0 0 35 34.77V25.23A3.24 3.24 0 0 0 32 22ZM24 12a6 6 0 0 1 6 6v4H18V18A6 6 0 0 1 24 12Zm9 22.77A1.23 1.23 0 0 1 31.77 36H16.23A1.23 1.23 0 0 1 15 34.77V25.23A1.23 1.23 0 0 1 16.23 24H31.77A1.23 1.23 0 0 1 33 25.23Z"></path>
             </g>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">side2</text>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">side1</text>
         </g>
         <g id="15" transform="translate(-190.61,70.57)">
             <g transform="translate(-25.00,-25.00)" class="nad-flash">
-                <path d="M41.71,10.58H28l-7.4,22.28a.1.1,0,0,0,.09.13h8.49a.1.1,0,0,1,.1.13L22.71,52.76a.5.5,0,0,0,.88.45L43.41,26a.1.1,0,0,0-.08-.16H34.42a.11.11,0,0,1-.09-.15l7.47-15A.1.1,0,0,0,41.71,10.58Z"></path>
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
             </g>
+            <text transform="rotate(-29.85)" y="28.75" style="text-anchor:middle">ext</text>
+            <text transform="rotate(-29.85)" y="-25.00" style="text-anchor:middle">int</text>
         </g>
     </g>
     <g class="nad-text-edges">

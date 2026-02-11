@@ -694,15 +694,16 @@ public class SvgWriter {
             this.drawComponentOnBranchEdgeMiddle(writer, componentType.get());
         } else {
             drawArrow(writer, edgeInfo, edgeAngle);
-            Optional<String> label2 = edgeInfo.getLabelB();
-            if (label2.isPresent()) {
-                drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeB()));
-            }
-            Optional<String> label1 = edgeInfo.getLabelA();
-            if (label1.isPresent()) {
-                drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeA()));
-            }
         }
+        Optional<String> label2 = edgeInfo.getLabelB();
+        if (label2.isPresent()) {
+            drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeB()));
+        }
+        Optional<String> label1 = edgeInfo.getLabelA();
+        if (label1.isPresent()) {
+            drawLabel(writer, label1.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeA()));
+        }
+
         writer.writeEndElement();
     }
 
