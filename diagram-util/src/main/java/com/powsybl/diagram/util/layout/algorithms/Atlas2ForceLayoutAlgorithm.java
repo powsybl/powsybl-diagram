@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.algorithms;
 
+import com.powsybl.commons.ref.RefObj;
 import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
 import com.powsybl.diagram.util.layout.forces.*;
 import com.powsybl.diagram.util.layout.geometry.*;
@@ -37,7 +38,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
-    private final QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
+    private final RefObj<Quadtree> quadtreeContainer = new RefObj<>(null);
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -110,7 +111,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             double graphTraction = 0.;
             if (layoutParameters.isBarnesHutEnabled() && quadtreeUpdateSchedule.isTimeToUpdate(i)) {
                 Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
-                this.quadtreeContainer.setQuadtree(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
+                this.quadtreeContainer.set(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
             //calculate forces
             for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {

@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.commons.ref.RefObj;
 import com.powsybl.diagram.util.layout.geometry.*;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
     private final double barnesHutTheta;
-    private final QuadtreeContainer quadtreeContainer;
+    private final RefObj<Quadtree> quadtreeContainer;
 
-    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, QuadtreeContainer quadtreeContainer) {
+    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, RefObj<Quadtree> quadtreeContainer) {
         this.forceIntensity = forceIntensity;
         this.effectFromFixedNodes = effectFromFixedNodes;
         this.barnesHutTheta = barnesHutTheta;
@@ -32,14 +33,14 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
 
     public Vector2D apply(V vertex, Point point, LayoutContext<V, E> layoutContext) {
         Vector2D resultingForce = new Vector2D();
-        BoundingBox rootBb = quadtreeContainer.getQuadtree().getBoundingBox();
+        BoundingBox rootBb = quadtreeContainer.get().getBoundingBox();
         // bounding box might not be square, this will work best for shapes that are not too long
         // could also test by using the diagonal width (using square root), might be faster as it will be tighter (but longer to calculate too)
         double width = Math.max(rootBb.getWidth(), rootBb.getHeight());
         // Assume the quadtree is built based on isEffectFromFixedNodes (ie with the fixed points in it or not)
         List<Point> pointInteractionList = new ArrayList<>();
         generatePointInteractionList(
-            quadtreeContainer.getQuadtree().getRootIndex(),
+            quadtreeContainer.get().getRootIndex(),
             point,
             width,
             pointInteractionList
@@ -96,7 +97,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
             double nodeWidth,
             List<Point> pointsToInteractWith
     ) {
-        Quadtree quadtree = quadtreeContainer.getQuadtree();
+        Quadtree quadtree = quadtreeContainer.get();
         Point barycenter = quadtree.getBarycenters()[nodeIndex];
         // Check the theta parameter ie width / distance < theta
         if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {

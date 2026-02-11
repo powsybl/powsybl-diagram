@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.commons.ref.RefObj;
 import com.powsybl.diagram.util.layout.GraphTestData;
 import com.powsybl.diagram.util.layout.geometry.*;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
@@ -23,8 +24,7 @@ class RepulsionForceDegreeBasedLinearBarnesHutTest {
         double delta = 1e-3;
         LayoutContext<String, DefaultEdge> forceGraph = GraphTestData.getLayoutContext2();
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
-        QuadtreeContainer quadtreeContainer = new QuadtreeContainer();
-        quadtreeContainer.setQuadtree(quadtree);
+        RefObj<Quadtree> quadtreeContainer = new RefObj<>(quadtree);
         RepulsionForceDegreeBasedLinearBarnesHut<String, DefaultEdge> repulsionForceDegreeBasedLinearBarnesHut = new RepulsionForceDegreeBasedLinearBarnesHut<>(
                 1.2,
                 true,
