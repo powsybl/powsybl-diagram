@@ -13,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A linear repulsion force dependent on the number of edges of a node (same as {@link RepulsionForceByEdgeNumberLinear}), that uses
+ * A linear repulsion force dependent on the number of edges of a node (same as {@link RepulsionForceDegreeBasedLinear}), but uses
  * a quadtree to speedup calculations by approximating far away points as their barycenters
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-// TODO make in interface to mutualize code with LinearRepulsionForceByDegree, waiting for the merge of Atlas2
 public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEdgeNumberForce<V, E> {
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
@@ -99,10 +98,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
     ) {
         Quadtree quadtree = quadtreeContainer.getQuadtree();
         Point barycenter = quadtree.getBarycenters()[nodeIndex];
-        // Two tests:
         // Check the theta parameter ie width / distance < theta
-        // If a point is alone in a quadrant, but is not a leaf node, we could continue descending until the leaf node (or until the first condition is met), but this is not useful
-        // this second check only works if the point doesn't have any edges (because otherwise in Atlas2 its mass will be more than the default mass for example)
         if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
             pointsToInteractWith.add(barycenter);
         } else {
@@ -116,7 +112,6 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
                 }
             }
             // if the list is empty, it means we are a leaf node, need to add self to the list and return
-            // note that this is a safeguard, as barycenter.getMass == Point.DEFAULT_MASS should already cover this case
             if (numberOfChild == 0) {
                 pointsToInteractWith.add(barycenter);
             }
