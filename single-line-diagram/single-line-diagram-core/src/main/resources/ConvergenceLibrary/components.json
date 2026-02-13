@@ -829,20 +829,20 @@
     "subComponents": [],
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
+      "y" : 7.0,
+      "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
+      "y" : 7.0,
+      "orientation" : "VERTICAL"
     }, {
-      "x" :0.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
+      "x" : 0.0,
+      "y" : 7.0,
+      "orientation" : "VERTICAL"
     } ],
     "size" : {
-      "width" : 20.0,
-      "height" : 20.0
+      "width" : 16.0,
+      "height" : 24.0
     }
   },{
     "type": "VALUE_PERMANENT_LIMIT_PERCENTAGE",

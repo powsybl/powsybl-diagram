@@ -203,36 +203,36 @@
                     <polyline points="90.0,252.0,90.0,222.0"/>
                 </g>
                 <g class="sld-wire sld-vl120to180 sld-bus-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_VL_95_TEE_45_VL_95_TEE_95_VL_95_TEE">
-                    <polyline points="90.0,222.0,90.0,182.0"/>
+                    <polyline points="90.0,222.0,90.0,189.0"/>
                 </g>
                 <g class="sld-wire sld-vl120to180 sld-bus-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB2_95_VL_95_TEE">
-                    <polyline points="65.0,142.0,65.0,182.0,90.0,182.0"/>
+                    <polyline points="65.0,142.0,90.0,142.0,90.0,189.0"/>
                 </g>
                 <g class="sld-wire sld-vl120to180 sld-bus-0" id="_95_VL_95_132_95_INTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB3_95_VL_95_TEE">
-                    <polyline points="115.0,142.0,115.0,182.0,90.0,182.0"/>
+                    <polyline points="115.0,142.0,90.0,142.0,90.0,189.0"/>
                 </g>
                 <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_VL_95_132_95_SUB1_32__45__32_SUB2_95_INTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB2">
-                    <polyline points="65.0,80.0,65.0,142.0"/>
+                    <polyline points="65.0,87.0,65.0,142.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="idSUB1_32__45__32_SUB2_95_ARROW_95_ACTIVE" transform="translate(60.0,95.0)">
+                <g class="sld-feeder-info sld-in sld-active-power" id="idSUB1_32__45__32_SUB2_95_ARROW_95_ACTIVE" transform="translate(60.0,102.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="idSUB1_32__45__32_SUB2_95_ARROW_95_REACTIVE" transform="translate(60.0,115.0)">
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idSUB1_32__45__32_SUB2_95_ARROW_95_REACTIVE" transform="translate(60.0,122.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_VL_95_132_95_SUB1_32__45__32_SUB3_95_INTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB3">
-                    <polyline points="115.0,80.0,115.0,142.0"/>
+                <g class="sld-wire sld-vl0to30 sld-bus-1" id="_95_VL_95_132_95_SUB1_32__45__32_SUB3_95_INTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB3">
+                    <polyline points="115.0,87.0,115.0,142.0"/>
                 </g>
-                <g class="sld-feeder-info sld-in sld-active-power" id="idSUB1_32__45__32_SUB3_95_ARROW_95_ACTIVE" transform="translate(110.0,95.0)">
+                <g class="sld-feeder-info sld-in sld-active-power" id="idSUB1_32__45__32_SUB3_95_ARROW_95_ACTIVE" transform="translate(110.0,102.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
                 </g>
-                <g class="sld-feeder-info sld-in sld-reactive-power" id="idSUB1_32__45__32_SUB3_95_ARROW_95_REACTIVE" transform="translate(110.0,115.0)">
+                <g class="sld-feeder-info sld-in sld-reactive-power" id="idSUB1_32__45__32_SUB3_95_ARROW_95_REACTIVE" transform="translate(110.0,122.0)">
                     <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                     <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                     <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -243,18 +243,18 @@
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180 sld-bus-0" id="idINTERNAL_95_VL_95_132_95_BUSCO_95_BUS_95_132_95_VL_95_TEE_45_VL_95_TEE" transform="translate(86.0,218.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-wire sld-fictitious sld-vl120to180 sld-bus-0" id="idVL_95_TEE" transform="translate(80.0,172.0)"/>
+                <g class="sld-wire sld-fictitious sld-vl120to180 sld-bus-0" id="idVL_95_TEE" transform="translate(82.0,170.0)"/>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180 sld-bus-0" id="idINTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB2" transform="translate(61.0,138.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB2" transform="translate(55.0,70.0)">
-                    <text class="sld-label" id="idSUB1_32__45__32_SUB2_95_N_95_LABEL" x="-5.0" y="-1.0">SUB1 - SUB2</text>
+                <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB2" transform="translate(57.0,68.0)">
+                    <text class="sld-label" id="idSUB1_32__45__32_SUB2_95_N_95_LABEL" x="-5.0" y="1.0">SUB1 - SUB2</text>
                 </g>
                 <g class="sld-node sld-hidden-node sld-fictitious sld-vl120to180 sld-bus-0" id="idINTERNAL_95_VL_95_132_95_SUB1_32__45__32_SUB3" transform="translate(111.0,138.0)">
                     <circle cx="4" cy="4" r="4"/>
                 </g>
-                <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB3" transform="translate(105.0,70.0)">
-                    <text class="sld-label" id="idSUB1_32__45__32_SUB3_95_N_95_LABEL" x="-5.0" y="-1.0">SUB1 - SUB3</text>
+                <g class="sld-wire sld-top-feeder sld-vl120to180 sld-bus-0" id="idSUB1_32__45__32_SUB3" transform="translate(107.0,68.0)">
+                    <text class="sld-label" id="idSUB1_32__45__32_SUB3_95_N_95_LABEL" x="-5.0" y="1.0">SUB1 - SUB3</text>
                 </g>
             </g>
         </g>

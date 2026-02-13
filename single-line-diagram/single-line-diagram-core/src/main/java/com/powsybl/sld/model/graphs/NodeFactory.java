@@ -201,7 +201,7 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FeederNode createFeederTeePointgNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederNode createFeederTeePointNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return createFeederTeePointLegNode(graph, id, name, equipmentId, side, otherSideVoltageLevelInfos, FeederType.TEE_POINT_LEG);
     }
 
@@ -291,7 +291,6 @@ public final class NodeFactory {
     }
 
     public static TeePointNode createTeePointNode(VoltageLevelGraph baseGraph, String id, String nameOrId, FeederNode legNode2, FeederNode legNode3) {
-        ((FeederTeePointLeg) legNode2.getFeeder()).getVoltageLevelInfos();
         TeePointNode teePointNode = new TeePointNode(id, nameOrId, id);
         baseGraph.addNode(teePointNode);
         baseGraph.addEdge(legNode2, teePointNode);

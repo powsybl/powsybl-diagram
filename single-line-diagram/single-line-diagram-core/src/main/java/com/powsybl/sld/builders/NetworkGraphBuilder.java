@@ -213,10 +213,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .collect(Collectors.toList()));
     }
 
-    private static List<FeederNode> getTeePointFeederNodes(VoltageLevelGraph graph, Line line, VoltageLevel vlOwnSide, VoltageLevel vlOtherSide) {
+    private static List<FeederNode> getTeePointFeederNodes(VoltageLevelGraph graph, Line line, VoltageLevel vlOwnSide, VoltageLevel fictitiousVoltageLevel) {
         List<FeederNode> feeders = new ArrayList<>();
-        vlOtherSide.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
-            FeederNode otherLineNode = NodeFactory.createFeederTeePointgNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vlOtherSide.getId(), vlOwnSide.getNameOrId(), vlOtherSide.getNominalV()));
+        fictitiousVoltageLevel.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
+            VoltageLevel vl1 = lineOtherSide.getTerminal2().getVoltageLevel();
+            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
             feeders.add(otherLineNode);
         });
         return feeders;
@@ -429,12 +430,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitLine(Line line, TwoSides side) {
             TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
-            VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             boolean isTeePoiint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
 
             if (isTeePoiint) {
-                addTeePoint(line, side, vlOwnSide, vlOtherSide); // BB
+                VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
+                List<Line> othersideLines = vlOtherSide.getLineStream().filter(l -> !l.getId().equals(line.getId())).toList();
+                Line othersideLine1 = othersideLines.get(0);
+                Line othersideLine2 = othersideLines.get(1);
+                VoltageLevel vl1 = othersideLine1.getTerminal2().getVoltageLevel();
+                VoltageLevel vl2 = othersideLine2.getTerminal2().getVoltageLevel();
+                addTeePoint(line, side, vlOwnSide, vlOtherSide);
             } else {
                 addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
             }
