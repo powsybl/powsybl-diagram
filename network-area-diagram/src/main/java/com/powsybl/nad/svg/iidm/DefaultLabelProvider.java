@@ -65,34 +65,34 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getBranchEdgeInfos(String branchId, BranchEdge.Side side, String branchType) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, side, branchType);
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
-    public List<EdgeInfo> getThreeWindingTransformerEdgeInfos(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+    public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(threeWindingTransformerId);
         if (transformer == null) {
             throw new PowsyblException("Unknown three windings transformer '" + threeWindingTransformerId + "'");
         }
         Terminal terminal = transformer.getTerminal(IidmUtils.getIidmSideFromThreeWtEdgeSide(side));
-        return getEdgeInfos(terminal);
+        return getEdgeInfo(terminal);
     }
 
     @Override
-    public List<EdgeInfo> getInjectionEdgeInfos(String injectionId) {
+    public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
         var connectable = network.getConnectable(injectionId);
         if (!(connectable instanceof Injection<?> iidmInjection)) {
             throw new PowsyblException("Unknown injection '" + injectionId + "'");
         }
-        return getEdgeInfos(iidmInjection.getTerminal());
+        return getEdgeInfo(iidmInjection.getTerminal());
     }
 
     @Override
-    public List<EdgeInfo> getBranchEdgeInfos(String branchId, String branchType) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, branchId, BranchEdge.Side.ONE, branchType);
-        return getMiddleEdgeInfos(terminal);
+        return getMiddleEdgeInfo(terminal);
     }
 
     @Override
@@ -115,70 +115,44 @@ public class DefaultLabelProvider implements LabelProvider {
         return this.valueFormatter;
     }
 
-    private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
+    private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
+        return getEdgeInfo(terminal, edgeInfoParameters.infoSideInternal, edgeInfoParameters.infoSideExternal);
+    }
+
+    private Optional<EdgeInfo> getMiddleEdgeInfo(Terminal terminal) {
+        return getEdgeInfo(terminal, edgeInfoParameters.infoMiddleSide1, edgeInfoParameters.infoMiddleSide2);
+    }
+
+    private Optional<EdgeInfo> getEdgeInfo(Terminal terminal, EdgeInfoEnum infoEnum1, EdgeInfoEnum infoEnum2) {
+        if (terminal == null) {
+            return Optional.empty();
+        }
+        Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
+        Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
+
+        if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
+            return Optional.empty();
+        }
+
         if (parameters.isDoubleArrowsDisplayed()) {
-            return getEdgeInfosWithDoubleSymbols(terminal, edgeInfoParameters.infoSideInternal, edgeInfoParameters.infoSideExternal);
-        }
-
-        return getEdgeInfos(terminal, edgeInfoParameters.infoSideInternal, edgeInfoParameters.infoSideExternal);
-    }
-
-    private List<EdgeInfo> getMiddleEdgeInfos(Terminal terminal) {
-        return getEdgeInfos(terminal, edgeInfoParameters.infoMiddleSide1, edgeInfoParameters.infoMiddleSide2);
-    }
-
-    private List<EdgeInfo> getEdgeInfos(Terminal terminal, EdgeInfoEnum infoEnum1, EdgeInfoEnum infoEnum2) {
-        if (terminal == null) {
-            return Collections.emptyList();
-        }
-        Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
-        Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
-
-        if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        double referenceValue = getReferenceValue(terminal, infoEnum2).orElse(getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
-        return List.of(new EdgeInfo(
-            getDisplayedType(infoEnum1),
-            getDisplayedType(infoEnum2),
-            referenceValue,
-            optionalValue1.orElse(null),
-            optionalValue2.orElse(null)
-        ));
-    }
-
-    private List<EdgeInfo> getEdgeInfosWithDoubleSymbols(Terminal terminal, EdgeInfoEnum infoEnum1, EdgeInfoEnum infoEnum2) {
-        if (terminal == null) {
-            return Collections.emptyList();
-        }
-        Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
-        Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
-
-        if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        if (optionalValue1.isPresent() && optionalValue2.isPresent()) {
-            List<EdgeInfo> edgeInfos = new ArrayList<>();
-            edgeInfos.add(new EdgeInfo(
+            return Optional.of(new EdgeInfo(
                 getDisplayedType(infoEnum1),
-                null,
-                getReferenceValue(terminal, infoEnum1).orElse(Double.NaN),
-                optionalValue1.get(),
-                null
-            ));
-            edgeInfos.add(new EdgeInfo(
                 getDisplayedType(infoEnum2),
-                null,
+                getReferenceValue(terminal, infoEnum1).orElse(Double.NaN),
                 getReferenceValue(terminal, infoEnum2).orElse(Double.NaN),
-                optionalValue2.get(),
-                null
+                optionalValue1.orElse(null),
+                optionalValue2.orElse(null)
             ));
-            return edgeInfos;
+        } else {
+            double referenceValue = getReferenceValue(terminal, infoEnum2).orElseGet(() -> getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
+            return Optional.of(new EdgeInfo(
+                getDisplayedType(infoEnum1),
+                getDisplayedType(infoEnum2),
+                referenceValue,
+                optionalValue1.orElse(null),
+                optionalValue2.orElse(null)
+            ));
         }
-
-        return getEdgeInfos(terminal, edgeInfoParameters.infoMiddleSide1, edgeInfoParameters.infoMiddleSide2);
     }
 
     private Optional<String> getDisplayedValue(Terminal terminal, EdgeInfoEnum infoEnum, String connectableNameOrId) {

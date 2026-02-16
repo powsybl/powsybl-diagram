@@ -8,7 +8,8 @@
     "maxSteps" : 1000,
     "timeoutSeconds" : 15.0,
     "textNodeEdgeConnectionYShift" : 25.0,
-    "injectionsAdded" : false
+    "injectionsAdded" : false,
+    "scaleFactor" : 1.0
   },
   "svgParameters" : {
     "diagramPadding" : {
@@ -109,47 +110,41 @@
     "busNode1" : "3",
     "busNode2" : "9",
     "type" : "DanglingLineEdge",
-    "edgeSide1" : [ {
+    "edgeInfo1" : {
       "svgId" : "11",
       "infoTypeA" : "ReactivePower",
-      "direction" : "OUT",
-      "labelA" : "50"
-    }, {
-      "svgId" : "12",
-      "infoTypeA" : "ActivePower",
-      "direction" : "OUT",
-      "labelA" : "100"
-    } ]
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "50",
+      "labelB" : "100"
+    }
   }, {
-    "svgId" : "13",
+    "svgId" : "12",
     "equipmentId" : "hvdc",
     "node1" : "0",
     "node2" : "4",
     "busNode1" : "3",
     "busNode2" : "7",
     "type" : "HvdcLineVscEdge",
-    "edgeSide1" : [ {
+    "edgeInfo1" : {
+      "svgId" : "13",
+      "infoTypeA" : "ReactivePower",
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "50",
+      "labelB" : "100"
+    },
+    "edgeInfo2" : {
       "svgId" : "14",
       "infoTypeA" : "ReactivePower",
-      "direction" : "OUT",
-      "labelA" : "50"
-    }, {
-      "svgId" : "15",
-      "infoTypeA" : "ActivePower",
-      "direction" : "OUT",
-      "labelA" : "100"
-    } ],
-    "edgeSide2" : [ {
-      "svgId" : "16",
-      "infoTypeA" : "ReactivePower",
-      "direction" : "OUT",
-      "labelA" : "75"
-    }, {
-      "svgId" : "17",
-      "infoTypeA" : "ActivePower",
-      "direction" : "OUT",
-      "labelA" : "300"
-    } ]
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "75",
+      "labelB" : "300"
+    }
   } ],
   "textNodes" : [ {
     "svgId" : "1",

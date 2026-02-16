@@ -107,6 +107,9 @@
             <text transform="rotate(-22.12)" class="nad-active" x="34.20">300</text>
             <text transform="rotate(-22.12)" class="nad-reactive" x="-34.20" style="text-anchor:end">75</text>
         </g>
+        <g id="15" transform="translate(-263.58,-51.14)">
+            <text transform="rotate(-22.12)" class="nad-name" x="0.00" style="text-anchor:middle">Converter1</text>
+        </g>
     </g>
     <g class="nad-text-edges">
         <polyline id="2" points="-65.17,-124.19 5.16,-134.74"/>

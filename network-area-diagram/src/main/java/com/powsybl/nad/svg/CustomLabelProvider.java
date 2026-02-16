@@ -70,12 +70,9 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getBranchEdgeInfos(String branchId, BranchEdge.Side side, String branchType) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
         BranchLabels bl = this.branchLabels.get(branchId);
-        if (bl == null) {
-            return Collections.emptyList();
-        }
-        return List.of(getEdgeInfo(bl, side));
+        return Optional.ofNullable(bl).map(bl1 -> getEdgeInfo(bl1, side));
     }
 
     private EdgeInfo getEdgeInfo(BranchLabels bl, BranchEdge.Side side) {
@@ -86,12 +83,9 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getThreeWindingTransformerEdgeInfos(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+    public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
         ThreeWtLabels threeWtLabels1 = threeWtLabels.get(threeWindingTransformerId);
-        return Optional.ofNullable(threeWtLabels1)
-                .map(lbl -> getEdgeInfo(side, lbl))
-                .map(List::of)
-                .orElse(Collections.emptyList());
+        return Optional.ofNullable(threeWtLabels1).map(lbl -> getEdgeInfo(side, lbl));
     }
 
     private EdgeInfo getEdgeInfo(ThreeWtEdge.Side edgeSide, ThreeWtLabels labels) {
@@ -103,18 +97,16 @@ public class CustomLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<EdgeInfo> getInjectionEdgeInfos(String injectionId) {
+    public Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId) {
         InjectionLabels injectionLabel = injectionLabels.get(injectionId);
         return Optional.ofNullable(injectionLabel)
-                .map(lbl -> new EdgeInfo(INFO_TYPE, INFO_TYPE, lbl.arrow, injectionLabel.labelInternal, lbl.labelExternal))
-                .map(List::of)
-                .orElse(Collections.emptyList());
+            .map(lbl -> new EdgeInfo(INFO_TYPE, INFO_TYPE, lbl.arrow, injectionLabel.labelInternal, lbl.labelExternal));
     }
 
     @Override
-    public List<EdgeInfo> getBranchEdgeInfos(String branchId, String branchType) {
+    public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
         BranchLabels bl = branchLabels.get(branchId);
-        return List.of(new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
+        return Optional.of(new EdgeInfo(INFO_TYPE, INFO_TYPE, bl.arrowMiddle, bl.middle1, bl.middle2));
     }
 
     @Override

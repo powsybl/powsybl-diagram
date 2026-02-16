@@ -18,7 +18,7 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -49,18 +49,18 @@ class EdgeInfoLabelTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
-            public List<EdgeInfo> getBranchEdgeInfos(String branchId, BranchEdge.Side side, String branchType) {
-                return List.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, internalLabel, externalLabel));
             }
 
             @Override
-            public List<EdgeInfo> getBranchEdgeInfos(String branchId, String branchType) {
-                return List.of(new EdgeInfo(null, null, null, side1Label, side2Label));
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
+                return Optional.of(new EdgeInfo(null, null, null, side1Label, side2Label));
             }
 
             @Override
-            public List<EdgeInfo> getThreeWindingTransformerEdgeInfos(String threeWindingTransformerId, ThreeWtEdge.Side side) {
-                return List.of(new EdgeInfo("test", "test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
+            public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
         };
     }

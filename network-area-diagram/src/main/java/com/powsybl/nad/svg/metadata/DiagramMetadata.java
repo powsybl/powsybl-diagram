@@ -132,8 +132,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getType(),
                 !edge.isVisible(BranchEdge.Side.ONE),
                 !edge.isVisible(BranchEdge.Side.TWO),
-                createEdgeInfoMetadataList(edge.getSvgEdgeInfos(BranchEdge.Side.ONE)),
-                createEdgeInfoMetadataList(edge.getSvgEdgeInfos(BranchEdge.Side.TWO)),
+                edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null)))
         );
         graph.getThreeWtEdgesStream().forEach(edge -> {
@@ -148,7 +148,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     edge.getType(),
                     !edge.isVisible(),
                     false,
-                    edge.getSvgEdgeInfo().map(info -> List.of(createEdgeInfoMetadata(info))).orElse(null),
+                    edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                     null,
                     null
             ));
@@ -198,18 +198,11 @@ public class DiagramMetadata extends AbstractMetadata {
                 edgeInfo.getInfoTypeA(),
                 edgeInfo.getInfoTypeB(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionA().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionB().map(Enum::name).orElse(null),
                 edgeInfo.getLabelA().orElse(null),
                 edgeInfo.getLabelB().orElse(null),
                 edgeInfo.getComponentType().orElse(null));
-    }
-
-    private static List<EdgeInfoMetadata> createEdgeInfoMetadataList(List<SvgEdgeInfo> svgEdgeInfos) {
-        if (svgEdgeInfos == null || svgEdgeInfos.isEmpty()) {
-            return null;
-        }
-        return svgEdgeInfos.stream()
-                .map(DiagramMetadata::createEdgeInfoMetadata)
-                .toList();
     }
 
     private String getPrefixedId(String id) {

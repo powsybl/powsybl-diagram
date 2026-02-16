@@ -17,8 +17,6 @@ import java.util.*;
  */
 public class BranchEdge extends AbstractEdge {
 
-    private static final int MAX_EDGE_INFOS_PER_SIDE = 2;
-
     public enum Side {
         ONE, TWO;
 
@@ -46,32 +44,16 @@ public class BranchEdge extends AbstractEdge {
     private double arrowAngle1;
     private double arrowAngle2;
     private final boolean[] visible = new boolean[] {true, true};
-    private final List<SvgEdgeInfo> svgEdgeInfos1;
-    private final List<SvgEdgeInfo> svgEdgeInfos2;
+    private final SvgEdgeInfo svgEdgeInfo1;
+    private final SvgEdgeInfo svgEdgeInfo2;
     private final SvgEdgeInfo svgEdgeInfoMiddle;
 
     public BranchEdge(IdProvider idProvider, String equipmentId, String nameOrId, String type,
-                      List<EdgeInfo> edgeInfos1, List<EdgeInfo> edgeInfos2, EdgeInfo edgeInfoMiddle) {
+                      EdgeInfo edgeInfo1, EdgeInfo edgeInfo2, EdgeInfo edgeInfoMiddle) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, type);
-        this.svgEdgeInfos1 = createSvgEdgeInfoList(idProvider, equipmentId, edgeInfos1);
-        this.svgEdgeInfos2 = createSvgEdgeInfoList(idProvider, equipmentId, edgeInfos2);
+        this.svgEdgeInfo1 = isEdgeInfoNotEmptyNorNull(edgeInfo1) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo1) : null;
+        this.svgEdgeInfo2 = isEdgeInfoNotEmptyNorNull(edgeInfo2) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo2) : null;
         this.svgEdgeInfoMiddle = isEdgeInfoNotEmptyNorNull(edgeInfoMiddle) ? new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfoMiddle) : null;
-    }
-
-    private static List<SvgEdgeInfo> createSvgEdgeInfoList(IdProvider idProvider, String equipmentId, List<EdgeInfo> edgeInfos) {
-        if (edgeInfos == null || edgeInfos.isEmpty()) {
-            return Collections.emptyList();
-        }
-        if (edgeInfos.size() > MAX_EDGE_INFOS_PER_SIDE) {
-            throw new IllegalArgumentException("Maximum " + MAX_EDGE_INFOS_PER_SIDE + " edge infos allowed per side, but got " + edgeInfos.size());
-        }
-        List<SvgEdgeInfo> result = new ArrayList<>();
-        for (EdgeInfo edgeInfo : edgeInfos) {
-            if (isEdgeInfoNotEmptyNorNull(edgeInfo)) {
-                result.add(new SvgEdgeInfo(idProvider.createSvgId(equipmentId), edgeInfo));
-            }
-        }
-        return result;
     }
 
     public boolean isTransformerEdge() {
@@ -178,9 +160,9 @@ public class BranchEdge extends AbstractEdge {
         return points.get(points.size() - 2).getAngle(points.getLast());
     }
 
-    public List<SvgEdgeInfo> getSvgEdgeInfos(Side side) {
+    public Optional<SvgEdgeInfo> getSvgEdgeInfo(Side side) {
         Objects.requireNonNull(side);
-        return side == Side.ONE ? svgEdgeInfos1 : svgEdgeInfos2;
+        return Optional.ofNullable(side == Side.ONE ? svgEdgeInfo1 : svgEdgeInfo2);
     }
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfoMiddle() {

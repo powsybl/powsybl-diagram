@@ -10,7 +10,6 @@ import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.VoltageLevelLegend;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -39,7 +38,7 @@ class DefaultLabelProviderTest {
         ValueFormatter valueFormatter = new ValueFormatter(1, 2, 3, 4, 5, Locale.US, "N/A");
         DefaultLabelProvider labelProvider = new DefaultLabelProvider(network, valueFormatter);
 
-        PowsyblException exception = assertThrows(PowsyblException.class, () -> labelProvider.getInjectionEdgeInfos("UNKNOWN"));
+        PowsyblException exception = assertThrows(PowsyblException.class, () -> labelProvider.getInjectionEdgeInfo("UNKNOWN"));
         assertEquals("Unknown injection 'UNKNOWN'", exception.getMessage());
     }
 
@@ -94,23 +93,23 @@ class DefaultLabelProviderTest {
         line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
 
         // Middle
-        Optional<EdgeInfo> optionalEdgeInfoMiddle = Optional.of(labelProvider.getBranchEdgeInfos(lineId, BranchEdge.LINE_EDGE).get(0));
+        Optional<EdgeInfo> optionalEdgeInfoMiddle = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.LINE_EDGE);
         assertTrue(optionalEdgeInfoMiddle.isPresent());
         EdgeInfo middleEdgeInfo = optionalEdgeInfoMiddle.get();
         assertEquals(lineId, middleEdgeInfo.getLabelA().orElseThrow());
         assertEquals("105.1 %", middleEdgeInfo.getLabelB().orElseThrow());
 
         // Side 1
-        List<EdgeInfo> edgeInfosSide1 = labelProvider.getBranchEdgeInfos(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
-        assertEquals(1, edgeInfosSide1.size());
-        EdgeInfo edgeInfoSide1 = edgeInfosSide1.get(0);
+        Optional<EdgeInfo> optionalEdgeInfoSide1 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide1.isPresent());
+        EdgeInfo edgeInfoSide1 = optionalEdgeInfoSide1.get();
         assertEquals("1,400.0", edgeInfoSide1.getLabelA().orElseThrow());
         assertTrue(edgeInfoSide1.getLabelB().isEmpty());
 
         // Side 2
-        List<EdgeInfo> edgeInfosSide2 = labelProvider.getBranchEdgeInfos(lineId, BranchEdge.Side.TWO, BranchEdge.LINE_EDGE);
-        assertEquals(1, edgeInfosSide2.size());
-        EdgeInfo edgeInfoSide2 = edgeInfosSide2.get(0);
+        Optional<EdgeInfo> optionalEdgeInfoSide2 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.TWO, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide2.isPresent());
+        EdgeInfo edgeInfoSide2 = optionalEdgeInfoSide2.get();
         assertEquals("1,410.0", edgeInfoSide2.getLabelA().orElseThrow());
         assertTrue(edgeInfoSide2.getLabelB().isEmpty());
     }
@@ -167,29 +166,24 @@ class DefaultLabelProviderTest {
         line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
 
         // Middle
-        List<EdgeInfo> edgesInfoMiddle = labelProvider.getBranchEdgeInfos(lineId, BranchEdge.LINE_EDGE);
-        assertEquals(1, edgesInfoMiddle.size());
-        assertEquals(lineId, edgesInfoMiddle.getFirst().getLabelA().orElseThrow());
-        assertEquals("105.1 %", edgesInfoMiddle.getFirst().getLabelB().orElseThrow());
+        Optional<EdgeInfo> optionalEdgeInfoMiddle = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoMiddle.isPresent());
+        EdgeInfo middleEdgeInfo = optionalEdgeInfoMiddle.get();
+        assertEquals(lineId, middleEdgeInfo.getLabelA().orElseThrow());
+        assertEquals("105.1 %", middleEdgeInfo.getLabelB().orElseThrow());
 
         // Side 1
-        List<EdgeInfo> edgeInfosSide1 = labelProvider.getBranchEdgeInfos(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
-        assertEquals(2, edgeInfosSide1.size());
-        EdgeInfo firstEdgeInfoSide1 = edgeInfosSide1.getFirst();
-        assertEquals("1,400.0", firstEdgeInfoSide1.getLabelA().orElseThrow());
-        assertTrue(firstEdgeInfoSide1.getLabelB().isEmpty());
-        EdgeInfo secondEdgeInfoSide1 = edgeInfosSide1.get(1);
-        assertEquals("400.0", secondEdgeInfoSide1.getLabelA().orElseThrow());
-        assertTrue(secondEdgeInfoSide1.getLabelB().isEmpty());
+        Optional<EdgeInfo> optionalEdgeInfoSide1 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide1.isPresent());
+        EdgeInfo edgeInfoSide1 = optionalEdgeInfoSide1.get();
+        assertEquals("1,400.0", edgeInfoSide1.getLabelA().orElseThrow());
+        assertEquals("400.0", edgeInfoSide1.getLabelB().orElseThrow());
 
         // Side 2
-        List<EdgeInfo> edgeInfosSide2 = labelProvider.getBranchEdgeInfos(lineId, BranchEdge.Side.TWO, BranchEdge.LINE_EDGE);
-        assertEquals(2, edgeInfosSide2.size());
-        EdgeInfo firstEdgeInfoSide2 = edgeInfosSide2.get(0);
-        assertEquals("1,410.0", firstEdgeInfoSide2.getLabelA().orElseThrow());
-        assertTrue(firstEdgeInfoSide2.getLabelB().isEmpty());
-        EdgeInfo secondEdgeInfoSide2 = edgeInfosSide2.get(1);
-        assertEquals("410.0", secondEdgeInfoSide2.getLabelA().orElseThrow());
-        assertTrue(secondEdgeInfoSide2.getLabelB().isEmpty());
+        Optional<EdgeInfo> optionalEdgeInfoSide2 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.TWO, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide2.isPresent());
+        EdgeInfo edgeInfoSide2 = optionalEdgeInfoSide2.get();
+        assertEquals("1,410.0", edgeInfoSide2.getLabelA().orElseThrow());
+        assertEquals("410.0", edgeInfoSide2.getLabelB().orElseThrow());
     }
 }

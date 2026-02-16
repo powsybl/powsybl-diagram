@@ -92,20 +92,26 @@
         <g id="11" transform="translate(-47.22,-83.23)">
             <path transform="rotate(127.48) translate(0.00,-12.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
             <path transform="rotate(127.48) translate(0.00,12.67)" class="nad-reactive nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(37.48)" class="nad-active" x="34.20">100</text>
-            <text transform="rotate(37.48)" class="nad-reactive" x="-34.20" style="text-anchor:end">50</text>
+            <text transform="rotate(-52.52)" class="nad-active" y="39.33" style="text-anchor:middle">100</text>
+            <text transform="rotate(-52.52)" class="nad-reactive" y="-34.20" style="text-anchor:middle">50</text>
         </g>
         <g id="13" transform="translate(-150.42,-97.14)">
             <path transform="rotate(-112.12) translate(0.00,-12.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
             <path transform="rotate(-112.12) translate(0.00,12.67)" class="nad-reactive nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-22.12)" class="nad-active" x="-34.20" style="text-anchor:end">100</text>
-            <text transform="rotate(-22.12)" class="nad-reactive" x="34.20">50</text>
+            <text transform="rotate(67.88)" class="nad-active" y="39.33" style="text-anchor:middle">100</text>
+            <text transform="rotate(67.88)" class="nad-reactive" y="-34.20" style="text-anchor:middle">50</text>
         </g>
         <g id="14" transform="translate(-376.74,-5.14)">
             <path transform="rotate(67.88) translate(0.00,-12.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
             <path transform="rotate(67.88) translate(0.00,12.67)" class="nad-reactive nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
-            <text transform="rotate(-22.12)" class="nad-active" x="34.20">300</text>
-            <text transform="rotate(-22.12)" class="nad-reactive" x="-34.20" style="text-anchor:end">75</text>
+            <text transform="rotate(67.88)" class="nad-active" y="-34.20" style="text-anchor:middle">300</text>
+            <text transform="rotate(67.88)" class="nad-reactive" y="39.33" style="text-anchor:middle">75</text>
+        </g>
+        <g id="15" transform="translate(-263.58,-51.14)">
+            <path transform="rotate(-112.12) translate(0.00,-12.67)" class="nad-active nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <path transform="rotate(-112.12) translate(0.00,12.67)" class="nad-reactive nad-arrow-out" d="M-10 10 H10 L0 -10z"/>
+            <text transform="rotate(67.88)" class="nad-active" y="39.33" style="text-anchor:middle">100</text>
+            <text transform="rotate(67.88)" class="nad-reactive" y="-34.20" style="text-anchor:middle">50</text>
         </g>
     </g>
     <g class="nad-text-edges">

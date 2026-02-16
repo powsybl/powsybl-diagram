@@ -9,22 +9,19 @@ package com.powsybl.nad.svg;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public interface LabelProvider {
-    /**
-     * Returns a list of edge info for the given branch side. Maximum 2 elements allowed.
-     */
-    List<EdgeInfo> getBranchEdgeInfos(String branchId, BranchEdge.Side side, String branchType);
+    Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType);
 
-    List<EdgeInfo> getThreeWindingTransformerEdgeInfos(String threeWindingTransformerId, ThreeWtEdge.Side side);
+    Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side);
 
-    List<EdgeInfo> getInjectionEdgeInfos(String injectionId);
+    Optional<EdgeInfo> getInjectionEdgeInfo(String injectionId);
 
-    List<EdgeInfo> getBranchEdgeInfos(String branchId, String branchType);
+    Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType);
 
     VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId);
 }
