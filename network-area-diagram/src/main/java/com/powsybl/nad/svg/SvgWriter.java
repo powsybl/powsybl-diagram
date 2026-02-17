@@ -70,8 +70,6 @@ public class SvgWriter {
     private static final String POINTS_ATTRIBUTE = "points";
     private static final String HREF_ATTRIBUTE = "href";
     private static final String TEXT_ANCHOR_MIDDLE = "text-anchor:middle";
-    private static final double DOUBLE_ARROW_SHIFT_FACTOR_ARROWS = 1.5;
-    private static final double DOUBLE_ARROW_SHIFT_FACTOR_TEXT = DOUBLE_ARROW_SHIFT_FACTOR_ARROWS * 1.2;
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -569,21 +567,6 @@ public class SvgWriter {
         }
     }
 
-    private static final double EDGE_INFO_FIXED_SHIFT = 65.0;
-
-    private <E> void drawMultipleEdgeInfos(XMLStreamWriter writer, List<SvgEdgeInfo> svgEdgeInfos, Point basePoint,
-                                           double edgeAngle, E edge, EdgeLabelDrawer<E> labelDrawer) throws XMLStreamException {
-        if (svgEdgeInfos == null || svgEdgeInfos.isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < svgEdgeInfos.size(); i++) {
-            SvgEdgeInfo svgEdgeInfo = svgEdgeInfos.get(i);
-            // Calculate shifted point along the edge direction for each additional info
-            Point shiftedPoint = i == 0 ? basePoint : basePoint.atDistance(i * EDGE_INFO_FIXED_SHIFT, edgeAngle);
-            drawEdgeInfoOrLabel(writer, svgEdgeInfo, shiftedPoint, edgeAngle, edge, labelDrawer);
-        }
-    }
-
     private void drawBranchMiddleInfo(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
         Optional<SvgEdgeInfo> svgEdgeInfo = edge.getSvgEdgeInfoMiddle();
         if (svgEdgeInfo.isEmpty() || svgEdgeInfo.get().edgeInfo() == null || checkIfEdgeInfoIsEmpty(svgEdgeInfo.get().edgeInfo())) {
@@ -700,7 +683,7 @@ public class SvgWriter {
             drawArrows(writer, edgeInfo, edgeAngle);
         }
         
-        double factor = edgeInfo.getDirectionA().isEmpty() || edgeInfo.getDirectionB().isEmpty() ? 1.0 : DOUBLE_ARROW_SHIFT_FACTOR_TEXT;
+        double factor = edgeInfo.getDirectionA().isEmpty() || edgeInfo.getDirectionB().isEmpty() ? 1.0 : svgParameters.getDoubleArrowShiftFactorText();
         Optional<String> labelB = edgeInfo.getLabelB();
         if (labelB.isPresent()) {
             drawLabel(writer, labelB.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeB()), factor);
@@ -708,7 +691,7 @@ public class SvgWriter {
         Optional<String> labelA = edgeInfo.getLabelA();
         if (labelA.isPresent()) {
             drawLabel(writer, labelA.get(), edgeAngle, false, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeA()), factor);
-         }
+        }
 
         writer.writeEndElement();
     }
@@ -740,7 +723,7 @@ public class SvgWriter {
         String transformValue;
         if (externalLabel != null) {
             // Invert the sign because after rotation, the coordinate systems are inverted
-            double shift = svgParameters.getArrowLabelShift() / DOUBLE_ARROW_SHIFT_FACTOR_ARROWS * (externalLabel ? -1 : 1);
+            double shift = svgParameters.getArrowLabelShift() / svgParameters.getDoubleArrowShiftFactorArrows() * (externalLabel ? -1 : 1);
             transformValue = getRotateString(rotationAngle) + " " + getTranslateString(0, shift);
         } else {
             transformValue = getRotateString(rotationAngle);
