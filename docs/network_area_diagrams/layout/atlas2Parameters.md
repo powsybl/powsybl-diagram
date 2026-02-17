@@ -176,6 +176,7 @@ Below are two images showing the visual result without (left) and with (right) B
 :align: right
 ```
 
+
 ### quadtreeCalculationIncrement
 
 Barnes-Hut uses a [quadtree](https://en.wikipedia.org/wiki/Quadtree) to perform its optimization. A further optimization is to not re-calculate this quadtree at every step of the simulation, but at every

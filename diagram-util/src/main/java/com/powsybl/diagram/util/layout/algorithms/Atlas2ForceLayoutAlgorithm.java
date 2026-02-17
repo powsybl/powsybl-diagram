@@ -107,37 +107,19 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
 
         while (i < stoppingStep && !graphSwingIsZero) {
-            double graphSwing = 0.;
-            double graphTraction = 0.;
             if (layoutParameters.isBarnesHutEnabled() && quadtreeUpdateSchedule.isTimeToUpdate(i)) {
                 Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
                 this.quadtreeContainer.set(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
             }
-            //calculate forces
-            for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
-                Point point = entry.getValue();
-                for (Force<V, E> force : forces) {
-                    Vector2D resultingForce = force.apply(entry.getKey(), point, layoutContext);
-                    point.applyForce(resultingForce);
-                }
-                // calculate swg(n) for each node the swing of the node
-                // at the same time calculate tra(n) the traction of the node
-                // we can also calculate swg(G) and tra(G) the swing and traction of the graph
-                int weight = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
-                Vector2D previousPointForce = previousForces.get(point);
-                double pointSwing = calculatePointSwing(point, previousPointForce);
-                swingMap.put(point, pointSwing);
-                graphSwing += pointSwing * weight;
-                graphTraction += calculatePointTraction(point, previousPointForce) * weight;
-            }
-            graphSwingIsZero = graphSwing == 0;
+            GraphDataValues graphDataValues = calculateForces(layoutContext, previousForces, swingMap);
+            graphSwingIsZero = graphDataValues.graphSwing() == 0;
             // calculate s(G) the global speed of the graph
             // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
             if (!graphSwingIsZero) {
                 double newGraphSpeed = Math.clamp(
-                        layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
+                        layoutParameters.getSwingTolerance() * graphDataValues.graphTraction() / graphDataValues.graphSwing(),
                         MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
                         layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
                 );
@@ -147,7 +129,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                 // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
                 updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
                 if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
-            //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
+                    //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
                     break;
                 }
                 previousGraphSpeed = newGraphSpeed;
@@ -155,6 +137,38 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             }
         }
         LOGGER.info("Finished in {} steps", i);
+    }
+
+    /**
+     * Calculate the forces and updates the swingMap with the calculated values. Returns the graphSwing and the graphTraction
+     * @param layoutContext the information about the graph and the positon of the points
+     * @param previousForces the forces used on the previous iteration turn. Used to calculate the swing of each point (and the graph swing as well as the graph traction)
+     * @param swingMap a map containing the swing of each point. Note that we don't have the same for the traction, as we only need the graph traction later on, not the traction of each point
+     * @return the swing of the graph and the traction of the graph, also updates <code>previousForces</code> and <code>swingMap</code> as a side effect
+     */
+    private Atlas2ForceLayoutAlgorithm.GraphDataValues calculateForces(LayoutContext<V, E> layoutContext, Map<Point, Vector2D> previousForces, Map<Point, Double> swingMap) {
+        double graphSwing = 0;
+        double graphTraction = 0;
+        for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
+            Point point = entry.getValue();
+            for (Force<V, E> force : forces) {
+                Vector2D resultingForce = force.apply(entry.getKey(), point, layoutContext);
+                point.applyForce(resultingForce);
+            }
+            // calculate swg(n) for each node the swing of the node
+            // at the same time calculate tra(n) the traction of the node
+            // we can also calculate swg(G) and tra(G) the swing and traction of the graph
+            int weight = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
+            Vector2D previousPointForce = previousForces.get(point);
+            double pointSwing = calculatePointSwing(point, previousPointForce);
+            swingMap.put(point, pointSwing);
+            graphSwing += pointSwing * weight;
+            graphTraction += calculatePointTraction(point, previousPointForce) * weight;
+        }
+        return new GraphDataValues(graphSwing, graphTraction);
+    }
+
+    private record GraphDataValues(double graphSwing, double graphTraction) {
     }
 
     /**
