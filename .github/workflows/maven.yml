@@ -40,11 +40,11 @@ jobs:
 
       - name: Build with Maven (Windows)
         if: matrix.os == 'windows-latest'
-        run: ./mvnw -B -ntp -Dpowsybl.checks.skip=true verify
+        run: ./mvnw -B -ntp verify -Dpowsybl.checks.skip=true
 
       - name: Build with Maven (MacOS)
         if: matrix.os == 'macos-latest'
-        run: ./mvnw -B -ntp -Dpowsybl.checks.skip=true verify
+        run: ./mvnw -B -ntp verify -Dpowsybl.checks.skip=true
 
       - name: Run SonarCloud analysis
         if: matrix.os == 'ubuntu-latest'
