@@ -107,6 +107,7 @@ public class SvgParameters {
         this.percentageValuePrecision = other.percentageValuePrecision;
         this.pstArrowHeadSize = other.pstArrowHeadSize;
         this.undefinedValueSymbol = other.undefinedValueSymbol;
+        this.highlightGraph = other.highlightGraph;
         this.injectionAperture = other.injectionAperture;
         this.injectionEdgeLength = other.injectionEdgeLength;
         this.injectionCircleRadius = other.injectionCircleRadius;

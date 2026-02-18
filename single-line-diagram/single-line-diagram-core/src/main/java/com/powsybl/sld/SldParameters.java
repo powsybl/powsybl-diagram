@@ -11,8 +11,8 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
@@ -20,7 +20,6 @@ import com.powsybl.sld.svg.styles.StyleProviderFactory;
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class SldParameters {

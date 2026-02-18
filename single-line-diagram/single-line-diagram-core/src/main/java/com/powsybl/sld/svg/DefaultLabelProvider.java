@@ -49,28 +49,15 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FeederInfo> feederInfos = new ArrayList<>();
         Feeder feeder = node.getFeeder();
-
-        switch (feeder.getFeederType()) {
-            case INJECTION:
-                feederInfos = getInjectionFeederInfos(node);
-                break;
-            case BRANCH:
-                feederInfos = getBranchFeederInfos(node, ((FeederWithSides) feeder).getSide());
-                break;
-            case TWO_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = getBranchFeederInfos(node, ((FeederTwLeg) feeder).getSide());
-                break;
-            case THREE_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get3WTFeederInfos(node, (FeederTwLeg) feeder);
-                break;
-            case HVDC:
-                feederInfos = getHvdcFeederInfos(node, (FeederWithSides) feeder);
-                break;
-            default:
-                break;
-        }
+        List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
+            case INJECTION -> getInjectionFeederInfos(node);
+            case BRANCH -> getBranchFeederInfos(node, ((FeederWithSides) feeder).getSide());
+            case TWO_WINDINGS_TRANSFORMER_LEG -> getBranchFeederInfos(node, ((FeederTwLeg) feeder).getSide());
+            case THREE_WINDINGS_TRANSFORMER_LEG -> get3WTFeederInfos(node, (FeederTwLeg) feeder);
+            case HVDC -> getHvdcFeederInfos(node, (FeederWithSides) feeder);
+            default -> new ArrayList<>();
+        };
         if (node.getDirection() == BOTTOM && !svgParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
@@ -101,7 +88,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeSides side = ThreeSides.valueOf(feeder.getSide().name());
-            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().getId().equals(feeder.getVoltageLevelInfos().getId());
+            boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().id().equals(feeder.getVoltageLevelInfos().id());
             feederInfos = get3WTFeederInfos(transformer, side, insideVoltageLevel);
         }
         return feederInfos;
@@ -162,17 +149,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private NodeDecorator getOperatingStatusDecorator(Node node, Direction direction, String decoratorType) {
-        if (node instanceof Middle3WTNode middle3WTNode) {
-            return new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
-        } else if (node instanceof BusNode) {
-            return new NodeDecorator(decoratorType, getBusDecoratorPosition());
-        } else if (node instanceof FeederNode) {
-            return new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
-        } else if (node instanceof Internal2WTNode) {
-            return new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
-        } else {
-            return new NodeDecorator(decoratorType, getGenericDecoratorPosition());
-        }
+        return switch (node) {
+            case Middle3WTNode middle3WTNode -> new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition(middle3WTNode, direction));
+            case BusNode ignored -> new NodeDecorator(decoratorType, getBusDecoratorPosition());
+            case FeederNode ignored -> new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
+            case Internal2WTNode ignored -> new NodeDecorator(decoratorType, getInternal2WTDecoratorPosition(node.getOrientation()));
+            case null, default -> new NodeDecorator(decoratorType, getGenericDecoratorPosition());
+        };
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {

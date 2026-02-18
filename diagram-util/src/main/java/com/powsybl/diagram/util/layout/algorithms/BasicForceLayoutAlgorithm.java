@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -8,14 +8,14 @@
 
 package com.powsybl.diagram.util.layout.algorithms;
 
-import com.powsybl.diagram.util.layout.forces.Force;
-import com.powsybl.diagram.util.layout.forces.CoulombForce;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import com.powsybl.diagram.util.layout.forces.AttractToCenterForceLinear;
+import com.powsybl.diagram.util.layout.forces.CoulombForce;
+import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.forces.SpringForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ import java.util.*;
  * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no unnecessary crossings.
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
- * The algorithm is inspired from: https://github.com/dhotson/springy
+ * The algorithm is inspired from: <a href="https://github.com/dhotson/springy">https://github.com/dhotson/springy</a>
  *
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -40,27 +40,19 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         Objects.requireNonNull(layoutParameters);
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(
-            layoutParameters.getRepulsion(),
-            layoutParameters.isRepulsionForceFromFixedPoints()
+            layoutParameters.getRepulsionIntensity(),
+            layoutParameters.isRepulsionFromFixedPointsEnabled()
         ));
-        if (layoutParameters.isAttractToCenterForce()) {
-            this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsion() / 200));
+        if (layoutParameters.isAttractToCenterEnabled()) {
+            this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsionIntensity() / 200));
         }
         this.layoutParameters = layoutParameters;
-    }
-
-    // To be moved later if needed by other algorithms
-    private void initAllForces(List<Force<V, E>> forces, LayoutContext<V, E> layoutContext) {
-        for (Force<V, E> force : forces) {
-            force.init(layoutContext);
-        }
     }
 
     @Override
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);
-        //Initialize Spring force
-        initAllForces(forces, layoutContext);
+        forces.forEach(f -> f.init(layoutContext));
 
         // do the loop on the nodes and forces
         int i;
@@ -95,7 +87,7 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private void updateVelocity(LayoutContext<V, E> layoutContext) {
         for (Point point : layoutContext.getMovingPoints().values()) {
             Vector2D newVelocity = new Vector2D(point.getForces());
-            newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFriction() / point.getMass())) / layoutParameters.getFriction());
+            newVelocity.multiplyBy((1 - Math.exp(-layoutParameters.getDeltaTime() * layoutParameters.getFrictionIntensity() / point.getMass())) / layoutParameters.getFrictionIntensity());
             point.setVelocity(newVelocity);
 
             if (newVelocity.magnitude() > layoutParameters.getMaxSpeed()) {

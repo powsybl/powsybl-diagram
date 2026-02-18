@@ -11,15 +11,7 @@ import java.util.Objects;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class Point {
-
-    private final double x;
-    private final double y;
-
-    public Point(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+public record Point(double x, double y) {
 
     public Point() {
         this(0, 0);
@@ -51,23 +43,15 @@ public class Point {
         return new Point(x + shiftX, y + shiftY);
     }
 
-    public double getY() {
-        return y;
-    }
-
-    public double getX() {
-        return x;
-    }
-
     public Point atDistance(double dist, Point direction) {
         double r = dist / distance(direction);
         return new Point(x + r * (direction.x - x),
-                y + r * (direction.y - y));
+            y + r * (direction.y - y));
     }
 
     public Point atDistance(double dist, double angle) {
         return new Point(x + dist * Math.cos(angle),
-                y + dist * Math.sin(angle));
+            y + dist * Math.sin(angle));
     }
 
     public double getAngle(Point other) {

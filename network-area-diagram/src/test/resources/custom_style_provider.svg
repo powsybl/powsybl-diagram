@@ -12,7 +12,7 @@ path.nad-arrow-out:not(.nad-state-out .nad-arrow-out) {visibility: hidden}
 path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-foreignObject.nad-text-nodes {overflow: visible; color: black}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, lightgrey);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
@@ -115,18 +115,20 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <polyline id="2" points="-26.14,-200.55 44.20,-211.10"/>
         <polyline id="6" points="-291.58,53.06 -221.25,42.51"/>
     </g>
-    <foreignObject height="1" width="1" class="nad-text-nodes">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <div style="position: absolute; top: -236px; left: 44px" id="1" class="nad-label-box">
+    <g class="nad-text-nodes">
+        <foreignObject id="1" y="-236.10" x="44.20" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square" style="background:yellow; fill:yellow;"></span> kV / °</div>
             </div>
-            <div style="position: absolute; top: 18px; left: -221px" id="5" class="nad-label-box">
+        </foreignObject>
+        <foreignObject id="5" y="17.51" x="-221.25" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square" style="background:red; fill:red; stroke:black; border: solid black 4px; stroke-width:4px;"></span> kV / °</div>
             </div>
-        </div>
-    </foreignObject>
+        </foreignObject>
+    </g>
 </svg>

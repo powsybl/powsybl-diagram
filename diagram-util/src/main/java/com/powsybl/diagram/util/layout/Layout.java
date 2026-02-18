@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -7,12 +7,17 @@
  */
 package com.powsybl.diagram.util.layout;
 
+import com.powsybl.diagram.util.layout.algorithms.Atlas2ForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.algorithms.LayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.Setup;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
+import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +35,7 @@ import java.util.function.Function;
 public class Layout<V, E> {
     private final Setup<V, E> setup;
     private final LayoutAlgorithm<V, E> layoutAlgorithm;
+    private final PostProcessing<V, E> postProcessing;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
 
@@ -38,9 +44,10 @@ public class Layout<V, E> {
      * @param setup the setup to be used
      * @param layoutAlgorithm the algorithm to place the points once the setup has been applied
      */
-    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm) {
+    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm, PostProcessing<V, E> postProcessing) {
         this.setup = Objects.requireNonNull(setup);
         this.layoutAlgorithm = Objects.requireNonNull(layoutAlgorithm);
+        this.postProcessing = postProcessing;
     }
 
     /**
@@ -52,7 +59,22 @@ public class Layout<V, E> {
                 new SquareRandomBarycenterSetup<>(),
                 new BasicForceLayoutAlgorithm<>(
                         new BasicForceLayoutParameters.Builder().build()
-                )
+                ),
+                PostProcessing.noOp()
+        );
+    }
+
+    /**
+     * Get the default Atlas2 algorithm, with setup {@link SquareRandomSetup}, algorithm {@link Atlas2ForceLayoutAlgorithm} and post-processing {@link OverlapPreventionPostProcessing}
+     * @return a ready to run atlas2 algorithm, with default parameters
+     */
+    public static <V, E> Layout<V, E> createAtlas2ForceLayout() {
+        return new Layout<>(
+                new SquareRandomSetup<>(),
+                new Atlas2ForceLayoutAlgorithm<>(
+                        new Atlas2Parameters.Builder().build()
+                ),
+                new OverlapPreventionPostProcessing<>()
         );
     }
 
@@ -62,11 +84,15 @@ public class Layout<V, E> {
      */
     public void run(LayoutContext<V, E> layoutContext) {
         Objects.requireNonNull(layoutContext);
+        runAndLogElapsedTime("Setup", () -> setup.run(layoutContext));
+        runAndLogElapsedTime("Layout calculations", () -> layoutAlgorithm.run(layoutContext));
+        runAndLogElapsedTime("Post-processing", () -> postProcessing.run(layoutContext));
+    }
+
+    private void runAndLogElapsedTime(String phaseName, Runnable phase) {
         long start = System.nanoTime();
-        setup.run(layoutContext);
-        long setupEnd = System.nanoTime();
-        LOGGER.info("Setup took {} s", (setupEnd - start) / 1e9);
-        layoutAlgorithm.run(layoutContext);
-        LOGGER.info("Layout calculations took {} s", (System.nanoTime() - setupEnd) / 1e9);
+        phase.run();
+        long end = System.nanoTime();
+        LOGGER.info("{} took {} s", phaseName, (end - start) / 1e9);
     }
 }

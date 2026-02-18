@@ -159,8 +159,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(textPair.getFirst().getSvgId()),
                 round(textPair.getSecond().getX() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getY() - textPair.getFirst().getY()),
-                round(textPair.getSecond().getEdgeConnection().getX() - textPair.getFirst().getX()),
-                round(textPair.getSecond().getEdgeConnection().getY() - textPair.getFirst().getY()))));
+                round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
+                round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
         return this;
     }
 

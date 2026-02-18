@@ -9,14 +9,7 @@ package com.powsybl.nad.svg.iidm;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.util.PermanentLimitPercentageMax;
 import com.powsybl.diagram.util.ValueFormatter;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Connectable;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.LabelProviderParameters;
@@ -26,11 +19,7 @@ import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.VoltageLevelLegend;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}

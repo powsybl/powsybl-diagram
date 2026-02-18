@@ -72,20 +72,12 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                BusInfo result = null;
-                switch (node.getId()) {
-                    case "bbs21":
-                        result = new BusVoltageInfo(false);
-                        break;
-                    case "bbs1":
-                    case "bbs13":
-                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
-                        break;
-                    case "bbs22":
-                    case "bbs23":
-                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
-                        break;
-                }
+                BusInfo result = switch (node.getId()) {
+                    case "bbs21" -> new BusVoltageInfo(false);
+                    case "bbs1", "bbs13" -> new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                    case "bbs22", "bbs23" -> new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                    default -> null;
+                };
                 return Optional.ofNullable(result);
             }
         };
@@ -95,18 +87,12 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                BusInfo result = null;
-                switch (node.getId()) {
-                    case "bbs21":
-                        result = new BusVoltageInfo(false);
-                        break;
-                    case "bbs13":
-                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
-                        break;
-                    case "bbs23":
-                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
-                        break;
-                }
+                BusInfo result = switch (node.getId()) {
+                    case "bbs21" -> new BusVoltageInfo(false);
+                    case "bbs13" -> new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                    case "bbs23" -> new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                    default -> null;
+                };
                 return Optional.ofNullable(result);
             }
         };

@@ -49,7 +49,7 @@ public class SwitchNode extends EquipmentNode {
         if (getAdjacentNodes().size() != 2) {
             throw new PowsyblException("Error switch node not having exactly 2 adjacent nodes " + getId());
         }
-        return getAdjacentNodes().get(getAdjacentNodes().get(0).equals(adj) ? 1 : 0);
+        return getAdjacentNodes().get(getAdjacentNodes().getFirst().equals(adj) ? 1 : 0);
     }
 
     public boolean isOpen() {

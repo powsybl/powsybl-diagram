@@ -57,7 +57,7 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
     }
 
     protected List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
         return vl.getBusView().getBusStream()
             .map(b -> new BusLegendInfo(b.getId(), List.of(
                 new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),

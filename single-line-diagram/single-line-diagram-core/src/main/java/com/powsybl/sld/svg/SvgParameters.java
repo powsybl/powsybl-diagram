@@ -13,7 +13,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class SvgParameters {

@@ -28,37 +28,31 @@ public enum Orientation {
     }
 
     public int progressionSign() {
-        switch (this) {
-            case UP:
-            case LEFT:
-                return -1;
-            case DOWN:
-            case RIGHT:
-                return 1;
-            default:
-                return 0;
-        }
+        return switch (this) {
+            case UP, LEFT -> -1;
+            case DOWN, RIGHT -> 1;
+            default -> 0;
+        };
     }
 
     public Orientation opposite() {
-        switch (this) {
-            case UP: return DOWN;
-            case DOWN: return UP;
-            case LEFT: return RIGHT;
-            case RIGHT: return LEFT;
-            case MIDDLE: return MIDDLE;
-            case UNDEFINED: return UNDEFINED;
-        }
-        return null;
+        return switch (this) {
+            case UP -> DOWN;
+            case DOWN -> UP;
+            case LEFT -> RIGHT;
+            case RIGHT -> LEFT;
+            case MIDDLE -> MIDDLE;
+            case UNDEFINED -> UNDEFINED;
+        };
     }
 
     public double toRotationAngle() {
-        switch (this) {
-            case DOWN: return 180.0;
-            case LEFT: return 270.0;
-            case RIGHT: return 90.0;
-            case UP: default: return 0;
-        }
+        return switch (this) {
+            case DOWN -> 180.0;
+            case LEFT -> 270.0;
+            case RIGHT -> 90.0;
+            default -> 0;
+        };
     }
 
 }
