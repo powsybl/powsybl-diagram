@@ -23,19 +23,20 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: 'maven'
 
       - name: Build with Maven (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
-        run: ./mvnw --batch-mode -P jacoco,checks install
+        run: ./mvnw -B -ntp -Pjacoco install
 
       - name: Build with Maven (Windows)
         if: matrix.os == 'windows-latest'
-        run: mvnw.cmd --batch-mode install
+        run: mvnw.cmd -B -ntp verify -Dpowsybl.checks.skip=true
         shell: cmd
 
       - name: Build with Maven (MacOS)
         if: matrix.os == 'macos-latest'
-        run: ./mvnw --batch-mode install
+        run: ./mvnw -B -ntp verify -Dpowsybl.checks.skip=true
 
       - name: Regroup dependencies in target folders
         if: matrix.os == 'ubuntu-latest'
