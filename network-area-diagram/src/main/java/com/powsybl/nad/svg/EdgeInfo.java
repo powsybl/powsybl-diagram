@@ -46,12 +46,7 @@ public class EdgeInfo {
         if (Double.isNaN(value)) {
             return null;
         }
-        if (value < 0) {
-            return Direction.IN;
-        } else {
-            return Direction.OUT;
-        }
-//        return value < 0 ? Direction.IN : Direction.OUT;
+        return value < 0 ? Direction.IN : Direction.OUT;
     }
 
     /**
