@@ -59,6 +59,8 @@ public class SvgParameters {
     private double injectionCircleRadius = 25;
     private boolean voltageLevelLegendsIncluded = true;
     private boolean edgeInfosIncluded = true;
+    private double doubleArrowShiftFactorArrows = 1.5;
+    private double doubleArrowShiftFactorText = doubleArrowShiftFactorArrows * 1.2;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -113,6 +115,8 @@ public class SvgParameters {
         this.injectionCircleRadius = other.injectionCircleRadius;
         this.voltageLevelLegendsIncluded = other.voltageLevelLegendsIncluded;
         this.edgeInfosIncluded = other.edgeInfosIncluded;
+        this.doubleArrowShiftFactorArrows = other.doubleArrowShiftFactorArrows;
+        this.doubleArrowShiftFactorText = other.doubleArrowShiftFactorText;
     }
 
     public Padding getDiagramPadding() {
@@ -508,5 +512,23 @@ public class SvgParameters {
     public SvgParameters setEdgeInfosIncluded(boolean edgeInfosIncluded) {
         this.edgeInfosIncluded = edgeInfosIncluded;
         return this;
+    }
+
+    public SvgParameters setDoubleArrowShiftFactorArrows(double doubleArrowShiftFactorArrows) {
+        this.doubleArrowShiftFactorArrows = doubleArrowShiftFactorArrows;
+        return this;
+    }
+
+    public double getDoubleArrowShiftFactorArrows() {
+        return doubleArrowShiftFactorArrows;
+    }
+
+    public SvgParameters setDoubleArrowShiftFactorText(double doubleArrowShiftFactorText) {
+        this.doubleArrowShiftFactorText = doubleArrowShiftFactorText;
+        return this;
+    }
+
+    public double getDoubleArrowShiftFactorText() {
+        return doubleArrowShiftFactorText;
     }
 }
