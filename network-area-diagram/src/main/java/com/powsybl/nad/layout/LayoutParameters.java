@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -15,10 +15,12 @@ import com.powsybl.nad.model.Point;
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
     private Point textNodeFixedShift = new Point(100, -40);
+    //TODO remove this in later PR
     private int maxSteps = 1000;
     private double timeoutSeconds = 15;
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;
+    private double scaleFactor = 1;
 
     public LayoutParameters() {
     }
@@ -30,6 +32,7 @@ public class LayoutParameters {
         this.timeoutSeconds = other.timeoutSeconds;
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
         this.injectionsAdded = other.injectionsAdded;
+        this.scaleFactor = other.scaleFactor;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -83,6 +86,15 @@ public class LayoutParameters {
 
     public LayoutParameters setInjectionsAdded(boolean injectionsAdded) {
         this.injectionsAdded = injectionsAdded;
+        return this;
+    }
+
+    public double getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public LayoutParameters setScaleFactor(double scaleFactor) {
+        this.scaleFactor = scaleFactor;
         return this;
     }
 }

@@ -8,7 +8,8 @@
     "maxSteps" : 1000,
     "timeoutSeconds" : 15.0,
     "textNodeEdgeConnectionYShift" : 25.0,
-    "injectionsAdded" : true
+    "injectionsAdded" : true,
+    "scaleFactor" : 1.0
   },
   "svgParameters" : {
     "diagramPadding" : {
