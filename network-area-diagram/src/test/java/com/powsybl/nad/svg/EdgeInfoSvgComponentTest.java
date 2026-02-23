@@ -6,17 +6,27 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.build.iidm.IntIdProvider;
+import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.BranchEdge;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.StringWriter;
 import java.util.Optional;
 
 /**
@@ -46,7 +56,6 @@ class EdgeInfoSvgComponentTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-
         return new DefaultLabelProvider(network, getSvgParameters()) {
 
             @Override
@@ -64,7 +73,6 @@ class EdgeInfoSvgComponentTest extends AbstractTest {
                 return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
             }
         };
-
     }
 
     @Test
@@ -78,6 +86,35 @@ class EdgeInfoSvgComponentTest extends AbstractTest {
                 .setArrowShift(50)
                 .setArrowLabelShift(25);
         assertSvgEquals("/edge_info_components.svg", network);
+    }
+
+    @Test
+    void testUnknownEdgeInfoCopmponent() {
+        Network network = Networks.createTwoVoltageLevels();
+        LabelProvider mylabelProvider = new DefaultLabelProvider(network, getSvgParameters()) {
+
+            @Override
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, BranchEdge.Side side, String branchType) {
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, internalLabel, externalLabel, "UNKNOWN"));
+            }
+
+            @Override
+            public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, side1Label, side2Label, "UNKNOWN"));
+            }
+
+            @Override
+            public Optional<EdgeInfo> getThreeWindingTransformerEdgeInfo(String threeWindingTransformerId, ThreeWtEdge.Side side) {
+                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.IN, internalLabel, externalLabel));
+            }
+        };
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, mylabelProvider, getLayoutParameters(), new IntIdProvider()).buildGraph();
+        BasicForceLayout layout = new BasicForceLayout();
+        layout.run(graph, getLayoutParameters());
+        StringWriter writer = new StringWriter();
+        SvgWriter svgWriter = new SvgWriter(getSvgParameters(), getStyleProvider(network), getComponentLibrary(), getEdgeRouting());
+        PowsyblException e = assertThrows(PowsyblException.class, () -> svgWriter.writeSvg(graph, writer));
+        assertTrue(e.getMessage().contains("Cannot find size for component of type UNKNOWN"));
     }
 
 }
