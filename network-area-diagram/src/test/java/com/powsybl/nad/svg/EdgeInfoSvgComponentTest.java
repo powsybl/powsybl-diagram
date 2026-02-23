@@ -65,7 +65,7 @@ class EdgeInfoSvgComponentTest extends AbstractTest {
 
             @Override
             public Optional<EdgeInfo> getBranchEdgeInfo(String branchId, String branchType) {
-                return Optional.of(new EdgeInfo("test", "test", EdgeInfo.Direction.OUT, side1Label, side2Label, "LOCK"));
+                return Optional.of(new EdgeInfo("test", "test", 1, side1Label, side2Label, "LOCK"));
             }
 
             @Override
