@@ -191,7 +191,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
         // check if the hvdc line was not already added (at the other side of the line)
         HvdcLine hvdcLine = converterStation.getHvdcLine();
-        if (graph.containsEdge(hvdcLine.getId())) {
+        if (hvdcLine == null || graph.containsEdge(hvdcLine.getId())) {
             return;
         }
 
