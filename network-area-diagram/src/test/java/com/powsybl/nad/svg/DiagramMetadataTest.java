@@ -127,6 +127,19 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
+    void testOverUnderVoltage() {
+        Network network = Networks.createTwoVoltageLevelsThreeBuses();
+        network.getVoltageLevel("vl1")
+                .setHighVoltageLimit(385)
+                .getBusView().getBus("vl1_0").setV(385.1);
+        network.getVoltageLevel("vl2")
+                .setLowVoltageLimit(390)
+                .getBusView().getBus("vl2_0").setV(388);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/under_over_voltage_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
@@ -148,7 +161,8 @@ class DiagramMetadataTest extends AbstractTest {
         new BasicForceLayout().run(graph, layoutParameters);
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        StyleProvider styleProvider = new TopologicalStyleProvider(network);
+        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph, styleProvider).writeJson(outMetadataPath);
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file

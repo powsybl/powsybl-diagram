@@ -10,6 +10,8 @@ package com.powsybl.nad.svg.metadata;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
@@ -27,6 +29,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final EdgeInfoMetadata edgeInfo1;
     private final EdgeInfoMetadata edgeInfo2;
     private final EdgeInfoMetadata edgeInfoMiddle;
+    private final List<String> classes1;
+    private final List<String> classes2;
 
     public EdgeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -40,7 +44,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
                         @JsonProperty("invisible2") boolean invisibleSide2,
                         @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
                         @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2,
-                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle
+                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle,
+                        @JsonProperty("classes1") List<String> classes1,
+                        @JsonProperty("classes2") List<String> classes2
                         ) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
@@ -54,6 +60,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
         this.edgeInfo1 = edgeInfo1;
         this.edgeInfo2 = edgeInfo2;
         this.edgeInfoMiddle = edgeInfoMiddle;
+        this.classes1 = classes1;
+        this.classes2 = classes2;
     }
 
     @JsonProperty("node1")
@@ -111,5 +119,17 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @JsonProperty("edgeInfoMiddle")
     public EdgeInfoMetadata getEdgeInfoMiddle() {
         return edgeInfoMiddle;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes1")
+    public List<String> getClasses1() {
+        return classes1;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes2")
+    public List<String> getClasses2() {
+        return classes2;
     }
 }

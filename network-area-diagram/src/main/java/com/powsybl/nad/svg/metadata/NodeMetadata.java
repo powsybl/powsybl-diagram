@@ -24,13 +24,13 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final double y;
     private final boolean fictitious;
     private final boolean invisible;
-    private final boolean boundary;
-    private final boolean threeWindings;
+    private final String type;
     private final boolean unknownBus;
     private final String legendSvgId;
     private final String legendEdgeSvgId;
     private final List<String> legendHeader;
     private final List<String> legendFooter;
+    private final List<String> classes;
 
     public NodeMetadata(@JsonProperty("svgId") String svgId,
                         @JsonProperty("equipmentId") String equipmentId,
@@ -42,9 +42,9 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
                         @JsonProperty("legendHeader") List<String> legendHeader,
                         @JsonProperty("legendFooter") List<String> legendFooter,
-                        @JsonProperty("boundary") boolean boundary,
-                        @JsonProperty("threeWindings") boolean threeWindings,
-                        @JsonProperty("unknownBus") boolean unknownBus) {
+                        @JsonProperty("type") String type,
+                        @JsonProperty("unknownBus") boolean unknownBus,
+                        @JsonProperty("classes") List<String> classes) {
         super(svgId, equipmentId);
         this.x = x;
         this.y = y;
@@ -54,9 +54,9 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.legendEdgeSvgId = legendEdgeSvgId;
         this.legendHeader = legendHeader;
         this.legendFooter = legendFooter;
-        this.boundary = boundary;
-        this.threeWindings = threeWindings;
+        this.type = type;
         this.unknownBus = unknownBus;
+        this.classes = classes;
     }
 
     public double getX() {
@@ -80,18 +80,6 @@ public class NodeMetadata extends AbstractMetadataItem {
     }
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    @JsonProperty("boundary")
-    public boolean isBoundary() {
-        return boundary;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    @JsonProperty("threeWindings")
-    public boolean isThreeWindings() {
-        return threeWindings;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("unknownBus")
     public boolean isUnknownBus() {
         return unknownBus;
@@ -100,6 +88,12 @@ public class NodeMetadata extends AbstractMetadataItem {
     @JsonIgnore
     public Point getPosition() {
         return new Point(x, y);
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("type")
+    public String getType() {
+        return type;
     }
 
     @JsonProperty("legendSvgId")
@@ -121,4 +115,11 @@ public class NodeMetadata extends AbstractMetadataItem {
     public List<String> getLegendFooter() {
         return legendFooter;
     }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes")
+    public List<String> getClasses() {
+        return classes;
+    }
+
 }
