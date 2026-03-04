@@ -431,9 +431,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         public void visitLine(Line line, TwoSides side) {
             TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            boolean isTeePoiint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
+            boolean isTeePoint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
 
-            if (isTeePoiint) {
+            if (isTeePoint) {
                 VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
                 addTeePoint(line, side, vlOwnSide, vlOtherSide);
             } else {
