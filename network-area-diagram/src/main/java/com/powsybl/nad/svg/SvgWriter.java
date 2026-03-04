@@ -219,25 +219,8 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(injection.getIconOrigin(svgParameters.getInjectionCircleRadius())));
 
-        Result result = new SAXResult(new SvgContentHandlerToXMLStreamWriter(writer));
         String componentType = injection.getComponentType();
-        writeStyleClasses(writer, componentLibrary.getComponentStyleClass(componentType).map(List::of).orElse(List.of()));
-
-        try {
-            Transformer transformer = componentLibrary.getSvgTransformer();
-            Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
-            for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
-                List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
-                        .map(List::of).orElse(List.of());
-                writeStyleClasses(writer, edgeStyleClasses);
-                for (Element element : scEntry.getValue()) {
-                    transformer.transform(new DOMSource(element), result);
-                }
-            }
-        } catch (TransformerException e) {
-            throw new PowsyblException("Cannot insert SVG for injection of type " + injection.getType(), e);
-        }
-        writer.writeEndElement();
+        writeSvgComponent(writer, componentType, "Cannot insert SVG for injection of type " + injection.getType());
     }
 
     private void drawComponentOnBranchEdgeMiddle(XMLStreamWriter writer, String componentType) throws XMLStreamException {
@@ -250,6 +233,10 @@ public class SvgWriter {
         Point trans = new Point(-componentSize.width() / 2, -componentSize.height() / 2);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(trans));
 
+        writeSvgComponent(writer, componentType, "Cannot insert SVG component of type " + componentType + " on branch edge middle");
+    }
+
+    private void writeSvgComponent(XMLStreamWriter writer, String componentType, String errorMessage) throws XMLStreamException {
         Result result = new SAXResult(new SvgContentHandlerToXMLStreamWriter(writer));
         writeStyleClasses(writer, componentLibrary.getComponentStyleClass(componentType).map(List::of).orElse(List.of()));
 
@@ -259,7 +246,7 @@ public class SvgWriter {
             if (subComponents != null) {
                 for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
                     List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
-                            .map(List::of).orElse(List.of());
+                        .map(List::of).orElse(List.of());
                     writeStyleClasses(writer, edgeStyleClasses);
                     for (Element element : scEntry.getValue()) {
                         transformer.transform(new DOMSource(element), result);
@@ -267,7 +254,7 @@ public class SvgWriter {
                 }
             }
         } catch (TransformerException e) {
-            throw new PowsyblException("Cannot insert SVG component of type " + componentType + " on branch edge middle", e);
+            throw new PowsyblException(errorMessage, e);
         }
         writer.writeEndElement();
     }
