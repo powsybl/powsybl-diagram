@@ -52,7 +52,12 @@ class HvdcTest extends AbstractTest {
     @Test
     void testHvdcLineRemoved() {
         Network network = FourSubstationsNodeBreakerFactory.create();
+        assertSvgEquals("/hvdc_present.svg", network);
+        setLayoutParameters(new LayoutParameters().setInjectionsAdded(true));
+        assertSvgEquals("/hvdc_injections.svg", network);
         network.getHvdcLineStream().toList().forEach(HvdcLine::remove);
+        assertSvgEquals("/hvdc_line_removed_injections.svg", network);
+        setLayoutParameters(new LayoutParameters().setInjectionsAdded(false));
         assertSvgEquals("/hvdc_line_removed.svg", network);
     }
 }

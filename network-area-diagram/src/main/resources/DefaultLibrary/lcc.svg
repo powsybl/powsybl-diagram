@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+     width="50" height="50"
+     style="fill:none; stroke:black; stroke-width: 3; stroke-linecap:round">
+  <path d="M10.86,39.14 L40,15" />
+  <path d="M9,22 A 3.5 3.5 0 0 1 16,22 A 3.5 3.5 0 0 0 23,22"/>
+  <path d="M24,34 H40" />
+  <path d="M24,39 H27" />
+  <path d="M30.5,39 H33.5" />
+  <path d="M37,39 H40" />
+
+  <path d="M14,7 L14,14" />
+  <path d="M14,14 L19,14" />
+
+  <path d="M27,7.5 A 3.5 3.5 0 1 0 27,13.5" />
+
+  <path d="M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5" />
+</svg>

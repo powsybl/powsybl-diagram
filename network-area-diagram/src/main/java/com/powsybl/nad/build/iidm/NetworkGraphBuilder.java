@@ -104,6 +104,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
         vl.getShuntCompensators().forEach(sc -> addInjection(graph, sc, injectionsMap));
         vl.getBatteries().forEach(b -> addInjection(graph, b, injectionsMap));
         vl.getStaticVarCompensators().forEach(svc -> addInjection(graph, svc, injectionsMap));
+        vl.getVscConverterStations().forEach(vsc -> {
+            if (vsc.getHvdcLine() == null) {
+                addInjection(graph, vsc, injectionsMap);
+            }
+        });
+        vl.getLccConverterStations().forEach(lcc -> {
+            if (lcc.getHvdcLine() == null) {
+                addInjection(graph, lcc, injectionsMap);
+            }
+        });
     }
 
     private void addInjection(Graph graph, com.powsybl.iidm.network.Injection<?> inj, Map<String, List<Injection>> injectionsMap) {
@@ -129,7 +139,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
             case LOAD -> Injection.Type.LOAD;
             case SHUNT_COMPENSATOR -> getShuntCompensatorType((ShuntCompensator) inj);
             case STATIC_VAR_COMPENSATOR -> Injection.Type.STATIC_VAR_COMPENSATOR;
+            case HVDC_CONVERTER_STATION -> getInjectionTypeForHvdcConverterStation((HvdcConverterStation<?>) inj);
             default -> throw new AssertionError("Unexpected injection type: " + inj.getType());
+        };
+    }
+
+    private static Injection.Type getInjectionTypeForHvdcConverterStation(HvdcConverterStation<?> hvdcConverterStation) {
+        return switch (hvdcConverterStation.getHvdcType()) {
+            case LCC -> Injection.Type.LCC;
+            case VSC -> Injection.Type.VSC;
         };
     }
 
