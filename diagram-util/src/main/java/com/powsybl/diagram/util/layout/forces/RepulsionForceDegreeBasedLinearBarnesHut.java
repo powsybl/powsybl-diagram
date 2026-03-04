@@ -105,15 +105,12 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
         } else {
             Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[nodeIndex];
             double childNodeWidth = nodeWidth / 2;
-            int numberOfChild = 0;
-            for (int index : thisNode.getChildrenNodeIdFlatten()) {
-                if (index != Quadtree.NO_CHILDREN) {
-                    ++numberOfChild;
-                    generatePointInteractionList(index, point, childNodeWidth, pointsToInteractWith);
-                }
+            int[] realChildrenId = thisNode.getRealChildrenNodeIndex();
+            for (int index : realChildrenId) {
+                generatePointInteractionList(index, point, childNodeWidth, pointsToInteractWith);
             }
             // if the list is empty, it means we are a leaf node, need to add self to the list and return
-            if (numberOfChild == 0) {
+            if (realChildrenId.length == 0) {
                 pointsToInteractWith.add(barycenter);
             }
         }

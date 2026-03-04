@@ -102,12 +102,10 @@ class QuadtreeTest {
     ) {
         double delta = 1e-3;
         Quadtree.QuadtreeNode thisNode = nodes[parentNodeIndex];
-        int[] subAreaIndexList = thisNode.getChildrenNodeIdFlatten();
+        int[] subAreaIndexList = thisNode.getRealChildrenNodeIndex();
         // check all child areas
         for (int subAreaIndex : subAreaIndexList) {
-            if (subAreaIndex != Quadtree.NO_CHILDREN) {
-                checkChildBarycenter(subAreaIndex, nodes, barycenters, expectedBarycenters);
-            }
+            checkChildBarycenter(subAreaIndex, nodes, barycenters, expectedBarycenters);
         }
         // now check this node
         Point barycenter = barycenters[parentNodeIndex];
