@@ -970,6 +970,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              LabelProvider initProvider, StyleProvider styleProvider, Collection<Edge> edges) {
         String voltageLevelId = graph.getVoltageLevelInfos().id();
         String prefixId = metadata.getSvgParameters().getPrefixId();
+        Set<Node> drawnTeeStems = new HashSet<>();
 
         for (Edge edge : edges) {
             String wireId = getWireId(prefixId, voltageLevelId, edge);
@@ -982,18 +983,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         .calculatePolylinePoints(edge.getNode1(), edge.getNode2(), svgParameters.isDrawStraightWires(), shift);
 
                 if (!pol.isEmpty()) {
-                    Element g = root.getOwnerDocument().createElement(GROUP);
-
-                    g.setAttribute("id", wireId);
-                    writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
-
-                    writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
-
-                    Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-                    polyline.setAttribute(POINTS, pointsListToString(pol));
-
-                    g.appendChild(polyline);
-                    root.appendChild(g);
+                    drawPolyLine(root, graph, styleProvider, edge, wireId, pol, drawnTeeStems);
                 }
             }
 
@@ -1012,6 +1002,33 @@ public class DefaultSVGWriter implements SVGWriter {
                 insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
             }
         }
+    }
+
+    private void drawPolyLine(Element root, VoltageLevelGraph graph, StyleProvider styleProvider,
+                              Edge edge, String wireId, List<Point> pol, Set<Node> drawnTeeStems) {
+        if (isTeePointEdge(edge) && pol.size() >= 3) {
+            // Split the L-shaped polyline into two segments:
+            // - feeder leg segment (from feeder to middle point) with feeder's style
+            // - tee stem segment (from middle point to tee point) with tee point node's style
+            drawTeePointEdgeSegments(root, graph, edge, pol, wireId, styleProvider, drawnTeeStems);
+        } else {
+            Element g = root.getOwnerDocument().createElement(GROUP);
+
+            g.setAttribute("id", wireId);
+            writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
+
+            writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+
+            Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+            polyline.setAttribute(POINTS, pointsListToString(pol));
+
+            g.appendChild(polyline);
+            root.appendChild(g);
+        }
+    }
+
+    private static boolean isTeePointEdge(Edge edge) {
+        return edge.getNode1() instanceof TeePointNode || edge.getNode2() instanceof TeePointNode;
     }
 
     /*
@@ -1036,6 +1053,78 @@ public class DefaultSVGWriter implements SVGWriter {
         for (BranchEdge edge : graph.getTwtEdges()) {
             drawSnakeLines(graph, edge, root, metadata, styleProvider);
         }
+    }
+
+    /**
+     * Splits a tee-point edge from an L-shaped polyline into two separately styled segments:
+     * <ul>
+     *     <li>Feeder leg segment (from the feeder node to the corner/middle point) — styled like the feeder's edge</li>
+     *     <li>Tee stem segment (from the corner/middle point to the tee point) — styled with the tee point node's (bus) styles</li>
+     * </ul>
+     */
+    private void drawTeePointEdgeSegments(Element root, VoltageLevelGraph graph, Edge edge,
+                                          List<Point> pol, String wireId, StyleProvider styleProvider,
+                                          Set<Node> drawnTeeStems) {
+        // Identify which node is the feeder and which is the tee point
+        Node feederNode;
+        Node teePointNode;
+        List<Point> orderedPol;
+        if (edge.getNode2() instanceof TeePointNode) {
+            // Points go from feeder to tee point
+            feederNode = edge.getNode1();
+            teePointNode = edge.getNode2();
+            orderedPol = pol;
+        } else {
+            // Points go from tee point to feeder
+            feederNode = edge.getNode2();
+            teePointNode = edge.getNode1();
+            orderedPol = new ArrayList<>(pol);
+            Collections.reverse(orderedPol);
+        }
+        Point feederPoint = orderedPol.get(0);
+        Point cornerPoint = orderedPol.get(1);
+        Point teePoint = orderedPol.get(2);
+
+        // Feeder leg segment: styled with the feeder edge's own styles
+        String feederSegId = wireId + "_FEEDER_LEG";
+        Element gFeeder = root.getOwnerDocument().createElement(GROUP);
+        gFeeder.setAttribute("id", feederSegId);
+        writeStyleClasses(gFeeder, styleProvider.getEdgeStyles(graph, feederNode.getAdjacentEdges().stream().filter(e -> !e.equals(edge)).findFirst().orElse(null)));
+        writeStyleAttribute(gFeeder, styleProvider.getEdgeStyle(graph, edge));
+        Element polylineFeeder = root.getOwnerDocument().createElement(POLYLINE);
+        polylineFeeder.setAttribute(POINTS, pointsListToString(List.of(feederPoint, cornerPoint)));
+        gFeeder.appendChild(polylineFeeder);
+        root.appendChild(gFeeder);
+
+        // Tee stem segment: styled with the tee point node's styles (i.e., the bus/VL styles)
+        if (!drawnTeeStems.contains(teePointNode)) {
+            drawnTeeStems.add(teePointNode);
+            String stemSegId = wireId + "_TEE_STEM";
+            Element gStem = root.getOwnerDocument().createElement(GROUP);
+            gStem.setAttribute("id", stemSegId);
+            // Use the styles from the edge between the tee point and its bus connection (the "other" adjacent edge)
+            Edge busEdge = findTeePointBusEdge(teePointNode, edge);
+            writeStyleClasses(gStem, styleProvider.getEdgeStyles(graph, busEdge));
+            writeStyleAttribute(gStem, styleProvider.getEdgeStyle(graph, busEdge));
+            Element polylineStem = root.getOwnerDocument().createElement(POLYLINE);
+            polylineStem.setAttribute(POINTS, pointsListToString(List.of(cornerPoint, teePoint)));
+            gStem.appendChild(polylineStem);
+            root.appendChild(gStem);
+        }
+    }
+
+    /**
+     * Finds the edge connecting the tee point node to its bus connection (i.e., not a feeder leg edge).
+     * The tee point node has 3 adjacent edges: 2 to feeder legs, 1 toward the bus.
+     */
+    private static Edge findTeePointBusEdge(Node teePointNode, Edge currentEdge) {
+        return teePointNode.getAdjacentEdges().stream()
+            .filter(e -> !e.equals(currentEdge))
+            .filter(e -> {
+                Node otherNode = e.getNode1() == teePointNode ? e.getNode2() : e.getNode1();
+                return !(otherNode instanceof FeederNode);
+            })
+            .findFirst().orElse(currentEdge);
     }
 
     private void drawSnakeLines(Graph graph, BranchEdge edge, Element root, GraphMetadata metadata, StyleProvider styleProvider) {
