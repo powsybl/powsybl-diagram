@@ -131,10 +131,6 @@ public class Quadtree {
             // no children
             return NO_CHILDREN;
         }
-        int newNodeIndex = nodesList.size();
-        nodesList.add(new QuadtreeNode());
-        Point nodeBarycenter = new Point(0, 0);
-        barycentersList.add(nodeBarycenter);
 
         if (
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
@@ -144,6 +140,10 @@ public class Quadtree {
             // use the first two index checks to not have to calculate the equality between all points in the range each time
                 || firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)
         ) {
+            int newNodeIndex = nodesList.size();
+            nodesList.add(new QuadtreeNode());
+            Point nodeBarycenter = new Point(0, 0);
+            barycentersList.add(nodeBarycenter);
             setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
             return newNodeIndex;
         }
@@ -163,6 +163,12 @@ public class Quadtree {
         BoundingBox bottomRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBoxCenter.getY(), boundingBox.right(), boundingBox.bottom());
         BoundingBox topLeftBb = new BoundingBox(boundingBox.left(), boundingBox.top(), boundingBoxCenter.getX(), boundingBoxCenter.getY());
         BoundingBox topRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBox.top(), boundingBox.right(), boundingBoxCenter.getY());
+
+        int newNodeIndex = nodesList.size();
+        //need to add it first here even though we modify it just after, because buildQuadtree is recursive. Need to conserve order
+        nodesList.add(new QuadtreeNode());
+        Point nodeBarycenter = new Point(0, 0);
+        barycentersList.add(nodeBarycenter);
 
         nodesList.get(newNodeIndex).childrenNodeIndex[0][0] = buildQuadtree(nodesList, barycentersList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
         nodesList.get(newNodeIndex).childrenNodeIndex[0][1] = buildQuadtree(nodesList, barycentersList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
