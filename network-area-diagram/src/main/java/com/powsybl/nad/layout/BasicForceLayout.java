@@ -86,7 +86,8 @@ public class BasicForceLayout extends AbstractLayout {
 
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(jgraphtGraph);
 
-        setInitialPositions(layoutContext, graph);
+        double scaleFactor = SCALE * layoutParameters.getScaleFactor();
+        setInitialPositions(layoutContext, graph, scaleFactor);
         Set<Node> fixedNodes = getNodesWithFixedPosition().stream()
                 .map(graph::getNode)
                 .flatMap(Optional::stream)
@@ -98,10 +99,10 @@ public class BasicForceLayout extends AbstractLayout {
         jgraphtGraph.vertexSet().forEach(node -> {
             Vector2D p = layoutContext.getStablePosition(node);
             if (node instanceof TextNode texNode) {
-                texNode.setPosition(SCALE * p.getX(), SCALE * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
-                texNode.setEdgeConnection(new Point(SCALE * p.getX(), SCALE * p.getY()));
+                texNode.setPosition(scaleFactor * p.getX(), scaleFactor * p.getY() - layoutParameters.getTextNodeEdgeConnectionYShift());
+                texNode.setEdgeConnection(new Point(scaleFactor * p.getX(), scaleFactor * p.getY()));
             } else {
-                node.setPosition(SCALE * p.getX(), SCALE * p.getY());
+                node.setPosition(scaleFactor * p.getX(), scaleFactor * p.getY());
             }
         });
 
@@ -110,15 +111,15 @@ public class BasicForceLayout extends AbstractLayout {
         }
     }
 
-    private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph) {
+    private void setInitialPositions(LayoutContext<Node, Edge> layoutContext, Graph graph, double scaleFactor) {
         Map<Node, com.powsybl.diagram.util.layout.geometry.Point> initialPoints = getInitialNodePositions().entrySet().stream()
                 // Only accept positions for nodes in the graph
                 .filter(nodePosition -> graph.getNode(nodePosition.getKey()).isPresent())
                 .collect(Collectors.toMap(
                     nodePosition -> graph.getNode(nodePosition.getKey()).orElseThrow(),
                     nodePosition -> new com.powsybl.diagram.util.layout.geometry.Point(
-                            nodePosition.getValue().x() / SCALE,
-                            nodePosition.getValue().y() / SCALE)
+                            nodePosition.getValue().x() / scaleFactor,
+                            nodePosition.getValue().y() / scaleFactor)
                 ));
         layoutContext.setInitialPoints(initialPoints);
     }

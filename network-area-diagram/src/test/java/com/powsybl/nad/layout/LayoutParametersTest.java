@@ -22,7 +22,8 @@ class LayoutParametersTest {
                 .setTextNodeFixedShift(50., 50.)
                 .setMaxSteps(20)
                 .setTimeoutSeconds(2)
-                .setTextNodeEdgeConnectionYShift(30);
+                .setTextNodeEdgeConnectionYShift(30)
+                .setScaleFactor(100);
 
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
@@ -32,5 +33,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters0.getMaxSteps(), layoutParameters1.getMaxSteps());
         assertEquals(layoutParameters0.getTimeoutSeconds(), layoutParameters1.getTimeoutSeconds());
         assertEquals(layoutParameters0.getTextNodeEdgeConnectionYShift(), layoutParameters1.getTextNodeEdgeConnectionYShift(), 0);
+        assertEquals(layoutParameters0.getScaleFactor(), layoutParameters1.getScaleFactor(), 0);
     }
 }

@@ -20,6 +20,7 @@ public class LayoutParameters {
     private double timeoutSeconds = 15;
     private double textNodeEdgeConnectionYShift = 25;
     private boolean injectionsAdded = false;
+    private double scaleFactor = 1;
 
     public LayoutParameters() {
     }
@@ -31,6 +32,7 @@ public class LayoutParameters {
         this.timeoutSeconds = other.timeoutSeconds;
         this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
         this.injectionsAdded = other.injectionsAdded;
+        this.scaleFactor = other.scaleFactor;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -84,6 +86,15 @@ public class LayoutParameters {
 
     public LayoutParameters setInjectionsAdded(boolean injectionsAdded) {
         this.injectionsAdded = injectionsAdded;
+        return this;
+    }
+
+    public double getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public LayoutParameters setScaleFactor(double scaleFactor) {
+        this.scaleFactor = scaleFactor;
         return this;
     }
 }
