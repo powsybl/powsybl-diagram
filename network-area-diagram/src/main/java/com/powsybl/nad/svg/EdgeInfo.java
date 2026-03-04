@@ -29,17 +29,27 @@ public class EdgeInfo {
     private final Direction arrowDirection;
     private final String labelA;
     private final String labelB;
+    private final String componentType;
 
     public EdgeInfo(String infoTypeA, String infoTypeB, Direction arrowDirection, String labelA, String labelB) {
+        this(infoTypeA, infoTypeB, arrowDirection, labelA, labelB, null);
+    }
+
+    public EdgeInfo(String infoTypeA, String infoTypeB, Direction arrowDirection, String labelA, String labelB, String componentType) {
         this.infoTypeB = infoTypeB;
         this.infoTypeA = infoTypeA;
         this.arrowDirection = arrowDirection;
         this.labelA = labelA;
         this.labelB = labelB;
+        this.componentType = componentType;
     }
 
     public EdgeInfo(String infoTypeA, String infoTypeB, double referenceValue, String labelA, String labelB) {
-        this(infoTypeA, infoTypeB, getArrowDirection(referenceValue), labelA, labelB);
+        this(infoTypeA, infoTypeB, getArrowDirection(referenceValue), labelA, labelB, null);
+    }
+
+    public EdgeInfo(String infoTypeA, String infoTypeB, double referenceValue, String labelA, String labelB, String componentType) {
+        this(infoTypeA, infoTypeB, getArrowDirection(referenceValue), labelA, labelB, componentType);
     }
 
     private static Direction getArrowDirection(double value) {
@@ -75,6 +85,10 @@ public class EdgeInfo {
 
     public Optional<String> getLabelB() {
         return Optional.ofNullable(labelB);
+    }
+
+    public Optional<String> getComponentType() {
+        return Optional.ofNullable(componentType);
     }
 
     /**

@@ -17,7 +17,7 @@
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-foreignObject.nad-text-nodes {overflow: visible; color: black}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -239,49 +239,65 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <polyline id="40" points="261.49,-38.97 302.16,-45.06"/>
         <polyline id="45" points="-491.18,-455.93 -420.85,-466.48"/>
     </g>
-    <foreignObject height="1" width="1" class="nad-text-nodes">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <div style="position: absolute; top: -709px; left: 282px" id="1" class="nad-vl0to30 nad-label-box">
+    <g class="nad-text-nodes">
+        <foreignObject id="1" y="-709.23" x="282.16" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL1</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / 0.0°</div>
             </div>
-            <div style="position: absolute; top: 61px; left: -474px" id="5" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="5" y="60.52" x="-473.57" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL10</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -15.1°</div>
             </div>
-            <div style="position: absolute; top: 268px; left: -196px" id="9" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="9" y="268.31" x="-195.68" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL11</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -14.8°</div>
             </div>
-            <div style="position: absolute; top: 36px; left: 794px" id="13" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="13" y="36.12" x="794.18" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL12</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -15.1°</div>
             </div>
-            <div style="position: absolute; top: 294px; left: 568px" id="17" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="17" y="293.92" x="568.40" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL13</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -15.2°</div>
             </div>
-            <div style="position: absolute; top: 379px; left: 212px" id="21" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="21" y="379.24" x="212.11" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL14</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.0 kV / -16.0°</div>
             </div>
-            <div style="position: absolute; top: -425px; left: 162px" id="25" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="25" y="-424.58" x="162.40" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.0 kV / -5.0°</div>
             </div>
-            <div style="position: absolute; top: -400px; left: 479px" id="29" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="29" y="-400.27" x="479.01" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL3</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.0 kV / -12.7°</div>
             </div>
-            <div style="position: absolute; top: -148px; left: -40px" id="33" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="33" y="-148.15" x="-40.21" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL4</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -13.4°</div>
@@ -290,18 +306,22 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.0 kV / -10.3°</div>
             </div>
-            <div style="position: absolute; top: -70px; left: 302px" id="39" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="39" y="-70.06" x="302.16" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL5</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.0 kV / -8.8°</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -14.2°</div>
             </div>
-            <div style="position: absolute; top: -491px; left: -421px" id="44" class="nad-vl0to30 nad-label-box">
+        </foreignObject>
+        <foreignObject id="44" y="-491.48" x="-420.85" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl0to30 nad-label-box">
                 <div>VL8</div>
                 <div class="nad-bus-descr">
                     <span class="nad-legend-square"></span>1.1 kV / -13.4°</div>
             </div>
-        </div>
-    </foreignObject>
+        </foreignObject>
+    </g>
 </svg>

@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.diagram.util.CssUtil;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.model.*;
@@ -218,23 +219,42 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(injection.getIconOrigin(svgParameters.getInjectionCircleRadius())));
 
-        Result result = new SAXResult(new SvgContentHandlerToXMLStreamWriter(writer));
         String componentType = injection.getComponentType();
+        writeSvgComponent(writer, componentType, "Cannot insert SVG for injection of type " + injection.getType());
+    }
+
+    private void drawComponentOnBranchEdgeMiddle(XMLStreamWriter writer, String componentType) throws XMLStreamException {
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        ComponentSize componentSize = componentLibrary.getComponentsSize().getOrDefault(componentType, null);
+
+        if (componentSize == null) {
+            throw new PowsyblException("Cannot find size for component of type " + componentType);
+        }
+        Point trans = new Point(-componentSize.width() / 2, -componentSize.height() / 2);
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(trans));
+
+        writeSvgComponent(writer, componentType, "Cannot insert SVG component of type " + componentType + " on branch edge middle");
+    }
+
+    private void writeSvgComponent(XMLStreamWriter writer, String componentType, String errorMessage) throws XMLStreamException {
+        Result result = new SAXResult(new SvgContentHandlerToXMLStreamWriter(writer));
         writeStyleClasses(writer, componentLibrary.getComponentStyleClass(componentType).map(List::of).orElse(List.of()));
 
         try {
             Transformer transformer = componentLibrary.getSvgTransformer();
             Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
-            for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
-                List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
+            if (subComponents != null) {
+                for (Map.Entry<String, List<Element>> scEntry : subComponents.entrySet()) {
+                    List<String> edgeStyleClasses = componentLibrary.getSubComponentStyleClass(componentType, scEntry.getKey())
                         .map(List::of).orElse(List.of());
-                writeStyleClasses(writer, edgeStyleClasses);
-                for (Element element : scEntry.getValue()) {
-                    transformer.transform(new DOMSource(element), result);
+                    writeStyleClasses(writer, edgeStyleClasses);
+                    for (Element element : scEntry.getValue()) {
+                        transformer.transform(new DOMSource(element), result);
+                    }
                 }
             }
         } catch (TransformerException e) {
-            throw new PowsyblException("Cannot insert SVG for injection of type " + injection.getType(), e);
+            throw new PowsyblException(errorMessage, e);
         }
         writer.writeEndElement();
     }
@@ -590,7 +610,7 @@ public class SvgWriter {
         if (checkIfEdgeInfoIsEmpty(edgeInfo)) {
             return;
         }
-        if (edgeInfo.getDirection().isPresent() || edgeInfo.getLabelB().isPresent() && edgeInfo.getLabelA().isPresent()) {
+        if (edgeInfo.getDirection().isPresent() || edgeInfo.getComponentType().isPresent() || edgeInfo.getLabelB().isPresent() && edgeInfo.getLabelA().isPresent()) {
             drawEdgeInfo(writer, svgEdgeInfo, point, edgeAngle);
         } else {
             String label = edgeInfo.getLabelB().orElse(edgeInfo.getLabelA().orElse(null));
@@ -655,7 +675,13 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, svgEdgeInfo.svgId());
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
-        drawArrow(writer, edgeInfo, edgeAngle);
+
+        Optional<String> componentType = edgeInfo.getComponentType();
+        if (componentType.isPresent()) {
+            this.drawComponentOnBranchEdgeMiddle(writer, componentType.get());
+        } else {
+            drawArrow(writer, edgeInfo, edgeAngle);
+        }
         Optional<String> label2 = edgeInfo.getLabelB();
         if (label2.isPresent()) {
             drawLabel(writer, label2.get(), edgeAngle, true, styleProvider.getEdgeInfoStyleClasses(edgeInfo.getInfoTypeB()));
@@ -813,20 +839,12 @@ public class SvgWriter {
     }
 
     private void drawTextNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        List<Pair<VoltageLevelNode, TextNode>> textNodes = graph.getVoltageLevelTextPairs().stream()
-                .filter(nodePair -> nodePair.getSecond() != null)
-                .toList();
-
-        if (!textNodes.isEmpty()) {
-            writeForeignObject(writer);
-            writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
-            writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
-            for (Pair<VoltageLevelNode, TextNode> nodePair : textNodes) {
-                writeDetailedTextNode(writer, nodePair.getSecond(), nodePair.getFirst());
-            }
-            writer.writeEndElement();
-            writer.writeEndElement();
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
+        for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
+            writeTextNode(writer, nodePair.getFirst(), nodePair.getSecond());
         }
+        writer.writeEndElement();
     }
 
     private String getTranslateString(Node node) {
@@ -841,21 +859,24 @@ public class SvgWriter {
         return "translate(" + getFormattedValue(x) + "," + getFormattedValue(y) + ")";
     }
 
-    private void writeForeignObject(XMLStreamWriter writer) throws XMLStreamException {
+    private void writeTextNode(XMLStreamWriter writer, VoltageLevelNode vlNode, TextNode textNode) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
-        // width and height can be set neither to auto nor 0, due to firefox not displaying it in those cases
+        writeId(writer, textNode);
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
+        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+
+        // width and height cannot be set to auto, and the object is of width and height 0 if not specified
         // using a fixed size of 1x1 and CSS {overflow: visible} to display it
         writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
         writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
-        writeStyleClasses(writer, StyleProvider.TEXT_NODES_CLASS);
+
+        writeDetailedTextNode(writer, vlNode);
+        writer.writeEndElement();
     }
 
-    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode) throws XMLStreamException {
+    private void writeDetailedTextNode(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
-        long top = Math.round(textNode.getY());
-        long left = Math.round(textNode.getX());
-        writeStyleAttribute(writer, String.format("position: absolute; top: %spx; left: %spx", top, left));
-        writeId(writer, textNode);
+        writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode), StyleProvider.LABEL_BOX_CLASS);
 
         writeLines(vlNode.getLegendHeader(), writer);
