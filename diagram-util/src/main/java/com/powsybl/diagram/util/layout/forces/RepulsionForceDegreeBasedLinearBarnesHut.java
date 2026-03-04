@@ -100,7 +100,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
         Quadtree quadtree = quadtreeContainer.get();
         Point barycenter = quadtree.getBarycenters()[nodeIndex];
         // Check the theta parameter ie width / distance < theta
-        if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter) || barycenter.getMass() == Point.DEFAULT_MASS) {
+        if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter)) {
             pointsToInteractWith.add(barycenter);
         } else {
             Quadtree.QuadtreeNode thisNode = quadtree.getNodes()[nodeIndex];
