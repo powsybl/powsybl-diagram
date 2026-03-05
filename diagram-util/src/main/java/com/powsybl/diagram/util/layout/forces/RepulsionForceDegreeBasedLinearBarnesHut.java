@@ -7,7 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.commons.ref.RefObj;
+import com.powsybl.commons.ref.Ref;
 import com.powsybl.diagram.util.layout.geometry.*;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
     private final double barnesHutTheta;
-    private final RefObj<Quadtree> quadtreeContainer;
+    private final Ref<Quadtree> quadtreeContainer;
 
-    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, RefObj<Quadtree> quadtreeContainer) {
+    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, Ref<Quadtree> quadtreeContainer) {
         this.forceIntensity = forceIntensity;
         this.effectFromFixedNodes = effectFromFixedNodes;
         this.barnesHutTheta = barnesHutTheta;
