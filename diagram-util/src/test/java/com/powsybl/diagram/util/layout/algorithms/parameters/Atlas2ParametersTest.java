@@ -26,6 +26,8 @@ class Atlas2ParametersTest {
     double maxGlobalSpeedIncreaseRatio = 1.69;
     boolean repulsionFromFixedPointsEnabled = false;
     boolean attractToCenterEnabled = false;
+    double barnesHutTheta = 1.43;
+    int quadtreeCalculationIncrement = 4;
 
     @Test
     void checkBuilder() {
@@ -40,6 +42,8 @@ class Atlas2ParametersTest {
                 .withMaxGlobalSpeedIncreaseRatio(maxGlobalSpeedIncreaseRatio)
                 .withRepulsionFromFixedPointsEnabled(repulsionFromFixedPointsEnabled)
                 .withAttractToCenterEnabled(attractToCenterEnabled)
+                .withBarnesHutTheta(barnesHutTheta)
+                .withQuadtreeCalculationIncrement(quadtreeCalculationIncrement)
                 .build();
 
         assertEquals(maxSteps, parameters.getMaxSteps());
@@ -52,5 +56,7 @@ class Atlas2ParametersTest {
         assertEquals(maxGlobalSpeedIncreaseRatio, parameters.getMaxGlobalSpeedIncreaseRatio());
         assertEquals(repulsionFromFixedPointsEnabled, parameters.isRepulsionFromFixedPointsEnabled());
         assertEquals(attractToCenterEnabled, parameters.isAttractToCenterEnabled());
+        assertEquals(barnesHutTheta, parameters.getBarnesHutTheta());
+        assertEquals(quadtreeCalculationIncrement, parameters.getQuadtreeCalculationIncrement());
     }
 }
