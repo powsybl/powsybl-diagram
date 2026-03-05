@@ -17,7 +17,9 @@ import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.IdProvider;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.LegacyIdProvider;
 import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
@@ -117,10 +119,20 @@ public abstract class AbstractTestCase {
 
     public abstract String toSVG(Graph g, String filename);
 
-    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary,
+                        LayoutParameters layoutParameters, SvgParameters svgParameters,
+                        LabelProvider labelProvider, StyleProvider styleProvider,
+                        SVGLegendWriter legendWriter) {
+        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+    }
+
+    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary,
+                        LayoutParameters layoutParameters, SvgParameters svgParameters,
+                        LabelProvider labelProvider, StyleProvider styleProvider, IdProvider idProvider,
+                        SVGLegendWriter legendWriter) {
 
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, legendWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -137,11 +149,21 @@ public abstract class AbstractTestCase {
 
     public abstract String toMetadata(Graph g, String filename);
 
-    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary,
+                             LayoutParameters layoutParameters, SvgParameters svgParameters,
+                             LabelProvider labelProvider, StyleProvider styleProvider,
+                             SVGLegendWriter legendWriter) {
+        return toMetadata(graph, refMetadataName, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+    }
+
+    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary,
+                             LayoutParameters layoutParameters, SvgParameters svgParameters,
+                             LabelProvider labelProvider, StyleProvider styleProvider, IdProvider idProvider,
+                             SVGLegendWriter legendWriter) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, legendWriter);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
