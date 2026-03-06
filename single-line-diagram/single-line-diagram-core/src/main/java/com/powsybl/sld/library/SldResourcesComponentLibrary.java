@@ -28,6 +28,7 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.PHASE_SHIFT_TRANSFORMER_LEG,
         SldComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG,
         SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG,
+        SldComponentTypeName.TEE_POINT_LEG,
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
         SldComponentTypeName.DANGLING_LINE,

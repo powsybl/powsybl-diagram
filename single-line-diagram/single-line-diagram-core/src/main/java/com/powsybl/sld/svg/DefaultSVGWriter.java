@@ -970,7 +970,6 @@ public class DefaultSVGWriter implements SVGWriter {
                              LabelProvider initProvider, StyleProvider styleProvider, Collection<Edge> edges) {
         String voltageLevelId = graph.getVoltageLevelInfos().id();
         String prefixId = metadata.getSvgParameters().getPrefixId();
-        Set<Node> drawnTeeStems = new HashSet<>();
 
         for (Edge edge : edges) {
             String wireId = getWireId(prefixId, voltageLevelId, edge);
@@ -983,7 +982,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         .calculatePolylinePoints(edge.getNode1(), edge.getNode2(), svgParameters.isDrawStraightWires(), shift);
 
                 if (!pol.isEmpty()) {
-                    drawPolyLine(root, graph, styleProvider, edge, wireId, pol, drawnTeeStems);
+                    drawPolyLine(root, graph, styleProvider, edge, wireId, pol);
                 }
             }
 
@@ -1005,30 +1004,19 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawPolyLine(Element root, VoltageLevelGraph graph, StyleProvider styleProvider,
-                              Edge edge, String wireId, List<Point> pol, Set<Node> drawnTeeStems) {
-        if (isTeePointEdge(edge) && pol.size() >= 3) {
-            // Split the L-shaped polyline into two segments:
-            // - feeder leg segment (from feeder to middle point) with feeder's style
-            // - tee stem segment (from middle point to tee point) with tee point node's style
-            drawTeePointEdgeSegments(root, graph, edge, pol, wireId, styleProvider, drawnTeeStems);
-        } else {
-            Element g = root.getOwnerDocument().createElement(GROUP);
+                              Edge edge, String wireId, List<Point> pol) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
 
-            g.setAttribute("id", wireId);
-            writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
+        g.setAttribute("id", wireId);
+        writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
 
-            writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+        writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
 
-            Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-            polyline.setAttribute(POINTS, pointsListToString(pol));
+        Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+        polyline.setAttribute(POINTS, pointsListToString(pol));
 
-            g.appendChild(polyline);
-            root.appendChild(g);
-        }
-    }
-
-    private static boolean isTeePointEdge(Edge edge) {
-        return edge.getNode1() instanceof TeePointNode || edge.getNode2() instanceof TeePointNode;
+        g.appendChild(polyline);
+        root.appendChild(g);
     }
 
     /*

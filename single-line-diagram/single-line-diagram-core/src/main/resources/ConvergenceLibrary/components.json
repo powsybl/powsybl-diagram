@@ -827,20 +827,12 @@
     "type" : "TEE_POINT",
     "styleClass" : "sld-wire",
     "subComponents": [],
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 7.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 0.0,
-      "y" : 7.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 0.0,
-      "y" : 7.0,
-      "orientation" : "VERTICAL"
-    } ],
-    "size" : {
+  "anchorPoints" : [ {
+    "x" : 0.0,
+    "y" : 0.0,
+    "orientation" : "HORIZONTAL"
+  } ],
+  "size" : {
       "width" : 16.0,
       "height" : 24.0
     }

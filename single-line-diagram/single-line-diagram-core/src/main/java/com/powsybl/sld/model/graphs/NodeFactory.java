@@ -178,7 +178,7 @@ public final class NodeFactory {
     }
 
     public static FeederNode createFeederTeePointLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        return createFeederNode(graph, id, name, equipmentId, TEE_POINT, new FeederTeePointLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+        return createFeederNode(graph, id, name, equipmentId, TEE_POINT_LEG, new FeederTeePointLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
