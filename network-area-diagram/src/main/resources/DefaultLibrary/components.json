@@ -84,6 +84,34 @@
     "styleClass": "nad-svc"
   },
   {
+    "type": "LCC",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "LCC",
+        "fileName": "lcc.svg"
+      }
+    ],
+    "styleClass": "nad-lcc"
+  },
+  {
+    "type": "VSC",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "VSC",
+        "fileName": "vsc.svg"
+      }
+    ],
+    "styleClass": "nad-vsc"
+  },
+  {
     "type": "LOCK",
     "size": {
       "width": 50.0,
