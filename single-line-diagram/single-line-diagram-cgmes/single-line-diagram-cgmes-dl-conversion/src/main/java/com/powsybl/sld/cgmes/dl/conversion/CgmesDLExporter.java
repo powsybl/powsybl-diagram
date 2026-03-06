@@ -58,7 +58,7 @@ public class CgmesDLExporter {
         addDiagrams(context);
         exportNodesDLData(context, busbarNodes);
         exportLinesDLData(context);
-        exportDanglingLinesDLData(context);
+        exportBoundaryLinesDLData(context);
         exportGeneratorsDLData(context, terminals);
         exportLoadsDLData(context, terminals);
         exportShuntsDLData(context, terminals);
@@ -152,10 +152,10 @@ public class CgmesDLExporter {
         network.getLineStream().forEach(diagramDataExporter::exportDiagramData);
     }
 
-    private void exportDanglingLinesDLData(ExportContext context) {
-        LOG.info("Exporting Dangling Lines DL Data");
-        DanglingLineDiagramDataExporter diagramDataExporter = new DanglingLineDiagramDataExporter(tripleStore, context);
-        network.getDanglingLineStream().forEach(diagramDataExporter::exportDiagramData);
+    private void exportBoundaryLinesDLData(ExportContext context) {
+        LOG.info("Exporting Boundary Lines DL Data");
+        BoundaryLineDiagramDataExporter diagramDataExporter = new BoundaryLineDiagramDataExporter(tripleStore, context);
+        network.getBoundaryLineStream().forEach(diagramDataExporter::exportDiagramData);
     }
 
     private void exportGeneratorsDLData(ExportContext context, Map<String, String> terminals) {

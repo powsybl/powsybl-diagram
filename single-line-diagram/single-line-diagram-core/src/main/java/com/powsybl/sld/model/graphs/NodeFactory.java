@@ -118,8 +118,8 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.CAPACITOR);
     }
 
-    public static FeederNode createDanglingLine(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.DANGLING_LINE);
+    public static FeederNode createBoundaryLine(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.BOUNDARY_LINE);
     }
 
     public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {

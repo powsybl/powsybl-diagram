@@ -77,8 +77,8 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
                                                  createBusbarPropertyBag(NAMESPACE + "Busbar", "Busbar", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         linesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Line", "Line", 40, 10, 1, OTHER_DIAGRAM_NAME),
                                                createPropertyBag(NAMESPACE + "Line", "Line", 40, 80, 2, OTHER_DIAGRAM_NAME)));
-        danglingLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
-                                                       createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
+        boundaryLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
+                                                       createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         generatorsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Generator", "Generator", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         loadsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Load", "Load", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         shuntsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Shunt", "Shunt", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
@@ -154,16 +154,16 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    void testDanglingLines() {
-        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(danglingLinesPropertyBags);
-        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithDanglingLine(), cgmesDLModel);
+    void testBoundaryLines() {
+        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(boundaryLinesPropertyBags);
+        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithBoundaryLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
-        DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine.getExtension(LineDiagramData.class);
+        BoundaryLine boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = boundaryLine.getExtension(LineDiagramData.class);
 
-        checkDiagramData(danglingLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
-        checkDiagramData(danglingLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
+        checkDiagramData(boundaryLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
+        checkDiagramData(boundaryLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
     }
 
     @Test

@@ -145,7 +145,7 @@
     "node2" : "13",
     "busNode1" : "8",
     "busNode2" : "14",
-    "type" : "DanglingLineEdge"
+    "type" : "BoundaryLineEdge"
   } ],
   "textNodes" : [ {
     "svgId" : "1",

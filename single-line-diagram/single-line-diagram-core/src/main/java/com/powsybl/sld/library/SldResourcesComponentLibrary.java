@@ -30,7 +30,7 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG,
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
-        SldComponentTypeName.DANGLING_LINE,
+        SldComponentTypeName.BOUNDARY_LINE,
         SldComponentTypeName.BUSBAR_SECTION
     };
 

@@ -74,7 +74,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .setSvgParameters(getSvgParameters())
                 .setStyleProviderFactory(this::getStyleProvider);
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
-        assertFileEquals("/dangling_line_connected.svg", svgFile);
+        assertFileEquals("/boundary_line_connected.svg", svgFile);
     }
 
     @Test

@@ -142,8 +142,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         && t.getLeg2().getTerminal().getVoltageLevel().getId().equals(t.getLeg3().getTerminal().getVoltageLevel().getId()))
                 .collect(Collectors.toList()));
 
-        addBranchEdges(graph, vl.getConnectableStream(DanglingLine.class)
-                .map(DanglingLine::getTieLine)
+        addBranchEdges(graph, vl.getConnectableStream(BoundaryLine.class)
+                .map(BoundaryLine::getTieLine)
                 .flatMap(Optional::stream)
                 .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
                 .collect(Collectors.toList()));
@@ -203,8 +203,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .collect(Collectors.toList()));
 
         addBranchEdges(graph, substation.getVoltageLevelStream()
-                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .map(DanglingLine::getTieLine)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(BoundaryLine.class))
+                .map(BoundaryLine::getTieLine)
                 .flatMap(Optional::stream)
                 .filter(NetworkGraphBuilder::isInternalToSubstation)
                 .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
@@ -379,15 +379,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine dl) {
+        public void visitBoundaryLine(BoundaryLine dl) {
             if (!dl.isPaired()) {
-                addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
+                addTerminalNode(NodeFactory.createBoundaryLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
             } else {
                 dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
             }
         }
 
-        private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+        private void visitTieLine(TieLine tieLine, BoundaryLine dl, Graph graph) {
             TwoSides side = tieLine.getSide(dl.getTerminal());
             Terminal terminal = dl.getTerminal();
             addTerminalNode(createFeederTieLineNode((VoltageLevelGraph) graph, tieLine, side), terminal);
@@ -773,8 +773,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         // - tie lines in the same zone
         addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
-                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .map(DanglingLine::getTieLine)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(BoundaryLine.class))
+                .map(BoundaryLine::getTieLine)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList()));

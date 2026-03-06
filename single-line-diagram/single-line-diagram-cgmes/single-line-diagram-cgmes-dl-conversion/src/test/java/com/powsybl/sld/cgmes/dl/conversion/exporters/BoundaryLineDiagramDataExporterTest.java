@@ -12,26 +12,26 @@ import org.mockito.Mockito;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.BoundaryLine;
 import com.powsybl.triplestore.api.PropertyBags;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
+class BoundaryLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExporterTest {
 
-    private DanglingLine danglingLine;
+    private BoundaryLine boundaryLine;
 
     @BeforeEach
     public void setUp() {
         super.setUp();
 
-        network = Networks.createNetworkWithDanglingLine();
-        danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = new LineDiagramData<>(danglingLine);
-        danglingLineDiagramData.addPoint(basename, point1);
-        danglingLineDiagramData.addPoint(basename, point2);
-        danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+        network = Networks.createNetworkWithBoundaryLine();
+        boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = new LineDiagramData<>(boundaryLine);
+        boundaryLineDiagramData.addPoint(basename, point1);
+        boundaryLineDiagramData.addPoint(basename, point2);
+        boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
         NetworkDiagramData.addDiagramName(network, basename, "Substation");
 
         Mockito.when(cgmesDLModel.getBusbarNodes()).thenReturn(new PropertyBags());
@@ -39,7 +39,7 @@ class DanglingLineDiagramDataExporterTest extends AbstractNodeLineDiagramDataExp
 
     @Override
     protected void checkStatements() {
-        checkStatements(danglingLine.getId(), danglingLine.getNameOrId(), "bus-branch");
+        checkStatements(boundaryLine.getId(), boundaryLine.getNameOrId(), "bus-branch");
     }
 
 }
