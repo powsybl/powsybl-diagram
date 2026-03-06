@@ -1,0 +1,81 @@
+
+List of third-party dependencies grouped by their license type.
+
+
+    Apache License, Version 2.0
+
+        * Apache Commons CLI (commons-cli:commons-cli:1.9.0 - https://commons.apache.org/proper/commons-cli/)
+        * Apache Commons Codec (commons-codec:commons-codec:1.17.1 - https://commons.apache.org/proper/commons-codec/)
+        * Apache Commons Compress (org.apache.commons:commons-compress:1.27.1 - https://commons.apache.org/proper/commons-compress/)
+        * Apache Commons IO (commons-io:commons-io:2.19.0 - https://commons.apache.org/proper/commons-io/)
+        * Apache Commons Lang (org.apache.commons:commons-lang3:3.18.0 - https://commons.apache.org/proper/commons-lang/)
+        * Apache Commons Math (org.apache.commons:commons-math3:3.6.1 - http://commons.apache.org/proper/commons-math/)
+        * Apache Commons Text (org.apache.commons:commons-text:1.13.1 - https://commons.apache.org/proper/commons-text)
+        * Apache ServiceMix :: Bundles :: gdata (org.apache.servicemix.bundles:org.apache.servicemix.bundles.gdata:1.47.1_1 - http://servicemix.apache.org/bundles-pom/org.apache.servicemix.bundles.gdata/)
+        * Auto Common Libraries (com.google.auto:auto-common:1.2.1 - https://github.com/google/auto/tree/master/common)
+        * AutoService (com.google.auto.service:auto-service-annotations:1.1.1 - https://github.com/google/auto/tree/main/service)
+        * AutoService Processor (com.google.auto.service:auto-service:1.1.1 - https://github.com/google/auto/tree/main/service)
+        * EJML (org.ejml:ejml-core:0.44.0 - http://ejml.org/)
+        * error-prone annotations (com.google.errorprone:error_prone_annotations:2.36.0 - https://errorprone.info/error_prone_annotations)
+        * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.2 - http://findbugs.sourceforge.net/)
+        * graphviz-builder (org.anarres.graphviz:graphviz-builder:1.0.12 - https://github.com/shevek/graphviz4j)
+        * Guava: Google Core Libraries for Java (com.google.guava:guava:33.4.8-jre - https://github.com/google/guava)
+        * Guava InternalFutureFailureAccess and InternalFutures (com.google.guava:failureaccess:1.0.3 - https://github.com/google/guava/failureaccess)
+        * Guava ListenableFuture only (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava - https://github.com/google/guava/listenablefuture)
+        * J2ObjC Annotations (com.google.j2objc:j2objc-annotations:3.0.0 - https://github.com/google/j2objc/)
+        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.19.0 - https://github.com/FasterXML/jackson)
+        * Jackson-core (com.fasterxml.jackson.core:jackson-core:2.19.0 - https://github.com/FasterXML/jackson-core)
+        * jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.19.0 - https://github.com/FasterXML/jackson)
+        * Java UUID Generator (com.fasterxml.uuid:java-uuid-generator:4.3.0 - https://github.com/cowtowncoder/java-uuid-generator)
+        * JHeaps (org.jheaps:jheaps:0.14 - http://www.jheaps.org)
+        * JSpecify annotations (org.jspecify:jspecify:1.0.0 - http://jspecify.org/)
+        * MAT File Library / Core (us.hebi.matlab.mat:mfl-core:0.5.15 - https://github.com/HebiRobotics/MFL/mfl-core)
+        * MAT File Library / EJML (us.hebi.matlab.mat:mfl-ejml:0.5.15 - https://github.com/HebiRobotics/MFL/mfl-ejml)
+        * SIROCCO ::  Text Table Formatter (org.ow2.sirocco:sirocco-text-table-formatter:1.0 - http://www.ow2.org/sirocco-text-table-formatter)
+        * SnakeYAML (org.yaml:snakeyaml:2.4 - https://bitbucket.org/snakeyaml/snakeyaml)
+        * univocity-parsers (com.univocity:univocity-parsers:2.9.0 - http://github.com/univocity/univocity-parsers)
+
+    BSD 0-clause License
+
+        * XZ for Java (org.tukaani:xz:1.10 - https://tukaani.org/xz/java.html)
+
+    BSD 2-clause License
+
+        * Native Library Loader (org.scijava:native-lib-loader:2.5.0 - https://github.com/scijava/native-lib-loader)
+        * StAX Utilities Project (net.java.dev.stax-utils:stax-utils:20070216 - http://java.net/projects/stax-utils/)
+        * zstd-jni (com.github.luben:zstd-jni:1.5.7-3 - https://github.com/luben/zstd-jni)
+
+    BSD 3-clause License
+
+        * ANTLR 3 Runtime (org.antlr:antlr-runtime:3.5.3 - http://www.antlr.org)
+        * StringTemplate 4 (org.antlr:ST4:4.3.4 - http://nexus.sonatype.org/oss-repository-hosting.html/ST4)
+
+    Creative Commons Attribution 2.5 Generic License
+
+        * "Java Concurrency in Practice" book annotations (net.jcip:jcip-annotations:1.0 - http://jcip.net/)
+
+    Eclipse Public License - v 1.0, GNU Lesser General Public License v2.1
+
+        * Logback Core Module (ch.qos.logback:logback-core:1.5.19 - http://logback.qos.ch/logback-core)
+
+    Eclipse Public License - v 2.0, GNU Lesser General Public License v2.1
+
+        * JGraphT - Core (org.jgrapht:jgrapht-core:1.5.2 - http://www.jgrapht.org/jgrapht-core)
+
+    GNU Lesser General Public License v2.1
+
+        * FindBugs-Annotations (com.google.code.findbugs:annotations:3.0.1 - http://findbugs.sourceforge.net/)
+        * GNU Trove (net.sf.trove4j:trove4j:3.0.3 - http://trove4j.sf.net)
+
+    Go License
+
+        * RE2/J (com.google.re2j:re2j:1.8 - http://github.com/google/re2j)
+
+    MIT License
+
+        * apfloat (org.apfloat:apfloat:1.10.1 - http://www.apfloat.org)
+        * SLF4J API Module (org.slf4j:slf4j-api:2.0.17 - http://www.slf4j.org)
+
+    Public Domain
+
+        * JAMA (gov.nist.math:jama:1.0.3 - http://math.nist.gov/javanumerics/jama/)
