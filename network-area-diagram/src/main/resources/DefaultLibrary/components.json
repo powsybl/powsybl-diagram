@@ -84,6 +84,34 @@
     "styleClass": "nad-svc"
   },
   {
+    "type": "LOCK",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "LOCK",
+        "fileName": "lock.svg"
+      }
+    ],
+    "styleClass": "nad-lock"
+  },
+  {
+    "type": "FLASH",
+    "size": {
+      "width": 50.0,
+      "height": 50.0
+    },
+    "subComponents": [
+      {
+        "name": "FLASH",
+        "fileName": "flash.svg"
+      }
+    ],
+    "styleClass": "nad-flash"
+  },
+  {
     "type": "UNKNOWN_COMPONENT",
     "size": {
       "width": 50.0,

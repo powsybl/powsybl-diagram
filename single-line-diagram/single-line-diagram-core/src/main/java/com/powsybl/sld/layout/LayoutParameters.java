@@ -50,7 +50,6 @@ public class LayoutParameters {
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
-    @JsonCreator
     public LayoutParameters() {
     }
 
