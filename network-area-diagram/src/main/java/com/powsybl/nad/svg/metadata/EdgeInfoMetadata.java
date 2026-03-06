@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,19 +22,23 @@ public class EdgeInfoMetadata {
     private final String direction;
     private final String labelA;
     private final String labelB;
+    private final String componentType;
 
+    @JsonCreator
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
                             @JsonProperty("infoTypeA") String infoTypeA,
                             @JsonProperty("infoTypeB") String infoTypeB,
                             @JsonProperty("direction") String direction,
                             @JsonProperty("labelA") String labelA,
-                            @JsonProperty("labelB") String labelB) {
+                            @JsonProperty("labelB") String labelB,
+                            @JsonProperty("componentType") String componentType) {
         this.svgId = svgId;
         this.infoTypeA = infoTypeA;
         this.infoTypeB = infoTypeB;
         this.direction = direction;
         this.labelA = labelA;
         this.labelB = labelB;
+        this.componentType = componentType;
     }
 
     @JsonProperty("svgId")
@@ -64,5 +69,10 @@ public class EdgeInfoMetadata {
     @JsonProperty("labelB")
     public String getLabelB() {
         return labelB;
+    }
+
+    @JsonProperty("componentType")
+    public String getComponentType() {
+        return componentType;
     }
 }
