@@ -181,15 +181,8 @@
                         <g transform="translate(-803.27,-196.33)" class="nad-vsc">
                             <path d="M10.86,39.14 L40,15"></path>
                             <path d="M9,22 A 3.5 3.5 0 0 1 16,22 A 3.5 3.5 0 0 0 23,22"></path>
-                            <path d="M24,34 H40"></path>
-                            <path d="M24,39 H27"></path>
-                            <path d="M30.5,39 H33.5"></path>
-                            <path d="M37,39 H40"></path>
-                            <path d="M14,7 L16.5,14"></path>
-                            <path d="M16.5,14 L19.5,7"></path>
-                            <path d="M26.5,7 A 2 1.2 0 1 0 24.75,10.5"></path>
-                            <path d="M24.75,10.5 A 2 1.2 0 1 1 23,14"></path>
-                            <path d="M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
+                            <path d="M24,34 H40 M24,39 H27 M30.5,39 H33.5 M37,39 H40"></path>
+                            <path d="M14,7 L16.5,14 M16.5,14 L19.5,7 M26.5,7 A 2 1.2 0 1 0 24.75,10.5 A 2 1.2 0 1 1 23,14 M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
                         </g>
                     </g>
                 </g>
@@ -201,14 +194,8 @@
                         <g transform="translate(-707.87,-246.71)" class="nad-lcc">
                             <path d="M10.86,39.14 L40,15"></path>
                             <path d="M9,22 A 3.5 3.5 0 0 1 16,22 A 3.5 3.5 0 0 0 23,22"></path>
-                            <path d="M24,34 H40"></path>
-                            <path d="M24,39 H27"></path>
-                            <path d="M30.5,39 H33.5"></path>
-                            <path d="M37,39 H40"></path>
-                            <path d="M14,7 L14,14"></path>
-                            <path d="M14,14 L19,14"></path>
-                            <path d="M27,7.5 A 3.5 3.5 0 1 0 27,13.5"></path>
-                            <path d="M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
+                            <path d="M24,34 H40 M24,39 H27 M30.5,39 H33.5 M37,39 H40"></path>
+                            <path d="M14,7 L14,14 L19,14 M27,7.5 A 3.5 3.5 0 1 0 27,13.5 M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
                         </g>
                     </g>
                 </g>
@@ -234,15 +221,8 @@
                         <g transform="translate(5.45,-100.11)" class="nad-vsc">
                             <path d="M10.86,39.14 L40,15"></path>
                             <path d="M9,22 A 3.5 3.5 0 0 1 16,22 A 3.5 3.5 0 0 0 23,22"></path>
-                            <path d="M24,34 H40"></path>
-                            <path d="M24,39 H27"></path>
-                            <path d="M30.5,39 H33.5"></path>
-                            <path d="M37,39 H40"></path>
-                            <path d="M14,7 L16.5,14"></path>
-                            <path d="M16.5,14 L19.5,7"></path>
-                            <path d="M26.5,7 A 2 1.2 0 1 0 24.75,10.5"></path>
-                            <path d="M24.75,10.5 A 2 1.2 0 1 1 23,14"></path>
-                            <path d="M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
+                            <path d="M24,34 H40 M24,39 H27 M30.5,39 H33.5 M37,39 H40"></path>
+                            <path d="M14,7 L16.5,14 M16.5,14 L19.5,7 M26.5,7 A 2 1.2 0 1 0 24.75,10.5 A 2 1.2 0 1 1 23,14 M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
                         </g>
                     </g>
                 </g>
@@ -278,14 +258,8 @@
                         <g transform="translate(611.23,-66.45)" class="nad-lcc">
                             <path d="M10.86,39.14 L40,15"></path>
                             <path d="M9,22 A 3.5 3.5 0 0 1 16,22 A 3.5 3.5 0 0 0 23,22"></path>
-                            <path d="M24,34 H40"></path>
-                            <path d="M24,39 H27"></path>
-                            <path d="M30.5,39 H33.5"></path>
-                            <path d="M37,39 H40"></path>
-                            <path d="M14,7 L14,14"></path>
-                            <path d="M14,14 L19,14"></path>
-                            <path d="M27,7.5 A 3.5 3.5 0 1 0 27,13.5"></path>
-                            <path d="M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
+                            <path d="M24,34 H40 M24,39 H27 M30.5,39 H33.5 M37,39 H40"></path>
+                            <path d="M14,7 L14,14 L19,14 M27,7.5 A 3.5 3.5 0 1 0 27,13.5 M35.5,7.5 A 3.5 3.5 0 1 0 35.5,13.5"></path>
                         </g>
                     </g>
                 </g>
