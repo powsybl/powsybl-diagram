@@ -2424,7 +2424,7 @@ public final class Networks {
      * </pre>
      */
     public static Network createTeePointNetwork() {
-        Network network = Network.create("testCase1", "test");
+        Network network = Network.create("testCaseTeePoint1", "test");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")
                 .setNominalV(50)
@@ -2468,6 +2468,163 @@ public final class Networks {
                 "L3", 2, ConnectablePosition.Direction.TOP,
                 "L3", 0, ConnectablePosition.Direction.TOP);
 
+        return network;
+    }
+
+    public static Network createTeePointNodeBreakerNetwork() {
+        Network network = Network.create("testCaseTeePoint2", "test");
+        Substation substation = createSubstation(network, "subst1", "subst1", Country.FR);
+
+        VoltageLevel vl = substation.newVoltageLevel()
+                .setId("vl-tee-point")
+                .setNominalV(50)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .setFictitious(true)
+                .add();
+
+        VoltageLevel vl1 = substation.newVoltageLevel()
+                .setId("vl1")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl2 = substation.newVoltageLevel()
+                .setId("vl2")
+                .setNominalV(30)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        VoltageLevel vl3 = substation.newVoltageLevel()
+                .setId("vl3")
+                .setNominalV(10)
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .add();
+
+        createInternalConnection(vl, 1, 0);
+        createInternalConnection(vl, 2, 0);
+        createInternalConnection(vl, 3, 0);
+
+        createLine(network, "L1", "L1", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                1, 10, vl.getId(), vl1.getId(),
+                "L1", 0, ConnectablePosition.Direction.TOP,
+                "L1", 1, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L2", "L2", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                2, 20, vl.getId(), vl2.getId(),
+                "L2", 1, ConnectablePosition.Direction.BOTTOM,
+                "L2", 0, ConnectablePosition.Direction.TOP);
+
+        createLine(network, "L3", "L3", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
+                3, 30, vl.getId(), vl3.getId(),
+                "L3", 2, ConnectablePosition.Direction.TOP,
+                "L3", 0, ConnectablePosition.Direction.TOP);
+
+        createBusBarSection(vl1, "bbs1", 21, 0, 1);
+        createBusBarSection(vl2, "bbs2", 31, 0, 2);
+        createBusBarSection(vl3, "bbs3", 41, 0, 3);
+
+        createSwitch(vl1, "br1", SwitchKind.BREAKER, true, false, false, 21, 10);
+        createSwitch(vl2, "br2", SwitchKind.BREAKER, true, false, false, 31, 20);
+        createSwitch(vl3, "br3", SwitchKind.BREAKER, true, false, false, 41, 30);
+
+        return network;
+    }
+
+    public static Network createTeePointBusBreakerNetwork() {
+        Network network = Network.create("TeePointBusBreaker", "test");
+        network.setCaseDate(ZonedDateTime.parse("2018-03-05T13:30:30.486+01:00"));
+        Substation substation = network.newSubstation()
+                .setId("SUB1")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl1 = substation.newVoltageLevel()
+                .setId("VL_132")
+                .setNominalV(132.0)
+                .setLowVoltageLimit(118.8)
+                .setHighVoltageLimit(145.2)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus132 = vl1.getBusBreakerView().newBus()
+                .setId("BUS_132")
+                .add();
+        bus132.setV(133.584).setAngle(-9.62);
+        vl1.newGenerator()
+                .setId("GEN_132")
+                .setBus("BUS_132")
+                .setMinP(0.0)
+                .setMaxP(140)
+                .setTargetP(7.2)
+                .setTargetV(135)
+                .setVoltageRegulatorOn(true)
+                .add();
+
+        VoltageLevel vltee = substation.newVoltageLevel()
+                .setId("VL_TEE")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus busTee0 = vltee.getBusBreakerView().newBus()
+                .setId("BUS_TEE_0")
+                .add();
+
+        Substation substation2 = network.newSubstation()
+                .setId("SUB2")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl2 = substation2.newVoltageLevel()
+                .setId("VL_2")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus2 = vl2.getBusBreakerView().newBus()
+                .setId("BUS_2")
+                .add();
+        bus2.setV(11.781).setAngle(-15.24);
+        Load load11 = vl2.newLoad()
+                .setId("LOAD_11")
+                .setBus("BUS_2")
+                .setP0(0.0)
+                .setQ0(-10.6)
+                .add();
+        load11.getTerminal()
+                .setP(0.0)
+                .setQ(-10.6);
+
+        Substation substation3 = network.newSubstation()
+                .setId("SUB3")
+                .setCountry(Country.FR)
+                .add();
+        VoltageLevel vl3 = substation3.newVoltageLevel()
+                .setId("VL_3")
+                .setFictitious(true)
+                .setNominalV(11.0)
+                .setLowVoltageLimit(9.9)
+                .setHighVoltageLimit(12.1)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        Bus bus3 = vl3.getBusBreakerView().newBus()
+                .setId("BUS_3")
+                .add();
+        bus3.setV(34.881).setAngle(-15.24);
+        Load load33 = vl3.newLoad()
+                .setId("LOAD_33")
+                .setBus("BUS_3")
+                .setP0(11.2)
+                .setQ0(7.5)
+                .add();
+        load33.getTerminal()
+                .setP(11.2)
+                .setQ(7.5);
+
+        Networks.createLine(bus132, busTee0);
+        Networks.createLine(busTee0, bus2);
+        Networks.createLine(busTee0, bus3);
         return network;
     }
 
