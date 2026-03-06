@@ -6,8 +6,11 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,5 +22,21 @@ public class Middle2WTNode extends MiddleTwtNode {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2) },
             componentType);
+    }
+
+    public void setOrientationFromSnakeLines(List<List<Point>> snakelines) {
+        List<Point> pol1 = snakelines.get(0);
+        List<Point> pol2 = snakelines.get(1);
+
+        // Orientation.LEFT example:
+        // coord1 o-----OO-----o coord2
+        Point coord1 = pol1.get(pol1.size() - 2); // point linked to winding1
+        Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2
+
+        if (coord1.getX() == coord2.getX()) {
+            setOrientation(coord2.getY() > coord1.getY() ? Orientation.DOWN : Orientation.UP);
+        } else {
+            setOrientation(coord1.getX() < coord2.getX() ? Orientation.RIGHT : Orientation.LEFT);
+        }
     }
 }
