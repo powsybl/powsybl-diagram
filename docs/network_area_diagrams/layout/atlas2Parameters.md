@@ -35,7 +35,6 @@ Note that once created, atlas2ForceLayout can be used on multiple different grap
 | $maxSpeedFactor$                       | `double`  | 10            | $\gt speedFactor$ |
 | $swingTolerance$                       | `double`  | 1             | $\gt$ 0           |
 | $maxGlobalSpeedIncreaseRatio$          | `double`  | 1.5           | $\gt$ 1           |
-| $repulsionForceFromFixedPointsEnabled$ | `boolean` | true          | true / false      |
 | $attractToCenterForceEnabled$          | `boolean` | true          | true / false      |
 | $barnesHutTheta$                       | `double`  | 1.2           | $\geq$ 0          |
 | $quadtreeCalculationIncrement$         | `int`     | 13            | $\geq$ 1          |
@@ -127,17 +126,7 @@ Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxGlobal
 
 ![ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg](/_static/img/nad/atlas2/ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg)
 
-### repulsionForceFromFixedPointsEnabled
-
-If set to true, other points will get a repulsion effect from unmovable points (fixed points), otherwise fixed points do not repel other points.
-
-```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateRepulsionForceFromFixedPoints(false).build();
-```
-
-Identical to default, there are no fixed points in the ieee 118 graph
-
-### attractToCenterForceEnabled
+### activateAttractToCenterForce
 
 Activate or deactivate the force that attracts points to the center of the graph. It is used to prevent non-connected points 
 from drifting away. It is generally ill-advised to deactivate this, but if you are sure that everything is connected together then you can deactivate it
