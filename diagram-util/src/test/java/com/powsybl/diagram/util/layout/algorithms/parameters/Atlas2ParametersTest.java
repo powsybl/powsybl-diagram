@@ -24,7 +24,6 @@ class Atlas2ParametersTest {
     double maxSpeedFactor = 12.45;
     double swingTolerance = 0.8;
     double maxGlobalSpeedIncreaseRatio = 1.69;
-    boolean repulsionFromFixedPointsEnabled = false;
     boolean attractToCenterEnabled = false;
 
     @Test
@@ -38,7 +37,6 @@ class Atlas2ParametersTest {
                 .withMaxSpeedFactor(maxSpeedFactor)
                 .withSwingTolerance(swingTolerance)
                 .withMaxGlobalSpeedIncreaseRatio(maxGlobalSpeedIncreaseRatio)
-                .withRepulsionFromFixedPointsEnabled(repulsionFromFixedPointsEnabled)
                 .withAttractToCenterEnabled(attractToCenterEnabled)
                 .build();
 
@@ -50,7 +48,6 @@ class Atlas2ParametersTest {
         assertEquals(maxSpeedFactor, parameters.getMaxSpeedFactor());
         assertEquals(swingTolerance, parameters.getSwingTolerance());
         assertEquals(maxGlobalSpeedIncreaseRatio, parameters.getMaxGlobalSpeedIncreaseRatio());
-        assertEquals(repulsionFromFixedPointsEnabled, parameters.isRepulsionFromFixedPointsEnabled());
         assertEquals(attractToCenterEnabled, parameters.isAttractToCenterEnabled());
     }
 }

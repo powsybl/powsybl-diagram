@@ -65,7 +65,8 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
         this.forces.add(new RepulsionForceDegreeBasedLinear<>(
                 layoutParameters.getRepulsionIntensity(),
-                layoutParameters.isRepulsionFromFixedPointsEnabled()));
+                true
+        ));
         this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttractionIntensity()));
         if (layoutParameters.isAttractToCenterEnabled()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
