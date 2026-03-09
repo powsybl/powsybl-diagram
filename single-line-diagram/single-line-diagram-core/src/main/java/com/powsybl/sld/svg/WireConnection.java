@@ -38,7 +38,7 @@ public final class WireConnection {
 
     private final AnchorPoint anchorPoint2;
 
-    private WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
+    WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
         this.anchorPoint1 = Objects.requireNonNull(anchorPoint1);
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
