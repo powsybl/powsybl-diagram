@@ -58,8 +58,8 @@ public final class WireConnection {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
 
-        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
-        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
+        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode busNode1 ? getBusNodeAnchorPoint(graph, busNode1, node2) : getAnchorPoints(componentLibrary, node1);
+        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode busNode2 ? getBusNodeAnchorPoint(graph, busNode2, node1) : getAnchorPoints(componentLibrary, node2);
         return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
