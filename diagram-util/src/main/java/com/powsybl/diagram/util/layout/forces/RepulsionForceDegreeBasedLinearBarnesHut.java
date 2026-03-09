@@ -23,7 +23,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
     private final double barnesHutTheta;
     private final Ref<Quadtree> quadtreeContainer;
 
-    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, Ref<Quadtree> quadtreeContainer) {
+    public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, double barnesHutTheta, Ref<Quadtree> quadtreeContainer) {
         this.forceIntensity = forceIntensity;
         this.barnesHutTheta = barnesHutTheta;
         this.quadtreeContainer = quadtreeContainer;
