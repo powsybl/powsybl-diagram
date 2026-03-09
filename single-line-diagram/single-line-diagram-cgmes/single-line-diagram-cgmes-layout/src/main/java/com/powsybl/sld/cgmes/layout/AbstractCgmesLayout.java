@@ -464,11 +464,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             List<List<Point>> snakeLines = multiNode.getAdjacentEdges().stream()
                     .map(e -> getSnakeLine(e, multiNode, substationGraph))
                     .toList();
-            if (multiNode instanceof Middle2WTNode middle2WTNode) {
-                middle2WTNode.setOrientationFromSnakeLines(snakeLines);
-            } else if (multiNode instanceof Middle3WTNode middle3WTNode) {
-                middle3WTNode.setOrientationFromSnakeLines(snakeLines);
-            }
+            multiNode.setOrientationFromSnakeLines(snakeLines);
         }
     }
 

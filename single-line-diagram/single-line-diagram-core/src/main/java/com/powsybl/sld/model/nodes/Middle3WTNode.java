@@ -10,12 +10,15 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class Middle3WTNode extends MiddleTwtNode {
+public class Middle3WTNode extends AbstractMiddleTwtNode {
     private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);
     private final boolean embeddedInVlGraph;
 
@@ -31,6 +34,7 @@ public class Middle3WTNode extends MiddleTwtNode {
         return embeddedInVlGraph;
     }
 
+    @Override
     public void setOrientationFromSnakeLines(List<List<Point>> snakeLines) {
         Point leg1 = snakeLines.get(0).get(snakeLines.get(0).size() - 2);
         Point leg2 = snakeLines.get(1).get(snakeLines.get(1).size() - 2);

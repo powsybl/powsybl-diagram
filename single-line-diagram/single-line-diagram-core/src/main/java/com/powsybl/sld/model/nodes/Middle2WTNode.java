@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class Middle2WTNode extends MiddleTwtNode {
+public class Middle2WTNode extends AbstractMiddleTwtNode {
 
     public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, String componentType) {
         super(id, name,
@@ -24,6 +24,7 @@ public class Middle2WTNode extends MiddleTwtNode {
             componentType);
     }
 
+    @Override
     public void setOrientationFromSnakeLines(List<List<Point>> snakelines) {
         List<Point> pol1 = snakelines.get(0);
         List<Point> pol2 = snakelines.get(1);
