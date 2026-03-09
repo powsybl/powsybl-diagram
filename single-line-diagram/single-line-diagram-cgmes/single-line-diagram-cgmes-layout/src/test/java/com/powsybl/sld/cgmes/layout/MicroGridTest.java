@@ -29,6 +29,7 @@ class MicroGridTest extends AbstractTest {
     private static final String VL_S5_10 = "8d4a8238-5b31-4c16-8692-0265dae5e132";
     private static final String SUB_S3 = "974565b1-ac55-4901-9f48-afc7ef5486df";
 
+    @Override
     @BeforeEach
     void setup() throws IOException {
         super.setup();
