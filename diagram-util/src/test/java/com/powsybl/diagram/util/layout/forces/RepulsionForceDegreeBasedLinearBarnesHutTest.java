@@ -28,7 +28,6 @@ class RepulsionForceDegreeBasedLinearBarnesHutTest {
         Ref<Quadtree> quadtreeContainer = new RefObj<>(quadtree);
         RepulsionForceDegreeBasedLinearBarnesHut<String, DefaultEdge> repulsionForceDegreeBasedLinearBarnesHut = new RepulsionForceDegreeBasedLinearBarnesHut<>(
                 1.2,
-                true,
                 1.5,
                 quadtreeContainer
         );
@@ -44,7 +43,6 @@ class RepulsionForceDegreeBasedLinearBarnesHutTest {
 
         RepulsionForceDegreeBasedLinearBarnesHut<String, DefaultEdge> repulsionForceDegreeBasedLinearBarnesHut2 = new RepulsionForceDegreeBasedLinearBarnesHut<>(
                 0.7,
-                true,
                 1.2,
                 quadtreeContainer
         );

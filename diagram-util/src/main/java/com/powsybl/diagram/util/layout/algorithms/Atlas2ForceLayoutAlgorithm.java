@@ -128,7 +128,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
                 // reset forces on all points (we create a new vector2D so it won't affect forces in the map of forces)
                 updateAllPositions(layoutContext, newGraphSpeed, swingMap, previousForces);
                 if (isStable(newGraphSpeed, stoppingGlobalGraphSpeed)) {
-                    //TODO check impact of not increasing the stopping step by barnesHutTheta / 8, maybe change the stopping condition
                     break;
                 }
                 previousGraphSpeed = newGraphSpeed;
@@ -177,7 +176,6 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         if (parameters.isBarnesHutEnabled()) {
             this.forces.add(new RepulsionForceDegreeBasedLinearBarnesHut<>(
                     parameters.getRepulsionIntensity(),
-                    true,
                     parameters.getBarnesHutTheta(),
                     this.quadtreeContainer
             ));
