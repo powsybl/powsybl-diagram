@@ -42,10 +42,10 @@ public class Middle3WTNode extends MiddleTwtNode {
         List<Point> snakeLineLeg3 = snakeLines.get(2); // snakeline from leg3 feeder node to 3wt
 
         // Orientation.UP example:
-        // line going  _____OO_____ line going
-        //   to leg1        O        to leg3
-        //                  |
-        //                  o leg2
+        // line to leg1 _____OO_____ line to leg3
+        //                   O
+        //                   |
+        //              line to leg2
         Point leg1 = snakeLineLeg1.get(snakeLineLeg1.size() - 2);
         Point leg2 = snakeLineLeg2.get(snakeLineLeg2.size() - 2);
         Point leg3 = snakeLineLeg3.get(snakeLineLeg3.size() - 2);

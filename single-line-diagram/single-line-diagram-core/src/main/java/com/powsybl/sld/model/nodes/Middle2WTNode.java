@@ -28,7 +28,7 @@ public class Middle2WTNode extends MiddleTwtNode {
         List<Point> pol1 = snakelines.get(0);
         List<Point> pol2 = snakelines.get(1);
 
-        // Orientation.LEFT example:
+        // Orientation.RIGHT example:
         // coord1 o-----OO-----o coord2
         Point coord1 = pol1.get(pol1.size() - 2); // point linked to winding1
         Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2

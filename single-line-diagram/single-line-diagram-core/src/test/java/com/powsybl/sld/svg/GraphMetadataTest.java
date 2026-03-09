@@ -44,13 +44,13 @@ class GraphMetadataTest {
     private Path tmpDir;
 
     @BeforeEach
-    public void setUp() throws IOException {
+    void setUp() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    void tearDown() throws Exception {
         fileSystem.close();
     }
 
@@ -152,7 +152,7 @@ class GraphMetadataTest {
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid2", "vid2", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, false));
+        metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, true));
         metadata.addLineMetadata(new GraphMetadata.LineMetadata("lid", "lid1", "lid2"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
@@ -160,11 +160,13 @@ class GraphMetadataTest {
                                   .writeValueAsString(metadata);
         GraphMetadata metadata2 = objectMapper.readValue(json, GraphMetadata.class);
         checkMetadata(metadata2);
+        assertTrue(metadata2.getWireMetadata("wid2").snakeLine());
 
         Path meta = tmpDir.resolve("meta.json");
         metadata.writeJson(meta);
         GraphMetadata metadata3 = GraphMetadata.parseJson(meta);
         checkMetadata(metadata3);
+        assertTrue(metadata3.getWireMetadata("wid2").snakeLine());
     }
 
     private void checkMetadata(GraphMetadata metadata) {
