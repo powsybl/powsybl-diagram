@@ -85,7 +85,31 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case3_Vertical() {
+    void testSetOrientationFromSnakeLines_Case3_Horizontal() {
+        Middle3WTNode node = create3WTNode();
+        Point transfoPoint = new Point(0, 0);
+        // line to leg2 ____OO____ line to leg3
+        //                  O
+        //                  |
+        //            line to leg1
+        List<Point> pol1 = List.of(new Point(50, 150), transfoPoint);
+        List<Point> pol2 = List.of(new Point(10, 100), transfoPoint);
+        List<Point> pol3 = List.of(new Point(90, 100), transfoPoint);
+
+        node.setOrientationFromSnakeLines(List.of(pol1, pol2, pol3));
+        assertNodeState(node, Orientation.UP, "vl2", "vl3", "vl1");
+
+        //               line to leg1
+        //                     |
+        //                     O
+        // line to leg2  -----OO-----  line to leg3
+        pol1 = List.of(new Point(50, 50), transfoPoint);
+        node.setOrientationFromSnakeLines(List.of(pol1, pol2, pol3));
+        assertNodeState(node, Orientation.DOWN, "vl2", "vl3", "vl1");
+    }
+
+    @Test
+    void testSetOrientationFromSnakeLines_Case4_Vertical() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg1
@@ -111,7 +135,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case4_Vertical() {
+    void testSetOrientationFromSnakeLines_Case5_Vertical() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg3
@@ -134,5 +158,31 @@ class Middle3WTNodeTest {
         pol1 = List.of(new Point(50, 50), transfoPoint);
         node.setOrientationFromSnakeLines(List.of(pol1, pol2, pol3));
         assertNodeState(node, Orientation.RIGHT, "vl3", "vl2", "vl1");
+    }
+
+    @Test
+    void testSetOrientationFromSnakeLines_Case6_Vertical() {
+        Middle3WTNode node = create3WTNode();
+        Point transfoPoint = new Point(0, 0);
+        // line to leg1
+        //      |
+        //      8o --- line to leg2
+        //      |
+        // line to leg3
+        List<Point> pol1 = List.of(new Point(100, 10), transfoPoint);
+        List<Point> pol2 = List.of(new Point(150, 50), transfoPoint);
+        List<Point> pol3 = List.of(new Point(100, 90), transfoPoint);
+
+        node.setOrientationFromSnakeLines(List.of(pol1, pol2, pol3));
+        assertNodeState(node, Orientation.LEFT, "vl3", "vl1", "vl2");
+
+        //           line to leg1
+        //                   |
+        // line to leg2 --- o8
+        //                   |
+        //           line to leg3
+        pol2 = List.of(new Point(50, 50), transfoPoint);
+        node.setOrientationFromSnakeLines(List.of(pol1, pol2, pol3));
+        assertNodeState(node, Orientation.RIGHT, "vl1", "vl3", "vl2");
     }
 }
