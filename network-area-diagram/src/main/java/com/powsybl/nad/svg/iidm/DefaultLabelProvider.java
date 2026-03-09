@@ -20,6 +20,7 @@ import com.powsybl.nad.svg.VoltageLevelLegend;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -31,6 +32,7 @@ public class DefaultLabelProvider implements LabelProvider {
     private final LabelProviderParameters parameters;
     private final ValueFormatter valueFormatter;
     private boolean displayAngle = true;
+    private boolean displayWithAbs = false;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
@@ -143,9 +145,10 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     private Optional<String> getDisplayedValue(Terminal terminal, EdgeInfoEnum infoEnum, String connectableNameOrId) {
+        Function<Double, String> powerFormatter = displayWithAbs ? value -> valueFormatter.formatPowerWithAbs(value, "") : valueFormatter::formatPower;
         return switch (infoEnum) {
-            case ACTIVE_POWER -> toOptional(terminal.getP()).map(valueFormatter::formatPower);
-            case REACTIVE_POWER -> toOptional(terminal.getQ()).map(valueFormatter::formatPower);
+            case ACTIVE_POWER -> toOptional(terminal.getP()).map(powerFormatter);
+            case REACTIVE_POWER -> toOptional(terminal.getQ()).map(powerFormatter);
             case CURRENT -> toOptional(terminal.getI()).map(valueFormatter::formatCurrent);
             case NAME -> Optional.of(connectableNameOrId);
             case VALUE_PERMANENT_LIMIT_PERCENTAGE -> toOptional(getPermanentLimitPercentage(terminal)).map(valueFormatter::formatPercentage);
@@ -312,6 +315,11 @@ public class DefaultLabelProvider implements LabelProvider {
 
     public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
         this.displayAngle = displayAngle;
+        return this;
+    }
+
+    public DefaultLabelProvider setDisplayWithAbs(boolean displayWithAbs) {
+        this.displayWithAbs = displayWithAbs;
         return this;
     }
 }
