@@ -43,43 +43,97 @@ public class Middle3WTNode extends AbstractMiddleTwtNode {
         if (leg1.getY() == leg3.getY()) {
             setOrientation(leg2.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
             if (leg1.getX() < leg3.getX()) {
+                // line to leg1 ____OO____ line to leg3
+                //                  O
+                //                  |
+                //            line to leg2
                 setWindingOrder(Winding.UPPER_LEFT, Winding.DOWN, Winding.UPPER_RIGHT);
             } else {
+                // line to leg3 ____OO____ line to leg1
+                //                  O
+                //                  |
+                //            line to leg2
                 setWindingOrder(Winding.UPPER_RIGHT, Winding.DOWN, Winding.UPPER_LEFT);
             }
         } else if (leg1.getY() == leg2.getY()) {
             setOrientation(leg3.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
             if (leg1.getX() < leg2.getX()) {
+                // line to leg1 ____OO____ line to leg2
+                //                  O
+                //                  |
+                //            line to leg3
                 setWindingOrder(Winding.UPPER_LEFT, Winding.UPPER_RIGHT, Winding.DOWN);
             } else {
+                // line to leg2 ____OO____ line to leg1
+                //                  O
+                //                  |
+                //            line to leg3
                 setWindingOrder(Winding.UPPER_RIGHT, Winding.UPPER_LEFT, Winding.DOWN);
             }
         } else if (leg2.getY() == leg3.getY()) {
             setOrientation(leg1.getY() < leg2.getY() ? Orientation.DOWN : Orientation.UP);
             if (leg2.getX() < leg3.getX()) {
+                // line to leg2 ____OO____ line to leg3
+                //                  O
+                //                  |
+                //            line to leg1
                 setWindingOrder(Winding.DOWN, Winding.UPPER_LEFT, Winding.UPPER_RIGHT);
             } else {
+                // line to leg3 ____OO____ line to leg2
+                //                  O
+                //                  |
+                //            line to leg1
                 setWindingOrder(Winding.DOWN, Winding.UPPER_RIGHT, Winding.UPPER_LEFT);
             }
         } else if (leg1.getX() == leg2.getX()) {
             setOrientation(leg3.getX() > leg1.getX() ? Orientation.LEFT : Orientation.RIGHT);
             if ((leg3.getX() > leg1.getX()) == (leg1.getY() > leg2.getY())) {
+                // line to leg2
+                //      |
+                //      8o --- line to leg3
+                //      |
+                // line to leg1
                 setWindingOrder(Winding.UPPER_LEFT, Winding.UPPER_RIGHT, Winding.DOWN);
             } else {
+                //           line to leg2
+                //                   |
+                // line to leg3 --- o8
+                //                   |
+                //           line to leg1
                 setWindingOrder(Winding.UPPER_RIGHT, Winding.UPPER_LEFT, Winding.DOWN);
             }
         } else if (leg2.getX() == leg3.getX()) {
             setOrientation(leg1.getX() > leg2.getX() ? Orientation.LEFT : Orientation.RIGHT);
             if ((leg1.getX() > leg2.getX()) == (leg2.getY() > leg3.getY())) {
+                // line to leg3
+                //      |
+                //      8o --- line to leg1
+                //      |
+                // line to leg2
                 setWindingOrder(Winding.DOWN, Winding.UPPER_LEFT, Winding.UPPER_RIGHT);
             } else {
+                //           line to leg3
+                //                   |
+                // line to leg1 --- o8
+                //                   |
+                //           line to leg2
                 setWindingOrder(Winding.DOWN, Winding.UPPER_RIGHT, Winding.UPPER_LEFT);
             }
         } else if (leg3.getX() == leg1.getX()) {
             setOrientation(leg2.getX() > leg3.getX() ? Orientation.LEFT : Orientation.RIGHT);
             if ((leg2.getX() > leg3.getX()) == (leg3.getY() > leg1.getY())) {
+                // line to leg1
+                //      |
+                //      8o --- line to leg2
+                //      |
+                // line to leg3
                 setWindingOrder(Winding.UPPER_RIGHT, Winding.DOWN, Winding.UPPER_LEFT);
             } else {
+                //           line to leg1
+                //                   |
+                // line to leg2 --- o8
+                //                   |
+                //           line to leg3
                 setWindingOrder(Winding.UPPER_LEFT, Winding.DOWN, Winding.UPPER_RIGHT);
             }
         }
