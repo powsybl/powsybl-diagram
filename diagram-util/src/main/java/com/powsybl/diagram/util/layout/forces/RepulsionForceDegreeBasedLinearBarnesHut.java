@@ -20,13 +20,11 @@ import java.util.List;
  */
 public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEdgeNumberForce<V, E> {
     private final double forceIntensity;
-    private final boolean effectFromFixedNodes;
     private final double barnesHutTheta;
     private final Ref<Quadtree> quadtreeContainer;
 
     public RepulsionForceDegreeBasedLinearBarnesHut(double forceIntensity, boolean effectFromFixedNodes, double barnesHutTheta, Ref<Quadtree> quadtreeContainer) {
         this.forceIntensity = forceIntensity;
-        this.effectFromFixedNodes = effectFromFixedNodes;
         this.barnesHutTheta = barnesHutTheta;
         this.quadtreeContainer = quadtreeContainer;
     }
@@ -98,7 +96,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
             List<Point> pointsToInteractWith
     ) {
         Quadtree quadtree = quadtreeContainer.get();
-        Point barycenter = quadtree.getBarycenters()[nodeIndex];
+        Point barycenter = quadtree.getNodes()[nodeIndex].getNodeBarycenter();
         // Check the theta parameter ie width / distance < theta
         if (nodeWidth < barnesHutTheta * point.distanceTo(barycenter)) {
             pointsToInteractWith.add(barycenter);

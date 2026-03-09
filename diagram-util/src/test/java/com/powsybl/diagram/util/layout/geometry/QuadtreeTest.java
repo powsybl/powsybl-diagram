@@ -13,6 +13,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +39,7 @@ class QuadtreeTest {
         Quadtree quadtree = new Quadtree(points, Point::getMass);
         int rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
-        Point[] barycenters = quadtree.getBarycenters();
+        Point[] barycenters = Stream.of(quadtree.getNodes()).map(Quadtree.QuadtreeNode::getNodeBarycenter).toArray(Point[]::new);
         Point[] expectedBarycenters = {
             new Point(0.017, 0.183, 10),
             new Point(-1.29, 1.18, 1),
@@ -69,7 +70,7 @@ class QuadtreeTest {
         Quadtree quadtree = new Quadtree(forceGraph.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1);
         int rootIndex = quadtree.getRootIndex();
         Quadtree.QuadtreeNode[] nodes = quadtree.getNodes();
-        Point[] barycenters = quadtree.getBarycenters();
+        Point[] barycenters = Stream.of(quadtree.getNodes()).map(Quadtree.QuadtreeNode::getNodeBarycenter).toArray(Point[]::new);
         Point[] expectedBarycenters = {
             new Point(-0.151, 0.256, 28),
             new Point(-1.29, 1.18, 4),
