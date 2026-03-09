@@ -38,7 +38,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case1_Horizontal() {
+    void testSetOrientationFromSnakeLinesCase1Horizontal() {
         Middle3WTNode middle3WTNode = create3WTNode();
         // line to leg1 ____OO____ line to leg3
         //                  O
@@ -61,7 +61,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case2_Horizontal() {
+    void testSetOrientationFromSnakeLinesCase2Horizontal() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg1 ____OO____ line to leg2
@@ -85,7 +85,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case3_Horizontal() {
+    void testSetOrientationFromSnakeLinesCase3Horizontal() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg2 ____OO____ line to leg3
@@ -109,7 +109,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case4_Vertical() {
+    void testSetOrientationFromSnakeLinesCase4Vertical() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg1
@@ -135,7 +135,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case5_Vertical() {
+    void testSetOrientationFromSnakeLinesCase5Vertical() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg3
@@ -161,7 +161,7 @@ class Middle3WTNodeTest {
     }
 
     @Test
-    void testSetOrientationFromSnakeLines_Case6_Vertical() {
+    void testSetOrientationFromSnakeLinesCase6Vertical() {
         Middle3WTNode node = create3WTNode();
         Point transfoPoint = new Point(0, 0);
         // line to leg1
