@@ -32,7 +32,6 @@ public class SldComponent extends Component {
     public enum Transformation {
         ROTATION,
         FLIP,
-        FLIP_AND_ROTATION,
         NONE
     }
 

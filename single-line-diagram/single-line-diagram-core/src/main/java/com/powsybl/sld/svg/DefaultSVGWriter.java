@@ -688,9 +688,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 case ROTATION -> ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")";
                 case FLIP -> SCALE + "(1, -1)" + " "
                         + TRANSLATE + "(0, " + -size.height() + ")";
-                case FLIP_AND_ROTATION -> SCALE + "(1, -1)" + " "
-                        + TRANSLATE + "(0, " + -size.height() + ") "
-                        + ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")";
                 default -> null;
             };
             if (transform != null) {
