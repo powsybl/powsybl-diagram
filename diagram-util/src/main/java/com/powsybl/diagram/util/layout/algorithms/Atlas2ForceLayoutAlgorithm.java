@@ -108,8 +108,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
         while (i < stoppingStep && !graphSwingIsZero) {
             if (layoutParameters.isBarnesHutEnabled() && quadtreeUpdateSchedule.isTimeToUpdate(i)) {
-                Collection<Point> interactingPoints = getInteractingPoints(layoutContext);
-                this.quadtreeContainer.set(new Quadtree(interactingPoints, (Point point) -> point.getPointVertexDegree() + 1));
+                this.quadtreeContainer.set(new Quadtree(layoutContext.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1));
             }
             GraphDataValues graphDataValues = calculateForces(layoutContext, previousForces, swingMap);
             graphSwingIsZero = graphDataValues.graphSwing() == 0;
@@ -178,28 +177,15 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         if (parameters.isBarnesHutEnabled()) {
             this.forces.add(new RepulsionForceDegreeBasedLinearBarnesHut<>(
                     parameters.getRepulsionIntensity(),
-                    parameters.isRepulsionFromFixedPointsEnabled(),
+                    true,
                     parameters.getBarnesHutTheta(),
                     this.quadtreeContainer
             ));
         } else {
             this.forces.add(new RepulsionForceDegreeBasedLinear<>(
                     parameters.getRepulsionIntensity(),
-                    parameters.isRepulsionFromFixedPointsEnabled()
+                true
             ));
-        }
-    }
-
-    /**
-     * Choose which points to interact with, either all the points or just the moving points, depending on if repulsion force for fixed points is activated
-     * @param layoutContext the context of the layout (points, graph of the points)
-     * @return all the points if fixed points have a repulsion force, just the moving points otherwise
-     */
-    private Collection<Point> getInteractingPoints(LayoutContext<V, E> layoutContext) {
-        if (layoutParameters.isRepulsionFromFixedPointsEnabled()) {
-            return layoutContext.getAllPoints().values();
-        } else {
-            return layoutContext.getMovingPoints().values();
         }
     }
 
