@@ -25,7 +25,9 @@ public class Injection extends AbstractIdentifiable {
         SHUNT_COMPENSATOR_INDUCTOR,
         STATIC_VAR_COMPENSATOR,
         GENERATOR,
-        BATTERY
+        BATTERY,
+        LCC,
+        VSC
     }
 
     private final Type type;
