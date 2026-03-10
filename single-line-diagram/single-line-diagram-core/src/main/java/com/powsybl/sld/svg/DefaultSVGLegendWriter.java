@@ -17,6 +17,7 @@ import com.powsybl.sld.util.IdUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,11 +60,26 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
     protected List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
         return vl.getBusView().getBusStream()
-            .map(b -> new BusLegendInfo(b.getId(), List.of(
-                new BusLegendInfo.Caption(valueFormatter.formatVoltage(b.getV(), "kV"), "v"),
-                new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(b.getAngle()), "angle")
-            )))
-            .toList();
+                .map(bus -> {
+                    List<BusLegendInfo.Caption> captions = new ArrayList<>(4);
+                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatVoltage(bus.getV(), "kV"), "v"));
+                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(bus.getAngle()), "angle"));
+                    if (hasFictitiousInjection(bus.getFictitiousP0())) {
+                        captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"));
+                    }
+                    if (hasFictitiousInjection(bus.getFictitiousQ0())) {
+                        captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0"));
+                    }
+                    return new BusLegendInfo(bus.getId(), captions);
+                }).toList();
+    }
+
+    private static boolean hasFictitiousInjection(double value) {
+        return !Double.isNaN(value) && value != 0d;
+    }
+
+    private static String withDefaultUnit(String configuredUnit, String defaultUnit) {
+        return configuredUnit == null || configuredUnit.isEmpty() ? defaultUnit : configuredUnit;
     }
 
     private void drawBusLegendInfo(BusLegendInfo busLegendInfo, double xShift, double yShift,
@@ -81,7 +97,9 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
         g.appendChild(circle);
 
         // legend nodes
-        double padding = 2.5;
+        boolean isExtendedLegend = busLegendInfo.captions().size() > 2;
+        double padding = isExtendedLegend ? 2.0 : 2.5;
+        double paddingStep = isExtendedLegend ? 1.0 : 1.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
             writeStyleClasses(label, styleProvider.getBusLegendCaptionStyles(caption), StyleClassConstants.BUS_LEGEND_INFO);
@@ -91,8 +109,7 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
             Text textNode = g.getOwnerDocument().createTextNode(caption.label());
             label.appendChild(textNode);
             g.appendChild(label);
-
-            padding += 1.5;
+            padding += paddingStep;
         }
     }
 }
