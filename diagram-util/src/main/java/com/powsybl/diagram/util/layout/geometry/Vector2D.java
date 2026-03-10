@@ -23,7 +23,7 @@ public class Vector2D {
     }
 
     public Vector2D() {
-        new Vector2D(0, 0);
+        this(0, 0);
     }
 
     public Vector2D(Vector2D otherVector) {
