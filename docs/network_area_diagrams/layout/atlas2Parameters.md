@@ -35,7 +35,6 @@ Note that once created, atlas2ForceLayout can be used on multiple different grap
 | $maxSpeedFactor$                        | `double`  | 10            | $\gt speedFactor$ |
 | $swingTolerance$                        | `double`  | 1             | $\gt$ 0           |
 | $maxGlobalSpeedIncreaseRatio$           | `double`  | 1.5           | $\gt$ 1           |
-| $activateRepulsionForceFromFixedPoints$ | `boolean` | true          | true / false      |
 | $activateAttractToCenterForce$          | `boolean` | true          | true / false      |
 
 ### maxSteps
@@ -124,16 +123,6 @@ Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withMaxGlobal
 ```
 
 ![ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg](/_static/img/nad/atlas2/ieee_118-maxGlobalSpeedIncreaseRatio_1.1.svg)
-
-### activateRepulsionForceFromFixedPoints
-
-If set to true, other points will get a repulsion effect from unmovable points (fixed points), otherwise fixed points do not repel other points.
-
-```java
-Atlas2Parameters atlas2Parameters = new Atlas2Parameters.Builder().withActivateRepulsionForceFromFixedPoints(false).build();
-```
-
-Identical to default, there are no fixed points in the ieee 118 graph
 
 ### activateAttractToCenterForce
 
