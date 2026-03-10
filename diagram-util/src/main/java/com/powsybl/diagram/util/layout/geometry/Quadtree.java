@@ -23,11 +23,10 @@ import java.util.stream.IntStream;
  */
 public class Quadtree {
     public static class QuadtreeNode {
-        // package private
-        int[][] childrenNodeIndex = {
-                {NO_CHILDREN, NO_CHILDREN},
-                {NO_CHILDREN, NO_CHILDREN}
-        };
+        int topLeftIndex = NO_CHILDREN;
+        int topRightIndex = NO_CHILDREN;
+        int bottomLeftIndex = NO_CHILDREN;
+        int bottomRightIndex = NO_CHILDREN;
         /**
          * The barycenter of this node, ie the barycenter of all the points that are in the area of this node
          */
@@ -42,10 +41,10 @@ public class Quadtree {
          */
         public int[] getRealChildrenNodeIndex() {
             return IntStream.of(
-                childrenNodeIndex[0][0],
-                childrenNodeIndex[0][1],
-                childrenNodeIndex[1][0],
-                childrenNodeIndex[1][1]
+                topLeftIndex,
+                topRightIndex,
+                bottomLeftIndex,
+                bottomRightIndex
             ).filter(id -> id != NO_CHILDREN)
             .toArray();
         }
@@ -168,10 +167,10 @@ public class Quadtree {
         Point nodeBarycenter = new Point(0, 0);
         nodesList.add(new QuadtreeNode(nodeBarycenter));
 
-        nodesList.get(newNodeIndex).childrenNodeIndex[0][0] = buildQuadtree(nodesList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).childrenNodeIndex[0][1] = buildQuadtree(nodesList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).childrenNodeIndex[1][0] = buildQuadtree(nodesList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).childrenNodeIndex[1][1] = buildQuadtree(nodesList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).topLeftIndex = buildQuadtree(nodesList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).topRightIndex = buildQuadtree(nodesList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).bottomLeftIndex = buildQuadtree(nodesList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        nodesList.get(newNodeIndex).bottomRightIndex = buildQuadtree(nodesList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
         setNodeBarycenter(nodesList, nodesList.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
