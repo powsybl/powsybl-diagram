@@ -165,12 +165,13 @@ public class Quadtree {
         int newNodeIndex = nodesList.size();
         //need to add it first here even though we modify it just after, because buildQuadtree is recursive. Need to conserve order
         Point nodeBarycenter = new Point(0, 0);
-        nodesList.add(new QuadtreeNode(nodeBarycenter));
+        QuadtreeNode node = new QuadtreeNode(nodeBarycenter);
+        nodesList.add(node);
 
-        nodesList.get(newNodeIndex).topLeftIndex = buildQuadtree(nodesList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).topRightIndex = buildQuadtree(nodesList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).bottomLeftIndex = buildQuadtree(nodesList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        nodesList.get(newNodeIndex).bottomRightIndex = buildQuadtree(nodesList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        node.topLeftIndex = buildQuadtree(nodesList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        node.topRightIndex = buildQuadtree(nodesList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        node.bottomLeftIndex = buildQuadtree(nodesList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        node.bottomRightIndex = buildQuadtree(nodesList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
         setNodeBarycenter(nodesList, nodesList.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
