@@ -59,7 +59,7 @@
     "voltageLevelLegendsIncluded" : true,
     "edgeInfosIncluded" : true,
     "doubleArrowShiftFactorArrows" : 1.5,
-    "doubleArrowShiftFactorText" : 1.7999999999999998
+    "doubleArrowShiftFactorText" : 1.8
   },
   "busNodes" : [ {
     "svgId" : "4",

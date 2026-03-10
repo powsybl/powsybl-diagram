@@ -60,7 +60,7 @@ public class SvgParameters {
     private boolean voltageLevelLegendsIncluded = true;
     private boolean edgeInfosIncluded = true;
     private double doubleArrowShiftFactorArrows = 1.5;
-    private double doubleArrowShiftFactorText = doubleArrowShiftFactorArrows * 1.2;
+    private double doubleArrowShiftFactorText = 1.8;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT

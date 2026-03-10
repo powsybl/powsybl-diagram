@@ -143,16 +143,16 @@ public class DefaultLabelProvider implements LabelProvider {
                 optionalValue1.orElse(null),
                 optionalValue2.orElse(null)
             ));
-        } else {
-            double referenceValue = getReferenceValue(terminal, infoEnum2).orElseGet(() -> getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
-            return Optional.of(new EdgeInfo(
-                getDisplayedType(infoEnum1),
-                getDisplayedType(infoEnum2),
-                referenceValue,
-                optionalValue1.orElse(null),
-                optionalValue2.orElse(null)
-            ));
         }
+        
+        double referenceValue = getReferenceValue(terminal, infoEnum2).orElseGet(() -> getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
+        return Optional.of(new EdgeInfo(
+            getDisplayedType(infoEnum1),
+            getDisplayedType(infoEnum2),
+            referenceValue,
+            optionalValue1.orElse(null),
+            optionalValue2.orElse(null)
+        ));
     }
 
     private Optional<String> getDisplayedValue(Terminal terminal, EdgeInfoEnum infoEnum, String connectableNameOrId) {
