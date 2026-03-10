@@ -84,7 +84,8 @@ public class Quadtree {
      */
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        List<QuadtreeNode> nodesList = new ArrayList<>();
+        //each point will be in a leaf node, we have at least as many nodes as points, avoid resizing
+        List<QuadtreeNode> nodesList = new ArrayList<>(points.size());
         this.rootIndex = buildQuadtree(
                 nodesList,
                 points.toArray(new Point[0]),
