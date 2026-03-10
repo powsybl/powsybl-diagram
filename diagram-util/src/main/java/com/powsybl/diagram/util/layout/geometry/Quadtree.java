@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 /**
  * A quadtree is a structure that recursively divides a space in 4 until only a given number of points reside in each subdivided area. In this case,
@@ -41,13 +41,12 @@ public class Quadtree {
          * @return all the index of children that actually exists (ie all quadrants that have at least a point in them)
          */
         public int[] getRealChildrenNodeIndex() {
-            return Stream.of(
+            return IntStream.of(
                 childrenNodeIndex[0][0],
                 childrenNodeIndex[0][1],
                 childrenNodeIndex[1][0],
                 childrenNodeIndex[1][1]
             ).filter(id -> id != NO_CHILDREN)
-            .mapToInt(Integer::intValue)
             .toArray();
         }
 
