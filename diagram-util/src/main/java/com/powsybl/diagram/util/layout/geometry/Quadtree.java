@@ -9,6 +9,7 @@ package com.powsybl.diagram.util.layout.geometry;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
@@ -194,9 +195,7 @@ public class Quadtree {
         for (int i = firstFalseIndex + 1; i < points.size(); ++i) {
             if (splitPredicate.test(points.get(i).getPosition())) {
                 // swap points
-                Point temp = points.get(i);
-                points.set(i, points.get(firstFalseIndex));
-                points.set(firstFalseIndex, temp);
+                Collections.swap(points, i, firstFalseIndex);
                 ++firstFalseIndex;
             }
         }
