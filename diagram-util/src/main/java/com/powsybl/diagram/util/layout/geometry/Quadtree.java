@@ -88,13 +88,10 @@ public class Quadtree {
         List<QuadtreeNode> nodesList = new ArrayList<>(points.size());
         this.rootIndex = buildQuadtree(
                 nodesList,
-                points.toArray(new Point[0]),
+                new ArrayList<>(points),
                 bb,
-                0,
-                points.size(),
                 massGetter,
-                0,
-                0,
+                points.size(),
                 MAX_RECURSION_DEPTH
         );
 
@@ -106,44 +103,35 @@ public class Quadtree {
      * @param nodesList the current list of nodes (same as the array of nodes but using a list since we don't know the length yet)
      * @param points all the points that we are building a quadtree on
      * @param boundingBox the bounding box of the current set of points we are doing the recursion on (this is not the bounding box of all the points)
-     * @param firstIndex the index of the first point contained in the bounding box (included)
-     * @param lastIndex the index of the last point contained in the bounding box (excluded)
      * @param massGetter the function that gives the mass of a point
-     * @param previousFirstIndex the previous index of the first point contained in the previous bounding box (included).
-     *                           Used for an optimisation to check if two or more points are at the same position (to avoid recursively dividing until the depth limit)
-     * @param previousLastIndex the previous index of the last point contained in the previous bounding box (excluded).
-     *                           Used for an optimisation to check if two or more points are at the same position (to avoid recursively dividing until the depth limit)
      * @param remainingDepth how many more division of the space can we make for this given bounding box
      * @return the index of the most parent node (if the depth is 0, this is the root of the quadtree, if the depth is 1, this is the index of a child of the root node, etc...)
      */
     private int buildQuadtree(
             List<QuadtreeNode> nodesList,
-            Point[] points,
+            List<Point> points,
             BoundingBox boundingBox,
-            int firstIndex,
-            int lastIndex,
             ToDoubleFunction<Point> massGetter,
-            int previousFirstIndex,
-            int previousLastIndex,
+            int previousSize,
             int remainingDepth
     ) {
-        if (firstIndex == lastIndex) {
+        if (points.isEmpty()) {
             // no children
             return NO_CHILDREN;
         }
 
         if (
             // if there is only a single Point in this node, it's a leaf, barycenter is the point
-                firstIndex + 1 == lastIndex
+                points.size() == 1
                 || remainingDepth == 0
             // if the size of the points in an area did not diminish, it might be because two or more points are at the same position, or very close
             // use the first two index checks to not have to calculate the equality between all points in the range each time
-                || firstIndex == previousFirstIndex && lastIndex == previousLastIndex && checkPointPositionEquality(points, firstIndex, lastIndex)
+                || points.size() == previousSize && checkPointPositionEquality(points)
         ) {
             int newNodeIndex = nodesList.size();
             Point nodeBarycenter = new Point(0, 0);
             nodesList.add(new QuadtreeNode(nodeBarycenter));
-            setLeafBarycenter(points, nodeBarycenter, firstIndex, lastIndex, massGetter);
+            setLeafBarycenter(points, nodeBarycenter, massGetter);
             return newNodeIndex;
         }
 
@@ -151,12 +139,13 @@ public class Quadtree {
         Predicate<Vector2D> isBottom = v -> v.getY() > boundingBoxCenter.getY(); // bottom is max Y, top is min Y
         Predicate<Vector2D> isLeft = v -> v.getX() < boundingBoxCenter.getX();
 
+        //split in four quadrants
         // [firstIndex, ySplitIndex) is at the bottom, [ySplitIndex, lastIndex) is at the top
-        int ySplitIndex = partitionPoints(points, firstIndex, lastIndex, isBottom);
+        int ySplitIndex = partitionPoints(points, isBottom);
         // [firstIndex, xLowerSplitIndex) is bottom left, [xLowerSplitIndex, ySplitIndex) is bottom right
-        int xLowerSplitIndex = partitionPoints(points, firstIndex, ySplitIndex, isLeft);
+        int xLowerSplitIndex = partitionPoints(points.subList(0, ySplitIndex), isLeft);
         // [ySplitIndex, xUpperSplitIndex) is top left, [xUpperSplitIndex, lastIndex) is top right
-        int xUpperSplitIndex = partitionPoints(points, ySplitIndex, lastIndex, isLeft);
+        int xUpperSplitIndex = ySplitIndex + partitionPoints(points.subList(ySplitIndex, points.size()), isLeft);
 
         BoundingBox bottomLeftBb = new BoundingBox(boundingBox.left(), boundingBoxCenter.getY(), boundingBoxCenter.getX(), boundingBox.bottom());
         BoundingBox bottomRightBb = new BoundingBox(boundingBoxCenter.getX(), boundingBoxCenter.getY(), boundingBox.right(), boundingBox.bottom());
@@ -169,10 +158,10 @@ public class Quadtree {
         QuadtreeNode node = new QuadtreeNode(nodeBarycenter);
         nodesList.add(node);
 
-        node.topLeftIndex = buildQuadtree(nodesList, points, bottomLeftBb, firstIndex, xLowerSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        node.topRightIndex = buildQuadtree(nodesList, points, bottomRightBb, xLowerSplitIndex, ySplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        node.bottomLeftIndex = buildQuadtree(nodesList, points, topLeftBb, ySplitIndex, xUpperSplitIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
-        node.bottomRightIndex = buildQuadtree(nodesList, points, topRightBb, xUpperSplitIndex, lastIndex, massGetter, firstIndex, lastIndex, remainingDepth - 1);
+        node.topLeftIndex = buildQuadtree(nodesList, points.subList(0, xLowerSplitIndex), bottomLeftBb, massGetter, points.size(), remainingDepth - 1);
+        node.topRightIndex = buildQuadtree(nodesList, points.subList(xLowerSplitIndex, ySplitIndex), bottomRightBb, massGetter, points.size(), remainingDepth - 1);
+        node.bottomLeftIndex = buildQuadtree(nodesList, points.subList(ySplitIndex, xUpperSplitIndex), topLeftBb, massGetter, points.size(), remainingDepth - 1);
+        node.bottomRightIndex = buildQuadtree(nodesList, points.subList(xUpperSplitIndex, points.size()), topRightBb, massGetter, points.size(), remainingDepth - 1);
         setNodeBarycenter(nodesList, nodesList.get(newNodeIndex), nodeBarycenter);
 
         return newNodeIndex;
@@ -187,8 +176,6 @@ public class Quadtree {
      * This runs in linear time. This function is adapted from the "Possible implementation" section of the
      * C++ reference page for [std::partition](https://en.cppreference.com/w/cpp/algorithm/partition.html)
      * @param points the array of all the points
-     * @param startIndex the start index from which we want to partition the array (included)
-     * @param endIndex the end index at which we stop the partition of the array (excluded)
      * @param splitPredicate a function that returns either true or false given a Vector,
      *                       it must be consistent ie if two vectors are equals with regards to .equals(),
      *                       then the splitPredicate must return the same boolean for both
@@ -197,19 +184,19 @@ public class Quadtree {
      * for all i in [splitIndex, endIndex[, predicate(points[i]) is false
      * no guarantee is given for points outside the [startIndex, endIndex[ range
      */
-    private int partitionPoints(Point[] points, int startIndex, int endIndex, Predicate<Vector2D> splitPredicate) {
+    private int partitionPoints(List<Point> points, Predicate<Vector2D> splitPredicate) {
         // directly find the index such that the predicate is false, no need to sort the start of the array if it's already ok
-        int firstFalseIndex = startIndex;
-        while (firstFalseIndex < endIndex && splitPredicate.test(points[firstFalseIndex].getPosition())) {
+        int firstFalseIndex = 0;
+        while (firstFalseIndex < points.size() && splitPredicate.test(points.get(firstFalseIndex).getPosition())) {
             ++firstFalseIndex;
         }
 
-        for (int i = firstFalseIndex + 1; i < endIndex; ++i) {
-            if (splitPredicate.test(points[i].getPosition())) {
+        for (int i = firstFalseIndex + 1; i < points.size(); ++i) {
+            if (splitPredicate.test(points.get(i).getPosition())) {
                 // swap points
-                Point temp = points[i];
-                points[i] = points[firstFalseIndex];
-                points[firstFalseIndex] = temp;
+                Point temp = points.get(i);
+                points.set(i, points.get(firstFalseIndex));
+                points.set(firstFalseIndex, temp);
                 ++firstFalseIndex;
             }
         }
@@ -221,25 +208,23 @@ public class Quadtree {
      * (so either the common case of having a single point, or the rarer case of have multiple points on the same position)
      * @param points the list of all the points
      * @param nodeBarycenter the barycenter
-     * @param startIndex the index (included) of the first point contained in the node of which we are setting the barycenter
-     * @param endIndex the index (excluded) of the last point contained in the node (the endIndex point is not in the node, the endIndex - 1 is)
      * @param massGetter the function that associates a point to its mass
      */
-    private void setLeafBarycenter(Point[] points, Point nodeBarycenter, int startIndex, int endIndex, ToDoubleFunction<Point> massGetter) {
-        Point leafPoint = points[startIndex];
+    private void setLeafBarycenter(List<Point> points, Point nodeBarycenter, ToDoubleFunction<Point> massGetter) {
+        Point leafPoint = points.getFirst();
         nodeBarycenter.setPosition(leafPoint.getPosition());
         double totalMass = massGetter.applyAsDouble(leafPoint);
-        for (int i = startIndex + 1; i < endIndex; ++i) {
+        for (int i = 1; i < points.size(); ++i) {
             // Springy and Atlas define mass differently for forces
             // for springy it's the literal mass, for Atlas it's the vertex degree + 1, just use a function to accommodate everyone
-            totalMass += massGetter.applyAsDouble(points[i]);
+            totalMass += massGetter.applyAsDouble(points.get(i));
         }
         nodeBarycenter.setMass(totalMass);
     }
 
     /**
      * Set the mass and position of the barycenter of a node that is not a leaf node (ie it has at least one children node, otherwise it would be a leaf node,
-     * in which case, use {@link #setLeafBarycenter(Point[], Point, int, int, ToDoubleFunction)}
+     * in which case, use {@link #setLeafBarycenter(List, Point, ToDoubleFunction)}
      * @param nodeList all the nodes
      * @param node the node for which we are calculating the barycenter
      * @param nodeBarycenter the barycenter of the node, the one we are setting the mass and position of
@@ -264,14 +249,12 @@ public class Quadtree {
     /**
      * Check if all the points between startIndex (included) and endIndex (excluded) have the same position
      * @param points all the points
-     * @param startIndex the index of the first point we want to test position equality for (included)
-     * @param endIndex the index of the last point we want to test position equality for (excluded)
      * @return true if all the points have the same position, false otherwise
      */
-    private boolean checkPointPositionEquality(Point[] points, int startIndex, int endIndex) {
-        Vector2D firstPosition = points[startIndex].getPosition();
-        for (int i = startIndex + 1; i < endIndex; ++i) {
-            if (!firstPosition.equals(points[i].getPosition())) {
+    private boolean checkPointPositionEquality(List<Point> points) {
+        Vector2D firstPosition = points.getFirst().getPosition();
+        for (int i = 1; i < points.size(); ++i) {
+            if (!firstPosition.equals(points.get(i).getPosition())) {
                 return false;
             }
         }
