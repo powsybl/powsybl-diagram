@@ -85,8 +85,14 @@ public class Quadtree {
      */
     public Quadtree(Collection<Point> points, ToDoubleFunction<Point> massGetter) {
         bb = BoundingBox.computeBoundingBox(points);
-        //each point will be in a leaf node, we have at least as many nodes as points, avoid resizing
-        List<QuadtreeNode> nodesList = new ArrayList<>(points.size());
+        //Let p = points.size()
+        //Let n = IntegerPartOf(log4(p))
+        //The minimum number of nodes will be sum from i=O to n of p/4^i = 1/3*(4 - 4^(-n))*p
+        //Since the smallest tree is the one where all leaf nodes are at the same level (p/4^0 nodes), four leaf nodes have a parent (p/4^1 nodes).
+        //Each of those 4 nodes have 1 parent (p/4^2 nodes). n is the number of levels of that quadtree
+        //Which is approximately 4/3*p
+        //Since it's a lower bound, we can use 2*p instead as 4/3*p would need resizing, but 2*4/3*p might be too big
+        List<QuadtreeNode> nodesList = new ArrayList<>(2 * points.size());
         this.rootIndex = buildQuadtree(
                 nodesList,
                 new ArrayList<>(points),
