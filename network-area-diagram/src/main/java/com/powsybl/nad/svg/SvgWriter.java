@@ -682,7 +682,7 @@ public class SvgWriter {
         } else {
             drawArrows(writer, edgeInfo, edgeAngle);
         }
-        
+
         double factor = edgeInfo.getDirectionA().isEmpty() || edgeInfo.getDirectionB().isEmpty() ? 1.0 : svgParameters.getDoubleArrowShiftFactorText();
         Optional<String> labelB = edgeInfo.getLabelB();
         if (labelB.isPresent()) {
