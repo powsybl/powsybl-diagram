@@ -2506,7 +2506,7 @@ public final class Networks {
                 .setP0(10.0)
                 .setQ0(2.0)
                 .add();
-        // broker between node 1 and node 2
+        // breaker between node 1 and node 2
         vl.getNodeBreakerView().newBreaker()
                 .setId("B1")
                 .setNode1(1)
