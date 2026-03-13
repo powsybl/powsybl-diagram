@@ -9,7 +9,7 @@ package com.powsybl.nad;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IntIdProvider;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
+import com.powsybl.nad.layout.Atlas2ForceLayout;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
@@ -31,7 +31,7 @@ public class NadParameters {
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
     private LabelProviderFactory labelProviderFactory = (network, svgParam) -> new DefaultLabelProvider(network, svgParam.createValueFormatter());
-    private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
+    private LayoutFactory layoutFactory = Atlas2ForceLayout::new;
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
     private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();
     private EdgeRouting edgeRouting = new StraightEdgeRouting();
