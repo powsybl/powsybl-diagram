@@ -104,7 +104,7 @@ class TestLegend extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        String svg = toSVG(g, "/TestLegendFictitiousInjection.svg");
+        String svg = toSVG(g, "/legend-fictitious-injection-bus-breaker.svg");
         assertEquals(toString("/legend-fictitious-injection-bus-breaker.svg"), svg);
         assertTrue(svg.contains("1 MW"));
         assertTrue(svg.contains("-1 MVar"));
@@ -128,7 +128,7 @@ class TestLegend extends AbstractTestCaseIidm {
         // Run layout
         voltageLevelGraphLayout(g);
 
-        String svg = toSVG(g, "/TestLegendFictitiousInjection.svg");
+        String svg = toSVG(g, "/legend-fictitious-injection-node-breaker.svg");
         assertEquals(toString("/legend-fictitious-injection-node-breaker.svg"), svg);
         assertTrue(svg.contains("1 MW"));
         assertTrue(svg.contains("-1 MVar"));
