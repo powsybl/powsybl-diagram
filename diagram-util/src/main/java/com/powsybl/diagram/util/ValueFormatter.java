@@ -59,6 +59,10 @@ public class ValueFormatter {
         return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }
 
+    public String formatPowerWithAbs(double power, String unit) {
+        return formatPower(Math.abs(power), unit);
+    }
+
     public String formatAngleInDegrees(double angleInDegrees) {
         setFractionDigits(angleValuePrecision);
         String valueFormatted = Double.isNaN(angleInDegrees) ? undefinedValueSymbol : format.format(angleInDegrees);
