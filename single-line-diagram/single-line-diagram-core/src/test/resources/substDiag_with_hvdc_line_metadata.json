@@ -101,7 +101,7 @@
     "vlabel" : false,
     "equipmentId" : "Bus1",
     "labels" : [ {
-      "id" : "Bus1_NW_LABEL",
+      "id" : "idBus1_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -119,7 +119,7 @@
     "vlabel" : false,
     "equipmentId" : "Bus3",
     "labels" : [ {
-      "id" : "Bus3_NW_LABEL",
+      "id" : "idBus3_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -133,7 +133,7 @@
     "vlabel" : false,
     "equipmentId" : "HvdcLine2",
     "labels" : [ {
-      "id" : "LCC_1_S_LABEL",
+      "id" : "idLCC_95_1_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -175,7 +175,7 @@
     "vlabel" : false,
     "equipmentId" : "HvdcLine",
     "labels" : [ {
-      "id" : "VSC_1_N_LABEL",
+      "id" : "idVSC_95_1_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
