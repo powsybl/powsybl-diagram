@@ -2490,6 +2490,32 @@ public final class Networks {
         return network;
     }
 
+    public static Network createBusbarLoadNetwork() {
+        Network network = Network.create("test", "test");
+        Substation s = Networks.createSubstation(network, SUBSTATION_ID, "s", Country.FR);
+        VoltageLevel vl = Networks.createVoltageLevel(s, VOLTAGELEVEL_1_ID, "vl", TopologyKind.NODE_BREAKER, 400.0);
+        //BBS node1
+        vl.getNodeBreakerView().newBusbarSection()
+                .setId("BBS1")
+                .setNode(1)
+                .add();
+        //LOAD node2
+        vl.newLoad()
+                .setId("L1")
+                .setNode(2)
+                .setP0(10.0)
+                .setQ0(2.0)
+                .add();
+        // breaker between node 1 and node 2
+        vl.getNodeBreakerView().newBreaker()
+                .setId("B1")
+                .setNode1(1)
+                .setNode2(2)
+                .setOpen(false)
+                .add();
+        return network;
+    }
+
     public static void createLine(Bus bus1, Bus bus2) {
         String id = String.format("%s - %s",
                 bus1.getVoltageLevel().getSubstation().orElseThrow().getId(),
