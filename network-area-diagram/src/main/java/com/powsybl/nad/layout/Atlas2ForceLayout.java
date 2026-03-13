@@ -65,7 +65,7 @@ public class Atlas2ForceLayout extends AbstractLayout {
             LOGGER.warn("The max steps of layoutParameters and Atlas2Parameters are different, ignoring layoutParameters");
         }
         LayoutContext<Node, Edge> layoutContext = new LayoutContext<>(graph.getJgraphtGraph(layoutParameters.isTextNodesForceLayout()));
-        double scale = SCALE_COEFFICIENT * Math.pow(layoutContext.getSimpleGraph().vertexSet().size(), SCALE_EXPONENT);
+        double scale = SCALE_COEFFICIENT * Math.pow(layoutContext.getSimpleGraph().vertexSet().size(), SCALE_EXPONENT) * layoutParameters.getScaleFactor();
         Layout<Node, Edge> layoutAlgorithmRunner = new Layout<>(
             this.setup,
             new Atlas2ForceLayoutAlgorithm<>(this.atlas2Parameters),
