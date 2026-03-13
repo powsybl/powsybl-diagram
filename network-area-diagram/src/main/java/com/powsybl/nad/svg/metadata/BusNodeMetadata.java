@@ -9,6 +9,8 @@ package com.powsybl.nad.svg.metadata;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -20,18 +22,21 @@ public class BusNodeMetadata extends AbstractMetadataItem {
     private final int index;
     private final String vlNodeId;
     private final String legend;
+    private final List<String> classes;
 
     public BusNodeMetadata(@JsonProperty("svgId") String svgId,
                            @JsonProperty("equipmentId") String equipmentId,
                            @JsonProperty("nbNeighbours") int nbNeighbours,
                            @JsonProperty("index") int index,
                            @JsonProperty("vlNode") String vlNodeId,
-                           @JsonProperty("legend") String legend) {
+                           @JsonProperty("legend") String legend,
+                           @JsonProperty("classes") List<String> classes) {
         super(svgId, equipmentId);
         this.nbNeighbours = nbNeighbours;
         this.index = index;
         this.vlNodeId = vlNodeId;
         this.legend = legend;
+        this.classes = classes;
     }
 
     @JsonProperty("nbNeighbours")
@@ -52,5 +57,11 @@ public class BusNodeMetadata extends AbstractMetadataItem {
     @JsonProperty("legend")
     public String getLegend() {
         return legend;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("classes")
+    public List<String> getClasses() {
+        return classes;
     }
 }

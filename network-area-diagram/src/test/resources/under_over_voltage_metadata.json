@@ -57,32 +57,38 @@
     "injectionEdgeLength" : 145.0,
     "injectionCircleRadius" : 25.0,
     "voltageLevelLegendsIncluded" : true,
-    "edgeInfosIncluded" : true,
-    "doubleArrowShiftFactorArrows" : 1.5,
-    "doubleArrowShiftFactorText" : 1.8
+    "edgeInfosIncluded" : true
   },
   "busNodes" : [ {
     "svgId" : "4",
     "equipmentId" : "vl1_0",
-    "nbNeighbours" : 0,
+    "nbNeighbours" : 1,
     "index" : 0,
     "vlNode" : "0",
-    "legend" : "400.0 kV / °",
-    "classes" : [ "nad-bus-0" ]
+    "legend" : "385.1 kV / °",
+    "classes" : [ "nad-overvoltage", "nad-bus-0" ]
   }, {
-    "svgId" : "8",
+    "svgId" : "5",
+    "equipmentId" : "vl1_1",
+    "nbNeighbours" : 1,
+    "index" : 1,
+    "vlNode" : "0",
+    "legend" : " kV / °",
+    "classes" : [ "nad-bus-1" ]
+  }, {
+    "svgId" : "9",
     "equipmentId" : "vl2_0",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "5",
-    "legend" : "410.0 kV / °",
-    "classes" : [ "nad-bus-0" ]
+    "vlNode" : "6",
+    "legend" : "388.0 kV / °",
+    "classes" : [ "nad-undervoltage", "nad-bus-0" ]
   }, {
-    "svgId" : "14",
+    "svgId" : "13",
     "equipmentId" : "dl1",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "13",
+    "vlNode" : "12",
     "classes" : [ "nad-bus-0" ]
   } ],
   "nodes" : [ {
@@ -95,16 +101,16 @@
     "legendHeader" : [ "Voltage level 1" ],
     "classes" : [ "nad-vl300to500" ]
   }, {
-    "svgId" : "5",
+    "svgId" : "6",
     "equipmentId" : "vl2",
     "x" : -230.42,
     "y" : 1.18,
-    "legendSvgId" : "6",
-    "legendEdgeSvgId" : "7",
+    "legendSvgId" : "7",
+    "legendEdgeSvgId" : "8",
     "legendHeader" : [ "Voltage level 2" ],
     "classes" : [ "nad-vl300to500" ]
   }, {
-    "svgId" : "13",
+    "svgId" : "12",
     "equipmentId" : "dl1",
     "x" : -49.12,
     "y" : 317.14,
@@ -119,43 +125,32 @@
     "vlNodeId" : "0"
   } ],
   "edges" : [ {
-    "svgId" : "9",
+    "svgId" : "10",
     "equipmentId" : "l1",
     "node1" : "0",
-    "node2" : "5",
+    "node2" : "6",
     "busNode1" : "4",
-    "busNode2" : "8",
+    "busNode2" : "9",
     "type" : "LineEdge",
-    "edgeInfo1" : {
-      "svgId" : "10",
-      "infoTypeA" : "ActivePower",
-      "infoTypeB" : "Current",
-      "direction" : "OUT",
-      "labelA" : "1,400",
-      "labelB" : "2,102"
-    },
-    "edgeInfo2" : {
-      "svgId" : "11",
-      "infoTypeA" : "ActivePower",
-      "infoTypeB" : "Current",
-      "direction" : "OUT",
-      "labelA" : "1,410",
-      "labelB" : "2,068"
-    },
-    "edgeInfoMiddle" : {
-      "svgId" : "12",
-      "infoTypeA" : "Name",
-      "labelA" : "l1"
-    },
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]
   }, {
-    "svgId" : "15",
+    "svgId" : "11",
+    "equipmentId" : "l2",
+    "node1" : "0",
+    "node2" : "6",
+    "busNode1" : "5",
+    "busNode2" : "9",
+    "type" : "LineEdge",
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-disconnected", "nad-vl300to500" ]
+  }, {
+    "svgId" : "14",
     "equipmentId" : "dl1",
-    "node1" : "5",
-    "node2" : "13",
-    "busNode1" : "8",
-    "busNode2" : "14",
+    "node1" : "6",
+    "node2" : "12",
+    "busNode1" : "9",
+    "busNode2" : "13",
     "type" : "DanglingLineEdge",
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]
@@ -169,9 +164,9 @@
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
   }, {
-    "svgId" : "6",
+    "svgId" : "7",
     "equipmentId" : "vl2",
-    "vlNode" : "5",
+    "vlNode" : "6",
     "shiftX" : 100.0,
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
