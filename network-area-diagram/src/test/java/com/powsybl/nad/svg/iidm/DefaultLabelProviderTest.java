@@ -132,6 +132,79 @@ class DefaultLabelProviderTest {
         assertTrue(optionalEdgeInfoSide2.isPresent());
         EdgeInfo edgeInfoSide2 = optionalEdgeInfoSide2.get();
         assertEquals("1,410.0", edgeInfoSide2.getLabelA().orElseThrow());
-        assertTrue(edgeInfoSide1.getLabelB().isEmpty());
+        assertTrue(edgeInfoSide2.getLabelB().isEmpty());
+    }
+
+    @Test
+    void testGetBranchEdgeInfoWithMultipleSideValues() {
+        Network network = Networks.createTwoVoltageLevels();
+        ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
+        DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.VALUE_PERMANENT_LIMIT_PERCENTAGE)
+            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+            .setDoubleArrowsDisplayed(true)
+            .build(network, valueFormatter);
+
+        String lineId = "l1";
+
+        // Add power values
+        Line line = network.getLine(lineId);
+        line.getTerminal1().setP(1400.0).setQ(400.0);
+        line.getTerminal2().setP(1410.0).setQ(410.0);
+
+        // Add current limits
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits()
+            .setPermanentLimit(2000.0)
+            .beginTemporaryLimit()
+            .setName("20'")
+            .setValue(2100)
+            .setAcceptableDuration(20 * 60)
+            .endTemporaryLimit()
+            .beginTemporaryLimit()
+            .setName("10'")
+            .setValue(2200.0)
+            .setAcceptableDuration(10 * 60)
+            .endTemporaryLimit()
+            .add();
+        line.getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits()
+            .setPermanentLimit(2000.0)
+            .beginTemporaryLimit()
+            .setName("20'")
+            .setValue(2100)
+            .setAcceptableDuration(20 * 60)
+            .endTemporaryLimit()
+            .beginTemporaryLimit()
+            .setName("10'")
+            .setValue(2400.0)
+            .setAcceptableDuration(10 * 60)
+            .endTemporaryLimit()
+            .add();
+
+        // Add voltage values
+        line.getTerminal1().getBusBreakerView().getBus().setV(400.0);
+        line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
+
+        // Middle
+        Optional<EdgeInfo> optionalEdgeInfoMiddle = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoMiddle.isPresent());
+        EdgeInfo middleEdgeInfo = optionalEdgeInfoMiddle.get();
+        assertEquals(lineId, middleEdgeInfo.getLabelA().orElseThrow());
+        assertEquals("105.1 %", middleEdgeInfo.getLabelB().orElseThrow());
+
+        // Side 1
+        Optional<EdgeInfo> optionalEdgeInfoSide1 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide1.isPresent());
+        EdgeInfo edgeInfoSide1 = optionalEdgeInfoSide1.get();
+        assertEquals("1,400.0", edgeInfoSide1.getLabelA().orElseThrow());
+        assertEquals("400.0", edgeInfoSide1.getLabelB().orElseThrow());
+
+        // Side 2
+        Optional<EdgeInfo> optionalEdgeInfoSide2 = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.TWO, BranchEdge.LINE_EDGE);
+        assertTrue(optionalEdgeInfoSide2.isPresent());
+        EdgeInfo edgeInfoSide2 = optionalEdgeInfoSide2.get();
+        assertEquals("1,410.0", edgeInfoSide2.getLabelA().orElseThrow());
+        assertEquals("410.0", edgeInfoSide2.getLabelB().orElseThrow());
     }
 }

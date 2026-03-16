@@ -131,10 +131,23 @@ public class DefaultLabelProvider implements LabelProvider {
         }
         Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
         Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
-        double referenceValue = getReferenceValue(terminal, infoEnum2).orElse(getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
+
         if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
             return Optional.empty();
         }
+
+        if (parameters.isDoubleArrowsDisplayed()) {
+            return Optional.of(new EdgeInfo(
+                getDisplayedType(infoEnum1),
+                getDisplayedType(infoEnum2),
+                getReferenceValue(terminal, infoEnum1).orElse(Double.NaN),
+                getReferenceValue(terminal, infoEnum2).orElse(Double.NaN),
+                optionalValue1.orElse(null),
+                optionalValue2.orElse(null)
+            ));
+        }
+
+        double referenceValue = getReferenceValue(terminal, infoEnum2).orElseGet(() -> getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
         return Optional.of(new EdgeInfo(
             getDisplayedType(infoEnum1),
             getDisplayedType(infoEnum2),
@@ -291,6 +304,11 @@ public class DefaultLabelProvider implements LabelProvider {
 
         public Builder setVoltageLevelDetails(boolean voltageLevelDetails) {
             this.parameters.setVoltageLevelDetails(voltageLevelDetails);
+            return this;
+        }
+
+        public Builder setDoubleArrowsDisplayed(boolean doubleArrowsDisplayed) {
+            this.parameters.setDoubleArrowsDisplayed(doubleArrowsDisplayed);
             return this;
         }
 
