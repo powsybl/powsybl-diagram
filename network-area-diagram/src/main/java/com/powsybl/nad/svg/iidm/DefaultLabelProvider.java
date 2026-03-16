@@ -109,6 +109,16 @@ public class DefaultLabelProvider implements LabelProvider {
         return new VoltageLevelLegend(getLegendHeader(vl), getLegendFooter(vl), busLegend);
     }
 
+    public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
+        this.displayAngle = displayAngle;
+        return this;
+    }
+
+    public DefaultLabelProvider setDisplayWithAbs(boolean displayWithAbs) {
+        this.displayWithAbs = displayWithAbs;
+        return this;
+    }
+
     protected Network getNetwork() {
         return this.network;
     }
@@ -329,15 +339,5 @@ public class DefaultLabelProvider implements LabelProvider {
                                      EdgeInfoEnum infoMiddleSide1,
                                      EdgeInfoEnum infoMiddleSide2,
                                      EdgeInfoEnum infoSideInternal) {
-    }
-
-    public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
-        this.displayAngle = displayAngle;
-        return this;
-    }
-
-    public DefaultLabelProvider setDisplayWithAbs(boolean displayWithAbs) {
-        this.displayWithAbs = displayWithAbs;
-        return this;
     }
 }
