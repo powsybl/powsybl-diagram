@@ -8,6 +8,9 @@ package com.powsybl.sld.model.nodes;
 
 import static com.powsybl.sld.library.SldComponentTypeName.TEE_POINT;
 
+/**
+ * @author Giovanni Ferrari {@literal <giovani.ferrari at soft.it>}
+ */
 public class TeePointNode extends EquipmentNode {
 
     public TeePointNode(String id, String name, String equipmentId) {
