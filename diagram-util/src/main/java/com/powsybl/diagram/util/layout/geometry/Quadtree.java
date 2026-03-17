@@ -171,7 +171,7 @@ public class Quadtree {
         node.bottomLeftIndex = buildQuadtree(nodesList, points.subList(ySplitIndex, xUpperSplitIndex), topLeftBb, massGetter, points.size(), remainingDepth - 1);
         node.bottomRightIndex = buildQuadtree(nodesList, points.subList(xUpperSplitIndex, points.size()), topRightBb, massGetter, points.size(), remainingDepth - 1);
 
-        setNodeBarycenter(nodesList, node);
+        node.nodeBarycenter = createNodeBarycenter(nodesList, node.getRealChildrenNodeIndex());
 
         return newNodeIndex;
 
@@ -240,13 +240,12 @@ public class Quadtree {
      * Set the mass and position of the barycenter of a node that is not a leaf node (ie it has at least one children node, otherwise it would be a leaf node,
      * in which case, use {@link #createLeafBarycenter(List, ToDoubleFunction)}
      * @param nodeList all the nodes
-     * @param node the node for which we are calculating the barycenter
+     * @param nodeChildrenIndex the indexes of the children node of the current node
      */
-    private void setNodeBarycenter(List<QuadtreeNode> nodeList, QuadtreeNode node) {
-        int[] barycenterIndex = node.getRealChildrenNodeIndex();
+    private Point createNodeBarycenter(List<QuadtreeNode> nodeList, int[] nodeChildrenIndex) {
         Vector2D barycenterPosition = new Vector2D();
         double totalBarycenterMass = 0;
-        for (int index : barycenterIndex) {
+        for (int index : nodeChildrenIndex) {
             // get the mass / position of each quadrant and do a weighted sum (quite literally)
             Point quadrantBarycenter = nodeList.get(index).nodeBarycenter;
             // do not use the massGetter, that's only for leaf nodes, quadrants contain leaf which already have their correct mass set
@@ -255,7 +254,7 @@ public class Quadtree {
             totalBarycenterMass += quadrantMass;
         }
         barycenterPosition.divideBy(totalBarycenterMass);
-        node.nodeBarycenter = new Point(barycenterPosition.getX(), barycenterPosition.getY(), totalBarycenterMass);
+        return new Point(barycenterPosition.getX(), barycenterPosition.getY(), totalBarycenterMass);
     }
 
     /**
