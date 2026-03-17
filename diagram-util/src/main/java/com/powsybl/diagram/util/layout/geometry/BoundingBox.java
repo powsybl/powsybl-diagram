@@ -5,6 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
+
 package com.powsybl.diagram.util.layout.geometry;
 
 import java.util.Collection;
@@ -12,18 +13,9 @@ import java.util.Collection;
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
-public final class BoundingBox {
+public record BoundingBox(double left, double top, double right, double bottom) {
 
-    private final double left;
-    private final double bottom;
-    private final double right;
-    private final double top;
-
-    private BoundingBox(double left, double top, double right, double bottom) {
-        this.left = left;
-        this.top = top;
-        this.right = right;
-        this.bottom = bottom;
+    public BoundingBox {
         // top is the smallest y, bottom the biggest y
         // axes are:
         // (0, 0) ---> x
@@ -35,10 +27,11 @@ public final class BoundingBox {
     }
 
     public static BoundingBox computeBoundingBox(Collection<Point> points) {
-        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(0);
-        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(0);
-        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(0);
-        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(0);
+        // using Double.MAX_VALUE this way the box for no points is the identity element for box fusion
+        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(-Double.MAX_VALUE);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(Double.MAX_VALUE);
+        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(Double.MAX_VALUE);
+        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(-Double.MAX_VALUE);
         return new BoundingBox(left, top, right, bottom);
     }
 
@@ -58,19 +51,7 @@ public final class BoundingBox {
         return right - left;
     }
 
-    public double getLeft() {
-        return left;
-    }
-
-    public double getTop() {
-        return top;
-    }
-
-    public double getBottom() {
-        return bottom;
-    }
-
-    public double getRight() {
-        return right;
+    public Vector2D getCenter() {
+        return new Vector2D((left + right) / 2, (top + bottom) / 2);
     }
 }

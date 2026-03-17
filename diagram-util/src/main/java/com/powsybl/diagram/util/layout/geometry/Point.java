@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  */
 public class Point {
-    private static final double DEFAULT_MASS = 1.0;
+    public static final double DEFAULT_MASS = 1.0;
 
     private Vector2D position;
     private Vector2D velocity;
@@ -25,7 +25,7 @@ public class Point {
      * The sum of all the forces currently applied to this point
      */
     private Vector2D forces;
-    private final double mass;
+    private double mass;
     /**
      * The degree of the vertex corresponding to this point, e.g. the number of edges of that vertex, used by some forces for calculations
      * We store it here so we don't have to query JGraphT multiple times for the value (because JGraphT does not store it, so caching the value is faster)
@@ -80,6 +80,10 @@ public class Point {
 
     public double getMass() {
         return this.mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 
     public void resetForces() {

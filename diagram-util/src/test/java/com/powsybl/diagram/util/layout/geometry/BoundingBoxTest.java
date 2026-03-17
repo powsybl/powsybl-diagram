@@ -29,10 +29,10 @@ class BoundingBoxTest {
 
         assertEquals(4.0, bbox.getWidth(), 0.0);
         assertEquals(4.0, bbox.getHeight(), 0.0);
-        assertEquals(1.0, bbox.getLeft(), 0.0);
-        assertEquals(2.0, bbox.getTop(), 0.0);
-        assertEquals(5.0, bbox.getRight(), 0.0);
-        assertEquals(6.0, bbox.getBottom(), 0.0);
+        assertEquals(1.0, bbox.left(), 0.0);
+        assertEquals(2.0, bbox.top(), 0.0);
+        assertEquals(5.0, bbox.right(), 0.0);
+        assertEquals(6.0, bbox.bottom(), 0.0);
     }
 
     @Test
@@ -57,9 +57,9 @@ class BoundingBoxTest {
 
         assertEquals(9, finalBbox.getWidth(), 0.0);
         assertEquals(11, finalBbox.getHeight(), 0.0);
-        assertEquals(-4, finalBbox.getLeft(), 0.0);
-        assertEquals(-2, finalBbox.getTop(), 0.0);
-        assertEquals(5.0, finalBbox.getRight(), 0.0);
-        assertEquals(9, finalBbox.getBottom(), 0.0);
+        assertEquals(-4, finalBbox.left(), 0.0);
+        assertEquals(-2, finalBbox.top(), 0.0);
+        assertEquals(5.0, finalBbox.right(), 0.0);
+        assertEquals(9, finalBbox.bottom(), 0.0);
     }
 }
