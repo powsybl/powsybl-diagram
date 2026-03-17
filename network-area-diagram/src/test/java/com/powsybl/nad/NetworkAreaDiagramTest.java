@@ -18,6 +18,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -72,7 +73,8 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Path svgFile = fileSystem.getPath("nad-test.svg");
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
-                .setStyleProviderFactory(this::getStyleProvider);
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLayoutFactory(new BasicForceLayoutFactory());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
         assertFileEquals("/dangling_line_connected.svg", svgFile);
     }
@@ -267,6 +269,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
@@ -289,6 +292,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
@@ -312,6 +316,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
             .setSvgParameters(getSvgParameters())
+            .setLayoutFactory(new BasicForceLayoutFactory())
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
@@ -340,6 +345,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
             .setEdgeInfoAlongEdge(false);
         NadParameters nadParameters = new NadParameters()
             .setSvgParameters(svgParameters)
+            .setLayoutFactory(new BasicForceLayoutFactory())
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
