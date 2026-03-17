@@ -269,6 +269,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
@@ -291,6 +292,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
@@ -314,6 +316,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         NadParameters nadParameters = new NadParameters()
             .setSvgParameters(getSvgParameters())
+            .setLayoutFactory(new BasicForceLayoutFactory())
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
@@ -342,6 +345,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
             .setEdgeInfoAlongEdge(false);
         NadParameters nadParameters = new NadParameters()
             .setSvgParameters(svgParameters)
+            .setLayoutFactory(new BasicForceLayoutFactory())
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
