@@ -40,7 +40,6 @@ public class BasicForceLayout extends AbstractLayout {
     private boolean attractToCenterForce = true;
     private BasicForceLayoutParameters parameters = null;
 
-    //TODO maybe deprecate this in favour of directly giving the BasicForceLayoutParameters, to be consistent with Atlas2ForceLayout
     public BasicForceLayout() {
         //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed and maxSteps / timeout are not in the layoutParameters / BasicForceLayoutParamters
     }
