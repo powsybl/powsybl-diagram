@@ -7,6 +7,8 @@
  */
 package com.powsybl.diagram.util.layout.geometry;
 
+import java.util.Objects;
+
 /**
  * @author Mathilde Grapin {@literal <mathilde.grapin at rte-france.com>}
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -21,7 +23,7 @@ public class Vector2D {
     }
 
     public Vector2D() {
-        new Vector2D(0, 0);
+        this(0, 0);
     }
 
     public Vector2D(Vector2D otherVector) {
@@ -40,6 +42,17 @@ public class Vector2D {
     public void add(Vector2D otherVector) {
         this.x += otherVector.x;
         this.y += otherVector.y;
+    }
+
+    /**
+     * Scale the <code>otherVector</code> by the <code>scalingFactor</code> and add it to this vector.
+     * Note that the <code>otherVector</code> is not modified by this operation.
+     * @param otherVector the other vector we want to add
+     * @param scalingFactor how to scale the other vector before adding it to this vector
+     */
+    public void addScaled(Vector2D otherVector, double scalingFactor) {
+        this.x += otherVector.x * scalingFactor;
+        this.y += otherVector.y * scalingFactor;
     }
 
     public void subtract(Vector2D otherVector) {
@@ -93,6 +106,23 @@ public class Vector2D {
         } else {
             return new Vector2D(0, 0);
         }
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj == null) {
+            return false;
+        } else if (obj instanceof Vector2D vector2D) {
+            return this.x == vector2D.x && this.y == vector2D.y;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
     }
 }

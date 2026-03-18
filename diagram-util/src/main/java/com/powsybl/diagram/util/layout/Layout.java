@@ -47,7 +47,7 @@ public class Layout<V, E> {
     public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm, PostProcessing<V, E> postProcessing) {
         this.setup = Objects.requireNonNull(setup);
         this.layoutAlgorithm = Objects.requireNonNull(layoutAlgorithm);
-        this.postProcessing = postProcessing;
+        this.postProcessing = Objects.requireNonNull(postProcessing);
     }
 
     /**

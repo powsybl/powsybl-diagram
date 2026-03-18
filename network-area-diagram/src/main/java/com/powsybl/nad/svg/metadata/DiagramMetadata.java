@@ -232,8 +232,11 @@ public class DiagramMetadata extends AbstractMetadata {
                 edgeInfo.getInfoTypeA(),
                 edgeInfo.getInfoTypeB(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionA().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionB().map(Enum::name).orElse(null),
                 edgeInfo.getLabelA().orElse(null),
-                edgeInfo.getLabelB().orElse(null));
+                edgeInfo.getLabelB().orElse(null),
+                edgeInfo.getComponentType().orElse(null));
     }
 
     private String getPrefixedId(String id) {

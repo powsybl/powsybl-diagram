@@ -57,7 +57,9 @@
     "injectionEdgeLength" : 145.0,
     "injectionCircleRadius" : 25.0,
     "voltageLevelLegendsIncluded" : true,
-    "edgeInfosIncluded" : true
+    "edgeInfosIncluded" : true,
+    "doubleArrowShiftFactorArrows" : 1.5,
+    "doubleArrowShiftFactorText" : 1.8
   },
   "busNodes" : [ {
     "svgId" : "3",
@@ -135,8 +137,8 @@
   "nodes" : [ {
     "svgId" : "0",
     "equipmentId" : "VL1",
-    "x" : -249.02,
-    "y" : 337.72,
+    "x" : -2400.85,
+    "y" : -214.52,
     "legendSvgId" : "1",
     "legendEdgeSvgId" : "2",
     "legendHeader" : [ "VL1" ],
@@ -144,8 +146,8 @@
   }, {
     "svgId" : "4",
     "equipmentId" : "VL2",
-    "x" : -241.09,
-    "y" : -38.49,
+    "x" : -1923.44,
+    "y" : -752.45,
     "legendSvgId" : "5",
     "legendEdgeSvgId" : "6",
     "legendHeader" : [ "VL2" ],
@@ -153,8 +155,8 @@
   }, {
     "svgId" : "8",
     "equipmentId" : "VL3",
-    "x" : -379.91,
-    "y" : -377.15,
+    "x" : -1623.19,
+    "y" : -1357.95,
     "legendSvgId" : "9",
     "legendEdgeSvgId" : "10",
     "legendHeader" : [ "VL3" ],
@@ -162,8 +164,8 @@
   }, {
     "svgId" : "12",
     "equipmentId" : "VL4",
-    "x" : 43.65,
-    "y" : -307.91,
+    "x" : -959.02,
+    "y" : -983.49,
     "legendSvgId" : "13",
     "legendEdgeSvgId" : "14",
     "legendHeader" : [ "VL4" ],
@@ -171,8 +173,8 @@
   }, {
     "svgId" : "16",
     "equipmentId" : "VL5",
-    "x" : 103.37,
-    "y" : 126.77,
+    "x" : -1772.18,
+    "y" : -7.46,
     "legendSvgId" : "17",
     "legendEdgeSvgId" : "18",
     "legendHeader" : [ "VL5" ],
@@ -180,8 +182,8 @@
   }, {
     "svgId" : "20",
     "equipmentId" : "VL8",
-    "x" : 409.59,
-    "y" : 481.85,
+    "x" : 806.87,
+    "y" : -973.72,
     "legendSvgId" : "21",
     "legendEdgeSvgId" : "22",
     "legendHeader" : [ "VL8" ],
@@ -189,8 +191,8 @@
   }, {
     "svgId" : "24",
     "equipmentId" : "VL6",
-    "x" : 683.08,
-    "y" : 250.21,
+    "x" : -1818.82,
+    "y" : 702.99,
     "invisible" : true,
     "legendSvgId" : "25",
     "legendEdgeSvgId" : "26",
@@ -199,8 +201,8 @@
   }, {
     "svgId" : "28",
     "equipmentId" : "VL7",
-    "x" : 443.55,
-    "y" : -67.88,
+    "x" : 233.15,
+    "y" : -1001.04,
     "invisible" : true,
     "legendSvgId" : "29",
     "legendEdgeSvgId" : "30",
@@ -209,8 +211,8 @@
   }, {
     "svgId" : "32",
     "equipmentId" : "VL9",
-    "x" : 95.54,
-    "y" : -762.33,
+    "x" : -650.84,
+    "y" : -1622.17,
     "invisible" : true,
     "legendSvgId" : "33",
     "legendEdgeSvgId" : "34",
