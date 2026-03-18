@@ -8,10 +8,11 @@
 package com.powsybl.sld.layout.zonebygrid;
 
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.pathfinding.Grid;
+import com.powsybl.sld.layout.pathfinding.AvailabilityGrid;
 import com.powsybl.sld.layout.pathfinding.PathFinder;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.PointInteger;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
@@ -73,12 +74,12 @@ public class MatrixZoneLayoutModel {
         // remember that the y-axis is oriented downwards, meaning the smallest y is the one closest to the top of the image
         switch (direction) {
             case TOP -> {
-                pathMinY = (int) (pointY - vlPadding.getTop());
+                pathMinY = (int) (pointY - vlPadding.top());
                 pathMaxY = (int) pointY;
             }
             case BOTTOM -> {
                 pathMinY = (int) pointY;
-                pathMaxY = (int) (pointY + vlPadding.getBottom());
+                pathMaxY = (int) (pointY + vlPadding.bottom());
             }
             default -> {
                 LOGGER.error("Unknown direction for inserting a free path in substation: Point: {} | Direction: {}", point, direction);
@@ -128,8 +129,8 @@ public class MatrixZoneLayoutModel {
 
                 LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
 
-                for (int x = xGraph - ((int) vlPadding.getLeft() - 1); x < xGraph + widthNoPadding + (int) vlPadding.getRight(); x++) {
-                    for (int y = yGraph - ((int) vlPadding.getTop() - 1); y < yGraph + heightNoPadding + (int) vlPadding.getBottom(); y++) {
+                for (int x = xGraph - ((int) vlPadding.left() - 1); x < xGraph + widthNoPadding + (int) vlPadding.right(); x++) {
+                    for (int y = yGraph - ((int) vlPadding.top() - 1); y < yGraph + heightNoPadding + (int) vlPadding.bottom(); y++) {
                         pathFinderGrid.makeNotAvailable(x, y);
                     }
                 }
