@@ -7,6 +7,9 @@
  */
 package com.powsybl.sld.layout.pathfinding;
 
+import com.powsybl.sld.layout.pathfinding.geometry.Headings;
+import com.powsybl.sld.layout.pathfinding.geometry.PathNode;
+import com.powsybl.sld.layout.pathfinding.geometry.PointHeading;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.PointInteger;
 import org.slf4j.Logger;
@@ -14,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.layout.pathfinding.Headings.isRightAngle;
+import static com.powsybl.sld.layout.pathfinding.geometry.Headings.isRightAngle;
 
 /**
  * Implementation of the A* algorithm for finding the shortest path between two points. This also adds some constraints,
