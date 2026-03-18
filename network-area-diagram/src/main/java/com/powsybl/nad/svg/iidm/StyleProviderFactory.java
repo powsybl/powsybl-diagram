@@ -5,14 +5,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.svg.StyleProvider;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 @FunctionalInterface

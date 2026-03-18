@@ -7,11 +7,12 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
-import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.graphs.BaseGraph;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
@@ -73,16 +74,16 @@ public class Matrix {
     protected int getX(int col) {
         int matrixCellWidth = 0;
         for (int c = 0; c < col; c++) {
-            matrixCellWidth += getMatrixCellWidth(c);
+            matrixCellWidth += (int) getMatrixCellWidth(c);
         }
-        return (int) diagramPadding.getLeft() + ((col + 1) * snakelinePadding) + matrixCellWidth;
+        return (int) diagramPadding.left() + ((col + 1) * snakelinePadding) + matrixCellWidth;
     }
 
     protected int getY(int row) {
         int matrixCellHeight = 0;
         for (int r = 0; r < row; r++) {
-            matrixCellHeight += getMatrixCellHeight(r);
+            matrixCellHeight += (int) getMatrixCellHeight(r);
         }
-        return (int) diagramPadding.getTop() + (row + 1) * snakelinePadding + matrixCellHeight;
+        return (int) diagramPadding.top() + (row + 1) * snakelinePadding + matrixCellHeight;
     }
 }

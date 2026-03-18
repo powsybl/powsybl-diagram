@@ -93,10 +93,10 @@ public abstract class AbstractLayout implements Layout {
     protected void fixedTextNodeLayout(Pair<VoltageLevelNode, TextNode> nodes, LayoutParameters layoutParameters) {
         TextPosition fixedTextPosition = textNodesWithFixedPosition.get(nodes.getFirst().getEquipmentId());
         Point textShift = fixedTextPosition != null ? fixedTextPosition.topLeftPosition() : layoutParameters.getTextNodeFixedShift();
-        Point textPosition = nodes.getFirst().getPosition().shift(textShift.getX(), textShift.getY());
+        Point textPosition = nodes.getFirst().getPosition().shift(textShift.x(), textShift.y());
         Point connectionShift = fixedTextPosition != null ? fixedTextPosition.edgeConnection() :
-                new Point(layoutParameters.getTextNodeFixedShift().getX(), layoutParameters.getTextNodeFixedShift().getY() + layoutParameters.getTextNodeEdgeConnectionYShift());
-        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.getX(), connectionShift.getY());
+                new Point(layoutParameters.getTextNodeFixedShift().x(), layoutParameters.getTextNodeFixedShift().y() + layoutParameters.getTextNodeEdgeConnectionYShift());
+        Point edgeConnection = nodes.getFirst().getPosition().shift(connectionShift.x(), connectionShift.y());
         nodes.getSecond().setPosition(textPosition);
         nodes.getSecond().setEdgeConnection(edgeConnection);
     }

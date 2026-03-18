@@ -7,48 +7,26 @@
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Injection;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.StaticVarCompensator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class InjectionDiagramData<T extends Injection<T>> extends AbstractExtension<T> {
 
     static final String NAME = "injection-diagram-data";
-
-    public class InjectionDiagramDetails {
-        private final DiagramPoint point;
-        private final double rotation;
-        private List<DiagramPoint> terminalPoints = new ArrayList<>();
-
-        public InjectionDiagramDetails(DiagramPoint point, double rotation) {
-            this.point = Objects.requireNonNull(point);
-            this.rotation = Objects.requireNonNull(rotation);
-        }
-
-        public void addTerminalPoint(DiagramPoint point) {
-            Objects.requireNonNull(point);
-            terminalPoints.add(point);
-        }
-
-        public DiagramPoint getPoint() {
-            return point;
-        }
-
-        public double getRotation() {
-            return rotation;
-        }
-
-        public List<DiagramPoint> getTerminalPoints() {
-            return terminalPoints.stream().sorted().collect(Collectors.toList());
-        }
-    }
-
-    private Map<String, InjectionDiagramDetails> diagramsDetails = new HashMap<>();
+    private final Map<String, InjectionDiagramDetails> diagramsDetails = new HashMap<>();
 
     private InjectionDiagramData(T injection) {
         super(injection);
@@ -88,5 +66,33 @@ public class InjectionDiagramData<T extends Injection<T>> extends AbstractExtens
 
     public List<String> getDiagramsNames() {
         return new ArrayList<>(diagramsDetails.keySet());
+    }
+
+    public static class InjectionDiagramDetails {
+        private final DiagramPoint point;
+        private final double rotation;
+        private final List<DiagramPoint> terminalPoints = new ArrayList<>();
+
+        public InjectionDiagramDetails(DiagramPoint point, double rotation) {
+            this.point = Objects.requireNonNull(point);
+            this.rotation = rotation;
+        }
+
+        public void addTerminalPoint(DiagramPoint point) {
+            Objects.requireNonNull(point);
+            terminalPoints.add(point);
+        }
+
+        public DiagramPoint getPoint() {
+            return point;
+        }
+
+        public double getRotation() {
+            return rotation;
+        }
+
+        public List<DiagramPoint> getTerminalPoints() {
+            return terminalPoints.stream().sorted().collect(Collectors.toList());
+        }
     }
 }

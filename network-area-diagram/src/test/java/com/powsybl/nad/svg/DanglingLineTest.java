@@ -36,8 +36,7 @@ class DanglingLineTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters()) {
-        };
+        return new DefaultLabelProvider(network, getSvgParameters());
     }
 
     @Test

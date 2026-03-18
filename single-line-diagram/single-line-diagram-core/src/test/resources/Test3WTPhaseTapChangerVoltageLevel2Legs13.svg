@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -240,10 +242,10 @@
                     <path class="sld-vl120to180 sld-bus-0 sld-winding" d="M2.5,15 13.5,25 M11.5,25 13.5,25 13.5,23"/>
                 </g>
                 <g class="sld-top-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_TWO" transform="translate(115.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_TWO_95_N_95_LABEL" x="-5.0" y="-11.0">3WT</text>
                 </g>
                 <g class="sld-top-feeder sld-vl120to180 sld-bus-0" id="id3WT_95_THREE" transform="translate(165.0,80.0)">
-                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-5.0">3WT</text>
+                    <text class="sld-label" id="id3WT_95_THREE_95_N_95_LABEL" x="-5.0" y="-11.0">3WT</text>
                 </g>
             </g>
         </g>

@@ -279,7 +279,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -293,7 +293,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 
 }

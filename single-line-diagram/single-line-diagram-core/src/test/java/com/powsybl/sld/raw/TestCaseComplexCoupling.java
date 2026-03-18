@@ -56,6 +56,6 @@ class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", componentLibrary, layoutParameters, svgParameters, getLabelRawProvider(), new BasicStyleProvider(), getLegendRawProvider()));
     }
 }

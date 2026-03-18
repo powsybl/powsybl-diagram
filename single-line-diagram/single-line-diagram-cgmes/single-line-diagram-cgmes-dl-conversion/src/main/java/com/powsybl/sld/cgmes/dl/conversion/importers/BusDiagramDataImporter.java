@@ -6,29 +6,27 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import java.util.Objects;
-
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.triplestore.api.PropertyBag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.triplestore.api.PropertyBag;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class BusDiagramDataImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(BusDiagramDataImporter.class);
 
-    private Network network;
+    private final Network network;
 
     public BusDiagramDataImporter(Network network) {
         this.network = Objects.requireNonNull(network);
@@ -47,9 +45,9 @@ public class BusDiagramDataImporter {
                     busIidmDiagramData = new NodeDiagramData<>(bus);
                 }
                 String diagramName = busDiagramData.get("diagramName");
-                NodeDiagramData<Bus>.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
+                NodeDiagramData.NodeDiagramDataDetails diagramDetails = busIidmDiagramData.getData(diagramName);
                 if (diagramDetails == null) {
-                    diagramDetails = busIidmDiagramData.new NodeDiagramDataDetails();
+                    diagramDetails = new NodeDiagramData.NodeDiagramDataDetails();
                 }
                 if (busDiagramData.asInt("seq") == 1) {
                     diagramDetails.setPoint1(new DiagramPoint(busDiagramData.asDouble("x"), busDiagramData.asDouble("y"), busDiagramData.asInt("seq")));

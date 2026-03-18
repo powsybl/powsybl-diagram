@@ -46,6 +46,6 @@ class TestComplexParallelLegsInternalPst extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         String filename = "/TestComplexParallelLegsInternalPst.svg";
 
-        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString(filename), toSVG(g, filename, getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

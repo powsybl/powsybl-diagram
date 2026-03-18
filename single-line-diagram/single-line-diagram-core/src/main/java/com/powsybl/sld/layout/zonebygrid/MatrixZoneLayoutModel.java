@@ -7,16 +7,18 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
-import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.model.coordinate.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.pathfinding.Grid;
+import com.powsybl.sld.layout.pathfinding.PathFinder;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}

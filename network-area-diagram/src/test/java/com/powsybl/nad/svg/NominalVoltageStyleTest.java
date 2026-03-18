@@ -19,6 +19,8 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -30,7 +32,6 @@ class NominalVoltageStyleTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
     }
@@ -42,7 +43,9 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setVoltageLevelDetails(false)
+            .build(network, getSvgParameters());
     }
 
     @Test
@@ -95,7 +98,7 @@ class NominalVoltageStyleTest extends AbstractTest {
 
     @Test
     void testIEEE24() {
-        Network network = NetworkSerDe.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
+        Network network = NetworkSerDe.read(Objects.requireNonNull(getClass().getResourceAsStream("/IEEE_24_bus.xiidm")));
         assertSvgEquals("/IEEE_24_bus.svg", network);
     }
 
