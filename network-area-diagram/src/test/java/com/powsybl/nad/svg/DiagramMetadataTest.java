@@ -29,6 +29,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -157,12 +159,16 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        StyleProvider styleProvider = new TopologicalStyleProvider(network);
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLabelProvider(network), layoutParameters, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, layoutParameters);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        StyleProvider styleProvider = new TopologicalStyleProvider(network);
-        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph, styleProvider).writeJson(outMetadataPath);
+        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        assertNotNull(graph.getCssUrls());
+        assertNotNull(graph.getCssFilenames());
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file

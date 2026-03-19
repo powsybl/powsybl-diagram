@@ -111,8 +111,9 @@ class EdgeInfoSvgComponentTest extends AbstractTest {
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, mylabelProvider, getLayoutParameters(), new IntIdProvider()).buildGraph();
         BasicForceLayout layout = new BasicForceLayout();
         layout.run(graph, getLayoutParameters());
+        NetworkGraphBuilder.applyStyle(graph, getStyleProvider(network));
         StringWriter writer = new StringWriter();
-        SvgWriter svgWriter = new SvgWriter(getSvgParameters(), getStyleProvider(network), getComponentLibrary(), getEdgeRouting());
+        SvgWriter svgWriter = new SvgWriter(getSvgParameters(), getComponentLibrary(), getEdgeRouting());
         PowsyblException e = assertThrows(PowsyblException.class, () -> svgWriter.writeSvg(graph, writer));
         assertTrue(e.getMessage().contains("Cannot find size for component of type UNKNOWN"));
     }

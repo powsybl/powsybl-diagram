@@ -73,10 +73,11 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(svgFile);
         Objects.requireNonNull(param);
 
-        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
         StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
-        createSvgWriter(param, styleProvider).writeSvg(graph, svgFile);
-        createMetadata(graph, param, styleProvider).writeJson(getMetadataPath(svgFile));
+        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, svgFile);
+        createMetadata(graph, param).writeJson(getMetadataPath(svgFile));
     }
 
     public static void draw(Network network, Writer writer, Writer metadataWriter, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -85,14 +86,15 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(metadataWriter);
         Objects.requireNonNull(param);
 
-        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
         StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
-        createSvgWriter(param, styleProvider).writeSvg(graph, writer);
-        createMetadata(graph, param, styleProvider).writeJson(metadataWriter);
+        Graph graph = getLayoutResult(network, param, voltageLevelFilter);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, writer);
+        createMetadata(graph, param).writeJson(metadataWriter);
     }
 
-    private static DiagramMetadata createMetadata(Graph graph, NadParameters param, StyleProvider styleProvider) {
-        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).addMetadata(graph, styleProvider);
+    private static DiagramMetadata createMetadata(Graph graph, NadParameters param) {
+        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).addMetadata(graph);
     }
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {
@@ -103,9 +105,9 @@ public final class NetworkAreaDiagram {
         return graph;
     }
 
-    private static SvgWriter createSvgWriter(NadParameters param, StyleProvider styleProvider) {
-        return new SvgWriter(param.getSvgParameters(), styleProvider,
-                param.getComponentLibrary(), param.getEdgeRouting());
+    private static SvgWriter createSvgWriter(NadParameters param) {
+        return new SvgWriter(param.getSvgParameters(), param.getComponentLibrary(),
+                param.getEdgeRouting());
     }
 
     private static Path getMetadataPath(Path svgPath) {

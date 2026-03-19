@@ -11,6 +11,7 @@ import com.powsybl.nad.build.iidm.IdProvider;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.SvgEdgeInfo;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,8 @@ public class Injection extends AbstractIdentifiable {
     private Point busNodePoint;
     private Point arrowPoint;
     private final SvgEdgeInfo svgEdgeInfo;
+    private List<String> styleClasses = Collections.emptyList();
+    private String styleClass;
 
     public Injection(IdProvider idProvider, String equipmentId, String nameOrId, Type type, EdgeInfo edgeInfo) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId);
@@ -92,5 +95,21 @@ public class Injection extends AbstractIdentifiable {
 
     public Optional<SvgEdgeInfo> getSvgEdgeInfo() {
         return Optional.ofNullable(svgEdgeInfo);
+    }
+
+    public List<String> getStyleClasses() {
+        return styleClasses;
+    }
+
+    public void setStyleClasses(List<String> styleClasses) {
+        this.styleClasses = styleClasses;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 }

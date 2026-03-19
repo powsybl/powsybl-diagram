@@ -33,6 +33,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -75,10 +77,14 @@ public abstract class AbstractTest {
     }
 
     protected void assertSvgEquals(String resourceName, Network network, Predicate<VoltageLevel> voltageLevelFilter, AbstractLayout layout) {
+        StyleProvider styleProvider = getStyleProvider(network);
         Graph graph = new NetworkGraphBuilder(network, voltageLevelFilter, getLabelProvider(network), getLayoutParameters(), new IntIdProvider()).buildGraph();
         layout.run(graph, getLayoutParameters());
+        assertFalse(graph.isStyleApplied());
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         StringWriter writer = new StringWriter();
-        new SvgWriter(getSvgParameters(), getStyleProvider(network), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
+        new SvgWriter(getSvgParameters(), getComponentLibrary(), getEdgeRouting()).writeSvg(graph, writer);
         assertStringEquals(resourceName, writer.toString());
     }
 
