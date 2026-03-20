@@ -85,7 +85,7 @@
             <polyline class="nad-vl300to500 nad-edge-path" points="-54.65,-261.22 -54.10,-238.72 -108.12,-139.62"/>
             <polyline class="nad-disconnected nad-vl300to500 nad-edge-path" points="-206.95,-13.15 -162.14,-40.51 -108.12,-139.62"/>
         </g>
-        <g id="13" class="nad-dangling-line-edge">
+        <g id="13" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
         </g>

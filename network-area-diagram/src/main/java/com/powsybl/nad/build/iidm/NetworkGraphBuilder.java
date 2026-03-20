@@ -161,7 +161,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         vl.getLineStream().sorted(Comparator.comparing(Line::getId)).forEach(l -> visitLine(vl, l, graph));
         vl.getTwoWindingsTransformerStream().sorted(Comparator.comparing(TwoWindingsTransformer::getId)).forEach(twt -> visitTwoWindingsTransformer(vl, twt, graph));
         vl.getThreeWindingsTransformerStream().sorted(Comparator.comparing(ThreeWindingsTransformer::getId)).forEach(thwt -> visitThreeWindingsTransformer(vl, thwt, graph));
-        vl.getDanglingLineStream().sorted(Comparator.comparing(DanglingLine::getId)).forEach(dl -> visitDanglingLine(dl, graph));
+        vl.getBoundaryLineStream().sorted(Comparator.comparing(BoundaryLine::getId)).forEach(dl -> visitBoundaryLine(dl, graph));
         vl.getConnectableStream(HvdcConverterStation.class).sorted(Comparator.comparing(HvdcConverterStation::getId)).forEach(hvdc -> visitHvdcConverterStation(hvdc, graph));
     }
 
@@ -192,7 +192,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void visitDanglingLine(DanglingLine dl, Graph graph) {
+    private void visitBoundaryLine(BoundaryLine dl, Graph graph) {
         if (!dl.isPaired()) {
             BoundaryNode boundaryNode = new BoundaryNode(idProvider, dl.getId(), dl.getNameOrId());
             BusNode boundaryBusNode = new BoundaryBusNode(idProvider, dl.getId());
@@ -204,7 +204,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+    private void visitTieLine(TieLine tieLine, BoundaryLine dl, Graph graph) {
         addEdge(graph, tieLine, dl.getTerminal().getVoltageLevel(), BranchEdge.TIE_LINE_EDGE);
     }
 
@@ -276,11 +276,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
     }
 
-    private void addEdge(Graph graph, DanglingLine dl, BoundaryNode boundaryVlNode, BusNode boundaryBusNode) {
+    private void addEdge(Graph graph, BoundaryLine dl, BoundaryNode boundaryVlNode, BusNode boundaryBusNode) {
         Terminal terminal = dl.getTerminal();
         VoltageLevelNode vlNode = getVoltageLevelNode(graph, terminal);
 
-        String branchType = BranchEdge.DANGLING_LINE_EDGE;
+        String branchType = BranchEdge.BOUNDARY_LINE_EDGE;
         EdgeInfo edgeInfo = labelProvider.getBranchEdgeInfo(dl.getId(), BranchEdge.Side.ONE, branchType).orElse(null);
         BranchEdge edge = new BranchEdge(idProvider,
                 dl.getId(), dl.getNameOrId(), branchType, edgeInfo, null, null);

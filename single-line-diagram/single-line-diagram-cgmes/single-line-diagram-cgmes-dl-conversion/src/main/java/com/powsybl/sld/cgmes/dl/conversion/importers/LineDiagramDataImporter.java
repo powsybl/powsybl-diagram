@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
-import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.BoundaryLine;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
@@ -47,18 +47,18 @@ public class LineDiagramDataImporter {
             NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), line.getTerminal1().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
             NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), line.getTerminal2().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
-            DanglingLine danglingLine = network.getDanglingLine(lineId);
-            if (danglingLine != null) {
-                LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine.getExtension(LineDiagramData.class);
-                if (danglingLineDiagramData == null) {
-                    danglingLineDiagramData = new LineDiagramData<>(danglingLine);
+            BoundaryLine boundaryLine = network.getBoundaryLine(lineId);
+            if (boundaryLine != null) {
+                LineDiagramData<BoundaryLine> boundaryLineDiagramData = boundaryLine.getExtension(LineDiagramData.class);
+                if (boundaryLineDiagramData == null) {
+                    boundaryLineDiagramData = new LineDiagramData<>(boundaryLine);
                 }
 
-                danglingLineDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
-                danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
-                NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), danglingLine.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+                boundaryLineDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
+                boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
+                NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), boundaryLine.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
             } else {
-                LOG.warn("Cannot find line/dangling line {}, name {} in network {}: skipping line diagram data", lineId, lineDiagramData.get("name"), network.getId());
+                LOG.warn("Cannot find line/boundary line {}, name {} in network {}: skipping line diagram data", lineId, lineDiagramData.get("name"), network.getId());
             }
         }
     }

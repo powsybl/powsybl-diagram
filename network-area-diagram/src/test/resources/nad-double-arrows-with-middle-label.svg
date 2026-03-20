@@ -76,7 +76,7 @@
         </g>
     </g>
     <g class="nad-branch-edges">
-        <g id="10" class="nad-dangling-line-edge">
+        <g id="10" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-73.02,-103.01 49.70,-8.92"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="172.42,85.18 49.70,-8.92"/>
         </g>

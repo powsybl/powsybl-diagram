@@ -105,7 +105,7 @@
                 <circle class="nad-vl180to300 nad-winding" cx="-146.62" cy="60.88" r="20.00"/>
             </g>
         </g>
-        <g id="28" class="nad-dangling-line-edge">
+        <g id="28" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-242.83,-58.42 -27.76,-198.60"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="187.32,-338.78 -27.76,-198.60"/>
         </g>
