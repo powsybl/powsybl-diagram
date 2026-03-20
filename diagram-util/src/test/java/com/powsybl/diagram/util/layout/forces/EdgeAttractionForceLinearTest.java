@@ -21,7 +21,7 @@ class EdgeAttractionForceLinearTest {
     @Test
     void calculateForce() {
         double delta = 1e-4;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         EdgeAttractionForceLinear<String, DefaultEdge> edgeAttractionForceLinear = new EdgeAttractionForceLinear<>(7);
         String[] vertexToTest = {
             "4",
