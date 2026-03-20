@@ -153,7 +153,7 @@
     "node2" : "12",
     "busNode1" : "9",
     "busNode2" : "13",
-    "type" : "DanglingLineEdge",
+    "type" : "BoundaryLineEdge",
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]
   } ],
