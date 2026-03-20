@@ -111,7 +111,7 @@
     "node2" : "8",
     "busNode1" : "3",
     "busNode2" : "9",
-    "type" : "DanglingLineEdge",
+    "type" : "BoundaryLineEdge",
     "edgeInfo1" : {
       "svgId" : "11",
       "infoTypeA" : "ReactivePower",
