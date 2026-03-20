@@ -40,7 +40,7 @@ The main features are:
 - Highly customizable rendering using CSS and configurable labels.
 - Built-in force-layout to place the voltage level nodes.
 - Displaying electrical nodes within a voltage level as concentric rings, and voltage / angle values for each electrical node is displayed by default.
-- Displaying lines, two- and three-winding transformers, converter stations and dangling lines with separate designs.
+- Displaying lines, two- and three-winding transformers, converter stations and boundary lines with separate designs.
 - Displaying active (visible by default) or reactive (hidden by default) powers on each edge.
 
 ## PowSyBl Single Line Diagram

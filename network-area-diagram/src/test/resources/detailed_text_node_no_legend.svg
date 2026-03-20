@@ -145,7 +145,7 @@
             <polyline class="nad-vl300to500 nad-edge-path" points="-69.22,-294.55 -143.24,-158.76"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-217.26,-22.97 -143.24,-158.76"/>
         </g>
-        <g id="11" class="nad-dangling-line-edge">
+        <g id="11" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
         </g>
@@ -162,7 +162,7 @@
                 <div>0 loads</div>
                 <div>1 generators</div>
                 <div>0 batteries</div>
-                <div>0 dangling lines</div>
+                <div>0 boundary lines</div>
             </div>
         </foreignObject>
         <foreignObject id="5" y="-38.82" x="-130.42" height="1" width="1">
@@ -171,7 +171,7 @@
                 <div>0 loads</div>
                 <div>0 generators</div>
                 <div>0 batteries</div>
-                <div>1 dangling lines</div>
+                <div>1 boundary lines</div>
             </div>
         </foreignObject>
     </g>

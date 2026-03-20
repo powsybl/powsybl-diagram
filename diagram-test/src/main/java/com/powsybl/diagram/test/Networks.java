@@ -384,7 +384,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createNetworkWithDanglingLine() {
+    public static Network createNetworkWithBoundaryLine() {
         Network network = Network.create(NETWORK_ID, "test");
         network.setCaseDate(ZonedDateTime.parse(CASE_DATE));
         Substation substation = network.newSubstation()
@@ -399,8 +399,8 @@ public final class Networks {
         voltageLevel.getBusBreakerView().newBus()
                 .setId("Bus")
                 .add();
-        voltageLevel.newDanglingLine()
-                .setId("DanglingLine")
+        voltageLevel.newBoundaryLine()
+                .setId("BoundaryLine")
                 .setBus("Bus")
                 .setR(10.0)
                 .setX(1.0)
@@ -807,7 +807,7 @@ public final class Networks {
         vl2.getBusBreakerView().newBus()
                 .setId("b2")
                 .add();
-        vl2.newDanglingLine()
+        vl2.newBoundaryLine()
                 .setId("dl1")
                 .setConnectableBus("b2")
                 .setBus("b2")
@@ -965,7 +965,7 @@ public final class Networks {
         vl2.getBusBreakerView().newBus()
                 .setId("b2")
                 .add();
-        vl2.newDanglingLine()
+        vl2.newBoundaryLine()
                 .setId("dl1")
                 .setConnectableBus("b2")
                 .setBus("b2")
@@ -1558,9 +1558,9 @@ public final class Networks {
                 .setMaximumSectionCount(1)
                 .add()
                 .add();
-        DanglingLine dl1 = vl.newDanglingLine()
+        BoundaryLine dl1 = vl.newBoundaryLine()
                 .setId("dl1")
-                .setName("Dangling line 1")
+                .setName("Boundary line 1")
                 .setNode(5)
                 .setP0(1)
                 .setQ0(1)
@@ -2159,11 +2159,11 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
         network.getLine("L11").remove();
         String tieLineId = "B11_B12_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        DanglingLine xnode1b12 = network.getVoltageLevel("VL1").newDanglingLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b12.getId()).add();
-        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
-        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1").newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b12 = network.getVoltageLevel("VL1").newBoundaryLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b12.getId()).add();
+        network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
 
         return network;
 
@@ -2173,11 +2173,11 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
         network.getLine("L12").remove();
         String tieLineId = "B11_B21_1";
-        DanglingLine b11xnode1 = network.getVoltageLevel("VL1").newDanglingLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        DanglingLine xnode1b21 = network.getVoltageLevel("VL2").newDanglingLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(b11xnode1.getId()).setDanglingLine2(xnode1b21.getId()).add();
-        network.getTieLine(tieLineId).getDanglingLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
-        network.getTieLine(tieLineId).getDanglingLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1").newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b21 = network.getVoltageLevel("VL2").newBoundaryLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b21.getId()).add();
+        network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
+        network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
 
         return network;
 
@@ -2265,10 +2265,10 @@ public final class Networks {
                 .setActivePowerSetpoint(280)
                 .add();
 
-        // Dangling Line
+        // Boundary Line
         vlId = String.format(vlFormat, subC.getId(), 66.0);
         busId = String.format(busIdFormat, vlId);
-        subC66.getVoltageLevel().newDanglingLine()
+        subC66.getVoltageLevel().newBoundaryLine()
                 .setId("C66 - D")
                 .setBus(busId)
                 .setR(10.0)
@@ -2282,7 +2282,7 @@ public final class Networks {
 
         vlId = String.format(vlFormat, subD.getId(), 66.0);
         busId = String.format(busIdFormat, vlId);
-        subD66.getVoltageLevel().newDanglingLine()
+        subD66.getVoltageLevel().newBoundaryLine()
                 .setId("D66 - D")
                 .setBus(busId)
                 .setR(10.0)
@@ -2298,12 +2298,12 @@ public final class Networks {
         String xnodeId = XNODE_1_ID;
         vlId = String.format(vlFormat, subA.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
-        DanglingLine a230xnode1 = network.getVoltageLevel(vlId).newDanglingLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        BoundaryLine a230xnode1 = network.getVoltageLevel(vlId).newBoundaryLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
         String tieLineId = "A230_B230";
-        DanglingLine xnode1b230 = network.getVoltageLevel(vlId).newDanglingLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
-        network.newTieLine().setId(tieLineId).setDanglingLine1(a230xnode1.getId()).setDanglingLine2(xnode1b230.getId()).add();
+        BoundaryLine xnode1b230 = network.getVoltageLevel(vlId).newBoundaryLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        network.newTieLine().setId(tieLineId).setBoundaryLine1(a230xnode1.getId()).setBoundaryLine2(xnode1b230.getId()).add();
 
         return network;
     }
@@ -2628,7 +2628,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createDanglingConnectablesNetwork() {
+    public static Network createBoundaryConnectablesNetwork() {
         Network network = Network.create("testDLoad", "testDLoad");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")

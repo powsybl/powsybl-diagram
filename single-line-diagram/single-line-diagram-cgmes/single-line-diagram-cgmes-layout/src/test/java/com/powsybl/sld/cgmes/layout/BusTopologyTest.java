@@ -105,8 +105,8 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
                     .setMaximumSectionCount(1)
                 .add()
                 .add();
-        voltageLevel1.newDanglingLine()
-                .setId("DanglingLine")
+        voltageLevel1.newBoundaryLine()
+                .setId("BoundaryLine")
                 .setBus("Bus1")
                 .setR(10.0)
                 .setX(1.0)
@@ -236,11 +236,11 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         shuntDiagramData.addData(DIAGRAM_NAME, shuntDiagramDetails);
         shunt.addExtension(InjectionDiagramData.class, shuntDiagramData);
 
-        DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = new LineDiagramData<>(danglingLine);
-        danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(60, 60, 1));
-        danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(120, 60, 2));
-        danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+        BoundaryLine boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = new LineDiagramData<>(boundaryLine);
+        boundaryLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(60, 60, 1));
+        boundaryLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(120, 60, 2));
+        boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
     }
 
     private void addSecondVoltageLevelDiagramData(Network network, VoltageLevel voltageLevel) {
@@ -337,19 +337,19 @@ class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("Bus1", graph.getNodes().get(0).getId());
         assertEquals("Load", graph.getNodes().get(1).getId());
         assertEquals("Shunt", graph.getNodes().get(2).getId());
-        assertEquals("DanglingLine", graph.getNodes().get(3).getId());
+        assertEquals("BoundaryLine", graph.getNodes().get(3).getId());
         assertEquals("Transformer_ONE", graph.getNodes().get(4).getId());
 
         assertEquals(BUSBAR_SECTION, graph.getNodes().get(0).getComponentType());
         assertEquals(LOAD, graph.getNodes().get(1).getComponentType());
         assertEquals(CAPACITOR, graph.getNodes().get(2).getComponentType());
-        assertEquals(DANGLING_LINE, graph.getNodes().get(3).getComponentType());
+        assertEquals(BOUNDARY_LINE, graph.getNodes().get(3).getComponentType());
         assertTrue(graph.getNodes().get(4).getComponentType().equals(TWO_WINDINGS_TRANSFORMER) ||
             graph.getNodes().get(4).getComponentType().equals(TWO_WINDINGS_TRANSFORMER_LEG) ||
                 graph.getNodes().get(4).getComponentType().equals(THREE_WINDINGS_TRANSFORMER_LEG));
 
         assertEquals(4, graph.getNodes().get(0).getAdjacentNodes().size());
-        checkAdjacentNodes(graph.getNodes().get(0), Arrays.asList("Load", "Shunt", "DanglingLine", "Transformer_ONE"));
+        checkAdjacentNodes(graph.getNodes().get(0), Arrays.asList("Load", "Shunt", "BoundaryLine", "Transformer_ONE"));
         checkBusConnection(graph.getNodes().get(1));
         checkBusConnection(graph.getNodes().get(2));
         checkBusConnection(graph.getNodes().get(3));

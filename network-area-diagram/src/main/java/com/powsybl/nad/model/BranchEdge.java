@@ -34,7 +34,7 @@ public class BranchEdge extends AbstractEdge {
     public static final String LINE_EDGE = "LineEdge";
     public static final String HVDC_LINE_LCC_EDGE = "HvdcLineLccEdge";
     public static final String HVDC_LINE_VSC_EDGE = "HvdcLineVscEdge";
-    public static final String DANGLING_LINE_EDGE = "DanglingLineEdge";
+    public static final String BOUNDARY_LINE_EDGE = "BoundaryLineEdge";
     public static final String TIE_LINE_EDGE = "TieLineEdge";
 
     private List<Point> points1 = Collections.emptyList();

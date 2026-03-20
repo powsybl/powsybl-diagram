@@ -31,7 +31,7 @@ public class SldResourcesComponentLibrary extends ResourcesComponentLibrary<SldC
         SldComponentTypeName.TEE_POINT_LEG,
         SldComponentTypeName.LINE,
         SldComponentTypeName.TIE_LINE,
-        SldComponentTypeName.DANGLING_LINE,
+        SldComponentTypeName.BOUNDARY_LINE,
         SldComponentTypeName.BUSBAR_SECTION,
         SldComponentTypeName.TEE_POINT
     };
