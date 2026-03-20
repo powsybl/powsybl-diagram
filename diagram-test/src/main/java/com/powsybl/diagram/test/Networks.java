@@ -2471,7 +2471,7 @@ public final class Networks {
         return network;
     }
 
-    public static Network createDanglingConnectablesNetwork() {
+    public static Network createBoundaryConnectablesNetwork() {
         Network network = Network.create("testDLoad", "testDLoad");
         VoltageLevel vl = network.newVoltageLevel()
                 .setId("vl")

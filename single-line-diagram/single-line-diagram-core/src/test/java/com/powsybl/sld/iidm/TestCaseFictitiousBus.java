@@ -58,8 +58,8 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testDanglingConnectables() {
-        network = Networks.createDanglingConnectablesNetwork();
+    void testBoundaryConnectables() {
+        network = Networks.createBoundaryConnectablesNetwork();
 
         // build graph
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl");
@@ -68,7 +68,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseFictitiousBusDanglingConnectables.svg"),
-                toSVG(g, "/TestCaseFictitiousBusDanglingConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestCaseFictitiousBusBoundaryConnectables.svg"),
+                toSVG(g, "/TestCaseFictitiousBusBoundaryConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 }
