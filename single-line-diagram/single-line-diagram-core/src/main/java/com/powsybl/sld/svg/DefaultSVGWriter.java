@@ -132,7 +132,7 @@ public class DefaultSVGWriter implements SVGWriter {
     private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
         double height = graph.getHeight() + layoutParameters.getDiagramPadding().top() + layoutParameters.getDiagramPadding().bottom();
         if (graph instanceof VoltageLevelGraph && svgParameters.isBusesLegendAdded()) {
-            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
+            height += 8 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
         }
         return height;
     }

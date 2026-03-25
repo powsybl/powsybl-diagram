@@ -64,18 +64,10 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
                     List<BusLegendInfo.Caption> captions = new ArrayList<>(4);
                     captions.add(new BusLegendInfo.Caption(valueFormatter.formatVoltage(bus.getV(), "kV"), "v"));
                     captions.add(new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(bus.getAngle()), "angle"));
-                    if (hasFictitiousInjection(bus.getFictitiousP0())) {
-                        captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"));
-                    }
-                    if (hasFictitiousInjection(bus.getFictitiousQ0())) {
-                        captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0"));
-                    }
+                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"));
+                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0"));
                     return new BusLegendInfo(bus.getId(), captions);
                 }).toList();
-    }
-
-    private static boolean hasFictitiousInjection(double value) {
-        return !Double.isNaN(value) && value != 0d;
     }
 
     private static String withDefaultUnit(String configuredUnit, String defaultUnit) {
@@ -97,9 +89,7 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
         g.appendChild(circle);
 
         // legend nodes
-        boolean isExtendedLegend = busLegendInfo.captions().size() > 2;
-        double padding = isExtendedLegend ? 2.0 : 2.5;
-        double paddingStep = isExtendedLegend ? 1.0 : 1.5;
+        double padding = 2.5;
         for (BusLegendInfo.Caption caption : busLegendInfo.captions()) {
             Element label = g.getOwnerDocument().createElement("text");
             writeStyleClasses(label, styleProvider.getBusLegendCaptionStyles(caption), StyleClassConstants.BUS_LEGEND_INFO);
@@ -109,7 +99,8 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
             Text textNode = g.getOwnerDocument().createTextNode(caption.label());
             label.appendChild(textNode);
             g.appendChild(label);
-            padding += paddingStep;
+
+            padding += 1.5;
         }
     }
 }
