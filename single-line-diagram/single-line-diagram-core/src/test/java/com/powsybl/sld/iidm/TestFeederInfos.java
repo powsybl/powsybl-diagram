@@ -180,6 +180,23 @@ class TestFeederInfos extends AbstractTestCaseIidm {
     }
 
     @Test
+    void testBuildFeederInfosWithDisplayAbs() {
+
+        // Add power values to the equipments
+        network.getLoad("l").getTerminal().setP(-1200.29).setQ(-1);
+        network.getLine("line").getTerminal1().setP(-1010).setQ(-10).connect();
+        network.getLine("line").getTerminal2().setP(-10).setQ(10).connect();
+        network.getLine("line").getTerminal1().getBusView().getBus().setV(380);
+        network.getLine("line").getTerminal2().getBusView().getBus().setV(380);
+        DefaultLabelProvider labelProvider = getDefaultDiagramLabelProvider();
+        labelProvider.setDisplayWithAbs(true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+        voltageLevelGraphLayout(g);
+        // write SVG and compare to reference
+        assertEquals(toString("/TestFeederInfosWithDisplayAbs.svg"), toSVG(g, "/TestFeederInfosWithDisplayAbs.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+    }
+
+    @Test
     void testBuildFeederInfosWithCurrent() {
         List<FeederInfo> feederInfoList = getFeederInfoList(true, false);
         assertEquals(3, feederInfoList.size());
