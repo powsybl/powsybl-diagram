@@ -1,10 +1,10 @@
 # Cell detection
 
-A `Cell` represents a connected subgraph of nodes that participate in a common purpose.\
+A `Cell` represents a connected subgraph of nodes that participate in a common purpose.
 
 The goal of the cell detection is to create these subgraphs that will then:
 
-* Structure the organisation of the busbar layout;
+* Structure the organization of the busbar layout;
 * Be displayed according to their types.
 
 ## Cell types
@@ -32,7 +32,7 @@ Such an `ExternCell` is then cut in an `ExternCell` only on one subsection, and 
 
 The figure shows examples of cells of several `CellType`.  
 
-![cellType](../../_static/img/sld/cellTypes.svg)
+![cellType](../../_static/img/sld/layout/cellTypes.svg)
 
 ## Cell detection algorithm
 
@@ -46,7 +46,7 @@ It takes as parameter two lists of types that delimit the traversal algorithm :
 
 The algorithm is explained based on the following graph that would result in the figure displayed to illustrate the cellTypes enum:
 
-![rawGraph](../../_static/img/sld/rawGraph.svg)
+![rawGraph](../../_static/img/sld/layout/rawGraph.svg)
 
 ### Step 1: identify `InternCell` cells
 
@@ -55,30 +55,33 @@ The algorithm is explained based on the following graph that would result in the
 
 `InternCell` cells are easy to determine as being exclusively bordered by `BUS` nodes.
 
-![rawGraphIntern](../../_static/img/sld/rawGraphIntern.svg)
+![rawGraphIntern](../../_static/img/sld/layout/rawGraphIntern.svg)
 
 ### Step 2: identifies `ExternCell` cells
 
 - stopTypes: BUS, FEEDER
 - exclusionTypes: 
 
-If one node of the subgraph has each of its branches ending with one single kind of `NodeType` among `BUS` and `FEEDER`, ("_bottleneck_" node in the picture) this is an `ExternCell`.
+If one node of the subgraph has each of its branches ending with one single kind of `NodeType` among `BUS` and `FEEDER`, 
+("_bottleneck_" node in the picture) this is an `ExternCell`.
 
 Other `ExternCell` cells could be discovered in the next steps when adding the `SHUNT NodeType`.
 
-![rawGraphExtern](../../_static/img/sld/rawGraphExtern.svg)
+![rawGraphExtern](../../_static/img/sld/layout/rawGraphExtern.svg)
 
 ### Step 3: discriminates `EXTERN` and `SHUNT` cells
 
 - stopTypes: 
 - exclusionTypes: BUS, FEEDER, SHUNT
-  To identify the first candidate `SHUNT` node, each `FICTITIOUS` node with more than 3 branches are visited. The expected property of the `SHUNT` node is that:
 
-. 1+ branch(s) ends with only `BUS` nodes
-. 1+ branch(s) ends with only `FEEDER` nodes
-. 1 branch is ends with `FEEDER` *and* `BUS` nodes.
+To identify the first candidate `SHUNT` node, each `FICTITIOUS` node with more than 3 branches is visited. 
+The expected property of the `SHUNT` node is that:
 
-The branches of the first two categories constitutes the first `ExternCell` cell.
+  * At least one branch ends with only `BUS` nodes
+  * At least one branch ends with only `FEEDER` nodes
+  * One branch ends with `FEEDER` *and* `BUS` nodes.
+
+The branches of the first two categories constitute the first `ExternCell` cell.
 
 Then the `SHUNT` cell is constituted of:
 
@@ -88,7 +91,7 @@ Then the `SHUNT` cell is constituted of:
 
 Last, the second `ExternCell` cell is build with the second `SHUNT` node and the remaining nodes.
 
-![rawGraphExternShunt](../../_static/img/sld/rawGraphExternShunt.svg)
+![rawGraphExternShunt](../../_static/img/sld/layout/rawGraphExternShunt.svg)
 
 
-⚠️ Any other pattern is not handled by the algorithm.
+⚠️ The algorithm does not handle any other pattern.
