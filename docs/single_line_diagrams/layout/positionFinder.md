@@ -73,7 +73,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 ![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg)
 
 > **Important - On this result:**
-> - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](PositionFromExtension.md).
+> - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
 > - Regarding the picture: the rows do not exist in real. It presented to highlight we have no clue of whether one `NodeBus` will be horizontally aligned with one another, except we know for sure that both `B1` shall end up in the same row.
 
 #### step 3: Merge `BSClusters` into a single one
@@ -93,6 +93,6 @@ This expected result should be similar to the following `BSCluster`:
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | [ <br><br> ( [B2, B5] , , [IC1.L, IC1.R, IC2.L] ) , <br><br> ( [B4, B1] ,  [EC2, EC3, EC4] , [IC3.R] ) , <br><br> ( [B3, B1] , [EC1] , [IC2.R, IC3.L] ) <br><br> ] | [ <br><br> [B2, B4, B3] , <br><br> [B5, B1, B1] <br><br> ] |
 
-The way this example is handled is detailed in each implementation documentation: [PositionFromExtension](PositionFromExtension.md), [PositionByClustering](PositionByClustering.md).
+The way this example is handled is detailed in each implementation documentation: [PositionFromExtension](positionFromExtension.md), [PositionByClustering](positionByClustering.md).
 
 #### step 4: Build the `List<Subsection>`
