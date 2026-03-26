@@ -7,76 +7,100 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
-import com.powsybl.commons.xml.XmlUtil;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdgeMetadata extends AbstractMetadataItem {
-
-    private static final String ELEMENT_NAME = "edge";
-    private static final String NODE1_ATTRIBUTE = "node1";
-    private static final String NODE2_ATTRIBUTE = "node2";
-    private static final String BUS_NODE1_ATTRIBUTE = "busNode1";
-    private static final String BUS_NODE2_ATTRIBUTE = "busNode2";
-    private static final String EDGE_TYPE_ATTRIBUTE = "type";
 
     private final String node1SvgId;
     private final String node2SvgId;
     private final String busNode1SvgId;
     private final String busNode2SvgId;
     private final String edgeType;
+    private final boolean invisibleSide1;
+    private final boolean invisibleSide2;
+    private final EdgeInfoMetadata edgeInfo1;
+    private final EdgeInfoMetadata edgeInfo2;
+    private final EdgeInfoMetadata edgeInfoMiddle;
 
-    public EdgeMetadata(String svgId, String equipmentId, String node1SvgId, String node2SvgId,
-                        String busNode1SvgId, String busNode2SvgId, String edgeType) {
+    public EdgeMetadata(@JsonProperty("svgId") String svgId,
+                        @JsonProperty("equipmentId") String equipmentId,
+                        @JsonProperty("node1") String node1SvgId,
+                        @JsonProperty("node2") String node2SvgId,
+                        @JsonProperty("busNode1") String busNode1SvgId,
+                        @JsonProperty("busNode2") String busNode2SvgId,
+                        @JsonProperty("type") String edgeType,
+                        @JsonProperty("invisible1") boolean invisibleSide1,
+                        @JsonProperty("invisible2") boolean invisibleSide2,
+                        @JsonProperty("edgeInfo1") EdgeInfoMetadata edgeInfo1,
+                        @JsonProperty("edgeInfo2") EdgeInfoMetadata edgeInfo2,
+                        @JsonProperty("edgeInfoMiddle") EdgeInfoMetadata edgeInfoMiddle) {
         super(svgId, equipmentId);
         this.node1SvgId = node1SvgId;
         this.node2SvgId = node2SvgId;
         this.busNode1SvgId = busNode1SvgId;
         this.busNode2SvgId = busNode2SvgId;
         this.edgeType = edgeType;
+        this.invisibleSide1 = invisibleSide1;
+        this.invisibleSide2 = invisibleSide2;
+        this.edgeInfo1 = edgeInfo1;
+        this.edgeInfo2 = edgeInfo2;
+        this.edgeInfoMiddle = edgeInfoMiddle;
     }
 
-    @Override
-    String getElementName() {
-        return ELEMENT_NAME;
+    @JsonProperty("node1")
+    public String getNode1SvgId() {
+        return node1SvgId;
     }
 
-    @Override
-    void write(XMLStreamWriter writer) throws XMLStreamException {
-        super.write(writer);
-        writer.writeAttribute(NODE1_ATTRIBUTE, node1SvgId);
-        writer.writeAttribute(NODE2_ATTRIBUTE, node2SvgId);
-        writer.writeAttribute(BUS_NODE1_ATTRIBUTE, busNode1SvgId);
-        writer.writeAttribute(BUS_NODE2_ATTRIBUTE, busNode2SvgId);
-        writer.writeAttribute(EDGE_TYPE_ATTRIBUTE, edgeType);
+    @JsonProperty("node2")
+    public String getNode2SvgId() {
+        return node2SvgId;
     }
 
-    static class Reader implements MetadataItemReader<EdgeMetadata> {
-        @Override
-        public String getElementName() {
-            return ELEMENT_NAME;
-        }
+    @JsonProperty("busNode1")
+    public String getBusNode1SvgId() {
+        return busNode1SvgId;
+    }
 
-        public EdgeMetadata read(XMLStreamReader reader) {
-            try {
-                String svgId = readDiagramId(reader);
-                String equipmentId = readEquipmentId(reader);
-                String node1 = reader.getAttributeValue(null, NODE1_ATTRIBUTE);
-                String node2 = reader.getAttributeValue(null, NODE2_ATTRIBUTE);
-                String busNode1 = reader.getAttributeValue(null, BUS_NODE1_ATTRIBUTE);
-                String busNode2 = reader.getAttributeValue(null, BUS_NODE2_ATTRIBUTE);
-                String edgeType = reader.getAttributeValue(null, EDGE_TYPE_ATTRIBUTE);
-                XmlUtil.readEndElementOrThrow(reader);
-                return new EdgeMetadata(svgId, equipmentId, node1, node2, busNode1, busNode2, edgeType);
-            } catch (XMLStreamException e) {
-                throw new UncheckedXmlStreamException(e);
-            }
-        }
+    @JsonProperty("busNode2")
+    public String getBusNode2SvgId() {
+        return busNode2SvgId;
+    }
+
+    @JsonProperty("type")
+    public String getEdgeType() {
+        return edgeType;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible1")
+    public boolean isInvisibleSide1() {
+        return invisibleSide1;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible2")
+    public boolean isInvisibleSide2() {
+        return invisibleSide2;
+    }
+
+    @JsonProperty("edgeInfo1")
+    public EdgeInfoMetadata getEdgeInfo1() {
+        return edgeInfo1;
+    }
+
+    @JsonProperty("edgeInfo2")
+    public EdgeInfoMetadata getEdgeInfo2() {
+        return edgeInfo2;
+    }
+
+    @JsonProperty("edgeInfoMiddle")
+    public EdgeInfoMetadata getEdgeInfoMiddle() {
+        return edgeInfoMiddle;
     }
 }

@@ -9,12 +9,17 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.commons.datasource.FileDataSource;
+import com.powsybl.commons.datasource.DirectoryDataSource;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractSingleLineDiagramCommand;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLExporter;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.SubstationLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.layout.position.predefined.PositionPredefined;
 import com.powsybl.tools.Command;
@@ -130,6 +135,6 @@ public class LayoutToCgmesDlExporterTool implements Tool {
             tStore = TripleStoreFactory.create();
         }
         CgmesDLExporter dlExporter = new CgmesDLExporter(network, tStore);
-        dlExporter.exportDLData(new FileDataSource(outputDir, network.getNameOrId()));
+        dlExporter.exportDLData(new DirectoryDataSource(outputDir, network.getNameOrId()));
     }
 }

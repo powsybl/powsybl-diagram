@@ -103,8 +103,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             Point expected = l.getValue();
             Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
-            assertEquals(expected.getX(), actual.getX(), 0);
-            assertEquals(expected.getY(), actual.getY(), 0);
+            assertEquals(expected.x(), actual.x(), 0);
+            assertEquals(expected.y(), actual.y(), 0);
         }
     }
 
@@ -123,11 +123,11 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
             if (fixedNodes.contains(equipmentId)) {
-                assertEquals(expected.getX(), actual.getX(), 0);
-                assertEquals(expected.getY(), actual.getY(), 0);
+                assertEquals(expected.x(), actual.x(), 0);
+                assertEquals(expected.y(), actual.y(), 0);
             } else {
                 // We expect that the nodes with initial position but that have not been fixed have been moved
-                assertTrue(expected.getX() != actual.getX() || expected.getY() != actual.getY());
+                assertTrue(expected.x() != actual.x() || expected.y() != actual.y());
             }
         }
     }
@@ -157,7 +157,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
                 nodesWithFixedPositions,
                 fixedNodePositions);
         StringWriter writer = new StringWriter();
-        NetworkAreaDiagram.draw(network, writer,
+        StringWriter metadataWriter = new StringWriter();
+        NetworkAreaDiagram.draw(network, writer, metadataWriter,
                 new NadParameters()
                         .setSvgParameters(getSvgParameters())
                         .setLayoutParameters(getLayoutParameters())
@@ -231,6 +232,11 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
 
                 @Override
                 public Set<String> getNodesWithFixedPosition() {
+                    throw new PowsyblException("not implemented");
+                }
+
+                @Override
+                public void setTextNodeFixedPosition(String voltageLevelId, Point topLeft, Point edgeConnection) {
                     throw new PowsyblException("not implemented");
                 }
             };

@@ -10,8 +10,8 @@ package com.powsybl.sld.layout;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.diagram.components.ComponentSize;
+import com.powsybl.sld.library.SldComponentTypeName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class LayoutParameters {
     private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
     private Padding diagramPadding = new Padding(20);
     private Alignment busbarsAlignment = Alignment.FIRST;
-    private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
+    private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
@@ -53,7 +53,6 @@ public class LayoutParameters {
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
-    @JsonCreator
     public LayoutParameters() {
     }
 
@@ -347,12 +346,7 @@ public class LayoutParameters {
         FIRST, LAST, MIDDLE, NONE
     }
 
-    public static class Padding {
-        private final double left;
-        private final double top;
-        private final double right;
-        private final double bottom;
-
+    public record Padding(double left, double top, double right, double bottom) {
         @JsonCreator
         public Padding(@JsonProperty("left") double left,
                        @JsonProperty("top") double top,
@@ -370,22 +364,6 @@ public class LayoutParameters {
 
         public Padding(Padding padding) {
             this(padding.left, padding.top, padding.right, padding.bottom);
-        }
-
-        public double getLeft() {
-            return left;
-        }
-
-        public double getRight() {
-            return right;
-        }
-
-        public double getTop() {
-            return top;
-        }
-
-        public double getBottom() {
-            return bottom;
         }
     }
 

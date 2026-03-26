@@ -20,4 +20,6 @@ public interface Node extends Identifiable {
     double getX();
 
     double getY();
+
+    boolean isFictitious();
 }

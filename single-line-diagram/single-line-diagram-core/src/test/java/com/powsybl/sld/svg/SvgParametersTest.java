@@ -26,6 +26,7 @@ class SvgParametersTest {
                 .setPowerValuePrecision(3)
                 .setAngleValuePrecision(2)
                 .setCurrentValuePrecision(1)
+                .setPercentageValuePrecision(1)
                 .setActivePowerUnit("MW")
                 .setReactivePowerUnit("MVAR")
                 .setCurrentUnit("A")
@@ -33,7 +34,7 @@ class SvgParametersTest {
                 .setFeederInfosIntraMargin(21)
                 .setFeederInfosOuterMargin(25)
                 .setFeederInfoSymmetry(true)
-                .setAddNodesInfos(true)
+                .setBusesLegendAdded(true)
                 .setUseName(true)
                 .setAngleLabelShift(42)
                 .setLabelCentered(true)
@@ -46,9 +47,9 @@ class SvgParametersTest {
                 .setDrawStraightWires(true)
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
-                .setDisplayCurrentFeederInfo(true)
                 .setDisplayEquipmentNodesLabel(true)
-                .setDisplayConnectivityNodesId(true);
+                .setDisplayConnectivityNodesId(true)
+                .setUnifyVoltageLevelColors(true);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -59,6 +60,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getPowerValuePrecision(), svgParameters1.getPowerValuePrecision());
         assertEquals(svgParameters0.getAngleValuePrecision(), svgParameters1.getAngleValuePrecision());
         assertEquals(svgParameters0.getCurrentValuePrecision(), svgParameters1.getCurrentValuePrecision());
+        assertEquals(svgParameters0.getPercentageValuePrecision(), svgParameters1.getPercentageValuePrecision());
         assertEquals(svgParameters0.getActivePowerUnit(), svgParameters1.getActivePowerUnit());
         assertEquals(svgParameters0.getReactivePowerUnit(), svgParameters1.getReactivePowerUnit());
         assertEquals(svgParameters0.getCurrentUnit(), svgParameters1.getCurrentUnit());
@@ -66,7 +68,7 @@ class SvgParametersTest {
         assertEquals(svgParameters0.getFeederInfosIntraMargin(), svgParameters1.getFeederInfosIntraMargin(), 0);
         assertEquals(svgParameters0.getFeederInfosOuterMargin(), svgParameters1.getFeederInfosOuterMargin(), 0);
         assertEquals(svgParameters0.isFeederInfoSymmetry(), svgParameters1.isFeederInfoSymmetry());
-        assertEquals(svgParameters0.isAddNodesInfos(), svgParameters1.isAddNodesInfos());
+        assertEquals(svgParameters0.isBusesLegendAdded(), svgParameters1.isBusesLegendAdded());
         assertEquals(svgParameters0.isUseName(), svgParameters1.isUseName());
         assertEquals(svgParameters0.getAngleLabelShift(), svgParameters1.getAngleLabelShift(), 0);
         assertEquals(svgParameters0.isLabelCentered(), svgParameters1.isLabelCentered());
@@ -79,8 +81,8 @@ class SvgParametersTest {
         assertEquals(svgParameters0.isDrawStraightWires(), svgParameters1.isDrawStraightWires());
         assertEquals(svgParameters0.isShowGrid(), svgParameters1.isShowGrid());
         assertEquals(svgParameters0.isShowInternalNodes(), svgParameters1.isShowInternalNodes());
-        assertEquals(svgParameters0.isDisplayCurrentFeederInfo(), svgParameters1.isDisplayCurrentFeederInfo());
         assertEquals(svgParameters0.isDisplayEquipmentNodesLabel(), svgParameters1.isDisplayEquipmentNodesLabel());
         assertEquals(svgParameters0.isDisplayConnectivityNodesId(), svgParameters1.isDisplayConnectivityNodesId());
+        assertEquals(svgParameters0.isUnifyVoltageLevelColors(), svgParameters1.isUnifyVoltageLevelColors());
     }
 }

@@ -11,27 +11,24 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.DijkstraPathFinder;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.svg.DefaultLabelProvider;
-import com.powsybl.sld.svg.LabelProvider;
-import com.powsybl.sld.svg.LabelProviderFactory;
-import com.powsybl.sld.svg.SvgParameters;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.svg.*;
 import com.powsybl.sld.svg.styles.DefaultStyleProviderFactory;
 import com.powsybl.sld.svg.styles.StyleProviderFactory;
 
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class SldParameters {
 
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
-    private ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
+    private SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
     private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
+    private LegendWriterFactory legendWriterFactory = DefaultSVGLegendWriter::new;
     private StyleProviderFactory styleProviderFactory = new DefaultStyleProviderFactory();
     private VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = VoltageLevelLayoutFactoryCreator.newSmartVoltageLevelLayoutFactoryCreator();
     private SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
@@ -57,11 +54,11 @@ public class SldParameters {
         return this;
     }
 
-    public ComponentLibrary getComponentLibrary() {
+    public SldComponentLibrary getComponentLibrary() {
         return componentLibrary;
     }
 
-    public SldParameters setComponentLibrary(ComponentLibrary componentLibrary) {
+    public SldParameters setComponentLibrary(SldComponentLibrary componentLibrary) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         return this;
     }
@@ -86,6 +83,15 @@ public class SldParameters {
 
     public VoltageLevelLayoutFactory createVoltageLevelLayoutFactory(Network network) {
         return voltageLevelLayoutFactoryCreator.create(network);
+    }
+
+    public SVGLegendWriter createLegendWriter(Network network) {
+        return legendWriterFactory.create(network, svgParameters);
+    }
+
+    public SldParameters setLegendWriterFactory(LegendWriterFactory legendWriterFactory) {
+        this.legendWriterFactory = Objects.requireNonNull(legendWriterFactory);
+        return this;
     }
 
     public SldParameters setVoltageLevelLayoutFactoryCreator(VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator) {

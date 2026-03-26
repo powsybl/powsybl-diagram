@@ -15,8 +15,8 @@ import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -57,7 +57,7 @@ class GraphMetadataTest {
     @Test
     void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
-        metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
+        metadata.addComponent(new SldComponent(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
@@ -66,7 +66,6 @@ class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "COMPONENT_TYPE", "user_id"));
-        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata("id6", "busNodeId1", "user_id"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
@@ -80,8 +79,8 @@ class GraphMetadataTest {
         assertEquals(5, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
         assertEquals(4, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
         assertEquals(AnchorOrientation.NONE, metadata2.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(10, metadata2.getComponentMetadata(BREAKER).getSize().width(), 0);
+        assertEquals(12, metadata2.getComponentMetadata(BREAKER).getSize().height(), 0);
         assertEquals(2, metadata2.getNodeMetadata().size());
         assertNotNull(metadata2.getNodeMetadata("id1"));
         assertEquals("id1", metadata2.getNodeMetadata("id1").getId());
@@ -91,28 +90,25 @@ class GraphMetadataTest {
         assertEquals("id2", metadata2.getNodeMetadata("id2").getId());
         assertEquals("vid2", metadata2.getNodeMetadata("id2").getVId());
         assertNotNull(metadata2.getNodeMetadata("id1").getLabels());
-        assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).getId());
-        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).getUserDefinedId());
-        assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).getPositionName());
+        assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).id());
+        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).userDefinedId());
+        assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).positionName());
         assertNotNull(metadata2.getNodeMetadata("id2"));
         assertEquals(1, metadata2.getWireMetadata().size());
         assertNotNull(metadata2.getWireMetadata("id3"));
-        assertEquals("id3", metadata2.getWireMetadata("id3").getId());
-        assertEquals("id1", metadata2.getWireMetadata("id3").getNodeId1());
-        assertEquals("id2", metadata2.getWireMetadata("id3").getNodeId2());
-        assertFalse(metadata2.getWireMetadata("id3").isStraight());
+        assertEquals("id3", metadata2.getWireMetadata("id3").id());
+        assertEquals("id1", metadata2.getWireMetadata("id3").nodeId1());
+        assertEquals("id2", metadata2.getWireMetadata("id3").nodeId2());
+        assertFalse(metadata2.getWireMetadata("id3").straight());
         assertNotNull(metadata2.getFeederInfoMetadata("id1"));
-        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getEquipmentId());
-        assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").getSide());
-        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
-        assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").getComponentType());
-
-        assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
-        assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
+        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").equipmentId());
+        assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").side());
+        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").userDefinedId());
+        assertEquals("COMPONENT_TYPE", metadata2.getFeederInfoMetadata("id1").componentType());
 
         assertNotNull(metadata2.getBusInfoMetadata("id6"));
-        assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").getBusNodeId());
-        assertEquals("user_id", metadata2.getBusInfoMetadata("id6").getUserDefinedId());
+        assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").busNodeId());
+        assertEquals("user_id", metadata2.getBusInfoMetadata("id6").userDefinedId());
 
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER).get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER).get(0).getX(), 0);
@@ -127,8 +123,8 @@ class GraphMetadataTest {
         assertEquals(5, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getX(), 0);
         assertEquals(4, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getY(), 0);
         assertEquals(AnchorOrientation.NONE, metadata3.getComponentMetadata(BREAKER).getAnchorPoints().get(0).getOrientation());
-        assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().getWidth(), 0);
-        assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().getHeight(), 0);
+        assertEquals(10, metadata3.getComponentMetadata(BREAKER).getSize().width(), 0);
+        assertEquals(12, metadata3.getComponentMetadata(BREAKER).getSize().height(), 0);
         assertEquals(2, metadata3.getNodeMetadata().size());
         assertNotNull(metadata3.getNodeMetadata("id1"));
         assertEquals("id1", metadata3.getNodeMetadata("id1").getId());
@@ -140,11 +136,11 @@ class GraphMetadataTest {
         assertNotNull(metadata3.getNodeMetadata("id2"));
         assertEquals(1, metadata3.getWireMetadata().size());
         assertNotNull(metadata3.getWireMetadata("id3"));
-        assertEquals("id3", metadata3.getWireMetadata("id3").getId());
-        assertEquals("id1", metadata3.getWireMetadata("id3").getNodeId1());
-        assertEquals("id2", metadata3.getWireMetadata("id3").getNodeId2());
-        assertFalse(metadata3.getWireMetadata("id3").isStraight());
-        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").getEquipmentId());
+        assertEquals("id3", metadata3.getWireMetadata("id3").id());
+        assertEquals("id1", metadata3.getWireMetadata("id3").nodeId1());
+        assertEquals("id2", metadata3.getWireMetadata("id3").nodeId2());
+        assertFalse(metadata3.getWireMetadata("id3").straight());
+        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").equipmentId());
     }
 
     @Test
@@ -191,19 +187,19 @@ class GraphMetadataTest {
 
         assertEquals(2, metadata.getWireMetadata().size());
         assertNotNull(metadata.getWireMetadata("wid1"));
-        assertEquals("wid1", metadata.getWireMetadata("wid1").getId());
-        assertEquals("bid1", metadata.getWireMetadata("wid1").getNodeId1());
-        assertEquals("lid1", metadata.getWireMetadata("wid1").getNodeId2());
+        assertEquals("wid1", metadata.getWireMetadata("wid1").id());
+        assertEquals("bid1", metadata.getWireMetadata("wid1").nodeId1());
+        assertEquals("lid1", metadata.getWireMetadata("wid1").nodeId2());
         assertNotNull(metadata.getWireMetadata("wid2"));
-        assertEquals("wid2", metadata.getWireMetadata("wid2").getId());
-        assertEquals("bid2", metadata.getWireMetadata("wid2").getNodeId1());
-        assertEquals("lid2", metadata.getWireMetadata("wid2").getNodeId2());
+        assertEquals("wid2", metadata.getWireMetadata("wid2").id());
+        assertEquals("bid2", metadata.getWireMetadata("wid2").nodeId1());
+        assertEquals("lid2", metadata.getWireMetadata("wid2").nodeId2());
 
         assertEquals(1, metadata.getLineMetadata().size());
         assertNotNull(metadata.getLineMetadata("lid"));
-        assertEquals("lid", metadata.getLineMetadata("lid").getId());
-        assertEquals("lid1", metadata.getLineMetadata("lid").getNodeId1());
-        assertEquals("lid2", metadata.getLineMetadata("lid").getNodeId2());
+        assertEquals("lid", metadata.getLineMetadata("lid").id());
+        assertEquals("lid1", metadata.getLineMetadata("lid").nodeId1());
+        assertEquals("lid2", metadata.getLineMetadata("lid").nodeId2());
     }
 
 }

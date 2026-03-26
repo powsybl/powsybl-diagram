@@ -76,7 +76,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     private void setGraphCoord(LayoutParameters layoutParam) {
         LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
         LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
-        getGraph().setCoord(dPadding.getLeft() + vlPadding.getLeft(), dPadding.getTop() + vlPadding.getTop());
+        getGraph().setCoord(dPadding.left() + vlPadding.left(), dPadding.top() + vlPadding.top());
     }
 
     private void setGraphSize(LayoutParameters layoutParam) {
@@ -86,8 +86,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         double heightWithoutPadding = graph.getInnerHeight(layoutParam.getVerticalSpaceBus());
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-        double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
-        double height = heightWithoutPadding + padding.getTop() + padding.getBottom();
+        double width = widthWithoutPadding + padding.left() + padding.right();
+        double height = heightWithoutPadding + padding.top() + padding.bottom();
 
         getGraph().setSize(width, height);
     }

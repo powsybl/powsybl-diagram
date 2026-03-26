@@ -8,20 +8,45 @@ package com.powsybl.sld.builders;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
+import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.NodeFactory;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.ZoneGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.SldComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.SldComponentTypeName.LINE;
+import static com.powsybl.sld.library.SldComponentTypeName.LOAD_BREAK_SWITCH;
+import static com.powsybl.sld.library.SldComponentTypeName.TIE_LINE;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
@@ -92,14 +117,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         LOGGER.info("Building '{}' graph...", vl.getId());
 
         switch (vl.getTopologyKind()) {
-            case BUS_BREAKER:
-                buildBusBreakerGraph(graph, vl);
-                break;
-            case NODE_BREAKER:
-                buildNodeBreakerGraph(graph, vl);
-                break;
-            default:
-                throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
+            case BUS_BREAKER -> buildBusBreakerGraph(graph, vl);
+            case NODE_BREAKER -> buildNodeBreakerGraph(graph, vl);
+            default -> throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
         }
 
         // Add snake edges in the same voltage level
@@ -124,8 +144,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         && t.getLeg2().getTerminal().getVoltageLevel().getId().equals(t.getLeg3().getTerminal().getVoltageLevel().getId()))
                 .collect(Collectors.toList()));
 
-        addBranchEdges(graph, vl.getConnectableStream(DanglingLine.class)
-                .map(DanglingLine::getTieLine)
+        addBranchEdges(graph, vl.getConnectableStream(BoundaryLine.class)
+                .map(BoundaryLine::getTieLine)
                 .flatMap(Optional::stream)
                 .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
                 .collect(Collectors.toList()));
@@ -185,25 +205,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .collect(Collectors.toList()));
 
         addBranchEdges(graph, substation.getVoltageLevelStream()
-                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .map(DanglingLine::getTieLine)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(BoundaryLine.class))
+                .map(BoundaryLine::getTieLine)
                 .flatMap(Optional::stream)
                 .filter(NetworkGraphBuilder::isInternalToSubstation)
                 .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
                 .collect(Collectors.toList()));
     }
 
-    static boolean isCapacitor(ShuntCompensator sc) {
-        switch (sc.getModelType()) {
-            case LINEAR:
-                return ((ShuntCompensatorLinearModel) sc.getModel()).getBPerSection() >= 0;
-            case NON_LINEAR:
-                ShuntCompensatorNonLinearModel model = (ShuntCompensatorNonLinearModel) sc.getModel();
-                double averageB = model.getAllSections().stream().mapToDouble(ShuntCompensatorNonLinearModel.Section::getB).average().orElse(0);
-                return averageB >= 0;
-            default:
-                throw new IllegalStateException("Unknown shunt compensator model type: " + sc.getModelType());
-        }
+    private static List<FeederNode> getTeePointFeederNodes(VoltageLevelGraph graph, Line line, VoltageLevel fictitiousVoltageLevel) {
+        List<FeederNode> feeders = new ArrayList<>();
+        fictitiousVoltageLevel.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
+            VoltageLevel vl1 = lineOtherSide.getTerminal2().getVoltageLevel();
+            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
+            feeders.add(otherLineNode);
+        });
+        return feeders;
     }
 
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
@@ -218,6 +235,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, FeederNode firstOtherLegNode,
                                              FeederNode secondOtherLegNode, Terminal terminal);
+
+        protected abstract void addTeePoint(Line line, TwoSides side, VoltageLevel vlOwnSide, VoltageLevel vlOtherSide);
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, TwoSides side) {
             return createFeederBranchNode(graph, line, side, LINE);
@@ -300,23 +319,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 NodeSide firstOtherLegSide;
                 NodeSide secondOtherLegSide;
                 switch (side) {
-                    case ONE:
+                    case ONE -> {
                         vlLegSide = NodeSide.ONE;
                         firstOtherLegSide = NodeSide.TWO;
                         secondOtherLegSide = NodeSide.THREE;
-                        break;
-                    case TWO:
+                    }
+                    case TWO -> {
                         vlLegSide = NodeSide.TWO;
                         firstOtherLegSide = NodeSide.ONE;
                         secondOtherLegSide = NodeSide.THREE;
-                        break;
-                    case THREE:
+                    }
+                    case THREE -> {
                         vlLegSide = NodeSide.THREE;
                         firstOtherLegSide = NodeSide.ONE;
                         secondOtherLegSide = NodeSide.TWO;
-                        break;
-                    default:
-                        throw new IllegalStateException();
+                    }
+                    default -> throw new IllegalStateException();
                 }
 
                 // create first other leg feeder node
@@ -329,12 +347,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 FeederNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
+                boolean hasPhaseTapChanger1 = transformer.getLeg1().hasPhaseTapChanger();
+                boolean hasPhaseTapChanger2 = transformer.getLeg2().hasPhaseTapChanger();
+                boolean hasPhaseTapChanger3 = transformer.getLeg3().hasPhaseTapChanger();
                 // create middle node
                 Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
                         vlLegSide, firstOtherLegNode, secondOtherLegNode,
                         voltageLevelInfosBySide.get(NodeSide.ONE),
                         voltageLevelInfosBySide.get(NodeSide.TWO),
-                        voltageLevelInfosBySide.get(NodeSide.THREE));
+                        voltageLevelInfosBySide.get(NodeSide.THREE),
+                        hasPhaseTapChanger1, hasPhaseTapChanger2, hasPhaseTapChanger3);
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
@@ -364,22 +386,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitShuntCompensator(ShuntCompensator sc) {
-            FeederNode feederNode = isCapacitor(sc)
+            FeederNode feederNode = IidmUtil.isCapacitor(sc)
                     ? NodeFactory.createCapacitor(graph, sc.getId(), sc.getNameOrId())
                     : NodeFactory.createInductor(graph, sc.getId(), sc.getNameOrId());
             addTerminalNode(feederNode, sc.getTerminal());
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine dl) {
+        public void visitBoundaryLine(BoundaryLine dl) {
             if (!dl.isPaired()) {
-                addTerminalNode(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
+                addTerminalNode(NodeFactory.createBoundaryLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
             } else {
                 dl.getTieLine().ifPresent(tieLine -> visitTieLine(tieLine, dl, graph));
             }
         }
 
-        private void visitTieLine(TieLine tieLine, DanglingLine dl, Graph graph) {
+        private void visitTieLine(TieLine tieLine, BoundaryLine dl, Graph graph) {
             TwoSides side = tieLine.getSide(dl.getTerminal());
             Terminal terminal = dl.getTerminal();
             addTerminalNode(createFeederTieLineNode((VoltageLevelGraph) graph, tieLine, side), terminal);
@@ -387,12 +409,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            FeederNode node;
-            switch (converterStation.getHvdcType()) {
-                case LCC: node = createFeederLccNode(graph, converterStation); break;
-                case VSC: node = createFeederVscNode(graph, converterStation); break;
-                default: throw new AssertionError();
-            }
+            FeederNode node = switch (converterStation.getHvdcType()) {
+                case LCC -> createFeederLccNode(graph, converterStation);
+                case VSC -> createFeederVscNode(graph, converterStation);
+            };
             addTerminalNode(node, converterStation.getTerminal());
         }
 
@@ -409,7 +429,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitLine(Line line, TwoSides side) {
-            addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            TwoSides otherSide = side == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+            VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
+            boolean isTeePoint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
+
+            if (isTeePoint) {
+                VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
+                addTeePoint(line, side, vlOwnSide, vlOtherSide);
+            } else {
+                addTerminalNode(createFeederLineNode(graph, line, side), line.getTerminal(side));
+            }
         }
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
@@ -444,30 +473,31 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (position == null) {
                 return null;
             }
-            if (connectable instanceof Injection) {
-                return position.getFeeder();
-            } else if (connectable instanceof Branch) {
-                Branch<?> branch = (Branch<?>) connectable;
-                if (branch.getTerminal1() == terminal) {
-                    return position.getFeeder1();
-                } else if (branch.getTerminal2() == terminal) {
-                    return position.getFeeder2();
-                } else {
-                    throw new AssertionError();
+            switch (connectable) {
+                case Injection<?> ignored -> {
+                    return position.getFeeder();
                 }
-            } else if (connectable instanceof ThreeWindingsTransformer) {
-                ThreeWindingsTransformer twt = (ThreeWindingsTransformer) connectable;
-                if (twt.getLeg1().getTerminal() == terminal) {
-                    return position.getFeeder1();
-                } else if (twt.getLeg2().getTerminal() == terminal) {
-                    return position.getFeeder2();
-                } else if (twt.getLeg3().getTerminal() == terminal) {
-                    return position.getFeeder3();
-                } else {
-                    throw new AssertionError();
+                case Branch<?> branch -> {
+                    if (branch.getTerminal1() == terminal) {
+                        return position.getFeeder1();
+                    } else if (branch.getTerminal2() == terminal) {
+                        return position.getFeeder2();
+                    } else {
+                        throw new AssertionError();
+                    }
                 }
-            } else {
-                throw new AssertionError();
+                case ThreeWindingsTransformer twt -> {
+                    if (twt.getLeg1().getTerminal() == terminal) {
+                        return position.getFeeder1();
+                    } else if (twt.getLeg2().getTerminal() == terminal) {
+                        return position.getFeeder2();
+                    } else if (twt.getLeg3().getTerminal() == terminal) {
+                        return position.getFeeder3();
+                    } else {
+                        throw new AssertionError();
+                    }
+                }
+                default -> throw new AssertionError();
             }
         }
 
@@ -509,6 +539,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
             nodesByNumber.put(busbarSection.getTerminal().getNodeBreakerView().getNode(), node);
         }
+
+        @Override
+        protected void addTeePoint(Line line, TwoSides side, VoltageLevel vlOwnSide, VoltageLevel vlOtherSide) {
+            List<FeederNode> feeders = getTeePointFeederNodes(graph, line, vlOtherSide);
+            ConnectablePosition.Feeder feeder = getFeeder(line.getTerminal(side));
+
+            TeePointNode teeNode = NodeFactory.createTeePointNode(graph, vlOtherSide.getId(), vlOtherSide.getNameOrId(), feeders.get(0), feeders.get(1));
+            if (feeder != null) {
+                teeNode.setDirection(Direction.valueOf(feeder.getDirection().toString()));
+            }
+
+            nodesByNumber.put(line.getTerminal(vlOwnSide.getId()).getNodeBreakerView().getNode(), teeNode);
+        }
     }
 
     public static class BusBreakerGraphBuilder extends AbstractGraphBuilder {
@@ -545,6 +588,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             connectToBus(middleNode, terminal);
         }
+
+        @Override
+        protected void addTeePoint(Line line, TwoSides side, VoltageLevel vlOwnSide, VoltageLevel vlOtherSide) {
+            List<FeederNode> feeders = getTeePointFeederNodes(graph, line, vlOtherSide);
+            TeePointNode teeNode = NodeFactory.createTeePointNode(graph, vlOtherSide.getId(), vlOtherSide.getNameOrId(), feeders.get(0), feeders.get(1));
+            connectToBus(teeNode, line.getTerminal(vlOwnSide.getId()));
+        }
+
     }
 
     protected BusBreakerGraphBuilder createBusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
@@ -622,7 +673,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         List<GraphBuildPostProcessor> listPostProcessors = POST_PROCESSOR_LOADER.getServices();
         for (GraphBuildPostProcessor gbp : listPostProcessors) {
             LOGGER.info("Graph post-processor id '{}' : Adding custom node in graph '{}'",
-                    gbp.getId(), graph.getVoltageLevelInfos().getId());
+                    gbp.getId(), graph.getVoltageLevelInfos().id());
             gbp.addNode(graph, network);
         }
     }
@@ -701,7 +752,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 String vlId = leg.getTerminal().getVoltageLevel().getId();
                 String idLeg = transfo.getId() + "_" + transfo.getSide(leg.getTerminal()).name();
                 return (FeederNode) graph.getVoltageLevel(vlId).getNode(idLeg);
-            }).collect(Collectors.toList());
+            }).toList();
 
             NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(),
                     feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
@@ -711,20 +762,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private SwitchNode createSwitchNodeFromSwitch(VoltageLevelGraph graph, Switch aSwitch) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(aSwitch);
-        String componentType;
-        switch (aSwitch.getKind()) {
-            case BREAKER:
-                componentType = BREAKER;
-                break;
-            case DISCONNECTOR:
-                componentType = DISCONNECTOR;
-                break;
-            case LOAD_BREAK_SWITCH:
-                componentType = LOAD_BREAK_SWITCH;
-                break;
-            default:
-                throw new AssertionError();
-        }
+        String componentType = switch (aSwitch.getKind()) {
+            case BREAKER -> BREAKER;
+            case DISCONNECTOR -> DISCONNECTOR;
+            case LOAD_BREAK_SWITCH -> LOAD_BREAK_SWITCH;
+        };
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
         return NodeFactory.createSwitchNode(graph, aSwitch.getId(), aSwitch.getNameOrId(), componentType, aSwitch.isFictitious(), sk, aSwitch.isOpen());
     }
@@ -775,8 +817,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         // - tie lines in the same zone
         addBranchEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
-                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(DanglingLine.class))
-                .map(DanglingLine::getTieLine)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(BoundaryLine.class))
+                .map(BoundaryLine::getTieLine)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList()));

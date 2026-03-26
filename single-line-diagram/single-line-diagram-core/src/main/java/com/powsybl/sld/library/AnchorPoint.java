@@ -46,8 +46,8 @@ public class AnchorPoint extends Point {
     /**
      * Apply transformation on anchorPoints
      */
-    public AnchorPoint transformAnchorPoint(Orientation nodeOrientation, Component.Transformation nodeTransformation) {
-        if (nodeTransformation == Component.Transformation.ROTATION) {
+    public AnchorPoint transformAnchorPoint(Orientation nodeOrientation, SldComponent.Transformation nodeTransformation) {
+        if (nodeTransformation == SldComponent.Transformation.ROTATION) {
             if (nodeOrientation.isHorizontal()) {
                 AnchorOrientation newOrientation = orientation == AnchorOrientation.HORIZONTAL ? AnchorOrientation.VERTICAL : AnchorOrientation.HORIZONTAL;
                 if (nodeOrientation == Orientation.RIGHT) {
@@ -60,7 +60,7 @@ public class AnchorPoint extends Point {
             } else {
                 return new AnchorPoint(getX(), getY(), orientation);
             }
-        } else if (nodeTransformation == Component.Transformation.FLIP && nodeOrientation == Orientation.DOWN) {
+        } else if (nodeTransformation == SldComponent.Transformation.FLIP && nodeOrientation == Orientation.DOWN) {
             return new AnchorPoint(getX(), -getY(), this.orientation);
         }
         return this;

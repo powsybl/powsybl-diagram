@@ -8,6 +8,7 @@ hidden: true
 ---
 
 layout/layout.md
+styleProvider/styleProvider.md
 ```
 
 
@@ -22,7 +23,7 @@ The powsybl-single-line-diagram-core artifact provides features to generate cust
 
 Some extensions are also available. You may check the powsybl-single-line-diagram-cgmes-iidm-extensions artifact to force positions in the diagram for instance.
 
-![sld-example](/_static/img/sld-example.svg)
+![sld-example](/_static/img/sld-example.svg){class="forced-white-background"}
 
 ## Examples
 

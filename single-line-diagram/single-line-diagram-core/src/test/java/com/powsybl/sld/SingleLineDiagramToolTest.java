@@ -7,6 +7,8 @@
 package com.powsybl.sld;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.computation.LazyCreatedComputationManager;
+import com.powsybl.computation.local.LocalComputationManagerFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.NetworkTest1Factory;
 import com.powsybl.iidm.serde.XMLExporter;
@@ -14,6 +16,10 @@ import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolRunningContext;
 import com.powsybl.tools.test.AbstractToolTest;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,11 +32,13 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
+ * Note: this class does not use a mock because it had some strange interaction with other tests, where it would greatly
+ * increase the time it would take for some other tests to finish (making it so that running all tests would take 5 minutes instead of 30s)
+ * The problem was also that this behaviour depends on the order in which tests pass (so sometimes the issue would appear, sometimes not)
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
+ * @author Dissoubray Nathan {@literal <nathan.dissoubray at rte-france.com>}
  */
 class SingleLineDiagramToolTest extends AbstractToolTest {
 
@@ -38,7 +46,7 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
 
     private ToolRunningContext runningContext;
 
-    private CommandLine commandLine;
+    private DefaultParser defaultParser;
 
     private static final String COMMAND_NAME = "generate-substation-diagram";
 
@@ -54,18 +62,25 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
         // Write the file
         Path networkFile = inputDir.resolve("sld-tool-test.xiidm");
         Properties properties = new Properties();
-        properties.put(XMLExporter.EXTENSIONS_LIST, "");
+        properties.put(XMLExporter.EXTENSIONS_INCLUDED_LIST, "");
         properties.put(XMLExporter.VERSION, "1.0");
         network.write("XIIDM", properties, networkFile);
 
-        runningContext = mock(ToolRunningContext.class);
-        PrintStream err = mock(PrintStream.class);
-        PrintStream out = mock(PrintStream.class);
-        when(runningContext.getErrorStream()).thenReturn(err);
-        when(runningContext.getOutputStream()).thenReturn(out);
-        when(runningContext.getFileSystem()).thenReturn(fileSystem);
+        runningContext = new ToolRunningContext(
+                new PrintStream(PrintStream.nullOutputStream()),
+                new PrintStream(PrintStream.nullOutputStream()),
+                fileSystem,
+                new LazyCreatedComputationManager(new LocalComputationManagerFactory()),
+                new LazyCreatedComputationManager(new LocalComputationManagerFactory())
+        );
 
-        commandLine = mock(CommandLine.class);
+        defaultParser = new DefaultParser();
+    }
+
+    @AfterEach
+    @Override
+    public void tearDown() throws IOException {
+        this.fileSystem.close();
     }
 
     @Override
@@ -74,6 +89,7 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Override
+    @Test
     public void assertCommand() {
         assertEquals(COMMAND_NAME, tool.getCommand().getName());
         assertEquals("Single line diagram", tool.getCommand().getTheme());
@@ -89,31 +105,43 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    void missingInputFileOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(false);
+    void missingInputFileOptions() throws ParseException {
+        CommandLine commandLine = defaultParser.parse(new Options(), new String[]{});
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("input-file option is missing"));
     }
 
     @Test
-    void missingOutputDirOptions() {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(false);
+    void missingOutputDirOptions() throws ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        CommandLine commandLine = defaultParser.parse(options, new String[]{"-input-file", "/input-dir/sld-tool-test.xiidm"});
         PowsyblException e = assertThrows(PowsyblException.class, () -> tool.run(commandLine, runningContext));
         assertTrue(e.getMessage().contains("output-dir option is missing"));
     }
 
     @Test
-    void generateSome() throws IOException {
+    void generateSome() throws IOException, ParseException {
         String ids = "VLGEN";
 
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
-        when(commandLine.hasOption("ids")).thenReturn(true);
-        when(commandLine.getOptionValue("ids")).thenReturn(ids);
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("ids", true, "ids");
+
+        //the options use single dash because add option uses single dash by default when passing just opt (and not longOpt), like -i for short and --input for long
+        //except here we only gave input so that defaults to short option, thus the -input instead of --input
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-ids",
+                ids
+            }
+        );
 
         tool.run(commandLine, runningContext);
 
@@ -127,19 +155,26 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    void generateWithAllVoltageLevels() throws IOException {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
+    void generateWithAllVoltageLevels() throws IOException, ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("all-voltage-levels", true, "all-voltage-levels");
+        options.addOption("all-substations", true, "all-substations");
 
-        when(commandLine.hasOption("ids")).thenReturn(false);
-
-        when(commandLine.hasOption("all-voltage-levels")).thenReturn(true);
-        when(commandLine.getOptionValue("all-voltage-levels")).thenReturn(String.valueOf(false));
-
-        when(commandLine.hasOption("all-substations")).thenReturn(true);
-        when(commandLine.getOptionValue("all-substations")).thenReturn(String.valueOf(false));
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-all-voltage-levels",
+                String.valueOf(false),
+                "-all-substations",
+                String.valueOf(false)
+            }
+        );
 
         tool.run(commandLine, runningContext);
 
@@ -150,19 +185,23 @@ class SingleLineDiagramToolTest extends AbstractToolTest {
     }
 
     @Test
-    void generateWithAllSubstations() throws IOException {
-        when(commandLine.hasOption("input-file")).thenReturn(true);
-        when(commandLine.getOptionValue("input-file")).thenReturn("/input-dir/sld-tool-test.xiidm");
-        when(commandLine.hasOption("output-dir")).thenReturn(true);
-        when(commandLine.getOptionValue("output-dir")).thenReturn("/tmp");
+    void generateWithAllSubstations() throws IOException, ParseException {
+        Options options = new Options();
+        options.addOption("input-file", true, "input file");
+        options.addOption("output-dir", true, "output-dir");
+        options.addOption("all-substations", true, "all-substations");
 
-        when(commandLine.hasOption("ids")).thenReturn(false);
-
-        when(commandLine.hasOption("all-voltage-levels")).thenReturn(false);
-        when(commandLine.getOptionValue("all-voltage-levels")).thenReturn(String.valueOf(false));
-
-        when(commandLine.hasOption("all-substations")).thenReturn(true);
-        when(commandLine.getOptionValue("all-substations")).thenReturn(String.valueOf(true));
+        CommandLine commandLine = defaultParser.parse(
+            options,
+            new String[] {
+                "-input-file",
+                "/input-dir/sld-tool-test.xiidm",
+                "-output-dir",
+                "/tmp",
+                "-all-substations",
+                String.valueOf(true)
+            }
+        );
 
         tool.run(commandLine, runningContext);
 

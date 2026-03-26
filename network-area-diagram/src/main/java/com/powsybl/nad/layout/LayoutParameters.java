@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2026, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.layout;
 
@@ -13,18 +14,25 @@ import com.powsybl.nad.model.Point;
  */
 public class LayoutParameters {
     private boolean textNodesForceLayout = false;
-    private double springRepulsionFactorForceLayout = 0.0;
-    private Point textNodeFixedShift = new Point(100, -15);
+    private Point textNodeFixedShift = new Point(100, -40);
+    //TODO remove this in later PR
     private int maxSteps = 1000;
+    private double timeoutSeconds = 15;
+    private double textNodeEdgeConnectionYShift = 25;
+    private boolean injectionsAdded = false;
+    private double scaleFactor = 1;
 
     public LayoutParameters() {
     }
 
     public LayoutParameters(LayoutParameters other) {
         this.textNodesForceLayout = other.textNodesForceLayout;
-        this.springRepulsionFactorForceLayout = other.springRepulsionFactorForceLayout;
-        this.textNodeFixedShift = new Point(other.textNodeFixedShift.getX(), other.textNodeFixedShift.getY());
+        this.textNodeFixedShift = new Point(other.textNodeFixedShift.x(), other.textNodeFixedShift.y());
         this.maxSteps = other.maxSteps;
+        this.timeoutSeconds = other.timeoutSeconds;
+        this.textNodeEdgeConnectionYShift = other.textNodeEdgeConnectionYShift;
+        this.injectionsAdded = other.injectionsAdded;
+        this.scaleFactor = other.scaleFactor;
     }
 
     public boolean isTextNodesForceLayout() {
@@ -34,15 +42,6 @@ public class LayoutParameters {
     public LayoutParameters setTextNodesForceLayout(boolean textNodesForceLayout) {
         this.textNodesForceLayout = textNodesForceLayout;
         return this;
-    }
-
-    public LayoutParameters setSpringRepulsionFactorForceLayout(double springRepulsionFactorForceLayout) {
-        this.springRepulsionFactorForceLayout = springRepulsionFactorForceLayout;
-        return this;
-    }
-
-    public double getSpringRepulsionFactorForceLayout() {
-        return springRepulsionFactorForceLayout;
     }
 
     public Point getTextNodeFixedShift() {
@@ -60,6 +59,42 @@ public class LayoutParameters {
 
     public LayoutParameters setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
+        return this;
+    }
+
+    public double getTimeoutSeconds() {
+        return timeoutSeconds;
+    }
+
+    public LayoutParameters setTimeoutSeconds(double timeoutSeconds) {
+        this.timeoutSeconds = timeoutSeconds;
+        return this;
+    }
+
+    public double getTextNodeEdgeConnectionYShift() {
+        return textNodeEdgeConnectionYShift;
+    }
+
+    public LayoutParameters setTextNodeEdgeConnectionYShift(double textNodeEdgeConnectionYShift) {
+        this.textNodeEdgeConnectionYShift = textNodeEdgeConnectionYShift;
+        return this;
+    }
+
+    public boolean isInjectionsAdded() {
+        return injectionsAdded;
+    }
+
+    public LayoutParameters setInjectionsAdded(boolean injectionsAdded) {
+        this.injectionsAdded = injectionsAdded;
+        return this;
+    }
+
+    public double getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public LayoutParameters setScaleFactor(double scaleFactor) {
+        this.scaleFactor = scaleFactor;
         return this;
     }
 }

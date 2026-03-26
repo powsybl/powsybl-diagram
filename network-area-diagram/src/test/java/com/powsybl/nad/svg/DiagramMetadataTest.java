@@ -9,10 +9,18 @@ package com.powsybl.nad.svg;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
-import com.powsybl.commons.xml.XmlUtil;
+import com.powsybl.diagram.test.Networks;
+import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
+import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.build.iidm.IntIdProvider;
+import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
@@ -21,8 +29,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
@@ -35,13 +41,9 @@ import java.util.Objects;
  */
 class DiagramMetadataTest extends AbstractTest {
 
-    private static final String INDENT = "    ";
-    private static final String METADATA = "metadata";
-    private static final String METADATA_START_TOKEN = "<" + METADATA + ">";
-    private static final String METADATA_END_TOKEN = "</" + METADATA + ">";
-
     private FileSystem fileSystem;
     private Path tmpDir;
+    private LabelProvider labelProvider;
 
     @BeforeEach
     void setup() throws IOException {
@@ -66,93 +68,82 @@ class DiagramMetadataTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return labelProvider;
     }
 
     @Test
-    void test() throws XMLStreamException {
-        // Referenced svg file
-        String reference = "/hvdc.svg";
-        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
-        // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
-        // Write Metadata as temporary xml file
-        Path outPath = tmpDir.resolve("metadata.xml");
-        writeMetadata(metadata, outPath);
-        // Read xml file
-        String actual = toString(outPath);
-        // remove xml header (first line)
-        actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
-        // Keep only metadata from svg file
-        String expected = toString(reference);
-        expected = expected.substring(expected.indexOf(METADATA_START_TOKEN), expected.indexOf(METADATA_END_TOKEN) + METADATA_END_TOKEN.length());
+    void test() throws IOException {
+        // Referenced json file
+        String referenceMetadata = "/hvdc_metadata.json";
+        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(referenceMetadata));
+        // Create Metadata from json file
+        DiagramMetadata metadata = DiagramMetadata.parseJson(in);
+        // Write Metadata as temporary json file
+        Path outMetadataPath = tmpDir.resolve("metadata.json");
+        try (Writer writer = Files.newBufferedWriter(outMetadataPath, StandardCharsets.UTF_8)) {
+            metadata.writeJson(writer);
+        }
         // Checking
-        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
+        assertFileEquals(referenceMetadata, outMetadataPath);
     }
 
     @Test
-    void testInvalid() throws XMLStreamException {
-        // Referenced svg file
-        String reference = """
-                <svg>
-                    <metadata>
-                        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-                            <nad:nodes>
-                                <nad:edge diagramId="10" equipmentId="TWT"/>
-                            </nad:nodes>
-                            <nad:edges>
-                                <nad:node diagramId="0" equipmentId="S1VL1"/>
-                            </nad:edges>
-                        </nad:nad>
-                    </metadata>
-                </svg>""";
-        InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
-        // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.readFromSvg(in);
-        // Write Metadata as temporary xml file
-        Path outPath = tmpDir.resolve("metadataInvalid.xml");
-        writeMetadata(metadata, outPath);
-        // Read xml file
-        String actual = toString(outPath);
-        // remove xml header (first line)
-        actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
-        // Keep only metadata from svg file
-        String expected = """
-                <metadata>
-                    <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-                        <nad:busNodes/>
-                        <nad:nodes/>
-                        <nad:edges/>
-                        <nad:svgParameters/>
-                    </nad:nad>
-                </metadata>""";
+    void test3wt() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        DiagramMetadata diagramMetadata = roundTrip(network, "/3wt_metadata.json", getLayoutParameters());
+        assertEquals(3, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(4, diagramMetadata.getNodesMetadata().size());
+        assertEquals(3, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(3, diagramMetadata.getTextNodesMetadata().size());
+    }
+
+    @Test
+    void testFictitious() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        network.getVoltageLevel("VL12").setFictitious(true);
+        network.getVoltageLevel("VL14").setFictitious(true);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        DiagramMetadata diagramMetadata = roundTrip(network, "/IEEE_14_bus_fictitious_metadata.json", getLayoutParameters());
+        assertEquals(14, diagramMetadata.getBusNodesMetadata().size());
+        assertEquals(14, diagramMetadata.getNodesMetadata().size());
+        assertEquals(20, diagramMetadata.getEdgesMetadata().size());
+        assertEquals(14, diagramMetadata.getTextNodesMetadata().size());
+    }
+
+    @Test
+    void testInjections() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/IEEE_14_bus_injections_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testEdgeInfoMetadata() {
+        Network network = Networks.createTwoVoltageLevels();
+        labelProvider = new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .build(network, getSvgParameters());
+        Line line = network.getLine("l1");
+        line.getTerminal1().setP(1400.0).setQ(400.0);
+        line.getTerminal2().setP(1410.0).setQ(410.0);
+        line.getTerminal1().getBusBreakerView().getBus().setV(400.0);
+        line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
+        roundTrip(network, "/edge_info_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLabelProvider(network), layoutParameters, new IntIdProvider()).buildGraph();
+        new BasicForceLayout().run(graph, layoutParameters);
+        // Write Metadata as temporary json file
+        Path outMetadataPath = tmpDir.resolve("metadata.json");
+        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
         // Checking
-        assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
-    }
-
-    private void writeMetadata(DiagramMetadata metadata, Path outPath) throws XMLStreamException {
-        try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(outPath))) {
-            XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, os);
-            writer.writeStartElement(METADATA);
-            metadata.writeXml(writer);
-            writer.writeEndElement();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private String toString(Path outPath) {
-        String content;
-        try {
-            byte[] encoded = Files.readAllBytes(outPath);
-            content = new String(encoded, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        return content;
-    }
-
-    private String removeWhiteSpaces(String input) {
-        return input.replaceAll("\\s+", "");
+        assertFileEquals(referenceMetadata, outMetadataPath);
+        // Read metadata from file
+        return DiagramMetadata.parseJson(outMetadataPath);
     }
 }

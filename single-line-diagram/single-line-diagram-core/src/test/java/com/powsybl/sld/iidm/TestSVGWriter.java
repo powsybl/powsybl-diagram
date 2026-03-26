@@ -9,7 +9,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TwoSides;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.nodes.NodeSide.*;
@@ -60,6 +60,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
     private LabelProvider labelProvider;
+    private SVGLegendWriter legendWriter;
     private LabelProvider labelNoFeederInfoProvider;
     private LabelProvider diagramLabelMultiLineTooltipProvider;
     private LabelProvider diagramLabelSameNodeProvider;
@@ -92,14 +93,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
         vl1Bbs2.setPosition(new Position(6, 1, 6, 0, null));
-        SwitchNode vl1D1 = NodeFactory.createSwitchNode(g1, "vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1D1 = NodeFactory.createSwitchNode(g1, "vl1_d1", "vl1_d1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
         vl1D1.setY(300);
-        SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1, "vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1, "vl1_b1", "vl1_b1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
-        SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1, "vl1_d2", null, ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1, "vl1_d2", null, SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D2.setX(270);
         vl1D2.setY(300);
         g1.addEdge(vl1Bbs1, vl1D1);
@@ -112,10 +113,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
         vl1Load1.setY(80);
-        SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1, "vl1_bload1", "vl1_bload1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1, "vl1_bload1", "vl1_bload1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Bload1.setX(40);
         vl1Bload1.setY(180);
-        SwitchNode vl1Dload1 = NodeFactory.createSwitchNode(g1, "vl1_dload1", "vl1_dload1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dload1 = NodeFactory.createSwitchNode(g1, "vl1_dload1", "vl1_dload1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dload1.setX(40);
         vl1Dload1.setY(300);
         g1.addEdge(vl1Load1, vl1Bload1);
@@ -127,10 +128,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
         vl1Trf1.setY(500);
-        SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1, "vl1_btrf1", "vl1_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1, "vl1_btrf1", "vl1_btrf1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Btrf1.setX(80);
         vl1Btrf1.setY(400);
-        SwitchNode vl1Dtrf1 = NodeFactory.createSwitchNode(g1, "vl1_dtrf1", "vl1_dtrf1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dtrf1 = NodeFactory.createSwitchNode(g1, "vl1_dtrf1", "vl1_dtrf1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dtrf1.setX(80);
         vl1Dtrf1.setY(300);
         g1.addEdge(vl1Trf1, vl1Btrf1);
@@ -147,16 +148,16 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf2Two.setDirection(TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
-        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, THREE_WINDINGS_TRANSFORMER, true);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
         g1.addEdge(vl1Trf2One, vl1Trf2Fict);
         g1.addEdge(vl1Trf2Two, vl1Trf2Fict);
-        SwitchNode vl1Btrf2 = NodeFactory.createSwitchNode(g1, "vl1_btrf2", "vl1_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Btrf2 = NodeFactory.createSwitchNode(g1, "vl1_btrf2", "vl1_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Btrf2.setX(400);
         vl1Btrf2.setY(180);
-        SwitchNode vl1Dtrf2 = NodeFactory.createSwitchNode(g1, "vl1_dtrf2", "vl1_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dtrf2 = NodeFactory.createSwitchNode(g1, "vl1_dtrf2", "vl1_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dtrf2.setX(400);
         vl1Dtrf2.setY(300);
         g1.addEdge(vl1Trf2Fict, vl1Btrf2);
@@ -187,10 +188,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
         vl2Gen1.setY(80);
-        SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2, "vl2_bgen1", "vl2_bgen1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2, "vl2_bgen1", "vl2_bgen1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Bgen1.setX(50);
         vl2Bgen1.setY(180);
-        SwitchNode vl2Dgen1 = NodeFactory.createSwitchNode(g2, "vl2_dgen1", "vl2_dgen1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dgen1 = NodeFactory.createSwitchNode(g2, "vl2_dgen1", "vl2_dgen1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dgen1.setX(50);
         vl2Dgen1.setY(300);
         g2.addEdge(vl2Gen1, vl2Bgen1);
@@ -202,10 +203,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
         vl2Trf1.setY(500);
-        SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2, "vl2_btrf1", "vl2_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2, "vl2_btrf1", "vl2_btrf1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Btrf1.setX(100);
         vl2Btrf1.setY(400);
-        SwitchNode vl2Dtrf1 = NodeFactory.createSwitchNode(g2, "vl2_dtrf1", "vl2_dtrf1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dtrf1 = NodeFactory.createSwitchNode(g2, "vl2_dtrf1", "vl2_dtrf1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dtrf1.setX(100);
         vl2Dtrf1.setY(300);
         g2.addEdge(vl2Trf1, vl2Btrf1);
@@ -222,16 +223,16 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf2Two.setDirection(TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
-        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, THREE_WINDINGS_TRANSFORMER, true);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
         g2.addEdge(vl2Trf2One, vl2Trf2Fict);
         g2.addEdge(vl2Trf2Two, vl2Trf2Fict);
-        SwitchNode vl2Btrf2 = NodeFactory.createSwitchNode(g2, "vl2_btrf2", "vl2_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Btrf2 = NodeFactory.createSwitchNode(g2, "vl2_btrf2", "vl2_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Btrf2.setX(160);
         vl2Btrf2.setY(180);
-        SwitchNode vl2Dtrf2 = NodeFactory.createSwitchNode(g2, "vl2_dtrf2", "vl2_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dtrf2 = NodeFactory.createSwitchNode(g2, "vl2_dtrf2", "vl2_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dtrf2.setX(160);
         vl2Dtrf2.setY(300);
         g2.addEdge(vl2Trf2Fict, vl2Btrf2);
@@ -261,10 +262,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
         vl3Capa1.setY(80);
-        SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3, "vl3_bcapa1", "vl3_bcapa1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3, "vl3_bcapa1", "vl3_bcapa1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl3Bcapa1.setX(40);
         vl3Bcapa1.setY(180);
-        SwitchNode vl3Dcapa1 = NodeFactory.createSwitchNode(g3, "vl3_dcapa1", "vl3_dcapa1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl3Dcapa1 = NodeFactory.createSwitchNode(g3, "vl3_dcapa1", "vl3_dcapa1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl3Dcapa1.setX(40);
         vl3Dcapa1.setY(300);
         g3.addEdge(vl3Capa1, vl3Bcapa1);
@@ -281,16 +282,16 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2Two.setDirection(TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
-        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, THREE_WINDINGS_TRANSFORMER, true);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
         g3.addEdge(vl3Trf2One, vl3Trf2Fict);
         g3.addEdge(vl3Trf2Two, vl3Trf2Fict);
-        SwitchNode vl3Btrf2 = NodeFactory.createSwitchNode(g3, "vl3_btrf2", "vl3_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl3Btrf2 = NodeFactory.createSwitchNode(g3, "vl3_btrf2", "vl3_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl3Btrf2.setX(150);
         vl3Btrf2.setY(180);
-        SwitchNode vl3Dtrf2 = NodeFactory.createSwitchNode(g3, "vl3_dtrf2", "vl3_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl3Dtrf2 = NodeFactory.createSwitchNode(g3, "vl3_dtrf2", "vl3_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl3Dtrf2.setX(150);
         vl3Dtrf2.setY(300);
         g3.addEdge(vl3Trf2Fict, vl3Btrf2);
@@ -325,14 +326,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
         vl1Bbs2.setPosition(new Position(6, 1, 6, 0, null));
-        SwitchNode vl1D1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1D1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_d1", "vl1_d1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
         vl1D1.setY(300);
-        SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_b1", "vl1_b1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
-        SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_d2", "vl1_d2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_d2", "vl1_d2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D2.setX(270);
         vl1D2.setY(300);
         g1ForSubstation.addEdge(vl1Bbs1, vl1D1);
@@ -345,10 +346,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
         vl1Load1.setY(80);
-        SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_bload1", "vl1_bload1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_bload1", "vl1_bload1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Bload1.setX(40);
         vl1Bload1.setY(180);
-        SwitchNode vl1Dload1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dload1", "vl1_dload1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dload1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dload1", "vl1_dload1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dload1.setX(40);
         vl1Dload1.setY(300);
         g1ForSubstation.addEdge(vl1Load1, vl1Bload1);
@@ -360,10 +361,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
         vl1Trf1.setY(500);
-        SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf1", "vl1_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf1", "vl1_btrf1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Btrf1.setX(80);
         vl1Btrf1.setY(400);
-        SwitchNode vl1Dtrf1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dtrf1", "vl1_dtrf1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dtrf1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dtrf1", "vl1_dtrf1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dtrf1.setX(80);
         vl1Dtrf1.setY(300);
         g1ForSubstation.addEdge(vl1Trf1, vl1Btrf1);
@@ -375,10 +376,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf2.setDirection(TOP);
         vl1Trf2.setX(400);
         vl1Trf2.setY(80);
-        SwitchNode vl1Btrf2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf2", "vl1_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl1Btrf2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf2", "vl1_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl1Btrf2.setX(400);
         vl1Btrf2.setY(180);
-        SwitchNode vl1Dtrf2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dtrf2", "vl1_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1Dtrf2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_dtrf2", "vl1_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1Dtrf2.setX(400);
         vl1Dtrf2.setY(300);
         g1ForSubstation.addEdge(vl1Trf2, vl1Btrf2);
@@ -402,10 +403,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
         vl2Gen1.setY(80);
-        SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_bgen1", "vl2_bgen1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_bgen1", "vl2_bgen1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Bgen1.setX(50);
         vl2Bgen1.setY(180);
-        SwitchNode vl2Dgen1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dgen1", "vl2_dgen1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dgen1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dgen1", "vl2_dgen1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dgen1.setX(50);
         vl2Dgen1.setY(300);
         g2ForSubstation.addEdge(vl2Gen1, vl2Bgen1);
@@ -417,10 +418,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
         vl2Trf1.setY(500);
-        SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf1", "vl2_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf1", "vl2_btrf1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Btrf1.setX(100);
         vl2Btrf1.setY(400);
-        SwitchNode vl2Dtrf1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dtrf1", "vl2_dtrf1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dtrf1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dtrf1", "vl2_dtrf1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dtrf1.setX(100);
         vl2Dtrf1.setY(300);
         g2ForSubstation.addEdge(vl2Trf1, vl2Btrf1);
@@ -432,10 +433,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf2.setDirection(TOP);
         vl2Trf2.setX(160);
         vl2Trf2.setY(80);
-        SwitchNode vl2Btrf2 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf2", "vl2_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl2Btrf2 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf2", "vl2_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl2Btrf2.setX(160);
         vl2Btrf2.setY(180);
-        SwitchNode vl2Dtrf2 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dtrf2", "vl2_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl2Dtrf2 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_dtrf2", "vl2_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl2Dtrf2.setX(160);
         vl2Dtrf2.setY(300);
         g2ForSubstation.addEdge(vl2Trf2, vl2Btrf2);
@@ -458,10 +459,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
         vl3Capa1.setY(80);
-        SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_bcapa1", "vl3_bcapa1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_bcapa1", "vl3_bcapa1", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl3Bcapa1.setX(40);
         vl3Bcapa1.setY(180);
-        SwitchNode vl3Dcapa1 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_dcapa1", "vl3_dcapa1", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl3Dcapa1 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_dcapa1", "vl3_dcapa1", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl3Dcapa1.setX(40);
         vl3Dcapa1.setY(300);
         g3ForSubstation.addEdge(vl3Capa1, vl3Bcapa1);
@@ -473,10 +474,10 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2.setDirection(TOP);
         vl3Trf2.setX(150);
         vl3Trf2.setY(80);
-        SwitchNode vl3Btrf2 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_btrf2", "vl3_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
+        SwitchNode vl3Btrf2 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_btrf2", "vl3_btrf2", SldComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
         vl3Btrf2.setX(150);
         vl3Btrf2.setY(180);
-        SwitchNode vl3Dtrf2 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_dtrf2", "vl3_dtrf2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl3Dtrf2 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_dtrf2", "vl3_dtrf2", SldComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl3Dtrf2.setX(150);
         vl3Dtrf2.setY(300);
         g3ForSubstation.addEdge(vl3Trf2, vl3Btrf2);
@@ -497,7 +498,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, THREE_WINDINGS_TRANSFORMER, false);
         nMulti3.setCoordinates(750., 90.);
         nMulti3.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
@@ -601,8 +602,8 @@ class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
+                        new ValueFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
+                        new ValueFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
                 boolean feederArrowSymmetry = node.getDirection() == TOP || svgParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -662,12 +663,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
                 return new ArrayList<>();
             }
         };
+
+        legendWriter = new DefaultSVGLegendWriter(Network.create("empty", ""), svgParameters);
     }
 
     @Test
     void testVl1() {
         assertEquals(toString("/vl1.svg"),
-                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -675,7 +678,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_IMPORTED);
 
         assertEquals(toString("/vl1_external_css.svg"),
-                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -683,26 +686,26 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setCssLocation(SvgParameters.CssLocation.EXTERNAL_NO_IMPORT);
 
         assertEquals(toString("/vl1_external_css_no_import.svg"),
-                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_external_css_no_import.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testVl2() {
         assertEquals(toString("/vl2.svg"),
-                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testVl3() {
         assertEquals(toString("/vl3.svg"),
-                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider()));
+                toSVG(substG, "/substation.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider(), legendWriter));
     }
 
     @Test
@@ -710,14 +713,14 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
         svgParameters.setFeederInfoSymmetry(true);
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
-                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_feeder_arrow_symmetry.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
     void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
-                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_no_feeder_values.svg", componentLibrary, layoutParameters, svgParameters, labelNoFeederInfoProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -726,7 +729,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl1_optimized.svg"),
-                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -735,7 +738,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl2_optimized.svg"),
-                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g2, "/vl2_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -744,7 +747,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/vl3_optimized.svg"),
-                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g3, "/vl3_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -753,7 +756,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setAvoidSVGComponentsDuplication(true);
 
         assertEquals(toString("/substation_optimized.svg"),
-                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(substG, "/substation_optimized.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -761,7 +764,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setShowGrid(false);
 
         assertEquals(toString("/zone.svg"),
-                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(zGraph, "/zone.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -769,7 +772,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setDrawStraightWires(true);
 
         assertEquals(toString("/vl1_straightWires.svg"),
-                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_straightWires.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -777,7 +780,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setTooltipEnabled(true);
 
         assertEquals(toString("/vl1_tooltip.svg"),
-                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_tooltip.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -787,7 +790,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         svgParameters.setTooltipEnabled(true);
 
         assertEquals(toString("/vl1_multiline_tooltip.svg"),
-                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider()));
+                toSVG(g1, "/vl1_multiline_tooltip.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelMultiLineTooltipProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -795,7 +798,7 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         // same node label provider example for the test :
 
         assertEquals(toString("/label_on_all_nodes.svg"),
-                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider()));
+                toSVG(g1, "/label_on_all_nodes.svg", componentLibrary, layoutParameters, svgParameters, diagramLabelSameNodeProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -808,6 +811,6 @@ class TestSVGWriter extends AbstractTestCaseIidm {
         };
 
         assertEquals(toString("/with_frame_background.svg"),
-                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider));
+                toSVG(g1, "/with_frame_background.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter));
     }
 }

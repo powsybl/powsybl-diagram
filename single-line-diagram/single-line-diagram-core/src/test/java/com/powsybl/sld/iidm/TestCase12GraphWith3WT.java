@@ -257,7 +257,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // Optimize SVG by avoiding duplication
         svgParameters.setAvoidSVGComponentsDuplication(true)
-                .setAddNodesInfos(true);
+                .setBusesLegendAdded(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId());
@@ -270,7 +270,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
-        svgParameters.setAddNodesInfos(true);
+        svgParameters.setBusesLegendAdded(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
@@ -279,7 +279,7 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider()));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -287,13 +287,13 @@ class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         separateBusVoltages();
 
         //parametrize diagram
-        svgParameters.setAddNodesInfos(true);
+        svgParameters.setBusesLegendAdded(true);
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
         voltageLevelGraphLayout(g1);
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", new ConvergenceComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 
 }

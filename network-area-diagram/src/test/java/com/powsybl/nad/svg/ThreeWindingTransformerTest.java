@@ -7,7 +7,9 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.PhaseTapChanger;
 import com.powsybl.iidm.network.ThreeSides;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
@@ -17,7 +19,6 @@ import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 
@@ -27,6 +28,7 @@ import java.util.Collections;
 class ThreeWindingTransformerTest extends AbstractTest {
 
     private StyleProvider styleProvider;
+    private DefaultLabelProvider.EdgeInfoEnum externalInfo;
 
     @BeforeEach
     void setup() {
@@ -35,6 +37,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
     }
 
     @Override
@@ -44,13 +47,25 @@ class ThreeWindingTransformerTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(externalInfo)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void test3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
-        assertEquals(toString("/3wt.svg"), generateSvgString(network, "/3wt.svg"));
+        assertSvgEquals("/3wt.svg", network);
+    }
+
+    @Test
+    void test3wtWithLabelsOnEdges() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        externalInfo = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        assertSvgEquals("/3wt_labels_on_edge.svg", network);
     }
 
     @Test
@@ -58,7 +73,7 @@ class ThreeWindingTransformerTest extends AbstractTest {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
-        assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
+        assertSvgEquals("/3wt_disconnected.svg", network);
     }
 
     @Test
@@ -67,13 +82,118 @@ class ThreeWindingTransformerTest extends AbstractTest {
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeSides.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
         styleProvider = new TopologicalStyleProvider(network);
-        assertEquals(toString("/3wt_disconnected_topological.svg"), generateSvgString(network, "/3wt_disconnected_topological.svg"));
+        assertSvgEquals("/3wt_disconnected_topological.svg", network);
     }
 
     @Test
     void testPartial3wt() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network, Collections.singletonList("VL_11"));
-        assertEquals(toString("/3wt_partial.svg"), generateSvgString(network, filter, "/3wt_partial.svg"));
+        assertSvgEquals("/3wt_partial.svg", network, filter);
     }
+
+    @Test
+    void test3wtPhaseShift() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        VoltageLevelFilter filter = VoltageLevelFilter.createVoltageLevelsFilter(network,
+                Collections.singletonList("VL_11"));
+
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("3WT");
+
+        twt.getLeg1().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg1().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
+                .setRegulating(false)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        twt.getLeg2().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg2().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
+                .setRegulating(false)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        twt.getLeg3().newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getLeg3().getTerminal())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
+                .setRegulating(false)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        assertSvgEquals("/3wt_pst.svg", network, filter);
+    }
+
 }

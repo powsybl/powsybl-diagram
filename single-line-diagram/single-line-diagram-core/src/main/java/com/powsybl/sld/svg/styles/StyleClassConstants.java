@@ -19,19 +19,26 @@ public final class StyleClassConstants {
     public static final String ANGLE = STYLE_PREFIX + "angle";
     public static final String VOLTAGE = STYLE_PREFIX + "voltage";
     public static final String LEGEND = STYLE_PREFIX + "legend";
+    public static final String BUS_LEGEND_INFO = STYLE_PREFIX + "bus-legend-info";
     public static final String CELL_DIRECTION_PREFIX = STYLE_PREFIX + "cell-direction-";
     public static final String CELL_SHAPE_PREFIX = STYLE_PREFIX + "cell-shape-";
     public static final String SHUNT_CELL = STYLE_PREFIX + "shunt-cell";
     public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
     public static final String EXTERN_CELL = STYLE_PREFIX + "extern-cell";
     public static final String FICTITIOUS_NODE_STYLE_CLASS = STYLE_PREFIX + "fictitious";
+    public static final String OVERLOAD_STYLE_CLASS = STYLE_PREFIX + "overload";
+    public static final String VL_OVERVOLTAGE_CLASS = STYLE_PREFIX + "vl-overvoltage";
+    public static final String VL_UNDERVOLTAGE_CLASS = STYLE_PREFIX + "vl-undervoltage";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";
     public static final String BOTTOM_FEEDER = STYLE_PREFIX + "bottom-feeder";
+    public static final String BUS_DISCONNECTED = STYLE_PREFIX + "bus-disconnected";
     public static final String FEEDER_DISCONNECTED_CONNECTED = STYLE_PREFIX + "feeder-disconnected-connected";
     public static final String FEEDER_CONNECTED_DISCONNECTED = STYLE_PREFIX + "feeder-connected-disconnected";
     public static final String FEEDER_DISCONNECTED = STYLE_PREFIX + "feeder-disconnected";
+    public static final String TIE_LINE = STYLE_PREFIX + "tie-line";
+    public static final String BOUNDARY_LINE = STYLE_PREFIX + "boundary-line";
     public static final String CLOSED_SWITCH_STYLE_CLASS = STYLE_PREFIX + "closed";
     public static final String OPEN_SWITCH_STYLE_CLASS = STYLE_PREFIX + "open";
     public static final String DISCONNECTED_STYLE_CLASS = STYLE_PREFIX + "disconnected";
@@ -42,6 +49,7 @@ public final class StyleClassConstants {
     public static final String LABEL_STYLE_CLASS = STYLE_PREFIX + "label";
     public static final String GRID_STYLE_CLASS = STYLE_PREFIX + "grid";
     public static final String WIRE_STYLE_CLASS = STYLE_PREFIX + "wire";
+    public static final String VOLTAGE_LEVEL_CLASS = STYLE_PREFIX + "voltage-level";
 
     private StyleClassConstants() {
     }

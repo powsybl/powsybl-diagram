@@ -6,16 +6,27 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BlockVisitor;
+import com.powsybl.sld.model.blocks.BodyParallelBlock;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.ComposedBlock;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 
-import static com.powsybl.sld.model.coordinate.Orientation.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Orientation.UP;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -37,7 +48,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
     public void visit(BodyPrimaryBlock block) {
         List<Node> blockNodes = block.getNodes();
         if (blockNodes.size() == 1) {
-            blockNodes.get(0).setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
+            blockNodes.getFirst().setCoordinates(block.getCoord().get(X), block.getCoord().get(Y));
             return;
         }
 

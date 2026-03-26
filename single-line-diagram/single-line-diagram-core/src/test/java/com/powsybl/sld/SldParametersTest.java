@@ -25,7 +25,7 @@ class SldParametersTest {
     void test() {
         LayoutParameters layoutParameters = new LayoutParameters();
         SvgParameters svgParameters = new SvgParameters();
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
+        SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         StyleProviderFactory styleProviderFactory = new NominalVoltageStyleProviderFactory();
         SubstationLayoutFactory substationLayoutFactory = new VerticalSubstationLayoutFactory();
         VoltageLevelLayoutFactoryCreator voltageLevelLayoutFactoryCreator = i -> new PositionVoltageLevelLayoutFactory();

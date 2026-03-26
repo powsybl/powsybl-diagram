@@ -10,7 +10,12 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -116,7 +121,7 @@ public class BSCluster {
     }
 
     public void sortHblByVPos() {
-        horizontalBusLists.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getBusbarIndex()));
+        horizontalBusLists.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().getFirst().getBusbarIndex()));
     }
 
     public int getLength() {
@@ -133,7 +138,7 @@ public class BSCluster {
 
     @Override
     public String toString() {
-        return verticalBusSets.toString() + "\n" + horizontalBusLists.toString();
+        return verticalBusSets + "\n" + horizontalBusLists;
     }
 
 }

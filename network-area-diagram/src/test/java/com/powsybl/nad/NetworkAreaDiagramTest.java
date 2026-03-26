@@ -18,6 +18,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
+import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
@@ -28,6 +29,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.UncheckedIOException;
+import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Path;
 import java.util.List;
@@ -68,9 +73,10 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Path svgFile = fileSystem.getPath("nad-test.svg");
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
-                .setStyleProviderFactory(this::getStyleProvider);
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLayoutFactory(new BasicForceLayoutFactory());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
-        assertEquals(toString("/dangling_line_connected.svg"), getContentFile(svgFile));
+        assertFileEquals("/boundary_line_connected.svg", svgFile);
     }
 
     @Test
@@ -88,7 +94,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, List.of("VL4"), 120, 180, 2));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter1.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -96,7 +102,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, List.of("VL4"), 120, 2));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter1.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -104,7 +110,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, List.of("VL4"), 180, 2));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter2.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter2.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -112,7 +118,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageFilter(network, 120, 180));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter1.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter1.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -120,7 +126,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter5.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -128,7 +134,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         Path svgFileVoltageFilter = fileSystem.getPath("nad-test-voltage-filter.svg");
         NetworkAreaDiagram.draw(network, svgFileVoltageFilter, new NadParameters(), VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, 90));
-        assertEquals(toString("/IEEE_14_bus_voltage_filter4.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter4.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -145,7 +151,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         List<ILoggingEvent> logsList = logWatcher.list;
         assertEquals(1, logsList.size());
         assertEquals("vl 'VL4' does not comply with the predicate", logsList.get(0).getFormattedMessage());
-        assertEquals(toString("/IEEE_14_bus_voltage_filter3.svg"), getContentFile(svgFileVoltageFilter));
+        assertFileEquals("/IEEE_14_bus_voltage_filter3.svg", svgFileVoltageFilter);
     }
 
     @Test
@@ -170,5 +176,189 @@ class NetworkAreaDiagramTest extends AbstractTest {
         List<String> voltageLevelList = List.of("VL456");
         PowsyblException e = assertThrows(PowsyblException.class, () -> VoltageLevelFilter.createNominalVoltageUpperBoundFilter(network, voltageLevelList, 90, 2));
         assertTrue(e.getMessage().contains("Unknown voltage level id 'VL456'"));
+    }
+
+    @Test
+    void testDraw() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        // test writers
+        try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter);
+            assertStringEquals("/IEEE_14_bus_voltage_nofilter.svg", svgWriter.toString());
+            assertStringEquals("/IEEE_14_bus_voltage_nofilter_metadata.json", metadataWriter.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        // test files
+        Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
+        NetworkAreaDiagram.draw(network, svgFile);
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter.svg", svgFile);
+        Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawToString() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        String svg = NetworkAreaDiagram.drawToString(network, new SvgParameters());
+        assertStringEquals("/IEEE_14_bus_voltage_nofilter.svg", svg);
+    }
+
+    @Test
+    void testDrawWithFilter() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20));
+            assertStringEquals("/IEEE_14_bus_voltage_filter5.svg", svgWriter.toString());
+            assertStringEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataWriter.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    @Test
+    void testDrawWithVoltageLevel() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        // test writers
+        try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, "VL4", 2);
+            assertStringEquals("/IEEE_14_bus_voltage_filter2.svg", svgWriter.toString());
+            assertStringEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataWriter.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        // test files
+        Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
+        NetworkAreaDiagram.draw(network, svgFile, "VL4", 2);
+        assertFileEquals("/IEEE_14_bus_voltage_filter2.svg", svgFile);
+        Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataFile);
+
+        Path svgFile2 = fileSystem.getPath("nad-ieee-14-bus2.svg");
+        NetworkAreaDiagram.draw(network, svgFile2, List.of("VL4"), 2);
+        assertFileEquals("/IEEE_14_bus_voltage_filter2.svg", svgFile2);
+        Path metadataFile2 = fileSystem.getPath("nad-ieee-14-bus2_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataFile2);
+
+    }
+
+    @Test
+    void testDrawWithVoltageLevels() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        // test writers
+        try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"));
+            assertStringEquals("/IEEE_14_bus_voltage_filter5.svg", svgWriter.toString());
+            assertStringEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataWriter.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        // test files
+        Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
+        NetworkAreaDiagram.draw(network, svgFile, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"));
+        assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFile);
+        Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrows() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        Path svgFile = fileSystem.getPath("nad-test-double-arrows.svg");
+        Path metadataFile = fileSystem.getPath("nad-test-double-arrows_metadata.json");
+
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                    .setDoubleArrowsDisplayed(true)
+                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                    .build(network1, svgParameters1)
+                );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/nad_double_arrows.svg", svgFile);
+        assertFileEquals("/nad_double_arrows_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrowsAndMiddleLabel() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        Path svgFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values.svg");
+        Path metadataFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values_metadata.json");
+
+        NadParameters nadParameters = new NadParameters()
+                .setSvgParameters(getSvgParameters())
+                .setLayoutFactory(new BasicForceLayoutFactory())
+                .setStyleProviderFactory(this::getStyleProvider)
+                .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                    .setDoubleArrowsDisplayed(true)
+                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                    .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+                    .build(network1, svgParameters1)
+                );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/nad-double-arrows-with-middle-label.svg", svgFile);
+        assertFileEquals("/nad-double-arrows-with-middle-label_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrowsAndMiddleValues() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        Path svgFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values.svg");
+        Path metadataFile = fileSystem.getPath("nad-test-double-arrows-with-middle-values_metadata.json");
+
+        NadParameters nadParameters = new NadParameters()
+            .setSvgParameters(getSvgParameters())
+            .setLayoutFactory(new BasicForceLayoutFactory())
+            .setStyleProviderFactory(this::getStyleProvider)
+            .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                .setDoubleArrowsDisplayed(true)
+                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .build(network1, svgParameters1)
+            );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/nad-double-arrows-with-middle-values.svg", svgFile);
+        assertFileEquals("/nad-double-arrows-with-middle-values_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDoubleArrowsAndMiddleValuesPerpendicular() {
+        Network network = Networks.createNetworkWithSvcVscScDl();
+        String svgFileName = "nad-double-arrows-with-middle-values-perpendicular.svg";
+        String metadataFileName = "nad-double-arrows-with-middle-values-perpendicular_metadata.json";
+        Path svgFile = fileSystem.getPath(svgFileName);
+        Path metadataFile = fileSystem.getPath(metadataFileName);
+
+        SvgParameters svgParameters = getSvgParameters()
+            .setEdgeInfoAlongEdge(false);
+        NadParameters nadParameters = new NadParameters()
+            .setSvgParameters(svgParameters)
+            .setLayoutFactory(new BasicForceLayoutFactory())
+            .setStyleProviderFactory(this::getStyleProvider)
+            .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
+                .setDoubleArrowsDisplayed(true)
+                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .build(network1, svgParameters1)
+            );
+
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+
+        assertFileEquals("/" + svgFileName, svgFile);
+        assertFileEquals("/" + metadataFileName, metadataFile);
     }
 }
