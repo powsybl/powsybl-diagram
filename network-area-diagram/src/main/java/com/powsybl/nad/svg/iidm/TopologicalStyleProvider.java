@@ -45,8 +45,8 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
         String branchType = edge.getType();
-        if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
-            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV());
+        if (branchType.equals(BranchEdge.BOUNDARY_LINE_EDGE)) {
+            return getBaseVoltageStyle(network.getBoundaryLine(edge.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV());
         } else {
             return super.getBaseVoltageStyle(edge, side);
         }

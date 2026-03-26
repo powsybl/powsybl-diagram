@@ -17,7 +17,7 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
  * The force is the same no matter the distance to the center.
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
-public class AttractToCenterForceDegreeBasedUnit<V, E> extends AbstractDegreeBasedForce<V, E> {
+public class AttractToCenterForceDegreeBasedUnit<V, E> extends AbstractByEdgeNumberForce<V, E> {
 
     private final double forceIntensity;
 

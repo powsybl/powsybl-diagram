@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
-class DanglingLineTest extends AbstractTest {
+class BoundaryLineTest extends AbstractTest {
 
     @BeforeEach
     void setup() {
@@ -42,13 +42,13 @@ class DanglingLineTest extends AbstractTest {
     @Test
     void testConnected() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        assertSvgEquals("/dangling_line_connected.svg", network);
+        assertSvgEquals("/boundary_line_connected.svg", network);
     }
 
     @Test
     void testDisconnected() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        network.getDanglingLines().iterator().next().getTerminal().disconnect();
-        assertSvgEquals("/dangling_line_disconnected.svg", network);
+        network.getBoundaryLines().iterator().next().getTerminal().disconnect();
+        assertSvgEquals("/boundary_line_disconnected.svg", network);
     }
 }

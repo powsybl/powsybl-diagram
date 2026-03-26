@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.BoundaryLine;
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Load;
@@ -109,7 +109,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected boolean isLineNode(Node node) {
-        return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION, LCC_CONVERTER_STATION).contains(node.getComponentType());
+        return Arrays.asList(LINE, BOUNDARY_LINE, VSC_CONVERTER_STATION, LCC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
@@ -348,11 +348,11 @@ public abstract class AbstractCgmesLayout implements Layout {
                 LineDiagramData<Line> lineDiagramData = line != null ? line.getExtension(LineDiagramData.class) : null;
                 setLineNodeCoordinates(lineNode, lineDiagramData, diagramName);
                 break;
-            case DANGLING_LINE:
-                FeederNode danglingLineNode = (FeederNode) node;
-                DanglingLine danglingLine = vl.getConnectable(danglingLineNode.getId(), DanglingLine.class);
-                LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine != null ? danglingLine.getExtension(LineDiagramData.class) : null;
-                setLineNodeCoordinates(danglingLineNode, danglingLineDiagramData, diagramName);
+            case BOUNDARY_LINE:
+                FeederNode boundaryLineNode = (FeederNode) node;
+                BoundaryLine boundaryLine = vl.getConnectable(boundaryLineNode.getId(), BoundaryLine.class);
+                LineDiagramData<BoundaryLine> boundaryLineDiagramData = boundaryLine != null ? boundaryLine.getExtension(LineDiagramData.class) : null;
+                setLineNodeCoordinates(boundaryLineNode, boundaryLineDiagramData, diagramName);
                 break;
             default:
                 break;

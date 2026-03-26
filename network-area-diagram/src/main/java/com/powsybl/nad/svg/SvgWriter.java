@@ -300,7 +300,7 @@ public class SvgWriter {
     }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-        if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
+        if (BranchEdge.BOUNDARY_LINE_EDGE.equals(edge.getType())) {
             return;
         }
         if (!BranchEdge.LINE_EDGE.equals(edge.getType())) {
@@ -959,7 +959,7 @@ public class SvgWriter {
             double busOuterRadius = RadiusUtils.getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
                 if (busNode instanceof BoundaryBusNode) {
-                    // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
+                    // Boundary nodes are always at side two of a boundary line edge, boundary line is its only edge
                     double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
                     drawBoundarySemicircle(writer, busOuterRadius, edgeStartAngle);
                 } else {

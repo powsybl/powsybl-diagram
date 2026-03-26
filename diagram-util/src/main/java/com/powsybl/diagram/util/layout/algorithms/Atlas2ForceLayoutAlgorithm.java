@@ -7,12 +7,10 @@
  */
 package com.powsybl.diagram.util.layout.algorithms;
 
+import com.powsybl.commons.ref.RefObj;
+import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
 import com.powsybl.diagram.util.layout.forces.*;
-import com.powsybl.diagram.util.layout.forces.AttractToCenterForceDegreeBasedLinear;
-import com.powsybl.diagram.util.layout.forces.RepulsionForceDegreeBasedLinear;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-import com.powsybl.diagram.util.layout.geometry.Point;
-import com.powsybl.diagram.util.layout.geometry.Vector2D;
+import com.powsybl.diagram.util.layout.geometry.*;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +38,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final Atlas2Parameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
+    private final RefObj<Quadtree> quadtreeContainer = new RefObj<>(null);
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -63,17 +62,14 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private static final double MAX_SPEED_DECREASE_RATIO = 0.7;
 
     public Atlas2ForceLayoutAlgorithm(Atlas2Parameters layoutParameters) {
-        this.forces.add(new RepulsionForceDegreeBasedLinear<>(
-                layoutParameters.getRepulsionIntensity(),
-                true
-        ));
+        this.layoutParameters = layoutParameters;
+        addRepulsionForce(layoutParameters);
         this.forces.add(new EdgeAttractionForceLinear<>(layoutParameters.getEdgeAttractionIntensity()));
         if (layoutParameters.isAttractToCenterEnabled()) {
             // Atlas2 talks about both a unit gravity force and a linear gravity force
             // Both can work, but for your visualization purpose, a linear gravity force which tends to make the graph more compact worked better
             this.forces.add(new AttractToCenterForceDegreeBasedLinear<>(layoutParameters.getAttractToCenterIntensity()));
         }
-        this.layoutParameters = layoutParameters;
     }
 
     /**
@@ -108,34 +104,21 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         int stoppingStep = layoutParameters.getMaxSteps();
         boolean graphSwingIsZero = false;
 
+        ConstantSchedule quadtreeUpdateSchedule = new ConstantSchedule(layoutParameters.getQuadtreeCalculationIncrement());
+
         while (i < stoppingStep && !graphSwingIsZero) {
-            double graphSwing = 0.;
-            double graphTraction = 0.;
-            //calculate forces
-            for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
-                Point point = entry.getValue();
-                for (Force<V, E> force : forces) {
-                    Vector2D resultingForce = force.apply(entry.getKey(), point, layoutContext);
-                    point.applyForce(resultingForce);
-                }
-                // calculate swg(n) for each node the swing of the node
-                // at the same time calculate tra(n) the traction of the node
-                // we can also calculate swg(G) and tra(G) the swing and traction of the graph
-                int weight = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
-                Vector2D previousPointForce = previousForces.get(point);
-                double pointSwing = calculatePointSwing(point, previousPointForce);
-                swingMap.put(point, pointSwing);
-                graphSwing += pointSwing * weight;
-                graphTraction += calculatePointTraction(point, previousPointForce) * weight;
+            if (layoutParameters.isBarnesHutEnabled() && quadtreeUpdateSchedule.isTimeToUpdate(i)) {
+                this.quadtreeContainer.set(new Quadtree(layoutContext.getAllPoints().values(), (Point point) -> point.getPointVertexDegree() + 1));
             }
-            graphSwingIsZero = graphSwing == 0;
+            GraphDataValues graphDataValues = calculateForces(layoutContext, previousForces, swingMap);
+            graphSwingIsZero = graphDataValues.graphSwing() == 0;
             // calculate s(G) the global speed of the graph
             // this speed should not be less than a certain amount of the previous graph speed
             // the graph speed should not be more than a certain amount of the previous graph speed
             // calculate given the swing tolerance and check it's being between those bounds
             if (!graphSwingIsZero) {
                 double newGraphSpeed = Math.clamp(
-                        layoutParameters.getSwingTolerance() * graphTraction / graphSwing,
+                        layoutParameters.getSwingTolerance() * graphDataValues.graphTraction() / graphDataValues.graphSwing(),
                         MAX_SPEED_DECREASE_RATIO * previousGraphSpeed,
                         layoutParameters.getMaxGlobalSpeedIncreaseRatio() * previousGraphSpeed
                 );
@@ -152,6 +135,56 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
             }
         }
         LOGGER.info("Finished in {} steps", i);
+    }
+
+    /**
+     * Calculate the forces and updates the swingMap with the calculated values. Returns the graphSwing and the graphTraction
+     * @param layoutContext the information about the graph and the positon of the points
+     * @param previousForces the forces used on the previous iteration turn. Used to calculate the swing of each point (and the graph swing as well as the graph traction)
+     * @param swingMap a map containing the swing of each point. Note that we don't have the same for the traction, as we only need the graph traction later on, not the traction of each point
+     * @return the swing of the graph and the traction of the graph, also updates <code>previousForces</code> and <code>swingMap</code> as a side effect
+     */
+    private Atlas2ForceLayoutAlgorithm.GraphDataValues calculateForces(LayoutContext<V, E> layoutContext, Map<Point, Vector2D> previousForces, Map<Point, Double> swingMap) {
+        double graphSwing = 0;
+        double graphTraction = 0;
+        for (Map.Entry<V, Point> entry : layoutContext.getMovingPoints().entrySet()) {
+            Point point = entry.getValue();
+            for (Force<V, E> force : forces) {
+                Vector2D resultingForce = force.apply(entry.getKey(), point, layoutContext);
+                point.applyForce(resultingForce);
+            }
+            // calculate swg(n) for each node the swing of the node
+            // at the same time calculate tra(n) the traction of the node
+            // we can also calculate swg(G) and tra(G) the swing and traction of the graph
+            int weight = layoutContext.getSimpleGraph().degreeOf(entry.getKey()) + 1;
+            Vector2D previousPointForce = previousForces.get(point);
+            double pointSwing = calculatePointSwing(point, previousPointForce);
+            swingMap.put(point, pointSwing);
+            graphSwing += pointSwing * weight;
+            graphTraction += calculatePointTraction(point, previousPointForce) * weight;
+        }
+        return new GraphDataValues(graphSwing, graphTraction);
+    }
+
+    private record GraphDataValues(double graphSwing, double graphTraction) {
+    }
+
+    /**
+     * Choose whether to add a repulsion force using barnes-hut or not
+     */
+    private void addRepulsionForce(Atlas2Parameters parameters) {
+        if (parameters.isBarnesHutEnabled()) {
+            this.forces.add(new RepulsionForceDegreeBasedLinearBarnesHut<>(
+                    parameters.getRepulsionIntensity(),
+                    parameters.getBarnesHutTheta(),
+                    this.quadtreeContainer
+            ));
+        } else {
+            this.forces.add(new RepulsionForceDegreeBasedLinear<>(
+                    parameters.getRepulsionIntensity(),
+                true
+            ));
+        }
     }
 
     /**

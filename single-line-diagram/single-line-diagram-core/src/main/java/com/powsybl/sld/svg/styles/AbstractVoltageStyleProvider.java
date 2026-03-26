@@ -59,25 +59,25 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         List<String> edgesStyles = new ArrayList<>();
         edgesStyles.add(WIRE_STYLE_CLASS);
         edgesStyles.addAll(getVoltageLevelEdgeStyles(graph, edge));
-        getDanglingLineStyle(edge).ifPresent(edgesStyles::add);
+        getBoundaryLineStyle(edge).ifPresent(edgesStyles::add);
         return edgesStyles;
     }
 
-    private Optional<String> getDanglingLineStyle(Edge edge) {
+    private Optional<String> getBoundaryLineStyle(Edge edge) {
         if (edge.getNode1() instanceof FeederNode feederNode1) {
-            return getDanglingLineStyle(feederNode1);
+            return getBoundaryLineStyle(feederNode1);
         }
         if (edge.getNode2() instanceof FeederNode feederNode2) {
-            return getDanglingLineStyle(feederNode2);
+            return getBoundaryLineStyle(feederNode2);
         }
         return Optional.empty();
     }
 
-    private Optional<String> getDanglingLineStyle(FeederNode n) {
+    private Optional<String> getBoundaryLineStyle(FeederNode n) {
         if (n.getFeeder().getFeederType() == FeederType.BRANCH) {
             return switch (n.getComponentType()) {
                 case SldComponentTypeName.TIE_LINE -> Optional.of(StyleClassConstants.TIE_LINE);
-                case SldComponentTypeName.DANGLING_LINE -> Optional.of(StyleClassConstants.DANGLING_LINE);
+                case SldComponentTypeName.BOUNDARY_LINE -> Optional.of(StyleClassConstants.BOUNDARY_LINE);
                 default -> Optional.empty();
             };
         }
