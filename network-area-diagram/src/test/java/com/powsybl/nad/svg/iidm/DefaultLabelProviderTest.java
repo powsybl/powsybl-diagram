@@ -43,6 +43,27 @@ class DefaultLabelProviderTest {
     }
 
     @Test
+    void testDisplayBranchEdgeInfoWithAbs() {
+        Network network = Networks.createTwoVoltageLevels();
+        ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
+
+        DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
+                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .build(network, valueFormatter)
+                .setDisplayAngle(true)
+                .setDisplayWithAbs(true);
+
+        String lineId = "l1";
+        Line line = network.getLine(lineId);
+        line.getTerminal1().setP(-1400.0);
+        line.getTerminal2().setP(-1410.0);
+        Optional<EdgeInfo> edgeInfo = labelProvider.getBranchEdgeInfo(lineId, BranchEdge.Side.ONE, BranchEdge.LINE_EDGE);
+        assertTrue(edgeInfo.isPresent());
+        // Should display positive value because displayWithAbs = true
+        assertEquals("1,400.0", edgeInfo.get().getLabelA().orElseThrow());
+    }
+
+    @Test
     void testGetBranchEdgeInfo() {
         Network network = Networks.createTwoVoltageLevels();
         ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
