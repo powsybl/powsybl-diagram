@@ -197,8 +197,8 @@
                     <circle class="sld-vl300to500 sld-bus-0 sld-node-infos" cx="70.0" cy="322.0" id="idNODE_95_VoltageLevel1_95_0_95_circle" r="10" stroke-width="10"/>
                     <text class="sld-voltage sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_v" x="60.0" y="347.0">— kV</text>
                     <text class="sld-angle sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_angle" x="60.0" y="362.0">—°</text>
-                    <text class="sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_fictitiousP0" x="60.0" y="377.0">0 MW</text>
-                    <text class="sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_fictitiousQ0" x="60.0" y="392.0">0 MVar</text>
+                    <text class="sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_fictitiousP0" x="60.0" y="377.0">1 MW</text>
+                    <text class="sld-bus-legend-info" id="idNODE_95_VoltageLevel1_95_0_95_fictitiousQ0" x="60.0" y="392.0">-1 MVar</text>
                 </g>
             </g>
         </g>
