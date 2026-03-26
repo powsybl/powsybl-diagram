@@ -1,5 +1,17 @@
 # Layouts
 
+```{toctree}
+---
+maxdepth: 2
+hidden: true
+---
+
+cellDetector.md
+cellBlockDecomposer.md
+positionFinder.md
+subsections.md
+```
+
 A layout represents the way in which the elements of a graph are arranged.
 
 It is possible to use your own graph layout implementation but there are also existing layouts in powsybl-diagram, ready to use.

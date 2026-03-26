@@ -1,5 +1,16 @@
 ## Position of `BusNodes` and `Cells` order
 
+```{toctree}
+---
+maxdepth: 2
+hidden: true
+---
+
+subsections.md
+positionFromExtension.md
+positionByClustering.md
+```
+
 ### Definitions and goal
 
 Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing `PositionFinder` interface.
