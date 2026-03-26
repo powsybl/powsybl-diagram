@@ -17,7 +17,6 @@ import com.powsybl.sld.util.IdUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,14 +59,13 @@ public class DefaultSVGLegendWriter implements SVGLegendWriter {
     protected List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().id());
         return vl.getBusView().getBusStream()
-                .map(bus -> {
-                    List<BusLegendInfo.Caption> captions = new ArrayList<>(4);
-                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatVoltage(bus.getV(), "kV"), "v"));
-                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(bus.getAngle()), "angle"));
-                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"));
-                    captions.add(new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0"));
-                    return new BusLegendInfo(bus.getId(), captions);
-                }).toList();
+                .map(bus -> new BusLegendInfo(bus.getId(), List.of(
+                    new BusLegendInfo.Caption(valueFormatter.formatVoltage(bus.getV(), "kV"), "v"),
+                    new BusLegendInfo.Caption(valueFormatter.formatAngleInDegrees(bus.getAngle()), "angle"),
+                    new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousP0(), withDefaultUnit(svgParameters.getActivePowerUnit(), "MW")), "fictitiousP0"),
+                    new BusLegendInfo.Caption(valueFormatter.formatPower(bus.getFictitiousQ0(), withDefaultUnit(svgParameters.getReactivePowerUnit(), "MVar")), "fictitiousQ0")
+                )))
+                .toList();
     }
 
     private static String withDefaultUnit(String configuredUnit, String defaultUnit) {
