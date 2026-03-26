@@ -16,7 +16,8 @@ The smallest subGraph delimited by `BUS` nodes (i.e. not including `FEEDER`) and
 Such cells instantiate the `InternCell` subclass.  
 
 - `EXTERN`\
-The smallest subGraph delimited by `BUS` nodes and `FEEDER` nodes with at least one node having the following property: each branch extracted from this very node ends with nodes of a single `nodeType` among `BUS` or `FEEDER` or `SHUNT`.\
+The smallest subGraph delimited by `BUS` nodes and `FEEDER` nodes with at least one node having the following property: 
+each branch extracted from this very node ends with nodes of a single `nodeType` among `BUS` or `FEEDER` or `SHUNT`.\
 Such cells instantiate the `ExternCell` subclass.  
 
 - `SHUNT`\
@@ -31,7 +32,7 @@ Such an `ExternCell` is then cut in an `ExternCell` only on one subsection, and 
 
 The figure shows examples of cells of several `CellType`.  
 
-![cellType](/_static/img/cellTypes.svg)
+![cellType](../../_static/img/sld/cellTypes.svg)
 
 ## Cell detection algorithm
 
@@ -45,7 +46,7 @@ It takes as parameter two lists of types that delimit the traversal algorithm :
 
 The algorithm is explained based on the following graph that would result in the figure displayed to illustrate the cellTypes enum:
 
-![rawGraph](/_static/img/rawGraph.svg)
+![rawGraph](../../_static/img/sld/rawGraph.svg)
 
 ### Step 1: identify `InternCell` cells
 
@@ -54,7 +55,7 @@ The algorithm is explained based on the following graph that would result in the
 
 `InternCell` cells are easy to determine as being exclusively bordered by `BUS` nodes.
 
-![rawGraphIntern](/_static/img/rawGraphIntern.svg)
+![rawGraphIntern](../../_static/img/sld/rawGraphIntern.svg)
 
 ### Step 2: identifies `ExternCell` cells
 
@@ -65,7 +66,7 @@ If one node of the subgraph has each of its branches ending with one single kind
 
 Other `ExternCell` cells could be discovered in the next steps when adding the `SHUNT NodeType`.
 
-![rawGraphExtern](/_static/img/rawGraphExtern.svg)
+![rawGraphExtern](../../_static/img/sld/rawGraphExtern.svg)
 
 ### Step 3: discriminates `EXTERN` and `SHUNT` cells
 
@@ -87,7 +88,7 @@ Then the `SHUNT` cell is constituted of:
 
 Last, the second `ExternCell` cell is build with the second `SHUNT` node and the remaining nodes.
 
-![rawGraphExternShunt](/_static/img/rawGraphExternShunt.svg)
+![rawGraphExternShunt](../../_static/img/sld/rawGraphExternShunt.svg)
 
 
 ⚠️ Any other pattern is not handled by the algorithm.
