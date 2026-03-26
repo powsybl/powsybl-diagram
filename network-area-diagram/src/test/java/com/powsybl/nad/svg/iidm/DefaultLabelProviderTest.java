@@ -50,6 +50,7 @@ class DefaultLabelProviderTest {
         DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
                 .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
                 .build(network, valueFormatter)
+                .setDisplayAngle(true)
                 .setDisplayWithAbs(true);
 
         String lineId = "l1";
