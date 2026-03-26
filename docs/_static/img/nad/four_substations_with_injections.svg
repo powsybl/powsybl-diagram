@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="608.87" height="628.73" viewBox="-420.40 -755.14 1217.75 1257.45" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
+.nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
+.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
+.nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-injections circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
+.nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
+.nad-branch-edges .nad-tie-line-edge .nad-edge-path {stroke-width: 7}
+.nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
+path.nad-arrow-out:not(.nad-state-out .nad-arrow-out) {visibility: hidden}
+path.nad-arrow-in:not(.nad-state-in .nad-arrow-in) {visibility: hidden}
+.nad-active {fill: #546e7a}
+.nad-reactive {fill: #0277bd}
+.nad-current {fill: #bd4802}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+foreignObject.nad-text-nodes {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
+.nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-disconnected {--nad-vl-color: #808080}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl0to30 {--nad-vl-color: #afb42b}
+.nad-vl0to30.nad-bus-0 {--nad-vl-color: #827717}
+.nad-vl0to30.nad-bus-1 {--nad-vl-color: #d4e157}
+.nad-vl0to30.nad-bus-2 {--nad-vl-color: #e6ee9c}
+.nad-vl0to30.nad-bus-3 {--nad-vl-color: #c0ca33}
+.nad-vl0to30.nad-bus-4 {--nad-vl-color: #f0fc83}
+.nad-vl0to30.nad-bus-5 {--nad-vl-color: #9e9d24}
+.nad-vl0to30.nad-bus-6 {--nad-vl-color: #cddc39}
+.nad-vl0to30.nad-bus-7 {--nad-vl-color: #dce775}
+.nad-vl0to30.nad-bus-8 {--nad-vl-color: #ddfc88}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl30to50 {--nad-vl-color: #ef9a9a}
+.nad-vl30to50.nad-bus-0 {--nad-vl-color: #c2185b}
+.nad-vl30to50.nad-bus-1 {--nad-vl-color: #f06292}
+.nad-vl30to50.nad-bus-2 {--nad-vl-color: #d81b60}
+.nad-vl30to50.nad-bus-3 {--nad-vl-color: #ec407a}
+.nad-vl30to50.nad-bus-4 {--nad-vl-color: #880e4f}
+.nad-vl30to50.nad-bus-5 {--nad-vl-color: #ad1457}
+.nad-vl30to50.nad-bus-6 {--nad-vl-color: #e91e63}
+.nad-vl30to50.nad-bus-7 {--nad-vl-color: #f48fb1}
+.nad-vl30to50.nad-bus-8 {--nad-vl-color: #f8bbd0}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl50to70 {--nad-vl-color: #9c27b0}
+.nad-vl50to70.nad-bus-0 {--nad-vl-color: #7b1fa2}
+.nad-vl50to70.nad-bus-1 {--nad-vl-color: #ba68c8}
+.nad-vl50to70.nad-bus-2 {--nad-vl-color: #512da8}
+.nad-vl50to70.nad-bus-3 {--nad-vl-color: #ab47bc}
+.nad-vl50to70.nad-bus-4 {--nad-vl-color: #e1bee7}
+.nad-vl50to70.nad-bus-5 {--nad-vl-color: #6a1b9a}
+.nad-vl50to70.nad-bus-6 {--nad-vl-color: #4a148c}
+.nad-vl50to70.nad-bus-7 {--nad-vl-color: #ce93d8}
+.nad-vl50to70.nad-bus-8 {--nad-vl-color: #9575cd}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl70to120 {--nad-vl-color: #e65100}
+.nad-vl70to120.nad-bus-0 {--nad-vl-color: #fb8c00}
+.nad-vl70to120.nad-bus-1 {--nad-vl-color: #ffb74d}
+.nad-vl70to120.nad-bus-2 {--nad-vl-color: #f57c00}
+.nad-vl70to120.nad-bus-3 {--nad-vl-color: #ffa726}
+.nad-vl70to120.nad-bus-4 {--nad-vl-color: #ffe0b2}
+.nad-vl70to120.nad-bus-5 {--nad-vl-color: #ef6c00}
+.nad-vl70to120.nad-bus-6 {--nad-vl-color: #ff9800}
+.nad-vl70to120.nad-bus-7 {--nad-vl-color: #ffcc80}
+.nad-vl70to120.nad-bus-8 {--nad-vl-color: #fff3e0}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl120to180 {--nad-vl-color: #00ACC1}
+.nad-vl120to180.nad-bus-0 {--nad-vl-color: #4fc3f7}
+.nad-vl120to180.nad-bus-1 {--nad-vl-color: #01579b}
+.nad-vl120to180.nad-bus-2 {--nad-vl-color: #b3e5fc}
+.nad-vl120to180.nad-bus-3 {--nad-vl-color: #039be5}
+.nad-vl120to180.nad-bus-4 {--nad-vl-color: #81d4fa}
+.nad-vl120to180.nad-bus-5 {--nad-vl-color: #0288d1}
+.nad-vl120to180.nad-bus-6 {--nad-vl-color: #29b6f6}
+.nad-vl120to180.nad-bus-7 {--nad-vl-color: #0277bd}
+.nad-vl120to180.nad-bus-8 {--nad-vl-color: #03a9f4}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl180to300 {--nad-vl-color: #2e7d32}
+.nad-vl180to300.nad-bus-0 {--nad-vl-color: #81c784}
+.nad-vl180to300.nad-bus-1 {--nad-vl-color: #558b2f}
+.nad-vl180to300.nad-bus-2 {--nad-vl-color: #c8e6c9}
+.nad-vl180to300.nad-bus-3 {--nad-vl-color: #43a047}
+.nad-vl180to300.nad-bus-4 {--nad-vl-color: #a5d6a7}
+.nad-vl180to300.nad-bus-5 {--nad-vl-color: #388e3c}
+.nad-vl180to300.nad-bus-6 {--nad-vl-color: #66bb6a}
+.nad-vl180to300.nad-bus-7 {--nad-vl-color: #1b5e20}
+.nad-vl180to300.nad-bus-8 {--nad-vl-color: #4caf50}
+:is(.nad-branch-edges, .nad-3wt-edges, .nad-3wt-nodes) .nad-vl300to500 {--nad-vl-color: #d32f2f}
+.nad-vl300to500.nad-bus-0 {--nad-vl-color: #ef5350}
+.nad-vl300to500.nad-bus-1 {--nad-vl-color: #ef9a9a}
+.nad-vl300to500.nad-bus-2 {--nad-vl-color: #b71c1c}
+.nad-vl300to500.nad-bus-3 {--nad-vl-color: #e57373}
+.nad-vl300to500.nad-bus-4 {--nad-vl-color: #e53935}
+.nad-vl300to500.nad-bus-5 {--nad-vl-color: #ff8a80}
+.nad-vl300to500.nad-bus-6 {--nad-vl-color: #f44336}
+.nad-vl300to500.nad-bus-7 {--nad-vl-color: #ffcdd2}
+.nad-vl300to500.nad-bus-8 {--nad-vl-color: #c62828}
+.nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
+.nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
+.nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
+.nad-highlight {stroke-width: 25; opacity: 0.2; fill: none;}
+.nad-highlight-0 {stroke: #e6e600;}
+.nad-highlight-1 {stroke: #b300b3;}
+.nad-highlight-2 {stroke: #2eb82e;}
+.nad-highlight-3 {stroke: #e67300;}
+.nad-highlight-4 {stroke: #0000ff;}
+@keyframes line-blink {
+  0%, 80%, 100% {stroke: var(--nad-vl-color, black); stroke-width: 5}
+  40% {stroke: #FFEB3B; stroke-width: 15}
+}
+@keyframes node-over-blink {
+  0%, 80%, 100% {stroke: white; stroke-width: 0}
+  40% {stroke: #ff5722; stroke-width: 15}
+}
+@keyframes node-under-blink {
+  0%, 80%, 100% {stroke: white; stroke-width: 0}
+  40% {stroke: #00BCD4; stroke-width: 15}
+}
+.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
+.nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-disconnected .nad-load {stroke: lightgrey}
+.nad-disconnected .nad-battery {stroke: lightgrey}
+.nad-disconnected .nad-generator {stroke: lightgrey}
+.nad-disconnected .nad-capacitor {stroke: lightgrey}
+.nad-disconnected .nad-inductor {stroke: lightgrey}
+.nad-disconnected .nad-svc {stroke: lightgrey}
+.nad-unknown {stroke: none; fill: black}
+]]></style>
+    <g class="nad-vl-nodes">
+        <g transform="translate(-220.40,-515.14)" id="0">
+            <circle r="27.50" id="3" class="nad-vl180to300 nad-bus-0 nad-busnode"/>
+        </g>
+        <g transform="translate(-152.34,-133.80)" id="4">
+            <circle r="27.50" id="13" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+            <path d="M-2.655,-57.439 A57.500,57.500 16.303 0 1 13.576,-55.874 L4.471,-32.191 A32.500,32.500 -4.806 0 0 1.759,-32.452 Z M27.528,-50.482 A57.500,57.500 21.303 0 1 43.987,-37.032 L22.641,-23.316 A32.500,32.500 -9.806 0 0 18.339,-26.831 Z M52.050,-24.434 A57.500,57.500 21.303 0 1 57.371,-3.854 L32.046,-5.416 A32.500,32.500 -9.806 0 0 30.655,-10.794 Z M56.424,11.073 A57.500,57.500 44.694 0 1 32.322,47.555 L20.870,24.914 A32.500,32.500 -33.196 0 0 31.104,9.422 Z M18.963,54.283 A57.500,57.500 44.088 0 1 -24.147,52.184 L-10.625,30.714 A32.500,32.500 -32.590 0 0 7.591,31.601 Z M-36.789,44.191 A57.500,57.500 122.629 0 1 -17.380,-54.811 L-12.877,-29.840 A32.500,32.500 -111.132 0 0 -23.191,22.769 Z " id="14" class="nad-vl300to500 nad-bus-1 nad-busnode"/>
+        </g>
+        <g transform="translate(-162.93,231.51)" id="15">
+            <circle r="27.50" id="17" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+        </g>
+        <g transform="translate(171.13,91.69)" id="18">
+            <circle r="27.50" id="21" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+        </g>
+        <g transform="translate(497.34,302.31)" id="22">
+            <circle r="27.50" id="25" class="nad-vl300to500 nad-bus-0 nad-busnode"/>
+        </g>
+    </g>
+    <g class="nad-injections">
+        <g>
+            <g class="nad-vl180to300 nad-bus-0">
+                <g id="1" class="nad-vl180to300">
+                    <polyline class="nad-edge-path" points="-246.53,-523.74 -358.14,-560.46"/>
+                    <g class="nad-edge-infos" transform="translate(-277.40,-533.90)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-71.79)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(18.21)" x="-19.00" style="text-anchor:end">80</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-381.89" cy="-568.28" r="25.00"/>
+                        <g transform="translate(-406.89,-593.28)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="2" class="nad-vl180to300">
+                    <polyline class="nad-edge-path" points="-198.87,-532.24 -106.85,-605.32"/>
+                    <g class="nad-edge-infos" transform="translate(-173.42,-552.46)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(51.55)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(321.55)" x="19.00">15</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-87.27" cy="-620.86" r="25.00"/>
+                        <g transform="translate(-112.27,-645.86)" class="nad-battery">
+                            <path d="m9,17 h32 v18 h-32z M14,17 v-2 h6 v2 M30,17 v-2 h6 v2 M13.5,24 h7 M29.5,24 h7 M33,20.5 v7"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g>
+            <g class="nad-vl300to500 nad-bus-0">
+                <g id="5" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-142.43,-159.45 -100.07,-269.05"/>
+                    <g class="nad-edge-infos" transform="translate(-119.90,-217.75)">
+                        <g class="nad-active nad-state-in">
+                            <g transform="rotate(21.13)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-68.87)" x="19.00">-85</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-91.06" cy="-292.37" r="25.00"/>
+                        <g transform="translate(-116.06,-317.37)" class="nad-generator">
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="6" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-129.18,-148.63 -30.21,-211.97"/>
+                    <g class="nad-edge-infos" transform="translate(-76.54,-182.32)">
+                        <g class="nad-active nad-state-in">
+                            <g transform="rotate(57.38)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-32.62)" x="19.00">-90</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-9.16" cy="-225.44" r="25.00"/>
+                        <g transform="translate(-34.16,-250.44)" class="nad-generator">
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="7" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-124.90,-132.06 -7.63,-124.62"/>
+                    <g class="nad-edge-infos" transform="translate(-62.52,-128.10)">
+                        <g class="nad-active nad-state-in">
+                            <g transform="rotate(93.63)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(3.63)" x="19.00">-156</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="17.32" cy="-123.04" r="25.00"/>
+                        <g transform="translate(-7.68,-148.04)" class="nad-generator">
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="11" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-139.97,-109.24 -87.12,-4.30"/>
+                    <g class="nad-edge-infos" transform="translate(-111.86,-53.42)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(153.27)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(63.27)" x="19.00">0</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-75.88" cy="18.03" r="25.00"/>
+                        <g transform="translate(-100.88,-6.97)" class="nad-inductor">
+                            <path d="M43,28 A 8 20 0 0 0 31,28 A 8 20 0 0 0 19,28 A 8 20 0 0 0 7,28"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="12" class="nad-disconnected nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-167.04,-110.56 -229.83,-11.24"/>
+                    <g class="nad-edge-infos" transform="translate(-200.44,-57.73)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-147.70)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-57.70)" x="-19.00" style="text-anchor:end">0</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-243.19" cy="9.89" r="25.00"/>
+                        <g transform="translate(-268.19,-15.11)" class="nad-capacitor">
+                            <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g class="nad-vl300to500 nad-bus-1">
+                <g id="8" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-205.63,-112.21 -286.73,-79.36"/>
+                    <g class="nad-edge-infos" transform="translate(-235.76,-100.01)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-112.05)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-22.05)" x="-19.00" style="text-anchor:end">60</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-309.91" cy="-69.98" r="25.00"/>
+                        <g transform="translate(-334.91,-94.98)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="9" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-208.23,-147.31 -293.28,-167.88"/>
+                    <g class="nad-edge-infos" transform="translate(-239.82,-154.95)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-76.41)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(13.59)" x="-19.00" style="text-anchor:end">60</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-317.58" cy="-173.75" r="25.00"/>
+                        <g transform="translate(-342.58,-198.75)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="10" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-189.89,-177.35 -247.02,-243.63"/>
+                    <g class="nad-edge-infos" transform="translate(-211.11,-201.97)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-40.76)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(49.24)" x="-19.00" style="text-anchor:end">40</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-263.34" cy="-262.56" r="25.00"/>
+                        <g transform="translate(-288.34,-287.56)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g>
+            <g class="nad-vl300to500 nad-bus-0">
+                <g id="16" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="-178.50,254.18 -245.01,351.05"/>
+                    <g class="nad-edge-infos" transform="translate(-196.89,280.98)">
+                        <g class="nad-active nad-state-in">
+                            <g transform="rotate(-145.53)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-55.53)" x="-19.00" style="text-anchor:end">-100</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="-259.16" cy="371.66" r="25.00"/>
+                        <g transform="translate(-284.16,346.66)" class="nad-generator">
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g>
+            <g class="nad-vl300to500 nad-bus-0">
+                <g id="19" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="186.46,68.85 251.93,-28.71"/>
+                    <g class="nad-edge-infos" transform="translate(204.57,41.87)">
+                        <g class="nad-active nad-state-in">
+                            <g transform="rotate(33.86)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-56.14)" x="19.00">-251</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="265.86" cy="-49.47" r="25.00"/>
+                        <g transform="translate(240.86,-74.47)" class="nad-generator">
+                            <path d="M10,25 A 15 50 0 0 1 25,25 A 15 50 0 0 0 40,25"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="20" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="168.70,119.08 158.32,236.12"/>
+                    <g class="nad-edge-infos" transform="translate(165.83,151.45)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(-174.93)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-84.93)" x="-19.00" style="text-anchor:end">200</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="156.12" cy="261.02" r="25.00"/>
+                        <g transform="translate(131.12,236.02)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g>
+            <g class="nad-vl300to500 nad-bus-0">
+                <g id="23" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="521.44,289.05 624.38,232.41"/>
+                    <g class="nad-edge-infos" transform="translate(549.91,273.39)">
+                        <g class="nad-active nad-state-out">
+                            <g transform="rotate(61.18)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-28.82)" x="19.00">240</text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="646.29" cy="220.36" r="25.00"/>
+                        <g transform="translate(621.29,195.36)" class="nad-load">
+                            <path d="M7.3223,7.3223 42.6777,42.6777 M42.6777,7.3223 7.3223,42.6777"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="24" class="nad-vl300to500">
+                    <polyline class="nad-edge-path" points="495.18,329.72 485.93,446.86"/>
+                    <g class="nad-edge-infos" transform="translate(492.62,362.12)">
+                        <g class="nad-active">
+                            <g transform="rotate(-175.48)">
+                                <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                                <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                            </g>
+                            <text transform="rotate(-85.48)" x="-19.00" style="text-anchor:end"></text>
+                        </g>
+                    </g>
+                    <g>
+                        <circle cx="483.96" cy="471.78" r="25.00"/>
+                        <g transform="translate(458.96,446.78)" class="nad-svc">
+                            <path d="M25,12 v10 M10,22 h30 M10,28 h30 M25,28 v10 M14,36 36,14 M32,14 36,14 36,18z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g class="nad-branch-edges">
+        <g id="26">
+            <g id="26.1" class="nad-vl180to300">
+                <polyline class="nad-edge-path" points="-215.57,-488.07 -191.64,-354.01"/>
+                <g class="nad-edge-infos" transform="translate(-209.86,-456.08)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(169.88)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(79.88)" x="19.00">-80</text>
+                    </g>
+                </g>
+            </g>
+            <g id="26.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-157.17,-160.87 -181.10,-294.94"/>
+                <g class="nad-edge-infos" transform="translate(-168.15,-222.40)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(-10.12)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-280.12)" x="-19.00" style="text-anchor:end">80</text>
+                    </g>
+                </g>
+            </g>
+            <g>
+                <circle class="nad-vl180to300 nad-winding" cx="-188.13" cy="-334.32" r="20.00"/>
+                <circle class="nad-vl300to500 nad-winding" cx="-184.62" cy="-314.63" r="20.00"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.18,0.98,-0.98,0.18,-162.11,-359.28)" class="nad-pst-arrow"/>
+            </g>
+        </g>
+        <g id="27" class="nad-hvdc-edge">
+            <g id="27.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-154.01,-76.33 -158.07,63.85"/>
+                <g class="nad-edge-infos" transform="translate(-154.95,-43.84)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(-178.34)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-88.34)" x="-19.00" style="text-anchor:end">10</text>
+                    </g>
+                </g>
+            </g>
+            <g id="27.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-162.13,204.03 -158.07,63.85"/>
+                <g class="nad-edge-infos" transform="translate(-161.19,171.54)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(1.66)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-88.34)" x="19.00">-10</text>
+                    </g>
+                </g>
+            </g>
+            <g>
+                <polyline points="-157.06,28.86 -159.09,98.84" class="nad-hvdc"/>
+            </g>
+        </g>
+        <g id="28" class="nad-hvdc-edge">
+            <g id="28.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-105.17,-100.92 21.70,-12.48"/>
+                <g class="nad-edge-infos" transform="translate(-78.51,-82.33)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(124.88)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(34.88)" x="19.00">81</text>
+                    </g>
+                </g>
+            </g>
+            <g id="28.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="148.57,75.96 21.70,-12.48"/>
+                <g class="nad-edge-infos" transform="translate(121.91,57.38)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(-55.12)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-325.12)" x="-19.00" style="text-anchor:end">-79</text>
+                    </g>
+                </g>
+            </g>
+            <g>
+                <polyline points="-7.01,-32.49 50.41,7.54" class="nad-hvdc"/>
+            </g>
+        </g>
+        <g id="29">
+            <g id="29.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="-137.56,220.90 4.10,161.60"/>
+                <g class="nad-edge-infos" transform="translate(-107.58,208.35)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(67.29)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-22.71)" x="19.00">110</text>
+                    </g>
+                </g>
+            </g>
+            <g id="29.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="145.77,102.31 4.10,161.60"/>
+                <g class="nad-edge-infos" transform="translate(115.79,114.85)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(-112.71)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-22.71)" x="-19.00" style="text-anchor:end">-110</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="30">
+            <g id="30.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="194.24,106.60 334.24,197.00"/>
+                <g class="nad-edge-infos" transform="translate(221.54,124.23)">
+                    <g class="nad-active nad-state-out">
+                        <g transform="rotate(122.85)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(32.85)" x="19.00">240</text>
+                    </g>
+                </g>
+            </g>
+            <g id="30.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="474.24,287.39 334.24,197.00"/>
+                <g class="nad-edge-infos" transform="translate(446.94,269.76)">
+                    <g class="nad-active nad-state-in">
+                        <g transform="rotate(-57.15)">
+                            <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
+                            <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
+                        </g>
+                        <text transform="rotate(-327.15)" x="-19.00" style="text-anchor:end">-240</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g class="nad-text-edges">
+        <polyline id="0-textedge" points="-190.74,-519.59 -120.40,-530.14"/>
+        <polyline id="4-textedge" points="-93.01,-142.70 -52.34,-148.80"/>
+        <polyline id="15-textedge" points="-133.26,227.06 -62.93,216.51"/>
+        <polyline id="18-textedge" points="200.80,87.24 271.13,76.69"/>
+        <polyline id="22-textedge" points="527.01,297.86 597.34,287.31"/>
+    </g>
+    <foreignObject height="1" width="1" class="nad-text-nodes">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="nad-label-box" style="position: absolute; top: -555px; left: -120px" id="0-textnode">
+                <div>S1VL1</div>
+                <div>
+                    <span class="nad-vl180to300 nad-bus-0 nad-legend-square"/>224.6 kV / 2.3°</div>
+            </div>
+            <div class="nad-label-box" style="position: absolute; top: -174px; left: -52px" id="4-textnode">
+                <div>S1VL2</div>
+                <div>
+                    <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / 0.0°</div>
+                <div>
+                    <span class="nad-vl300to500 nad-bus-1 nad-legend-square"/>400.0 kV / 0.0°</div>
+            </div>
+            <div class="nad-label-box" style="position: absolute; top: 192px; left: -63px" id="15-textnode">
+                <div>S2VL1</div>
+                <div>
+                    <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>408.8 kV / 0.7°</div>
+            </div>
+            <div class="nad-label-box" style="position: absolute; top: 52px; left: 271px" id="18-textnode">
+                <div>S3VL1</div>
+                <div>
+                    <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / 0.0°</div>
+            </div>
+            <div class="nad-label-box" style="position: absolute; top: 262px; left: 597px" id="22-textnode">
+                <div>S4VL1</div>
+                <div>
+                    <span class="nad-vl300to500 nad-bus-0 nad-legend-square"/>400.0 kV / -1.1°</div>
+            </div>
+        </div>
+    </foreignObject>
+</svg>

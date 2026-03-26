@@ -1,0 +1,98 @@
+/**
+ * Copyright (c) 2025-2026, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+package com.powsybl.diagram.util.layout;
+
+import com.powsybl.diagram.util.layout.algorithms.Atlas2ForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.algorithms.LayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
+import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
+import com.powsybl.diagram.util.layout.setup.Setup;
+import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
+import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.Writer;
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.function.Function;
+
+/**
+ * Main entrypoint for the layout module, create a layout, use {@link #run(LayoutContext)} to start the calculations.
+ * To transform the output of this to a SVG, use either {@link LayoutContext#toSVG(Function, Writer)} or {@link LayoutContext#toSVG(Function, Path)} to get the default svg implementation<br>
+ * Note that you do not need to create a new <code>Layout</code> to run on a different <code>layoutContext</code>, you can just re-use the same layout object and start with run again
+ * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
+ */
+public class Layout<V, E> {
+    private final Setup<V, E> setup;
+    private final LayoutAlgorithm<V, E> layoutAlgorithm;
+    private final PostProcessing<V, E> postProcessing;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Layout.class);
+
+    /**
+     * Create a new Layout instance with the provided setup and algorithm
+     * @param setup the setup to be used
+     * @param layoutAlgorithm the algorithm to place the points once the setup has been applied
+     */
+    public Layout(Setup<V, E> setup, LayoutAlgorithm<V, E> layoutAlgorithm, PostProcessing<V, E> postProcessing) {
+        this.setup = Objects.requireNonNull(setup);
+        this.layoutAlgorithm = Objects.requireNonNull(layoutAlgorithm);
+        this.postProcessing = Objects.requireNonNull(postProcessing);
+    }
+
+    /**
+     * Get the default Basic algorithm, with {@link SquareRandomBarycenterSetup} and {@link BasicForceLayoutAlgorithm}
+     * @return a ready to run basic algorithm, with default parameters
+     */
+    public static <V, E> Layout<V, E> createBasicForceLayout() {
+        return new Layout<>(
+                new SquareRandomBarycenterSetup<>(),
+                new BasicForceLayoutAlgorithm<>(
+                        new BasicForceLayoutParameters.Builder().build()
+                ),
+                PostProcessing.noOp()
+        );
+    }
+
+    /**
+     * Get the default Atlas2 algorithm, with setup {@link SquareRandomSetup}, algorithm {@link Atlas2ForceLayoutAlgorithm} and post-processing {@link OverlapPreventionPostProcessing}
+     * @return a ready to run atlas2 algorithm, with default parameters
+     */
+    public static <V, E> Layout<V, E> createAtlas2ForceLayout() {
+        return new Layout<>(
+                new SquareRandomSetup<>(),
+                new Atlas2ForceLayoutAlgorithm<>(
+                        new Atlas2Parameters.Builder().build()
+                ),
+                new OverlapPreventionPostProcessing<>()
+        );
+    }
+
+    /**
+     * Run the setup and the algorithm of layout on the provided layoutContext
+     * @param layoutContext the context of the layout, containing the graph and the position of the points
+     */
+    public void run(LayoutContext<V, E> layoutContext) {
+        Objects.requireNonNull(layoutContext);
+        runAndLogElapsedTime("Setup", () -> setup.run(layoutContext));
+        runAndLogElapsedTime("Layout calculations", () -> layoutAlgorithm.run(layoutContext));
+        runAndLogElapsedTime("Post-processing", () -> postProcessing.run(layoutContext));
+    }
+
+    private void runAndLogElapsedTime(String phaseName, Runnable phase) {
+        long start = System.nanoTime();
+        phase.run();
+        long end = System.nanoTime();
+        LOGGER.info("{} took {} s", phaseName, (end - start) / 1e9);
+    }
+}

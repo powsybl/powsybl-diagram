@@ -7,8 +7,12 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.position.BlockPositionner;
+import com.powsybl.sld.layout.position.PositionFinder;
+import com.powsybl.sld.layout.position.Subsection;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.cells.ArchCell;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
@@ -23,11 +27,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
+import static com.powsybl.sld.library.SldComponentTypeName.BUS_CONNECTION;
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
+import static com.powsybl.sld.model.nodes.Node.NodeType.INTERNAL;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -65,7 +70,7 @@ public class BlockOrganizer {
             CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
             checkBlocks(cell, layoutParameters);
             if (cell.getType() == INTERN) {
-                ((InternCell) cell).organizeBlocks();
+                ((InternCell) cell).organizeBlocks(exceptionIfPatternNotHandled);
             }
         });
         graph.getShuntCellStream().forEach(CellBlockDecomposer::determineShuntCellBlocks);
@@ -75,13 +80,17 @@ public class BlockOrganizer {
         }
 
         List<Subsection> subsections = positionFinder.buildLayout(graph, handleShunt);
-        //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
 
         graph.getExternCellStream().forEach(ExternCell::organizeBlockDirections);
+        graph.getArchCellStream().forEach(ArchCell::organizeBlockDirections);
 
         graph.getCellStream().forEach(Cell::blockSizing);
 
         new BlockPositionner().determineBlockPositions(graph, subsections, busInfoMap);
+
+        graph.getInternCellStream()
+                .filter(internCell -> internCell.getShape() == InternCell.Shape.CROSSOVER)
+                .forEach(InternCell::crossOverBlockSizing);
     }
 
     private void checkBlocks(BusCell cell, LayoutParameters layoutParameters) {

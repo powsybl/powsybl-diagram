@@ -8,14 +8,10 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.nad.model.*;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,21 +33,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public String getStyleDefs() {
-        StringBuilder styleSheetBuilder = new StringBuilder("\n");
-        for (URL cssUrl : getCssUrls()) {
-            try {
-                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
-            }
-        }
-        return styleSheetBuilder.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-    }
-
-    protected List<URL> getCssUrls() {
+    public List<URL> getCssUrls() {
         return getCssFilenames().stream()
                 .map(n -> getClass().getResource("/" + n))
                 .collect(Collectors.toList());
@@ -63,18 +45,29 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(BusNode busNode) {
+    public List<String> getBusNodeStyleClasses(BusNode busNode) {
         return busNode == BusNode.UNKNOWN ? Collections.singletonList(UNKNOWN_BUSNODE_CLASS) : Collections.emptyList();
     }
 
     @Override
-    public List<String> getEdgeStyleClasses(Edge edge) {
+    public List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(edge)) {
+        if (isDisconnected(branchEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBaseVoltageStyle(edge).ifPresent(result::add);
+        getBranchTypeStyle(branchEdge).ifPresent(result::add);
+        getBaseVoltageStyle(branchEdge).ifPresent(result::add);
         return result;
+    }
+
+    private static Optional<String> getBranchTypeStyle(Edge edge) {
+        String edgeType = edge.getType();
+        return switch (edgeType) {
+            case BranchEdge.HVDC_LINE_LCC_EDGE, BranchEdge.HVDC_LINE_VSC_EDGE -> Optional.of(HVDC_EDGE_CLASS);
+            case BranchEdge.BOUNDARY_LINE_EDGE -> Optional.of(BOUNDARY_LINE_EDGE_CLASS);
+            case BranchEdge.TIE_LINE_EDGE -> Optional.of(TIE_LINE_EDGE_CLASS);
+            default -> Optional.empty();
+        };
     }
 
     @Override
@@ -89,51 +82,49 @@ public abstract class AbstractStyleProvider implements StyleProvider {
     }
 
     @Override
-    public List<String> getEdgeInfoStyles(EdgeInfo info) {
+    public List<String> getEdgeInfoStyleClasses(String infoType) {
         List<String> styles = new LinkedList<>();
-        String infoType = info.getInfoType();
-        switch (infoType) {
-            case EdgeInfo.ACTIVE_POWER:
-                styles.add(CLASSES_PREFIX + "active");
-                break;
-            case EdgeInfo.REACTIVE_POWER:
-                styles.add(CLASSES_PREFIX + "reactive");
-                break;
-            case EdgeInfo.CURRENT:
-                styles.add(CLASSES_PREFIX + "current");
-                break;
-            default:
-                LOGGER.warn("The \"{}\" type of information is not handled", infoType);
-                break;
+        if (infoType != null) {
+            switch (infoType) {
+                case EdgeInfo.ACTIVE_POWER -> styles.add(CLASSES_PREFIX + "active");
+                case EdgeInfo.REACTIVE_POWER -> styles.add(CLASSES_PREFIX + "reactive");
+                case EdgeInfo.CURRENT -> styles.add(CLASSES_PREFIX + "current");
+                case EdgeInfo.VALUE_PERMANENT_LIMIT_PERCENTAGE -> styles.add(CLASSES_PREFIX + "permanent-limit-percentage");
+                case EdgeInfo.NAME -> styles.add(CLASSES_PREFIX + "name");
+                default -> LOGGER.warn("The \"{}\" type of information is not handled", infoType);
+            }
         }
-
-        info.getDirection().ifPresent(direction -> styles.add(
-                CLASSES_PREFIX + (direction == EdgeInfo.Direction.IN ? "state-in" : "state-out")));
         return styles;
     }
 
     @Override
-    public List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side) {
-        Objects.requireNonNull(side);
+    public List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtEdge) {
         List<String> result = new ArrayList<>();
-        if (isDisconnected(threeWtNode, side)) {
+        if (isDisconnected(threeWtEdge)) {
             result.add(DISCONNECTED_CLASS);
         }
-        getBaseVoltageStyle(threeWtNode, side).ifPresent(result::add);
+        getBaseVoltageStyle(threeWtEdge).ifPresent(result::add);
         return result;
     }
 
-    protected abstract boolean isDisconnected(Edge edge);
+    @Override
+    public List<String> getInjectionStyleClasses(Injection injection) {
+        return isDisconnected(injection) ? List.of(DISCONNECTED_CLASS) : Collections.emptyList();
+    }
+
+    protected abstract boolean isDisconnected(Injection injection);
+
+    protected abstract boolean isDisconnected(ThreeWtEdge threeWtEdge);
+
+    protected abstract boolean isDisconnected(BranchEdge branchEdge);
 
     protected abstract boolean isDisconnected(BranchEdge edge, BranchEdge.Side side);
-
-    protected abstract boolean isDisconnected(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
 
     protected abstract Optional<String> getBaseVoltageStyle(Edge edge);
 
     protected abstract Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side);
 
-    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side side);
+    protected abstract Optional<String> getBaseVoltageStyle(ThreeWtEdge threeWtEdge);
 
     protected Optional<String> getBaseVoltageStyle(double nominalV) {
         return baseVoltagesConfig.getBaseVoltageName(nominalV, baseVoltagesConfig.getDefaultProfile())

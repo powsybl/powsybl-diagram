@@ -11,7 +11,15 @@ package com.powsybl.nad.model;
  */
 public abstract class AbstractEdge extends AbstractIdentifiable implements Edge {
 
-    protected AbstractEdge(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId);
+    protected final String type;
+
+    protected AbstractEdge(String svgId, String equipmentId, String nameOrId, String type) {
+        super(svgId, equipmentId, nameOrId);
+        this.type = type;
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 }

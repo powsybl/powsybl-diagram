@@ -14,7 +14,6 @@ import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractCgmesDLTest {
@@ -27,7 +26,7 @@ abstract class AbstractCgmesDLTest {
     protected PropertyBags busesPropertyBags;
     protected PropertyBags busbarsPropertyBags;
     protected PropertyBags linesPropertyBags;
-    protected PropertyBags danglingLinesPropertyBags;
+    protected PropertyBags boundaryLinesPropertyBags;
     protected PropertyBags generatorsPropertyBags;
     protected PropertyBags loadsPropertyBags;
     protected PropertyBags shuntsPropertyBags;
@@ -70,8 +69,8 @@ abstract class AbstractCgmesDLTest {
                                                              createBusbarPropertyBag(NAMESPACE + "Busbar", "Busbar", 20, 40, 2)));
         linesPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "Line", "Line", 20, 5, 1),
                                                            createPropertyBag(NAMESPACE + "Line", "Line", 20, 40, 2)));
-        danglingLinesPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 20, 5, 1),
-                                                                   createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 20, 40, 2)));
+        boundaryLinesPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 20, 5, 1),
+                                                                   createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 20, 40, 2)));
         generatorsPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "Generator", "Generator", 10, 10, 0, 90)));
         loadsPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "Load", "Load", 10, 10, 0, 90)));
         shuntsPropertyBags = new PropertyBags(Arrays.asList(createPropertyBag(NAMESPACE + "Shunt", "Shunt", 10, 10, 0, 90)));
@@ -87,8 +86,8 @@ abstract class AbstractCgmesDLTest {
                                                    createTerminal(NAMESPACE + "Svc_0", 1, NAMESPACE + "Svc"),
                                                    createTerminal(NAMESPACE + "Line_0", 1, NAMESPACE + "Line"),
                                                    createTerminal(NAMESPACE + "Line_1", 2, NAMESPACE + "Line"),
-                                                   createTerminal(NAMESPACE + "DanglingLine_0", 1, NAMESPACE + "DanglingLine"),
-                                                   createTerminal(NAMESPACE + "DanglingLine_1", 2, NAMESPACE + "DanglingLine"),
+                                                   createTerminal(NAMESPACE + "BoundaryLine_0", 1, NAMESPACE + "BoundaryLine"),
+                                                   createTerminal(NAMESPACE + "BoundaryLine_1", 2, NAMESPACE + "BoundaryLine"),
                                                    createTerminal(NAMESPACE + "Switch_0", 1, NAMESPACE + "Switch"),
                                                    createTerminal(NAMESPACE + "Switch_1", 2, NAMESPACE + "Switch"),
                                                    createTerminal(NAMESPACE + "Transformer_0", 1, NAMESPACE + "Transformer"),

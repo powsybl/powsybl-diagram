@@ -12,8 +12,8 @@ import com.google.auto.service.AutoService;
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-@AutoService(ComponentLibrary.class)
-public class FlatDesignLibrary extends ResourcesComponentLibrary {
+@AutoService(SldComponentLibrary.class)
+public class FlatDesignLibrary extends SldResourcesComponentLibrary {
 
     public FlatDesignLibrary() {
         super("FlatDesign", "/FlatDesignLibrary");

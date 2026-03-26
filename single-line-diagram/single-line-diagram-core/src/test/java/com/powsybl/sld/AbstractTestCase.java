@@ -8,14 +8,17 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.sld.layout.*;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
@@ -25,20 +28,17 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
  */
 public abstract class AbstractTestCase {
 
-    private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
-
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
-    protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
+    protected final SldResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
     protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
@@ -67,7 +67,7 @@ public abstract class AbstractTestCase {
                 .setCgmesUseNames(true);
     }
 
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ConvergenceComponentLibrary();
     }
 
@@ -117,10 +117,10 @@ public abstract class AbstractTestCase {
 
     public abstract String toSVG(Graph g, String filename);
 
-    public String toSVG(Graph graph, String filename, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
 
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -135,15 +135,13 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public boolean compareMetadata(VoltageLevelGraph graph, String refMetadataName, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public abstract String toMetadata(Graph g, String filename);
 
-        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
-
+    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(this.layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -155,37 +153,7 @@ public abstract class AbstractTestCase {
                 writeToFileInDebugDir(refMetadataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
-            String metadata = normalizeLineSeparator(metadataWriter.toString());
-            return refMetadata.compareTo(metadata) == 0;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public boolean compareMetadata(SubstationGraph graph, String refMetdataName, SubstationLayoutFactory substationLayoutFactory, VoltageLevelLayoutFactory voltageLevelLayoutFactory, ComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
-
-        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
-
-        try (StringWriter writer = new StringWriter();
-             StringWriter metadataWriter = new StringWriter()) {
-
-            substationLayoutFactory.create(graph, voltageLevelLayoutFactory).run(this.layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
-
-            if (debugJsonFiles) {
-                writeToFileInDebugDir(refMetdataName, metadataWriter);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(refMetdataName, metadataWriter);
-            }
-            if (debugSvgFiles) {
-                writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
-            }
-
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
-            String metadata = normalizeLineSeparator(metadataWriter.toString());
-            return refMetadata.compareTo(metadata) == 0;
+            return normalizeLineSeparator(metadataWriter.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

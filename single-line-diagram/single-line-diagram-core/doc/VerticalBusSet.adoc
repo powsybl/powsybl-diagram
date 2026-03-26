@@ -1,0 +1,17 @@
+= `VerticalBusSet`
+
+We have the principle that all the `BusNodes` of an `ExternCell` shall be presented in parallel, as well as all the `BusNode` of one side of an `InternCell`.
+
+Therefore, a `VerticalBusSet` gather a set of BusNode that shall be presented in parallel.
+
+****
+It is composed of:
+
+- a set of `BusNodes` that are to be in parallel
+- a set of `ExternCell` and a set `InternCellSide` (composition of an InternCell and the `Side` of the leg) that put the verticality constraint.
+****
+
+When the set of `BusNodes` of one `VerticalBusSet` contains all the `BusNodes` of the one of another, then it can absorb it (all the constraints given by the second one are covered by the one of the first one). The absorbtion consist in merging the sets of cells.
+
+***
+`VerticalBusSet` has an utility method `createVerticalBusSets` that creates a `List<VerticalBusSet>` going through the cells of a `VoltageLevelGraph` (on which the cells detection was already done!) and ensuring that all the possible absorbtions are performed.

@@ -14,7 +14,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -48,7 +47,7 @@ class LimitsTest extends AbstractTest {
         network.getVoltageLevel("vl2")
                 .setLowVoltageLimit(390)
                 .getBusView().getBus("vl2_0").setV(388);
-        assertEquals(toString("/voltage_limits.svg"), generateSvgString(network, "/voltage_limits.svg"));
+        assertSvgEquals("/voltage_limits.svg", network);
     }
 
     @Test
@@ -56,6 +55,6 @@ class LimitsTest extends AbstractTest {
         Network network = Networks.createTwoVoltageLevels();
         network.getLine("l1").newCurrentLimits1().setPermanentLimit(250).add();
         network.getLine("l1").getTerminal1().setP(101).setQ(150).getBusView().getBus().setV(390);
-        assertEquals(toString("/current_limits.svg"), generateSvgString(network, "/current_limits.svg"));
+        assertSvgEquals("/current_limits.svg", network);
     }
 }

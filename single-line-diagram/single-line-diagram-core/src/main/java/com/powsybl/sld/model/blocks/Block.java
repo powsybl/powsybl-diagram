@@ -15,6 +15,7 @@ import com.powsybl.sld.model.nodes.Node;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -43,6 +44,8 @@ public interface Block {
         START, END;
     }
 
+    void replaceEndingNode(Node newEndingNode);
+
     Node getExtremityNode(Extremity extremity);
 
     Optional<Extremity> getExtremity(Node node);
@@ -53,9 +56,15 @@ public interface Block {
 
     void reverseBlock();
 
+    Stream<Node> getNodeStream();
+
+    boolean contains(Node node);
+
     boolean isEmbeddingNodeType(Node.NodeType type);
 
     List<Block> findBlockEmbeddingNode(Node node);
+
+    Block getParentBlock();
 
     void setParentBlock(Block parentBlock);
 

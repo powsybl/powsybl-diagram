@@ -8,16 +8,22 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
-import com.powsybl.sld.model.cells.InternCell.Shape;
+import com.powsybl.sld.model.cells.ArchCell;
+import com.powsybl.sld.model.cells.CellVisitor;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.Node;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -33,15 +39,25 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
 
     @Override
     public void visit(InternCell cell) {
-        if (cell.getShape().checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
-            calculateRootCoord(cell.getBodyBlock(), layoutContext);
-        }
         cell.getLegs().values().forEach(lb -> calculateRootCoord(lb, layoutContext));
+        calculateRootCoord(cell.getBodyBlock(), layoutContext);
     }
 
     @Override
     public void visit(ExternCell cell) {
         calculateRootCoord(cell.getRootBlock(), layoutContext);
+    }
+
+    @Override
+    public void visit(ArchCell cell) {
+        Block rootBlock = cell.getRootBlock();
+        Position position = rootBlock.getPosition();
+        setCoordX(rootBlock.getCoord(), position);
+
+        // pillar block Coord has been calculated beforehand
+        rootBlock.getCoord().set(Y, cell.getPillarBlock().getCoord());
+        CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
+        rootBlock.accept(cc);
     }
 
     @Override
@@ -51,17 +67,25 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
     }
 
     private void calculateRootCoord(Block block, LayoutContext layoutContext) {
-        Position position = block.getPosition();
-        Coord coord = block.getCoord();
-        double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
-        coord.setSpan(X, spanX);
-        coord.set(X, hToX(layoutParameters, position.get(H)) + spanX / 2);
+        if (block == null) {
+            return;
+        }
 
-        double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
-        coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(position, layoutParameters, spanY, layoutContext));
+        Position position = block.getPosition();
+        setCoordX(block.getCoord(), position);
+
+        double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.maxInternCellHeight(), layoutContext.isInternCell());
+        double valueY = getRootYCoord(position, layoutParameters, spanY, layoutContext);
+        block.getCoord().set(Y, valueY, spanY);
+
         CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
         block.accept(cc);
+    }
+
+    private void setCoordX(Coord coord, Position position) {
+        double spanX = position.getSpan(H) / 2. * layoutParameters.getCellWidth();
+        double valueX = hToX(layoutParameters, position.get(H)) + spanX / 2;
+        coord.set(X, valueX, spanX);
     }
 
     private double hToX(LayoutParameters layoutParameters, int h) {
@@ -81,22 +105,18 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
     }
 
     private double getRootYCoord(Position position, LayoutParameters layoutParam, double spanY, LayoutContext layoutContext) {
-        double dyToBus = 0;
+        double dyToBus;
         if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
             dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
         } else {
             dyToBus = spanY / 2 + layoutParam.getStackHeight();
         }
-        switch (layoutContext.getDirection()) {
-            case BOTTOM:
-                return layoutContext.getLastBusY() + dyToBus;
-            case TOP:
-                return layoutContext.getFirstBusY() - dyToBus;
-            case MIDDLE:
-                return layoutContext.getFirstBusY() + (position.get(V) - 1) * layoutParam.getVerticalSpaceBus();
-            default:
-                return 0;
-        }
+        return switch (layoutContext.direction()) {
+            case BOTTOM -> layoutContext.lastBusY() + dyToBus;
+            case TOP -> layoutContext.firstBusY() - dyToBus;
+            case MIDDLE -> layoutContext.firstBusY() + (position.get(V) - 1) * layoutParam.getVerticalSpaceBus();
+            default -> 0;
+        };
     }
 
     public void coordShuntCase(BodyPrimaryBlock block, int hLeft, int hRight) {

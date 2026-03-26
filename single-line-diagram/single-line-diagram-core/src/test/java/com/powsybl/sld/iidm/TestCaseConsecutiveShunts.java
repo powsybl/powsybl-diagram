@@ -59,7 +59,7 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
 }

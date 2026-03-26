@@ -11,13 +11,12 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.VoltageLevelNode;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +24,7 @@ import java.util.List;
  */
 class TextNodeTest extends AbstractTest {
 
+    private final LabelProviderParameters parameters = new LabelProviderParameters();
     private LabelProvider labelProvider;
 
     @BeforeEach
@@ -45,15 +45,24 @@ class TextNodeTest extends AbstractTest {
         if (labelProvider != null) {
             return labelProvider;
         }
-        return new DefaultLabelProvider(network, getSvgParameters()) {
+        return new DefaultLabelProvider(network, getSvgParameters().createValueFormatter(), parameters) {
             @Override
-            public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
-                VoltageLevel vl = network.getVoltageLevel(vlNode.getEquipmentId());
-                return List.of(
-                        vl.getLoadCount() + " loads",
-                        vl.getGeneratorCount() + " generators",
-                        vl.getBatteryCount() + " batteries",
-                        vl.getDanglingLineCount() + " dangling lines");
+            public VoltageLevelLegend getVoltageLevelLegend(String voltageLevelId) {
+                var vlLegend = super.getVoltageLevelLegend(voltageLevelId);
+                return new VoltageLevelLegend(vlLegend.legendHeader(), getLegendFooter(voltageLevelId), vlLegend.busLegend());
+            }
+
+            private List<String> getLegendFooter(String voltageLevelId) {
+                if (parameters.isVoltageLevelDetails()) {
+                    VoltageLevel vl = network.getVoltageLevel(voltageLevelId);
+                    return List.of(
+                            vl.getLoadCount() + " loads",
+                            vl.getGeneratorCount() + " generators",
+                            vl.getBatteryCount() + " batteries",
+                            vl.getBoundaryLineCount() + " boundary lines");
+                } else {
+                    return Collections.emptyList();
+                }
             }
         };
     }
@@ -61,37 +70,52 @@ class TextNodeTest extends AbstractTest {
     @Test
     void testVlId() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setIdDisplayed(true).setBusLegend(false);
-        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        assertEquals(toString("/vl_description_id.svg"), generateSvgString(network, "/vl_description_id.svg"));
+        parameters.setIdDisplayed(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters().createValueFormatter(), parameters);
+        assertSvgEquals("/vl_description_id.svg", network);
     }
 
     @Test
     void testSubstationDescription() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
-        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
-        assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
+        parameters.setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
+        assertSvgEquals("/vl_description_substation.svg", network);
     }
 
     @Test
     void testSubstationId() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setSubstationDescriptionDisplayed(true).setIdDisplayed(true).setBusLegend(false);
-        assertEquals(toString("/vl_description_substation_id.svg"), generateSvgString(network, "/vl_description_substation_id.svg"));
+        parameters.setSubstationDescriptionDisplayed(true).setIdDisplayed(true).setBusLegend(false);
+        assertSvgEquals("/vl_description_substation_id.svg", network);
     }
 
     @Test
     void testDetailedTextNodeNoBusLegend() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setVoltageLevelDetails(true).setBusLegend(false);
-        assertEquals(toString("/detailed_text_node_no_legend.svg"), generateSvgString(network, "/detailed_text_node_no_legend.svg"));
+        parameters.setVoltageLevelDetails(true).setBusLegend(false);
+        assertSvgEquals("/detailed_text_node_no_legend.svg", network);
     }
 
     @Test
     void testDetailedTextNode() {
         Network network = Networks.createTwoVoltageLevels();
-        getSvgParameters().setVoltageLevelDetails(true).setSubstationDescriptionDisplayed(true);
-        assertEquals(toString("/detailed_text_node.svg"), generateSvgString(network, "/detailed_text_node.svg"));
+        parameters.setVoltageLevelDetails(true).setSubstationDescriptionDisplayed(true);
+        assertSvgEquals("/detailed_text_node.svg", network);
+    }
+
+    @Test
+    void testProductionConsumption() {
+        Network network = Networks.createThreeVoltageLevelsFiveBusesWithValuesAtTerminals();
+        parameters.setVoltageLevelDetails(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters().createValueFormatter(), parameters);
+        assertSvgEquals("/production_consumption_text_node.svg", network);
+    }
+
+    @Test
+    void testProductionConsumptionWithNaN() {
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        parameters.setVoltageLevelDetails(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters().createValueFormatter(), parameters);
+        assertSvgEquals("/production_consumption_text_node_nan.svg", network);
     }
 }

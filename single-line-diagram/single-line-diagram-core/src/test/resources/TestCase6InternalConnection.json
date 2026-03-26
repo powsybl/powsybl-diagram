@@ -89,7 +89,7 @@
     "id" : "b",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 50.0,
+    "x" : 75.0,
     "y" : 44.0,
     "orientation" : "RIGHT",
     "name" : "b",
@@ -257,14 +257,14 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 2,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 50.0,
           "y" : 44.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
         "nodes" : [ "INTERNAL_vl_d1-b", "b", "INTERNAL_vl_d2-b" ]

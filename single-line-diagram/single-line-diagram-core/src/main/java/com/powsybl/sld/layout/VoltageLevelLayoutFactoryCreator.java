@@ -9,9 +9,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.layout.position.PositionFinder;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 

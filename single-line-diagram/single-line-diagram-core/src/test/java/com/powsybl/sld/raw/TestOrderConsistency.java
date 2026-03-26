@@ -9,7 +9,7 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactoryParameters;
-import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;

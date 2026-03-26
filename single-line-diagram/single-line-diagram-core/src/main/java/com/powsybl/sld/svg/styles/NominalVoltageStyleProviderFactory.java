@@ -5,19 +5,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * SPDX-License-Identifier: MPL-2.0
  */
-
 package com.powsybl.sld.svg.styles;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.svg.SvgParameters;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 
 public class NominalVoltageStyleProviderFactory implements StyleProviderFactory {
     @Override
-    public StyleProvider create(Network network) {
+    public StyleProvider create(Network network, SvgParameters svgParameters) {
         return new NominalVoltageStyleProvider();
     }
 }

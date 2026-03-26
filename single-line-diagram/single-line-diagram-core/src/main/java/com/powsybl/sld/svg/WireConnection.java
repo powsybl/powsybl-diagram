@@ -8,8 +8,8 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.Component;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponent;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
@@ -19,7 +19,11 @@ import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -39,17 +43,17 @@ public final class WireConnection {
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
 
-    public static List<AnchorPoint> getAnchorPoints(ComponentLibrary componentLibrary, Node node) {
+    public static List<AnchorPoint> getAnchorPoints(SldComponentLibrary componentLibrary, Node node) {
         String componentType = node.getComponentType();
         Orientation nodeOrientation = node.getOrientation();
-        Component.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
+        SldComponent.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
         return componentLibrary.getAnchorPoints(componentType)
                 .stream()
                 .map(anchorPoint -> anchorPoint.transformAnchorPoint(nodeOrientation, transformation))
                 .collect(Collectors.toList());
     }
 
-    public static WireConnection searchBestAnchorPoints(ComponentLibrary componentLibrary, VoltageLevelGraph graph, Node node1, Node node2) {
+    public static WireConnection searchBestAnchorPoints(SldComponentLibrary componentLibrary, VoltageLevelGraph graph, Node node1, Node node2) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
@@ -76,7 +80,7 @@ public final class WireConnection {
         }
     }
 
-    public static AnchorPoint getBestAnchorPoint(ComponentLibrary componentLibrary, Graph graph, Node node, Point point) {
+    public static AnchorPoint getBestAnchorPoint(SldComponentLibrary componentLibrary, Graph graph, Node node, Point point) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node);
         Objects.requireNonNull(point);
@@ -89,8 +93,8 @@ public final class WireConnection {
     private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,
                                                          List<AnchorPoint> anchorPoints1,
                                                          List<AnchorPoint> anchorPoints2) {
-        AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
-        AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
+        AnchorPoint betterAnchorPoint1 = anchorPoints1.getFirst();
+        AnchorPoint betterAnchorPoint2 = anchorPoints2.getFirst();
 
         double currentDistance = coord1.getShiftedPoint(betterAnchorPoint1).distanceSquare(
             coord2.getShiftedPoint(betterAnchorPoint2));
@@ -154,31 +158,32 @@ public final class WireConnection {
         double yB = pointB.getY();
 
         switch (anchorPointA.getOrientation()) {
-            case VERTICAL:
+            case VERTICAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.VERTICAL) {
                     double mid = (yA + yB) / 2;
                     pol.addAll(Point.createPointsList(xA, mid, xB, mid));
                 } else {
                     pol.add(new Point(xA, yB));
                 }
-                break;
-            case HORIZONTAL:
+            }
+            case HORIZONTAL -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     double mid = (xA + xB) / 2;
                     pol.addAll(Point.createPointsList(mid, yA, mid, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            case NONE:
+            }
+            case NONE -> {
                 if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
                     pol.add(new Point(xA, yB));
                 } else {
                     pol.add(new Point(xB, yA));
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+                // Do nothing
+            }
         }
     }
 }

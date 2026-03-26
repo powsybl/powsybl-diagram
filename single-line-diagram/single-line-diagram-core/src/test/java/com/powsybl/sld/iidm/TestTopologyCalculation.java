@@ -13,11 +13,11 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.layout.TopologicallyConnectedNodesSet;
-import com.powsybl.sld.layout.TopologyCalculation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.util.TopologicallyConnectedNodesSet;
+import com.powsybl.sld.util.TopologyCalculation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,8 +83,8 @@ class TestTopologyCalculation extends AbstractTestCaseIidm {
                            int expectedNbBorderSwitches) {
         assertEquals(expectedNbTcns, tcnss.size());
         TopologicallyConnectedNodesSet tcns = tcnss.get(exploredIndex);
-        assertEquals(expectedNbNodes, tcns.getNodes().size());
-        assertEquals(expectedNbBorderSwitches, tcns.getBorderNodes().size());
+        assertEquals(expectedNbNodes, tcns.nodes().size());
+        assertEquals(expectedNbBorderSwitches, tcns.borderNodes().size());
     }
 
     @Test
@@ -131,11 +131,11 @@ class TestTopologyCalculation extends AbstractTestCaseIidm {
     }
 
     private boolean feedersSetsOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
-        return topologicallyConnectedNodesSet.getNodes().stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER);
+        return topologicallyConnectedNodesSet.nodes().stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER);
     }
 
     private boolean bordersBreakersOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
-        return topologicallyConnectedNodesSet.getBorderNodes().stream()
+        return topologicallyConnectedNodesSet.borderNodes().stream()
                 .filter(SwitchNode.class::isInstance)
                 .map(SwitchNode.class::cast)
                 .allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);

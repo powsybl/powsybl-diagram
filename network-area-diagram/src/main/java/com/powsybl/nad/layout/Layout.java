@@ -25,4 +25,6 @@ public interface Layout {
     Map<String, Point> getInitialNodePositions();
 
     Set<String> getNodesWithFixedPosition();
+
+    void setTextNodeFixedPosition(String voltageLevelId, Point topLeft, Point edgeConnection);
 }

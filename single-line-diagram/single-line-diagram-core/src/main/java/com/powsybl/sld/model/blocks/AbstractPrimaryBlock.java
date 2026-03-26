@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -49,6 +50,21 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
+    public void replaceEndingNode(Node newEndingNode) {
+        nodes.set(nodes.size() - 1, newEndingNode);
+    }
+
+    @Override
+    public Stream<Node> getNodeStream() {
+        return nodes.stream();
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return nodes.contains(node);
+    }
+
+    @Override
     public boolean isEmbeddingNodeType(Node.NodeType type) {
         return nodes.stream().anyMatch(n -> n.getType() == type);
     }
@@ -74,10 +90,10 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     @Override
     public Node getExtremityNode(Extremity extremity) {
         if (extremity == Extremity.START) {
-            return nodes.get(0);
+            return nodes.getFirst();
         }
         if (extremity == Extremity.END) {
-            return nodes.get(nodes.size() - 1);
+            return nodes.getLast();
         }
         return null;
     }

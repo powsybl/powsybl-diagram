@@ -7,10 +7,12 @@
  */
 package com.powsybl.sld.layout.zonebygrid;
 
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.graphs.BaseGraph;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
@@ -19,8 +21,14 @@ public class Matrix {
     // [row] [col]
     private final MatrixCell[][] cells;
 
-    public Matrix(int rows, int cols) {
-        cells = new MatrixCell[rows][cols];
+    private final int snakelinePadding;
+
+    private final LayoutParameters.Padding diagramPadding;
+
+    public Matrix(int rows, int cols, LayoutParameters layoutParameters) {
+        this.cells = new MatrixCell[rows][cols];
+        this.snakelinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
+        this.diagramPadding = layoutParameters.getDiagramPadding();
     }
 
     public Matrix set(int row, int col, MatrixCell cell) {
@@ -29,7 +37,7 @@ public class Matrix {
     }
 
     public Optional<MatrixCell> get(String id) {
-        return stream().filter(c -> c.getId().equals(id)).findAny();
+        return stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 
     public MatrixCell get(int row, int col) {
@@ -61,5 +69,21 @@ public class Matrix {
 
     public int columnCount() {
         return cells[0].length;
+    }
+
+    protected int getX(int col) {
+        int matrixCellWidth = 0;
+        for (int c = 0; c < col; c++) {
+            matrixCellWidth += (int) getMatrixCellWidth(c);
+        }
+        return (int) diagramPadding.left() + ((col + 1) * snakelinePadding) + matrixCellWidth;
+    }
+
+    protected int getY(int row) {
+        int matrixCellHeight = 0;
+        for (int r = 0; r < row; r++) {
+            matrixCellHeight += (int) getMatrixCellHeight(r);
+        }
+        return (int) diagramPadding.top() + (row + 1) * snakelinePadding + matrixCellHeight;
     }
 }

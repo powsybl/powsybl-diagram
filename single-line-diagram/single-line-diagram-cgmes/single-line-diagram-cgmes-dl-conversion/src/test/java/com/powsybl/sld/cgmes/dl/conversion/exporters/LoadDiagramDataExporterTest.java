@@ -15,7 +15,6 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Load;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class LoadDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
@@ -28,7 +27,7 @@ class LoadDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTe
         network = Networks.createNetworkWithLoad();
         load = network.getLoad("Load");
         InjectionDiagramData<Load> loadDiagramData = new InjectionDiagramData<>(load);
-        InjectionDiagramData.InjectionDiagramDetails details = loadDiagramData.new InjectionDiagramDetails(point, rotation);
+        InjectionDiagramData.InjectionDiagramDetails details = new InjectionDiagramData.InjectionDiagramDetails(point, rotation);
         details.addTerminalPoint(terminalPoint1);
         details.addTerminalPoint(terminalPoint2);
         loadDiagramData.addData(basename, details);

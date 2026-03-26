@@ -14,6 +14,8 @@ public interface CellVisitor {
 
     void visit(ExternCell cell);
 
+    void visit(ArchCell cell);
+
     void visit(InternCell cell);
 
     void visit(ShuntCell cell);

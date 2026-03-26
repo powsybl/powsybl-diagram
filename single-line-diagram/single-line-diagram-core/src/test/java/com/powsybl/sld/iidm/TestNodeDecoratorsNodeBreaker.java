@@ -8,16 +8,23 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.DefaultLabelProvider;
+import com.powsybl.sld.svg.DefaultSVGLegendWriter;
 import com.powsybl.sld.svg.LabelPosition;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.styles.StyleProvidersList;
+import com.powsybl.sld.svg.styles.iidm.HighlightLineStateStyleProvider;
+import com.powsybl.sld.svg.styles.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +56,19 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+    }
+
+    @Test
+    void testBranchStatusForVerticalInternalPst() {
+        Network networkInternalPst = Networks.createNetworkWithInternalPstAndBranchStatus();
+        SubstationGraph g = new NetworkGraphBuilder(networkInternalPst).buildSubstationGraph("s");
+
+        // Run horizontal substation layout
+        new HorizontalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(networkInternalPst)).run(layoutParameters);
+
+        assertEquals(toString("/VerticalInternalPstBranchStatusNodeBreaker.svg"),
+                toSVG(g, "/VerticalInternalPstBranchStatusNodeBreaker.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(networkInternalPst, componentLibrary, layoutParameters, svgParameters), new StyleProvidersList(new TopologicalStyleProvider(networkInternalPst), new HighlightLineStateStyleProvider(networkInternalPst)), new DefaultSVGLegendWriter(networkInternalPst, svgParameters)));
     }
 
     @Test
@@ -70,8 +89,8 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
             private LabelPosition getSwitchDecoratorPosition(SwitchNode node) {
                 ComponentSize size = componentLibrary.getSize(node.getComponentType());
-                double yShift = -size.getHeight() / 2;
-                double xShift = size.getWidth() / 2 + SWITCH_DECORATOR_OFFSET;
+                double yShift = -size.height() / 2;
+                double xShift = size.width() / 2 + SWITCH_DECORATOR_OFFSET;
                 return new LabelPosition("DECORATOR", xShift, yShift, false, 0);
             }
 
@@ -85,7 +104,7 @@ class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
         // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-                toSVG(g, "/NodeDecoratorsSwitches.svg", componentLibrary, layoutParameters, svgParameters, labelTestProvider, getDefaultDiagramStyleProvider()));
+                toSVG(g, "/NodeDecoratorsSwitches.svg", componentLibrary, layoutParameters, svgParameters, labelTestProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
 }

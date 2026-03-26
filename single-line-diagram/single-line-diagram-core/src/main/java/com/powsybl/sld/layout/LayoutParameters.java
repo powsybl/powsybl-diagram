@@ -10,8 +10,8 @@ package com.powsybl.sld.layout;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.diagram.components.ComponentSize;
+import com.powsybl.sld.library.SldComponentTypeName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,18 +43,16 @@ public class LayoutParameters {
     private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
     private Padding diagramPadding = new Padding(20);
     private Alignment busbarsAlignment = Alignment.FIRST;
-    private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
+    private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
     private double cgmesScaleFactor = 1;
     private String cgmesDiagramName = null;
     private boolean cgmesUseNames = true;
-    private double zoneLayoutSnakeLinePadding = 90;
-    private PathFinderType zoneLayoutPathFinder = PathFinderType.DIJKSTRA;
+    private int zoneLayoutSnakeLinePadding = 90;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
-    @JsonCreator
     public LayoutParameters() {
     }
 
@@ -80,8 +78,7 @@ public class LayoutParameters {
                             @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("cgmesDiagramName") String cgmesDiagramName,
                             @JsonProperty("cgmesUseNames") boolean cgmesUseNames,
-                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
-                            @JsonProperty("zoneLayoutPathFinder") PathFinderType zoneLayoutPathFinder) {
+                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -105,7 +102,6 @@ public class LayoutParameters {
         this.cgmesScaleFactor = cgmesScaleFactor;
         this.cgmesUseNames = cgmesUseNames;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
-        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -133,7 +129,6 @@ public class LayoutParameters {
         cgmesDiagramName = other.cgmesDiagramName;
         cgmesUseNames = other.cgmesUseNames;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
-        zoneLayoutPathFinder = other.zoneLayoutPathFinder;
     }
 
     public double getVerticalSpaceBus() {
@@ -338,38 +333,20 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getZoneLayoutSnakeLinePadding() {
+    public int getZoneLayoutSnakeLinePadding() {
         return zoneLayoutSnakeLinePadding;
     }
 
-    public LayoutParameters setZoneLayoutSnakeLinePadding(double zoneLayoutSnakeLinePadding) {
+    public LayoutParameters setZoneLayoutSnakeLinePadding(int zoneLayoutSnakeLinePadding) {
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
         return this;
-    }
-
-    public PathFinderType getZoneLayoutPathFinder() {
-        return zoneLayoutPathFinder;
-    }
-
-    public LayoutParameters setZoneLayoutPathFinder(PathFinderType zoneLayoutPathFinder) {
-        this.zoneLayoutPathFinder = zoneLayoutPathFinder;
-        return this;
-    }
-
-    public enum PathFinderType {
-        DIJKSTRA
     }
 
     public enum Alignment {
         FIRST, LAST, MIDDLE, NONE
     }
 
-    public static class Padding {
-        private final double left;
-        private final double top;
-        private final double right;
-        private final double bottom;
-
+    public record Padding(double left, double top, double right, double bottom) {
         @JsonCreator
         public Padding(@JsonProperty("left") double left,
                        @JsonProperty("top") double top,
@@ -387,22 +364,6 @@ public class LayoutParameters {
 
         public Padding(Padding padding) {
             this(padding.left, padding.top, padding.right, padding.bottom);
-        }
-
-        public double getLeft() {
-            return left;
-        }
-
-        public double getRight() {
-            return right;
-        }
-
-        public double getTop() {
-            return top;
-        }
-
-        public double getBottom() {
-            return bottom;
         }
     }
 

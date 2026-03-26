@@ -6,17 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Map;
-import java.util.Objects;
-
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.triplestore.api.TripleStore;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagramDataExporter {
@@ -31,7 +29,7 @@ public abstract class AbstractInjectionDiagramDataExporter extends AbstractDiagr
     protected void addDiagramData(String id, String name, InjectionDiagramData<?> diagramData, String diagramObjectStyleId) {
         if (diagramData != null) {
             diagramData.getDiagramsNames().forEach(diagramName -> {
-                InjectionDiagramData<?>.InjectionDiagramDetails details = diagramData.getData(diagramName);
+                InjectionDiagramData.InjectionDiagramDetails details = diagramData.getData(diagramName);
                 String diagramId = context.getDiagramId(diagramName);
                 String diagramObjectId = addDiagramObject(id, name, details.getRotation(), diagramObjectStyleId, diagramId);
                 addDiagramObjectPoint(diagramObjectId, details.getPoint());

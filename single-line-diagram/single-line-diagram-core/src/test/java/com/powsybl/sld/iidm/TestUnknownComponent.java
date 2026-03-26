@@ -9,7 +9,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.SldResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,13 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
     }
 
     @Override
-    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("unknown", "/UnknownLibrary");
+    protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new SldResourcesComponentLibrary("unknown", "/UnknownLibrary");
     }
 
     @Test
     void test() {
-        svgParameters.setAddNodesInfos(true);
+        svgParameters.setBusesLegendAdded(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph("vl1");
@@ -45,6 +45,6 @@ class TestUnknownComponent extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g1);
 
         // write SVGs and compare to reference
-        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/TestUnknownLibrary.svg"), toSVG(g1, "/TestUnknownLibrary.svg", getResourcesComponentLibrary(), layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

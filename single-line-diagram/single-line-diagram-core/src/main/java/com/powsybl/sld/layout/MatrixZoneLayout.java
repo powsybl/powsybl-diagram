@@ -7,37 +7,36 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.commons.*;
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.layout.zonebygrid.*;
-import com.powsybl.sld.model.coordinate.*;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
+import com.powsybl.sld.layout.zonebygrid.Matrix;
+import com.powsybl.sld.layout.zonebygrid.MatrixCell;
+import com.powsybl.sld.layout.zonebygrid.MatrixZoneLayoutModel;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.Node;
-import org.jgrapht.alg.util.*;
+import org.jgrapht.alg.util.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayout extends AbstractZoneLayout {
-    private final MatrixZoneLayoutModel model;
+    private MatrixZoneLayoutModel model;
 
-    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrix, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    private final String[][] matrixUserDefinition;
+
+    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrixUserDefinition, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
-        this.pathFinder = pathFinderFactory.create();
-        this.model = new MatrixZoneLayoutModel(Objects.requireNonNull(matrix));
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                String id = matrix[row][col];
-                SubstationGraph sGraph = graph.getSubstationGraph(id);
-                if (sGraph == null && !id.isEmpty()) {
-                    throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
-                }
-                model.addSubstationGraph(sGraph, row, col);
-            }
-        }
+        this.pathFinder = Objects.requireNonNull(pathFinderFactory).create();
+        this.matrixUserDefinition = Objects.requireNonNull(matrixUserDefinition);
     }
 
     /**
@@ -45,6 +44,19 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
      */
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
+        // Update model information
+        this.model = new MatrixZoneLayoutModel(matrixUserDefinition, layoutParameters);
+        for (int row = 0; row < matrixUserDefinition.length; row++) {
+            for (int col = 0; col < matrixUserDefinition[row].length; col++) {
+                String id = matrixUserDefinition[row][col];
+                SubstationGraph sGraph = getGraph().getSubstationGraph(id);
+                if (sGraph == null && !id.isEmpty()) {
+                    throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
+                }
+                model.addSubstationGraph(sGraph, row, col);
+            }
+        }
+
         Matrix matrix = model.getMatrix();
         // Display substations on not empty Matrix cell
         matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
@@ -53,13 +65,11 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
         // Width by col
         int maxWidthCol = 0;
         // Snakeline hallway (horizontal & vertical)
-        int snakelineMargin = (int) layoutParameters.getZoneLayoutSnakeLinePadding();
+        int snakelineMargin = layoutParameters.getZoneLayoutSnakeLinePadding();
         // Zone size
         int nbRows = matrix.rowCount();
         int nbCols = matrix.columnCount();
-        // FIXME : padding diagram is canceled here !
-        double leftPadding = layoutParameters.getDiagramPadding().getLeft();
-        double topPadding = layoutParameters.getDiagramPadding().getTop();
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         // Move each substation into its matrix position
         for (int row = 0; row < nbRows; row++) {
             maxWidthCol = 0;
@@ -72,15 +82,16 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
                     int deltaY = (int) (matrix.getMatrixCellHeight(row) % graph.getHeight()) / 2;
                     double dx = maxWidthCol + (col + 1.0) * snakelineMargin;
                     double dy = maxHeightRow + (row + 1.0) * snakelineMargin;
-                    move(graph, dx - leftPadding + deltaX, dy - topPadding + deltaY);
+                    move(graph, dx + deltaX, dy + deltaY);
                 }
-                maxWidthCol += matrix.getMatrixCellWidth(col);
+                maxWidthCol += (int) matrix.getMatrixCellWidth(col);
             }
-            maxHeightRow += matrix.getMatrixCellHeight(row);
+            maxHeightRow += (int) matrix.getMatrixCellHeight(row);
         }
         double zoneWidth = maxWidthCol + (nbCols + 1.0) * snakelineMargin;
         double zoneHeight = maxHeightRow + (nbRows + 1.0) * snakelineMargin;
-        getGraph().setSize(zoneWidth, zoneHeight);
+        getGraph().setSize(diagramPadding.left() + zoneWidth + diagramPadding.right(),
+                diagramPadding.top() + zoneHeight + diagramPadding.bottom());
     }
 
     @Override
@@ -103,7 +114,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
             // Add starting point
             polyline.add(p1);
             // Find snakeline path
-            polyline.addAll(model.buildSnakeline(pathFinder, ss1Graph.getId(), p1, dNode1, ss2Graph.getId(), p2, dNode2, layoutParameters.getZoneLayoutSnakeLinePadding()));
+            polyline.addAll(model.buildSnakeline(pathFinder, ss1Graph.getId(), p1, dNode1, ss2Graph.getId(), p2, dNode2, layoutParameters));
             // Add ending point
             polyline.add(p2);
         }

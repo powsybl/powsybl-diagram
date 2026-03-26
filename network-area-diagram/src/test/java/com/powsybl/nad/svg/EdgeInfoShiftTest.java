@@ -12,10 +12,8 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
@@ -37,13 +35,20 @@ class EdgeInfoShiftTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setSubstationDescriptionDisplayed(false)
+            .setBusLegend(true)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void testArrowShift() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
         getSvgParameters().setArrowShift(20);
-        assertEquals(toString("/edge_info_shift.svg"), generateSvgString(network, "/edge_info_shift.svg"));
+        assertSvgEquals("/edge_info_shift.svg", network);
     }
 }

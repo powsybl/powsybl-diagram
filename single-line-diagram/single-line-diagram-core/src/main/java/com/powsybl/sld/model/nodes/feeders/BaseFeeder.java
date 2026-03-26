@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.model.nodes.feeders;
 
-import java.io.IOException;
-import java.util.Objects;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.Feeder;
 import com.powsybl.sld.model.nodes.FeederType;
+
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}

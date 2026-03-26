@@ -1,0 +1,24 @@
+/* The following code ensures font is not too big (Furo theme can make font too big on large screens) */
+@media (min-width: 97em) {
+    html {
+        font-size: 100%
+    }
+}
+
+.main-page-logo {
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.forced-white-background {
+    background-color : white
+}
+
+
+table.docutils {
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+}

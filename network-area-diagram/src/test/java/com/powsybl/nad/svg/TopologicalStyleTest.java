@@ -15,7 +15,6 @@ import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
@@ -46,46 +45,46 @@ class TopologicalStyleTest extends AbstractTest {
     @Test
     void testIEEE57() {
         Network network = IeeeCdfNetworkFactory.create57();
-        assertEquals(toString("/IEEE_57_bus.svg"), generateSvgString(network, "/IEEE_57_bus.svg"));
+        assertSvgEquals("/IEEE_57_bus.svg", network);
     }
 
     @Test
     void testIEEE118() {
         Network network = IeeeCdfNetworkFactory.create118();
-        assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
+        assertSvgEquals("/IEEE_118_bus.svg", network);
     }
 
     @Test
     void testIEEE118PartialGraph() {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL54", 2);
-        assertEquals(toString("/IEEE_118_bus_partial.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
+        assertSvgEquals("/IEEE_118_bus_partial.svg", network, vlDepthFilter);
     }
 
     @Test
     void testIEEE118PartialNonConnectedGraph() {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Arrays.asList("VL32", "VL38"), 1);
-        assertEquals(toString("/IEEE_118_bus_partial_non_connected.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial_non_connected.svg"));
+        assertSvgEquals("/IEEE_118_bus_partial_non_connected.svg", network, vlDepthFilter);
     }
 
     @Test
     void testEurope() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
+        assertSvgEquals("/simple-eu.svg", network);
     }
 
     @Test
     void testEuropeLoopAperture80() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(80);
-        assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
+        assertSvgEquals("/simple-eu-loop80.svg", network);
     }
 
     @Test
     void testEuropeLoopAperture100() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(100);
-        assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
+        assertSvgEquals("/simple-eu-loop100.svg", network);
     }
 }

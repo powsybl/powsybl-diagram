@@ -13,7 +13,7 @@ import java.util.List;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  */
-public interface ComposedBlock extends Block {
+public interface ComposedBlock<T extends Block> extends Block {
 
-    List<Block> getSubBlocks();
+    List<T> getSubBlocks();
 }

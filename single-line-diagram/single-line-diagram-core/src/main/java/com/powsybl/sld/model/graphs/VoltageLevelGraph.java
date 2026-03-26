@@ -8,14 +8,30 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.GraphTraversal;
-import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.library.SldComponentTypeName;
+import com.powsybl.sld.model.cells.ArchCell;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.util.GraphTraversal;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +66,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final List<Edge> edges = new ArrayList<>();
 
-    private final SortedSet<Cell> cells = new TreeSet<>(
-            Comparator.comparingInt(Cell::getNumber)); // cells sorted to avoid randomness
+    private final SortedSet<Cell> cells = new TreeSet<>(Comparator.comparingInt(Cell::getNumber)); // cells sorted to avoid randomness
 
     private final Map<Node.NodeType, List<Node>> nodesByType = new EnumMap<>(Node.NodeType.class);
 
@@ -66,8 +81,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final Point coord = new Point(0, 0);
 
-    private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
-    // false if substation diagram
+    private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram, false if substation diagram
 
     // by direction, max calculated height of the extern cells
     // If no extern cell found taking into account intern cells too
@@ -82,7 +96,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     @Override
     public String getId() {
-        return voltageLevelInfos.getId();
+        return voltageLevelInfos.id();
     }
 
     public boolean isForVoltageLevelDiagram() {
@@ -96,7 +110,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void removeUnnecessaryConnectivityNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
                 .filter(ConnectivityNode.class::isInstance)
-                .collect(Collectors.toList());
+                .toList();
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
                 List<Node> adjNodes = n.getAdjacentNodes();
@@ -128,7 +142,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .map(SwitchNode.class::cast)
                 .filter(SwitchNode::isFictitious)
                 .filter(node -> node.getAdjacentNodes().size() == 2)
-                .collect(Collectors.toList());
+                .toList();
         for (SwitchNode n : fictitiousSwitchNodesToRemove) {
             Node node1 = n.getAdjacentNodes().get(0);
             Node node2 = n.getAdjacentNodes().get(1);
@@ -212,7 +226,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     @Override
     public VoltageLevelGraph getVoltageLevel(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
-        return voltageLevelId.equals(voltageLevelInfos.getId()) ? this : null;
+        return voltageLevelId.equals(voltageLevelInfos.id()) ? this : null;
     }
 
     @Override
@@ -284,7 +298,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         List<Node> nodesToHandle = new ArrayList<>(nodesIn);
         List<List<Node>> result = new ArrayList<>();
         while (!nodesToHandle.isEmpty()) {
-            Node n = nodesToHandle.get(0);
+            Node n = nodesToHandle.getFirst();
             List<Node> connexComponent = new ArrayList<>();
             rIdentifyConnexComponent(n, nodesIn, connexComponent);
             nodesToHandle.removeAll(connexComponent);
@@ -369,13 +383,22 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
-                .filter(feederNode -> !isInternal3wtFeederNode((FeederNode) feederNode))
+                .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+    }
+
+    private boolean isHookReplacement(FeederNode feederNode) {
+        return feederNode.getFeeder().getFeederType() == FeederType.TEE_POINT_LEG
+                || isInternal3wtFeederNode(feederNode);
     }
 
     private boolean isInternal3wtFeederNode(FeederNode feederNode) {
         return feederNode.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG
-                && feederNode.getAdjacentNodes().get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
+                && is3wtComponent(feederNode.getAdjacentNodes().getFirst().getComponentType());
+    }
+
+    private boolean is3wtComponent(String componentName) {
+        return SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_COMPONENTS.contains(componentName);
     }
 
     private void insertFeederHookNode(Node feederNode) {
@@ -385,7 +408,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         List<Node> adjacentNodes = feederNode.getAdjacentNodes();
         if (adjacentNodes.size() == 1) {
             // Update edges: create the 2 new ones and remove the old one
-            Node singleNeighbor = adjacentNodes.get(0);
+            Node singleNeighbor = adjacentNodes.getFirst();
             insertNode(singleNeighbor, hookNode, feederNode);
         } else {
             // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
@@ -434,10 +457,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void transferEdges(Node nodeOrigin, Node newNode) {
+        transferEdges(nodeOrigin, newNode, new ArrayList<>(nodeOrigin.getAdjacentEdges()));
+    }
+
+    public void transferEdges(Node nodeOrigin, Node newNode, List<Edge> edgesToTransfer) {
         if (!nodesById.containsKey(newNode.getId())) {
             throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
         }
-        for (Edge edge : new ArrayList<>(nodeOrigin.getAdjacentEdges())) {
+        for (Edge edge : edgesToTransfer) {
+            if (!edge.getNodes().contains(nodeOrigin)) {
+                throw new PowsyblException("Edge to transfer not in adjacent edges of given node");
+            }
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
             Node node2 = edge.getNode2() == nodeOrigin ? newNode : edge.getNode2();
             addEdge(node1, node2);
@@ -448,8 +478,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.INTERNAL) {
-                Node adj = adjs.get(0);
+            if (adjs.size() == 1 && adjs.getFirst().getType() == Node.NodeType.INTERNAL) {
+                Node adj = adjs.getFirst();
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
             }
@@ -496,6 +526,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .map(FeederNode.class::cast);
     }
 
+    private Stream<FeederNode> getFeederNodeStream(FeederType feederType) {
+        return getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == feederType);
+    }
+
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
     }
@@ -537,6 +571,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Stream<ExternCell> getExternCellStream() {
         return cells.stream().filter(ExternCell.class::isInstance).map(ExternCell.class::cast);
+    }
+
+    public Stream<ArchCell> getArchCellStream() {
+        return cells.stream().filter(ArchCell.class::isInstance).map(ArchCell.class::cast);
     }
 
     public Stream<ShuntCell> getShuntCellStream() {
@@ -661,7 +699,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public void substituteNodesMirroringGroundDisconnectionComponent() {
-        List<GroundDisconnection> groundDisconnections = getFeederNodeStream().filter(feederNode -> feederNode.getFeeder().getFeederType() == FeederType.GROUND)
+        List<GroundDisconnection> groundDisconnections = getFeederNodeStream(FeederType.GROUND)
                 .map(this::getGroundDisconnection)
                 .filter(Objects::nonNull)
                 .toList();
@@ -682,9 +720,56 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 Collections.emptySet());
         if (groundDisconnectionSetIdentified && aSwitch.get() != null && aSwitch.get().getKind() == SwitchNode.SwitchKind.DISCONNECTOR) {
             List<Node> list = setFromGround.stream().toList(); // the list contains the fork node which should not be removed but substituted
-            return new GroundDisconnection(list.subList(0, list.size() - 1), groundFeederNode, aSwitch.get(), list.get(list.size() - 1));
+            return new GroundDisconnection(list.subList(0, list.size() - 1), groundFeederNode, aSwitch.get(), list.getLast());
         }
         return null;
+    }
+
+    public void substituteInternalMiddle2wtByEquipmentNodes() {
+        for (FeederNode feederNode : getFeederNodeStream(FeederType.TWO_WINDINGS_TRANSFORMER_LEG).toList()) {
+            if (nodesById.get(feederNode.getId()) == feederNode) { // check if not already removed
+                substituteInternalMiddle2wtByEquipmentNode(feederNode);
+            }
+        }
+    }
+
+    private void substituteInternalMiddle2wtByEquipmentNode(FeederNode feederNode) {
+        MiddleTwtNode middleNode = getMultiTermNodes().stream()
+                .filter(m2wtn -> m2wtn.getAdjacentNodes().stream().anyMatch(n -> n == feederNode))
+                .findFirst().orElse(null);
+        Node otherSideNode = Optional.ofNullable(middleNode)
+                .flatMap(m2wtn -> m2wtn.getAdjacentNodes().stream().filter(n -> n != feederNode).findFirst())
+                .orElse(null);
+        if (middleNode instanceof Middle2WTNode middle2WTNode
+                && otherSideNode instanceof FeederNode otherSideFeederNode
+                && otherSideFeederNode.getFeeder() instanceof FeederTwLeg otherSideFeederTwLeg
+                && otherSideFeederTwLeg.getOwnVoltageLevelInfos().id().equals(voltageLevelInfos.id())) {
+
+            ConnectivityNode connectivityNodeA = NodeFactory.createConnectivityNode(this, feederNode.getId(), SldComponentTypeName.NODE);
+            ConnectivityNode connectivityNodeB = NodeFactory.createConnectivityNode(this, otherSideNode.getId(), SldComponentTypeName.NODE);
+
+            // substitute nodes in voltage level
+            substituteNode(feederNode, connectivityNodeA);
+            substituteNode(otherSideNode, connectivityNodeB);
+
+            // substitute the node which was "outside" the voltage level (multiTermNode / snake line) by a node inside the voltage level
+            ConnectivityNode connectivityNode1 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeB : connectivityNodeA;
+            ConnectivityNode connectivityNode2 = otherSideFeederTwLeg.getSide() == NodeSide.ONE ? connectivityNodeA : connectivityNodeB;
+            NodeFactory.createInternal2WTNode(this,
+                    middle2WTNode.getId(), middle2WTNode.getName(), middle2WTNode.getEquipmentId(),
+                    connectivityNode1, connectivityNode2, middle2WTNode.getComponentType());
+            multiTermNodes.remove(middleNode);
+            twtEdges.removeAll(middleNode.getAdjacentEdges());
+        }
+    }
+
+    public void insertNodeNextTo(Node nodeToInsert, Node adjacentNode) {
+        List<Node> neighbours = adjacentNode.getAdjacentNodes();
+        if (neighbours.isEmpty()) {
+            addEdge(nodeToInsert, adjacentNode);
+        } else {
+            insertNode(adjacentNode, nodeToInsert, neighbours.getFirst());
+        }
     }
 
     private record GroundDisconnection(List<Node> nodes, FeederNode ground, SwitchNode disconnector, Node forkNode) {

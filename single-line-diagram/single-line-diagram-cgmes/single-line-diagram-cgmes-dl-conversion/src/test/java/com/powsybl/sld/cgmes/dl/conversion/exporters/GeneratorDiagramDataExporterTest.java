@@ -15,7 +15,6 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Generator;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExporterTest {
@@ -29,7 +28,7 @@ class GeneratorDiagramDataExporterTest extends AbstractInjectionDiagramDataExpor
         network = Networks.createNetworkWithGenerator();
         generator = network.getGenerator("Generator");
         InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
-        InjectionDiagramData.InjectionDiagramDetails details = generatorDiagramData.new InjectionDiagramDetails(point, rotation);
+        InjectionDiagramData.InjectionDiagramDetails details = new InjectionDiagramData.InjectionDiagramDetails(point, rotation);
         details.addTerminalPoint(terminalPoint1);
         details.addTerminalPoint(terminalPoint2);
         generatorDiagramData.addData(basename, details);

@@ -7,66 +7,91 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
-import com.powsybl.commons.xml.XmlUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.nad.model.Point;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import java.util.List;
 
 /**
  * @author Luma Zamarreño {@literal <zamarrenolm at aia.es>}
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class NodeMetadata extends AbstractMetadataItem {
-    private static final String ELEMENT_NAME = "node";
-    private static final String POSITION_X_ATTRIBUTE = "x";
-    private static final String POSITION_Y_ATTRIBUTE = "y";
 
-    private final String positionX;
-    private final String positionY;
+    private final double x;
+    private final double y;
+    private final boolean fictitious;
+    private final boolean invisible;
+    private final String legendSvgId;
+    private final String legendEdgeSvgId;
+    private final List<String> legendHeader;
+    private final List<String> legendFooter;
 
-    public NodeMetadata(String svgId, String equipmentId, String positionX, String positionY) {
+    public NodeMetadata(@JsonProperty("svgId") String svgId,
+                        @JsonProperty("equipmentId") String equipmentId,
+                        @JsonProperty("x") double x,
+                        @JsonProperty("y") double y,
+                        @JsonProperty("fictitious") boolean fictitious,
+                        @JsonProperty("invisible") boolean invisible,
+                        @JsonProperty("legendSvgId") String legendSvgId,
+                        @JsonProperty("legendEdgeSvgId") String legendEdgeSvgId,
+                        @JsonProperty("legendHeader") List<String> legendHeader,
+                        @JsonProperty("legendFooter") List<String> legendFooter) {
         super(svgId, equipmentId);
-        this.positionX = positionX;
-        this.positionY = positionY;
+        this.x = x;
+        this.y = y;
+        this.fictitious = fictitious;
+        this.invisible = invisible;
+        this.legendSvgId = legendSvgId;
+        this.legendEdgeSvgId = legendEdgeSvgId;
+        this.legendHeader = legendHeader;
+        this.legendFooter = legendFooter;
     }
 
-    @Override
-    String getElementName() {
-        return ELEMENT_NAME;
+    public double getX() {
+        return x;
     }
 
-    @Override
-    void write(XMLStreamWriter writer) throws XMLStreamException {
-        super.write(writer);
-        writer.writeAttribute(POSITION_X_ATTRIBUTE, positionX);
-        writer.writeAttribute(POSITION_Y_ATTRIBUTE, positionY);
+    public double getY() {
+        return y;
     }
 
-    static class Reader implements MetadataItemReader<NodeMetadata> {
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("fictitious")
+    public boolean isFictitious() {
+        return fictitious;
+    }
 
-        private final String elementName;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("invisible")
+    public boolean isInvisible() {
+        return invisible;
+    }
 
-        Reader() {
-            this.elementName = ELEMENT_NAME;
-        }
+    @JsonIgnore
+    public Point getPosition() {
+        return new Point(x, y);
+    }
 
-        @Override
-        public String getElementName() {
-            return elementName;
-        }
+    @JsonProperty("legendSvgId")
+    public String getLegendSvgId() {
+        return legendSvgId;
+    }
 
-        public NodeMetadata read(XMLStreamReader reader) {
-            try {
-                String diagramId = readDiagramId(reader);
-                String equipmentId = readEquipmentId(reader);
-                String positionX = reader.getAttributeValue(null, POSITION_X_ATTRIBUTE);
-                String positionY = reader.getAttributeValue(null, POSITION_Y_ATTRIBUTE);
-                XmlUtil.readEndElementOrThrow(reader);
-                return new NodeMetadata(diagramId, equipmentId, positionX, positionY);
-            } catch (XMLStreamException e) {
-                throw new UncheckedXmlStreamException(e);
-            }
-        }
+    @JsonProperty("legendEdgeSvgId")
+    public String getLegendEdgeSvgId() {
+        return legendEdgeSvgId;
+    }
+
+    @JsonProperty("legendHeader")
+    public List<String> getLegendHeader() {
+        return legendHeader;
+    }
+
+    @JsonProperty("legendFooter")
+    public List<String> getLegendFooter() {
+        return legendFooter;
     }
 }

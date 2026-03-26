@@ -10,13 +10,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -114,8 +119,33 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         }
     }
 
+    public void removeOtherLegs(LegPrimaryBlock legPrimaryBlockKept) {
+        removeOtherLegs(legPrimaryBlockKept, legPrimaryBlockKept);
+    }
+
+    public void removeOtherLegs(Block legKept, LegPrimaryBlock legPrimaryBlockKept) {
+        if (feederPrimaryBlocks.isEmpty()
+                || !(getRootBlock() instanceof SerialBlock serialBlock)) {
+            return;
+        }
+
+        Block legBlock = serialBlock.getLowerBlock();
+        Block feederBlock = serialBlock.getUpperBlock();
+        Block body = serialBlock.extractBody(List.of(legBlock, feederBlock));
+
+        setRootBlock(new SerialBlock(List.of(legKept, body, feederBlock)));
+
+        legPrimaryBlocks.stream()
+                .filter(l -> l != legPrimaryBlockKept)
+                .flatMap(Block::getNodeStream)
+                .filter(n -> !legPrimaryBlockKept.getNodes().contains(n))
+                .forEach(nodes::remove);
+        legPrimaryBlocks.clear();
+        legPrimaryBlocks.add(legPrimaryBlockKept);
+    }
+
     @Override
     public String toString() {
-        return getType() + " " + direction + " " + nodes;
+        return getType() + " " + order + " " + direction + " " + nodes;
     }
 }

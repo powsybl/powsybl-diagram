@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * Copyright (c) 2021-2025, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.nad.model.*;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -22,9 +23,10 @@ public interface StyleProvider {
     String BOUNDARY_NODE_CLASS = CLASSES_PREFIX + "boundary-node";
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
+    String INJECTIONS_CLASS = CLASSES_PREFIX + "injections";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
-    String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
+    String BOUNDARY_LINE_EDGE_CLASS = CLASSES_PREFIX + "boundary-line-edge";
     String TIE_LINE_EDGE_CLASS = CLASSES_PREFIX + "tie-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
@@ -39,26 +41,49 @@ public interface StyleProvider {
     String EDGE_PATH_CLASS = CLASSES_PREFIX + "edge-path";
     String WINDING_CLASS = CLASSES_PREFIX + "winding";
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
+    String BUS_DESCR_CLASS = CLASSES_PREFIX + "bus-descr";
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
     String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
-    String STRETCHABLE_CLASS = CLASSES_PREFIX + "stretchable";
-    String GLUED_CLASS = CLASSES_PREFIX + "glued";
-    String GLUED_CENTER_CLASS = CLASSES_PREFIX + "glued-center";
+    String HIGHLIGHT_CLASS = CLASSES_PREFIX + "highlight";
 
     List<String> getCssFilenames();
 
-    String getStyleDefs();
+    List<URL> getCssUrls();
 
     List<String> getNodeStyleClasses(Node node);
 
-    List<String> getNodeStyleClasses(BusNode busNode);
+    List<String> getHighlightNodeStyleClasses(Node node);
 
-    List<String> getEdgeStyleClasses(Edge edge);
+    List<String> getBusNodeStyleClasses(BusNode busNode);
+
+    List<String> getBranchEdgeStyleClasses(BranchEdge branchEdge);
 
     List<String> getSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getEdgeInfoStyles(EdgeInfo info);
+    List<String> getHighlightSideEdgeStyleClasses(BranchEdge edge, BranchEdge.Side side);
 
-    List<String> getThreeWtNodeStyle(ThreeWtNode threeWtNode, ThreeWtEdge.Side one);
+    List<String> getEdgeInfoStyleClasses(String infoType);
+
+    List<String> getThreeWtEdgeStyleClasses(ThreeWtEdge threeWtedge);
+
+    List<String> getInjectionStyleClasses(Injection injection);
+
+    List<String> getHighlightThreeWtEdgStyleClasses(ThreeWtEdge edge);
+
+    default String getBusNodeStyle(BusNode busNode) {
+        return null;
+    }
+
+    default String getSideEdgeStyle(BranchEdge edge, BranchEdge.Side side) {
+        return null;
+    }
+
+    default String getThreeWtEdgeStyle(ThreeWtEdge threeWtedge) {
+        return null;
+    }
+
+    default String getInjectionStyle(Injection injection) {
+        return null;
+    }
 }

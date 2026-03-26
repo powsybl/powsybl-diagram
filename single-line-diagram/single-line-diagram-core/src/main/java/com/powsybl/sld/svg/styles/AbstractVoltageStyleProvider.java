@@ -7,16 +7,28 @@
 package com.powsybl.sld.svg.styles;
 
 import com.powsybl.commons.config.BaseVoltagesConfig;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
+import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BusInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.svg.styles.StyleClassConstants.WIRE_STYLE_CLASS;
 
@@ -31,7 +43,10 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
-    private static final String WINDING3 = "WINDING3";
+    protected static final String WINDING3 = "WINDING3";
+    private static final String ARROW1 = "ARROW1";
+    private static final String ARROW2 = "ARROW2";
+    protected static final String ARROW3 = "ARROW3";
 
     protected final BaseVoltagesConfig baseVoltagesConfig;
 
@@ -41,12 +56,35 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     public List<String> getEdgeStyles(Graph graph, Edge edge) {
-        return getVoltageLevelEdgeStyle(graph, edge)
-                .map(vlStyle -> List.of(WIRE_STYLE_CLASS, vlStyle))
-                .orElse(List.of(WIRE_STYLE_CLASS));
+        List<String> edgesStyles = new ArrayList<>();
+        edgesStyles.add(WIRE_STYLE_CLASS);
+        edgesStyles.addAll(getVoltageLevelEdgeStyles(graph, edge));
+        getBoundaryLineStyle(edge).ifPresent(edgesStyles::add);
+        return edgesStyles;
     }
 
-    protected Optional<String> getVoltageLevelEdgeStyle(Graph graph, Edge edge) {
+    private Optional<String> getBoundaryLineStyle(Edge edge) {
+        if (edge.getNode1() instanceof FeederNode feederNode1) {
+            return getBoundaryLineStyle(feederNode1);
+        }
+        if (edge.getNode2() instanceof FeederNode feederNode2) {
+            return getBoundaryLineStyle(feederNode2);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> getBoundaryLineStyle(FeederNode n) {
+        if (n.getFeeder().getFeederType() == FeederType.BRANCH) {
+            return switch (n.getComponentType()) {
+                case SldComponentTypeName.TIE_LINE -> Optional.of(StyleClassConstants.TIE_LINE);
+                case SldComponentTypeName.BOUNDARY_LINE -> Optional.of(StyleClassConstants.BOUNDARY_LINE);
+                default -> Optional.empty();
+            };
+        }
+        return Optional.empty();
+    }
+
+    protected List<String> getVoltageLevelEdgeStyles(Graph graph, Edge edge) {
         VoltageLevelInfos vLevelInfos;
         Node nodeForStyle = isNodeSeparatingStyles(edge.getNode1()) ? edge.getNode2() : edge.getNode1();
         if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
@@ -54,18 +92,18 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         } else {
             vLevelInfos = graph.getVoltageLevelInfos(nodeForStyle);
         }
-        return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
+        return getNodeStyles(vLevelInfos, nodeForStyle);
     }
 
     @Override
-    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getNodeStyles(VoltageLevelGraph graph, Node node, SldComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
         if (graph != null && !isNodeSeparatingStyles(node)) {
             // Some nodes have two styles as they separate voltage levels for instance
             // Then they  have a style depending on their subcomponents (-> see getSvgNodeSubcomponentStyles)
             // Note that nodes outside a voltageLevel graph (graph==null) are nodes with two styles
-            getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node).ifPresent(styles::add);
+            styles.addAll(getNodeStyles(graph.getVoltageLevelInfos(), node));
         }
 
         return styles;
@@ -86,14 +124,14 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                     Feeder feeder = ((FeederNode) node).getFeeder();
                     if (feeder instanceof FeederWithSides) {
                         VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((FeederWithSides) feeder, subComponentName);
-                        getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                        styles.addAll(getNodeStyles(vlInfo, node));
                     }
                 } else if (node instanceof Middle3WTNode) {
                     VoltageLevelInfos vlInfo = getSubComponentVoltageLevelInfos((Middle3WTNode) node, subComponentName);
-                    getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+                    styles.addAll(getNodeStyles(vlInfo, node));
                 } else {
                     VoltageLevelInfos vlInfo = graph.getVoltageLevelInfos(node);
-                    getVoltageLevelNodeStyle(vlInfo, node, getSide(subComponentName)).ifPresent(styles::add);
+                    styles.addAll(getNodeStyles(vlInfo, node, getSide(subComponentName)));
                 }
             }
         } else {
@@ -105,7 +143,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
                 feederNode = getFeederNode((Middle3WTNode) node, subComponentName);
             }
             if (feederNode != null) {
-                getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(feederNode), feederNode).ifPresent(styles::add);
+                styles.addAll(getNodeStyles(graph.getVoltageLevelInfos(feederNode), feederNode));
             }
         }
 
@@ -113,26 +151,26 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     /**
-     * Returns the voltage level style if any to apply to the given node
+     * Returns the list of styles to apply to the given node
      *
      * @param vlInfo the VoltageLevelInfos related to the given node
-     * @param node   the node on which the style if any is applied to
-     * @return the voltage level style if any
+     * @param node   the node on which the styles if any are applied to
+     * @return the list of node styles
      */
-    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node);
+    public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node);
 
-    public abstract Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node, NodeSide side);
+    public abstract List<String> getNodeStyles(VoltageLevelInfos vlInfo, Node node, NodeSide side);
 
-    private Node getFeederNode(Middle3WTNode node, String subComponentName) {
-        switch (subComponentName) {
-            case WINDING1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
-            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
-        }
+    protected Node getFeederNode(Middle3WTNode node, String subComponentName) {
+        return switch (subComponentName) {
+            case WINDING1, ARROW1 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2 -> node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3 -> node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
+            default -> throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
+        };
     }
 
-    private Node getFeederNode(Middle2WTNode node, String subComponentName) {
+    protected Node getFeederNode(Middle2WTNode node, String subComponentName) {
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ? 0 : 1);
     }
 
@@ -149,12 +187,12 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
-        switch (subComponentName) {
-            case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
-            case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
-            case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
-            default: return null; // for decorators
-        }
+        return switch (subComponentName) {
+            case WINDING1, ARROW1 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2, ARROW2 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3, ARROW3 -> node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
+            default -> null; // for decorators
+        };
     }
 
     @Override

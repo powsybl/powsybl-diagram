@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesDLImporterTest extends AbstractCgmesDLTest {
@@ -78,8 +77,8 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
                                                  createBusbarPropertyBag(NAMESPACE + "Busbar", "Busbar", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         linesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Line", "Line", 40, 10, 1, OTHER_DIAGRAM_NAME),
                                                createPropertyBag(NAMESPACE + "Line", "Line", 40, 80, 2, OTHER_DIAGRAM_NAME)));
-        danglingLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
-                                                       createPropertyBag(NAMESPACE + "DanglingLine", "DanglingLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
+        boundaryLinesPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 10, 1, OTHER_DIAGRAM_NAME),
+                                                       createPropertyBag(NAMESPACE + "BoundaryLine", "BoundaryLine", 40, 80, 2, OTHER_DIAGRAM_NAME)));
         generatorsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Generator", "Generator", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         loadsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Load", "Load", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
         shuntsPropertyBags.addAll(Arrays.asList(createPropertyBag(NAMESPACE + "Shunt", "Shunt", 20, 20, 0, 90, OTHER_DIAGRAM_NAME)));
@@ -94,12 +93,12 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     private <T> void checkDiagramData(NodeDiagramData.NodeDiagramDataDetails diagramDetails, double x1, double y1,
                                       double x2, double y2) {
         assertNotNull(diagramDetails);
-        assertEquals(1, diagramDetails.getPoint1().getSeq(), 0);
-        assertEquals(x1, diagramDetails.getPoint1().getX(), 0);
-        assertEquals(y1, diagramDetails.getPoint1().getY(), 0);
-        assertEquals(2, diagramDetails.getPoint2().getSeq(), 0);
-        assertEquals(x2, diagramDetails.getPoint2().getX(), 0);
-        assertEquals(y2, diagramDetails.getPoint2().getY(), 0);
+        assertEquals(1, diagramDetails.getPoint1().seq(), 0);
+        assertEquals(x1, diagramDetails.getPoint1().x(), 0);
+        assertEquals(y1, diagramDetails.getPoint1().y(), 0);
+        assertEquals(2, diagramDetails.getPoint2().seq(), 0);
+        assertEquals(x2, diagramDetails.getPoint2().x(), 0);
+        assertEquals(y2, diagramDetails.getPoint2().y(), 0);
     }
 
     @Test
@@ -128,18 +127,18 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
 
     private <T> void checkDiagramData(LineDiagramData<?> diagramData, String diagram, double x1, double y1, double x2, double y2) {
         assertNotNull(diagramData);
-        assertEquals(1, diagramData.getPoints(diagram).get(0).getSeq(), 0);
-        assertEquals(x1, diagramData.getPoints(diagram).get(0).getX(), 0);
-        assertEquals(y1, diagramData.getPoints(diagram).get(0).getY(), 0);
-        assertEquals(2, diagramData.getPoints(diagram).get(1).getSeq(), 0);
-        assertEquals(x2, diagramData.getPoints(diagram).get(1).getX(), 0);
-        assertEquals(y2, diagramData.getPoints(diagram).get(1).getY(), 0);
-        assertEquals(1, diagramData.getFirstPoint(diagram).getSeq(), 0);
-        assertEquals(x1, diagramData.getFirstPoint(diagram).getX(), 0);
-        assertEquals(y1, diagramData.getFirstPoint(diagram).getY(), 0);
-        assertEquals(2, diagramData.getLastPoint(diagram).getSeq(), 0);
-        assertEquals(x2, diagramData.getLastPoint(diagram).getX(), 0);
-        assertEquals(y2, diagramData.getLastPoint(diagram).getY(), 0);
+        assertEquals(1, diagramData.getPoints(diagram).get(0).seq(), 0);
+        assertEquals(x1, diagramData.getPoints(diagram).get(0).x(), 0);
+        assertEquals(y1, diagramData.getPoints(diagram).get(0).y(), 0);
+        assertEquals(2, diagramData.getPoints(diagram).get(1).seq(), 0);
+        assertEquals(x2, diagramData.getPoints(diagram).get(1).x(), 0);
+        assertEquals(y2, diagramData.getPoints(diagram).get(1).y(), 0);
+        assertEquals(1, diagramData.getFirstPoint(diagram).seq(), 0);
+        assertEquals(x1, diagramData.getFirstPoint(diagram).x(), 0);
+        assertEquals(y1, diagramData.getFirstPoint(diagram).y(), 0);
+        assertEquals(2, diagramData.getLastPoint(diagram).seq(), 0);
+        assertEquals(x2, diagramData.getLastPoint(diagram).x(), 0);
+        assertEquals(y2, diagramData.getLastPoint(diagram).y(), 0);
     }
 
     @Test
@@ -155,16 +154,16 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     }
 
     @Test
-    void testDanglingLines() {
-        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(danglingLinesPropertyBags);
-        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithDanglingLine(), cgmesDLModel);
+    void testBoundaryLines() {
+        Mockito.when(cgmesDLModel.getLinesDiagramData()).thenReturn(boundaryLinesPropertyBags);
+        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(Networks.createNetworkWithBoundaryLine(), cgmesDLModel);
         cgmesDLImporter.importDLData();
         Network network = cgmesDLImporter.getNetworkWithDLData();
-        DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine.getExtension(LineDiagramData.class);
+        BoundaryLine boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = boundaryLine.getExtension(LineDiagramData.class);
 
-        checkDiagramData(danglingLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
-        checkDiagramData(danglingLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
+        checkDiagramData(boundaryLineDiagramData, DEFAULT_DIAGRAM_NAME, 20, 5, 20, 40);
+        checkDiagramData(boundaryLineDiagramData, OTHER_DIAGRAM_NAME, 40, 10, 40, 80);
     }
 
     @Test
@@ -182,18 +181,18 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     private <T> void checkDiagramData(InjectionDiagramData.InjectionDiagramDetails diagramDetails, double x, double y,
                                       double tx1, double ty1, double tx2, double ty2) {
         assertNotNull(diagramDetails);
-        assertEquals(0, diagramDetails.getPoint().getSeq(), 0);
-        assertEquals(x, diagramDetails.getPoint().getX(), 0);
-        assertEquals(y, diagramDetails.getPoint().getY(), 0);
+        assertEquals(0, diagramDetails.getPoint().seq(), 0);
+        assertEquals(x, diagramDetails.getPoint().x(), 0);
+        assertEquals(y, diagramDetails.getPoint().y(), 0);
         assertEquals(90, diagramDetails.getRotation(), 0);
 
         List<DiagramPoint> points = diagramDetails.getTerminalPoints();
-        assertEquals(1, points.get(0).getSeq(), 0);
-        assertEquals(tx1, points.get(0).getX(), 0);
-        assertEquals(ty1, points.get(0).getY(), 0);
-        assertEquals(2, points.get(1).getSeq(), 0);
-        assertEquals(tx2, points.get(1).getX(), 0);
-        assertEquals(ty2, points.get(1).getY(), 0);
+        assertEquals(1, points.get(0).seq(), 0);
+        assertEquals(tx1, points.get(0).x(), 0);
+        assertEquals(ty1, points.get(0).y(), 0);
+        assertEquals(2, points.get(1).seq(), 0);
+        assertEquals(tx2, points.get(1).x(), 0);
+        assertEquals(ty2, points.get(1).y(), 0);
     }
 
     @Test
@@ -247,25 +246,25 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
     private <T> void checkDiagramData(CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDataDetails, double x, double y,
                                       double tx1, double ty1, double tx2, double ty2, double tx3, double ty3, double tx4, double ty4) {
         assertNotNull(diagramDataDetails);
-        assertEquals(0, diagramDataDetails.getPoint().getSeq(), 0);
-        assertEquals(x, diagramDataDetails.getPoint().getX(), 0);
-        assertEquals(y, diagramDataDetails.getPoint().getY(), 0);
+        assertEquals(0, diagramDataDetails.getPoint().seq(), 0);
+        assertEquals(x, diagramDataDetails.getPoint().x(), 0);
+        assertEquals(y, diagramDataDetails.getPoint().y(), 0);
         assertEquals(90, diagramDataDetails.getRotation(), 0);
 
         List<DiagramPoint> pointsT1 = diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1);
         List<DiagramPoint> pointsT2 = diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2);
-        assertEquals(1, pointsT1.get(0).getSeq(), 0);
-        assertEquals(tx1, pointsT1.get(0).getX(), 0);
-        assertEquals(ty1, pointsT1.get(0).getY(), 0);
-        assertEquals(2, pointsT1.get(1).getSeq(), 0);
-        assertEquals(tx2, pointsT1.get(1).getX(), 0);
-        assertEquals(ty2, pointsT1.get(1).getY(), 0);
-        assertEquals(1, pointsT2.get(0).getSeq(), 0);
-        assertEquals(tx3, pointsT2.get(0).getX(), 0);
-        assertEquals(ty3, pointsT2.get(0).getY(), 0);
-        assertEquals(2, pointsT2.get(1).getSeq(), 0);
-        assertEquals(tx4, pointsT2.get(1).getX(), 0);
-        assertEquals(ty4, pointsT2.get(1).getY(), 0);
+        assertEquals(1, pointsT1.get(0).seq(), 0);
+        assertEquals(tx1, pointsT1.get(0).x(), 0);
+        assertEquals(ty1, pointsT1.get(0).y(), 0);
+        assertEquals(2, pointsT1.get(1).seq(), 0);
+        assertEquals(tx2, pointsT1.get(1).x(), 0);
+        assertEquals(ty2, pointsT1.get(1).y(), 0);
+        assertEquals(1, pointsT2.get(0).seq(), 0);
+        assertEquals(tx3, pointsT2.get(0).x(), 0);
+        assertEquals(ty3, pointsT2.get(0).y(), 0);
+        assertEquals(2, pointsT2.get(1).seq(), 0);
+        assertEquals(tx4, pointsT2.get(1).x(), 0);
+        assertEquals(ty4, pointsT2.get(1).y(), 0);
     }
 
     @Test
@@ -296,28 +295,28 @@ class CgmesDLImporterTest extends AbstractCgmesDLTest {
                                       double tx1, double ty1, double tx2, double ty2, double tx3, double ty3, double tx4, double ty4, double tx5,
                                       double ty5, double tx6, double ty6) {
         assertNotNull(diagramDataDetails);
-        assertEquals(0, diagramDataDetails.getPoint().getSeq(), 0);
-        assertEquals(x, diagramDataDetails.getPoint().getX(), 0);
-        assertEquals(y, diagramDataDetails.getPoint().getY(), 0);
+        assertEquals(0, diagramDataDetails.getPoint().seq(), 0);
+        assertEquals(x, diagramDataDetails.getPoint().x(), 0);
+        assertEquals(y, diagramDataDetails.getPoint().y(), 0);
         assertEquals(90, diagramDataDetails.getRotation(), 0);
-        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getSeq(), 0);
-        assertEquals(tx1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getX(), 0);
-        assertEquals(ty1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getSeq(), 0);
-        assertEquals(tx2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getX(), 0);
-        assertEquals(ty2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).getY(), 0);
-        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getSeq(), 0);
-        assertEquals(tx3, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getX(), 0);
-        assertEquals(ty3, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getSeq(), 0);
-        assertEquals(tx4, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getX(), 0);
-        assertEquals(ty4, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).getY(), 0);
-        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getSeq(), 0);
-        assertEquals(tx5, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getX(), 0);
-        assertEquals(ty5, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).getY(), 0);
-        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getSeq(), 0);
-        assertEquals(tx6, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getX(), 0);
-        assertEquals(ty6, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).getY(), 0);
+        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).seq(), 0);
+        assertEquals(tx1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).x(), 0);
+        assertEquals(ty1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).seq(), 0);
+        assertEquals(tx2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).x(), 0);
+        assertEquals(ty2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL1).get(1).y(), 0);
+        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).seq(), 0);
+        assertEquals(tx3, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).x(), 0);
+        assertEquals(ty3, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).seq(), 0);
+        assertEquals(tx4, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).x(), 0);
+        assertEquals(ty4, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL2).get(1).y(), 0);
+        assertEquals(1, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).seq(), 0);
+        assertEquals(tx5, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).x(), 0);
+        assertEquals(ty5, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(0).y(), 0);
+        assertEquals(2, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).seq(), 0);
+        assertEquals(tx6, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).x(), 0);
+        assertEquals(ty6, diagramDataDetails.getTerminalPoints(DiagramTerminal.TERMINAL3).get(1).y(), 0);
     }
 
     @Test

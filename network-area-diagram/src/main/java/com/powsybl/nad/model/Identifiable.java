@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public interface Identifiable {
 
-    String getDiagramId();
+    String getSvgId();
 
     String getEquipmentId();
 

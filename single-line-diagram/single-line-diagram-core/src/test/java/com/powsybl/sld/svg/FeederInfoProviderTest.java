@@ -12,7 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.SldComponentTypeName.ARROW_REACTIVE;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -43,14 +43,14 @@ class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     @Test
     void test() {
-        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
+        SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         svgParameters.setFeederInfoSymmetry(true);
 
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
 
-        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
 
         Network network2 = Network.create("testCase2", "test2");
         DefaultLabelProvider wrongLabelProvider = new DefaultLabelProvider(network2, componentLibrary, layoutParameters, svgParameters);

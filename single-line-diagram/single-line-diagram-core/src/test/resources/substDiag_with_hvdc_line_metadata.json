@@ -123,6 +123,7 @@
       "positionName" : "NW_LABEL"
     } ]
   }, {
+    "unescapedId" : "LCC_1",
     "id" : "idLCC_95_1",
     "vid" : "VoltageLevel1",
     "nextVId" : "VoltageLevel2",
@@ -134,10 +135,10 @@
     "labels" : [ {
       "id" : "LCC_1_S_LABEL",
       "positionName" : "S_LABEL"
-    } ],
-    "unescapedId" : "LCC_1"
+    } ]
   }, {
-    "id" : "LABEL_VL_VoltageLevel1",
+    "unescapedId" : "LABEL_VL_VoltageLevel1",
+    "id" : "idLABEL_95_VL_95_VoltageLevel1",
     "vid" : "VoltageLevel1",
     "open" : false,
     "vlabel" : true,
@@ -164,6 +165,7 @@
     "vlabel" : false,
     "labels" : [ ]
   }, {
+    "unescapedId" : "VSC_1",
     "id" : "idVSC_95_1",
     "vid" : "VoltageLevel1",
     "nextVId" : "VoltageLevel2",
@@ -175,8 +177,7 @@
     "labels" : [ {
       "id" : "VSC_1_N_LABEL",
       "positionName" : "N_LABEL"
-    } ],
-    "unescapedId" : "VSC_1"
+    } ]
   }, {
     "id" : "idBUSCO_95_Bus1_95_VSC_95_1",
     "vid" : "VoltageLevel1",
@@ -243,27 +244,26 @@
   } ],
   "lines" : [ ],
   "feederInfos" : [ {
-    "id" : "idVSC_95_1_ARROW_ACTIVE",
-    "equipmentId" : "HvdcLine",
+    "id" : "idLCC_95_1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "HvdcLine2",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
   }, {
-    "id" : "idVSC_95_1_ARROW_REACTIVE",
-    "equipmentId" : "HvdcLine",
-    "side" : "ONE",
-    "componentType" : "ARROW_REACTIVE"
-  }, {
-    "id" : "idLCC_95_1_ARROW_REACTIVE",
+    "id" : "idLCC_95_1_95_ARROW_95_REACTIVE",
     "equipmentId" : "HvdcLine2",
     "side" : "ONE",
     "componentType" : "ARROW_REACTIVE"
   }, {
-    "id" : "idLCC_95_1_ARROW_ACTIVE",
-    "equipmentId" : "HvdcLine2",
+    "id" : "idVSC_95_1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "HvdcLine",
     "side" : "ONE",
     "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idVSC_95_1_95_ARROW_95_REACTIVE",
+    "equipmentId" : "HvdcLine",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
   } ],
-  "electricalNodeInfos" : [ ],
   "busInfos" : [ ],
   "layoutParams" : {
     "verticalSpaceBus" : 25.0,
@@ -297,8 +297,7 @@
     "cgmesScaleFactor" : 1.0,
     "cgmesDiagramName" : null,
     "cgmesUseNames" : true,
-    "zoneLayoutSnakeLinePadding" : 90.0,
-    "zoneLayoutPathFinder" : "DIJKSTRA"
+    "zoneLayoutSnakeLinePadding" : 90
   },
   "svgParams" : {
     "prefixId" : "",
@@ -308,6 +307,7 @@
     "powerValuePrecision" : 0,
     "angleValuePrecision" : 1,
     "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
     "activePowerUnit" : "",
     "reactivePowerUnit" : "",
     "currentUnit" : "",
@@ -315,7 +315,7 @@
     "feederInfosIntraMargin" : 10.0,
     "feederInfosOuterMargin" : 20.0,
     "feederInfoSymmetry" : false,
-    "addNodesInfos" : false,
+    "busesLegendAdded" : false,
     "useName" : true,
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
@@ -328,8 +328,8 @@
     "drawStraightWires" : false,
     "showGrid" : false,
     "showInternalNodes" : false,
-    "displayCurrentFeederInfo" : false,
     "displayEquipmentNodesLabel" : false,
-    "displayConnectivityNodesId" : false
+    "displayConnectivityNodesId" : false,
+    "unifyVoltageLevelColors" : false
   }
 }

@@ -166,7 +166,7 @@
     "id" : "crossOverBreaker",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 150.0,
+    "x" : 175.0,
     "y" : 44.0,
     "orientation" : "RIGHT",
     "name" : "crossOverBreaker",
@@ -442,14 +442,14 @@
         "position" : {
           "h" : 4,
           "v" : 0,
-          "hSpan" : 2,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 125.0,
+          "x" : 150.0,
           "y" : 44.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
         "nodes" : [ "INTERNAL_vl_dCrossOverBk1-crossOverBreaker", "crossOverBreaker", "INTERNAL_vl_dCrossOverBk2-crossOverBreaker" ]

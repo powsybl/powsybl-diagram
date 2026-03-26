@@ -1,49 +1,56 @@
-package com.powsybl.nad.svg.metadata;
-
 /**
  * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
-import com.powsybl.commons.xml.XmlUtil;
+package com.powsybl.nad.svg.metadata;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BusNodeMetadata extends AbstractMetadataItem {
-    private static final String ELEMENT_NAME = "busNode";
 
-    public BusNodeMetadata(String svgId, String equipmentId) {
+    private final int nbNeighbours;
+    private final int index;
+    private final String vlNodeId;
+    private final String legend;
+
+    public BusNodeMetadata(@JsonProperty("svgId") String svgId,
+                           @JsonProperty("equipmentId") String equipmentId,
+                           @JsonProperty("nbNeighbours") int nbNeighbours,
+                           @JsonProperty("index") int index,
+                           @JsonProperty("vlNode") String vlNodeId,
+                           @JsonProperty("legend") String legend) {
         super(svgId, equipmentId);
+        this.nbNeighbours = nbNeighbours;
+        this.index = index;
+        this.vlNodeId = vlNodeId;
+        this.legend = legend;
     }
 
-    @Override
-    String getElementName() {
-        return ELEMENT_NAME;
+    @JsonProperty("nbNeighbours")
+    public int getNbNeighbours() {
+        return nbNeighbours;
     }
 
-    static class Reader implements AbstractMetadataItem.MetadataItemReader<BusNodeMetadata> {
-        @Override
-        public String getElementName() {
-            return ELEMENT_NAME;
-        }
+    @JsonProperty("index")
+    public int getIndex() {
+        return index;
+    }
 
-        public BusNodeMetadata read(XMLStreamReader reader) {
-            try {
-                String diagramId = readDiagramId(reader);
-                String equipmentId = readEquipmentId(reader);
-                XmlUtil.readEndElementOrThrow(reader);
-                return new BusNodeMetadata(diagramId, equipmentId);
-            } catch (XMLStreamException e) {
-                throw new UncheckedXmlStreamException(e);
-            }
-        }
+    @JsonProperty("vlNode")
+    public String getVlNodeId() {
+        return vlNodeId;
+    }
+
+    @JsonProperty("legend")
+    public String getLegend() {
+        return legend;
     }
 }

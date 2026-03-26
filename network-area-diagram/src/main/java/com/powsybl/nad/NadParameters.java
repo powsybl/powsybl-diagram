@@ -9,9 +9,13 @@ package com.powsybl.nad;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IntIdProvider;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
+import com.powsybl.nad.layout.Atlas2ForceLayout;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.library.DefaultComponentLibrary;
+import com.powsybl.nad.library.NadComponentLibrary;
+import com.powsybl.nad.routing.EdgeRouting;
+import com.powsybl.nad.routing.StraightEdgeRouting;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
@@ -19,7 +23,6 @@ import com.powsybl.nad.svg.iidm.*;
 import java.util.Objects;
 
 /**
- *
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
  */
 public class NadParameters {
@@ -27,9 +30,11 @@ public class NadParameters {
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
-    private LabelProviderFactory labelProviderFactory = DefaultLabelProvider::new;
-    private LayoutFactory layoutFactory = new BasicForceLayoutFactory();
+    private LabelProviderFactory labelProviderFactory = (network, svgParam) -> new DefaultLabelProvider(network, svgParam.createValueFormatter());
+    private LayoutFactory layoutFactory = Atlas2ForceLayout::new;
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
+    private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();
+    private EdgeRouting edgeRouting = new StraightEdgeRouting();
 
     public SvgParameters getSvgParameters() {
         return svgParameters;
@@ -85,4 +90,21 @@ public class NadParameters {
         return this;
     }
 
+    public NadComponentLibrary getComponentLibrary() {
+        return componentLibrary;
+    }
+
+    public NadParameters setComponentLibrary(NadComponentLibrary componentLibrary) {
+        this.componentLibrary = componentLibrary;
+        return this;
+    }
+
+    public EdgeRouting getEdgeRouting() {
+        return edgeRouting;
+    }
+
+    public NadParameters setEdgeRouting(EdgeRouting edgeRouting) {
+        this.edgeRouting = edgeRouting;
+        return this;
+    }
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="24">
-    <path
-       d="M10 0 V10 M0 10 H20 M5 16 H15 M8 22 H12" />
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <path d="M10,10 v10 M0,10 h20 M5,5 h10 M8,0 h4"/>
 </svg>

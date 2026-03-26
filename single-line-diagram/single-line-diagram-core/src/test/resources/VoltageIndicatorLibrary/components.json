@@ -1,5 +1,4 @@
-{
-  "components" : [ {
+[ {
     "type" : "VOLTAGE_INDICATOR",
     "size" : {
       "width" : 20.0,
@@ -17,4 +16,3 @@
     } ],
     "styleClass" : "sld-voltage-indicator"
   } ]
-}

@@ -7,14 +7,23 @@
 
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BlockVisitor;
+import com.powsybl.sld.model.blocks.BodyParallelBlock;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.blocks.ComposedBlock;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
+import com.powsybl.sld.model.blocks.LegParallelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.nodes.Node;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.DoubleBinaryOperator;
 
-import com.powsybl.sld.model.blocks.*;
-import com.powsybl.sld.model.nodes.Node;
-
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -62,7 +71,7 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
 
         // we increment the height only if the node is not a bus node and has not been
         // already encountered
-        long nbNodes = block.getNodes().stream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
+        long nbNodes = block.getNodeStream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS)
                 .count();
 
         this.blockHeight = (nbNodes - 1) * componentHeight;
@@ -88,9 +97,9 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
         calculateSubHeight(block, Math::max);
     }
 
-    private void calculateSubHeight(ComposedBlock block, DoubleBinaryOperator merge) {
+    private <T extends Block> void calculateSubHeight(ComposedBlock<T> block, DoubleBinaryOperator merge) {
         blockHeight = 0.;
-        for (Block sub : block.getSubBlocks()) {
+        for (T sub : block.getSubBlocks()) {
             // Here, when the subBlocks are positioned in parallel we calculate the max
             // height of all these subBlocks
             // when the subBlocks are serial, we calculate the sum
