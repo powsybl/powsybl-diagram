@@ -6,7 +6,7 @@ maxdepth: 2
 hidden: true
 ---
 
-subsections.md
+subsection.md
 positionFromExtension.md
 positionByClustering.md
 ```
