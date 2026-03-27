@@ -123,7 +123,7 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        model.computePathFindingGrid(getGraph(), layoutParameters);
+        model.fillPathFindingGridStates(getGraph(), layoutParameters);
 
         // Draw snakelines between Substations
         manageSnakeLines(getGraph(), layoutParameters);

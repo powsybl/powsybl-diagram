@@ -30,6 +30,10 @@ public class Point {
         this.y = point.y;
     }
 
+    public Point(PointInteger pointInteger) {
+        this(pointInteger.getX(), pointInteger.getY());
+    }
+
     public double getX() {
         return x;
     }
