@@ -6,9 +6,10 @@ maxdepth: 2
 hidden: true
 ---
 
-subsection.md
+bsCluster.md
 positionFromExtension.md
 positionByClustering.md
+subsection.md
 ```
 
 ### Definitions and goal
@@ -21,7 +22,7 @@ The goal is to:
 * set the horizontal **order** of the cells: `Cell.order`
 * provide a `List<Subsection>`. See [Subsection](subsection.md).
 
-The picture hereafter shows the information that are to be established.
+The picture hereafter shows the information that is to be established.
 
 ![busbars](../../_static/img/sld/layout/busbars.svg)
 **_(h,v) positions of `BusNodes` and `ExternCell` cells order_**
@@ -30,10 +31,10 @@ The picture hereafter shows the information that are to be established.
 
 Two implementations are available:
 
-* `PositionFromExtension` which rely on explicitly given positions (for example to reflect the on-site real structure and/or the way the SCADA organises it). See [PositionFromExtension](positionFromExtension.md)
+* `PositionFromExtension` which rely on explicitly given positions (for example, to reflect the on-site real structure and/or the way the SCADA organizes it). See [PositionFromExtension](positionFromExtension.md)
 * `PositionByClustering` which finds an organization of the `VoltageLevel` with no other information than the graph itself. See [PositionByClustering](positionByClustering.md)
 
-Both rely on the `BSCluster` (see [BSCluster](BSCluster.md)) and have the same skeleton:
+Both rely on the `BSCluster` (see [BSCluster](bsCluster.md)) and have the same skeleton:
 
 * Step 1: Build of `VerticalBusSets`
 * Step 2: Build of unitary `BSCluster` in the `bsClusters` list
