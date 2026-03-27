@@ -2,13 +2,15 @@
 
 ### Context
 
-A `Subsection` is a part of the `VoltageLevel` defined by the `BusNodes` that must be displayed in parallel. The `VoltageLevel` is partitioned into `Subsections` each of them having a different set of `BusNodes`.
+A `Subsection` is a part of the `VoltageLevel` defined by the `BusNodes` that must be displayed in parallel. The 
+`VoltageLevel` is partitioned into `Subsections` each of them having a different set of `BusNodes`.
 
 ![subsections](../../_static/img/sld/layout/subsections.svg)
 
-A `List<Subsection>` will then be given to `BlockPositionner` that will sequentially treat each `Subsection` assigning the `Positions` *(H,V)* of `BusNodes` and `Cells`.
+A `List<Subsection>` will then be given to `BlockPositionner` that will sequentially treat each `Subsection` assigning the 
+`Positions` *(H,V)* of `BusNodes` and `Cells`.
 
-Therefore the `List<Subsection>` shall consistently respect the following rule: if a `BusNode` spans over many `Subsections`, it shall:
+Therefore, the `List<Subsection>` shall consistently respect the following rule: if a `BusNode` spans over many `Subsections`, it shall:
 
 - be in contiguous `Subsections` in the list
 - have the same index (ie same vertical position) in each `Subsection`
@@ -23,12 +25,13 @@ A `Subsection` has the following attributes:
 - `InternCellSides` a Set `InternCellSide` which correspond to the leg of one `InternCell` combined with its `Side`.
 
 > **Note** - When an `InternCell` overlaps 2 `Subsections`:
-> - its `LEFT` leg will be on the right side of the first `Subsection`, ie at the end of `internCellSides`
-> - its `RIGHT` leg will be on the left side of the second `Subsection`, ie at the beginning of `internCellSides`
+> - its `LEFT` leg will be on the right side of the first `Subsection`, i.e., at the end of `internCellSides`
+> - its `RIGHT` leg will be on the left side of the second `Subsection`, i.e., at the beginning of `internCellSides`
 
 ### Building the `List<Subsection>`
 
-`Subsection` has `createSubsections` as a utility method to build the `List<Subsection> subsections` based on a consolidated `BSCluster` and is called by implementations of `PositionFinder`.
+`Subsection` has `createSubsections` as a utility method to build the `List<Subsection> subsections` based on a 
+consolidated `BSCluster` and is called by implementations of `PositionFinder`.
 
 It calls many methods that aim at ensuring the coherence of the position of the `Cells`. Especially, that's where
 

@@ -11,9 +11,13 @@
 
 ### Principle
 
-The algorithm considers that the positional information given (by the **iidm** extension) is coherent. Sorting orders are defined based on this information and are used when building `VerticalBusSets` and `BSClusters`. These objects can then be arranged relying on the consistency inherited from the given coherent orders.
+The algorithm considers that the positional information given (by the **iidm** extension) is coherent. Sorting orders are 
+defined based on this information and are used when building `VerticalBusSets` and `BSClusters`. These objects can then 
+be arranged relying on the consistency inherited from the given coherent orders.
 
-The algorithm may sound not straightforward, but that approach eases the elaboration of the next step (building of `List<Substation>`), and naturally addresses the constraints raised by non horizontally symmetrical arrangements of `BusNodes` (case developed in the example below).
+The algorithm may sound not straightforward, but that approach eases the elaboration of the next step (building of 
+`List<Substation>`), and naturally addresses the constraints raised by non horizontally symmetrical arrangements of 
+`BusNodes` (case developed in the example below).
 
 ### Steps
 
@@ -26,7 +30,9 @@ The algorithm may sound not straightforward, but that approach eases the elabora
 
 This sorting order foster `busbarIndex` reflecting the **vertical view** of the structure.
 
-The algorithm rely on the fact that `PositionFromExtension::indexBusPosition` sorts the `BusNodes` by their `busbarIndex` (first, and then by their `sectionIndex`). In `PositionFromExtension`, this order will never be modified later on, ensuring the lower the `busbarIndex` is, the higher it will be vertically laid out.
+The algorithm relies on the fact that `PositionFromExtension::indexBusPosition` sorts the `BusNodes` by their `busbarIndex` 
+(first, and then by their `sectionIndex`). In `PositionFromExtension`, this order will never be modified later on, 
+ensuring the lower the `busbarIndex` is, the higher it will be vertically laid out.
 
 For example,
 
@@ -38,9 +44,10 @@ For example,
 
 This sorting order foster `sectionIndex` reflecting the **horizontal view** of the structure.
 
-`VBSCOMPARATOR` is designed to sort the given `List<VerticalBusSet>verticalBusSet` using the positional information given by the extension. It sorts:
+`VBSCOMPARATOR` is designed to sort the given `List<VerticalBusSet>verticalBusSet` using the positional information 
+given by the extension. It sorts:
 
-* **First and most important sorting rule**: compare `sectionIndex` (which corresponds to horizontal order) of `BusNodes` having the same `busbarIndex`. ie:
+* **First and most important sorting rule**: compare `sectionIndex` (which corresponds to horizontal order) of `BusNodes` having the same `busbarIndex`. i.e.:
     * Match a pair of `BusNodes` having the same `busbarIndex`, taken in:
         * the right side of the first `BSCluster`
         * the left side of the second `BSCluster`.
@@ -53,7 +60,9 @@ This sorting order foster `sectionIndex` reflecting the **horizontal view** of t
 
 The merging process consists in repeating the merging of the first `BSCluster` with the second one until only one remains.
 
-`HorizontalBusListsMerger::mergeHbl` merges the `HorizontalBusLists` from the 2 `BSClusters` by concatenating them when they have the same `busbarIndex`. As the `BSClusters` is sorted by `busbarIndex`, there is a coherent progression in each merged `HorizontalBusList`.
+`HorizontalBusListsMerger::mergeHbl` merges the `HorizontalBusLists` from the 2 `BSClusters` by concatenating them when 
+they have the same `busbarIndex`. As the `BSClusters` is sorted by `busbarIndex`, there is a coherent progression in 
+each merged `HorizontalBusList`.
 
 ## Example
 
@@ -67,11 +76,11 @@ The picture hereafter shows what we expect to display. The complete information 
 
 ### Input information
 
-The raw graph looks:
+The raw graph looks like:
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg)
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
 
-For which the information is represented as follow:
+For which the information is represented as follows:
 
 | raw Bus id | (busbarIndex, sectionIndex) |
 |------------|-----------------------------|
@@ -131,7 +140,7 @@ This results in:
 
 ![BSClusterFromExtensionFinal](../../_static/img/sld/layout/BSClusterFromExtensionFinal.svg)
 
-> **Note - On the merge of bsc-1 + bsc-2:**
+> **Note – On the merge of bsc-1 + bsc-2:**
 > * **bsc-1** and **bsc-2** have only one `NodeBus` in their `VerticalBusSet`. The parallelization of both will be handled by `Subsection::createSubsections` by an absorption mechanism.
 > * in its `HorizontalBusList`, **B5** is replicated until a change occurs, but this replication has no impact on the `VerticalBusSet` (ie **[ B2 ]** is not extended to **[ B5, B2 ]**).
 > * `HorizontalBusList` has a `startingIndex` which implies it does not necessarily align on the left side. That's the case of the second one for which the `startingIndex` is 2.

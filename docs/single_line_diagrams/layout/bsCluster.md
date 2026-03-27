@@ -34,7 +34,7 @@ It is composed of two kinds of `BusNode` Sets that present a horizontal and a ve
 
 The goal is to merge all the `BSCluster` in the `VoltageLevel` into a single `BSCluster` having to this kind of pattern:
 
-![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg)
+![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center}
 
 ## Key methods
 

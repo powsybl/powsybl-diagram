@@ -10,8 +10,10 @@ A `VoltageLevelGraph` is made of nodes that extend the `model.nodes.Node` class.
 The `Node` holds an `NodeType` enum that can take the following values:
 
 * `BUS`: representing the BusBar, rendered as one straight horizontal line. The `BusNode` class extending `Node` is initialized with this value
-* `FEEDER`: representing what connect the VoltageLevel to the outside, rendered on top or bottom of the voltageLevel. The `FeederNode` class extending `Node` is initialized with this value
-* `INTERNAL` and `SWITCH`: representing nodes that constitute the graph connecting the Buses and the Feeders. (Note that only the `SwitchNode` class should be initialized with `SWITCH`.)
+* `FEEDER`: representing what connect the VoltageLevel to the outside, rendered on top or bottom of the voltageLevel.
+  The `FeederNode` class extending `Node` is initialized with this value
+* `INTERNAL` and `SWITCH`: representing nodes that constitute the graph connecting the Buses and the Feeders. 
+  Note that only the `SwitchNode` class should be initialized with `SWITCH`.
 
 The graph shall be built:
 
@@ -23,9 +25,11 @@ The graph shall be built:
 
 Each node has a `componentTypeName` that is related to a `ComponentLibrary`.
 
-* an easy way to add nodes with components that are not in the NodeFactory is to create a Node with `NodeFactory.createNode`. See `test.raw.TestAddExternalComponent`.
+* an easy way to add nodes with components that are not in the NodeFactory is to create a Node with `NodeFactory.createNode`. <br/>
+See `test.raw.TestAddExternalComponent`.
 * Nodes that are to be drawn connected to a BusBar shall have this ability.
-  No need to care about that rule as an adapted node (a `Node` with `BUS_CONNECTION` component) will be inserted between the bus and the node if the node is not directly connected to the bus.
+  No need to care about that rule as an adapted node (a `Node` with `BUS_CONNECTION` component) will be inserted between
+  the bus and the node if the node is not directly connected to the bus.<br/>
   Note that:
     * This ability is given to some components in `layout.LayoutParameters.componentsOnBusbars`.
       By default, this is set with `DISCONNECTOR` (`BUS_CONNECTION` is implicit as it is necessary for the algorithm to work).
@@ -34,8 +38,8 @@ Each node has a `componentTypeName` that is related to a `ComponentLibrary`.
 
 ### SubstationGraph
 
-<h3 style="color:red">TODO</h3>
+<h4 style="color:red">TODO</h4>
 
 ### ZoneGraph
 
-<h3 style="color:red">TODO</h3>
+<h4 style="color:red">TODO</h4>

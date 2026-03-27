@@ -10,8 +10,8 @@ The goal of the algorithm is to find an organization of the `VoltageLevel` with 
 
 The positioning is based on sequential merges of `BSCluster` considering:
 
-* the fact that each external cells and any "leg" of an `InternCell` shall be **stackable** - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. This implies the `busNodes` of a leg shall be spread in different vertical structural positions. The initialization of the `VerticalBusSets` reflects this constraint.
-* attractivity -- which is expressed in terms of strength of a `Link` between sides (left/right) of `BSCluster`. The stronger the link, the more likely it is to be subject to a merge.
+* the fact that all external cells and any "leg" of an `InternCell` shall be **stackable** - meaning, that all the corresponding busbars are aligned in parallel to be able to connect them with a vertical string of isolators. This implies the `busNodes` of a leg shall be spread in different vertical structural positions. The initialization of the `VerticalBusSets` reflects this constraint.
+* attractivity, which is expressed in terms of strength of a `Link` between sides (left/right) of `BSCluster`. The stronger the link, the more likely it is to be subject to a merge.
 
 The name of the implementation comes from the fact that `BSClusters` are absorbing one another growing clusters to a single one.
 
@@ -43,9 +43,9 @@ It is necessary to make the distinction between the sides of `BSCluster` when lo
 
 #### The `Link` class
 
-The key principle of the algorithm relies on the fact that the `Link` class implements `Comparable`, providing a comparison of the strength of each of the 2 considered `Link`. This is established by a lexicographic comparison of grades sorted per `Category`.
+The key principle of the algorithm relies on the fact that the `Link` class implements `Comparable`, comparing the strength of each considered `Link`. This is established by a lexicographic comparison of grades sorted per `Category`.
 
-The `enum Category` defines a lexicographic order of the considered kind of similarities between 2 `BSClusterSides`:
+The `enum Category` defines a lexicographic order of the considered similarities kinds between 2 `BSClusterSides`:
 
 * `COMMONBUSES`
 * `FLATCELLS`
@@ -57,16 +57,16 @@ The `Link` class holds:
 * 2 `BSClusterSide`,
 * a map that holds the similarity grade per `Category`.
 
-Therefore, the comparison between 2 `Link` is as follow:
+Therefore, the comparison between 2 `Link` is as follows:
 
 * the more buses there is in common between the 2 `BSClusterSides` the greater the similarity is.
-* If equal, then compare flat cells (see note below) as follow:
+* If equal, then compare flat cells (see note below) as follows:
     * 100 * number of common candidate flat cells.
-    * minored by the sum of the distances of each flat cell to the edge of each `BSClusterSide` (more details in the note below)
+    * minored by the sum of the distances between each flat cell and the edge of each `BSClusterSide` (more details in the note below)
 * if equal, then the number of `InternCell` that will never become flat (and will have to cross over the layout) is compared
-* if equal, then compare the attractivity of `ShuntCells` in common (ie having one `ExternCell` in each `BSClusterSide` and for which attractivity is assessed considering their distance to the considered side edge).
+* if equal, then compare the attractivity of `ShuntCells` in common (i.e., having one `ExternCell` in each `BSClusterSide` and for which attractivity is assessed considering their distance to the considered side edge).
 
-> **Note - About flat cells:**
+> **Note – About flat cells:**
 > * At that stage, they are only considered potential flat cell which type is `CANDIDATEFLATCELL`. They will have to be confirmed as `FLATCELL` later in `Subsection`,
 > * The flat cells are identified when both legs are at the appropriate side of the 2 considered `BSClusterSide`, which means they are:
     >   * at the beginning of a `HorizontalBusSet` if the `BSClusterSide` is `LEFT`
@@ -74,7 +74,7 @@ Therefore, the comparison between 2 `Link` is as follow:
 > * For a leg, respecting this criteria does not imply the distance to the edge is 0. For example, in the case of the `LEFT` side of the `BSClusterSide`, the `BusNode` involved in the cell shall be at the beginning of its `HorizontalBusSet`, but this does not imply the starting index of the `HorizontalBusSet` to be 0. The distance to the edge is this starting index.
 > * The value **100** that multiplies the number of flat cells is arbitrary. It must be big enough so that the number of flat cells is fostered over the penalty of the distances to the edges. By doing so, the distance minoration discriminates only when the numbers of flat cells are the same.
 
-> **Important - Link and side:**
+> **Important – Link and side:**
 > * No `Link` shall be created between both `BSClusterSide` of the same `BSCluster` as it is not possible to merge them.
 > * Two `BSClusterSide` having the same side can have a `Link`. If they are to be merged, one will be flipped.
 
@@ -93,7 +93,7 @@ When a Link is selected for a merge of its `BSClusterSide`, all the `Link` invol
 
 The raw graph looks:
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg)
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
 
 ### Steps
 
@@ -236,7 +236,7 @@ No "tetrissing" will be required as the final arrangement is directly correct.
 
 This results in:
 
-![BSClusterByClusteringFinal](../../_static/img/sld/layout/BSClusterByClusteringFinal.svg)
+![BSClusterByClusteringFinal](../../_static/img/sld/layout/BSClusterByClusteringFinal.svg){align=center}
 
 #### Step 4: Build of the `List<Subsection>subsections`
 

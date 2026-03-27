@@ -45,9 +45,9 @@ Both rely on the `BSCluster` (see [BSCluster](bsCluster.md)) and have the same s
 
 The illustration will be based on the following graph and shall result in the above layout.
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg)
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
 
-#### step 1: Build `VerticalBusSets`
+#### Step 1: Build `VerticalBusSets`
 
 The result of `VerticalBusSet.createVerticalBusSets` is
 
@@ -60,7 +60,7 @@ The result of `VerticalBusSet.createVerticalBusSets` is
 
 > **Note:** At that stage, the `LEFT` and `RIGHT` side of an `IntenCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
-#### step 2: Build unitary `BSClusters`
+#### Step 2: Build unitary `BSClusters`
 
 This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
@@ -71,13 +71,13 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 | bsc-3     | [ ( [B1, B4] , [EC2, EC3, EC4] , [IC3.R] ) ] | [ [B1], [B4] ]     |
 | bsc-4     | [ ( [B5] , , [IC1.L , IC2.L] ) ]             | [ [B5] ]           |
 
-![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg)
+![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg){align=center}
 
 > **Important - On this result:**
 > - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
 > - Regarding the picture: the rows do not exist in real. It presented to highlight we have no clue of whether one `NodeBus` will be horizontally aligned with one another, except we know for sure that both `B1` shall end up in the same row.
 
-#### step 3: Merge `BSClusters` into a single one
+#### Step 3: Merge `BSClusters` into a single one
 
 That's where the magic happens. This is where the implementations mainly differ. The goal is to merge the `BSClusters` to one another.
 
@@ -88,7 +88,7 @@ The principle of the merging of a `BSCluster` are:
 
 This expected result should be similar to the following `BSCluster`:
 
-![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg)
+![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center}
 
 | VerticalBusSets                                                                                                                                                    | HorizontalBusLists                                         |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
@@ -96,4 +96,6 @@ This expected result should be similar to the following `BSCluster`:
 
 The way this example is handled is detailed in each implementation documentation: [PositionFromExtension](positionFromExtension.md), [PositionByClustering](positionByClustering.md).
 
-#### step 4: Build the `List<Subsection>`
+#### Step 4: Build the `List<Subsection>`
+
+See [Subsection](subsection.md).

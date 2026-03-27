@@ -6,15 +6,15 @@ maxdepth: 2
 hidden: true
 ---
 
+graphRefiner.md
 cellDetector.md
 cellBlockDecomposer.md
 positionFinder.md
-subsections.md
 ```
 
 A layout represents the way in which the elements of a graph are arranged.
 
-It is possible to use your own graph layout implementation but there are also existing layouts in powsybl-diagram, ready to use.
+It is possible to use your own graph layout implementation, but there are also existing layouts in powsybl-diagram, ready to use.
 
 
 ## Layouts for voltage levels
@@ -25,16 +25,16 @@ It is possible to use your own graph layout implementation but there are also ex
 
 This layout positions the different elements inside a voltage level according to the following process:
 
-- [Clean the graph to have the expected patterns](graphRefiner.md)
-- [Detect the cells (intern / extern / shunt)](cellDetector.md)
-- Organize the cells into blocks
-- Calculate real coordinates of busNode and blocks connected to busbars
+- Clean the graph to have the expected patterns (see [Graph Refiner](graphRefiner.md))
+- Detect the cells (intern / extern / shunt) (see [Cell detection](cellDetector.md))
+- Organize the cells into blocks (see [CellBlockDecomposer](cellBlockDecomposer.md))
+- Compute real coordinates of busNode and blocks connected to busbars (see [PositionFinder](positionFinder.md))
 
 ##### The `PositionVoltageLevelLayoutFactoryParameters` class
-TODO
+<h4 style="color:red">TODO</h4>
 
 ##### The `PositionFinder` class
-TODO
+<h4 style="color:red">TODO</h4>
 
 #### RandomVoltageLevelLayout
 
@@ -45,7 +45,7 @@ The `width` and `height` variables are provided by the user.
 
 #### CgmesVoltageLevelLayout
 
-With this layout, the elements of the graph are arranged according to the data present in the CGMES DL profile.
+With this layout, the elements of the graph are arranged according to the data included in the CGMES DL profile.
 
 ### Choosing a `VoltageLevelLayout`
 
