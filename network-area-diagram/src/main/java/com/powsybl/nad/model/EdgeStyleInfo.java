@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi at soft.it>}
  */
-public record EdgeStyleInfo(List<String> styleClasses, String styleClass, List<String> highlightStyleClasses) {
+public record EdgeStyleInfo(List<String> styleClasses, String style, List<String> highlightStyleClasses) {
 
-    public EdgeStyleInfo(List<String> styleClasses, String styleClass) {
-        this(styleClasses, styleClass, Collections.emptyList());
+    public EdgeStyleInfo(List<String> styleClasses, String style) {
+        this(styleClasses, style, Collections.emptyList());
     }
 }

@@ -321,7 +321,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         // Bus nodes depend on bus index assigned during layout
         graph.getBusNodesStream().forEach(busNode -> {
             busNode.setStyleClasses(styleProvider.getBusNodeStyleClasses(busNode));
-            busNode.setStyleClass(styleProvider.getBusNodeStyle(busNode));
+            busNode.setStyle(styleProvider.getBusNodeStyle(busNode));
         });
 
         graph.getThreeWtNodesStream().forEach(tn ->
@@ -329,7 +329,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         graph.getInjections().forEach(injection -> {
             injection.setStyleClasses(styleProvider.getInjectionStyleClasses(injection));
-            injection.setStyleClass(styleProvider.getInjectionStyle(injection));
+            injection.setStyle(styleProvider.getInjectionStyle(injection));
             injection.getSvgEdgeInfo().ifPresent(sei ->
                 sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
         });

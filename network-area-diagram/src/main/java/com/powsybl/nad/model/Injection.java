@@ -38,7 +38,7 @@ public class Injection extends AbstractIdentifiable {
     private Point arrowPoint;
     private final SvgEdgeInfo svgEdgeInfo;
     private List<String> styleClasses = Collections.emptyList();
-    private String styleClass;
+    private String style;
 
     public Injection(IdProvider idProvider, String equipmentId, String nameOrId, Type type, EdgeInfo edgeInfo) {
         super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId);
@@ -105,11 +105,11 @@ public class Injection extends AbstractIdentifiable {
         this.styleClasses = styleClasses;
     }
 
-    public String getStyleClass() {
-        return styleClass;
+    public String getStyle() {
+        return style;
     }
 
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

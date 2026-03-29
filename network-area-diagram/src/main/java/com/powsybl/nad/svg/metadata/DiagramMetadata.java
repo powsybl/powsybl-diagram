@@ -122,7 +122,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 busNode.getRingIndex(),
                 getPrefixedId(vlNode.getSvgId()),
                 busNode.getLegend(),
-                busNode.getStyleClasses()
+                busNode.getStyleClasses(),
+                busNode.getStyle()
         ))));
         graph.getNodesStream().forEach(node -> nodesMetadata.add(createNodeMetadata(node)));
         graph.getVoltageLevelNodesStream().forEach(
@@ -135,7 +136,8 @@ public class DiagramMetadata extends AbstractMetadata {
                                         busNode.getSvgId(),
                                         vlNode.getSvgId(),
                                         injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                                        injection.getStyleClasses()
+                                        injection.getStyleClasses(),
+                                        injection.getStyle()
                                 )))));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getSvgId()),
@@ -152,7 +154,9 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
-                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses()
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
         )));
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
@@ -171,6 +175,8 @@ public class DiagramMetadata extends AbstractMetadata {
                     null,
                     null,
                     edge.getEdgeStyleInfo().styleClasses(),
+                    null,
+                    edge.getEdgeStyleInfo().style(),
                     null
             ));
         });
