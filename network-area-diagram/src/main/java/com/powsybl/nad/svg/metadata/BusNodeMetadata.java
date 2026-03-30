@@ -23,6 +23,7 @@ public class BusNodeMetadata extends AbstractMetadataItem {
     private final String vlNodeId;
     private final String legend;
     private final List<String> classes;
+    private final String style;
 
     public BusNodeMetadata(@JsonProperty("svgId") String svgId,
                            @JsonProperty("equipmentId") String equipmentId,
@@ -30,13 +31,15 @@ public class BusNodeMetadata extends AbstractMetadataItem {
                            @JsonProperty("index") int index,
                            @JsonProperty("vlNode") String vlNodeId,
                            @JsonProperty("legend") String legend,
-                           @JsonProperty("classes") List<String> classes) {
+                           @JsonProperty("classes") List<String> classes,
+                           @JsonProperty("style") String style) {
         super(svgId, equipmentId);
         this.nbNeighbours = nbNeighbours;
         this.index = index;
         this.vlNodeId = vlNodeId;
         this.legend = legend;
         this.classes = classes;
+        this.style = style;
     }
 
     @JsonProperty("nbNeighbours")
@@ -63,5 +66,11 @@ public class BusNodeMetadata extends AbstractMetadataItem {
     @JsonProperty("classes")
     public List<String> getClasses() {
         return classes;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("style")
+    public String getStyle() {
+        return style;
     }
 }
