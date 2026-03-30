@@ -12,20 +12,21 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 /**
+ *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
-class NodeTopologyVerticalBusbarTest extends AbstractTest {
+class NodeTopologyVerticalBusbarIcTest extends AbstractTest {
 
     @Override
     @BeforeEach
     public void setup() throws IOException {
         super.setup();
-        network = Networks.createNodeTopologyNetwork();
+        network = Networks.createNodeTopologyNetworkWithInternalConnections();
         Networks.addNodeTopologyVerticalBusbarDiagramData(network);
     }
 
     @Test
     void testVoltageLevelLayout() throws IOException {
-        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyTestV.svg", 2);
+        assertSvgDrawnEqualsReference("VoltageLevel1", "/nodeTopologyIcTestV.svg", 2);
     }
 }
