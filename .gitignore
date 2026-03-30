@@ -20,6 +20,7 @@ org.eclipse.jdt.groovy.core.prefs
 
 # Generated readthedocs pages
 build-docs/
+docs/_build
 
 # Maven wrapper jar
 .mvn/wrapper/*.jar
