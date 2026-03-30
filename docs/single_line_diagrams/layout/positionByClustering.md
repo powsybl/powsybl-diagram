@@ -67,7 +67,7 @@ Therefore, the comparison between 2 `Link` is as follows:
 * if equal, then compare the attractivity of `ShuntCells` in common (i.e., having one `ExternCell` in each `BSClusterSide` and for which attractivity is assessed considering their distance to the considered side edge).
 
 > **Note – About flat cells:**
-> * At that stage, they are only considered potential flat cell which type is `CANDIDATEFLATCELL`. They will have to be confirmed as `FLATCELL` later in `Subsection`,
+> * At that stage, they are only considered potential flat cell (their type is `CANDIDATEFLATCELL`). They will have to be confirmed as `FLATCELL` later in `Subsection`,
 > * The flat cells are identified when both legs are at the appropriate side of the 2 considered `BSClusterSide`, which means they are:
     >   * at the beginning of a `HorizontalBusSet` if the `BSClusterSide` is `LEFT`
 >   * at the end if it is `RIGHT`
