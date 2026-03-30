@@ -38,7 +38,7 @@ public final class WireConnection {
 
     private final AnchorPoint anchorPoint2;
 
-    private WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
+    WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
         this.anchorPoint1 = Objects.requireNonNull(anchorPoint1);
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
@@ -58,25 +58,41 @@ public final class WireConnection {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
 
-        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
-        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
+        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode busNode1 ? getBusNodeAnchorPoint(graph, busNode1, node2) : getAnchorPoints(componentLibrary, node1);
+        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode busNode2 ? getBusNodeAnchorPoint(graph, busNode2, node1) : getAnchorPoints(componentLibrary, node2);
         return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
     private static List<AnchorPoint> getBusNodeAnchorPoint(VoltageLevelGraph graph, BusNode busNode, Node otherNode) {
         Direction direction = graph.getDirection(otherNode);
-        boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
-                && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
-                && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
-                || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
-        if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
-            return Arrays.asList(
-                    new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
-                    new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
-            );
+        if (busNode.getOrientation().isHorizontal()) {
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
+                    && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
+                    || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
+                        new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            }
         } else {
-            return Collections.singletonList(
-                    new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+            boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
+                    && otherNode.getCoordinates().getX() == busNode.getCoordinates().getX()
+                    && (otherNode.getCoordinates().getY() < busNode.getCoordinates().getY()
+                    || otherNode.getCoordinates().getY() > busNode.getCoordinates().getY() + busNode.getPxWidth());
+            if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
+                return Arrays.asList(
+                        new AnchorPoint(0, 0, AnchorOrientation.VERTICAL),
+                        new AnchorPoint(0, busNode.getPxWidth(), AnchorOrientation.VERTICAL)
+                );
+            } else {
+                return Collections.singletonList(
+                        new AnchorPoint(0, otherNode.getY() - busNode.getY(), AnchorOrientation.HORIZONTAL));
+            }
         }
     }
 
