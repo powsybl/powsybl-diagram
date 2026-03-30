@@ -1,17 +1,18 @@
 # Zone Matrix Layout
 
-We want to display each substation included in same zone as matrix way (row and column).<BR>
+In this layout, the substations are displayed like elements of a matrix (rows and columns).
 The user can choose the location of each substation.
 
 ## Input parameters
 
-- `VoltageLevelLayoutFactory`: builder of  layout used by voltagelevels<br>
-- `SubstationLayoutFactory`: builder of layout used by substations<br>
-- `2D String array`: substation matrix position (ex: {{"A", "B", "C"}} = 1 row, 3 columns)<br>
+- `VoltageLevelLayoutFactory`: builder of the layout used by voltage levels
+- `SubstationLayoutFactory`: builder of the layout used by substations
+- `2D String array`: substation matrix position (ex: `{{"A", "B", "C"}}` = 1 row, 3 columns)
 
-**Usage example:**<BR>
-The following example displays 3 substations distributed on 2 columns and 2 lines,<BR>
+**Usage example:**
+The following example displays three substations distributed on two columns and two lines,
 with an empty area at the middle of the second line.
+
 ```java
 // build zone graph
 Network network = ...
@@ -27,6 +28,7 @@ SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
 VoltageLevelLayoutFactory vFactory = new PositionVoltageLevelLayoutFactory();
 MatrixZoneLayoutFactory mFactory = new MatrixZoneLayoutFactory();
 Layout matrixLayout = mFactory.create(g, substationsIds, pFinderFactory, sFactory, vFactory);
+
 // Apply matrix zone layout
 matrixLayout.run(layoutParameters);
 ```
@@ -57,11 +59,12 @@ The class `MatrixZoneLayoutModel` represents the matrix and the path finder info
 The class `Matrix` contains an array of `MatrixCell`.
 
 The class `MatrixCell` stores information related to the matrix cell:
-- Position (indices) in the matrix : row, column
-- The id of the substation grpah contained by the cell
+- Position (indices) in the matrix: row, column
+- The id of the substation graph contained by the cell
 
 ### Substation positioning
 1) In the `MatrixZoneLayout` constructor, each `SubstationGraph` is added to the `MatrixZoneLayoutModel` (internal model of matrix layout) as following:
+
 ```java
 for (int row = 0; row < matrix.length; row++) {
     for (int col = 0; col < matrix[row].length; col++) {
@@ -75,41 +78,46 @@ for (int row = 0; row < matrix.length; row++) {
 }
     ...
 ```
-2) Each substation position is computed following this method:
+
+2) Each substation position is computed using this method:
+
 ```java
 protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
 ```
-- the `SubstationLayout` is applied on each not empty substation specified as following:
+
+The `SubstationLayout` is applied on each not empty substation specified as following:
+
 ```java
     // Display substations on not empty Matrix cell
     matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
  ```
-- Each substation is moved into its matrix position as specified
+
+Each substation is moved into its matrix position as specified
 
 ### Snakeline route computation between substations
 
 The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
-Each `Node` store :
+Each `Node` stores :
 * A position (x and y)
-* An availability (whether the `Node` can be used to draw the snakeline or not)
+* Availability (whether the `Node` can be used to draw the snakeline or not)
 * A walk-through cost
 * A parent node reference
 * The distance to the end point of the snakeline
 
 #### Exclusion area
-An exclusion area is an area where all `Node` have an availability equals to `false`
+An exclusion area is an area where all `Node` have availability equals to `false`
 This area cannot be used to draw a `snakeline`.
 Those areas are:
 - diagram padding
-- voltagelevels with padding
+- voltage levels with padding
 - snakelines right angles
 
 #### Shorter path computation
 Dijkstra's computation steps:
 * The starting point cost is set to 0
 * The nearest neighbors (left, right, up and down) are computed (no diagonal moves allowed here)
-  * These neighbors are used only if:
-    * The neighbor is available
-    * The neighbor was not already visited
-  * In order to avoid superfluous right angles, the cost is increased when the next point creates a right angle
+    * These neighbors are used only if:
+        * The neighbor is available
+        * The neighbor was not yet visited
+    * To avoid superfluous right angles, the cost is increased when the next point creates a right angle
 * If no route can be computed by the algorithm, a straight line is drawn from the starting point to the end point of the snakeline (diagonal moves are allowed here)
