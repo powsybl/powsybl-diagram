@@ -212,7 +212,7 @@
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-1.00,0.02,-0.02,-1.00,39.55,156.97)" class="nad-pst-arrow"/>
             </g>
         </g>
-        <g id="24" class="nad-dangling-line-edge">
+        <g id="24" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="208.64,143.25 324.45,263.13"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="440.25,383.00 324.45,263.13"/>
         </g>

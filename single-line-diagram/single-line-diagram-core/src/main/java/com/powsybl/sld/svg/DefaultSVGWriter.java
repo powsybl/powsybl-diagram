@@ -132,7 +132,7 @@ public class DefaultSVGWriter implements SVGWriter {
     private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
         double height = graph.getHeight() + layoutParameters.getDiagramPadding().top() + layoutParameters.getDiagramPadding().bottom();
         if (graph instanceof VoltageLevelGraph && svgParameters.isBusesLegendAdded()) {
-            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
+            height += 8 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
         }
         return height;
     }
@@ -978,18 +978,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         .calculatePolylinePoints(edge.getNode1(), edge.getNode2(), svgParameters.isDrawStraightWires(), shift);
 
                 if (!pol.isEmpty()) {
-                    Element g = root.getOwnerDocument().createElement(GROUP);
-
-                    g.setAttribute("id", wireId);
-                    writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
-
-                    writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
-
-                    Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-                    polyline.setAttribute(POINTS, pointsListToString(pol));
-
-                    g.appendChild(polyline);
-                    root.appendChild(g);
+                    drawPolyLine(root, graph, styleProvider, edge, wireId, pol);
                 }
             }
 
@@ -1008,6 +997,22 @@ public class DefaultSVGWriter implements SVGWriter {
                 insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
             }
         }
+    }
+
+    private void drawPolyLine(Element root, VoltageLevelGraph graph, StyleProvider styleProvider,
+                              Edge edge, String wireId, List<Point> pol) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
+
+        g.setAttribute("id", wireId);
+        writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
+
+        writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+
+        Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+        polyline.setAttribute(POINTS, pointsListToString(pol));
+
+        g.appendChild(polyline);
+        root.appendChild(g);
     }
 
     /*

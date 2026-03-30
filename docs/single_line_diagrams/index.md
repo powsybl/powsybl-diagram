@@ -1,4 +1,4 @@
-# Single line diagrams
+# Single-line diagrams
 
 
 ```{toctree}
@@ -7,12 +7,13 @@ maxdepth: 2
 hidden: true
 ---
 
+model/graphBuilderCreationRequirements.md
 layout/layout.md
 styleProvider/styleProvider.md
 ```
 
 
-The powsybl-single-line-diagram-core artifact provides features to generate customized single-line diagrams:
+The `powsybl-single-line-diagram-core` artifact provides features to generate customized single-line diagrams:
 - Creation of single-line diagrams for given voltage levels, substations or zones in SVG format, for both node/breaker and bus/breaker topologies:
     - From an IIDM network: a graph is built from the input network and then written as a single-line diagram;
     - By directly providing the underlying graph to the writer.
@@ -21,9 +22,9 @@ The powsybl-single-line-diagram-core artifact provides features to generate cust
     - Many layout parameters to adjust the rendering;
     - Possible use of your own component library. Modification of the existing library is also an option;
 
-Some extensions are also available. You may check the powsybl-single-line-diagram-cgmes-iidm-extensions artifact to force positions in the diagram for instance.
+Some extensions are also available. You may check the powsybl-single-line-diagram-cgmes-iidm-extensions artifact to force positions in the diagram, for instance.
 
-![sld-example](/_static/img/sld-example.svg){class="forced-white-background"}
+![sld-example](../_static/img/sld/sld-example.svg){class="forced-white-background"}
 
 ## Examples
 

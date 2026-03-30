@@ -63,9 +63,9 @@ class SubnetworkHighlightTest extends AbstractTest {
         network.getLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).remove();
         network.getLine(EurostagTutorialExample1Factory.NHV1_NHV2_2).remove();
 
-        DanglingLine nhv1xnode1 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV1)
-                .newDanglingLine()
-                .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE1_1)
+        BoundaryLine nhv1xnode1 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV1)
+                .newBoundaryLine()
+                .setId(EurostagTutorialExample1Factory.BOUNDARY_LINE_XNODE1_1)
                 .setP0(0.0)
                 .setQ0(0.0)
                 .setR(1.5)
@@ -75,9 +75,9 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setPairingKey(EurostagTutorialExample1Factory.XNODE_1)
                 .setBus(EurostagTutorialExample1Factory.NHV1)
                 .add();
-        DanglingLine xnode1nhv2 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV2)
-                .newDanglingLine()
-                .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE1_2)
+        BoundaryLine xnode1nhv2 = network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV2)
+                .newBoundaryLine()
+                .setId(EurostagTutorialExample1Factory.BOUNDARY_LINE_XNODE1_2)
                 .setP0(0.0)
                 .setQ0(0.0)
                 .setR(1.5)
@@ -89,12 +89,12 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .add();
         network.newTieLine()
                 .setId(EurostagTutorialExample1Factory.NHV1_NHV2_1)
-                .setDanglingLine1(nhv1xnode1.getId())
-                .setDanglingLine2(xnode1nhv2.getId())
+                .setBoundaryLine1(nhv1xnode1.getId())
+                .setBoundaryLine2(xnode1nhv2.getId())
                 .add();
         network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV1)
-                .newDanglingLine()
-                .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE2_1)
+                .newBoundaryLine()
+                .setId(EurostagTutorialExample1Factory.BOUNDARY_LINE_XNODE2_1)
                 .setP0(0.0)
                 .setQ0(0.0)
                 .setR(1.5)
@@ -105,8 +105,8 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setPairingKey("XNODE2")
                 .add();
         network.getVoltageLevel(EurostagTutorialExample1Factory.VLHV2)
-                .newDanglingLine()
-                .setId(EurostagTutorialExample1Factory.DANGLING_LINE_XNODE2_2)
+                .newBoundaryLine()
+                .setId(EurostagTutorialExample1Factory.BOUNDARY_LINE_XNODE2_2)
                 .setP0(0.0)
                 .setQ0(0.0)
                 .setR(1.5)
@@ -117,11 +117,11 @@ class SubnetworkHighlightTest extends AbstractTest {
                 .setPairingKey("XNODE2")
                 .add();
 
-        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getDanglingLine1().getTerminal()
+        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getBoundaryLine1().getTerminal()
                 .setP(302.4440612792969)
                 .setQ(98.74027252197266);
 
-        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getDanglingLine2().getTerminal()
+        network.getTieLine(EurostagTutorialExample1Factory.NHV1_NHV2_1).getBoundaryLine2().getTerminal()
                 .setP(-300.43389892578125)
                 .setQ(-137.18849182128906);
 

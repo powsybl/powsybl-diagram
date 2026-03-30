@@ -13,9 +13,11 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
+import java.util.function.BiFunction;
 import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +39,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     private boolean displayCurrent = false;
     private boolean displayArrowForCurrent = true;
     private boolean displayPermanentLimitPercentage = false;
+    private boolean displayWithAbs = false;
 
     protected final Network network;
 
@@ -50,11 +53,13 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
         Objects.requireNonNull(node);
 
         Feeder feeder = node.getFeeder();
+
         List<FeederInfo> feederInfos = switch (feeder.getFeederType()) {
             case INJECTION -> getInjectionFeederInfos(node);
             case BRANCH -> getBranchFeederInfos(node, ((FeederWithSides) feeder).getSide());
             case TWO_WINDINGS_TRANSFORMER_LEG -> getBranchFeederInfos(node, ((FeederTwLeg) feeder).getSide());
             case THREE_WINDINGS_TRANSFORMER_LEG -> get3WTFeederInfos(node, (FeederTwLeg) feeder);
+            case TEE_POINT_LEG -> getTeePointFeederInfos(node, (FeederTeePointLeg) feeder);
             case HVDC -> getHvdcFeederInfos(node, (FeederWithSides) feeder);
             default -> new ArrayList<>();
         };
@@ -102,6 +107,11 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             measures = buildFeederInfos(hvdcLine, side);
         }
         return measures;
+    }
+
+    private List<FeederInfo> getTeePointFeederInfos(FeederNode node, FeederTeePointLeg feeder) {
+        boolean insideVoltageLevel = feeder.getOwnVoltageLevelInfos().id().equals(feeder.getVoltageLevelInfos().id());
+        return buildFeederInfos(network.getLine(node.getEquipmentId()).getTerminal1(), insideVoltageLevel);
     }
 
     @Override
@@ -214,8 +224,9 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             terminalQ = -terminalQ;
             terminalI = -terminalI;
         }
-        feederInfoList.add(new ValueFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), valueFormatter::formatPower));
-        feederInfoList.add(new ValueFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), valueFormatter::formatPower));
+        BiFunction<Double, String, String> formatter = displayWithAbs ? valueFormatter::formatPowerWithAbs : valueFormatter::formatPower;
+        feederInfoList.add(new ValueFeederInfo(ARROW_ACTIVE, terminalP, svgParameters.getActivePowerUnit(), formatter));
+        feederInfoList.add(new ValueFeederInfo(ARROW_REACTIVE, terminalQ, svgParameters.getReactivePowerUnit(), formatter));
         if (this.displayCurrent) {
             if (this.displayArrowForCurrent) {
                 feederInfoList.add(new ValueFeederInfo(ARROW_CURRENT, terminalI, svgParameters.getCurrentUnit(), valueFormatter::formatCurrent));
@@ -236,5 +247,9 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     public void setDisplayPermanentLimitPercentage(boolean displayPermanentLimitPercentage) {
         this.displayPermanentLimitPercentage = displayPermanentLimitPercentage;
+    }
+
+    public void setDisplayWithAbs(boolean displayWithAbs) {
+        this.displayWithAbs = displayWithAbs;
     }
 }

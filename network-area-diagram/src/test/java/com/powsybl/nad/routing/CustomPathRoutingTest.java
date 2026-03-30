@@ -15,6 +15,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.NadParameters;
 import com.powsybl.nad.NetworkAreaDiagram;
+import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.LabelProvider;
@@ -91,6 +92,7 @@ class CustomPathRoutingTest extends AbstractTest {
         NadParameters nadParameters = new NadParameters()
                 .setSvgParameters(getSvgParameters())
                 .setStyleProviderFactory(this::getStyleProvider)
+                .setLayoutFactory(new BasicForceLayoutFactory())
                 .setLabelProviderFactory((network1, svgParameters) -> builder.build(network1, svgParameters))
                 .setEdgeRouting(getEdgeRouting());
         NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);

@@ -384,8 +384,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
-                .filter(feederNode -> !isInternal3wtFeederNode((FeederNode) feederNode))
+                .filter(feederNode -> !isHookReplacement((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+    }
+
+    private boolean isHookReplacement(FeederNode feederNode) {
+        return feederNode.getFeeder().getFeederType() == FeederType.TEE_POINT_LEG
+                || isInternal3wtFeederNode(feederNode);
     }
 
     private boolean isInternal3wtFeederNode(FeederNode feederNode) {

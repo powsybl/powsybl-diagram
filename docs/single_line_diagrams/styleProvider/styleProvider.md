@@ -28,4 +28,4 @@ public class YourCustomStyleProviderFactory implements StyleProviderFactory {
 }
 ```
 
-![sld-highlight-buses](/_static/img/sld-highlight-buses.svg){class="forced-white-background"}
+![sld-highlight-buses](../../_static/img/sld/sld-highlight-buses.svg){class="forced-white-background"}
