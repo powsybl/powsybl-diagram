@@ -32,7 +32,7 @@ It is composed of two kinds of `BusNode` Sets that present a horizontal and a ve
 >   * several times in a `HorizontalBusList`, in that case the occurrences shall have contiguous indexes,
 >   * only in one single `HorizontalBusList`.
 
-The goal is to merge all the `BSCluster` in the `VoltageLevel` into a single `BSCluster` having to this kind of pattern:
+The goal is to merge all the `BSCluster` in the `VoltageLevel` into a single `BSCluster` having this kind of pattern:
 
 ![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center class="forced-white-background"}
 
