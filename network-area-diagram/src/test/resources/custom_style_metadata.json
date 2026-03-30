@@ -193,7 +193,7 @@
     "busNode2" : "19",
     "type" : "ThreeWtEdge",
     "side" : "ONE",
-    "style1" : "stroke:gray; stroke-width:2px;"
+    "style1" : "stroke:gray; stroke-width:1px;"
   }, {
     "svgId" : "21",
     "equipmentId" : "T3_12",

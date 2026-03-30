@@ -177,7 +177,7 @@ class DiagramMetadataTest extends AbstractTest {
         Map<String, CustomStyleProvider.ThreeWtStyles> threeWtsStyles = new HashMap<>();
         threeWtsStyles.put("T3_12",
                 new CustomStyleProvider.ThreeWtStyles(
-                        "gray", "2px", null,
+                        "gray", "1px", null,
                         "purple", "2px", "2,2",
                         "pink", "3px", null
                 )
