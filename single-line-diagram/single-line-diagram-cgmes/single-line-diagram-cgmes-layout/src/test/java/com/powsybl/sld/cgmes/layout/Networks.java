@@ -279,8 +279,8 @@ public final class Networks {
                 .setMaximumSectionCount(1)
                 .add()
                 .add();
-        voltageLevel1.newDanglingLine()
-                .setId("DanglingLine")
+        voltageLevel1.newBoundaryLine()
+                .setId("BoundaryLine")
                 .setBus("Bus1")
                 .setR(10.0)
                 .setX(1.0)
@@ -426,11 +426,11 @@ public final class Networks {
         shuntDiagramData.addData(DIAGRAM_NAME, shuntDiagramDetails);
         shunt.addExtension(InjectionDiagramData.class, shuntDiagramData);
 
-        DanglingLine danglingLine = network.getDanglingLine("DanglingLine");
-        LineDiagramData<DanglingLine> danglingLineDiagramData = new LineDiagramData<>(danglingLine);
-        danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(60, 60, 1));
-        danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(120, 60, 2));
-        danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+        BoundaryLine boundaryLine = network.getBoundaryLine("BoundaryLine");
+        LineDiagramData<BoundaryLine> boundaryLineDiagramData = new LineDiagramData<>(boundaryLine);
+        boundaryLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(60, 60, 1));
+        boundaryLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(120, 60, 2));
+        boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
     }
 
     private static void addBusTopologySecondVoltageLevelDiagramData(Network network, VoltageLevel voltageLevel) {
