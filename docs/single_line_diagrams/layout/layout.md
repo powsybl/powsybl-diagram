@@ -10,6 +10,7 @@ graphRefiner.md
 cellDetector.md
 cellBlockDecomposer.md
 positionFinder.md
+zoneMatrixLayout.md
 ```
 
 A layout represents the way in which the elements of a graph are arranged.
