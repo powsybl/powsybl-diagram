@@ -186,9 +186,9 @@ public record VoltageLevelFilter(Set<VoltageLevel> voltageLevels) implements Pre
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-            if (danglingLine.isPaired()) {
-                danglingLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(danglingLine.getTerminal())));
+        public void visitBoundaryLine(BoundaryLine boundaryLine) {
+            if (boundaryLine.isPaired()) {
+                boundaryLine.getTieLine().ifPresent(tieline -> visitBranch(tieline, tieline.getSide(boundaryLine.getTerminal())));
             }
         }
     }

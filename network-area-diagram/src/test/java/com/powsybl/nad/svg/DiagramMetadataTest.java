@@ -13,6 +13,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ScadaNetworkFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.IntIdProvider;
@@ -28,12 +29,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -119,14 +124,34 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
+    void testUnknownBus() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/scada_network.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testOverUnderVoltage() {
+        Network network = Networks.createTwoVoltageLevelsThreeBuses();
+        network.getVoltageLevel("vl1")
+                .setHighVoltageLimit(385)
+                .getBusView().getBus("vl1_0").setV(385.1);
+        network.getVoltageLevel("vl2")
+                .setLowVoltageLimit(390)
+                .getBusView().getBus("vl2_0").setV(388);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/under_over_voltage_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .build(network, getSvgParameters());
+                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
+                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+                .build(network, getSvgParameters());
         Line line = network.getLine("l1");
         line.getTerminal1().setP(1400.0).setQ(400.0);
         line.getTerminal2().setP(1410.0).setQ(410.0);
@@ -135,12 +160,48 @@ class DiagramMetadataTest extends AbstractTest {
         roundTrip(network, "/edge_info_metadata.json", new LayoutParameters().setInjectionsAdded(true));
     }
 
+    @Test
+    void testCustomStyleProviderMetadata() {
+        Network network = Networks.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
+
+        Map<String, CustomStyleProvider.BusNodeStyles> busNodesStyles = new HashMap<>();
+        busNodesStyles.put("VL1_10", new CustomStyleProvider.BusNodeStyles("yellow", null, "2px"));
+        busNodesStyles.put("VL2_30", new CustomStyleProvider.BusNodeStyles("red", "black", "4px"));
+
+        Map<String, CustomStyleProvider.EdgeStyles> edgesStyles = new HashMap<>();
+        edgesStyles.put("L11", new CustomStyleProvider.EdgeStyles("blue", "2px", null, "blue", "2px", null));
+        edgesStyles.put("L12", new CustomStyleProvider.EdgeStyles("green", "4px", "8,4", "green", "4px", "4,2"));
+        edgesStyles.put("T11", new CustomStyleProvider.EdgeStyles("red", "8px", null, "brown", "8px", null));
+        edgesStyles.put("T12", new CustomStyleProvider.EdgeStyles("orange", null, null, "orange", null, null));
+
+        Map<String, CustomStyleProvider.ThreeWtStyles> threeWtsStyles = new HashMap<>();
+        threeWtsStyles.put("T3_12",
+                new CustomStyleProvider.ThreeWtStyles(
+                        "gray", "1px", null,
+                        "purple", "2px", "2,2",
+                        "pink", "3px", null
+                )
+        );
+
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        StyleProvider styleProvider = new CustomStyleProvider(busNodesStyles, edgesStyles, threeWtsStyles);
+        roundTrip(network, "/custom_style_metadata.json", new LayoutParameters().setInjectionsAdded(true), styleProvider);
+    }
+
     private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        return roundTrip(network, referenceMetadata, layoutParameters, getStyleProvider(network));
+    }
+
+    private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters, StyleProvider styleProvider) {
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLabelProvider(network), layoutParameters, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, layoutParameters);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        assertNotNull(graph.getCssUrls());
+        assertNotNull(graph.getCssFilenames());
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file

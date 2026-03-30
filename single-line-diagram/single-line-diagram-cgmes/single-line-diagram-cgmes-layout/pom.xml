@@ -62,10 +62,14 @@
             <artifactId>powsybl-tools-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Test with all known triple store engines -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-triple-store-impl-rdf4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-cgmes-conformity</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

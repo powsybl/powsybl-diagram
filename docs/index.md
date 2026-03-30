@@ -15,4 +15,4 @@ single_line_diagrams/index.md
 
 PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams in SVG format files.
 
-![nad-sld-diagrams](/_static/img/nad-sld-diagrams.jpg)
+![nad-sld-diagrams](_static/img/nad-sld-diagrams.jpg)

@@ -13,6 +13,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Graph;
+import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.SvgWriter;
 import com.powsybl.nad.svg.metadata.DiagramMetadata;
@@ -72,8 +73,10 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(svgFile);
         Objects.requireNonNull(param);
 
+        StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
         Graph graph = getLayoutResult(network, param, voltageLevelFilter);
-        createSvgWriter(network, param).writeSvg(graph, svgFile);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, svgFile);
         createMetadata(graph, param).writeJson(getMetadataPath(svgFile));
     }
 
@@ -83,8 +86,10 @@ public final class NetworkAreaDiagram {
         Objects.requireNonNull(metadataWriter);
         Objects.requireNonNull(param);
 
+        StyleProvider styleProvider = param.getStyleProviderFactory().create(network);
         Graph graph = getLayoutResult(network, param, voltageLevelFilter);
-        createSvgWriter(network, param).writeSvg(graph, writer);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        createSvgWriter(param).writeSvg(graph, writer);
         createMetadata(graph, param).writeJson(metadataWriter);
     }
 
@@ -100,9 +105,9 @@ public final class NetworkAreaDiagram {
         return graph;
     }
 
-    private static SvgWriter createSvgWriter(Network network, NadParameters param) {
-        return new SvgWriter(param.getSvgParameters(), param.getStyleProviderFactory().create(network),
-                param.getComponentLibrary(), param.getEdgeRouting());
+    private static SvgWriter createSvgWriter(NadParameters param) {
+        return new SvgWriter(param.getSvgParameters(), param.getComponentLibrary(),
+                param.getEdgeRouting());
     }
 
     private static Path getMetadataPath(Path svgPath) {

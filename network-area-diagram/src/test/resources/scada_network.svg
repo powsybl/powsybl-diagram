@@ -17,7 +17,7 @@
 .nad-current {fill: #bd4802}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
-foreignObject.nad-text-nodes {overflow: visible; color: black}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-legend-square {display: inline-block; margin-right: 10px; width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
@@ -119,6 +119,8 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
 .nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
 .nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-lcc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
+.nad-vsc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
 .nad-disconnected .nad-load {stroke: lightgrey}
 .nad-disconnected .nad-battery {stroke: lightgrey}
 .nad-disconnected .nad-generator {stroke: lightgrey}
@@ -210,7 +212,7 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
                 <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-1.00,0.02,-0.02,-1.00,39.55,156.97)" class="nad-pst-arrow"/>
             </g>
         </g>
-        <g id="24" class="nad-dangling-line-edge">
+        <g id="24" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="208.64,143.25 324.45,263.13"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="440.25,383.00 324.45,263.13"/>
         </g>
@@ -247,21 +249,25 @@ foreignObject.nad-text-nodes {overflow: visible; color: black}
         <polyline id="8" points="-142.14,127.43 -71.80,116.88"/>
         <polyline id="15" points="-283.31,-482.32 -212.98,-492.87"/>
     </g>
-    <foreignObject height="1" width="1" class="nad-text-nodes">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <div style="position: absolute; top: 83px; left: 290px" id="1" class="nad-vl300to500 nad-label-box">
+    <g class="nad-text-nodes">
+        <foreignObject id="1" y="83.47" x="289.53" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl300to500 nad-label-box">
                 <div>vl</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span> kV / °</div>
             </div>
-            <div style="position: absolute; top: 92px; left: -72px" id="7" class="nad-vl180to300 nad-label-box">
+        </foreignObject>
+        <foreignObject id="7" y="91.88" x="-71.80" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl180to300 nad-label-box">
                 <div>vl2</div>
                 <div class="nad-bus-descr">
                     <span class="nad-bus-0 nad-legend-square"></span> kV / °</div>
             </div>
-            <div style="position: absolute; top: -518px; left: -213px" id="14" class="nad-vl300to500 nad-label-box">
+        </foreignObject>
+        <foreignObject id="14" y="-517.87" x="-212.98" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl300to500 nad-label-box">
                 <div>vl3</div>
             </div>
-        </div>
-    </foreignObject>
+        </foreignObject>
+    </g>
 </svg>
