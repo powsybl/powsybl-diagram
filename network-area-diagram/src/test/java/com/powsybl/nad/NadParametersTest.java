@@ -11,7 +11,6 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.layout.Atlas2ForceLayout;
-import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.library.DefaultComponentLibrary;
