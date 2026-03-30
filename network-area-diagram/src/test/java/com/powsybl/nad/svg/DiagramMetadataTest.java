@@ -13,6 +13,7 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.test.ScadaNetworkFactory;
 import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.IntIdProvider;
@@ -28,6 +29,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -119,6 +122,26 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
+    void testUnknownBus() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/scada_network.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testOverUnderVoltage() {
+        Network network = Networks.createTwoVoltageLevelsThreeBuses();
+        network.getVoltageLevel("vl1")
+                .setHighVoltageLimit(385)
+                .getBusView().getBus("vl1_0").setV(385.1);
+        network.getVoltageLevel("vl2")
+                .setLowVoltageLimit(390)
+                .getBusView().getBus("vl2_0").setV(388);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/under_over_voltage_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
@@ -136,11 +159,16 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     private DiagramMetadata roundTrip(Network network, String referenceMetadata, LayoutParameters layoutParameters) {
+        StyleProvider styleProvider = new TopologicalStyleProvider(network);
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER, getLabelProvider(network), layoutParameters, new IntIdProvider()).buildGraph();
         new BasicForceLayout().run(graph, layoutParameters);
+        NetworkGraphBuilder.applyStyle(graph, styleProvider);
+        assertTrue(graph.isStyleApplied());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
+        assertNotNull(graph.getCssUrls());
+        assertNotNull(graph.getCssFilenames());
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
         // Read metadata from file

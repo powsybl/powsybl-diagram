@@ -6,7 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Edge information container
@@ -27,6 +29,8 @@ public class EdgeInfo {
     private final EdgeInfoData edgeInfoDataA;
     private final EdgeInfoData edgeInfoDataB;
     private final String componentType;
+    private List<String> styleClassesA;
+    private List<String> styleClassesB;
 
     public EdgeInfo(String infoTypeA, String infoTypeB, Direction arrowDirectionA, Direction arrowDirectionB, String labelA, String labelB, String componentType) {
         edgeInfoDataA = new EdgeInfoData(infoTypeA, labelA, arrowDirectionA);
@@ -111,5 +115,30 @@ public class EdgeInfo {
 
     public enum Direction {
         IN, OUT
+    }
+
+    public List<String> getStyleClassesA() {
+        return styleClassesA;
+    }
+
+    public List<String> getStyleClassesB() {
+        return styleClassesB;
+    }
+
+    public void setStyleClassesA(List<String> styleClassesA) {
+        this.styleClassesA = styleClassesA;
+    }
+
+    public void setStyleClassesB(List<String> styleClassesB) {
+        this.styleClassesB = styleClassesB;
+    }
+
+    public List<String> getStyleClassesMain() {
+        return edgeInfoDataB.infoType() != null ? getStyleClassesB() : getStyleClassesA();
+    }
+
+    public void setStyleClassesAB(Function<String, List<String>> styleResolver) {
+        this.styleClassesA = styleResolver.apply(edgeInfoDataA.infoType());
+        this.styleClassesB = styleResolver.apply(edgeInfoDataB.infoType());
     }
 }
