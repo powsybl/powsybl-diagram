@@ -31,12 +31,14 @@ public class NadParameters {
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
-    private LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory(new LabelProviderParameters(),
+    private LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory(
+            new LabelProviderParameters(),
             new DefaultLabelProvider.EdgeInfoParameters(
                     DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER,
                     DefaultLabelProvider.EdgeInfoEnum.EMPTY,
                     DefaultLabelProvider.EdgeInfoEnum.EMPTY,
-                    DefaultLabelProvider.EdgeInfoEnum.EMPTY));
+                    DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+    );
     private LayoutFactory layoutFactory = Atlas2ForceLayout::new;
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
     private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();
