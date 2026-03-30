@@ -93,7 +93,7 @@ When a Link is selected for a merge of its `BSClusterSide`, all the `Link` invol
 
 The raw graph looks:
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center class="forced-white-background"}
 
 ### Steps
 
@@ -236,7 +236,7 @@ No "tetrissing" will be required as the final arrangement is directly correct.
 
 This results in:
 
-![BSClusterByClusteringFinal](../../_static/img/sld/layout/BSClusterByClusteringFinal.svg){align=center}
+![BSClusterByClusteringFinal](../../_static/img/sld/layout/BSClusterByClusteringFinal.svg){align=center class="forced-white-background"}
 
 #### Step 4: Build of the `List<Subsection>subsections`
 
@@ -244,4 +244,4 @@ Done by calling `Subsection::createSubsections`. See [Subsection](subsection.md)
 
 ### Final result
 
-![PositionByClusteringResult](../../_static/img/sld/layout/PositionByClusteringResult.svg)
+![PositionByClusteringResult](../../_static/img/sld/layout/PositionByClusteringResult.svg){align=center class="forced-white-background"}

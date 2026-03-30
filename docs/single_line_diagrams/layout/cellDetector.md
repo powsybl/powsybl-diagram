@@ -32,7 +32,7 @@ Such an `ExternCell` is then cut in an `ExternCell` only on one subsection, and 
 
 The figure shows examples of cells of several `CellType`.  
 
-![cellType](../../_static/img/sld/layout/cellTypes.svg)
+![cellType](../../_static/img/sld/layout/cellTypes.svg){align=center class="forced-white-background"}
 
 ## Cell detection algorithm
 
@@ -46,7 +46,7 @@ It takes as parameters two lists of types that delimit the traversal algorithm :
 
 The algorithm is explained based on the following graph that would result in the figure displayed to illustrate the cellTypes enum:
 
-![rawGraph](../../_static/img/sld/layout/rawGraph.svg){align=center}
+![rawGraph](../../_static/img/sld/layout/rawGraph.svg){align=center class="forced-white-background"}{align=center class="forced-white-background"}
 
 ### Step 1: identify `InternCell` cells
 
@@ -55,7 +55,7 @@ The algorithm is explained based on the following graph that would result in the
 
 `InternCell` cells are easy to determine as being exclusively bordered by `BUS` nodes.
 
-![rawGraphIntern](../../_static/img/sld/layout/rawGraphIntern.svg){align=center}
+![rawGraphIntern](../../_static/img/sld/layout/rawGraphIntern.svg){align=center class="forced-white-background"}
 
 ### Step 2: identifies `ExternCell` cells
 
@@ -67,7 +67,7 @@ If one node of the subgraph has each of its branches ending with one single kind
 
 Other `ExternCell` cells could be discovered in the next steps when adding the `SHUNT NodeType`.
 
-![rawGraphExtern](../../_static/img/sld/layout/rawGraphExtern.svg){align=center}
+![rawGraphExtern](../../_static/img/sld/layout/rawGraphExtern.svg){align=center class="forced-white-background"}
 
 ### Step 3: discriminates `EXTERN` and `SHUNT` cells
 
@@ -91,7 +91,7 @@ Then the `SHUNT` cell is constituted of:
 
 Last, the second `ExternCell` cell is build with the second `SHUNT` node and the remaining nodes.
 
-![rawGraphExternShunt](../../_static/img/sld/layout/rawGraphExternShunt.svg){align=center}
+![rawGraphExternShunt](../../_static/img/sld/layout/rawGraphExternShunt.svg){align=center class="forced-white-background"}
 
 
 ⚠️ The algorithm does not handle any other pattern.

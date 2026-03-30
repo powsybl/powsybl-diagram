@@ -5,7 +5,7 @@
 A `Subsection` is a part of the `VoltageLevel` defined by the `BusNodes` that must be displayed in parallel. The 
 `VoltageLevel` is partitioned into `Subsections` each of them having a different set of `BusNodes`.
 
-![subsections](../../_static/img/sld/layout/subsections.svg)
+![subsections](../../_static/img/sld/layout/subsections.svg){align=center class="forced-white-background"}
 
 A `List<Subsection>` will then be given to `BlockPositionner` that will sequentially treat each `Subsection` assigning the 
 `Positions` *(H,V)* of `BusNodes` and `Cells`.

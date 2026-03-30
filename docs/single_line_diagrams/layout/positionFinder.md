@@ -24,7 +24,7 @@ The goal is to:
 
 The picture hereafter shows the information that is to be established.
 
-![busbars](../../_static/img/sld/layout/busbars.svg)
+![busbars](../../_static/img/sld/layout/busbars.svg){align=center class="forced-white-background"}
 **_(h,v) positions of `BusNodes` and `ExternCell` cells order_**
 
 ### Available implementations
@@ -45,7 +45,7 @@ Both rely on the `BSCluster` (see [BSCluster](bsCluster.md)) and have the same s
 
 The illustration will be based on the following graph and shall result in the above layout.
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center class="forced-white-background"}
 
 #### Step 1: Build `VerticalBusSets`
 
@@ -71,7 +71,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 | bsc-3     | [ ( [B1, B4] , [EC2, EC3, EC4] , [IC3.R] ) ] | [ [B1], [B4] ]     |
 | bsc-4     | [ ( [B5] , , [IC1.L , IC2.L] ) ]             | [ [B5] ]           |
 
-![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg){align=center}
+![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg){align=center class="forced-white-background"}
 
 > **Important - On this result:**
 > - It is representative of the general case. But note that for `PositionFromExtension`, the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
@@ -88,7 +88,7 @@ The principle of the merging of a `BSCluster` are:
 
 This expected result should be similar to the following `BSCluster`:
 
-![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center}
+![BSClusterFinal](../../_static/img/sld/layout/BSClusterFinal.svg){align=center class="forced-white-background"}
 
 | VerticalBusSets                                                                                                                                                    | HorizontalBusLists                                         |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|

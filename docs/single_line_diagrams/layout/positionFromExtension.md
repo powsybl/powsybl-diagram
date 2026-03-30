@@ -72,13 +72,13 @@ The picture hereafter shows what we expect to display. The complete information 
 
 **_(h,v) positions of `BusNodes` and `ExternCell` cells order_**
 
-![busbars](../../_static/img/sld/layout/busbars.svg)
+![busbars](../../_static/img/sld/layout/busbars.svg){align=center class="forced-white-background"}
 
 ### Input information
 
 The raw graph looks like:
 
-![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center}
+![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center class="forced-white-background"}
 
 For which the information is represented as follows:
 
@@ -138,7 +138,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
 This results in:
 
-![BSClusterFromExtensionFinal](../../_static/img/sld/layout/BSClusterFromExtensionFinal.svg)
+![BSClusterFromExtensionFinal](../../_static/img/sld/layout/BSClusterFromExtensionFinal.svg){align=center class="forced-white-background"}
 
 > **Note – On the merge of bsc-1 + bsc-2:**
 > * **bsc-1** and **bsc-2** have only one `NodeBus` in their `VerticalBusSet`. The parallelization of both will be handled by `Subsection::createSubsections` by an absorption mechanism.
