@@ -25,6 +25,8 @@ import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.VoltageLevelLegend;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
+import com.powsybl.nad.svg.StyleProvider;
+import com.powsybl.nad.model.EdgeStyleInfo;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.*;
@@ -305,5 +307,66 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private int getNextSideNum(int sideNum, int steps) {
         return (sideNum + steps + 2) % 3 + 1;
+    }
+
+    public static void applyStyle(Graph graph, StyleProvider styleProvider) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(styleProvider);
+
+        graph.getVoltageLevelNodesStream().forEach(vlNode -> {
+            vlNode.setStyleClasses(styleProvider.getNodeStyleClasses(vlNode));
+            vlNode.setHighlightStyleClasses(styleProvider.getHighlightNodeStyleClasses(vlNode));
+        });
+
+        // Bus nodes depend on bus index assigned during layout
+        graph.getBusNodesStream().forEach(busNode -> {
+            busNode.setStyleClasses(styleProvider.getBusNodeStyleClasses(busNode));
+            busNode.setStyleClass(styleProvider.getBusNodeStyle(busNode));
+        });
+
+        graph.getThreeWtNodesStream().forEach(tn ->
+            tn.setStyleClasses(styleProvider.getNodeStyleClasses(tn)));
+
+        graph.getInjections().forEach(injection -> {
+            injection.setStyleClasses(styleProvider.getInjectionStyleClasses(injection));
+            injection.setStyleClass(styleProvider.getInjectionStyle(injection));
+            injection.getSvgEdgeInfo().ifPresent(sei ->
+                sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
+        });
+
+        graph.getBranchEdgeStream().forEach(edge -> {
+            edge.setStyleClasses(styleProvider.getBranchEdgeStyleClasses(edge));
+            edge.setEdgeStyleInfo1(new EdgeStyleInfo(
+                styleProvider.getSideEdgeStyleClasses(edge, BranchEdge.Side.ONE),
+                styleProvider.getSideEdgeStyle(edge, BranchEdge.Side.ONE),
+                styleProvider.getHighlightSideEdgeStyleClasses(edge, BranchEdge.Side.ONE)));
+            edge.setEdgeStyleInfo2(new EdgeStyleInfo(
+                styleProvider.getSideEdgeStyleClasses(edge, BranchEdge.Side.TWO),
+                styleProvider.getSideEdgeStyle(edge, BranchEdge.Side.TWO),
+                styleProvider.getHighlightSideEdgeStyleClasses(edge, BranchEdge.Side.TWO)));
+            edge.getSvgEdgeInfo(BranchEdge.Side.ONE).ifPresent(sei ->
+                sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
+            edge.getSvgEdgeInfo(BranchEdge.Side.TWO).ifPresent(sei ->
+                sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
+            edge.getSvgEdgeInfoMiddle().ifPresent(sei ->
+                sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
+        });
+
+        graph.getThreeWtEdgesStream().forEach(edge -> {
+            edge.setEdgeStyleInfo(new EdgeStyleInfo(
+                    styleProvider.getThreeWtEdgeStyleClasses(edge),
+                    styleProvider.getThreeWtEdgeStyle(edge),
+                    styleProvider.getHighlightThreeWtEdgStyleClasses(edge)));
+            edge.getSvgEdgeInfo().ifPresent(sei ->
+                sei.edgeInfo().setStyleClassesAB(styleProvider::getEdgeInfoStyleClasses));
+        });
+
+        graph.setUnknownBusStyleClasses(styleProvider.getBusNodeStyleClasses(BusNode.UNKNOWN));
+        graph.setUnknownBusStyle(styleProvider.getBusNodeStyle(BusNode.UNKNOWN));
+
+        graph.setCssUrls(styleProvider.getCssUrls());
+        graph.setCssFilenames(styleProvider.getCssFilenames());
+
+        graph.setStyleApplied();
     }
 }

@@ -89,7 +89,8 @@
     "y" : -119.74,
     "legendSvgId" : "1",
     "legendEdgeSvgId" : "2",
-    "legendHeader" : [ "vl" ]
+    "legendHeader" : [ "vl" ],
+    "classes" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "4",
     "equipmentId" : "vl2",
@@ -97,12 +98,15 @@
     "y" : 17.46,
     "legendSvgId" : "5",
     "legendEdgeSvgId" : "6",
-    "legendHeader" : [ "vl2" ]
+    "legendHeader" : [ "vl2" ],
+    "classes" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "8",
     "equipmentId" : "dl1",
     "x" : 194.24,
-    "y" : 101.91
+    "y" : 101.91,
+    "type" : "BOUNDARY",
+    "classes" : [ "nad-boundary-node", "nad-vl300to500" ]
   } ],
   "edges" : [ {
     "svgId" : "10",
@@ -120,7 +124,9 @@
       "directionB" : "OUT",
       "labelA" : "50",
       "labelB" : "100"
-    }
+    },
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "12",
     "equipmentId" : "hvdc",
@@ -155,7 +161,9 @@
       "directionB" : "OUT",
       "labelA" : "50",
       "labelB" : "100"
-    }
+    },
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",

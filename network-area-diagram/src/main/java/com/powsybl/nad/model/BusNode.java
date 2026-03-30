@@ -25,6 +25,8 @@ public class BusNode extends AbstractNode {
     private int nbNeighbouringBusNodes;
     private final List<Injection> injections = new ArrayList<>();
     private final String legend;
+    private List<String> styleClasses = Collections.emptyList();
+    private String styleClass;
 
     public BusNode(IdProvider idProvider, String id, List<Injection> injections, String legend) {
         this(idProvider.createSvgId(id), id, injections, legend);
@@ -70,6 +72,23 @@ public class BusNode extends AbstractNode {
 
     public String getLegend() {
         return legend;
+    }
+
+    @Override
+    public List<String> getStyleClasses() {
+        return styleClasses;
+    }
+
+    public void setStyleClasses(List<String> styleClasses) {
+        this.styleClasses = styleClasses;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 }
 
