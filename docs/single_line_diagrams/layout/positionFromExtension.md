@@ -15,7 +15,7 @@ The algorithm considers that the positional information given (by the **iidm** e
 defined based on this information and are used when building `VerticalBusSets` and `BSClusters`. These objects can then 
 be arranged relying on the consistency inherited from the given coherent orders.
 
-The algorithm may sound not straightforward, but that approach eases the elaboration of the next step (building of 
+The algorithm may not sound straightforward, but that approach eases the elaboration of the next step (building of 
 `List<Substation>`), and naturally addresses the constraints raised by non horizontally symmetrical arrangements of 
 `BusNodes` (case developed in the example below).
 
@@ -28,7 +28,7 @@ The algorithm may sound not straightforward, but that approach eases the elabora
 
 #### Sorting the `BusNodes` of the `VerticalBusSets`
 
-This sorting order foster `busbarIndex` reflecting the **vertical view** of the structure.
+This sorting order helps `busbarIndex` reflect the **vertical view** of the structure.
 
 The algorithm relies on the fact that `PositionFromExtension::indexBusPosition` sorts the `BusNodes` by their `busbarIndex` 
 (first, and then by their `sectionIndex`). In `PositionFromExtension`, this order will never be modified later on, 
@@ -42,7 +42,7 @@ For example,
 
 #### Sorting the `bsClusters`
 
-This sorting order foster `sectionIndex` reflecting the **horizontal view** of the structure.
+This sorting order helps `sectionIndex` reflect the **horizontal view** of the structure.
 
 `VBSCOMPARATOR` is designed to sort the given `List<VerticalBusSet>verticalBusSet` using the positional information 
 given by the extension. It sorts:

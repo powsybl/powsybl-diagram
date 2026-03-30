@@ -33,7 +33,7 @@ See `test.raw.TestAddExternalComponent`.
   Note that:
     * This ability is given to some components in `layout.LayoutParameters.componentsOnBusbars`.
       By default, this is set with `DISCONNECTOR` (`BUS_CONNECTION` is implicit as it is necessary for the algorithm to work).
-    * The `BUS_CONNECTION` component is the one that will be inserted if the component connected to the bus has not this ability.
+    * The `BUS_CONNECTION` component is the one that will be inserted if the component connected to the bus doesn't have this ability.
       Therefore, ensure the `ComponentLibrary` contains the `BUS_CONNECTION` component.
 
 ### SubstationGraph

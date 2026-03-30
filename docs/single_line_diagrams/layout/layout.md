@@ -110,4 +110,6 @@ SldParameters sldParameters = new SldParameters().setVoltageLevelLayoutFactoryCr
 TODO
 
 ## Layouts for multi-substation graphs
-TODO
+
+Multi-substation graphs can use a matrix-like layout for the different substations.
+See [Zone Matrix Layout](zoneMatrixLayout.md) for more details.

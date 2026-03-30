@@ -37,4 +37,4 @@ It calls many methods that aim at ensuring the coherence of the position of the 
 
 - `InternCell.Shape` are defined,
 - `InternCell` are flipped (`RIGHT` / `LEFT`) if needed to be consistent with the arrangement,
-- in case of `handleShunt` is set, `ExternCells` involved in a `ShuntCell` are shifted to be as close to one another as possible.
+- if `handleShunt` is set, `ExternCells` involved in a `ShuntCell` are shifted to be as close to one another as possible.

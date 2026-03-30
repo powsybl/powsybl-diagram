@@ -14,7 +14,7 @@ subsection.md
 
 ### Definitions and goal
 
-Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing `PositionFinder` interface.
+Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing the `PositionFinder` interface.
 
 The goal is to:
 
@@ -58,7 +58,7 @@ The result of `VerticalBusSet.createVerticalBusSets` is
 | vbs-3          | B1, B4   | EC2, EC3, EC4 | IC3.R           |
 | vbs-4          | B5       |               | IC1.R, IC2.L    |
 
-> **Note:** At that stage, the `LEFT` and `RIGHT` side of an `IntenCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
+> **Note:** At that stage, the `LEFT` and `RIGHT` side of an `InternCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
 #### Step 2: Build unitary `BSClusters`
 
@@ -74,8 +74,8 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 ![BSClusterInit](../../_static/img/sld/layout/BSClusterInit.svg){align=center}
 
 > **Important - On this result:**
-> - It is representative of the general case. But, note that for `PositionFromExtension` the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
-> - Regarding the picture: the rows do not exist in real. It presented to highlight we have no clue of whether one `NodeBus` will be horizontally aligned with one another, except we know for sure that both `B1` shall end up in the same row.
+> - It is representative of the general case. But note that for `PositionFromExtension`, the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
+> - In this picture, the `NodeBus` are on different rows to show that they are not necessarily aligned. Only both `B1` will necessarily be on the same row.
 
 #### Step 3: Merge `BSClusters` into a single one
 
