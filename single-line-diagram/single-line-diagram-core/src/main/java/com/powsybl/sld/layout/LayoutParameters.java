@@ -72,7 +72,6 @@ public class LayoutParameters {
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
-                            @JsonProperty("cgmesScaleFactor") double cgmesScaleFactor,
                             @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
 
         this.verticalSpaceBus = verticalSpaceBus;
