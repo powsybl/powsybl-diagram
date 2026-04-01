@@ -16,9 +16,7 @@ import com.powsybl.nad.library.DefaultComponentLibrary;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.routing.EdgeRouting;
 import com.powsybl.nad.routing.StraightEdgeRouting;
-import com.powsybl.nad.svg.EdgeInfoParameters;
 import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.LabelProviderParameters;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.*;
 
