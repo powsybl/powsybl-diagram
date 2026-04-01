@@ -80,6 +80,10 @@ public class NadParameters {
         return this;
     }
 
+    public LabelProviderFactory getLabelProviderFactory() {
+        return labelProviderFactory;
+    }
+
     public LayoutFactory getLayoutFactory() {
         return layoutFactory;
     }
