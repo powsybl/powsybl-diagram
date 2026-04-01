@@ -9,6 +9,7 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
+import com.powsybl.nad.svg.EdgeInfoEnum;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -23,10 +24,10 @@ import org.junit.jupiter.api.Test;
 class ForceLayoutTest extends AbstractTest {
 
     private final LayoutParameters layoutParameters = new LayoutParameters().setTextNodesForceLayout(false);
-    private DefaultLabelProvider.EdgeInfoEnum infoSideExternal = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
-    private DefaultLabelProvider.EdgeInfoEnum infoMiddleSide1 = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
-    private DefaultLabelProvider.EdgeInfoEnum infoMiddleSide2 = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
-    private DefaultLabelProvider.EdgeInfoEnum infoSideInternal = DefaultLabelProvider.EdgeInfoEnum.EMPTY;
+    private EdgeInfoEnum infoSideExternal = EdgeInfoEnum.ACTIVE_POWER;
+    private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.EMPTY;
+    private EdgeInfoEnum infoMiddleSide2 = EdgeInfoEnum.EMPTY;
+    private EdgeInfoEnum infoSideInternal = EdgeInfoEnum.EMPTY;
     private final SvgParameters svgParameters = new SvgParameters()
         .setInsertNameDesc(false)
         .setSvgWidthAndHeightAdded(false);
@@ -59,10 +60,10 @@ class ForceLayoutTest extends AbstractTest {
 
     @Test
     void testScale() {
-        infoSideExternal = DefaultLabelProvider.EdgeInfoEnum.NAME;
-        infoSideInternal = DefaultLabelProvider.EdgeInfoEnum.NAME;
-        infoMiddleSide1 = DefaultLabelProvider.EdgeInfoEnum.NAME;
-        infoMiddleSide2 = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        infoSideExternal = EdgeInfoEnum.NAME;
+        infoSideInternal = EdgeInfoEnum.NAME;
+        infoMiddleSide1 = EdgeInfoEnum.NAME;
+        infoMiddleSide2 = EdgeInfoEnum.NAME;
         assertSvgEquals("/diamond-network-labels-scale100.svg", LayoutNetworkFactory.createDiamond());
         layoutParameters.setScaleFactor(2);
         svgParameters.setArrowShift(60);

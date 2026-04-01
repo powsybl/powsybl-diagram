@@ -18,6 +18,7 @@ import com.powsybl.nad.NetworkAreaDiagram;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.model.Point;
+import com.powsybl.nad.svg.EdgeInfoEnum;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -40,10 +41,10 @@ class CustomPathRoutingTest extends AbstractTest {
 
     private FileSystem fileSystem;
     DefaultLabelProvider.Builder builder = new DefaultLabelProvider.Builder()
-        .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-        .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-        .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-        .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.NAME);
+        .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
+        .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+        .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+        .setInfoMiddleSide2(EdgeInfoEnum.NAME);
 
     @BeforeEach
     void setup() {

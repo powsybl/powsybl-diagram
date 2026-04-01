@@ -9,9 +9,7 @@ package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.LabelProviderParameters;
-import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,15 +19,14 @@ class DefaultLabelProviderFactoryTest {
     @Test
     void testCreate() {
         LabelProviderParameters parameters = new LabelProviderParameters();
-        DefaultLabelProvider.EdgeInfoParameters edgeInfoParameters = new DefaultLabelProvider.EdgeInfoParameters(
-                DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER,
-                DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER,
-                DefaultLabelProvider.EdgeInfoEnum.CURRENT,
-                DefaultLabelProvider.EdgeInfoEnum.NAME);
-        DefaultLabelProviderFactory factory = new DefaultLabelProviderFactory(parameters, edgeInfoParameters);
+        parameters.setEdgeInfoParameters(new EdgeInfoParameters(
+                EdgeInfoEnum.ACTIVE_POWER,
+                EdgeInfoEnum.REACTIVE_POWER,
+                EdgeInfoEnum.CURRENT,
+                EdgeInfoEnum.NAME));
+        DefaultLabelProviderFactory factory = new DefaultLabelProviderFactory(parameters);
 
-        assertSame(parameters, factory.getParameters());
-        assertSame(edgeInfoParameters, factory.getEdgeInfoParameters());
+        assertSame(parameters, factory.parameters());
 
         Network network = Networks.createTwoVoltageLevels();
         SvgParameters svgParameters = new SvgParameters();

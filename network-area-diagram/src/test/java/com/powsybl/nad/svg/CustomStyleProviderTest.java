@@ -43,10 +43,10 @@ class CustomStyleProviderTest extends AbstractTest {
     @Override
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider.Builder()
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.NAME)
+            .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(EdgeInfoEnum.NAME)
             .setBusLegend(true)
             .setVoltageLevelDetails(true)
             .build(network, getSvgParameters());

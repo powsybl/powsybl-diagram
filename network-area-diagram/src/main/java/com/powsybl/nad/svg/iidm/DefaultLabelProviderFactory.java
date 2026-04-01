@@ -8,33 +8,23 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.LabelProviderParameters;
-import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.svg.*;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
-public class DefaultLabelProviderFactory implements LabelProviderFactory {
+public record DefaultLabelProviderFactory(LabelProviderParameters parameters) implements LabelProviderFactory {
 
-    private final LabelProviderParameters parameters;
-    private final DefaultLabelProvider.EdgeInfoParameters edgeInfoParameters;
-
-    public DefaultLabelProviderFactory(LabelProviderParameters parameters, DefaultLabelProvider.EdgeInfoParameters edgeInfoParameters) {
-        this.parameters = parameters;
-        this.edgeInfoParameters = edgeInfoParameters;
+    public DefaultLabelProviderFactory() {
+        this(new LabelProviderParameters());
     }
 
     @Override
     public LabelProvider create(Network network, SvgParameters svgParameters) {
-        return new DefaultLabelProvider(network, edgeInfoParameters, svgParameters.createValueFormatter(), parameters);
+        return new DefaultLabelProvider(network, svgParameters.createValueFormatter(), parameters);
     }
 
     public LabelProviderParameters getParameters() {
         return parameters;
-    }
-
-    public DefaultLabelProvider.EdgeInfoParameters getEdgeInfoParameters() {
-        return edgeInfoParameters;
     }
 }

@@ -17,12 +17,8 @@ import com.powsybl.nad.library.DefaultComponentLibrary;
 import com.powsybl.nad.library.NadComponentLibrary;
 import com.powsybl.nad.routing.EdgeRouting;
 import com.powsybl.nad.routing.StraightEdgeRouting;
-import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
-import com.powsybl.nad.svg.iidm.IdProviderFactory;
-import com.powsybl.nad.svg.iidm.LabelProviderFactory;
-import com.powsybl.nad.svg.iidm.StyleProviderFactory;
+import com.powsybl.nad.svg.*;
+import com.powsybl.nad.svg.iidm.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,11 +57,19 @@ class NadParametersTest {
         params.setStyleProviderFactory(styleFactory);
         assertSame(styleFactory, params.getStyleProviderFactory());
 
-        LabelProviderFactory labelFactory = (network, svgParameters) -> null;
+        var edgeInfoParameters = new EdgeInfoParameters(
+                EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.CURRENT, EdgeInfoEnum.NAME);
+        var labelProviderParameters = new LabelProviderParameters()
+                .setEdgeInfoParameters(edgeInfoParameters);
+        var labelFactory = new DefaultLabelProviderFactory(labelProviderParameters);
         params.setLabelProviderFactory(labelFactory);
-        // labelProviderFactory is private, but we can test createLabelProvider
+        assertSame(labelFactory, params.getLabelProviderFactory());
+        assertSame(labelProviderParameters, labelFactory.getParameters());
+        assertSame(edgeInfoParameters, labelFactory.getParameters().getEdgeInfoParameters());
         Network network = Networks.createTwoVoltageLevels();
-        assertNull(params.createLabelProvider(network));
+        var labelProvider = params.createLabelProvider(network);
+        assertInstanceOf(DefaultLabelProvider.class, labelProvider);
+        assertSame(labelProviderParameters, ((DefaultLabelProvider) labelProvider).getParameters());
 
         LayoutFactory layoutFactory = () -> null;
         params.setLayoutFactory(layoutFactory);
