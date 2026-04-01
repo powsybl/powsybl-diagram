@@ -20,6 +20,7 @@ import com.powsybl.iidm.network.test.EurostagTutorialExample1Factory;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayoutFactory;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.svg.EdgeInfoEnum;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
@@ -273,8 +274,8 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
-                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                    .setInfoSideInternal(EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
                     .build(network1, svgParameters1)
                 );
 
@@ -296,9 +297,9 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .setStyleProviderFactory(this::getStyleProvider)
                 .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                     .setDoubleArrowsDisplayed(true)
-                    .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                    .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-                    .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
+                    .setInfoSideInternal(EdgeInfoEnum.REACTIVE_POWER)
+                    .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
+                    .setInfoMiddleSide1(EdgeInfoEnum.NAME)
                     .build(network1, svgParameters1)
                 );
 
@@ -320,10 +321,10 @@ class NetworkAreaDiagramTest extends AbstractTest {
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
-                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoSideInternal(EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoMiddleSide2(EdgeInfoEnum.ACTIVE_POWER)
                 .build(network1, svgParameters1)
             );
 
@@ -349,10 +350,10 @@ class NetworkAreaDiagramTest extends AbstractTest {
             .setStyleProviderFactory(this::getStyleProvider)
             .setLabelProviderFactory((network1, svgParameters1) -> new DefaultLabelProvider.Builder()
                 .setDoubleArrowsDisplayed(true)
-                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
-                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoSideInternal(EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoSideExternal(EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(EdgeInfoEnum.REACTIVE_POWER)
+                .setInfoMiddleSide2(EdgeInfoEnum.ACTIVE_POWER)
                 .build(network1, svgParameters1)
             );
 

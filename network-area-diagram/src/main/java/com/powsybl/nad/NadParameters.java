@@ -30,7 +30,7 @@ public class NadParameters {
     private SvgParameters svgParameters = new SvgParameters();
     private LayoutParameters layoutParameters = new LayoutParameters();
     private StyleProviderFactory styleProviderFactory = TopologicalStyleProvider::new;
-    private LabelProviderFactory labelProviderFactory = (network, svgParam) -> new DefaultLabelProvider(network, svgParam.createValueFormatter());
+    private LabelProviderFactory labelProviderFactory = new DefaultLabelProviderFactory();
     private LayoutFactory layoutFactory = Atlas2ForceLayout::new;
     private IdProviderFactory idProviderFactory = IntIdProvider::new;
     private NadComponentLibrary componentLibrary = new DefaultComponentLibrary();
@@ -70,6 +70,10 @@ public class NadParameters {
     public NadParameters setLabelProviderFactory(LabelProviderFactory labelProviderFactory) {
         this.labelProviderFactory = Objects.requireNonNull(labelProviderFactory);
         return this;
+    }
+
+    public LabelProviderFactory getLabelProviderFactory() {
+        return labelProviderFactory;
     }
 
     public LayoutFactory getLayoutFactory() {

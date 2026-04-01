@@ -7,6 +7,7 @@ import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.EdgeInfoEnum;
 import com.powsybl.nad.svg.VoltageLevelLegend;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +49,7 @@ class DefaultLabelProviderTest {
         ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
 
         DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
-                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoSideInternal(EdgeInfoEnum.ACTIVE_POWER)
                 .build(network, valueFormatter)
                 .setDisplayAngle(true)
                 .setDisplayWithAbs(true);
@@ -68,10 +69,10 @@ class DefaultLabelProviderTest {
         Network network = Networks.createTwoVoltageLevels();
         ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
         DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.VALUE_PERMANENT_LIMIT_PERCENTAGE)
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoSideInternal(EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(EdgeInfoEnum.VALUE_PERMANENT_LIMIT_PERCENTAGE)
+            .setInfoSideExternal(EdgeInfoEnum.EMPTY)
             .build(network, valueFormatter);
 
         String lineId = "l1";
@@ -140,10 +141,10 @@ class DefaultLabelProviderTest {
         Network network = Networks.createTwoVoltageLevels();
         ValueFormatter valueFormatter = new ValueFormatter(1, 1, 1, 1, 1, Locale.US, "N/A");
         DefaultLabelProvider labelProvider = new DefaultLabelProvider.Builder()
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.VALUE_PERMANENT_LIMIT_PERCENTAGE)
-            .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.REACTIVE_POWER)
+            .setInfoSideInternal(EdgeInfoEnum.ACTIVE_POWER)
+            .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+            .setInfoMiddleSide2(EdgeInfoEnum.VALUE_PERMANENT_LIMIT_PERCENTAGE)
+            .setInfoSideExternal(EdgeInfoEnum.REACTIVE_POWER)
             .setDoubleArrowsDisplayed(true)
             .build(network, valueFormatter);
 

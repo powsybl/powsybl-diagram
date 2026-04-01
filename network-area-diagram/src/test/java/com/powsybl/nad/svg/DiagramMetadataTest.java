@@ -147,10 +147,10 @@ class DiagramMetadataTest extends AbstractTest {
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
-                .setInfoSideExternal(DefaultLabelProvider.EdgeInfoEnum.CURRENT)
-                .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER)
-                .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.NAME)
-                .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+                .setInfoSideExternal(EdgeInfoEnum.CURRENT)
+                .setInfoSideInternal(EdgeInfoEnum.ACTIVE_POWER)
+                .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+                .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
                 .build(network, getSvgParameters());
         Line line = network.getLine("l1");
         line.getTerminal1().setP(1400.0).setQ(400.0);
