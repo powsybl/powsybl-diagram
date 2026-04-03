@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800.00" height="1276.28" viewBox="-430.42 -558.70 674.36 1075.84" xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[.nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7; fill: none}
+.nad-disconnected.nad-edge-path {stroke-dasharray: 10,10}
+.nad-injections .nad-disconnected .nad-edge-path, .nad-injections .nad-disconnected circle {stroke: lightgrey}
+.nad-injections .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-injections circle {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
+.nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
+.nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 40}
+.nad-branch-edges .nad-tie-line-edge .nad-edge-path {stroke-width: 7}
+.nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
+.nad-active {fill: #546e7a}
+.nad-reactive {fill: #0277bd}
+.nad-current {fill: #bd4802}
+.nad-text-background {flood-color: #90a4aeaa}
+.nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
+.nad-edge-infos text, .nad-edge-label text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-vl0to30 {--nad-vl-color: #AFB42B}
+.nad-vl30to50 {--nad-vl-color: #EF9A9A}
+.nad-vl50to70 {--nad-vl-color: #9C27B0}
+.nad-vl70to120 {--nad-vl-color: #E65100}
+.nad-vl120to180 {--nad-vl-color: #00ACC1}
+.nad-vl180to300 {--nad-vl-color: #2E7D32}
+.nad-vl300to500 {--nad-vl-color: #D32F2F}
+.nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
+.nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
+.nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
+.nad-highlight {stroke-width: 25; opacity: 0.2; fill: none;}
+.nad-highlight-0 {stroke: #e6e600;}
+.nad-highlight-1 {stroke: #b300b3;}
+.nad-highlight-2 {stroke: #2eb82e;}
+.nad-highlight-3 {stroke: #e67300;}
+.nad-highlight-4 {stroke: #0000ff;}
+@keyframes line-blink {
+  0%, 80%, 100% {stroke: var(--nad-vl-color, black); stroke-width: 5}
+  40% {stroke: #FFEB3B; stroke-width: 15}
+}
+@keyframes node-over-blink {
+  0%, 80%, 100% {stroke: white; stroke-width: 0}
+  40% {stroke: #ff5722; stroke-width: 15}
+}
+@keyframes node-under-blink {
+  0%, 80%, 100% {stroke: white; stroke-width: 0}
+  40% {stroke: #00BCD4; stroke-width: 15}
+}
+.nad-load {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-battery {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-generator {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap: round; fill: none}
+.nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
+.nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
+.nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-lcc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
+.nad-vsc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
+.nad-disconnected .nad-load {stroke: lightgrey}
+.nad-disconnected .nad-battery {stroke: lightgrey}
+.nad-disconnected .nad-generator {stroke: lightgrey}
+.nad-disconnected .nad-capacitor {stroke: lightgrey}
+.nad-disconnected .nad-inductor {stroke: lightgrey}
+.nad-disconnected .nad-svc {stroke: lightgrey}
+.nad-unknown {stroke: none; fill: black}
+]]></style>
+    <g class="nad-vl-nodes">
+        <g transform="translate(-56.06,-318.70)" id="0" class="nad-vl300to500">
+            <circle r="27.50" id="3" class="nad-busnode"/>
+        </g>
+        <g transform="translate(-230.42,1.18)" id="4" class="nad-vl300to500">
+            <circle r="27.50" id="7" class="nad-busnode"/>
+        </g>
+        <g transform="translate(-49.12,317.14)" id="12" class="nad-boundary-node nad-vl300to500">
+            <path d="M-23.852,13.687 A27.500,27.500 180.000 0 1 23.852,-13.687" id="13" class="nad-busnode"/>
+        </g>
+    </g>
+    <g class="nad-branch-edges">
+        <g id="8">
+            <polyline class="nad-vl300to500 nad-edge-path" points="-69.22,-294.55 -143.24,-158.76"/>
+            <polyline class="nad-vl300to500 nad-edge-path" points="-217.26,-22.97 -143.24,-158.76"/>
+        </g>
+        <g id="14" class="nad-boundary-line-edge">
+            <polyline class="nad-vl300to500 nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
+            <polyline class="nad-vl300to500 nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
+        </g>
+    </g>
+    <g class="nad-edge-infos">
+        <g id="9" transform="translate(-94.35,-248.46)">
+            <g transform="translate(-25.00,-25.00)" class="nad-flash">
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
+            </g>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">ext</text>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">int</text>
+        </g>
+        <g id="10" transform="translate(-192.13,-69.06)">
+            <g transform="translate(-25.00,-25.00)" class="nad-flash">
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
+            </g>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">ext</text>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">int</text>
+        </g>
+        <g id="11" transform="translate(-143.24,-158.76)">
+            <g transform="translate(-25.00,-25.00)" class="nad-lock">
+                <path d="M32 22V18A8 8 0 0 0 16 18v4a3.24 3.24 0 0 0-3 3.21v9.54A3.23 3.23 0 0 0 16.23 38H31.77A3.23 3.23 0 0 0 35 34.77V25.23A3.24 3.24 0 0 0 32 22ZM24 12a6 6 0 0 1 6 6v4H18V18A6 6 0 0 1 24 12Zm9 22.77A1.23 1.23 0 0 1 31.77 36H16.23A1.23 1.23 0 0 1 15 34.77V25.23A1.23 1.23 0 0 1 16.23 24H31.77A1.23 1.23 0 0 1 33 25.23Z"></path>
+            </g>
+            <text transform="rotate(28.59)" y="28.75" style="text-anchor:middle">side2</text>
+            <text transform="rotate(28.59)" y="-25.00" style="text-anchor:middle">side1</text>
+        </g>
+        <g id="15" transform="translate(-190.61,70.57)">
+            <g transform="translate(-25.00,-25.00)" class="nad-flash">
+                <path d="M34.71 3.91H21l-7.4 22.28a.1.1 0 0 0 .09.13h8.49a.1.1 0 0 1 .1.13L15.71 46.09a.5.5 0 0 0 .88.45L36.41 19.33a.1.1 0 0 0-.08-.16H27.42a.11.11 0 0 1-.09-.15l7.47-15a.1.1 0 0 0-.09-.11Z"></path>
+            </g>
+            <text transform="rotate(-29.85)" y="28.75" style="text-anchor:middle">ext</text>
+            <text transform="rotate(-29.85)" y="-25.00" style="text-anchor:middle">int</text>
+        </g>
+    </g>
+    <g class="nad-text-edges">
+        <polyline id="2" points="-26.39,-323.15 43.94,-333.70"/>
+        <polyline id="6" points="-200.75,-3.27 -130.42,-13.82"/>
+    </g>
+    <g class="nad-text-nodes">
+        <foreignObject id="1" y="-358.70" x="43.94" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl300to500 nad-label-box">
+                <div>Voltage level 1</div>
+                <div class="nad-bus-descr">
+                    <span class="nad-legend-square"></span> kV / °</div>
+            </div>
+        </foreignObject>
+        <foreignObject id="5" y="-38.82" x="-130.42" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-vl300to500 nad-label-box">
+                <div>Voltage level 2</div>
+                <div class="nad-bus-descr">
+                    <span class="nad-legend-square"></span> kV / °</div>
+            </div>
+        </foreignObject>
+    </g>
+</svg>

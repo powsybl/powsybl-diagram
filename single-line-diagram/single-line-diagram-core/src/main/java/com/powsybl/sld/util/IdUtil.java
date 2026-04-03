@@ -51,11 +51,11 @@ public final class IdUtil {
 
         char[] chars = input.toCharArray();
 
-        for (int i = 0; i < chars.length; i++) {
-            if (Character.isAlphabetic(chars[i]) || Character.isDigit(chars[i])) {
-                sb.append(chars[i]);
+        for (char aChar : chars) {
+            if (Character.isAlphabetic(aChar) || Character.isDigit(aChar)) {
+                sb.append(aChar);
             } else {
-                sb.append("_").append((int) chars[i]).append("_");
+                sb.append("_").append((int) aChar).append("_");
             }
         }
         return sb.toString();

@@ -35,7 +35,7 @@ class LayoutToCgmesExtensionsTest {
     private void createNetworks() {
         networks.add(Networks.createNetworkWithGenerator());
         networks.add(Networks.createNetworkWithLine());
-        networks.add(Networks.createNetworkWithDanglingLine());
+        networks.add(Networks.createNetworkWithBoundaryLine());
         networks.add(Networks.createNetworkWithBusbar());
         networks.add(Networks.createNetworkWithBus());
         networks.add(Networks.createNetworkWithLoad());
@@ -53,8 +53,8 @@ class LayoutToCgmesExtensionsTest {
         network.getVoltageLevelStream().forEach(vl -> {
             vl.visitEquipments(new DefaultTopologyVisitor() {
                 @Override
-                public void visitDanglingLine(DanglingLine danglingLine) {
-                    assertNotNull(danglingLine.getExtension(LineDiagramData.class));
+                public void visitBoundaryLine(BoundaryLine boundaryLine) {
+                    assertNotNull(boundaryLine.getExtension(LineDiagramData.class));
                 }
 
                 @Override
@@ -109,8 +109,8 @@ class LayoutToCgmesExtensionsTest {
         network.getVoltageLevelStream().forEach(vl -> {
             vl.visitEquipments(new DefaultTopologyVisitor() {
                 @Override
-                public void visitDanglingLine(DanglingLine danglingLine) {
-                    assertNull(danglingLine.getExtension(LineDiagramData.class));
+                public void visitBoundaryLine(BoundaryLine boundaryLine) {
+                    assertNull(boundaryLine.getExtension(LineDiagramData.class));
                 }
 
                 @Override

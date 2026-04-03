@@ -39,7 +39,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/TestCaseFictitiousBus.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -54,12 +54,12 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 
     @Test
-    void testDanglingConnectables() {
-        network = Networks.createDanglingConnectablesNetwork();
+    void testBoundaryConnectables() {
+        network = Networks.createBoundaryConnectablesNetwork();
 
         // build graph
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("vl");
@@ -68,7 +68,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCaseFictitiousBusDanglingConnectables.svg"),
-                toSVG(g, "/TestCaseFictitiousBusDanglingConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
+        assertEquals(toString("/TestCaseFictitiousBusBoundaryConnectables.svg"),
+                toSVG(g, "/TestCaseFictitiousBusBoundaryConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 }

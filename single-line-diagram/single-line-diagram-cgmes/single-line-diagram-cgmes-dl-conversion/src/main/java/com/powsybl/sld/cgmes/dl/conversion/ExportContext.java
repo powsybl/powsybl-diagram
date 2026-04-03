@@ -6,14 +6,17 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.*;
-
 import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.commons.datasource.DataSource;
 import com.powsybl.triplestore.api.TripleStore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class ExportContext {

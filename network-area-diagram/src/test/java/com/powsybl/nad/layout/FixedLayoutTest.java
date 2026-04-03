@@ -53,8 +53,8 @@ class FixedLayoutTest {
             Point pexpected = expected.get(k);
             Point pactual = actual.get(k);
             assertNotNull(pactual);
-            assertEquals(pexpected.getX(), pactual.getX(), 0);
-            assertEquals(pexpected.getY(), pactual.getY(), 0);
+            assertEquals(pexpected.x(), pactual.x(), 0);
+            assertEquals(pexpected.y(), pactual.y(), 0);
         });
     }
 
@@ -74,16 +74,16 @@ class FixedLayoutTest {
         forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
-        assertEquals(initialPositions.get("VL1").getX(), actual.get("VL1").getX());
-        assertEquals(initialPositions.get("VL1").getY(), actual.get("VL1").getY());
-        assertEquals(initialPositions.get("VL2").getX(), actual.get("VL2").getX());
-        assertEquals(initialPositions.get("VL2").getY(), actual.get("VL2").getY());
-        assertEquals(initialPositions.get("VL3").getX(), actual.get("VL3").getX());
-        assertEquals(initialPositions.get("VL3").getY(), actual.get("VL3").getY());
-        assertEquals(initialPositions.get("VL5").getX(), actual.get("VL5").getX());
-        assertEquals(initialPositions.get("VL5").getY(), actual.get("VL5").getY());
-        assertEquals(initialPositions.get("VL6").getX(), actual.get("VL6").getX());
-        assertEquals(initialPositions.get("VL6").getY(), actual.get("VL6").getY());
+        assertEquals(initialPositions.get("VL1").x(), actual.get("VL1").x());
+        assertEquals(initialPositions.get("VL1").y(), actual.get("VL1").y());
+        assertEquals(initialPositions.get("VL2").x(), actual.get("VL2").x());
+        assertEquals(initialPositions.get("VL2").y(), actual.get("VL2").y());
+        assertEquals(initialPositions.get("VL3").x(), actual.get("VL3").x());
+        assertEquals(initialPositions.get("VL3").y(), actual.get("VL3").y());
+        assertEquals(initialPositions.get("VL5").x(), actual.get("VL5").x());
+        assertEquals(initialPositions.get("VL5").y(), actual.get("VL5").y());
+        assertEquals(initialPositions.get("VL6").x(), actual.get("VL6").x());
+        assertEquals(initialPositions.get("VL6").y(), actual.get("VL6").y());
     }
 
     @Test
@@ -96,18 +96,18 @@ class FixedLayoutTest {
         forceLayout.run(graph, layoutParameters);
         Map<String, Point> actual = graph.getNodePositions();
 
-        assertEquals(0, actual.get("VL1").getX());
-        assertEquals(0, actual.get("VL1").getY());
-        assertEquals(0, actual.get("VL2").getX());
-        assertEquals(0, actual.get("VL2").getY());
-        assertEquals(0, actual.get("VL3").getX());
-        assertEquals(0, actual.get("VL3").getY());
-        assertEquals(0, actual.get("VL5").getX());
-        assertEquals(0, actual.get("VL5").getY());
-        assertEquals(0, actual.get("VL6").getX());
-        assertEquals(0, actual.get("VL6").getY());
-        assertEquals(0, actual.get("VL8").getX());
-        assertEquals(0, actual.get("VL8").getY());
+        assertEquals(0, actual.get("VL1").x());
+        assertEquals(0, actual.get("VL1").y());
+        assertEquals(0, actual.get("VL2").x());
+        assertEquals(0, actual.get("VL2").y());
+        assertEquals(0, actual.get("VL3").x());
+        assertEquals(0, actual.get("VL3").y());
+        assertEquals(0, actual.get("VL5").x());
+        assertEquals(0, actual.get("VL5").y());
+        assertEquals(0, actual.get("VL6").x());
+        assertEquals(0, actual.get("VL6").y());
+        assertEquals(0, actual.get("VL8").x());
+        assertEquals(0, actual.get("VL8").y());
     }
 
     @Test
@@ -183,13 +183,13 @@ class FixedLayoutTest {
     }
 
     void checkNodePosition(Point point, double x, double y) {
-        assertEquals(x, point.getX());
-        assertEquals(y, point.getY());
+        assertEquals(x, point.x());
+        assertEquals(y, point.y());
     }
 
     void checkNodeShift(Point point, Point shiftedPoint, double shiftX, double shiftY) {
         Point expectedPoint = point.shift(shiftX, shiftY);
-        assertEquals(expectedPoint.getX(), shiftedPoint.getX());
-        assertEquals(expectedPoint.getY(), shiftedPoint.getY());
+        assertEquals(expectedPoint.x(), shiftedPoint.x());
+        assertEquals(expectedPoint.y(), shiftedPoint.y());
     }
 }

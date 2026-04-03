@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -22,4 +24,6 @@ public interface Node extends Identifiable {
     double getY();
 
     boolean isFictitious();
+
+    List<String> getStyleClasses();
 }

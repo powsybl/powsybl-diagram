@@ -18,6 +18,7 @@ import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.LabelProvider;
+import com.powsybl.sld.svg.SVGLegendWriter;
 import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.svg.styles.StyleProvider;
 import org.apache.commons.io.output.NullWriter;
@@ -60,10 +61,8 @@ public abstract class AbstractTestCase {
                 .setExternCellHeight(250)
                 .setInternCellHeight(40)
                 .setStackHeight(30)
-                .setCgmesScaleFactor(1)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setCgmesUseNames(true);
+                .setVerticalSnakeLinePadding(30);
     }
 
     protected SldResourcesComponentLibrary getResourcesComponentLibrary() {
@@ -116,10 +115,10 @@ public abstract class AbstractTestCase {
 
     public abstract String toSVG(Graph g, String filename);
 
-    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
 
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -136,11 +135,11 @@ public abstract class AbstractTestCase {
 
     public abstract String toMetadata(Graph g, String filename);
 
-    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider) {
+    public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary, LayoutParameters layoutParameters, SvgParameters svgParameters, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);

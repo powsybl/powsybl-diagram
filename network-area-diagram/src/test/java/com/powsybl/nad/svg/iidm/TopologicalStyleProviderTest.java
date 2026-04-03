@@ -11,6 +11,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
+import com.powsybl.nad.build.iidm.IntIdProvider;
 import com.powsybl.nad.model.BranchEdge;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ class TopologicalStyleProviderTest {
     void customLimitViolationStyleOverridesDefaultBranchStyle() {
         Network network = Networks.createNetworkWithLine();
         TopologicalStyleProvider provider = new TopologicalStyleProvider(network, Map.of("Line", "custom-style"));
-        BranchEdge branchEdge = new BranchEdge("diagram", "Line", "Line", BranchEdge.LINE_EDGE);
+        BranchEdge branchEdge = new BranchEdge(new IntIdProvider(), "Line", "Line", BranchEdge.LINE_EDGE, null, null, null);
 
         List<String> styles = provider.getBranchEdgeStyleClasses(branchEdge);
 
@@ -37,7 +38,7 @@ class TopologicalStyleProviderTest {
     @Test
     void missingCustomStyleFallsBackToDefaultBranchStyle() {
         Network network = Networks.createNetworkWithLine();
-        BranchEdge branchEdge = new BranchEdge("diagram", "Line", "Line", BranchEdge.LINE_EDGE);
+        BranchEdge branchEdge = new BranchEdge(new IntIdProvider(), "Line", "Line", BranchEdge.LINE_EDGE, null, null, null);
 
         TopologicalStyleProvider defaultProvider = new TopologicalStyleProvider(network);
         List<String> defaultStyles = defaultProvider.getBranchEdgeStyleClasses(branchEdge);
@@ -52,7 +53,7 @@ class TopologicalStyleProviderTest {
     void constructorWithBaseVoltageConfigKeepsCustomStyles() {
         Network network = Networks.createNetworkWithLine();
         BaseVoltagesConfig baseVoltagesConfig = BaseVoltagesConfig.fromPlatformConfig();
-        BranchEdge branchEdge = new BranchEdge("diagram", "Line", "Line", BranchEdge.LINE_EDGE);
+        BranchEdge branchEdge = new BranchEdge(new IntIdProvider(), "Line", "Line", BranchEdge.LINE_EDGE, null, null, null);
 
         TopologicalStyleProvider provider = new TopologicalStyleProvider(network, baseVoltagesConfig, Map.of("Line", "custom-style"));
 

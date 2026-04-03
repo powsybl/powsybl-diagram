@@ -41,9 +41,6 @@ class LayoutParametersTest {
                 .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
                 .setComponentsOnBusbars(List.of("COMPONENT_ON_BUS"))
                 .setRemoveFictitiousSwitchNodes(true)
-                .setCgmesScaleFactor(2)
-                .setCgmesDiagramName("diag")
-                .setCgmesUseNames(true)
                 .setZoneLayoutSnakeLinePadding(120);
 
         layoutParameters.setComponentsSize(null);
@@ -67,9 +64,6 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.getComponentsOnBusbars(), layoutParameters2.getComponentsOnBusbars());
         assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
-        assertEquals(layoutParameters.getCgmesScaleFactor(), layoutParameters2.getCgmesScaleFactor(), 0);
-        assertEquals(layoutParameters.getCgmesDiagramName(), layoutParameters2.getCgmesDiagramName());
-        assertEquals(layoutParameters.isCgmesUseNames(), layoutParameters2.isCgmesUseNames());
         assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
     }
 
@@ -81,13 +75,13 @@ class LayoutParametersTest {
 
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
-        assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
-        assertEquals(layoutParameters.getVoltageLevelPadding().getTop(), layoutParameters2.getVoltageLevelPadding().getTop(), 0);
-        assertEquals(layoutParameters.getVoltageLevelPadding().getRight(), layoutParameters2.getVoltageLevelPadding().getRight(), 0);
-        assertEquals(layoutParameters.getVoltageLevelPadding().getBottom(), layoutParameters2.getVoltageLevelPadding().getBottom(), 0);
-        assertEquals(layoutParameters.getDiagramPadding().getLeft(), layoutParameters2.getDiagramPadding().getLeft(), 0);
-        assertEquals(layoutParameters.getDiagramPadding().getTop(), layoutParameters2.getDiagramPadding().getTop(), 0);
-        assertEquals(layoutParameters.getDiagramPadding().getRight(), layoutParameters2.getDiagramPadding().getRight(), 0);
-        assertEquals(layoutParameters.getDiagramPadding().getBottom(), layoutParameters2.getDiagramPadding().getBottom(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().left(), layoutParameters2.getVoltageLevelPadding().left(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().top(), layoutParameters2.getVoltageLevelPadding().top(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().right(), layoutParameters2.getVoltageLevelPadding().right(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().bottom(), layoutParameters2.getVoltageLevelPadding().bottom(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().left(), layoutParameters2.getDiagramPadding().left(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().top(), layoutParameters2.getDiagramPadding().top(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().right(), layoutParameters2.getDiagramPadding().right(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().bottom(), layoutParameters2.getDiagramPadding().bottom(), 0);
     }
 }

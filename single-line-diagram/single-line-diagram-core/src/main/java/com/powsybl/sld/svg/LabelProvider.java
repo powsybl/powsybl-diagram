@@ -24,60 +24,22 @@ import java.util.Optional;
  */
 public interface LabelProvider {
 
-    class NodeLabel {
-        private final String label;
-        private final LabelPosition position;
-        private final String userDefinedId;
-
+    record NodeLabel(String label, LabelPosition position, String userDefinedId) {
         public NodeLabel(String label, LabelPosition labelPosition) {
             this(label, labelPosition, null);
         }
-
-        public NodeLabel(String label, LabelPosition labelPosition, String userDefinedId) {
-            this.label = label;
-            this.position = labelPosition;
-            this.userDefinedId = userDefinedId;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public LabelPosition getPosition() {
-            return position;
-        }
-
-        public String getUserDefinedId() {
-            return userDefinedId;
-        }
     }
 
-    class NodeDecorator {
-        private final String type;
-        private final LabelPosition position;
-
-        /**
-         * Creates a node decorator, with given type and position
-         * @param type decorator type; corresponds to the type defined in components.json file
-         * @param labelPosition position of the decorator relatively to the center of the decorated node
-         */
-        public NodeDecorator(String type, LabelPosition labelPosition) {
-            this.type = type;
-            this.position = labelPosition;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public LabelPosition getPosition() {
-            return position;
-        }
-
+    /**
+     * A node decorator, with given type and position
+     * @param type decorator type; corresponds to the type defined in components.json file
+     * @param position position of the decorator relatively to the center of the decorated node
+     */
+    record NodeDecorator(String type, LabelPosition position) {
     }
 
     enum LabelDirection {
-        OUT, IN;
+        OUT, IN, NONE
     }
 
     List<FeederInfo> getFeederInfos(FeederNode node);
@@ -87,8 +49,6 @@ public interface LabelProvider {
     String getTooltip(Node node);
 
     List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
-
-    List<BusLegendInfo> getBusLegendInfos(VoltageLevelGraph graph);
 
     Optional<BusInfo> getBusInfo(BusNode node);
 

@@ -20,12 +20,16 @@ import org.junit.jupiter.api.Test;
  */
 class EdgeIdTest extends AbstractTest {
 
+    private EdgeInfoEnum externalInfo;
+    private EdgeInfoEnum middleSide2Info;
+
     @BeforeEach
     void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedWidth(800));
+
     }
 
     @Override
@@ -35,21 +39,35 @@ class EdgeIdTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters()) {
-        };
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(externalInfo)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(middleSide2Info)
+            .build(network, getSvgParameters());
     }
 
     @Test
     void testNameOnEdgeDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setEdgeNameDisplayed(true);
+        externalInfo = EdgeInfoEnum.ACTIVE_POWER;
+        middleSide2Info = EdgeInfoEnum.NAME;
         assertSvgEquals("/edge_with_id.svg", network);
     }
 
     @Test
     void testNameOnEdgeNotDisplayed() {
         Network network = Networks.createThreeVoltageLevelsFiveBuses();
-        getSvgParameters().setEdgeNameDisplayed(false);
+        externalInfo = EdgeInfoEnum.ACTIVE_POWER;
+        middleSide2Info = EdgeInfoEnum.EMPTY;
         assertSvgEquals("/edge_without_id.svg", network);
+    }
+
+    @Test
+    void testNameOnEdgeDisplayedExternal() {
+        Network network = Networks.createThreeVoltageLevelsFiveBuses();
+        externalInfo = EdgeInfoEnum.NAME;
+        middleSide2Info = EdgeInfoEnum.EMPTY;
+        assertSvgEquals("/edge_with_id_external.svg", network);
     }
 }

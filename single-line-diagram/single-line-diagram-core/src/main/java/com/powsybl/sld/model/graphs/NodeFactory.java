@@ -10,10 +10,24 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.components.ComponentTypeName;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
+import com.powsybl.sld.model.nodes.EquipmentNode;
+import com.powsybl.sld.model.nodes.Feeder;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.GroundDisconnectionNode;
+import com.powsybl.sld.model.nodes.Internal2WTNode;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.NodeSide;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
+import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
+import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
@@ -106,8 +120,8 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.CAPACITOR);
     }
 
-    public static FeederNode createDanglingLine(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.DANGLING_LINE);
+    public static FeederNode createBoundaryLine(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, SldComponentTypeName.BOUNDARY_LINE);
     }
 
     public static FeederNode createGround(VoltageLevelGraph graph, String id, String name) {
@@ -163,6 +177,10 @@ public final class NodeFactory {
         return createFeederBranchNode(graph, id, name, equipmentId, SldComponentTypeName.LINE, side, otherSideVoltageLevelInfos);
     }
 
+    public static FeederNode createFeederTeePointLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+        return createFeederNode(graph, id, name, equipmentId, TEE_POINT_LEG, new FeederTeePointLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+    }
+
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
@@ -183,12 +201,14 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
+    public static FeederNode createFeederTeePointNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return createFeederTeePointLegNode(graph, id, name, equipmentId, side, otherSideVoltageLevelInfos, FeederType.TEE_POINT_LEG);
+    }
+
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
         // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
-        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
-        ConnectivityNode cn = new ConnectivityNode(connectivityNodeId, NODE);
-        graph.addNode(cn);
-        return cn;
+        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().id() + "_" + Objects.requireNonNull(id);
+        return createConnectivityNode(graph, connectivityNodeId, NODE);
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
@@ -268,5 +288,13 @@ public final class NodeFactory {
         baseGraph.addTwtEdge(legNode3, m3wn);
         baseGraph.addMultiTermNode(m3wn);
         return m3wn;
+    }
+
+    public static TeePointNode createTeePointNode(VoltageLevelGraph baseGraph, String id, String nameOrId, FeederNode legNode2, FeederNode legNode3) {
+        TeePointNode teePointNode = new TeePointNode(id, nameOrId, id);
+        baseGraph.addNode(teePointNode);
+        baseGraph.addEdge(legNode2, teePointNode);
+        baseGraph.addEdge(legNode3, teePointNode);
+        return teePointNode;
     }
 }

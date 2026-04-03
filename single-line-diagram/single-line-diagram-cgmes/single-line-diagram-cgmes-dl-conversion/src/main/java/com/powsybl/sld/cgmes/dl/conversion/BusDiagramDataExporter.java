@@ -6,15 +6,14 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Objects;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.triplestore.api.TripleStore;
 
+import java.util.Objects;
+
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class BusDiagramDataExporter extends AbstractNodeDiagramDataExporter {

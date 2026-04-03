@@ -10,11 +10,15 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.jgrapht.graph.Pseudograph;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,11 +30,9 @@ import java.util.stream.Stream;
  */
 public class SubstationGraph extends AbstractBaseGraph {
 
-    private String substationId;
-
     private final List<VoltageLevelGraph> voltageLevels = new ArrayList<>();
-
     private final Map<String, VoltageLevelGraph> voltageLevelsById = new HashMap<>();
+    private final String substationId;
 
     /**
      * Constructor

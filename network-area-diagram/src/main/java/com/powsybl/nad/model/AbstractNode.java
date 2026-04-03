@@ -6,6 +6,8 @@
  */
 package com.powsybl.nad.model;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -16,8 +18,8 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
     private Point position;
     private final boolean fictitious;
 
-    protected AbstractNode(String diagramId, String equipmentId, String name, boolean fictitious) {
-        super(diagramId, equipmentId, name);
+    protected AbstractNode(String svgId, String equipmentId, String name, boolean fictitious) {
+        super(svgId, equipmentId, name);
         position = new Point();
         width = 0;
         height = 0;
@@ -41,12 +43,12 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     @Override
     public double getX() {
-        return position.getX();
+        return position.x();
     }
 
     @Override
     public double getY() {
-        return position.getY();
+        return position.y();
     }
 
     @Override
@@ -68,5 +70,9 @@ public abstract class AbstractNode extends AbstractIdentifiable implements Node 
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public List<String> getStyleClasses() {
+        return List.of();
     }
 }

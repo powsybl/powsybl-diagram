@@ -12,6 +12,8 @@
 .sld-active-power .sld-label {dominant-baseline: mathematical}
 .sld-reactive-power .sld-label {dominant-baseline: mathematical}
 .sld-current .sld-label {dominant-baseline: mathematical}
+.sld-current-value .sld-label {dominant-baseline: mathematical}
+.sld-permanent-limit-percentage .sld-label {dominant-baseline: mathematical}
 /* File : components.css ------------------------------------------------- */
 .sld-disconnector.sld-open {stroke-width: 1.5; stroke: var(--sld-vl-color, black); fill: none}
 .sld-disconnector.sld-closed {fill: var(--sld-vl-color, black)}
@@ -20,7 +22,7 @@
 .sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
-.sld-wire.sld-dangling-line {stroke-width: 2px}
+.sld-wire.sld-boundary-line {stroke-width: 2px}
 .sld-wire.sld-tie-line {stroke-width: 2px}
 .sld-load {fill: var(--sld-vl-color, blue)}
 .sld-battery {fill: var(--sld-vl-color, blue)}

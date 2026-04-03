@@ -15,19 +15,22 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 public class CgmesSubstationLayoutFactory implements SubstationLayoutFactory {
 
     private final Network network;
+    private final double cgmesScaleFactor;
+    private final String cgmesDiagramName;
 
-    public CgmesSubstationLayoutFactory(Network network) {
+    public CgmesSubstationLayoutFactory(Network network, String cgmesDiagramName, double cgmesScaleFactor) {
         this.network = Objects.requireNonNull(network);
+        this.cgmesDiagramName = cgmesDiagramName;
+        this.cgmesScaleFactor = cgmesScaleFactor;
     }
 
     @Override
     public Layout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new CgmesSubstationLayout(graph, network);
+        return new CgmesSubstationLayout(graph, network, cgmesDiagramName, cgmesScaleFactor);
     }
 }

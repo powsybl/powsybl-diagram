@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.cgmes.model.CgmesModel;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
@@ -16,44 +17,47 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 /**
- *
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     private Network network;
+    private CgmesModel cgmesModel;
 
     @BeforeEach
     @Override
     public void setUp() {
         super.setUp();
+        cgmesModel = Mockito.mock(CgmesModel.class);
+        when(cgmesModel.tripleStore()).thenReturn(tripleStore);
         network = Networks.createNetworkWithBusbar();
     }
 
     @Test
     void process() {
-        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
+        new CgmesDLImportPostProcessor(queryCatalog).process(network, cgmesModel);
 
         BusbarSection busbar = network.getBusbarSection("Busbar");
         NodeDiagramData<BusbarSection> busDiagramData = busbar.getExtension(NodeDiagramData.class);
         assertNotNull(busDiagramData);
         assertNotNull(busDiagramData.getData(DEFAULT_DIAGRAM_NAME));
-        NodeDiagramData<BusbarSection>.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
-        assertEquals(1, nodeDiagramDataDetails.getPoint1().getSeq(), 0);
-        assertEquals(20, nodeDiagramDataDetails.getPoint1().getX(), 0);
-        assertEquals(5, nodeDiagramDataDetails.getPoint1().getY(), 0);
-        assertEquals(2, nodeDiagramDataDetails.getPoint2().getSeq(), 0);
-        assertEquals(20, nodeDiagramDataDetails.getPoint2().getX(), 0);
-        assertEquals(40, nodeDiagramDataDetails.getPoint2().getY(), 0);
+        NodeDiagramData.NodeDiagramDataDetails nodeDiagramDataDetails = busDiagramData.getData(DEFAULT_DIAGRAM_NAME);
+        assertEquals(1, nodeDiagramDataDetails.getPoint1().seq(), 0);
+        assertEquals(20, nodeDiagramDataDetails.getPoint1().x(), 0);
+        assertEquals(5, nodeDiagramDataDetails.getPoint1().y(), 0);
+        assertEquals(2, nodeDiagramDataDetails.getPoint2().seq(), 0);
+        assertEquals(20, nodeDiagramDataDetails.getPoint2().x(), 0);
+        assertEquals(40, nodeDiagramDataDetails.getPoint2().y(), 0);
     }
 
     @Test
     void processEmpty() {
         queryCatalog = Mockito.mock(QueryCatalog.class);
         cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
-        new CgmesDLImportPostProcessor(queryCatalog).process(network, tripleStore);
+        new CgmesDLImportPostProcessor(queryCatalog).process(network, cgmesModel);
 
         BusbarSection busbar = network.getBusbarSection("Busbar");
         assertNull(busbar.getExtension(NodeDiagramData.class));

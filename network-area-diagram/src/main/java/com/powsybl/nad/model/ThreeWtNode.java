@@ -6,13 +6,28 @@
  */
 package com.powsybl.nad.model;
 
+import com.powsybl.nad.build.iidm.IdProvider;
+
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class ThreeWtNode extends AbstractNode {
 
-    public ThreeWtNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId, false);
+    private List<String> styleClasses = Collections.emptyList();
+
+    public ThreeWtNode(IdProvider idProvider, String equipmentId, String nameOrId) {
+        super(idProvider.createSvgId(equipmentId), equipmentId, nameOrId, false);
     }
 
+    @Override
+    public List<String> getStyleClasses() {
+        return styleClasses;
+    }
+
+    public void setStyleClasses(List<String> styleClasses) {
+        this.styleClasses = styleClasses;
+    }
 }

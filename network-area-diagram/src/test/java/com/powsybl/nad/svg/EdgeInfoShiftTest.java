@@ -35,7 +35,14 @@ class EdgeInfoShiftTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
-        return new DefaultLabelProvider(network, getSvgParameters());
+        return new DefaultLabelProvider.Builder()
+            .setInfoSideExternal(EdgeInfoEnum.EMPTY)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
+            .setSubstationDescriptionDisplayed(false)
+            .setBusLegend(true)
+            .build(network, getSvgParameters());
     }
 
     @Test

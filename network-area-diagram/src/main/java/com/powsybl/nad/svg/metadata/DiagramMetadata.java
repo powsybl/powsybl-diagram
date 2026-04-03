@@ -9,12 +9,14 @@ package com.powsybl.nad.svg.metadata;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Point;
+import com.powsybl.nad.model.*;
+import com.powsybl.nad.svg.EdgeInfo;
+import com.powsybl.nad.svg.SvgEdgeInfo;
 import com.powsybl.nad.svg.SvgParameters;
 
 import java.io.IOException;
@@ -33,6 +35,10 @@ import java.util.stream.Collectors;
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class DiagramMetadata extends AbstractMetadata {
+
+    public enum NodeType {
+        THREEWT, BOUNDARY;
+    }
 
     private final LayoutParameters layoutParameters;
     private final SvgParameters svgParameters;
@@ -103,52 +109,145 @@ public class DiagramMetadata extends AbstractMetadata {
     }
 
     public DiagramMetadata addMetadata(Graph graph) {
+        Objects.requireNonNull(graph);
+
+        if (!graph.isStyleApplied()) {
+            throw new PowsyblException("Style must be applied to the graph");
+        }
+
         graph.getVoltageLevelNodesStream().forEach(vlNode -> vlNode.getBusNodeStream().forEach(busNode -> busNodesMetadata.add(new BusNodeMetadata(
-                getPrefixedId(busNode.getDiagramId()),
+                getPrefixedId(busNode.getSvgId()),
                 busNode.getEquipmentId(),
                 busNode.getNbNeighbouringBusNodes(),
                 busNode.getRingIndex(),
-                getPrefixedId(vlNode.getDiagramId())))));
-        graph.getNodesStream().forEach(node -> nodesMetadata.add(new NodeMetadata(
-                getPrefixedId(node.getDiagramId()),
-                node.getEquipmentId(),
-                round(node.getX()),
-                round(node.getY()),
-                node.isFictitious())));
+                getPrefixedId(vlNode.getSvgId()),
+                busNode.getLegend(),
+                busNode.getStyleClasses(),
+                busNode.getStyle()
+        ))));
+        graph.getNodesStream().forEach(node -> nodesMetadata.add(createNodeMetadata(node)));
         graph.getVoltageLevelNodesStream().forEach(
                 vlNode -> vlNode.getBusNodeStream().forEach(
                         busNode -> busNode.getInjections().forEach(
                                 injection -> injectionsMetadata.add(new InjectionMetadata(
-                                        injection.getDiagramId(),
+                                        injection.getSvgId(),
                                         injection.getEquipmentId(),
                                         injection.getComponentType(),
-                                        busNode.getDiagramId(),
-                                        vlNode.getDiagramId())))));
+                                        busNode.getSvgId(),
+                                        vlNode.getSvgId(),
+                                        injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                                        injection.getStyleClasses(),
+                                        injection.getStyle()
+                                )))));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
-                getPrefixedId(edge.getDiagramId()),
+                getPrefixedId(edge.getSvgId()),
                 edge.getEquipmentId(),
-                getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
-        graph.getThreeWtEdgesStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
-                getPrefixedId(edge.getDiagramId()),
-                edge.getEquipmentId(),
-                getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getBusGraphNode2(edge).getDiagramId()),
-                edge.getType())));
+                getPrefixedId(graph.getNode1(edge).getSvgId()),
+                getPrefixedId(graph.getNode2(edge).getSvgId()),
+                getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
+                getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
+                edge.getType(),
+                null,
+                !edge.isVisible(BranchEdge.Side.ONE),
+                !edge.isVisible(BranchEdge.Side.TWO),
+                edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
+        )));
+        graph.getThreeWtEdgesStream().forEach(edge -> {
+            String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
+            edgesMetadata.add(new EdgeMetadata(
+                    getPrefixedId(edge.getSvgId()),
+                    edge.getEquipmentId(),
+                    getPrefixedId(graph.getVoltageLevelNode(edge).getSvgId()),
+                    getPrefixedId(threeWtNodeSvgId),
+                    getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
+                    getPrefixedId(threeWtNodeSvgId),
+                    edge.getType(),
+                    edge.getSide().name(),
+                    !edge.isVisible(),
+                    false,
+                    edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                    null,
+                    null,
+                    edge.getEdgeStyleInfo().styleClasses(),
+                    null,
+                    edge.getEdgeStyleInfo().style(),
+                    null
+            ));
+        });
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
-                getPrefixedId(textPair.getSecond().getDiagramId()),
+                getPrefixedId(textPair.getSecond().getSvgId()),
                 textPair.getFirst().getEquipmentId(),
-                getPrefixedId(textPair.getFirst().getDiagramId()),
+                getPrefixedId(textPair.getFirst().getSvgId()),
                 round(textPair.getSecond().getX() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getY() - textPair.getFirst().getY()),
-                round(textPair.getSecond().getEdgeConnection().getX() - textPair.getFirst().getX()),
-                round(textPair.getSecond().getEdgeConnection().getY() - textPair.getFirst().getY()))));
+                round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
+                round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
         return this;
+    }
+
+    private String findNodeType(Node node) {
+        if (node instanceof BoundaryNode) {
+            return NodeType.BOUNDARY.name();
+        } else if (node instanceof ThreeWtNode) {
+            return NodeType.THREEWT.name();
+        }
+        return null;
+    }
+
+    private NodeMetadata createNodeMetadata(Node node) {
+        String nodeType = findNodeType(node);
+        if (node instanceof VoltageLevelNode vlNode) {
+            return new NodeMetadata(
+                    getPrefixedId(node.getSvgId()),
+                    node.getEquipmentId(),
+                    round(node.getX()),
+                    round(node.getY()),
+                    node.isFictitious(),
+                    !vlNode.isVisible(),
+                    vlNode.getLegendSvgId(),
+                    vlNode.getLegendEdgeSvgId(),
+                    vlNode.getLegendHeader(),
+                    vlNode.getLegendFooter(),
+                    nodeType,
+                    vlNode.hasUnknownBusNode(),
+                    vlNode.getStyleClasses()
+            );
+        } else {
+            return new NodeMetadata(
+                    getPrefixedId(node.getSvgId()),
+                    node.getEquipmentId(),
+                    round(node.getX()),
+                    round(node.getY()),
+                    node.isFictitious(),
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
+                    nodeType,
+                    false,
+                    node.getStyleClasses()
+                    );
+        }
+    }
+
+    private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
+        EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
+        return new EdgeInfoMetadata(svgEdgeInfo.svgId(),
+                edgeInfo.getInfoTypeA(),
+                edgeInfo.getInfoTypeB(),
+                edgeInfo.getDirection().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionA().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionB().map(Enum::name).orElse(null),
+                edgeInfo.getLabelA().orElse(null),
+                edgeInfo.getLabelB().orElse(null),
+                edgeInfo.getComponentType().orElse(null));
     }
 
     private String getPrefixedId(String id) {
