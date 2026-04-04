@@ -15,13 +15,35 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import java.util.ServiceLoader;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.tools.Version;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@soft.it>}
  */
+@JsonPropertyOrder(value = {"diagramVersion"}, alphabetic = false)
 public abstract class AbstractMetadata {
+
+    private static final String DIAGRAM_VERSION = resolveDiagramVersion();
+
+    private static String resolveDiagramVersion() {
+        for (Version v : ServiceLoader.load(Version.class)) {
+            if ("powsybl-diagram".equals(v.getRepositoryName())) {
+                return v.getMavenProjectVersion();
+            }
+        }
+        return null;
+    }
+
+    @JsonProperty("diagramVersion")
+    public String getDiagramVersion() {
+        return DIAGRAM_VERSION;
+    }
 
     public void writeJson(Path file) {
         Objects.requireNonNull(file);
