@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import java.util.ServiceLoader;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,6 +42,7 @@ public abstract class AbstractMetadata {
     }
 
     @JsonProperty("diagramVersion")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDiagramVersion() {
         return DIAGRAM_VERSION;
     }
