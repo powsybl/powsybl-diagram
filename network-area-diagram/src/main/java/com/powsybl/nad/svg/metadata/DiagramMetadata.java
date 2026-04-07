@@ -76,6 +76,17 @@ public class DiagramMetadata extends AbstractMetadata {
         this.networkName = networkName;
     }
 
+    public DiagramMetadata(LayoutParameters layoutParameters,
+                           SvgParameters svgParameters,
+                           List<BusNodeMetadata> busNodesMetadata,
+                           List<NodeMetadata> nodesMetadata,
+                           List<InjectionMetadata> injectionsMetadata,
+                           List<EdgeMetadata> edgesMetadata,
+                           List<TextNodeMetadata> textNodesMetadata) {
+        this(layoutParameters, svgParameters, busNodesMetadata, nodesMetadata, injectionsMetadata, edgesMetadata,
+                textNodesMetadata, null);
+    }
+
     @JsonProperty("busNodes")
     public List<BusNodeMetadata> getBusNodesMetadata() {
         return busNodesMetadata;
