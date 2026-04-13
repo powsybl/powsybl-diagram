@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
  */
 class FourSubstationsNetworkTest extends AbstractTest {
 
-    private DefaultLabelProvider.EdgeInfoEnum externalInfo;
+    private EdgeInfoEnum externalInfo;
 
     @BeforeEach
     void setup() {
@@ -32,7 +32,7 @@ class FourSubstationsNetworkTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setSvgWidthAndHeightAdded(true)
                 .setFixedScale(0.5));
-        externalInfo = DefaultLabelProvider.EdgeInfoEnum.ACTIVE_POWER;
+        externalInfo = EdgeInfoEnum.ACTIVE_POWER;
     }
 
     @Override
@@ -44,9 +44,9 @@ class FourSubstationsNetworkTest extends AbstractTest {
     protected LabelProvider getLabelProvider(Network network) {
         return new DefaultLabelProvider.Builder()
             .setInfoSideExternal(externalInfo)
-            .setInfoSideInternal(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .setInfoMiddleSide1(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
-            .setInfoMiddleSide2(DefaultLabelProvider.EdgeInfoEnum.EMPTY)
+            .setInfoSideInternal(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide1(EdgeInfoEnum.EMPTY)
+            .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
             .build(network, getSvgParameters());
     }
 
@@ -60,7 +60,7 @@ class FourSubstationsNetworkTest extends AbstractTest {
     @Test
     void testLabelsOnEdges() {
         Network network = createNetwork();
-        externalInfo = DefaultLabelProvider.EdgeInfoEnum.NAME;
+        externalInfo = EdgeInfoEnum.NAME;
         assertSvgEquals("/four_substations_labels_on_edge.svg", network);
     }
 

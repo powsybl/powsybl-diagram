@@ -54,6 +54,8 @@
 .nad-capacitor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; fill: none}
 .nad-inductor {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; fill: none}
 .nad-svc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linejoin:round; fill: none}
+.nad-lcc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
+.nad-vsc {stroke: var(--nad-vl-color, lightgrey); stroke-width: 3; stroke-linecap:round; fill: none}
 .nad-disconnected .nad-load {stroke: lightgrey}
 .nad-disconnected .nad-battery {stroke: lightgrey}
 .nad-disconnected .nad-generator {stroke: lightgrey}
@@ -78,7 +80,7 @@
             <polyline class="nad-vl300to500 nad-edge-path" points="-69.22,-294.55 -143.24,-158.76"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-217.26,-22.97 -143.24,-158.76"/>
         </g>
-        <g id="13" class="nad-dangling-line-edge">
+        <g id="13" class="nad-boundary-line-edge">
             <polyline class="nad-vl300to500 nad-edge-path" points="-216.73,25.03 -139.77,159.16"/>
             <polyline class="nad-vl300to500 nad-edge-path" points="-62.80,293.29 -139.77,159.16"/>
         </g>

@@ -7,6 +7,7 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,21 +20,39 @@ public class EdgeInfoMetadata {
     private final String infoTypeA;
     private final String infoTypeB;
     private final String direction;
+    private final String directionA;
+    private final String directionB;
     private final String labelA;
     private final String labelB;
+    private final String componentType;
 
+    @JsonCreator
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
                             @JsonProperty("infoTypeA") String infoTypeA,
                             @JsonProperty("infoTypeB") String infoTypeB,
                             @JsonProperty("direction") String direction,
+                            @JsonProperty("directionA") String directionA,
+                            @JsonProperty("directionB") String directionB,
                             @JsonProperty("labelA") String labelA,
-                            @JsonProperty("labelB") String labelB) {
+                            @JsonProperty("labelB") String labelB,
+                            @JsonProperty("componentType") String componentType) {
         this.svgId = svgId;
         this.infoTypeA = infoTypeA;
         this.infoTypeB = infoTypeB;
-        this.direction = direction;
+        if (directionA != null && directionB != null) {
+            // Double arrows case
+            this.direction = null;
+            this.directionA = directionA;
+            this.directionB = directionB;
+        } else {
+            // Single arrow case
+            this.direction = direction;
+            this.directionA = null;
+            this.directionB = null;
+        }
         this.labelA = labelA;
         this.labelB = labelB;
+        this.componentType = componentType;
     }
 
     @JsonProperty("svgId")
@@ -56,6 +75,16 @@ public class EdgeInfoMetadata {
         return direction;
     }
 
+    @JsonProperty("directionA")
+    public String getDirectionA() {
+        return directionA;
+    }
+
+    @JsonProperty("directionB")
+    public String getDirectionB() {
+        return directionB;
+    }
+
     @JsonProperty("labelA")
     public String getLabelA() {
         return labelA;
@@ -64,5 +93,10 @@ public class EdgeInfoMetadata {
     @JsonProperty("labelB")
     public String getLabelB() {
         return labelB;
+    }
+
+    @JsonProperty("componentType")
+    public String getComponentType() {
+        return componentType;
     }
 }

@@ -10,6 +10,7 @@ import org.jgrapht.alg.util.Pair;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
 
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,6 +32,14 @@ public class Graph {
     private final org.jgrapht.Graph<Node, Edge> voltageLevelGraph = new WeightedPseudograph<>(Edge.class);
     private final org.jgrapht.Graph<Node, Edge> busGraph = new Pseudograph<>(Edge.class);
     private final Map<TextEdge, Pair<VoltageLevelNode, TextNode>> textEdges = new LinkedHashMap<>();
+
+    private List<URL> cssUrls;
+    private List<String> cssFilenames;
+
+    private List<String> unknownBusStyleClasses = Collections.emptyList();
+    private String unknownBusStyle;
+
+    private boolean styleApplied = false;
 
     public void addNode(Node node) {
         Objects.requireNonNull(node);
@@ -326,5 +335,45 @@ public class Graph {
                         VoltageLevelNode::getEquipmentId,
                         VoltageLevelNode::getPosition
                 ));
+    }
+
+    public List<URL> getCssUrls() {
+        return cssUrls;
+    }
+
+    public void setCssUrls(List<URL> cssUrls) {
+        this.cssUrls = cssUrls;
+    }
+
+    public List<String> getCssFilenames() {
+        return cssFilenames;
+    }
+
+    public void setCssFilenames(List<String> cssFilenames) {
+        this.cssFilenames = cssFilenames;
+    }
+
+    public List<String> getUnknownBusStyleClasses() {
+        return unknownBusStyleClasses;
+    }
+
+    public void setUnknownBusStyleClasses(List<String> unknownBusStyleClasses) {
+        this.unknownBusStyleClasses = unknownBusStyleClasses;
+    }
+
+    public String getUnknownBusStyle() {
+        return unknownBusStyle;
+    }
+
+    public void setUnknownBusStyle(String unknownBusStyle) {
+        this.unknownBusStyle = unknownBusStyle;
+    }
+
+    public void setStyleApplied() {
+        this.styleApplied = true;
+    }
+
+    public boolean isStyleApplied() {
+        return styleApplied;
     }
 }

@@ -57,7 +57,9 @@
     "injectionEdgeLength" : 145.0,
     "injectionCircleRadius" : 25.0,
     "voltageLevelLegendsIncluded" : true,
-    "edgeInfosIncluded" : true
+    "edgeInfosIncluded" : true,
+    "doubleArrowShiftFactorArrows" : 1.5,
+    "doubleArrowShiftFactorText" : 1.8
   },
   "busNodes" : [ {
     "svgId" : "3",
@@ -65,21 +67,24 @@
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0",
-    "legend" : "11.8 kV / -15.2°"
+    "legend" : "11.8 kV / -15.2°",
+    "classes" : [ "nad-bus-0" ]
   }, {
     "svgId" : "7",
     "equipmentId" : "VL_132_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "4",
-    "legend" : "133.6 kV / -9.6°"
+    "legend" : "133.6 kV / -9.6°",
+    "classes" : [ "nad-bus-0" ]
   }, {
     "svgId" : "11",
     "equipmentId" : "VL_33_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "8",
-    "legend" : "34.9 kV / -15.2°"
+    "legend" : "34.9 kV / -15.2°",
+    "classes" : [ "nad-bus-0" ]
   } ],
   "nodes" : [ {
     "svgId" : "0",
@@ -88,7 +93,8 @@
     "y" : -513.76,
     "legendSvgId" : "1",
     "legendEdgeSvgId" : "2",
-    "legendHeader" : [ "VL_11" ]
+    "legendHeader" : [ "VL_11" ],
+    "classes" : [ "nad-vl0to30" ]
   }, {
     "svgId" : "4",
     "equipmentId" : "VL_132",
@@ -96,7 +102,8 @@
     "y" : 47.69,
     "legendSvgId" : "5",
     "legendEdgeSvgId" : "6",
-    "legendHeader" : [ "VL_132" ]
+    "legendHeader" : [ "VL_132" ],
+    "classes" : [ "nad-vl120to180" ]
   }, {
     "svgId" : "8",
     "equipmentId" : "VL_33",
@@ -104,12 +111,14 @@
     "y" : 204.68,
     "legendSvgId" : "9",
     "legendEdgeSvgId" : "10",
-    "legendHeader" : [ "VL_33" ]
+    "legendHeader" : [ "VL_33" ],
+    "classes" : [ "nad-vl30to50" ]
   }, {
     "svgId" : "12",
     "equipmentId" : "3WT",
     "x" : -22.79,
-    "y" : -128.62
+    "y" : -128.62,
+    "type" : "THREEWT"
   } ],
   "edges" : [ {
     "svgId" : "13",
@@ -118,7 +127,9 @@
     "node2" : "12",
     "busNode1" : "3",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "THREE",
+    "classes1" : [ "nad-vl0to30" ]
   }, {
     "svgId" : "14",
     "equipmentId" : "3WT",
@@ -126,7 +137,9 @@
     "node2" : "12",
     "busNode1" : "7",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "ONE",
+    "classes1" : [ "nad-vl120to180" ]
   }, {
     "svgId" : "15",
     "equipmentId" : "3WT",
@@ -134,7 +147,9 @@
     "node2" : "12",
     "busNode1" : "11",
     "busNode2" : "12",
-    "type" : "ThreeWtEdge"
+    "type" : "ThreeWtEdge",
+    "side" : "TWO",
+    "classes1" : [ "nad-vl30to50" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",

@@ -134,7 +134,7 @@ public class DefaultSVGWriter implements SVGWriter {
     private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
         double height = graph.getHeight() + layoutParameters.getDiagramPadding().top() + layoutParameters.getDiagramPadding().bottom();
         if (graph instanceof VoltageLevelGraph && svgParameters.isBusesLegendAdded()) {
-            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
+            height += 8 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
         }
         return height;
     }
@@ -669,20 +669,16 @@ public class DefaultSVGWriter implements SVGWriter {
         // Checking if svg component is allowed to be transformed (rotate or flip)
         // (ex : disconnector in SVG component library not allowed to rotate)
         Orientation nodeOrientation = node.getOrientation();
-        SldComponent.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
-        if (transformation != null) {
-            switch (transformation) {
-                case ROTATION -> elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")");
-                case FLIP -> {
-                    if (nodeOrientation.isVertical()) {
-                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.height() + ")");
-                    } else {
-                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.width() + ", 0)");
-                    }
-                }
-                default -> {
-                    // No transformation
-                }
+        SldComponent.Transformation transformationType = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        if (transformationType != null) {
+            String transform = switch (transformationType) {
+                case ROTATION -> ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.width() / 2 + "," + size.height() / 2 + ")";
+                case FLIP -> SCALE + "(1, -1)" + " "
+                        + TRANSLATE + "(0, " + -size.height() + ")";
+                default -> null;
+            };
+            if (transform != null) {
+                elt.setAttribute(TRANSFORM, transform);
             }
         }
 
@@ -936,18 +932,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         .calculatePolylinePoints(edge.getNode1(), edge.getNode2(), svgParameters.isDrawStraightWires(), shift);
 
                 if (!pol.isEmpty()) {
-                    Element g = root.getOwnerDocument().createElement(GROUP);
-
-                    g.setAttribute("id", wireId);
-                    writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
-
-                    writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
-
-                    Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-                    polyline.setAttribute(POINTS, pointsListToString(pol));
-
-                    g.appendChild(polyline);
-                    root.appendChild(g);
+                    drawPolyLine(root, graph, styleProvider, edge, wireId, pol);
                 }
             }
 
@@ -966,6 +951,22 @@ public class DefaultSVGWriter implements SVGWriter {
                 insertFeederInfos(pol, root, graph, feederNode2, metadata, initProvider, styleProvider);
             }
         }
+    }
+
+    private void drawPolyLine(Element root, VoltageLevelGraph graph, StyleProvider styleProvider,
+                              Edge edge, String wireId, List<Point> pol) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
+
+        g.setAttribute("id", wireId);
+        writeStyleClasses(g, styleProvider.getEdgeStyles(graph, edge));
+
+        writeStyleAttribute(g, styleProvider.getEdgeStyle(graph, edge));
+
+        Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+        polyline.setAttribute(POINTS, pointsListToString(pol));
+
+        g.appendChild(polyline);
+        root.appendChild(g);
     }
 
     /*

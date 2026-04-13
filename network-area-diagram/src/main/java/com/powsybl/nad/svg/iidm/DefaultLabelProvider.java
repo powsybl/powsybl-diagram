@@ -12,52 +12,43 @@ import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
 import com.powsybl.nad.model.ThreeWtEdge;
-import com.powsybl.nad.svg.LabelProviderParameters;
-import com.powsybl.nad.svg.EdgeInfo;
-import com.powsybl.nad.svg.LabelProvider;
-import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.svg.VoltageLevelLegend;
+import com.powsybl.nad.svg.*;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
 public class DefaultLabelProvider implements LabelProvider {
 
-    private final EdgeInfoParameters edgeInfoParameters;
     private final Network network;
     private final LabelProviderParameters parameters;
     private final ValueFormatter valueFormatter;
     private boolean displayAngle = true;
+    private boolean displayWithAbs = false;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
-        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = svgParameters.createValueFormatter();
         this.parameters = new LabelProviderParameters();
     }
 
     public DefaultLabelProvider(Network network, ValueFormatter valueFormatter) {
         this.network = network;
-        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = valueFormatter;
         this.parameters = new LabelProviderParameters();
     }
 
     public DefaultLabelProvider(Network network, ValueFormatter valueFormatter, LabelProviderParameters parameters) {
         this.network = network;
-        this.edgeInfoParameters = new EdgeInfoParameters(EdgeInfoEnum.ACTIVE_POWER, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY, EdgeInfoEnum.EMPTY);
         this.valueFormatter = valueFormatter;
         this.parameters = parameters;
     }
 
-    public DefaultLabelProvider(Network network, EdgeInfoParameters edgeInfoParameters, ValueFormatter valueFormatter, LabelProviderParameters parameters) {
-        this.network = network;
-        this.edgeInfoParameters = edgeInfoParameters;
-        this.valueFormatter = valueFormatter;
-        this.parameters = parameters;
+    public LabelProviderParameters getParameters() {
+        return parameters;
     }
 
     public static Optional<Double> toOptional(double value) {
@@ -107,6 +98,16 @@ public class DefaultLabelProvider implements LabelProvider {
         return new VoltageLevelLegend(getLegendHeader(vl), getLegendFooter(vl), busLegend);
     }
 
+    public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
+        this.displayAngle = displayAngle;
+        return this;
+    }
+
+    public DefaultLabelProvider setDisplayWithAbs(boolean displayWithAbs) {
+        this.displayWithAbs = displayWithAbs;
+        return this;
+    }
+
     protected Network getNetwork() {
         return this.network;
     }
@@ -116,11 +117,13 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal) {
-        return getEdgeInfo(terminal, edgeInfoParameters.infoSideInternal, edgeInfoParameters.infoSideExternal);
+        var edgeInfoParameters = parameters.getEdgeInfoParameters();
+        return getEdgeInfo(terminal, edgeInfoParameters.infoSideInternal(), edgeInfoParameters.infoSideExternal());
     }
 
     private Optional<EdgeInfo> getMiddleEdgeInfo(Terminal terminal) {
-        return getEdgeInfo(terminal, edgeInfoParameters.infoMiddleSide1, edgeInfoParameters.infoMiddleSide2);
+        var edgeInfoParameters = parameters.getEdgeInfoParameters();
+        return getEdgeInfo(terminal, edgeInfoParameters.infoMiddleSide1(), edgeInfoParameters.infoMiddleSide2());
     }
 
     private Optional<EdgeInfo> getEdgeInfo(Terminal terminal, EdgeInfoEnum infoEnum1, EdgeInfoEnum infoEnum2) {
@@ -129,10 +132,23 @@ public class DefaultLabelProvider implements LabelProvider {
         }
         Optional<String> optionalValue1 = getDisplayedValue(terminal, infoEnum1);
         Optional<String> optionalValue2 = getDisplayedValue(terminal, infoEnum2);
-        double referenceValue = getReferenceValue(terminal, infoEnum2).orElse(getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
+
         if (optionalValue1.isEmpty() && optionalValue2.isEmpty()) {
             return Optional.empty();
         }
+
+        if (parameters.isDoubleArrowsDisplayed()) {
+            return Optional.of(new EdgeInfo(
+                getDisplayedType(infoEnum1),
+                getDisplayedType(infoEnum2),
+                getReferenceValue(terminal, infoEnum1).orElse(Double.NaN),
+                getReferenceValue(terminal, infoEnum2).orElse(Double.NaN),
+                optionalValue1.orElse(null),
+                optionalValue2.orElse(null)
+            ));
+        }
+
+        double referenceValue = getReferenceValue(terminal, infoEnum2).orElseGet(() -> getReferenceValue(terminal, infoEnum1).orElse(Double.NaN));
         return Optional.of(new EdgeInfo(
             getDisplayedType(infoEnum1),
             getDisplayedType(infoEnum2),
@@ -143,9 +159,10 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     private Optional<String> getDisplayedValue(Terminal terminal, EdgeInfoEnum infoEnum, String connectableNameOrId) {
+        Function<Double, String> powerFormatter = displayWithAbs ? value -> valueFormatter.formatPowerWithAbs(value, "") : valueFormatter::formatPower;
         return switch (infoEnum) {
-            case ACTIVE_POWER -> toOptional(terminal.getP()).map(valueFormatter::formatPower);
-            case REACTIVE_POWER -> toOptional(terminal.getQ()).map(valueFormatter::formatPower);
+            case ACTIVE_POWER -> toOptional(terminal.getP()).map(powerFormatter);
+            case REACTIVE_POWER -> toOptional(terminal.getQ()).map(powerFormatter);
             case CURRENT -> toOptional(terminal.getI()).map(valueFormatter::formatCurrent);
             case NAME -> Optional.of(connectableNameOrId);
             case VALUE_PERMANENT_LIMIT_PERCENTAGE -> toOptional(getPermanentLimitPercentage(terminal)).map(valueFormatter::formatPercentage);
@@ -235,15 +252,6 @@ public class DefaultLabelProvider implements LabelProvider {
         return voltageLevelDetails;
     }
 
-    public enum EdgeInfoEnum {
-        ACTIVE_POWER,
-        REACTIVE_POWER,
-        CURRENT,
-        NAME,
-        VALUE_PERMANENT_LIMIT_PERCENTAGE,
-        EMPTY
-    }
-
     public static class Builder {
         private EdgeInfoEnum infoSideExternal = EdgeInfoEnum.ACTIVE_POWER;
         private EdgeInfoEnum infoMiddleSide1 = EdgeInfoEnum.EMPTY;
@@ -291,27 +299,22 @@ public class DefaultLabelProvider implements LabelProvider {
             return this;
         }
 
+        public Builder setDoubleArrowsDisplayed(boolean doubleArrowsDisplayed) {
+            this.parameters.setDoubleArrowsDisplayed(doubleArrowsDisplayed);
+            return this;
+        }
+
         public DefaultLabelProvider build(Network network, SvgParameters svgParameters) {
-            return new DefaultLabelProvider(network,
-                new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal),
-                svgParameters.createValueFormatter(), parameters);
+            parameters.setEdgeInfoParameters(
+                    new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal));
+            return new DefaultLabelProvider(network, svgParameters.createValueFormatter(), parameters);
         }
 
         public DefaultLabelProvider build(Network network, ValueFormatter valueFormatter) {
-            return new DefaultLabelProvider(network,
-                new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal),
-                valueFormatter, parameters);
+            parameters.setEdgeInfoParameters(
+                    new EdgeInfoParameters(infoSideExternal, infoMiddleSide1, infoMiddleSide2, infoSideInternal));
+            return new DefaultLabelProvider(network, valueFormatter, parameters);
         }
     }
 
-    public record EdgeInfoParameters(EdgeInfoEnum infoSideExternal,
-                                     EdgeInfoEnum infoMiddleSide1,
-                                     EdgeInfoEnum infoMiddleSide2,
-                                     EdgeInfoEnum infoSideInternal) {
-    }
-
-    public DefaultLabelProvider setDisplayAngle(boolean displayAngle) {
-        this.displayAngle = displayAngle;
-        return this;
-    }
 }

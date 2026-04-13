@@ -57,7 +57,9 @@
     "injectionEdgeLength" : 145.0,
     "injectionCircleRadius" : 25.0,
     "voltageLevelLegendsIncluded" : true,
-    "edgeInfosIncluded" : true
+    "edgeInfosIncluded" : true,
+    "doubleArrowShiftFactorArrows" : 1.5,
+    "doubleArrowShiftFactorText" : 1.8
   },
   "busNodes" : [ {
     "svgId" : "4",
@@ -65,20 +67,23 @@
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "0",
-    "legend" : "400.0 kV / °"
+    "legend" : "400.0 kV / °",
+    "classes" : [ "nad-bus-0" ]
   }, {
     "svgId" : "8",
     "equipmentId" : "vl2_0",
     "nbNeighbours" : 0,
     "index" : 0,
     "vlNode" : "5",
-    "legend" : "410.0 kV / °"
+    "legend" : "410.0 kV / °",
+    "classes" : [ "nad-bus-0" ]
   }, {
     "svgId" : "14",
     "equipmentId" : "dl1",
     "nbNeighbours" : 0,
     "index" : 0,
-    "vlNode" : "13"
+    "vlNode" : "13",
+    "classes" : [ "nad-bus-0" ]
   } ],
   "nodes" : [ {
     "svgId" : "0",
@@ -87,7 +92,8 @@
     "y" : -318.7,
     "legendSvgId" : "1",
     "legendEdgeSvgId" : "2",
-    "legendHeader" : [ "Voltage level 1" ]
+    "legendHeader" : [ "Voltage level 1" ],
+    "classes" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "5",
     "equipmentId" : "vl2",
@@ -95,12 +101,15 @@
     "y" : 1.18,
     "legendSvgId" : "6",
     "legendEdgeSvgId" : "7",
-    "legendHeader" : [ "Voltage level 2" ]
+    "legendHeader" : [ "Voltage level 2" ],
+    "classes" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "13",
     "equipmentId" : "dl1",
     "x" : -49.12,
-    "y" : 317.14
+    "y" : 317.14,
+    "type" : "BOUNDARY",
+    "classes" : [ "nad-boundary-node", "nad-vl300to500" ]
   } ],
   "injections" : [ {
     "svgId" : "3",
@@ -137,7 +146,9 @@
       "svgId" : "12",
       "infoTypeA" : "Name",
       "labelA" : "l1"
-    }
+    },
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "15",
     "equipmentId" : "dl1",
@@ -145,7 +156,9 @@
     "node2" : "13",
     "busNode1" : "8",
     "busNode2" : "14",
-    "type" : "DanglingLineEdge"
+    "type" : "BoundaryLineEdge",
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",

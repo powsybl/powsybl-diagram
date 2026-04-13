@@ -9,6 +9,7 @@ package com.powsybl.nad.svg.metadata;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -34,6 +35,10 @@ import java.util.stream.Collectors;
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
 public class DiagramMetadata extends AbstractMetadata {
+
+    public enum NodeType {
+        THREEWT, BOUNDARY;
+    }
 
     private final LayoutParameters layoutParameters;
     private final SvgParameters svgParameters;
@@ -104,13 +109,22 @@ public class DiagramMetadata extends AbstractMetadata {
     }
 
     public DiagramMetadata addMetadata(Graph graph) {
+        Objects.requireNonNull(graph);
+
+        if (!graph.isStyleApplied()) {
+            throw new PowsyblException("Style must be applied to the graph");
+        }
+
         graph.getVoltageLevelNodesStream().forEach(vlNode -> vlNode.getBusNodeStream().forEach(busNode -> busNodesMetadata.add(new BusNodeMetadata(
                 getPrefixedId(busNode.getSvgId()),
                 busNode.getEquipmentId(),
                 busNode.getNbNeighbouringBusNodes(),
                 busNode.getRingIndex(),
                 getPrefixedId(vlNode.getSvgId()),
-                busNode.getLegend()))));
+                busNode.getLegend(),
+                busNode.getStyleClasses(),
+                busNode.getStyle()
+        ))));
         graph.getNodesStream().forEach(node -> nodesMetadata.add(createNodeMetadata(node)));
         graph.getVoltageLevelNodesStream().forEach(
                 vlNode -> vlNode.getBusNodeStream().forEach(
@@ -121,7 +135,10 @@ public class DiagramMetadata extends AbstractMetadata {
                                         injection.getComponentType(),
                                         busNode.getSvgId(),
                                         vlNode.getSvgId(),
-                                        injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null))))));
+                                        injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                                        injection.getStyleClasses(),
+                                        injection.getStyle()
+                                )))));
         graph.getBranchEdgeStream().forEach(edge -> edgesMetadata.add(new EdgeMetadata(
                 getPrefixedId(edge.getSvgId()),
                 edge.getEquipmentId(),
@@ -130,12 +147,17 @@ public class DiagramMetadata extends AbstractMetadata {
                 getPrefixedId(graph.getBusGraphNode1(edge).getSvgId()),
                 getPrefixedId(graph.getBusGraphNode2(edge).getSvgId()),
                 edge.getType(),
+                null,
                 !edge.isVisible(BranchEdge.Side.ONE),
                 !edge.isVisible(BranchEdge.Side.TWO),
                 edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                 edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null)))
-        );
+                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
+        )));
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
             edgesMetadata.add(new EdgeMetadata(
@@ -146,10 +168,15 @@ public class DiagramMetadata extends AbstractMetadata {
                     getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
                     getPrefixedId(threeWtNodeSvgId),
                     edge.getType(),
+                    edge.getSide().name(),
                     !edge.isVisible(),
                     false,
                     edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
                     null,
+                    null,
+                    edge.getEdgeStyleInfo().styleClasses(),
+                    null,
+                    edge.getEdgeStyleInfo().style(),
                     null
             ));
         });
@@ -164,7 +191,17 @@ public class DiagramMetadata extends AbstractMetadata {
         return this;
     }
 
+    private String findNodeType(Node node) {
+        if (node instanceof BoundaryNode) {
+            return NodeType.BOUNDARY.name();
+        } else if (node instanceof ThreeWtNode) {
+            return NodeType.THREEWT.name();
+        }
+        return null;
+    }
+
     private NodeMetadata createNodeMetadata(Node node) {
+        String nodeType = findNodeType(node);
         if (node instanceof VoltageLevelNode vlNode) {
             return new NodeMetadata(
                     getPrefixedId(node.getSvgId()),
@@ -176,7 +213,11 @@ public class DiagramMetadata extends AbstractMetadata {
                     vlNode.getLegendSvgId(),
                     vlNode.getLegendEdgeSvgId(),
                     vlNode.getLegendHeader(),
-                    vlNode.getLegendFooter());
+                    vlNode.getLegendFooter(),
+                    nodeType,
+                    vlNode.hasUnknownBusNode(),
+                    vlNode.getStyleClasses()
+            );
         } else {
             return new NodeMetadata(
                     getPrefixedId(node.getSvgId()),
@@ -188,7 +229,11 @@ public class DiagramMetadata extends AbstractMetadata {
                     null,
                     null,
                     null,
-                    null);
+                    null,
+                    nodeType,
+                    false,
+                    node.getStyleClasses()
+                    );
         }
     }
 
@@ -198,8 +243,11 @@ public class DiagramMetadata extends AbstractMetadata {
                 edgeInfo.getInfoTypeA(),
                 edgeInfo.getInfoTypeB(),
                 edgeInfo.getDirection().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionA().map(Enum::name).orElse(null),
+                edgeInfo.getDirectionB().map(Enum::name).orElse(null),
                 edgeInfo.getLabelA().orElse(null),
-                edgeInfo.getLabelB().orElse(null));
+                edgeInfo.getLabelB().orElse(null),
+                edgeInfo.getComponentType().orElse(null));
     }
 
     private String getPrefixedId(String id) {

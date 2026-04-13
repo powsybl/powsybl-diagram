@@ -10,30 +10,14 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.position.clustering.PositionByClustering;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.EquipmentNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.MiddleTwtNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,13 +27,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.library.SldComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.SldComponentTypeName.LCC_CONVERTER_STATION;
-import static com.powsybl.sld.library.SldComponentTypeName.LINE;
-import static com.powsybl.sld.library.SldComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.SldComponentTypeName.VSC_CONVERTER_STATION;
+import static com.powsybl.sld.library.SldComponentTypeName.*;
 
 /**
  * @author Christian Biasuzzi {@literal <christian.biasuzzi@techrain.eu>}
@@ -72,7 +50,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     public LayoutToCgmesExtensionsConverter() {
-        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters().setCgmesUseNames(true));
+        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters());
     }
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
@@ -173,7 +151,7 @@ public class LayoutToCgmesExtensionsConverter {
 
             vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), LINE)).forEach(node -> applyLayoutOnLines(node, voltageLevel, diagramName, offsetPoint));
 
-            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), DANGLING_LINE)).forEach(node -> applyLayoutOnDanglingLines(node, voltageLevel, diagramName, offsetPoint));
+            vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), BOUNDARY_LINE)).forEach(node -> applyLayoutOnBoundaryLines(node, voltageLevel, diagramName, offsetPoint));
 
             vlGraph.getNodes().stream().filter(node -> Objects.equals(node.getComponentType(), VSC_CONVERTER_STATION)).forEach(node -> applyLayoutOnVscConverterStation(node, voltageLevel, diagramName, offsetPoint));
 
@@ -251,17 +229,17 @@ public class LayoutToCgmesExtensionsConverter {
         }
     }
 
-    private void applyLayoutOnDanglingLines(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
-        FeederNode danglingLineNode = (FeederNode) node;
-        DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
-        if (danglingLine != null) {
-            LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
-            int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
-            DiagramPoint danglingLinePoint = offsetPoint.newDiagramPoint(danglingLineNode.getX(), danglingLineNode.getY(), danglingLineSeq);
-            danglingLineDiagramData.addPoint(diagramName, danglingLinePoint);
+    private void applyLayoutOnBoundaryLines(Node node, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        FeederNode boundaryLineNode = (FeederNode) node;
+        BoundaryLine boundaryLine = voltageLevel.getConnectable(boundaryLineNode.getId(), BoundaryLine.class);
+        if (boundaryLine != null) {
+            LineDiagramData<BoundaryLine> boundaryLineDiagramData = LineDiagramData.getOrCreateDiagramData(boundaryLine);
+            int boundaryLineSeq = getMaxSeq(boundaryLineDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint boundaryLinePoint = offsetPoint.newDiagramPoint(boundaryLineNode.getX(), boundaryLineNode.getY(), boundaryLineSeq);
+            boundaryLineDiagramData.addPoint(diagramName, boundaryLinePoint);
 
-            LOG.debug("setting CGMES DL IIDM extensions for Dangling line {} ({}),  point {}", danglingLine.getId(), danglingLine.getNameOrId(), danglingLinePoint);
-            danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+            LOG.debug("setting CGMES DL IIDM extensions for Boundary line {} ({}),  point {}", boundaryLine.getId(), boundaryLine.getNameOrId(), boundaryLinePoint);
+            boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
         }
     }
 
@@ -270,8 +248,8 @@ public class LayoutToCgmesExtensionsConverter {
         VscConverterStation vscConverterStation = voltageLevel.getConnectable(vscNode.getId(), VscConverterStation.class);
         if (vscConverterStation != null) {
             LineDiagramData<VscConverterStation> vscDiagramData = LineDiagramData.getOrCreateDiagramData(vscConverterStation);
-            int danglingLineSeq = getMaxSeq(vscDiagramData.getPoints(diagramName)) + 1;
-            DiagramPoint vscPoint = offsetPoint.newDiagramPoint(vscNode.getX(), vscNode.getY(), danglingLineSeq);
+            int boundaryLineSeq = getMaxSeq(vscDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint vscPoint = offsetPoint.newDiagramPoint(vscNode.getX(), vscNode.getY(), boundaryLineSeq);
             vscDiagramData.addPoint(diagramName, vscPoint);
 
             LOG.debug("setting CGMES DL IIDM extensions for Vsc Converter Station {} ({}),  point {}", vscConverterStation.getId(), vscConverterStation.getNameOrId(), vscPoint);
@@ -284,8 +262,8 @@ public class LayoutToCgmesExtensionsConverter {
         LccConverterStation lccConverterStation = voltageLevel.getConnectable(lccNode.getId(), LccConverterStation.class);
         if (lccConverterStation != null) {
             LineDiagramData<LccConverterStation> lccDiagramData = LineDiagramData.getOrCreateDiagramData(lccConverterStation);
-            int danglingLineSeq = getMaxSeq(lccDiagramData.getPoints(diagramName)) + 1;
-            DiagramPoint lccPoint = offsetPoint.newDiagramPoint(lccNode.getX(), lccNode.getY(), danglingLineSeq);
+            int boundaryLineSeq = getMaxSeq(lccDiagramData.getPoints(diagramName)) + 1;
+            DiagramPoint lccPoint = offsetPoint.newDiagramPoint(lccNode.getX(), lccNode.getY(), boundaryLineSeq);
             lccDiagramData.addPoint(diagramName, lccPoint);
 
             LOG.debug("setting CGMES DL IIDM extensions for Lcc Converter Station {} ({}),  point {}", lccConverterStation.getId(), lccConverterStation.getNameOrId(), lccPoint);
@@ -299,7 +277,8 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, MiddleTwtNode node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> SldComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType())
+                && n instanceof EquipmentNode equipmentNode && equipmentNode.getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

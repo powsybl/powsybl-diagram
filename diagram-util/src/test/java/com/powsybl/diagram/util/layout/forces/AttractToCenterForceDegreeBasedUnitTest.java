@@ -17,12 +17,13 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
+
 class AttractToCenterForceDegreeBasedUnitTest {
 
     @Test
     void apply() {
         double delta = 1e-5;
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         AttractToCenterForceDegreeBasedUnit<String, DefaultEdge> attractToCenterForceDegreeBasedUnit = new AttractToCenterForceDegreeBasedUnit<>(0.01);
         attractToCenterForceDegreeBasedUnit.init(layoutContext);
         String[] vertexToTest = {

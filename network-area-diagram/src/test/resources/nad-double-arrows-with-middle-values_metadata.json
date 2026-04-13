@@ -1,0 +1,185 @@
+{
+  "layoutParameters" : {
+    "textNodesForceLayout" : false,
+    "textNodeFixedShift" : {
+      "x" : 100.0,
+      "y" : -40.0
+    },
+    "maxSteps" : 1000,
+    "timeoutSeconds" : 15.0,
+    "textNodeEdgeConnectionYShift" : 25.0,
+    "injectionsAdded" : false,
+    "scaleFactor" : 1.0
+  },
+  "svgParameters" : {
+    "diagramPadding" : {
+      "left" : 200.0,
+      "top" : 200.0,
+      "right" : 200.0,
+      "bottom" : 200.0
+    },
+    "insertNameDesc" : false,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "sizeConstraint" : "FIXED_WIDTH",
+    "fixedWidth" : 800,
+    "fixedHeight" : -1,
+    "fixedScale" : 0.2,
+    "arrowShift" : 30.0,
+    "arrowLabelShift" : 19.0,
+    "converterStationWidth" : 70.0,
+    "voltageLevelCircleRadius" : 30.0,
+    "fictitiousVoltageLevelCircleRadius" : 15.0,
+    "transformerCircleRadius" : 20.0,
+    "nodeHollowWidth" : 15.0,
+    "edgesForkLength" : 80.0,
+    "edgesForkAperture" : 60.0,
+    "edgeStartShift" : 0.0,
+    "unknownBusNodeExtraRadius" : 10.0,
+    "loopDistance" : 120.0,
+    "loopEdgesAperture" : 60.0,
+    "loopControlDistance" : 40.0,
+    "edgeInfoAlongEdge" : true,
+    "interAnnulusSpace" : 5.0,
+    "svgPrefix" : "",
+    "arrowPathIn" : "M-10 -10 H10 L0 10z",
+    "arrowPathOut" : "M-10 10 H10 L0 -10z",
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
+    "pstArrowHeadSize" : 8.0,
+    "undefinedValueSymbol" : "",
+    "highlightGraph" : false,
+    "injectionAperture" : 10.0,
+    "injectionEdgeLength" : 145.0,
+    "injectionCircleRadius" : 25.0,
+    "voltageLevelLegendsIncluded" : true,
+    "edgeInfosIncluded" : true,
+    "doubleArrowShiftFactorArrows" : 1.5,
+    "doubleArrowShiftFactorText" : 1.8
+  },
+  "busNodes" : [ {
+    "svgId" : "3",
+    "equipmentId" : "vl_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "0",
+    "legend" : " kV / °"
+  }, {
+    "svgId" : "7",
+    "equipmentId" : "vl2_0",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "4",
+    "legend" : " kV / °"
+  }, {
+    "svgId" : "9",
+    "equipmentId" : "dl1",
+    "nbNeighbours" : 0,
+    "index" : 0,
+    "vlNode" : "8"
+  } ],
+  "nodes" : [ {
+    "svgId" : "0",
+    "equipmentId" : "vl",
+    "x" : -94.84,
+    "y" : -119.74,
+    "legendSvgId" : "1",
+    "legendEdgeSvgId" : "2",
+    "legendHeader" : [ "vl" ],
+    "classes" : [ "nad-vl300to500" ]
+  }, {
+    "svgId" : "4",
+    "equipmentId" : "vl2",
+    "x" : -432.32,
+    "y" : 17.46,
+    "legendSvgId" : "5",
+    "legendEdgeSvgId" : "6",
+    "legendHeader" : [ "vl2" ],
+    "classes" : [ "nad-vl300to500" ]
+  }, {
+    "svgId" : "8",
+    "equipmentId" : "dl1",
+    "x" : 194.24,
+    "y" : 101.91,
+    "type" : "BOUNDARY",
+    "classes" : [ "nad-boundary-node", "nad-vl300to500" ]
+  } ],
+  "edges" : [ {
+    "svgId" : "10",
+    "equipmentId" : "dl1",
+    "node1" : "0",
+    "node2" : "8",
+    "busNode1" : "3",
+    "busNode2" : "9",
+    "type" : "BoundaryLineEdge",
+    "edgeInfo1" : {
+      "svgId" : "11",
+      "infoTypeA" : "ReactivePower",
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "50",
+      "labelB" : "100"
+    },
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
+  }, {
+    "svgId" : "12",
+    "equipmentId" : "hvdc",
+    "node1" : "0",
+    "node2" : "4",
+    "busNode1" : "3",
+    "busNode2" : "7",
+    "type" : "HvdcLineVscEdge",
+    "edgeInfo1" : {
+      "svgId" : "13",
+      "infoTypeA" : "ReactivePower",
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "50",
+      "labelB" : "100"
+    },
+    "edgeInfo2" : {
+      "svgId" : "14",
+      "infoTypeA" : "ReactivePower",
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "75",
+      "labelB" : "300"
+    },
+    "edgeInfoMiddle" : {
+      "svgId" : "15",
+      "infoTypeA" : "ReactivePower",
+      "infoTypeB" : "ActivePower",
+      "directionA" : "OUT",
+      "directionB" : "OUT",
+      "labelA" : "50",
+      "labelB" : "100"
+    },
+    "classes1" : [ "nad-vl300to500" ],
+    "classes2" : [ "nad-vl300to500" ]
+  } ],
+  "textNodes" : [ {
+    "svgId" : "1",
+    "equipmentId" : "vl",
+    "vlNode" : "0",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  }, {
+    "svgId" : "5",
+    "equipmentId" : "vl2",
+    "vlNode" : "4",
+    "shiftX" : 100.0,
+    "shiftY" : -40.0,
+    "connectionShiftX" : 100.0,
+    "connectionShiftY" : -15.0
+  } ]
+}

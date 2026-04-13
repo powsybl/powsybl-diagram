@@ -9,6 +9,12 @@ public class LabelProviderParameters {
     private boolean substationDescriptionDisplayed = false;
     private boolean idDisplayed = false;
     private boolean voltageLevelDetails = false;
+    private boolean doubleArrowsDisplayed = false;
+    private EdgeInfoParameters edgeInfoParameters = new EdgeInfoParameters(
+            EdgeInfoEnum.ACTIVE_POWER,
+            EdgeInfoEnum.EMPTY,
+            EdgeInfoEnum.EMPTY,
+            EdgeInfoEnum.EMPTY);
 
     public boolean isBusLegend() {
         return isBusLegend;
@@ -43,6 +49,24 @@ public class LabelProviderParameters {
 
     public LabelProviderParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
         this.voltageLevelDetails = voltageLevelDetails;
+        return this;
+    }
+
+    public boolean isDoubleArrowsDisplayed() {
+        return doubleArrowsDisplayed;
+    }
+
+    public LabelProviderParameters setDoubleArrowsDisplayed(boolean doubleArrowsDisplayed) {
+        this.doubleArrowsDisplayed = doubleArrowsDisplayed;
+        return this;
+    }
+
+    public EdgeInfoParameters getEdgeInfoParameters() {
+        return edgeInfoParameters;
+    }
+
+    public LabelProviderParameters setEdgeInfoParameters(EdgeInfoParameters edgeInfoParameters) {
+        this.edgeInfoParameters = edgeInfoParameters;
         return this;
     }
 }
