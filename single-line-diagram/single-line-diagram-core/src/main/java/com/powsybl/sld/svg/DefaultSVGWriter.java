@@ -1063,7 +1063,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
                 if (subComponents != null && !subComponents.isEmpty()) {
                     Element group = document.createElement(GROUP);
-                    group.setAttribute("id", c); // TODO: check here
+                    group.setAttribute("id", c);
 
                     insertSVGComponentIntoDefsArea(c, group, subComponents);
 
