@@ -61,34 +61,51 @@ public final class SingleLineDiagram {
         draw(network, id, svgFile, new SldParameters());
     }
 
+    public static void draw(Network network, String id, Path svgFile, IdProvider idProvider) {
+        draw(network, id, svgFile, new SldParameters(), idProvider);
+    }
+
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter) {
         draw(network, id, writerForSvg, metadataWriter, new SldParameters());
     }
 
+    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, IdProvider idProvider) {
+        draw(network, id, writerForSvg, metadataWriter, new SldParameters(), idProvider);
+    }
+
     public static void draw(Network network, String id, Path svgFile, SldParameters sldParameters) {
+        draw(network, id, svgFile, sldParameters, new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
+    }
+
+    public static void draw(Network network, String id, Path svgFile, SldParameters sldParameters, IdProvider idProvider) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
         Identifiable<?> identifiable = getIdentifiable(network, id);
 
         if (identifiable.getType() == VOLTAGE_LEVEL) {
-            drawVoltageLevel(network, id, svgFile, sldParameters);
+            drawVoltageLevel(network, id, svgFile, sldParameters, idProvider);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, svgFile, sldParameters);
+            drawSubstation(network, id, svgFile, sldParameters, idProvider);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
     }
 
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
+        draw(network, id, writerForSvg, metadataWriter, sldParameters,
+            new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
+    }
+
+    public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters, IdProvider idProvider) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
         Identifiable<?> identifiable = getIdentifiable(network, id);
         if (identifiable.getType() == VOLTAGE_LEVEL) {
-            drawVoltageLevel(network, id, writerForSvg, metadataWriter, sldParameters);
+            drawVoltageLevel(network, id, writerForSvg, metadataWriter, sldParameters, idProvider);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, writerForSvg, metadataWriter, sldParameters);
+            drawSubstation(network, id, writerForSvg, metadataWriter, sldParameters, idProvider);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
@@ -138,12 +155,16 @@ public final class SingleLineDiagram {
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
         SldParameters sldParameters = new SldParameters();
-        drawSubstation(network, id, svgFile, sldParameters, new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
+        drawSubstation(network, id, svgFile, sldParameters);
     }
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
         drawSubstation(network, substationId, svgFile, sldParameters,
             new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
+    }
+
+    public static void drawSubstation(Network network, String substationId, Path svgFile, IdProvider idProvider) {
+        drawSubstation(network, substationId, svgFile, new SldParameters(), idProvider);
     }
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters,
@@ -187,7 +208,8 @@ public final class SingleLineDiagram {
     }
 
     public static void drawMultiSubstations(Network network, List<String> substationIdList, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
-        drawMultiSubstations(network, substationIdList, writerForSvg, metadataWriter, sldParameters, new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
+        drawMultiSubstations(network, substationIdList, writerForSvg, metadataWriter, sldParameters,
+            new LegacyIdProvider(sldParameters.getSvgParameters().getPrefixId()));
     }
 
     public static void drawMultiSubstations(Network network, List<String> substationIdList, Writer writerForSvg, Writer metadataWriter,
@@ -195,10 +217,12 @@ public final class SingleLineDiagram {
         ZoneGraph zoneGraph = new NetworkGraphBuilder(network).buildZoneGraph(substationIdList);
         DefaultSVGWriter svgWriter = preDraw(zoneGraph, sldParameters, network, idProvider);
         draw(zoneGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network),
-            sldParameters.getStyleProviderFactory().create(network, sldParameters.getSvgParameters()), sldParameters.createLegendWriter(network));
+            sldParameters.getStyleProviderFactory().create(network, sldParameters.getSvgParameters()),
+            sldParameters.createLegendWriter(network));
     }
 
-    public static void draw(Graph graph, Path svgFile, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+    public static void draw(Graph graph, Path svgFile, DefaultSVGWriter svgWriter,
+                            LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         Objects.requireNonNull(svgFile);
 
         Path dir = svgFile.toAbsolutePath().getParent();
@@ -214,7 +238,8 @@ public final class SingleLineDiagram {
         }
     }
 
-    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, DefaultSVGWriter svgWriter, LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
+    public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, DefaultSVGWriter svgWriter,
+                            LabelProvider labelProvider, StyleProvider styleProvider, SVGLegendWriter legendWriter) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(writerForSvg);
         Objects.requireNonNull(metadataWriter);
@@ -233,7 +258,8 @@ public final class SingleLineDiagram {
                             LayoutParameters layoutParameters, SvgParameters svgParameters,
                             LabelProvider labelProvider, StyleProvider styleProvider,
                             SVGLegendWriter legendWriter) {
-        draw(graph, writerForSvg, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+        draw(graph, writerForSvg, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider,
+            styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
     }
 
     public static void draw(Graph graph, Writer writerForSvg, Writer metadataWriter, SldComponentLibrary componentLibrary,

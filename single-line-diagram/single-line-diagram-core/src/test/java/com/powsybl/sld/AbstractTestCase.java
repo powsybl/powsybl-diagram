@@ -121,7 +121,8 @@ public abstract class AbstractTestCase {
                         LayoutParameters layoutParameters, SvgParameters svgParameters,
                         LabelProvider labelProvider, StyleProvider styleProvider,
                         SVGLegendWriter legendWriter) {
-        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+        return toSVG(graph, filename, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider,
+            new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
     }
 
     public String toSVG(Graph graph, String filename, SldComponentLibrary componentLibrary,
@@ -130,7 +131,8 @@ public abstract class AbstractTestCase {
                         SVGLegendWriter legendWriter) {
 
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, NullWriter.nullWriter(), componentLibrary, layoutParameters,
+                svgParameters, labelProvider, styleProvider, idProvider, legendWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -151,7 +153,8 @@ public abstract class AbstractTestCase {
                              LayoutParameters layoutParameters, SvgParameters svgParameters,
                              LabelProvider labelProvider, StyleProvider styleProvider,
                              SVGLegendWriter legendWriter) {
-        return toMetadata(graph, refMetadataName, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
+        return toMetadata(graph, refMetadataName, componentLibrary, layoutParameters, svgParameters, labelProvider,
+            styleProvider, new LegacyIdProvider(svgParameters.getPrefixId()), legendWriter);
     }
 
     public String toMetadata(Graph graph, String refMetadataName, SldComponentLibrary componentLibrary,
@@ -161,7 +164,8 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, idProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters,
+                labelProvider, styleProvider, idProvider, legendWriter);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
