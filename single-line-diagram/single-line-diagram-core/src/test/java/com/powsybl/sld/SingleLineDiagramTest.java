@@ -56,73 +56,73 @@ class SingleLineDiagramTest extends AbstractTestCaseIidm {
     @Test
     void testDraw() throws IOException {
         SingleLineDiagram.draw(network, "VL1", svgPath);
-        assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         SingleLineDiagram.draw(network, "VL1", svgPath, new LegacyIdProvider("Legacy"));
-        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(network, "VL1", writer, new StringWriter());
-            assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(network, "VL1", writer, new StringWriter(), new LegacyIdProvider("Legacy"));
-            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         SingleLineDiagram.draw(network, "VL1", svgPath, sldParameters);
-        assertEquals(toString("/TestDrawVL1PrefixTest.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixTest.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         SingleLineDiagram.draw(network, "VL1", svgPath, sldParameters, new LegacyIdProvider("Legacy"));
-        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(network, "VL1", writer, new StringWriter(), sldParameters);
-            assertEquals(toString("/TestDrawVL1PrefixTest.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixTest.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(network, "VL1", writer, new StringWriter(), sldParameters, new LegacyIdProvider("Legacy"));
-            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(writer.toString()));
         }
     }
 
     @Test
     void testDrawVoltageLevel() throws IOException {
         SingleLineDiagram.drawVoltageLevel(network, "VL1", svgPath);
-        assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixEmpty.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         SingleLineDiagram.drawVoltageLevel(network, "VL1", svgPath, new LegacyIdProvider("Legacy"));
-        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawVoltageLevel(network, "VL1", writer, new StringWriter(), sldParameters);
-            assertEquals(toString("/TestDrawVL1PrefixTest.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixTest.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawVoltageLevel(network, "VL1", writer, new StringWriter(), sldParameters, new LegacyIdProvider("Legacy"));
-            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), writer.toString());
+            assertEquals(toString("/TestDrawVL1PrefixLegacy.svg"), normalizeLineSeparator(writer.toString()));
         }
     }
 
     @Test
     void testDrawSubstation() throws IOException {
         SingleLineDiagram.drawSubstation(network, "S1", svgPath);
-        assertEquals(toString("/TestDrawS1PrefixEmpty.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawS1PrefixEmpty.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         SingleLineDiagram.drawSubstation(network, "S1", svgPath, new LegacyIdProvider("Legacy"));
-        assertEquals(toString("/TestDrawS1PrefixLegacy.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawS1PrefixLegacy.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawSubstation(network, "S1", writer, new StringWriter(), sldParameters);
-            assertEquals(toString("/TestDrawS1PrefixTest.svg"), writer.toString());
+            assertEquals(toString("/TestDrawS1PrefixTest.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawSubstation(network, "S1", writer, new StringWriter(), sldParameters, new LegacyIdProvider("Legacy"));
-            assertEquals(toString("/TestDrawS1PrefixLegacy.svg"), writer.toString());
+            assertEquals(toString("/TestDrawS1PrefixLegacy.svg"), normalizeLineSeparator(writer.toString()));
         }
     }
 
@@ -131,19 +131,19 @@ class SingleLineDiagramTest extends AbstractTestCaseIidm {
         network = Networks.createTestCase11Network();
 
         SingleLineDiagram.drawMultiSubstations(network, List.of("subst", "subst2"), svgPath);
-        assertEquals(toString("/TestDrawS1S2PrefixEmpty.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawS1S2PrefixEmpty.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         SingleLineDiagram.drawMultiSubstations(network, List.of("subst", "subst2"), svgPath, new LegacyIdProvider("Legacy"));
-        assertEquals(toString("/TestDrawS1S2PrefixLegacy.svg"), toString(Files.newInputStream(svgPath)));
+        assertEquals(toString("/TestDrawS1S2PrefixLegacy.svg"), normalizeLineSeparator(toString(Files.newInputStream(svgPath))));
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawMultiSubstations(network, List.of("subst", "subst2"), writer, new StringWriter(), sldParameters);
-            assertEquals(toString("/TestDrawS1S2PrefixTest.svg"), writer.toString());
+            assertEquals(toString("/TestDrawS1S2PrefixTest.svg"), normalizeLineSeparator(writer.toString()));
         }
 
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.drawMultiSubstations(network, List.of("subst", "subst2"), writer, new StringWriter(), sldParameters, new LegacyIdProvider("Legacy"));
-            assertEquals(toString("/TestDrawS1S2PrefixLegacy.svg"), writer.toString());
+            assertEquals(toString("/TestDrawS1S2PrefixLegacy.svg"), normalizeLineSeparator(writer.toString()));
         }
     }
 }
