@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SingleLineDiagramTest extends AbstractTestCaseIidm {
 
     private FileSystem fileSystem;
+    protected Path tempDirectory;
     private Network network;
     private Path svgPath;
     private final SldParameters sldParameters = new SldParameters();
@@ -41,7 +42,7 @@ class SingleLineDiagramTest extends AbstractTestCaseIidm {
     public void setUp() throws IOException {
         network = Networks.createNetworkWithTieLineInVoltageLevel();
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
-        Path tempDirectory = fileSystem.getPath("/tmp");
+        tempDirectory = fileSystem.getPath("/tmp");
         Files.createDirectory(tempDirectory);
         svgPath = tempDirectory.resolve("test.svg");
         sldParameters.getSvgParameters().setPrefixId("Test");
