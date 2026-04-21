@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.layout.ResourceUtils;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
 import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomSetup;
@@ -71,22 +72,30 @@ class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayoutWithOverlappingPoints() {
-        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
+        LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext2();
         //set position of 0 to be position of 1
-        layoutContext.getMovingPoints().get("0").setPosition(GraphTestData.getPoints1()[1].getPosition());
+        Vector2D position1 = layoutContext.getMovingPoints().get("1").getPosition();
+        layoutContext.getMovingPoints().get("0").setPosition(new Vector2D(position1.getX(), position1.getY()));
         LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>();
         atlas2.run(layoutContext);
         checkPointPositionAllDifferent(layoutContext);
 
-        layoutContext.getMovingPoints().get("2").setPosition(GraphTestData.getPoints1()[3].getPosition());
+        Vector2D position3 = layoutContext.getMovingPoints().get("3").getPosition();
+        layoutContext.getMovingPoints().get("2").setPosition(new Vector2D(position3.getX(), position3.getY()));
         PostProcessing<String, DefaultEdge> noOverlapPostProcessing = new OverlapPreventionPostProcessing<>();
         noOverlapPostProcessing.run(layoutContext);
         checkPointPositionAllDifferent(layoutContext);
+
+        StringWriter sw = new StringWriter();
+        layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
+        assertEquals(ResourceUtils.toString("atlas2_10_nodes_BH_NoOverlap_force_position_equality.svg"), sw.toString());
     }
 
     public void checkPointPositionAllDifferent(LayoutContext<String, DefaultEdge> layoutContext) {
         List<Point> allPoints = new ArrayList<>(layoutContext.getAllPoints().values());
         for (int i = 0; i < allPoints.size(); ++i) {
+            assertFalse(Double.isNaN(allPoints.get(i).getPosition().getX()));
+            assertFalse(Double.isNaN(allPoints.get(i).getPosition().getY()));
             for (int j = i + 1; j < allPoints.size(); ++j) {
                 assertNotEquals(allPoints.get(i).getPosition(), allPoints.get(j).getPosition());
             }
