@@ -64,7 +64,6 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
     ) {
         // The force goes from the otherPoint to the point (repulsion)
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
-        double magnitudeSquare = force.magnitudeSquare();
         // divide by magnitude^2 because the force multiplies the unit vector by something/magnitude
         // the unit vector is Vector/magnitude, thus the force is Vector/magnitude * something/magnitude, thus Vector/magnitude^2
         // if we just use the vector and not the unit vector, points that are further away will have the same influence as points that are close
@@ -75,7 +74,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
         double intensity = forceIntensity
             * (point.getPointVertexDegree() + 1)
             * (otherPoint.getMass())
-            / magnitudeSquare; // no need to check division by 0, apply already does that
+            / force.magnitudeSquare(); // no need to check division by 0, apply already does that
         force.multiplyBy(intensity);
         resultingForce.add(force);
     }

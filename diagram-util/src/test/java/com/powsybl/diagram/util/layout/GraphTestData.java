@@ -17,6 +17,9 @@ import org.jgrapht.graph.DefaultUndirectedGraph;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -114,6 +117,17 @@ public final class GraphTestData {
         setup.run(layoutContext);
         for (Map.Entry<String, Point> vertexPoint : layoutContext.getAllPoints().entrySet()) {
             vertexPoint.getValue().setPointVertexDegree(layoutContext.getSimpleGraph().degreeOf(vertexPoint.getKey()));
+        }
+    }
+
+    public static void checkPointPositionAllDifferent(LayoutContext<String, DefaultEdge> layoutContext) {
+        List<Point> allPoints = new ArrayList<>(layoutContext.getAllPoints().values());
+        for (int i = 0; i < allPoints.size(); ++i) {
+            assertFalse(Double.isNaN(allPoints.get(i).getPosition().getX()));
+            assertFalse(Double.isNaN(allPoints.get(i).getPosition().getY()));
+            for (int j = i + 1; j < allPoints.size(); ++j) {
+                assertNotEquals(allPoints.get(i).getPosition(), allPoints.get(j).getPosition());
+            }
         }
     }
 }
