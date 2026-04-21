@@ -75,7 +75,7 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
             double intensity = forceIntensity
                 * (vertexDegree + 1)
                 * (otherPoint.getPointVertexDegree() + 1)
-                / force.magnitudeSquare();
+                / magnitudeSquare;
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {

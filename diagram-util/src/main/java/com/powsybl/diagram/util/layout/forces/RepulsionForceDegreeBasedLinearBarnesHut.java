@@ -76,7 +76,7 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
             double intensity = forceIntensity
                 * (point.getPointVertexDegree() + 1)
                 * (otherPoint.getMass())
-                / force.magnitudeSquare();
+                / magnitudeSquare;
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
