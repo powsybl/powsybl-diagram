@@ -69,12 +69,22 @@ class Atlas2ForceLayoutAlgorithmTest {
 
     @Test
     void calculateLayoutWithOverlappingPoints() {
+        checkPointOverlap(new Atlas2ForceLayoutAlgorithm<>(), "atlas2_10_nodes_BH_NoOverlap_force_position_equality.svg");
+    }
+
+    @Test
+    void calculateLayoutWithOverlappingPointsNoBH() {
+        checkPointOverlap(
+            new Atlas2ForceLayoutAlgorithm<>(new Atlas2Parameters.Builder().withBarnesHutDisabled().build()),
+            "atlas2_10_nodes_BH_NoOverlap_force_position_equality_no_bh.svg");
+    }
+
+    private void checkPointOverlap(LayoutAlgorithm<String, DefaultEdge> algorithm, String resourceName) {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext2();
         //set position of 0 to be position of 1
         Vector2D position1 = layoutContext.getMovingPoints().get("1").getPosition();
         layoutContext.getMovingPoints().get("0").setPosition(new Vector2D(position1.getX(), position1.getY()));
-        LayoutAlgorithm<String, DefaultEdge> atlas2 = new Atlas2ForceLayoutAlgorithm<>();
-        atlas2.run(layoutContext);
+        algorithm.run(layoutContext);
         GraphTestData.checkPointPositionAllDifferent(layoutContext);
 
         Vector2D position3 = layoutContext.getMovingPoints().get("3").getPosition();
@@ -85,7 +95,7 @@ class Atlas2ForceLayoutAlgorithmTest {
 
         StringWriter sw = new StringWriter();
         layoutContext.toSVG(v -> String.format("Vertex %s", v), sw);
-        assertEquals(ResourceUtils.toString("atlas2_10_nodes_BH_NoOverlap_force_position_equality.svg"), sw.toString());
+        assertEquals(ResourceUtils.toString(resourceName), sw.toString());
     }
 
 }
