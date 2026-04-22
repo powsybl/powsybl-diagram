@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A repulsion force between a point and all the other points of the graph. It is simpler to calculate than the coulomb force.
@@ -22,6 +23,7 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
 
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
+    private Random random;
 
     public RepulsionForceDegreeBasedLinear(double forceIntensity, boolean effectFromFixedNodes) {
         this.forceIntensity = forceIntensity;
@@ -79,7 +81,10 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
-            resultingForce.add(new Vector2D(1, 1));
+            if (random == null) {
+                random = new Random(45L);
+            }
+            resultingForce.add(new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2)));
         }
 
     }

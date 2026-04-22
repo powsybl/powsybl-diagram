@@ -12,6 +12,8 @@ import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
+import java.util.Random;
+
 /**
  * A repulsion between a point and all the other points of the graph. This is similar to the electrostatic repulsion force.
  * The force is stronger at close distance and gets smaller as points get further away.
@@ -21,6 +23,7 @@ public class CoulombForce<V, E> implements Force<V, E> {
 
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
+    private Random random;
 
     public CoulombForce(double forceIntensity, boolean effectFromFixedNodes) {
         this.forceIntensity = forceIntensity;
@@ -61,7 +64,10 @@ public class CoulombForce<V, E> implements Force<V, E> {
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
-            resultingForce.add(new Vector2D(1, 1));
+            if (random == null) {
+                random = new Random(45L);
+            }
+            resultingForce.add(new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2)));
         }
     }
 }

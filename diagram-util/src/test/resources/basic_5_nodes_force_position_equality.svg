@@ -8,15 +8,15 @@ line {stroke: purple; stroke-width: 2}
 </style>
 <g>
 <title>Vertex 0</title>
-<circle cx="525.35" cy="568.12" r="10"/>
+<circle cx="525.35" cy="568.11" r="10"/>
 </g>
 <g>
 <title>Vertex 2</title>
-<circle cx="60.00" cy="530.29" r="10"/>
+<circle cx="60.00" cy="530.27" r="10"/>
 </g>
 <g>
 <title>Vertex 3</title>
-<circle cx="843.25" cy="940.00" r="10"/>
+<circle cx="843.23" cy="940.00" r="10"/>
 </g>
 <g>
 <title>Vertex 4</title>
@@ -24,10 +24,10 @@ line {stroke: purple; stroke-width: 2}
 </g>
 <g>
 <title>Vertex 1</title>
-<circle cx="282.20" cy="179.24" r="10"/>
+<circle cx="282.20" cy="179.23" r="10"/>
 </g>
-<line x1="282.20" y1="179.24" x2="525.35" y2="568.12"/>
-<line x1="60.00" y1="530.29" x2="282.20" y2="179.24"/>
-<line x1="525.35" y1="568.12" x2="60.00" y2="530.29"/>
-<line x1="843.25" y1="940.00" x2="525.35" y2="568.12"/>
+<line x1="282.20" y1="179.23" x2="525.35" y2="568.11"/>
+<line x1="60.00" y1="530.27" x2="282.20" y2="179.23"/>
+<line x1="525.35" y1="568.11" x2="60.00" y2="530.27"/>
+<line x1="843.23" y1="940.00" x2="525.35" y2="568.11"/>
 </svg>
