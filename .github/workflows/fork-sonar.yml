@@ -180,16 +180,16 @@ jobs:
           args: >
             -Dsonar.projectKey=com.powsybl:powsybl-diagram
             -Dsonar.organization=powsybl-ci-github
-            -Dsonar.sources=${{ env.SOURCES }}
-            -Dsonar.generatedSources=${{ env.GENERATED }}
-            -Dsonar.tests=${{ env.TESTS }}
-            -Dsonar.java.binaries=${{ env.BINARIES }}
-            -Dsonar.java.libraries=${{ env.LIBRARIES }}
-            -Dsonar.java.test.libraries=${{ env.LIBRARIES }}
-            -Dsonar.coverage.jacoco.xmlReportPaths="distribution-diagram/target/site/jacoco-aggregate/jacoco.xml"
-            -Dsonar.pullrequest.key=${{ env.PR_NUMBER }}
-            -Dsonar.pullrequest.branch=${{ env.HEAD_REF }}
-            -Dsonar.pullrequest.base=${{ env.BASE_REF }}
+            "-Dsonar.sources=${{ env.SOURCES }}"
+            "-Dsonar.generatedSources=${{ env.GENERATED }}"
+            "-Dsonar.tests=${{ env.TESTS }}"
+            "-Dsonar.java.binaries=${{ env.BINARIES }}"
+            "-Dsonar.java.libraries=${{ env.LIBRARIES }}"
+            "-Dsonar.java.test.libraries=${{ env.LIBRARIES }}"
+            "-Dsonar.coverage.jacoco.xmlReportPaths=distribution-diagram/target/site/jacoco-aggregate/jacoco.xml"
+            "-Dsonar.pullrequest.key=${{ env.PR_NUMBER }}"
+            "-Dsonar.pullrequest.branch=${{ env.HEAD_REF }}"
+            "-Dsonar.pullrequest.base=${{ env.BASE_REF }}"
             -Dsonar.pullrequest.provider=github
             -Dsonar.pullrequest.github.repository=${{ github.repository }}
             -Dsonar.host.url=https://sonarcloud.io
