@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -81,10 +82,7 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
-            if (random == null) {
-                random = new Random(45L);
-            }
-            resultingForce.add(new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2)));
+            resultingForce.add(RandomForce.getRandomForce());
         }
 
     }
