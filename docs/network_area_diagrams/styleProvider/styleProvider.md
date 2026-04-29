@@ -22,15 +22,15 @@ Branches which are overloaded are marked with class `nad-overload`. If default C
 ### Subnetworks
 The classes added by the style provider for the "highlight" graph duplicate are based on the subnetwork corresponding to each element.
 With default CSS used, this leads to subnetworks being highlighted.
-> Note: the `SvgParameters` attribute highlightGraph` needs to be set to `true`, so that the SvgWriter adds that simplified "highlight" graph duplicate, which contains only branches and voltage level nodes.
+> Note: the `SvgParameters` attribute `highlightGraph` needs to be set to `true`, so that the `SvgWriter` adds that simplified "highlight" graph duplicate, which contains only branches and voltage level nodes.
 
 ![subnetworks](/_static/img/nad/subnetworks.png)
 
 
 ## NominalStyleProvider feature
-The voltage level nodes are marked with a class depending on their nominal voltage, leading to one colour for each range of nominal voltages defined by the BaseVoltagesConfig. 
+The voltage level nodes are marked with a class depending on their nominal voltage, leading to one colour for each range of nominal voltages defined by the `BaseVoltagesConfig`. 
 
 ## TopologicalStyleProvider feature
 The bus nodes of a voltage level are each marked with a class depending on the nominal voltage and on their bus index.
-This leads to a colour shading for each range of nominal voltages defined by the BaseVoltagesConfig.
+This leads to a colour shading for each range of nominal voltages defined by the `BaseVoltagesConfig`.
 The text node of corresponding voltage level gives a legend for the colour shading, based on the selected given `LabelProvider` - the default being the voltage and angle. 

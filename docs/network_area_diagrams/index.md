@@ -11,6 +11,7 @@ layout/layout.md
 labelProvider/labelProvider.md
 styleProvider/styleProvider.md
 edgeRouting/edgeRouting.md
+svgParameters/svgParameters.md
 ```
 
 

@@ -10,6 +10,7 @@ hidden: true
 model/graphBuilderCreationRequirements.md
 layout/layout.md
 styleProvider/styleProvider.md
+svgParameters/svgParameters.md
 ```
 
 
