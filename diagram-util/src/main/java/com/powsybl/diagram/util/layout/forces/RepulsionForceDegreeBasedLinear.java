@@ -7,6 +7,7 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
+import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -63,18 +64,24 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
     ) {
         // The force goes from the otherPoint to the point (repulsion)
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
-        // divide by magnitude^2 because the force multiplies the unit vector by something/magnitude
-        // the unit vector is Vector/magnitude, thus the force is Vector/magnitude * something/magnitude, thus Vector/magnitude^2
-        // if we just use the vector and not the unit vector, points that are further away will have the same influence as points that are close
-        // this is easy to explain as the formula is Vector * k * deg(n1) * deg(n2)/distance
-        // which would be UnitVector * k * deg(n1) * deg(n2)
-        // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
-        // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
-        double intensity = forceIntensity
+        double magnitudeSquare = force.magnitudeSquare();
+        if (magnitudeSquare != 0) {
+            // divide by magnitude^2 because the force multiplies the unit vector by something/magnitude
+            // the unit vector is Vector/magnitude, thus the force is Vector/magnitude * something/magnitude, thus Vector/magnitude^2
+            // if we just use the vector and not the unit vector, points that are further away will have the same influence as points that are close
+            // this is easy to explain as the formula is Vector * k * deg(n1) * deg(n2)/distance
+            // which would be UnitVector * k * deg(n1) * deg(n2)
+            // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
+            // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
+            double intensity = forceIntensity
                 * (vertexDegree + 1)
                 * (otherPoint.getPointVertexDegree() + 1)
-                / force.magnitudeSquare();
-        force.multiplyBy(intensity);
-        resultingForce.add(force);
+                / magnitudeSquare;
+            force.multiplyBy(intensity);
+            resultingForce.add(force);
+        } else {
+            resultingForce.add(RandomForce.getRandomForce());
+        }
+
     }
 }
