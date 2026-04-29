@@ -14,7 +14,6 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.util.Map;
-import java.util.Random;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -25,7 +24,6 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
     private final double repulsionZoneRatio;
     private double repulsionZoneRadius;
     private final NoOverlapPointSize pointSizeRecord;
-    private Random random;
 
     /**
      * Build a repulsion force to prevent overlap of points that have a given pointSize, only consider points closer than pointSize * repulsionZoneRatio for the repulsion interaction
