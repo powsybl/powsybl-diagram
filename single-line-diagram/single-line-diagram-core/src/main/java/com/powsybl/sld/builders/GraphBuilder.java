@@ -8,6 +8,7 @@ package com.powsybl.sld.builders;
 
 import java.util.List;
 
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.model.graphs.*;
 
 /**
@@ -29,6 +30,12 @@ public interface GraphBuilder {
      * Build substation graph within the given parent zone graph.
      */
     SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph);
+
+    /**
+     * Build substation graph within the parent zone graph, reducing groups of equipment into an equivalent as defined by
+     * {@link com.powsybl.iidm.network.util.Networks#getReducibleTransformerDataStream(Substation)}
+     */
+    SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph, boolean reduceVoltageLevels);
 
     /**
      * Build substation graph with no parent graph. This means the root graph is the created substation graph.

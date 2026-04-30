@@ -71,10 +71,16 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
         List<FeederInfo> measures = new ArrayList<>();
-        Injection<?> injection = (Injection<?>) network.getIdentifiable(node.getEquipmentId());
-        if (injection != null) {
-            measures = buildFeederInfos(injection);
+        Terminal injectionTerminal = node.getTerminal();
+        if (injectionTerminal == null) {
+            Injection<?> injection = (Injection<?>) network.getIdentifiable(node.getEquipmentId());
+            if (injection != null) {
+                measures = buildFeederInfos(injection);
+            }
+        } else {
+            measures = buildFeederInfos(injectionTerminal);
         }
+
         return measures;
     }
 

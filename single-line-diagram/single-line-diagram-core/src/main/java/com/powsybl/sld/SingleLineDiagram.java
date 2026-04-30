@@ -74,7 +74,7 @@ public final class SingleLineDiagram {
         if (identifiable.getType() == VOLTAGE_LEVEL) {
             drawVoltageLevel(network, id, svgFile, sldParameters);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, svgFile, sldParameters);
+            drawSubstation(network, id, svgFile, sldParameters, false);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
@@ -119,19 +119,27 @@ public final class SingleLineDiagram {
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new SldParameters());
+        drawSubstation(network, id, svgFile, false);
     }
 
-    private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
-        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
+    private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters, boolean reduceVoltageLevels) {
+        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId, null, reduceVoltageLevels);
         DefaultSVGWriter svgWriter = preDraw(substationGraph, sldParameters, network);
         draw(substationGraph, svgFile, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network, sldParameters.getSvgParameters()), sldParameters.createLegendWriter(network));
     }
 
     public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters) {
-        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
+        drawSubstation(network, substationId, writerForSvg, metadataWriter, sldParameters, false);
+    }
+
+    public static void drawSubstation(Network network, String substationId, Writer writerForSvg, Writer metadataWriter, SldParameters sldParameters, boolean reduceVoltageLevels) {
+        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId, null, reduceVoltageLevels);
         DefaultSVGWriter svgWriter = preDraw(substationGraph, sldParameters, network);
         draw(substationGraph, writerForSvg, metadataWriter, svgWriter, sldParameters.createLabelProvider(network), sldParameters.getStyleProviderFactory().create(network, sldParameters.getSvgParameters()), sldParameters.createLegendWriter(network));
+    }
+
+    public static void drawSubstation(Network network, String substationId, Path svgFile, boolean reduceVoltageLevels) {
+        drawSubstation(network, substationId, svgFile, new SldParameters(), reduceVoltageLevels);
     }
 
     public static void drawMultiSubstations(Network network, List<String> substationIdList, Path svgFile) {

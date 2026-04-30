@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.iidm.network.util.Networks;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.BaseGraph;
 import com.powsybl.sld.model.graphs.Graph;
@@ -61,6 +62,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private static final ServiceLoaderCache<GraphBuildPostProcessor> POST_PROCESSOR_LOADER = new ServiceLoaderCache<>(GraphBuildPostProcessor.class);
 
     private final Network network;  // IIDM network
+
+    private final Set<String> reducibleVoltageLevelIds = new HashSet<>();
+
+    private final Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap = new HashMap<>();
 
     public NetworkGraphBuilder(Network network) {
         this.network = Objects.requireNonNull(network);
@@ -154,10 +159,34 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     @Override
     public SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph) {
+        return buildSubstationGraph(id, parentGraph, false);
+    }
+
+    @Override
+    public SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph, boolean reduceVoltageLevels) {
         // get the substation from id
         Substation substation = network.getSubstation(id);
         if (substation == null) {
             throw new PowsyblException("Substation '" + id + "' not found !!");
+        }
+
+        if (reduceVoltageLevels) {
+            Networks.getReducibleTransformerDataStream(substation)
+                .forEach(d -> {
+                    reducibleVoltageLevelIds
+                        .add(
+                            d.transformer()
+                                .getTerminal(d.reducibleSide())
+                                .getVoltageLevel()
+                                .getId()
+                        );
+                    vlGeneratorReplacementMap
+                        .put(
+                            d.transformer().getId(),
+                            d
+                        );
+                    }
+                );
         }
 
         // build the substation graph from the substation
@@ -175,6 +204,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void buildSubstationGraph(SubstationGraph graph, Substation substation) {
         // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
         substation.getVoltageLevelStream()
+                .filter(v -> !reducibleVoltageLevelIds.contains(v.getId()))
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed())
                 .forEach(v -> {
@@ -226,9 +256,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
+        protected final Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap;
 
         protected AbstractGraphBuilder(VoltageLevelGraph graph) {
             this.graph = graph;
+            this.vlGeneratorReplacementMap = new HashMap<>();
+        }
+
+        protected AbstractGraphBuilder(VoltageLevelGraph graph, Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap) {
+            this.graph = graph;
+            this.vlGeneratorReplacementMap = Objects.requireNonNull(vlGeneratorReplacementMap);
         }
 
         protected abstract void addTerminalNode(Node node, Terminal terminal);
@@ -423,8 +460,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
+            if (replacedTransformerWithEquivalentGenerator(transformer)) {
+                return;
+            }
             Node transformerNode = createFeeder2wtNode(graph, transformer, side);
             addTerminalNode(transformerNode, transformer.getTerminal(side));
+        }
+
+        private boolean replacedTransformerWithEquivalentGenerator(TwoWindingsTransformer transformer) {
+            Networks.ReducibleTransformerData data = vlGeneratorReplacementMap.get(transformer.getId());
+            if (data != null) {
+                TwoSides terminalSide = data.reducibleSide() == TwoSides.ONE ? TwoSides.TWO : TwoSides.ONE;
+                String equivalentGeneratorId = data.toBeReplacedGenerators().stream().map(Generator::getId).collect(Collectors.joining());
+                Terminal terminal = transformer.getTerminal(terminalSide);
+                addTerminalNode(NodeFactory.createEquivalentGenerator(graph, equivalentGeneratorId, equivalentGeneratorId, terminal), terminal);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         @Override
@@ -464,6 +517,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
             super(graph);
+            this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
+        }
+
+        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber, Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap) {
+            super(graph, vlGeneratorReplacementMap);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
@@ -565,6 +623,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
+        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId, Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap) {
+            super(graph, vlGeneratorReplacementMap);
+            this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
+        }
+
         private void connectToBus(Node node, Terminal terminal) {
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
             graph.addEdge(nodesByBusId.get(busId), node);
@@ -602,6 +665,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return new BusBreakerGraphBuilder(graph, nodesByBusId);
     }
 
+    protected BusBreakerGraphBuilder createBusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId, Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap) {
+        return new BusBreakerGraphBuilder(graph, nodesByBusId, vlGeneratorReplacementMap);
+    }
+
     private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<String, Node> nodesByBusId = new HashMap<>();
 
@@ -613,7 +680,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // visit equipments
-        vl.visitEquipments(createBusBreakerGraphBuilder(graph, nodesByBusId));
+        vl.visitEquipments(createBusBreakerGraphBuilder(graph, nodesByBusId, vlGeneratorReplacementMap));
 
         // switches
         for (Switch sw : vl.getBusBreakerView().getSwitches()) {
@@ -630,11 +697,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return new NodeBreakerGraphBuilder(graph, nodesByNumber);
     }
 
+    protected NodeBreakerGraphBuilder createNodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber, Map<String, Networks.ReducibleTransformerData> vlGeneratorReplacementMap) {
+        return new NodeBreakerGraphBuilder(graph, nodesByNumber, vlGeneratorReplacementMap);
+    }
+
     private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<Integer, Node> nodesByNumber = new HashMap<>();
 
         // visit equipments
-        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber));
+        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber, vlGeneratorReplacementMap));
 
         // switches
         for (Switch sw : vl.getNodeBreakerView().getSwitches()) {
@@ -721,6 +792,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
         for (TwoWindingsTransformer transfo : twoWindingsTransformers) {
+            if (vlGeneratorReplacementMap.containsKey(transfo.getId())) {
+                //if the transformer + topology behind was replaced by an equivalent generator, there is no need to add edges for it
+                continue;
+            }
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
 

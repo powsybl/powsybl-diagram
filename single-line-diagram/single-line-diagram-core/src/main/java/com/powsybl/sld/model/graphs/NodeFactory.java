@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.components.ComponentTypeName;
+import com.powsybl.iidm.network.Terminal;
 import com.powsybl.sld.library.SldComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -78,10 +79,14 @@ public final class NodeFactory {
         return bn;
     }
 
-    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
-        FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation);
+    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation, Terminal terminal) {
+        FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation, terminal);
         graph.addNode(fn);
         return fn;
+    }
+
+    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
+        return createFeederNode(graph, id, name, equipmentId, componentTypeName, fictitious, feeder, orientation, null);
     }
 
     public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Feeder feeder) {
@@ -98,6 +103,10 @@ public final class NodeFactory {
 
     public static FeederNode createGenerator(VoltageLevelGraph graph, String id, String name) {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.GENERATOR);
+    }
+
+    public static FeederNode createEquivalentGenerator(VoltageLevelGraph graph, String id, String name, Terminal terminal) {
+        return createFeederNode(graph, id, name, id, ComponentTypeName.GENERATOR, true, new BaseFeeder(FeederType.INJECTION), null, terminal);
     }
 
     public static FeederNode createBattery(VoltageLevelGraph graph, String id, String name) {

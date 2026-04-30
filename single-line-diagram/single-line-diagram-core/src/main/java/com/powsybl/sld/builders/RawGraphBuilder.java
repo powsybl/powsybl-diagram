@@ -11,6 +11,7 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.graphs.ZoneGraph;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -97,6 +98,12 @@ public class RawGraphBuilder implements GraphBuilder {
     @Override
     public SubstationGraph buildSubstationGraph(String id) {
         return buildSubstationGraph(id, null);
+    }
+
+    @Override
+    public SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph, boolean reduceVoltageLevels) {
+        //TODO to reduce we need the network, how can we do that here ?
+        throw new NotImplementedException("Reducing voltage levels is not implemented for a raw graph builder");
     }
 
     @Override

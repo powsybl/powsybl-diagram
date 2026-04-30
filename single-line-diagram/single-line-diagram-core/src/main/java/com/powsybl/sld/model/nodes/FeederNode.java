@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.iidm.network.Terminal;
 import com.powsybl.sld.model.coordinate.Orientation;
 
 import java.io.IOException;
@@ -22,11 +23,17 @@ import java.util.Optional;
 public class FeederNode extends EquipmentNode {
 
     private final Feeder feeder;
+    private final Terminal terminal;
 
     public FeederNode(String id, String name, String equipmentId, String componentTypeName, boolean fictitious,
                          Feeder feeder, Orientation orientation) {
+        this(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation, null);
+    }
+
+    public FeederNode(String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation, Terminal terminal) {
         super(NodeType.FEEDER, id, name, equipmentId, componentTypeName, fictitious);
         this.feeder = Objects.requireNonNull(feeder);
+        this.terminal = terminal;
         setOrientation(orientation);
     }
 
@@ -36,6 +43,10 @@ public class FeederNode extends EquipmentNode {
 
     public Feeder getFeeder() {
         return feeder;
+    }
+
+    public Terminal getTerminal() {
+        return terminal;
     }
 
     @Override
