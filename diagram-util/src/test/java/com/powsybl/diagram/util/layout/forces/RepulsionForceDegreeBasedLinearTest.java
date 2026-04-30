@@ -13,6 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
+import java.util.SplittableRandom;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -24,7 +26,8 @@ class RepulsionForceDegreeBasedLinearTest {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
         RepulsionForceDegreeBasedLinear<String, DefaultEdge> repulsionForceDegreeBasedLinear = new RepulsionForceDegreeBasedLinear<>(
                         0.34,
-                        true
+                        true,
+                new SplittableRandom()
         );
         repulsionForceDegreeBasedLinear.init(layoutContext);
         String[] vertexToTest = {"0", "4"};
@@ -37,7 +40,8 @@ class RepulsionForceDegreeBasedLinearTest {
 
         RepulsionForceDegreeBasedLinear<String, DefaultEdge> repulsionForceDegreeBasedLinearNoFixed = new RepulsionForceDegreeBasedLinear<>(
                         0.34,
-                        false
+                        false,
+                new SplittableRandom()
         );
 
         Vector2D[] resultVectorNoFixed = {

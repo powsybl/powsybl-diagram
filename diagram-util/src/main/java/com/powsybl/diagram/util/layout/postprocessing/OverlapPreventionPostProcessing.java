@@ -11,6 +11,7 @@ import com.powsybl.diagram.util.layout.forces.AttractToCenterForceDegreeBasedLin
 import com.powsybl.diagram.util.layout.forces.EdgeAttractionForceNoOverlapLinear;
 import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.forces.RepulsionForceDegreeBasedNoOverlapLinear;
+import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -19,6 +20,7 @@ import com.powsybl.diagram.util.layout.postprocessing.parameters.OverlapPreventi
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.random.RandomGenerator;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -54,7 +56,7 @@ public class OverlapPreventionPostProcessing<V, E> implements PostProcessing<V, 
         pointSize = parameters.getPointSizeScale() * layoutContext.getAllPoints().size() + parameters.getPointSizeOffset();
         List<Force<V, E>> forces = List.of(
                 new EdgeAttractionForceNoOverlapLinear<>(parameters.getEdgeAttractionIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset()),
-                new RepulsionForceDegreeBasedNoOverlapLinear<>(parameters.getRepulsionNoOverlapIntensity(), parameters.getRepulsionWithOverlapIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset(), parameters.getRepulsionZoneRatio()),
+                new RepulsionForceDegreeBasedNoOverlapLinear<>(parameters.getRepulsionNoOverlapIntensity(), parameters.getRepulsionWithOverlapIntensity(), parameters.getPointSizeScale(), parameters.getPointSizeOffset(), parameters.getRepulsionZoneRatio(), new RandomForce().getRandomGenerator()),
                 new AttractToCenterForceDegreeBasedLinear<>(parameters.getAttractToCenterIntensity())
         );
 

@@ -10,12 +10,14 @@ package com.powsybl.diagram.util.layout.algorithms;
 import com.powsybl.commons.ref.RefObj;
 import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
 import com.powsybl.diagram.util.layout.forces.*;
+import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.*;
 import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.random.RandomGenerator;
 
 /**
  * <p>
@@ -39,6 +41,7 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
     private final List<Force<V, E>> forces = new ArrayList<>();
     private static final Logger LOGGER = LoggerFactory.getLogger(Atlas2ForceLayoutAlgorithm.class);
     private final RefObj<Quadtree> quadtreeContainer = new RefObj<>(null);
+    private final RandomGenerator randomGenerator = new RandomForce().getRandomGenerator();
 
     // The magic numbers
     // totally empirical, and not present in the original Atlas2 paper
@@ -182,7 +185,8 @@ public class Atlas2ForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
         } else {
             this.forces.add(new RepulsionForceDegreeBasedLinear<>(
                     parameters.getRepulsionIntensity(),
-                true
+                true,
+                    randomGenerator
             ));
         }
     }

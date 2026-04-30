@@ -13,7 +13,8 @@ import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.util.Map;
-import java.util.Random;
+import java.util.Objects;
+import java.util.random.RandomGenerator;
 
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
@@ -24,7 +25,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
     private final double repulsionZoneRatio;
     private double repulsionZoneRadius;
     private final NoOverlapPointSize pointSizeRecord;
-    private Random random;
+    private final RandomGenerator randomGenerator;
 
     /**
      * Build a repulsion force to prevent overlap of points that have a given pointSize, only consider points closer than pointSize * repulsionZoneRatio for the repulsion interaction
@@ -34,13 +35,14 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
      * @param pointSizeOffset offset for the size of the point, get the size of a point via scale * graph size + offset
      * @param repulsionZoneRatio the zone in which to consider the interaction with other points is a disc of radius repulsionZoneRatio * pointSize
      */
-    public RepulsionForceDegreeBasedNoOverlapLinear(double forceIntensityNoOverlap, double forceIntensityWithOverlap, double pointSizeScale, double pointSizeOffset, double repulsionZoneRatio) {
+    public RepulsionForceDegreeBasedNoOverlapLinear(double forceIntensityNoOverlap, double forceIntensityWithOverlap, double pointSizeScale, double pointSizeOffset, double repulsionZoneRatio, RandomGenerator randomGenerator) {
         this.forceIntensityNoOverlap = forceIntensityNoOverlap;
         this.forceIntensityWithOverlap = forceIntensityWithOverlap;
         this.repulsionZoneRatio = repulsionZoneRatio;
         // using default value, will change later
         this.pointSizeRecord = new NoOverlapPointSize(pointSizeScale, pointSizeOffset);
         this.repulsionZoneRadius = pointSizeRecord.getPointSize() * repulsionZoneRatio;
+        this.randomGenerator = Objects.requireNonNull(randomGenerator);
     }
 
     @Override
@@ -91,10 +93,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
                 force.multiplyBy(intensity);
                 resultingForce.add(force);
             } else {
-                if (random == null) {
-                    random = new Random(45L);
-                }
-                resultingForce.add(new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2)));
+                resultingForce.add(new Vector2D(randomGenerator.nextDouble(1, 2), randomGenerator.nextDouble(1, 2)));
             }
         }
     }

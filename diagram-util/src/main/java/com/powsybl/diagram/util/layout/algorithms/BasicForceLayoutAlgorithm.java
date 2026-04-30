@@ -13,6 +13,7 @@ import com.powsybl.diagram.util.layout.forces.AttractToCenterForceLinear;
 import com.powsybl.diagram.util.layout.forces.CoulombForce;
 import com.powsybl.diagram.util.layout.forces.Force;
 import com.powsybl.diagram.util.layout.forces.SpringForce;
+import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.random.RandomGenerator;
 
 /**
  * The following algorithm is a force layout algorithm.
@@ -35,13 +37,15 @@ public class BasicForceLayoutAlgorithm<V, E> implements LayoutAlgorithm<V, E> {
 
     private final BasicForceLayoutParameters layoutParameters;
     private final List<Force<V, E>> forces = new ArrayList<>();
+    private final RandomGenerator randomGenerator = new RandomForce().getRandomGenerator();
 
     public BasicForceLayoutAlgorithm(BasicForceLayoutParameters layoutParameters) {
         Objects.requireNonNull(layoutParameters);
         this.forces.add(new SpringForce<>());
         this.forces.add(new CoulombForce<>(
             layoutParameters.getRepulsionIntensity(),
-            layoutParameters.isRepulsionFromFixedPointsEnabled()
+            layoutParameters.isRepulsionFromFixedPointsEnabled(),
+            randomGenerator
         ));
         if (layoutParameters.isAttractToCenterEnabled()) {
             this.forces.add(new AttractToCenterForceLinear<>(layoutParameters.getRepulsionIntensity() / 200));
