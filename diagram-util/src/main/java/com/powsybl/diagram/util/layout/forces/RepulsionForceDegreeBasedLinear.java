@@ -7,12 +7,13 @@
  */
 package com.powsybl.diagram.util.layout.forces;
 
-import com.powsybl.diagram.util.layout.forces.util.RandomForce;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.random.RandomGenerator;
 
 /**
  * A repulsion force between a point and all the other points of the graph. It is simpler to calculate than the coulomb force.
@@ -23,10 +24,12 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
 
     private final double forceIntensity;
     private final boolean effectFromFixedNodes;
+    private final RandomGenerator randomGenerator;
 
-    public RepulsionForceDegreeBasedLinear(double forceIntensity, boolean effectFromFixedNodes) {
+    public RepulsionForceDegreeBasedLinear(double forceIntensity, boolean effectFromFixedNodes, RandomGenerator randomGenerator) {
         this.forceIntensity = forceIntensity;
         this.effectFromFixedNodes = effectFromFixedNodes;
+        this.randomGenerator = Objects.requireNonNull(randomGenerator);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class RepulsionForceDegreeBasedLinear<V, E> extends AbstractDegreeBasedFo
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
-            resultingForce.add(RandomForce.getRandomForce());
+            resultingForce.add(new Vector2D(randomGenerator.nextDouble(1, 2), randomGenerator.nextDouble(1, 2)));
         }
 
     }

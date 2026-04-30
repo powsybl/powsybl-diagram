@@ -7,29 +7,19 @@
  */
 package com.powsybl.diagram.util.layout.forces.util;
 
-import com.powsybl.diagram.util.layout.geometry.Vector2D;
-
 import java.util.Random;
+import java.util.random.RandomGenerator;
 
 /**
  * Util class used to get perfectly overlapping points unstuck by providing a small random force
  * @author Dissoubray Nathan {@literal <nathan.dissoubray at rte-france.com>}
  */
 public final class RandomForce {
-    private static Random random;
 
-    private RandomForce() {
-        //util class, no constructor
+    private final RandomGenerator randomGenerator = new Random(45L);
+
+    public RandomGenerator getRandomGenerator() {
+        return randomGenerator;
     }
 
-    /**
-     * Use this on points that have equal positions, to get them separated
-     * @return a small random force that will be different for each call of this function
-     */
-    public static Vector2D getRandomForce() {
-        if (random == null) {
-            random = new Random(45L);
-        }
-        return new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2));
-    }
 }

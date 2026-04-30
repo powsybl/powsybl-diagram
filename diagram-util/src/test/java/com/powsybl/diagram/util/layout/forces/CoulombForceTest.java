@@ -14,6 +14,8 @@ import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.Test;
 
+import java.util.SplittableRandom;
+
 /**
  * @author Nathan Dissoubray {@literal <nathan.dissoubray at rte-france.com>}
  */
@@ -23,7 +25,7 @@ class CoulombForceTest {
     void apply() {
         double delta = 1e-4;
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
-        CoulombForce<String, DefaultEdge> force = new CoulombForce<>(2, true);
+        CoulombForce<String, DefaultEdge> force = new CoulombForce<>(2, true, new SplittableRandom());
         String[] vertexToTest = {"0"};
         Vector2D[] resultVector = {
             new Vector2D(-3.9493, 3.8805)

@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Dissoubray Nathan {@literal <nathan.dissoubray at rte-france.com>}
  */
 class BasicForceLayoutAlgorithmTest {
+
     @Test
     void basicForcePositionEqual() {
         LayoutContext<String, DefaultEdge> layoutContext = GraphTestData.getLayoutContext1();
