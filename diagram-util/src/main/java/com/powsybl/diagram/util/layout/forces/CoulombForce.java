@@ -35,17 +35,18 @@ public class CoulombForce<V, E> implements Force<V, E> {
             if (otherMovingPoint == point) {
                 continue;
             }
-            coulombBetweenPoints(resultingForce, point, otherMovingPoint);
+            coulombBetweenPoints(resultingForce, point, otherMovingPoint, layoutContext);
         }
         if (effectFromFixedNodes) {
             for (Point otherFixedPoint : layoutContext.getFixedPoints().values()) {
-                coulombBetweenPoints(resultingForce, point, otherFixedPoint);
+                coulombBetweenPoints(resultingForce, point, otherFixedPoint, layoutContext);
             }
         }
         return resultingForce;
     }
 
-    private void coulombBetweenPoints(Vector2D resultingForce, Point point, Point otherPoint) {
+    private void coulombBetweenPoints(Vector2D resultingForce, Point point, Point otherPoint,
+                                      LayoutContext<V, E> layoutContext) {
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
         double magnitude = force.magnitude();
         if (magnitude != 0) {
@@ -62,7 +63,7 @@ public class CoulombForce<V, E> implements Force<V, E> {
             force.multiplyBy(intensity);
             resultingForce.add(force);
         } else {
-            resultingForce.add(RandomForce.getRandomForce());
+            resultingForce.add(RandomForce.getRandomForce(layoutContext.getRandomGeneratorForForces()));
         }
     }
 }

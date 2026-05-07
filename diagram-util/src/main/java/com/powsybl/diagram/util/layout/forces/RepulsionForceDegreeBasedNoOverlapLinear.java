@@ -60,7 +60,8 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
                         resultingForce,
                         thisVertexDegree,
                         point,
-                        otherVertexPoint.getValue()
+                        otherVertexPoint.getValue(),
+                        layoutContext
                 );
             }
         }
@@ -71,7 +72,8 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
             Vector2D resultingForce,
             int vertexDegree,
             Point point,
-            Point otherPoint
+            Point otherPoint,
+            LayoutContext<V, E> layoutContext
     ) {
         Vector2D force = Vector2D.calculateVectorBetweenPoints(otherPoint, point);
         double magnitude = force.magnitude();
@@ -90,7 +92,7 @@ public class RepulsionForceDegreeBasedNoOverlapLinear<V, E> implements Force<V, 
                 force.multiplyBy(intensity);
                 resultingForce.add(force);
             } else {
-                resultingForce.add(RandomForce.getRandomForce());
+                resultingForce.add(RandomForce.getRandomForce(layoutContext.getRandomGeneratorForForces()));
             }
         }
     }

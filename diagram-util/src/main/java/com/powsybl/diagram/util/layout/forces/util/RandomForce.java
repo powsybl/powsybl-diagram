@@ -16,7 +16,6 @@ import java.util.Random;
  * @author Dissoubray Nathan {@literal <nathan.dissoubray at rte-france.com>}
  */
 public final class RandomForce {
-    private static Random random;
 
     private RandomForce() {
         //util class, no constructor
@@ -26,10 +25,7 @@ public final class RandomForce {
      * Use this on points that have equal positions, to get them separated
      * @return a small random force that will be different for each call of this function
      */
-    public static Vector2D getRandomForce() {
-        if (random == null) {
-            random = new Random(45L);
-        }
+    public static Vector2D getRandomForce(Random random) {
         return new Vector2D(random.nextDouble(1, 2), random.nextDouble(1, 2));
     }
 }
