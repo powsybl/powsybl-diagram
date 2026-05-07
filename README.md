@@ -62,6 +62,10 @@ The main features are:
 
 - Pop in the [SLD](https://powsybl.readthedocs.io/projects/powsybl-diagram/latest/single_line_diagrams/index.html) and [NAD](https://powsybl.readthedocs.io/projects/powsybl-diagram/latest/network_area_diagrams/index.html) documentation pages to get some examples on how to use PowSyBl diagrams!
 
+## Contributing
 
+See [Contributing.md](https://github.com/powsybl/.github/blob/main/CONTRIBUTING.md) for explanations
+on how to contribute to the code.
 
+See [Security.md](https://github.com/powsybl/.github/blob/main/SECURITY.md) to read about the security policy.
 
