@@ -46,6 +46,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class NetworkAreaDiagramTest extends AbstractTest {
 
+    private static final String EMPTY_DIAGRAM_VERSION = "";
+
     protected FileSystem fileSystem;
 
     @BeforeEach
@@ -184,7 +186,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         // test writers
         try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
-            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter);
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, EMPTY_DIAGRAM_VERSION);
             assertStringEquals("/IEEE_14_bus_voltage_nofilter.svg", svgWriter.toString());
             assertStringEquals("/IEEE_14_bus_voltage_nofilter_metadata.json", metadataWriter.toString());
         } catch (IOException e) {
@@ -192,16 +194,27 @@ class NetworkAreaDiagramTest extends AbstractTest {
         }
         // test files
         Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
-        NetworkAreaDiagram.draw(network, svgFile);
+        NetworkAreaDiagram.draw(network, svgFile, EMPTY_DIAGRAM_VERSION);
         assertFileEquals("/IEEE_14_bus_voltage_nofilter.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_nofilter_metadata.json", metadataFile);
     }
 
     @Test
+    void testDrawWithDiagramVersion() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFile = fileSystem.getPath("nad-ieee-14-bus-with-version.svg");
+        NetworkAreaDiagram.draw(network, svgFile, "5.4.0");
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter.svg", svgFile);
+        Path metadataFile = fileSystem.getPath("nad-ieee-14-bus-with-version_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter_with_diagram_version_metadata.json", metadataFile);
+
+    }
+
+    @Test
     void testDrawToString() {
         Network network = IeeeCdfNetworkFactory.create14();
-        String svg = NetworkAreaDiagram.drawToString(network, new SvgParameters());
+        String svg = NetworkAreaDiagram.drawToString(network, new SvgParameters(), EMPTY_DIAGRAM_VERSION);
         assertStringEquals("/IEEE_14_bus_voltage_nofilter.svg", svg);
     }
 
@@ -209,7 +222,8 @@ class NetworkAreaDiagramTest extends AbstractTest {
     void testDrawWithFilter() {
         Network network = IeeeCdfNetworkFactory.create14();
         try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
-            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20));
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, VoltageLevelFilter.createNominalVoltageLowerBoundFilter(network, 20),
+                EMPTY_DIAGRAM_VERSION);
             assertStringEquals("/IEEE_14_bus_voltage_filter5.svg", svgWriter.toString());
             assertStringEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataWriter.toString());
         } catch (IOException e) {
@@ -222,7 +236,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         // test writers
         try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
-            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, "VL4", 2);
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, "VL4", 2, EMPTY_DIAGRAM_VERSION);
             assertStringEquals("/IEEE_14_bus_voltage_filter2.svg", svgWriter.toString());
             assertStringEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataWriter.toString());
         } catch (IOException e) {
@@ -230,13 +244,13 @@ class NetworkAreaDiagramTest extends AbstractTest {
         }
         // test files
         Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
-        NetworkAreaDiagram.draw(network, svgFile, "VL4", 2);
+        NetworkAreaDiagram.draw(network, svgFile, "VL4", 2, EMPTY_DIAGRAM_VERSION);
         assertFileEquals("/IEEE_14_bus_voltage_filter2.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataFile);
 
         Path svgFile2 = fileSystem.getPath("nad-ieee-14-bus2.svg");
-        NetworkAreaDiagram.draw(network, svgFile2, List.of("VL4"), 2);
+        NetworkAreaDiagram.draw(network, svgFile2, List.of("VL4"), 2, EMPTY_DIAGRAM_VERSION);
         assertFileEquals("/IEEE_14_bus_voltage_filter2.svg", svgFile2);
         Path metadataFile2 = fileSystem.getPath("nad-ieee-14-bus2_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter2_metadata.json", metadataFile2);
@@ -248,7 +262,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create14();
         // test writers
         try (Writer svgWriter = new StringWriter(); StringWriter metadataWriter = new StringWriter()) {
-            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"));
+            NetworkAreaDiagram.draw(network, svgWriter, metadataWriter, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"), EMPTY_DIAGRAM_VERSION);
             assertStringEquals("/IEEE_14_bus_voltage_filter5.svg", svgWriter.toString());
             assertStringEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataWriter.toString());
         } catch (IOException e) {
@@ -256,7 +270,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
         }
         // test files
         Path svgFile = fileSystem.getPath("nad-ieee-14-bus.svg");
-        NetworkAreaDiagram.draw(network, svgFile, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"));
+        NetworkAreaDiagram.draw(network, svgFile, List.of("VL1", "VL2", "VL3", "VL4", "VL5", "VL8"), EMPTY_DIAGRAM_VERSION);
         assertFileEquals("/IEEE_14_bus_voltage_filter5.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_filter5_metadata.json", metadataFile);
@@ -279,7 +293,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
                     .build(network1, svgParameters1)
                 );
 
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER, EMPTY_DIAGRAM_VERSION);
 
         assertFileEquals("/nad_double_arrows.svg", svgFile);
         assertFileEquals("/nad_double_arrows_metadata.json", metadataFile);
@@ -303,7 +317,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
                     .build(network1, svgParameters1)
                 );
 
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER, EMPTY_DIAGRAM_VERSION);
 
         assertFileEquals("/nad-double-arrows-with-middle-label.svg", svgFile);
         assertFileEquals("/nad-double-arrows-with-middle-label_metadata.json", metadataFile);
@@ -328,7 +342,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .build(network1, svgParameters1)
             );
 
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER, EMPTY_DIAGRAM_VERSION);
 
         assertFileEquals("/nad-double-arrows-with-middle-values.svg", svgFile);
         assertFileEquals("/nad-double-arrows-with-middle-values_metadata.json", metadataFile);
@@ -357,7 +371,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
                 .build(network1, svgParameters1)
             );
 
-        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER);
+        NetworkAreaDiagram.draw(network, svgFile, nadParameters, NO_FILTER, EMPTY_DIAGRAM_VERSION);
 
         assertFileEquals("/" + svgFileName, svgFile);
         assertFileEquals("/" + metadataFileName, metadataFile);
