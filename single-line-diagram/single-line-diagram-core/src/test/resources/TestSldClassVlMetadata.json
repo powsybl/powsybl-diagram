@@ -130,7 +130,7 @@
     "vlabel" : false,
     "equipmentId" : "l",
     "labels" : [ {
-      "id" : "l_N_LABEL",
+      "id" : "idl_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -157,7 +157,7 @@
     "vlabel" : false,
     "equipmentId" : "trf",
     "labels" : [ {
-      "id" : "trf_ONE_S_LABEL",
+      "id" : "idtrf_95_ONE_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -168,7 +168,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs1",
     "labels" : [ {
-      "id" : "bbs1_NW_LABEL",
+      "id" : "idbbs1_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {

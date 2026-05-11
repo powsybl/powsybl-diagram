@@ -1,0 +1,1022 @@
+{
+  "components" : [ {
+    "type" : "BUSBAR_SECTION",
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    },
+    "styleClass" : "sld-busbar-section"
+  }, {
+    "type" : "PHASE_SHIFT_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -7.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 7.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 14.0,
+      "height" : 15.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
+    "styleClass" : "sld-pst"
+  }, {
+    "type" : "GENERATOR",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 6.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : -6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 6.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    } ],
+    "size" : {
+      "width" : 12.0,
+      "height" : 12.0
+    },
+    "styleClass" : "sld-generator"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-reactive-power"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-active-power"
+  }, {
+    "type" : "LOAD",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -4.5,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 4.5,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 9.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-load"
+  }, {
+    "type" : "TIE_LINE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "NODE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-node"
+  }, {
+    "type" : "BUS_CONNECTION",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "styleClass" : "sld-bus-connection"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "TWO_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -8.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 8.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 15.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
+    "styleClass" : "sld-two-wt"
+  }, {
+    "type" : "THREE_WINDINGS_TRANSFORMER",
+    "anchorPoints" : [ {
+      "x" : -7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 7.0,
+      "y" : 0.0,
+      "orientation" : "HORIZONTAL"
+    }, {
+      "x" : 0.0,
+      "y" : 12.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 16.0,
+      "height" : 24.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "FLIP"
+    },
+    "styleClass" : "sld-three-wt"
+  }, {
+    "type" : "LINE",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "NONE"
+    } ],
+    "size" : {
+      "width" : 0.0,
+      "height" : 0.0
+    }
+  }, {
+    "type" : "BREAKER",
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : -10.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 0.0,
+      "y" : 10.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 20.0,
+      "height" : 20.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-breaker"
+  } ],
+  "nodes" : [ {
+    "id" : "idB11_95_B12_95_1_95_TWO",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "TIE_LINE",
+    "open" : false,
+    "direction" : "BOTTOM",
+    "vlabel" : false,
+    "equipmentId" : "B11_B12_1",
+    "labels" : [ {
+      "id" : "idB11_95_B12_95_1_95_TWO_95_S_95_LABEL",
+      "positionName" : "S_LABEL"
+    } ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_B11_95_B12_95_1_95_TWO",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_BR1",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_LD1",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idLD1",
+    "vid" : "VL1",
+    "componentType" : "LOAD",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "LD1",
+    "labels" : [ {
+      "id" : "idLD1_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_T12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_45_B11_95_B12_95_1_95_TWO",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idG",
+    "vid" : "VL1",
+    "componentType" : "GENERATOR",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "G",
+    "labels" : [ {
+      "id" : "idG_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idT11",
+    "vid" : "VL1",
+    "componentType" : "PHASE_SHIFT_TRANSFORMER",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "T11",
+    "labels" : [ ]
+  }, {
+    "id" : "idL12_95_ONE",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "LINE",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "L12",
+    "labels" : [ {
+      "id" : "idL12_95_ONE_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idT3_95_12_95_THREE",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "idT3_95_12_95_THREE_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_45_B11_95_B12_95_1_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBR1",
+    "vid" : "VL1",
+    "componentType" : "BREAKER",
+    "open" : true,
+    "vlabel" : false,
+    "equipmentId" : "BR1",
+    "labels" : [ ]
+  }, {
+    "id" : "idB11",
+    "vid" : "VL1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "B11",
+    "labels" : [ {
+      "id" : "idB11_95_NW_95_LABEL",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idT3_95_12_95_TWO",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "idT3_95_12_95_TWO_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_L12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_BR1",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_B11_95_B12_95_1_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_BR1_45_BR1",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idB12",
+    "vid" : "VL1",
+    "componentType" : "BUSBAR_SECTION",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "B12",
+    "labels" : [ {
+      "id" : "idB12_95_NW_95_LABEL",
+      "positionName" : "NW_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idT12_95_ONE",
+    "vid" : "VL1",
+    "nextVId" : "VL2",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T12",
+    "labels" : [ {
+      "id" : "idT12_95_ONE_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_T3_95_12",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idT3_95_12",
+    "vid" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "open" : false,
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_T12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_T3_95_12",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_BR1_45_BR1",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_TWO",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_T11",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_T11",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_L12_95_ONE",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idT3_95_12_95_ONE",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false,
+    "equipmentId" : "T3_12",
+    "labels" : [ {
+      "id" : "idT3_95_12_95_ONE_95_N_95_LABEL",
+      "positionName" : "N_LABEL"
+    } ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_VL1_95_G",
+    "vid" : "VL1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B12_95_G",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idBUSCO_95_B11_95_LD1",
+    "vid" : "VL1",
+    "componentType" : "BUS_CONNECTION",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idB11_95_B12_95_1_95_ONE",
+    "vid" : "VL1",
+    "nextVId" : "VL1",
+    "componentType" : "TIE_LINE",
+    "open" : false,
+    "direction" : "BOTTOM",
+    "vlabel" : false,
+    "equipmentId" : "B11_B12_1",
+    "labels" : [ {
+      "id" : "idB11_95_B12_95_1_95_ONE_95_S_95_LABEL",
+      "positionName" : "S_LABEL"
+    } ]
+  } ],
+  "wires" : [ {
+    "id" : "_95_VL1_95_B11_95_BUSCO_95_B11_95_T11",
+    "nodeId1" : "idB11",
+    "nodeId2" : "idBUSCO_95_B11_95_T11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_45_B11_95_B12_95_1_95_ONE_95_INTERNAL_95_VL1_95_B11_95_B12_95_1_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_45_B11_95_B12_95_1_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE_95_INTERNAL_95_VL1_95_L12_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_L12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE",
+    "nodeId1" : "idBUSCO_95_B12_95_T12_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_BR1_45_BR1_95_BUSCO_95_B11_95_BR1",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_BR1_45_BR1",
+    "nodeId2" : "idBUSCO_95_B11_95_BR1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_G_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G",
+    "nodeId1" : "idBUSCO_95_B12_95_G",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B11_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE",
+    "nodeId1" : "idB11",
+    "nodeId2" : "idBUSCO_95_B11_95_B11_95_B12_95_1_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_BR1_45_BR1_95_BR1",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_BR1_45_BR1",
+    "nodeId2" : "idBR1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_G_95_G",
+    "nodeId1" : "idINTERNAL_95_VL1_95_G",
+    "nodeId2" : "idG",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_T12_95_ONE",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_T12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B11_95_BUSCO_95_B11_95_LD1",
+    "nodeId1" : "idB11",
+    "nodeId2" : "idBUSCO_95_B11_95_LD1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_BR1",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_BR1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_T11_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11",
+    "nodeId1" : "idBUSCO_95_B11_95_T11",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12_95_T3_95_12",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12",
+    "nodeId2" : "idT3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_LD1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1",
+    "nodeId1" : "idBUSCO_95_B11_95_LD1",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_B11_95_B12_95_1_95_TWO",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12_95_T3_95_12",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12",
+    "nodeId2" : "idT3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_T3_95_12_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12",
+    "nodeId1" : "idBUSCO_95_B11_95_T3_95_12",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T3_95_12_45_T3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_BR1_95_B11",
+    "nodeId1" : "idBUSCO_95_B11_95_BR1",
+    "nodeId2" : "idB11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_45_B11_95_B12_95_1_95_ONE",
+    "nodeId1" : "idBUSCO_95_B11_95_B11_95_B12_95_1_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_B11_95_B12_95_1_95_ONE_45_B11_95_B12_95_1_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_45_B11_95_B12_95_1_95_TWO",
+    "nodeId1" : "idBUSCO_95_B12_95_B11_95_B12_95_1_95_TWO",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_45_B11_95_B12_95_1_95_TWO",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B11_95_BUSCO_95_B11_95_L12_95_ONE",
+    "nodeId1" : "idB11",
+    "nodeId2" : "idBUSCO_95_B11_95_L12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_B11_95_B12_95_1_95_TWO_95_B11_95_B12_95_1_95_TWO",
+    "nodeId1" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_TWO",
+    "nodeId2" : "idB11_95_B12_95_1_95_TWO",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_T11_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11",
+    "nodeId1" : "idBUSCO_95_B12_95_T11",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_T3_95_12_95_ONE_95_T3_95_12",
+    "nodeId1" : "idT3_95_12_95_ONE",
+    "nodeId2" : "idT3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_G",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_G",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B11_95_BUSCO_95_B11_95_T3_95_12",
+    "nodeId1" : "idB11",
+    "nodeId2" : "idBUSCO_95_B11_95_T3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_T11",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_T11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G_95_INTERNAL_95_VL1_95_G",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_G_45_G",
+    "nodeId2" : "idINTERNAL_95_VL1_95_G",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1_95_INTERNAL_95_VL1_95_LD1",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_LD1_45_LD1",
+    "nodeId2" : "idINTERNAL_95_VL1_95_LD1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11_95_T11",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_T11_45_T11",
+    "nodeId2" : "idT11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_T3_95_12_95_TWO_95_T3_95_12",
+    "nodeId1" : "idT3_95_12_95_TWO",
+    "nodeId2" : "idT3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "idB11_95_B12_95_1",
+    "nodeId1" : "idB11_95_B12_95_1_95_ONE",
+    "nodeId2" : "idB11_95_B12_95_1_95_TWO",
+    "straight" : false,
+    "snakeLine" : true
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_BR1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_BR1_45_BR1",
+    "nodeId1" : "idBUSCO_95_B12_95_BR1",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_BR1_45_BR1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE",
+    "nodeId1" : "idBUSCO_95_B11_95_L12_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_L12_95_ONE_45_L12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_L12_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_L12_95_ONE",
+    "nodeId2" : "idL12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11_95_T11",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T11_45_T11",
+    "nodeId2" : "idT11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE_95_INTERNAL_95_VL1_95_T12_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T12_95_ONE_45_T12_95_ONE",
+    "nodeId2" : "idINTERNAL_95_VL1_95_T12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BUSCO_95_B12_95_T3_95_12_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12",
+    "nodeId1" : "idBUSCO_95_B12_95_T3_95_12",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_T3_95_12_45_T3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_BR1_95_INTERNAL_95_VL1_95_BUSCO_95_B11_95_BR1_45_BR1",
+    "nodeId1" : "idBR1",
+    "nodeId2" : "idINTERNAL_95_VL1_95_BUSCO_95_B11_95_BR1_45_BR1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_LD1",
+    "nodeId1" : "idINTERNAL_95_VL1_95_LD1",
+    "nodeId2" : "idLD1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12",
+    "nodeId1" : "idT3_95_12_95_THREE",
+    "nodeId2" : "idT3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_T12_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_T12_95_ONE",
+    "nodeId2" : "idT12_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_B12_95_BUSCO_95_B12_95_T3_95_12",
+    "nodeId1" : "idB12",
+    "nodeId2" : "idBUSCO_95_B12_95_T3_95_12",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_45_B11_95_B12_95_1_95_TWO_95_INTERNAL_95_VL1_95_B11_95_B12_95_1_95_TWO",
+    "nodeId1" : "idINTERNAL_95_VL1_95_BUSCO_95_B12_95_B11_95_B12_95_1_95_TWO_45_B11_95_B12_95_1_95_TWO",
+    "nodeId2" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_TWO",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_VL1_95_INTERNAL_95_VL1_95_B11_95_B12_95_1_95_ONE_95_B11_95_B12_95_1_95_ONE",
+    "nodeId1" : "idINTERNAL_95_VL1_95_B11_95_B12_95_1_95_ONE",
+    "nodeId2" : "idB11_95_B12_95_1_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  } ],
+  "lines" : [ ],
+  "feederInfos" : [ {
+    "id" : "idT3_95_12_95_ONE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idL12_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "L12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idT12_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "T12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idB11_95_B12_95_1_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "B11_B12_1",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idT12_95_ONE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "T12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idT3_95_12_95_ONE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "ONE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idLD1_95_ARROW_95_REACTIVE",
+    "equipmentId" : "LD1",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idT3_95_12_95_TWO_95_ARROW_95_REACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idT3_95_12_95_THREE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idG_95_ARROW_95_ACTIVE",
+    "equipmentId" : "G",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idL12_95_ONE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "L12",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idB11_95_B12_95_1_95_ONE_95_ARROW_95_ACTIVE",
+    "equipmentId" : "B11_B12_1",
+    "side" : "ONE",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idB11_95_B12_95_1_95_TWO_95_ARROW_95_REACTIVE",
+    "equipmentId" : "B11_B12_1",
+    "side" : "TWO",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idLD1_95_ARROW_95_ACTIVE",
+    "equipmentId" : "LD1",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idT3_95_12_95_TWO_95_ARROW_95_ACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
+  }, {
+    "id" : "idG_95_ARROW_95_REACTIVE",
+    "equipmentId" : "G",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idT3_95_12_95_THREE_95_ARROW_95_REACTIVE",
+    "equipmentId" : "T3_12",
+    "side" : "THREE",
+    "componentType" : "ARROW_REACTIVE"
+  }, {
+    "id" : "idB11_95_B12_95_1_95_TWO_95_ARROW_95_ACTIVE",
+    "equipmentId" : "B11_B12_1",
+    "side" : "TWO",
+    "componentType" : "ARROW_ACTIVE"
+  } ],
+  "busInfos" : [ ],
+  "layoutParams" : {
+    "verticalSpaceBus" : 25.0,
+    "horizontalBusPadding" : 20.0,
+    "cellWidth" : 50.0,
+    "externCellHeight" : 250.0,
+    "internCellHeight" : 40.0,
+    "stackHeight" : 30.0,
+    "horizontalSnakeLinePadding" : 30.0,
+    "verticalSnakeLinePadding" : 30.0,
+    "spaceForFeederInfos" : 50.0,
+    "adaptCellHeightToContent" : true,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0,
+    "voltageLevelPadding" : {
+      "left" : 20.0,
+      "top" : 60.0,
+      "right" : 20.0,
+      "bottom" : 60.0
+    },
+    "diagramPadding" : {
+      "left" : 20.0,
+      "top" : 20.0,
+      "right" : 20.0,
+      "bottom" : 20.0
+    },
+    "busbarsAlignment" : "FIRST",
+    "componentsOnBusbars" : [ "DISCONNECTOR" ],
+    "removeFictitiousSwitchNodes" : false,
+    "zoneLayoutSnakeLinePadding" : 90
+  },
+  "svgParams" : {
+    "prefixId" : "",
+    "undefinedValueSymbol" : "—",
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1,
+    "currentValuePrecision" : 0,
+    "percentageValuePrecision" : 0,
+    "activePowerUnit" : "",
+    "reactivePowerUnit" : "",
+    "currentUnit" : "",
+    "busInfoMargin" : 0.0,
+    "feederInfosIntraMargin" : 10.0,
+    "feederInfosOuterMargin" : 20.0,
+    "feederInfoSymmetry" : false,
+    "busesLegendAdded" : false,
+    "useName" : true,
+    "angleLabelShift" : 15.0,
+    "labelCentered" : false,
+    "labelDiagonal" : false,
+    "tooltipEnabled" : false,
+    "svgWidthAndHeightAdded" : true,
+    "cssLocation" : "INSERTED_IN_SVG",
+    "avoidSVGComponentsDuplication" : false,
+    "diagramName" : null,
+    "drawStraightWires" : false,
+    "showGrid" : false,
+    "showInternalNodes" : false,
+    "displayEquipmentNodesLabel" : false,
+    "displayConnectivityNodesId" : false,
+    "unifyVoltageLevelColors" : false
+  }
+}
