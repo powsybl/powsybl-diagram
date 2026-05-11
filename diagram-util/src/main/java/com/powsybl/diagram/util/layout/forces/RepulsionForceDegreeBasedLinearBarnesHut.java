@@ -72,9 +72,9 @@ public class RepulsionForceDegreeBasedLinearBarnesHut<V, E> extends AbstractByEd
         // all UnitVector will have the same magnitude of 1, giving only the direction, thus the force becomes dependant only on the degree of the nodes
         // the name "linear" is a bit misleading, as its technically inverse linear (1 / distance)
         double intensity = forceIntensity
-                * (point.getPointVertexDegree() + 1)
-                * (otherPoint.getMass())
-                / force.magnitudeSquare();
+            * (point.getPointVertexDegree() + 1)
+            * (otherPoint.getMass())
+            / force.magnitudeSquare(); // no need to check division by 0, apply already does that
         force.multiplyBy(intensity);
         resultingForce.add(force);
     }
