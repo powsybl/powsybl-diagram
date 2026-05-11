@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
 import com.powsybl.nad.model.*;
@@ -51,6 +52,13 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonSetter(nulls = Nulls.AS_EMPTY) // if missing when deserializing creates an empty array
     private final List<InjectionMetadata> injectionsMetadata = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String networkId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String networkName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String networkDate;
+
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
@@ -63,7 +71,10 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
                            @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
                            @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
-                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
+                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata,
+                           @JsonProperty("networkId") String networkId,
+                           @JsonProperty("networkName") String networkName,
+                           @JsonProperty("networkDate") String networkDate) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
@@ -71,6 +82,9 @@ public class DiagramMetadata extends AbstractMetadata {
         this.injectionsMetadata.addAll(injectionsMetadata);
         this.edgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
+        this.networkId = networkId;
+        this.networkName = networkName;
+        this.networkDate = networkDate;
     }
 
     @JsonProperty("busNodes")
@@ -106,6 +120,28 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonProperty("svgParameters")
     public SvgParameters getSvgParameters() {
         return svgParameters;
+    }
+
+    @JsonProperty("networkName")
+    public String getNetworkName() {
+        return networkName;
+    }
+
+    @JsonProperty("networkId")
+    public String getNetworkId() {
+        return networkId;
+    }
+
+    @JsonProperty("networkDate")
+    public String getNetworkDate() {
+        return networkDate;
+    }
+
+    public DiagramMetadata setNetworkInformation(Network network) {
+        this.networkName = network.getNameOrId();
+        this.networkId = network.getId();
+        this.networkDate = network.getCaseDate().toString();
+        return this;
     }
 
     public DiagramMetadata addMetadata(Graph graph) {

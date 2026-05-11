@@ -40,6 +40,7 @@ import static com.powsybl.sld.library.SldComponentTypeName.*;
  */
 class GraphMetadataTest {
 
+    private static final String EMPTY_DIAGRAM_VERSION = "";
     private FileSystem fileSystem;
     private Path tmpDir;
 
@@ -115,7 +116,7 @@ class GraphMetadataTest {
         assertEquals(4, metadata2.getAnchorPoints(BREAKER).get(0).getY(), 0);
 
         Path meta = tmpDir.resolve("meta.json");
-        metadata.writeJson(meta);
+        metadata.writeJson(meta, EMPTY_DIAGRAM_VERSION);
         GraphMetadata metadata3 = GraphMetadata.parseJson(meta);
         assertEquals(1, metadata3.getComponentMetadata().size());
         assertNotNull(metadata3.getComponentMetadata(BREAKER));
@@ -163,7 +164,7 @@ class GraphMetadataTest {
         assertTrue(metadata2.getWireMetadata("wid2").snakeLine());
 
         Path meta = tmpDir.resolve("meta.json");
-        metadata.writeJson(meta);
+        metadata.writeJson(meta, EMPTY_DIAGRAM_VERSION);
         GraphMetadata metadata3 = GraphMetadata.parseJson(meta);
         checkMetadata(metadata3);
         assertTrue(metadata3.getWireMetadata("wid2").snakeLine());

@@ -34,6 +34,7 @@ import java.util.Objects;
  */
 public abstract class AbstractTestCase {
 
+    protected static final String EMPTY_DIAGRAM_VERSION = "";
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
@@ -139,7 +140,8 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, legendWriter);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, componentLibrary, layoutParameters, svgParameters,
+                labelProvider, styleProvider, legendWriter, EMPTY_DIAGRAM_VERSION);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
