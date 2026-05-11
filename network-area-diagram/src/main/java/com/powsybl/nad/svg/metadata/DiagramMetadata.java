@@ -40,6 +40,7 @@ public class DiagramMetadata extends AbstractMetadata {
         THREEWT, BOUNDARY;
     }
 
+    private String networkName;
     private final LayoutParameters layoutParameters;
     private final SvgParameters svgParameters;
     private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
@@ -63,7 +64,8 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
                            @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
                            @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
-                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
+                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata,
+                           @JsonProperty("networkName") String networkName) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
@@ -71,6 +73,18 @@ public class DiagramMetadata extends AbstractMetadata {
         this.injectionsMetadata.addAll(injectionsMetadata);
         this.edgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
+        this.networkName = networkName;
+    }
+
+    public DiagramMetadata(LayoutParameters layoutParameters,
+                           SvgParameters svgParameters,
+                           List<BusNodeMetadata> busNodesMetadata,
+                           List<NodeMetadata> nodesMetadata,
+                           List<InjectionMetadata> injectionsMetadata,
+                           List<EdgeMetadata> edgesMetadata,
+                           List<TextNodeMetadata> textNodesMetadata) {
+        this(layoutParameters, svgParameters, busNodesMetadata, nodesMetadata, injectionsMetadata, edgesMetadata,
+                textNodesMetadata, null);
     }
 
     @JsonProperty("busNodes")
@@ -106,6 +120,17 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonProperty("svgParameters")
     public SvgParameters getSvgParameters() {
         return svgParameters;
+    }
+
+    @JsonProperty("networkName")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getNetworkName() {
+        return networkName;
+    }
+
+    public DiagramMetadata setNetworkName(String networkName) {
+        this.networkName = networkName;
+        return this;
     }
 
     public DiagramMetadata addMetadata(Graph graph) {
