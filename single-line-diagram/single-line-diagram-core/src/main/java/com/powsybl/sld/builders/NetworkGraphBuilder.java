@@ -28,6 +28,7 @@ import com.powsybl.sld.model.nodes.NodeSide;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.nodes.TeePointNode;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
+import com.powsybl.sld.svg.SvgParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,9 +62,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private static final ServiceLoaderCache<GraphBuildPostProcessor> POST_PROCESSOR_LOADER = new ServiceLoaderCache<>(GraphBuildPostProcessor.class);
 
     private final Network network;  // IIDM network
+    private final SvgParameters svgParameters;
+
+    public NetworkGraphBuilder(Network network, SvgParameters svgParameters) {
+        this.network = Objects.requireNonNull(network);
+        this.svgParameters = Objects.requireNonNull(svgParameters);
+    }
 
     public NetworkGraphBuilder(Network network) {
-        this.network = Objects.requireNonNull(network);
+        this(network, new SvgParameters());
     }
 
     private static boolean isInternalToVoltageLevel(Branch<?> branch) {
@@ -226,9 +233,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
+        protected final SvgParameters svgParameters;
 
-        protected AbstractGraphBuilder(VoltageLevelGraph graph) {
+        protected AbstractGraphBuilder(VoltageLevelGraph graph, SvgParameters svgParameters) {
             this.graph = graph;
+            this.svgParameters = svgParameters;
         }
 
         protected abstract void addTerminalNode(Node node, Terminal terminal);
@@ -433,7 +442,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             boolean isTeePoint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
 
-            if (isTeePoint) {
+            if (svgParameters.isDisplayTeePointsInVoltageLevels() && isTeePoint) {
                 VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
                 addTeePoint(line, side, vlOwnSide, vlOtherSide);
             } else {
@@ -462,8 +471,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
-        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
-            super(graph);
+        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber, SvgParameters svgParameters) {
+            super(graph, svgParameters);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
@@ -560,8 +569,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private int order = 1;
 
-        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
-            super(graph);
+        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId, SvgParameters svgParameters) {
+            super(graph, svgParameters);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
@@ -599,7 +608,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     protected BusBreakerGraphBuilder createBusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
-        return new BusBreakerGraphBuilder(graph, nodesByBusId);
+        return new BusBreakerGraphBuilder(graph, nodesByBusId, svgParameters);
     }
 
     private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -627,7 +636,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     protected NodeBreakerGraphBuilder createNodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
-        return new NodeBreakerGraphBuilder(graph, nodesByNumber);
+        return new NodeBreakerGraphBuilder(graph, nodesByNumber, svgParameters);
     }
 
     private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {

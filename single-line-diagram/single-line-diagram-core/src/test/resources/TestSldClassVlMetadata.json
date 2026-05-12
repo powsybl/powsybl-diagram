@@ -355,6 +355,7 @@
     "showInternalNodes" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
-    "unifyVoltageLevelColors" : false
+    "unifyVoltageLevelColors" : false,
+    "displayTeePointsInVoltageLevels" : false
   }
 }
