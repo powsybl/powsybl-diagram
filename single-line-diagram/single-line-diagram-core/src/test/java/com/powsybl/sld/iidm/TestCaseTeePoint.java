@@ -28,7 +28,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
     @Override
     @BeforeEach
     public void setUp() throws IOException {
-        svgParameters.setDisplayTeePointsInVoltageLevels(true);
+        layoutParameters.setDisplayTeePointsInVoltageLevels(true);
     }
 
     @Test
@@ -43,7 +43,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
         line3.getTerminal1().setQ(20d);
 
         // build graph
-        VoltageLevelGraph g = new NetworkGraphBuilder(network, svgParameters).buildVoltageLevelGraph("vl1");
+        VoltageLevelGraph g = new NetworkGraphBuilder(network, layoutParameters).buildVoltageLevelGraph("vl1");
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -53,8 +53,8 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
                 toSVG(g, "/TestCaseTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network, true), getDefaultSVGLegendWriter()));
 
         // Deactivate tee point display
-        svgParameters.setDisplayTeePointsInVoltageLevels(false);
-        g = new NetworkGraphBuilder(network, svgParameters).buildVoltageLevelGraph("vl1");
+        layoutParameters.setDisplayTeePointsInVoltageLevels(false);
+        g = new NetworkGraphBuilder(network, layoutParameters).buildVoltageLevelGraph("vl1");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCaseNoTeePointTopological.svg"),
             toSVG(g, "/TestCaseNoTeePointTopological.svg", componentLibrary, layoutParameters, svgParameters,
@@ -92,7 +92,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
                 .setNode2(21)
                 .add();
 
-        VoltageLevelGraph g = new NetworkGraphBuilder(network, svgParameters).buildVoltageLevelGraph("vl1");
+        VoltageLevelGraph g = new NetworkGraphBuilder(network, layoutParameters).buildVoltageLevelGraph("vl1");
 
         voltageLevelGraphLayout(g);
 
@@ -105,7 +105,7 @@ class TestCaseTeePoint extends AbstractTestCaseIidm {
         network = Networks.createTeePointBusBreakerNetwork();
 
         // build graph
-        VoltageLevelGraph g = new NetworkGraphBuilder(network, svgParameters).buildVoltageLevelGraph("VL_132");
+        VoltageLevelGraph g = new NetworkGraphBuilder(network, layoutParameters).buildVoltageLevelGraph("VL_132");
 
         // Run layout
         voltageLevelGraphLayout(g);

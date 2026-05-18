@@ -2948,7 +2948,8 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "zoneLayoutSnakeLinePadding" : 90
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false
   },
   "svgParams" : {
     "prefixId" : "",
@@ -2981,7 +2982,6 @@
     "showInternalNodes" : false,
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
-    "unifyVoltageLevelColors" : false,
-    "displayTeePointsInVoltageLevels" : false
+    "unifyVoltageLevelColors" : false
   }
 }

@@ -48,7 +48,6 @@ public class SvgParameters {
     private boolean displayEquipmentNodesLabel;
     private boolean displayConnectivityNodesId;
     private boolean unifyVoltageLevelColors = false;
-    private boolean displayTeePointsInVoltageLevels = false;
 
     public SvgParameters() {
     }
@@ -90,7 +89,6 @@ public class SvgParameters {
         this.displayEquipmentNodesLabel = other.displayEquipmentNodesLabel;
         this.displayConnectivityNodesId = other.displayConnectivityNodesId;
         this.unifyVoltageLevelColors = other.unifyVoltageLevelColors;
-        this.displayTeePointsInVoltageLevels = other.displayTeePointsInVoltageLevels;
     }
 
     public ValueFormatter createValueFormatter() {
@@ -382,15 +380,6 @@ public class SvgParameters {
 
     public SvgParameters setUnifyVoltageLevelColors(boolean unifyVoltageLevelColors) {
         this.unifyVoltageLevelColors = unifyVoltageLevelColors;
-        return this;
-    }
-
-    public boolean isDisplayTeePointsInVoltageLevels() {
-        return this.displayTeePointsInVoltageLevels;
-    }
-
-    public SvgParameters setDisplayTeePointsInVoltageLevels(boolean displayTeePointsInVoltageLevels) {
-        this.displayTeePointsInVoltageLevels = displayTeePointsInVoltageLevels;
         return this;
     }
 }
