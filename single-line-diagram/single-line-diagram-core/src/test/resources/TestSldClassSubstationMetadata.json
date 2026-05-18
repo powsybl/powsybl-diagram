@@ -589,6 +589,7 @@
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
     "labelDiagonal" : false,
+    "busLabelDiagonal" : false,
     "tooltipEnabled" : false,
     "svgWidthAndHeightAdded" : false,
     "cssLocation" : "INSERTED_IN_SVG",
