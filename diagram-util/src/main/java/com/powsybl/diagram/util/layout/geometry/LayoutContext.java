@@ -71,6 +71,11 @@ public class LayoutContext<V, E> {
      */
     private Set<V> fixedNodes = Collections.emptySet();
 
+    /**
+     * A random generator used to generate random forces
+     */
+    private Random random;
+
     public LayoutContext(Graph<V, E> graph) {
         Objects.requireNonNull(graph);
         // Create a simple graph with the given JGraphT graph to only keep essential information, and prevent be sure of the type of edge used
@@ -299,5 +304,13 @@ public class LayoutContext<V, E> {
         } else {
             return movingPoints.getOrDefault(vertex, new Point(-1, -1)).getPosition();
         }
+    }
+
+    @SuppressWarnings("java:S2245") // The random generator is not used for cryptographic purposes, so it is safe here
+    public Random getRandomGeneratorForForces() {
+        if (random == null) {
+            random = new Random(45L);
+        }
+        return random;
     }
 }

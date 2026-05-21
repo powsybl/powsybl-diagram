@@ -12,6 +12,7 @@ import com.powsybl.diagram.util.IidmUtil;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.BaseGraph;
 import com.powsybl.sld.model.graphs.Graph;
@@ -61,9 +62,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private static final ServiceLoaderCache<GraphBuildPostProcessor> POST_PROCESSOR_LOADER = new ServiceLoaderCache<>(GraphBuildPostProcessor.class);
 
     private final Network network;  // IIDM network
+    private final LayoutParameters layoutParameters;
+
+    public NetworkGraphBuilder(Network network, LayoutParameters layoutParameters) {
+        this.network = Objects.requireNonNull(network);
+        this.layoutParameters = Objects.requireNonNull(layoutParameters);
+    }
 
     public NetworkGraphBuilder(Network network) {
-        this.network = Objects.requireNonNull(network);
+        this(network, new LayoutParameters());
     }
 
     private static boolean isInternalToVoltageLevel(Branch<?> branch) {
@@ -226,9 +233,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
+        protected final LayoutParameters layoutParameters;
 
-        protected AbstractGraphBuilder(VoltageLevelGraph graph) {
+        protected AbstractGraphBuilder(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
             this.graph = graph;
+            this.layoutParameters = layoutParameters;
         }
 
         protected abstract void addTerminalNode(Node node, Terminal terminal);
@@ -433,7 +442,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             boolean isTeePoint = vlOtherSide.isFictitious() && vlOtherSide.getLineCount() == 3;
 
-            if (isTeePoint) {
+            if (layoutParameters.isDisplayTeePointsInVoltageLevels() && isTeePoint) {
                 VoltageLevel vlOwnSide = line.getTerminal(side).getVoltageLevel();
                 addTeePoint(line, side, vlOwnSide, vlOtherSide);
             } else {
@@ -462,8 +471,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
-        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
-            super(graph);
+        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber, LayoutParameters layoutParameters) {
+            super(graph, layoutParameters);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
@@ -560,8 +569,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private int order = 1;
 
-        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
-            super(graph);
+        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId, LayoutParameters layoutParameters) {
+            super(graph, layoutParameters);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
@@ -599,7 +608,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     protected BusBreakerGraphBuilder createBusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
-        return new BusBreakerGraphBuilder(graph, nodesByBusId);
+        return new BusBreakerGraphBuilder(graph, nodesByBusId, layoutParameters);
     }
 
     private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -627,7 +636,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     protected NodeBreakerGraphBuilder createNodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
-        return new NodeBreakerGraphBuilder(graph, nodesByNumber);
+        return new NodeBreakerGraphBuilder(graph, nodesByNumber, layoutParameters);
     }
 
     private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {

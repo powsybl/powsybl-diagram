@@ -322,7 +322,8 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "zoneLayoutSnakeLinePadding" : 90
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false
   },
   "svgParams" : {
     "prefixId" : "",
