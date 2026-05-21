@@ -763,7 +763,10 @@ public class SvgWriter {
         boolean textFlipped = Math.sin(edgeAngle) > 0;
         double textAngle = textFlipped ? -Math.PI / 2 + edgeAngle : Math.PI / 2 + edgeAngle;
         double shift = svgParameters.getArrowLabelShift() * factor;
-        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift; // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+
+        // to have a nice compact rendering, shift needs to be adjusted, because of dominant-baseline:middle (text is expected to be a number, hence not below the line)
+        double shiftAdjusted = externalLabel == textFlipped ? shift * 1.15 : -shift;
+
         drawLabel(writer, label, shiftAdjusted, TEXT_ANCHOR_MIDDLE, textAngle, Y_ATTRIBUTE, classes);
     }
 

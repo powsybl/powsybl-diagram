@@ -8,10 +8,11 @@
 package com.powsybl.diagram.util.layout.geometry;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}

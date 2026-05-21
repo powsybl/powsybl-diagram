@@ -6,16 +6,10 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import com.powsybl.commons.extensions.AbstractExtension;
 import com.powsybl.iidm.network.Network;
+
+import java.util.*;
 
 /**
  *

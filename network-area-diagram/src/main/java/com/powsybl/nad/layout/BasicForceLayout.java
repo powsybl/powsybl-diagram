@@ -8,17 +8,13 @@
 package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.layout.Layout;
-import com.powsybl.diagram.util.layout.geometry.LayoutContext;
-import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.algorithms.BasicForceLayoutAlgorithm;
 import com.powsybl.diagram.util.layout.algorithms.parameters.BasicForceLayoutParameters;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.setup.SquareRandomBarycenterSetup;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.model.Point;
-import com.powsybl.nad.model.TextNode;
+import com.powsybl.nad.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +37,8 @@ public class BasicForceLayout extends AbstractLayout {
     private BasicForceLayoutParameters parameters = null;
 
     public BasicForceLayout() {
-        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are removed and maxSteps / timeout are not in the layoutParameters / BasicForceLayoutParamters
+        //TODO replace this by a call to new BasicForceLayoutParameters.Builder().build() once both booleans are
+        // removed and maxSteps / timeout are not in the layoutParameters / BasicForceLayoutParamters
     }
 
     /**

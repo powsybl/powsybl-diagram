@@ -95,36 +95,38 @@ public class MatrixZoneLayoutModel {
 
     private void computeSubstationsAvailability(LayoutParameters layoutParameters) {
         // For each not empty cells
-        matrix.stream().filter(c -> !c.isEmpty()).forEach(cell -> {
-            BaseGraph graph = cell.graph();
-            graph.getVoltageLevelStream().forEach(vlGraph -> {
-                double elementaryWidth = layoutParameters.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
-                double widthNoPadding = vlGraph.getMaxH() * elementaryWidth;
-                double heightNoPadding = vlGraph.getInnerHeight(layoutParameters.getVerticalSpaceBus());
-                int xGraph = (int) vlGraph.getX();
-                int yGraph = (int) vlGraph.getY();
+        matrix.stream().filter(c -> !c.isEmpty()).forEach(cell -> computeSubstationsAvailability(cell, layoutParameters));
+    }
 
-                LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+    private void computeSubstationsAvailability(MatrixCell cell, LayoutParameters layoutParameters) {
+        BaseGraph graph = cell.graph();
+        graph.getVoltageLevelStream().forEach(vlGraph -> {
+            double elementaryWidth = layoutParameters.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
+            double widthNoPadding = vlGraph.getMaxH() * elementaryWidth;
+            double heightNoPadding = vlGraph.getInnerHeight(layoutParameters.getVerticalSpaceBus());
+            int xGraph = (int) vlGraph.getX();
+            int yGraph = (int) vlGraph.getY();
 
-                for (int x = xGraph - ((int) vlPadding.left() - 1); x < xGraph + widthNoPadding + (int) vlPadding.right(); x++) {
-                    for (int y = yGraph - ((int) vlPadding.top() - 1); y < yGraph + heightNoPadding + (int) vlPadding.bottom(); y++) {
-                        pathFinderGrid.setAvailability(x, y, false);
-                    }
+            LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+
+            for (int x = xGraph - ((int) vlPadding.left() - 1); x < xGraph + widthNoPadding + (int) vlPadding.right(); x++) {
+                for (int y = yGraph - ((int) vlPadding.top() - 1); y < yGraph + heightNoPadding + (int) vlPadding.bottom(); y++) {
+                    pathFinderGrid.setAvailability(x, y, false);
+                }
+            }
+        });
+
+        // Make unavailable all multi term nodes (3wt, 2wt, etc...) center
+        graph.getMultiTermNodes().forEach(node -> {
+            pathFinderGrid.setAvailability(node.getCoordinates(), false);
+            node.getAdjacentEdges().forEach(edge -> {
+                if (edge instanceof BranchEdge branch) {
+                    List<Point> points = Grid.getPointsAlongSnakeline(branch.getSnakeLine());
+                    points.forEach(p -> pathFinderGrid.setAvailability(p, false));
                 }
             });
-
-            // Make unavailable all multi term nodes (3wt, 2wt, etc...) center
-            graph.getMultiTermNodes().forEach(node -> {
-                pathFinderGrid.setAvailability(node.getCoordinates(), false);
-                node.getAdjacentEdges().forEach(edge -> {
-                    if (edge instanceof BranchEdge branch) {
-                        List<Point> points = Grid.getPointsAlongSnakeline(branch.getSnakeLine());
-                        points.forEach(p -> pathFinderGrid.setAvailability(p, false));
-                    }
-                });
-            });
-            graph.getLineEdges().forEach(s -> Grid.getPointsAlongSnakeline(s.getSnakeLine()).forEach(p -> pathFinderGrid.setAvailability(p, false)));
         });
+        graph.getLineEdges().forEach(s -> Grid.getPointsAlongSnakeline(s.getSnakeLine()).forEach(p -> pathFinderGrid.setAvailability(p, false)));
     }
 
     private void computeMatrixCellsAvailability(LayoutParameters layoutParameters) {

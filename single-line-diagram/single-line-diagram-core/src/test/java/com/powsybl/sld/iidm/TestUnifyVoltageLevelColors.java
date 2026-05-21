@@ -46,7 +46,11 @@ class TestUnifyVoltageLevelColors extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineSubstation.svg"), toSVG(g, "/TestTieLineSubstation.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network, svgParameters), new DefaultSVGLegendWriter(network, svgParameters)));
+        assertEquals(toString("/TestTieLineSubstation.svg"),
+            toSVG(g, "/TestTieLineSubstation.svg", componentLibrary, layoutParameters, svgParameters,
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters),
+                new TopologicalStyleProvider(network, svgParameters),
+                new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
     @Test
@@ -60,7 +64,11 @@ class TestUnifyVoltageLevelColors extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestTieLineSubstationUnifiedColors.svg"), toSVG(g, "/TestTieLineSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters, new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters), new TopologicalStyleProvider(network, svgParameters), new DefaultSVGLegendWriter(network, svgParameters)));
+        assertEquals(toString("/TestTieLineSubstationUnifiedColors.svg"),
+            toSVG(g, "/TestTieLineSubstationUnifiedColors.svg", componentLibrary, layoutParameters, svgParameters,
+                new DefaultLabelProvider(network, componentLibrary, layoutParameters, svgParameters),
+                new TopologicalStyleProvider(network, svgParameters),
+                new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
 }

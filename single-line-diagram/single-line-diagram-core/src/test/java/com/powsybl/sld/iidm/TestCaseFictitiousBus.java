@@ -39,7 +39,8 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
-                toSVG(g, "/TestCaseFictitiousBus.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseFictitiousBus.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -54,7 +55,8 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
-                toSVG(g, "/TestCaseFictitiousBusTopological.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -69,6 +71,7 @@ class TestCaseFictitiousBus extends AbstractTestCaseIidm {
 
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBusBoundaryConnectables.svg"),
-                toSVG(g, "/TestCaseFictitiousBusBoundaryConnectables.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
+                toSVG(g, "/TestCaseFictitiousBusBoundaryConnectables.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network), getDefaultSVGLegendWriter()));
     }
 }

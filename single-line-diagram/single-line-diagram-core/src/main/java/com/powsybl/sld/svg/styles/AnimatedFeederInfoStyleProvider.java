@@ -7,8 +7,8 @@
  */
 package com.powsybl.sld.svg.styles;
 
-import com.powsybl.sld.svg.ValueFeederInfo;
 import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.ValueFeederInfo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -33,7 +33,8 @@ public class MatrixZoneLayout extends AbstractZoneLayout {
 
     private final String[][] matrixUserDefinition;
 
-    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrixUserDefinition, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrixUserDefinition, ZoneLayoutPathFinderFactory pathFinderFactory,
+                               SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
         this.pathFinder = Objects.requireNonNull(pathFinderFactory).create();
         this.matrixUserDefinition = Objects.requireNonNull(matrixUserDefinition);

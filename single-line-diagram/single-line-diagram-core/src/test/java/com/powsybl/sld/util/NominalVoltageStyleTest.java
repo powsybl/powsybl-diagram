@@ -102,7 +102,7 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     }
 
     private class NoFeederInfoProvider extends DefaultLabelProvider {
-        public NoFeederInfoProvider() {
+        NoFeederInfoProvider() {
             super(NominalVoltageStyleTest.this.network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters, NominalVoltageStyleTest.this.svgParameters);
         }
 
@@ -161,7 +161,8 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         substationGraphLayout(graph);
 
-        assertEquals(toString("/nominal_voltage_style_substation.svg"), toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
+        assertEquals(toString("/nominal_voltage_style_substation.svg"),
+            toSVG(graph, "/nominal_voltage_style_substation.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
     @Test
@@ -169,7 +170,8 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
         voltageLevelGraphLayout(graph2);
 
-        assertEquals(toString("/nominal_voltage_style_vl2.svg"), toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
+        assertEquals(toString("/nominal_voltage_style_vl2.svg"),
+            toSVG(graph2, "/nominal_voltage_style_vl2.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
     @Test
@@ -177,7 +179,8 @@ class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
         voltageLevelGraphLayout(graph3);
 
-        assertEquals(toString("/nominal_voltage_style_vl3.svg"), toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
+        assertEquals(toString("/nominal_voltage_style_vl3.svg"),
+            toSVG(graph3, "/nominal_voltage_style_vl3.svg", componentLibrary, layoutParameters, svgParameters, new NoFeederInfoProvider(), styleProvider, legendWriter));
     }
 
 }

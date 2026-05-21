@@ -201,13 +201,42 @@ public final class RawGraphBuilderUtils {
         vlb3.connectNode(bbs7, dtrf25);
         vlb3.connectNode(dtrf25, btrf25);
         vlb3.connectNode(btrf25, feeder2WTs5.get(vlb3));
-        /*
-        // three windings transformers between voltage levels
-        //
-        */
 
+        // three windings transformers between voltage levels
+        add3wtConnections(ssb1, vlb1, vlb2, vlb3, bbs1, bbs2, bbs3, bbs4, bbs5, bbs6, bbs7);
+
+        // Creation of another substation, another voltageLevel with a line between the two substations
+        SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2", parentGraph);
+        VoltageLevelRawBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
+
+        BusNode bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);
+
+        SwitchNode dline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline11_2", false, false);
+        SwitchNode bline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline11_2", false, false);
+
+        SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
+        SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
+        Map<VoltageLevelRawBuilder, FeederNode> line1 =
+                ((parentGraph != null) ? parentGraph : ssb1).createLine("line1", List.of(vlb1, vlsubst2), List.of(7, 1), List.of(TOP, TOP));
+        vlb1.connectNode(bbs1, dline112);
+        vlb1.connectNode(dline112, bline112);
+        vlb1.connectNode(bline112, line1.get(vlb1));
+        vlsubst2.connectNode(bbs12, dline212);
+        vlsubst2.connectNode(dline212, bline212);
+        vlsubst2.connectNode(bline212, line1.get(vlsubst2));
+
+        appendHvdc(parentGraph, ssb1, vlb1, vlsubst2, bbs12, bbs1);
+
+        appendOptional2wt(append2wt, ssb1, vlb3, vlsubst2);
+        appendOptional3wt(append3wts, ssb1, vlb1, vlb2, vlsubst2);
+        appendOptionalLines(rawGraphBuilder, appendLines, ssb1, ssb2, vlb1, vlsubst2, bbs12, bbs1);
+    }
+
+    private static void add3wtConnections(SubstationRawBuilder ssb1,
+                                          VoltageLevelRawBuilder vlb1, VoltageLevelRawBuilder vlb2, VoltageLevelRawBuilder vlb3,
+                                          BusNode bbs1, BusNode bbs2, BusNode bbs3, BusNode bbs4, BusNode bbs5, BusNode bbs6, BusNode bbs7) {
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", List.of(vlb1, vlb2, vlb3),
-                List.of(5, 5, 2), List.of(TOP, TOP, TOP));
+            List.of(5, 5, 2), List.of(TOP, TOP, TOP));
 
         SwitchNode dtrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf16", false, false);
         SwitchNode btrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf16", false, false);
@@ -228,7 +257,7 @@ public final class RawGraphBuilderUtils {
         vlb3.connectNode(btrf36, feeder3WTs6.get(vlb3));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", List.of(vlb1, vlb2, vlb3),
-                List.of(6, 4, 3), List.of(BOTTOM, TOP, BOTTOM));
+            List.of(6, 4, 3), List.of(BOTTOM, TOP, BOTTOM));
 
         SwitchNode dtrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf17", false, false);
         SwitchNode btrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf17", false, false);
@@ -249,7 +278,7 @@ public final class RawGraphBuilderUtils {
         vlb3.connectNode(btrf37, feeder3WTs7.get(vlb3));
 
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", List.of(vlb1, vlb2, vlb3),
-                List.of(9, 6, 4), List.of(TOP, BOTTOM, TOP));
+            List.of(9, 6, 4), List.of(TOP, BOTTOM, TOP));
 
         SwitchNode dtrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf18", false, false);
         SwitchNode btrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf18", false, false);
@@ -268,42 +297,18 @@ public final class RawGraphBuilderUtils {
         vlb3.connectNode(bbs7, dtrf38);
         vlb3.connectNode(dtrf38, btrf38);
         vlb3.connectNode(btrf38, feeder3WTs8.get(vlb3));
+    }
 
-        /*
-        // Creation of another substation, another voltageLevel
-        // - a line between the two substations
-        //
-        */
-        SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2", parentGraph);
-        VoltageLevelRawBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
-
-        BusNode bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);
-
-        SwitchNode dline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline11_2", false, false);
-        SwitchNode bline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline11_2", false, false);
-
-        SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
-        SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
-        Map<VoltageLevelRawBuilder, FeederNode> line1 =
-                ((parentGraph != null) ? parentGraph : ssb1).createLine("line1", List.of(vlb1, vlsubst2), List.of(7, 1), List.of(TOP, TOP));
-        vlb1.connectNode(bbs1, dline112);
-        vlb1.connectNode(dline112, bline112);
-        vlb1.connectNode(bline112, line1.get(vlb1));
-        vlsubst2.connectNode(bbs12, dline212);
-        vlsubst2.connectNode(dline212, bline212);
-        vlsubst2.connectNode(bline212, line1.get(vlsubst2));
-
-        /*
-        // - a HVDC line (LCC) between the two substations
-        //
-        */
+    private static void appendHvdc(ZoneRawBuilder parentGraph, SubstationRawBuilder ssb1,
+                                   VoltageLevelRawBuilder vlb1, VoltageLevelRawBuilder vlsubst2, BusNode bbs12, BusNode bbs1) {
+        // an HVDC line (LCC) between the two substations
         SwitchNode dHvdclcc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_lcc11_2", false, false);
         SwitchNode bHvdclcc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_lcc11_2", false, false);
 
         SwitchNode dHvdclcc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_lcc21_2", false, false);
         SwitchNode bHvdclcc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_lcc21_2", false, false);
         Map<VoltageLevelRawBuilder, FeederNode> hvdclcc =
-                ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_lcc", HvdcConverterStation.HvdcType.LCC, vlb1, vlsubst2);
+            ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_lcc", HvdcConverterStation.HvdcType.LCC, vlb1, vlsubst2);
         vlb1.connectNode(bbs1, dHvdclcc112);
         vlb1.connectNode(dHvdclcc112, bHvdclcc112);
         vlb1.connectNode(bHvdclcc112, hvdclcc.get(vlb1));
@@ -311,48 +316,49 @@ public final class RawGraphBuilderUtils {
         vlsubst2.connectNode(dHvdclcc212, bHvdclcc212);
         vlsubst2.connectNode(bHvdclcc212, hvdclcc.get(vlsubst2));
 
-        /*
-        // - a HVDC line (VSC) between the two substations
-        //
-        */
+        // an HVDC line (VSC) between the two substations
         SwitchNode dHvdcvsc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_vsc11_2", false, false);
         SwitchNode bHvdcvsc112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_vsc11_2", false, false);
 
         SwitchNode dHvdcvsc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dhvdc_vsc21_2", false, false);
         SwitchNode bHvdcvsc212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bhvdc_vsc21_2", false, false);
         Map<VoltageLevelRawBuilder, FeederNode> hvdcvsc =
-                ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_vsc", HvdcConverterStation.HvdcType.VSC, vlb1, vlsubst2);
+            ((parentGraph != null) ? parentGraph : ssb1).createHdvcLine("hvdc_vsc", HvdcConverterStation.HvdcType.VSC, vlb1, vlsubst2);
         vlb1.connectNode(bbs1, dHvdcvsc112);
         vlb1.connectNode(dHvdcvsc112, bHvdcvsc112);
         vlb1.connectNode(bHvdcvsc112, hvdcvsc.get(vlb1));
         vlsubst2.connectNode(bbs12, dHvdcvsc212);
         vlsubst2.connectNode(dHvdcvsc212, bHvdcvsc212);
         vlsubst2.connectNode(bHvdcvsc212, hvdcvsc.get(vlsubst2));
+    }
+
+    private static void appendOptional2wt(boolean append2wt, SubstationRawBuilder ssb1, VoltageLevelRawBuilder vlb3, VoltageLevelRawBuilder vlsubst2) {
 
         if (append2wt) {
-            /*
-            // - a two windings transformers between the two substations
-            */
+            // a two windings transformers between the two substations
             ssb1.createFeeder2WT("trf211", vlb3, vlsubst2);
         }
+    }
 
+    private static void appendOptional3wt(boolean append3wts, SubstationRawBuilder ssb1,
+                                          VoltageLevelRawBuilder vlb1, VoltageLevelRawBuilder vlb2, VoltageLevelRawBuilder vlsubst2) {
         if (append3wts) {
-            /*
-            // - a three windings transformers between the two substations
-            */
+            // a three windings transformers between the two substations
             ssb1.createFeeder3WT("trf311", vlb1, vlb2, vlsubst2);
         }
+    }
+
+    private static void appendOptionalLines(RawGraphBuilder rawGraphBuilder, boolean appendLines,
+                                            SubstationRawBuilder ssb1, SubstationRawBuilder ssb2,
+                                            VoltageLevelRawBuilder vlb1, VoltageLevelRawBuilder vlsubst2,
+                                            BusNode bbs12, BusNode bbs1) {
 
         if (appendLines) {
-        /*
-        // Creation of another voltageLevel (vl22)
-        */
+            // Creation of another voltageLevel (vl22)
             VoltageLevelRawBuilder vl22 = rawGraphBuilder.createVoltageLevelBuilder("vl2_2", 380, ssb2);
             BusNode bbs13 = vl22.createBusBarSection("bbs1_3", 1, 1);
 
-        /*
-        // - a line between the voltageLevels: vlsubst2 & vl22
-        */
+            // a line between the voltageLevels: vlsubst2 & vl22
             SwitchNode dline21 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_1", false, false);
             SwitchNode bline21 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_1", false, false);
 
@@ -366,16 +372,14 @@ public final class RawGraphBuilderUtils {
             vl22.connectNode(dline22, bline22);
             vl22.connectNode(bline22, line2.get(vl22));
 
-        /*
-        // - a line between the voltageLevels: vlsubst2 & vlb1
-        */
+            // a line between the voltageLevels: vlsubst2 & vlb1
             SwitchNode dline23 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline2_3", false, false);
             SwitchNode bline23 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline2_3", false, false);
 
             SwitchNode dline24 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline2_4", false, false);
             SwitchNode bline24 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline2_4", false, false);
             Map<VoltageLevelRawBuilder, FeederNode> line3 =
-                    ssb1.createLine("line3", List.of(vlsubst2, vlb1), List.of(7, 1), List.of(Direction.TOP, Direction.TOP));
+                ssb1.createLine("line3", List.of(vlsubst2, vlb1), List.of(7, 1), List.of(Direction.TOP, Direction.TOP));
             vlb1.connectNode(bbs1, dline23);
             vlb1.connectNode(dline23, bline23);
             vlb1.connectNode(bline23, line3.get(vlb1));
