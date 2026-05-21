@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class DiagramMetadata extends AbstractMetadata {
 
     public enum NodeType {
-        THREEWT, BOUNDARY;
+        THREEWT, BOUNDARY
     }
 
     private final LayoutParameters layoutParameters;
@@ -158,28 +158,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
         )));
-        graph.getThreeWtEdgesStream().forEach(edge -> {
-            String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
-            edgesMetadata.add(new EdgeMetadata(
-                    getPrefixedId(edge.getSvgId()),
-                    edge.getEquipmentId(),
-                    getPrefixedId(graph.getVoltageLevelNode(edge).getSvgId()),
-                    getPrefixedId(threeWtNodeSvgId),
-                    getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
-                    getPrefixedId(threeWtNodeSvgId),
-                    edge.getType(),
-                    edge.getSide().name(),
-                    !edge.isVisible(),
-                    false,
-                    edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                    null,
-                    null,
-                    edge.getEdgeStyleInfo().styleClasses(),
-                    null,
-                    edge.getEdgeStyleInfo().style(),
-                    null
-            ));
-        });
+        graph.getThreeWtEdgesStream().forEach(edge -> addThreeWtEdgeMetadata(edge, graph));
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getSvgId()),
                 textPair.getFirst().getEquipmentId(),
@@ -189,6 +168,29 @@ public class DiagramMetadata extends AbstractMetadata {
                 round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
         return this;
+    }
+
+    private void addThreeWtEdgeMetadata(ThreeWtEdge edge, Graph graph) {
+        String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
+        edgesMetadata.add(new EdgeMetadata(
+            getPrefixedId(edge.getSvgId()),
+            edge.getEquipmentId(),
+            getPrefixedId(graph.getVoltageLevelNode(edge).getSvgId()),
+            getPrefixedId(threeWtNodeSvgId),
+            getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
+            getPrefixedId(threeWtNodeSvgId),
+            edge.getType(),
+            edge.getSide().name(),
+            !edge.isVisible(),
+            false,
+            edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+            null,
+            null,
+            edge.getEdgeStyleInfo().styleClasses(),
+            null,
+            edge.getEdgeStyleInfo().style(),
+            null
+        ));
     }
 
     private String findNodeType(Node node) {

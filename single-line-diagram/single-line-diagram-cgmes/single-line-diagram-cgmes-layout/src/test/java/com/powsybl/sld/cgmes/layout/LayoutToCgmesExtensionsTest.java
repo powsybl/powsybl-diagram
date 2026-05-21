@@ -50,114 +50,119 @@ class LayoutToCgmesExtensionsTest {
     }
 
     private void checkExtensionsSet(Network network) {
-        network.getVoltageLevelStream().forEach(vl -> {
-            vl.visitEquipments(new DefaultTopologyVisitor() {
-                @Override
-                public void visitBoundaryLine(BoundaryLine boundaryLine) {
-                    assertNotNull(boundaryLine.getExtension(LineDiagramData.class));
-                }
+        network.getVoltageLevelStream().forEach(LayoutToCgmesExtensionsTest::checkExtensionsSetOnVoltageLevel);
+    }
 
-                @Override
-                public void visitGenerator(Generator generator) {
-                    assertNotNull(generator.getExtension(InjectionDiagramData.class));
-                }
+    private static void checkExtensionsSetOnVoltageLevel(VoltageLevel vl) {
+        vl.visitEquipments(new DefaultTopologyVisitor() {
+            @Override
+            public void visitBoundaryLine(BoundaryLine boundaryLine) {
+                assertNotNull(boundaryLine.getExtension(LineDiagramData.class));
+            }
 
-                @Override
-                public void visitShuntCompensator(ShuntCompensator sc) {
-                    assertNotNull(sc.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitGenerator(Generator generator) {
+                assertNotNull(generator.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitLoad(Load load) {
-                    assertNotNull(load.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitShuntCompensator(ShuntCompensator sc) {
+                assertNotNull(sc.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
-                    assertNotNull(staticVarCompensator.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitLoad(Load load) {
+                assertNotNull(load.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitLine(Line line, TwoSides side) {
-                    assertNotNull(line.getExtension(LineDiagramData.class));
-                }
+            @Override
+            public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
+                assertNotNull(staticVarCompensator.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitBusbarSection(BusbarSection busBarSection) {
-                    assertNotNull(busBarSection.getExtension(NodeDiagramData.class));
-                }
+            @Override
+            public void visitLine(Line line, TwoSides side) {
+                assertNotNull(line.getExtension(LineDiagramData.class));
+            }
 
-                @Override
-                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
-                    assertNotNull(transformer.getExtension(CouplingDeviceDiagramData.class));
-                }
+            @Override
+            public void visitBusbarSection(BusbarSection busBarSection) {
+                assertNotNull(busBarSection.getExtension(NodeDiagramData.class));
+            }
 
-                @Override
-                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
-                    assertNotNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
-                }
+            @Override
+            public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
+                assertNotNull(transformer.getExtension(CouplingDeviceDiagramData.class));
+            }
 
-                @Override
-                public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-                    assertNotNull(converterStation.getExtension(LineDiagramData.class));
-                }
-            });
+            @Override
+            public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
+                assertNotNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
+            }
+
+            @Override
+            public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
+                assertNotNull(converterStation.getExtension(LineDiagramData.class));
+            }
         });
+
     }
 
     private void checkExtensionsUnset(Network network) {
-        network.getVoltageLevelStream().forEach(vl -> {
-            vl.visitEquipments(new DefaultTopologyVisitor() {
-                @Override
-                public void visitBoundaryLine(BoundaryLine boundaryLine) {
-                    assertNull(boundaryLine.getExtension(LineDiagramData.class));
-                }
+        network.getVoltageLevelStream().forEach(LayoutToCgmesExtensionsTest::checkExtensionsUnsetOnVoltageLevel);
+    }
 
-                @Override
-                public void visitGenerator(Generator generator) {
-                    assertNull(generator.getExtension(InjectionDiagramData.class));
-                }
+    private static void checkExtensionsUnsetOnVoltageLevel(VoltageLevel vl) {
+        vl.visitEquipments(new DefaultTopologyVisitor() {
+            @Override
+            public void visitBoundaryLine(BoundaryLine boundaryLine) {
+                assertNull(boundaryLine.getExtension(LineDiagramData.class));
+            }
 
-                @Override
-                public void visitShuntCompensator(ShuntCompensator sc) {
-                    assertNull(sc.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitGenerator(Generator generator) {
+                assertNull(generator.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitLoad(Load load) {
-                    assertNull(load.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitShuntCompensator(ShuntCompensator sc) {
+                assertNull(sc.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
-                    assertNull(staticVarCompensator.getExtension(InjectionDiagramData.class));
-                }
+            @Override
+            public void visitLoad(Load load) {
+                assertNull(load.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitLine(Line line, TwoSides side) {
-                    assertNull(line.getExtension(LineDiagramData.class));
-                }
+            @Override
+            public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
+                assertNull(staticVarCompensator.getExtension(InjectionDiagramData.class));
+            }
 
-                @Override
-                public void visitBusbarSection(BusbarSection busBarSection) {
-                    assertNull(busBarSection.getExtension(NodeDiagramData.class));
-                }
+            @Override
+            public void visitLine(Line line, TwoSides side) {
+                assertNull(line.getExtension(LineDiagramData.class));
+            }
 
-                @Override
-                public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
-                    assertNull(transformer.getExtension(CouplingDeviceDiagramData.class));
-                }
+            @Override
+            public void visitBusbarSection(BusbarSection busBarSection) {
+                assertNull(busBarSection.getExtension(NodeDiagramData.class));
+            }
 
-                @Override
-                public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
-                    assertNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
-                }
+            @Override
+            public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, TwoSides side) {
+                assertNull(transformer.getExtension(CouplingDeviceDiagramData.class));
+            }
 
-                @Override
-                public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-                    assertNull(converterStation.getExtension(LineDiagramData.class));
-                }
-            });
+            @Override
+            public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeSides side) {
+                assertNull(transformer.getExtension(ThreeWindingsTransformerDiagramData.class));
+            }
+
+            @Override
+            public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
+                assertNull(converterStation.getExtension(LineDiagramData.class));
+            }
         });
     }
 

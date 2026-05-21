@@ -484,7 +484,8 @@ public final class Networks {
     private static void addBusTopology3WTransformerDiagramData(Network network) {
         ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer");
         ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
-        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails twtDiagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(100, 15, 0), 90);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails twtDiagramDetails =
+            new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(100, 15, 0), 90);
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(95, 15, 1));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(60, 15, 2));
         twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(105, 15, 1));

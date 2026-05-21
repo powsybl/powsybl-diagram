@@ -27,7 +27,8 @@ public interface VoltageLevelLayoutFactoryCreator {
         return i -> new PositionVoltageLevelLayoutFactory(positionFinder);
     }
 
-    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator(PositionFinder positionFinder, PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
+    static VoltageLevelLayoutFactoryCreator newPositionVoltageLevelLayoutFactoryCreator(PositionFinder positionFinder,
+                                                                                        PositionVoltageLevelLayoutFactoryParameters positionVoltageLevelLayoutFactoryParameters) {
         return i -> new PositionVoltageLevelLayoutFactory(positionFinder, positionVoltageLevelLayoutFactoryParameters);
     }
 

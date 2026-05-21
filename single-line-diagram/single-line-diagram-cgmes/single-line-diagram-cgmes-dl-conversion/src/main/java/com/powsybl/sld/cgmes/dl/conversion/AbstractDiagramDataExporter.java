@@ -37,7 +37,8 @@ public abstract class AbstractDiagramDataExporter {
     }
 
     protected String addDiagramObject(String id, String name, double rotation, String diagramObjectStyleId, String diagramId) {
-        PropertyBag diagramObjectProperties = new PropertyBag(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME, CgmesDLModel.IDENTIFIED_OBJECT, "rotation", CgmesDLModel.DIAGRAM, CgmesDLModel.DIAGRAM_OBJECT_STYLE), true);
+        PropertyBag diagramObjectProperties = new PropertyBag(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT_NAME,
+            CgmesDLModel.IDENTIFIED_OBJECT, "rotation", CgmesDLModel.DIAGRAM, CgmesDLModel.DIAGRAM_OBJECT_STYLE), true);
         diagramObjectProperties.setResourceNames(Arrays.asList(CgmesDLModel.IDENTIFIED_OBJECT, CgmesDLModel.DIAGRAM, CgmesDLModel.DIAGRAM_OBJECT_STYLE));
         diagramObjectProperties.setClassPropertyNames(List.of(CgmesDLModel.IDENTIFIED_OBJECT_NAME));
         diagramObjectProperties.put(CgmesDLModel.IDENTIFIED_OBJECT_NAME, name);

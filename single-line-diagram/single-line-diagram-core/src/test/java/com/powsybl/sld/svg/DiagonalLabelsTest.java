@@ -10,13 +10,13 @@ package com.powsybl.sld.svg;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
@@ -40,6 +40,8 @@ class DiagonalLabelsTest extends AbstractTestCaseIidm {
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-        assertEquals(toString("/diagonalLabelsTest.svg"), toSVG(g, "/diagonalLabelsTest.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/diagonalLabelsTest.svg"),
+            toSVG(g, "/diagonalLabelsTest.svg", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

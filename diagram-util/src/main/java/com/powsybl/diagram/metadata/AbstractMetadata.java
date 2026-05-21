@@ -7,6 +7,9 @@
  */
 package com.powsybl.diagram.metadata;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.powsybl.commons.json.JsonUtil;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
@@ -14,9 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.powsybl.commons.json.JsonUtil;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@soft.it>}
