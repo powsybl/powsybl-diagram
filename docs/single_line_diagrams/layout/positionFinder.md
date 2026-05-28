@@ -1,4 +1,4 @@
-## Position of `BusNodes` and `Cells` order
+# Position of `BusNodes` and `Cells` order
 
 ```{toctree}
 ---
@@ -12,7 +12,7 @@ positionByClustering.md
 subsection.md
 ```
 
-### Definitions and goal
+## Definitions and goal
 
 Positioning the `BusNodes` and determination of the `ExternalCells` order are performed by implementing the `PositionFinder` interface.
 
@@ -27,7 +27,7 @@ The picture hereafter shows the information that is to be established.
 ![busbars](../../_static/img/sld/layout/busbars.svg){align=center class="forced-white-background"}
 **_(h,v) positions of `BusNodes` and `ExternCell` cells order_**
 
-### Available implementations
+## Available implementations
 
 Two implementations are available:
 
@@ -41,13 +41,13 @@ Both rely on the `BSCluster` (see [BSCluster](bsCluster.md)) and have the same s
 * Step 3: Merge of `bsClsuters` into a single `BSCluster`
 * Step 4: Build of the `List<Subsection>subsections`
 
-### Illustration of algorithms based on `BSCluster`
+## Illustration of algorithms based on `BSCluster`
 
 The illustration will be based on the following graph and shall result in the above layout.
 
 ![rawGraphVBS](../../_static/img/sld/layout/rawGraphVBS.svg){align=center class="forced-white-background"}
 
-#### Step 1: Build `VerticalBusSets`
+### Step 1: Build `VerticalBusSets`
 
 The result of `VerticalBusSet.createVerticalBusSets` is
 
@@ -60,7 +60,7 @@ The result of `VerticalBusSet.createVerticalBusSets` is
 
 > **Note:** At that stage, the `LEFT` and `RIGHT` side of an `InternCell` is arbitrary. They will be flipped if necessary later on (handled in `Subsection.createSubsections`).
 
-#### Step 2: Build unitary `BSClusters`
+### Step 2: Build unitary `BSClusters`
 
 This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 
@@ -77,7 +77,7 @@ This consist in creating one `BSCluster` per `VerticalBusSet`. This results in:
 > - It is representative of the general case. But note that for `PositionFromExtension`, the `verticalBusSets` is sorted to end up to a ready-to-merge `bsClusters`. See [PositionFromExtension](positionFromExtension.md).
 > - In this picture, the `NodeBus` are on different rows to show that they are not necessarily aligned. Only both `B1` will necessarily be on the same row.
 
-#### Step 3: Merge `BSClusters` into a single one
+### Step 3: Merge `BSClusters` into a single one
 
 That's where the magic happens. This is where the implementations mainly differ. The goal is to merge the `BSClusters` to one another.
 
@@ -96,6 +96,6 @@ This expected result should be similar to the following `BSCluster`:
 
 The way this example is handled is detailed in each implementation documentation: [PositionFromExtension](positionFromExtension.md), [PositionByClustering](positionByClustering.md).
 
-#### Step 4: Build the `List<Subsection>`
+### Step 4: Build the `List<Subsection>`
 
 See [Subsection](subsection.md).
