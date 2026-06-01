@@ -7,10 +7,10 @@ maxdepth: 2
 hidden: true
 ---
 
+svgParameters/svgParameters.md
 model/graphBuilderCreationRequirements.md
 layout/layout.md
 styleProvider/styleProvider.md
-svgParameters/svgParameters.md
 ```
 
 
