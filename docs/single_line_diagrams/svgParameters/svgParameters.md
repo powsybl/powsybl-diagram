@@ -161,13 +161,24 @@ svgParams.setLabelCentered(true);
 ### labelDiagonal
 Default value: `false`
 
-When `true` equipments tags are displayed diagonally (45° rotation). Useful for substations with many feeders to avoid text overlaps.
+When `true` feeder labels are displayed diagonally (45° rotation). Useful for substations with many feeders to avoid text overlaps.
 
 ```java
 svgParams.setLabelDiagonal(true);
 ```
 ![sld-example](../../_static/img/sld/svg_parameters/init.svg){class="forced-white-background svg-height"}
 ![label-diagonal-example](../../_static/img/sld/svg_parameters/label_diagonal.svg){class="forced-white-background svg-height"}
+
+### busLabelDiagonal
+Default value: `false`
+
+When `true` bus labels are displayed diagonally (45° rotation).
+
+```java
+svgParams.setBusLabelDiagonal(true);
+```
+![sld-example](../../_static/img/sld/svg_parameters/init.svg){class="forced-white-background svg-height"}
+![bus-label-diagonal-example](../../_static/img/sld/svg_parameters/bus_label_diagonal.svg){class="forced-white-background svg-height"}
 
 
 ## SVG rendering parameters

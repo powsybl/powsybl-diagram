@@ -157,7 +157,7 @@
         <g class="sld-voltage-level" id="idMy_32_voltage_32_level">
             <g class="sld-busbar-section sld-vl0to30 sld-bus-0" id="idMy_32_busbar_32_section" transform="translate(52.5,252.0)">
                 <line x1="0" x2="25.0" y1="0" y2="0"/>
-                <text class="sld-label" id="idMy_32_busbar_32_section_95_NW_95_LABEL" x="-5.0" y="-5.0">My busbar section</text>
+                <text class="sld-label" id="idMy_32_busbar_32_section_95_NW_95_LABEL" transform="rotate(-15,0,0)" x="-5.0" y="-5.0">My busbar section</text>
             </g>
             <g class="sld-extern-cell sld-cell-direction-top" id="idEXTERN_32_0">
                 <g class="sld-wire sld-vl0to30 sld-bus-0" id="_95_My_32_voltage_32_level_95_Disconnector_95_INTERNAL_95_My_32_voltage_32_level_95_Disconnector_45_Breaker">
@@ -200,7 +200,7 @@
                     <circle cx="6" cy="6" r="6"/>
                     <path d="M6,6 A 6 40 0 0 0 2,6"/>
                     <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                    <text class="sld-label" id="idMy_32_generator_95_N_95_LABEL" transform="rotate(-15,0,0)" x="-5.0" y="-5.0">My generator</text>
+                    <text class="sld-label" id="idMy_32_generator_95_N_95_LABEL" x="-5.0" y="-5.0">My generator</text>
                 </g>
             </g>
         </g>
