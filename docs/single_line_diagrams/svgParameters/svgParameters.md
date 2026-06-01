@@ -138,13 +138,17 @@ svgParams.setFeederInfosOuterMargin(50);
 ## Labeling and tagging parameters
 
 ### angleLabelShift
-Default value: `15.`
+Default value: `15.` (in degree (°))
 
-On the tag informing the phase angle and voltage of a busbar (voltage level node), shift to apply between both values (in SVG unit).  
+Defines the rotation angle applied to the feeder labels (resp. bus labels) when the parameter [`labelDiagonal`](#labeldiagonal) (resp. [`busLabelDiagonal`](#buslabeldiagonal)) is set to true.
 
 ```java
 svgParams.setAngleLabelShift(45);
+svgParams.setLabelDiagonal(true);
+svgParams.setBusLabelDiagonal(true);
 ```
+![sld-example](../../_static/img/sld/svg_parameters/init.svg){class="forced-white-background svg-height"}
+![angle-label-shift-example](../../_static/img/sld/svg_parameters/angle_label_shift.svg){class="forced-white-background svg-height"}
 
 ### labelCentered
 Default value: `false`
@@ -161,7 +165,7 @@ svgParams.setLabelCentered(true);
 ### labelDiagonal
 Default value: `false`
 
-When `true` feeder labels are displayed diagonally (45° rotation). Useful for substations with many feeders to avoid text overlaps.
+When `true` feeder labels are displayed diagonally with an angle set by the [`angleLabelShift`](#anglelabelshift). Useful for substations with many feeders to avoid text overlaps.
 
 ```java
 svgParams.setLabelDiagonal(true);
@@ -172,7 +176,7 @@ svgParams.setLabelDiagonal(true);
 ### busLabelDiagonal
 Default value: `false`
 
-When `true` bus labels are displayed diagonally (45° rotation).
+When `true` bus labels are displayed diagonally with an angle set by the [`angleLabelShift`](#anglelabelshift).
 
 ```java
 svgParams.setBusLabelDiagonal(true);
