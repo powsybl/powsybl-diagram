@@ -35,13 +35,28 @@ class DiagonalLabelsTest extends AbstractTestCaseIidm {
     void test() {
         SldComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         svgParameters.setFeederInfoSymmetry(true);
-        svgParameters.setLabelDiagonal(true);
 
         // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
-        assertEquals(toString("/diagonalLabelsTest.svg"),
-            toSVG(g, "/diagonalLabelsTest.svg", componentLibrary, layoutParameters, svgParameters,
-                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+
+        // Write only feeder labels diagonally
+        svgParameters.setLabelDiagonal(true);
+        svgParameters.setBusLabelDiagonal(false);
+        assertEquals(toString("/diagonalFeederLabelsTest.svg"), toSVG(g, "/diagonalFeederLabelsTest.svg", componentLibrary,
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+
+        // Write all labels diagonally
+        svgParameters.setBusLabelDiagonal(true);
+        assertEquals(toString("/diagonalAllLabelsTest.svg"), toSVG(g, "/diagonalAllLabelsTest.svg", componentLibrary,
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+
+        // Write only bus labels diagonally
+        svgParameters.setLabelDiagonal(false);
+        assertEquals(toString("/diagonalBusLabelsTest.svg"), toSVG(g, "/diagonalBusLabelsTest.svg", componentLibrary,
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

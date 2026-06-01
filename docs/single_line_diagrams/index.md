@@ -7,6 +7,7 @@ maxdepth: 2
 hidden: true
 ---
 
+svgParameters/svgParameters.md
 model/graphBuilderCreationRequirements.md
 layout/layout.md
 styleProvider/styleProvider.md
@@ -36,7 +37,7 @@ These examples show how to write a single-line diagram into an SVG file.
 SingleLineDiagram.draw(network, "N", "/tmp/n.svg");
 ```
 
-* Generate a single-line diagram for the substation `A` of the network `network`, with customized `SvgParameters`
+* Generate a single-line diagram for the substation `A` of the network `network`, with customized `SvgParameters` (See [SvgParameters documentation page](svgParameters/svgParameters.md)).
 
 ```java
 SldParameters sldParameters = new SldParameters().setSvgParameters(new SvgParameters().setUseName(true));

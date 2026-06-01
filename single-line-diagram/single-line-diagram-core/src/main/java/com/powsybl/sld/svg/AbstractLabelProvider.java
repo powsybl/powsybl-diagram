@@ -166,7 +166,7 @@ public abstract class AbstractLabelProvider implements LabelProvider {
     }
 
     protected LabelPosition getBusLabelPosition() {
-        int angle = svgParameters.isLabelDiagonal() ? (int) -svgParameters.getAngleLabelShift() : 0;
+        int angle = svgParameters.isBusLabelDiagonal() ? (int) -svgParameters.getAngleLabelShift() : 0;
         return new LabelPosition("NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, angle);
     }
 
