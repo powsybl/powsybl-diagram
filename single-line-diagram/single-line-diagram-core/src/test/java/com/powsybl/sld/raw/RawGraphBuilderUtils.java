@@ -203,7 +203,7 @@ public final class RawGraphBuilderUtils {
         vlb3.connectNode(btrf25, feeder2WTs5.get(vlb3));
 
         // three windings transformers between voltage levels
-        add3wtConnections(ssb1, vlb1, vlb2, vlb3, bbs1, bbs2, bbs3, bbs4, bbs5, bbs6, bbs7);
+        add3wtConnections(ssb1, vlb1, vlb2, vlb3, bbs1, bbs2, bbs3, bbs5, bbs6, bbs7);
 
         // Creation of another substation, another voltageLevel with a line between the two substations
         SubstationRawBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2", parentGraph);
@@ -234,7 +234,7 @@ public final class RawGraphBuilderUtils {
 
     private static void add3wtConnections(SubstationRawBuilder ssb1,
                                           VoltageLevelRawBuilder vlb1, VoltageLevelRawBuilder vlb2, VoltageLevelRawBuilder vlb3,
-                                          BusNode bbs1, BusNode bbs2, BusNode bbs3, BusNode bbs4, BusNode bbs5, BusNode bbs6, BusNode bbs7) {
+                                          BusNode bbs1, BusNode bbs2, BusNode bbs3, BusNode bbs5, BusNode bbs6, BusNode bbs7) {
         Map<VoltageLevelRawBuilder, FeederNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", List.of(vlb1, vlb2, vlb3),
             List.of(5, 5, 2), List.of(TOP, TOP, TOP));
 
