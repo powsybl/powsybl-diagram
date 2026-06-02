@@ -22,9 +22,9 @@ import org.jgrapht.alg.util.Pair;
 import java.util.*;
 
 /**
- * Zone layout that places substations at desired center coordinates (x, y).
+ * Zone layout that places substations at desired top-left coordinates (x, y).
  * <p>
- * Each substation is assigned a desired center via a {@code List<Pair<String, Point>>}.
+ * Each substation is assigned a desired top-left position via a {@code List<Pair<String, Point>>}.
  * After running the sub-layouts (which determine each substation's pixel size),
  * substations that would overlap — including the snakeline margin — are nudged
  * in list order: earlier entries win and later ones are moved away.
@@ -33,20 +33,20 @@ import java.util.*;
  */
 public class PositionedZoneLayout extends AbstractZoneLayout {
 
-    /** Desired center (x, y) per substation, in priority order for overlap resolution. */
-    private final List<Pair<String, Point>> desiredCenters;
+    /** Desired top-left (x, y) per substation, in priority order for overlap resolution. */
+    private final List<Pair<String, Point>> desiredPositions;
 
     /** Path-finding grid built in manageSnakeLines, used in calculatePolylineSnakeLine. */
     private Grid pathFinderGrid;
 
     protected PositionedZoneLayout(ZoneGraph graph,
-                                   List<Pair<String, Point>> desiredCenters,
+                                   List<Pair<String, Point>> desiredPositions,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
                                    SubstationLayoutFactory sLayoutFactory,
                                    VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, sLayoutFactory, vLayoutFactory);
         this.pathFinder = Objects.requireNonNull(pathFinderFactory).create();
-        this.desiredCenters = List.copyOf(Objects.requireNonNull(desiredCenters));
+        this.desiredPositions = List.copyOf(Objects.requireNonNull(desiredPositions));
     }
 
     @Override
@@ -54,8 +54,8 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
         int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
 
-        List<SubstationGraph> substationGraphs = new ArrayList<>(desiredCenters.size());
-        for (Pair<String, Point> entry : desiredCenters) {
+        List<SubstationGraph> substationGraphs = new ArrayList<>(desiredPositions.size());
+        for (Pair<String, Point> entry : desiredPositions) {
             String id = entry.getFirst();
             SubstationGraph sGraph = getGraph().getSubstationGraph(id);
             if (sGraph == null) {
@@ -65,21 +65,19 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
             substationGraphs.add(sGraph);
         }
 
-        // Convert desired centers to desired top-left corners
+        // Build boxes [x, y, w, h] directly from desired top-left positions
         List<double[]> boxes = new ArrayList<>(substationGraphs.size());  // [x, y, w, h]
         for (int i = 0; i < substationGraphs.size(); i++) {
-            Point center = desiredCenters.get(i).getSecond();
+            Point topLeft = desiredPositions.get(i).getSecond();
             SubstationGraph sg = substationGraphs.get(i);
-            double w = sg.getWidth();
-            double h = sg.getHeight();
-            boxes.add(new double[]{center.getX() - w / 2.0, center.getY() - h / 2.0, w, h});
+            boxes.add(new double[]{topLeft.getX(), topLeft.getY(), sg.getWidth(), sg.getHeight()});
         }
 
         // Resolve overlaps (greedy: insertion order wins)
         resolveOverlaps(boxes, snakeLinePadding);
 
         // Shift all boxes so the top-left of the bounding box starts at (padding.left(), padding.top())
-        // This disregard the absolute values in desiredCenters and only keeps relative positions
+        // This disregards the absolute values in desiredPositions and only keeps relative positions
         double minX = boxes.stream().mapToDouble(b -> b[0]).min().orElse(0);
         double minY = boxes.stream().mapToDouble(b -> b[1]).min().orElse(0);
         for (double[] box : boxes) {
@@ -256,7 +254,7 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
     }
 
     private boolean containsSubstation(String id) {
-        return desiredCenters.stream().anyMatch(p -> p.getFirst().equals(id));
+        return desiredPositions.stream().anyMatch(p -> p.getFirst().equals(id));
     }
 
     /**
