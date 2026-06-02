@@ -29,7 +29,7 @@ import java.util.*;
  * substations that would overlap — including the snakeline margin — are nudged
  * in list order: earlier entries win and later ones are moved away.
  *
- * @author (your name)
+ * @author Frédéric Sabot
  */
 public class PositionedZoneLayout extends AbstractZoneLayout {
 
@@ -79,11 +79,12 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
         resolveOverlaps(boxes, snakeLinePadding);
 
         // Shift all boxes so the top-left of the bounding box starts at (padding.left(), padding.top())
+        // This disregard the absolute values in desiredCenters and only keeps relative positions
         double minX = boxes.stream().mapToDouble(b -> b[0]).min().orElse(0);
         double minY = boxes.stream().mapToDouble(b -> b[1]).min().orElse(0);
         for (double[] box : boxes) {
-            box[0] -= minX - diagramPadding.left() - snakeLinePadding;
-            box[1] -= minY - diagramPadding.top() - snakeLinePadding;
+            box[0] += diagramPadding.left() + snakeLinePadding - minX;
+            box[1] += diagramPadding.top() + snakeLinePadding - minY;
         }
 
         // Apply positions via (relative) move()
