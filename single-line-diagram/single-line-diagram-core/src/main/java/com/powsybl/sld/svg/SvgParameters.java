@@ -37,6 +37,7 @@ public class SvgParameters {
     private double angleLabelShift = 15.;
     private boolean labelCentered = false;
     private boolean labelDiagonal = false;
+    private boolean busLabelDiagonal = false;
     private boolean tooltipEnabled = false;
     private boolean svgWidthAndHeightAdded = false;
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
@@ -78,6 +79,7 @@ public class SvgParameters {
         this.angleLabelShift = other.angleLabelShift;
         this.labelCentered = other.labelCentered;
         this.labelDiagonal = other.labelDiagonal;
+        this.busLabelDiagonal = other.busLabelDiagonal;
         this.tooltipEnabled = other.tooltipEnabled;
         this.svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
         this.cssLocation = other.cssLocation;
@@ -280,6 +282,15 @@ public class SvgParameters {
 
     public SvgParameters setLabelDiagonal(boolean labelDiagonal) {
         this.labelDiagonal = labelDiagonal;
+        return this;
+    }
+
+    public boolean isBusLabelDiagonal() {
+        return busLabelDiagonal;
+    }
+
+    public SvgParameters setBusLabelDiagonal(boolean busLabelDiagonal) {
+        this.busLabelDiagonal = busLabelDiagonal;
         return this;
     }
 
