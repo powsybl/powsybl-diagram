@@ -33,6 +33,31 @@ import java.util.*;
  */
 public class PositionedZoneLayout extends AbstractZoneLayout {
 
+    /** Mutable bounding box used during overlap resolution. */
+    private static class Rectangle {
+        double x;
+        double y;
+        final double w;
+        final double h;
+
+        Rectangle(double x, double y, double w, double h) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
+
+        /**
+         * Returns true if this rectangle and {@code other} overlap, including the required margin gap.
+         * Two rectangles are clear when there is at least {@code margin} space between them on both axes.
+         */
+        boolean overlaps(Rectangle other, int margin) {
+            boolean xOverlap = x < other.x + other.w + margin && x + w + margin > other.x;
+            boolean yOverlap = y < other.y + other.h + margin && y + h + margin > other.y;
+            return xOverlap && yOverlap;
+        }
+    }
+
     /** Desired top-left (x, y) per substation, in priority order for overlap resolution. */
     private final List<Pair<String, Point>> desiredPositions;
 
@@ -65,36 +90,35 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
             substationGraphs.add(sGraph);
         }
 
-        // Build boxes [x, y, w, h] directly from desired top-left positions
-        List<double[]> boxes = new ArrayList<>(substationGraphs.size());  // [x, y, w, h]
+        // Build bounding boxes from desired top-left positions
+        List<Rectangle> rectangles = new ArrayList<>(substationGraphs.size());
         for (int i = 0; i < substationGraphs.size(); i++) {
             Point topLeft = desiredPositions.get(i).getSecond();
             SubstationGraph sg = substationGraphs.get(i);
-            boxes.add(new double[]{topLeft.getX(), topLeft.getY(), sg.getWidth(), sg.getHeight()});
+            rectangles.add(new Rectangle(topLeft.getX(), topLeft.getY(), sg.getWidth(), sg.getHeight()));
         }
 
         // Resolve overlaps (greedy: insertion order wins)
-        resolveOverlaps(boxes, snakeLinePadding);
+        resolveOverlaps(rectangles, snakeLinePadding);
 
-        // Shift all boxes so the top-left of the bounding box starts at (padding.left(), padding.top())
+        // Shift all rectangles so the top-left of the bounding box starts at (padding.left(), padding.top())
         // This disregards the absolute values in desiredPositions and only keeps relative positions
-        double minX = boxes.stream().mapToDouble(b -> b[0]).min().orElse(0);
-        double minY = boxes.stream().mapToDouble(b -> b[1]).min().orElse(0);
-        for (double[] box : boxes) {
-            box[0] += diagramPadding.left() + snakeLinePadding - minX;
-            box[1] += diagramPadding.top() + snakeLinePadding - minY;
+        double minX = rectangles.stream().mapToDouble(r -> r.x).min().orElse(0);
+        double minY = rectangles.stream().mapToDouble(r -> r.y).min().orElse(0);
+        for (Rectangle r : rectangles) {
+            r.x += diagramPadding.left() + snakeLinePadding - minX;
+            r.y += diagramPadding.top() + snakeLinePadding - minY;
         }
 
         // Apply positions via (relative) move()
         for (int i = 0; i < substationGraphs.size(); i++) {
-            SubstationGraph sg = substationGraphs.get(i);
-            double[] box = boxes.get(i);
-            move(sg, box[0], box[1]);
+            Rectangle r = rectangles.get(i);
+            move(substationGraphs.get(i), r.x, r.y);
         }
 
         // Compute zone size from bounding box
-        double zoneWidth = boxes.stream().mapToDouble(b -> b[0] + b[2]).max().orElse(0);
-        double zoneHeight = boxes.stream().mapToDouble(b -> b[1] + b[3]).max().orElse(0);
+        double zoneWidth = rectangles.stream().mapToDouble(r -> r.x + r.w).max().orElse(0);
+        double zoneHeight = rectangles.stream().mapToDouble(r -> r.y + r.h).max().orElse(0);
         getGraph().setSize(
             diagramPadding.left() + zoneWidth + diagramPadding.right() + snakeLinePadding,
             diagramPadding.top() + zoneHeight + diagramPadding.bottom() + snakeLinePadding
@@ -264,16 +288,16 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
      * blocking one — choosing the direction that requires the smallest displacement.
      * Repeat until no overlaps remain with any earlier substation.
      */
-    private void resolveOverlaps(List<double[]> boxes, int margin) {
-        for (int i = 1; i < boxes.size(); i++) {
+    private void resolveOverlaps(List<Rectangle> rectangles, int margin) {
+        for (int i = 1; i < rectangles.size(); i++) {
             boolean moved;
             do {
                 moved = false;
                 for (int j = 0; j < i; j++) {
-                    double[] a = boxes.get(j); // winner (fixed)
-                    double[] b = boxes.get(i); // candidate (may move)
-                    if (overlaps(a, b, margin)) {
-                        nudge(a, b, margin);
+                    Rectangle a = rectangles.get(j); // winner (fixed)
+                    Rectangle b = rectangles.get(i); // candidate (may move)
+                    if (a.overlaps(b, margin)) {
+                        moveToResolveOverlap(a, b, margin);
                         moved = true;
                     }
                 }
@@ -281,28 +305,26 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
         }
     }
 
-    private boolean overlaps(double[] a, double[] b, int margin) {
-        boolean xOverlap = a[0] < b[0] + b[2] + margin && a[0] + a[2] + margin > b[0];
-        boolean yOverlap = a[1] < b[1] + b[3] + margin && a[1] + a[3] + margin > b[1];
-        return xOverlap && yOverlap;
-    }
-
-    private void nudge(double[] a, double[] b, int margin) {
-        double moveRight = (a[0] + a[2] + margin) - b[0];
-        double moveLeft = b[0] + b[2] + margin - a[0];
-        double moveDown = (a[1] + a[3] + margin) - b[1];
-        double moveUp = b[1] + b[3] + margin - a[1];
+    /**
+     * Moves rectangle {@code b} in the direction that requires the smallest displacement
+     * to clear rectangle {@code a}, including the required margin gap.
+     */
+    private void moveToResolveOverlap(Rectangle a, Rectangle b, int margin) {
+        double moveRight = (a.x + a.w + margin) - b.x;
+        double moveLeft = b.x + b.w + margin - a.x;
+        double moveDown = (a.y + a.h + margin) - b.y;
+        double moveUp = b.y + b.h + margin - a.y;
 
         double minDisplacement = Math.min(Math.min(moveRight, moveLeft), Math.min(moveDown, moveUp));
 
         if (minDisplacement == moveRight) {
-            b[0] += moveRight;
+            b.x += moveRight;
         } else if (minDisplacement == moveLeft) {
-            b[0] -= moveLeft;
+            b.x -= moveLeft;
         } else if (minDisplacement == moveDown) {
-            b[1] += moveDown;
+            b.y += moveDown;
         } else {
-            b[1] -= moveUp;
+            b.y -= moveUp;
         }
     }
 }
