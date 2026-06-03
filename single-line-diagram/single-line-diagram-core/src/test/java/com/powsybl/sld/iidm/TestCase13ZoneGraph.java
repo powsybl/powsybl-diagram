@@ -12,8 +12,11 @@ import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.pathfinding.*;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.svg.SvgParameters;
+
+import org.jgrapht.alg.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -185,5 +188,27 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         Layout layout = mFactory.create(g, pFinderFactory, sFactory, vFactory);
         PowsyblException e = assertThrows(PowsyblException.class, () -> layout.run(layoutParameters));
         assertEquals("Substation 'A' was not found in zone graph 'B_C'", e.getMessage());
+    }
+
+    @Test
+    void testZoneGraphPositioned() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<Pair<String, Point>> positions = List.of(
+            Pair.of("A", new Point(100, 100)),
+            Pair.of("B", new Point(800, 100)),
+            Pair.of("C", new Point(300, 600))
+        );
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
+
+        // Run positioned zone layout
+        new PositionedZoneLayoutFactory(positions)
+            .create(g,
+                DijkstraPathFinder::new,
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory())
+            .run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphPositioned.svg"), toSVG(g, "/TestCase13ZoneGraphPositioned.svg"));
     }
 }
