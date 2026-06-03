@@ -144,7 +144,7 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
     // -------------------------------------------------------------------------
 
     private void computePathFindingGrid(LayoutParameters layoutParameters) {
-        int width  = (int) getGraph().getWidth();
+        int width = (int) getGraph().getWidth();
         int height = (int) getGraph().getHeight();
         pathFinderGrid = new Grid(width, height);
 
@@ -162,7 +162,7 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
 
             // Horizontal hallway above and below this substation
             int hStep = (int) layoutParameters.getHorizontalSnakeLinePadding();
-            int zoneW  = (int)(width  - diagramPadding.left() - diagramPadding.right());
+            int zoneW = (int) (width - diagramPadding.left() - diagramPadding.right());
             int startX = (int) diagramPadding.left();
             for (int x = startX; x < startX + zoneW; x++) {
                 for (int y = ssY - margin; y < ssY; y += Math.max(1, hStep)) {
@@ -175,7 +175,7 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
 
             // Vertical hallway left and right of this substation
             int vStep = (int) layoutParameters.getVerticalSnakeLinePadding();
-            int zoneH  = (int)(height - diagramPadding.top() - diagramPadding.bottom());
+            int zoneH = (int) (height - diagramPadding.top() - diagramPadding.bottom());
             int startY = (int) diagramPadding.top();
             for (int y = startY; y < startY + zoneH; y++) {
                 for (int x = ssX - margin; x < ssX; x += Math.max(1, vStep)) {
@@ -227,8 +227,8 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
         LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
         int margin = layoutParameters.getZoneLayoutSnakeLinePadding();
 
-        double x1   = p.getX();
-        double y1   = p.getY();
+        double x1 = p.getX();
+        double y1 = p.getY();
         double minY = d == Direction.BOTTOM ? y1 : y1 - vlPadding.top();
         double maxY = d == Direction.BOTTOM ? y1 + vlPadding.bottom() : y1;
 
@@ -289,9 +289,9 @@ public class PositionedZoneLayout extends AbstractZoneLayout {
 
     private void nudge(double[] a, double[] b, int margin) {
         double moveRight = (a[0] + a[2] + margin) - b[0];
-        double moveLeft  = b[0] + b[2] + margin - a[0];
-        double moveDown  = (a[1] + a[3] + margin) - b[1];
-        double moveUp    = b[1] + b[3] + margin - a[1];
+        double moveLeft = b[0] + b[2] + margin - a[0];
+        double moveDown = (a[1] + a[3] + margin) - b[1];
+        double moveUp = b[1] + b[3] + margin - a[1];
 
         double minDisplacement = Math.min(Math.min(moveRight, moveLeft), Math.min(moveDown, moveUp));
 
