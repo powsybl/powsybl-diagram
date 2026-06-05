@@ -57,6 +57,11 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
     /** Desired top-left (x, y) per substation, in priority order for overlap resolution. */
     private final List<Pair<String, Point>> desiredPositions;
 
+    /**
+     * @param graph the zone graph to lay out
+     * @param desiredPositions desired top-left position for each substation, in priority order for overlap resolution;
+     *                         earlier entries win and are never moved
+     */
     protected PositionedZoneLayout(ZoneGraph graph,
                                    List<Pair<String, Point>> desiredPositions,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
