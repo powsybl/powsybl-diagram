@@ -197,7 +197,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         List<Pair<String, Point>> positions = List.of(
             Pair.of("A", new Point(100, 100)),
             Pair.of("B", new Point(800, 100)),
-            Pair.of("C", new Point(300, 600))
+            Pair.of("C", new Point(500, 100))  // In between A and B with overlaps ==> Overlap resolution will move it elsewhere
         );
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
 

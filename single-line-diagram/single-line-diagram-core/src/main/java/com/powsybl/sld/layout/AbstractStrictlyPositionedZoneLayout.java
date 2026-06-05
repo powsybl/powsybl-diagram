@@ -25,11 +25,10 @@ import java.util.*;
  * Zone layout that places substations at desired top-left coordinates (x, y).
  * <p>
  * Each substation is assigned a desired top-left position via a {@code List<Pair<String, Point>>}.
- * After running the sub-layouts (which determine each substation's pixel size),
- * substations that would overlap — including the snakeline margin — are nudged
- * in list order: earlier entries win and later ones are moved away.
+ * Child classes are responsible for running the sub-layouts and making sure the
+ * substations do not overlap (including margin for snakelines).
  *
- * @author Frédéric Sabot
+ * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
 public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneLayout {
 

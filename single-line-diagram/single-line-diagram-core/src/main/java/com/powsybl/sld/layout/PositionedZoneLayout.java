@@ -21,10 +21,11 @@ import java.util.*;
  * <p>
  * Each substation is assigned a desired top-left position via a {@code List<Pair<String, Point>>}.
  * After running the sub-layouts (which determine each substation's pixel size),
- * substations that would overlap — including the snakeline margin — are nudged
- * in list order: earlier entries win and later ones are moved away.
+ * substations that would overlap — including the snakeline margin — are moved to the right/bottom.
+ * Overlap resolution is done iteratively, keeping the first entries at their desired location and
+ * moving the later ones in case of overlap.
  *
- * @author Frédéric Sabot
+ * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
 public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
 
@@ -32,14 +33,14 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
     private static class Rectangle {
         double x;
         double y;
-        final double w;
-        final double h;
+        final double width;
+        final double height;
 
-        Rectangle(double x, double y, double w, double h) {
+        Rectangle(double x, double y, double width, double height) {
             this.x = x;
             this.y = y;
-            this.w = w;
-            this.h = h;
+            this.width = width;
+            this.height = height;
         }
 
         /**
@@ -47,8 +48,8 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
          * Two rectangles are clear when there is at least {@code margin} space between them on both axes.
          */
         boolean overlaps(Rectangle other, int margin) {
-            boolean xOverlap = x < other.x + other.w + margin && x + w + margin > other.x;
-            boolean yOverlap = y < other.y + other.h + margin && y + h + margin > other.y;
+            boolean xOverlap = x < other.x + other.width + margin && x + width + margin > other.x;
+            boolean yOverlap = y < other.y + other.height + margin && y + height + margin > other.y;
             return xOverlap && yOverlap;
         }
     }
@@ -62,7 +63,7 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
                                    SubstationLayoutFactory sLayoutFactory,
                                    VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, pathFinderFactory, sLayoutFactory, vLayoutFactory);
-        this.desiredPositions = List.copyOf(Objects.requireNonNull(desiredPositions));
+        this.desiredPositions = Objects.requireNonNull(desiredPositions);
     }
 
     @Override
@@ -121,10 +122,10 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
             do {
                 moved = false;
                 for (int j = 0; j < i; j++) {
-                    Rectangle a = rectangles.get(j); // winner (fixed)
-                    Rectangle b = rectangles.get(i); // candidate (may move)
-                    if (a.overlaps(b, margin)) {
-                        moveToResolveOverlap(a, b, margin);
+                    Rectangle fixedRectangle = rectangles.get(j);
+                    Rectangle freeRectangle = rectangles.get(i);
+                    if (fixedRectangle.overlaps(freeRectangle, margin)) {
+                        moveToResolveOverlap(fixedRectangle, freeRectangle, margin);
                         moved = true;
                     }
                 }
@@ -133,25 +134,18 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
     }
 
     /**
-     * Moves rectangle {@code b} in the direction that requires the smallest displacement
-     * to clear rectangle {@code a}, including the required margin gap.
+     * Moves rectangle {@code freeRectangle} in the direction that requires the smallest displacement
+     * to clear rectangle {@code fixedRectangle}, including the required margin gap.
+     * Only move to the right/down to avoid infinite loops in overlap resolution pushing a given rectangle left and right.
      */
-    private void moveToResolveOverlap(Rectangle a, Rectangle b, int margin) {
-        double moveRight = (a.x + a.w + margin) - b.x;
-        double moveLeft = b.x + b.w + margin - a.x;
-        double moveDown = (a.y + a.h + margin) - b.y;
-        double moveUp = b.y + b.h + margin - a.y;
+    private void moveToResolveOverlap(Rectangle fixedRectangle, Rectangle freeRectangle, int margin) {
+        double moveRight = (fixedRectangle.x + fixedRectangle.width + margin) - freeRectangle.x;
+        double moveDown = (fixedRectangle.y + fixedRectangle.height + margin) - freeRectangle.y;
 
-        double minDisplacement = Math.min(Math.min(moveRight, moveLeft), Math.min(moveDown, moveUp));
-
-        if (minDisplacement == moveRight) {
-            b.x += moveRight;
-        } else if (minDisplacement == moveLeft) {
-            b.x -= moveLeft;
-        } else if (minDisplacement == moveDown) {
-            b.y += moveDown;
+        if (moveRight <= moveDown) {
+            freeRectangle.x += moveRight;
         } else {
-            b.y -= moveUp;
+            freeRectangle.y += moveDown;
         }
     }
 }

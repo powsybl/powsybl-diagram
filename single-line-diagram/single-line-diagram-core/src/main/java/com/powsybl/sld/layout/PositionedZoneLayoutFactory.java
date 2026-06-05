@@ -16,7 +16,7 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.*;
 
 /**
- * @author Frédéric Sabot
+ * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
 public class PositionedZoneLayoutFactory implements ZoneLayoutFactory {
 
