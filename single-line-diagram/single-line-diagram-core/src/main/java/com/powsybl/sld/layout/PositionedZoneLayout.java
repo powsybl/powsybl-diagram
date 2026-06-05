@@ -123,9 +123,9 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
                 moved = false;
                 for (int j = 0; j < i; j++) {
                     Rectangle fixedRectangle = rectangles.get(j);
-                    Rectangle freeRectangle = rectangles.get(i);
-                    if (fixedRectangle.overlaps(freeRectangle, margin)) {
-                        moveToResolveOverlap(fixedRectangle, freeRectangle, margin);
+                    Rectangle movingRectangle = rectangles.get(i);
+                    if (fixedRectangle.overlaps(movingRectangle, margin)) {
+                        moveToResolveOverlap(fixedRectangle, movingRectangle, margin);
                         moved = true;
                     }
                 }
@@ -134,18 +134,18 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
     }
 
     /**
-     * Moves rectangle {@code freeRectangle} in the direction that requires the smallest displacement
+     * Moves rectangle {@code movingRectangle} in the direction that requires the smallest displacement
      * to clear rectangle {@code fixedRectangle}, including the required margin gap.
      * Only move to the right/down to avoid infinite loops in overlap resolution pushing a given rectangle left and right.
      */
-    private void moveToResolveOverlap(Rectangle fixedRectangle, Rectangle freeRectangle, int margin) {
-        double moveRight = (fixedRectangle.x + fixedRectangle.width + margin) - freeRectangle.x;
-        double moveDown = (fixedRectangle.y + fixedRectangle.height + margin) - freeRectangle.y;
+    private void moveToResolveOverlap(Rectangle fixedRectangle, Rectangle movingRectangle, int margin) {
+        double moveRight = (fixedRectangle.x + fixedRectangle.width + margin) - movingRectangle.x;
+        double moveDown = (fixedRectangle.y + fixedRectangle.height + margin) - movingRectangle.y;
 
         if (moveRight <= moveDown) {
-            freeRectangle.x += moveRight;
+            movingRectangle.x += moveRight;
         } else {
-            freeRectangle.y += moveDown;
+            movingRectangle.y += moveDown;
         }
     }
 }
