@@ -26,6 +26,8 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final boolean invisible;
     private final String type;
     private final boolean unknownBus;
+    private final List<String> unknownBusClasses;
+    private final String unknownBusStyle;
     private final String legendSvgId;
     private final String legendEdgeSvgId;
     private final List<String> legendHeader;
@@ -44,6 +46,8 @@ public class NodeMetadata extends AbstractMetadataItem {
                         @JsonProperty("legendFooter") List<String> legendFooter,
                         @JsonProperty("type") String type,
                         @JsonProperty("unknownBus") boolean unknownBus,
+                        @JsonProperty("unknownBusClasses") List<String> unknownBusClasses,
+                        @JsonProperty("unknownBusStyle") String unknownBusStyle,
                         @JsonProperty("classes") List<String> classes) {
         super(svgId, equipmentId);
         this.x = x;
@@ -56,6 +60,8 @@ public class NodeMetadata extends AbstractMetadataItem {
         this.legendFooter = legendFooter;
         this.type = type;
         this.unknownBus = unknownBus;
+        this.unknownBusClasses = unknownBusClasses;
+        this.unknownBusStyle = unknownBusStyle;
         this.classes = classes;
     }
 
@@ -83,6 +89,18 @@ public class NodeMetadata extends AbstractMetadataItem {
     @JsonProperty("unknownBus")
     public boolean isUnknownBus() {
         return unknownBus;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBusClasses")
+    public List<String> getUnknownBusClasses() {
+        return unknownBusClasses;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("unknownBusStyle")
+    public String getUnknownBusStyle() {
+        return unknownBusStyle;
     }
 
     @JsonIgnore

@@ -21,6 +21,7 @@ import com.powsybl.nad.build.iidm.NetworkGraphBuilder;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.BasicForceLayout;
 import com.powsybl.nad.layout.LayoutParameters;
+import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
@@ -38,6 +39,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -128,6 +130,30 @@ class DiagramMetadataTest extends AbstractTest {
         Network network = ScadaNetworkFactory.create();
         labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         roundTrip(network, "/scada_network.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testUnknownBusCustomStyle() {
+        Network network = ScadaNetworkFactory.create();
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        StyleProvider styleProvider = new TopologicalStyleProvider(network) {
+            @Override
+            public List<String> getBusNodeStyleClasses(BusNode busNode) {
+                if (busNode == BusNode.UNKNOWN) {
+                    return List.of("unknownBusStyleClass1", "unknownBusStyleClass2", "unknownBusStyleClass3");
+                }
+                return super.getBusNodeStyleClasses(busNode);
+            }
+
+            @Override
+            public String getBusNodeStyle(BusNode busNode) {
+                if (busNode == BusNode.UNKNOWN) {
+                    return "unknownBusStyle1";
+                }
+                return super.getBusNodeStyle(busNode);
+            }
+        };
+        roundTrip(network, "/scada_network_unknown_bus.json", new LayoutParameters().setInjectionsAdded(true), styleProvider);
     }
 
     @Test
