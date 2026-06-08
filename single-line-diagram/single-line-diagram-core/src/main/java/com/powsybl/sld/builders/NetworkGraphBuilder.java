@@ -224,7 +224,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         List<FeederNode> feeders = new ArrayList<>();
         fictitiousVoltageLevel.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
             VoltageLevel vl1 = lineOtherSide.getTerminal2().getVoltageLevel();
-            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
+            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(),
+                lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
             feeders.add(otherLineNode);
         });
         return feeders;

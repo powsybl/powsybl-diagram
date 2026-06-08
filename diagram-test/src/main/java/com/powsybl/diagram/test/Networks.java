@@ -613,38 +613,42 @@ public final class Networks {
     public static Network createNetworkWithPhaseShiftTransformer() {
         Network network = Networks.createNetworkWithTwoWindingsTransformer();
         Optional<TwoWindingsTransformer> twt = network.getTwoWindingsTransformerStream().findFirst();
-        twt.ifPresent(twoWindingsTransformer -> twoWindingsTransformer.newPhaseTapChanger()
-                .setTapPosition(1)
-                .setRegulationTerminal(twoWindingsTransformer.getTerminal2())
-                .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
-                .setRegulating(false)
-                .setRegulationValue(200)
-                .beginStep()
-                .setAlpha(-20.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .beginStep()
-                .setAlpha(0.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .beginStep()
-                .setAlpha(20.0)
-                .setRho(1.0)
-                .setR(0.0)
-                .setX(0.0)
-                .setG(0.0)
-                .setB(0.0)
-                .endStep()
-                .add());
+        twt.ifPresent(Networks::addPhaseTapChanger);
         return network;
+    }
+
+    private static void addPhaseTapChanger(TwoWindingsTransformer twoWindingsTransformer) {
+        twoWindingsTransformer.newPhaseTapChanger()
+            .setTapPosition(1)
+            .setRegulationTerminal(twoWindingsTransformer.getTerminal2())
+            .setRegulationMode(PhaseTapChanger.RegulationMode.CURRENT_LIMITER)
+            .setRegulating(false)
+            .setRegulationValue(200)
+            .beginStep()
+            .setAlpha(-20.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .beginStep()
+            .setAlpha(0.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .beginStep()
+            .setAlpha(20.0)
+            .setRho(1.0)
+            .setR(0.0)
+            .setX(0.0)
+            .setG(0.0)
+            .setB(0.0)
+            .endStep()
+            .add();
     }
 
     public static Network createNetworkWithBridge() {
@@ -1780,7 +1784,7 @@ public final class Networks {
         return network;
     }
 
-     /**
+    /**
      * <PRE>
      *         l
      *         |
@@ -2159,8 +2163,10 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinVoltageLevel", "test");
         network.getLine("L11").remove();
         String tieLineId = "B11_B12_1";
-        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1").newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        BoundaryLine xnode1b12 = network.getVoltageLevel("VL1").newBoundaryLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b12 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("XNODE1_B12").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B12").setPairingKey(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b12.getId()).add();
         network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2173,8 +2179,10 @@ public final class Networks {
         Network network = createBusBreakerNetworkWithInternalBranches("tieLineWithinSubstation", "test");
         network.getLine("L12").remove();
         String tieLineId = "B11_B21_1";
-        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1").newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
-        BoundaryLine xnode1b21 = network.getVoltageLevel("VL2").newBoundaryLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine b11xnode1 = network.getVoltageLevel("VL1")
+            .newBoundaryLine().setId("B11_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B11").setPairingKey(XNODE_1_ID).add();
+        BoundaryLine xnode1b21 = network.getVoltageLevel("VL2")
+            .newBoundaryLine().setId("XNODE1_B21").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus("B21").setPairingKey(XNODE_1_ID).add();
         network.newTieLine().setId(tieLineId).setBoundaryLine1(b11xnode1.getId()).setBoundaryLine2(xnode1b21.getId()).add();
         network.getTieLine(tieLineId).getBoundaryLine1().getTerminal().setP(302.4440612792969).setQ(98.74027252197266);
         network.getTieLine(tieLineId).getBoundaryLine2().getTerminal().setP(-300.43389892578125).setQ(-137.18849182128906);
@@ -2298,11 +2306,13 @@ public final class Networks {
         String xnodeId = XNODE_1_ID;
         vlId = String.format(vlFormat, subA.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
-        BoundaryLine a230xnode1 = network.getVoltageLevel(vlId).newBoundaryLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        BoundaryLine a230xnode1 = network.getVoltageLevel(vlId)
+            .newBoundaryLine().setId("A230_XNODE1").setR(1.5).setX(20.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         vlId = String.format(vlFormat, subB.getId(), 230.0);
         busId = String.format(busIdFormat, vlId);
         String tieLineId = "A230_B230";
-        BoundaryLine xnode1b230 = network.getVoltageLevel(vlId).newBoundaryLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
+        BoundaryLine xnode1b230 = network.getVoltageLevel(vlId)
+            .newBoundaryLine().setId("XNODE1_B230").setR(1.5).setX(13.0).setG(0.0).setB(1.93E-4).setP0(0).setQ0(0).setBus(busId).setPairingKey(xnodeId).add();
         network.newTieLine().setId(tieLineId).setBoundaryLine1(a230xnode1.getId()).setBoundaryLine2(xnode1b230.getId()).add();
 
         return network;
@@ -2317,7 +2327,8 @@ public final class Networks {
 
         Networks.createBusBarSection(vl, "bbs", 0, 1, 1);
 
-        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2, 4, vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
+        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2, 4,
+            vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
         Networks.createSwitch(vl, "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl, "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
         Networks.createSwitch(vl, "gd1", SwitchKind.DISCONNECTOR, false, true, false, 2, 3);

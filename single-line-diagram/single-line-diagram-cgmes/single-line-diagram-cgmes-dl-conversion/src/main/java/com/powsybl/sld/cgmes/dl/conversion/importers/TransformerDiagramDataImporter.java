@@ -45,7 +45,8 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
             if (transformerIidmDiagramData == null) {
                 transformerIidmDiagramData = new CouplingDeviceDiagramData<>(transformer);
             }
-            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
+            CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = new CouplingDeviceDiagramData.CouplingDeviceDiagramDetails(
+                new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
                 transformersDiagramData.asDouble("rotation"));
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
             addTerminalPoints(transformerId, transformer.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
@@ -59,7 +60,8 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
                 if (transformerIidmDiagramData == null) {
                     transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(transformer3w);
                 }
-                ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
+                ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = new ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails(
+                    new DiagramPoint(transformersDiagramData.asDouble("x"), transformersDiagramData.asDouble("y"), transformersDiagramData.asInt("seq")),
                     transformersDiagramData.asDouble("rotation"));
                 addTerminalPoints(transformerId, transformer3w.getNameOrId(), diagramName, DiagramTerminal.TERMINAL1, "1", diagramDetails);
                 addTerminalPoints(transformerId, transformer3w.getNameOrId(), diagramName, DiagramTerminal.TERMINAL2, "2", diagramDetails);
@@ -73,7 +75,8 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
         }
     }
 
-    private void addTerminalPoints(String transformerId, String transformerName, String diagram, DiagramTerminal terminal, String terminalSide, ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails) {
+    private void addTerminalPoints(String transformerId, String transformerName, String diagram, DiagramTerminal terminal, String terminalSide,
+                                   ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails) {
         String terminalKey = diagram + "_" + transformerId + "_" + terminalSide;
         if (terminalsDiagramData.containsKey(terminalKey)) {
             PropertyBags equipmentTerminalsDiagramData = terminalsDiagramData.get(terminalKey);

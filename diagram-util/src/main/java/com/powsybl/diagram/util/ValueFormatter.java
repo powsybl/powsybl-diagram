@@ -16,8 +16,8 @@ import java.util.Locale;
 public class ValueFormatter {
 
     /** degree sign unicode for degree symbol */
-    private static final String DEGREE_CHAR = "\u00b0";
-    private static final String PERCENT_CHAR = "\u0025";
+    private static final String DEGREE_CHAR = "°";
+    private static final String PERCENT_CHAR = "%";
 
     private final int powerValuePrecision;
     private final int voltageValuePrecision;

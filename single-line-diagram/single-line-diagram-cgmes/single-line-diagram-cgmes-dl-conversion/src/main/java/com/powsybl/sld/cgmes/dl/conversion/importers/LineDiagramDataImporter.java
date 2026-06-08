@@ -42,7 +42,8 @@ public class LineDiagramDataImporter {
             if (lineIidmDiagramData == null) {
                 lineIidmDiagramData = new LineDiagramData<>(line);
             }
-            lineIidmDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
+            lineIidmDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(
+                lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
             line.addExtension(LineDiagramData.class, lineIidmDiagramData);
             NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), line.getTerminal1().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
             NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), line.getTerminal2().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
@@ -54,9 +55,11 @@ public class LineDiagramDataImporter {
                     boundaryLineDiagramData = new LineDiagramData<>(boundaryLine);
                 }
 
-                boundaryLineDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
+                boundaryLineDiagramData.addPoint(lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), new DiagramPoint(
+                    lineDiagramData.asDouble("x"), lineDiagramData.asDouble("y"), lineDiagramData.asInt("seq")));
                 boundaryLine.addExtension(LineDiagramData.class, boundaryLineDiagramData);
-                NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME), boundaryLine.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+                NetworkDiagramData.addDiagramName(network, lineDiagramData.get(CgmesDLModel.DIAGRAM_NAME),
+                    boundaryLine.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
             } else {
                 LOG.warn("Cannot find line/boundary line {}, name {} in network {}: skipping line diagram data", lineId, lineDiagramData.get("name"), network.getId());
             }
