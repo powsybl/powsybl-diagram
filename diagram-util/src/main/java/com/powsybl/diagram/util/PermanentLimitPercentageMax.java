@@ -1,11 +1,6 @@
 package com.powsybl.diagram.util;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.CurrentLimits;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.*;
 
 import java.util.stream.Stream;
 
@@ -33,6 +28,6 @@ public final class PermanentLimitPercentageMax {
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits == null ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
+        return currentLimits == null || currentLimits.getDetectionKind() != DetectionKind.HIGH ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
     }
 }
