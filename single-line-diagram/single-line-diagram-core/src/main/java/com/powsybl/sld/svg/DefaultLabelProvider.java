@@ -211,7 +211,7 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
     }
 
     private double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits != null ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
+        return currentLimits != null && currentLimits.getDetectionKind() == DetectionKind.HIGH ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
