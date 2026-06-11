@@ -15,16 +15,20 @@ public final class PermanentLimitPercentageMax {
 
     public static double getPermanentLimitPercentageMax(Branch<?> branch) {
         return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .map(side -> getPermanentLimitPercentageMax(branch.getTerminal(side), branch.getCurrentLimits(side).orElse(null)))
+            .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
+                .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
+            )
             .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+            .max().orElse(Double.NaN);
     }
 
     public static double getPermanentLimitPercentageMax(ThreeWindingsTransformer twt) {
         return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .map(side -> getPermanentLimitPercentageMax(twt.getTerminal(side), twt.getLeg(side).getCurrentLimits().orElse(null)))
+            .flatMap(side -> twt.getLeg(side).getAllSelectedCurrentLimits().stream()
+                .map(l -> getPermanentLimitPercentageMax(twt.getTerminal(side), l))
+            )
             .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+            .max().orElse(Double.NaN);
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
