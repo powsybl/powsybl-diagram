@@ -1,11 +1,6 @@
 package com.powsybl.diagram.util;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.CurrentLimits;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeSides;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoSides;
+import com.powsybl.iidm.network.*;
 
 import java.util.stream.Stream;
 
@@ -20,19 +15,23 @@ public final class PermanentLimitPercentageMax {
 
     public static double getPermanentLimitPercentageMax(Branch<?> branch) {
         return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .map(side -> getPermanentLimitPercentageMax(branch.getTerminal(side), branch.getCurrentLimits(side).orElse(null)))
+            .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
+                .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
+            )
             .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+            .max().orElse(Double.NaN);
     }
 
     public static double getPermanentLimitPercentageMax(ThreeWindingsTransformer twt) {
         return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .map(side -> getPermanentLimitPercentageMax(twt.getTerminal(side), twt.getLeg(side).getCurrentLimits().orElse(null)))
+            .flatMap(side -> twt.getLeg(side).getAllSelectedCurrentLimits().stream()
+                .map(l -> getPermanentLimitPercentageMax(twt.getTerminal(side), l))
+            )
             .mapToDouble(Double::doubleValue)
-            .max().getAsDouble();
+            .max().orElse(Double.NaN);
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits == null ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
+        return currentLimits == null || currentLimits.getDetectionKind() != DetectionKind.HIGH ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
     }
 }

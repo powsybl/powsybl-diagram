@@ -200,18 +200,22 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
 
     private double getPermanentLimitPercentageMax(Branch<?> branch) {
         return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .map(side -> getPermanentLimitPercentageMax(branch.getTerminal(side), branch.getCurrentLimits(side).orElse(null)))
-            .mapToDouble(Double::doubleValue).max().getAsDouble();
+            .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
+                .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
+            )
+            .mapToDouble(Double::doubleValue).max().orElse(0);
     }
 
     private double getPermanentLimitPercentageMax(ThreeWindingsTransformer transformer) {
         return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .map(side -> getPermanentLimitPercentageMax(transformer.getTerminal(side), transformer.getLeg(side).getCurrentLimits().orElse(null)))
-            .mapToDouble(Double::doubleValue).max().getAsDouble();
+            .flatMap(side -> transformer.getLeg(side).getAllSelectedCurrentLimits().stream()
+                .map(l -> getPermanentLimitPercentageMax(transformer.getTerminal(side), l))
+            )
+            .mapToDouble(Double::doubleValue).max().orElse(0);
     }
 
     private double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits != null ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
+        return currentLimits != null && currentLimits.getDetectionKind() == DetectionKind.HIGH ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
