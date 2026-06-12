@@ -2948,7 +2948,8 @@
     "busbarsAlignment" : "FIRST",
     "componentsOnBusbars" : [ "DISCONNECTOR" ],
     "removeFictitiousSwitchNodes" : false,
-    "zoneLayoutSnakeLinePadding" : 90
+    "zoneLayoutSnakeLinePadding" : 90,
+    "displayTeePointsInVoltageLevels" : false
   },
   "svgParams" : {
     "prefixId" : "",
@@ -2971,6 +2972,7 @@
     "angleLabelShift" : 15.0,
     "labelCentered" : false,
     "labelDiagonal" : false,
+    "busLabelDiagonal" : false,
     "tooltipEnabled" : false,
     "svgWidthAndHeightAdded" : true,
     "cssLocation" : "INSERTED_IN_SVG",

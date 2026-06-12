@@ -41,7 +41,8 @@ class LayoutParametersTest {
                 .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
                 .setComponentsOnBusbars(List.of("COMPONENT_ON_BUS"))
                 .setRemoveFictitiousSwitchNodes(true)
-                .setZoneLayoutSnakeLinePadding(120);
+                .setZoneLayoutSnakeLinePadding(120)
+                .setDisplayTeePointsInVoltageLevels(true);
 
         layoutParameters.setComponentsSize(null);
 
@@ -65,6 +66,7 @@ class LayoutParametersTest {
         assertEquals(layoutParameters.isRemoveFictitiousSwitchNodes(), layoutParameters2.isRemoveFictitiousSwitchNodes());
         assertEquals(layoutParameters.getComponentsSize(), layoutParameters2.getComponentsSize());
         assertEquals(layoutParameters.getZoneLayoutSnakeLinePadding(), layoutParameters2.getZoneLayoutSnakeLinePadding());
+        assertEquals(layoutParameters.isDisplayTeePointsInVoltageLevels(), layoutParameters2.isDisplayTeePointsInVoltageLevels());
     }
 
     @Test
