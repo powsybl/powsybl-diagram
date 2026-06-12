@@ -173,7 +173,7 @@
     "vlabel" : false,
     "equipmentId" : "trf",
     "labels" : [ {
-      "id" : "trf_ONE_S_LABEL",
+      "id" : "idtrf_95_ONE_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -291,7 +291,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs1",
     "labels" : [ {
-      "id" : "bbs1_NW_LABEL",
+      "id" : "idbbs1_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -309,7 +309,7 @@
     "vlabel" : false,
     "equipmentId" : "bbs2",
     "labels" : [ {
-      "id" : "bbs2_NW_LABEL",
+      "id" : "idbbs2_95_NW_95_LABEL",
       "positionName" : "NW_LABEL"
     } ]
   }, {
@@ -328,7 +328,7 @@
     "vlabel" : false,
     "equipmentId" : "g",
     "labels" : [ {
-      "id" : "g_S_LABEL",
+      "id" : "idg_95_S_95_LABEL",
       "positionName" : "S_LABEL"
     } ]
   }, {
@@ -341,7 +341,7 @@
     "vlabel" : false,
     "equipmentId" : "trf",
     "labels" : [ {
-      "id" : "trf_TWO_N_LABEL",
+      "id" : "idtrf_95_TWO_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
@@ -353,7 +353,7 @@
     "vlabel" : false,
     "equipmentId" : "l",
     "labels" : [ {
-      "id" : "l_N_LABEL",
+      "id" : "idl_95_N_95_LABEL",
       "positionName" : "N_LABEL"
     } ]
   }, {
