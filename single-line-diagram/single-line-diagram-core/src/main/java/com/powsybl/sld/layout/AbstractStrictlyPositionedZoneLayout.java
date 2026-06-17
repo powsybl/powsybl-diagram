@@ -65,13 +65,14 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
             move(sGraph, topLeft.getX(), topLeft.getY());
         }
 
+        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         double zoneWidth = getGraph().getSubstations().stream()
             .mapToDouble(sg -> getSubstationOrigin(sg).getX() + sg.getWidth()).max().orElse(0);
         double zoneHeight = getGraph().getSubstations().stream()
             .mapToDouble(sg -> getSubstationOrigin(sg).getY() + sg.getHeight()).max().orElse(0);
         getGraph().setSize(
-            diagramPadding.left() + zoneWidth + diagramPadding.right(),
-            diagramPadding.top() + zoneHeight + diagramPadding.bottom()
+            diagramPadding.left() + zoneWidth + snakeLinePadding + diagramPadding.right(),
+            diagramPadding.top() + zoneHeight + snakeLinePadding + diagramPadding.bottom()
         );
     }
 
@@ -122,10 +123,10 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
         int height = (int) getGraph().getHeight();
         pathFinderGrid = new Grid(width, height);
 
-        int margin = layoutParameters.getZoneLayoutSnakeLinePadding();
+        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
 
-        // Mark the margin bands around every substation as available (hallways),
+        // Mark the snakeLinePadding bands around every substation as available (hallways),
         // then mark substation interiors as unavailable.
         for (SubstationGraph sg : getGraph().getSubstations()) {
             Point origin = getSubstationOrigin(sg);
@@ -135,27 +136,32 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
             int ssH = (int) sg.getHeight();
 
             // Horizontal hallway above and below this substation
-            int hStep = (int) layoutParameters.getHorizontalSnakeLinePadding();
+            LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+            int hStep = Math.max(1, (int) layoutParameters.getHorizontalSnakeLinePadding());
             int zoneW = (int) (width - diagramPadding.left() - diagramPadding.right());
             int startX = (int) diagramPadding.left();
+            int startYTop = ssY - (int) vlPadding.top();
+            int startYBottom = ssY + ssH - (int) vlPadding.bottom();
             for (int x = startX; x < startX + zoneW; x++) {
-                for (int y = ssY - margin; y < ssY; y += Math.max(1, hStep)) {
+                for (int y = startYTop - snakeLinePadding; y < startYTop; y += hStep) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
-                for (int y = ssY + ssH; y <= ssY + ssH + margin; y += Math.max(1, hStep)) {
+                for (int y = startYBottom; y <= startYBottom + snakeLinePadding; y += hStep) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
 
             // Vertical hallway left and right of this substation
-            int vStep = (int) layoutParameters.getVerticalSnakeLinePadding();
+            int vStep = Math.max(1, (int) layoutParameters.getVerticalSnakeLinePadding());
             int zoneH = (int) (height - diagramPadding.top() - diagramPadding.bottom());
             int startY = (int) diagramPadding.top();
+            int startXLeft = ssX - (int) vlPadding.left();
+            int startXRight = ssX + ssW - (int) vlPadding.right();
             for (int y = startY; y < startY + zoneH; y++) {
-                for (int x = ssX - margin; x < ssX; x += Math.max(1, vStep)) {
+                for (int x = startXLeft - snakeLinePadding; x < startXLeft; x += vStep) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
-                for (int x = ssX + ssW; x <= ssX + ssW + margin; x += Math.max(1, vStep)) {
+                for (int x = startXRight; x <= startXRight + snakeLinePadding; x += vStep) {
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
@@ -192,14 +198,14 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
     }
 
     /**
-     * Opens a vertical exit corridor from node {@code p} into the margin hallway
+     * Opens a vertical exit corridor from node {@code p} into the snakeLinePadding hallway
      * above or below the substation, then a horizontal strip across the full
      * substation width — exactly as MatrixZoneLayoutModel does per cell.
      */
     private void insertFreePathInSubstation(SubstationGraph sg, Point p, Direction d,
                                             LayoutParameters layoutParameters) {
         LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-        int margin = layoutParameters.getZoneLayoutSnakeLinePadding();
+        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
 
         double x1 = p.getX();
         double y1 = p.getY();
@@ -215,7 +221,7 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
         int ssX = (int) getSubstationOrigin(sg).getX();
         int ssW = (int) sg.getWidth();
         double exitY = d == Direction.TOP ? minY : maxY;
-        for (int x = ssX - margin; x < ssX + ssW + margin; x++) {
+        for (int x = ssX - snakeLinePadding; x < ssX + ssW + snakeLinePadding; x++) {
             pathFinderGrid.setAvailability(x, exitY, true);
         }
     }
