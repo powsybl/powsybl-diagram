@@ -12,13 +12,13 @@ import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A link is define between two VBSClusterSides (having the same implementation).
@@ -174,7 +174,7 @@ class Link implements Comparable<Link> {
     }
 
     @Override
-    public int compareTo(@Nonnull Link oLink) {
+    public int compareTo(@NonNull Link oLink) {
         for (LinkCategory category : LinkCategory.values()) {
             if (oLink.getLinkCategoryWeight(category) > getLinkCategoryWeight(category)) {
                 return -1;
