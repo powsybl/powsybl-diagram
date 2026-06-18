@@ -235,7 +235,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testZoneGraphPositionedTwoOvelerlaps() {
+    void testZoneGraphPositionedTwoOverlaps() {
         // build zone graph
         network = Networks.createNetworkWithManySubstations();
         List<Pair<String, Point>> positions = List.of(
@@ -253,6 +253,6 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
                 new PositionVoltageLevelLayoutFactory())
             .run(layoutParameters);
 
-        assertEquals(toString("/TestCase13ZoneGraphPositionedTwoOvelerlaps.svg"), toSVG(g, "/TestCase13ZoneGraphPositionedTwoOvelerlaps.svg"));
+        assertEquals(toString("/TestCase13ZoneGraphPositionedTwoOverlaps.svg"), toSVG(g, "/TestCase13ZoneGraphPositionedTwoOverlaps.svg"));
     }
 }
