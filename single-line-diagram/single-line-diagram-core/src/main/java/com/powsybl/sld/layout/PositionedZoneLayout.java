@@ -59,8 +59,8 @@ public class PositionedZoneLayout extends AbstractManuallyPositionedZoneLayout {
 
     /**
      * @param graph the zone graph to lay out
-     * @param desiredPositions desired top-left position for each substation, in priority order for overlap resolution;
-     *                         earlier entries win and are never moved
+     * @param desiredPositions desired top-left position for each substation. In case of overlap of two substations, 
+     *                         the overlap resolution will move the substation with the position of higher index.
      */
     public PositionedZoneLayout(ZoneGraph graph,
                                    List<Pair<String, Point>> desiredPositions,
