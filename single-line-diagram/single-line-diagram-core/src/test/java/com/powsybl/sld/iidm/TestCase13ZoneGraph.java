@@ -191,7 +191,29 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    void testZoneGraphPositioned() {
+    void testZoneGraphPositionedNoOverlap() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<Pair<String, Point>> positions = List.of(
+            Pair.of("A", new Point(100, 100)),
+            Pair.of("B", new Point(800, 100)),
+            Pair.of("C", new Point(500, 600))
+        );
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
+
+        // Run positioned zone layout
+        new PositionedZoneLayoutFactory(positions)
+            .create(g,
+                DijkstraPathFinder::new,
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory())
+            .run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphPositionedNoOverlap.svg"), toSVG(g, "/TestCase13ZoneGraphPositionedNoOverlap.svg"));
+    }
+
+    @Test
+    void testZoneGraphPositionedOneOverlap() {
         // build zone graph
         network = Networks.createNetworkWithManySubstations();
         List<Pair<String, Point>> positions = List.of(
@@ -209,6 +231,28 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
                 new PositionVoltageLevelLayoutFactory())
             .run(layoutParameters);
 
-        assertEquals(toString("/TestCase13ZoneGraphPositioned.svg"), toSVG(g, "/TestCase13ZoneGraphPositioned.svg"));
+        assertEquals(toString("/TestCase13ZoneGraphPositionedOneOverlap.svg"), toSVG(g, "/TestCase13ZoneGraphPositionedOneOverlap.svg"));
+    }
+
+    @Test
+    void testZoneGraphPositionedTwoOvelerlaps() {
+        // build zone graph
+        network = Networks.createNetworkWithManySubstations();
+        List<Pair<String, Point>> positions = List.of(
+            Pair.of("A", new Point(0, 0)),
+            Pair.of("B", new Point(0, 0)),
+            Pair.of("C", new Point(0, 0))
+        );
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
+
+        // Run positioned zone layout
+        new PositionedZoneLayoutFactory(positions)
+            .create(g,
+                DijkstraPathFinder::new,
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory())
+            .run(layoutParameters);
+
+        assertEquals(toString("/TestCase13ZoneGraphPositionedTwoOvelerlaps.svg"), toSVG(g, "/TestCase13ZoneGraphPositionedTwoOvelerlaps.svg"));
     }
 }
