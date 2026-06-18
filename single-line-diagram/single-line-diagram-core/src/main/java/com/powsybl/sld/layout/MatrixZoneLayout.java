@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
-public class MatrixZoneLayout extends AbstractStrictlyPositionedZoneLayout {
+public class MatrixZoneLayout extends AbstractManuallyPositionedZoneLayout {
     private MatrixZoneLayoutModel model;
 
     private final String[][] matrixUserDefinition;

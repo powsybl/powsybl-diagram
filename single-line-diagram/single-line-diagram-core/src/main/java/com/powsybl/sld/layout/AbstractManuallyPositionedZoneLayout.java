@@ -30,7 +30,7 @@ import java.util.*;
  *
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
-public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneLayout {
+public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneLayout {
 
     /**
      * Returns the final top-left position for each substation, after running sub-layouts.
@@ -42,7 +42,7 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
     /** Path-finding grid built in manageSnakeLines, used in calculatePolylineSnakeLine. */
     private Grid pathFinderGrid;
 
-    protected AbstractStrictlyPositionedZoneLayout(ZoneGraph graph,
+    protected AbstractManuallyPositionedZoneLayout(ZoneGraph graph,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
                                    SubstationLayoutFactory sLayoutFactory,
                                    VoltageLevelLayoutFactory vLayoutFactory) {
@@ -65,14 +65,13 @@ public abstract class AbstractStrictlyPositionedZoneLayout extends AbstractZoneL
             move(sGraph, topLeft.getX(), topLeft.getY());
         }
 
-        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         double zoneWidth = getGraph().getSubstations().stream()
             .mapToDouble(sg -> getSubstationOrigin(sg).getX() + sg.getWidth()).max().orElse(0);
         double zoneHeight = getGraph().getSubstations().stream()
             .mapToDouble(sg -> getSubstationOrigin(sg).getY() + sg.getHeight()).max().orElse(0);
         getGraph().setSize(
-            diagramPadding.left() + zoneWidth + snakeLinePadding + diagramPadding.right(),
-            diagramPadding.top() + zoneHeight + snakeLinePadding + diagramPadding.bottom()
+            diagramPadding.left() + zoneWidth + diagramPadding.right(),
+            diagramPadding.top() + zoneHeight + diagramPadding.bottom()
         );
     }
 

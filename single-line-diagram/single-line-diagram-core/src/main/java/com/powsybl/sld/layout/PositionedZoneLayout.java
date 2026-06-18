@@ -27,7 +27,7 @@ import java.util.*;
  *
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
-public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
+public class PositionedZoneLayout extends AbstractManuallyPositionedZoneLayout {
 
     /** Mutable bounding box used during overlap resolution. */
     private static class Rectangle {
@@ -62,7 +62,7 @@ public class PositionedZoneLayout extends AbstractStrictlyPositionedZoneLayout {
      * @param desiredPositions desired top-left position for each substation, in priority order for overlap resolution;
      *                         earlier entries win and are never moved
      */
-    protected PositionedZoneLayout(ZoneGraph graph,
+    public PositionedZoneLayout(ZoneGraph graph,
                                    List<Pair<String, Point>> desiredPositions,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
                                    SubstationLayoutFactory sLayoutFactory,
