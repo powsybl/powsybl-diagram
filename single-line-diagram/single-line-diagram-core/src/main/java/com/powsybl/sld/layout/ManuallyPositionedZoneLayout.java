@@ -82,7 +82,6 @@ public class ManuallyPositionedZoneLayout extends AbstractPositionedZoneLayout {
             if (sGraph == null) {
                 throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
             }
-            layoutBySubstation.get(sGraph).run(layoutParameters);
             substationGraphs.add(sGraph);
         }
 

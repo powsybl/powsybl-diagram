@@ -51,8 +51,6 @@ public class MatrixZoneLayout extends AbstractPositionedZoneLayout {
         }
 
         Matrix matrix = model.getMatrix();
-        // Display substations on not empty Matrix cell
-        matrix.stream().filter(c -> !c.isEmpty()).map(MatrixCell::graph).forEach(graph -> layoutBySubstation.get(graph).run(layoutParameters));
         // Height by rows
         int maxHeightRow = 0;
         // Width by col

@@ -33,9 +33,8 @@ import java.util.*;
 public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
 
     /**
-     * Returns the final top-left position for each substation, after running sub-layouts.
-     * Implementations are responsible for calling {@code layoutBySubstation.get(sGraph).run(layoutParameters)}
-     * for each substation before returning.
+     * Returns the final top-left position for each substation.
+     * Sub-layouts have already been run by the time this method is called.
      */
     protected abstract List<Pair<String, Point>> computeSubstationPositions(LayoutParameters layoutParameters);
 
@@ -52,6 +51,7 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
 
     @Override
     protected void calculateCoordSubstations(LayoutParameters layoutParameters) {
+        getGraph().getSubstations().forEach(sg -> layoutBySubstation.get(sg).run(layoutParameters));
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         List<Pair<String, Point>> positions = computeSubstationPositions(layoutParameters);
         for (Pair<String, Point> entry : positions) {
@@ -60,7 +60,6 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
             if (sGraph == null) {
                 throw new PowsyblException("Substation '" + id + "' was not found in zone graph '" + getGraph().getId() + "'");
             }
-            // layoutBySubstation.get(sGraph).run(layoutParameters);  // Already run by child
             Point topLeft = entry.getSecond();
             move(sGraph, topLeft.getX(), topLeft.getY());
         }
