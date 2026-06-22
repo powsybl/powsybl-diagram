@@ -27,7 +27,7 @@ import java.util.*;
  *
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
-public class PositionedZoneLayout extends AbstractManuallyPositionedZoneLayout {
+public class ManuallyPositionedZoneLayout extends AbstractPositionedZoneLayout {
 
     /** Mutable bounding box used during overlap resolution. */
     private static class Rectangle {
@@ -62,7 +62,7 @@ public class PositionedZoneLayout extends AbstractManuallyPositionedZoneLayout {
      * @param desiredPositions desired top-left position for each substation. In case of overlap of two substations,
      *                         the overlap resolution will move the substation with the position of higher index.
      */
-    public PositionedZoneLayout(ZoneGraph graph,
+    public ManuallyPositionedZoneLayout(ZoneGraph graph,
                                    List<Pair<String, Point>> desiredPositions,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
                                    SubstationLayoutFactory sLayoutFactory,
@@ -101,14 +101,11 @@ public class PositionedZoneLayout extends AbstractManuallyPositionedZoneLayout {
         // This disregards the absolute values in desiredPositions and only keeps relative positions
         double minX = rectangles.stream().mapToDouble(r -> r.x).min().orElse(0);
         double minY = rectangles.stream().mapToDouble(r -> r.y).min().orElse(0);
-        for (Rectangle r : rectangles) {
-            r.x += snakeLinePadding - minX;
-            r.y += snakeLinePadding - minY;
-        }
-
         List<Pair<String, Point>> positions = new ArrayList<>();
         for (int i = 0; i < substationGraphs.size(); i++) {
             Rectangle r = rectangles.get(i);
+            r.x += snakeLinePadding - minX;
+            r.y += snakeLinePadding - minY;
             positions.add(Pair.of(substationGraphs.get(i).getId(), new Point(r.x, r.y)));
         }
         return positions;

@@ -30,7 +30,7 @@ import java.util.*;
  *
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
-public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneLayout {
+public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
 
     /**
      * Returns the final top-left position for each substation, after running sub-layouts.
@@ -42,7 +42,7 @@ public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneL
     /** Path-finding grid built in manageSnakeLines, used in calculatePolylineSnakeLine. */
     private Grid pathFinderGrid;
 
-    protected AbstractManuallyPositionedZoneLayout(ZoneGraph graph,
+    protected AbstractPositionedZoneLayout(ZoneGraph graph,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
                                    SubstationLayoutFactory sLayoutFactory,
                                    VoltageLevelLayoutFactory vLayoutFactory) {
@@ -122,16 +122,22 @@ public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneL
         int height = (int) getGraph().getHeight();
         pathFinderGrid = new Grid(width, height);
 
+        // Horizontal hallways lines
+        computeHorizontalHallwaysAvailability(width, layoutParameters);
+
+        // Vertical hallways lines
+        computeVerticalHallwaysAvailability(height, layoutParameters);
+
+        // Make unavailable all voltagelevels
+        computeSubstationsAvailability(layoutParameters);
+    }
+
+    private void computeHorizontalHallwaysAvailability(int width, LayoutParameters layoutParameters) {
         int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-
-        // Mark the snakeLinePadding bands around every substation as available (hallways),
-        // then mark substation interiors as unavailable.
         for (SubstationGraph sg : getGraph().getSubstations()) {
             Point origin = getSubstationOrigin(sg);
-            int ssX = (int) origin.getX();
             int ssY = (int) origin.getY();
-            int ssW = (int) sg.getWidth();
             int ssH = (int) sg.getHeight();
 
             // Horizontal hallway above and below this substation
@@ -149,6 +155,20 @@ public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneL
                     pathFinderGrid.setAvailability(x, y, true);
                 }
             }
+        }
+    }
+
+    private void computeVerticalHallwaysAvailability(int height, LayoutParameters layoutParameters) {
+        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
+        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+
+        // Mark the snakeLinePadding bands around every substation as available (hallways),
+        // then mark substation interiors as unavailable.
+        for (SubstationGraph sg : getGraph().getSubstations()) {
+            Point origin = getSubstationOrigin(sg);
+            int ssX = (int) origin.getX();
+            int ssW = (int) sg.getWidth();
 
             // Vertical hallway left and right of this substation
             int vStep = Math.max(1, (int) layoutParameters.getVerticalSnakeLinePadding());
@@ -165,7 +185,9 @@ public abstract class AbstractManuallyPositionedZoneLayout extends AbstractZoneL
                 }
             }
         }
+    }
 
+    private void computeSubstationsAvailability(LayoutParameters layoutParameters) {
         // Mark substation interiors (voltage levels + existing edges) unavailable
         for (SubstationGraph sg : getGraph().getSubstations()) {
             sg.getVoltageLevelStream().forEach(vlGraph -> {

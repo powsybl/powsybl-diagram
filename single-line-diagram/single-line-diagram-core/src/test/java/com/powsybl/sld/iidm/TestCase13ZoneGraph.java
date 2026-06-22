@@ -202,7 +202,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
 
         // Run positioned zone layout
-        new PositionedZoneLayoutFactory(positions)
+        new ManuallyPositionedZoneLayoutFactory(positions)
             .create(g,
                 DijkstraPathFinder::new,
                 new HorizontalSubstationLayoutFactory(),
@@ -224,7 +224,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
 
         // Run positioned zone layout
-        new PositionedZoneLayoutFactory(positions)
+        new ManuallyPositionedZoneLayoutFactory(positions)
             .create(g,
                 DijkstraPathFinder::new,
                 new HorizontalSubstationLayoutFactory(),
@@ -246,7 +246,7 @@ class TestCase13ZoneGraph extends AbstractTestCaseIidm {
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(positions.stream().map(Pair::getFirst).toList());
 
         // Run positioned zone layout
-        new PositionedZoneLayoutFactory(positions)
+        new ManuallyPositionedZoneLayoutFactory(positions)
             .create(g,
                 DijkstraPathFinder::new,
                 new HorizontalSubstationLayoutFactory(),

@@ -18,18 +18,18 @@ import com.powsybl.sld.model.graphs.*;
 /**
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
-public class PositionedZoneLayoutFactory implements ZoneLayoutFactory {
+public class ManuallyPositionedZoneLayoutFactory implements ZoneLayoutFactory {
 
     private final List<Pair<String, Point>> positions;
 
-    public PositionedZoneLayoutFactory(List<Pair<String, Point>> positions) {
+    public ManuallyPositionedZoneLayoutFactory(List<Pair<String, Point>> positions) {
         this.positions = positions;
     }
 
     @Override
     public Layout create(ZoneGraph graph, ZoneLayoutPathFinderFactory pathFinderFactory,
                          SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new PositionedZoneLayout(graph, positions, pathFinderFactory, sLayoutFactory, vLayoutFactory);
+        return new ManuallyPositionedZoneLayout(graph, positions, pathFinderFactory, sLayoutFactory, vLayoutFactory);
     }
 
 }
