@@ -9,7 +9,6 @@ package com.powsybl.sld.layout.pathfinding;
 
 import com.powsybl.sld.model.coordinate.*;
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -68,6 +67,14 @@ public class Grid {
         node.cost = cost;
         node.distance = distance;
         node.parent = parent;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     private Node getNode(Point point) {
