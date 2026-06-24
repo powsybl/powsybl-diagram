@@ -22,11 +22,11 @@ import org.jgrapht.alg.util.Pair;
 import java.util.*;
 
 /**
- * Zone layout that places substations at desired top-left coordinates (x, y).
+ * Zone layout that places substations at given top-left coordinates (x, y).
  * <p>
- * Each substation is assigned a desired top-left position via a {@code List<Pair<String, Point>>}.
- * Child classes are responsible for running the sub-layouts and making sure the
- * substations do not overlap (including margin for snakelines).
+ * Each substation is assigned a desired top-left position returned by the abstract
+ * method {@code computeSubstationPositions}. Child classes are responsible for implementing
+ * this method and making sure the substations do not overlap (including margin for snakelines).
  *
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
  */
