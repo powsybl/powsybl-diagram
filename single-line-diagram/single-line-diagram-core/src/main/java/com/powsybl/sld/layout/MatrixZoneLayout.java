@@ -26,7 +26,6 @@ import java.util.Objects;
  * @author Thomas Adam {@literal <tadam at neverhack.com>}
  */
 public class MatrixZoneLayout extends AbstractPositionedZoneLayout {
-    private MatrixZoneLayoutModel model;
 
     private final String[][] matrixUserDefinition;
 
@@ -37,8 +36,8 @@ public class MatrixZoneLayout extends AbstractPositionedZoneLayout {
 
     @Override
     protected List<Pair<String, Point>> computeSubstationPositions(LayoutParameters layoutParameters) {
-        // Update model information
-        this.model = new MatrixZoneLayoutModel(matrixUserDefinition);
+        // Build matrix model
+        MatrixZoneLayoutModel model = new MatrixZoneLayoutModel(matrixUserDefinition);
         for (int row = 0; row < matrixUserDefinition.length; row++) {
             for (int col = 0; col < matrixUserDefinition[row].length; col++) {
                 String id = matrixUserDefinition[row][col];
