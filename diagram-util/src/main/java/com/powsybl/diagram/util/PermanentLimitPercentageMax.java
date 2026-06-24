@@ -32,6 +32,6 @@ public final class PermanentLimitPercentageMax {
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits == null || currentLimits.getDetectionKind() != DetectionKind.HIGH ? Double.NaN : Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit();
+        return currentLimits != null && currentLimits.getDetectionKind() == DetectionKind.HIGH ? Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit() : Double.NaN;
     }
 }
