@@ -1,4 +1,4 @@
-/**
+ /**
  * Copyright (c) 2022, RTE (http://www.rte-france.com/)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,7 +6,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.svg.metadata;
-
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.PowsyblException;
@@ -31,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -136,7 +136,7 @@ public class DiagramMetadata extends AbstractMetadata {
                                         injection.getComponentType(),
                                         busNode.getSvgId(),
                                         vlNode.getSvgId(),
-                                        injection.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                                        injection.getSvgEdgeInfo().map(sei -> createEdgeInfoMetadata(sei, vlNode.getStyleClasses())).orElse(null),
                                         injection.getStyleClasses(),
                                         injection.getStyle()
                                 )))));
@@ -151,9 +151,9 @@ public class DiagramMetadata extends AbstractMetadata {
                 null,
                 !edge.isVisible(BranchEdge.Side.ONE),
                 !edge.isVisible(BranchEdge.Side.TWO),
-                edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                edge.getSvgEdgeInfoMiddle().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                edge.getSvgEdgeInfo(BranchEdge.Side.ONE).map(sei -> createEdgeInfoMetadata(sei, graph.getVoltageLevelNode1(edge).getStyleClasses())).orElse(null),
+                edge.getSvgEdgeInfo(BranchEdge.Side.TWO).map(sei -> createEdgeInfoMetadata(sei, graph.getVoltageLevelNode2(edge).getStyleClasses())).orElse(null),
+                edge.getSvgEdgeInfoMiddle().map(sei -> createEdgeInfoMetadata(sei, getMiddleEdgeInfoClasses(graph, edge))).orElse(null),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
@@ -172,7 +172,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     edge.getSide().name(),
                     !edge.isVisible(),
                     false,
-                    edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+                    edge.getSvgEdgeInfo().map(sei -> createEdgeInfoMetadata(sei, graph.getVoltageLevelNode(edge).getStyleClasses())).orElse(null),
                     null,
                     null,
                     edge.getEdgeStyleInfo().styleClasses(),
@@ -242,7 +242,19 @@ public class DiagramMetadata extends AbstractMetadata {
         }
     }
 
-    private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo) {
+    /**
+     * Voltage-level classes for a branch's middle edge info: it belongs to no single side, so we use
+     * both ends' classes (deduplicated).
+     */
+    private static List<String> getMiddleEdgeInfoClasses(Graph graph, BranchEdge edge) {
+        return Stream.concat(
+                        graph.getVoltageLevelNode1(edge).getStyleClasses().stream(),
+                        graph.getVoltageLevelNode2(edge).getStyleClasses().stream())
+                .distinct()
+                .toList();
+    }
+
+    private static EdgeInfoMetadata createEdgeInfoMetadata(SvgEdgeInfo svgEdgeInfo, List<String> classes) {
         EdgeInfo edgeInfo = svgEdgeInfo.edgeInfo();
         return new EdgeInfoMetadata(svgEdgeInfo.svgId(),
                 edgeInfo.getInfoTypeA(),
@@ -252,7 +264,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 edgeInfo.getDirectionB().map(Enum::name).orElse(null),
                 edgeInfo.getLabelA().orElse(null),
                 edgeInfo.getLabelB().orElse(null),
-                edgeInfo.getComponentType().orElse(null));
+                edgeInfo.getComponentType().orElse(null),
+                classes);
     }
 
     private String getPrefixedId(String id) {

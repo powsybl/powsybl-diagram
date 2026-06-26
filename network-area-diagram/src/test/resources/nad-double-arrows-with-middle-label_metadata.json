@@ -123,7 +123,8 @@
       "directionA" : "OUT",
       "directionB" : "OUT",
       "labelA" : "50",
-      "labelB" : "100"
+      "labelB" : "100",
+      "classes" : [ "nad-vl300to500" ]
     },
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]
@@ -142,7 +143,8 @@
       "directionA" : "OUT",
       "directionB" : "OUT",
       "labelA" : "50",
-      "labelB" : "100"
+      "labelB" : "100",
+      "classes" : [ "nad-vl300to500" ]
     },
     "edgeInfo2" : {
       "svgId" : "14",
@@ -151,12 +153,14 @@
       "directionA" : "OUT",
       "directionB" : "OUT",
       "labelA" : "75",
-      "labelB" : "300"
+      "labelB" : "300",
+      "classes" : [ "nad-vl300to500" ]
     },
     "edgeInfoMiddle" : {
       "svgId" : "15",
       "infoTypeA" : "Name",
-      "labelA" : "Converter1"
+      "labelA" : "Converter1",
+      "classes" : [ "nad-vl300to500" ]
     },
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]

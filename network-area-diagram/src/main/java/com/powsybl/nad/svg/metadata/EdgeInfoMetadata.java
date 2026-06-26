@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * @author Florian Dupuy {@literal <florian.dupuy at rte-france.com>}
  */
@@ -25,6 +27,7 @@ public class EdgeInfoMetadata {
     private final String labelA;
     private final String labelB;
     private final String componentType;
+    private final List<String> classes;
 
     @JsonCreator
     public EdgeInfoMetadata(@JsonProperty("svgId") String svgId,
@@ -35,7 +38,8 @@ public class EdgeInfoMetadata {
                             @JsonProperty("directionB") String directionB,
                             @JsonProperty("labelA") String labelA,
                             @JsonProperty("labelB") String labelB,
-                            @JsonProperty("componentType") String componentType) {
+                            @JsonProperty("componentType") String componentType,
+                            @JsonProperty("classes") List<String> classes) {
         this.svgId = svgId;
         this.infoTypeA = infoTypeA;
         this.infoTypeB = infoTypeB;
@@ -53,6 +57,7 @@ public class EdgeInfoMetadata {
         this.labelA = labelA;
         this.labelB = labelB;
         this.componentType = componentType;
+        this.classes = classes;
     }
 
     @JsonProperty("svgId")
@@ -98,5 +103,11 @@ public class EdgeInfoMetadata {
     @JsonProperty("componentType")
     public String getComponentType() {
         return componentType;
+    }
+
+    @JsonProperty("classes")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public List<String> getClasses() {
+        return classes;
     }
 }

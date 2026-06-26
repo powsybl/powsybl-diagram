@@ -30,6 +30,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
@@ -184,6 +186,39 @@ class DiagramMetadataTest extends AbstractTest {
         line.getTerminal1().getBusBreakerView().getBus().setV(400.0);
         line.getTerminal2().getBusBreakerView().getBus().setV(410.0);
         roundTrip(network, "/edge_info_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
+    void testEdgeInfoMiddleMergesBothSidesVoltageLevelClasses() {
+        // A line connecting two voltage levels of different base-voltage bands: the middle edge info
+        // must carry the (deduplicated) voltage-level classes of both ends.
+        Network network = Networks.createTwoVoltageLevels();
+        network.getVoltageLevel("vl2").setNominalV(225); // vl1 stays at 400 kV -> different class than vl2
+        labelProvider = new DefaultLabelProvider.Builder()
+                .setInfoMiddleSide1(EdgeInfoEnum.NAME)
+                .setInfoMiddleSide2(EdgeInfoEnum.EMPTY)
+                .build(network, getSvgParameters());
+
+        DiagramMetadata metadata = roundTrip(network, "/edge_info_middle_merged_classes_metadata.json",
+                new LayoutParameters().setInjectionsAdded(true));
+
+        var lineEdge = metadata.getEdgesMetadata().stream()
+                .filter(e -> e.getEdgeInfoMiddle() != null)
+                .findFirst().orElseThrow();
+        List<String> node1Classes = nodeClasses(metadata, lineEdge.getNode1SvgId());
+        List<String> node2Classes = nodeClasses(metadata, lineEdge.getNode2SvgId());
+
+        // Sanity check: the two sides really carry different voltage-level classes
+        assertNotEquals(node1Classes, node2Classes);
+
+        List<String> expected = Stream.concat(node1Classes.stream(), node2Classes.stream()).distinct().toList();
+        assertEquals(expected, lineEdge.getEdgeInfoMiddle().getClasses());
+    }
+
+    private static List<String> nodeClasses(DiagramMetadata metadata, String nodeSvgId) {
+        return metadata.getNodesMetadata().stream()
+                .filter(n -> n.getSvgId().equals(nodeSvgId))
+                .findFirst().orElseThrow().getClasses();
     }
 
     @Test

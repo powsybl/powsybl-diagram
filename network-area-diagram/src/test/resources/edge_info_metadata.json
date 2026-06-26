@@ -132,7 +132,8 @@
       "infoTypeB" : "Current",
       "direction" : "OUT",
       "labelA" : "1,400",
-      "labelB" : "2,102"
+      "labelB" : "2,102",
+      "classes" : [ "nad-vl300to500" ]
     },
     "edgeInfo2" : {
       "svgId" : "11",
@@ -140,12 +141,14 @@
       "infoTypeB" : "Current",
       "direction" : "OUT",
       "labelA" : "1,410",
-      "labelB" : "2,068"
+      "labelB" : "2,068",
+      "classes" : [ "nad-vl300to500" ]
     },
     "edgeInfoMiddle" : {
       "svgId" : "12",
       "infoTypeA" : "Name",
-      "labelA" : "l1"
+      "labelA" : "l1",
+      "classes" : [ "nad-vl300to500" ]
     },
     "classes1" : [ "nad-vl300to500" ],
     "classes2" : [ "nad-vl300to500" ]
