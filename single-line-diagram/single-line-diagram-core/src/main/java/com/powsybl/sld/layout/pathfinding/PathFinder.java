@@ -16,5 +16,5 @@ import java.util.*;
  */
 public interface PathFinder {
 
-    List<Point> findShortestPath(Grid grid, Point start, Point goal);
+    List<Point> findShortestPath(StateGrid grid, Point start, Point goal);
 }

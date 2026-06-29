@@ -7,6 +7,7 @@
  */
 package com.powsybl.sld.layout.pathfinding.geometry;
 
+import com.powsybl.sld.model.coordinate.IntPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

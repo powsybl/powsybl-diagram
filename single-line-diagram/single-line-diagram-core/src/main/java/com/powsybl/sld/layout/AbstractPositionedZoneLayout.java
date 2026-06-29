@@ -8,14 +8,18 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.pathfinding.Grid;
+import com.powsybl.sld.layout.pathfinding.StateGrid;
 import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.IntPoint;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.BaseGraph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
 import com.powsybl.sld.model.nodes.Node;
 import org.jgrapht.alg.util.Pair;
 
@@ -39,7 +43,7 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
     protected abstract List<Pair<String, Point>> computeSubstationPositions(LayoutParameters layoutParameters);
 
     /** Path-finding grid built in manageSnakeLines, used in calculatePolylineSnakeLine. */
-    private Grid pathFinderGrid;
+    private StateGrid pathFinderGrid;
 
     protected AbstractPositionedZoneLayout(ZoneGraph graph,
                                    ZoneLayoutPathFinderFactory pathFinderFactory,
@@ -101,13 +105,14 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
         Direction dNode1 = getNodeDirection(node1, 1);
         Direction dNode2 = getNodeDirection(node2, 2);
 
-        // Open exit corridors from each node into the margin hallway, then find path
-        insertFreePathInSubstation(ss1Graph, p1, dNode1, layoutParameters);
-        insertFreePathInSubstation(ss2Graph, p2, dNode2, layoutParameters);
+        Point p1OutsideVl = getPathFindingPointOutsideVoltageLevel(p1, dNode1, layoutParameters);
+        Point p2OutsideVl = getPathFindingPointOutsideVoltageLevel(p2, dNode2, layoutParameters);
 
         List<Point> polyline = new ArrayList<>();
         polyline.add(p1);
-        polyline.addAll(pathFinder.findShortestPath(pathFinderGrid, p1, p2));
+        polyline.add(p1OutsideVl);
+        polyline.addAll(pathFinder.findShortestPath(pathFinderGrid, p1OutsideVl, p2OutsideVl));
+        polyline.add(p2OutsideVl);
         polyline.add(p2);
         return polyline;
     }
@@ -119,131 +124,32 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
     private void computePathFindingGrid(LayoutParameters layoutParameters) {
         int width = (int) getGraph().getWidth();
         int height = (int) getGraph().getHeight();
-        pathFinderGrid = new Grid(width, height);
+        pathFinderGrid = new StateGrid(width, height);
 
-        // Horizontal hallways lines
-        computeHorizontalHallwaysAvailability(width, layoutParameters);
-
-        // Vertical hallways lines
-        computeVerticalHallwaysAvailability(height, layoutParameters);
-
-        // Make unavailable all voltagelevels
-        computeSubstationsAvailability(layoutParameters);
+        makeVoltageLevelsUnavailable(layoutParameters);
     }
 
-    private void computeHorizontalHallwaysAvailability(int width, LayoutParameters layoutParameters) {
-        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-        for (SubstationGraph sg : getGraph().getSubstations()) {
-            Point origin = getSubstationOrigin(sg);
-            int ssY = (int) origin.getY();
-            int ssH = (int) sg.getHeight();
+    private void makeVoltageLevelsUnavailable(LayoutParameters layoutParameters) {
+        // For each not empty cell, make it not available
+        for (BaseGraph graph : getGraph().getSubstations()) {
+            graph.getVoltageLevelStream().forEach(vlGraph -> {
+                double elementaryWidth = layoutParameters.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
+                double widthNoPadding = vlGraph.getMaxH() * elementaryWidth;
+                double heightNoPadding = vlGraph.getInnerHeight(layoutParameters.getVerticalSpaceBus());
+                int xGraph = (int) vlGraph.getX();
+                int yGraph = (int) vlGraph.getY();
 
-            // Horizontal hallway above and below this substation
-            LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-            int hStep = Math.max(1, (int) layoutParameters.getHorizontalSnakeLinePadding());
-            int zoneW = (int) (width - diagramPadding.left() - diagramPadding.right());
-            int startX = (int) diagramPadding.left();
-            int startYTop = ssY - (int) vlPadding.top();
-            int startYBottom = ssY + ssH - (int) vlPadding.bottom();
-            for (int x = startX; x < startX + zoneW; x++) {
-                for (int y = startYTop - snakeLinePadding; y < startYTop; y += hStep) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-                for (int y = startYBottom; y <= startYBottom + snakeLinePadding; y += hStep) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-            }
-        }
-    }
-
-    private void computeVerticalHallwaysAvailability(int height, LayoutParameters layoutParameters) {
-        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
-        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
-        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-
-        // Mark the snakeLinePadding bands around every substation as available (hallways),
-        // then mark substation interiors as unavailable.
-        for (SubstationGraph sg : getGraph().getSubstations()) {
-            Point origin = getSubstationOrigin(sg);
-            int ssX = (int) origin.getX();
-            int ssW = (int) sg.getWidth();
-
-            // Vertical hallway left and right of this substation
-            int vStep = Math.max(1, (int) layoutParameters.getVerticalSnakeLinePadding());
-            int zoneH = (int) (height - diagramPadding.top() - diagramPadding.bottom());
-            int startY = (int) diagramPadding.top();
-            int startXLeft = ssX - (int) vlPadding.left();
-            int startXRight = ssX + ssW - (int) vlPadding.right();
-            for (int y = startY; y < startY + zoneH; y++) {
-                for (int x = startXLeft - snakeLinePadding; x < startXLeft; x += vStep) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-                for (int x = startXRight; x <= startXRight + snakeLinePadding; x += vStep) {
-                    pathFinderGrid.setAvailability(x, y, true);
-                }
-            }
-        }
-    }
-
-    private void computeSubstationsAvailability(LayoutParameters layoutParameters) {
-        // Mark substation interiors (voltage levels + existing edges) unavailable
-        for (SubstationGraph sg : getGraph().getSubstations()) {
-            sg.getVoltageLevelStream().forEach(vlGraph -> {
                 LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-                double elementaryWidth = layoutParameters.getCellWidth() / 2;
-                double wNoPad = vlGraph.getMaxH() * elementaryWidth;
-                double hNoPad = vlGraph.getInnerHeight(layoutParameters.getVerticalSpaceBus());
-                int xVl = (int) vlGraph.getX();
-                int yVl = (int) vlGraph.getY();
-                for (int x = xVl - ((int) vlPadding.left() - 1); x < xVl + wNoPad + (int) vlPadding.right(); x++) {
-                    for (int y = yVl - ((int) vlPadding.top() - 1); y < yVl + hNoPad + (int) vlPadding.bottom(); y++) {
-                        pathFinderGrid.setAvailability(x, y, false);
+
+                for (int x = xGraph - ((int) vlPadding.left() - 1); x < xGraph + widthNoPadding + (int) vlPadding.right(); x++) {
+                    for (int y = yGraph - ((int) vlPadding.top() - 1); y < yGraph + heightNoPadding + (int) vlPadding.bottom(); y++) {
+                        pathFinderGrid.setUnavailable(x, y);
                     }
                 }
             });
-            sg.getMultiTermNodes().forEach(node -> {
-                pathFinderGrid.setAvailability(node.getCoordinates(), false);
-                node.getAdjacentEdges().forEach(edge -> {
-                    if (edge instanceof BranchEdge branch) {
-                        Grid.getPointsAlongSnakeline(branch.getSnakeLine())
-                            .forEach(p -> pathFinderGrid.setAvailability(p, false));
-                    }
-                });
-            });
-            sg.getLineEdges().forEach(e ->
-                Grid.getPointsAlongSnakeline(e.getSnakeLine())
-                    .forEach(p -> pathFinderGrid.setAvailability(p, false)));
-        }
-    }
-
-    /**
-     * Opens a vertical exit corridor from node {@code p} into the snakeLinePadding hallway
-     * above or below the substation, then a horizontal strip across the full
-     * substation width — exactly as MatrixZoneLayoutModel does per cell.
-     */
-    private void insertFreePathInSubstation(SubstationGraph sg, Point p, Direction d,
-                                            LayoutParameters layoutParameters) {
-        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
-        int snakeLinePadding = layoutParameters.getZoneLayoutSnakeLinePadding();
-
-        double x1 = p.getX();
-        double y1 = p.getY();
-        double minY = d == Direction.BOTTOM ? y1 : y1 - vlPadding.top();
-        double maxY = d == Direction.BOTTOM ? y1 + vlPadding.bottom() : y1;
-
-        // Vertical corridor out of the voltage level
-        for (int y = (int) minY; y <= (int) maxY; y++) {
-            pathFinderGrid.setAvailability(x1, y, true);
         }
 
-        // Horizontal strip across the substation + margin so paths can route laterally
-        int ssX = (int) getSubstationOrigin(sg).getX();
-        int ssW = (int) sg.getWidth();
-        double exitY = d == Direction.TOP ? minY : maxY;
-        for (int x = ssX - snakeLinePadding; x < ssX + ssW + snakeLinePadding; x++) {
-            pathFinderGrid.setAvailability(x, exitY, true);
-        }
+        makeWTSnakelineWire(graph);
     }
 
     /** Returns the top-left corner of a substation as the minimum VL coordinate. */
@@ -255,5 +161,39 @@ public abstract class AbstractPositionedZoneLayout extends AbstractZoneLayout {
 
     private boolean containsSubstation(String id) {
         return getGraph().getSubstationGraph(id) != null;
+    }
+
+    /**
+     * Make unavailable all multi term nodes (3wt, 2wt, etc...), as well as the snakeline of those nodes
+     * @param graph the graph of the SLD, representing the different substations
+     */
+    private void makeWTSnakelineWire(BaseGraph graph) {
+        for (MiddleTwtNode node : graph.getMultiTermNodes()) {
+            for (Edge edge : node.getAdjacentEdges()) {
+                if (edge instanceof BranchEdge branchEdge) {
+                    List<IntPoint> points = StateGrid.getPointsAlongSnakeline(branchEdge.getSnakeLine());
+                    pathFinderGrid.setUnavailable(points);
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets a point outside the unavailable area of the voltage level to which the given <code>point</code> belongs, in the <code>direction</code>.
+     * @param point the point from which to make the grid available (generally the end of a connection, where we want a snakeline to start or end)
+     * @param direction the direction of the connection (this should only be top or bottom)
+     * @param layoutParameters parameters of the layout, used to know the padding of the voltage level
+     */
+    private Point getPathFindingPointOutsideVoltageLevel(Point point, Direction direction, LayoutParameters layoutParameters) {
+        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+        // remember that the y-axis is oriented downwards, meaning the smallest y is the one closest to the top
+        double pointY = switch (direction) {
+            case TOP -> point.getY() - vlPadding.top();
+            case BOTTOM -> point.getY() + vlPadding.bottom();
+            default -> throw new IllegalArgumentException(
+                String.format("Unknown direction for inserting a free path in substation: Point: %s | Direction: %s", point, direction));
+        };
+        return new Point(point.getX(), pointY);
+
     }
 }

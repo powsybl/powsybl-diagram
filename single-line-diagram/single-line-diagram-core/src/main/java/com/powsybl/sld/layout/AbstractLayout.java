@@ -24,7 +24,7 @@ import java.util.*;
  */
 public abstract class AbstractLayout<T extends AbstractBaseGraph> implements Layout {
 
-    private final T graph;
+    protected final T graph;
 
     protected AbstractLayout(T graph) {
         this.graph = graph;

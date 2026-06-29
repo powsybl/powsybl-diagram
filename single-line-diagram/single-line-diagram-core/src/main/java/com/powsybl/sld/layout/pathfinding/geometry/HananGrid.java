@@ -7,6 +7,8 @@
  */
 package com.powsybl.sld.layout.pathfinding.geometry;
 
+import com.powsybl.sld.model.coordinate.IntPoint;
+
 import java.util.*;
 
 /**
