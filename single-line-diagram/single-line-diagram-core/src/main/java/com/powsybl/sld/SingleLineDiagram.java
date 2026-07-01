@@ -132,10 +132,6 @@ public final class SingleLineDiagram {
         drawVoltageLevel(network, voltageLevelId, svgFile, new SldParameters(), diagramVersion);
     }
 
-    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters) {
-        drawVoltageLevel(network, voltageLevelId, svgFile, sldParameters, DEFAULT_DIAGRAM_VERSION);
-    }
-
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, SldParameters sldParameters, String diagramVersion) {
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network, sldParameters.getLayoutParameters()).buildVoltageLevelGraph(voltageLevelId);
         DefaultSVGWriter svgWriter = preDraw(voltageLevelGraph, sldParameters, network);
@@ -175,10 +171,6 @@ public final class SingleLineDiagram {
 
     public static void drawSubstation(Network network, String id, Path svgFile, String diagramVersion) {
         drawSubstation(network, id, svgFile, new SldParameters(), diagramVersion);
-    }
-
-    private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters) {
-        drawSubstation(network, substationId, svgFile, sldParameters, DEFAULT_DIAGRAM_VERSION);
     }
 
     private static void drawSubstation(Network network, String substationId, Path svgFile, SldParameters sldParameters, String diagramVersion) {
