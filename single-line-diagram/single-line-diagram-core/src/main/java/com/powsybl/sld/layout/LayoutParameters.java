@@ -46,6 +46,7 @@ public class LayoutParameters {
     private List<String> componentsOnBusbars = List.of(SldComponentTypeName.DISCONNECTOR); // Components which are displayed on busbars
     private boolean removeFictitiousSwitchNodes = false;
     private int zoneLayoutSnakeLinePadding = 90;
+    private boolean displayTeePointsInVoltageLevels = false;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -72,7 +73,8 @@ public class LayoutParameters {
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
                             @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
                             @JsonProperty("removeFictitiousSwitchNodes") boolean removeFictitiousSwitchNodes,
-                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding) {
+                            @JsonProperty("zoneLayoutSnakeLinePadding") int zoneLayoutSnakeLinePadding,
+                            @JsonProperty("displayTeePointsInVoltageLevels") boolean displayTeePointsInVoltageLevels) {
 
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
@@ -93,6 +95,7 @@ public class LayoutParameters {
         this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
         this.removeFictitiousSwitchNodes = removeFictitiousSwitchNodes;
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        this.displayTeePointsInVoltageLevels = displayTeePointsInVoltageLevels;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -117,6 +120,7 @@ public class LayoutParameters {
         removeFictitiousSwitchNodes = other.removeFictitiousSwitchNodes;
         componentsSize = other.componentsSize;
         zoneLayoutSnakeLinePadding = other.zoneLayoutSnakeLinePadding;
+        displayTeePointsInVoltageLevels = other.displayTeePointsInVoltageLevels;
     }
 
     public double getVerticalSpaceBus() {
@@ -300,6 +304,15 @@ public class LayoutParameters {
 
     public LayoutParameters setZoneLayoutSnakeLinePadding(int zoneLayoutSnakeLinePadding) {
         this.zoneLayoutSnakeLinePadding = zoneLayoutSnakeLinePadding;
+        return this;
+    }
+
+    public boolean isDisplayTeePointsInVoltageLevels() {
+        return this.displayTeePointsInVoltageLevels;
+    }
+
+    public LayoutParameters setDisplayTeePointsInVoltageLevels(boolean displayTeePointsInVoltageLevels) {
+        this.displayTeePointsInVoltageLevels = displayTeePointsInVoltageLevels;
         return this;
     }
 

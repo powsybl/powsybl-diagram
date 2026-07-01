@@ -27,6 +27,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -161,7 +162,7 @@ public class DiagramMetadata extends AbstractMetadata {
                 busNode.getStyleClasses(),
                 busNode.getStyle()
         ))));
-        graph.getNodesStream().forEach(node -> nodesMetadata.add(createNodeMetadata(node)));
+        graph.getNodesStream().forEach(node -> nodesMetadata.add(createNodeMetadata(node, graph)));
         graph.getVoltageLevelNodesStream().forEach(
                 vlNode -> vlNode.getBusNodeStream().forEach(
                         busNode -> busNode.getInjections().forEach(
@@ -236,7 +237,7 @@ public class DiagramMetadata extends AbstractMetadata {
         return null;
     }
 
-    private NodeMetadata createNodeMetadata(Node node) {
+    private NodeMetadata createNodeMetadata(Node node, Graph graph) {
         String nodeType = findNodeType(node);
         if (node instanceof VoltageLevelNode vlNode) {
             return new NodeMetadata(
@@ -252,6 +253,8 @@ public class DiagramMetadata extends AbstractMetadata {
                     vlNode.getLegendFooter(),
                     nodeType,
                     vlNode.hasUnknownBusNode(),
+                    vlNode.hasUnknownBusNode() ? graph.getUnknownBusStyleClasses() : Collections.emptyList(),
+                    vlNode.hasUnknownBusNode() ? graph.getUnknownBusStyle() : null,
                     vlNode.getStyleClasses()
             );
         } else {
@@ -268,6 +271,8 @@ public class DiagramMetadata extends AbstractMetadata {
                     null,
                     nodeType,
                     false,
+                    Collections.emptyList(),
+                    null,
                     node.getStyleClasses()
                     );
         }

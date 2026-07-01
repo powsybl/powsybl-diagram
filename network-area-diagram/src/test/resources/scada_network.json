@@ -112,6 +112,7 @@
     "legendEdgeSvgId" : "15",
     "legendHeader" : [ "vl3" ],
     "unknownBus" : true,
+    "unknownBusClasses" : [ "nad-unknown-busnode", "nad-bus-0" ],
     "classes" : [ "nad-vl300to500" ]
   }, {
     "svgId" : "18",
