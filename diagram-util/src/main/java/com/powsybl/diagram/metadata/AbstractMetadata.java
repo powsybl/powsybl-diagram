@@ -27,13 +27,10 @@ import com.powsybl.commons.json.JsonUtil;
 @JsonPropertyOrder(value = {"metadataVersion"})
 public abstract class AbstractMetadata {
 
-    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
-    private static final String METADATA_VERSION = "1.0";
-
     //use a field to have both Serialization and Deserialization
     @JsonProperty("metadataVersion")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String metadataVersion = METADATA_VERSION;
+    protected String metadataVersion;
 
     public String getMetadataVersion() {
         return metadataVersion;

@@ -41,6 +41,9 @@ import java.util.Objects;
  */
 public class GraphMetadata extends AbstractMetadata {
 
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     // On some systems, the export order is determined by the order of the 1st encountered JsonCreator's attributes
     // and "unescapedId" is put in last place. But on other systems, the export order is determined by the getters' order
@@ -269,6 +272,7 @@ public class GraphMetadata extends AbstractMetadata {
         }
         layoutParameters = layoutParams;
         svgParameters = svgParams;
+        this.metadataVersion = METADATA_VERSION;
     }
 
     public static GraphMetadata parseJson(Path file) {

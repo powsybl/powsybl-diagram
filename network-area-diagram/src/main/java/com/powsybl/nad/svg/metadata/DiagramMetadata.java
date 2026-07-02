@@ -38,6 +38,9 @@ import java.util.stream.Collectors;
  */
 public class DiagramMetadata extends AbstractMetadata {
 
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
+
     public enum NodeType {
         THREEWT, BOUNDARY;
     }
@@ -63,6 +66,7 @@ public class DiagramMetadata extends AbstractMetadata {
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonCreator
@@ -86,6 +90,7 @@ public class DiagramMetadata extends AbstractMetadata {
         this.networkId = networkId;
         this.networkName = networkName;
         this.networkDate = networkDate;
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonProperty("busNodes")
