@@ -92,11 +92,11 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         Path svgPath = tmpDir.resolve("result.svg");
         Path metadataPath = tmpDir.resolve("result_metadata.json");
-        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), svgPath, EMPTY_DIAGRAM_VERSION);
+        SingleLineDiagram.drawVoltageLevel(network, vl.getId(), svgPath);
         assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 
-        SingleLineDiagram.draw(network, vl.getId(), svgPath, EMPTY_DIAGRAM_VERSION);
+        SingleLineDiagram.draw(network, vl.getId(), svgPath);
         assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
     }
@@ -106,7 +106,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         try (Writer writer = new NullWriter();
              StringWriter metadataWriter = new StringWriter()) {
-            SingleLineDiagram.draw(network, substation.getId(), writer, metadataWriter, EMPTY_DIAGRAM_VERSION);
+            SingleLineDiagram.draw(network, substation.getId(), writer, metadataWriter);
             assertEquals(expectedMetadata, normalizeLineSeparator(metadataWriter.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -134,11 +134,11 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         Path svgPath = tmpDir.resolve("result.svg");
         Path metadataPath = tmpDir.resolve("result_metadata.json");
-        SingleLineDiagram.drawSubstation(network, substation.getId(), svgPath, EMPTY_DIAGRAM_VERSION);
+        SingleLineDiagram.drawSubstation(network, substation.getId(), svgPath);
         assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 
-        SingleLineDiagram.draw(network, substation.getId(), svgPath, EMPTY_DIAGRAM_VERSION);
+        SingleLineDiagram.draw(network, substation.getId(), svgPath);
         assertEquals(expected, toString(Files.newInputStream(svgPath)));
         assertEquals(expectedMetadata, toString(Files.newInputStream(metadataPath)));
 

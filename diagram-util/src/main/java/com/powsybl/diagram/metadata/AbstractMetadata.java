@@ -14,64 +14,46 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
-import java.util.ServiceLoader;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
-import com.powsybl.tools.Version;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@soft.it>}
  */
-@JsonPropertyOrder(value = {"diagramVersion"})
+@JsonPropertyOrder(value = {"metadataVersion"})
 public abstract class AbstractMetadata {
 
-    public static final String DEFAULT_DIAGRAM_VERSION = resolveDiagramVersion();
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
 
-    private String diagramVersion;
-
-    private static String resolveDiagramVersion() {
-        for (Version v : ServiceLoader.load(Version.class)) {
-            if ("powsybl-diagram".equals(v.getRepositoryName())) {
-                return v.getMavenProjectVersion();
-            }
-        }
-        return null;
-    }
-
-    @JsonProperty("diagramVersion")
+    //use a field to have both Serialization and Deserialization
+    @JsonProperty("metadataVersion")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public String getDiagramVersion() {
-        return diagramVersion;
+    private String metadataVersion = METADATA_VERSION;
+
+    public String getMetadataVersion() {
+        return metadataVersion;
     }
 
     public void writeJson(Path file) {
-        writeJson(file, DEFAULT_DIAGRAM_VERSION);
-    }
-
-    public void writeJson(Path file, String diagramVersion) {
         Objects.requireNonNull(file);
         try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer, diagramVersion);
+            writeJson(writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
     public void writeJson(Writer writer) {
-        writeJson(writer, DEFAULT_DIAGRAM_VERSION);
-    }
-
-    public void writeJson(Writer writer, String diagramVersion) {
         Objects.requireNonNull(writer);
-        this.diagramVersion = diagramVersion;
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         try {
             objectMapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(writer, this);
+                .writeValue(writer, this);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -88,7 +88,7 @@ class DiagramMetadataTest extends AbstractTest {
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
         try (Writer writer = Files.newBufferedWriter(outMetadataPath, StandardCharsets.UTF_8)) {
-            metadata.writeJson(writer, "");
+            metadata.writeJson(writer);
         }
         // Checking
         assertFileEquals(referenceMetadata, outMetadataPath);
@@ -225,7 +225,7 @@ class DiagramMetadataTest extends AbstractTest {
         assertTrue(graph.isStyleApplied());
         // Write Metadata as temporary json file
         Path outMetadataPath = tmpDir.resolve("metadata.json");
-        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath, "");
+        new DiagramMetadata(layoutParameters, getSvgParameters()).addMetadata(graph).writeJson(outMetadataPath);
         assertNotNull(graph.getCssUrls());
         assertNotNull(graph.getCssFilenames());
         // Checking
