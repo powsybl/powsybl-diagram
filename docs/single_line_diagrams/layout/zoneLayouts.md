@@ -12,7 +12,7 @@ The user can choose the location of each substation.
 
 **Usage example:**
 The following example displays three substations distributed on two columns and two lines,
-with an empty area at the middle of the second line.
+with an empty area in the second line.
 
 ```java
 // build zone graph
@@ -22,7 +22,7 @@ ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 
 // Create substation 2D array representation
 String[][] matrix = {{"A", "B"},
-                     {"D", ""}};
+                     {"", "C"}};
 // Create matrix zone layout using 2D array
 ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
 SubstationLayoutFactory sFactory = new HorizontalSubstationLayoutFactory();
@@ -33,6 +33,8 @@ Layout matrixLayout = mFactory.create(g, pFinderFactory, sFactory, vFactory);
 // Apply matrix zone layout
 matrixLayout.run(layoutParameters);
 ```
+
+![Matrix Layout Example](MatrixLayoutExample.svg)
 
 # Manually Positioned Zone Layout
 
@@ -91,7 +93,7 @@ For the `MatrixZoneLayout`, this is done by placing substations in a matrix, whe
 
 For the `ManuallyPositionedZoneLayout`, this is done by placing substations at user-defined positions, then automatically resolving overlaps.
 
-Once those substations positions are computed, the `AbstractPositionedZoneLayout` move the substations at those positions and then size the diagram accordingly
+Once those substations positions are computed, the `AbstractPositionedZoneLayout` moves the substations at those positions and then size the diagram accordingly
 
 ## Snakeline route computation between substations
 
