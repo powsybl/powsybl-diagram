@@ -15,7 +15,6 @@ import java.util.Locale;
  */
 public class ValueFormatter {
 
-    /** degree sign unicode for degree symbol */
     private static final String DEGREE_CHAR = "°";
     private static final String PERCENT_CHAR = "%";
 

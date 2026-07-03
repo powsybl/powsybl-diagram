@@ -15,7 +15,6 @@ import com.powsybl.sld.layout.pathfinding.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.svg.SvgParameters;
-
 import org.jgrapht.alg.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

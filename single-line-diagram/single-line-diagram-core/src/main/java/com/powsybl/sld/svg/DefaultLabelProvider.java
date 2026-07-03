@@ -17,13 +17,11 @@ import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
-import java.util.function.BiFunction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.stream.Stream;
 
 import static com.powsybl.diagram.util.PermanentLimitPercentageMax.getPermanentLimitPercentageMax;
 import static com.powsybl.sld.library.SldComponentTypeName.*;

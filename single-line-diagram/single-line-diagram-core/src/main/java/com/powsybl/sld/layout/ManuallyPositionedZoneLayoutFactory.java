@@ -7,13 +7,12 @@
  */
 package com.powsybl.sld.layout;
 
-import java.util.List;
-
+import com.powsybl.sld.layout.pathfinding.ZoneLayoutPathFinderFactory;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import org.jgrapht.alg.util.Pair;
 
-import com.powsybl.sld.layout.pathfinding.*;
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import java.util.List;
 
 /**
  * @author Frédéric Sabot {@literal <frederic.sabot at haulogy.net>}
