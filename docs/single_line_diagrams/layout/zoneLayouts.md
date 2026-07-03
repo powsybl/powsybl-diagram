@@ -1,9 +1,37 @@
-# Zone Matrix Layout
+# Multi-substation zone layout
+
+## Zone Matrix Layout
 
 In this layout, the substations are displayed like elements of a matrix (rows and columns).
 The user can choose the location of each substation.
 
-## Input parameters
+### Premise:
+- The column width is computed for each column as the maximum width of all the substations on the column
+- The row height is computed for each row as the maximum height of all the substations on the row
+
+Example:
+
+|                 |                     |      ZonePadding      |                      |                 |                     |      ZonePadding      |                      |                 |
+|:---------------:|:-------------------:|:---------------------:|:--------------------:|:---------------:|:-------------------:|:---------------------:|:--------------------:|:---------------:|
+|                 |                     |  __VL TOP Padding__   |                      |                 |                     |  __VL TOP Padding__   |                      |                 | 
+| __ZonePadding__ | __VL LEFT Padding__ |         __A__         | __VL RIGHT Padding__ | __ZonePadding__ | __VL LEFT Padding__ |         __B__         | __VL RIGHT Padding__ | __ZonePadding__ |
+|                 |                     | __VL BOTTOM Padding__ |                      |                 |                     | __VL BOTTOM Padding__ |                      |                 | 
+|                 |                     |    __ZonePadding__    |                      |                 |                     |    __ZonePadding__    |                      |                 |
+|                 |                     |  __VL TOP Padding__   |                      |                 |                     |  __VL TOP Padding__   |                      |                 |
+| __ZonePadding__ | __VL LEFT Padding__ |         __D__         | __VL RIGHT Padding__ | __ZonePadding__ | __VL LEFT Padding__ |           _           | __VL RIGHT Padding__ | __ZonePadding__ |
+|                 |                     | __VL BOTTOM Padding__ |                      |                 |                     | __VL BOTTOM Padding__ |                      |                 |
+|                 |                     |    __ZonePadding__    |                      |                 |                     |    __ZonePadding__    |                      |                 |
+
+
+The class `MatrixZoneLayout` represents the matrix layout.<BR>
+The class `MatrixZoneLayoutModel` represents the matrix and the path finder information.
+The class `Matrix` contains an array of `MatrixCell`.
+
+The class `MatrixCell` stores information related to the matrix cell:
+- Position (indices) in the matrix: row, column
+- The id of the substation graph contained by the cell
+
+### Input parameters
 
 - `VoltageLevelLayoutFactory`: builder of the layout used by voltage levels
 - `SubstationLayoutFactory`: builder of the layout used by substations
@@ -34,15 +62,15 @@ Layout matrixLayout = mFactory.create(g, pFinderFactory, sFactory, vFactory);
 matrixLayout.run(layoutParameters);
 ```
 
-![Matrix Layout Example](MatrixLayoutExample.svg)
+![Matrix Layout Example](../../_static/img/sld/layout/MatrixLayoutExample.svg)
 
-# Manually Positioned Zone Layout
+## Manually Positioned Zone Layout
 
 In this layout, the substations are placed at user-defined positions.
 In case the user-defined positions lead to overlaps of substations, those are automatically resolved.
 Overlap resolution is done iteratively, keeping the first entries at their desired location and moving the later ones down or right in case of overlap.
 
-## Input parameters
+### Input parameters
 
 - `VoltageLevelLayoutFactory`: builder of the layout used by voltage levels
 - `SubstationLayoutFactory`: builder of the layout used by substations
@@ -50,8 +78,7 @@ Overlap resolution is done iteratively, keeping the first entries at their desir
 - `desiredPositions`: list of the substations and their desired positions (ex: `List.of(Pair.of("A", new Point(100, 100)), Pair.of("B", new Point(800, 100)), Pair.of("C", new Point(500, 100)))`)
 
 **Usage example:**
-The following example displays three substations distributed on two columns and two lines,
-with an empty area at the middle of the second line.
+The following example displays three substations positioned at the desired positions.
 
 ```java
 // build zone graph
@@ -62,7 +89,7 @@ ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
 List<Pair<String, Point>> positions = List.of(
     Pair.of("A", new Point(100, 100)),
     Pair.of("B", new Point(800, 100)),
-    Pair.of("C", new Point(500, 100))  // In between A and B with overlaps ==> Overlap resolution will move it elsewhere
+    Pair.of("C", new Point(200, 400))  // In between A and B with overlaps ==> Overlap resolution will move it elsewhere
 );
 // Create matrix zone layout using 2D array
 ZoneLayoutPathFinderFactory pFinderFactory = DijkstraPathFinder::new;
@@ -74,12 +101,14 @@ Layout layout = mFactory.create(g, pFinderFactory, sFactory, vFactory);
 // Apply matrix zone layout
 layout.run(layoutParameters);
 ```
+![Matrix Layout Example](../../_static/img/sld/layout/ManuallyPositionedZoneLayoutWithOverlap.svg)
 
-# Path finding description
+## Path finding
 
 Both `MatrixZoneLayout` and `ManuallyPositionedZoneLayout` inherit from `AbstractPositionedZoneLayout` which handles pathfinding of lines between the different substations.
+Snakeline lane dimensions (both horizontal and vertical) are set with `LayoutParameters.setZoneLayoutSnakeLinePadding`
 
-## Substation positioning
+### Substation positioning
 
 When the layout is run, `AbstractPositionedZoneLayout` calls `calculateCoordSubstations`, this function first runs the layout of all substations inside the zone layout:
 
@@ -95,7 +124,7 @@ For the `ManuallyPositionedZoneLayout`, this is done by placing substations at u
 
 Once those substations positions are computed, the `AbstractPositionedZoneLayout` moves the substations at those positions and then size the diagram accordingly
 
-## Snakeline route computation between substations
+### Snakeline route computation between substations
 
 The `Grid` class contains a 2D-array of `Node`, each `Node` representing a pixel of the SLD output file.
 Each `Node` stores :
@@ -105,7 +134,7 @@ Each `Node` stores :
 * A parent node reference
 * The distance to the end point of the snakeline
 
-### Exclusion area
+#### Exclusion area
 An exclusion area is an area where all `Node` have availability equals to `false`
 This area cannot be used to draw a `snakeline`.
 Those areas are:
@@ -113,7 +142,7 @@ Those areas are:
 - voltage levels with padding
 - snakelines right angles
 
-### Shorter path computation
+#### Shorter path computation
 Dijkstra's computation steps:
 * The starting point cost is set to 0
 * The nearest neighbors (left, right, up and down) are computed (no diagonal moves allowed here)
