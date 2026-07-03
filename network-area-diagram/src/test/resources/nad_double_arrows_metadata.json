@@ -127,7 +127,8 @@
       "labelB" : "100"
     },
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-boundary-line-edge" ]
   }, {
     "svgId" : "12",
     "equipmentId" : "hvdc",
@@ -155,7 +156,8 @@
       "labelB" : "300"
     },
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-hvdc-edge" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",

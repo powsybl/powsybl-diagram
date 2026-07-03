@@ -190,7 +190,8 @@
     "busNode2" : "23",
     "type" : "BoundaryLineEdge",
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-boundary-line-edge" ]
   }, {
     "svgId" : "25",
     "equipmentId" : "hvdcline",
@@ -200,7 +201,8 @@
     "busNode2" : "12",
     "type" : "HvdcLineLccEdge",
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl180to300" ]
+    "classes2" : [ "nad-vl180to300" ],
+    "classes" : [ "nad-hvdc-edge" ]
   }, {
     "svgId" : "19",
     "equipmentId" : "t3wt",

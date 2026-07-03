@@ -170,6 +170,33 @@ class DiagramMetadataTest extends AbstractTest {
     }
 
     @Test
+    void testLineOverloadedAndDisconnected() {
+        Network network = IeeeCdfNetworkFactory.create9zeroimpedance();
+        Line line = network.getLine("L9-8-0");
+        line.getTerminal1().setP(800).setQ(400.0);
+        line.getTerminal2().setP(810).setQ(410.0);
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits()
+                .setPermanentLimit(2000.0)
+                .beginTemporaryLimit()
+                .setName("20'")
+                .setValue(2100)
+                .setAcceptableDuration(20 * 60)
+                .endTemporaryLimit()
+                .beginTemporaryLimit()
+                .setName("10'")
+                .setValue(2200.0)
+                .setAcceptableDuration(10 * 60)
+                .endTemporaryLimit()
+                .add();
+
+        Line line2 = network.getLine("L7-8-0");
+        line2.disconnect();
+
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
+        roundTrip(network, "/line_overload_disconnected_metadata.json", new LayoutParameters().setInjectionsAdded(true));
+    }
+
+    @Test
     void testEdgeInfoMetadata() {
         Network network = Networks.createTwoVoltageLevels();
         labelProvider = new DefaultLabelProvider.Builder()
