@@ -17,6 +17,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederTeePointLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
+import java.util.function.BiFunction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
+import static com.powsybl.diagram.util.PermanentLimitPercentageMax.getPermanentLimitPercentageMax;
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
@@ -196,22 +198,6 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
         }
         return feederInfoList;
-    }
-
-    private double getPermanentLimitPercentageMax(Branch<?> branch) {
-        return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .map(side -> getPermanentLimitPercentageMax(branch.getTerminal(side), branch.getCurrentLimits(side).orElse(null)))
-            .mapToDouble(Double::doubleValue).max().getAsDouble();
-    }
-
-    private double getPermanentLimitPercentageMax(ThreeWindingsTransformer transformer) {
-        return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .map(side -> getPermanentLimitPercentageMax(transformer.getTerminal(side), transformer.getLeg(side).getCurrentLimits().orElse(null)))
-            .mapToDouble(Double::doubleValue).max().getAsDouble();
-    }
-
-    private double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits != null ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {

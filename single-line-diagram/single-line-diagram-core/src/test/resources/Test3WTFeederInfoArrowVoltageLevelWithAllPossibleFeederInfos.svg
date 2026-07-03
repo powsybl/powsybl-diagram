@@ -147,7 +147,7 @@
                     <text class="sld-label" x="15.0" y="5.0">-24,100</text>
                 </g>
                 <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_TWO_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(110.0,155.0)">
-                    <text class="sld-label" x="15.0" y="5.0">0 %</text>
+                    <text class="sld-label" x="15.0" y="5.0">— %</text>
                 </g>
                 <g class="sld-wire" id="_95_VL_95_132_95_3WT_95_THREE_95_3WT">
                     <polyline points="165.0,80.0,165.0,182.0,147.0,182.0"/>
@@ -168,7 +168,7 @@
                     <text class="sld-label" x="15.0" y="5.0">-71,355</text>
                 </g>
                 <g class="sld-feeder-info sld-permanent-limit-percentage" id="id3WT_95_THREE_95_VALUE_95_PERMANENT_95_LIMIT_95_PERCENTAGE" transform="translate(160.0,155.0)">
-                    <text class="sld-label" x="15.0" y="5.0">0 %</text>
+                    <text class="sld-label" x="15.0" y="5.0">— %</text>
                 </g>
                 <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_BUS_95_132_95_3WT" transform="translate(136.0,288.0)">
                     <circle cx="4" cy="4" r="4"/>

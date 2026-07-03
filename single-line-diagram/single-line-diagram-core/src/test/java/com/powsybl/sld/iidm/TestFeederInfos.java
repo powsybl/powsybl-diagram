@@ -133,13 +133,22 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         // build graph
         network.getLoad("l").getTerminal().setP(100).setQ(10);
-        network.getLine("line").getTerminal1().setP(100).setQ(10).connect();
-        network.getLine("line").getTerminal2().setP(90).setQ(10).connect();
+        Line line = network.getLine("line");
+        line.getTerminal1().setP(100).setQ(10).connect();
+        line.getTerminal2().setP(90).setQ(10).connect();
 
-        network.getLine("line").getTerminal1().getBusView().getBus().setV(380);
-        network.getLine("line").getTerminal2().getBusView().getBus().setV(380);
+        line.getTerminal1().getBusView().getBus().setV(380);
+        line.getTerminal2().getBusView().getBus().setV(380);
 
-        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        line.newOperationalLimitsGroup1("low").newCurrentLimits().setDetectionKind(DetectionKind.LOW)
+            .beginTemporaryLimit()
+            .setValue(150)
+            .setName("10'")
+            .setAcceptableDuration(600)
+            .endTemporaryLimit()
+            .add();
+        line.addSelectedOperationalLimitsGroups(TwoSides.ONE, "low");
         network.getLine("line").getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits().setPermanentLimit(200).add();
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
