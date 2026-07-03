@@ -157,7 +157,8 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
-                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style(),
+                edge.getStyleClasses()
         )));
         graph.getThreeWtEdgesStream().forEach(edge -> {
             String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
@@ -178,6 +179,7 @@ public class DiagramMetadata extends AbstractMetadata {
                     edge.getEdgeStyleInfo().styleClasses(),
                     null,
                     edge.getEdgeStyleInfo().style(),
+                    null,
                     null
             ));
         });

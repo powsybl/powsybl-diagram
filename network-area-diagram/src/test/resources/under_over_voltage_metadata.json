@@ -155,7 +155,8 @@
     "busNode2" : "13",
     "type" : "BoundaryLineEdge",
     "classes1" : [ "nad-vl300to500" ],
-    "classes2" : [ "nad-vl300to500" ]
+    "classes2" : [ "nad-vl300to500" ],
+    "classes" : [ "nad-boundary-line-edge" ]
   } ],
   "textNodes" : [ {
     "svgId" : "1",
