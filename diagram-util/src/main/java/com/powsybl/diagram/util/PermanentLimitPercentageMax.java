@@ -14,23 +14,21 @@ public final class PermanentLimitPercentageMax {
     }
 
     public static double getPermanentLimitPercentageMax(Branch<?> branch) {
-        return Stream.of(TwoSides.ONE, TwoSides.TWO)
+        return getStreamMaxFiltered(Stream.of(TwoSides.ONE, TwoSides.TWO)
             .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
                 .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
-            )
-            .mapToDouble(Double::doubleValue)
-            .filter(v -> !Double.isNaN(v))
-            .max().orElse(Double.NaN);
+            ));
     }
 
     public static double getPermanentLimitPercentageMax(ThreeWindingsTransformer twt) {
-        return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
+        return getStreamMaxFiltered(Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
             .flatMap(side -> twt.getLeg(side).getAllSelectedCurrentLimits().stream()
                 .map(l -> getPermanentLimitPercentageMax(twt.getTerminal(side), l))
-            )
-            .mapToDouble(Double::doubleValue)
-            .filter(v -> !Double.isNaN(v))
-            .max().orElse(Double.NaN);
+            ));
+    }
+
+    private static double getStreamMaxFiltered(Stream<Double> values) {
+        return values.mapToDouble(Double::doubleValue).filter(v -> !Double.isNaN(v)).max().orElse(Double.NaN);
     }
 
     private static double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
