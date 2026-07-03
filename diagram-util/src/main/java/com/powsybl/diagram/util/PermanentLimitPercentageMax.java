@@ -19,6 +19,7 @@ public final class PermanentLimitPercentageMax {
                 .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
             )
             .mapToDouble(Double::doubleValue)
+            .filter(v -> !Double.isNaN(v))
             .max().orElse(Double.NaN);
     }
 
@@ -28,6 +29,7 @@ public final class PermanentLimitPercentageMax {
                 .map(l -> getPermanentLimitPercentageMax(twt.getTerminal(side), l))
             )
             .mapToDouble(Double::doubleValue)
+            .filter(v -> !Double.isNaN(v))
             .max().orElse(Double.NaN);
     }
 

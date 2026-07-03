@@ -18,12 +18,12 @@ import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.function.BiFunction;
-import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static com.powsybl.diagram.util.PermanentLimitPercentageMax.getPermanentLimitPercentageMax;
 import static com.powsybl.sld.library.SldComponentTypeName.*;
 import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 
@@ -196,26 +196,6 @@ public class DefaultLabelProvider extends AbstractLabelProvider {
             feederInfoList.add(new ValueFeederInfo(VALUE_PERMANENT_LIMIT_PERCENTAGE, LabelDirection.NONE, getPermanentLimitPercentageMax(transformer), valueFormatter::formatPercentage));
         }
         return feederInfoList;
-    }
-
-    private double getPermanentLimitPercentageMax(Branch<?> branch) {
-        return Stream.of(TwoSides.ONE, TwoSides.TWO)
-            .flatMap(side -> branch.getAllSelectedCurrentLimits(side).stream()
-                .map(l -> getPermanentLimitPercentageMax(branch.getTerminal(side), l))
-            )
-            .mapToDouble(Double::doubleValue).max().orElse(0);
-    }
-
-    private double getPermanentLimitPercentageMax(ThreeWindingsTransformer transformer) {
-        return Stream.of(ThreeSides.ONE, ThreeSides.TWO, ThreeSides.THREE)
-            .flatMap(side -> transformer.getLeg(side).getAllSelectedCurrentLimits().stream()
-                .map(l -> getPermanentLimitPercentageMax(transformer.getTerminal(side), l))
-            )
-            .mapToDouble(Double::doubleValue).max().orElse(0);
-    }
-
-    private double getPermanentLimitPercentageMax(Terminal terminal, CurrentLimits currentLimits) {
-        return currentLimits != null && currentLimits.getDetectionKind() == DetectionKind.HIGH ? (Math.abs(terminal.getI() * 100) / currentLimits.getPermanentLimit()) : 0;
     }
 
     private List<FeederInfo> buildFeederInfos(Terminal terminal, boolean insideVoltageLevel) {
