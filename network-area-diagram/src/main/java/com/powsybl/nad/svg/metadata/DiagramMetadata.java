@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
-public class DiagramMetadata extends AbstractMetadata {
+public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
 
     //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
     private static final String METADATA_VERSION = "1.0";
@@ -56,13 +56,6 @@ public class DiagramMetadata extends AbstractMetadata {
     @JsonSetter(nulls = Nulls.AS_EMPTY) // if missing when deserializing creates an empty array
     private final List<InjectionMetadata> injectionsMetadata = new ArrayList<>();
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String networkId;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String networkName;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String networkDate;
-
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
@@ -79,7 +72,9 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata,
                            @JsonProperty("networkId") String networkId,
                            @JsonProperty("networkName") String networkName,
-                           @JsonProperty("networkDate") String networkDate) {
+                           @JsonProperty("networkDate") String networkDate
+                           ) {
+        super(networkId, networkName, networkDate);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
@@ -87,9 +82,6 @@ public class DiagramMetadata extends AbstractMetadata {
         this.injectionsMetadata.addAll(injectionsMetadata);
         this.edgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
-        this.networkId = networkId;
-        this.networkName = networkName;
-        this.networkDate = networkDate;
         this.metadataVersion = METADATA_VERSION;
     }
 
@@ -128,26 +120,9 @@ public class DiagramMetadata extends AbstractMetadata {
         return svgParameters;
     }
 
-    @JsonProperty("networkName")
-    public String getNetworkName() {
-        return networkName;
-    }
-
-    @JsonProperty("networkId")
-    public String getNetworkId() {
-        return networkId;
-    }
-
-    @JsonProperty("networkDate")
-    public String getNetworkDate() {
-        return networkDate;
-    }
-
+    @Override
     public DiagramMetadata setNetworkInformation(Network network) {
-        this.networkName = network.getNameOrId();
-        this.networkId = network.getId();
-        this.networkDate = network.getCaseDate().toString();
-        return this;
+        return super.setNetworkInformation(network);
     }
 
     public DiagramMetadata addMetadata(Graph graph) {

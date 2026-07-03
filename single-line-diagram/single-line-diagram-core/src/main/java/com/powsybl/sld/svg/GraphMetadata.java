@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
@@ -39,7 +40,7 @@ import java.util.Objects;
  * @author Geoffroy Jamgotchian {@literal <geoffroy.jamgotchian at rte-france.com>}
  * @author Franck Lecuyer {@literal <franck.lecuyer at rte-france.com>}
  */
-public class GraphMetadata extends AbstractMetadata {
+public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
     //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
     private static final String METADATA_VERSION = "1.0";
@@ -240,7 +241,9 @@ public class GraphMetadata extends AbstractMetadata {
     private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters, svgParameters);
+        this.layoutParameters = layoutParameters;
+        this.svgParameters = svgParameters;
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonCreator
@@ -251,7 +254,11 @@ public class GraphMetadata extends AbstractMetadata {
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
                          @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams,
-                         @JsonProperty("svgParams") SvgParameters svgParams) {
+                         @JsonProperty("svgParams") SvgParameters svgParams,
+                         @JsonProperty("networkId") String networkId,
+                         @JsonProperty("networkName") String networkName,
+                         @JsonProperty("networkDate") String networkDate) {
+        super(networkId, networkName, networkDate);
         for (SldComponent component : componentList) {
             addComponent(component);
         }
@@ -408,5 +415,10 @@ public class GraphMetadata extends AbstractMetadata {
     public SvgParameters getSvgParameters() {
         return svgParameters;
 
+    }
+
+    @Override
+    public GraphMetadata setNetworkInformation(Network network) {
+        return super.setNetworkInformation(network);
     }
 }

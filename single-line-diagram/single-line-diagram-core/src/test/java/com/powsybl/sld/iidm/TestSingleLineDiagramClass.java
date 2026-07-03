@@ -30,6 +30,7 @@ import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +56,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
 
         network = Network.create("TestSingleLineDiagramClass", "test");
+        network.setCaseDate(ZonedDateTime.parse("2017-01-15T18:45:00.000+01:00"));
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
         vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);

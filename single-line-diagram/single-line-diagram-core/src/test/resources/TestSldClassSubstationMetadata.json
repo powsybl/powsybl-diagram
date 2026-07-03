@@ -602,5 +602,8 @@
     "displayEquipmentNodesLabel" : false,
     "displayConnectivityNodesId" : false,
     "unifyVoltageLevelColors" : false
-  }
+  },
+  "networkId" : "TestSingleLineDiagramClass",
+  "networkName" : "TestSingleLineDiagramClass",
+  "networkDate" : "2017-01-15T18:45+01:00"
 }
