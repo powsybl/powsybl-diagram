@@ -11,6 +11,7 @@ import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.*;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 
@@ -1521,6 +1522,7 @@ public final class Networks {
 
     public static Network createNetworkWithSvcVscScDl() {
         Network network = Network.create("testCase1", "test");
+        network.setCaseDate(ZonedDateTime.of(2023, 5, 31, 10, 41, 0, 0, ZoneId.of("CET")));
         Substation substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         VoltageLevel vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(380).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView();

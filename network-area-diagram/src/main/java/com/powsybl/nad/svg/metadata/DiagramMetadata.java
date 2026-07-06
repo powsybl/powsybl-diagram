@@ -35,7 +35,10 @@ import java.util.stream.Collectors;
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
-public class DiagramMetadata extends AbstractMetadata {
+public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
+
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
 
     public enum NodeType {
         THREEWT, BOUNDARY
@@ -55,6 +58,7 @@ public class DiagramMetadata extends AbstractMetadata {
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonCreator
@@ -64,7 +68,12 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
                            @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
                            @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
-                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
+                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata,
+                           @JsonProperty("networkId") String networkId,
+                           @JsonProperty("networkName") String networkName,
+                           @JsonProperty("networkDate") String networkDate
+                           ) {
+        super(networkId, networkName, networkDate);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
@@ -72,6 +81,7 @@ public class DiagramMetadata extends AbstractMetadata {
         this.injectionsMetadata.addAll(injectionsMetadata);
         this.edgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonProperty("busNodes")
