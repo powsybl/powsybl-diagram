@@ -1,4 +1,5 @@
 {
+  "metadataVersion" : "1.0",
   "layoutParameters" : {
     "textNodesForceLayout" : false,
     "textNodeFixedShift" : {
@@ -588,5 +589,8 @@
     "shiftY" : -40.0,
     "connectionShiftX" : 100.0,
     "connectionShiftY" : -15.0
-  } ]
+  } ],
+  "networkId" : "ieee14cdf",
+  "networkName" : "ieee14cdf",
+  "networkDate" : "1993-08-19T00:00Z"
 }

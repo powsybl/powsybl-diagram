@@ -151,7 +151,7 @@ class NetworkAreaDiagramTest extends AbstractTest {
 
         List<ILoggingEvent> logsList = logWatcher.list;
         assertEquals(1, logsList.size());
-        assertEquals("vl 'VL4' does not comply with the predicate", logsList.get(0).getFormattedMessage());
+        assertEquals("vl 'VL4' does not comply with the predicate", logsList.getFirst().getFormattedMessage());
         assertFileEquals("/IEEE_14_bus_voltage_filter3.svg", svgFileVoltageFilter);
     }
 
@@ -196,6 +196,17 @@ class NetworkAreaDiagramTest extends AbstractTest {
         assertFileEquals("/IEEE_14_bus_voltage_nofilter.svg", svgFile);
         Path metadataFile = fileSystem.getPath("nad-ieee-14-bus_metadata.json");
         assertFileEquals("/IEEE_14_bus_voltage_nofilter_metadata.json", metadataFile);
+    }
+
+    @Test
+    void testDrawWithDiagramVersion() {
+        Network network = IeeeCdfNetworkFactory.create14();
+        Path svgFile = fileSystem.getPath("nad-ieee-14-bus-with-version.svg");
+        NetworkAreaDiagram.draw(network, svgFile);
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter.svg", svgFile);
+        Path metadataFile = fileSystem.getPath("nad-ieee-14-bus-with-version_metadata.json");
+        assertFileEquals("/IEEE_14_bus_voltage_nofilter_with_diagram_version_metadata.json", metadataFile);
+
     }
 
     @Test
