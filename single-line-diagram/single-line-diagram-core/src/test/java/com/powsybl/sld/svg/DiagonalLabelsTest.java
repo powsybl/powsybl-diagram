@@ -10,13 +10,13 @@ package com.powsybl.sld.svg;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.library.SldComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Giovanni Ferrari {@literal <giovanni.ferrari at techrain.eu>}
@@ -44,16 +44,19 @@ class DiagonalLabelsTest extends AbstractTestCaseIidm {
         svgParameters.setLabelDiagonal(true);
         svgParameters.setBusLabelDiagonal(false);
         assertEquals(toString("/diagonalFeederLabelsTest.svg"), toSVG(g, "/diagonalFeederLabelsTest.svg", componentLibrary,
-            layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
 
         // Write all labels diagonally
         svgParameters.setBusLabelDiagonal(true);
         assertEquals(toString("/diagonalAllLabelsTest.svg"), toSVG(g, "/diagonalAllLabelsTest.svg", componentLibrary,
-            layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
 
         // Write only bus labels diagonally
         svgParameters.setLabelDiagonal(false);
         assertEquals(toString("/diagonalBusLabelsTest.svg"), toSVG(g, "/diagonalBusLabelsTest.svg", componentLibrary,
-            layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+            layoutParameters, svgParameters,
+            getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

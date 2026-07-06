@@ -79,7 +79,9 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
-        assertEquals(toString(filename), toSVG(g, filename, componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString(filename),
+            toSVG(g, filename, componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -171,7 +173,9 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
         new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/substDiag_metadata.json"), toMetadata(substationGraph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/substDiag_metadata.json"),
+            toMetadata(substationGraph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -181,6 +185,8 @@ class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
         new HorizontalSubstationLayoutFactory().create(graph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
-        assertEquals(toString("/substDiag_metadata.json"), toMetadata(graph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/substDiag_metadata.json"),
+            toMetadata(graph, "/substDiag_metadata.json", componentLibrary, layoutParameters, svgParameters,
+                getDefaultDiagramLabelProvider(), new NominalVoltageStyleProvider(), getDefaultSVGLegendWriter()));
     }
 }

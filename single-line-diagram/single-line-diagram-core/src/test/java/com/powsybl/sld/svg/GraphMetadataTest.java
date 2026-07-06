@@ -12,16 +12,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.SldComponent;
-import com.powsybl.diagram.components.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.nio.file.FileSystem;
@@ -30,7 +29,11 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.SldComponentTypeName.*;
+import static com.powsybl.sld.library.SldComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.SldComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.SldComponentTypeName.LCC_CONVERTER_STATION;
+import static com.powsybl.sld.library.SldComponentTypeName.LINE;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -146,12 +149,17 @@ class GraphMetadataTest {
     @Test
     void testGraphMetadataWithLine() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters(), new SvgParameters());
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("STATION_EXAMPLE", "idSTATION_95_EXAMPLE", "vid1", null, LCC_CONVERTER_STATION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid1", "vid1", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid1", "vid1", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("STATION_EXAMPLE", "idSTATION_95_EXAMPLE", "vid1", null,
+            LCC_CONVERTER_STATION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid1", "vid1", null,
+            BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid1", "vid1", null,
+            LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid2", "vid2", null, LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "bid2", "vid2", null,
+            BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(null, "lid2", "vid2", null,
+            LINE, false, Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, true));
         metadata.addLineMetadata(new GraphMetadata.LineMetadata("lid", "lid1", "lid2"));
 

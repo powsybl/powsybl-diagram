@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractNodeDiagramDataTest {
-    protected static String DIAGRAM_NAME = "default";
+    protected static final String DIAGRAM_NAME = "default";
 
     protected <T> void checkDiagramData(NodeDiagramData<?> diagramData, String diagramName) {
         assertNotNull(diagramData);

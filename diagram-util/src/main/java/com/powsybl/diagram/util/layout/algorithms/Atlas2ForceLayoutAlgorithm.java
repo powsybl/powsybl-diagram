@@ -8,10 +8,13 @@
 package com.powsybl.diagram.util.layout.algorithms;
 
 import com.powsybl.commons.ref.RefObj;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.algorithms.quadtreeupdateschedule.ConstantSchedule;
 import com.powsybl.diagram.util.layout.forces.*;
-import com.powsybl.diagram.util.layout.geometry.*;
-import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
+import com.powsybl.diagram.util.layout.geometry.LayoutContext;
+import com.powsybl.diagram.util.layout.geometry.Point;
+import com.powsybl.diagram.util.layout.geometry.Quadtree;
+import com.powsybl.diagram.util.layout.geometry.Vector2D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

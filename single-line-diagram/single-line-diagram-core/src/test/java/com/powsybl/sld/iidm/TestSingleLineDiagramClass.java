@@ -13,8 +13,8 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.SingleLineDiagram;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.VerticalSubstationLayout;
 import com.powsybl.sld.layout.VerticalZoneLayoutFactory;
@@ -30,6 +30,7 @@ import java.io.Writer;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +46,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     private Path tmpDir;
 
     @AfterEach
-    public void tearDown() throws Exception {
+    void tearDown() throws Exception {
         fileSystem.close();
     }
 
@@ -55,6 +56,7 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
 
         network = Network.create("TestSingleLineDiagramClass", "test");
+        network.setCaseDate(ZonedDateTime.parse("2017-01-15T18:45:00.000+01:00"));
         graphBuilder = new NetworkGraphBuilder(network);
         substation = Networks.createSubstation(network, "s", "s", Country.FR);
         vl = Networks.createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380);
@@ -119,8 +121,8 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
 
-        try (final Writer writerForSvg = new NullWriter();
-             final Writer metadataWriter = new NullWriter()) {
+        try (Writer writerForSvg = new NullWriter();
+             Writer metadataWriter = new NullWriter()) {
             PowsyblException e1 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "d1", writerForSvg, metadataWriter));
             assertEquals("Given id 'd1' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e1.getMessage());
         } catch (final IOException e) {

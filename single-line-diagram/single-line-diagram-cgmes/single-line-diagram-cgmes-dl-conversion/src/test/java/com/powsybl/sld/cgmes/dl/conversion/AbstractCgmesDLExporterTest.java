@@ -6,25 +6,24 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.cgmes.model.CgmesNamespace;
+import com.powsybl.cgmes.model.CgmesSubset;
+import com.powsybl.commons.datasource.DataSource;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.triplestore.api.PropertyBag;
+import com.powsybl.triplestore.api.TripleStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.cgmes.model.CgmesNamespace;
-import com.powsybl.cgmes.model.CgmesSubset;
-import com.powsybl.commons.datasource.DataSource;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.triplestore.api.PropertyBag;
-import com.powsybl.triplestore.api.TripleStore;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}

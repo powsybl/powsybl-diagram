@@ -11,14 +11,10 @@ import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
-
-import java.util.EnumMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.jspecify.annotations.NonNull;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A link is define between two VBSClusterSides (having the same implementation).

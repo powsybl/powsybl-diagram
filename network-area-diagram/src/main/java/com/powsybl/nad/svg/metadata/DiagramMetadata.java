@@ -35,10 +35,13 @@ import java.util.stream.Collectors;
 /**
  * @author Thomas Adam {@literal <tadam at silicom.fr>}
  */
-public class DiagramMetadata extends AbstractMetadata {
+public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
+
+    //v 1.0 adds metadata versionning, please note further changes as a comment when version is bumped
+    private static final String METADATA_VERSION = "1.0";
 
     public enum NodeType {
-        THREEWT, BOUNDARY;
+        THREEWT, BOUNDARY
     }
 
     private final LayoutParameters layoutParameters;
@@ -55,6 +58,7 @@ public class DiagramMetadata extends AbstractMetadata {
     public DiagramMetadata(LayoutParameters layoutParameters, SvgParameters svgParameters) {
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonCreator
@@ -64,7 +68,12 @@ public class DiagramMetadata extends AbstractMetadata {
                            @JsonProperty("nodes") List<NodeMetadata> nodesMetadata,
                            @JsonProperty("injections") List<InjectionMetadata> injectionsMetadata,
                            @JsonProperty("edges") List<EdgeMetadata> edgesMetadata,
-                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata) {
+                           @JsonProperty("textNodes") List<TextNodeMetadata> textNodesMetadata,
+                           @JsonProperty("networkId") String networkId,
+                           @JsonProperty("networkName") String networkName,
+                           @JsonProperty("networkDate") String networkDate
+                           ) {
+        super(networkId, networkName, networkDate);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
         this.svgParameters = Objects.requireNonNull(svgParameters);
         this.busNodesMetadata.addAll(busNodesMetadata);
@@ -72,6 +81,7 @@ public class DiagramMetadata extends AbstractMetadata {
         this.injectionsMetadata.addAll(injectionsMetadata);
         this.edgesMetadata.addAll(edgesMetadata);
         this.textNodesMetadata.addAll(textNodesMetadata);
+        this.metadataVersion = METADATA_VERSION;
     }
 
     @JsonProperty("busNodes")
@@ -157,30 +167,10 @@ public class DiagramMetadata extends AbstractMetadata {
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.TWO).styleClasses(),
                 edge.getEdgeStyleInfo(BranchEdge.Side.ONE).style(),
-                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style()
+                edge.getEdgeStyleInfo(BranchEdge.Side.TWO).style(),
+                edge.getStyleClasses()
         )));
-        graph.getThreeWtEdgesStream().forEach(edge -> {
-            String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
-            edgesMetadata.add(new EdgeMetadata(
-                    getPrefixedId(edge.getSvgId()),
-                    edge.getEquipmentId(),
-                    getPrefixedId(graph.getVoltageLevelNode(edge).getSvgId()),
-                    getPrefixedId(threeWtNodeSvgId),
-                    getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
-                    getPrefixedId(threeWtNodeSvgId),
-                    edge.getType(),
-                    edge.getSide().name(),
-                    !edge.isVisible(),
-                    false,
-                    edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
-                    null,
-                    null,
-                    edge.getEdgeStyleInfo().styleClasses(),
-                    null,
-                    edge.getEdgeStyleInfo().style(),
-                    null
-            ));
-        });
+        graph.getThreeWtEdgesStream().forEach(edge -> addThreeWtEdgeMetadata(edge, graph));
         graph.getVoltageLevelTextPairs().forEach(textPair -> textNodesMetadata.add(new TextNodeMetadata(
                 getPrefixedId(textPair.getSecond().getSvgId()),
                 textPair.getFirst().getEquipmentId(),
@@ -190,6 +180,30 @@ public class DiagramMetadata extends AbstractMetadata {
                 round(textPair.getSecond().getEdgeConnection().x() - textPair.getFirst().getX()),
                 round(textPair.getSecond().getEdgeConnection().y() - textPair.getFirst().getY()))));
         return this;
+    }
+
+    private void addThreeWtEdgeMetadata(ThreeWtEdge edge, Graph graph) {
+        String threeWtNodeSvgId = graph.getThreeWtNode(edge).getSvgId();
+        edgesMetadata.add(new EdgeMetadata(
+            getPrefixedId(edge.getSvgId()),
+            edge.getEquipmentId(),
+            getPrefixedId(graph.getVoltageLevelNode(edge).getSvgId()),
+            getPrefixedId(threeWtNodeSvgId),
+            getPrefixedId(graph.getBusGraphNode(edge).getSvgId()),
+            getPrefixedId(threeWtNodeSvgId),
+            edge.getType(),
+            edge.getSide().name(),
+            !edge.isVisible(),
+            false,
+            edge.getSvgEdgeInfo().map(DiagramMetadata::createEdgeInfoMetadata).orElse(null),
+            null,
+            null,
+            edge.getEdgeStyleInfo().styleClasses(),
+            null,
+            edge.getEdgeStyleInfo().style(),
+            null,
+            null
+        ));
     }
 
     private String findNodeType(Node node) {

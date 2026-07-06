@@ -9,10 +9,10 @@ package com.powsybl.nad.layout;
 
 import com.powsybl.diagram.util.layout.Layout;
 import com.powsybl.diagram.util.layout.algorithms.Atlas2ForceLayoutAlgorithm;
+import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.geometry.LayoutContext;
 import com.powsybl.diagram.util.layout.geometry.Point;
 import com.powsybl.diagram.util.layout.geometry.Vector2D;
-import com.powsybl.diagram.util.layout.algorithms.parameters.Atlas2Parameters;
 import com.powsybl.diagram.util.layout.postprocessing.OverlapPreventionPostProcessing;
 import com.powsybl.diagram.util.layout.postprocessing.PostProcessing;
 import com.powsybl.diagram.util.layout.postprocessing.parameters.OverlapPreventionPostProcessingParameters;

@@ -53,10 +53,6 @@ public class SvgParameters {
     public SvgParameters() {
     }
 
-    public enum CssLocation {
-        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
-    }
-
     public SvgParameters(SvgParameters other) {
         Objects.requireNonNull(other);
         this.prefixId = other.prefixId;
@@ -392,5 +388,9 @@ public class SvgParameters {
     public SvgParameters setUnifyVoltageLevelColors(boolean unifyVoltageLevelColors) {
         this.unifyVoltageLevelColors = unifyVoltageLevelColors;
         return this;
+    }
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
     }
 }

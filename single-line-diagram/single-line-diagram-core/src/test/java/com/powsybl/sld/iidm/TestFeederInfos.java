@@ -60,7 +60,8 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         Networks.createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         Networks.createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
 
-        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 3, 4, vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
+        Networks.createLine(network, "line", "line", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 3, 4,
+            vl.getId(), vl2.getId(), "fn1", 1, ConnectablePosition.Direction.TOP, "fn2", 0, ConnectablePosition.Direction.TOP);
         Networks.createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
         Networks.createSwitch(vl2, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 4, 5);
     }
@@ -113,8 +114,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         SVGLegendWriter legendWriter = new DefaultSVGLegendWriter(network, svgParameters);
 
-// write SVG and compare to reference
-        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelManyFeederInfoProvider, new BasicStyleProvider(), legendWriter));
+        // write SVG and compare to reference
+        assertEquals(toString("/TestFeederInfos.svg"),
+            toSVG(g, "/TestFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelManyFeederInfoProvider, new BasicStyleProvider(), legendWriter));
     }
 
     @Test
@@ -131,13 +133,22 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         // build graph
         network.getLoad("l").getTerminal().setP(100).setQ(10);
-        network.getLine("line").getTerminal1().setP(100).setQ(10).connect();
-        network.getLine("line").getTerminal2().setP(90).setQ(10).connect();
+        Line line = network.getLine("line");
+        line.getTerminal1().setP(100).setQ(10).connect();
+        line.getTerminal2().setP(90).setQ(10).connect();
 
-        network.getLine("line").getTerminal1().getBusView().getBus().setV(380);
-        network.getLine("line").getTerminal2().getBusView().getBus().setV(380);
+        line.getTerminal1().getBusView().getBus().setV(380);
+        line.getTerminal2().getBusView().getBus().setV(380);
 
-        network.getLine("line").getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        line.getOrCreateSelectedOperationalLimitsGroup1().newCurrentLimits().setPermanentLimit(100).add();
+        line.newOperationalLimitsGroup1("low").newCurrentLimits().setDetectionKind(DetectionKind.LOW)
+            .beginTemporaryLimit()
+            .setValue(150)
+            .setName("10'")
+            .setAcceptableDuration(600)
+            .endTemporaryLimit()
+            .add();
+        line.addSelectedOperationalLimitsGroups(TwoSides.ONE, "low");
         network.getLine("line").getOrCreateSelectedOperationalLimitsGroup2().newCurrentLimits().setPermanentLimit(200).add();
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
@@ -146,7 +157,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestAllPossibleInfoItems.svg"), toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestAllPossibleInfoItems.svg"),
+            toSVG(g, "/TestAllPossibleInfoItems.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, new BasicStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -176,7 +189,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"),
+            toSVG(g, "/TestFormattingFeederInfos.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -193,7 +208,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g);
         // write SVG and compare to reference
-        assertEquals(toString("/TestFeederInfosWithDisplayAbs.svg"), toSVG(g, "/TestFeederInfosWithDisplayAbs.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/TestFeederInfosWithDisplayAbs.svg"),
+            toSVG(g, "/TestFeederInfosWithDisplayAbs.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test
@@ -301,7 +318,9 @@ class TestFeederInfos extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestAnimatedFeederInfos.svg"), toSVG(g, "/TestAnimatedFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, styleProvider, new DefaultSVGLegendWriter(network, svgParameters)));
+        assertEquals(toString("/TestAnimatedFeederInfos.svg"),
+            toSVG(g, "/TestAnimatedFeederInfos.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, styleProvider, new DefaultSVGLegendWriter(network, svgParameters)));
     }
 
     @Test
@@ -317,6 +336,8 @@ class TestFeederInfos extends AbstractTestCaseIidm {
 
         VoltageLevelGraph g = new NetworkGraphBuilder(network).buildVoltageLevelGraph("VL5");
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters);
-        assertEquals(toString("/TestUnitsOnFeederInfos.svg"), toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, new NominalVoltageStyleProvider(), new DefaultSVGLegendWriter(network, svgParameters)));
+        assertEquals(toString("/TestUnitsOnFeederInfos.svg"),
+            toSVG(g, "/TestUnitsOnFeederInfos.svg", componentLibrary, layoutParameters, svgParameters,
+                labelProvider, new NominalVoltageStyleProvider(), new DefaultSVGLegendWriter(network, svgParameters)));
     }
 }
