@@ -29,7 +29,8 @@ public class MatrixZoneLayout extends AbstractPositionedZoneLayout {
 
     private final String[][] matrixUserDefinition;
 
-    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrixUserDefinition, ZoneLayoutPathFinderFactory pathFinderFactory, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    protected MatrixZoneLayout(ZoneGraph graph, String[][] matrixUserDefinition, ZoneLayoutPathFinderFactory pathFinderFactory,
+                               SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, pathFinderFactory, sLayoutFactory, vLayoutFactory);
         this.matrixUserDefinition = Objects.requireNonNull(matrixUserDefinition);
     }

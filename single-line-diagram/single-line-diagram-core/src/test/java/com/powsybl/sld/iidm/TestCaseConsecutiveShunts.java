@@ -42,9 +42,11 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
             @Override
             public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
-                return node.isFictitious()
-                        ? node.getId().matches("INTERNAL_AU_\\d*") ? Collections.singletonList(new NodeLabel(node.getId().replace("INTERNAL_AU_", ""), new LabelPosition("NW", 4, -1, true, 0))) : Collections.emptyList()
-                        : Collections.singletonList(new NodeLabel(node.getId(), new LabelPosition("NW", 4, -1, true, 0)));
+                return node.isFictitious() ?
+                    node.getId().matches("INTERNAL_AU_\\d*") ?
+                        Collections.singletonList(new NodeLabel(node.getId().replace("INTERNAL_AU_", ""), new LabelPosition("NW", 4, -1, true, 0))) :
+                        Collections.emptyList() :
+                    Collections.singletonList(new NodeLabel(node.getId(), new LabelPosition("NW", 4, -1, true, 0)));
             }
         };
 
@@ -59,7 +61,9 @@ class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/consecutive_shunts.svg"), toSVG(g, "/consecutive_shunts.svg", componentLibrary, layoutParameters, svgParameters, labelProvider, getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+        assertEquals(toString("/consecutive_shunts.svg"),
+            toSVG(g, "/consecutive_shunts.svg", componentLibrary, layoutParameters, svgParameters, labelProvider,
+                getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
 }

@@ -105,7 +105,8 @@ class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters), new DefaultSVGLegendWriter(network, svgParameters));
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg",
+            new DefaultLabelProvider(network, getResourcesComponentLibrary(), layoutParameters, svgParameters), new DefaultSVGLegendWriter(network, svgParameters));
     }
 
     @Test

@@ -27,11 +27,7 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson {@literal <benoit.jeanson at rte-france.com>}
@@ -71,7 +67,6 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
         private final String equipmentId;
 
         private final List<NodeLabelMetadata> labels;
-
 
         /**
          * @deprecated use {@link NodeMetadata#NodeMetadata(String, String, String, String, String, boolean, Direction, boolean, String, List)} instead.
@@ -204,7 +199,8 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
                                      String userDefinedId) {
 
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("componentType") String componentType, @JsonProperty("userDefinedId") String userDefinedId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side,
+                                  @JsonProperty("componentType") String componentType, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
             this.equipmentId = Objects.requireNonNull(equipmentId);
             this.side = side;

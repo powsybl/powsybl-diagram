@@ -14,20 +14,8 @@ import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.graphs.BaseGraph;
-import com.powsybl.sld.model.graphs.Graph;
-import com.powsybl.sld.model.graphs.NodeFactory;
-import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-import com.powsybl.sld.model.graphs.ZoneGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Middle3WTNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.NodeSide;
-import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.model.nodes.TeePointNode;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -224,7 +212,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         List<FeederNode> feeders = new ArrayList<>();
         fictitiousVoltageLevel.getLineStream().filter(l -> !l.getId().equals(line.getId())).forEach(lineOtherSide -> {
             VoltageLevel vl1 = lineOtherSide.getTerminal2().getVoltageLevel();
-            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(), lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
+            FeederNode otherLineNode = NodeFactory.createFeederTeePointNodeForVoltageLevelDiagram(graph, lineOtherSide.getId(),
+                lineOtherSide.getNameOrId(), lineOtherSide.getId(), NodeSide.TWO, new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV()));
             feeders.add(otherLineNode);
         });
         return feeders;

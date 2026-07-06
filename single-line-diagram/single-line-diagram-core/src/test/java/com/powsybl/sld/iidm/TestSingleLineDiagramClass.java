@@ -13,8 +13,8 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.diagram.test.Networks;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.extensions.ConnectablePosition;
-import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.SingleLineDiagram;
+import com.powsybl.sld.SldParameters;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.VerticalSubstationLayout;
 import com.powsybl.sld.layout.VerticalZoneLayoutFactory;
@@ -121,8 +121,8 @@ class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
         assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
 
-        try (final Writer writerForSvg = new NullWriter();
-             final Writer metadataWriter = new NullWriter()) {
+        try (Writer writerForSvg = new NullWriter();
+             Writer metadataWriter = new NullWriter()) {
             PowsyblException e1 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "d1", writerForSvg, metadataWriter));
             assertEquals("Given id 'd1' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e1.getMessage());
         } catch (final IOException e) {

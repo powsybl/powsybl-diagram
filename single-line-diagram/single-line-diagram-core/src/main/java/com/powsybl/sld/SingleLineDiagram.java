@@ -228,7 +228,8 @@ public final class SingleLineDiagram {
         switch (graph) {
             case VoltageLevelGraph voltageLevelGraph -> voltageLevelLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
             case SubstationGraph substationGraph -> sldParameters.getSubstationLayoutFactory().create(substationGraph, voltageLevelLayoutFactory).run(layoutParameters);
-            case ZoneGraph zoneGraph -> sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getZoneLayoutPathFinderFactory(), sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
+            case ZoneGraph zoneGraph -> sldParameters.getZoneLayoutFactory().create(zoneGraph, sldParameters.getZoneLayoutPathFinderFactory(),
+                sldParameters.getSubstationLayoutFactory(), voltageLevelLayoutFactory).run(layoutParameters);
             case null, default -> throw new PowsyblException("First argument is an instance of an unexpected class");
         }
         return new DefaultSVGWriter(sldParameters.getComponentLibrary(), sldParameters.getLayoutParameters(), sldParameters.getSvgParameters());

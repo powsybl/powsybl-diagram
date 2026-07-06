@@ -56,7 +56,8 @@ class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         // write SVG and compare to reference
         DefaultSVGWriter defaultSVGWriter = new DefaultSVGWriter(componentLibrary, layoutParameters, svgParameters);
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
-                toSVG(g, "/InternalBranchesBusBreaker.svg", componentLibrary, layoutParameters, svgParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
+                toSVG(g, "/InternalBranchesBusBreaker.svg", componentLibrary, layoutParameters, svgParameters,
+                    getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider(), getDefaultSVGLegendWriter()));
     }
 
     @Test

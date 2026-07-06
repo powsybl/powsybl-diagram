@@ -6,21 +6,21 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@techrain.eu>}
  */
 abstract class AbstractCgmesDLTest {
 
-    protected static String NAMESPACE = "http://network#";
+    protected static final String NAMESPACE = "http://network#";
 
-    protected static String DEFAULT_DIAGRAM_NAME = "default";
+    protected static final String DEFAULT_DIAGRAM_NAME = "default";
 
     protected PropertyBags terminalsPropertyBags;
     protected PropertyBags busesPropertyBags;
