@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
@@ -417,8 +416,4 @@ public class GraphMetadata extends AbstractMetadata<GraphMetadata> {
 
     }
 
-    @Override
-    public GraphMetadata setNetworkInformation(Network network) {
-        return super.setNetworkInformation(network);
-    }
 }

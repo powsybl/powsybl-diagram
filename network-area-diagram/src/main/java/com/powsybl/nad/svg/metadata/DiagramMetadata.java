@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.diagram.metadata.AbstractMetadata;
-import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.layout.TextPosition;
 import com.powsybl.nad.model.*;
@@ -118,11 +117,6 @@ public class DiagramMetadata extends AbstractMetadata<DiagramMetadata> {
     @JsonProperty("svgParameters")
     public SvgParameters getSvgParameters() {
         return svgParameters;
-    }
-
-    @Override
-    public DiagramMetadata setNetworkInformation(Network network) {
-        return super.setNetworkInformation(network);
     }
 
     public DiagramMetadata addMetadata(Graph graph) {

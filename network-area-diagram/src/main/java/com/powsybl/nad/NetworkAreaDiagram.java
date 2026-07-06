@@ -95,7 +95,9 @@ public final class NetworkAreaDiagram {
     }
 
     private static DiagramMetadata createMetadata(Graph graph, NadParameters param, Network network) {
-        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters()).setNetworkInformation(network).addMetadata(graph);
+        return new DiagramMetadata(param.getLayoutParameters(), param.getSvgParameters())
+            .setNetworkInformation(network.getNameOrId(), network.getId(), network.getCaseDate().toString())
+            .addMetadata(graph);
     }
 
     private static Graph getLayoutResult(Network network, NadParameters param, Predicate<VoltageLevel> voltageLevelFilter) {

@@ -206,7 +206,7 @@ public final class SingleLineDiagram {
         // write SVG file
         GraphMetadata metadata = svgWriter.write(graph, labelProvider, styleProvider, legendWriter, writerForSvg);
         if (network != null) {
-            metadata.setNetworkInformation(network);
+            metadata.setNetworkInformation(network.getNameOrId(), network.getId(), network.getCaseDate().toString());
         }
         // write metadata JSON file
         metadata.writeJson(metadataWriter);

@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.powsybl.commons.json.JsonUtil;
-import com.powsybl.iidm.network.Network;
 
 /**
  * @author Massimo Ferraro {@literal <massimo.ferraro@soft.it>}
@@ -73,10 +72,10 @@ public abstract class AbstractMetadata<T extends AbstractMetadata<T>> {
         return networkDate;
     }
 
-    protected T setNetworkInformation(Network network) {
-        this.networkName = network.getNameOrId();
-        this.networkId = network.getId();
-        this.networkDate = network.getCaseDate().toString();
+    public T setNetworkInformation(String networkName, String networkId, String networkDate) {
+        this.networkName = networkName;
+        this.networkId = networkId;
+        this.networkDate = networkDate;
         return (T) this;
     }
 
