@@ -47,10 +47,14 @@ public class OrthogonalPolygon {
             this.corners = keepCornersOnly(tentativeCorners);
             this.cornerNumber = this.corners.size();
             if (cornerNumber <= 3) {
-                throw new IllegalArgumentException("An orthogonal polygon needs at least 4 corners, some provided points were not corners and ignoring those doesn't leave enough corners for the polygon");
+                throw new IllegalArgumentException(
+                    "An orthogonal polygon needs at least 4 corners, some provided points were not corners and ignoring those doesn't leave enough corners for the polygon"
+                );
             }
         } else {
-            throw new IllegalArgumentException("All corners of the orthogonal polygon must be x-aligned or y-aligned and distinct with the previous and next corner of the list (X-aligned or Y-aligned)");
+            throw new IllegalArgumentException(
+                "All corners of the orthogonal polygon must be x-aligned or y-aligned and distinct with the previous and next corner of the list (X-aligned or Y-aligned)"
+            );
         }
     }
 
