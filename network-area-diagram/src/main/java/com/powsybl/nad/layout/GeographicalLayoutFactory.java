@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.extensions.Coordinate;
 import com.powsybl.iidm.network.extensions.SubstationPosition;
+import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Point;
 import org.jgrapht.alg.util.Pair;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.slf4j.event.Level;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Sophie Frasnedo {@literal <sophie.frasnedo at rte-france.com>}
@@ -37,14 +39,29 @@ public class GeographicalLayoutFactory extends FixedLayoutFactory implements Lay
     }
 
     public GeographicalLayoutFactory(Network network, int scalingFactor, double radiusFactor, LayoutFactory layoutFactory) {
-        super(getFixedNodePosition(network, scalingFactor, radiusFactor), layoutFactory);
+        super(getFixedNodePosition(network, scalingFactor, radiusFactor, null), layoutFactory);
     }
 
-    private static Map<String, Point> getFixedNodePosition(Network network, int scalingFactor, double radiusFactor) {
-        Map<String, Point> fixedNodePositionMap = new HashMap<>();
-        network.getSubstationStream().forEach(substation -> fillPositionMap(substation, fixedNodePositionMap, scalingFactor, radiusFactor));
+    public GeographicalLayoutFactory(Network network, int scalingFactor, double radiusFactor, VoltageLevelFilter voltageLevelFilter, LayoutFactory layoutFactory) {
+        super(getFixedNodePosition(network, scalingFactor, radiusFactor, voltageLevelFilter), layoutFactory);
+    }
 
-        int voltageLevelCount = network.getVoltageLevelCount();
+    private static Map<String, Point> getFixedNodePosition(Network network, int scalingFactor, double radiusFactor, VoltageLevelFilter voltageLevelFilter) {
+        Map<String, Point> fixedNodePositionMap = new HashMap<>();
+        List<Substation> substationsToProcess;
+        int voltageLevelCount = 0;
+        if (voltageLevelFilter != null) {
+            substationsToProcess = voltageLevelFilter.voltageLevels().stream()
+                    .map(VoltageLevel::getNullableSubstation)
+                    .filter(Objects::nonNull)
+                    .toList();
+            voltageLevelCount = voltageLevelFilter.getNbVoltageLevels();
+        } else {
+            substationsToProcess = network.getSubstationStream().toList();
+            voltageLevelCount = network.getVoltageLevelCount();
+        }
+        substationsToProcess.forEach(substation -> fillPositionMap(substation, fixedNodePositionMap, scalingFactor, radiusFactor));
+
         int missingPositions = voltageLevelCount - fixedNodePositionMap.size();
         double missingPositionsRatio = (double) missingPositions / voltageLevelCount;
         LOGGER.atLevel(missingPositionsRatio > 0.3 ? Level.WARN : Level.INFO)
