@@ -507,7 +507,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 Direction dir = Direction.valueOf(feeder.getDirection().toString());
                 node.setDirection(dir == UNDEFINED ? TOP : dir);
             }
-            nodesByNumber.put(terminal.getNodeBreakerView().getNode(), node);
+            int iidmNode = terminal.getNodeBreakerView().getNode();
+            node.setIidmNode(iidmNode);
+            nodesByNumber.put(iidmNode, node);
         }
 
         @Override
@@ -535,7 +537,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (extension != null) {
                 node.setBusBarIndexSectionIndex(extension.getBusbarIndex(), extension.getSectionIndex());
             }
-            nodesByNumber.put(busbarSection.getTerminal().getNodeBreakerView().getNode(), node);
+            int iidmNode = busbarSection.getTerminal().getNodeBreakerView().getNode();
+            node.setIidmNode(iidmNode);
+            nodesByNumber.put(iidmNode, node);
         }
 
         @Override
@@ -640,6 +644,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             int node1 = vl.getNodeBreakerView().getNode1(sw.getId());
             int node2 = vl.getNodeBreakerView().getNode2(sw.getId());
+            n.setIidmNode1(node1);
+            n.setIidmNode2(node2);
 
             ensureNodeExists(graph, node1, nodesByNumber);
             ensureNodeExists(graph, node2, nodesByNumber);
@@ -661,7 +667,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
-        nodesByNumber.computeIfAbsent(n, k -> NodeFactory.createConnectivityNode(graph, String.valueOf(k)));
+        nodesByNumber.computeIfAbsent(n, k -> {
+            ConnectivityNode node = NodeFactory.createConnectivityNode(graph, String.valueOf(k));
+            node.setIidmNode(k);
+            return node;
+        });
     }
 
     /**

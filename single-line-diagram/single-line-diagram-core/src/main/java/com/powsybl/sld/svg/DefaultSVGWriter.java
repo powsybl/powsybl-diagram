@@ -347,6 +347,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 UNDEFINED,
                 false,
                 null,
+                null,
                 Collections.emptyList()));
 
         root.appendChild(gridRoot);
@@ -411,7 +412,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
             metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(null, nodeId, graph.getVoltageLevelInfos().id(), null, BUSBAR_SECTION,
-                    false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
+                    false, UNDEFINED, false, busNode.getEquipmentId(), busNode.getIidmNode().orElse(null),
+                    null, null, null, busNode.getBusbarIndex(), busNode.getSectionIndex(),
+                    createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
                 metadata.addComponent(new SldComponent(BUSBAR_SECTION,
                         null, null,
@@ -484,6 +487,11 @@ public class DefaultSVGWriter implements SVGWriter {
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(getUnescapedId(node), nodeEscapedId, vId, nextVId, node.getComponentType(), isOpen, direction, false,
                         node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
+                        node.getIidmNode().orElse(null),
+                        node.getIidmNode1().orElse(null),
+                        node.getIidmNode2().orElse(null),
+                        node.getOrder().orElse(null),
+                        null, null,
                         createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
@@ -547,6 +555,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 false,
                 UNDEFINED,
                 true,
+                null,
                 null,
                 Collections.emptyList()));
     }

@@ -1,5 +1,5 @@
 {
-  "metadataVersion" : "1.0",
+  "metadataVersion" : "1.1",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {
@@ -191,6 +191,7 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "trf7",
+    "order" : 7,
     "labels" : [ {
       "id" : "trf7_THREE_S_LABEL",
       "positionName" : "S_LABEL"
@@ -202,6 +203,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrct21",
+    "iidmNode1" : 16,
+    "iidmNode2" : 17,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_trf1_95_ONE",
@@ -224,6 +227,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf18",
+    "iidmNode1" : 32,
+    "iidmNode2" : 33,
     "labels" : [ ]
   }, {
     "id" : "iddload2",
@@ -232,6 +237,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dload2",
+    "iidmNode1" : 1,
+    "iidmNode2" : 9,
     "labels" : [ ]
   }, {
     "id" : "iddload1",
@@ -240,6 +247,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dload1",
+    "iidmNode1" : 0,
+    "iidmNode2" : 5,
     "labels" : [ ]
   }, {
     "id" : "idbtrf15",
@@ -248,6 +257,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf15",
+    "iidmNode1" : 26,
+    "iidmNode2" : 27,
     "labels" : [ ]
   }, {
     "id" : "idbtrf14",
@@ -256,6 +267,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf14",
+    "iidmNode1" : 24,
+    "iidmNode2" : 25,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_trf4_95_ONE",
@@ -271,6 +284,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf17",
+    "iidmNode1" : 30,
+    "iidmNode2" : 31,
     "labels" : [ ]
   }, {
     "id" : "idbtrf16",
@@ -279,6 +294,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf16",
+    "iidmNode1" : 28,
+    "iidmNode2" : 29,
     "labels" : [ ]
   }, {
     "id" : "idbtrf11",
@@ -287,6 +304,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf11",
+    "iidmNode1" : 18,
+    "iidmNode2" : 19,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_trf2_95_ONE",
@@ -323,6 +342,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf13",
+    "iidmNode1" : 22,
+    "iidmNode2" : 23,
     "labels" : [ ]
   }, {
     "id" : "idbtrf12",
@@ -331,6 +352,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf12",
+    "iidmNode1" : 20,
+    "iidmNode2" : 21,
     "labels" : [ ]
   }, {
     "id" : "idbbs4",
@@ -339,6 +362,9 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bbs4",
+    "iidmNode" : 3,
+    "busbarIndex" : 2,
+    "sectionIndex" : 2,
     "labels" : [ {
       "id" : "bbs4_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -350,6 +376,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bgen1",
+    "iidmNode1" : 6,
+    "iidmNode2" : 7,
     "labels" : [ ]
   }, {
     "id" : "idbgen2",
@@ -358,6 +386,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bgen2",
+    "iidmNode1" : 10,
+    "iidmNode2" : 11,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dtrf18_45_btrf18",
@@ -374,6 +404,8 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "gen1",
+    "iidmNode" : 6,
+    "order" : 2,
     "labels" : [ {
       "id" : "gen1_S_LABEL",
       "positionName" : "S_LABEL"
@@ -386,6 +418,8 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "gen2",
+    "iidmNode" : 10,
+    "order" : 11,
     "labels" : [ {
       "id" : "gen2_S_LABEL",
       "positionName" : "S_LABEL"
@@ -404,6 +438,9 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bbs1",
+    "iidmNode" : 0,
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "labels" : [ {
       "id" : "bbs1_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -415,6 +452,9 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bbs2",
+    "iidmNode" : 1,
+    "busbarIndex" : 1,
+    "sectionIndex" : 2,
     "labels" : [ {
       "id" : "bbs2_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -426,6 +466,9 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bbs3",
+    "iidmNode" : 2,
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "labels" : [ {
       "id" : "bbs3_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -451,6 +494,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf11",
+    "iidmNode1" : 0,
+    "iidmNode2" : 18,
     "labels" : [ ]
   }, {
     "id" : "idtrf6_95_THREE",
@@ -461,6 +506,7 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf6",
+    "order" : 6,
     "labels" : [ {
       "id" : "trf6_THREE_N_LABEL",
       "positionName" : "N_LABEL"
@@ -474,6 +520,8 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf1",
+    "iidmNode" : 19,
+    "order" : 1,
     "labels" : [ {
       "id" : "trf1_ONE_N_LABEL",
       "positionName" : "N_LABEL"
@@ -487,6 +535,8 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf5",
+    "iidmNode" : 27,
+    "order" : 4,
     "labels" : [ {
       "id" : "trf5_ONE_N_LABEL",
       "positionName" : "N_LABEL"
@@ -500,6 +550,8 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "trf3",
+    "iidmNode" : 23,
+    "order" : 3,
     "labels" : [ {
       "id" : "trf3_ONE_S_LABEL",
       "positionName" : "S_LABEL"
@@ -511,6 +563,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf18",
+    "iidmNode1" : 1,
+    "iidmNode2" : 32,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_load1",
@@ -526,6 +580,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf17",
+    "iidmNode1" : 2,
+    "iidmNode2" : 30,
     "labels" : [ ]
   }, {
     "id" : "iddtrf16",
@@ -534,6 +590,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf16",
+    "iidmNode1" : 0,
+    "iidmNode2" : 28,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_load2",
@@ -549,6 +607,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf15",
+    "iidmNode1" : 0,
+    "iidmNode2" : 26,
     "labels" : [ ]
   }, {
     "id" : "iddtrf14",
@@ -557,6 +617,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf14",
+    "iidmNode1" : 3,
+    "iidmNode2" : 24,
     "labels" : [ ]
   }, {
     "id" : "iddtrf13",
@@ -565,6 +627,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf13",
+    "iidmNode1" : 2,
+    "iidmNode2" : 22,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dsect12_45_dtrct11",
@@ -580,6 +644,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrf12",
+    "iidmNode1" : 1,
+    "iidmNode2" : 20,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dsect21_45_dtrct21",
@@ -610,6 +676,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dgen1",
+    "iidmNode1" : 2,
+    "iidmNode2" : 7,
     "labels" : [ ]
   }, {
     "id" : "idtrf7",
@@ -634,6 +702,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dgen2",
+    "iidmNode1" : 3,
+    "iidmNode2" : 11,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dtrf13_45_btrf13",
@@ -651,6 +721,7 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf8",
+    "order" : 8,
     "labels" : [ {
       "id" : "trf8_TWO_N_LABEL",
       "positionName" : "N_LABEL"
@@ -664,6 +735,7 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "trf7",
+    "order" : 6,
     "labels" : [ {
       "id" : "trf7_TWO_S_LABEL",
       "positionName" : "S_LABEL"
@@ -691,6 +763,7 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf6",
+    "order" : 5,
     "labels" : [ {
       "id" : "trf6_TWO_N_LABEL",
       "positionName" : "N_LABEL"
@@ -709,6 +782,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dsect21",
+    "iidmNode1" : 2,
+    "iidmNode2" : 16,
     "labels" : [ ]
   }, {
     "id" : "iddsect22",
@@ -717,6 +792,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dsect22",
+    "iidmNode1" : 17,
+    "iidmNode2" : 3,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dload2_45_bload2",
@@ -732,6 +809,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrct11",
+    "iidmNode1" : 14,
+    "iidmNode2" : 15,
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_dsect11_45_dtrct11",
@@ -748,6 +827,8 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "load1",
+    "iidmNode" : 4,
+    "order" : 0,
     "labels" : [ {
       "id" : "load1_N_LABEL",
       "positionName" : "N_LABEL"
@@ -760,6 +841,8 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "load2",
+    "iidmNode" : 8,
+    "order" : 7,
     "labels" : [ {
       "id" : "load2_N_LABEL",
       "positionName" : "N_LABEL"
@@ -771,6 +854,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bload2",
+    "iidmNode1" : 8,
+    "iidmNode2" : 9,
     "labels" : [ ]
   }, {
     "id" : "idbload1",
@@ -779,6 +864,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "bload1",
+    "iidmNode1" : 4,
+    "iidmNode2" : 5,
     "labels" : [ ]
   }, {
     "id" : "idtrf8_95_THREE",
@@ -789,6 +876,7 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf8",
+    "order" : 9,
     "labels" : [ {
       "id" : "trf8_THREE_N_LABEL",
       "positionName" : "N_LABEL"
@@ -814,6 +902,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dsect12",
+    "iidmNode1" : 15,
+    "iidmNode2" : 1,
     "labels" : [ ]
   }, {
     "id" : "iddsect11",
@@ -822,6 +912,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dsect11",
+    "iidmNode1" : 0,
+    "iidmNode2" : 14,
     "labels" : [ ]
   }, {
     "id" : "idtrf2_95_ONE",
@@ -832,6 +924,8 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "trf2",
+    "iidmNode" : 21,
+    "order" : 10,
     "labels" : [ {
       "id" : "trf2_ONE_N_LABEL",
       "positionName" : "N_LABEL"
@@ -845,6 +939,8 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "trf4",
+    "iidmNode" : 25,
+    "order" : 9,
     "labels" : [ {
       "id" : "trf4_ONE_S_LABEL",
       "positionName" : "S_LABEL"

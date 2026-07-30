@@ -1,5 +1,5 @@
 {
-  "metadataVersion" : "1.0",
+  "metadataVersion" : "1.1",
   "components" : [ {
     "type" : "BUSBAR_SECTION",
     "size" : {
@@ -101,6 +101,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "Bus1",
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "labels" : [ {
       "id" : "Bus1_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -119,6 +121,8 @@
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "Bus3",
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "labels" : [ {
       "id" : "Bus3_NW_LABEL",
       "positionName" : "NW_LABEL"
@@ -133,6 +137,7 @@
     "direction" : "BOTTOM",
     "vlabel" : false,
     "equipmentId" : "HvdcLine2",
+    "order" : 2,
     "labels" : [ {
       "id" : "LCC_1_S_LABEL",
       "positionName" : "S_LABEL"
@@ -175,6 +180,7 @@
     "direction" : "TOP",
     "vlabel" : false,
     "equipmentId" : "HvdcLine",
+    "order" : 1,
     "labels" : [ {
       "id" : "VSC_1_N_LABEL",
       "positionName" : "N_LABEL"

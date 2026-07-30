@@ -42,6 +42,12 @@ public abstract class AbstractNode implements Node {
 
     private Integer order;
 
+    private Integer iidmNode;
+
+    private Integer iidmNode1;
+
+    private Integer iidmNode2;
+
     private Direction direction = Direction.UNDEFINED;
 
     private Orientation orientation;
@@ -170,6 +176,36 @@ public abstract class AbstractNode implements Node {
     @Override
     public void removeOrder() {
         this.order = null;
+    }
+
+    @Override
+    public Optional<Integer> getIidmNode() {
+        return Optional.ofNullable(iidmNode);
+    }
+
+    @Override
+    public void setIidmNode(int iidmNode) {
+        this.iidmNode = iidmNode;
+    }
+
+    @Override
+    public Optional<Integer> getIidmNode1() {
+        return Optional.ofNullable(iidmNode1);
+    }
+
+    @Override
+    public void setIidmNode1(int iidmNode) {
+        this.iidmNode1 = iidmNode;
+    }
+
+    @Override
+    public Optional<Integer> getIidmNode2() {
+        return Optional.ofNullable(iidmNode2);
+    }
+
+    @Override
+    public void setIidmNode2(int iidmNode) {
+        this.iidmNode2 = iidmNode;
     }
 
     @Override
